@@ -9,10 +9,18 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { SubTitle, SubTitle1 } from '../index';
 
-const RecentSubmissionTable = ({ tableData }) => {
+const MyRecentSubmissionTable = ({ tableData }) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 350 }} aria-label='simple table'>
+        <TableHead>
+          <TableRow>
+            <TableCell>My assignments</TableCell>
+            <TableCell align='right'>Marks</TableCell>
+            <TableCell align='right'>Similarity</TableCell>
+            <TableCell align='right'>Status</TableCell>
+          </TableRow>
+        </TableHead>
         <TableBody>
           {tableData.map((item, index) => (
             <TableRow key={index}>
@@ -53,4 +61,4 @@ const RecentSubmissionTable = ({ tableData }) => {
   );
 };
 
-export default RecentSubmissionTable;
+export default MyRecentSubmissionTable;

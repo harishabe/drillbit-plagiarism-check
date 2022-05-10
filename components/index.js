@@ -10,6 +10,7 @@ export { default as WidgetCard } from './card/WidgetCard';
 export { default as CardView } from './card/CardView';
 export { default as ListView } from './list/ListView';
 export { default as RecentSubmissionTable } from './table/RecentSubmissionTable';
+export { default as MyRecentSubmissionTable } from './table/MyRecentSubmissionTable';
 export { default as FormComponent } from './form/FormComponent';
 export { default as PieChart } from './chart/PieChart';
 export { default as ColumnChart } from './chart/ColumnChart';
