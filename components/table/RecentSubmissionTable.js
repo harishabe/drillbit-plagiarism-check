@@ -5,7 +5,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { SubTitle, SubTitle1 } from '../index';
 
@@ -13,7 +12,7 @@ const RecentSubmissionTable = ({
     tableData
 }) => {
     return (
-        <TableContainer component={Paper}>
+        <TableContainer>
             <Table sx={{ minWidth: 350 }} aria-label="simple table">
                 <TableBody>
                     {tableData.map((item, index) => (
