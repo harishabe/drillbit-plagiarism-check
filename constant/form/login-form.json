@@ -1,0 +1,25 @@
+[
+    {
+        "field_type": "input",
+        "type": "email",
+        "id": "username",
+        "name": "username",
+        "label": "Email address",
+        "required": "Enter email address",
+        "validationMsg": "Invalid email address"
+    },
+    {
+        "field_type": "input",
+        "type": "password",
+        "id": "password",
+        "label": "Password",
+        "name": "password",
+        "required": "Enter password",
+        "validationMsg": "Minimum eight characters, at least one letter and one number"
+    },
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Sign in"
+    }
+]

@@ -1,0 +1,51 @@
+{
+  "name": "drillbit-plagiarism-check",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "prepare": "husky install",
+    "pre-commit": "npm lint --fix && git add -A ."
+  },
+  "dependencies": {
+    "@emotion/cache": "latest",
+    "@emotion/react": "^11.9.0",
+    "@emotion/server": "latest",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.6.0",
+    "@mui/lab": "^5.0.0-alpha.77",
+    "@mui/material": "^5.6.0",
+    "@mui/styled-engine-sc": "^5.5.2",
+    "@mui/styles": "^5.6.2",
+    "apexcharts": "^3.35.2",
+    "classnames": "^2.3.1",
+    "date-fns": "^2.28.0",
+    "husky": "^7.0.4",
+    "next": "12.1.4",
+    "next-pwa": "^5.4.7",
+    "react": "18.0.0",
+    "react-apexcharts": "^1.4.0",
+    "react-dom": "18.0.0",
+    "react-hook-form": "^7.30.0",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@storybook/addon-actions": "^6.4.21",
+    "@storybook/addon-essentials": "^6.4.21",
+    "@storybook/addon-interactions": "^6.4.21",
+    "@storybook/addon-links": "^6.4.21",
+    "@storybook/react": "^6.4.21",
+    "@storybook/testing-library": "0.0.9",
+    "babel-loader": "^8.2.4",
+    "eslint": "8.13.0",
+    "eslint-config-next": "12.1.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-storybook": "^0.5.8"
+  }
+}
