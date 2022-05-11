@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Heading, CardView, RecentSubmissionTable } from '../../../components';
+import { Heading, CardView, MyRecentSubmissionTable } from '../../../components';
 
 const data = [
   {
@@ -34,7 +34,7 @@ const MyRecentSubmissions = () => {
     <>
       <CardView>
         <Heading title='My Recent submissions' />
-        <RecentSubmissionTable tableData={data} />
+        <MyRecentSubmissionTable tableData={data} />
       </CardView>
     </>
   );

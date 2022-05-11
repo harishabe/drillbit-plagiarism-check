@@ -1,20 +1,21 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { SubTitle, SubTitle1 } from '../index';
 
 const MyRecentSubmissionTable = ({ tableData }) => {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer>
       <Table sx={{ minWidth: 350 }} aria-label='simple table'>
         <TableHead>
           <TableRow>
+            <TableCell></TableCell>
             <TableCell>My assignments</TableCell>
             <TableCell align='right'>Marks</TableCell>
             <TableCell align='right'>Similarity</TableCell>
