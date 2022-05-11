@@ -8,6 +8,12 @@
 # testing
 /coverage
 
+#vs code
+/.vscode/
+
+#storybook
+/.storybook/
+
 # next.js
 /.next/
 /out/
