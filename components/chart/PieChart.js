@@ -10,15 +10,16 @@ const PieChart = () => {
             chart: {
                 type: 'donut',
             },
+            legend: {
+                show:true,
+                position: 'bottom',
+            },
+            labels: ['value 1', 'value 2'],
             responsive: [{
                 breakpoint: 480,
                 options: {
                     chart: {
                         width: 200
-                    },
-                    legend: {
-                        position: 'bottom',
-                        horizontalAlign: 'center',
                     }
                 }
             }]
@@ -27,8 +28,8 @@ const PieChart = () => {
 
     return (
         <>
-            <div id="chart">
-                <ApexCharts options={chartData.options} series={chartData.series} width="398"  type="donut" />
+            <div id="chart" style={{padding:'50px 0px'}}>
+                <ApexCharts options={chartData.options} series={chartData.series} width="358"  type="donut" />
             </div>
         </>
     )

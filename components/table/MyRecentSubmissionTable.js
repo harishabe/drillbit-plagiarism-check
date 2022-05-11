@@ -15,11 +15,18 @@ const MyRecentSubmissionTable = ({ tableData }) => {
       <Table sx={{ minWidth: 350 }} aria-label='simple table'>
         <TableHead>
           <TableRow>
-            <TableCell></TableCell>
-            <TableCell>My assignments</TableCell>
-            <TableCell align='right'>Marks</TableCell>
-            <TableCell align='right'>Similarity</TableCell>
-            <TableCell align='right'>Status</TableCell>
+            <TableCell colspan="2">
+              <SubTitle1 title="My assignments" />
+            </TableCell>
+            <TableCell>
+              <SubTitle1 title="Marks" />
+            </TableCell>
+            <TableCell>
+              <SubTitle1 title="Similarity" />
+            </TableCell>
+            <TableCell>
+              <SubTitle1 title="Status" />
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -38,21 +45,18 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                   {item.name.charAt(0)}
                 </Avatar>
               </TableCell>
-              <TableCell align='left'>
+              <TableCell style={{ minWidth: 320 }}>
                 <SubTitle1 title={item.name} />
                 <SubTitle title={item.course} />
               </TableCell>
-              <TableCell>
-                <SubTitle1 title={item.feedback} />
+              <TableCell style={{ minWidth: 300 }}>
+                <SubTitle title={item.marks} />
+              </TableCell>
+              <TableCell style={{ minWidth: 300 }}>
                 <SubTitle title={item.percent} />
               </TableCell>
-              <TableCell>
+              <TableCell style={{ minWidth: 200 }}>
                 <SubTitle title={item.status} />
-              </TableCell>
-              <TableCell align='right'>
-                <Button variant='contained' color='primary'>
-                  Review
-                </Button>
               </TableCell>
             </TableRow>
           ))}

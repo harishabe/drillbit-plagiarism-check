@@ -28,8 +28,8 @@ const ColumnChart = () => {
             plotOptions: {
                 bar: {
                     startingShape: 'flat',
-                    endingShape: 'rounded',
-                    columnWidth: '22%',
+                    columnWidth: '25%',
+                    borderRadius: 5,
                     dataLabels: {
                         position: "top"
                     }
