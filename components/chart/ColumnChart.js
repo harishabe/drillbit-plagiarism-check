@@ -4,23 +4,35 @@ const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const ColumnChart = () => {
     const [chartData, setChartData] = useState({
-        series: [{
-            name: 'Net Profit',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-        }, {
-            name: 'Revenue',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-        }],
+        series: [
+            {
+                name: 'Net Profit',
+                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+            },
+            {
+                name: 'Revenue',
+                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+            }
+        ],
         options: {
+            colors: ['#2B4CB0', '#4795EE'],
             chart: {
                 type: 'bar',
-                height: 350
+                height: 350,
+                toolbar: {
+                    show: true,
+                    tools: {
+                        download: false                     }
+                }
             },
             plotOptions: {
                 bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
+                    startingShape: 'flat',
+                    endingShape: 'rounded',
+                    columnWidth: '22%',
+                    dataLabels: {
+                        position: "top"
+                    }
                 },
             },
             dataLabels: {
@@ -36,11 +48,12 @@ const ColumnChart = () => {
             },
             yaxis: {
                 title: {
-                    text: '$ (thousands)'
+                    text: ''
                 }
             },
             fill: {
-                opacity: 1
+                opacity: 1,
+                colors: ['#2B4CB0', '#4795EE']
             },
             tooltip: {
                 y: {
