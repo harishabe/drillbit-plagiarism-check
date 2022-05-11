@@ -4,9 +4,9 @@ const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const PieChart = () => {
     const [chartData, setChartData] = useState({
-        series: [44, 55],
-        colors:['#F44336', '#E91E63'],
+        series: [44, 55],        
         options: {
+            colors:['#2B4CB0', '#4795EE'],
             chart: {
                 type: 'donut',
             },
@@ -17,7 +17,8 @@ const PieChart = () => {
                         width: 200
                     },
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        horizontalAlign: 'center',
                     }
                 }
             }]
@@ -27,7 +28,7 @@ const PieChart = () => {
     return (
         <>
             <div id="chart">
-                <ApexCharts options={chartData.options} series={chartData.series} width="498"  type="donut" />
+                <ApexCharts options={chartData.options} series={chartData.series} width="398"  type="donut" />
             </div>
         </>
     )
