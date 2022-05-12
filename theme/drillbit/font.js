@@ -59,6 +59,13 @@ const font = {
         fontSize: '16px',
         lineHeight: 1.5,
         letterSpacing: '0.00938em'
+    },
+    body2: {
+        fontFamily: fontName,
+        fontWeight: 400,
+        fontSize: '14px',
+        lineHeight: '20px',
+        color: '#666666'
     }
 };
 

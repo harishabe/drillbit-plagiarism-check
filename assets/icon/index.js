@@ -26,3 +26,4 @@ export { default as ArrowNextIcon } from './ArrowNextIcon';
 export { default as NoOfClassIcon } from './NoOfClassIcon';
 export { default as NoOfAssignmntIcon } from './NoOfAssignmntIcon';
 export { default as NoOfSubmission } from './NoOfSubmission';
+export { default as TimerIcon } from './TimerIcon';
