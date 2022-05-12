@@ -17,6 +17,11 @@ const data = [{
   'course': 'Machine Learning',
   'percent':'76',
   'bgcolor':'#68C886'
+},{
+  'name': 'Sagar',
+  'course': 'Machine Learning',
+  'percent':'76',
+  'bgcolor':'#68C886'
 }]
 
 const TopStudents = () => {

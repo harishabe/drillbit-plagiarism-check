@@ -25,6 +25,14 @@ const data = [{
   'percent': '25%',
   'feedback': 'Good',
   'status': 'Pending',
+},
+{
+  'color':'#E9596F',
+  'name': 'Jayanna',
+  'course': 'Machine learning',
+  'percent': '25%',
+  'feedback': 'Good',
+  'status': 'Pending',
 }]
 
 const RecentSubmissions = () => {

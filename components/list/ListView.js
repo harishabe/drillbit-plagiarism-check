@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Avatar from '@mui/material/Avatar'
 import { Title, SubTitle, SubTitle1 } from '../index'
+import { Divider } from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -28,25 +29,28 @@ const ListView = ({
   return (
     <List>
       {listData.map((item, index) => (
-        <ListItem key={index} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-          <ListItemAvatar style={{ marginRight: '5px' }}>
-            <Avatar
-              sx={{ width: 50, height: 50, marginBottom: '5px',background:item.bgcolor,color:'#fff' }}>
-                            UK
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            disableTypography
-            className={classes.itemText}
-            primary={<SubTitle1 title={item.name} />}
-            secondary={<SubTitle title={item.course} />}
-          />
-          <ListItemText style={{ textAlign: 'right' }}
-            disableTypography
-            className={classes.right}
-            primary={<Title title={'+' + item.percent + '%'} color="primary" />}
-          />
-        </ListItem>
+        <>
+          <ListItem key={index} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+            <ListItemAvatar style={{ marginRight: '5px' }}>
+              <Avatar
+                sx={{ width: 50, height: 50, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>
+                UK
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              disableTypography
+              className={classes.itemText}
+              primary={<SubTitle1 title={item.name} />}
+              secondary={<SubTitle title={item.course} />}
+            />
+            <ListItemText style={{ textAlign: 'right' }}
+              disableTypography
+              className={classes.right}
+              primary={<Title title={'+' + item.percent + '%'} color="primary" />}
+            />
+          </ListItem>
+          <Divider />
+        </>
       ))}
     </List>
   )

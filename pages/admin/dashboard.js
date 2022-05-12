@@ -26,6 +26,11 @@ import {
   COLUMN_ADMIN_ACC_USG_CHART_GRADIENT,
   COLUMN_ADMIN_CHART_BORDER_RADIUS,
   COLUMN_ADMIN_ACC_USG_CHART_BORDER_RADIUS,
+  PIE_CHART_TYPE,
+  PIE_CHART_COLOR,
+  PIE_CHART_SERIES,
+  PIE_CHART_WIDTH,
+  PIE_CHART_LABEL
 } from './../../constant/data/ChartData'
 
 const Dashboard = () => {
@@ -98,13 +103,25 @@ const Dashboard = () => {
           <Grid item md={4} xs={12}>
             <CardView>
               <Heading title='Account Validity' />
-              <PieChart />
+              <PieChart
+                type={PIE_CHART_TYPE}
+                color={PIE_CHART_COLOR}
+                width={PIE_CHART_WIDTH}
+                label={PIE_CHART_LABEL}
+                series={PIE_CHART_SERIES}
+              />
             </CardView>
           </Grid>
           <Grid item md={4} xs={12}>
             <CardView>
               <Heading title='Trend Analysis' />
-              <PieChart />
+              <PieChart
+                type={PIE_CHART_TYPE}
+                color={PIE_CHART_COLOR}
+                width={PIE_CHART_WIDTH}
+                label={PIE_CHART_LABEL}
+                series={PIE_CHART_SERIES}
+              />
             </CardView>
           </Grid>
         </Grid>

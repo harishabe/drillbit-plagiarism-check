@@ -16,7 +16,12 @@ import {
   COLUMN_WIDTH,
   COLUMN_CHART_HEIGHT,
   COLUMN_CHART_SERIES_DATA,
-  COLUMN_CHART_BORDER_RADIUS
+  COLUMN_CHART_BORDER_RADIUS,
+  PIE_CHART_TYPE,
+  PIE_CHART_COLOR,
+  PIE_CHART_SERIES,
+  PIE_CHART_WIDTH,
+  PIE_CHART_LABEL
 } from './../../constant/data/ChartData'
 import {
   NoOfClassIcon,
@@ -79,7 +84,13 @@ const Dashboard = () => {
           <Grid item md={4} xs={12}>
             <CardView>
               <Heading title='Trend Analysis' />
-              <PieChart />
+              <PieChart
+                type={PIE_CHART_TYPE}
+                color={PIE_CHART_COLOR}
+                width={PIE_CHART_WIDTH}
+                label={PIE_CHART_LABEL}
+                series={PIE_CHART_SERIES}
+              />
             </CardView>
           </Grid>
         </Grid>

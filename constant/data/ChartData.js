@@ -53,3 +53,10 @@ export const COLUMN_ADMIN_ACC_USG_CHART_SERIES_DATA = [
         data: [10, 50, 100]
     }
 ];
+
+// pie chart graph for admin dashboard
+export const PIE_CHART_TYPE = "donut";
+export const PIE_CHART_COLOR = ['#2B4CB0', '#4795EE'];
+export const PIE_CHART_WIDTH = 386
+export const PIE_CHART_LABEL = ['value 1', 'value 2'];
+export const PIE_CHART_SERIES = [44, 55];
