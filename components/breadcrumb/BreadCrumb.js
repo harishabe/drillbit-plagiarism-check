@@ -11,7 +11,7 @@ const BreadCrumb = ({
     return (
         
         <div role="presentation">
-            <Breadcrumbs separator={<ArrowNextIcon />} aria-label="breadcrumb">
+            <Breadcrumbs separator={<ArrowNextIcon />} aria-label="breadcrumb" style={{marginBottom:'15px'}}>
                 {item.map((menuItem, index) => (
                     <div key={index}>
                         {menuItem.active === false ?

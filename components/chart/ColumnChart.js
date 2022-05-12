@@ -16,7 +16,7 @@ const ColumnChart = ({
         options: {
             colors: color,
             chart: {
-                type: 'bar',
+                type: type,
                 height: height,
                 toolbar: {
                     show: true,

@@ -8,9 +8,9 @@ const font = {
     fontWeightBold: 700,
     h1: {
         fontFamily: fontName,
-        fontSize: '1.8rem',
-        fontWeight: 'bold',
-        lineHeight: '28px',
+        fontSize: '24px',
+        fontWeight: '500',
+        lineHeight: '36px',
         letterSpacing: '0.15px'
     },
     h2: {
