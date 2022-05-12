@@ -1,12 +1,12 @@
-import React from "react";
-import Instructor from '../../layouts/Instructor';
+import React from 'react'
+import Instructor from '../../layouts/Instructor'
 
 const Repository = () => {
-    return (
-        <>Repository Dashboard</>
-    )
-};
+  return (
+    <>Repository Dashboard</>
+  )
+}
 
-Repository.layout = Instructor;
+Repository.layout = Instructor
 
-export default Repository;
+export default Repository

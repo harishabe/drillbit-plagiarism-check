@@ -5,7 +5,15 @@
     "prettier"
   ],
   "rules": {
-    "no-unused-vars": "error",
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used"
+      }
+    ],
     "indent": [
       "error",
       2
@@ -30,5 +38,6 @@
     "react/prop-types": [
       0
     ]
-  }
+  },
+  "plugins": ["unused-imports"]
 }

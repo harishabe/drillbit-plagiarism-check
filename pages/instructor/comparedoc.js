@@ -1,12 +1,12 @@
-import React from "react";
-import Instructor from '../../layouts/Instructor';
+import React from 'react'
+import Instructor from '../../layouts/Instructor'
 
 const Comparedoc = () => {
-    return (
-        <>Repository Dashboard</>
-    )
-};
+  return (
+    <>Repository Dashboard</>
+  )
+}
 
-Comparedoc.layout = Instructor;
+Comparedoc.layout = Instructor
 
-export default Comparedoc;
+export default Comparedoc

@@ -1,8 +1,8 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import { Heading, CardView, MyRecentSubmissionTable } from '../../../components';
+import { Heading, CardView, MyRecentSubmissionTable } from '../../../components'
 
-const header = ['','','',''];
+const header = ['','','','']
 const data = [
   {
     color: '#2B4CB0',
@@ -31,7 +31,7 @@ const data = [
     feedback: 'Good',
     status: 'Pending',
   },
-];
+]
 
 const MyRecentSubmissions = () => {
   return (
@@ -41,7 +41,7 @@ const MyRecentSubmissions = () => {
         <MyRecentSubmissionTable tableData={data} />
       </CardView>
     </>
-  );
-};
+  )
+}
 
-export default MyRecentSubmissions;
+export default MyRecentSubmissions

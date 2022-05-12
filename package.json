@@ -10,7 +10,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepare": "husky install",
-    "pre-commit": "npm lint --fix && git add -A ."
+    "pre-commit": "npm lint -- --fix && git add -A ."
   },
   "dependencies": {
     "@emotion/cache": "latest",
@@ -25,7 +25,6 @@
     "apexcharts": "^3.35.2",
     "classnames": "^2.3.1",
     "date-fns": "^2.28.0",
-    "husky": "^7.0.4",
     "next": "12.1.4",
     "next-pwa": "^5.4.7",
     "react": "18.0.0",
@@ -46,6 +45,8 @@
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.4",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-storybook": "^0.5.8"
+    "eslint-plugin-storybook": "^0.5.8",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^7.0.4"
   }
 }

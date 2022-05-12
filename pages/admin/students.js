@@ -1,25 +1,25 @@
-import React from "react";
-import Admin from '../../layouts/Admin';
-import { BreadCrumb } from './../../components';
+import React from 'react'
+import Admin from '../../layouts/Admin'
+import { BreadCrumb } from './../../components'
 
 const IntegrationBreadCrumb = [{
-    'name': 'Dashboard',
-    'link': '/admin/dashboard',
-    'active': false
+  'name': 'Dashboard',
+  'link': '/admin/dashboard',
+  'active': false
 }, {
-    'name': 'Students',
-    'link': '',
-    'active': true
-}];
+  'name': 'Students',
+  'link': '',
+  'active': true
+}]
 
 const Students = () => {
-    return (
-        <React.Fragment>
-            <BreadCrumb item={IntegrationBreadCrumb} />
-        </React.Fragment>
-    )
-};
+  return (
+    <React.Fragment>
+      <BreadCrumb item={IntegrationBreadCrumb} />
+    </React.Fragment>
+  )
+}
 
-Students.layout = Admin;
+Students.layout = Admin
 
-export default Students;
+export default Students

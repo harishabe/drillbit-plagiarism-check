@@ -1,28 +1,29 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Student from '../../layouts/Student';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Student from '../../layouts/Student'
 import {
   WidgetCard,
   ColumnChart,
   PieChart,
   CardView,
   Heading,
-} from '../../components';
+} from '../../components'
 import {
   COLUMN_CHART_TYPE,
   COLUMN_CHART_COLOR,
   COLUMN_XAXIS_DATA,
   COLUMN_WIDTH,
   COLUMN_CHART_HEIGHT,
-  COLUMN_CHART_SERIES_DATA
-} from './../../constant/data/ChartData';
+  COLUMN_CHART_SERIES_DATA,
+  COLUMN_CHART_BORDER_RADIUS
+} from './../../constant/data/ChartData'
 import {
   NoOfClassIcon,
   NoOfSubmission,
   NoOfAssignmntIcon,
-} from '../../assets/icon';
-import MyRecentSubmissions from './dashboard/MyRecentSubmissions';
+} from '../../assets/icon'
+import MyRecentSubmissions from './dashboard/MyRecentSubmissions'
 
 const Dashboard = () => {
   return (
@@ -71,6 +72,7 @@ const Dashboard = () => {
                 columnWidth={COLUMN_WIDTH}
                 height={COLUMN_CHART_HEIGHT}
                 seriesData={COLUMN_CHART_SERIES_DATA}
+                borderRadius={COLUMN_CHART_BORDER_RADIUS}
               />
             </CardView>
           </Grid>
@@ -83,9 +85,9 @@ const Dashboard = () => {
         </Grid>
       </Box>
     </React.Fragment>
-  );
-};
+  )
+}
 
-Dashboard.layout = Student;
+Dashboard.layout = Student
 
-export default Dashboard;
+export default Dashboard

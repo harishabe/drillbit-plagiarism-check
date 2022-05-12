@@ -1,7 +1,7 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
-import Admin from './../../layouts/Admin';
-import { BreadCrumb, CardInfoView, MainHeading } from './../../components';
+import React from 'react'
+import Grid from '@mui/material/Grid'
+import Admin from './../../layouts/Admin'
+import { BreadCrumb, CardInfoView, MainHeading } from './../../components'
 
 const IntegrationBreadCrumb = [
   {
@@ -14,7 +14,7 @@ const IntegrationBreadCrumb = [
     link: '',
     active: true,
   },
-];
+]
 
 const classes = [
   {
@@ -59,7 +59,7 @@ const classes = [
     validity: '2 days left',
     color: '#8D34FF',
   },
-];
+]
 
 const Integration = () => {
   return (
@@ -74,9 +74,9 @@ const Integration = () => {
         ))}
       </Grid>
     </React.Fragment>
-  );
-};
+  )
+}
 
-Integration.layout = Admin;
+Integration.layout = Admin
 
-export default Integration;
+export default Integration

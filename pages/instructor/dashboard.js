@@ -1,91 +1,91 @@
-import React from "react";
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Instructor from '../../layouts/Instructor';
-import { WidgetCard, ColumnChart, PieChart, CardView, Heading } from '../../components';
+import React from 'react'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Instructor from '../../layouts/Instructor'
+import { WidgetCard, ColumnChart, PieChart, CardView, Heading } from '../../components'
 import {
-    NoOfClassIcon,
-    NoOfSubmission,
-    NoOfAssignmntIcon
-} from '../../assets/icon';
-import TopStudents from './dashboard/TopStudents';
-import RecentSubmissions from './dashboard/RecentSubmissions';
+  NoOfClassIcon,
+  NoOfSubmission,
+  NoOfAssignmntIcon
+} from '../../assets/icon'
+import TopStudents from './dashboard/TopStudents'
+import RecentSubmissions from './dashboard/RecentSubmissions'
 import {
-    COLUMN_CHART_TYPE,
-    COLUMN_CHART_COLOR,
-    COLUMN_XAXIS_DATA,
-    COLUMN_WIDTH,
-    COLUMN_CHART_HEIGHT,
-    COLUMN_CHART_SERIES_DATA,
-    COLUMN_CHART_BORDER_RADIUS
-} from './../../constant/data/ChartData';
+  COLUMN_CHART_TYPE,
+  COLUMN_CHART_COLOR,
+  COLUMN_XAXIS_DATA,
+  COLUMN_WIDTH,
+  COLUMN_CHART_HEIGHT,
+  COLUMN_CHART_SERIES_DATA,
+  COLUMN_CHART_BORDER_RADIUS
+} from './../../constant/data/ChartData'
 
 const Dashboard = () => {
-    return (
-        <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={4} xs={12}>
-                        <WidgetCard
-                            title="No of classes"
-                            count="6"
-                            icon={<NoOfClassIcon />}
-                        />
-                    </Grid>
-                    <Grid item md={4} xs={12}>
-                        <WidgetCard
-                            title="No of classes"
-                            count="6"
-                            icon={<NoOfAssignmntIcon />}
-                        />
-                    </Grid>
-                    <Grid item md={4} xs={12}>
-                        <WidgetCard
-                            title="No of classes"
-                            count="6"
-                            icon={<NoOfSubmission />}
-                        />
-                    </Grid>
-                </Grid>
-            </Box>
-            <Box mt={1} sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={4} xs={12}>
-                        <TopStudents />
-                    </Grid>
-                    <Grid item md={8} xs={12}>
-                        <RecentSubmissions />
-                    </Grid>
-                </Grid>
-            </Box>
-            <Box mt={1} sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={8} xs={12}>
-                        <CardView>
-                            <Heading title='Submission Overview' />
-                            <ColumnChart
-                                type={COLUMN_CHART_TYPE}
-                                color={COLUMN_CHART_COLOR}
-                                xaxisData={COLUMN_XAXIS_DATA}
-                                columnWidth={COLUMN_WIDTH}
-                                height={COLUMN_CHART_HEIGHT}
-                                seriesData={COLUMN_CHART_SERIES_DATA}
-                                borderRadius={COLUMN_CHART_BORDER_RADIUS}
-                            />
-                        </CardView>
-                    </Grid>
-                    <Grid item md={4} xs={12}>
-                        <CardView>
-                            <Heading title='Trend Analysis' />
-                            <PieChart />
-                        </CardView>
-                    </Grid>
-                </Grid>
-            </Box>
-        </React.Fragment>
-    )
-};
+  return (
+    <React.Fragment>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={1}>
+          <Grid item md={4} xs={12}>
+            <WidgetCard
+              title="No of classes"
+              count="6"
+              icon={<NoOfClassIcon />}
+            />
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <WidgetCard
+              title="No of classes"
+              count="6"
+              icon={<NoOfAssignmntIcon />}
+            />
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <WidgetCard
+              title="No of classes"
+              count="6"
+              icon={<NoOfSubmission />}
+            />
+          </Grid>
+        </Grid>
+      </Box>
+      <Box mt={1} sx={{ flexGrow: 1 }}>
+        <Grid container spacing={1}>
+          <Grid item md={4} xs={12}>
+            <TopStudents />
+          </Grid>
+          <Grid item md={8} xs={12}>
+            <RecentSubmissions />
+          </Grid>
+        </Grid>
+      </Box>
+      <Box mt={1} sx={{ flexGrow: 1 }}>
+        <Grid container spacing={1}>
+          <Grid item md={8} xs={12}>
+            <CardView>
+              <Heading title='Submission Overview' />
+              <ColumnChart
+                type={COLUMN_CHART_TYPE}
+                color={COLUMN_CHART_COLOR}
+                xaxisData={COLUMN_XAXIS_DATA}
+                columnWidth={COLUMN_WIDTH}
+                height={COLUMN_CHART_HEIGHT}
+                seriesData={COLUMN_CHART_SERIES_DATA}
+                borderRadius={COLUMN_CHART_BORDER_RADIUS}
+              />
+            </CardView>
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <CardView>
+              <Heading title='Trend Analysis' />
+              <PieChart />
+            </CardView>
+          </Grid>
+        </Grid>
+      </Box>
+    </React.Fragment>
+  )
+}
 
-Dashboard.layout = Instructor;
+Dashboard.layout = Instructor
 
-export default Dashboard;
+export default Dashboard

@@ -1,7 +1,7 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
-import Student from '../../layouts/Student';
-import { BreadCrumb, CardInfoView, MainHeading } from '../../components';
+import React from 'react'
+import Grid from '@mui/material/Grid'
+import Student from '../../layouts/Student'
+import { BreadCrumb, CardInfoView, MainHeading } from '../../components'
 
 const StudentBreadCrumb = [
   {
@@ -14,7 +14,7 @@ const StudentBreadCrumb = [
     link: '',
     active: true,
   },
-];
+]
 
 const classes = [
   {
@@ -59,7 +59,7 @@ const classes = [
     validity: '2 days left',
     color: '#8D34FF',
   },
-];
+]
 
 const MyClasses = () => {
   return (
@@ -74,9 +74,9 @@ const MyClasses = () => {
         ))}
       </Grid>
     </React.Fragment>
-  );
-};
+  )
+}
 
-MyClasses.layout = Student;
+MyClasses.layout = Student
 
-export default MyClasses;
+export default MyClasses
