@@ -1,15 +1,14 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Head from 'next/head';
-import '../styles/globals.css';
-import { ThemeProvider } from '@mui/material/styles';
+import * as React from 'react'
+import PropTypes from 'prop-types'
+import Head from 'next/head'
+import '../styles/globals.css'
+import { ThemeProvider } from '@mui/material/styles'
 //import { ThemeProvider } from "@mui/styles";
-import { createTheme, responsiveFontSizes } from '@mui/material/styles';
-import theme from '../src/theme';
+import theme from '../src/theme'
 
 export default function MyApp(props) {
-  const { Component, pageProps } = props;
-  const Layout = Component.layout || (({ children }) => <>{children}</>);
+  const { Component, pageProps } = props
+  const Layout = Component.layout || (({ children }) => <>{children}</>)
   return (
     <React.Fragment>
       <Head>
@@ -22,10 +21,10 @@ export default function MyApp(props) {
         </Layout>
       </ThemeProvider>
     </React.Fragment>
-  );
+  )
 }
 
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
-};
+}

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const SvgContainer = styled.div `
   height: "auto";
@@ -8,9 +8,9 @@ const SvgContainer = styled.div `
   justify-content: center;
 
   & svg {
-    height: ${props => (props.height ? `${props.height}px` : "100%")};
-    width: ${props => (props.width ? `${props.width}px` : "100%")};
+    height: ${props => (props.height ? `${props.height}px` : '100%')};
+    width: ${props => (props.width ? `${props.width}px` : '100%')};
   }
-`;
+`
 
-export default SvgContainer;
+export default SvgContainer

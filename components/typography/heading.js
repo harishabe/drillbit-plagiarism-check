@@ -1,20 +1,20 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
-import PropTypes from 'prop-types';
+import React from 'react'
+import Typography from '@mui/material/Typography'
+import PropTypes from 'prop-types'
 
 const Heading = ({
-    title,
-    color
+  title,
+  color
 }) => {
-    return (
-        <Typography variant="h2" color={color} component="div" gutterBottom>
-            {title}
-        </Typography>
-    )
-};
+  return (
+    <Typography variant="h2" color={color} component="div" gutterBottom>
+      {title}
+    </Typography>
+  )
+}
 
 Heading.propTypes = {
-    title: PropTypes.string
-};
+  title: PropTypes.string
+}
 
-export default Heading;
+export default Heading

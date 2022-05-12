@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
 const ForgotPwd = () =>{
-    return(
-        <>ForgotPwd</>
-    )
-};
+  return(
+    <>ForgotPwd</>
+  )
+}
 
-export default ForgotPwd;
+export default ForgotPwd

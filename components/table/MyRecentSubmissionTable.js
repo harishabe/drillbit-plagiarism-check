@@ -1,13 +1,12 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
-import Button from '@mui/material/Button';
-import { SubTitle, SubTitle1 } from '../index';
+import * as React from 'react'
+import Avatar from '@mui/material/Avatar'
+import Table from '@mui/material/Table'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableRow from '@mui/material/TableRow'
+import { SubTitle, SubTitle1 } from '../index'
 
 const MyRecentSubmissionTable = ({ tableData }) => {
   return (
@@ -63,7 +62,7 @@ const MyRecentSubmissionTable = ({ tableData }) => {
         </TableBody>
       </Table>
     </TableContainer>
-  );
-};
+  )
+}
 
-export default MyRecentSubmissionTable;
+export default MyRecentSubmissionTable
