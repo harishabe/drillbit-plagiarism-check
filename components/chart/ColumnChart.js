@@ -2,34 +2,34 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-const ColumnChart = () => {
+const ColumnChart = ({
+    color,
+    xaxisData,
+    columnWidth,
+    height,
+    seriesData,
+    type,
+    borderRadius
+}) => {
     const [chartData, setChartData] = useState({
-        series: [
-            {
-                name: 'Net Profit',
-                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-            },
-            {
-                name: 'Revenue',
-                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-            }
-        ],
+        series: seriesData,
         options: {
-            colors: ['#2B4CB0', '#4795EE'],
+            colors: color,
             chart: {
                 type: 'bar',
-                height: 350,
+                height: height,
                 toolbar: {
                     show: true,
                     tools: {
-                        download: false                     }
+                        download: false
+                    }
                 }
             },
             plotOptions: {
                 bar: {
                     startingShape: 'flat',
-                    columnWidth: '25%',
-                    borderRadius: 5,
+                    columnWidth: columnWidth,
+                    borderRadius: borderRadius,
                     dataLabels: {
                         position: "top"
                     }
@@ -44,7 +44,7 @@ const ColumnChart = () => {
                 colors: ['transparent']
             },
             xaxis: {
-                categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                categories: xaxisData,
             },
             yaxis: {
                 title: {
@@ -53,7 +53,7 @@ const ColumnChart = () => {
             },
             fill: {
                 opacity: 1,
-                colors: ['#2B4CB0', '#4795EE']
+                colors: color
             },
             tooltip: {
                 y: {
@@ -68,7 +68,7 @@ const ColumnChart = () => {
     return (
         <>
             <div id="chart">
-                <ApexCharts options={chartData.options} series={chartData.series} type="bar" height={350} />
+                <ApexCharts options={chartData.options} series={chartData.series} type={type} height={height} />
             </div>
         </>
     )

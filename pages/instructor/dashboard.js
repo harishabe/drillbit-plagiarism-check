@@ -10,6 +10,15 @@ import {
 } from '../../assets/icon';
 import TopStudents from './dashboard/TopStudents';
 import RecentSubmissions from './dashboard/RecentSubmissions';
+import {
+    COLUMN_CHART_TYPE,
+    COLUMN_CHART_COLOR,
+    COLUMN_XAXIS_DATA,
+    COLUMN_WIDTH,
+    COLUMN_CHART_HEIGHT,
+    COLUMN_CHART_SERIES_DATA,
+    COLUMN_CHART_BORDER_RADIUS
+} from './../../constant/data/ChartData';
 
 const Dashboard = () => {
     return (
@@ -54,7 +63,15 @@ const Dashboard = () => {
                     <Grid item md={8} xs={12}>
                         <CardView>
                             <Heading title='Submission Overview' />
-                            <ColumnChart />
+                            <ColumnChart
+                                type={COLUMN_CHART_TYPE}
+                                color={COLUMN_CHART_COLOR}
+                                xaxisData={COLUMN_XAXIS_DATA}
+                                columnWidth={COLUMN_WIDTH}
+                                height={COLUMN_CHART_HEIGHT}
+                                seriesData={COLUMN_CHART_SERIES_DATA}
+                                borderRadius={COLUMN_CHART_BORDER_RADIUS}
+                            />
                         </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>
