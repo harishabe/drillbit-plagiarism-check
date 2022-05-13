@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useRouter } from 'next/router'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
@@ -8,11 +9,13 @@ import { Heading, SubTitle2 } from '../index'
 import { TimerIcon } from '../../assets/icon'
 
 const CardInfoView = ({
-  item
+  item,
+  path
 }) => {
+  const router = useRouter();
   return (
     <React.Fragment>
-      <Card>
+      <Card  onClick={(e) => router.push(path)}>
         <CardContent>
           <Avatar sx={{ bgcolor: item.color, width: 50, height: 50, fontSize: '15px' }}
             variant="circle" style={{ margin: '20px 0px' }}>
