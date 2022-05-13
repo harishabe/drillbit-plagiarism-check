@@ -1,9 +1,47 @@
 import React from 'react'
 import Instructor from '../../layouts/Instructor'
+import { CardView, CommonTable } from '../../components';
+
+const data = [{
+  'color': '#2B4CB0',
+  'name': 'Harisha',
+  'course': 'Java',
+  'percent': '65%',
+  'feedback': 'Good',
+  'status': 'Active',
+},
+{
+  'color': '#F5CB47',
+  'name': 'Yatheendra',
+  'course': 'Data Science',
+  'percent': '100%',
+  'feedback': 'Good',
+  'status': 'Completed',
+},
+{
+  'color': '#E9596F',
+  'name': 'Jayanna',
+  'course': 'Machine learning',
+  'percent': '25%',
+  'feedback': 'Good',
+  'status': 'Pending',
+},
+{
+  'color': '#E9596F',
+  'name': 'Jayanna',
+  'course': 'Machine learning',
+  'percent': '25%',
+  'feedback': 'Good',
+  'status': 'Pending',
+}]
 
 const MyFolder = () => {
   return (
-    <>MyFolder Dashboard</>
+    <>
+      <CardView>
+        <CommonTable tableData={data} />
+      </CardView>
+    </>
   )
 }
 

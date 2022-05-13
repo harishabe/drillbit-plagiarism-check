@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableRow from '@mui/material/TableRow'
 import { SubTitle, SubTitle1 } from '../index'
 
-const MyRecentSubmissionTable = ({ tableData }) => {
+const CommonTable = ({ tableData }) => {
   return (
     <TableContainer>
       <Table sx={{ minWidth: 350 }} aria-label='simple table'>
@@ -65,4 +65,4 @@ const MyRecentSubmissionTable = ({ tableData }) => {
   )
 }
 
-export default MyRecentSubmissionTable
+export default CommonTable
