@@ -15,78 +15,78 @@ export const LabelContainer = styled.div`
 `
 
 const useStyles = makeStyles((theme) => ({
-  helperText: {
-    marginLeft: 0
-  }
+    helperText: {
+        marginLeft: 0
+    }
 }))
 
 
 const InputTextField = ({
-  control,
-  field
+    control,
+    field
 }) => {
 
-  const classes = useStyles()
+    const classes = useStyles()
 
-  const [regex, setRegex] = useState()
+    const [regex, setRegex] = useState()
 
-  useEffect(() => {
-    if (field.type === 'email') {
-      setRegex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
-    }
-    if (field.type === 'password') {
-      setRegex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
-    }
-  }, [field])
+    useEffect(() => {
+        if (field.type === 'email') {
+            setRegex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
+        }
+        if (field.type === 'password') {
+            setRegex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+        }
+    }, [field])
 
-  return (
-    <>
-      <LabelContainer>
-        <InputLabel >
-          {field.label}
-        </InputLabel>
-      </LabelContainer>
-      <Controller
-        name={field.name}
-        control={control}
-        defaultValue=""
-        render={({
-          field: { onChange, onBlur, value }, fieldState: { error }
-        }) => (
-          <TextField
-            style={{ marginTop: '10px' }}
-            margin="normal"
-            type={field.type}
-            onChange={onChange}
-            onBlur={onBlur}
-            error={!!error}
-            value={value}
-            fullWidth
-            name={field.name}
-            id={field.name}
-            variant="outlined"
-            helperText={error ? error.message : null}                        
-            FormHelperTextProps={{
-              className: classes.helperText
-            }}
-          />
-        )}
-        rules={{
-          required: field.required,
-          pattern: {
-            value: regex,
-            message: field.validationMsg
-          }
-        }}
-      />
-    </>
-  )
+    return (
+        <>
+            <LabelContainer>
+                <InputLabel >
+                    {field.label}
+                </InputLabel>
+            </LabelContainer>
+            <Controller
+                name={field.name}
+                control={control}
+                defaultValue=""
+                render={({
+                    field: { onChange, onBlur, value }, fieldState: { error }
+                }) => (
+                    <TextField
+                        style={{ marginTop: '10px' }}
+                        margin="normal"
+                        type={field.type}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        error={!!error}
+                        value={value}
+                        fullWidth
+                        name={field.name}
+                        id={field.name}
+                        variant="outlined"
+                        helperText={error ? error.message : null}                        
+                        FormHelperTextProps={{
+                            className: classes.helperText
+                        }}
+                    />
+                )}
+                rules={{
+                    required: field.required,
+                    pattern: {
+                        value: regex,
+                        message: field.validationMsg
+                    }
+                }}
+            />
+        </>
+    )
 }
 
 InputTextField.propTypes = {
-  name: PropTypes.any,
-  control: PropTypes.any,
-  label: PropTypes.any,
+    name: PropTypes.any,
+    control: PropTypes.any,
+    label: PropTypes.any,
 }
 
 export default InputTextField

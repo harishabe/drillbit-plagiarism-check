@@ -11,52 +11,52 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />
 const checkedIcon = <CheckBoxIcon fontSize="small" />
 
 const InputMultiAutoComplete = ({
-  field, control
+    field, control
 }) => {
-  return (
-    <>
-      <Controller
-        name={field.name}
-        control={control}
-        render={({
-          field: { onChange, value },
-          fieldState: { error },
-          formState, ...props
-        }) => (
-          <Autocomplete
-            multiple
-            id="multiCheckbox"
-            value={value}
-            options={field?.options}
-            disableCloseOnSelect
-            getOptionLabel={(option) => option.name}
-            renderOption={(props, option, { selected }) => (
-              <li {...props}>
-                <Checkbox
-                  icon={icon}
-                  checkedIcon={checkedIcon}
-                  style={{ marginRight: 8 }}
-                  checked={selected}
-                />
-                {option.name}
-              </li>
-            )}
-            renderInput={(params) => (
-              <TextField {...params} label={field.label} placeholder={field.label} />
-            )}
-            onChange={(e, data) => onChange(data)}
-            {...props}
-          />
-        )}
-        onChange={([, data]) => data}
-      />
-    </>
-  )
+    return (
+        <>
+            <Controller
+                name={field.name}
+                control={control}
+                render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                    formState, ...props
+                }) => (
+                    <Autocomplete
+                        multiple
+                        id="multiCheckbox"
+                        value={value}
+                        options={field?.options}
+                        disableCloseOnSelect
+                        getOptionLabel={(option) => option.name}
+                        renderOption={(props, option, { selected }) => (
+                            <li {...props}>
+                                <Checkbox
+                                    icon={icon}
+                                    checkedIcon={checkedIcon}
+                                    style={{ marginRight: 8 }}
+                                    checked={selected}
+                                />
+                                {option.name}
+                            </li>
+                        )}
+                        renderInput={(params) => (
+                            <TextField {...params} label={field.label} placeholder={field.label} />
+                        )}
+                        onChange={(e, data) => onChange(data)}
+                        {...props}
+                    />
+                )}
+                onChange={([, data]) => data}
+            />
+        </>
+    )
 }
 
 InputMultiAutoComplete.propTypes = {
-  field: PropTypes.any,
-  control: PropTypes.any
+    field: PropTypes.any,
+    control: PropTypes.any
 }
 
 export default InputMultiAutoComplete
