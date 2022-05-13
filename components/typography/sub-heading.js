@@ -3,17 +3,17 @@ import Typography from '@mui/material/Typography'
 import PropTypes from 'prop-types'
 
 const SubHeading = ({
-  title
+    title
 }) => {
-  return (
-    <Typography variant="h2" component="div" gutterBottom>
-      {title}
-    </Typography>
-  )
+    return (
+        <Typography variant="h2" component="div" gutterBottom>
+            {title}
+        </Typography>
+    )
 }
 
 SubHeading.propTypes = {
-  title: PropTypes.string
+    title: PropTypes.string
 }
 
 export default SubHeading

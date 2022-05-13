@@ -9,51 +9,51 @@ import { Title, SubTitle, SubTitle1 } from '../index'
 import { Divider } from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
-  item: {
-    paddingLeft: 0,
-    paddingRight: 0,
-    margin: '15px 0px'
-  },
-  itemText: {
-    marginLeft: '5px'
-  },
-  right: {
-    textAlign: 'right'
-  }
+    item: {
+        paddingLeft: 0,
+        paddingRight: 0,
+        margin: '15px 0px'
+    },
+    itemText: {
+        marginLeft: '5px'
+    },
+    right: {
+        textAlign: 'right'
+    }
 }))
 
 const ListView = ({
-  listData
+    listData
 }) => {
-  const classes = useStyles()
-  return (
-    <List>
-      {listData.map((item, index) => (
-        <>
-          <ListItem key={index} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-            <ListItemAvatar style={{ marginRight: '5px' }}>
-              <Avatar
-                sx={{ width: 50, height: 50, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>
+    const classes = useStyles()
+    return (
+        <List>
+            {listData.map((item, index) => (
+                <>
+                    <ListItem key={index} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+                        <ListItemAvatar style={{ marginRight: '5px' }}>
+                            <Avatar
+                                sx={{ width: 50, height: 50, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>
                 UK
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              disableTypography
-              className={classes.itemText}
-              primary={<SubTitle1 title={item.name} />}
-              secondary={<SubTitle title={item.course} />}
-            />
-            <ListItemText style={{ textAlign: 'right' }}
-              disableTypography
-              className={classes.right}
-              primary={<Title title={'+' + item.percent + '%'} color="primary" />}
-            />
-          </ListItem>
-          <Divider />
-        </>
-      ))}
-    </List>
-  )
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            disableTypography
+                            className={classes.itemText}
+                            primary={<SubTitle1 title={item.name} />}
+                            secondary={<SubTitle title={item.course} />}
+                        />
+                        <ListItemText style={{ textAlign: 'right' }}
+                            disableTypography
+                            className={classes.right}
+                            primary={<Title title={'+' + item.percent + '%'} color="primary" />}
+                        />
+                    </ListItem>
+                    <Divider />
+                </>
+            ))}
+        </List>
+    )
 }
 
 export default ListView

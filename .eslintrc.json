@@ -16,7 +16,7 @@
     ],
     "indent": [
       "error",
-      2
+      4
     ],
     "no-console": "off",
     "no-restricted-syntax": [

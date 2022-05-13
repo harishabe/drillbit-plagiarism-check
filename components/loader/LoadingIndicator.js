@@ -24,18 +24,18 @@ const LoaderWrapper = styled.div`
 `
 
 const LoadingIndicator = () => {
-  return (
-    <LoaderContainer>
-      <LoaderWrapper>
-        <div className="pulse-container">
-          <div className="pulse-bubble pulse-bubble-1"></div>
-          <div className="pulse-bubble pulse-bubble-2"></div>
-          <div className="pulse-bubble pulse-bubble-3"></div>
-        </div>
-        <p>Please wait , data is loading...</p>
-      </LoaderWrapper>
-    </LoaderContainer>
-  )
+    return (
+        <LoaderContainer>
+            <LoaderWrapper>
+                <div className="pulse-container">
+                    <div className="pulse-bubble pulse-bubble-1"></div>
+                    <div className="pulse-bubble pulse-bubble-2"></div>
+                    <div className="pulse-bubble pulse-bubble-3"></div>
+                </div>
+                <p>Please wait , data is loading...</p>
+            </LoaderWrapper>
+        </LoaderContainer>
+    )
 }
 
 export default LoadingIndicator

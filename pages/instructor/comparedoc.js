@@ -2,9 +2,9 @@ import React from 'react'
 import Instructor from '../../layouts/Instructor'
 
 const Comparedoc = () => {
-  return (
-    <>Repository Dashboard</>
-  )
+    return (
+        <>Repository Dashboard</>
+    )
 }
 
 Comparedoc.layout = Instructor
