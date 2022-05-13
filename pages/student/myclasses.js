@@ -69,7 +69,10 @@ const MyClasses = () => {
       <Grid container spacing={2}>
         {classes.map((item, index) => (
           <Grid key={index} item md={4} xs={12}>
-            <CardInfoView item={item} />
+            <CardInfoView 
+              item={item}
+              path="/student/myassignments"
+            />
           </Grid>
         ))}
       </Grid>
