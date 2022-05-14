@@ -27,3 +27,8 @@ export { default as NoOfClassIcon } from './NoOfClassIcon';
 export { default as NoOfAssignmntIcon } from './NoOfAssignmntIcon';
 export { default as NoOfSubmission } from './NoOfSubmission';
 export { default as TimerIcon } from './TimerIcon';
+export { default as EditIcon } from './EditIcon';
+export { default as DeleteIcon } from './DeleteIcon';
+export { default as RefreshTimerIcon } from './RefreshTimerIcon';
+export { default as LockIcon } from './LockIcon';
+export { default as StatsIcon } from './StatsIcon';

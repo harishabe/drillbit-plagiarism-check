@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const ListView = ({
     listData
 }) => {
-    const classes = useStyles()
+    const classes = useStyles();
     return (
         <List>
             {listData.map((item, index) => (
@@ -34,7 +34,7 @@ const ListView = ({
                         <ListItemAvatar style={{ marginRight: '5px' }}>
                             <Avatar
                                 sx={{ width: 50, height: 50, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>
-                UK
+                                UK
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
