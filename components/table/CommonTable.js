@@ -1,61 +1,74 @@
 import * as React from 'react'
+import { makeStyles } from '@mui/styles'
 import Avatar from '@mui/material/Avatar'
-import Table from '@mui/material/Table'
-import TableHead from '@mui/material/TableHead'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableRow from '@mui/material/TableRow'
-import { SubTitle, SubTitle1 } from '../index'
+import Checkbox from '@mui/material/Checkbox';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
+import { SubTitle, SubTitle1 } from '../index';
+import { EditIcon, DeleteIcon, RefreshTimerIcon } from '../../assets/icon';
+import { IconButton } from '@mui/material';
 
-const CommonTable = ({ tableData }) => {
+const useStyles = makeStyles((theme) => ({
+  padding: {
+    padding: '0 0 4px 4px'
+  },
+  customTableContainer: {
+    overflowX: 'initial'
+  }
+}));
+
+const CommonTable = ({ tableHeader, tableData, isCheckbox, actionIcon }) => {
+  const classes = useStyles()
   return (
-    <TableContainer>
-      <Table sx={{ minWidth: 350 }} aria-label='simple table'>
+    <TableContainer classes={{ root: classes.customTableContainer }}>
+      <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell colspan="2">
-              <SubTitle1 title="My assignments" />
-            </TableCell>
+            {isCheckbox ? <TableCell padding="checkbox" className={classes.padding}>
+              <Checkbox />
+            </TableCell> : ''}
+            {tableHeader.map((column) => (
+              <TableCell
+                key={column.id}
+                align={column.align}
+                style={{ minWidth: column.minWidth }}
+              >
+                <SubTitle1 title={column.label} />
+              </TableCell>
+            ))}
             <TableCell>
-              <SubTitle1 title="Marks" />
-            </TableCell>
-            <TableCell>
-              <SubTitle1 title="Similarity" />
-            </TableCell>
-            <TableCell>
-              <SubTitle1 title="Status" />
+              <SubTitle1 title='Action' />
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableData.map((item, index) => (
-            <TableRow key={index}>
-              <TableCell style={{ width: '45px' }}>
-                <Avatar
-                  alt={item.name}
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    background: item.color,
-                    color: '#fff',
-                  }}
-                >
-                  {item.name.charAt(0)}
-                </Avatar>
-              </TableCell>
-              <TableCell style={{ minWidth: 320 }}>
-                <SubTitle1 title={item.name} />
-                <SubTitle title={item.course} />
-              </TableCell>
-              <TableCell style={{ minWidth: 300 }}>
-                <SubTitle title={item.marks} />
-              </TableCell>
-              <TableCell style={{ minWidth: 300 }}>
-                <SubTitle title={item.percent} />
-              </TableCell>
-              <TableCell style={{ minWidth: 200 }}>
-                <SubTitle title={item.status} />
+          {tableData.map((row) => (
+            <TableRow hover key={row.id}>
+              {isCheckbox ?
+                <TableCell padding="checkbox" className={classes.padding}>
+                  <Checkbox />
+                </TableCell> : ''}
+
+              {tableHeader.map((column) => {
+                const value = row[column.id];
+                return (
+                  <>
+                    <TableCell key={column.id} align={column.align}>
+                      <SubTitle title={value} />
+                    </TableCell>
+                  </>
+                )
+              })}
+              <TableCell>
+                {actionIcon.map((icon) => (
+                  <IconButton>
+                    {icon}
+                  </IconButton>
+                ))}
               </TableCell>
             </TableRow>
           ))}

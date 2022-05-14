@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const ListView = ({
   listData
 }) => {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <List>
       {listData.map((item, index) => (
