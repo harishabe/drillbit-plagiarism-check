@@ -33,3 +33,4 @@ export { default as DeleteIcon } from './DeleteIcon';
 export { default as RefreshTimerIcon } from './RefreshTimerIcon';
 export { default as LockIcon } from './LockIcon';
 export { default as StatsIcon } from './StatsIcon';
+export { default as InfoIcon } from './InfoIcon';
