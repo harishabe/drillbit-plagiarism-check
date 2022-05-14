@@ -5,6 +5,7 @@ export { default as DashboardWhiteIcon } from './DashboardWhiteIcon';
 export { default as ClassIcon } from './ClassIcon';
 export { default as ClassWhiteIcon } from './ClassWhiteIcon';
 export { default as FolderIcon } from './FolderIcon';
+export { default as FolderWhiteIcon } from './FolderWhiteIcon';
 export { default as RepositoryIcon } from './RepositoryIcon';
 export { default as RepositoryWhiteIcon } from './RepositoryWhiteIcon';
 export { default as CompareDocIcon } from './CompareDocIcon';
