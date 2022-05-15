@@ -1,14 +1,14 @@
-import React from 'react'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Admin from '../../layouts/Admin'
-import { WidgetCard, ColumnChart, PieChart, CardView, Heading } from '../../components'
+import React from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Admin from '../../layouts/Admin';
+import { WidgetCard, ColumnChart, PieChart, CardView, Heading } from '../../components';
 import {
     NoOfClassIcon,
     NoOfSubmission,
     NoOfAssignmntIcon
-} from '../../assets/icon'
-import TopStudents from '../instructor/dashboard/TopStudents'
+} from '../../assets/icon';
+import TopStudents from '../instructor/dashboard/TopStudents';
 import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,

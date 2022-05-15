@@ -18,7 +18,8 @@ import { DrillBitLogo, DrillBitSymbolLogo } from '../assets/icon';
 import {
     SidebarAdmin,
     SidebarInstructor,
-    SidebarStudent
+    SidebarStudent,
+    SidebarSuperAdmin
 } from '../constant/data';
 
 const drawerWidth = 240;
@@ -111,6 +112,8 @@ const SideBar = ({ open }) => {
             setSidebarItem(SidebarInstructor);
         } else if (role === 'student') {
             setSidebarItem(SidebarStudent);
+        } else if(role === 'super'){
+            setSidebarItem(SidebarSuperAdmin);
         }
     }, []);
 

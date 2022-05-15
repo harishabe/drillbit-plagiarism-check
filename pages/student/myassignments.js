@@ -24,7 +24,7 @@ const StudentBreadCrumb = [
 const classes = [
     {
         name: 'Assignment 1',
-        description: 'Our team is here round the clock to help',
+        description: 'The only condition to run that byte code',
         validity: '2 days left',
         color: '#38BE62',
     },
@@ -50,7 +50,13 @@ const MyAssignments = () => {
             <Grid container spacing={2}>
                 {classes.map((item, index) => (
                     <Grid key={index} item md={4} xs={12}>
-                        <CardInfoView item={item} />
+                        <CardInfoView
+                            path=''
+                            item={item}
+                            isDownload={true}
+                            isSubmit={true}
+                            submitPath='/student/myassignment-details'
+                        />
                     </Grid>
                 ))}
             </Grid>

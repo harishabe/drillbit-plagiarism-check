@@ -21,6 +21,9 @@ const LoginForm = () => {
         } else if (data?.username === 'sagar@drillbit.com' && data?.password === 'sagar123') {
             localStorage.setItem('role', 'student')
             router.push('/student/dashboard')
+        } else if (data?.username === 'super@drillbit.com' && data?.password === 'super123') {
+            localStorage.setItem('role', 'super')
+            router.push('/super/dashboard')
         }
     }
 
