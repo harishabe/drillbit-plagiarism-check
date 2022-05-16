@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CommonTable = ({ tableHeader, tableData, isCheckbox, actionIcon }) => {
+const CommonTable = ({ tableHeader, tableData, isCheckbox, actionIcon, isActionIcon }) => {
   const classes = useStyles()
   return (
     <TableContainer classes={{ root: classes.customTableContainer }}>
@@ -40,9 +40,10 @@ const CommonTable = ({ tableHeader, tableData, isCheckbox, actionIcon }) => {
                 <SubTitle1 title={column.label} />
               </TableCell>
             ))}
-            <TableCell>
-              <SubTitle1 title='Action' />
-            </TableCell>
+            {isActionIcon ?
+              <TableCell>
+                <SubTitle1 title='Action' />
+              </TableCell> : ''}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -63,13 +64,14 @@ const CommonTable = ({ tableHeader, tableData, isCheckbox, actionIcon }) => {
                   </>
                 )
               })}
-              <TableCell>
-                {actionIcon.map((icon) => (
-                  <IconButton>
-                    {icon}
-                  </IconButton>
-                ))}
-              </TableCell>
+              {isActionIcon ?
+                <TableCell>
+                  {actionIcon.map((icon) => (
+                    <IconButton>
+                      {icon}
+                    </IconButton>
+                  ))}
+                </TableCell> : ''}
             </TableRow>
           ))}
         </TableBody>
