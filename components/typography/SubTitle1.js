@@ -3,10 +3,11 @@ import Typography from '@mui/material/Typography'
 import PropTypes from 'prop-types'
 
 const SubTitle1 = ({
-    title
+    title,
+    textColor
 }) => {
     return (
-        <Typography variant="h5" component="div" gutterBottom>
+        <Typography variant="h5" color={textColor} component="div" gutterBottom>
             {title}
         </Typography>
     )
