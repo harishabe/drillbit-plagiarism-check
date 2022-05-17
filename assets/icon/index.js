@@ -17,6 +17,7 @@ export { default as StudentIcon } from './StudentIcon';
 export { default as StudentWhiteIcon } from './StudentWhiteIcon';
 export { default as ToggleBarIcon } from './ToggleBarIcon';
 export { default as MessageIcon } from './MessageIcon';
+export { default as MessageExclamatoryIcon } from './MessageExclamatoryIcon';
 export { default as BellIcon } from './BellIcon';
 export { default as DownArrowIcon } from './DownArrowIcon';
 export { default as SwitchAccountIcon } from './SwitchAccountIcon';
