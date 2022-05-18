@@ -1,14 +1,19 @@
-import React from 'react'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Admin from '../../layouts/Admin'
-import { WidgetCard, ColumnChart, PieChart, CardView, Heading } from '../../components'
+import React from 'react';
+import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Admin from '../../layouts/Admin';
+import {
+    WidgetCard, ColumnChart, PieChart,
+    RadialBarChart, CardView, Heading, SubTitle
+} from '../../components';
 import {
     NoOfClassIcon,
     NoOfSubmission,
-    NoOfAssignmntIcon
-} from '../../assets/icon'
-import TopStudents from '../instructor/dashboard/TopStudents'
+    NoOfAssignmntIcon,
+    NoStudentIcon
+} from '../../assets/icon';
+import TopStudents from '../instructor/dashboard/TopStudents';
 import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
@@ -30,8 +35,27 @@ import {
     PIE_CHART_COLOR,
     PIE_CHART_SERIES,
     PIE_CHART_WIDTH,
-    PIE_CHART_LABEL
-} from './../../constant/data/ChartData'
+    PIE_CHART_LABEL,
+    RADIAL_CHART_TYPE,
+    RADIAL_CHART_COLOR,
+    RADIAL_CHART_LABEL,
+    RADIAL_CHART_SERIES,
+    RADIAL_CHART_HEIGHT
+} from './../../constant/data/ChartData';
+
+const InLineText = styled.span`
+    display: inline-flex;
+`;
+
+const SubTitleMargin = styled.div`
+    margin-top: 4px; 
+    margin-left: 10px;
+`;
+
+const TextAlignRight = styled.div`
+    text-align: right; 
+    margin-top: 5px;
+`
 
 const Dashboard = () => {
     return (
@@ -40,21 +64,21 @@ const Dashboard = () => {
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
-                            title="No of classes"
+                            title="No. of classes"
                             count="6"
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
-                            title="No of classes"
+                            title="No. of students"
                             count="6"
-                            icon={<NoOfAssignmntIcon />}
+                            icon={<NoStudentIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
-                            title="No of classes"
+                            title="No. of submissions"
                             count="6"
                             icon={<NoOfSubmission />}
                         />
@@ -102,19 +126,34 @@ const Dashboard = () => {
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <CardView>
-                            <Heading title='Account Validity' />
-                            <PieChart
-                                type={PIE_CHART_TYPE}
-                                color={PIE_CHART_COLOR}
-                                width={PIE_CHART_WIDTH}
-                                label={PIE_CHART_LABEL}
-                                series={PIE_CHART_SERIES}
+                            <InLineText>
+                                <Heading title='Account Validity' />
+                                <SubTitleMargin>
+                                    <SubTitle title='(In days)' />
+                                </SubTitleMargin>
+                            </InLineText>
+                            <RadialBarChart
+                                type={RADIAL_CHART_TYPE}
+                                color={RADIAL_CHART_COLOR}
+                                height={RADIAL_CHART_HEIGHT}
+                                label={RADIAL_CHART_LABEL}
+                                series={RADIAL_CHART_SERIES}
                             />
+                            <SubTitle title='Renive your account' isLink={true} />
                         </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <CardView>
-                            <Heading title='Trend Analysis' />
+                            <Grid container>
+                                <Grid item md={9} xs={12}>
+                                    <Heading title='Trend Analysis' />
+                                </Grid>
+                                <Grid item md={3} xs={12}>
+                                    <TextAlignRight>
+                                        <SubTitle title='2666' />
+                                    </TextAlignRight>
+                                </Grid>
+                            </Grid>
                             <PieChart
                                 type={PIE_CHART_TYPE}
                                 color={PIE_CHART_COLOR}

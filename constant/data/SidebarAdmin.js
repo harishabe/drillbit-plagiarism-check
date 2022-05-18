@@ -36,7 +36,7 @@ const SidebarAdmin = [
     {
         "icon": <ReportIcon />,
         "activeIcon": <ReportWhiteIcon />,
-        "name": "Repository",
+        "name": "Reports",
         "path": "/reports",
         "layout": "/admin",
     },

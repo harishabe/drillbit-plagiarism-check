@@ -1,0 +1,40 @@
+[
+    {
+        "field_type": "dropdown",
+        "id": "report",
+        "name": "report",
+        "label": "Choose Reports",
+        "required": "Choose Reports",
+        "validationMsg": "Please select report"
+    },
+    {
+        "field_type": "dropdown",
+        "id": "password",
+        "label": "Choose Instructors",
+        "name": "password",
+        "required": "Choose Instructors",
+        "validationMsg": "Please select instructors"
+    },
+    {
+        "field_type": "datepicker",
+        "id": "password",
+        "label": "Choose From Date",
+        "name": "password",
+        "required": "Select from date",
+        "validationMsg": "Please select from date"
+    },
+    {
+        "field_type": "datepicker",
+        "id": "toDate",
+        "label": "Choose To Date",
+        "name": "toDate",
+        "required": "Select to date",
+        "validationMsg": "Please select to date"
+    },
+    {},
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "View & Download"
+    }
+]

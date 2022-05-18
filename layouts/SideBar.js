@@ -112,7 +112,7 @@ const SideBar = ({ open }) => {
             setSidebarItem(SidebarInstructor);
         } else if (role === 'student') {
             setSidebarItem(SidebarStudent);
-        } else if(role === 'super'){
+        } else if (role === 'super') {
             setSidebarItem(SidebarSuperAdmin);
         }
     }, []);
@@ -136,7 +136,7 @@ const SideBar = ({ open }) => {
                                 return (
                                     <Link href={text.layout + text.path} key={key}>
                                         <a>
-                                            <ListItemButton 
+                                            <ListItemButton
                                                 style={{ margin: '10px 15px 0', borderRadius: '4px' }}
                                                 className={whiteFontClasses}
                                                 key={text}

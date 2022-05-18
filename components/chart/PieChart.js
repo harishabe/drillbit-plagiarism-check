@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import dynamic from 'next/dynamic'
-const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false })
+import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const PieChart = ({
     type,
@@ -9,7 +9,7 @@ const PieChart = ({
     label,
     series
 }) => {
-    console.log('seriesseriesseries',series)
+    console.log('seriesseriesseries', series)
     const [chartData, setChartData] = useState({
         series: series,
         options: {
@@ -20,6 +20,9 @@ const PieChart = ({
             legend: {
                 show: true,
                 position: 'bottom',
+                fontSize: '16px',
+                fontFamily:'Montserrat',
+                color:'#f5f5f5'
             },
             labels: label,
             responsive: [{

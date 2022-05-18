@@ -58,5 +58,12 @@ export const COLUMN_ADMIN_ACC_USG_CHART_SERIES_DATA = [
 export const PIE_CHART_TYPE = "donut";
 export const PIE_CHART_COLOR = ['#2B4CB0', '#4795EE'];
 export const PIE_CHART_WIDTH = 386
-export const PIE_CHART_LABEL = ['value 1', 'value 2'];
+export const PIE_CHART_LABEL = ['Similar work', 'Own work'];
 export const PIE_CHART_SERIES = [44, 55];
+
+// radial chart graph for admin dashboard
+export const RADIAL_CHART_TYPE = "radialBar";
+export const RADIAL_CHART_COLOR = ['#4795EE'];
+export const RADIAL_CHART_HEIGHT = 360
+export const RADIAL_CHART_LABEL = ['days remaining'];
+export const RADIAL_CHART_SERIES = [80];

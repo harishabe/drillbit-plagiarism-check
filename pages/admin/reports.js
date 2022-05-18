@@ -1,9 +1,10 @@
-import React from 'react'
-import Admin from './../../layouts/Admin'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import { BreadCrumb, WidgetCard } from './../../components'
-import { DownloadIcon } from '../../assets/icon'
+import React from 'react';
+import Admin from './../../layouts/Admin';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import { BreadCrumb, CardView, WidgetCard, Heading } from './../../components';
+import { DownloadIcon } from '../../assets/icon';
+import ReportForm from './form/ReportForm';
 
 const IntegrationBreadCrumb = [
     {
@@ -27,18 +28,22 @@ const Reports = () => {
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Instructors lists'
-                            //   count='6'
                             icon={<DownloadIcon />}
                         />
                     </Grid>
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Student lists'
-                            //   count='6'
                             icon={<DownloadIcon />}
                         />
                     </Grid>
                 </Grid>
+            </Box>
+            <Box sx={{ mt:3,flexGrow: 1 }}>
+                <CardView>
+                    <Heading title="Reports" />
+                    <ReportForm />
+                </CardView>
             </Box>
         </React.Fragment>
     )
