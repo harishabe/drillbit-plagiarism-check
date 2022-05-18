@@ -1,17 +1,17 @@
-import * as React from 'react';
-import styled from 'styled-components';
+import * as React from 'react'
+import styled from 'styled-components'
 import Link from 'next/link'
-import { useRouter } from 'next/router';
-import { makeStyles } from '@mui/styles';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
-import { Divider } from '@mui/material';
-import { Heading, SubTitle2 } from '../index';
-import { TimerIcon, DownloadFileIcon } from '../../assets/icon';
+import { useRouter } from 'next/router'
+import { makeStyles } from '@mui/styles'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Button from '@mui/material/Button'
+import CardActions from '@mui/material/CardActions'
+import Avatar from '@mui/material/Avatar'
+import { Divider } from '@mui/material'
+import { Heading, SubTitle2 } from '../index'
+import { TimerIcon, DownloadFileIcon } from '../../assets/icon'
 
 const useStyles = makeStyles((theme) => ({
     inline: {
@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
     right: {
         textAlign: 'right'
     }
-}));
+}))
 
 const AlignRight = styled.div`
     text-align:right;
-`;
+`
 
 const StatusColor = styled.div`
     display: inline-flex;
     background: rgba(216, 79, 79, 0.4);
     padding: 5px 5px 0px 5px;
-`;
+`
 
 const CardInfoView = ({
     item,
@@ -42,9 +42,9 @@ const CardInfoView = ({
     isSubmit,
     submitPath
 }) => {
-    const router = useRouter();
+    const router = useRouter()
 
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <React.Fragment>

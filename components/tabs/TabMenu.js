@@ -1,14 +1,14 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@mui/styles';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import CardView from '../card/CardView';
+import * as React from 'react'
+import PropTypes from 'prop-types'
+import { makeStyles } from '@mui/styles'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import CardView from '../card/CardView'
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+    const { children, value, index, ...other } = props
 
     return (
         <div
@@ -24,52 +24,52 @@ function TabPanel(props) {
                 </Box>
             )}
         </div>
-    );
+    )
 }
 
 TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
-};
+}
 
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
         'aria-controls': `simple-tabpanel-${index}`,
-    };
+    }
 };
 
 const useStyles = makeStyles((theme) => ({
     selected: {
         background: '#5181F1',
         color: '#fff !important',
-        borderTopLeftRadius: "25px",
-        borderTopRightRadius: "25px"
+        borderTopLeftRadius: '25px',
+        borderTopRightRadius: '25px'
     },
     selected1: {
         background: 'red',
         color: '#fff !important',
-        borderTopLeftRadius: "25px",
-        borderTopRightRadius: "25px"
+        borderTopLeftRadius: '25px',
+        borderTopRightRadius: '25px'
     },
     marginTop: {
         marginTop: '25px'
     }
-}));
+}))
 
 const TabMenu = ({
     menuButton,
     components
 }) => {
 
-    const classes = useStyles();
+    const classes = useStyles()
 
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(0)
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+        setValue(newValue)
+    }
 
     return (
         <Box className={classes.marginTop} sx={{ width: '100%' }}>
@@ -96,6 +96,6 @@ const TabMenu = ({
                 </TabPanel>
             ))}
         </Box>
-    );
+    )
 }
-export default TabMenu;
+export default TabMenu

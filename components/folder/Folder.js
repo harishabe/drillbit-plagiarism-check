@@ -1,7 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
-import { FolderDataIcon } from '../../assets/icon';
-import { SubTitle1, Title } from '../../components';
+import React from 'react'
+import styled from 'styled-components'
 
 const Container = styled.div`
     position: relative;
@@ -9,19 +7,19 @@ const Container = styled.div`
     background-repeat:no-repeat;
     color: white;
     height:100%;
-`;
+`
 
 const Center = styled.div`
     padding-top:48%;
     padding-left:5%;
-`;
+`
 
 const Wrapper = styled.div`
     background-image: url(${'/img/FolderPng.png'});
     position: relative;
     height:96%;
     width:275px;
-`;
+`
 
 const Folder = () => {
     return (
@@ -32,6 +30,6 @@ const Folder = () => {
             </Center>
         </Container>
     )
-};
+}
 
-export default Folder;
+export default Folder
