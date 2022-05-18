@@ -69,6 +69,7 @@ const Students = () => {
           tableHeader={columns}
           tableData={rows}
           actionIcon={actionIcon}
+          isActionIcon={true}
         />
       </CardView>
     </React.Fragment>
