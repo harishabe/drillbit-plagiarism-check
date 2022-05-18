@@ -1,41 +1,46 @@
-import React from 'react'
-import Instructor from '../../layouts/Instructor'
-import { CardView, CommonTable } from '../../components';
-import { EditIcon, DeleteIcon, RefreshTimerIcon } from '../../assets/icon';
+import React from 'react';
+import Grid from '@mui/material/Grid';
+import Instructor from '../../layouts/Instructor';
+import { BreadCrumb, MainHeading, Folder } from '../../components';
+import { FolderDataIcon, FolderEmptyIcon } from '../../assets/icon';
 
-const columns = [
-  { id: 'id', label: 'Student ID', minWidth: 170 },
-  { id: 'name', label: 'Student Name', minWidth: 170 },
-  { id: 'email', label: 'Email', minWidth: 170 },
-  { id: 'department', label: 'Department', minWidth: 170 },
-  { id: 'section', label: 'Section', minWidth: 170 },
-];
 
-function createData(id, name, email, department, section) {
-  return { id, name, email, department, section };
-}
+const InstructorBreadCrumb = [
+  {
+    name: 'Dashboard',
+    link: '/instructor/dashboard',
+    active: false,
+  },
+  {
+    name: 'My folder',
+    link: '',
+    active: true,
+  },
+]
 
-const rows = [
-  createData(1001, 'Harisha B E', 'harish@drillbit.com', 'CS', 'A'),
-  createData(1001, 'Harisha B E', 'harish@drillbit.com', 'CS', 'A'),
-  createData(1001, 'Harisha B E', 'harish@drillbit.com', 'CS', 'A'),
-  createData(1001, 'Harisha B E', 'harish@drillbit.com', 'CS', 'A')
-];
-
-const actionIcon = [<RefreshTimerIcon />, <EditIcon />, <DeleteIcon />]
+const folderData = ['', '', '', '', '']
 
 const MyFolder = () => {
   return (
-    <>
-      <CardView>
-        <CommonTable
-          isCheckbox={true}
-          tableHeader={columns}
-          tableData={rows}
-          actionIcon={actionIcon}
-        />
-      </CardView>
-    </>
+    <React.Fragment>
+      <BreadCrumb item={InstructorBreadCrumb} />
+      <MainHeading title='My Folder(6)' />
+      {/* <Folder /> */}
+      <Grid container spacing={2}>
+        <Grid item md={3} sm={4} xs={6}>
+          <Folder />
+        </Grid>
+        <Grid item md={3} sm={4} xs={6}>
+          <Folder />
+        </Grid>
+        <Grid item md={3} sm={4} xs={6}>
+          <Folder />
+        </Grid>
+        <Grid item md={3} sm={4} xs={6}>
+          <Folder />
+        </Grid>
+      </Grid>
+    </React.Fragment>
   )
 }
 

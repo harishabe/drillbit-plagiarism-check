@@ -20,3 +20,4 @@ export { default as FormComponent } from './form/FormComponent';
 export { default as PieChart } from './chart/PieChart';
 export { default as ColumnChart } from './chart/ColumnChart';
 export { default as TabMenu } from './tabs/TabMenu';
+export { default as Folder } from './folder/Folder';
