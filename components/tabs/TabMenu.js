@@ -5,7 +5,6 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import CardView from '../card/CardView'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -93,7 +92,8 @@ const TabMenu = ({
             </Box>
             {components.map((component, index) => (
                 <TabPanel value={value} index={index}>
-                    <CardView>{component}</CardView>
+                    {/* <CardView>{component}</CardView> */}
+                    {component}
                 </TabPanel>
             ))}
         </Box>

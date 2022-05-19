@@ -1,9 +1,8 @@
-import React from 'react';
-import { makeStyles } from '@mui/styles';
-import styled from 'styled-components';
-import Link from 'next/link';
-import Typography from '@mui/material/Typography';
-import PropTypes from 'prop-types';
+import React from 'react'
+import { makeStyles } from '@mui/styles'
+import Link from 'next/link'
+import Typography from '@mui/material/Typography'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
     BorderColor: {
@@ -15,7 +14,7 @@ const SubTitle = ({
     title,
     isLink
 }) => {
-    const classes = useStyles();
+    const classes = useStyles()
     return (
         <Typography variant="h4" component="div" gutterBottom>
             {isLink ? <span className={classes.BorderColor}><Link href=''>{title}</Link></span> : title}

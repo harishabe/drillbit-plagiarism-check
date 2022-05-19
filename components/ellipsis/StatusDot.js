@@ -1,5 +1,5 @@
-import React from 'react';
-import { StatusDotIcon } from '../../assets/icon';
+import React from 'react'
+import { StatusDotIcon } from '../../assets/icon'
 
 const StatusDot = ({
     color,
@@ -10,6 +10,6 @@ const StatusDot = ({
             <StatusDotIcon color={color} /> {title}
         </>
     )
-};
+}
 
-export default StatusDot;
+export default StatusDot

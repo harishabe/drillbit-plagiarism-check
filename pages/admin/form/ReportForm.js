@@ -1,9 +1,9 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import Grid from '@mui/material/Grid';
-import { FormComponent } from '../../../components';
-import FormJson from '../../../constant/form/admin-report-form.json';
+import React from 'react'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
+import Grid from '@mui/material/Grid'
+import { FormComponent } from '../../../components'
+import FormJson from '../../../constant/form/admin-report-form.json'
 
 const ReportForm = () => {
     const router = useRouter()

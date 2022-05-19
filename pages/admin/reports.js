@@ -1,10 +1,10 @@
-import React from 'react';
-import Admin from './../../layouts/Admin';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import { BreadCrumb, CardView, WidgetCard, Heading } from './../../components';
-import { DownloadIcon } from '../../assets/icon';
-import ReportForm from './form/ReportForm';
+import React from 'react'
+import Admin from './../../layouts/Admin'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import { BreadCrumb, CardView, WidgetCard, Heading } from './../../components'
+import { DownloadIcon } from '../../assets/icon'
+import ReportForm from './form/ReportForm'
 
 const IntegrationBreadCrumb = [
     {

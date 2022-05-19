@@ -1,19 +1,19 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { makeStyles } from '@mui/styles';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
-import { Divider } from '@mui/material';
-import { Heading, SubTitle2 } from '../index';
-import { TimerIcon, DownloadFileIcon } from '../../assets/icon';
-import SubTitle1 from '../typography/SubTitle1';
-import Switch from '@mui/material/Switch';
+import * as React from 'react'
+import styled from 'styled-components'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { makeStyles } from '@mui/styles'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Button from '@mui/material/Button'
+import CardActions from '@mui/material/CardActions'
+import Avatar from '@mui/material/Avatar'
+import { Divider } from '@mui/material'
+import { Heading, SubTitle2 } from '../index'
+import { TimerIcon, DownloadFileIcon } from '../../assets/icon'
+import SubTitle1 from '../typography/SubTitle1'
+import Switch from '@mui/material/Switch'
 
 const useStyles = makeStyles((theme) => ({
     inline: {
@@ -54,9 +54,9 @@ const CardInfoView = ({
     isHeading,
     isImage
 }) => {
-    const router = useRouter();
+    const router = useRouter()
 
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <React.Fragment>

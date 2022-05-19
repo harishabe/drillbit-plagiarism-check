@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
-const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
+import React, { useState } from 'react'
+import dynamic from 'next/dynamic'
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const RadialBarChart = ({
     type,
@@ -86,10 +86,10 @@ const RadialBarChart = ({
             },
             labels: label
         }
-    });
+    })
     return (
         <ApexCharts options={chartData.options} series={chartData.series} type={type} height={height} />
     )
-};
+}
 
-export default RadialBarChart;
+export default RadialBarChart

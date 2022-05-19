@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
-const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
+import React, { useState } from 'react'
+import dynamic from 'next/dynamic'
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const PieChart = ({
     type,
