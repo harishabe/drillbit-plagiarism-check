@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 const TabMenu = ({
     menuButton,
     components,
-    isCardView
+    isTabMenu
 }) => {
 
     const classes = useStyles()
@@ -83,7 +83,7 @@ const TabMenu = ({
                     {menuButton.map((item, index) => (
                         <Tab
                             classes={{
-                                selected: classes.selected,
+                                selected: isTabMenu === true ? classes.selected : '',
                             }}
                             label={item.label}
                             {...a11yProps(index)}

@@ -34,7 +34,7 @@ const MyClasses = () => {
     return (
         <React.Fragment>
             <BreadCrumb item={InstructorBreadCrumb} />
-            <TabMenu menuButton={tabMenu} components={componentList} isCardView={true} />
+            <TabMenu menuButton={tabMenu} components={componentList} isTabMenu={false} />
         </React.Fragment>
     )
 }
