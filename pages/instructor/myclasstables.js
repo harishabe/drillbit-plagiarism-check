@@ -2,23 +2,43 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { TextField } from '@mui/material';
-import { BreadCrumb, MainHeading } from './../../components';
+
 import Instructor from '../../layouts/Instructor';
+import { BreadCrumb, TabMenu } from '../../components';
+
+import Assignments from './assignments';
+import Students from './students';
 
 const InstructorBreadCrumb = [
   {
     name: 'Dashboard',
-    link: '/admin/dashboard',
+    link: '/instructor/dashboard',
     active: false,
   },
   {
-    name: 'Document Comparision',
-    link: '',
+    name: 'My classes',
+    link: '/instructor/myclasses',
+    active: false,
+  },
+  {
+    name: 'Java',
+    link: '/instructor/myclasstables',
     active: true,
   },
 ];
 
-const Comparedoc = () => {
+const tabMenu = [
+  {
+    label: 'Students(23)',
+  },
+  {
+    label: 'Assignments(27)',
+  },
+];
+
+const componentList = [<Students />, <Assignments />];
+
+const MyClassesTables = () => {
   return (
     <React.Fragment>
       <Box sx={{ flexGrow: 1 }}>
@@ -39,13 +59,11 @@ const Comparedoc = () => {
           </Grid>
         </Grid>
       </Box>
-      <Grid item md={10}>
-        <MainHeading title='Compare Doc' />
-      </Grid>
+      <TabMenu menuButton={tabMenu} components={componentList} />
     </React.Fragment>
   );
 };
 
-Comparedoc.layout = Instructor;
+MyClassesTables.layout = Instructor;
 
-export default Comparedoc;
+export default MyClassesTables;

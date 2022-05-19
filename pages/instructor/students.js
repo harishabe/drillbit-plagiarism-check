@@ -1,16 +1,6 @@
 import React from 'react';
-import Admin from '../../layouts/Admin';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
-import { BreadCrumb } from './../../components';
-import {
-  CardView,
-  CommonTable,
-  MainHeading,
-  SubTitle,
-  AvatarName,
-} from '../../components';
+import Instructor from '../../layouts/Instructor';
+import { CardView, CommonTable, AvatarName } from '../../components';
 import { EditIcon, DeleteIcon, LockIcon, InfoIcon } from '../../assets/icon';
 
 const columns = [
@@ -59,64 +49,29 @@ const rows = [
     'A',
     [<EditIcon />, <DeleteIcon />, <LockIcon />]
   ),
+  createData(
+    <AvatarName title='S101' color='#5E47EE' />,
+    'Harisha B E',
+    'harish@drillbit.com',
+    'CS',
+    'A',
+    [<EditIcon />, <DeleteIcon />, <LockIcon />]
+  ),
+  createData(
+    <AvatarName title='S101' color='#EE4747' />,
+    'Harisha B E',
+    'harish@drillbit.com',
+    'CS',
+    'A',
+    [<EditIcon />, <DeleteIcon />, <LockIcon />]
+  ),
 ];
 
 const actionIcon = [<EditIcon />, <DeleteIcon />, <LockIcon />];
 
-const IntegrationBreadCrumb = [
-  {
-    name: 'Dashboard',
-    link: '/admin/dashboard',
-    active: false,
-  },
-  {
-    name: 'Students',
-    link: '',
-    active: true,
-  },
-];
-
 const Students = () => {
   return (
     <React.Fragment>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={10} xs={10}>
-            <BreadCrumb item={IntegrationBreadCrumb} />
-          </Grid>
-          <Grid item md={2} xs={2}>
-            <TextField
-              placeholder='Search'
-              inputProps={{
-                style: {
-                  padding: 5,
-                  display: 'inline-flex',
-                },
-              }}
-            />
-          </Grid>
-        </Grid>
-      </Box>
-
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={10} xs={12}>
-            <MainHeading title='My Students(6)' />
-          </Grid>
-          <Grid
-            item
-            md={2}
-            xs={12}
-            container
-            direction='row'
-            justifyContent={'right'}
-          >
-            <SubTitle title='6/10 users &nbsp;' />
-            <InfoIcon />
-          </Grid>
-        </Grid>
-      </Box>
-
       <CardView>
         <CommonTable
           isCheckbox={true}
@@ -130,6 +85,6 @@ const Students = () => {
   );
 };
 
-Students.layout = Admin;
+Students.layout = Instructor;
 
 export default Students;
