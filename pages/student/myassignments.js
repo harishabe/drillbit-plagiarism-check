@@ -55,6 +55,9 @@ const MyAssignments = () => {
                             item={item}
                             isDownload={true}
                             isSubmit={true}
+                            isHeading={true}
+                            isAvatar={true}
+                            isTimer={true}
                             submitPath='/student/myassignment-details'
                         />
                     </Grid>

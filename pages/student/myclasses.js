@@ -71,6 +71,9 @@ const MyClasses = () => {
                     <Grid key={index} item md={4} xs={12}>
                         <CardInfoView 
                             item={item}
+                            isTimer={true}
+                            isHeading={true}
+                            isAvatar={true}
                             path="/student/myassignments"
                         />
                     </Grid>

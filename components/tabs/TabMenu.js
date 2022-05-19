@@ -60,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
 
 const TabMenu = ({
     menuButton,
-    components
+    components,
+    isCardView
 }) => {
 
     const classes = useStyles()

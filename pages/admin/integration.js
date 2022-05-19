@@ -19,45 +19,45 @@ const IntegrationBreadCrumb = [
 const classes = [
     {
         name: 'Java',
-        description: 'Our team is here round the clock to help',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
         validity: '2 days left',
         color: '#38BE62',
+        img:'/img/lms/quicklr.svg'
     },
     {
         name: 'Machine Learning',
-        description: 'Our team is here round the clock to help',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
         validity: '2 days left',
         color: '#F1A045',
+        img:'/img/lms/moodle.svg'
     },
     {
         name: 'Data Science',
-        description: 'Our team is here round the clock to help',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
         validity: '2 days left',
         color: '#8D34FF',
+        img:'/img/lms/blackboard.svg'
     },
     {
         name: 'Data Management',
-        description: 'Our team is here round the clock to help',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
         validity: '2 days left',
         color: '#B94D34',
+        img:'/img/lms/google-classroom.svg'
     },
     {
         name: 'Data Management',
-        description: 'Our team is here round the clock to help',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
         validity: '2 days left',
         color: '#666AF6',
+        img:'/img/lms/canvas.svg'
     },
     {
         name: 'Data Management',
-        description: 'Our team is here round the clock to help',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
         validity: '2 days left',
         color: '#E9596F',
-    },
-    {
-        name: 'Mathematics',
-        description: 'Our team is here round the clock to help',
-        validity: '2 days left',
-        color: '#8D34FF',
+        img:'/img/lms/langquil.svg'
     },
 ]
 
@@ -69,7 +69,15 @@ const Integration = () => {
             <Grid container spacing={2}>
                 {classes.map((item, index) => (
                     <Grid key={index} item md={4} xs={12}>
-                        <CardInfoView item={item} />
+                        <CardInfoView
+                            item={item}
+                            isTimer={false}
+                            isKnowMore={true}
+                            isConfig={true}
+                            isAvatar={false}
+                            isImage={true}
+                            path=''
+                        />
                     </Grid>
                 ))}
             </Grid>

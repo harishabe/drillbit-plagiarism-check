@@ -54,7 +54,12 @@ const MyClassFiles = () => {
             <Grid container spacing={2}>
                 {classes.map((item, index) => (
                     <Grid key={index} item md={4} xs={12}>
-                        <CardInfoView item={item} />
+                        <CardInfoView 
+                            item={item} 
+                            isAvatar={true}
+                            isHeading={true}
+                            isTimer={true}
+                        />
                     </Grid>
                 ))}
             </Grid>

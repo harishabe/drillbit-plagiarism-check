@@ -1,17 +1,19 @@
-import * as React from 'react'
-import styled from 'styled-components'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { makeStyles } from '@mui/styles'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Button from '@mui/material/Button'
-import CardActions from '@mui/material/CardActions'
-import Avatar from '@mui/material/Avatar'
-import { Divider } from '@mui/material'
-import { Heading, SubTitle2 } from '../index'
-import { TimerIcon, DownloadFileIcon } from '../../assets/icon'
+import * as React from 'react';
+import styled from 'styled-components';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { makeStyles } from '@mui/styles';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
+import Avatar from '@mui/material/Avatar';
+import { Divider } from '@mui/material';
+import { Heading, SubTitle2 } from '../index';
+import { TimerIcon, DownloadFileIcon } from '../../assets/icon';
+import SubTitle1 from '../typography/SubTitle1';
+import Switch from '@mui/material/Switch';
 
 const useStyles = makeStyles((theme) => ({
     inline: {
@@ -22,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
     },
     right: {
         textAlign: 'right'
+    },
+    img: {
+        width: '25%',
+        marginBottom: '10px'
     }
 }))
 
@@ -40,7 +46,13 @@ const CardInfoView = ({
     path,
     isDownload,
     isSubmit,
-    submitPath
+    submitPath,
+    isTimer,
+    isKnowMore,
+    isConfig,
+    isAvatar,
+    isHeading,
+    isImage
 }) => {
     const router = useRouter()
 
@@ -54,16 +66,21 @@ const CardInfoView = ({
                         <AlignRight>
                             <DownloadFileIcon />
                         </AlignRight> : ''}
-                    <Avatar
-                        sx={{ bgcolor: item.color, width: 50, height: 50, fontSize: '15px' }}
-                        variant="circle"
-                        className={classes.margin}
-                    >
-                        {item.name.split(' ').map(item => item.toUpperCase().substring(0, 1)).join('')}
-                    </Avatar>
-                    <Heading
-                        title={item.name}
-                    />
+                    {isAvatar ?
+                        <Avatar
+                            sx={{ bgcolor: item.color, width: 50, height: 50, fontSize: '15px' }}
+                            variant="circle"
+                            className={classes.margin}
+                        >
+                            {item.name.split(' ').map(item => item.toUpperCase().substring(0, 1)).join('')}
+                        </Avatar> : ''}
+                    {isImage ?
+                        <img style={{marginBottom:'15px'}} src={item.img} alt={item.name} /> : ''}
+
+                    {isHeading ?
+                        <Heading
+                            title={item.name}
+                        /> : ''}
                     <SubTitle2
                         title={item.description}
                     />
@@ -71,17 +88,21 @@ const CardInfoView = ({
                 <Divider />
                 <CardActions style={{ padding: '18px' }}>
                     <Grid container>
-                        <Grid item md={9} xs={9} >
-                            <StatusColor>
-                                <TimerIcon />
-                                <SubTitle2
-                                    title={item.validity}
-                                    ml="10px"
-                                />
-                            </StatusColor>
+                        <Grid item md={9} xs={9}>
+                            {isTimer ?
+                                <StatusColor>
+                                    <TimerIcon />
+                                    <SubTitle2
+                                        title={item.validity}
+                                        ml="10px"
+                                    />
+                                </StatusColor> : ''}
+                            {isKnowMore ?
+                                <SubTitle1 textColor="primary" title="Know More" /> : ''}
                         </Grid>
-                        {isSubmit ?
-                            <Grid className={classes.right} item md={3} xs={3}>
+
+                        <Grid className={classes.right} item md={3} xs={3}>
+                            {isSubmit ?
                                 <Link href={submitPath}>
                                     <Button
                                         variant="contained"
@@ -89,8 +110,9 @@ const CardInfoView = ({
                                         Submit
                                     </Button>
                                 </Link>
-                            </Grid> :
-                            ''}
+                                : ''}
+                            {isConfig ? <Switch defaultChecked /> : ''}
+                        </Grid>
                     </Grid>
                 </CardActions>
             </Card>
