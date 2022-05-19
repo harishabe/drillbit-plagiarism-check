@@ -40,3 +40,4 @@ export { default as DownloadFileIcon } from './DownloadFileIcon';
 export { default as FolderEmptyIcon } from './FolderEmptyIcon';
 export { default as FolderDataIcon } from './FolderDataIcon';
 export { default as DownloadIcon } from './DownloadIcon';
+export { default as StatusDotIcon } from './StatusDotIcon';

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const CommonTable = ({ tableHeader, tableData, isCheckbox, actionIcon, isActionIcon }) => {
+const CommonTable = ({ tableHeader, tableData, isCheckbox }) => {
     const classes = useStyles()
     return (
         <TableContainer classes={{ root: classes.customTableContainer }}>
@@ -38,10 +38,6 @@ const CommonTable = ({ tableHeader, tableData, isCheckbox, actionIcon, isActionI
                                 <SubTitle1 title={column.label} />
                             </TableCell>
                         ))}
-                        {isActionIcon ?
-                            <TableCell>
-                                <SubTitle1 title='Action' />
-                            </TableCell> : ''}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -56,20 +52,16 @@ const CommonTable = ({ tableHeader, tableData, isCheckbox, actionIcon, isActionI
                                 const value = row[column.id]
                                 return (
                                     <>
-                                        <TableCell key={column.id} align={column.align}>
-                                            <SubTitle title={value} />
-                                        </TableCell>
+                                        {
+                                            column.id === 'action' ?
+                                                <TableCell>{value.map((icon) => (<IconButton>{icon}</IconButton>))}</TableCell> :
+                                                <TableCell key={column.id} align={column.align}>
+                                                    <SubTitle title={value} />
+                                                </TableCell>
+                                        }
                                     </>
                                 )
                             })}
-                            {isActionIcon ?
-                                <TableCell>
-                                    {actionIcon.map((icon) => (
-                                        <IconButton>
-                                            {icon}
-                                        </IconButton>
-                                    ))}
-                                </TableCell> : ''}
                         </TableRow>
                     ))}
                 </TableBody>

@@ -22,3 +22,5 @@ export { default as ColumnChart } from './chart/ColumnChart';
 export { default as RadialBarChart } from './chart/RadialBarChart';
 export { default as TabMenu } from './tabs/TabMenu';
 export { default as Folder } from './folder/Folder';
+export { default as StatusDot } from './ellipsis/StatusDot';
+export { default as AvatarName } from './ellipsis/AvatarName';
