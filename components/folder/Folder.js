@@ -1,5 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
     position: relative;
@@ -22,8 +23,9 @@ const Wrapper = styled.div`
 `
 
 const Folder = () => {
+    const router = useRouter()
     return (
-        <Container>
+        <Container onClick={(e) => router.push(path)}>
             <Center>
                 <div>XYZ</div>
                 <div style={{marginBottom:'10px'}}>Empty folder</div>

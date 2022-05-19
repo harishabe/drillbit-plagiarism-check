@@ -27,7 +27,7 @@ const MyFolder = () => {
             {/* <Folder /> */}
             <Grid container spacing={2}>
                 <Grid item md={3} sm={4} xs={6}>
-                    <Folder />
+                    <Folder path="/student/myassignments" />
                 </Grid>
                 <Grid item md={3} sm={4} xs={6}>
                     <Folder />

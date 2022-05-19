@@ -54,9 +54,9 @@ const CardInfoView = ({
     isHeading,
     isImage
 }) => {
-    const router = useRouter()
+    const router = useRouter();
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <React.Fragment>
