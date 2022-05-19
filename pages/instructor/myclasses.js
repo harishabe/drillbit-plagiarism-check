@@ -54,7 +54,11 @@ const MyClasses = () => {
           </Grid>
         </Grid>
       </Box>
-      <TabMenu menuButton={tabMenu} components={componentList} isTabMenu={false} />
+      <TabMenu
+        menuButton={tabMenu}
+        components={componentList}
+        isTabMenu={false}
+      />
     </React.Fragment>
   );
 };
