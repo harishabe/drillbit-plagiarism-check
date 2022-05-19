@@ -1,8 +1,9 @@
-import React from 'react'
-import Grid from '@mui/material/Grid'
-import Instructor from '../../layouts/Instructor'
-import { BreadCrumb, MainHeading, Folder } from '../../components'
-
+import React from 'react';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
+import Instructor from '../../layouts/Instructor';
+import { BreadCrumb, MainHeading, Folder } from '../../components';
 
 const InstructorBreadCrumb = [
     {
@@ -15,16 +16,30 @@ const InstructorBreadCrumb = [
         link: '',
         active: true,
     },
-]
-
-const folderData = ['', '', '', '', '']
+];
 
 const MyFolder = () => {
     return (
         <React.Fragment>
-            <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
+                        <BreadCrumb item={InstructorBreadCrumb} />
+                    </Grid>
+                    <Grid item md={2} xs={2}>
+                        <TextField
+                            placeholder='Search'
+                            inputProps={{
+                                style: {
+                                    padding: 5,
+                                    display: 'inline-flex',
+                                },
+                            }}
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
             <MainHeading title='My Folder(6)' />
-            {/* <Folder /> */}
             <Grid container spacing={2}>
                 <Grid item md={3} sm={4} xs={6}>
                     <Folder path="/student/myassignments" />
@@ -40,9 +55,9 @@ const MyFolder = () => {
                 </Grid>
             </Grid>
         </React.Fragment>
-    )
-}
+    );
+};
 
-MyFolder.layout = Instructor
+MyFolder.layout = Instructor;
 
-export default MyFolder
+export default MyFolder;
