@@ -75,7 +75,7 @@ const Dashboard = () => {
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
-                            title='No. of students'
+                            title='No. of studentss'
                             count='6'
                             icon={<NoStudentIcon />}
                         />
