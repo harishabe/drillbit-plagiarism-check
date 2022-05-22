@@ -1,14 +1,15 @@
-import * as React from 'react'
-import { makeStyles } from '@mui/styles'
-import Checkbox from '@mui/material/Checkbox'
-import Table from '@mui/material/Table'
-import TableHead from '@mui/material/TableHead'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableRow from '@mui/material/TableRow'
-import { SubTitle, SubTitle1 } from '../index'
-import { IconButton } from '@mui/material'
+import * as React from 'react';
+import { makeStyles } from '@mui/styles';
+import { useRouter } from 'next/router';
+import Checkbox from '@mui/material/Checkbox';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
+import { SubTitle, SubTitle1 } from '../index';
+import { IconButton } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
@@ -19,8 +20,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const CommonTable = ({ tableHeader, tableData, isCheckbox }) => {
-    const classes = useStyles()
+const CommonTable = ({ tableHeader, tableData, isCheckbox, path }) => {
+    const router = useRouter();
+    const classes = useStyles();
     return (
         <TableContainer classes={{ root: classes.customTableContainer }}>
             <Table stickyHeader>
@@ -42,7 +44,7 @@ const CommonTable = ({ tableHeader, tableData, isCheckbox }) => {
                 </TableHead>
                 <TableBody>
                     {tableData.map((row) => (
-                        <TableRow hover key={row.id}>
+                        <TableRow hover key={row.id} onClick={(e) => router.push(path)}>
                             {isCheckbox ?
                                 <TableCell padding="checkbox" className={classes.padding}>
                                     <Checkbox />

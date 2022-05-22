@@ -74,6 +74,7 @@ const Assignments = () => {
             tableData={rows}
             actionIcon={actionIcon}
             isActionIcon={true}
+            path='/instructor/mysubmissions'
           />
         </Link>
       </CardView>
