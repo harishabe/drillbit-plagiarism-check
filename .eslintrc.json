@@ -32,12 +32,14 @@
       "single"
     ],
     "semi": [
-      "error",
-      "never"
+      2,
+      "always"
     ],
     "react/prop-types": [
       0
     ]
   },
-  "plugins": ["unused-imports"]
+  "plugins": [
+    "unused-imports"
+  ]
 }
