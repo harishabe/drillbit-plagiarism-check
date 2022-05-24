@@ -6,6 +6,9 @@ import { ThemeProvider } from '@mui/material/styles'
 //import { ThemeProvider } from "@mui/styles";
 import theme from '../src/theme'
 
+import { Provider } from 'react-redux';
+import store from '../redux/store';
+
 export default function MyApp(props) {
     const { Component, pageProps } = props
     const Layout = Component.layout || (({ children }) => <>{children}</>)
@@ -16,9 +19,11 @@ export default function MyApp(props) {
             </Head>
             <ThemeProvider theme={theme}>
                 {/* <CssBaseline /> */}
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
+                <Provider store={store}>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </Provider>
             </ThemeProvider>
         </React.Fragment>
     )
