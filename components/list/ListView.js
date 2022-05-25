@@ -30,7 +30,7 @@ const ListView = ({
         <List>
             {listData.map((item, index) => (
                 <>
-                    <ListItem key={index} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+                    <ListItem key={item.name} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
                         <ListItemAvatar style={{ marginRight: '5px' }}>
                             <Avatar
                                 sx={{ width: 50, height: 50, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>

@@ -1,29 +1,11 @@
-import { takeLatest, all, put, fork, call, select } from 'redux-saga/effects';
-import * as types from '../action/ActionType';
-import {
-    login
-} from '../api/index';
+import { all, fork } from 'redux-saga/effects';
 
-/**
- * User Login
- * @param {*} action 
- */
-
-export function* onLoadLogin(action) {
-    try {
-        const response = yield call(login, action.query);
-        yield put({ type: types.FETCH_LOGIN_SUCCESS, payload: response });
-    } catch (error) {
-        yield put({ type: types.FETCH_LOGIN_FAIL, payload: error });
-    }
-}
-
-export function* userLogin() {
-    yield takeLatest(types.FETCH_LOGIN_START, onLoadLogin);
-}
+import { userLogin } from './login/Login';
+import { DashboardWidget } from './admin/Dashboard';
 
 const saga = [
     fork(userLogin),
+    fork(DashboardWidget)
 ]
 
 export default function* rootSaga() {

@@ -1,37 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../components';
 import FormJson from '../../constant/form/login-form.json';
+import { Role } from '../../constant/data';
 
 import { login } from '../../redux/action/login/LoginAction';
 
 const LoginForm = ({
     login,
+    loginState
 }) => {
     const router = useRouter();
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
-    })
+    });
 
     const onSubmit = (data) => {
         login(data);
-        // if (data?.username === 'harish@drillbit.com' && data?.password === 'harish123') {
-        //     localStorage.setItem('role', 'admin')
-        //     router.push('/admin/dashboard')
-        // } else if (data?.username === 'jayanna@drillbit.com' && data?.password === 'jayanna123') {
-        //     localStorage.setItem('role', 'instructor')
-        //     router.push('/instructor/dashboard')
-        // } else if (data?.username === 'sagar@drillbit.com' && data?.password === 'sagar123') {
-        //     localStorage.setItem('role', 'student')
-        //     router.push('/student/dashboard')
-        // } else if (data?.username === 'super@drillbit.com' && data?.password === 'super123') {
-        //     localStorage.setItem('role', 'super')
-        //     router.push('/super/dashboard')
-        // }
     }
+
+    useEffect(() => {
+        if (loginState?.role === Role.admin) {
+            localStorage.setItem('role', Role.admin);
+            localStorage.setItem('token', loginState?.token);
+            router.push('/admin/dashboard');
+        } else if (loginState?.role === Role.instructor) {
+            localStorage.setItem('role', Role.instructor);
+            localStorage.setItem('token', loginState?.token);
+            router.push('/instructor/dashboard')
+        } else if (loginState?.role === Role.student) {
+            localStorage.setItem('role', Role.student);
+            localStorage.setItem('token', loginState?.token);   
+            router.push('/student/dashboard');
+        }
+    }, [loginState]);
 
     return (
         <>
@@ -52,7 +57,7 @@ const LoginForm = ({
 
 
 const mapStateToProps = (state) => ({
-    loginState: state,
+    loginState: state?.login?.data,
 })
 
 const mapDispatchToProps = (dispatch) => {

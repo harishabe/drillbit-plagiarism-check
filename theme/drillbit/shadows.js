@@ -1,6 +1,3 @@
-const shadows = [
-    'none',
-    '0px 0px 86px rgb(191 191 191 / 25%)'
-];
+const shadows = Array(25).fill('none')
 
 export default shadows;

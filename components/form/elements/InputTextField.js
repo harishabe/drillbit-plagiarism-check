@@ -35,7 +35,7 @@ const InputTextField = ({
             setRegex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
         }
         if (field.type === 'password') {
-            setRegex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+            setRegex(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g)
         }
     }, [field])
 
