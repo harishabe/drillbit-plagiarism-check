@@ -1,5 +1,6 @@
 const END_POINTS = {
-    'LOGIN': '/authentication/authenticate'
+    'LOGIN': '/authentication/authenticate',
+    'ADMIN_DASHBOARD_WIDGET':'/extreme/admin/dashboard'
 };
 
 export default END_POINTS;

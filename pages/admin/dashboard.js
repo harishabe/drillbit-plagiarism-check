@@ -1,8 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Admin from '../../layouts/Admin'
+import React, { useEffect } from 'react';
+import { connect } from "react-redux";
+import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Admin from '../../layouts/Admin';
+import { GetWidgetCount } from '../../redux/action/admin/AdminAction';
 import {
     WidgetCard,
     ColumnChart,
@@ -11,13 +13,13 @@ import {
     CardView,
     Heading,
     SubTitle,
-} from '../../components'
+} from '../../components';
 import {
     NoOfClassIcon,
     NoOfSubmission,
     NoStudentIcon,
-} from '../../assets/icon'
-import TopStudents from '../instructor/dashboard/TopStudents'
+} from '../../assets/icon';
+import TopStudents from '../instructor/dashboard/TopStudents';
 import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
@@ -45,7 +47,7 @@ import {
     RADIAL_CHART_LABEL,
     RADIAL_CHART_SERIES,
     RADIAL_CHART_HEIGHT,
-} from './../../constant/data/ChartData'
+} from './../../constant/data/ChartData';
 
 const InLineText = styled.span`
   display: inline-flex;
@@ -61,7 +63,14 @@ const TextAlignRight = styled.div`
   margin-top: 5px;
 `
 
-const Dashboard = () => {
+const Dashboard = ({
+    GetWidgetCount
+}) => {
+
+    useEffect(() => {
+        GetWidgetCount();
+    }, []);
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -173,6 +182,18 @@ const Dashboard = () => {
     )
 }
 
+
+const mapStateToProps = (state) => ({
+    loginState: state,
+})
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetWidgetCount: () => dispatch(GetWidgetCount())
+    }
+}
+
 Dashboard.layout = Admin
 
-export default Dashboard
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+
