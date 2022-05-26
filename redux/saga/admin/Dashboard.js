@@ -13,8 +13,8 @@ import toastrValidation from '../../../utils/ToastrValidation';
  * @param {*} action
  */
 
-export function* onLoadDashboardWidget(action) {
-    const { response, error } = yield call(GetWidgetData, action.query);
+export function* onLoadDashboardWidget() {
+    const { response, error } = yield call(GetWidgetData);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_DASH_WIDGET_SUCCESS, payload: response?.data });
     } else {

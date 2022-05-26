@@ -1,5 +1,14 @@
 import axois from 'axios';
 import BASE_URL from '../../utils/BaseUrl';
+import END_POINTS from '../../utils/EndPoints';
+
+const header = () => {
+    return {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        'authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+}
 
 /**
  * API METHOD - POST
@@ -17,8 +26,11 @@ export const PostMethod = async (url, query) => {
  * @param {*} url
  */
 
-export const GetMethod = async (url) => {
-    return await axois.get(BASE_URL + url)
+export const GetMethod = async () => {
+    const Apiurl = BASE_URL + END_POINTS.ADMIN_DASHBOARD_WIDGET;;
+    return await axois.get(Apiurl, {
+        headers: header()
+    })
         .then(response => ({ response }))
         .catch(error => ({ error }))
 };

@@ -64,7 +64,8 @@ const TextAlignRight = styled.div`
 `
 
 const Dashboard = ({
-    GetWidgetCount
+    GetWidgetCount,
+    widgetData
 }) => {
 
     useEffect(() => {
@@ -78,21 +79,21 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of instructors'
-                            count='6'
+                            count={widgetData?.no_of_instructors}
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of studentss'
-                            count='6'
+                            count={widgetData?.no_of_students}
                             icon={<NoStudentIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of submissions'
-                            count='6'
+                            count={widgetData?.no_of_submissions}
                             icon={<NoOfSubmission />}
                         />
                     </Grid>
@@ -184,7 +185,7 @@ const Dashboard = ({
 
 
 const mapStateToProps = (state) => ({
-    loginState: state,
+    widgetData: state?.adminDashboard?.data,
 })
 
 const mapDispatchToProps = (dispatch) => {
