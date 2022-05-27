@@ -12,24 +12,24 @@ import toastrValidation from '../../../utils/ToastrValidation';
  */
 
 export function* onLoadDashboardWidget(action) {
-  const { response, error } = yield call(GetWidgetData, action.query);
-  if (response) {
-    yield put({
-      type: types.FETCH_INSTRUCTOR_DASH_WIDGET_SUCCESS,
-      payload: response?.data,
-    });
-  } else {
-    yield put({
-      type: types.FETCH_INSTRUCTOR_DASH_WIDGET_FAIL,
-      payload: error,
-    });
-    toastrValidation(error);
-  }
+    const { response, error } = yield call(GetWidgetData, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DASH_WIDGET_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DASH_WIDGET_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
 }
 
 export function* InsDashboardWidget() {
-  yield takeLatest(
-    types.FETCH_INSTRUCTOR_DASH_WIDGET_START,
-    onLoadDashboardWidget
-  );
+    yield takeLatest(
+        types.FETCH_INSTRUCTOR_DASH_WIDGET_START,
+        onLoadDashboardWidget
+    );
 }

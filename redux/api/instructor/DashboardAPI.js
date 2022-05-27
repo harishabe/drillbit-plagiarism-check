@@ -6,6 +6,6 @@ import { GetMethod } from './../ApiMethod';
  */
 
 export const GetWidgetData = () => {
-  const url = END_POINTS.INSTRUCTOR_DASHBOARD_WIDGET;
-  return GetMethod(url);
+    const url = END_POINTS.INSTRUCTOR_DASHBOARD_WIDGET;
+    return GetMethod(url);
 };
