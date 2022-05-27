@@ -66,4 +66,4 @@ export const RADIAL_CHART_TYPE = "radialBar";
 export const RADIAL_CHART_COLOR = ['#4795EE'];
 export const RADIAL_CHART_HEIGHT = 360
 export const RADIAL_CHART_LABEL = ['days remaining'];
-export const RADIAL_CHART_SERIES = [80];
+export const RADIAL_CHART_SERIES = [90];
