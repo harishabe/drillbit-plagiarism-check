@@ -1,7 +1,9 @@
-import React from 'react'
-import Grid from '@mui/material/Grid'
-import Instructor from '../../layouts/Instructor'
-import { CardInfoView } from '../../components'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import Grid from '@mui/material/Grid';
+import Instructor from '../../layouts/Instructor';
+import { CardInfoView } from '../../components';
+import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
 
 const classes = [
     {
@@ -46,16 +48,19 @@ const classes = [
         validity: '2 days left',
         color: '#8D34FF',
     },
-]
+];
 
-const MyClassFiles = () => {
+const MyClassFiles = ({ GetClassesData, classesData }) => {
+    useEffect(() => {
+        GetClassesData();
+    }, []);
     return (
         <React.Fragment>
             <Grid container spacing={2}>
-                {classes.map((item, index) => (
+                {classesData?.map((item, index) => (
                     <Grid key={index} item md={4} xs={12}>
-                        <CardInfoView 
-                            item={item} 
+                        <CardInfoView
+                            item={item}
                             isAvatar={true}
                             isHeading={true}
                             isTimer={true}
@@ -65,9 +70,19 @@ const MyClassFiles = () => {
                 ))}
             </Grid>
         </React.Fragment>
-    )
-}
+    );
+};
 
-MyClassFiles.layout = Instructor
+const mapStateToProps = (state) => ({
+    classesData: state?.instructorClasses?.classesData?.classesDTO,
+});
 
-export default MyClassFiles
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetClassesData: () => dispatch(GetClassesData()),
+    };
+};
+
+MyClassFiles.layout = Instructor;
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyClassFiles);
