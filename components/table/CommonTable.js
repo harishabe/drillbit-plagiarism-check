@@ -8,7 +8,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import { SubTitle, SubTitle1 } from '../index';
+import { SubTitle, SubTitle1, EllipsisText } from '../index';
 import { IconButton } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const CommonTable = ({ tableHeader, tableData, isCheckbox, path }) => {
+const CommonTable = ({ tableHeader, tableData, isCheckbox, path, charLength }) => {
     const router = useRouter();
     const classes = useStyles();
     return (
@@ -51,14 +51,14 @@ const CommonTable = ({ tableHeader, tableData, isCheckbox, path }) => {
                                 </TableCell> : ''}
 
                             {tableHeader.map((column) => {
-                                const value = row[column.id]
+                                const value = row[column.id];
                                 return (
                                     <>
                                         {
                                             column.id === 'action' ?
                                                 <TableCell>{value.map((icon) => (<IconButton>{icon}</IconButton>))}</TableCell> :
                                                 <TableCell key={column.id} align={column.align}>
-                                                    <SubTitle title={value} />
+                                                    {typeof (value) === 'string' ? <EllipsisText value={value} charLength={charLength} /> : <SubTitle title={value} />}
                                                 </TableCell>
                                         }
                                     </>

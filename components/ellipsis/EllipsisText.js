@@ -18,12 +18,10 @@ class EllipsisText extends Component {
                 <Tooltip
                     title={(this.props.value?.length > this.props.charLength) ? this.props.value : ''}
                     arrow>
-                    <Typography
-                        ref={this.textElement}
-                        gutterBottom
-                        style={{ fontSize: '14px' }}>
+                    <Typography variant="h4" component="div" gutterBottom
+                        ref={this.textElement}>
                         {this.props.label}  {(this.props.value?.length > this.props.charLength) ?
-                            (((this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1).toLowerCase()).substring(0, this.props.charLength - 3)) + '...') :
+                            (((this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1).toLowerCase()).substring(0, this.props.charLength)) + '...') :
                             this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1).toLowerCase()}
                     </Typography>
                 </Tooltip>
