@@ -1,9 +1,11 @@
-import React from 'react'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import { TextField } from '@mui/material'
-import Instructor from '../../layouts/Instructor'
-import { BreadCrumb, MainHeading, Folder } from '../../components'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
+import Instructor from '../../layouts/Instructor';
+import { BreadCrumb, MainHeading, Folder } from '../../components';
+import { GetAllFolders } from '../../redux/action/instructor/InstructorAction';
 
 const InstructorBreadCrumb = [
     {
@@ -16,9 +18,12 @@ const InstructorBreadCrumb = [
         link: '',
         active: true,
     },
-]
+];
 
-const MyFolder = () => {
+const MyFolder = ({ GetAllFolders, myFolders }) => {
+    useEffect(() => {
+        GetAllFolders();
+    }, []);
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -41,23 +46,26 @@ const MyFolder = () => {
             </Box>
             <MainHeading title='My Folder(6)' />
             <Grid container spacing={2}>
-                <Grid item md={3} sm={4} xs={6}>
-                    <Folder path='/instructor/studentlist' />
-                </Grid>
-                <Grid item md={3} sm={4} xs={6}>
-                    <Folder />
-                </Grid>
-                <Grid item md={3} sm={4} xs={6}>
-                    <Folder />
-                </Grid>
-                <Grid item md={3} sm={4} xs={6}>
-                    <Folder />
-                </Grid>
+                {myFolders?.map((item, index) => (
+                    <Grid key={index} item md={3} sm={4} xs={6}>
+                        <Folder item={item} path='/instructor/studentlist' />
+                    </Grid>
+                ))}
             </Grid>
         </React.Fragment>
-    )
-}
+    );
+};
 
-MyFolder.layout = Instructor
+const mapStateToProps = (state) => ({
+    myFolders: state?.instructorMyFolders?.myFolders?.foldersDTO,
+});
 
-export default MyFolder
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetAllFolders: () => dispatch(GetAllFolders()),
+    };
+};
+
+MyFolder.layout = Instructor;
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyFolder);

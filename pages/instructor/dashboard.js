@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Instructor from '../../layouts/Instructor';
-import { GetWidgetCount } from '../../redux/action/instructor/InstructorAction';
+import {
+    GetWidgetCount,
+    GetTopStudent,
+} from '../../redux/action/instructor/InstructorAction';
 import {
     WidgetCard,
     ColumnChart,
@@ -33,9 +36,14 @@ import {
     PIE_CHART_LABEL,
 } from './../../constant/data/ChartData';
 
-const Dashboard = ({ GetWidgetCount, widgetData }) => {
+const Dashboard = ({
+    GetWidgetCount,
+    instructorDashboardData,
+    GetTopStudent,
+}) => {
     useEffect(() => {
         GetWidgetCount();
+        GetTopStudent();
     }, []);
 
     return (
@@ -45,21 +53,25 @@ const Dashboard = ({ GetWidgetCount, widgetData }) => {
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No of classes'
-                            count={widgetData?.no_of_assignments}
+                            count={
+                                instructorDashboardData?.data?.no_of_assignments
+                            }
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No of assignments'
-                            count={widgetData?.no_of_classes}
+                            count={instructorDashboardData?.data?.no_of_classes}
                             icon={<NoOfAssignmntIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No of submissions'
-                            count={widgetData?.no_of_submissions}
+                            count={
+                                instructorDashboardData?.data?.no_of_submissions
+                            }
                             icon={<NoOfSubmission />}
                         />
                     </Grid>
@@ -68,7 +80,9 @@ const Dashboard = ({ GetWidgetCount, widgetData }) => {
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
-                        <TopStudents />
+                        <TopStudents
+                            topStudentData={instructorDashboardData?.topStudent}
+                        />
                     </Grid>
                     <Grid item md={8} xs={12}>
                         <RecentSubmissions />
@@ -110,12 +124,13 @@ const Dashboard = ({ GetWidgetCount, widgetData }) => {
 };
 
 const mapStateToProps = (state) => ({
-    widgetData: state?.instructorDashboard?.data,
+    instructorDashboardData: state?.instructorDashboard,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetWidgetCount: () => dispatch(GetWidgetCount()),
+        GetTopStudent: () => dispatch(GetTopStudent()),
     };
 };
 
