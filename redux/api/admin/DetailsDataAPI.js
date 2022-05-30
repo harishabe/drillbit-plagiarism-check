@@ -10,3 +10,12 @@ export const GetInstructorDetail = async () => {
     return GetMethod(url);
 };
 
+/**
+ * API CALL FOR STUDENT DATA
+ */
+
+export const GetStudentDetail = async () => {
+    const url = END_POINTS.ADMIN_STUDENT;
+    return GetMethod(url);
+};
+

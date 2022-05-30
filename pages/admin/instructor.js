@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -45,13 +45,34 @@ const InstructorBreadCrumb = [
 ]
 
 const Instructor = ({
-    GetInstructorData
+    GetInstructorData,
+    instructorData
 }) => {
+    const [rows, setRows] = useState([]);
 
     useEffect(() => {
         GetInstructorData();
     }, []);
-    
+
+    useEffect(() => {
+        setRows([]);
+        let row = ''
+        instructorData?.map((instructor) => {
+            row =
+                createData(
+                    <AvatarName title={'s' + instructor.id} color='#4795EE' />,
+                    instructor.name,
+                    instructor.username,
+                    instructor.creation_date,
+                    <StatusDot color="#38BE62" title={instructor.status} />,
+                    <StatsIcon />,
+                    [<DeleteIcon />, <LockIcon />]
+                );
+            rows.push(row)
+        });
+        setRows([...rows]);
+    }, [instructorData]);
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -90,6 +111,7 @@ const Instructor = ({
                     tableData={rows}
                     actionIcon={actionIcon}
                     isActionIcon={true}
+                    charLength={20}
                 />
             </CardView>
         </React.Fragment>
@@ -98,7 +120,7 @@ const Instructor = ({
 
 
 const mapStateToProps = (state) => ({
-    instructorData: state?.detailsData,
+    instructorData: state?.detailsData?.instructorData?.instructorsDTO,
 });
 
 const mapDispatchToProps = (dispatch) => {

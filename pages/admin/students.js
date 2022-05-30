@@ -1,17 +1,19 @@
-import React from 'react'
-import Admin from '../../layouts/Admin'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import { TextField } from '@mui/material'
-import { BreadCrumb } from './../../components'
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import Admin from '../../layouts/Admin';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
+import { BreadCrumb } from './../../components';
 import {
     CardView,
     CommonTable,
     MainHeading,
     SubTitle,
     AvatarName,
-} from '../../components'
-import { EditIcon, DeleteIcon, LockIcon, InfoIcon } from '../../assets/icon'
+} from '../../components';
+import { EditIcon, DeleteIcon, LockIcon, InfoIcon } from '../../assets/icon';
+import { GetStudnetData } from '../../redux/action/admin/AdminAction';
 
 const columns = [
     { id: 'id', label: 'Student ID', minWidth: 170 },
@@ -25,41 +27,6 @@ const columns = [
 function createData(id, name, email, department, section, action) {
     return { id, name, email, department, section, action }
 }
-
-const rows = [
-    createData(
-        <AvatarName title='S101' color='#4795EE' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-    createData(
-        <AvatarName title='S101' color='#5E47EE' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-    createData(
-        <AvatarName title='S101' color='#EE4747' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-    createData(
-        <AvatarName title='S101' color='#4795EE' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-]
 
 const actionIcon = [<EditIcon />, <DeleteIcon />, <LockIcon />]
 
@@ -76,7 +43,33 @@ const IntegrationBreadCrumb = [
     },
 ]
 
-const Students = () => {
+const Students = ({
+    GetStudnetData,
+    studentData
+}) => {
+    const [rows, setRows] = useState([]);
+
+    useEffect(() => {
+        GetStudnetData();
+    }, []);
+
+    useEffect(() => {
+        let row = ''
+        studentData?.map((student) => {
+            row =
+                createData(
+                    <AvatarName title={student.student_id} color='#4795EE' />,
+                    student.name,
+                    student.username,
+                    student.department,
+                    student.section,
+                    [<EditIcon />, <DeleteIcon />, <LockIcon />]
+                );
+            rows.push(row)
+        });
+        setRows([...rows]);
+    }, [studentData]);
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -85,7 +78,7 @@ const Students = () => {
                         <BreadCrumb item={IntegrationBreadCrumb} />
                     </Grid>
                     <Grid item md={2} xs={2}>
-                        <TextField
+                        {/* <TextField
                             placeholder='Search'
                             inputProps={{
                                 style: {
@@ -93,7 +86,7 @@ const Students = () => {
                                     display: 'inline-flex',
                                 },
                             }}
-                        />
+                        /> */}
                     </Grid>
                 </Grid>
             </Box>
@@ -103,7 +96,7 @@ const Students = () => {
                     <Grid item md={10} xs={12}>
                         <MainHeading title='My Students(6)' />
                     </Grid>
-                    <Grid
+                    {/* <Grid
                         item
                         md={2}
                         xs={12}
@@ -113,7 +106,7 @@ const Students = () => {
                     >
                         <SubTitle title='6/10 users &nbsp;' />
                         <InfoIcon />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
 
@@ -124,12 +117,24 @@ const Students = () => {
                     tableData={rows}
                     actionIcon={actionIcon}
                     isActionIcon={true}
+                    charLength={20}
                 />
             </CardView>
         </React.Fragment>
     )
 }
 
-Students.layout = Admin
 
-export default Students
+const mapStateToProps = (state) => ({
+    studentData: state?.detailsData?.studentData?.studentsDTO,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetStudnetData: () => dispatch(GetStudnetData())
+    };
+};
+
+Students.layout = Admin;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Students);

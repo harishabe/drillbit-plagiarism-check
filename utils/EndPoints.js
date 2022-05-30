@@ -4,6 +4,7 @@ const END_POINTS = {
   ADMIN_TOP_STUDENT: '/extreme/admin/topStudents',
   ADMIN_TREND_ANALYSIS: '/extreme/admin/trendAnalysis',
   ADMIN_INSTRUCTOR: '/extreme/admin/instructors',
+  ADMIN_STUDENT: '/extreme/admin/students',
   INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
 };
 
