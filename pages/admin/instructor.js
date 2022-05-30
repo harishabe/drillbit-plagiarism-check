@@ -1,11 +1,13 @@
-import React from 'react'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import { TextField } from '@mui/material'
-import Admin from './../../layouts/Admin'
-import { BreadCrumb } from './../../components'
-import { CardView, CommonTable, MainHeading, SubTitle, StatusDot, AvatarName } from '../../components'
-import { DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../assets/icon'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
+import Admin from './../../layouts/Admin';
+import { BreadCrumb } from './../../components';
+import { CardView, CommonTable, MainHeading, SubTitle, StatusDot, AvatarName } from '../../components';
+import { DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../assets/icon';
+import { GetInstructorData } from '../../redux/action/admin/AdminAction';
 
 const columns = [
     { id: 'id', label: 'ID', minWidth: 100 },
@@ -42,7 +44,14 @@ const InstructorBreadCrumb = [
     },
 ]
 
-const Instructor = () => {
+const Instructor = ({
+    GetInstructorData
+}) => {
+
+    useEffect(() => {
+        GetInstructorData();
+    }, []);
+    
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -87,6 +96,17 @@ const Instructor = () => {
     )
 }
 
+
+const mapStateToProps = (state) => ({
+    instructorData: state?.detailsData,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetInstructorData: () => dispatch(GetInstructorData())
+    };
+};
+
 Instructor.layout = Admin
 
-export default Instructor
+export default connect(mapStateToProps, mapDispatchToProps)(Instructor);

@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Admin from '../../layouts/Admin';
-import { GetWidgetCount } from '../../redux/action/admin/AdminAction';
+import { GetWidgetCount, GetTopStudent, GetTrendAnalysis } from '../../redux/action/admin/AdminAction';
 import {
     WidgetCard,
     ColumnChart,
     PieChart,
+    UsageChart,
     RadialBarChart,
     CardView,
     Heading,
@@ -47,6 +48,7 @@ import {
     RADIAL_CHART_LABEL,
     RADIAL_CHART_SERIES,
     RADIAL_CHART_HEIGHT,
+    USAGE_CHART_DATA,
 } from './../../constant/data/ChartData';
 
 const InLineText = styled.span`
@@ -63,9 +65,26 @@ const TextAlignRight = styled.div`
     margin-top: 5px;
 `;
 
-const Dashboard = ({ GetWidgetCount, widgetData }) => {
+const Dashboard = ({
+    GetWidgetCount,
+    adminDashboardData,
+    GetTopStudent,
+    GetTrendAnalysis
+}) => {
+    const [usageGraphData, setUsageGraphData] = useState(USAGE_CHART_DATA);
+    const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
+
     useEffect(() => {
         GetWidgetCount();
+        GetTopStudent();
+        GetTrendAnalysis();
+        trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork)
+        setTrendAnalysisSeries([...trendAnalysisSeries]);
+        usageGraphData.map((item) => {
+            item.goals.map((goalsItem) => {
+                goalsItem['value'] = 10
+            })
+        });
     }, []);
 
     return (
@@ -75,21 +94,21 @@ const Dashboard = ({ GetWidgetCount, widgetData }) => {
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of instructors'
-                            count={widgetData?.no_of_instructors}
+                            count={adminDashboardData?.data?.no_of_instructors}
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of students'
-                            count={widgetData?.no_of_students}
+                            count={adminDashboardData?.data?.no_of_students}
                             icon={<NoStudentIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of submissions'
-                            count={widgetData?.no_of_submissions}
+                            count={adminDashboardData?.data?.no_of_submissions}
                             icon={<NoOfSubmission />}
                         />
                     </Grid>
@@ -115,7 +134,8 @@ const Dashboard = ({ GetWidgetCount, widgetData }) => {
                     <Grid item md={4} xs={12}>
                         <CardView>
                             <Heading title='Account Usage Info' />
-                            <ColumnChart
+                            <UsageChart SERIES_DATA={USAGE_CHART_DATA} />
+                            {/* <ColumnChart
                                 type={COLUMN_ADMIN_ACC_USG_CHART_TYPE}
                                 color={COLUMN_ADMIN_ACC_USG_CHART_COLOR}
                                 xaxisData={COLUMN_ADMIN_ACC_USG_XAXIS_DATA}
@@ -128,7 +148,7 @@ const Dashboard = ({ GetWidgetCount, widgetData }) => {
                                 borderRadius={
                                     COLUMN_ADMIN_ACC_USG_CHART_BORDER_RADIUS
                                 }
-                            />
+                            /> */}
                         </CardView>
                     </Grid>
                 </Grid>
@@ -136,7 +156,7 @@ const Dashboard = ({ GetWidgetCount, widgetData }) => {
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
-                        <TopStudents />
+                        <TopStudents topStudentData={adminDashboardData?.topStudent} />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <CardView>
@@ -171,13 +191,20 @@ const Dashboard = ({ GetWidgetCount, widgetData }) => {
                                     </TextAlignRight>
                                 </Grid>
                             </Grid>
-                            <PieChart
-                                type={PIE_CHART_TYPE}
-                                color={PIE_CHART_COLOR}
-                                width={PIE_CHART_WIDTH}
-                                label={PIE_CHART_LABEL}
-                                series={PIE_CHART_SERIES}
-                            />
+                            {adminDashboardData?.trendAnalysis &&
+                                <PieChart
+                                    type="donut"
+                                    color={PIE_CHART_COLOR}
+                                    width={PIE_CHART_WIDTH}
+                                    label={PIE_CHART_LABEL}
+                                    series={
+                                        [
+                                            adminDashboardData?.trendAnalysis?.similarWork,
+                                            adminDashboardData?.trendAnalysis?.ownWork
+                                        ]
+                                    }
+                                />
+                            }
                         </CardView>
                     </Grid>
                 </Grid>
@@ -187,12 +214,14 @@ const Dashboard = ({ GetWidgetCount, widgetData }) => {
 };
 
 const mapStateToProps = (state) => ({
-    widgetData: state?.adminDashboard?.data,
+    adminDashboardData: state?.adminDashboard,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetWidgetCount: () => dispatch(GetWidgetCount()),
+        GetTopStudent: () => dispatch(GetTopStudent()),
+        GetTrendAnalysis: () => dispatch(GetTrendAnalysis()),
     };
 };
 

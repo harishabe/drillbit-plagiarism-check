@@ -28,25 +28,24 @@ const ListView = ({
     const classes = useStyles()
     return (
         <List>
-            {listData.map((item, index) => (
+            {listData?.map((item, index) => (
                 <>
                     <ListItem key={item.name} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
                         <ListItemAvatar style={{ marginRight: '5px' }}>
-                            <Avatar
-                                sx={{ width: 50, height: 50, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>
-                                UK
+                            <Avatar sx={{ width: 50, height: 50, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>
+                                {item.name.charAt(0)}
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             disableTypography
                             className={classes.itemText}
                             primary={<SubTitle1 title={item.name} />}
-                            secondary={<SubTitle title={item.course} />}
+                            secondary={<SubTitle title={item.department} />}
                         />
                         <ListItemText style={{ textAlign: 'right' }}
                             disableTypography
                             className={classes.right}
-                            primary={<Title title={'+' + item.percent + '%'} color="primary" />}
+                            primary={<Title title={'+' + '10' + '%'} color="primary" />}
                         />
                     </ListItem>
                     <Divider />

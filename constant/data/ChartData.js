@@ -28,7 +28,7 @@ export const COLUMN_ADMIN_CHART_SERIES_DATA = [
         data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
     }
 ];
-export const COLUMN_ADMIN_CHART_GRADIENT =  {
+export const COLUMN_ADMIN_CHART_GRADIENT = {
     shade: 'dark',
     gradientToColors: ['#FDD835', '#2ef'],
     shadeIntensity: 1,
@@ -67,3 +67,43 @@ export const RADIAL_CHART_COLOR = ['#4795EE'];
 export const RADIAL_CHART_HEIGHT = 360
 export const RADIAL_CHART_LABEL = ['days remaining'];
 export const RADIAL_CHART_SERIES = [90];
+
+// Usage chart for admin dashbaord
+export const USAGE_CHART_DATA = [ 
+    {
+        x: 'Instructors',
+        y: 2,
+        goals: [
+            {
+                name: 'No. Account',
+                value: '',
+                strokeHeight: 5,
+                strokeColor: '#2B4CB0'
+            }
+        ]
+    },
+    {
+        x: 'Student',
+        y: 3,
+        goals: [
+            {
+                name: 'No. Account',
+                value: '',
+                strokeHeight: 5,
+                strokeColor: '#2B4CB0'
+            }
+        ]
+    },
+    {
+        x: 'Admin',
+        y: 9,
+        goals: [
+            {
+                name: 'No. Account',
+                value: '',
+                strokeHeight: 5,
+                strokeColor: '#2B4CB0'
+            }
+        ]
+    }
+];
