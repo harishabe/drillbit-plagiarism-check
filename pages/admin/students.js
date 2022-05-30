@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Admin from '../../layouts/Admin';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
+import { Skeleton, TextField } from '@mui/material';
 import { BreadCrumb } from './../../components';
 import {
     CardView,
@@ -45,7 +45,8 @@ const IntegrationBreadCrumb = [
 
 const Students = ({
     GetStudnetData,
-    studentData
+    studentData,
+    isLoading
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -111,14 +112,16 @@ const Students = ({
             </Box>
 
             <CardView>
-                <CommonTable
-                    isCheckbox={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    actionIcon={actionIcon}
-                    isActionIcon={true}
-                    charLength={20}
-                />
+                {isLoading ? <Skeleton /> :
+                    <CommonTable
+                        isCheckbox={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        actionIcon={actionIcon}
+                        isActionIcon={true}
+                        charLength={20}
+                    />
+                }
             </CardView>
         </React.Fragment>
     )
@@ -127,6 +130,7 @@ const Students = ({
 
 const mapStateToProps = (state) => ({
     studentData: state?.detailsData?.studentData?.studentsDTO,
+    isLoading: state?.detailsData?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {

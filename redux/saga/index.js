@@ -6,7 +6,6 @@ import { InsDashboardWidget,TopInstructorStudent } from './instructor/Dashboard'
 import { GetInstructorData, GetStudentData } from './admin/DetailsData';
 import { GetClassesData } from './instructor/DetailsInstructorData';
 import { GetMyFolders } from './instructor/MyFoldersInstructor';
-import { InsDashboardWidget } from './instructor/Dashboard';
 
 const saga = [
     fork(userLogin),

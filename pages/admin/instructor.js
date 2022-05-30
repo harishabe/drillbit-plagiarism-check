@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
+import { Skeleton, TextField } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
 import { CardView, CommonTable, MainHeading, SubTitle, StatusDot, AvatarName } from '../../components';
@@ -46,7 +46,8 @@ const InstructorBreadCrumb = [
 
 const Instructor = ({
     GetInstructorData,
-    instructorData
+    instructorData,
+    isLoading
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -55,7 +56,6 @@ const Instructor = ({
     }, []);
 
     useEffect(() => {
-        setRows([]);
         let row = ''
         instructorData?.map((instructor) => {
             row =
@@ -73,6 +73,7 @@ const Instructor = ({
         setRows([...rows]);
     }, [instructorData]);
 
+    console.log('isLoading', isLoading);
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -105,14 +106,15 @@ const Instructor = ({
                 </Grid>
             </Box>
             <CardView>
-                <CommonTable
-                    isCheckbox={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    actionIcon={actionIcon}
-                    isActionIcon={true}
-                    charLength={20}
-                />
+                {isLoading ? <Skeleton /> :
+                    <CommonTable
+                        isCheckbox={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        actionIcon={actionIcon}
+                        isActionIcon={true}
+                        charLength={20}
+                    />}
             </CardView>
         </React.Fragment>
     )
@@ -121,6 +123,7 @@ const Instructor = ({
 
 const mapStateToProps = (state) => ({
     instructorData: state?.detailsData?.instructorData?.instructorsDTO,
+    isLoading: state?.detailsData?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {

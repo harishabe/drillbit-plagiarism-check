@@ -9,7 +9,6 @@ const PieChart = ({
     label,
     series
 }) => {
-    console.log('seriesseriesseries', series)
     const [chartData, setChartData] = useState({
         series: series,
         options: {
