@@ -1,9 +1,12 @@
 import { all, fork } from 'redux-saga/effects';
-
 import { userLogin } from './login/Login';
 import { DashboardWidget, TopStudent, TrendAnalysis } from './admin/Dashboard';
-import { InsDashboardWidget,TopInstructorStudent } from './instructor/Dashboard';
-import { GetInstructorData, GetStudentData } from './admin/DetailsData';
+import { InsDashboardWidget } from './instructor/Dashboard';
+import {
+    GetInstructorData,
+    GetStudentData,
+    // GetReportData,
+} from './admin/DetailsData';
 import { GetClassesData } from './instructor/DetailsInstructorData';
 import { GetMyFolders } from './instructor/MyFoldersInstructor';
 
@@ -14,11 +17,11 @@ const saga = [
     fork(TrendAnalysis),
     fork(GetInstructorData),
     fork(InsDashboardWidget),
-    fork(TopInstructorStudent),
+    // fork(GetReportData),
     fork(GetClassesData),
     fork(GetMyFolders),
     fork(GetStudentData),
-    fork(InsDashboardWidget)
+    fork(InsDashboardWidget),
 ];
 
 export default function* rootSaga() {

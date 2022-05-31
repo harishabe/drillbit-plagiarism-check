@@ -19,3 +19,11 @@ export const GetStudentDetail = async () => {
     return GetMethod(url);
 };
 
+/**
+ * API CALL FOR REPORTS
+ */
+
+export const GetReports = async () => {
+    const url = END_POINTS.ADMIN_REPORTS;
+    return GetMethod(url);
+};

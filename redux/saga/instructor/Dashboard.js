@@ -37,30 +37,3 @@ export function* InsDashboardWidget() {
     );
 }
 
-/**
- * Get top student details
- * @param {*} action
- */
-
-export function* onLoadTopStudent() {
-    const { response, error } = yield call(GetTopStudent);
-    if (response) {
-        yield put({
-            type: types.FETCH_INSTRUCTOR_DASH_TOP_STUDENT_SUCCESS,
-            payload: response?.data,
-        });
-    } else {
-        yield put({
-            type: types.FETCH_INSTRUCTOR_DASH_TOP_STUDENT_FAIL,
-            payload: error,
-        });
-        toastrValidation(error);
-    }
-}
-
-export function* TopInstructorStudent() {
-    yield takeLatest(
-        types.FETCH_INSTRUCTOR_DASH_TOP_STUDENT_START,
-        onLoadTopStudent
-    );
-}

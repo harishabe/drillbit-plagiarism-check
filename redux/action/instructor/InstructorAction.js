@@ -6,12 +6,6 @@ export const GetWidgetCount = () => {
     };
 };
 
-export const GetTopStudent = () => {
-    return {
-        type: types.FETCH_INSTRUCTOR_DASH_TOP_STUDENT_START,
-    };
-};
-
 /**
  * Get all classes data
  */
