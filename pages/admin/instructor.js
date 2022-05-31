@@ -81,7 +81,7 @@ const Instructor = ({
                     <Grid item md={10} xs={10}>
                         <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
-                    <Grid item md={2} xs={2}>
+                    {/* <Grid item md={2} xs={2}>
                         <TextField
                             placeholder='Search'
                             inputProps={{
@@ -91,7 +91,7 @@ const Instructor = ({
                                 }
                             }}
                         />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
             <Box sx={{ flexGrow: 1 }}>
@@ -99,10 +99,10 @@ const Instructor = ({
                     <Grid item md={10}>
                         <MainHeading title='Instructors(3)' />
                     </Grid>
-                    <Grid item md={2} xs container direction='row' justifyContent={'right'}>
+                    {/* <Grid item md={2} xs container direction='row' justifyContent={'right'}>
                         <SubTitle title='6/10 users' />
                         <InfoIcon />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
             <CardView>

@@ -5,7 +5,18 @@
         "name": "report",
         "label": "Choose Reports",
         "required": "Choose Reports",
-        "validationMsg": "Please select report"
+        "validationMsg": "Please select report",
+        "options": [
+            {
+                "name": "Report 1"
+            },
+            {
+                "name": "Report 2"
+            },
+            {
+                "name": "Report 3"
+            }
+        ]
     },
     {
         "field_type": "dropdown",
@@ -13,7 +24,18 @@
         "label": "Choose Instructors",
         "name": "password",
         "required": "Choose Instructors",
-        "validationMsg": "Please select instructors"
+        "validationMsg": "Please select instructors",
+        "options": [
+            {
+                "name": "Instructor 1"
+            },
+            {
+                "name": "Instructor 2"
+            },
+            {
+                "name": "Instructor 3"
+            }
+        ]
     },
     {
         "field_type": "datepicker",
