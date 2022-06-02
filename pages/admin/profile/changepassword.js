@@ -7,6 +7,7 @@ import { FormComponent, MainHeading, CardView } from '../../../components';
 import FormJson from '../../../constant/form/change-password-form.json';
 
 const ChangePassword = () => {
+    
     const router = useRouter();
 
     const { handleSubmit, control } = useForm({

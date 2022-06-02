@@ -59,7 +59,7 @@ const ReportForm = ({
                                 />
                             )}
                         </Grid>
-                    ))};
+                    ))}
                 </Grid>
             </form>
         </>

@@ -34,9 +34,6 @@
         "validationMsg": "Please select to date"
     },
     {
-        "field_type": "none"
-    },
-    {
         "field_type": "button",
         "type": "submit",
         "label": "View & Download"
