@@ -193,7 +193,7 @@ const NavBar = ({
                             <ListItemText style={{ padding: '5px 15px' }} primary="Switch account" secondary="Switch to admin" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/admin/profile/accountinfo')}>
                             <ListItemIcon>
                                 <AccountIcon />
                             </ListItemIcon>
@@ -207,7 +207,7 @@ const NavBar = ({
                             <ListItemText style={{ padding: '5px 15px' }} primary="Help" secondary="Help/ Guids/ FAQ" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/admin/profile/changepassword')}>
                             <ListItemIcon>
                                 <ChangePwdIcon />
                             </ListItemIcon>

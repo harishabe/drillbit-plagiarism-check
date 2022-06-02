@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRouter } from 'next/router'
 import Avatar from '@mui/material/Avatar';
 import Paper from '@mui/material/Paper';
 import Menu from '@mui/material/Menu';
@@ -20,6 +21,7 @@ const ProfileMenu = ({
     handleLogout,
     anchorEl
 }) => {
+    const router = useRouter();
 
     const [anchorElemnt, setAnchorElemnt] = React.useState(anchorEl);
 
@@ -71,35 +73,35 @@ const ProfileMenu = ({
                         </Avatar>
                         <ListItemText style={{ padding: '5px 15px' }} primary="Vivek Jayanna" secondary="vivek.jayanna@drillbit.com" />
                     </MenuItem>
-                    <Divider style={{marginLeft:'10px',marginRight:'10px'}} />
+                    <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                     <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                         <ListItemIcon>
                             <SwitchAccountIcon />
                         </ListItemIcon>
                         <ListItemText style={{ padding: '5px 15px' }} primary="Switch account" secondary="Switch to admin" />
                     </MenuItem>
-                    <Divider style={{marginLeft:'10px',marginRight:'10px'}} />
-                    <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                    <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
+                    <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/profile/accountinfo')}>
                         <ListItemIcon>
                             <AccountIcon />
                         </ListItemIcon>
                         <ListItemText style={{ padding: '5px 15px' }} primary="Account info" secondary="Account Settings" />
                     </MenuItem>
-                    <Divider style={{marginLeft:'10px',marginRight:'10px'}} />
+                    <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                     <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                         <ListItemIcon>
                             <HelpIcon />
                         </ListItemIcon>
                         <ListItemText style={{ padding: '5px 15px' }} primary="Help" secondary="Help/ Guids/ FAQ" />
                     </MenuItem>
-                    <Divider style={{marginLeft:'10px',marginRight:'10px'}} />
-                    <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                    <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
+                    <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/profile/changepassword')}>
                         <ListItemIcon>
                             <ChangePwdIcon />
                         </ListItemIcon>
                         <ListItemText style={{ padding: '5px 15px' }} primary="Change password" secondary="Email" />
                     </MenuItem>
-                    <Divider style={{marginLeft:'10px',marginRight:'10px'}} />
+                    <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                     <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                         <Button variant="contained" fullWidth color="primary" onClick={handleLogout}>Log out</Button>
                     </MenuItem>
