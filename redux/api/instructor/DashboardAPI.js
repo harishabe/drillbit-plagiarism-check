@@ -9,8 +9,3 @@ export const GetWidgetData = () => {
     const url = END_POINTS.INSTRUCTOR_DASHBOARD_WIDGET;
     return GetMethod(url);
 };
-
-export const GetTopStudent = async () => {
-    const url = END_POINTS.INSTRUCTOR_TOP_STUDENT;
-    return GetMethod(url);
-};

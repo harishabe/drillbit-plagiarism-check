@@ -19,23 +19,7 @@ const InsDashboardReducer = (state = {}, action) => {
                 isLoading: false,
                 error: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_DASH_TOP_STUDENT_START:
-            return {
-                ...state,
-                isLoading: true,
-            };
-        case types.FETCH_INSTRUCTOR_DASH_TOP_STUDENT_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                topStudent: action.payload,
-            };
-        case types.FETCH_INSTRUCTOR_DASH_TOP_STUDENT_FAIL:
-            return {
-                ...state,
-                isLoading: false,
-                topStudentError: action.payload,
-            };
+
         default:
             return state;
     }

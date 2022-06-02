@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Instructor from '../../layouts/Instructor';
-import {
-    GetWidgetCount,
-    GetTopStudent,
-} from '../../redux/action/instructor/InstructorAction';
+import { GetWidgetCount } from '../../redux/action/instructor/InstructorAction';
 import {
     WidgetCard,
     ColumnChart,
@@ -36,14 +33,9 @@ import {
     PIE_CHART_LABEL,
 } from './../../constant/data/ChartData';
 
-const Dashboard = ({
-    GetWidgetCount,
-    instructorDashboardData,
-    GetTopStudent,
-}) => {
+const Dashboard = ({ GetWidgetCount, instructorDashboardData }) => {
     useEffect(() => {
         GetWidgetCount();
-        GetTopStudent();
     }, []);
 
     return (
@@ -80,9 +72,7 @@ const Dashboard = ({
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
-                        <TopStudents
-                            topStudentData={instructorDashboardData?.topStudent}
-                        />
+                        <TopStudents />
                     </Grid>
                     <Grid item md={8} xs={12}>
                         <RecentSubmissions />
@@ -130,7 +120,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetWidgetCount: () => dispatch(GetWidgetCount()),
-        GetTopStudent: () => dispatch(GetTopStudent()),
     };
 };
 

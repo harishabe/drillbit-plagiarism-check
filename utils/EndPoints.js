@@ -5,8 +5,8 @@ const END_POINTS = {
     ADMIN_TREND_ANALYSIS: '/extreme/admin/trendAnalysis',
     ADMIN_INSTRUCTOR: '/extreme/admin/instructors',
     ADMIN_STUDENT: '/extreme/admin/students',
+    ADMIN_REPORTS: '/extreme/admin/reports',
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
-    INSTRUCTOR_TOP_STUDENT: '/extreme/instructor/topStudents',
     INSTRUCTOR_MY_CLASSES: '/extreme/instructor/classes',
     INSTRUCTOR_MY_FOLDERS: '/extreme/instructor/myFolders',
 };

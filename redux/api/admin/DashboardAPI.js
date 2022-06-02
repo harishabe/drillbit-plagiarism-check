@@ -20,3 +20,4 @@ export const GetTrendAnalysis = async () => {
     return GetMethod(url);
 };
 
+

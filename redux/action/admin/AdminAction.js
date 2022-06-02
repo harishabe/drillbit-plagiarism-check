@@ -8,13 +8,13 @@ export const GetWidgetCount = () => {
 
 export const GetTopStudent = () => {
     return {
-        type: types.FETCH_ADMIN_DASH_TOP_STUDENT_START
+        type: types.FETCH_ADMIN_DASH_TOP_STUDENT_START,
     };
 };
 
 export const GetTrendAnalysis = () => {
     return {
-        type: types.FETCH_ADMIN_DASH_TREND_ANALYSIS_START
+        type: types.FETCH_ADMIN_DASH_TREND_ANALYSIS_START,
     };
 };
 
@@ -23,7 +23,7 @@ export const GetTrendAnalysis = () => {
  */
 export const GetInstructorData = () => {
     return {
-        type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START
+        type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
     };
 };
 
@@ -32,7 +32,16 @@ export const GetInstructorData = () => {
  */
 export const GetStudnetData = () => {
     return {
-        type: types.FETCH_ADMIN_STUDENT_DATA_START
+        type: types.FETCH_ADMIN_STUDENT_DATA_START,
+    };
+};
+
+/**
+ * reports data
+ */
+export const ReportsData = () => {
+    return {
+        type: types.FETCH_ADMIN_REPORTS_DATA_START,
     };
 };
 
