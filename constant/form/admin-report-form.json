@@ -6,36 +6,16 @@
         "label": "Choose Reports",
         "required": "Choose Reports",
         "validationMsg": "Please select report",
-        "options": [
-            {
-                "name": "Report 1"
-            },
-            {
-                "name": "Report 2"
-            },
-            {
-                "name": "Report 3"
-            }
-        ]
+        "options": []
     },
     {
         "field_type": "dropdown",
-        "id": "password",
+        "id": "instructor",
         "label": "Choose Instructors",
-        "name": "password",
+        "name": "instructor",
         "required": "Choose Instructors",
         "validationMsg": "Please select instructors",
-        "options": [
-            {
-                "name": "Instructor 1"
-            },
-            {
-                "name": "Instructor 2"
-            },
-            {
-                "name": "Instructor 3"
-            }
-        ]
+        "options": []
     },
     {
         "field_type": "datepicker",

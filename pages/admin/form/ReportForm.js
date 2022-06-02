@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -8,38 +8,58 @@ import { FormComponent } from '../../../components';
 import { ReportsData } from '../../../redux/action/admin/AdminAction';
 import FormJson from '../../../constant/form/admin-report-form.json';
 
-const ReportForm = ({ ReportsData, reportData, isLoading }) => {
+const ReportForm = ({
+    ReportsData,
+    reportData,
+    isLoading
+}) => {
     const router = useRouter();
+    const [formData, setFormData] = useState();
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
     });
 
-    const onSubmit = (data) => {};
+    const onSubmit = (data) => { };
 
     useEffect(() => {
         ReportsData();
     }, []);
 
+    useEffect(() => {
+        let reportType = [];
+        let formList = FormJson?.map((formItem) => {
+            if (formItem.name === 'report') {
+                reportData?.reportTypes?.map((item) => {
+                    reportType.push({ 'name': item })
+                })
+                formItem['options'] = reportType;
+            }
+            if (formItem.name === 'instructor') {
+                formItem['options'] = reportData?.instructorList;
+            }
+            return formItem;
+        });
+        setFormData(formList);
+    }, [reportData])
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
-                    {FormJson
-                        ? FormJson.map((field, i) => (
-                              <Grid md={5.8} style={{ marginLeft: '8px' }}>
-                                  {isLoading ? (
-                                      <Skeleton />
-                                  ) : (
-                                      <FormComponent
-                                          key={i}
-                                          field={field}
-                                          control={control}
-                                      />
-                                  )}
-                              </Grid>
-                          ))
-                        : null}
+                    {formData?.map((field, i) => (
+                        <Grid md={5.8} style={{ marginLeft: '8px' }}>
+                            {isLoading ? (
+                                <Skeleton />
+                            ) : (
+                                <FormComponent
+                                    key={i}
+                                    field={field}
+                                    control={control}
+                                />
+                            )}
+                        </Grid>
+                    ))};
                 </Grid>
             </form>
         </>

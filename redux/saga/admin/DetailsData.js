@@ -63,7 +63,7 @@ export function* onLoadReport() {
     const { response, error } = yield call(GetReports);
     if (response) {
         yield put({
-            type: types.FETCH_ADMIN_REPORTS_DATA_START,
+            type: types.FETCH_ADMIN_REPORTS_DATA_SUCCESS,
             payload: response?.data,
         });
     } else {
