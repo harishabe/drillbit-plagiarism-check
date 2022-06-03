@@ -64,7 +64,7 @@ const Instructor = ({
                     instructor.name,
                     instructor.username,
                     instructor.creation_date,
-                    <StatusDot color="#38BE62" title={instructor.status} />,
+                    <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     <StatsIcon />,
                     [<DeleteIcon />, <LockIcon />]
                 );
@@ -122,7 +122,7 @@ const Instructor = ({
 
 
 const mapStateToProps = (state) => ({
-    instructorData: state?.detailsData?.instructorData?.instructorsDTO,
+    instructorData: state?.detailsData?.instructorData?._embedded?.instructorDTOList,
     isLoading: state?.detailsData?.isLoading,
 });
 
