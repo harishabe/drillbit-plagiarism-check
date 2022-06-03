@@ -60,7 +60,7 @@ const Instructor = ({
         instructorData?.map((instructor) => {
             row =
                 createData(
-                    <AvatarName title={'s' + instructor.id} color='#4795EE' />,
+                    <AvatarName title={'I' + instructor.id} color='#4795EE' />,
                     instructor.name,
                     instructor.username,
                     instructor.creation_date,
