@@ -59,7 +59,7 @@ const Students = ({
         studentData?.map((student) => {
             row =
                 createData(
-                    <AvatarName title={student.student_id} color='#4795EE' />,
+                    <AvatarName title={"S"+ student.student_id} color='#4795EE' />,
                     student.name,
                     student.username,
                     student.department,
@@ -129,7 +129,7 @@ const Students = ({
 
 
 const mapStateToProps = (state) => ({
-    studentData: state?.detailsData?.studentData?.studentsDTO,
+    studentData: state?.detailsData?.studentData?._embedded?.studentDTOList,
     isLoading: state?.detailsData?.isLoading,
 });
 
