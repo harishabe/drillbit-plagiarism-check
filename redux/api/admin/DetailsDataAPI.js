@@ -1,6 +1,6 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { GetMethod } from './../ApiMethod';
-import PaginationUrl from '../../../utils/PaginationUrl';
+import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
  * API CALL FOR INSTRUCTOR DATA
