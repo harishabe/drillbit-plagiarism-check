@@ -7,6 +7,7 @@ import { TextField } from '@mui/material';
 import Instructor from '../../layouts/Instructor';
 import { BreadCrumb, MainHeading, Folder } from '../../components';
 import { GetAllFolders } from '../../redux/action/instructor/InstructorAction';
+import { PaginationValue } from '../../utils/PaginationUrl';
 
 const InstructorBreadCrumb = [
     {
@@ -24,10 +25,10 @@ const InstructorBreadCrumb = [
 const MyFolder = ({ GetAllFolders, myFolders, pageDetails}) => {
 
      const [paginationPayload, setPaginationPayload] = useState({
-        page: 0,
-        size: 1,
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
         field: 'ass_id',
-        orderBy: 'asc'
+        orderBy: PaginationValue?.orderBy,
     });
 
     useEffect(() => {
@@ -36,7 +37,7 @@ const MyFolder = ({ GetAllFolders, myFolders, pageDetails}) => {
 
      const handleChange = (event, value) => {
         event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value })
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1})
     };
 
     return (

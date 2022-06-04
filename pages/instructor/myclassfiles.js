@@ -5,6 +5,7 @@ import Pagination from '@mui/material/Pagination';
 import Instructor from '../../layouts/Instructor';
 import { CardInfoView } from '../../components';
 import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
+import { PaginationValue } from '../../utils/PaginationUrl';
 
 const classes = [
     {
@@ -56,10 +57,10 @@ const MyClassFiles = ({ GetClassesData, classesData, pageDetails }) => {
     console.log("first", classesData)
 
      const [paginationPayload, setPaginationPayload] = useState({
-        page: 0,
-        size: 6,
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
         field: 'class_id',
-        orderBy: 'asc'
+        orderBy: PaginationValue?.orderBy,
     });
 
     useEffect(() => {
@@ -68,7 +69,7 @@ const MyClassFiles = ({ GetClassesData, classesData, pageDetails }) => {
 
      const handleChange = (event, value) => {
         event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value })
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
     return (
