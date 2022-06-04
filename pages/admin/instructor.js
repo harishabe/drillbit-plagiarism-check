@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Pagination from '@mui/material/Pagination';
-import { Skeleton, TextField } from '@mui/material';
+import { Skeleton, TextField, Pagination } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
 import { CardView, CommonTable, MainHeading, SubTitle, StatusDot, AvatarName } from '../../components';
@@ -129,7 +128,7 @@ const Instructor = ({
                         />
                     </>
                 }
-                <div style={{ marginLeft: '30%', marginTop: '25px' }}>
+                <div style={{ marginLeft: '35%', marginTop: '25px' }}>
                     <Pagination
                         count={pageDetails?.totalPages}
                         onChange={handleChange}

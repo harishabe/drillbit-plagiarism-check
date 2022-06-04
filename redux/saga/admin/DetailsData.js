@@ -35,8 +35,8 @@ export function* GetInstructorData() {
  * @param {*} action
  */
 
-export function* onLoadStudent() {
-    const { response, error } = yield call(GetStudentDetail);
+export function* onLoadStudent(action) {
+    const { response, error } = yield call(GetStudentDetail, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_STUDENT_DATA_SUCCESS,

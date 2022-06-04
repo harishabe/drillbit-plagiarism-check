@@ -15,8 +15,8 @@ export const GetInstructorDetail = async (paginationPayload) => {
  * API CALL FOR STUDENT DATA
  */
 
-export const GetStudentDetail = async () => {
-    const url = END_POINTS.ADMIN_STUDENT;
+export const GetStudentDetail = async (paginationPayload) => {
+    const url = END_POINTS.ADMIN_STUDENT + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 

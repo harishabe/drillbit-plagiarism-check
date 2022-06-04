@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Admin from '../../layouts/Admin';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Skeleton, TextField } from '@mui/material';
+import { Skeleton, TextField, Pagination } from '@mui/material';
 import { BreadCrumb } from './../../components';
 import {
     CardView,
@@ -14,6 +14,7 @@ import {
 } from '../../components';
 import { EditIcon, DeleteIcon, LockIcon, InfoIcon } from '../../assets/icon';
 import { GetStudnetData } from '../../redux/action/admin/AdminAction';
+import { PaginationValue } from '../../utils/PaginationUrl';
 
 const columns = [
     { id: 'id', label: 'Student ID', minWidth: 170 },
@@ -46,16 +47,26 @@ const IntegrationBreadCrumb = [
 const Students = ({
     GetStudnetData,
     studentData,
+    pageDetails,
     isLoading
 }) => {
     const [rows, setRows] = useState([]);
 
-    useEffect(() => {
-        GetStudnetData();
-    }, []);
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: PaginationValue?.field,
+        orderBy: PaginationValue?.orderBy,
+    });
+
 
     useEffect(() => {
-        let row = ''
+        GetStudnetData(paginationPayload);
+    }, [, paginationPayload]);
+
+    useEffect(() => {
+        let row = '';
+        let arr = [];
         studentData?.map((student) => {
             row =
                 createData(
@@ -66,10 +77,15 @@ const Students = ({
                     student.section,
                     [<EditIcon />, <DeleteIcon />, <LockIcon />]
                 );
-            rows.push(row)
+            arr.push(row)
         });
-        setRows([...rows]);
+        setRows([...arr]);
     }, [studentData]);
+
+    const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
+    };
 
     return (
         <React.Fragment>
@@ -122,6 +138,15 @@ const Students = ({
                         charLength={20}
                     />
                 }
+                <div style={{ marginLeft: '35%', marginTop: '25px' }}>
+                    <Pagination
+                        count={pageDetails?.totalPages}
+                        onChange={handleChange}
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div>
             </CardView>
         </React.Fragment>
     )
@@ -129,13 +154,14 @@ const Students = ({
 
 
 const mapStateToProps = (state) => ({
+    pageDetails: state?.detailsData?.instructorData?.page,
     studentData: state?.detailsData?.studentData?._embedded?.studentDTOList,
     isLoading: state?.detailsData?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetStudnetData: () => dispatch(GetStudnetData())
+        GetStudnetData: (paginationPayload) => dispatch(GetStudnetData(paginationPayload))
     };
 };
 

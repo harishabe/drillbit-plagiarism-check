@@ -30,9 +30,9 @@ export const GetInstructorData = (paginationPayload) => {
 /**
  * Get all student data
  */
-export const GetStudnetData = () => {
+export const GetStudnetData = (paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_STUDENT_DATA_START,
+        type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: paginationPayload
     };
 };
 
