@@ -21,9 +21,9 @@ export const GetTrendAnalysis = () => {
 /**
  * Get all instructor data
  */
-export const GetInstructorData = () => {
+export const GetInstructorData = (paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+        type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: paginationPayload
     };
 };
 

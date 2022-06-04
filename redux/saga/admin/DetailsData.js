@@ -11,8 +11,8 @@ import {
  * @param {*} action
  */
 
-export function* onLoadInstructor() {
-    const { response, error } = yield call(GetInstructorDetail);
+export function* onLoadInstructor(action) {
+    const { response, error } = yield call(GetInstructorDetail, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_INSTRUCTOR_DATA_SUCCESS,

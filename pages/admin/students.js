@@ -59,7 +59,7 @@ const Students = ({
         studentData?.map((student) => {
             row =
                 createData(
-                    <AvatarName title={"S"+ student.student_id} color='#4795EE' />,
+                    <AvatarName avatarText="S" title={student.student_id} color='#4795EE' />,
                     student.name,
                     student.username,
                     student.department,

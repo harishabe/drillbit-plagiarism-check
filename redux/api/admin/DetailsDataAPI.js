@@ -1,12 +1,13 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { GetMethod } from './../ApiMethod';
+import PaginationUrl from '../../../utils/PaginationUrl';
 
 /**
  * API CALL FOR INSTRUCTOR DATA
  */
 
-export const GetInstructorDetail = async () => {
-    const url = END_POINTS.ADMIN_INSTRUCTOR;
+export const GetInstructorDetail = async (paginationPayload) => {
+    const url = END_POINTS.ADMIN_INSTRUCTOR + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 

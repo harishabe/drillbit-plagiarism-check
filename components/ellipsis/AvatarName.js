@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AvatarName = ({
     title,
+    avatarText,
     color
 }) => {
     const classes = useStyles()
@@ -22,7 +23,7 @@ const AvatarName = ({
             <Avatar
                 alt={title}
                 sx={{ bgcolor: color, fontSize: '14px' }}>
-                {title.charAt(0)}
+                {avatarText}
             </Avatar>
             <span style={{ paddingTop: '9px', paddingLeft: '10px' }}>{title}</span>
         </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Pagination from '@mui/material/Pagination';
 import { Skeleton, TextField } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
@@ -45,22 +46,31 @@ const InstructorBreadCrumb = [
 ]
 
 const Instructor = ({
+    pageDetails,
     GetInstructorData,
     instructorData,
     isLoading
 }) => {
     const [rows, setRows] = useState([]);
 
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: 0,
+        size: 1,
+        field: 'user_id',
+        orderBy: 'asc'
+    });
+
+
     useEffect(() => {
-        GetInstructorData();
-    }, []);
+        GetInstructorData(paginationPayload);
+    }, [, paginationPayload]);
 
     useEffect(() => {
         let row = ''
         instructorData?.map((instructor) => {
             row =
                 createData(
-                    <AvatarName title={'I' + instructor.id} color='#4795EE' />,
+                    <AvatarName avatarText="I" title={instructor.id} color='#4795EE' />,
                     instructor.name,
                     instructor.username,
                     instructor.creation_date,
@@ -73,7 +83,11 @@ const Instructor = ({
         setRows([...rows]);
     }, [instructorData]);
 
-    console.log('isLoading', isLoading);
+    const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value })
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -106,7 +120,8 @@ const Instructor = ({
                 </Grid>
             </Box>
             <CardView>
-                {isLoading ? <Skeleton /> :
+                {isLoading ?
+                    <Skeleton /> :
                     <CommonTable
                         isCheckbox={true}
                         tableHeader={columns}
@@ -115,6 +130,16 @@ const Instructor = ({
                         isActionIcon={true}
                         charLength={20}
                     />}
+                <div style={{ marginLeft: '30%', marginTop: '25px' }}>
+                    <Pagination
+                        //count={pageDetails?.totalPages}
+                        count={pageDetails?.totalPages}
+                        onChange={handleChange}
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div>
             </CardView>
         </React.Fragment>
     )
@@ -122,13 +147,14 @@ const Instructor = ({
 
 
 const mapStateToProps = (state) => ({
+    pageDetails: state?.detailsData?.instructorData?.page,
     instructorData: state?.detailsData?.instructorData?._embedded?.instructorDTOList,
     isLoading: state?.detailsData?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetInstructorData: () => dispatch(GetInstructorData())
+        GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload))
     };
 };
 
