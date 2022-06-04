@@ -9,6 +9,7 @@ import { BreadCrumb } from './../../components';
 import { CardView, CommonTable, MainHeading, SubTitle, StatusDot, AvatarName } from '../../components';
 import { DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../assets/icon';
 import { GetInstructorData } from '../../redux/action/admin/AdminAction';
+import { PaginationValue } from '../../utils/PaginationUrl';
 
 const columns = [
     { id: 'id', label: 'ID', minWidth: 100 },
@@ -23,12 +24,6 @@ const columns = [
 function createData(id, name, email, creationDate, status, stats, action) {
     return { id, name, email, creationDate, status, stats, action }
 };
-
-const rows = [
-    createData(<AvatarName title='S101' color='#4795EE' />, 'Harisha B E', 'harish@drillbit.com', '2022-01-06', <StatusDot color="#38BE62" title="Active" />, <StatsIcon />, [<DeleteIcon />, <LockIcon />]),
-    createData(<AvatarName title='S102' color='#5E47EE' />, 'Harisha B E', 'harish@drillbit.com', '2022-01-06', <StatusDot color="#38BE62" title="Active" />, <StatsIcon />, [<DeleteIcon />, <LockIcon />]),
-    createData(<AvatarName title='S103' color='#EE4747' />, 'Harisha B E', 'harish@drillbit.com', '2022-01-06', <StatusDot color="#E9596F" title="In Active" />, <StatsIcon />, [<DeleteIcon />, <LockIcon />]),
-]
 
 const actionIcon = [<DeleteIcon />, <LockIcon />]
 
@@ -54,10 +49,10 @@ const Instructor = ({
     const [rows, setRows] = useState([]);
 
     const [paginationPayload, setPaginationPayload] = useState({
-        page: 0,
-        size: 1,
-        field: 'user_id',
-        orderBy: 'asc'
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: PaginationValue?.field,
+        orderBy: PaginationValue?.orderBy,
     });
 
 
@@ -66,7 +61,8 @@ const Instructor = ({
     }, [, paginationPayload]);
 
     useEffect(() => {
-        let row = ''
+        let row = '';
+        let arr = [];
         instructorData?.map((instructor) => {
             row =
                 createData(
@@ -78,14 +74,14 @@ const Instructor = ({
                     <StatsIcon />,
                     [<DeleteIcon />, <LockIcon />]
                 );
-            rows.push(row)
+            arr.push(row)
         });
-        setRows([...rows]);
+        setRows([...arr]);
     }, [instructorData]);
 
     const handleChange = (event, value) => {
         event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value })
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
     return (
@@ -122,17 +118,19 @@ const Instructor = ({
             <CardView>
                 {isLoading ?
                     <Skeleton /> :
-                    <CommonTable
-                        isCheckbox={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        actionIcon={actionIcon}
-                        isActionIcon={true}
-                        charLength={20}
-                    />}
+                    <>
+                        <CommonTable
+                            isCheckbox={true}
+                            tableHeader={columns}
+                            tableData={rows}
+                            actionIcon={actionIcon}
+                            isActionIcon={true}
+                            charLength={20}
+                        />
+                    </>
+                }
                 <div style={{ marginLeft: '30%', marginTop: '25px' }}>
                     <Pagination
-                        //count={pageDetails?.totalPages}
                         count={pageDetails?.totalPages}
                         onChange={handleChange}
                         color="primary"
@@ -140,6 +138,7 @@ const Instructor = ({
                         shape="rounded"
                     />
                 </div>
+
             </CardView>
         </React.Fragment>
     )
