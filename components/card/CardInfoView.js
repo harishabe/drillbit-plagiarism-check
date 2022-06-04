@@ -72,14 +72,14 @@ const CardInfoView = ({
                             variant="circle"
                             className={classes.margin}
                         >
-                            {item.name.split(' ').map(item => item.toUpperCase().substring(0, 1)).join('')}
+                            {item.class_name.split(' ').map(item => item.toUpperCase().substring(0, 1)).join('')}
                         </Avatar> : ''}
                     {isImage ?
                         <img style={{marginBottom:'15px'}} src={item.img} alt={item.name} /> : ''}
 
                     {isHeading ?
                         <Heading
-                            title={item.name}
+                            title={item.class_name}
                         /> : ''}
                     <SubTitle2
                         title={item.description}

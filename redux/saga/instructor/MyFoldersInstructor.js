@@ -7,8 +7,8 @@ import { GetMyFoldersDetail } from '../../api/instructor/MyFoldersAPI';
  * @param {*} action
  */
 
-export function* GetAllFolders() {
-    const { response, error } = yield call(GetMyFoldersDetail);
+export function* GetAllFolders(action) {
+    const { response, error } = yield call(GetMyFoldersDetail,  action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUCCESS,

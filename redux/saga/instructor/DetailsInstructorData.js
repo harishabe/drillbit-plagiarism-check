@@ -7,8 +7,8 @@ import { GetClassesDetail } from '../../api/instructor/DetailsInstructorData';
  * @param {*} action
  */
 
-export function* onLoadClasses() {
-    const { response, error } = yield call(GetClassesDetail);
+export function* onLoadClasses(action) {
+    const { response, error } = yield call(GetClassesDetail,  action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_INSTRUCTOR_CLASSES_DATA_SUCCESS,

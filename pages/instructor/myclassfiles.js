@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
+import Pagination from '@mui/material/Pagination';
 import Instructor from '../../layouts/Instructor';
 import { CardInfoView } from '../../components';
 import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
@@ -50,10 +51,26 @@ const classes = [
     },
 ];
 
-const MyClassFiles = ({ GetClassesData, classesData }) => {
+const MyClassFiles = ({ GetClassesData, classesData, pageDetails }) => {
+
+    console.log("first", classesData)
+
+     const [paginationPayload, setPaginationPayload] = useState({
+        page: 0,
+        size: 6,
+        field: 'class_id',
+        orderBy: 'asc'
+    });
+
     useEffect(() => {
-        GetClassesData();
-    }, []);
+        GetClassesData(paginationPayload);
+    }, [, paginationPayload]);
+
+     const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value })
+    };
+
     return (
         <React.Fragment>
             <Grid container spacing={2}>
@@ -66,20 +83,32 @@ const MyClassFiles = ({ GetClassesData, classesData }) => {
                             isTimer={true}
                             path='/instructor/myclasstables'
                         />
+                       
                     </Grid>
-                ))}
+                ))}               
             </Grid>
+
+            <div style={{ marginLeft: '30%', marginTop: '25px' }}>
+                            <Pagination
+                                count={pageDetails?.totalPages}
+                                onChange={handleChange}
+                                color="primary"
+                                variant="outlined"
+                                shape="rounded"
+                            />
+            </div>
         </React.Fragment>
     );
 };
 
 const mapStateToProps = (state) => ({
-    classesData: state?.instructorClasses?.classesData?.classesDTO,
+    pageDetails: state?.instructorClasses?.classesData?.page,
+    classesData: state?.instructorClasses?.classesData?._embedded?.classDTOList,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetClassesData: () => dispatch(GetClassesData()),
+        GetClassesData: (classesData) => dispatch(GetClassesData(classesData)),
     };
 };
 

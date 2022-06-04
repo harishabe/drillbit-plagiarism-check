@@ -9,17 +9,17 @@ export const GetWidgetCount = () => {
 /**
  * Get all classes data
  */
-export const GetClassesData = () => {
+export const GetClassesData = (paginationPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_CLASSES_DATA_START,
+        type: types.FETCH_INSTRUCTOR_CLASSES_DATA_START, paginationPayload: paginationPayload
     };
 };
 
 /**
  * Get all folders
  */
-export const GetAllFolders = () => {
+export const GetAllFolders = (paginationPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START,
+        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: paginationPayload
     };
 };
