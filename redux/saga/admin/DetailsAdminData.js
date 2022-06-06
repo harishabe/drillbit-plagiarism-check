@@ -4,7 +4,7 @@ import {
     GetInstructorDetail,
     GetStudentDetail,
     GetReports,
-} from '../../api/admin/DetailsDataAPI';
+} from '../../api/admin/DetailsAdminAPI';
 
 /**
  * Get trend analysis

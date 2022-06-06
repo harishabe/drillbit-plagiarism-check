@@ -54,13 +54,13 @@ const CardInfoView = ({
     isHeading,
     isImage
 }) => {
-    const router = useRouter()
+    const router = useRouter();
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <React.Fragment>
-            <Card onClick={(e) => router.push(path)}>
+            <Card style={{ marginTop: '10px' }} onClick={(e) => router.push(path)}>
                 <CardContent>
                     {isDownload ?
                         <AlignRight>
@@ -75,7 +75,7 @@ const CardInfoView = ({
                             {item.class_name.split(' ').map(item => item.toUpperCase().substring(0, 1)).join('')}
                         </Avatar> : ''}
                     {isImage ?
-                        <img style={{marginBottom:'15px'}} src={item.img} alt={item.name} /> : ''}
+                        <img style={{ marginBottom: '15px' }} src={item.img} alt={item.name} /> : ''}
 
                     {isHeading ?
                         <Heading

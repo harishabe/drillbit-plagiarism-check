@@ -6,9 +6,8 @@ import {
     GetInstructorData,
     GetStudentData,
     GetReportData,
-} from './admin/DetailsData';
-import { GetClassesData } from './instructor/DetailsInstructorData';
-import { GetMyFolders } from './instructor/MyFoldersInstructor';
+} from './admin/DetailsAdminData';
+import { GetClassesData,GetMyFolders } from './instructor/DetailsInstructorData';
 
 const saga = [
     fork(userLogin),
