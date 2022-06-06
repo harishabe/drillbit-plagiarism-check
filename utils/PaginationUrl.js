@@ -4,7 +4,7 @@ export const PaginationUrl = (paginationPayload) => {
 
 export const PaginationValue = {
     'page': 0,
-    'size': 1,
+    'size': 4,
     'field': 'user_id',
     'orderBy': 'asc'
 };

@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Pagination from '@mui/material/Pagination';
 import { TextField } from '@mui/material';
 import Instructor from '../../layouts/Instructor';
 import { BreadCrumb, MainHeading, Folder } from '../../components';
 import { GetAllFolders } from '../../redux/action/instructor/InstructorAction';
+import { PaginationValue } from '../../utils/PaginationUrl';
 
 const InstructorBreadCrumb = [
     {
@@ -20,10 +22,24 @@ const InstructorBreadCrumb = [
     },
 ];
 
-const MyFolder = ({ GetAllFolders, myFolders }) => {
+const MyFolder = ({ GetAllFolders, myFolders, pageDetails}) => {
+
+     const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: 'ass_id',
+        orderBy: PaginationValue?.orderBy,
+    });
+
     useEffect(() => {
-        GetAllFolders();
-    }, []);
+        GetAllFolders(paginationPayload);
+    }, [, paginationPayload]);
+
+     const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1})
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -51,18 +67,30 @@ const MyFolder = ({ GetAllFolders, myFolders }) => {
                         <Folder item={item} path='/instructor/studentlist' />
                     </Grid>
                 ))}
+                
             </Grid>
+
+            <div style={{ marginLeft: '30%', marginTop: '25px' }}>
+                    <Pagination
+                        count={pageDetails?.totalPages}
+                        onChange={handleChange}
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div>
         </React.Fragment>
     );
 };
 
 const mapStateToProps = (state) => ({
-    myFolders: state?.instructorMyFolders?.myFolders?.foldersDTO,
+    pageDetails: state?.instructorMyFolders?.myFolders?.page,
+    myFolders: state?.instructorMyFolders?.myFolders?._embedded?.folderDTOList,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetAllFolders: () => dispatch(GetAllFolders()),
+        GetAllFolders: (paginationPayload) => dispatch(GetAllFolders(paginationPayload)),
     };
 };
 

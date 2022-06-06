@@ -92,7 +92,6 @@ const TabMenu = ({
             </Box>
             {components.map((component, index) => (
                 <TabPanel value={value} index={index}>
-                    {/* <CardView>{component}</CardView> */}
                     {component}
                 </TabPanel>
             ))}

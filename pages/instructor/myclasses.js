@@ -1,13 +1,13 @@
-import React from 'react'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import { TextField } from '@mui/material'
+import React from 'react';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
 
-import Instructor from '../../layouts/Instructor'
-import { BreadCrumb, TabMenu } from '../../components'
+import Instructor from '../../layouts/Instructor';
+import { BreadCrumb, MainHeading, TabMenu } from '../../components';
 
-import MyClassFiles from './myclassfiles'
-import Archives from './archives'
+import MyClassFiles from './myclassfiles';
+import Archives from './archives';
 
 const InstructorBreadCrumb = [
     {
@@ -42,7 +42,7 @@ const MyClasses = () => {
                         <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
                     <Grid item md={2} xs={2}>
-                        <TextField
+                        {/* <TextField
                             placeholder='Search'
                             inputProps={{
                                 style: {
@@ -50,10 +50,11 @@ const MyClasses = () => {
                                     display: 'inline-flex',
                                 },
                             }}
-                        />
+                        /> */}
                     </Grid>
                 </Grid>
             </Box>
+            <MainHeading title='My Classes(6)' />
             <TabMenu
                 menuButton={tabMenu}
                 components={componentList}
