@@ -94,17 +94,6 @@ const Students = ({
                     <Grid item md={10} xs={10}>
                         <BreadCrumb item={IntegrationBreadCrumb} />
                     </Grid>
-                    <Grid item md={2} xs={2}>
-                        {/* <TextField
-                            placeholder='Search'
-                            inputProps={{
-                                style: {
-                                    padding: 5,
-                                    display: 'inline-flex',
-                                },
-                            }}
-                        /> */}
-                    </Grid>
                 </Grid>
             </Box>
 
@@ -113,7 +102,7 @@ const Students = ({
                     <Grid item md={10} xs={12}>
                         <MainHeading title='My Students(6)' />
                     </Grid>
-                    {/* <Grid
+                    <Grid
                         item
                         md={2}
                         xs={12}
@@ -121,14 +110,28 @@ const Students = ({
                         direction='row'
                         justifyContent={'right'}
                     >
-                        <SubTitle title='6/10 users &nbsp;' />
-                        <InfoIcon />
-                    </Grid> */}
+                        <TextField
+                            placeholder='Search'
+                            inputProps={{
+                                style: {
+                                    padding: 5,
+                                    display: 'inline-flex',
+                                },
+                            }}
+                        />
+                        {/* <SubTitle title='6/10 users &nbsp;' />
+                        <InfoIcon /> */}
+                    </Grid>
                 </Grid>
             </Box>
 
             <CardView>
-                {isLoading ? <Skeleton /> :
+                {isLoading ?
+                    <>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </> :
                     <CommonTable
                         isCheckbox={true}
                         tableHeader={columns}

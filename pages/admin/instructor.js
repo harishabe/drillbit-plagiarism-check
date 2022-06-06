@@ -54,6 +54,8 @@ const Instructor = ({
         orderBy: PaginationValue?.orderBy,
     });
 
+    const [searchBy, setSearchBy] = useState('');
+
 
     useEffect(() => {
         GetInstructorData(paginationPayload);
@@ -83,16 +85,30 @@ const Instructor = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
+    const handleSearch = (event) => {
+        console.log('eventeventevent', event);
+        setSearchBy({ searchItem: event.target.value });
+    };
+
     return (
+        console.log('searchBy', searchBy),
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={10}>
                         <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
-                    {/* <Grid item md={2} xs={2}>
+                </Grid>
+            </Box>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={8}>
+                        <MainHeading title='Instructors(3)' />
+                    </Grid>
+                    <Grid item md={4} xs container direction='row' justifyContent={'right'}>
                         <TextField
                             placeholder='Search'
+                            onChange={handleSearch}
                             inputProps={{
                                 style: {
                                     padding: 5,
@@ -100,23 +116,18 @@ const Instructor = ({
                                 }
                             }}
                         />
-                    </Grid> */}
-                </Grid>
-            </Box>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10}>
-                        <MainHeading title='Instructors(3)' />
+                        {/* <SubTitle title='6/10 users' />
+                        <InfoIcon /> */}
                     </Grid>
-                    {/* <Grid item md={2} xs container direction='row' justifyContent={'right'}>
-                        <SubTitle title='6/10 users' />
-                        <InfoIcon />
-                    </Grid> */}
                 </Grid>
             </Box>
             <CardView>
                 {isLoading ?
-                    <Skeleton /> :
+                    <>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </> :
                     <>
                         <CommonTable
                             isCheckbox={true}
