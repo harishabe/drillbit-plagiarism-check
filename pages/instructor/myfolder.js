@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
-import { TextField } from '@mui/material';
+import { TextField, Skeleton } from '@mui/material';
 import Instructor from '../../layouts/Instructor';
 import { BreadCrumb, MainHeading, Folder } from '../../components';
 import { GetAllFolders } from '../../redux/action/instructor/InstructorAction';
@@ -22,9 +22,14 @@ const InstructorBreadCrumb = [
     },
 ];
 
-const MyFolder = ({ GetAllFolders, myFolders, pageDetails}) => {
+const MyFolder = ({
+    GetAllFolders,
+    myFolders,
+    pageDetails,
+    isLoading
+}) => {
 
-     const [paginationPayload, setPaginationPayload] = useState({
+    const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
         field: 'ass_id',
@@ -35,9 +40,9 @@ const MyFolder = ({ GetAllFolders, myFolders, pageDetails}) => {
         GetAllFolders(paginationPayload);
     }, [, paginationPayload]);
 
-     const handleChange = (event, value) => {
+    const handleChange = (event, value) => {
         event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1})
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
     return (
@@ -61,24 +66,28 @@ const MyFolder = ({ GetAllFolders, myFolders, pageDetails}) => {
                 </Grid>
             </Box>
             <MainHeading title='My Folder(6)' />
-            <Grid container spacing={2}>
-                {myFolders?.map((item, index) => (
-                    <Grid key={index} item md={3} sm={4} xs={6}>
-                        <Folder item={item} path='/instructor/studentlist' />
-                    </Grid>
-                ))}
-                
-            </Grid>
+            {isLoading ? <Grid container spacing={2}>
+                <Grid item md={4} xs={12}><Skeleton /></Grid>
+                <Grid item md={4} xs={12}><Skeleton /></Grid>
+                <Grid item md={4} xs={12}><Skeleton /></Grid>
+            </Grid> :
+                <Grid container spacing={2}>
+                    {myFolders?.map((item, index) => (
+                        <Grid key={index} item md={3} sm={4} xs={6}>
+                            <Folder item={item} path='/instructor/studentlist' />
+                        </Grid>
+                    ))}
+                </Grid>}
 
             <div style={{ marginLeft: '30%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
+                <Pagination
+                    count={pageDetails?.totalPages}
+                    onChange={handleChange}
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </div>
         </React.Fragment>
     );
 };
@@ -86,6 +95,7 @@ const MyFolder = ({ GetAllFolders, myFolders, pageDetails}) => {
 const mapStateToProps = (state) => ({
     pageDetails: state?.instructorMyFolders?.myFolders?.page,
     myFolders: state?.instructorMyFolders?.myFolders?._embedded?.folderDTOList,
+    isLoading: state?.instructorMyFolders?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
