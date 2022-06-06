@@ -8,12 +8,18 @@ import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { Skeleton } from '@mui/material';
 
+function createData( validity) {
+    return { validity }
+};
+
 const MyClassFiles = ({
     GetClassesData,
     classesData,
     pageDetails,
     isLoading
 }) => {
+
+    const [item, setItem] = useState([]);
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -25,6 +31,26 @@ const MyClassFiles = ({
     useEffect(() => {
         GetClassesData(paginationPayload);
     }, [, paginationPayload]);
+
+    useEffect(() => {
+        let row = '';
+        let arr = [];
+        let presentDate;
+        let expiryDate;
+        let differenceInTime;
+        classesData?.map((item) => {
+            row =
+            createData(
+                 presentDate = new Date(),
+                 expiryDate = new Date(item.expiry_date),
+                 differenceInTime = expiryDate.getTime() - presentDate.getTime(),
+
+                 item.validity = `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,                       
+            );
+            arr.push(row)
+        });
+        setItem([...arr]);
+    }, [classesData]);
 
     const handleChange = (event, value) => {
         event.preventDefault();
