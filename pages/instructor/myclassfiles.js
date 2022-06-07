@@ -43,7 +43,7 @@ const MyClassFiles = ({
             createData(
                  presentDate = new Date(),
                  expiryDate = new Date(item.expiry_date),
-                 differenceInTime = expiryDate.getTime() - presentDate.getTime(),
+                 differenceInTime = presentDate.getTime() - expiryDate.getTime(),
 
                  item.validity = `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,                       
             );
