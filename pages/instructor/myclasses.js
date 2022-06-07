@@ -66,7 +66,7 @@ const MyClasses = ({ GetClassesData, pageDetails }) => {
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title='My Classes(6)' />
+            <MainHeading title={'My Classes'+'('+pageDetails?.totalElements+')'} />
             <TabMenu
                 menuButton={tabMenu}
                 components={componentList}
