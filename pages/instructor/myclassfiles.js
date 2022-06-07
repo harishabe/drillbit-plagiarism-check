@@ -99,6 +99,7 @@ const MyClassFiles = ({
                     <Grid item md={4} xs={12}><Skeleton /></Grid>
                 </Grid> :
                 <Grid container spacing={2}>
+
                     {classesData?.map((item, index) => (
                         <Grid item md={4} xs={12}>
                             <CardInfoView
