@@ -44,7 +44,6 @@ const MyClassFiles = ({
                     presentDate = new Date(),
                     expiryDate = new Date(item.expiry_date),
                     differenceInTime = presentDate.getTime() - expiryDate.getTime(),
-
                     item.validity = `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,
                 );
             arr.push(row)
@@ -57,13 +56,13 @@ const MyClassFiles = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
-    const checkStatus = (validity) =>{
-        if(validity <= 15){
+    const checkStatus = (validity) => {
+        if (validity <= 15) {
             return '#FF0000';
-        }else if(validity >= 15 && validity <= 100){
+        } else if (validity >= 15 && validity <= 100) {
             return '#FFFF00';
-        }else {
-            return '#00FF00';
+        }else{
+            return '#CCCCCC';
         }
     }
 

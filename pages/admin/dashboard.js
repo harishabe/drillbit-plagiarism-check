@@ -87,8 +87,6 @@ const Dashboard = ({
         });
     }, []);
 
-    console.log('testtesttest', adminDashboardData?.data?.accountValidityPercentage);
-
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>

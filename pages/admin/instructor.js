@@ -54,9 +54,6 @@ const Instructor = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    const [searchBy, setSearchBy] = useState('');
-
-
     useEffect(() => {
         GetInstructorData(paginationPayload);
     }, [, paginationPayload]);
@@ -86,12 +83,16 @@ const Instructor = ({
     };
 
     const handleSearch = (event) => {
-        console.log('eventeventevent', event);
-        setSearchBy({ searchItem: event.target.value });
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
     };
 
     return (
-        console.log('searchBy', searchBy),
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>

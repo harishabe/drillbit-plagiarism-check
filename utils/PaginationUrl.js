@@ -1,5 +1,9 @@
 export const PaginationUrl = (paginationPayload) => {
-    return '?page=' + paginationPayload.page + '&size=' + paginationPayload.size + '&field=' + paginationPayload.field + '&orderBy=' + paginationPayload.orderBy;
+    if (paginationPayload.hasOwnProperty('search')) {
+        return '?page=' + paginationPayload.page + '&size=' + paginationPayload.size + '&field=' + paginationPayload.field + '&orderBy=' + paginationPayload.orderBy + '&search=' + paginationPayload.search;
+    } else {
+        return '?page=' + paginationPayload.page + '&size=' + paginationPayload.size + '&field=' + paginationPayload.field + '&orderBy=' + paginationPayload.orderBy;
+    }
 };
 
 export const PaginationValue = {

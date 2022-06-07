@@ -87,6 +87,16 @@ const Students = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -112,6 +122,7 @@ const Students = ({
                     >
                         <TextField
                             placeholder='Search'
+                            onChange={handleSearch}
                             inputProps={{
                                 style: {
                                     padding: 5,
