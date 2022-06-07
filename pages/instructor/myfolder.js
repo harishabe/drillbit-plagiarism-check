@@ -45,6 +45,16 @@ const MyFolder = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
+     const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -55,6 +65,7 @@ const MyFolder = ({
                     <Grid item md={2} xs={2}>
                         <TextField
                             placeholder='Search'
+                            onChange={handleSearch}
                             inputProps={{
                                 style: {
                                     padding: 5,
@@ -65,7 +76,7 @@ const MyFolder = ({
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title='My Folder(6)' />
+            <MainHeading title={'My Folder'+'('+pageDetails?.totalElements+')'} />
             {isLoading ? <Grid container spacing={2}>
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
