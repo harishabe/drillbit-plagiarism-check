@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useEffect ,useState} from 'react';
+import { connect } from 'react-redux';
+import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { TextField } from '@mui/material';
+import { PaginationValue } from '../../utils/PaginationUrl';
 
 import Instructor from '../../layouts/Instructor';
 import { BreadCrumb, MainHeading, TabMenu } from '../../components';
@@ -22,18 +25,30 @@ const InstructorBreadCrumb = [
     },
 ]
 
-const tabMenu = [
+const MyClasses = ({GetClassesData , pageDetails}) => {
+
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: 'class_id',
+        orderBy: PaginationValue?.orderBy,
+    });
+
+    const componentList = [<MyClassFiles />, <Archives />]
+
+    const tabMenu = [
     {
-        label: 'My Classes(6)',
+        label: `My Classes(${pageDetails?.totalElements})`,
     },
     {
         label: 'Archives(1)',
     },
 ]
 
-const componentList = [<MyClassFiles />, <Archives />]
+     useEffect(() => {
+        GetClassesData(paginationPayload);
+    }, [, paginationPayload]);
 
-const MyClasses = () => {
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -54,7 +69,7 @@ const MyClasses = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title='My Classes(6)' />
+            <MainHeading title = 'My Classes(6)' />
             <TabMenu
                 menuButton={tabMenu}
                 components={componentList}
@@ -64,6 +79,18 @@ const MyClasses = () => {
     )
 }
 
+const mapStateToProps = (state) => ({
+    pageDetails: state?.instructorClasses?.classesData?.page,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetClassesData: (PaginationValue) => dispatch(GetClassesData(PaginationValue)),
+    };
+};
+
 MyClasses.layout = Instructor
 
-export default MyClasses
+export default connect(mapStateToProps, mapDispatchToProps)(MyClasses);
+
+
