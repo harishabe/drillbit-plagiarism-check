@@ -8,7 +8,7 @@ import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { Skeleton } from '@mui/material';
 
-function createData( validity) {
+function createData(validity) {
     return { validity }
 };
 
@@ -40,13 +40,13 @@ const MyClassFiles = ({
         let differenceInTime;
         classesData?.map((item) => {
             row =
-            createData(
-                 presentDate = new Date(),
-                 expiryDate = new Date(item.expiry_date),
-                 differenceInTime = presentDate.getTime() - expiryDate.getTime(),
+                createData(
+                    presentDate = new Date(),
+                    expiryDate = new Date(item.expiry_date),
+                    differenceInTime = presentDate.getTime() - expiryDate.getTime(),
 
-                 item.validity = `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,                       
-            );
+                    item.validity = `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,
+                );
             arr.push(row)
         });
         setItem([...arr]);

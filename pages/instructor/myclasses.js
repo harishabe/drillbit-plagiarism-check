@@ -1,4 +1,4 @@
-import React, {useEffect ,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
 import Grid from '@mui/material/Grid';
@@ -25,7 +25,7 @@ const InstructorBreadCrumb = [
     },
 ]
 
-const MyClasses = ({GetClassesData , pageDetails}) => {
+const MyClasses = ({ GetClassesData, pageDetails }) => {
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -36,18 +36,15 @@ const MyClasses = ({GetClassesData , pageDetails}) => {
 
     const componentList = [<MyClassFiles />, <Archives />]
 
-    const tabMenu = [
-    {
+    const tabMenu = [{
         label: `My Classes(${pageDetails?.totalElements})`,
-    },
-    {
+    }, {
         label: 'Archives(1)',
-    },
-]
+    }];
 
-     useEffect(() => {
+    useEffect(() => {
         GetClassesData(paginationPayload);
-    }, [, paginationPayload]);
+    }, []);
 
     return (
         <React.Fragment>
@@ -69,7 +66,7 @@ const MyClasses = ({GetClassesData , pageDetails}) => {
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title = 'My Classes(6)' />
+            <MainHeading title='My Classes(6)' />
             <TabMenu
                 menuButton={tabMenu}
                 components={componentList}
