@@ -37,9 +37,10 @@ const AlignRight = styled.div`
 
 const StatusColor = styled.div`
     display: inline-flex;
-    background: rgba(216, 79, 79, 0.4);
+    background: ${(props) => props.color};
     padding: 5px 5px 0px 5px;
-`
+`;
+
 
 const CardInfoView = ({
     item,
@@ -52,7 +53,8 @@ const CardInfoView = ({
     isConfig,
     isAvatar,
     isHeading,
-    isImage
+    isImage,
+    statusColor,
 }) => {
     const router = useRouter();
 
@@ -90,7 +92,7 @@ const CardInfoView = ({
                     <Grid container>
                         <Grid item md={9} xs={9}>
                             {isTimer ?
-                                <StatusColor>
+                                <StatusColor color={statusColor}>
                                     <TimerIcon />
                                     <SubTitle2
                                         title={item.validity}

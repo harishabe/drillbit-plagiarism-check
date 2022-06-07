@@ -78,7 +78,7 @@ const RadialBarChart = ({
                             color: '#000000',
                             offsetY: 16,
                             formatter: function (val) {
-                                return val
+                                return '';
                             }
                         },
                     }

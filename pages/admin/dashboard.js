@@ -87,6 +87,8 @@ const Dashboard = ({
         });
     }, []);
 
+    console.log('testtesttest', adminDashboardData?.data?.accountValidityPercentage);
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -166,17 +168,22 @@ const Dashboard = ({
                                     <SubTitle title='(In days)' />
                                 </SubTitleMargin>
                             </InLineText>
-                            <RadialBarChart
-                                type={RADIAL_CHART_TYPE}
-                                color={RADIAL_CHART_COLOR}
-                                height={RADIAL_CHART_HEIGHT}
-                                label={RADIAL_CHART_LABEL}
-                                series={RADIAL_CHART_SERIES}
-                            />
-                            <SubTitle
-                                title='Renive your account'
-                                isLink={true}
-                            />
+                            {adminDashboardData.data ?
+                                <>
+                                    <RadialBarChart
+                                        type={RADIAL_CHART_TYPE}
+                                        color={RADIAL_CHART_COLOR}
+                                        height={RADIAL_CHART_HEIGHT}
+                                        label={[RADIAL_CHART_LABEL + adminDashboardData?.data?.accountValidityDays]}
+                                        series={[adminDashboardData?.data?.accountValidityPercentage.toFixed(2)]}
+                                    />
+                                    <SubTitle
+                                        title='Renive your account'
+                                        isLink={true}
+                                    />
+                                </> :
+                                ''}
+
                         </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>
@@ -187,7 +194,7 @@ const Dashboard = ({
                                 </Grid>
                                 <Grid item md={3} xs={12}>
                                     <TextAlignRight>
-                                        <SubTitle title='2666' />
+                                        <SubTitle title={adminDashboardData?.trendAnalysis?.documentsProcessed} />
                                     </TextAlignRight>
                                 </Grid>
                             </Grid>
