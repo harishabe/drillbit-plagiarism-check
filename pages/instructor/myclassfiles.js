@@ -57,6 +57,16 @@ const MyClassFiles = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
+    const checkStatus = (validity) =>{
+        if(validity <= 15){
+            return '#FF0000';
+        }else if(validity >= 15 && validity <= 100){
+            return '#FFFF00';
+        }else {
+            return '#00FF00';
+        }
+    }
+
     return (
         <React.Fragment>
             {isLoading ?
@@ -74,6 +84,7 @@ const MyClassFiles = ({
                                 isAvatar={true}
                                 isHeading={true}
                                 isTimer={true}
+                                statusColor={checkStatus(item.validity)}
                                 path='/instructor/myclasstables'
                             />
                         </Grid>
