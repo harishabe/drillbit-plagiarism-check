@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
+import { TextField } from '@mui/material';
 import Instructor from '../../layouts/Instructor';
 import { CardInfoView } from '../../components';
 import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
@@ -57,6 +58,7 @@ const MyClassFiles = ({
     };
 
     const checkStatus = (validity) => {
+        console.log("first", validity)
         if (validity <= 15) {
             return '#FF0000';
         } else if (validity >= 15 && validity <= 100) {
@@ -66,8 +68,30 @@ const MyClassFiles = ({
         }
     }
 
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    };
+
     return (
         <React.Fragment>
+              <Grid item md={2} xs={2}>
+                        <TextField
+                            placeholder='Search'
+                            onChange={handleSearch}
+                            inputProps={{
+                                style: {
+                                    padding: 5,
+                                    display: 'inline-flex',
+                                },
+                            }}
+                        />
+                </Grid>
             {isLoading ?
                 <Grid container spacing={2}>
                     <Grid item md={4} xs={12}><Skeleton /></Grid>
