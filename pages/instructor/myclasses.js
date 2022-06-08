@@ -25,7 +25,12 @@ const InstructorBreadCrumb = [
     },
 ]
 
-const MyClasses = ({ GetClassesData, pageDetails }) => {
+const MyClasses = ({ 
+    GetClassesData,
+    classesData,
+    pageDetails,
+    isLoading 
+}) => {
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -34,7 +39,13 @@ const MyClasses = ({ GetClassesData, pageDetails }) => {
         orderBy: PaginationValue?.orderBy,
     });
 
-    const componentList = [<MyClassFiles />, <Archives />]
+    const componentList = 
+    [<MyClassFiles 
+        GetClassesData={GetClassesData} 
+        pageDetails={pageDetails} 
+        classesData={classesData} 
+        isLoading={isLoading} />, 
+    <Archives />]
 
     const tabMenu = [{
         label: `My Classes(${pageDetails?.totalElements})`,
@@ -46,6 +57,16 @@ const MyClasses = ({ GetClassesData, pageDetails }) => {
         GetClassesData(paginationPayload);
     }, []);
 
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -54,15 +75,16 @@ const MyClasses = ({ GetClassesData, pageDetails }) => {
                         <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
                     <Grid item md={2} xs={2}>
-                        {/* <TextField
+                        <TextField
                             placeholder='Search'
+                             onChange={handleSearch}
                             inputProps={{
                                 style: {
                                     padding: 5,
                                     display: 'inline-flex',
                                 },
                             }}
-                        /> */}
+                        />
                     </Grid>
                 </Grid>
             </Box>
@@ -78,6 +100,8 @@ const MyClasses = ({ GetClassesData, pageDetails }) => {
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.instructorClasses?.classesData?.page,
+    classesData: state?.instructorClasses?.classesData?._embedded?.classDTOList,
+    isLoading: state?.instructorClasses?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
