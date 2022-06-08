@@ -80,12 +80,35 @@ const Dashboard = ({
         GetTrendAnalysis();
         trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork)
         setTrendAnalysisSeries([...trendAnalysisSeries]);
-        usageGraphData.map((item) => {
-            item.goals.map((goalsItem) => {
-                goalsItem['value'] = 10
-            })
-        });
+
     }, []);
+
+
+    useEffect(() => {
+        let usageGraph = usageGraphData?.map((item) => {
+            if (item?.x === 'Instructors') {
+                item['y'] = adminDashboardData?.data?.instructorAccountUsage?.usedAccounts
+            } else if (item?.x === 'Student') {
+                item['y'] = adminDashboardData?.data?.studentAccountUsage?.usedAccounts
+            } else if (item?.x === 'Admin') {
+                item['y'] = adminDashboardData?.data?.adminAccountUsage?.usedAccounts
+            }
+            item?.goals?.map((goalsItem) => {
+                if (item?.x === 'Instructors') {
+                    goalsItem['value'] = adminDashboardData?.data?.instructorAccountUsage?.totalAccounts;
+                    return goalsItem;
+                } else if (item?.x === 'Student') {
+                    goalsItem['value'] = adminDashboardData?.data?.studentAccountUsage?.totalAccounts;
+                    return goalsItem;
+                } else if (item?.x === 'Admin') {
+                    goalsItem['value'] = adminDashboardData?.data?.adminAccountUsage?.totalAccounts;
+                    return goalsItem;
+                }
+            });
+            return item;
+        });
+        setUsageGraphData(usageGraph);
+    }, [adminDashboardData])
 
     return (
         <React.Fragment>
@@ -94,14 +117,14 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of instructors'
-                            count={adminDashboardData?.data?.no_of_instructors}
+                            count={adminDashboardData?.data?.instructorAccountUsage?.usedAccounts}
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of students'
-                            count={adminDashboardData?.data?.no_of_students}
+                            count={adminDashboardData?.data?.studentAccountUsage?.usedAccounts}
                             icon={<NoStudentIcon />}
                         />
                     </Grid>
@@ -119,22 +142,27 @@ const Dashboard = ({
                     <Grid item md={8} xs={12}>
                         <CardView>
                             <Heading title='Document Processed' />
-                            <ColumnChart
+                            {adminDashboardData?.data && <ColumnChart
                                 type={COLUMN_ADMIN_CHART_TYPE}
                                 color={COLUMN_ADMIN_CHART_COLOR}
                                 xaxisData={COLUMN_ADMIN_XAXIS_DATA}
                                 columnWidth={COLUMN_ADMIN_WIDTH}
                                 height={COLUMN_ADMIN_CHART_HEIGHT}
-                                seriesData={COLUMN_ADMIN_CHART_SERIES_DATA}
+                                seriesData={[
+                                    {
+                                        name: 'Document Processed',
+                                        data: adminDashboardData?.data?.monthlySubmissions
+                                    }
+                                ]}
                                 gradient={COLUMN_ADMIN_CHART_GRADIENT}
                                 borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
-                            />
+                            />}
                         </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <CardView>
                             <Heading title='Account Usage Info' />
-                            <UsageChart SERIES_DATA={USAGE_CHART_DATA} />
+                            {adminDashboardData?.data && <UsageChart SERIES_DATA={usageGraphData} />}
                             {/* <ColumnChart
                                 type={COLUMN_ADMIN_ACC_USG_CHART_TYPE}
                                 color={COLUMN_ADMIN_ACC_USG_CHART_COLOR}

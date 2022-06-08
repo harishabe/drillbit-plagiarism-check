@@ -149,7 +149,6 @@ const Instructor = ({
                         shape="rounded"
                     />
                 </div>
-
             </CardView>
         </React.Fragment>
     )
