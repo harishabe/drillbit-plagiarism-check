@@ -81,17 +81,16 @@ const Dashboard = ({ GetWidgetCount, instructorDashboardData, isLoading }) => {
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
-                        {isLoading ? 
-                             <>
-                                 <Skeleton/>
-                                 <Skeleton/>
-                                 <Skeleton/>
-                             </> 
-                           : <>
-                                <TopStudents topStudentData={instructorDashboardData?.data?.top_students} />
-                            </>
-                        }
-                        
+                            {isLoading ? 
+                                <>
+                                    <Skeleton/>
+                                    <Skeleton/>
+                                    <Skeleton/>
+                                </> 
+                              : <>
+                                    <TopStudents topStudentData={instructorDashboardData?.data?.top_students} />
+                                </>
+                            }
                     </Grid>
                     <Grid item md={8} xs={12}>
                         <RecentSubmissions />
@@ -103,15 +102,28 @@ const Dashboard = ({ GetWidgetCount, instructorDashboardData, isLoading }) => {
                     <Grid item md={8} xs={12}>
                         <CardView>
                             <Heading title='Submission Overview' />
-                            <ColumnChart
-                                type={COLUMN_CHART_TYPE}
-                                color={COLUMN_CHART_COLOR}
-                                xaxisData={COLUMN_XAXIS_DATA}
-                                columnWidth={COLUMN_WIDTH}
-                                height={COLUMN_CHART_HEIGHT}
-                                seriesData={COLUMN_CHART_SERIES_DATA}
-                                borderRadius={COLUMN_CHART_BORDER_RADIUS}
-                            />
+                            {isLoading ? 
+                             <>
+                                 <Skeleton/>
+                             </> 
+                           : <>
+                                {instructorDashboardData?.data && <ColumnChart
+                                    type={COLUMN_CHART_TYPE}
+                                    color={COLUMN_CHART_COLOR}
+                                    xaxisData={COLUMN_XAXIS_DATA}
+                                    columnWidth={COLUMN_WIDTH}
+                                    height={COLUMN_CHART_HEIGHT}
+                                    seriesData={[
+                                     {
+                                        name: 'Monthly Submissions',
+                                        data: instructorDashboardData?.data?.monthlySubmissions
+                                     }
+                                        ]}
+                                    borderRadius={COLUMN_CHART_BORDER_RADIUS}
+                                     />
+                                }
+                            </>
+                            }
                         </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>

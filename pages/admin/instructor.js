@@ -138,17 +138,18 @@ const Instructor = ({
                             isActionIcon={true}
                             charLength={20}
                         />
+                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
+                            <Pagination
+                                count={pageDetails?.totalPages}
+                                onChange={handleChange}
+                                color="primary"
+                                variant="outlined"
+                                shape="rounded"
+                             />
+                        </div>
                     </>
                 }
-                <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
+                
             </CardView>
         </React.Fragment>
     )
