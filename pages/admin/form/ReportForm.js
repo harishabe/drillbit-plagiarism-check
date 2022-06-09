@@ -20,7 +20,7 @@ const ReportForm = ({
         mode: 'all',
     });
 
-    const onSubmit = (data) => { };
+    const onSubmit = (data) => { console.log('data',data) };
 
     useEffect(() => {
         ReportsData();

@@ -19,6 +19,9 @@ const IntegrationBreadCrumb = [
     },
 ];
 
+const handDownload = (e, title) => {
+}
+
 const Reports = () => {
     return (
         <React.Fragment>
@@ -28,12 +31,16 @@ const Reports = () => {
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Instructors lists'
+                            count={10}
+                            handleDownload={handDownload}
                             icon={<DownloadIcon />}
                         />
                     </Grid>
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Student lists'
+                            count={10}
+                            handleDownload={handDownload}
                             icon={<DownloadIcon />}
                         />
                     </Grid>

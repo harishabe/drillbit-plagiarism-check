@@ -1,20 +1,21 @@
-import * as React from 'react'
-import { useRouter } from 'next/router'
-import Hidden from '@mui/material/Hidden'
-import Avatar from '@mui/material/Avatar'
-import { styled } from '@mui/material/styles'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import Box from '@mui/material/Box'
-import MuiAppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import Paper from '@mui/material/Paper'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import MenuList from '@mui/material/MenuList'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import { Button } from '@mui/material'
-import ListItemText from '@mui/material/ListItemText'
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
+import Hidden from '@mui/material/Hidden';
+import Avatar from '@mui/material/Avatar';
+import { styled } from '@mui/material/styles';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Paper from '@mui/material/Paper';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import { Button } from '@mui/material';
+import ListItemText from '@mui/material/ListItemText';
 import {
     ToggleBarIcon,
     MessageIcon,
@@ -24,7 +25,7 @@ import {
     SwitchAccountIcon,
     AccountIcon,
     HelpIcon
-} from '../../assets/icon'
+} from '../../assets/icon';
 
 
 const drawerWidth = 240
@@ -56,7 +57,8 @@ const AppBar = styled(MuiAppBar, {
 
 const NavBar = ({
     open,
-    handleDrawerOpen
+    handleDrawerOpen,
+    dashboardData
 }) => {
     const [anchorEl, setAnchorEl] = React.useState(null)
     const openProfile = Boolean(anchorEl)
@@ -72,9 +74,10 @@ const NavBar = ({
         router.push('/auth/login')
     }
     return (
+        console.log('dashboardData', dashboardData),
         <>
             <Hidden mdDown implementation="css">
-                <AppBar position="fixed" open={open} color="appbar">                  
+                <AppBar position="fixed" open={open} color="appbar">
                     <Box sx={{ boxShadow: 1 }}>
                         <Hidden mdDown implementation="css">
                             <Toolbar>
@@ -121,12 +124,18 @@ const NavBar = ({
                                     </IconButton>
                                     <Divider orientation="vertical" flexItem />
                                     <div style={{ display: 'block', marginLeft: '15px', marginRight: '15px' }}>
-                                        <div style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}>Vivek Jayanna</div>
-                                        <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right' }}>Instructor</div>
+                                        <div style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}>
+                                            {dashboardData?.data?.userProfileLite?.name}
+                                        </div>
+                                        <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right' }}>
+                                            {dashboardData?.data?.userProfileLite?.role}
+                                        </div>
                                     </div>
 
                                     <div style={{ marginLeft: '15px', marginRight: '15px', cursor: 'pointer' }}>
-                                        <Avatar onClick={handleProfileClick} alt="Remy Sharp" sx={{ width: 45, height: 45, background: '#68C886', color: '#fff' }}>VJ</Avatar>
+                                        <Avatar onClick={handleProfileClick} alt="Remy Sharp" sx={{ width: 45, height: 45, background: '#68C886', color: '#fff' }}>
+                                            {dashboardData?.data?.userProfileLite?.name.match(/\b(\w)/g).join('')}
+                                        </Avatar>
                                     </div>
                                     <IconButton
                                         onClick={handleProfileClick}
@@ -181,9 +190,9 @@ const NavBar = ({
                     <MenuList>
                         <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                             <Avatar alt="Remy Sharp" style={{ width: '56px', height: '56px', background: '#68C886', color: '#fff' }}>
-                                VJ
+                                {dashboardData?.data?.userProfileLite?.name.match(/\b(\w)/g).join('')}
                             </Avatar>
-                            <ListItemText style={{ padding: '5px 15px' }} primary="Vivek Jayanna" secondary="vivek.jayanna@drillbit.com" />
+                            <ListItemText style={{ padding: '5px 15px' }} primary={dashboardData?.data?.userProfileLite?.name} secondary="vivek.jayanna@drillbit.com" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                         <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
@@ -223,4 +232,8 @@ const NavBar = ({
     )
 }
 
-export default NavBar
+const mapStateToProps = (state) => ({
+    dashboardData: state?.adminDashboard,
+});
+
+export default connect(mapStateToProps, {})(NavBar);
