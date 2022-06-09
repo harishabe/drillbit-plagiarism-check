@@ -67,8 +67,8 @@ const ReportForm = ({
 };
 
 const mapStateToProps = (state) => ({
-    reportData: state?.detailsData?.reportData,
-    isLoading: state?.detailsData?.isLoading,
+    reportData: state?.adminReport?.reportData,
+    isLoading: state?.adminReport?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {

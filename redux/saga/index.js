@@ -5,8 +5,11 @@ import { InsDashboardWidget } from './instructor/Dashboard';
 import {
     GetInstructorData,
     GetStudentData,
-    GetReportData,
 } from './admin/DetailsAdminData';
+import {
+    GetReportData,
+    GetReportDataDownload
+} from './admin/ReportsData';
 import { GetClassesData,GetMyFolders } from './instructor/DetailsInstructorData';
 
 const saga = [
@@ -17,6 +20,7 @@ const saga = [
     fork(GetInstructorData),
     fork(InsDashboardWidget),
     fork(GetReportData),
+    fork(GetReportDataDownload),
     fork(GetClassesData),
     fork(GetMyFolders),
     fork(GetStudentData),

@@ -6,6 +6,8 @@ const END_POINTS = {
     ADMIN_INSTRUCTOR: '/extreme/admin/instructors',
     ADMIN_STUDENT: '/extreme/admin/students',
     ADMIN_REPORTS: '/extreme/admin/reports',
+    ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST: '/extreme/admin/instructors/download',
+    ADMIN_REPORTS_DOWNLOAD_STUDENTS_LIST: '/extreme/admin/students/download',
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_MY_CLASSES: '/extreme/instructor/classes',
     INSTRUCTOR_MY_FOLDERS: '/extreme/instructor/myFolders',

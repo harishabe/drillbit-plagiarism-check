@@ -5,6 +5,7 @@ import InsDashboardReducer from './instructor/DashboardReducer';
 import DetailsInstructorReducer from './instructor/DetailsInstructorReducer';
 import MyFoldersInstructorReducer from './instructor/MyFoldersInstructorReducer';
 import DetailsReducer from './admin/DetailsReducer';
+import ReportsReducer from './admin/ReportsReducer';
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     instructorDashboard: InsDashboardReducer,
     instructorClasses: DetailsInstructorReducer,
     instructorMyFolders: MyFoldersInstructorReducer,
+    adminReport : ReportsReducer,
 });
 
 export default rootReducer;
