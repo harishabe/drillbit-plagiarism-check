@@ -5,11 +5,12 @@ import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
 import { FormComponent } from '../../../components';
-import { ReportsData } from '../../../redux/action/admin/AdminAction';
+import { ReportsData, ViewAndDownloadData } from '../../../redux/action/admin/AdminAction';
 import FormJson from '../../../constant/form/admin-report-form.json';
 
 const ReportForm = ({
     ReportsData,
+    ViewAndDownloadData,
     reportData,
     isLoading
 }) => {
@@ -20,7 +21,7 @@ const ReportForm = ({
         mode: 'all',
     });
 
-    const onSubmit = (data) => { console.log('data',data) };
+    const onSubmit = (data) => { ViewAndDownloadData() };
 
     useEffect(() => {
         ReportsData();
@@ -74,6 +75,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         ReportsData: () => dispatch(ReportsData()),
+        ViewAndDownloadData: (data) => dispatch(ViewAndDownloadData(data)),
     };
 };
 

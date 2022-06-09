@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { GetMethod } from './../ApiMethod';
+import { GetMethod, PostMethod } from './../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -30,10 +30,19 @@ export const GetReports = async () => {
 };
 
 /**
- * API CALL FOR REPORTS
+ * API CALL FOR REPORTS DOWNLOAD
  */
 
 export const DownloadReports = async () => {
     const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST;
     return GetMethod(url);
+};
+
+/**
+ * API CALL FOR REPORTS VIEW & DOWNLOAD
+ */
+
+export const ViewDownloadReports = async () => {
+    const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST;
+    return PostMethod(url);
 };

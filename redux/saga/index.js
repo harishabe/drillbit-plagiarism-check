@@ -8,7 +8,8 @@ import {
 } from './admin/DetailsAdminData';
 import {
     GetReportData,
-    GetReportDataDownload
+    GetReportDataDownload,
+    GetReportViewDownload,
 } from './admin/ReportsData';
 import { GetClassesData,GetMyFolders } from './instructor/DetailsInstructorData';
 
@@ -21,6 +22,7 @@ const saga = [
     fork(InsDashboardWidget),
     fork(GetReportData),
     fork(GetReportDataDownload),
+    fork(GetReportViewDownload),
     fork(GetClassesData),
     fork(GetMyFolders),
     fork(GetStudentData),
