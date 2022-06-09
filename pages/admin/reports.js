@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import Admin from './../../layouts/Admin';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { BreadCrumb, CardView, WidgetCard, Heading } from './../../components';
 import { DownloadIcon } from '../../assets/icon';
+import { ReportsData, DownloadReportData } from '../../redux/action/admin/AdminAction';
 import ReportForm from './form/ReportForm';
 
 const IntegrationBreadCrumb = [
@@ -19,10 +21,20 @@ const IntegrationBreadCrumb = [
     },
 ];
 
-const handDownload = (e, title) => {
-}
+const Reports = ({
+    reportsData, 
+    ReportsData, 
+    DownloadReportData
+}) => {
+    
+    useEffect(() => {
+        ReportsData();
+    }, []);
 
-const Reports = () => {
+    const handDownload = (e, title) => {
+         DownloadReportData();
+    }
+
     return (
         <React.Fragment>
             <BreadCrumb item={IntegrationBreadCrumb} />
@@ -31,7 +43,7 @@ const Reports = () => {
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Instructors lists'
-                            count={10}
+                            count={reportsData?.instructorList.length}
                             handleDownload={handDownload}
                             icon={<DownloadIcon />}
                         />
@@ -56,6 +68,19 @@ const Reports = () => {
     );
 };
 
+const mapStateToProps = (state) => ({
+    reportsData: state?.adminReport?.reportData,
+    isLoading: state?.adminReport?.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        ReportsData: () => dispatch(ReportsData()),
+        DownloadReportData: () => dispatch(DownloadReportData()),
+    };
+};
+
+
 Reports.layout = Admin;
 
-export default Reports;
+export default connect(mapStateToProps, mapDispatchToProps)(Reports);

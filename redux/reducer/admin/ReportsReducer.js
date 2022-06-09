@@ -1,44 +1,44 @@
 import * as types from '../../action/ActionType';
 
-const DetailsReducer = (state = {}, action) => {
+const ReportsReducer = (state = {}, action) => {
     switch (action.type) {
-        case types.FETCH_ADMIN_INSTRUCTOR_DATA_START:
+        case types.FETCH_ADMIN_REPORTS_DATA_START:
             return {
                 ...state,
                 isLoading: true,
             };
-        case types.FETCH_ADMIN_INSTRUCTOR_DATA_SUCCESS:
+        case types.FETCH_ADMIN_REPORTS_DATA_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                instructorData: action.payload,
+                reportData: action.payload,
             };
-        case types.FETCH_ADMIN_INSTRUCTOR_DATA_FAIL:
+        case types.FETCH_ADMIN_REPORTS_DATA_FAIL:
             return {
                 ...state,
                 isLoading: false,
-                instructorError: action.payload,
+                reportDataError: action.payload,
             };
-        case types.FETCH_ADMIN_STUDENT_DATA_START:
+        case types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_START:
             return {
                 ...state,
                 isLoading: true,
             };
-        case types.FETCH_ADMIN_STUDENT_DATA_SUCCESS:
+        case types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                studentData: action.payload,
+                reportDataDownload: action.payload,
             };
-        case types.FETCH_ADMIN_STUDENT_DATA_FAIL:
+        case types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_FAIL:
             return {
                 ...state,
                 isLoading: false,
-                studentDataError: action.payload,
+                reportDataDownloadError: action.payload,
             };
         default:
             return state;
     }
 }
 
-export default DetailsReducer;
+export default ReportsReducer;
