@@ -36,6 +36,23 @@ const ReportsReducer = (state = {}, action) => {
                 isLoading: false,
                 reportDataDownloadError: action.payload,
             };
+        case types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                viewDownloadData: action.payload,
+            };
+        case types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                viewDownloadDataError: action.payload,
+            };
         default:
             return state;
     }

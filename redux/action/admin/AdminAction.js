@@ -45,13 +45,21 @@ export const ReportsData = () => {
     };
 };
 
-
 /**
  * reports data download
  */
 export const DownloadReportData = () => {
     return {
         type: types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_START,
+    };
+};
+
+/**
+ * reports view & download data download
+ */
+export const ViewAndDownloadData = (data) => {
+    return {
+        type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_START, Payload: data
     };
 };
 

@@ -2,7 +2,8 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
     GetReports,
-    DownloadReports
+    DownloadReports,
+    ViewDownloadReports,
 } from '../../api/admin/DetailsAdminAPI';
 
 /**
@@ -52,4 +53,30 @@ export function* onLoadReportDownload() {
 
 export function* GetReportDataDownload() {
     yield takeLatest(types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_START, onLoadReportDownload);
+}
+
+
+/**
+ * Get report view & download
+ * @param {*} action
+ */
+
+
+export function* onLoadViewDownload() {
+    const { response, error } = yield call(ViewDownloadReports);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetReportViewDownload() {
+    yield takeLatest(types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_START, onLoadViewDownload);
 }
