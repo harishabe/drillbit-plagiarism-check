@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { Heading, CardView, ListView } from '../../../components'
+import Skeleton from '@mui/material/Skeleton';
 
 const data = [{
     'name': 'Yatheendra Kumar',
@@ -39,8 +40,8 @@ const TopStudents = ({
     return (
         <>
             <CardView>
-                <Heading title='Top Students' />
-                <ListView listData={topStudentData} />
+                <Heading title= 'Top Students'  />
+                {topStudentData === undefined ? <Skeleton /> : <ListView listData={topStudentData} />}
             </CardView>
         </>
     )

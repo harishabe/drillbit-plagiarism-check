@@ -110,7 +110,7 @@ const Students = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={12}>
-                        <MainHeading title='My Students(6)' />
+                        <MainHeading title={'Students'+'('+pageDetails?.totalElements+')'} />
                     </Grid>
                     <Grid
                         item
@@ -143,24 +143,27 @@ const Students = ({
                         <Skeleton />
                         <Skeleton />
                     </> :
-                    <CommonTable
-                        isCheckbox={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        actionIcon={actionIcon}
-                        isActionIcon={true}
-                        charLength={20}
+                    <>
+                        <CommonTable
+                            isCheckbox={true}
+                            tableHeader={columns}
+                            tableData={rows}
+                            actionIcon={actionIcon}
+                            isActionIcon={true}
+                            charLength={20}
                     />
+                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
+                            <Pagination
+                                count={pageDetails?.totalPages}
+                                onChange={handleChange}
+                                color="primary"
+                                variant="outlined"
+                                shape="rounded"
+                            />
+                        </div>
+                    </>
                 }
-                <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
+                
             </CardView>
         </React.Fragment>
     )

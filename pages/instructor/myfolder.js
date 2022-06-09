@@ -81,24 +81,28 @@ const MyFolder = ({
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
-            </Grid> :
+            </Grid> : 
+                <>
                 <Grid container spacing={2}>
                     {myFolders?.map((item, index) => (
                         <Grid key={index} item md={3} sm={4} xs={6}>
                             <Folder item={item} path='/instructor/studentlist' />
                         </Grid>
                     ))}
-                </Grid>}
+                </Grid>
+                <div style={{ marginLeft: '30%', marginTop: '25px' }}>
+                    <Pagination
+                        count={pageDetails?.totalPages}
+                        onChange={handleChange}
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                     />
+                </div>
+                </>
+            }
 
-            <div style={{ marginLeft: '30%', marginTop: '25px' }}>
-                <Pagination
-                    count={pageDetails?.totalPages}
-                    onChange={handleChange}
-                    color="primary"
-                    variant="outlined"
-                    shape="rounded"
-                />
-            </div>
+            
         </React.Fragment>
     );
 };

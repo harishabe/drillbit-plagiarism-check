@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import styled from 'styled-components';
+import { Skeleton } from '@mui/material';
 import Instructor from '../../layouts/Instructor';
 import { GetWidgetCount } from '../../redux/action/instructor/InstructorAction';
 import {
@@ -10,6 +12,7 @@ import {
     PieChart,
     CardView,
     Heading,
+    SubTitle,
 } from '../../components';
 import {
     NoOfClassIcon,
@@ -33,7 +36,13 @@ import {
     PIE_CHART_LABEL,
 } from './../../constant/data/ChartData';
 
-const Dashboard = ({ GetWidgetCount, instructorDashboardData }) => {
+
+const TextAlignRight = styled.div`
+    text-align: right;
+    margin-top: 5px;
+`;
+
+const Dashboard = ({ GetWidgetCount, instructorDashboardData, isLoading }) => {
     useEffect(() => {
         GetWidgetCount();
     }, []);
@@ -72,7 +81,16 @@ const Dashboard = ({ GetWidgetCount, instructorDashboardData }) => {
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
-                        <TopStudents />
+                            {isLoading ? 
+                                <>
+                                    <Skeleton/>
+                                    <Skeleton/>
+                                    <Skeleton/>
+                                </> 
+                              : <>
+                                    <TopStudents topStudentData={instructorDashboardData?.data?.top_students} />
+                                </>
+                            }
                     </Grid>
                     <Grid item md={8} xs={12}>
                         <RecentSubmissions />
@@ -84,27 +102,57 @@ const Dashboard = ({ GetWidgetCount, instructorDashboardData }) => {
                     <Grid item md={8} xs={12}>
                         <CardView>
                             <Heading title='Submission Overview' />
-                            <ColumnChart
-                                type={COLUMN_CHART_TYPE}
-                                color={COLUMN_CHART_COLOR}
-                                xaxisData={COLUMN_XAXIS_DATA}
-                                columnWidth={COLUMN_WIDTH}
-                                height={COLUMN_CHART_HEIGHT}
-                                seriesData={COLUMN_CHART_SERIES_DATA}
-                                borderRadius={COLUMN_CHART_BORDER_RADIUS}
-                            />
+                            {isLoading ? 
+                             <>
+                                 <Skeleton/>
+                             </> 
+                           : <>
+                                {instructorDashboardData?.data && <ColumnChart
+                                    type={COLUMN_CHART_TYPE}
+                                    color={COLUMN_CHART_COLOR}
+                                    xaxisData={COLUMN_XAXIS_DATA}
+                                    columnWidth={COLUMN_WIDTH}
+                                    height={COLUMN_CHART_HEIGHT}
+                                    seriesData={[
+                                     {
+                                        name: 'Monthly Submissions',
+                                        data: instructorDashboardData?.data?.monthlySubmissions
+                                     }
+                                        ]}
+                                    borderRadius={COLUMN_CHART_BORDER_RADIUS}
+                                     />
+                                }
+                            </>
+                            }
                         </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <CardView>
-                            <Heading title='Trend Analysis' />
-                            <PieChart
-                                type={PIE_CHART_TYPE}
-                                color={PIE_CHART_COLOR}
-                                width={PIE_CHART_WIDTH}
-                                label={PIE_CHART_LABEL}
-                                series={PIE_CHART_SERIES}
-                            />
+                            <Grid container>
+                                <Grid item md={9} xs={12}>
+                                    <Heading title='Trend Analysis' />
+                                </Grid>
+                                <Grid item md={3} xs={12}>
+                                    <TextAlignRight>
+                                        <Heading title={instructorDashboardData?.data?.trendAnalysis?.documentsProcessed} />
+                                    </TextAlignRight>
+                                </Grid>
+                            </Grid>
+                            {isLoading ? <> <Skeleton/> </> : <> {instructorDashboardData?.data?.trendAnalysis &&
+                                <PieChart
+                                    type="donut"
+                                    color={PIE_CHART_COLOR}
+                                    width={PIE_CHART_WIDTH}
+                                    label={PIE_CHART_LABEL}
+                                    series={
+                                        [
+                                            instructorDashboardData?.data?.trendAnalysis?.similarWork,
+                                            instructorDashboardData?.data?.trendAnalysis?.ownWork
+                                        ]
+                                    }
+                                />
+                            } </>}
+                            
                         </CardView>
                     </Grid>
                 </Grid>
@@ -115,6 +163,7 @@ const Dashboard = ({ GetWidgetCount, instructorDashboardData }) => {
 
 const mapStateToProps = (state) => ({
     instructorDashboardData: state?.instructorDashboard,
+    isLoading: state?.instructorDashboard?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {

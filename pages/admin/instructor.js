@@ -104,7 +104,7 @@ const Instructor = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={8}>
-                        <MainHeading title='Instructors(3)' />
+                        <MainHeading title={'Instructors'+'('+pageDetails?.totalElements+')'} />
                     </Grid>
                     <Grid item md={4} xs container direction='row' justifyContent={'right'}>
                         <TextField
@@ -138,17 +138,18 @@ const Instructor = ({
                             isActionIcon={true}
                             charLength={20}
                         />
+                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
+                            <Pagination
+                                count={pageDetails?.totalPages}
+                                onChange={handleChange}
+                                color="primary"
+                                variant="outlined"
+                                shape="rounded"
+                             />
+                        </div>
                     </>
                 }
-                <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
+                
             </CardView>
         </React.Fragment>
     )
