@@ -15,7 +15,9 @@ const header = () => {
  */
 
 export const PostMethod = async (url, query) => {
-    return await axois.post(BASE_URL + url, query)
+    return await axois.post(BASE_URL + url, query,{
+        headers: header()
+    })
         .then(response => ({ response }))
         .catch(error => ({ error }))
 };

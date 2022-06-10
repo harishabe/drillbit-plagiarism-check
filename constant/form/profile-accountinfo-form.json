@@ -1,0 +1,15 @@
+[
+    {
+        "field_type": "file",
+        "id": "logo",
+        "name": "logo",
+        "label": "Choose File",
+        "required": "Choose File",
+        "validationMsg": "Please choose file"
+    },
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Upload Logo"
+    }
+]

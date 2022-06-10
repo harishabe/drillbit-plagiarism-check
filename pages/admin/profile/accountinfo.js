@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
+import { useForm } from 'react-hook-form';
 import Admin from './../../../layouts/Admin';
-import { CardView, CommonTable, MainHeading } from '../../../components';
+import { Skeleton } from '@mui/material';
+import { CardView, CommonTable, MainHeading, FormComponent } from '../../../components';
+import FormJson from '../../../constant/form/profile-accountinfo-form.json';
+import { GetProfile, ProfileLogo } from '../../../redux/action/profile/ProfileAction';
 
 const columns = [
     { id: 'name', label: ''},
@@ -29,7 +34,28 @@ const rows = [
     createData("Time Zone", "XYZ"),
 ]
 
-const AccountInfo = () => {
+const AccountInfo = ({
+    GetProfile, 
+    ProfileLogo, 
+    isLoading
+}) => {
+
+    const [formData, setFormData] = useState();
+
+     useEffect(() => {
+        GetProfile();
+    }, []);
+
+   const { handleSubmit, control } = useForm({
+        mode: 'all',
+    })
+
+    const onSubmit = (data) => {
+        console.log('datadatadata',data);
+         ProfileLogo();
+    }
+
+
     return (
         <React.Fragment>           
             <Box sx={{ flexGrow: 1 }}>
@@ -39,21 +65,52 @@ const AccountInfo = () => {
                     </Grid>
                 </Grid>
             </Box>
-              <Button variant="contained" color="primary" sx= {{my:3}}>Upload institution logo</Button>
-            <CardView>               
+            <form onSubmit={handleSubmit(onSubmit)}>
+                    <Grid container>
+                        {
+                            FormJson?.map((field, i) =>
+                            <>
+                                <Grid md={3} xs={12}>
+                                    <FormComponent
+                                        key={i}
+                                        field={field}
+                                        control={control}
+                                    />
+                                </Grid>
+                            </>)
+                        }
+                    </Grid>
+            </form>
+                                
+            <CardView>
+                {isLoading ? (
+                    <Skeleton />
+                ) : (
                     <CommonTable
                         isCheckbox={false}
                         tableHeader={columns}
                         tableData={rows}    
                         charLength={20}
                     />
+                )}
+                    
             </CardView>
         </React.Fragment>
     )
 }
 
+const mapStateToProps = (state) => ({
+    profileData: state?.profile?.reportData,
+    isLoading: state?.profile?.isLoading,
+});
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetProfile: () => dispatch(GetProfile()),
+        ProfileLogo: (data) => dispatch(ProfileLogo(data)),
+    };
+};
 
 AccountInfo.layout = Admin
 
-export default AccountInfo;
+export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo);
