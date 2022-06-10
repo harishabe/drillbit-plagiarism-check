@@ -75,7 +75,7 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
-                    [<EditIcon />, <DeleteIcon />, <LockIcon />]
+                    [{ 'component': <EditIcon />, 'type': 'edit' }, { 'component': <DeleteIcon />, 'type': 'delete' }, { 'component': <LockIcon />, 'type': 'lock' }]
                 );
             arr.push(row)
         });
@@ -97,6 +97,10 @@ const Students = ({
         }
     };
 
+    const handleAction = (event, icon) => {
+        console.log('handleActionhandleAction', event, icon);
+    }
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -110,7 +114,7 @@ const Students = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={12}>
-                        <MainHeading title={'Students'+'('+pageDetails?.totalElements+')'} />
+                        <MainHeading title={'Students' + '(' + pageDetails?.totalElements + ')'} />
                     </Grid>
                     <Grid
                         item
@@ -149,9 +153,11 @@ const Students = ({
                             tableHeader={columns}
                             tableData={rows}
                             actionIcon={actionIcon}
+                            handleAction={handleAction}
                             isActionIcon={true}
                             charLength={20}
-                    />
+                            path=''
+                        />
                         <div style={{ marginLeft: '35%', marginTop: '25px' }}>
                             <Pagination
                                 count={pageDetails?.totalPages}
@@ -163,7 +169,7 @@ const Students = ({
                         </div>
                     </>
                 }
-                
+
             </CardView>
         </React.Fragment>
     )

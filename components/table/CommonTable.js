@@ -20,7 +20,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const CommonTable = ({ tableHeader, tableData, isCheckbox, path, charLength }) => {
+const CommonTable = ({
+    tableHeader,
+    tableData,
+    isCheckbox,
+    path,
+    charLength,
+    handleAction
+}) => {
     const router = useRouter();
     const classes = useStyles();
     return (
@@ -56,7 +63,7 @@ const CommonTable = ({ tableHeader, tableData, isCheckbox, path, charLength }) =
                                     <>
                                         {
                                             column.id === 'action' ?
-                                                <TableCell>{value.map((icon) => (<IconButton>{icon}</IconButton>))}</TableCell> :
+                                                <TableCell>{value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type)}>{icon.component}</IconButton>))}</TableCell> :
                                                 <TableCell key={column.id} align={column.align}>
                                                     {typeof (value) === 'string' ? <EllipsisText value={value} charLength={charLength} /> : <SubTitle title={value} />}
                                                 </TableCell>

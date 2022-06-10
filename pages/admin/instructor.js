@@ -70,7 +70,7 @@ const Instructor = ({
                     instructor.creation_date,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     <StatsIcon />,
-                    [<DeleteIcon />, <LockIcon />]
+                    [{ 'component': <DeleteIcon />, 'type': 'delete' }, { 'component': <LockIcon />, 'type': 'lock' }]
                 );
             arr.push(row)
         });
@@ -92,6 +92,10 @@ const Instructor = ({
         }
     };
 
+    const handleAction = (event, icon) => {
+        console.log('handleActionhandleAction', event, icon);
+    }
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -104,7 +108,7 @@ const Instructor = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={8}>
-                        <MainHeading title={'Instructors'+'('+pageDetails?.totalElements+')'} />
+                        <MainHeading title={'Instructors' + '(' + pageDetails?.totalElements + ')'} />
                     </Grid>
                     <Grid item md={4} xs container direction='row' justifyContent={'right'}>
                         <TextField
@@ -135,8 +139,10 @@ const Instructor = ({
                             tableHeader={columns}
                             tableData={rows}
                             actionIcon={actionIcon}
+                            handleAction={handleAction}
                             isActionIcon={true}
                             charLength={20}
+                            path=''
                         />
                         <div style={{ marginLeft: '35%', marginTop: '25px' }}>
                             <Pagination
@@ -145,11 +151,11 @@ const Instructor = ({
                                 color="primary"
                                 variant="outlined"
                                 shape="rounded"
-                             />
+                            />
                         </div>
                     </>
                 }
-                
+
             </CardView>
         </React.Fragment>
     )
