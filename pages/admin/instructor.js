@@ -6,7 +6,7 @@ import { Skeleton, TextField, Pagination } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
 import { CardView, CommonTable, MainHeading, SubTitle, StatusDot, AvatarName } from '../../components';
-import { DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../assets/icon';
+import { EditIcon, DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../assets/icon';
 import { GetInstructorData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 
@@ -70,7 +70,7 @@ const Instructor = ({
                     instructor.creation_date,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     <StatsIcon />,
-                    [{ 'component': <DeleteIcon />, 'type': 'delete' }, { 'component': <LockIcon />, 'type': 'lock' }]
+                    [{ 'component': <EditIcon />, 'type': 'edit' },{ 'component': <DeleteIcon />, 'type': 'delete' }, { 'component': <LockIcon />, 'type': 'lock' }]
                 );
             arr.push(row)
         });
