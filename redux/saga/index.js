@@ -12,9 +12,13 @@ import {
     GetReportViewDownload,
 } from './admin/ReportsData';
 import { GetClassesData,GetMyFolders } from './instructor/DetailsInstructorData';
+import { profileDetails, profileLogoSubmission, profileChangePassword } from './profile/ProfileData';
 
 const saga = [
     fork(userLogin),
+    fork(profileDetails),
+    fork(profileLogoSubmission),
+    fork(profileChangePassword),
     fork(DashboardWidget),
     fork(TopStudent),
     fork(TrendAnalysis),

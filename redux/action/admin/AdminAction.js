@@ -59,7 +59,7 @@ export const DownloadReportData = () => {
  */
 export const ViewAndDownloadData = (data) => {
     return {
-        type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_START, Payload: data
+        type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_START, query: data
     };
 };
 
