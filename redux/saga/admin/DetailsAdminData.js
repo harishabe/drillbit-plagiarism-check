@@ -4,7 +4,10 @@ import {
     GetInstructorDetail,
     GetStudentDetail,
     GetReports,
-    DownloadReports
+    DownloadReports,
+    EditRow,
+    DeleteRow,
+    DeactivateRow,
 } from '../../api/admin/DetailsAdminAPI';
 
 /**
@@ -103,3 +106,80 @@ export function* onLoadReportDownload() {
 export function* GetReportDataDownload() {
     yield takeLatest(types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_START, onLoadReportDownload);
 }
+
+/**
+ * Edit
+ * @param {*} action
+ */
+
+
+export function* onLoadEdit() {
+    const { response, error } = yield call(EditRow);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_EDIT_ROW_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_EDIT_ROW_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* EditData() {
+    yield takeLatest(types.FETCH_ADMIN_EDIT_ROW_START, onLoadEdit);
+}
+
+
+/**
+ * Delete
+ * @param {*} action
+ */
+
+
+export function* onLoadDelete() {
+    const { response, error } = yield call(DeleteRow);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_DELETE_ROW_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_DELETE_ROW_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* DeleteData() {
+    yield takeLatest(types.FETCH_ADMIN_DELETE_ROW_START, onLoadDelete);
+}
+
+/**
+ * Deactivate
+ * @param {*} action
+ */
+
+
+export function* onLoadDeactivate() {
+    const { response, error } = yield call(DeactivateRow);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_DEACTIVATE_ROW_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_DEACTIVATE_ROW_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* DeactivateData() {
+    yield takeLatest(types.FETCH_ADMIN_DEACTIVATE_ROW_START, onLoadDeactivate);
+}
+

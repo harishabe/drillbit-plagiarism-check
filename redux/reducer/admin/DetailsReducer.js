@@ -36,6 +36,57 @@ const DetailsReducer = (state = {}, action) => {
                 isLoading: false,
                 studentDataError: action.payload,
             };
+        case types.FETCH_ADMIN_EDIT_ROW_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_ADMIN_EDIT_ROW_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                data: action.payload,
+            };
+        case types.FETCH_ADMIN_EDIT_ROW_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            };
+        case types.FETCH_ADMIN_DELETE_ROW_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_ADMIN_DELETE_ROW_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                data: action.payload,
+            };
+        case types.FETCH_ADMIN_DELETE_ROW_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            };
+        case types.FETCH_ADMIN_DEACTIVATE_ROW_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_ADMIN_DEACTIVATE_ROW_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                data: action.payload,
+            };
+        case types.FETCH_ADMIN_DEACTIVATE_ROW_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            };
         default:
             return state;
     }

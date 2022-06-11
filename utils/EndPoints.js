@@ -13,6 +13,9 @@ const END_POINTS = {
     INSTRUCTOR_MY_FOLDERS: '/extreme/instructor/myFolders',
     PROFILE_DATA: '/extreme/admin/profile/accountinfo',
     PROFILE_CHANGE_PASSWORD: '/extreme/admin/profile/changepassword',
+    EDIT_DATA: '/extreme/admin/edit',
+    DELETE_DATA: '/extreme/admin/delete',
+    DEACTIVATE_DATA: '/extreme/admin/deactivate',
 };
 
 export default END_POINTS;

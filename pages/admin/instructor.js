@@ -7,7 +7,7 @@ import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
 import { CardView, CommonTable, MainHeading, SubTitle, StatusDot, AvatarName } from '../../components';
 import { EditIcon, DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../assets/icon';
-import { GetInstructorData } from '../../redux/action/admin/AdminAction';
+import { GetInstructorData, EditData, DeleteData, DeactivateData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 
 const columns = [
@@ -43,6 +43,9 @@ const Instructor = ({
     pageDetails,
     GetInstructorData,
     instructorData,
+    EditData,
+    DeleteData,
+    DeactivateData,
     isLoading
 }) => {
     const [rows, setRows] = useState([]);
@@ -93,7 +96,15 @@ const Instructor = ({
     };
 
     const handleAction = (event, icon) => {
-        console.log('handleActionhandleAction', event, icon);
+        // console.log('handleActionhandleAction', event, icon);
+
+        if(icon === 'edit'){
+            EditData();
+        }else if(icon === 'delete'){
+            DeleteData();
+        }else if(icon === 'lock'){
+            DeactivateData();
+        }
     }
 
     return (
@@ -170,7 +181,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload))
+        GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),
+        EditData: (data) => dispatch(EditData(data)),
+        DeactivateData: (data) => dispatch(DeactivateData(data)),
+        DeleteData: () => dispatch(DeleteData()),
     };
 };
 

@@ -46,3 +46,30 @@ export const ViewDownloadReports = async () => {
     const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST;
     return PostMethod(url);
 };
+
+/**
+ * API CALL FOR EDIT
+ */
+
+export const EditRow = async () => {
+    const url = END_POINTS.EDIT_DATA;
+    return PostMethod(url);
+};
+
+/**
+ * API CALL FOR DELETE
+ */
+
+export const DeleteRow = async () => {
+    const url = END_POINTS.DELETE_DATA;
+    return GetMethod(url);
+};
+
+/**
+ * API CALL FOR DEACTIVATE
+ */
+
+export const DeactivateRow = async () => {
+    const url = END_POINTS.DEACTIVATE_DATA;
+    return PostMethod(url);
+};
