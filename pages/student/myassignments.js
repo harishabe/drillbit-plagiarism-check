@@ -23,19 +23,19 @@ const StudentBreadCrumb = [
 
 const classes = [
     {
-        name: 'Assignment 1',
+        class_name: 'Assignment 1',
         description: 'The only condition to run that byte code',
         validity: '2 days left',
         color: '#38BE62',
     },
     {
-        name: 'Assignment 2',
+        class_name: 'Assignment 2',
         description: 'Our team is here round the clock to help',
         validity: '2 days left',
         color: '#F1A045',
     },
     {
-        name: 'Assignment 3',
+        class_name: 'Assignment 3',
         description: 'Our team is here round the clock to help',
         validity: '2 days left',
         color: '#8D34FF',

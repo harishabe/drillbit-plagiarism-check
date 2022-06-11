@@ -5,6 +5,9 @@ import { InsDashboardWidget } from './instructor/Dashboard';
 import {
     GetInstructorData,
     GetStudentData,
+    EditData,
+    DeleteData,
+    DeactivateData,
 } from './admin/DetailsAdminData';
 import {
     GetReportData,
@@ -31,6 +34,9 @@ const saga = [
     fork(GetMyFolders),
     fork(GetStudentData),
     fork(InsDashboardWidget),
+    fork(EditData),
+    fork(DeleteData),
+    fork(DeactivateData),
 ];
 
 export default function* rootSaga() {

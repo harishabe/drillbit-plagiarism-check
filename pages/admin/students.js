@@ -13,7 +13,7 @@ import {
     AvatarName,
 } from '../../components';
 import { EditIcon, DeleteIcon, LockIcon, InfoIcon } from '../../assets/icon';
-import { GetStudnetData } from '../../redux/action/admin/AdminAction';
+import { GetStudnetData, EditData, DeleteData, DeactivateData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 
 const columns = [
@@ -48,6 +48,8 @@ const Students = ({
     GetStudnetData,
     studentData,
     pageDetails,
+    EditData,
+    DeleteData,
     isLoading
 }) => {
     const [rows, setRows] = useState([]);
@@ -98,7 +100,12 @@ const Students = ({
     };
 
     const handleAction = (event, icon) => {
-        console.log('handleActionhandleAction', event, icon);
+        // console.log('handleActionhandleAction', event, icon);
+         if(icon === 'edit'){
+            EditData();
+        }else if(icon === 'delete'){
+            DeleteData();
+        }
     }
 
     return (
@@ -184,7 +191,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetStudnetData: (paginationPayload) => dispatch(GetStudnetData(paginationPayload))
+        GetStudnetData: (paginationPayload) => dispatch(GetStudnetData(paginationPayload)),
+        EditData: (data) => dispatch(EditData(data)),
+        DeleteData: () => dispatch(DeleteData()),
     };
 };
 

@@ -14,6 +14,9 @@ const END_POINTS = {
     PROFILE_DATA: '/extreme/admin/accountInformation',
     ADMIN_PROFILE_UPLOAD_LOGO:'/extreme/admin/uploadLogo',
     PROFILE_CHANGE_PASSWORD: '/extreme/admin/profile/changepassword',
+    EDIT_DATA: '/extreme/admin/edit',
+    DELETE_DATA: '/extreme/admin/delete',
+    DEACTIVATE_DATA: '/extreme/admin/deactivate',
 };
 
 export default END_POINTS;

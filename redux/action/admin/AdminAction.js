@@ -63,3 +63,29 @@ export const ViewAndDownloadData = (data) => {
     };
 };
 
+/**
+ * Edit data
+ */
+export const EditData = () => {
+    return {
+        type: types.FETCH_ADMIN_EDIT_ROW_START,
+    };
+};
+
+/**
+ * Delete data
+ */
+export const DeleteData = () => {
+    return {
+        type: types.FETCH_ADMIN_DELETE_ROW_START,
+    };
+};
+
+/**
+ * Deactivate data
+ */
+export const DeactivateData = () => {
+    return {
+        type: types.FETCH_ADMIN_DEACTIVATE_ROW_START,
+    };
+};
