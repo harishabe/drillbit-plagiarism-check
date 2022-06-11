@@ -11,7 +11,8 @@ const END_POINTS = {
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_MY_CLASSES: '/extreme/instructor/classes',
     INSTRUCTOR_MY_FOLDERS: '/extreme/instructor/myFolders',
-    PROFILE_DATA: '/extreme/admin/profile/accountinfo',
+    PROFILE_DATA: '/extreme/admin/accountInformation',
+    ADMIN_PROFILE_UPLOAD_LOGO:'/extreme/admin/uploadLogo',
     PROFILE_CHANGE_PASSWORD: '/extreme/admin/profile/changepassword',
 };
 

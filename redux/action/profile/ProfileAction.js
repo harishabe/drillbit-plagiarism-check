@@ -7,6 +7,7 @@ export const GetProfile = () => {
 };
 
 export const ProfileLogo = (data) => {
+    console.log('profiledata',data);
     return {
         type: types.FETCH_PROFILE_LOGO_START, query: data
     };

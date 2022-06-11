@@ -2,7 +2,7 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
     GetProfile,
-    SubmitLogo,
+    UploadLogo,
     ChangePassword
 } from '../../api/profile/ProfileAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
@@ -33,7 +33,8 @@ export function* profileDetails() {
  */
 
 export function* onLoadProfileLogo(action) {
-    const { response, error } = yield call(SubmitLogo, action.query);
+    console.log('actionactionaction',action);
+    const { response, error } = yield call(UploadLogo, action.query);
     if (response) {
         yield put({ type: types.FETCH_PROFILE_LOGO_SUCCESS, payload: response?.data });
     } else {

@@ -14,9 +14,10 @@ export const GetProfile = async () => {
  * API CALL FOR PROFILE LOGO SUBMIT
  */
 
-export const SubmitLogo = async () => {
-    const url = END_POINTS.PROFILE_DATA;
-    return PostMethod(url);
+export const UploadLogo = async (query) => {
+    console.log('queryqueryquery',query);
+    const url = END_POINTS.ADMIN_PROFILE_UPLOAD_LOGO;
+    return PostMethod(url, query);
 };
 
 /**

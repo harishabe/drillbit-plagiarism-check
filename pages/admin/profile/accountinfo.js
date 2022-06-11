@@ -11,53 +11,59 @@ import FormJson from '../../../constant/form/profile-accountinfo-form.json';
 import { GetProfile, ProfileLogo } from '../../../redux/action/profile/ProfileAction';
 
 const columns = [
-    { id: 'name', label: ''},
-    { id: 'details', label: ''},
-]
+    { id: 'name', label: '' },
+    { id: 'details', label: '' },
+];
 
 function createData(name, details) {
     return { name, details }
 };
 
-const rows = [
-    createData("Institution Name", "XYZ"),
-    createData("Admin Username", "XYZ"),
-    createData("Account ID", "XYZ"),
-    createData("Date Of Activation", "XYZ"),
-    createData("Instructor Account", "XYZ"),
-    createData("Student Account", "XYZ"),
-    createData("Number Of Documents", "XYZ"),
-    createData("One Document Length", "XYZ"),
-    createData("Date of Expiry", "XYZ"),
-    createData("Grammer", "XYZ"),
-    createData("Product Name", "XYZ"),
-    createData("Time Zone", "XYZ"),
-]
-
 const AccountInfo = ({
-    GetProfile, 
-    ProfileLogo, 
-    isLoading
+    GetProfile,
+    ProfileLogo,
+    isLoading,
+    accountInfo
 }) => {
-
+    console.log('accountInfo', accountInfo);
     const [formData, setFormData] = useState();
+    const [rows, setRows] = useState([]);
 
-     useEffect(() => {
+    useEffect(() => {
         GetProfile();
     }, []);
 
-   const { handleSubmit, control } = useForm({
+    useEffect(() => {
+        let row = [
+            createData("Institution Name", accountInfo?.institutionName),
+            createData("Admin Username", accountInfo?.adminUsername),
+            createData("Account ID", accountInfo?.accountId),
+            createData("Date Of Activation", accountInfo?.dateOfActivation),
+            createData("Instructor Account", accountInfo?.instructorAccount),
+            createData("Student Account", accountInfo?.studentAccount),
+            createData("Number Of Documents", accountInfo?.numberOfDocuments),
+            createData("One Document Length", accountInfo?.oneDocumentLength),
+            createData("Date of Expiry", accountInfo?.dateOfExpiry),
+            createData("Grammer", accountInfo?.grammar),
+            createData("Product Name", accountInfo?.productName),
+            createData("Time Zone", accountInfo?.timeZone),
+        ];
+        setRows([...row])
+
+    }, [accountInfo]);
+
+    const { handleSubmit, control } = useForm({
         mode: 'all',
     })
 
     const onSubmit = (data) => {
         console.log('datadatadata',data);
-         ProfileLogo();
+        ProfileLogo(data);
     }
 
 
     return (
-        <React.Fragment>           
+        <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10}>
@@ -66,9 +72,9 @@ const AccountInfo = ({
                 </Grid>
             </Box>
             <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container>
-                        {
-                            FormJson?.map((field, i) =>
+                <Grid container>
+                    {
+                        FormJson?.map((field, i) =>
                             <>
                                 <Grid md={3} xs={12}>
                                     <FormComponent
@@ -78,29 +84,36 @@ const AccountInfo = ({
                                     />
                                 </Grid>
                             </>)
-                        }
-                    </Grid>
+                    }
+                </Grid>
             </form>
-                                
+
             <CardView>
                 {isLoading ? (
-                    <Skeleton />
+                    <>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </>
                 ) : (
                     <CommonTable
                         isCheckbox={false}
                         tableHeader={columns}
-                        tableData={rows}    
-                        charLength={20}
+                        tableData={rows}
+                        charLength={50}
+                        path=''
                     />
                 )}
-                    
+
             </CardView>
         </React.Fragment>
     )
 }
 
 const mapStateToProps = (state) => ({
-    profileData: state?.profile?.reportData,
+    accountInfo: state?.profile?.profileData,
     isLoading: state?.profile?.isLoading,
 });
 
