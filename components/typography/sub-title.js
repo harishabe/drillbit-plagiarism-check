@@ -12,11 +12,12 @@ const useStyles = makeStyles((theme) => ({
 
 const SubTitle = ({
     title,
-    isLink
+    isLink,
+    textColor
 }) => {
     const classes = useStyles()
     return (
-        <Typography variant="h4" component="div" gutterBottom>
+        <Typography variant="h4" color={textColor} component="div" gutterBottom>
             {isLink ? <span className={classes.BorderColor}><Link href=''>{title}</Link></span> : title}
         </Typography>
     )
@@ -27,4 +28,4 @@ SubTitle.propTypes = {
     isLink: PropTypes.bool
 }
 
-export default SubTitle
+export default SubTitle;

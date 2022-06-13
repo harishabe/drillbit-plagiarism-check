@@ -1,23 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { Grid, Box, Skeleton, Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import Admin from './../../../layouts/Admin';
-import { Skeleton } from '@mui/material';
-import { CardView, CommonTable, MainHeading, FormComponent } from '../../../components';
-import FormJson from '../../../constant/form/profile-accountinfo-form.json';
+import { CardView, CommonTable, MainHeading, SubTitle } from '../../../components';
+import { UploadIcon } from '../../../assets/icon';
 import { GetProfile, ProfileLogo } from '../../../redux/action/profile/ProfileAction';
 
 const columns = [
-    { id: 'name', label: '' },
-    { id: 'details', label: '' },
+    { id: 'name', label: 'Name' },
+    { id: 'details', label: 'Details' },
 ];
 
 function createData(name, details) {
     return { name, details }
 };
+
+const Input = styled('input')({
+    display: 'none',
+});
+
+const UploadButtonAlign = styled('div')({
+    marginBottom: '-5px',
+    marginLeft: '10px'
+});
+
+const ImgLogo = styled('img')({
+    width: '100px',
+    height: '100px',
+    objectFit: 'cover',
+    objectPosition: 'bottom'
+});
 
 const AccountInfo = ({
     GetProfile,
@@ -25,8 +38,7 @@ const AccountInfo = ({
     isLoading,
     accountInfo
 }) => {
-    console.log('accountInfo', accountInfo);
-    const [formData, setFormData] = useState();
+
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
@@ -52,13 +64,10 @@ const AccountInfo = ({
 
     }, [accountInfo]);
 
-    const { handleSubmit, control } = useForm({
-        mode: 'all',
-    })
-
-    const onSubmit = (data) => {
-        console.log('datadatadata',data);
-        ProfileLogo(data);
+    const handleChange = (data) => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('file', data.target.files[0]);
+        ProfileLogo(bodyFormData);
     }
 
 
@@ -68,25 +77,26 @@ const AccountInfo = ({
                 <Grid container spacing={1}>
                     <Grid item md={10}>
                         <MainHeading title='Account Information' />
+                        <form>
+                            <label htmlFor="contained-button-file">
+                                <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
+                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
+                                    <>
+                                        <UploadIcon />
+                                        <UploadButtonAlign>
+                                            <SubTitle textColor='#fff' title='Upload Logo' />
+                                        </UploadButtonAlign>
+                                    </>
+                                </Button>
+                            </label>
+                        </form>
+                    </Grid>
+                    <Grid item md={2} style={{ textAlign: 'right' }}>
+                        {accountInfo && <ImgLogo src={`data:image/png;base64,${accountInfo.logo}`} />}
                     </Grid>
                 </Grid>
             </Box>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container>
-                    {
-                        FormJson?.map((field, i) =>
-                            <>
-                                <Grid md={3} xs={12}>
-                                    <FormComponent
-                                        key={i}
-                                        field={field}
-                                        control={control}
-                                    />
-                                </Grid>
-                            </>)
-                    }
-                </Grid>
-            </form>
+
 
             <CardView>
                 {isLoading ? (
@@ -108,7 +118,7 @@ const AccountInfo = ({
                 )}
 
             </CardView>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 

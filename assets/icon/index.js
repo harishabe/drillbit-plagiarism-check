@@ -41,3 +41,5 @@ export { default as FolderEmptyIcon } from './FolderEmptyIcon';
 export { default as FolderDataIcon } from './FolderDataIcon';
 export { default as DownloadIcon } from './DownloadIcon';
 export { default as StatusDotIcon } from './StatusDotIcon';
+export { default as UploadIcon } from './UploadIcon';
+

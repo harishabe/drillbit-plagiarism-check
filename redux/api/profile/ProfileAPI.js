@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { GetMethod, PostMethod } from './../ApiMethod';
+import { GetMethod, PostMethod, PostFormData } from './../ApiMethod';
 
 /**
  * API CALL FOR PROFILE DATA
@@ -15,9 +15,8 @@ export const GetProfile = async () => {
  */
 
 export const UploadLogo = async (query) => {
-    console.log('queryqueryquery',query);
     const url = END_POINTS.ADMIN_PROFILE_UPLOAD_LOGO;
-    return PostMethod(url, query);
+    return PostFormData(url, query);
 };
 
 /**
