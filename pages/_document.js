@@ -15,6 +15,7 @@ export default class MyDocument extends Document {
                     {this.props.emotionStyleTags}
                 </Head>
                 <body>
+                    <div id="page-transition"></div>
                     <Main />
                     <NextScript />
                 </body>
@@ -35,7 +36,7 @@ MyDocument.getInitialProps = async (ctx) => {
     return {
         ...initialProps,
         styles: [
-            <React.Fragment key="styles">              
+            <React.Fragment key="styles">
                 {initialProps.styles}
                 {sheets.getStyleElement()}
             </React.Fragment>,
