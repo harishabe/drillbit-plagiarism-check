@@ -13,7 +13,7 @@ const END_POINTS = {
     INSTRUCTOR_MY_FOLDERS: '/extreme/instructor/myFolders',
     PROFILE_DATA: '/extreme/admin/accountInformation',
     ADMIN_PROFILE_UPLOAD_LOGO:'/extreme/admin/uploadLogo',
-    PROFILE_CHANGE_PASSWORD: '/extreme/admin/profile/changepassword',
+    PROFILE_CHANGE_PASSWORD: '/extreme/account/password',
     EDIT_DATA: '/extreme/admin/edit',
     DELETE_DATA: '/extreme/admin/delete',
     DEACTIVATE_DATA: '/extreme/admin/deactivate',
