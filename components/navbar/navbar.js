@@ -74,10 +74,9 @@ const NavBar = ({
         router.push('/auth/login')
     }
     return (
-        console.log('dashboardData', dashboardData),
         <>
             <Hidden mdDown implementation="css">
-                <AppBar position="fixed" open={open} color="appbar">
+                <AppBar position="fixed" open={open} color="appbar" style={{zIndex:999}}>
                     <Box sx={{ boxShadow: 1 }}>
                         <Hidden mdDown implementation="css">
                             <Toolbar>

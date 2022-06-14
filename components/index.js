@@ -26,3 +26,4 @@ export { default as Folder } from './folder/Folder';
 export { default as StatusDot } from './ellipsis/StatusDot';
 export { default as AvatarName } from './ellipsis/AvatarName';
 export { default as EllipsisText } from './ellipsis/EllipsisText';
+export { default as CreateDrawer } from './drawer/CreateDrawer';
