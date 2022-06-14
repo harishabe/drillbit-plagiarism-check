@@ -10,7 +10,7 @@ import { CardView, CommonTable, MainHeading, SubTitle, StatusDot, AvatarName, Cr
 import { EditIcon, DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../assets/icon';
 import { GetInstructorData, EditData, DeleteData, DeactivateData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
-
+import InstructorForm from './form/InstructorForm';
 const columns = [
     { id: 'id', label: 'ID', minWidth: 100 },
     { id: 'name', label: 'Name', minWidth: 170 },
@@ -27,8 +27,8 @@ function createData(id, name, email, creationDate, status, stats, action) {
 
 const AddButtonBottom = styled.div`
     position:absolute;
-    bottom: 0px;
-    right:0px;
+    bottom: 30px;
+    right:30px;
 `;
 
 
@@ -118,7 +118,9 @@ const Instructor = ({
     return (
         <React.Fragment>
             <AddButtonBottom>
-                <CreateDrawer />
+                <CreateDrawer title="create instructor">
+                    <InstructorForm />
+                </CreateDrawer>
             </AddButtonBottom>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>

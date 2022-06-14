@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Controller } from 'react-hook-form'
-import PropTypes from 'prop-types'
-import { makeStyles } from '@mui/styles'
-import { TextField } from '@mui/material'
-import InputLabel from '@mui/material/InputLabel'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react';
+import { Controller } from 'react-hook-form';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@mui/styles';
+import { TextField } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import styled from 'styled-components';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -12,7 +12,7 @@ export const LabelContainer = styled.div`
     line-height:24px,
     font-style:normal,
     color:#000
-`
+`;
 
 const useStyles = makeStyles((theme) => ({
     helperText: {
