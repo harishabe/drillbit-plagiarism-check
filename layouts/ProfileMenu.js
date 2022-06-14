@@ -88,7 +88,7 @@ const ProfileMenu = ({
                         <ListItemText style={{ padding: '5px 15px' }} primary="Account info" secondary="Account Settings" />
                     </MenuItem>
                     <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                    <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                    <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/profile/help')}>
                         <ListItemIcon>
                             <HelpIcon />
                         </ListItemIcon>
