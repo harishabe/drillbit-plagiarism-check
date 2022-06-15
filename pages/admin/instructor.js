@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import debouce from "lodash.debounce";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
@@ -103,16 +104,6 @@ const Instructor = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
-    const handleSearch = (event) => {
-        if (event.target.value !== '') {
-            paginationPayload['search'] = event.target.value;
-            setPaginationPayload({ ...paginationPayload, paginationPayload });
-        } else {
-            delete paginationPayload['search'];
-            setPaginationPayload({ ...paginationPayload, paginationPayload });
-        }
-    };
-
     const handleAction = (event, icon, rowData) => {
         if (icon === 'edit') {
             EditData();
@@ -132,6 +123,30 @@ const Instructor = ({
             DeactivateData(activateDeactive, paginationPayload);
         }
     }
+
+    /** search implementation using debounce concepts */
+
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    }
+
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
+    /** end debounce concepts */
 
     return (
         <React.Fragment>
@@ -155,7 +170,7 @@ const Instructor = ({
                     <Grid item md={4} xs container direction='row' justifyContent={'right'}>
                         <TextField
                             placeholder='Search'
-                            onChange={handleSearch}
+                            onChange={debouncedResults}
                             inputProps={{
                                 style: {
                                     padding: 5,
