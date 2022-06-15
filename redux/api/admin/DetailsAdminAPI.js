@@ -12,6 +12,15 @@ export const GetInstructorDetail = async (paginationPayload) => {
 };
 
 /**
+ * API CALL FOR CREATE INSTRUCTOR
+ */
+
+export const CreateInstructorData = async (data) => {
+    const url = END_POINTS.CREATE_INSTRUCTOR;
+    return PostMethod(url, data);
+};
+
+/**
  * API CALL FOR STUDENT DATA
  */
 

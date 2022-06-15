@@ -27,12 +27,22 @@ export const GetInstructorData = (paginationPayload) => {
     };
 };
 
+
+/**
+ * Create instructor data
+ */
+export const CreateInstructorData = (data) => {
+    return {
+        type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_START, query: data
+    };
+};
+
 /**
  * Get all student data
  */
 export const GetStudnetData = (paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: paginationPayload
+        type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: paginationPayload, 
     };
 };
 

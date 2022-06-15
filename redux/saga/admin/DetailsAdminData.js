@@ -2,6 +2,7 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
     GetInstructorDetail,
+    CreateInstructorData,
     GetStudentDetail,
     GetReports,
     DownloadReports,
@@ -11,7 +12,7 @@ import {
 } from '../../api/admin/DetailsAdminAPI';
 
 /**
- * Get trend analysis
+ * Get instructor details
  * @param {*} action
  */
 
@@ -32,6 +33,30 @@ export function* onLoadInstructor(action) {
 
 export function* GetInstructorData() {
     yield takeLatest(types.FETCH_ADMIN_INSTRUCTOR_DATA_START, onLoadInstructor);
+}
+
+/**
+ * create instructor
+ * @param {*} action
+ */
+
+export function* onLoadCreateInstructor(action) {
+    const { response, error } = yield call(CreateInstructorData, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* CreateInstructor() {
+    yield takeLatest(types.FETCH_ADMIN_INSTRUCTOR_CREATE_START, onLoadCreateInstructor);
 }
 
 /**
