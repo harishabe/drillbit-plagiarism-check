@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
+import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import { Skeleton, TextField, Pagination } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
@@ -11,6 +13,7 @@ import { EditIcon, DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../asset
 import { GetInstructorData, EditData, DeleteData, DeactivateData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
+
 const columns = [
     { id: 'id', label: 'ID', minWidth: 100 },
     { id: 'name', label: 'Name', minWidth: 170 },
@@ -81,7 +84,14 @@ const Instructor = ({
                     instructor.creation_date,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     <StatsIcon />,
-                    [{ 'component': <EditIcon />, 'type': 'edit' }, { 'component': <DeleteIcon />, 'type': 'delete' }, { 'component': <LockIcon />, 'type': 'lock' }]
+                    [
+                        { 'component': <EditIcon />, 'type': 'edit' },
+                        { 'component': <DeleteIcon />, 'type': 'delete' },
+                        {
+                            'component': instructor.status === 'active' ? <VpnKeyOffOutlinedIcon /> : <VpnKeyOutlinedIcon />,
+                            'type': instructor.status === 'active' ? 'unlock' : 'lock'
+                        }
+                    ]
                 );
             arr.push(row)
         });
@@ -113,7 +123,13 @@ const Instructor = ({
                 'id': rowData?.id?.props?.title,
                 'status': 'active'
             }
-            DeactivateData(activateDeactive);
+            DeactivateData(activateDeactive, paginationPayload);
+        } else if (icon === 'unlock') {
+            let activateDeactive = {
+                'id': rowData?.id?.props?.title,
+                'status': 'inactive'
+            }
+            DeactivateData(activateDeactive, paginationPayload);
         }
     }
 
@@ -198,7 +214,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),
         EditData: (data) => dispatch(EditData(data)),
-        DeactivateData: (data) => dispatch(DeactivateData(data)),
+        DeactivateData: (data, paginationPayload) => dispatch(DeactivateData(data, paginationPayload)),
         DeleteData: () => dispatch(DeleteData()),
     };
 };

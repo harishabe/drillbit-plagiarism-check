@@ -11,6 +11,7 @@ import {
     DeactivateRow,
 } from '../../api/admin/DetailsAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
+import { PaginationValue } from '../../../utils/PaginationUrl';
 
 /**
  * Get instructor details
@@ -44,15 +45,11 @@ export function* GetInstructorData() {
 export function* onLoadCreateInstructor(action) {
     const { response, error } = yield call(CreateInstructorData, action.query);
     if (response) {
-        yield put({
-            type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_SUCCESS,
-            payload: response?.data,
-        });
+        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: PaginationValue });
+        toastrValidation(response);
     } else {
-        yield put({
-            type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_FAIL,
-            payload: error,
-        });
+        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_FAIL, payload: error });
         toastrValidation(error);
     }
 }
@@ -194,15 +191,10 @@ export function* DeleteData() {
 export function* onLoadDeactivate(action) {
     const { response, error } = yield call(DeactivateRow, action.query);
     if (response) {
-        yield put({
-            type: types.FETCH_ADMIN_DEACTIVATE_ROW_SUCCESS,
-            payload: response?.data,
-        });
+        yield put({ type: types.FETCH_ADMIN_DEACTIVATE_ROW_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: action.paginationPayload });
     } else {
-        yield put({
-            type: types.FETCH_ADMIN_DEACTIVATE_ROW_FAIL,
-            payload: error,
-        });
+        yield put({ type: types.FETCH_ADMIN_DEACTIVATE_ROW_FAIL, payload: error });
     }
 }
 

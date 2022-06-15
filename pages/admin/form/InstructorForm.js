@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { Skeleton } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateInstructorData } from '../../../redux/action/admin/AdminAction';

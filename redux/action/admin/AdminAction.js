@@ -42,7 +42,7 @@ export const CreateInstructorData = (data) => {
  */
 export const GetStudnetData = (paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: paginationPayload, 
+        type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: paginationPayload,
     };
 };
 
@@ -94,8 +94,8 @@ export const DeleteData = () => {
 /**
  * Deactivate data
  */
-export const DeactivateData = (data) => {
+export const DeactivateData = (data, paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_DEACTIVATE_ROW_START, query:data
+        type: types.FETCH_ADMIN_DEACTIVATE_ROW_START, query: data, paginationPayload: paginationPayload
     };
 };

@@ -21,8 +21,8 @@
         "field_type": "datepicker",
         "id": "expiry_date",
         "name": "expiry_date",
-        "dateLabel":"dd/mm/yyyy",
         "label": "Select expiry date",
+        "minDate":true,
         "required": "Select expiry date",
         "validationMsg": "Select expiry date"
     },

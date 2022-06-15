@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import LoginReducer from '../reducer/login/LoginReducer';
 import DashboardReducer from './admin/DashboardReducer';
+import CRUDReducer from './admin/CRUDReducer';
 import InsDashboardReducer from './instructor/DashboardReducer';
 import DetailsInstructorReducer from './instructor/DetailsInstructorReducer';
 import MyFoldersInstructorReducer from './instructor/MyFoldersInstructorReducer';
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     instructorDashboard: InsDashboardReducer,
     instructorClasses: DetailsInstructorReducer,
     instructorMyFolders: MyFoldersInstructorReducer,
-    adminReport : ReportsReducer,
+    adminCrud: CRUDReducer,
+    adminReport: ReportsReducer,
 });
 
 export default rootReducer;
