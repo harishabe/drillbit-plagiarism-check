@@ -63,7 +63,7 @@ const CommonTable = ({
                                     <>
                                         {
                                             column.id === 'action' ?
-                                                <TableCell>{value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type)}>{icon.component}</IconButton>))}</TableCell> :
+                                                <TableCell>{value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}</IconButton>))}</TableCell> :
                                                 <TableCell key={column.id} align={column.align}>
                                                     {typeof (value) === 'string' ? <EllipsisText value={value} charLength={charLength} /> : <SubTitle title={value} />}
                                                 </TableCell>

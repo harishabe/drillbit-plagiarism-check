@@ -103,15 +103,17 @@ const Instructor = ({
         }
     };
 
-    const handleAction = (event, icon) => {
-        // console.log('handleActionhandleAction', event, icon);
-
+    const handleAction = (event, icon, rowData) => {
         if (icon === 'edit') {
             EditData();
         } else if (icon === 'delete') {
             DeleteData();
         } else if (icon === 'lock') {
-            DeactivateData();
+            let activateDeactive = {
+                'id': rowData?.id?.props?.title,
+                'status': 'active'
+            }
+            DeactivateData(activateDeactive);
         }
     }
 

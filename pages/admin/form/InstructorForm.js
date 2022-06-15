@@ -10,7 +10,7 @@ function InstructorForm(){
     });
 
     const onSubmit = (data) => {
-        console.log('shyla-first-drillbit-work',data);  
+        console.log('testtesttest',data);  
     };
 
     return(
@@ -31,7 +31,5 @@ function InstructorForm(){
             </form>
         </div>
     )
-    
-
 }
 export default InstructorForm;

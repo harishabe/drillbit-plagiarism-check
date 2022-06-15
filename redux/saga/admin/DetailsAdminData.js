@@ -164,8 +164,8 @@ export function* DeleteData() {
  */
 
 
-export function* onLoadDeactivate() {
-    const { response, error } = yield call(DeactivateRow);
+export function* onLoadDeactivate(action) {
+    const { response, error } = yield call(DeactivateRow, action.query);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_DEACTIVATE_ROW_SUCCESS,

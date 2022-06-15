@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { GetMethod, PostMethod } from './../ApiMethod';
+import { GetMethod, PostMethod, PutMethod } from './../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -69,7 +69,7 @@ export const DeleteRow = async () => {
  * API CALL FOR DEACTIVATE
  */
 
-export const DeactivateRow = async () => {
-    const url = END_POINTS.DEACTIVATE_DATA;
-    return PostMethod(url);
+export const DeactivateRow = async (payload) => {
+    const url = END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + payload.id + '/' + payload.status;
+    return PutMethod(url,{});
 };

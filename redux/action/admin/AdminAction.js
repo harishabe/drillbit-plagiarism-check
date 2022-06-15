@@ -84,8 +84,8 @@ export const DeleteData = () => {
 /**
  * Deactivate data
  */
-export const DeactivateData = () => {
+export const DeactivateData = (data) => {
     return {
-        type: types.FETCH_ADMIN_DEACTIVATE_ROW_START,
+        type: types.FETCH_ADMIN_DEACTIVATE_ROW_START, query:data
     };
 };

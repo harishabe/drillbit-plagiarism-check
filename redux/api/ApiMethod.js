@@ -30,6 +30,19 @@ export const PostMethod = async (url, query) => {
 };
 
 /**
+ * API METHOD - PUT
+ * @param {*} url
+ */
+
+ export const PutMethod = async (url, query) => {
+    return await axois.put(BASE_URL + url, query,{
+        headers: header()
+    })
+        .then(response => ({ response }))
+        .catch(error => ({ error }))
+};
+
+/**
  * API METHOD - GET
  * @param {*} url
  */

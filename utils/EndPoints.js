@@ -16,7 +16,7 @@ const END_POINTS = {
     PROFILE_CHANGE_PASSWORD: '/extreme/account/password',
     EDIT_DATA: '/extreme/admin/edit',
     DELETE_DATA: '/extreme/admin/delete',
-    DEACTIVATE_DATA: '/extreme/admin/deactivate',
+    ACTIVATE_DEACTIVATE_INSTRUCTOR: '/extreme/admin/instructor',
 };
 
 export default END_POINTS;
