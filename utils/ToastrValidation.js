@@ -25,16 +25,17 @@ const success = (message) => {
 }
 
 const toastrValidation = (response) => {
+    console.log('responseresponseresponse',response);
     if (response?.status === 201) {
-        success(response?.data?.error);
+        success(response?.data?.message);
     } else if (response?.status === 200) {
-        success(response?.data?.error);
+        success(response?.data?.message);
     } else if (response?.response?.status === 401) {
-        error(response?.response?.data?.error);
+        error(response?.response?.data?.message);
     } else if (response?.response?.status === 400) {
-        error(response?.response?.data?.error);
+        error(response?.response?.data?.message);
     } else if (response?.response?.data?.status === 409) {
-        error(response?.response?.data?.error);
+        error(response?.response?.data?.message);
     } else if (response?.response?.data?.status === 500) {
         error(response?.response?.data?.error);
     } else if (response?.code === "ECONNABORTED") {

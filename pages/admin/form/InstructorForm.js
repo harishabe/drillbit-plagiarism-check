@@ -11,15 +11,11 @@ const InstructorForm = ({
     CreateInstructorData
 }) => {
 
-    useEffect(() => {
-        CreateInstructorData();
-    }, []);
-
     const { handleSubmit, control } = useForm({
         mode: 'all',
     });
 
-    function convertData(str) {
+    const convertData = (str) => {
         let date = new Date(str),
             month = ("0" + (date.getMonth() + 1)).slice(-2),
             day = ("0" + date.getDate()).slice(-2);
@@ -28,21 +24,21 @@ const InstructorForm = ({
 
     const onSubmit = (data) => {
         let Detaileddata = { ...data, "expiry_date": convertData(data.expiry_date) }
-        CreateInstructorData(Detaileddata);;  
+        CreateInstructorData(Detaileddata);
     };
 
-    return(
+    return (
         <div>
-           <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
                     {FormJson?.map((field, i) => (
-                        <Grid md={12} style={{ marginLeft: '8px' }}>                                 
-                                <FormComponent
-                                    key={i}
-                                    field={field}
-                                    control={control}
-                                />
-                            
+                        <Grid md={12} style={{ marginLeft: '8px' }}>
+                            <FormComponent
+                                key={i}
+                                field={field}
+                                control={control}
+                            />
+
                         </Grid>
                     ))}
                 </Grid>

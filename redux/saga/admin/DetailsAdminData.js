@@ -10,6 +10,7 @@ import {
     DeleteRow,
     DeactivateRow,
 } from '../../api/admin/DetailsAdminAPI';
+import toastrValidation from '../../../utils/ToastrValidation';
 
 /**
  * Get instructor details
@@ -52,6 +53,7 @@ export function* onLoadCreateInstructor(action) {
             type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 
