@@ -4,6 +4,7 @@ import { DashboardWidget, TopStudent, TrendAnalysis } from './admin/Dashboard';
 import { InsDashboardWidget } from './instructor/Dashboard';
 import {
     GetInstructorData,
+    CreateInstructor,
     GetStudentData,
     EditData,
     DeleteData,
@@ -26,6 +27,7 @@ const saga = [
     fork(TopStudent),
     fork(TrendAnalysis),
     fork(GetInstructorData),
+    fork(CreateInstructor),
     fork(InsDashboardWidget),
     fork(GetReportData),
     fork(GetReportDataDownload),

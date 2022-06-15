@@ -23,8 +23,10 @@
         "name": "expiry_date",
         "dateLabel":"dd/mm/yyyy",
         "label": "Select expiry date",
-        "required": "Select expiry date"
+        "required": "Select expiry date",
+        "validationMsg": "Select expiry date"
     },
+    
     {
         "field_type": "input",
         "type": "text",
