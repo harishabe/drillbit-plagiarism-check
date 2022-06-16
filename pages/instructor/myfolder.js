@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
+import styled from 'styled-components';
 import { TextField, Skeleton } from '@mui/material';
 import Instructor from '../../layouts/Instructor';
-import { BreadCrumb, MainHeading, Folder } from '../../components';
+import { BreadCrumb, MainHeading, Folder, CreateDrawer } from '../../components';
 import { GetAllFolders } from '../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
+import MyFoldersForm from './form/MyFolderForm';
 
 const InstructorBreadCrumb = [
     {
@@ -21,6 +23,12 @@ const InstructorBreadCrumb = [
         active: true,
     },
 ];
+
+const AddButtonBottom = styled.div`
+    position:absolute;
+    bottom: 30px;
+    right:30px;
+`;
 
 const MyFolder = ({
     GetAllFolders,
@@ -83,6 +91,11 @@ const MyFolder = ({
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
             </Grid> : 
                 <>
+                    <AddButtonBottom>
+                        <CreateDrawer title="Create Folder">
+                            <MyFoldersForm />
+                        </CreateDrawer>
+                    </AddButtonBottom>
                 <Grid container spacing={2}>
                     {myFolders?.map((item, index) => (
                         <Grid key={index} item md={3} sm={4} xs={6}>

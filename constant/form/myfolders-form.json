@@ -1,0 +1,26 @@
+[
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "name",
+        "name": "name",
+        "label": "New Folder Name",
+        "required": "Please Enter Folder name"
+    },
+
+    {
+        "field_type": "datepicker",
+        "id": "expiry_date",
+        "name": "expiry_date",
+        "label": "Validity",
+        "minDate":true,
+        "required": "Select validity date",
+        "validationMsg": "Select validity date"
+    },
+    
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Create New Folder"
+    }
+]
