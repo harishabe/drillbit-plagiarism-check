@@ -1,6 +1,8 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
-import { GetClassesDetail, GetMyFoldersDetail } from '../../api/instructor/DetailsInstructorAPI';
+import { GetClassesDetail, GetMyFoldersDetail, CreateClassData, CreateFolderData } from '../../api/instructor/DetailsInstructorAPI';
+import toastrValidation from '../../../utils/ToastrValidation';
+import { PaginationValue } from '../../../utils/PaginationUrl';
 
 /**
  * Get classes data
@@ -27,6 +29,27 @@ export function* GetClassesData() {
 }
 
 /**
+ * create classes
+ * @param {*} action
+ */
+
+export function* onLoadCreateClass(action) {
+    const { response, error } = yield call(CreateClassData, action.query);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_START, paginationPayload: PaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* CreateClass() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_START, onLoadCreateClass);
+}
+
+/**
  * Get folder data analysis
  * @param {*} action
  */
@@ -48,4 +71,25 @@ export function* GetAllFolders(action) {
 
 export function* GetMyFolders() {
     yield takeLatest(types.FETCH_INSTRUCTOR_MY_FOLDERS_START, GetAllFolders);
+}
+
+/**
+ * create folders
+ * @param {*} action
+ */
+
+export function* onLoadCreateFolder(action) {
+    const { response, error } = yield call(CreateFolderData, action.query);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, paginationPayload: PaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* CreateFolder() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, onLoadCreateFolder);
 }

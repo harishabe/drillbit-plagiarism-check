@@ -15,7 +15,7 @@ import {
     GetReportDataDownload,
     GetReportViewDownload,
 } from './admin/ReportsData';
-import { GetClassesData,GetMyFolders } from './instructor/DetailsInstructorData';
+import { GetClassesData, GetMyFolders, CreateClass, CreateFolder } from './instructor/DetailsInstructorData';
 import { profileDetails, profileLogoSubmission, profileChangePassword } from './profile/ProfileData';
 
 const saga = [
@@ -33,7 +33,9 @@ const saga = [
     fork(GetReportDataDownload),
     fork(GetReportViewDownload),
     fork(GetClassesData),
+    fork(CreateClass),
     fork(GetMyFolders),
+    fork(CreateFolder),
     fork(GetStudentData),
     fork(InsDashboardWidget),
     fork(EditData),

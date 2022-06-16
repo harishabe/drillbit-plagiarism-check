@@ -16,10 +16,28 @@ export const GetClassesData = (paginationPayload) => {
 };
 
 /**
+ * Create Class
+ */
+export const CreateClass = (data) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_START, query: data
+    };
+};
+
+/**
  * Get all folders
  */
 export const GetAllFolders = (paginationPayload) => {
     return {
         type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Create Folder
+ */
+export const CreateFolder = (data) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, query: data
     };
 };

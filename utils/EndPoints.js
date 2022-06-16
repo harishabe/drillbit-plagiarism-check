@@ -17,7 +17,9 @@ const END_POINTS = {
     EDIT_DATA: '/extreme/admin/edit',
     DELETE_DATA: '/extreme/admin/delete',
     ACTIVATE_DEACTIVATE_INSTRUCTOR: '/extreme/admin/instructor',
-    CREATE_INSTRUCTOR: '/extreme/admin/instructor'
+    CREATE_INSTRUCTOR: '/extreme/admin/instructor',
+    CREATE_CLASS: '/extreme/instructor/class',
+    CREATE_FOLDER: '/extreme/instructor/myFolder',
 };
 
 export default END_POINTS;

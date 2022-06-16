@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
+import styled from 'styled-components';
 import Instructor from '../../layouts/Instructor';
-import { CardInfoView } from '../../components';
+import { CardInfoView, CreateDrawer } from '../../components';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { Skeleton } from '@mui/material';
+import MyClassesForm from './form/MyclassesForm';
 
 function createData(validity) {
     return { validity }
 };
+
+const AddButtonBottom = styled.div`
+    position:absolute;
+    bottom: 30px;
+    right:30px;
+`;
 
 const MyClassFiles = ({
     GetClassesData,
@@ -55,7 +63,6 @@ const MyClassFiles = ({
     };
 
     const checkStatus = (validity) => {
-        console.log("first", validity)
         if (validity <= 15) {
             return '#FF0000';
         } else if (validity >= 15 && validity <= 100) {
@@ -74,6 +81,8 @@ const MyClassFiles = ({
                     <Grid item md={4} xs={12}><Skeleton /></Grid>
                 </Grid> :
                 <>
+
+
                 <Grid container spacing={2}>
 
                     {classesData?.map((item, index) => (
@@ -90,6 +99,12 @@ const MyClassFiles = ({
                         </Grid>
                     ))}
                 </Grid>
+
+                    <AddButtonBottom>
+                        <CreateDrawer title="Create Class">
+                            <MyClassesForm />
+                        </CreateDrawer>
+                    </AddButtonBottom> 
 
                 <div style={{ marginLeft: '30%', marginTop: '25px' }}>
                     <Pagination
