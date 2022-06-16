@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Admin from '../../layouts/Admin';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import debouce from "lodash.debounce";
 import { Skeleton, TextField, Pagination } from '@mui/material';
 import { BreadCrumb } from './../../components';
 import {
@@ -99,6 +100,16 @@ const Students = ({
         }
     };
 
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
     const handleAction = (event, icon) => {
         // console.log('handleActionhandleAction', event, icon);
          if(icon === 'edit'){
@@ -133,7 +144,7 @@ const Students = ({
                     >
                         <TextField
                             placeholder='Search'
-                            onChange={handleSearch}
+                            onChange={ debouncedResults }
                             inputProps={{
                                 style: {
                                     padding: 5,
