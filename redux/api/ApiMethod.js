@@ -9,11 +9,31 @@ const header = () => {
     }
 };
 
+const headerWithoutToken = () => {
+    return {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+};
+
 const FormDataHeader = () => {
     return {
         "Content-Type": "multipart/form-data",
         'authorization': `Bearer ${localStorage.getItem('token')}`
     }
+};
+
+/**
+ * API METHOD - POST
+ * @param {*} url
+ */
+
+ export const LoginPostMethod = async (url, query) => {
+    return await axois.post(BASE_URL + url, query,{
+        headers: headerWithoutToken()
+    })
+        .then(response => ({ response }))
+        .catch(error => ({ error }))
 };
 
 /**

@@ -1,6 +1,6 @@
 import BASE_URL from '../../utils/BaseUrl';
 import END_POINTS from '../../utils/EndPoints';
-import { PostMethod } from './ApiMethod';
+import { LoginPostMethod } from './ApiMethod';
 
 /**
  * API CALL FOR LOGIN 
@@ -9,5 +9,5 @@ import { PostMethod } from './ApiMethod';
 
 export const login = (query) => {
     const url = END_POINTS.LOGIN;
-    return PostMethod(url, query);
+    return LoginPostMethod(url, query);
 };
