@@ -20,6 +20,8 @@ const END_POINTS = {
     CREATE_INSTRUCTOR: '/extreme/admin/instructor',
     CREATE_CLASS: '/extreme/instructor/class',
     CREATE_FOLDER: '/extreme/instructor/myFolder',
+    CREATE_STUDENT: '/extreme/instructor/classes/student',
+    CREATE_ASSIGNMENT: '/extreme/instructor/classes/assignment',
 };
 
 export default END_POINTS;

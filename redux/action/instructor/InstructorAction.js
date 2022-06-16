@@ -25,6 +25,24 @@ export const CreateClass = (data) => {
 };
 
 /**
+ * Create Student
+ */
+export const CreateStudent = (data) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_CREATE_STUDENT_DATA_START, query: data
+    };
+};
+
+/**
+ * Create Assignment
+ */
+export const CreateAssignment = (data) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_CREATE_ASSIGNMENT_DATA_START, query: data
+    };
+};
+
+/**
  * Get all folders
  */
 export const GetAllFolders = (paginationPayload) => {

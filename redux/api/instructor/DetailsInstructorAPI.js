@@ -21,6 +21,24 @@ export const CreateClassData = async (data) => {
 };
 
 /**
+ * API CALL FOR CREATE STUDENT
+ */
+
+export const CreateStudentData = async (data) => {
+    const url = END_POINTS.CREATE_STUDENT;
+    return PostMethod(url, data);
+};
+
+/**
+ * API CALL FOR CREATE ASSIGNMENT
+ */
+
+export const CreateAssignmentData = async (data) => {
+    const url = END_POINTS.CREATE_ASSIGNMENT;
+    return PostMethod(url, data);
+};
+
+/**
  * API CALL FOR GET FOLDER DATA
  */
 

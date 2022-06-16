@@ -1,7 +1,9 @@
 import React from 'react'
+import styled from 'styled-components';
 import Instructor from '../../layouts/Instructor'
-import { CardView, CommonTable, AvatarName } from '../../components'
+import { CardView, CommonTable, AvatarName, CreateDrawer } from '../../components'
 import { EditIcon, DeleteIcon, LockIcon } from '../../assets/icon'
+import StudentForm from './form/StudentForm';
 
 const columns = [
     { id: 'id', label: 'Student ID', minWidth: 170 },
@@ -15,6 +17,12 @@ const columns = [
 function createData(id, name, email, department, section, action) {
     return { id, name, email, department, section, action }
 }
+
+const AddButtonBottom = styled.div`
+    position:absolute;
+    bottom: 30px;
+    right:30px;
+`;
 
 const rows = [
     createData(
@@ -73,6 +81,11 @@ const Students = () => {
     return (
         <React.Fragment>
             <CardView>
+                <AddButtonBottom>
+                    <CreateDrawer title="Add Student">
+                        <StudentForm />
+                    </CreateDrawer>
+                </AddButtonBottom> 
                 <CommonTable
                     isCheckbox={true}
                     tableHeader={columns}

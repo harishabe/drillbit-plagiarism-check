@@ -1,0 +1,35 @@
+[
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "name",
+        "name": "name",
+        "label": "New Folder Name",
+        "required": "Please Enter Folder name"
+    },
+
+    {
+        "field_type": "datepicker",
+        "id": "expiry_date",
+        "name": "expiry_date",
+        "label": "End Date",
+        "minDate":true,
+        "required": "Select end date",
+        "validationMsg": "Select end date"
+    },
+
+    {
+        "field_type": "file",
+        "id": "file",
+        "name": "file",
+        "label": "Instraction Option",
+        "required": "Instraction Option",
+        "validationMsg": "Please Instraction Option"
+    },
+    
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Create Assignment"
+    }
+]

@@ -1,9 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Instructor from '../../layouts/Instructor';
-import { CardView, CommonTable, AvatarName, StatusDot } from '../../components';
+import { CardView, CommonTable, AvatarName, StatusDot, CreateDrawer } from '../../components';
 import { EditIcon, DeleteIcon, TimerIcon } from '../../assets/icon';
+import AssignmentForm from './form/AssignmentForm';
+
+const AddButtonBottom = styled.div`
+    position:absolute;
+    bottom: 30px;
+    right:30px;
+`;
 
 const columns = [
   { id: 'id', label: 'Assignment ID', minWidth: 170 },
@@ -66,6 +74,11 @@ const Assignments = () => {
   return (
     <React.Fragment>
       <CardView>
+        <AddButtonBottom>
+          <CreateDrawer title="Create Assignment">
+            <AssignmentForm />
+          </CreateDrawer>
+        </AddButtonBottom>
         <Link href={'/instructor/mysubmissions'}>
           <CommonTable
             onClick={() => router.push('/instructor/mysubmissions')}
