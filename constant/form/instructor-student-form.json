@@ -1,0 +1,50 @@
+[
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "name",
+        "name": "name",
+        "label": "Student Name",
+        "required": "Student Name"
+    },
+    {
+        "field_type": "input",
+        "type": "email",
+        "id": "email",
+        "name": "email",
+        "label": "Email Address",
+        "required": "Enter email address",
+        "validationMsg": "Invalid email address"
+    },
+    
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "id",
+        "name": "id",
+        "label": "Student ID",
+        "required": "Student ID"
+    },
+    
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "department",
+        "name": "department",
+        "label": "Department",
+        "required": "Department"
+    },
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "section",
+        "name": "section",
+        "label": "Section",
+        "required": "Section"
+    },
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Add Student"
+    }
+]
