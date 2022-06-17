@@ -9,7 +9,15 @@ import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import { Skeleton, TextField, Pagination } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
-import { CardView, CommonTable, MainHeading, SubTitle, StatusDot, AvatarName, CreateDrawer } from '../../components';
+import { 
+    CardView, 
+    CommonTable, 
+    MainHeading, 
+    StatusDot, 
+    AvatarName, 
+    CreateDrawer,
+    WarningDialog
+} from '../../components';
 import { EditIcon, DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../assets/icon';
 import { GetInstructorData, EditData, DeleteData, DeactivateData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
@@ -150,6 +158,7 @@ const Instructor = ({
 
     return (
         <React.Fragment>
+            <WarningDialog />
             <AddButtonBottom>
                 <CreateDrawer title="create instructor">
                     <InstructorForm />
