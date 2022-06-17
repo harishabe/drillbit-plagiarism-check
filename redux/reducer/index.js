@@ -4,6 +4,7 @@ import DashboardReducer from './admin/DashboardReducer';
 import CRUDReducer from './admin/CRUDReducer';
 import InsDashboardReducer from './instructor/DashboardReducer';
 import DetailsInstructorReducer from './instructor/DetailsInstructorReducer';
+import DetailsStudentReducer from './student/DetailsStudentReducer';
 import MyFoldersInstructorReducer from './instructor/MyFoldersInstructorReducer';
 import DetailsReducer from './admin/DetailsReducer';
 import ReportsReducer from './admin/ReportsReducer';
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     instructorMyFolders: MyFoldersInstructorReducer,
     adminCrud: CRUDReducer,
     adminReport: ReportsReducer,
+    studentClasses: DetailsStudentReducer,
 });
 
 export default rootReducer;

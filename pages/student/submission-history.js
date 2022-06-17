@@ -1,5 +1,8 @@
-import React from 'react'
-import { CommonTable } from '../../components'
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Skeleton } from '@mui/material';
+import { CommonTable } from '../../components';
+import { GetSubmissionData } from '../../redux/action/student/StudentAction';
 
 const columns = [
     { id: 'name', label: 'File name' },
@@ -12,16 +15,7 @@ const columns = [
     { id: 'language', label: 'Language' },
 ]
 
-function createData(
-    name,
-    id,
-    date,
-    similarity,
-    grammer,
-    score,
-    status,
-    language
-) {
+function createData(name, id, date, similarity, grammer, score, status, language) {
     return { name, id, date, similarity, grammer, score, status, language }
 }
 
@@ -48,13 +42,65 @@ const rows = [
     ),
 ]
 
-const SubmissionHistory = () => {
+const SubmissionHistory = ({
+    GetSubmissionData,
+    submissionData,
+    isLoading
+}) => {
+    const [rows, setRows] = useState([]);
+
+    useEffect(() => {
+        GetSubmissionData();
+    }, []);
+
+    useEffect(() => {
+        let row = '';
+        let arr = [];
+        submissionData?.map((submission) => {
+            row =
+                createData(
+                    submission.name,
+                    submission.id,
+                    submission.date,
+                    submission.similarity,
+                    submission.grammer,
+                    submission.score,
+                    submission.status,
+                    submission.language,
+                );
+            arr.push(row)
+        });
+        setRows([...arr]);
+    }, [submissionData]);
     return (
         <>
-            {' '}
-            <CommonTable isCheckbox={false} tableHeader={columns} tableData={rows} />
+            { isLoading ?
+                <>
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                </> :
+                <>
+                    <CommonTable
+                        isCheckbox={ true }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                    />
+                </>
+            }
         </>
     )
 }
 
-export default SubmissionHistory
+const mapStateToProps = (state) => ({
+    submissionData: state?.detailsData?.submissionData,
+    isLoading: state?.detailsData?.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetSubmissionData: () => dispatch(GetSubmissionData()),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmissionHistory);

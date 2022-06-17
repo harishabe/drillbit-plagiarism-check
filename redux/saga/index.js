@@ -13,7 +13,7 @@ import {
 import {
     GetReportData,
     GetReportDataDownload,
-    GetReportViewDownload,
+    GetReportViewDownload
 } from './admin/ReportsData';
 import {
     GetClassesData,
@@ -23,6 +23,11 @@ import {
     CreateStudent,
     CreateAssignment
 } from './instructor/DetailsInstructorData';
+import {
+    GetStudentClasses,
+    GetStudentAssignments,
+    GetStudentSubmissions
+} from './student/DetailsStudentData';
 import {
     profileDetails,
     profileLogoSubmission,
@@ -44,6 +49,9 @@ const saga = [
     fork(GetReportDataDownload),
     fork(GetReportViewDownload),
     fork(GetClassesData),
+    fork(GetStudentClasses),
+    fork(GetStudentAssignments),
+    fork(GetStudentSubmissions),
     fork(CreateClass),
     fork(CreateStudent),
     fork(CreateAssignment),
