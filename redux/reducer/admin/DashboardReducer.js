@@ -5,18 +5,18 @@ const DashboardReducer = (state = {}, action) => {
         case types.FETCH_ADMIN_DASH_WIDGET_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingDashboard: true,
             };
         case types.FETCH_ADMIN_DASH_WIDGET_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingDashboard: false,
                 data: action.payload
             };
         case types.FETCH_ADMIN_DASH_WIDGET_FAIL:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingDashboard: false,
                 error: action.payload
             };
         case types.FETCH_ADMIN_DASH_TOP_STUDENT_START:
@@ -39,18 +39,18 @@ const DashboardReducer = (state = {}, action) => {
         case types.FETCH_ADMIN_DASH_TREND_ANALYSIS_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingTrendAnalysis: true,
             };
         case types.FETCH_ADMIN_DASH_TREND_ANALYSIS_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingTrendAnalysis: false,
                 trendAnalysis: action.payload
             };
         case types.FETCH_ADMIN_DASH_TREND_ANALYSIS_FAIL:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingTrendAnalysis: false,
                 trendAnalysisError: action.payload
             };
         default:

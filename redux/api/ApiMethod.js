@@ -87,3 +87,16 @@ export const GetMethod = async (url) => {
         .then(response => ({ response }))
         .catch(error => ({ error }))
 };
+
+/**
+ * API METHOD - GET
+ * @param {*} url
+ */
+
+ export const DeleteMethod = async (url) => {
+    return await axois.delete(BASE_URL + url, {
+        headers: header()
+    })
+        .then(response => ({ response }))
+        .catch(error => ({ error }))
+};

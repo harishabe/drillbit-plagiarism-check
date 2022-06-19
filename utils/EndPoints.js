@@ -15,7 +15,7 @@ const END_POINTS = {
     ADMIN_PROFILE_UPLOAD_LOGO:'/extreme/admin/uploadLogo',
     PROFILE_CHANGE_PASSWORD: '/extreme/account/password',
     EDIT_DATA: '/extreme/admin/edit',
-    DELETE_DATA: '/extreme/admin/delete',
+    ADMIN_INSTRUCTOR_DELETE: '/extreme/admin/instructor',
     ACTIVATE_DEACTIVATE_INSTRUCTOR: '/extreme/admin/instructor',
     CREATE_INSTRUCTOR: '/extreme/admin/instructor',
     CREATE_CLASS: '/extreme/instructor/class',

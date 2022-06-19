@@ -25,7 +25,6 @@ const success = (message) => {
 }
 
 const toastrValidation = (response) => {
-    console.log('responseresponseresponse',response);
     if (response?.status === 201) {
         success(response?.data?.message);
     } else if (response?.status === 200) {

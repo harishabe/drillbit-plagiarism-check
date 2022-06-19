@@ -9,19 +9,21 @@ import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import { Skeleton, TextField, Pagination } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
-import { 
-    CardView, 
-    CommonTable, 
-    MainHeading, 
-    StatusDot, 
-    AvatarName, 
+import {
+    CardView,
+    CommonTable,
+    MainHeading,
+    StatusDot,
+    AvatarName,
     CreateDrawer,
-    WarningDialog
+    WarningDialog,
+    DialogModal
 } from '../../components';
-import { EditIcon, DeleteIcon, LockIcon, InfoIcon, StatsIcon } from '../../assets/icon';
+import { EditIcon, DeleteIcon, LockIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
 import { GetInstructorData, EditData, DeleteData, DeactivateData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
+import InstructorStats  from './instructor/InstructorStats';
 
 const columns = [
     { id: 'id', label: 'ID', minWidth: 100 },
@@ -38,13 +40,10 @@ function createData(id, name, email, creationDate, status, stats, action) {
 };
 
 const AddButtonBottom = styled.div`
-    position:absolute;
+    position:fixed;
     bottom: 30px;
     right:30px;
 `;
-
-
-const actionIcon = [<DeleteIcon />, <LockIcon />]
 
 const InstructorBreadCrumb = [
     {
@@ -57,7 +56,7 @@ const InstructorBreadCrumb = [
         link: '',
         active: true,
     },
-]
+];
 
 const Instructor = ({
     pageDetails,
@@ -70,6 +69,12 @@ const Instructor = ({
 }) => {
     const [rows, setRows] = useState([]);
 
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [deleteRowData, setDeleteRowData] = useState('');
+    const [showStatusWarning, setStatusWarning] = useState(false);
+    const [showDialogModal, setShowDialogModal] = useState(false);
+    const [statusRowData, setStatusRowData] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -92,14 +97,13 @@ const Instructor = ({
                     instructor.username,
                     instructor.creation_date,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
-                    <StatsIcon />,
-                    [
-                        { 'component': <EditIcon />, 'type': 'edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete' },
-                        {
-                            'component': instructor.status === 'active' ? <VpnKeyOffOutlinedIcon /> : <VpnKeyOutlinedIcon />,
-                            'type': instructor.status === 'active' ? 'unlock' : 'lock'
-                        }
+                    [{ 'component': <StatsIcon />, 'type': 'stats' }],
+                    [{ 'component': <EditIcon />, 'type': 'edit' },
+                    { 'component': <DeleteIcon />, 'type': 'delete' },
+                    {
+                        'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                        'type': instructor.status === 'active' ? 'lock' : 'unlock'
+                    }
                     ]
                 );
             arr.push(row)
@@ -112,24 +116,57 @@ const Instructor = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
+    const handleCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
+
+    const handleStatusCloseWarning = () => {
+        setStatusWarning(false);
+    };
+
+    const handleYesWarning = () => {
+        DeleteData(deleteRowData, paginationPayload);
+        setTimeout(() => {
+            setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    const handleStatusWarning = () => {
+        DeactivateData(statusRowData, paginationPayload);
+        setTimeout(() => {
+            setStatusWarning(false);
+        }, [100]);
+    };
+
     const handleAction = (event, icon, rowData) => {
         if (icon === 'edit') {
             EditData();
         } else if (icon === 'delete') {
-            DeleteData();
+            setDeleteRowData(rowData?.id?.props?.title);
+            setShowDeleteWarning(true);
         } else if (icon === 'lock') {
-            let activateDeactive = {
-                'id': rowData?.id?.props?.title,
-                'status': 'active'
-            }
-            DeactivateData(activateDeactive, paginationPayload);
-        } else if (icon === 'unlock') {
             let activateDeactive = {
                 'id': rowData?.id?.props?.title,
                 'status': 'inactive'
             }
-            DeactivateData(activateDeactive, paginationPayload);
+            setStatusRowData(activateDeactive);
+            setStatusWarning(true);
+            setStatusMessage('inactive');
+        } else if (icon === 'unlock') {
+            let activateDeactive = {
+                'id': rowData?.id?.props?.title,
+                'status': 'active'
+            };
+            setStatusRowData(activateDeactive);
+            setStatusWarning(true);
+            setStatusMessage('active');
+        } else if (icon === 'stats') {
+            setShowDialogModal(true);
         }
+    }
+
+    const handleCloseDialog = () => {
+        setShowDialogModal(false);
     }
 
     /** search implementation using debounce concepts */
@@ -158,9 +195,34 @@ const Instructor = ({
 
     return (
         <React.Fragment>
-            <WarningDialog />
+
+            {showDeleteWarning &&
+                <WarningDialog
+                    warningIcon={<DeleteWarningIcon />}
+                    message="Are you sure you want to delete ?"
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
+                />}
+            {showStatusWarning &&
+                <WarningDialog
+                    warningIcon={<DeleteWarningIcon />}
+                    message={"Are you sure, you want to " + statusMessage + "?"}
+                    handleYes={handleStatusWarning}
+                    handleNo={handleStatusCloseWarning}
+                    isOpen={true}
+                />}
+            {showDialogModal &&
+                <>
+                    <DialogModal isOpen={true} fullWidth="lg" maxWidth="lg" handleClose={handleCloseDialog}>
+                        <InstructorStats  />
+                    </DialogModal>
+                </>
+            }
+
             <AddButtonBottom>
-                <CreateDrawer title="create instructor">
+                <CreateDrawer 
+                    title="create instructor">
                     <InstructorForm />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -204,10 +266,8 @@ const Instructor = ({
                             isCheckbox={true}
                             tableHeader={columns}
                             tableData={rows}
-                            actionIcon={actionIcon}
                             handleAction={handleAction}
-                            isActionIcon={true}
-                            charLength={20}
+                            charLength={17}
                             path=''
                         />
                         <div style={{ marginLeft: '35%', marginTop: '25px' }}>
@@ -221,9 +281,8 @@ const Instructor = ({
                         </div>
                     </>
                 }
-
             </CardView>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 
@@ -239,7 +298,7 @@ const mapDispatchToProps = (dispatch) => {
         GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),
         EditData: (data) => dispatch(EditData(data)),
         DeactivateData: (data, paginationPayload) => dispatch(DeactivateData(data, paginationPayload)),
-        DeleteData: () => dispatch(DeleteData()),
+        DeleteData: (deleteRowData, paginationPayload) => dispatch(DeleteData(deleteRowData, paginationPayload)),
     };
 };
 

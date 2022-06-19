@@ -32,16 +32,16 @@
         "type": "text",
         "id": "plagiarism",
         "name": "plagiarism",
-        "label": "Enter plagiarism",
-        "required": "Enter plagiarism percentage"
+        "label": "Allocate documents",
+        "required": "Enter documents"
     },
     {
         "field_type": "input",
         "type": "text",
         "id": "grammar",
         "name": "grammar",
-        "label": "Enter grammar",
-        "required": "Enter grammar percentage"
+        "label": "Grammar documents",
+        "required": "Enter grammar documents"
     },
     {
         "field_type": "button",

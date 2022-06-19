@@ -4,7 +4,11 @@ import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Admin from '../../layouts/Admin';
-import { GetWidgetCount, GetTopStudent, GetTrendAnalysis } from '../../redux/action/admin/AdminAction';
+import {
+    GetWidgetCount,
+    GetTopStudent,
+    GetTrendAnalysis
+} from '../../redux/action/admin/AdminAction';
 import {
     WidgetCard,
     ColumnChart,
@@ -14,6 +18,7 @@ import {
     CardView,
     Heading,
     SubTitle,
+    ListSkeleton,
 } from '../../components';
 import {
     NoOfClassIcon,
@@ -27,29 +32,18 @@ import {
     COLUMN_ADMIN_XAXIS_DATA,
     COLUMN_ADMIN_WIDTH,
     COLUMN_ADMIN_CHART_HEIGHT,
-    COLUMN_ADMIN_CHART_SERIES_DATA,
     COLUMN_ADMIN_CHART_GRADIENT,
-    COLUMN_ADMIN_ACC_USG_CHART_TYPE,
-    COLUMN_ADMIN_ACC_USG_CHART_COLOR,
-    COLUMN_ADMIN_ACC_USG_XAXIS_DATA,
-    COLUMN_ADMIN_ACC_USG_WIDTH,
-    COLUMN_ADMIN_ACC_USG_CHART_HEIGHT,
-    COLUMN_ADMIN_ACC_USG_CHART_SERIES_DATA,
-    COLUMN_ADMIN_ACC_USG_CHART_GRADIENT,
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
-    COLUMN_ADMIN_ACC_USG_CHART_BORDER_RADIUS,
-    PIE_CHART_TYPE,
     PIE_CHART_COLOR,
-    PIE_CHART_SERIES,
     PIE_CHART_WIDTH,
     PIE_CHART_LABEL,
     RADIAL_CHART_TYPE,
     RADIAL_CHART_COLOR,
     RADIAL_CHART_LABEL,
-    RADIAL_CHART_SERIES,
     RADIAL_CHART_HEIGHT,
     USAGE_CHART_DATA,
 } from './../../constant/data/ChartData';
+import { Skeleton } from '@mui/material';
 
 const InLineText = styled.span`
     display: inline-flex;
@@ -66,6 +60,9 @@ const TextAlignRight = styled.div`
 `;
 
 const Dashboard = ({
+    isLoading,
+    isLoadingDashboard,
+    isLoadingTrendAnalysis,
     GetWidgetCount,
     adminDashboardData,
     GetTopStudent,
@@ -80,9 +77,7 @@ const Dashboard = ({
         GetTrendAnalysis();
         trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork)
         setTrendAnalysisSeries([...trendAnalysisSeries]);
-
     }, []);
-
 
     useEffect(() => {
         let usageGraph = usageGraphData?.map((item) => {
@@ -142,41 +137,34 @@ const Dashboard = ({
                     <Grid item md={8} xs={12}>
                         <CardView>
                             <Heading title='Document Processed' />
-                            {adminDashboardData?.data && <ColumnChart
-                                type={COLUMN_ADMIN_CHART_TYPE}
-                                color={COLUMN_ADMIN_CHART_COLOR}
-                                xaxisData={COLUMN_ADMIN_XAXIS_DATA}
-                                columnWidth={COLUMN_ADMIN_WIDTH}
-                                height={COLUMN_ADMIN_CHART_HEIGHT}
-                                seriesData={[
-                                    {
-                                        name: 'Document Processed',
-                                        data: adminDashboardData?.data?.monthlySubmissions
-                                    }
-                                ]}
-                                gradient={COLUMN_ADMIN_CHART_GRADIENT}
-                                borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
-                            />}
+                            {isLoadingDashboard ? <Skeleton /> :
+                                <ColumnChart
+                                    type={COLUMN_ADMIN_CHART_TYPE}
+                                    color={COLUMN_ADMIN_CHART_COLOR}
+                                    xaxisData={COLUMN_ADMIN_XAXIS_DATA}
+                                    columnWidth={COLUMN_ADMIN_WIDTH}
+                                    height={COLUMN_ADMIN_CHART_HEIGHT}
+                                    seriesData={[
+                                        {
+                                            name: 'Document Processed',
+                                            data: adminDashboardData?.data?.monthlySubmissions
+                                        }
+                                    ]}
+                                    gradient={COLUMN_ADMIN_CHART_GRADIENT}
+                                    borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
+                                />}
                         </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <CardView>
-                            <Heading title='Account Usage Info' />
-                            {adminDashboardData?.data && <UsageChart SERIES_DATA={usageGraphData} />}
-                            {/* <ColumnChart
-                                type={COLUMN_ADMIN_ACC_USG_CHART_TYPE}
-                                color={COLUMN_ADMIN_ACC_USG_CHART_COLOR}
-                                xaxisData={COLUMN_ADMIN_ACC_USG_XAXIS_DATA}
-                                columnWidth={COLUMN_ADMIN_ACC_USG_WIDTH}
-                                height={COLUMN_ADMIN_ACC_USG_CHART_HEIGHT}
-                                seriesData={
-                                    COLUMN_ADMIN_ACC_USG_CHART_SERIES_DATA
-                                }
-                                gradient={COLUMN_ADMIN_ACC_USG_CHART_GRADIENT}
-                                borderRadius={
-                                    COLUMN_ADMIN_ACC_USG_CHART_BORDER_RADIUS
-                                }
-                            /> */}
+                            <Heading
+                                title='Account Usage Info'
+                            />
+                            {
+                                isLoadingDashboard ?
+                                    <Skeleton /> :
+                                    <UsageChart SERIES_DATA={usageGraphData} />
+                            }
                         </CardView>
                     </Grid>
                 </Grid>
@@ -184,7 +172,20 @@ const Dashboard = ({
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
-                        <TopStudents topStudentData={adminDashboardData?.topStudent} />
+                        <CardView height="443px">
+                            <Heading title='Top Students' />
+                            {isLoading ?
+                                <>
+                                    <ListSkeleton />
+                                    <ListSkeleton />
+                                    <ListSkeleton />
+                                    <ListSkeleton />
+                                </> :
+                                <TopStudents
+                                    topStudentData={adminDashboardData?.topStudent}
+                                />
+                            }
+                        </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <CardView>
@@ -194,7 +195,13 @@ const Dashboard = ({
                                     <SubTitle title='(In days)' />
                                 </SubTitleMargin>
                             </InLineText>
-                            {adminDashboardData.data ?
+                            {isLoadingDashboard ?
+                                <Skeleton
+                                    variant="circular"
+                                    style={{ margin: '58px auto' }}
+                                    height={250}
+                                    width={250}
+                                /> :
                                 <>
                                     <RadialBarChart
                                         type={RADIAL_CHART_TYPE}
@@ -207,9 +214,8 @@ const Dashboard = ({
                                         title='Renive your account'
                                         isLink={true}
                                     />
-                                </> :
-                                ''}
-
+                                </>
+                            }
                         </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>
@@ -219,12 +225,23 @@ const Dashboard = ({
                                     <Heading title='Trend Analysis' />
                                 </Grid>
                                 <Grid item md={3} xs={12}>
-                                    <TextAlignRight>
-                                        <SubTitle title={adminDashboardData?.trendAnalysis?.documentsProcessed} />
-                                    </TextAlignRight>
+                                    {
+                                        isLoading ?
+                                            <Skeleton /> :
+                                            <TextAlignRight>
+                                                <SubTitle
+                                                    title={adminDashboardData?.trendAnalysis?.documentsProcessed}
+                                                />
+                                            </TextAlignRight>
+                                    }
                                 </Grid>
                             </Grid>
-                            {adminDashboardData?.trendAnalysis &&
+                            {isLoadingTrendAnalysis ?
+                                <Skeleton
+                                    variant="circular"
+                                    style={{ margin: '59px auto' }}
+                                    height={250} width={250}
+                                /> :
                                 <PieChart
                                     type="donut"
                                     color={PIE_CHART_COLOR}
@@ -236,8 +253,7 @@ const Dashboard = ({
                                             adminDashboardData?.trendAnalysis?.ownWork
                                         ]
                                     }
-                                />
-                            }
+                                />}
                         </CardView>
                     </Grid>
                 </Grid>
@@ -247,7 +263,10 @@ const Dashboard = ({
 };
 
 const mapStateToProps = (state) => ({
+    isLoading: state?.adminDashboard?.isLoading,
     adminDashboardData: state?.adminDashboard,
+    isLoadingDashboard: state?.adminDashboard?.isLoadingDashboard,
+    isLoadingTrendAnalysis: state?.adminDashboard?.isLoadingTrendAnalysis,
 });
 
 const mapDispatchToProps = (dispatch) => {

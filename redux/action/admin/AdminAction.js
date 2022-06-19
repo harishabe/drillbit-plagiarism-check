@@ -85,9 +85,9 @@ export const EditData = () => {
 /**
  * Delete data
  */
-export const DeleteData = () => {
+export const DeleteData = (id, paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_DELETE_ROW_START,
+        type: types.FETCH_ADMIN_DELETE_ROW_START, id: id, paginationPayload: paginationPayload
     };
 };
 

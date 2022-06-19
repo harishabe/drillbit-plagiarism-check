@@ -18,7 +18,7 @@ export const COLUMN_CHART_SERIES_DATA = [
 // column graph for admin dashboard
 export const COLUMN_ADMIN_CHART_TYPE = "bar";
 export const COLUMN_ADMIN_CHART_COLOR = ['#2B4CB0'];
-export const COLUMN_ADMIN_XAXIS_DATA = ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+export const COLUMN_ADMIN_XAXIS_DATA = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const COLUMN_ADMIN_WIDTH = "35%";
 export const COLUMN_ADMIN_CHART_HEIGHT = 350;
 export const COLUMN_ADMIN_CHART_BORDER_RADIUS = 16;
@@ -69,7 +69,7 @@ export const RADIAL_CHART_LABEL = 'Days remaining';
 export const RADIAL_CHART_SERIES = [90];
 
 // Usage chart for admin dashbaord
-export const USAGE_CHART_DATA = [ 
+export const USAGE_CHART_DATA = [
     {
         x: 'Instructors',
         y: 2,

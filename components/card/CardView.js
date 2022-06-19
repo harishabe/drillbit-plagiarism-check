@@ -3,11 +3,12 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 
 const CardView = ({
-    children
+    children,
+    height
 }) => {
     return (
         <React.Fragment>
-            <Card>
+            <Card style={{height}}>
                 <CardContent>
                     {children}
                 </CardContent>

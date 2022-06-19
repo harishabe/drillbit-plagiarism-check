@@ -30,8 +30,6 @@ function createData(id, name, email, department, section, action) {
     return { id, name, email, department, section, action }
 }
 
-const actionIcon = [<EditIcon />, <DeleteIcon />, <LockIcon />]
-
 const IntegrationBreadCrumb = [
     {
         name: 'Dashboard',
@@ -78,7 +76,7 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
-                    [{ 'component': <EditIcon />, 'type': 'edit' }, { 'component': <DeleteIcon />, 'type': 'delete' }, { 'component': <LockIcon />, 'type': 'lock' }]
+                    [{ 'component': <EditIcon />, 'type': 'edit' }, { 'component': <DeleteIcon />, 'type': 'delete' }]
                 );
             arr.push(row)
         });
@@ -170,7 +168,6 @@ const Students = ({
                             isCheckbox={true}
                             tableHeader={columns}
                             tableData={rows}
-                            actionIcon={actionIcon}
                             handleAction={handleAction}
                             isActionIcon={true}
                             charLength={20}

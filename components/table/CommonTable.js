@@ -35,9 +35,10 @@ const CommonTable = ({
             <Table stickyHeader>
                 <TableHead>
                     <TableRow>
-                        {isCheckbox ? <TableCell padding="checkbox" className={classes.padding}>
-                            <Checkbox />
-                        </TableCell> : ''}
+                        {isCheckbox ?
+                            <TableCell padding="checkbox" className={classes.padding}>
+                                <Checkbox />
+                            </TableCell> : ''}
                         {tableHeader.map((column) => (
                             <TableCell
                                 key={column.id}
@@ -56,16 +57,19 @@ const CommonTable = ({
                                 <TableCell padding="checkbox" className={classes.padding}>
                                     <Checkbox />
                                 </TableCell> : ''}
-
                             {tableHeader.map((column) => {
                                 const value = row[column.id];
                                 return (
                                     <>
                                         {
-                                            column.id === 'action' ?
-                                                <TableCell>{value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}</IconButton>))}</TableCell> :
+                                            column.id === 'action' || column.id === 'stats' ?
+                                                <TableCell>
+                                                    {value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}</IconButton>))}
+                                                </TableCell> :
                                                 <TableCell key={column.id} align={column.align}>
-                                                    {typeof (value) === 'string' ? <EllipsisText value={value} charLength={charLength} /> : <SubTitle title={value} />}
+                                                    {typeof (value) === 'string' ?
+                                                        <EllipsisText value={value} charLength={charLength} /> :
+                                                        <SubTitle title={value} />}
                                                 </TableCell>
                                         }
                                     </>

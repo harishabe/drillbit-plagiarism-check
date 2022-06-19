@@ -30,6 +30,7 @@ export function* onLoadInstructor(action) {
             type: types.FETCH_ADMIN_INSTRUCTOR_DATA_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 
@@ -163,18 +164,21 @@ export function* EditData() {
  */
 
 
-export function* onLoadDelete() {
-    const { response, error } = yield call(DeleteRow);
+export function* onLoadDelete(action) {
+    const { response, error } = yield call(DeleteRow, action.id);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_DELETE_ROW_SUCCESS,
             payload: response?.data,
         });
+        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: action.paginationPayload });
+        toastrValidation(response);
     } else {
         yield put({
             type: types.FETCH_ADMIN_DELETE_ROW_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 
