@@ -21,22 +21,21 @@ import {
 } from './../../../constant/data/ChartData';
 
 import {
-    GetWidgetCount,
-    GetTrendAnalysis
+    GetInstructorStats,
 } from '../../../redux/action/admin/AdminAction';
 import { Skeleton } from '@mui/material';
 
 const InstructorStats = ({
+    instructorId,
+    GetInstructorStats,
+    instructorStats,
     isLoading,
-    adminDashboardData,
-    GetWidgetCount,
-    GetTrendAnalysis
 }) => {
 
     useEffect(() => {
-        GetWidgetCount();
-        GetTrendAnalysis();
+        GetInstructorStats(instructorId);
     }, []);
+
     return (
         <Grid item md={4} xs={12}>
             <Grid container>
@@ -58,7 +57,7 @@ const InstructorStats = ({
                             seriesData={[
                                 {
                                     name: 'Document Processed',
-                                    data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 111]
+                                    data: instructorStats?.monthlyStats
                                 }
                             ]}
                             gradient={COLUMN_ADMIN_CHART_GRADIENT}
@@ -84,8 +83,8 @@ const InstructorStats = ({
                             label={PIE_CHART_LABEL}
                             series={
                                 [
-                                    adminDashboardData?.trendAnalysis?.similarWork,
-                                    adminDashboardData?.trendAnalysis?.ownWork
+                                    instructorStats?.trendAnalysis?.similarWork,
+                                    instructorStats?.trendAnalysis?.ownWork
                                 ]
                             }
                         />
@@ -97,14 +96,13 @@ const InstructorStats = ({
 };
 
 const mapStateToProps = (state) => ({
-    isLoading: state?.adminDashboard?.isLoadingDashboard,
-    adminDashboardData: state?.adminDashboard
+    isLoading: state?.detailsData?.isLoadingStats,
+    instructorStats: state?.detailsData?.statsData,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetWidgetCount: () => dispatch(GetWidgetCount()),
-        GetTrendAnalysis: () => dispatch(GetTrendAnalysis()),
+        GetInstructorStats: (id) => dispatch(GetInstructorStats(id)),
     };
 };
 

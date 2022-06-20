@@ -57,6 +57,15 @@ export const ViewDownloadReports = async () => {
 };
 
 /**
+ * API CALL FOR STATS
+ */
+
+export const GetStats = async (id) => {
+    const url = END_POINTS.ADMIN_INSTRUCTOR_STATS + '/' + id + '/stats';
+    return GetMethod(url);
+};
+
+/**
  * API CALL FOR EDIT
  */
 

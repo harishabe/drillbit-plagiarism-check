@@ -27,6 +27,15 @@ export const GetInstructorData = (paginationPayload) => {
     };
 };
 
+/**
+ * Get instructor stats data
+ */
+export const GetInstructorStats = (id) => {
+    return {
+        type: types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_START, id: id
+    };
+};
+
 
 /**
  * Create instructor data

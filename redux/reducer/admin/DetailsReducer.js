@@ -19,6 +19,23 @@ const DetailsReducer = (state = {}, action) => {
                 isLoading: false,
                 instructorError: action.payload,
             };
+        case types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_START:
+            return {
+                ...state,
+                isLoadingStats: true,
+            };
+        case types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_SUCCESS:
+            return {
+                ...state,
+                isLoadingStats: false,
+                statsData: action.payload,
+            };
+        case types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_FAIL:
+            return {
+                ...state,
+                isLoadingStats: false,
+                statsError: action.payload,
+            };
         case types.FETCH_ADMIN_STUDENT_DATA_START:
             return {
                 ...state,
