@@ -9,6 +9,7 @@ import {
     EditRow,
     DeleteRow,
     DeactivateRow,
+    GetStats,
 } from '../../api/admin/DetailsAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -36,6 +37,31 @@ export function* onLoadInstructor(action) {
 
 export function* GetInstructorData() {
     yield takeLatest(types.FETCH_ADMIN_INSTRUCTOR_DATA_START, onLoadInstructor);
+}
+
+/**
+ * Get instructor stats
+ * @param {*} action
+ */
+
+export function* onLoadInstructorStats(action) {
+    const { response, error } = yield call(GetStats, action.id);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* GetInstructorStats() {
+    yield takeLatest(types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_START, onLoadInstructorStats);
 }
 
 /**

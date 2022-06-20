@@ -20,7 +20,12 @@ import {
     DialogModal
 } from '../../components';
 import { EditIcon, DeleteIcon, LockIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
-import { GetInstructorData, EditData, DeleteData, DeactivateData } from '../../redux/action/admin/AdminAction';
+import {
+    GetInstructorData,
+    EditData,
+    DeleteData,
+    DeactivateData
+} from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
 import InstructorStats  from './instructor/InstructorStats';
@@ -75,6 +80,7 @@ const Instructor = ({
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [statusRowData, setStatusRowData] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
+    const [instructorId, setInstructorId] = useState('');
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -161,6 +167,7 @@ const Instructor = ({
             setStatusWarning(true);
             setStatusMessage('active');
         } else if (icon === 'stats') {
+            setInstructorId(rowData?.id?.props?.title);
             setShowDialogModal(true);
         }
     }
@@ -223,7 +230,7 @@ const Instructor = ({
             {showDialogModal &&
                 <>
                     <DialogModal isOpen={true} fullWidth="lg" maxWidth="lg" handleClose={handleCloseDialog}>
-                        <InstructorStats  />
+                    <InstructorStats instructorId={ instructorId } />
                     </DialogModal>
                 </>
             }
