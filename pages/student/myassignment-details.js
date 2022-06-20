@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import Student from '../../layouts/Student'
@@ -11,6 +11,7 @@ import {
     StatusDot,
 } from '../../components'
 import { DownloadFileIcon } from '../../assets/icon'
+
 
 import SubmissionHistory from './submission-history'
 import QA from './q&a'
@@ -83,6 +84,7 @@ const tabMenu = [
 
 const componentList = [<SubmissionHistory />, <QA />, <Feedback />]
 
+
 const MyAssignmentDetails = () => {
     return (
         <React.Fragment>
@@ -106,4 +108,4 @@ const MyAssignmentDetails = () => {
 
 MyAssignmentDetails.layout = Student
 
-export default MyAssignmentDetails
+export default MyAssignmentDetails;

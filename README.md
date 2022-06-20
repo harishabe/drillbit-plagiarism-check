@@ -16,7 +16,7 @@ USERNAME                    |     PASSWORD             |       ROLE
 yatheendra72@gmail.com      |     Yati@1234            |       admin
 admin@xtream.com                  Bit@1234
 ---------------------------------------------------------------------------
-sanjay@gmail.com            |     Sanjay@1234          |       student
+sanjay@gmail.com            |     Bit@1234          |       student
 ---------------------------------------------------------------------------
 testingagain@mailinator.com |     Test@1234            |       instructor
 sagarxtream@mailinator.com        Bit@1234
