@@ -10,7 +10,8 @@ import { login } from '../../redux/action/login/LoginAction';
 
 const LoginForm = ({
     login,
-    loginState
+    loginState,
+    isLoading
 }) => {
     const router = useRouter();
 
@@ -20,7 +21,7 @@ const LoginForm = ({
 
     const onSubmit = (data) => {
         login(data);
-    }
+    };
 
     useEffect(() => {
         if (loginState?.role === Role.admin) {
@@ -33,7 +34,7 @@ const LoginForm = ({
             router.push('/instructor/dashboard')
         } else if (loginState?.role === Role.student) {
             localStorage.setItem('role', Role.student);
-            localStorage.setItem('token', loginState?.token);   
+            localStorage.setItem('token', loginState?.token);
             router.push('/student/dashboard');
         }
     }, [loginState]);
@@ -48,6 +49,7 @@ const LoginForm = ({
                                 key={i}
                                 field={field}
                                 control={control}
+                                isLoading={isLoading}
                             />) : null
                 }
             </form>
@@ -58,7 +60,8 @@ const LoginForm = ({
 
 const mapStateToProps = (state) => ({
     loginState: state?.login?.data,
-})
+    isLoading: state?.login?.isLoading
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
