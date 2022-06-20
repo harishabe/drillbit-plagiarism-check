@@ -7,9 +7,12 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
+import TableSortLabel from '@mui/material/TableSortLabel';
 import TableRow from '@mui/material/TableRow';
 import { SubTitle, SubTitle1, EllipsisText } from '../index';
 import { IconButton } from '@mui/material';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
@@ -26,10 +29,18 @@ const CommonTable = ({
     isCheckbox,
     path,
     charLength,
-    handleAction
+    handleAction,
+    handleTableSort
 }) => {
     const router = useRouter();
     const classes = useStyles();
+    const [toggle, setToggle] = React.useState(false);
+
+    const sortHandle = (e, column) => {
+        setToggle({ ...toggle, toggle: !toggle });
+        handleTableSort(e, column,toggle);
+    }
+
     return (
         <TableContainer classes={{ root: classes.customTableContainer }}>
             <Table stickyHeader>
@@ -45,7 +56,13 @@ const CommonTable = ({
                                 align={column.align}
                                 style={{ minWidth: column.minWidth }}
                             >
-                                <SubTitle1 title={column.label} />
+                                <TableSortLabel
+                                    onClick={((e) => sortHandle(e, column))}
+                                    IconComponent={() => <div style={{ marginTop: '2px' }}>
+                                        {toggle ? <ArrowUpwardIcon style={{ fontSize: '18px' }} /> : <ArrowDownwardIcon style={{ fontSize: '18px' }} />}
+                                    </div>}>
+                                    <SubTitle1 title={column.label} />
+                                </TableSortLabel>
                             </TableCell>
                         ))}
                     </TableRow>

@@ -113,7 +113,7 @@ const Instructor = ({
 
     const handleChange = (event, value) => {
         event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
     const handleCloseWarning = () => {
@@ -193,6 +193,14 @@ const Instructor = ({
 
     /** end debounce concepts */
 
+    const handleTableSort = (e,column,sortToggle) => {
+        console.log('eeeee',e);
+        console.log('column',column);
+        console.log('sortToggle',sortToggle);
+        paginationPayload['orderBy'] = 'desc';
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
+    }
+
     return (
         <React.Fragment>
 
@@ -267,6 +275,7 @@ const Instructor = ({
                             tableHeader={columns}
                             tableData={rows}
                             handleAction={handleAction}
+                            handleTableSort={handleTableSort}
                             charLength={17}
                             path=''
                         />
