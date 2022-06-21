@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateInstructorData } from '../../../redux/action/admin/AdminAction';
+import AddImageIcon from '../../../assets/icon/AddImageIcon';
 import FormJson from '../../../constant/form/instructor-form.json';
 
 const InstructorForm = ({
-    CreateInstructorData
+    CreateInstructorData,
+    isLoading
 }) => {
 
     const { handleSubmit, control } = useForm({
@@ -27,24 +29,26 @@ const InstructorForm = ({
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container>
-                    {FormJson?.map((field, i) => (
-                        <Grid md={12} style={{ marginLeft: '8px' }}>
-                            <FormComponent
-                                key={i}
-                                field={field}
-                                control={control}
-                            />
-
-                        </Grid>
-                    ))}
-                </Grid>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container>
+                {FormJson?.map((field, i) => (
+                    <Grid md={12} style={{ marginLeft: '8px' }}>
+                        <FormComponent
+                            key={i}
+                            field={field}
+                            control={control}
+                            isLoading={isLoading}
+                        />
+                    </Grid>
+                ))}
+            </Grid>
+        </form>
     )
 }
+
+const mapStateToProps = (state) => ({
+    isLoading: state?.adminCrud?.isLoading,
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -52,4 +56,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(InstructorForm);
+export default connect(mapStateToProps, mapDispatchToProps)(InstructorForm);

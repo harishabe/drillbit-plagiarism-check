@@ -19,7 +19,7 @@ import {
     WarningDialog,
     DialogModal
 } from '../../components';
-import { EditIcon, DeleteIcon, LockIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
+import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
 import {
     GetInstructorData,
     EditData,
@@ -28,10 +28,10 @@ import {
 } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
-import InstructorStats  from './instructor/InstructorStats';
+import InstructorStats from './instructor/InstructorStats';
 
 const columns = [
-    { id: 'id', label: 'ID', minWidth: 100 },
+    { id: 'user_id', label: 'ID', minWidth: 100 },
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'creationDate', label: 'Creation Date', minWidth: 170 },
@@ -40,8 +40,8 @@ const columns = [
     { id: 'action', label: 'Action', minWidth: 100 }
 ]
 
-function createData(id, name, email, creationDate, status, stats, action) {
-    return { id, name, email, creationDate, status, stats, action }
+function createData(user_id, name, email, creationDate, status, stats, action) {
+    return { user_id, name, email, creationDate, status, stats, action }
 };
 
 const AddButtonBottom = styled.div`
@@ -148,7 +148,7 @@ const Instructor = ({
         if (icon === 'edit') {
             EditData();
         } else if (icon === 'delete') {
-            setDeleteRowData(rowData?.id?.props?.title);
+            setDeleteRowData(rowData?.user_id?.props?.title);
             setShowDeleteWarning(true);
         } else if (icon === 'lock') {
             let activateDeactive = {
@@ -200,11 +200,14 @@ const Instructor = ({
 
     /** end debounce concepts */
 
-    const handleTableSort = (e,column,sortToggle) => {
-        console.log('eeeee',e);
-        console.log('column',column);
-        console.log('sortToggle',sortToggle);
-        paginationPayload['orderBy'] = 'desc';
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
+        }
         setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
@@ -230,17 +233,18 @@ const Instructor = ({
             {showDialogModal &&
                 <>
                     <DialogModal isOpen={true} fullWidth="lg" maxWidth="lg" handleClose={handleCloseDialog}>
-                    <InstructorStats instructorId={ instructorId } />
+                        <InstructorStats instructorId={instructorId} />
                     </DialogModal>
                 </>
             }
 
             <AddButtonBottom>
-                <CreateDrawer 
+                <CreateDrawer
                     title="create instructor">
                     <InstructorForm />
                 </CreateDrawer>
             </AddButtonBottom>
+
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={10}>
@@ -270,33 +274,27 @@ const Instructor = ({
                 </Grid>
             </Box>
             <CardView>
-                {isLoading ?
-                    <>
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                    </> :
-                    <>
-                        <CommonTable
-                            isCheckbox={true}
-                            tableHeader={columns}
-                            tableData={rows}
-                            handleAction={handleAction}
-                            handleTableSort={handleTableSort}
-                            charLength={17}
-                            path=''
+                <>
+                    <CommonTable
+                        isCheckbox={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        handleAction={handleAction}
+                        handleTableSort={handleTableSort}
+                        isLoading={isLoading}
+                        charLength={17}
+                        path=''
+                    />
+                    <div style={{ marginLeft: '35%', marginTop: '25px' }}>
+                        <Pagination
+                            count={pageDetails?.totalPages}
+                            onChange={handleChange}
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
                         />
-                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                            <Pagination
-                                count={pageDetails?.totalPages}
-                                onChange={handleChange}
-                                color="primary"
-                                variant="outlined"
-                                shape="rounded"
-                            />
-                        </div>
-                    </>
-                }
+                    </div>
+                </>
             </CardView>
         </React.Fragment >
     )

@@ -10,9 +10,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TableRow from '@mui/material/TableRow';
 import { SubTitle, SubTitle1, EllipsisText } from '../index';
-import { IconButton } from '@mui/material';
+import { IconButton, Skeleton } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { TableSkeleton } from '../../components';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
@@ -30,15 +31,17 @@ const CommonTable = ({
     path,
     charLength,
     handleAction,
-    handleTableSort
+    handleTableSort,
+    isLoading
 }) => {
     const router = useRouter();
     const classes = useStyles();
     const [toggle, setToggle] = React.useState(false);
 
     const sortHandle = (e, column) => {
-        setToggle({ ...toggle, toggle: !toggle });
-        handleTableSort(e, column,toggle);
+        let a = !toggle
+        setToggle(a);
+        handleTableSort(e, column, toggle);
     }
 
     return (
@@ -59,8 +62,13 @@ const CommonTable = ({
                                 <TableSortLabel
                                     onClick={((e) => sortHandle(e, column))}
                                     IconComponent={() => <div style={{ marginTop: '2px' }}>
-                                        {toggle ? <ArrowUpwardIcon style={{ fontSize: '18px' }} /> : <ArrowDownwardIcon style={{ fontSize: '18px' }} />}
-                                    </div>}>
+                                        {
+                                            toggle ?
+                                                <ArrowDownwardIcon style={{ fontSize: '18px' }} /> :
+                                                <ArrowUpwardIcon style={{ fontSize: '18px' }} />
+                                        }
+                                    </div>
+                                    }>
                                     <SubTitle1 title={column.label} />
                                 </TableSortLabel>
                             </TableCell>
@@ -68,32 +76,34 @@ const CommonTable = ({
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tableData.map((row) => (
-                        <TableRow hover key={row.id} onClick={(e) => router.push(path)}>
-                            {isCheckbox ?
-                                <TableCell padding="checkbox" className={classes.padding}>
-                                    <Checkbox />
-                                </TableCell> : ''}
-                            {tableHeader.map((column) => {
-                                const value = row[column.id];
-                                return (
-                                    <>
-                                        {
-                                            column.id === 'action' || column.id === 'stats' ?
-                                                <TableCell>
-                                                    {value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}</IconButton>))}
-                                                </TableCell> :
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {typeof (value) === 'string' ?
-                                                        <EllipsisText value={value} charLength={charLength} /> :
-                                                        <SubTitle title={value} />}
-                                                </TableCell>
-                                        }
-                                    </>
-                                )
-                            })}
-                        </TableRow>
-                    ))}
+                    {isLoading ?
+                        <TableSkeleton />
+                        : tableData.map((row) => (
+                            <TableRow hover key={row.id} onClick={(e) => router.push(path)}>
+                                {isCheckbox ?
+                                    <TableCell padding="checkbox" className={classes.padding}>
+                                        <Checkbox />
+                                    </TableCell> : ''}
+                                {tableHeader.map((column) => {
+                                    const value = row[column.id];
+                                    return (
+                                        <>
+                                            {
+                                                column.id === 'action' || column.id === 'stats' ?
+                                                    <TableCell>
+                                                        {value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}</IconButton>))}
+                                                    </TableCell> :
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        {typeof (value) === 'string' ?
+                                                            <EllipsisText value={value} charLength={charLength} /> :
+                                                            <SubTitle title={value} />}
+                                                    </TableCell>
+                                            }
+                                        </>
+                                    )
+                                })}
+                            </TableRow>
+                        ))}
                 </TableBody>
             </Table>
         </TableContainer>
