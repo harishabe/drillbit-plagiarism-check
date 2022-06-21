@@ -8,14 +8,15 @@ const WidgetCard = ({
     title,
     icon,
     count,
-    handleDownload
+    handleDownload,
+    isLoading
 }) => {
     return (
         <CardView>
             <Grid container spacing={2} justify="right">
                 <Grid item xs={8}>
                     <Heading title={title} color="common.gray" />
-                    {count === undefined ? <Skeleton /> : <Heading title={count} />}
+                    {isLoading ? <Skeleton /> : <Heading title={count} />}
 
                 </Grid>
                 <Grid item xs={4} style={{ textAlign: 'right' }}>

@@ -21,6 +21,8 @@ export { default as PieChart } from './chart/PieChart';
 export { default as ColumnChart } from './chart/ColumnChart';
 export { default as RadialBarChart } from './chart/RadialBarChart';
 export { default as UsageChart } from './chart/UsageChart';
+export { default as LineChart } from './chart/LineChart';
+export { default as CurveChart } from './chart/CurveChart';
 export { default as TabMenu } from './tabs/TabMenu';
 export { default as Folder } from './folder/Folder';
 export { default as StatusDot } from './ellipsis/StatusDot';

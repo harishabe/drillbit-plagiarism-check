@@ -19,6 +19,8 @@ import {
     Heading,
     SubTitle,
     ListSkeleton,
+    LineChart,
+    CurveChart,
 } from '../../components';
 import {
     NoOfClassIcon,
@@ -57,6 +59,12 @@ const SubTitleMargin = styled.div`
 const TextAlignRight = styled.div`
     text-align: right;
     margin-top: 5px;
+`;
+
+const CurveChartContainer = styled.div`
+    position:relative;
+    bottom:60px;
+    margin-right:-27px;
 `;
 
 const Dashboard = ({
@@ -112,21 +120,24 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of instructors'
-                            count={adminDashboardData?.data?.instructorAccountUsage?.usedAccounts}
+                            isLoading={isLoadingDashboard}
+                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.instructorAccountUsage?.usedAccounts) + " / " + (adminDashboardData?.data?.instructorAccountUsage)?.totalAccounts}
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of students'
-                            count={adminDashboardData?.data?.studentAccountUsage?.usedAccounts}
+                            isLoading={isLoadingDashboard}
+                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.studentAccountUsage?.usedAccounts) + " / " + (adminDashboardData?.data?.studentAccountUsage)?.totalAccounts}
                             icon={<NoStudentIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No. of submissions'
-                            count={adminDashboardData?.data?.no_of_submissions}
+                            isLoading={isLoadingDashboard}
+                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.no_of_submissions)}
                             icon={<NoOfSubmission />}
                         />
                     </Grid>
@@ -134,7 +145,7 @@ const Dashboard = ({
             </Box>
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
-                    <Grid item md={8} xs={12}>
+                    <Grid item md={7} xs={12}>
                         <CardView>
                             <Heading title='Document Processed' />
                             {isLoadingDashboard ? <Skeleton /> :
@@ -155,16 +166,23 @@ const Dashboard = ({
                                 />}
                         </CardView>
                     </Grid>
-                    <Grid item md={4} xs={12}>
+                    <Grid item md={5} xs={12}>
                         <CardView>
                             <Heading
-                                title='Account Usage Info'
+                                title='Similarity Percentage'
                             />
-                            {
+                            {/* {
                                 isLoadingDashboard ?
                                     <Skeleton /> :
                                     <UsageChart SERIES_DATA={usageGraphData} />
-                            }
+                            } */}
+                            <LineChart
+                                chartType="line"
+                                strokeCurve="straight"
+                                xaxisLabelShow={true}
+                                yaxisLabelShow={true}
+                                chartHeight={350}
+                            />
                         </CardView>
                     </Grid>
                 </Grid>
@@ -181,9 +199,20 @@ const Dashboard = ({
                                     <ListSkeleton />
                                     <ListSkeleton />
                                 </> :
-                                <TopStudents
-                                    topStudentData={adminDashboardData?.topStudent}
-                                />
+                                <>
+                                    <TopStudents
+                                        topStudentData={adminDashboardData?.topStudent}
+                                    />
+                                    <CurveChartContainer>
+                                        <CurveChart
+                                            chartType="area"
+                                            strokeCurve="smooth"
+                                            xaxisLabelShow={false}
+                                            yaxisLabelShow={false}
+                                            chartHeight={190}
+                                        />
+                                    </CurveChartContainer>
+                                </>
                             }
                         </CardView>
                     </Grid>

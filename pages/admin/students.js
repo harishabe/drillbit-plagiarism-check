@@ -113,6 +113,7 @@ const Students = ({
          if(icon === 'edit'){
             EditData();
         }else if(icon === 'delete'){
+            
             DeleteData();
         }
     }

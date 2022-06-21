@@ -25,7 +25,8 @@ const DialogModal = ({
     handleClose,
     children,
     fullWidth,
-    maxWidth
+    maxWidth,
+    headingTitle
 }) => {
 
     return (
@@ -39,7 +40,7 @@ const DialogModal = ({
                 aria-labelledby="draggable-dialog-title"
             >
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-                    <Heading title="Instructor Statistics" />
+                    <Heading title={headingTitle} />
                     <IconButton
                         aria-label="close"
                         onClick={handleClose}

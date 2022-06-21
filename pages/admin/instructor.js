@@ -152,7 +152,7 @@ const Instructor = ({
             setShowDeleteWarning(true);
         } else if (icon === 'lock') {
             let activateDeactive = {
-                'id': rowData?.id?.props?.title,
+                'id': rowData?.user_id?.props?.title,
                 'status': 'inactive'
             }
             setStatusRowData(activateDeactive);
@@ -160,14 +160,14 @@ const Instructor = ({
             setStatusMessage('inactive');
         } else if (icon === 'unlock') {
             let activateDeactive = {
-                'id': rowData?.id?.props?.title,
+                'id': rowData?.user_id?.props?.title,
                 'status': 'active'
             };
             setStatusRowData(activateDeactive);
             setStatusWarning(true);
             setStatusMessage('active');
         } else if (icon === 'stats') {
-            setInstructorId(rowData?.id?.props?.title);
+            setInstructorId(rowData?.user_id?.props?.title);
             setShowDialogModal(true);
         }
     }
@@ -232,7 +232,13 @@ const Instructor = ({
                 />}
             {showDialogModal &&
                 <>
-                    <DialogModal isOpen={true} fullWidth="lg" maxWidth="lg" handleClose={handleCloseDialog}>
+                    <DialogModal
+                        headingTitle="Instructor Statistics"
+                        isOpen={true}
+                        fullWidth="lg"
+                        maxWidth="lg"
+                        handleClose={handleCloseDialog}
+                    >
                         <InstructorStats instructorId={instructorId} />
                     </DialogModal>
                 </>
