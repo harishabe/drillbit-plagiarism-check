@@ -201,35 +201,28 @@ const Students = ({
             </Box>
 
             <CardView>
-                {isLoading ?
-                    <>
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                    </> :
-                    <>
-                        <CommonTable
-                            isCheckbox={true}
-                            tableHeader={columns}
-                            tableData={rows}
-                            handleAction={handleAction}
-                            handleTableSort={handleTableSort}
-                            isActionIcon={true}
-                            charLength={20}
-                            path=''
+                <>
+                    <CommonTable
+                        isCheckbox={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        handleAction={handleAction}
+                        handleTableSort={handleTableSort}
+                        isActionIcon={true}
+                        isLoading={isLoading}
+                        charLength={20}
+                        path=''
+                    />
+                    <div style={{ marginLeft: '35%', marginTop: '25px' }}>
+                        <Pagination
+                            count={pageDetails?.totalPages}
+                            onChange={handleChange}
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
                         />
-                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                            <Pagination
-                                count={pageDetails?.totalPages}
-                                onChange={handleChange}
-                                color="primary"
-                                variant="outlined"
-                                shape="rounded"
-                            />
-                        </div>
-                    </>
-                }
-
+                    </div>
+                </>
             </CardView>
         </React.Fragment>
     )
