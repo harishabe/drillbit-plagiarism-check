@@ -37,18 +37,17 @@ const InstructorStats = ({
     isLoadingCsvExport,
 }) => {
 
-    const [submission, setSubmission] = useState('');
+    const [submissionData, setSubmissionData] = useState();
 
     useEffect(() => {
         GetInstructorStats(instructorId);
     }, []);
 
     useEffect(() => {
-        GetInstructorStats(instructorId);
         let submission = instructorStats?.monthlyStats?.map((item) => {
             return item.submissions;
         });
-        setSubmission(submission);
+        setSubmissionData(submission);
     }, [instructorStats]);
 
     const handleExportCsv = () => {
@@ -95,7 +94,7 @@ const InstructorStats = ({
                                 seriesData={[
                                     {
                                         name: 'Document Processed',
-                                        data: submission
+                                        data: submissionData
                                     }
                                 ]}
                                 gradient={COLUMN_ADMIN_CHART_GRADIENT}
