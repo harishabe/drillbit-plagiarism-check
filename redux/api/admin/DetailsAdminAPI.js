@@ -30,6 +30,15 @@ export const GetStudentDetail = async (paginationPayload) => {
 };
 
 /**
+ * API CALL FOR DELETE STUDENT
+ */
+
+export const DeleteStudent = async (id) => {
+    const url = END_POINTS.ADMIN_STUDENT_DELETE + '?id=' + id;
+    return DeleteMethod(url);
+};
+
+/**
  * API CALL FOR REPORTS
  */
 
