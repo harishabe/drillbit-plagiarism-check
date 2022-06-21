@@ -127,31 +127,41 @@ const Students = ({
     /** end debounce concepts */
 
     const handleAction = (event, icon, rowData) => {
-         if(icon === 'edit'){
+        if (icon === 'edit') {
             EditData();
-        }else if(icon === 'delete'){
-             const student = studentData.filter((s) => {
-                 const studentId = rowData?.id?.props?.title;
-                 if (s.student_id === studentId) {
-                     return s.id;
-                 }
-             });
-             setDeleteRowData(student[0].id);
-             setShowDeleteWarning(true);
+        } else if (icon === 'delete') {
+            const student = studentData.filter((s) => {
+                if (s.student_id === rowData?.id?.props?.title) {
+                    return s.id;
+                }
+            });
+            setDeleteRowData(student[0].id);
+            setShowDeleteWarning(true);
         }
+    }
+
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
     return (
         <React.Fragment>
 
-            { showDeleteWarning &&
+            {showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
+                    warningIcon={<DeleteWarningIcon />}
                     message="Are you sure you want to delete ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
-                /> }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
+                />}
 
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
@@ -176,7 +186,7 @@ const Students = ({
                     >
                         <TextField
                             placeholder='Search'
-                            onChange={ debouncedResults }
+                            onChange={debouncedResults}
                             inputProps={{
                                 style: {
                                     padding: 5,
@@ -203,6 +213,7 @@ const Students = ({
                             tableHeader={columns}
                             tableData={rows}
                             handleAction={handleAction}
+                            handleTableSort={handleTableSort}
                             isActionIcon={true}
                             charLength={20}
                             path=''
