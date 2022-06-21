@@ -101,6 +101,15 @@ export const DeleteData = (id, paginationPayload) => {
 };
 
 /**
+ * Delete student data
+ */
+export const DeleteStudentData = (id, paginationPayload) => {
+    return {
+        type: types.FETCH_ADMIN_DELETE_STUDENT_ROW_START, id: id, paginationPayload: paginationPayload
+    };
+};
+
+/**
  * Deactivate data
  */
 export const DeactivateData = (data, paginationPayload) => {

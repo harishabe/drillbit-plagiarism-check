@@ -10,11 +10,11 @@ import {
     CardView,
     CommonTable,
     MainHeading,
-    SubTitle,
+    WarningDialog,
     AvatarName,
 } from '../../components';
-import { EditIcon, DeleteIcon, LockIcon, InfoIcon } from '../../assets/icon';
-import { GetStudnetData, EditData, DeleteData, DeactivateData } from '../../redux/action/admin/AdminAction';
+import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
+import { GetStudnetData, EditData, DeleteStudentData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 
 const columns = [
@@ -48,10 +48,13 @@ const Students = ({
     studentData,
     pageDetails,
     EditData,
-    DeleteData,
+    DeleteStudentData,
     isLoading
 }) => {
     const [rows, setRows] = useState([]);
+
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [deleteRowData, setDeleteRowData] = useState('');
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -88,6 +91,19 @@ const Students = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
+    const handleCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
+
+    const handleYesWarning = () => {
+        DeleteStudentData(deleteRowData, paginationPayload);
+        setTimeout(() => {
+            setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    /** search implementation using debounce concepts */
+
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
@@ -108,18 +124,42 @@ const Students = ({
         };
     });
 
-    const handleAction = (event, icon) => {
-        // console.log('handleActionhandleAction', event, icon);
+    /** end debounce concepts */
+
+    const handleAction = (event, icon, rowData) => {
          if(icon === 'edit'){
             EditData();
         }else if(icon === 'delete'){
+<<<<<<< HEAD
             
             DeleteData();
+=======
+
+             const student = studentData.filter((s) => {
+                 const studentId = rowData?.id?.props?.title;
+                 if (s.student_id === studentId) {
+                     return s.id;
+                 }
+             })
+
+             setDeleteRowData(student[0].id);
+             setShowDeleteWarning(true);
+>>>>>>> e8870c72829c93d7c8b29a111bcc7cb2f2f767d5
         }
     }
 
     return (
         <React.Fragment>
+
+            { showDeleteWarning &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message="Are you sure you want to delete ?"
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
+                /> }
+
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={10}>
@@ -193,7 +233,7 @@ const Students = ({
 
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.detailsData?.instructorData?.page,
+    pageDetails: state?.detailsData?.studentData?.page,
     studentData: state?.detailsData?.studentData?._embedded?.studentDTOList,
     isLoading: state?.detailsData?.isLoading,
 });
@@ -202,7 +242,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetStudnetData: (paginationPayload) => dispatch(GetStudnetData(paginationPayload)),
         EditData: (data) => dispatch(EditData(data)),
-        DeleteData: () => dispatch(DeleteData()),
+        DeleteStudentData: (deleteRowData, paginationPayload) => dispatch(DeleteStudentData(deleteRowData, paginationPayload))
     };
 };
 

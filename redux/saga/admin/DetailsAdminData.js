@@ -8,6 +8,7 @@ import {
     DownloadReports,
     EditRow,
     DeleteRow,
+    DeleteStudent,
     DeactivateRow,
     GetStats,
 } from '../../api/admin/DetailsAdminAPI';
@@ -210,6 +211,34 @@ export function* onLoadDelete(action) {
 
 export function* DeleteData() {
     yield takeLatest(types.FETCH_ADMIN_DELETE_ROW_START, onLoadDelete);
+}
+
+/**
+ * Delete Student
+ * @param {*} action
+ */
+
+
+export function* onLoadDeleteStudent(action) {
+    const { response, error } = yield call(DeleteStudent, action.id);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_DELETE_STUDENT_ROW_SUCCESS,
+            payload: response?.data,
+        });
+        yield put({ type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: action.paginationPayload });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_DELETE_STUDENT_ROW_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* DeleteStudentData() {
+    yield takeLatest(types.FETCH_ADMIN_DELETE_STUDENT_ROW_START, onLoadDeleteStudent);
 }
 
 /**

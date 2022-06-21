@@ -8,6 +8,7 @@ import {
     GetStudentData,
     EditData,
     DeleteData,
+    DeleteStudentData,
     DeactivateData,
     GetInstructorStats,
 } from './admin/DetailsAdminData';
@@ -63,6 +64,7 @@ const saga = [
     fork(InsDashboardWidget),
     fork(EditData),
     fork(DeleteData),
+    fork(DeleteStudentData),
     fork(DeactivateData),
 ];
 
