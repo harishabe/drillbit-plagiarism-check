@@ -21,7 +21,10 @@ const ReportForm = ({
         mode: 'all',
     });
 
-    const onSubmit = (data) => { ViewAndDownloadData() };
+    const onSubmit = (data) => {
+        console.log('datadatadatadata',data);
+        //ViewAndDownloadData()
+    };
 
     useEffect(() => {
         ReportsData();
@@ -33,7 +36,7 @@ const ReportForm = ({
             if (formItem.name === 'report') {
                 reportData?.reportTypes?.map((item) => {
                     reportType.push({ 'name': item })
-                })
+                });
                 formItem['options'] = reportType;
             }
             if (formItem.name === 'instructor') {

@@ -36,6 +36,23 @@ const DetailsReducer = (state = {}, action) => {
                 isLoadingStats: false,
                 statsError: action.payload,
             };
+        case types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START:
+            return {
+                ...state,
+                isLoadingCSV: true,
+            };
+        case types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_SUCCESS:
+            return {
+                ...state,
+                isLoadingCSV: false,
+                csvExportData: action.payload,
+            };
+        case types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_FAIL:
+            return {
+                ...state,
+                isLoadingCSV: false,
+                csvExportError: action.payload,
+            };
         case types.FETCH_ADMIN_STUDENT_DATA_START:
             return {
                 ...state,
@@ -52,7 +69,7 @@ const DetailsReducer = (state = {}, action) => {
                 ...state,
                 isLoading: false,
                 studentDataError: action.payload,
-            };      
+            };
         default:
             return state;
     }

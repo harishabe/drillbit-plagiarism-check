@@ -76,7 +76,8 @@ const Dashboard = ({
     GetTopStudent,
     GetTrendAnalysis
 }) => {
-    const [usageGraphData, setUsageGraphData] = useState(USAGE_CHART_DATA);
+
+    const [recentSubmission, setRecentSubmission] = useState(USAGE_CHART_DATA);
     const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
 
     useEffect(() => {
@@ -88,29 +89,10 @@ const Dashboard = ({
     }, []);
 
     useEffect(() => {
-        let usageGraph = usageGraphData?.map((item) => {
-            if (item?.x === 'Instructors') {
-                item['y'] = adminDashboardData?.data?.instructorAccountUsage?.usedAccounts
-            } else if (item?.x === 'Student') {
-                item['y'] = adminDashboardData?.data?.studentAccountUsage?.usedAccounts
-            } else if (item?.x === 'Admin') {
-                item['y'] = adminDashboardData?.data?.adminAccountUsage?.usedAccounts
-            }
-            item?.goals?.map((goalsItem) => {
-                if (item?.x === 'Instructors') {
-                    goalsItem['value'] = adminDashboardData?.data?.instructorAccountUsage?.totalAccounts;
-                    return goalsItem;
-                } else if (item?.x === 'Student') {
-                    goalsItem['value'] = adminDashboardData?.data?.studentAccountUsage?.totalAccounts;
-                    return goalsItem;
-                } else if (item?.x === 'Admin') {
-                    goalsItem['value'] = adminDashboardData?.data?.adminAccountUsage?.totalAccounts;
-                    return goalsItem;
-                }
-            });
-            return item;
+        let submission = adminDashboardData?.data?.monthlySubmissions?.map((item)=>{
+            return item.submissions;
         });
-        setUsageGraphData(usageGraph);
+        setRecentSubmission(submission);
     }, [adminDashboardData])
 
     return (
@@ -158,7 +140,7 @@ const Dashboard = ({
                                     seriesData={[
                                         {
                                             name: 'Document Processed',
-                                            data: adminDashboardData?.data?.monthlySubmissions
+                                            data: recentSubmission
                                         }
                                     ]}
                                     gradient={COLUMN_ADMIN_CHART_GRADIENT}

@@ -11,6 +11,7 @@ import {
     DeleteStudent,
     DeactivateRow,
     GetStats,
+    GetExportCsvFile,
 } from '../../api/admin/DetailsAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -63,6 +64,32 @@ export function* onLoadInstructorStats(action) {
 
 export function* GetInstructorStats() {
     yield takeLatest(types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_START, onLoadInstructorStats);
+}
+
+
+/**
+ * Export csv file from stats
+ * @param {*} action
+ */
+
+ export function* onLoadCsvReportStats(action) {
+    const { response, error } = yield call(GetExportCsvFile, action.emailId);
+    if (response || response === undefined) {
+        yield put({
+            type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* GetCsvReportStats() {
+    yield takeLatest(types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START, onLoadCsvReportStats);
 }
 
 /**

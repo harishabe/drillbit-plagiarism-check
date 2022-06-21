@@ -38,6 +38,16 @@ export const GetInstructorStats = (id) => {
 
 
 /**
+ * Export csv file from stats report
+ */
+ export const GetExportToCSV = (emailId) => {
+    return {
+        type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START, emailId: emailId
+    };
+};
+
+
+/**
  * Create instructor data
  */
 export const CreateInstructorData = (data) => {
@@ -65,11 +75,11 @@ export const ReportsData = () => {
 };
 
 /**
- * reports data download
+ * instructor and student csv file download
  */
-export const DownloadReportData = () => {
+export const DownloadInstructorStudentData = (userType) => {
     return {
-        type: types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_START,
+        type: types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_START, userType:userType
     };
 };
 

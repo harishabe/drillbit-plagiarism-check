@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { BreadCrumb, CardView, WidgetCard, Heading } from './../../components';
 import { DownloadIcon } from '../../assets/icon';
-import { ReportsData, DownloadReportData } from '../../redux/action/admin/AdminAction';
+import { DownloadInstructorStudentData } from '../../redux/action/admin/AdminAction';
 import ReportForm from './form/ReportForm';
 
 const IntegrationBreadCrumb = [
@@ -22,18 +22,23 @@ const IntegrationBreadCrumb = [
 ];
 
 const Reports = ({
-    reportsData, 
-    ReportsData, 
-    DownloadReportData
+    reportsData,
+    DownloadInstructorStudentData,
+    isLoadingDownload,
+    isLoading
 }) => {
-    
-    useEffect(() => {
-        ReportsData();
-    }, []);
+
+    const [usersType, setUsersType] = useState('');
 
     const handDownload = (e, title) => {
-         DownloadReportData();
-    }
+        if (title === 'Instructors lists') {
+            DownloadInstructorStudentData('instructors');
+            setUsersType('instructors');
+        } else if (title === 'Student lists') {
+            DownloadInstructorStudentData('students');
+            setUsersType('students');
+        }
+    };
 
     return (
         <React.Fragment>
@@ -45,6 +50,8 @@ const Reports = ({
                             title='Instructors lists'
                             count={reportsData?.instructorList.length}
                             handleDownload={handDownload}
+                            isLoading={isLoading}
+                            isLoadingIcon={usersType === 'instructors' ? isLoadingDownload : false}
                             icon={<DownloadIcon />}
                         />
                     </Grid>
@@ -53,6 +60,8 @@ const Reports = ({
                             title='Student lists'
                             count={10}
                             handleDownload={handDownload}
+                            isLoading={isLoading}
+                            isLoadingIcon={usersType === 'students' ? isLoadingDownload : false}
                             icon={<DownloadIcon />}
                         />
                     </Grid>
@@ -71,12 +80,12 @@ const Reports = ({
 const mapStateToProps = (state) => ({
     reportsData: state?.adminReport?.reportData,
     isLoading: state?.adminReport?.isLoading,
+    isLoadingDownload: state?.adminReport?.isLoadingDownload,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        ReportsData: () => dispatch(ReportsData()),
-        DownloadReportData: () => dispatch(DownloadReportData()),
+        DownloadInstructorStudentData: (userType) => dispatch(DownloadInstructorStudentData(userType)),
     };
 };
 

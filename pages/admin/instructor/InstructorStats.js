@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import Grid from '@mui/material/Grid';
+import { Grid, IconButton, Tooltip } from '@mui/material';
+import { DownloadIcon } from '../../../assets/icon';
 import {
     ColumnChart,
     PieChart,
@@ -23,21 +24,36 @@ import {
 
 import {
     GetInstructorStats,
+    GetExportToCSV,
 } from '../../../redux/action/admin/AdminAction';
 import { Skeleton } from '@mui/material';
 
 const InstructorStats = ({
     instructorId,
     GetInstructorStats,
+    GetExportToCSV,
     instructorStats,
     isLoading,
+    isLoadingCsvExport,
 }) => {
+
+    const [submission, setSubmission] = useState('');
 
     useEffect(() => {
         GetInstructorStats(instructorId);
     }, []);
 
-    console.log('instructorStats', instructorStats);
+    useEffect(() => {
+        GetInstructorStats(instructorId);
+        let submission = instructorStats?.monthlyStats?.map((item) => {
+            return item.submissions;
+        });
+        setSubmission(submission);
+    }, [instructorStats]);
+
+    const handleExportCsv = () => {
+        GetExportToCSV(instructorStats?.username);
+    };
 
     return (
         <>
@@ -46,7 +62,15 @@ const InstructorStats = ({
                     <>
                         <Grid item md={2} xs={2}> <SubTitle1 title="Instructor name" /></Grid>
                         <Grid item md={1} xs={1}> <SubTitle1 title=":" /></Grid>
-                        <Grid item md={9} xs={9}> <SubTitle1 title={instructorStats?.name} /></Grid>
+                        <Grid item md={7} xs={7}>
+                            <SubTitle1 title={instructorStats?.name} />
+                        </Grid>
+                        {isLoadingCsvExport ? <Skeleton width={150} style={{ marginLeft: 'auto' }} /> :
+                            <Tooltip title="Export to csv">
+                                <IconButton onClick={handleExportCsv} style={{ marginLeft: 'auto' }}>
+                                    <DownloadIcon />
+                                </IconButton>
+                            </Tooltip>}
                     </>
                 }
             </Grid>
@@ -71,7 +95,7 @@ const InstructorStats = ({
                                 seriesData={[
                                     {
                                         name: 'Document Processed',
-                                        data: instructorStats?.monthlyStats
+                                        data: submission
                                     }
                                 ]}
                                 gradient={COLUMN_ADMIN_CHART_GRADIENT}
@@ -113,11 +137,13 @@ const InstructorStats = ({
 const mapStateToProps = (state) => ({
     isLoading: state?.detailsData?.isLoadingStats,
     instructorStats: state?.detailsData?.statsData,
+    isLoadingCsvExport: state?.detailsData?.isLoadingCSV,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetInstructorStats: (id) => dispatch(GetInstructorStats(id)),
+        GetExportToCSV: (emailId) => dispatch(GetExportToCSV(emailId)),
     };
 };
 

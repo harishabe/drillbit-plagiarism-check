@@ -1,6 +1,7 @@
 import * as types from '../../action/ActionType';
 
 const ReportsReducer = (state = {}, action) => {
+    console.log('actionactionactionactionaction',action);
     switch (action.type) {
         case types.FETCH_ADMIN_REPORTS_DATA_START:
             return {
@@ -19,21 +20,21 @@ const ReportsReducer = (state = {}, action) => {
                 isLoading: false,
                 reportDataError: action.payload,
             };
-        case types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_START:
+        case types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingDownload: true,
             };
-        case types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_SUCCESS:
+        case types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingDownload: false,
                 reportDataDownload: action.payload,
             };
-        case types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_FAIL:
+        case types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_FAIL:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingDownload: false,
                 reportDataDownloadError: action.payload,
             };
         case types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_START:

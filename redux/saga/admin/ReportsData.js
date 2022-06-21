@@ -31,28 +31,27 @@ export function* GetReportData() {
 }
 
 /**
- * Get report download
+ * Download csv file format data for instructor and student
  * @param {*} action
  */
 
-
-export function* onLoadReportDownload() {
-    const { response, error } = yield call(DownloadReports);
-    if (response) {
+export function* onLoadReportDownload(action) {
+    const { response, error } = yield call(DownloadReports, action);
+    if (response || response === undefined) {
         yield put({
-            type: types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_SUCCESS,
+            type: types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_SUCCESS,
             payload: response?.data,
         });
     } else {
         yield put({
-            type: types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_FAIL,
+            type: types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_FAIL,
             payload: error,
         });
     }
 }
 
 export function* GetReportDataDownload() {
-    yield takeLatest(types.FETCH_ADMIN_REPORTS_DATA_DOWNLOAD_START, onLoadReportDownload);
+    yield takeLatest(types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_START, onLoadReportDownload);
 }
 
 

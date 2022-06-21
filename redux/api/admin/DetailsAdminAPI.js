@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { GetMethod, PostMethod, PutMethod, DeleteMethod } from './../ApiMethod';
+import { GetMethod, PostMethod, PutMethod, DeleteMethod, GetMethodDownload } from './../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -51,9 +51,9 @@ export const GetReports = async () => {
  * API CALL FOR REPORTS DOWNLOAD
  */
 
-export const DownloadReports = async () => {
-    const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST;
-    return GetMethod(url);
+export const DownloadReports = async (action) => {
+    const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + action.userType + '/download';
+    return GetMethodDownload(url, action.userType+'.csv');
 };
 
 /**
@@ -72,6 +72,15 @@ export const ViewDownloadReports = async () => {
 export const GetStats = async (id) => {
     const url = END_POINTS.ADMIN_INSTRUCTOR_STATS + '/' + id + '/stats';
     return GetMethod(url);
+};
+
+/**
+ * Download (export) csv file
+ */
+
+ export const GetExportCsvFile = async (emailId) => {
+    const url = END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + emailId;
+    return GetMethodDownload(url,'Submission_Report.csv');
 };
 
 /**

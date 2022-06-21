@@ -9,7 +9,8 @@ const WidgetCard = ({
     icon,
     count,
     handleDownload,
-    isLoading
+    isLoading,
+    isLoadingIcon
 }) => {
     return (
         <CardView>
@@ -20,7 +21,11 @@ const WidgetCard = ({
 
                 </Grid>
                 <Grid item xs={4} style={{ textAlign: 'right' }}>
-                    <IconButton onClick={(e) => handleDownload(e, title)}>{icon}</IconButton>
+                    {isLoadingIcon ? 
+                    <Skeleton /> : 
+                    <IconButton onClick={(e) => handleDownload(e, title)}>
+                        {icon}
+                    </IconButton>}
                 </Grid>
             </Grid>
         </CardView>
