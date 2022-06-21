@@ -130,21 +130,14 @@ const Students = ({
          if(icon === 'edit'){
             EditData();
         }else if(icon === 'delete'){
-<<<<<<< HEAD
-            
-            DeleteData();
-=======
-
              const student = studentData.filter((s) => {
                  const studentId = rowData?.id?.props?.title;
                  if (s.student_id === studentId) {
                      return s.id;
                  }
-             })
-
+             });
              setDeleteRowData(student[0].id);
              setShowDeleteWarning(true);
->>>>>>> e8870c72829c93d7c8b29a111bcc7cb2f2f767d5
         }
     }
 
