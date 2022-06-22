@@ -19,22 +19,22 @@ const DetailsReducer = (state = {}, action) => {
                 isLoading: false,
                 instructorError: action.payload,
             };
-        case types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_START:
+        case types.FETCH_ADMIN_STATS_DATA_START:
             return {
                 ...state,
                 isLoadingStats: true,
             };
-        case types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_SUCCESS:
+        case types.FETCH_ADMIN_STATS_DATA_SUCCESS:
             return {
                 ...state,
                 isLoadingStats: false,
-                instructorStatsData: action.payload,
+                StatsData: action.payload,
             };
-        case types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_FAIL:
+        case types.FETCH_ADMIN_STATS_DATA_FAIL:
             return {
                 ...state,
                 isLoadingStats: false,
-                instructorStatsError: action.payload,
+                StatsError: action.payload,
             };
         case types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START:
             return {
@@ -69,23 +69,6 @@ const DetailsReducer = (state = {}, action) => {
                 ...state,
                 isLoading: false,
                 studentDataError: action.payload,
-            };
-        case types.FETCH_ADMIN_STUDENT_STATS_DATA_START:
-            return {
-                ...state,
-                isLoadingStats: true,
-            };
-        case types.FETCH_ADMIN_STUDENT_STATS_DATA_SUCCESS:
-            return {
-                ...state,
-                isLoadingStats: false,
-                studentStatsData: action.payload,
-            };
-        case types.FETCH_ADMIN_STUDENT_STATS_DATA_FAIL:
-            return {
-                ...state,
-                isLoadingStats: false,
-                studentStatsData: action.payload,
             };
         default:
             return state;

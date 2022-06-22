@@ -69,19 +69,11 @@ export const ViewDownloadReports = async (apiUrl) => {
  * API CALL FOR STATS
  */
 
-export const GetInstStats = async (id) => {
-    const url = END_POINTS.ADMIN_INSTRUCTOR_STATS + '/' + id + '/stats';
+export const GetStats = async (id) => {
+    const url = END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS + '/' + id + '/stats';
     return GetMethod(url);
 };
 
-/**
- * API CALL FOR STATS
- */
-
-export const GetStudStats = async (id) => {
-    const url = END_POINTS.ADMIN_INSTRUCTOR_STATS + '/' + id + '/stats';
-    return GetMethod(url);
-};
 
 /**
  * Download (export) csv file
