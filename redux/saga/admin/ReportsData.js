@@ -61,8 +61,8 @@ export function* GetReportDataDownload() {
  */
 
 
-export function* onLoadViewDownload() {
-    const { response, error } = yield call(ViewDownloadReports);
+export function* onLoadViewDownload(action) {
+    const { response, error } = yield call(ViewDownloadReports,action.url);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_SUCCESS,

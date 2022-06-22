@@ -86,9 +86,9 @@ export const DownloadInstructorStudentData = (userType) => {
 /**
  * reports view & download data download
  */
-export const ViewAndDownloadData = (data) => {
+export const ViewAndDownloadData = (url) => {
     return {
-        type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_START, query: data
+        type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_START, url: url
     };
 };
 

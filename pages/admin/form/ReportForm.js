@@ -22,8 +22,8 @@ const ReportForm = ({
     });
 
     const onSubmit = (data) => {
-        console.log('datadatadatadata',data);
-        //ViewAndDownloadData()
+        let url = data?.report?.name + '?page=' + 0 + '&size=' + 25 + '&instructor=' + data?.instructor?.username + '&from=' + 1 + '&to=' + 2
+        ViewAndDownloadData(url);
     };
 
     useEffect(() => {
@@ -78,7 +78,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         ReportsData: () => dispatch(ReportsData()),
-        ViewAndDownloadData: (data) => dispatch(ViewAndDownloadData(data)),
+        ViewAndDownloadData: (url) => dispatch(ViewAndDownloadData(url)),
     };
 };
 

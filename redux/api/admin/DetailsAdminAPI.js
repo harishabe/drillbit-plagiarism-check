@@ -53,16 +53,16 @@ export const GetReports = async () => {
 
 export const DownloadReports = async (action) => {
     const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + action.userType + '/download';
-    return GetMethodDownload(url, action.userType+'.csv');
+    return GetMethodDownload(url, action.userType + '.csv');
 };
 
 /**
  * API CALL FOR REPORTS VIEW & DOWNLOAD
  */
 
-export const ViewDownloadReports = async () => {
-    const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST;
-    return PostMethod(url);
+export const ViewDownloadReports = async (apiUrl) => {
+    const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + apiUrl;
+    return GetMethod(url);
 };
 
 /**
@@ -78,9 +78,9 @@ export const GetStats = async (id) => {
  * Download (export) csv file
  */
 
- export const GetExportCsvFile = async (emailId) => {
+export const GetExportCsvFile = async (emailId) => {
     const url = END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + emailId;
-    return GetMethodDownload(url,'Submission_Report.csv');
+    return GetMethodDownload(url, 'Submission_Report.csv');
 };
 
 /**
