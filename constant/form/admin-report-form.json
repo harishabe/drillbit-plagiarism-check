@@ -15,7 +15,9 @@
         "name": "instructor",
         "required": "Choose Instructors",
         "validationMsg": "Please select instructors",
-        "options": []
+        "options": [{
+            "name":"All"
+        }]
     },
     {
         "field_type": "datepicker",

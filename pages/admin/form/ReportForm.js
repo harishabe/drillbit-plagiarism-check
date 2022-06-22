@@ -22,7 +22,8 @@ const ReportForm = ({
     });
 
     const onSubmit = (data) => {
-        let url = data?.report?.name + '?page=' + 0 + '&size=' + 25 + '&instructor=' + data?.instructor?.username + '&from=' + 1 + '&to=' + 2
+        console.log('datadatadatadata', data);
+        let url = data?.report?.name + "/" + '?page=' + 0 + '&size=' + 25 + '&instructor=' + data?.instructor?.username + '&from=' + 1 + '&to=' + 2
         ViewAndDownloadData(url);
     };
 
@@ -40,6 +41,8 @@ const ReportForm = ({
                 formItem['options'] = reportType;
             }
             if (formItem.name === 'instructor') {
+                reportData?.instructorList.unshift({ 'name':'All','username': 'All' });
+                console.log('reportData?.instructorList',reportData?.instructorList);
                 formItem['options'] = reportData?.instructorList;
             }
             return formItem;
@@ -78,7 +81,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         ReportsData: () => dispatch(ReportsData()),
-        ViewAndDownloadData: (url) => dispatch(ViewAndDownloadData(url)),
+        ViewAndDownloadData: (data) => dispatch(ViewAndDownloadData(data)),
     };
 };
 
