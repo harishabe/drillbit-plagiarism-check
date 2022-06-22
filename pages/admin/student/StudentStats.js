@@ -20,19 +20,19 @@ import {
     PIE_CHART_COLOR,
     PIE_CHART_WIDTH,
     PIE_CHART_LABEL
-} from './../../../constant/data/ChartData';
+} from '../../../constant/data/ChartData';
 
 import {
-    GetInstructorStats,
+    GetStudentStats,
     GetExportToCSV,
 } from '../../../redux/action/admin/AdminAction';
 import { Skeleton } from '@mui/material';
 
-const InstructorStats = ({
-    instructorId,
-    GetInstructorStats,
+const StudentStats = ({
+    studentId,
+    GetStudentStats,
     GetExportToCSV,
-    instructorStats,
+    studentStats,
     isLoading,
     isLoadingCsvExport,
 }) => {
@@ -40,45 +40,45 @@ const InstructorStats = ({
     const [submissionData, setSubmissionData] = useState();
 
     useEffect(() => {
-        GetInstructorStats(instructorId);
+        GetStudentStats(studentId);
     }, []);
 
     useEffect(() => {
-        let submission = instructorStats?.monthlyStats?.map((item) => {
+        let submission = studentStats?.monthlyStats?.map((item) => {
             return item.submissions;
         });
         setSubmissionData(submission);
-    }, [instructorStats]);
+    }, [studentStats]);
 
     const handleExportCsv = () => {
-        GetExportToCSV(instructorStats?.username);
+        GetExportToCSV(studentStats?.username);
     };
 
     return (
         <>
             <Grid item container>
-                {isLoading ? <Skeleton width={210} /> :
+                { isLoading ? <Skeleton width={ 210 } /> :
                     <>
-                        <Grid item md={2} xs={2}> <SubTitle1 title="Instructor name" /></Grid>
-                        <Grid item md={1} xs={1}> <SubTitle1 title=":" /></Grid>
-                        <Grid item md={7} xs={7}>
-                            <SubTitle1 title={instructorStats?.name} />
+                        <Grid item md={ 2 } xs={ 2 }> <SubTitle1 title="Student name" /></Grid>
+                        <Grid item md={ 1 } xs={ 1 }> <SubTitle1 title=":" /></Grid>
+                        <Grid item md={ 7 } xs={ 7 }>
+                            <SubTitle1 title={ studentStats?.name } />
                         </Grid>
-                        {isLoadingCsvExport ? <Skeleton width={150} style={{ marginLeft: 'auto' }} /> :
+                        { isLoadingCsvExport ? <Skeleton width={ 150 } style={ { marginLeft: 'auto' } } /> :
                             <Tooltip title="Export to csv">
-                                <IconButton onClick={handleExportCsv} style={{ marginLeft: 'auto' }}>
+                                <IconButton onClick={ handleExportCsv } style={ { marginLeft: 'auto' } }>
                                     <DownloadIcon />
                                 </IconButton>
-                            </Tooltip>}
+                            </Tooltip> }
                     </>
                 }
             </Grid>
 
-            <Grid item md={12} xs={12}>
+            <Grid item md={ 12 } xs={ 12 }>
                 <Grid container>
-                    <Grid item md={8} xs={12}>
+                    <Grid item md={ 8 } xs={ 12 }>
                         <SubTitle title='Document Processed' />
-                        {isLoading ?
+                        { isLoading ?
                             <>
                                 <Skeleton />
                                 <Skeleton />
@@ -86,42 +86,42 @@ const InstructorStats = ({
                                 <Skeleton />
                             </> :
                             <ColumnChart
-                                type={COLUMN_ADMIN_CHART_TYPE}
-                                color={COLUMN_ADMIN_CHART_COLOR}
-                                xaxisData={COLUMN_ADMIN_XAXIS_DATA}
-                                columnWidth={COLUMN_ADMIN_WIDTH}
-                                height={COLUMN_ADMIN_CHART_HEIGHT}
-                                seriesData={[
+                                type={ COLUMN_ADMIN_CHART_TYPE }
+                                color={ COLUMN_ADMIN_CHART_COLOR }
+                                xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
+                                columnWidth={ COLUMN_ADMIN_WIDTH }
+                                height={ COLUMN_ADMIN_CHART_HEIGHT }
+                                seriesData={ [
                                     {
                                         name: 'Document Processed',
                                         data: submissionData
                                     }
-                                ]}
-                                gradient={COLUMN_ADMIN_CHART_GRADIENT}
-                                borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
+                                ] }
+                                gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                                borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
                             />
                         }
                     </Grid>
-                    <Grid item md={4} xs={12}>
-                        <div style={{ textAlign: 'center' }}>
+                    <Grid item md={ 4 } xs={ 12 }>
+                        <div style={ { textAlign: 'center' } }>
                             <SubTitle title='Trend Analysis' />
                         </div>
-                        {isLoading ?
+                        { isLoading ?
                             <Skeleton
                                 variant="circular"
-                                style={{ margin: '8px auto' }}
-                                height={250}
-                                width={250}
+                                style={ { margin: '8px auto' } }
+                                height={ 250 }
+                                width={ 250 }
                             /> :
                             <PieChart
                                 type="donut"
-                                color={PIE_CHART_COLOR}
-                                width={PIE_CHART_WIDTH}
-                                label={PIE_CHART_LABEL}
+                                color={ PIE_CHART_COLOR }
+                                width={ PIE_CHART_WIDTH }
+                                label={ PIE_CHART_LABEL }
                                 series={
                                     [
-                                        instructorStats?.trendAnalysis?.similarWork,
-                                        instructorStats?.trendAnalysis?.ownWork
+                                        studentStats?.trendAnalysis?.similarWork,
+                                        studentStats?.trendAnalysis?.ownWork
                                     ]
                                 }
                             />
@@ -135,15 +135,15 @@ const InstructorStats = ({
 
 const mapStateToProps = (state) => ({
     isLoading: state?.detailsData?.isLoadingStats,
-    instructorStats: state?.detailsData?.instructorStatsData,
+    studentStats: state?.detailsData?.studentStatsData,
     isLoadingCsvExport: state?.detailsData?.isLoadingCSV,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetInstructorStats: (id) => dispatch(GetInstructorStats(id)),
+        GetStudentStats: (id) => dispatch(GetStudentStats(id)),
         GetExportToCSV: (emailId) => dispatch(GetExportToCSV(emailId)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InstructorStats);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentStats);

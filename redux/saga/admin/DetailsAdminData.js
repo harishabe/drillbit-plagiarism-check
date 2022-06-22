@@ -10,7 +10,8 @@ import {
     DeleteRow,
     DeleteStudent,
     DeactivateRow,
-    GetStats,
+    GetInstStats,
+    GetStudStats,
     GetExportCsvFile,
 } from '../../api/admin/DetailsAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
@@ -47,7 +48,7 @@ export function* GetInstructorData() {
  */
 
 export function* onLoadInstructorStats(action) {
-    const { response, error } = yield call(GetStats, action.id);
+    const { response, error } = yield call(GetInstStats, action.id);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_SUCCESS,
@@ -135,6 +136,31 @@ export function* onLoadStudent(action) {
 
 export function* GetStudentData() {
     yield takeLatest(types.FETCH_ADMIN_STUDENT_DATA_START, onLoadStudent);
+}
+
+/**
+ * Get student stats
+ * @param {*} action
+ */
+
+export function* onLoadStudentStats(action) {
+    const { response, error } = yield call(GetStudStats, action.id);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_STUDENT_STATS_DATA_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_STUDENT_STATS_DATA_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* GetStudentStats() {
+    yield takeLatest(types.FETCH_ADMIN_STUDENT_STATS_DATA_START, onLoadStudentStats);
 }
 
 /**
