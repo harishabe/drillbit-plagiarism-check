@@ -19,9 +19,9 @@
     },
     {
         "field_type": "datepicker",
-        "id": "password",
+        "id": "fromDate",
         "label": "Choose From Date",
-        "name": "password",
+        "name": "fromDate",
         "required": "Select from date",
         "validationMsg": "Please select from date"
     },

@@ -4,26 +4,46 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
-import { FormComponent } from '../../../components';
+import { FormComponent, DialogModal } from '../../../components';
 import { ReportsData, ViewAndDownloadData } from '../../../redux/action/admin/AdminAction';
 import FormJson from '../../../constant/form/admin-report-form.json';
+import ReportView from '../report/ReportView';
 
 const ReportForm = ({
     ReportsData,
     ViewAndDownloadData,
+    viewDownloadData,
     reportData,
-    isLoading
+    isLoading,
+    isLoadingViewReport
 }) => {
     const router = useRouter();
     const [formData, setFormData] = useState();
+    const [showDialogModal, setShowDialogModal] = useState(false);
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
     });
 
+    const handleCloseDialog = () => {
+        setShowDialogModal(false);
+    }
+
+    const convertData = (str) => {
+        let date = new Date(str),
+            month = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + date.getDate()).slice(-2);
+        return [date.getFullYear(), month, day].join("-");
+    }
+
     const onSubmit = (data) => {
-        let url = data?.report?.name + '?page=' + 0 + '&size=' + 25 + '&instructor=' + data?.instructor?.username + '&from=' + 1 + '&to=' + 2
+        console.log("first", data);
+        let fromDate = convertData(data?.fromDate)
+        let toDate = convertData(data?.toDate)
+        let url = data?.report?.name + '?page=' + 0 + '&size=' + 25 + '&instructor=' + data?.instructor?.username + '&from=' + fromDate + '&to=' + toDate
+
         ViewAndDownloadData(url);
+        setShowDialogModal(true)
     };
 
     useEffect(() => {
@@ -40,6 +60,7 @@ const ReportForm = ({
                 formItem['options'] = reportType;
             }
             if (formItem.name === 'instructor') {
+                reportData?.instructorList.unshift({ 'name': 'All', 'username': 'all' });
                 formItem['options'] = reportData?.instructorList;
             }
             return formItem;
@@ -49,6 +70,19 @@ const ReportForm = ({
 
     return (
         <>
+            { showDialogModal &&
+                <>
+                    <DialogModal
+                        headingTitle="Reports"
+                        isOpen={ true }
+                        fullWidth="xl"
+                        maxWidth="xl"
+                        handleClose={ handleCloseDialog }
+                    >
+                        <ReportView viewDownloadData={ viewDownloadData } isLoadingViewReport={ isLoadingViewReport } />
+                    </DialogModal>
+                </>
+            }
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
                     {formData?.map((field, i) => (
@@ -73,6 +107,8 @@ const ReportForm = ({
 const mapStateToProps = (state) => ({
     reportData: state?.adminReport?.reportData,
     isLoading: state?.adminReport?.isLoading,
+    isLoadingViewReport: state?.adminReport?.isLoadingViewReport,
+    viewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.assignmentsReportList,
 });
 
 const mapDispatchToProps = (dispatch) => {

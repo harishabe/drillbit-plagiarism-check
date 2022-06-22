@@ -28,11 +28,11 @@ export const GetInstructorData = (paginationPayload) => {
 };
 
 /**
- * Get instructor stats data
+ * Get instructor & student stats data
  */
-export const GetInstructorStats = (id) => {
+export const GetStats = (id) => {
     return {
-        type: types.FETCH_ADMIN_INSTRUCTOR_STATS_DATA_START, id: id
+        type: types.FETCH_ADMIN_STATS_DATA_START, id: id
     };
 };
 
@@ -64,16 +64,6 @@ export const GetStudnetData = (paginationPayload) => {
         type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: paginationPayload,
     };
 };
-
-/**
- * Get student stats data
- */
-export const GetStudentStats = (id) => {
-    return {
-        type: types.FETCH_ADMIN_STUDENT_STATS_DATA_START, id: id
-    };
-};
-
 
 /**
  * reports data
