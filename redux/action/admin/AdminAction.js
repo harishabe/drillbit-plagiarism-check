@@ -66,6 +66,16 @@ export const GetStudnetData = (paginationPayload) => {
 };
 
 /**
+ * Get student stats data
+ */
+export const GetStudentStats = (id) => {
+    return {
+        type: types.FETCH_ADMIN_STUDENT_STATS_DATA_START, id: id
+    };
+};
+
+
+/**
  * reports data
  */
 export const ReportsData = () => {

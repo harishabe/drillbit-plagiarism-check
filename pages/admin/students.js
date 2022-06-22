@@ -12,22 +12,25 @@ import {
     MainHeading,
     WarningDialog,
     AvatarName,
+    DialogModal
 } from '../../components';
-import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
+import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
 import { GetStudnetData, EditData, DeleteStudentData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
+import StudentStats from './student/StudentStats';
 
 const columns = [
-    { id: 'id', label: 'Student ID', minWidth: 170 },
+    { id: 'user_id', label: 'Student ID', minWidth: 170 },
     { id: 'name', label: 'Student Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'department', label: 'Department', minWidth: 170 },
     { id: 'section', label: 'Section', minWidth: 170 },
+    { id: 'stats', label: 'Stats', minWidth: 100 },
     { id: 'action', label: 'Action', minWidth: 100 },
 ]
 
-function createData(id, name, email, department, section, action) {
-    return { id, name, email, department, section, action }
+function createData(user_id, name, email, department, section, stats, action) {
+    return { user_id, name, email, department, section, stats, action }
 }
 
 const IntegrationBreadCrumb = [
@@ -54,6 +57,8 @@ const Students = ({
     const [rows, setRows] = useState([]);
 
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [showDialogModal, setShowDialogModal] = useState(false);
+    const [studentId, setStudentId] = useState('');
     const [deleteRowData, setDeleteRowData] = useState('');
 
     const [paginationPayload, setPaginationPayload] = useState({
@@ -79,6 +84,7 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
+                    [{ 'component': <StatsIcon />, 'type': 'stats' }],
                     [{ 'component': <EditIcon />, 'type': 'edit' }, { 'component': <DeleteIcon />, 'type': 'delete' }]
                 );
             arr.push(row)
@@ -101,6 +107,30 @@ const Students = ({
             setShowDeleteWarning(false);
         }, [100]);
     };
+
+
+
+    const handleAction = (event, icon, rowData) => {
+        const student = studentData.filter((s) => {
+            if (s.student_id === rowData?.user_id?.props?.title) {
+                return s.id;
+            }
+        });
+
+        if (icon === 'edit') {
+            EditData();
+        } else if (icon === 'delete') {
+            setDeleteRowData(student[0].id);
+            setShowDeleteWarning(true);
+        } else if (icon === 'stats') {
+            setStudentId(student[0].id);
+            setShowDialogModal(true);
+        }
+    }
+
+    const handleCloseDialog = () => {
+        setShowDialogModal(false);
+    }
 
     /** search implementation using debounce concepts */
 
@@ -126,20 +156,6 @@ const Students = ({
 
     /** end debounce concepts */
 
-    const handleAction = (event, icon, rowData) => {
-        if (icon === 'edit') {
-            EditData();
-        } else if (icon === 'delete') {
-            const student = studentData.filter((s) => {
-                if (s.student_id === rowData?.id?.props?.title) {
-                    return s.id;
-                }
-            });
-            setDeleteRowData(student[0].id);
-            setShowDeleteWarning(true);
-        }
-    }
-
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
             paginationPayload['field'] = column.id
@@ -162,6 +178,20 @@ const Students = ({
                     handleNo={handleCloseWarning}
                     isOpen={true}
                 />}
+
+            { showDialogModal &&
+                <>
+                    <DialogModal
+                        headingTitle="Students Statistics"
+                        isOpen={ true }
+                        fullWidth="lg"
+                        maxWidth="lg"
+                        handleClose={ handleCloseDialog }
+                    >
+                        <StudentStats studentId={ studentId } />
+                    </DialogModal>
+                </>
+            }
 
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
