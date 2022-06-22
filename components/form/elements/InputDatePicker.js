@@ -44,7 +44,7 @@ const InputDatePicker = ({
                                 fullWidth
                                 value={value === undefined ? null : value}
                                 onChange={onChange}
-                                minDate={field.minDate ? new Date():''} 
+                                minDate={ field.minDate && new Date() } 
                                 renderInput={(params) => <TextField margin="normal" {...params} />}
                             />
                         </Stack>

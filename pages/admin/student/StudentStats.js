@@ -23,14 +23,14 @@ import {
 } from '../../../constant/data/ChartData';
 
 import {
-    GetStudentStats,
+    GetStats,
     GetExportToCSV,
 } from '../../../redux/action/admin/AdminAction';
 import { Skeleton } from '@mui/material';
 
 const StudentStats = ({
     studentId,
-    GetStudentStats,
+    GetStats,
     GetExportToCSV,
     studentStats,
     isLoading,
@@ -40,7 +40,7 @@ const StudentStats = ({
     const [submissionData, setSubmissionData] = useState();
 
     useEffect(() => {
-        GetStudentStats(studentId);
+        GetStats(studentId);
     }, []);
 
     useEffect(() => {
@@ -135,13 +135,13 @@ const StudentStats = ({
 
 const mapStateToProps = (state) => ({
     isLoading: state?.detailsData?.isLoadingStats,
-    studentStats: state?.detailsData?.studentStatsData,
+    studentStats: state?.detailsData?.StatsData,
     isLoadingCsvExport: state?.detailsData?.isLoadingCSV,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetStudentStats: (id) => dispatch(GetStudentStats(id)),
+        GetStats: (id) => dispatch(GetStats(id)),
         GetExportToCSV: (emailId) => dispatch(GetExportToCSV(emailId)),
     };
 };

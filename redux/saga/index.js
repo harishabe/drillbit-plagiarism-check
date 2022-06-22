@@ -10,8 +10,7 @@ import {
     DeleteData,
     DeleteStudentData,
     DeactivateData,
-    GetInstructorStats,
-    GetStudentStats,
+    GetInstructorStudentStats,
     GetCsvReportStats
 } from './admin/DetailsAdminData';
 import {
@@ -47,7 +46,7 @@ const saga = [
     fork(TopStudent),
     fork(TrendAnalysis),
     fork(GetInstructorData),
-    fork(GetInstructorStats),
+    fork(GetInstructorStudentStats),
     fork(GetCsvReportStats),
     fork(CreateInstructor),
     fork(InsDashboardWidget),
@@ -64,7 +63,6 @@ const saga = [
     fork(GetMyFolders),
     fork(CreateFolder),
     fork(GetStudentData),
-    fork(GetStudentStats),
     fork(InsDashboardWidget),
     fork(EditData),
     fork(DeleteData),
