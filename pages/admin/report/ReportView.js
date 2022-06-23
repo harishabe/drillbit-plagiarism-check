@@ -18,12 +18,12 @@ const DownloadButton = styled.div`
 `;
 
 const assignmentsColumns = [
-    { id: 'ass_id', label: 'Assignment ID', minWidth: 170 },
+    { id: 'ass_id', label: 'Assignment Id', minWidth: 170 },
     { id: 'ass_name', label: 'Assignment Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
-    { id: 'created', label: 'Created ID', minWidth: 170 },
+    { id: 'created', label: 'Created Date', minWidth: 170 },
     { id: 'endDate', label: 'End Date', minWidth: 170 },
-    { id: 'class_id', label: 'Class ID', minWidth: 170 },
+    { id: 'class_id', label: 'Class Id', minWidth: 170 },
     { id: 'class_name', label: 'Class Name', minWidth: 170 },
     { id: 'count', label: 'Submission count', minWidth: 170 },
 ]
