@@ -5,20 +5,24 @@ import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
 import { FormComponent, DialogModal } from '../../../components';
-import { ReportsData, ViewAndDownloadData } from '../../../redux/action/admin/AdminAction';
+import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData } from '../../../redux/action/admin/AdminAction';
 import FormJson from '../../../constant/form/admin-report-form.json';
 import ReportView from '../report/ReportView';
 
 const ReportForm = ({
     ReportsData,
     ViewAndDownloadData,
-    viewDownloadData,
+    DownloadInstructorStudentData,
+    assignmentViewDownloadData,
+    classesViewDownloadData,
+    submissionsViewDownloadData,
     reportData,
     isLoading,
     isLoadingViewReport
 }) => {
     const router = useRouter();
     const [formData, setFormData] = useState();
+    const [reportDownloadData, setReportDownloadData] = useState();
     const [showDialogModal, setShowDialogModal] = useState(false);
 
     const { handleSubmit, control } = useForm({
@@ -42,7 +46,25 @@ const ReportForm = ({
         let url = data?.report?.name + '?page=' + 0 + '&size=' + 25 + '&instructor=' + data?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
         ViewAndDownloadData(url);
         setShowDialogModal(true);
+        setReportDownloadData(data);
     };
+
+    const handleDownload = () => {
+        let fromDate = convertData(reportDownloadData?.fromDate);
+        let toDate = convertData(reportDownloadData?.toDate);
+        let url = reportDownloadData?.report?.name + 'Report?&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        DownloadInstructorStudentData(url);
+    }
+
+    const handleSend = (email) => {
+        let fromDate = convertData(reportDownloadData?.fromDate);
+        let toDate = convertData(reportDownloadData?.toDate);
+        let url = reportDownloadData?.report?.name + 'Report?email=' + email + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        // let url = 'submissionsReport?email=sagar.t@drillbitplagiarism.com&instructor=all&from=2022-01-01&to=2022-2-30'
+        submissionsViewDownloadData(url);
+    }
+
+    const reportName = reportDownloadData?.report?.name
 
     useEffect(() => {
         ReportsData();
@@ -77,7 +99,14 @@ const ReportForm = ({
                         maxWidth="xl"
                         handleClose={ handleCloseDialog }
                     >
-                        <ReportView viewDownloadData={ viewDownloadData } isLoadingViewReport={ isLoadingViewReport } />
+                    <ReportView
+                        reportName={ reportName }
+                        assignmentViewDownloadData={ assignmentViewDownloadData }
+                        classesViewDownloadData={ classesViewDownloadData }
+                        submissionsViewDownloadData={ submissionsViewDownloadData }
+                        isLoadingViewReport={ isLoadingViewReport }
+                        handleDownload={ handleDownload }
+                        handleSend={ handleSend } />
                     </DialogModal>
                 </>
             }
@@ -106,13 +135,16 @@ const mapStateToProps = (state) => ({
     reportData: state?.adminReport?.reportData,
     isLoading: state?.adminReport?.isLoading,
     isLoadingViewReport: state?.adminReport?.isLoadingViewReport,
-    viewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.assignmentsReportList,
+    assignmentViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.assignmentsReportList,
+    classesViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.classesReportList,
+    submissionsViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.submissionsReportList,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         ReportsData: () => dispatch(ReportsData()),
         ViewAndDownloadData: (data) => dispatch(ViewAndDownloadData(data)),
+        DownloadInstructorStudentData: (url) => dispatch(DownloadInstructorStudentData(url)),
     };
 };
 
