@@ -25,7 +25,7 @@ const columns = [
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'department', label: 'Department', minWidth: 170 },
     { id: 'section', label: 'Section', minWidth: 170 },
-    { id: 'stats', label: 'Stats', minWidth: 100 },
+    { id: 'stats', label: 'Statistics', minWidth: 100 },
     { id: 'action', label: 'Action', minWidth: 100 },
 ]
 

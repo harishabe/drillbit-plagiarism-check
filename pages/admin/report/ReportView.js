@@ -61,7 +61,7 @@ const ReportView = ({
                         isCheckbox={ false }
                         tableHeader={ columns }
                         tableData={ rows }
-                        charLength={15}
+                        charLength={10}
                         path=''
                     />
                 }

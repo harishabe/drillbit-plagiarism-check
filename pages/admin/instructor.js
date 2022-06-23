@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
-import { Skeleton, TextField, Pagination } from '@mui/material';
+import { Skeleton, TextField, Pagination, IconButton } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
 import {
@@ -29,6 +29,7 @@ import {
 import { PaginationValue } from '../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
 import InstructorStats from './instructor/InstructorStats';
+import { removeCommaWordEnd } from '../../utils/RegExp';
 
 const columns = [
     { id: 'user_id', label: 'ID', minWidth: 100 },
@@ -36,7 +37,7 @@ const columns = [
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'creationDate', label: 'Creation Date', minWidth: 170 },
     { id: 'status', label: 'Status', minWidth: 170 },
-    { id: 'stats', label: 'Stats', minWidth: 100 },
+    { id: 'stats', label: 'Statistics', minWidth: 100 },
     { id: 'action', label: 'Action', minWidth: 100 }
 ]
 
@@ -81,6 +82,7 @@ const Instructor = ({
     const [statusRowData, setStatusRowData] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
     const [instructorId, setInstructorId] = useState('');
+    const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -112,6 +114,7 @@ const Instructor = ({
                     }
                     ]
                 );
+            row['isSelected'] = false;
             arr.push(row)
         });
         setRows([...arr]);
@@ -131,7 +134,8 @@ const Instructor = ({
     };
 
     const handleYesWarning = () => {
-        DeleteData(deleteRowData, paginationPayload);
+        DeleteData(deleteRowData, paginationPayload);        
+        setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -211,9 +215,26 @@ const Instructor = ({
         setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
+    const handleCheckboxSelect = () => {
+        setShowDeleteAllIcon(!showDeleteAllIcon);
+        let rowData = rows?.map((rowItem) => {
+            rowItem['isSelected'] = !rowItem['isSelected'];
+            return rowItem;
+        });
+        setRows(rowData);
+    }
+
+    const deleteAllInstructor = () => {
+        let rowsId = '';
+        rows?.map((rowItem) => {
+            rowsId += rowItem?.user_id?.props?.title + ',';
+        });
+        setDeleteRowData(removeCommaWordEnd(rowsId));
+        setShowDeleteWarning(true);
+    }
+
     return (
         <React.Fragment>
-
             {showDeleteWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
@@ -281,13 +302,20 @@ const Instructor = ({
             </Box>
             <CardView>
                 <>
+                    {showDeleteAllIcon && <div style={{ textAlign: 'right' }}>
+                        <IconButton onClick={deleteAllInstructor}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </div>}
                     <CommonTable
                         isCheckbox={true}
                         tableHeader={columns}
                         tableData={rows}
                         handleAction={handleAction}
                         handleTableSort={handleTableSort}
+                        handleCheckboxSelect={handleCheckboxSelect}
                         isLoading={isLoading}
+                        showCheckboxChecked = {showDeleteAllIcon}
                         charLength={17}
                         path=''
                     />

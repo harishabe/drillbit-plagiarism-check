@@ -68,16 +68,20 @@ const ReportForm = ({
 
     return (
         <>
-            { showDialogModal &&
+            {showDialogModal &&
                 <>
                     <DialogModal
                         headingTitle="Reports"
-                        isOpen={ true }
+                        isOpen={true}
                         fullWidth="xl"
                         maxWidth="xl"
-                        handleClose={ handleCloseDialog }
+                        handleClose={handleCloseDialog}
                     >
-                        <ReportView viewDownloadData={ viewDownloadData } isLoadingViewReport={ isLoadingViewReport } />
+                        <ReportView
+                            viewDownloadData={viewDownloadData}
+                            isLoadingViewReport={isLoadingViewReport}
+                            
+                        />
                     </DialogModal>
                 </>
             }

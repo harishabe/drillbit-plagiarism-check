@@ -32,8 +32,11 @@ const CommonTable = ({
     charLength,
     handleAction,
     handleTableSort,
+    handleCheckboxSelect,
+    showCheckboxChecked,
     isLoading
 }) => {
+
     const router = useRouter();
     const classes = useStyles();
     const [toggle, setToggle] = React.useState(false);
@@ -51,7 +54,7 @@ const CommonTable = ({
                     <TableRow>
                         {isCheckbox ?
                             <TableCell padding="checkbox" className={classes.padding}>
-                                <Checkbox />
+                                <Checkbox checked={showCheckboxChecked} onChange={handleCheckboxSelect} />
                             </TableCell> : ''}
                         {tableHeader.map((column) => (
                             <TableCell
@@ -69,7 +72,7 @@ const CommonTable = ({
                                         }
                                     </div>
                                     }>
-                                    <EllipsisText value={column.label} />
+                                    <EllipsisText value={column.label} charLength={charLength} />
                                 </TableSortLabel>
                             </TableCell>
                         ))}
@@ -82,7 +85,7 @@ const CommonTable = ({
                             <TableRow hover key={row.id} onClick={(e) => router.push(path)}>
                                 {isCheckbox ?
                                     <TableCell padding="checkbox" className={classes.padding}>
-                                        <Checkbox />
+                                        <Checkbox checked={row.isSelected} />
                                     </TableCell> : ''}
                                 {tableHeader.map((column) => {
                                     const value = row[column.id];
