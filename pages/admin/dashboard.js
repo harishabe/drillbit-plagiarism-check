@@ -77,7 +77,7 @@ const Dashboard = ({
     GetTrendAnalysis
 }) => {
 
-    const [recentSubmission, setRecentSubmission] = useState(USAGE_CHART_DATA);
+    const [recentSubmission, setRecentSubmission] = useState([]);
     const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
 
     useEffect(() => {
@@ -89,11 +89,13 @@ const Dashboard = ({
     }, []);
 
     useEffect(() => {
-        let submission = adminDashboardData?.data?.monthlySubmissions?.map((item)=>{
+        let submission = adminDashboardData?.data?.monthlySubmissions?.map((item) => {
             return item.submissions;
         });
         setRecentSubmission(submission);
-    }, [adminDashboardData])
+    }, [adminDashboardData]);
+
+    console.log('recentSubmission',recentSubmission);
 
     return (
         <React.Fragment>
@@ -131,7 +133,7 @@ const Dashboard = ({
                         <CardView>
                             <Heading title='Document Processed' />
                             {isLoadingDashboard ? <Skeleton /> :
-                                <ColumnChart
+                                recentSubmission?.length > 0 && <ColumnChart
                                     type={COLUMN_ADMIN_CHART_TYPE}
                                     color={COLUMN_ADMIN_CHART_COLOR}
                                     xaxisData={COLUMN_ADMIN_XAXIS_DATA}

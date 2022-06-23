@@ -69,7 +69,7 @@ const CommonTable = ({
                                         }
                                     </div>
                                     }>
-                                    <SubTitle1 title={column.label} />
+                                    <EllipsisText value={column.label} />
                                 </TableSortLabel>
                             </TableCell>
                         ))}
