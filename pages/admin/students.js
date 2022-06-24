@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import Admin from '../../layouts/Admin';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import debouce from "lodash.debounce";
-import { Skeleton, TextField, Pagination } from '@mui/material';
+import { Skeleton, TextField, Pagination, IconButton } from '@mui/material';
 import { BreadCrumb } from './../../components';
 import {
     CardView,
@@ -18,6 +19,7 @@ import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../assets
 import { GetStudnetData, EditData, DeleteStudentData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import StudentStats from './student/StudentStats';
+import { removeCommaWordEnd } from '../../utils/RegExp';
 
 const columns = [
     { id: 'user_id', label: 'Student ID', minWidth: 170 },
@@ -87,6 +89,7 @@ const Students = ({
                     [{ 'component': <StatsIcon />, 'type': 'stats' }],
                     [{ 'component': <EditIcon />, 'type': 'edit' }, { 'component': <DeleteIcon />, 'type': 'delete' }]
                 );
+            row['isSelected'] = false;
             arr.push(row)
         });
         setRows([...arr]);
@@ -111,15 +114,14 @@ const Students = ({
 
 
     const handleAction = (event, icon, rowData) => {
-        const student = studentData.filter((s) => {
-            if (s.student_id === rowData?.user_id?.props?.title) {
-                return s.id;
-            }
-        });
-
         if (icon === 'edit') {
             EditData();
         } else if (icon === 'delete') {
+            const student = studentData.filter((s) => {
+                if (s.student_id === rowData?.user_id?.props?.title) {
+                    return s.id;
+                }
+            });
             setDeleteRowData(student[0].id);
             setShowDeleteWarning(true);
         } else if (icon === 'stats') {
@@ -167,6 +169,37 @@ const Students = ({
         setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
+    const handleCheckboxSelect = () => {
+        let rowData = rows?.map((rowItem) => {
+            rowItem['isSelected'] = !rowItem['isSelected'];
+            return rowItem;
+        });
+        setRows(rowData);
+    }
+
+    const handleSingleSelect = (e, row) => {
+        let rowData = rows?.map((rowItem) => {
+            if (rowItem?.user_id?.props?.title === row?.user_id?.props?.title) {
+                rowItem['isSelected'] = !rowItem['isSelected'];
+            }
+            return rowItem;
+        });
+        setRows(rowData);
+    }
+
+    const deleteAllInstructor = () => {
+        let rowsId = '';
+        _.filter(rows, function (o) {
+            if (o.isSelected === true) {
+                return rows;
+            }
+        }).map((rowItem) => {
+            rowsId += rowItem?.user_id?.props?.title + ',';
+        });
+        setDeleteRowData(removeCommaWordEnd(rowsId));
+        setShowDeleteWarning(true);
+    }
+
     return (
         <React.Fragment>
 
@@ -179,16 +212,16 @@ const Students = ({
                     isOpen={true}
                 />}
 
-            { showDialogModal &&
+            {showDialogModal &&
                 <>
                     <DialogModal
                         headingTitle="Students Statistics"
-                        isOpen={ true }
+                        isOpen={true}
                         fullWidth="lg"
                         maxWidth="lg"
-                        handleClose={ handleCloseDialog }
+                        handleClose={handleCloseDialog}
                     >
-                        <StudentStats studentId={ studentId } />
+                        <StudentStats studentId={studentId} />
                     </DialogModal>
                 </>
             }
@@ -232,13 +265,19 @@ const Students = ({
 
             <CardView>
                 <>
+                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+                        <IconButton onClick={deleteAllInstructor}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </div>}
                     <CommonTable
                         isCheckbox={true}
                         tableHeader={columns}
                         tableData={rows}
                         handleAction={handleAction}
                         handleTableSort={handleTableSort}
-                        isActionIcon={true}
+                        handleCheckboxSelect={handleCheckboxSelect}
+                        handleSingleSelect={handleSingleSelect}
                         isLoading={isLoading}
                         charLength={20}
                         path=''
