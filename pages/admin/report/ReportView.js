@@ -119,7 +119,7 @@ const ReportView = ({
                                 isCheckbox={ false }
                                 tableHeader={ assignmentsColumns }
                                 tableData={ rows }
-                                charLength={ 17 }
+                                charLength={ 10 }
                                 path=''
                             />
                         }
@@ -130,7 +130,7 @@ const ReportView = ({
                                 isCheckbox={ false }
                                 tableHeader={ classesColumns }
                                 tableData={ rows }
-                                charLength={ 17 }
+                                charLength={ 10 }
                                 path=''
                             />
                         }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import debouce from "lodash.debounce";
@@ -134,7 +135,7 @@ const Instructor = ({
     };
 
     const handleYesWarning = () => {
-        DeleteData(deleteRowData, paginationPayload);        
+        DeleteData(deleteRowData, paginationPayload);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -216,7 +217,6 @@ const Instructor = ({
     }
 
     const handleCheckboxSelect = () => {
-        setShowDeleteAllIcon(!showDeleteAllIcon);
         let rowData = rows?.map((rowItem) => {
             rowItem['isSelected'] = !rowItem['isSelected'];
             return rowItem;
@@ -224,9 +224,23 @@ const Instructor = ({
         setRows(rowData);
     }
 
+    const handleSingleSelect = (e, row) => {
+        let rowData = rows?.map((rowItem) => {
+            if (rowItem?.user_id?.props?.title === row?.user_id?.props?.title) {
+                rowItem['isSelected'] = !rowItem['isSelected'];
+            }
+            return rowItem;
+        });
+        setRows(rowData);
+    }
+
     const deleteAllInstructor = () => {
         let rowsId = '';
-        rows?.map((rowItem) => {
+        _.filter(rows, function (o) {
+            if (o.isSelected === true) {
+                return rows;
+            }
+        }).map((rowItem) => {
             rowsId += rowItem?.user_id?.props?.title + ',';
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
@@ -302,7 +316,7 @@ const Instructor = ({
             </Box>
             <CardView>
                 <>
-                    {showDeleteAllIcon && <div style={{ textAlign: 'right' }}>
+                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
                         <IconButton onClick={deleteAllInstructor}>
                             <DeleteIcon />
                         </IconButton>
@@ -314,8 +328,8 @@ const Instructor = ({
                         handleAction={handleAction}
                         handleTableSort={handleTableSort}
                         handleCheckboxSelect={handleCheckboxSelect}
+                        handleSingleSelect={handleSingleSelect}
                         isLoading={isLoading}
-                        showCheckboxChecked = {showDeleteAllIcon}
                         charLength={17}
                         path=''
                     />

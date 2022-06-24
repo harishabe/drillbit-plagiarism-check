@@ -1,4 +1,5 @@
 import * as React from 'react';
+import _ from 'lodash';
 import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 import Checkbox from '@mui/material/Checkbox';
@@ -33,19 +34,25 @@ const CommonTable = ({
     handleAction,
     handleTableSort,
     handleCheckboxSelect,
-    showCheckboxChecked,
+    handleSingleSelect,
     isLoading
 }) => {
 
     const router = useRouter();
     const classes = useStyles();
     const [toggle, setToggle] = React.useState(false);
+    const [allSelected, setAllSelected] = React.useState(false);
 
     const sortHandle = (e, column) => {
         let a = !toggle
         setToggle(a);
         handleTableSort(e, column, toggle);
     }
+
+    React.useEffect(() => {
+        let selected = _.find(tableData, function(o) { return o.isSelected === true });
+        setAllSelected(selected);
+    }, [tableData]);
 
     return (
         <TableContainer classes={{ root: classes.customTableContainer }}>
@@ -54,7 +61,7 @@ const CommonTable = ({
                     <TableRow>
                         {isCheckbox ?
                             <TableCell padding="checkbox" className={classes.padding}>
-                                <Checkbox checked={showCheckboxChecked} onChange={handleCheckboxSelect} />
+                                <Checkbox checked={allSelected} onChange={handleCheckboxSelect} />
                             </TableCell> : ''}
                         {tableHeader.map((column) => (
                             <TableCell
@@ -85,7 +92,7 @@ const CommonTable = ({
                             <TableRow hover key={row.id} onClick={(e) => router.push(path)}>
                                 {isCheckbox ?
                                     <TableCell padding="checkbox" className={classes.padding}>
-                                        <Checkbox checked={row.isSelected} />
+                                        <Checkbox onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
                                     </TableCell> : ''}
                                 {tableHeader.map((column) => {
                                     const value = row[column.id];
