@@ -5,6 +5,7 @@ import {
     DownloadReports,
     ViewDownloadReports,
 } from '../../api/admin/DetailsAdminAPI';
+import toastrValidation from '../../../utils/ToastrValidation';
 
 /**
  * Get report details
@@ -62,7 +63,7 @@ export function* GetReportDataDownload() {
 
 
 export function* onLoadViewDownload(action) {
-    const { response, error } = yield call(ViewDownloadReports,action.url);
+    const { response, error } = yield call(ViewDownloadReports, action.url);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_SUCCESS,
@@ -78,4 +79,31 @@ export function* onLoadViewDownload(action) {
 
 export function* GetReportViewDownload() {
     yield takeLatest(types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_START, onLoadViewDownload);
+}
+
+/**
+ * Submission report download
+ * @param {*} action
+ */
+
+
+export function* onLoadSubmissionDownload(action) {
+    const { response, error } = yield call(ViewDownloadReports, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* GetSubmissionDownload() {
+    yield takeLatest(types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_START, onLoadSubmissionDownload);
 }

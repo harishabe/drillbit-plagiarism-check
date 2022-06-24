@@ -78,6 +78,7 @@ const ReportView = ({
     classesViewDownloadData,
     submissionsViewDownloadData,
     isLoadingViewReport,
+    isLoadingSubmission,
     handleDownload,
     onSend
 }) => {
@@ -157,7 +158,7 @@ const ReportView = ({
     return (
         <CardView>
             <>
-                { isLoadingViewReport ?
+                {isLoadingViewReport ?
                     <>
                         <Skeleton />
                         <Skeleton />
@@ -168,14 +169,14 @@ const ReportView = ({
                         {
                             reportName === 'assignments' &&
                             <>
-                                <DownloadButton onClick={ handleDownload }>
+                                <DownloadButton onClick={handleDownload}>
                                     <DownloadIcon />
                                 </DownloadButton>
                                 <CommonTable
-                                    isCheckbox={ false }
-                                    tableHeader={ assignmentsColumns }
-                                    tableData={ rows }
-                                    charLength={ 10 }
+                                    isCheckbox={false}
+                                    tableHeader={assignmentsColumns}
+                                    tableData={rows}
+                                    charLength={10}
                                     path=''
                                 />
                             </>
@@ -184,14 +185,14 @@ const ReportView = ({
                         {
                             reportName === 'classes' &&
                             <>
-                                <DownloadButton onClick={ handleDownload }>
+                                <DownloadButton onClick={handleDownload}>
                                     <DownloadIcon />
                                 </DownloadButton>
                                 <CommonTable
-                                    isCheckbox={ false }
-                                    tableHeader={ classesColumns }
-                                    tableData={ rows }
-                                    charLength={ 10 }
+                                    isCheckbox={false}
+                                    tableHeader={classesColumns}
+                                    tableData={rows}
+                                    charLength={10}
                                     path=''
                                 />
                             </>
@@ -200,46 +201,47 @@ const ReportView = ({
                         {
                             reportName === 'submissions' &&
                             <>
-                                <SendButton onClick={ setOpen }>
-                                    <DownloadIcon />
-                                </SendButton>
+                                {isLoadingSubmission ? <Skeleton /> :
+                                    <DownloadButton onClick={setOpen}>
+                                        <DownloadIcon />
+                                    </DownloadButton>}
                                 <CommonTable
-                                    isCheckbox={ false }
-                                    tableHeader={ submissionsColumns }
-                                    tableData={ rows }
-                                    charLength={ 10 }
+                                    isCheckbox={false}
+                                    tableHeader={submissionsColumns}
+                                    tableData={rows}
+                                    charLength={10}
                                     path=''
                                 />
                             </>
 
                         }
 
-                        { open &&
+                        {open &&
                             <>
                                 <DialogModal
                                     headingTitle="Mail"
-                                    isOpen={ true }
+                                    isOpen={true}
                                     fullWidth="sm"
                                     maxWidth="sm"
-                                    handleClose={ handleCloseDialog }
+                                    handleClose={handleCloseDialog}
                                 >
-                                    <form onSubmit={ handleSubmit(onSend) }>
+                                    <form onSubmit={handleSubmit(onSend)}>
                                         <Grid container>
-                                            { FormJson?.map((field, i) => (
-                                                <Grid md={ 12 } style={ { marginLeft: '8px' } }>
+                                            {FormJson?.map((field, i) => (
+                                                <Grid md={12} style={{ marginLeft: '8px' }}>
                                                     <FormComponent
-                                                        key={ i }
-                                                        field={ field }
-                                                        control={ control }
-                                                        isLoading={ isLoadingViewReport }
+                                                        key={i}
+                                                        field={field}
+                                                        control={control}
+                                                        isLoading={isLoadingViewReport}
                                                     />
                                                 </Grid>
-                                            )) }
+                                            ))}
                                         </Grid>
                                     </form>
-                            </DialogModal>
-                        </>
-                        }   
+                                </DialogModal>
+                            </>
+                        }
                     </>
                 }
             </>

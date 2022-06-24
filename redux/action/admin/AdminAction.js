@@ -93,6 +93,15 @@ export const ViewAndDownloadData = (url) => {
 };
 
 /**
+ * submission reports view & download data download
+ */
+ export const ViewDownloadSubmissiondData = (url) => {
+    return {
+        type: types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_START, url: url
+    };
+};
+
+/**
  * Edit data
  */
 export const EditData = () => {

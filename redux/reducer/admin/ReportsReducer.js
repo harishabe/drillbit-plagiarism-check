@@ -1,7 +1,6 @@
 import * as types from '../../action/ActionType';
 
 const ReportsReducer = (state = {}, action) => {
-    console.log('actionactionactionactionaction',action);
     switch (action.type) {
         case types.FETCH_ADMIN_REPORTS_DATA_START:
             return {
@@ -53,6 +52,23 @@ const ReportsReducer = (state = {}, action) => {
                 ...state,
                 isLoadingViewReport: false,
                 viewDownloadDataError: action.payload,
+            };
+        case types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_START:
+            return {
+                ...state,
+                isLoadingSubmissionReport: true,
+            };
+        case types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoadingSubmissionReport: false,
+                submissionDownloadData: action.payload,
+            };
+        case types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_FAIL:
+            return {
+                ...state,
+                isLoadingSubmissionReport: false,
+                submissionDownloadDataError: action.payload,
             };
         default:
             return state;
