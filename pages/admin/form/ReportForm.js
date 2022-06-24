@@ -56,12 +56,12 @@ const ReportForm = ({
         DownloadInstructorStudentData(url);
     }
 
-    const handleSend = (email) => {
+    const onSend = (data) => {
         let fromDate = convertData(reportDownloadData?.fromDate);
         let toDate = convertData(reportDownloadData?.toDate);
-        let url = reportDownloadData?.report?.name + 'Report?email=' + email + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
-        // let url = 'submissionsReport?email=sagar.t@drillbitplagiarism.com&instructor=all&from=2022-01-01&to=2022-2-30'
-        submissionsViewDownloadData(url);
+        let url = reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        ViewAndDownloadData(url)
+        // setShowDialogModal(true)
     }
 
     const reportName = reportDownloadData?.report?.name
@@ -106,7 +106,8 @@ const ReportForm = ({
                         submissionsViewDownloadData={ submissionsViewDownloadData }
                         isLoadingViewReport={ isLoadingViewReport }
                         handleDownload={ handleDownload }
-                        handleSend={ handleSend } />
+                        onSend={ onSend }
+                    />
                     </DialogModal>
                 </>
             }
