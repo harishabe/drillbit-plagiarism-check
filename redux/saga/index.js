@@ -28,6 +28,7 @@ import {
     CreateAssignment
 } from './instructor/DetailsInstructorData';
 import {
+    GetStudentDashboard,
     GetStudentClasses,
     GetStudentAssignments,
     GetStudentSubmissions
@@ -56,6 +57,7 @@ const saga = [
     fork(GetReportViewDownload),
     fork(GetSubmissionDownload),
     fork(GetClassesData),
+    fork(GetStudentDashboard),
     fork(GetStudentClasses),
     fork(GetStudentAssignments),
     fork(GetStudentSubmissions),

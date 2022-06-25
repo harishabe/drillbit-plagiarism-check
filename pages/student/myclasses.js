@@ -1,5 +1,4 @@
-// import React, { useEffect, useState, useMemo } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import debouce from "lodash.debounce";
 import { connect } from 'react-redux';
 import { GetClassesData } from '../../redux/action/student/StudentAction';
@@ -24,58 +23,9 @@ const StudentBreadCrumb = [
     },
 ]
 
-const classes = [
-    {
-        class_name: 'Java',
-        description: 'The only condition to run that byte code',
-        validity: '2 days left',
-        color: '#38BE62',
-    },
-    {
-        class_name: 'Data Science',
-        description: 'Our team is here round the clock to help',
-        validity: '2 days left',
-        color: '#F1A045',
-    },
-    {
-        class_name: 'Machine Learning',
-        description: 'Our team is here round the clock to help',
-        validity: '2 days left',
-        color: '#8D34FF',
-    },
-]
-
 function createData(validity) {
     return { validity }
 };
-
-const debouncedResults = (data) => {
-    return console.log("first", data)
-};
-
-/** search implementation using debounce concepts */
-
-// const handleSearch = (event) => {
-//     if (event.target.value !== '') {
-//         paginationPayload['search'] = event.target.value;
-//         setPaginationPayload({ ...paginationPayload, paginationPayload });
-//     } else {
-//         delete paginationPayload['search'];
-//         setPaginationPayload({ ...paginationPayload, paginationPayload });
-//     }
-// }
-
-// const debouncedResults = useMemo(() => {
-//     return debouce(handleSearch, 300);
-// }, []);
-
-// useEffect(() => {
-//     return () => {
-//         debouncedResults.cancel();
-//     };
-// });
-
-/** end debounce concepts */
 
 const MyClasses = ({
     GetClassesData,
@@ -108,7 +58,9 @@ const MyClasses = ({
                     presentDate = new Date(),
                     expiryDate = new Date(item.expiry_date),
                     differenceInTime = presentDate.getTime() - expiryDate.getTime(),
-                    item.validity = `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,
+                    item.validity =
+                    (isNaN(item.validity)) ?
+                        'Expired' : `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,
                 );
             arr.push(row)
         });
@@ -120,11 +72,39 @@ const MyClasses = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
+    /** search implementation using debounce concepts */
+
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    }
+
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
+    /** end debounce concepts */
+
     const checkStatus = (validity) => {
         if (validity <= 15) {
             return '#FF0000';
         } else if (validity >= 15 && validity <= 100) {
             return '#FFFF00';
+        } else if (validity >= 100) {
+            return '#CCCCCC';
+        } else if (validity === 'expired') {
+            return '#FF0000';
         } else {
             return '#CCCCCC';
         }
@@ -136,8 +116,7 @@ const MyClasses = ({
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 8 }>
-                        {/* <MainHeading title={ 'My Classes' + '(' + pageDetails?.totalElements + ')' } /> */ }
-                        <MainHeading title={ 'My Classes(3)' } />
+                        <MainHeading title={ 'My Classes' + '(' + pageDetails?.totalElements + ')' } />
                     </Grid>
                     <Grid item md={ 4 } xs container direction='row' justifyContent={ 'right' }>
                         <TextField
@@ -164,7 +143,7 @@ const MyClasses = ({
 
                     <Grid container spacing={ 2 }>
 
-                        { classes?.map((item, index) => (
+                        { classesData?.map((item, index) => (
                             <Grid item md={ 4 } xs={ 12 }>
                                 <CardInfoView
                                     key={ index }
@@ -173,7 +152,8 @@ const MyClasses = ({
                                     isHeading={ true }
                                     isTimer={ true }
                                     statusColor={ checkStatus(item.validity) }
-                                    path='/student/myassignments'
+                                    // path={ '/student/' + item.class_id + '/myassignments' }
+                                    path={ '/student/myassignments' }
                                 />
                             </Grid>
                         )) }
@@ -196,7 +176,7 @@ const MyClasses = ({
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.studentClasses?.classesData?.page,
-    classesData: state?.studentClasses?.classesData?._embedded?.classDTOList,
+    classesData: state?.studentClasses?.classesData?._embedded?.studentClassesList,
     isLoading: state?.studentClasses?.isLoading,
 });
 

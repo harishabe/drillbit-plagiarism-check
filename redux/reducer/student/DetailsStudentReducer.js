@@ -2,6 +2,23 @@ import * as types from '../../action/ActionType';
 
 const DetailsStudentReducer = (state = {}, action) => {
     switch (action.type) {
+        case types.FETCH_STUDENT_DASHBOARD_WIDGET_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_STUDENT_DASHBOARD_WIDGET_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                dashboardData: action.payload,
+            };
+        case types.FETCH_STUDENT_DASHBOARD_WIDGET_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                dashboardError: action.payload,
+            };
         case types.FETCH_STUDENTS_CLASSES_DATA_START:
             return {
                 ...state,

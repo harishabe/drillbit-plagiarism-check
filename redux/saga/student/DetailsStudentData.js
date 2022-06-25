@@ -1,6 +1,30 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
-import { GetClassesDetail, GetAssignmentDetail, GetSubmissionDetail } from '../../api/student/DetailStudentAPI';
+import { GetDashboardData, GetClassesDetail, GetAssignmentDetail, GetSubmissionDetail } from '../../api/student/DetailStudentAPI';
+
+/**
+ * Get classes data
+ * @param {*} action
+ */
+
+export function* onLoadDashboard() {
+    const { response, error } = yield call(GetDashboardData);
+    if (response) {
+        yield put({
+            type: types.FETCH_STUDENT_DASHBOARD_WIDGET_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_STUDENT_DASHBOARD_WIDGET_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetStudentDashboard() {
+    yield takeLatest(types.FETCH_STUDENT_DASHBOARD_WIDGET_START, onLoadDashboard);
+}
 
 /**
  * Get classes data
