@@ -3,6 +3,15 @@ import { GetMethod } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
+ * API CALL FOR STUDENT DASHBOARD DATA
+ */
+
+export const GetDashboardData = async () => {
+    const url = END_POINTS.STUDENT_DASHBOARD_WIDGET;
+    return GetMethod(url);
+};
+
+/**
  * API CALL FOR CLASSES DATA
  */
 
