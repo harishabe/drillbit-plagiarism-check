@@ -21,9 +21,9 @@ export const GetClassesData = (paginationPayload) => {
 /**
  * Get all assignments data
  */
-export const GetAssignmentData = (paginationPayload) => {
+export const GetAssignmentData = (id, paginationPayload) => {
     return {
-        type: types.FETCH_STUDENTS_ASSIGNMENT_DATA_START, paginationPayload: paginationPayload
+        type: types.FETCH_STUDENTS_ASSIGNMENT_DATA_START, id: id, paginationPayload: paginationPayload
     };
 };
 

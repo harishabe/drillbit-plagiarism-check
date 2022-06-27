@@ -5,8 +5,8 @@ import { GetMethod, PostMethod, PostFormData } from './../ApiMethod';
  * API CALL FOR PROFILE DATA
  */
 
-export const GetProfile = async () => {
-    const url = END_POINTS.PROFILE_DATA;
+export const GetProfile = async (role) => {
+    const url = END_POINTS.PROFILE_DATA + role + '/accountInformation';
     return GetMethod(url);
 };
 

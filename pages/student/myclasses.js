@@ -7,8 +7,9 @@ import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import { Skeleton, TextField } from '@mui/material';
-import Student from '../../layouts/Student'
-import { BreadCrumb, CardInfoView, MainHeading } from '../../components'
+import Student from '../../layouts/Student';
+import { BreadCrumb, CardInfoView, MainHeading } from '../../components';
+import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../utils/RegExp';
 
 const StudentBreadCrumb = [
     {
@@ -23,9 +24,7 @@ const StudentBreadCrumb = [
     },
 ]
 
-function createData(validity) {
-    return { validity }
-};
+const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
 
 const MyClasses = ({
     GetClassesData,
@@ -49,19 +48,19 @@ const MyClasses = ({
     useEffect(() => {
         let row = '';
         let arr = [];
-        let presentDate;
-        let expiryDate;
-        let differenceInTime;
-        classesData?.map((item) => {
-            row =
-                createData(
-                    presentDate = new Date(),
-                    expiryDate = new Date(item.expiry_date),
-                    differenceInTime = presentDate.getTime() - expiryDate.getTime(),
-                    item.validity =
-                    (isNaN(item.validity)) ?
-                        'Expired' : `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,
-                );
+        classesData?.map((item, index) => {
+            item['color'] = Colors[index];
+            item['validity'] = findByExpiryDate(item.created_date);
+            row = renameKeys(item,
+                {
+                    class_id: 'id',
+                    class_name: 'name',
+                    color: 'color',
+                    created_date: 'expiry_date',
+                    mail_id: 'email',
+                    status: 'status',
+                    validity: 'validity'
+                })
             arr.push(row)
         });
         setItem([...arr]);
@@ -96,23 +95,10 @@ const MyClasses = ({
 
     /** end debounce concepts */
 
-    const checkStatus = (validity) => {
-        if (validity <= 15) {
-            return '#FF0000';
-        } else if (validity >= 15 && validity <= 100) {
-            return '#FFFF00';
-        } else if (validity >= 100) {
-            return '#CCCCCC';
-        } else if (validity === 'expired') {
-            return '#FF0000';
-        } else {
-            return '#CCCCCC';
-        }
-    }
 
     return (
         <React.Fragment>
-            <BreadCrumb item={StudentBreadCrumb} />
+            <BreadCrumb item={ StudentBreadCrumb } />
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 8 }>
@@ -139,11 +125,8 @@ const MyClasses = ({
                     <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                 </Grid> :
                 <>
-
-
                     <Grid container spacing={ 2 }>
-
-                        { classesData?.map((item, index) => (
+                        { item?.map((item, index) => (
                             <Grid item md={ 4 } xs={ 12 }>
                                 <CardInfoView
                                     key={ index }
@@ -151,9 +134,8 @@ const MyClasses = ({
                                     isAvatar={ true }
                                     isHeading={ true }
                                     isTimer={ true }
-                                    statusColor={ checkStatus(item.validity) }
-                                    // path={ '/student/' + item.class_id + '/myassignments' }
-                                    path={ '/student/myassignments' }
+                                    statusColor={ expiryDateBgColor(item.validity) }
+                                    path={ { pathname: '/student/myassignments', query: { item: item.id } } }
                                 />
                             </Grid>
                         )) }

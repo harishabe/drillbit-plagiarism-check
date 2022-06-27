@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid'
 import { connect } from 'react-redux';
 import { GetAssignmentData } from '../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import Pagination from '@mui/material/Pagination';
 import { Skeleton } from '@mui/material';
-import Student from '../../layouts/Student'
-import { BreadCrumb, CardInfoView, MainHeading } from '../../components'
+import Student from '../../layouts/Student';
+import { BreadCrumb, CardInfoView, MainHeading } from '../../components';
+import { renameKeys, findByExpiryDate } from '../../utils/RegExp';
 
 const StudentBreadCrumb = [
     {
@@ -26,29 +28,31 @@ const StudentBreadCrumb = [
     },
 ]
 
-const classes = [
-    {
-        class_name: 'Assignment 1',
-        description: 'The only condition to run that byte code',
-        validity: '2 days left',
-        color: '#38BE62',
-    },
-    {
-        class_name: 'Assignment 2',
-        description: 'Our team is here round the clock to help',
-        validity: '2 days left',
-        color: '#F1A045',
-    },
-    {
-        class_name: 'Assignment 3',
-        description: 'Our team is here round the clock to help',
-        validity: '2 days left',
-        color: '#8D34FF',
-    },
-]
+// const classes = [
+//     {
+//         class_name: 'Assignment 1',
+//         description: 'The only condition to run that byte code',
+//         validity: '2 days left',
+//         color: '#38BE62',
+//     },
+//     {
+//         class_name: 'Assignment 2',
+//         description: 'Our team is here round the clock to help',
+//         validity: '2 days left',
+//         color: '#F1A045',
+//     },
+//     {
+//         class_name: 'Assignment 3',
+//         description: 'Our team is here round the clock to help',
+//         validity: '2 days left',
+//         color: '#8D34FF',
+//     },
+// ]
 
-function createData(validity) {
-    return { validity }
+const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
+
+function createData(validity, color) {
+    return { validity, color }
 };
 
 const MyAssignments = ({
@@ -57,6 +61,11 @@ const MyAssignments = ({
     pageDetails,
     isLoading
 }) => {
+
+    const router = useRouter();
+    // console.log('router', router);
+
+    const id = router.query.item;
 
     const [item, setItem] = useState([]);
 
@@ -68,25 +77,20 @@ const MyAssignments = ({
     });
 
     useEffect(() => {
-        GetAssignmentData(paginationPayload);
-    }, [, paginationPayload]);
+        GetAssignmentData(id, paginationPayload);
+    }, [id, paginationPayload]);
 
     useEffect(() => {
         let row = '';
         let arr = [];
-        let presentDate;
-        let expiryDate;
-        let differenceInTime;
-        assignmentData?.map((item) => {
-            row =
-                createData(
-                    presentDate = new Date(),
-                    expiryDate = new Date(item.expiry_date),
-                    differenceInTime = presentDate.getTime() - expiryDate.getTime(),
-                    item.validity = `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,
-                );
+        assignmentData?.map((item, index) => {
+            item['color'] = Colors[index];
+            item['validity'] = findByExpiryDate(item.creation_date);
+            row = renameKeys(item, { folder_id: 'id', folder_name: 'name', color: 'color', creation_date: 'expiry_date' })
             arr.push(row)
         });
+
+        console.log('arrrrrrr', arr);
         setItem([...arr]);
     }, [assignmentData]);
 
@@ -120,7 +124,7 @@ const MyAssignments = ({
 
                     <Grid container spacing={ 2 }>
 
-                        { classes?.map((item, index) => (
+                        { item?.map((item, index) => (
                             <Grid item md={ 4 } xs={ 12 }>
                                 <CardInfoView
                                     key={ index }
@@ -131,6 +135,7 @@ const MyAssignments = ({
                                     isSubmit={ true }
                                     isDownload={ true }
                                     statusColor={ checkStatus(item.validity) }
+                                    path=''
                                     submitPath='/student/myassignment-details'
                                 />
                             </Grid>
@@ -154,13 +159,13 @@ const MyAssignments = ({
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.studentClasses?.assignmentData?.page,
-    assignmentData: state?.studentClasses?.assignmentData?._embedded?.classDTOList,
+    assignmentData: state?.studentClasses?.assignmentData?._embedded?.folderDTOList,
     isLoading: state?.studentClasses?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetAssignmentData: (PaginationValue) => dispatch(GetAssignmentData(PaginationValue)),
+        GetAssignmentData: (id, PaginationValue) => dispatch(GetAssignmentData(id, PaginationValue)),
     };
 };
 

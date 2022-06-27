@@ -12,8 +12,8 @@ import toastrValidation from '../../../utils/ToastrValidation';
  * @param {*} action
  */
 
-export function* onLoadProfile() {
-    const { response, error } = yield call(GetProfile);
+export function* onLoadProfile(action) {
+    const { response, error } = yield call(GetProfile, action.query);
     if (response) {
         yield put({ type: types.FETCH_PROFILE_DATA_SUCCESS, payload: response?.data });
     } else {
