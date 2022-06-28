@@ -73,14 +73,14 @@ const AccountInfo = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10}>
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 }>
                         <MainHeading title='Account Information' />
                         <form>
                             <label htmlFor="contained-button-file">
-                                <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
-                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
+                                <Input accept="image/*" id="contained-button-file" onChange={ handleChange } multiple type="file" />
+                                <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
                                     <>
                                         <UploadIcon />
                                         <UploadButtonAlign>
@@ -91,15 +91,15 @@ const AccountInfo = ({
                             </label>
                         </form>
                     </Grid>
-                    <Grid item md={2} style={{ textAlign: 'right' }}>
-                        {accountInfo && <ImgLogo src={`data:image/png;base64,${accountInfo.logo}`} />}
+                    <Grid item md={ 2 } style={ { textAlign: 'right' } }>
+                        { accountInfo && <ImgLogo src={ `data:image/png;base64,${accountInfo.logo}` } /> }
                     </Grid>
                 </Grid>
             </Box>
 
 
             <CardView>
-                {isLoading ? (
+                { isLoading ? (
                     <>
                         <Skeleton />
                         <Skeleton />
@@ -109,13 +109,13 @@ const AccountInfo = ({
                     </>
                 ) : (
                     <CommonTable
-                        isCheckbox={false}
-                        tableHeader={columns}
-                        tableData={rows}
-                        charLength={50}
+                            isCheckbox={ false }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                            charLength={ 50 }
                         path=''
                     />
-                )}
+                ) }
 
             </CardView>
         </React.Fragment >
@@ -129,7 +129,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetProfile: () => dispatch(GetProfile()),
+        GetProfile: (role) => dispatch(GetProfile(role)),
         ProfileLogo: (data) => dispatch(ProfileLogo(data)),
     };
 };

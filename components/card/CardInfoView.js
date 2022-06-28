@@ -10,7 +10,7 @@ import Button from '@mui/material/Button'
 import CardActions from '@mui/material/CardActions'
 import Avatar from '@mui/material/Avatar'
 import { Divider } from '@mui/material'
-import { Heading, SubTitle2 } from '../index'
+import { Heading, SubTitle2, EllipsisText } from '../index'
 import { TimerIcon, DownloadFileIcon } from '../../assets/icon'
 import SubTitle1 from '../typography/SubTitle1'
 import Switch from '@mui/material/Switch'
@@ -62,58 +62,59 @@ const CardInfoView = ({
 
     return (
         <React.Fragment>
-            <Card style={{ marginTop: '10px' }} onClick={(e) => router.push(path)}>
+            <Card style={ { marginTop: '10px' } } onClick={ (e) => router.push(path) }>
                 <CardContent>
-                    {isDownload ?
+                    { isDownload ?
                         <AlignRight>
                             <DownloadFileIcon />
-                        </AlignRight> : ''}
-                    {isAvatar ?
+                        </AlignRight> : '' }
+                    { isAvatar ?
                         <Avatar
-                            sx={{ bgcolor: item.color, width: 50, height: 50, fontSize: '15px' }}
+                            sx={ { bgcolor: item.color, width: 50, height: 50, fontSize: '15px' } }
                             variant="circle"
-                            className={classes.margin}
+                            className={ classes.margin }
                         >
-                            {item.class_name.split(' ').map(item => item.toUpperCase().substring(0, 1)).join('')}
-                        </Avatar> : ''}
-                    {isImage ?
-                        <img style={{ marginBottom: '15px' }} src={item.img} alt={item.name} /> : ''}
+                            { item.name.toUpperCase().charAt(0) }
+                        </Avatar> : '' }
+                    { isImage ?
+                        <img style={ { marginBottom: '15px' } } src={ item.img } alt={ item.name } /> : '' }
 
-                    {isHeading ?
-                        <Heading
-                            title={item.class_name}
-                        /> : ''}
+                    { isHeading ?
+                        <EllipsisText value={ item.name } charLength={ 30 } />
+                        : '' }
                     <SubTitle2
-                        title={item.description}
+                        title={ item.description }
                     />
                 </CardContent>
                 <Divider />
-                <CardActions style={{ padding: '18px' }}>
+                <CardActions style={ { padding: '18px' } }>
                     <Grid container>
-                        <Grid item md={9} xs={9}>
-                            {isTimer ?
-                                <StatusColor color={statusColor}>
+                        <Grid item md={ 9 } xs={ 9 }>
+                            { isTimer ?
+                                <StatusColor
+                                    color={ statusColor }
+                                >
                                     <TimerIcon />
                                     <SubTitle2
-                                        title={item.validity}
+                                        title={ item.validity + ' days left' }
                                         ml="10px"
                                     />
-                                </StatusColor> : ''}
-                            {isKnowMore ?
-                                <SubTitle1 textColor="primary" title="Know More" /> : ''}
+                                </StatusColor> : '' }
+                            { isKnowMore ?
+                                <SubTitle1 textColor="primary" title="Know More" /> : '' }
                         </Grid>
 
-                        <Grid className={classes.right} item md={3} xs={3}>
-                            {isSubmit ?
-                                <Link href={submitPath}>
+                        <Grid className={ classes.right } item md={ 3 } xs={ 3 }>
+                            { isSubmit ?
+                                <Link href={ submitPath }>
                                     <Button
                                         variant="contained"
                                         size="small">
                                         Submit
                                     </Button>
                                 </Link>
-                                : ''}
-                            {isConfig ? <Switch defaultChecked /> : ''}
+                                : '' }
+                            { isConfig ? <Switch defaultChecked /> : '' }
                         </Grid>
                     </Grid>
                 </CardActions>

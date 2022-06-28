@@ -6,15 +6,15 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableRow from '@mui/material/TableRow'
-import { SubTitle, SubTitle1 } from '../index'
+import { SubTitle, SubTitle1, EllipsisText } from '../index'
 
 const MyRecentSubmissionTable = ({ tableData }) => {
     return (
         <TableContainer>
-            <Table sx={{ minWidth: 350 }} aria-label='simple table'>
+            <Table aria-label='simple table'>
                 <TableHead>
                     <TableRow>
-                        <TableCell colspan="2">
+                        <TableCell colSpan="2">
                             <SubTitle1 title="My assignments" />
                         </TableCell>
                         <TableCell>
@@ -29,32 +29,32 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tableData.map((item, index) => (
+                    { tableData?.map((item, index) => (
                         <TableRow key={index}>
-                            <TableCell style={{ width: '45px' }}>
+                            <TableCell style={ { width: '45px' } }>
                                 <Avatar
                                     alt={item.name}
                                     sx={{
                                         width: 50,
                                         height: 50,
-                                        background: item.color,
+                                        background: item.bgcolor,
                                         color: '#fff',
                                     }}
                                 >
-                                    {item.name.charAt(0)}
+                                    { item.lang1.charAt(0) }
                                 </Avatar>
                             </TableCell>
-                            <TableCell style={{ minWidth: 320 }}>
-                                <SubTitle1 title={item.name} />
-                                <SubTitle title={item.course} />
+                            <TableCell>
+                                <SubTitle1 title={ item.lang1 } />
+                                <EllipsisText value={ item.ass_name } charLength={ 25 } />
                             </TableCell>
-                            <TableCell style={{ minWidth: 300 }}>
-                                <SubTitle title={item.marks} />
+                            <TableCell>
+                                <SubTitle title={ item.feedback?.marks } />
                             </TableCell>
-                            <TableCell style={{ minWidth: 300 }}>
+                            <TableCell>
                                 <SubTitle title={item.percent} />
                             </TableCell>
-                            <TableCell style={{ minWidth: 200 }}>
+                            <TableCell>
                                 <SubTitle title={item.status} />
                             </TableCell>
                         </TableRow>
