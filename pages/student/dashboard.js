@@ -35,19 +35,52 @@ import {
     NoOfSubmission,
     NoOfAssignmntIcon,
 } from '../../assets/icon'
-import MyRecentSubmissions from './dashboard/MyRecentSubmissions'
+import MyRecentSubmissionTable from '../../components/table/MyRecentSubmissionTable'
 
 const TextAlignRight = styled.div`
     text-align: right;
     margin-top: 5px;
 `;
 
+const data = [
+    {
+        color: '#2B4CB0',
+        name: 'Java',
+        course: 'Assignment-1',
+        marks: '78',
+        percent: '65%',
+        feedback: 'Good',
+        status: 'Active',
+    },
+    {
+        color: '#F5CB47',
+        name: 'Data Science',
+        course: 'Assignment-2',
+        marks: '58',
+        percent: '100%',
+        feedback: 'Good',
+        status: 'Completed',
+    },
+    {
+        color: '#E9596F',
+        name: 'Computer Science',
+        course: 'Assignment-3',
+        marks: '68',
+        percent: '25%',
+        feedback: 'Good',
+        status: 'Pending',
+    },
+]
+
+
+const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
+
 const Dashboard = ({
     GetDashboardData,
     studentDashboardData,
     isLoadingDashboard,
 }) => {
-    const [recentSubmission, setRecentSubmission] = useState([]);
+    const [submissionOverview, setSubmissionOverview] = useState([]);
 
     useEffect(() => {
         GetDashboardData();
@@ -55,10 +88,12 @@ const Dashboard = ({
 
     useEffect(() => {
         let submission = studentDashboardData?.monthlySubmissions?.map((item) => {
-            console.log("firstfirstfirst", item.submissions)
             return item.submissions;
         });
-        setRecentSubmission(submission);
+        setSubmissionOverview(submission);
+        studentDashboardData?.recentSubmissions?.map((item, index) => {
+            item['bgcolor'] = Colors[index];
+        });
     }, [studentDashboardData]);
 
     return (
@@ -94,7 +129,12 @@ const Dashboard = ({
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={12} xs={12}>
-                        <MyRecentSubmissions />
+                        <CardView>
+                            <Heading title='My Recent submissions' />
+                            { isLoadingDashboard ? <Skeleton /> :
+                                <MyRecentSubmissionTable tableData={ studentDashboardData?.recentSubmissions } /> }
+
+                        </CardView>
                     </Grid>
                 </Grid>
             </Box>
@@ -104,7 +144,7 @@ const Dashboard = ({
                         <CardView>
                             <Heading title='Submission Overview' />
                             { isLoadingDashboard ? <Skeleton /> :
-                                studentDashboardData?.monthlySubmissions?.length > 0 && <ColumnChart
+                                submissionOverview?.length > 0 && <ColumnChart
                                     type={ COLUMN_ADMIN_CHART_TYPE }
                                     color={ COLUMN_ADMIN_CHART_COLOR }
                                     xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
@@ -113,7 +153,7 @@ const Dashboard = ({
                                     seriesData={ [
                                         {
                                             name: 'Submission Overview',
-                                            data: recentSubmission
+                                            data: submissionOverview
                                         }
                                     ] }
                                     gradient={ COLUMN_ADMIN_CHART_GRADIENT }

@@ -57,7 +57,8 @@ export function* GetStudentClasses() {
  */
 
 export function* onLoadAssignments(action) {
-    const { response, error } = yield call(GetAssignmentDetail, action.paginationPayload);
+    console.log("actionactionaction", action)
+    const { response, error } = yield call(GetAssignmentDetail, action.id, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_STUDENTS_ASSIGNMENT_DATA_SUCCESS,

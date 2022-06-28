@@ -24,8 +24,8 @@ export const GetClassesDetail = async (paginationPayload) => {
  * API CALL FOR ASSIGNMENT DATA
  */
 
-export const GetAssignmentDetail = async (paginationPayload) => {
-    const url = END_POINTS.STUDENT_MY_ASSIGNMENTS + PaginationUrl(paginationPayload);
+export const GetAssignmentDetail = async (id, paginationPayload) => {
+    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + id + '/assignments' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
