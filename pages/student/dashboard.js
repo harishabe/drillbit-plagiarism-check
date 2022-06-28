@@ -55,10 +55,10 @@ const Dashboard = ({
 
     useEffect(() => {
         let submission = studentDashboardData?.monthlySubmissions?.map((item) => {
-            console.log("firstfirstfirst", item.submissions)
             return item.submissions;
         });
         setRecentSubmission(submission);
+        
     }, [studentDashboardData]);
 
     return (

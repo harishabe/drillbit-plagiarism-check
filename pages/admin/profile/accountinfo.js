@@ -42,7 +42,7 @@ const AccountInfo = ({
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        GetProfile();
+        GetProfile(localStorage.getItem('role'));
     }, []);
 
     useEffect(() => {
