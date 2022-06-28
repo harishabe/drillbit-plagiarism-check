@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useRouter } from "next/router";
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import Student from '../../layouts/Student'
@@ -11,6 +13,7 @@ import {
     StatusDot,
 } from '../../components'
 import { DownloadFileIcon } from '../../assets/icon'
+import { GetSubmissionData, GetQna, GetFeedback } from '../../redux/action/student/StudentAction';
 
 
 import SubmissionHistory from './submission-history'
@@ -82,10 +85,49 @@ const tabMenu = [
     },
 ]
 
-const componentList = [<SubmissionHistory />, <QA />, <Feedback />]
+const MyAssignmentDetails = ({
+    GetSubmissionData,
+    GetQna,
+    GetFeedback,
+    c,
+    qnaData,
+    feedbackData,
+    feedbackPaperId,
+    isLoadingSubmission,
+    isLoadingQa,
+}) => {
 
+    const router = useRouter();
 
-const MyAssignmentDetails = () => {
+    // const paperId = submissionData?.map((item) => {
+    //     return item?.[0]?.paper_id;
+    // })
+    // console.log("paperId", paperId)
+
+    useEffect(() => {
+        GetSubmissionData(router.query.clasId, router.query.assId);
+    }, [router.query.clasId, router.query.assId]);
+
+    useEffect(() => {
+        GetQna(router.query.clasId, router.query.assId);
+    }, [router.query.clasId, router.query.assId]);
+
+    useEffect(() => {
+        GetFeedback(router.query.clasId, router.query.assId, feedbackPaperId);
+    }, [router.query.clasId, router.query.assId, feedbackPaperId]);
+
+    const componentList = [
+        <SubmissionHistory
+            submissionData={ submissionData }
+            isLoadingSubmission={ isLoadingSubmission }
+        />,
+        <QA
+            qnaData={ qnaData }
+            isLoadingQa={ isLoadingQa }
+        />,
+        <Feedback feedbackData={ feedbackData } />
+    ];
+
     return (
         <React.Fragment>
             <BreadCrumb item={StudentBreadCrumb} />
@@ -106,6 +148,24 @@ const MyAssignmentDetails = () => {
     )
 }
 
+const mapStateToProps = (state) => ({
+    submissionData: state?.studentClasses?.submissionData?._embedded?.submissionsList,
+    feedbackPaperId: state?.studentClasses?.submissionData?._embedded?.submissionsList?.[0]?.paper_id,
+    feedbackData: state?.studentClasses?.feedbackData,
+    qnaData: state?.studentClasses?.qnaData,
+    isLoadingSubmission: state?.studentClasses?.isLoadingSubmission,
+    isLoadingQa: state?.studentClasses?.isLoadingQa,
+    isLoadingFeedback: state?.studentClasses?.isLoadingFeedback,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetSubmissionData: (class_id, folder_id) => dispatch(GetSubmissionData(class_id, folder_id)),
+        GetQna: (class_id, folder_id) => dispatch(GetQna(class_id, folder_id)),
+        GetFeedback: (class_id, folder_id, paper_id) => dispatch(GetFeedback(class_id, folder_id, paper_id)),
+    };
+};
+
 MyAssignmentDetails.layout = Student
 
-export default MyAssignmentDetails;
+export default connect(mapStateToProps, mapDispatchToProps)(MyAssignmentDetails);

@@ -1,6 +1,6 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
-import { GetDashboardData, GetClassesDetail, GetAssignmentDetail, GetSubmissionDetail } from '../../api/student/DetailStudentAPI';
+import { GetDashboardData, GetClassesDetail, GetAssignmentDetail, GetSubmissionDetail, GetQnaDetail, GetFeedbackDetail } from '../../api/student/DetailStudentAPI';
 
 /**
  * Get classes data
@@ -57,8 +57,7 @@ export function* GetStudentClasses() {
  */
 
 export function* onLoadAssignments(action) {
-    console.log("actionactionaction", action)
-    const { response, error } = yield call(GetAssignmentDetail, action.id, action.paginationPayload);
+    const { response, error } = yield call(GetAssignmentDetail, action.class_id, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_STUDENTS_ASSIGNMENT_DATA_SUCCESS,
@@ -82,21 +81,71 @@ export function* GetStudentAssignments() {
  * @param {*} action
  */
 
-export function* onLoadSubmissions() {
-    const { response, error } = yield call(GetSubmissionDetail);
+export function* onLoadSubmissions(action) {
+    const { response, error } = yield call(GetSubmissionDetail, action.class_id, action.folder_id);
     if (response) {
         yield put({
-            type: types.FETCH_STUDENTS_SUBMISSION_DATA_SUCCESS,
+            type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_SUCCESS,
             payload: response?.data,
         });
     } else {
         yield put({
-            type: types.FETCH_STUDENTS_SUBMISSION_DATA_FAIL,
+            type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_FAIL,
             payload: error,
         });
     }
 }
 
 export function* GetStudentSubmissions() {
-    yield takeLatest(types.FETCH_STUDENTS_SUBMISSION_DATA_START, onLoadSubmissions);
+    yield takeLatest(types.FETCH_STUDENTS_SUBMISSION_DETAILS_START, onLoadSubmissions);
+}
+
+/**
+ * Get qna data
+ * @param {*} action
+ */
+
+export function* onLoadQna(action) {
+    console.log("actionactionaction", action)
+    const { response, error } = yield call(GetQnaDetail, action.class_id, action.folder_id);
+    if (response) {
+        yield put({
+            type: types.FETCH_STUDENTS_QA_DETAILS_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_STUDENTS_QA_DETAILS_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetStudentQna() {
+    yield takeLatest(types.FETCH_STUDENTS_QA_DETAILS_START, onLoadQna);
+}
+
+/**
+ * Get feedback data
+ * @param {*} action
+ */
+
+export function* onLoadFeedback(action) {
+    console.log("actionactionaction", action)
+    const { response, error } = yield call(GetFeedbackDetail, action.class_id, action.folder_id, action.paper_id);
+    if (response) {
+        yield put({
+            type: types.FETCH_STUDENTS_QA_DETAILS_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_STUDENTS_QA_DETAILS_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetStudentFeedback() {
+    yield takeLatest(types.FETCH_STUDENTS_QA_DETAILS_START, onLoadFeedback);
 }

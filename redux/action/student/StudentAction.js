@@ -21,17 +21,35 @@ export const GetClassesData = (paginationPayload) => {
 /**
  * Get all assignments data
  */
-export const GetAssignmentData = (id, paginationPayload) => {
+export const GetAssignmentData = (class_id, paginationPayload) => {
     return {
-        type: types.FETCH_STUDENTS_ASSIGNMENT_DATA_START, id: id, paginationPayload: paginationPayload
+        type: types.FETCH_STUDENTS_ASSIGNMENT_DATA_START, class_id: class_id, paginationPayload: paginationPayload
     };
 };
 
 /**
  * Get all submission data
  */
-export const GetSubmissionData = () => {
+export const GetSubmissionData = (class_id, folder_id) => {
     return {
-        type: types.FETCH_STUDENTS_SUBMISSION_DATA_START
+        type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_START, class_id: class_id, folder_id: folder_id
+    };
+};
+
+/**
+ * Get all Q&A data
+ */
+export const GetQna = (class_id, folder_id) => {
+    return {
+        type: types.FETCH_STUDENTS_QA_DETAILS_START, class_id: class_id, folder_id: folder_id
+    };
+};
+
+/**
+ * Get all Feedback data
+ */
+export const GetFeedback = (class_id, folder_id, paper_id) => {
+    return {
+        type: types.FETCH_STUDENTS_FEEDBACK_DETAILS_START, class_id: class_id, folder_id: folder_id, paper_id: paper_id
     };
 };

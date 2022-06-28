@@ -3,8 +3,8 @@ import { ListView2 } from '../../components'
 
 const data = [
     {
-        que: '1. Lorem ipsum dolor sit amet consectetur adipisicing elit?',
-        ans: ` Laborum
+        question: '1. Lorem ipsum dolor sit amet consectetur adipisicing elit?',
+        answers: ` Laborum
         molestiae ducimus cupiditate molestias atque accusantium, architecto
         totam! In dicta vitae praesentium iusto aliquam aut, perferendis
         doloremque necessitatibus minima a accusamus libero nesciunt blanditiis.`,
@@ -12,8 +12,8 @@ const data = [
     bgcolor: '#2B4CB0',
   },
   {
-    que: '2. Lorem ipsum dolor sit amet consectetur adipisicing elit?',
-    ans: ` Laborum
+      question: '2. Lorem ipsum dolor sit amet consectetur adipisicing elit?',
+      answers: ` Laborum
           molestiae ducimus cupiditate molestias atque accusantium, architecto
           totam! In dicta vitae praesentium iusto aliquam aut, perferendis
           doloremque necessitatibus minima a accusamus libero nesciunt blanditiis.`,
@@ -22,10 +22,13 @@ const data = [
     },
 ]
 
-const QA = () => {
+const QA = ({
+    qnaData,
+    isLoadingQa
+}) => {
     return (
         <>
-            <ListView2 listData={data} />
+            <ListView2 qnaData={ data } isLoadingQa={ isLoadingQa } />
         </>
     )
 }

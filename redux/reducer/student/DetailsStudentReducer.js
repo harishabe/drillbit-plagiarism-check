@@ -53,22 +53,56 @@ const DetailsStudentReducer = (state = {}, action) => {
                 isLoading: false,
                 assignmentError: action.payload,
             };
-        case types.FETCH_STUDENTS_SUBMISSION_DATA_START:
+        case types.FETCH_STUDENTS_SUBMISSION_DETAILS_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingSubmission: true,
             };
-        case types.FETCH_STUDENTS_SUBMISSION_DATA_SUCCESS:
+        case types.FETCH_STUDENTS_SUBMISSION_DETAILS_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingSubmission: false,
                 submissionData: action.payload,
             };
-        case types.FETCH_STUDENTS_SUBMISSION_DATA_FAIL:
+        case types.FETCH_STUDENTS_SUBMISSION_DETAILS_FAIL:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingSubmission: false,
                 submissionError: action.payload,
+            };
+        case types.FETCH_STUDENTS_QA_DETAILS_START:
+            return {
+                ...state,
+                isLoadingQa: true,
+            };
+        case types.FETCH_STUDENTS_QA_DETAILS_SUCCESS:
+            return {
+                ...state,
+                isLoadingQa: false,
+                qnaData: action.payload,
+            };
+        case types.FETCH_STUDENTS_QA_DETAILS_FAIL:
+            return {
+                ...state,
+                isLoadingQa: false,
+                qnaError: action.payload,
+            };
+        case types.FETCH_STUDENTS_FEEDBACK_DETAILS_START:
+            return {
+                ...state,
+                isLoadingQa: true,
+            };
+        case types.FETCH_STUDENTS_FEEDBACK_DETAILS_SUCCESS:
+            return {
+                ...state,
+                isLoadingQa: false,
+                feedbackData: action.payload,
+            };
+        case types.FETCH_STUDENTS_FEEDBACK_DETAILS_FAIL:
+            return {
+                ...state,
+                isLoadingQa: false,
+                feedbackError: action.payload,
             };
         default:
             return state;
