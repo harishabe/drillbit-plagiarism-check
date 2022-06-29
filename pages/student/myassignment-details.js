@@ -13,7 +13,7 @@ import {
     StatusDot,
 } from '../../components'
 import { DownloadFileIcon } from '../../assets/icon'
-import { GetSubmissionData, GetQna, GetFeedback } from '../../redux/action/student/StudentAction';
+import { GetSubmissionData, GetQna, GetFeedback, SendData } from '../../redux/action/student/StudentAction';
 
 
 import SubmissionHistory from './submission-history'
@@ -109,6 +109,11 @@ const MyAssignmentDetails = ({
 
     }, [router.query.clasId, router.query.assId, feedbackPaperId]);
 
+    const handleSend = (e, answers) => {
+        const data = { answer: answers }
+        // console.log("firstfirstfirst", data)
+        SendData(data, router.query.clasId, router.query.assId);
+    }
 
     const componentList = [
         <SubmissionHistory
@@ -118,7 +123,7 @@ const MyAssignmentDetails = ({
         <QA
             qnaData={ qnaData }
             isLoadingQa={ isLoadingQa }
-            SendData={ SendData }
+            handleSend={ handleSend }
         />,
         <Feedback
             feedbackData={ feedbackData }

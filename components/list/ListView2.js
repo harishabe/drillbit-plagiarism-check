@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Skeleton, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useRouter } from "next/router";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -27,20 +26,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
 
-const ListView2 = ({ qnaData, isLoadingQa, SendData }) => {
+const ListView2 = ({
+    qnaData,
+    isLoadingQa,
+    handleSend
+}) => {
     const classes = useStyles()
-    const router = useRouter();
 
     const [ans, setAns] = useState("");
-    const data = { ans };
-
-    const handleSend = (e) => {
-        e.preventDefault();
-        // useEffect(() => {
-        //     SendData(data.ans, router.query.clasId, router.query.assId)
-        // }, [router.query.clasId, router.query.assId])
-        console.log('handlesend', data.ans, router.query.clasId, router.query.assId)
-    }
 
     return (
         <List>
@@ -138,7 +131,7 @@ const ListView2 = ({ qnaData, isLoadingQa, SendData }) => {
                         size="large"
                         type="button"
                         color="primary"
-                        onClick={ handleSend }
+                        onClick={ (e) => handleSend(e, ans) }
                     >
                         {/* { isLoadingQa ? <BeatLoader color="#fff" /> : 'Send' } */ }
                         Send
