@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { GetMethod } from '../ApiMethod';
+import { GetMethod, PostMethod } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -52,4 +52,12 @@ export const GetQnaDetail = async (class_id, folder_id) => {
 export const GetFeedbackDetail = async (class_id, folder_id, paper_id) => {
     const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/feedback/' + paper_id;
     return GetMethod(url);
+};
+
+/**
+ * API CALL FOR FEEDBACK DATA
+ */
+export const SendAnswerData = async (data, class_id, folder_id) => {
+    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/answer';
+    return PostMethod(url, data);
 };

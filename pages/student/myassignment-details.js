@@ -89,32 +89,26 @@ const MyAssignmentDetails = ({
     GetSubmissionData,
     GetQna,
     GetFeedback,
-    c,
+    SendData,
+    submissionData,
     qnaData,
     feedbackData,
     feedbackPaperId,
     isLoadingSubmission,
     isLoadingQa,
+    isLoadingFeedback,
 }) => {
 
     const router = useRouter();
 
-    // const paperId = submissionData?.map((item) => {
-    //     return item?.[0]?.paper_id;
-    // })
-    // console.log("paperId", paperId)
-
     useEffect(() => {
         GetSubmissionData(router.query.clasId, router.query.assId);
-    }, [router.query.clasId, router.query.assId]);
-
-    useEffect(() => {
         GetQna(router.query.clasId, router.query.assId);
-    }, [router.query.clasId, router.query.assId]);
 
-    useEffect(() => {
-        GetFeedback(router.query.clasId, router.query.assId, feedbackPaperId);
+        { submissionData && GetFeedback(router.query.clasId, router.query.assId, feedbackPaperId); }
+
     }, [router.query.clasId, router.query.assId, feedbackPaperId]);
+
 
     const componentList = [
         <SubmissionHistory
@@ -124,8 +118,12 @@ const MyAssignmentDetails = ({
         <QA
             qnaData={ qnaData }
             isLoadingQa={ isLoadingQa }
+            SendData={ SendData }
         />,
-        <Feedback feedbackData={ feedbackData } />
+        <Feedback
+            feedbackData={ feedbackData }
+            isLoadingFeedback={ isLoadingFeedback }
+        />
     ];
 
     return (
@@ -150,12 +148,12 @@ const MyAssignmentDetails = ({
 
 const mapStateToProps = (state) => ({
     submissionData: state?.studentClasses?.submissionData?._embedded?.submissionsList,
-    feedbackPaperId: state?.studentClasses?.submissionData?._embedded?.submissionsList?.[0]?.paper_id,
     feedbackData: state?.studentClasses?.feedbackData,
     qnaData: state?.studentClasses?.qnaData,
     isLoadingSubmission: state?.studentClasses?.isLoadingSubmission,
     isLoadingQa: state?.studentClasses?.isLoadingQa,
     isLoadingFeedback: state?.studentClasses?.isLoadingFeedback,
+    feedbackPaperId: state?.studentClasses?.submissionData?._embedded?.submissionsList?.[0]?.paper_id,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -163,6 +161,7 @@ const mapDispatchToProps = (dispatch) => {
         GetSubmissionData: (class_id, folder_id) => dispatch(GetSubmissionData(class_id, folder_id)),
         GetQna: (class_id, folder_id) => dispatch(GetQna(class_id, folder_id)),
         GetFeedback: (class_id, folder_id, paper_id) => dispatch(GetFeedback(class_id, folder_id, paper_id)),
+        SendData: (data, class_id, folder_id) => dispatch(SendData(data, class_id, folder_id)),
     };
 };
 

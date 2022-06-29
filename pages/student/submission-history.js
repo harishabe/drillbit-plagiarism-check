@@ -33,8 +33,8 @@ const SubmissionHistory = ({
                     submission.paper_id,
                     submission.date_up,
                     submission.percent,
-                    submission.grammer,
-                    submission.marks,
+                    submission.grammar,
+                    submission.feedback?.marks,
                     submission.status,
                     submission.lang1,
                 );

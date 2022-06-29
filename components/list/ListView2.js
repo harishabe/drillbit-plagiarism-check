@@ -1,14 +1,16 @@
-import * as React from 'react'
-import { makeStyles } from '@mui/styles'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import Avatar from '@mui/material/Avatar'
-import { Title1, SubTitle2 } from '../index'
-import Card from '@mui/material/Card'
-
-import Grid from '@mui/material/Grid'
+import React, { useState, useEffect } from 'react';
+import { Skeleton, Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { useRouter } from "next/router";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import { Title1, SubTitle2 } from '../index';
+import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
+import BeatLoader from "react-spinners/BeatLoader";
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -23,11 +25,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const ListView2 = ({ qnaData, isLoadingQa }) => {
+const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
+
+const ListView2 = ({ qnaData, isLoadingQa, SendData }) => {
     const classes = useStyles()
+    const router = useRouter();
+
+    const [ans, setAns] = useState("");
+    const data = { ans };
+
+    const handleSend = (e) => {
+        e.preventDefault();
+        // useEffect(() => {
+        //     SendData(data.ans, router.query.clasId, router.query.assId)
+        // }, [router.query.clasId, router.query.assId])
+        console.log('handlesend', data.ans, router.query.clasId, router.query.assId)
+    }
+
     return (
         <List>
             { qnaData.map((item, index) => (
+                item['bgcolor'] = Colors[index],
                 <>
                     {
                         isLoadingQa ?
@@ -66,21 +84,35 @@ const ListView2 = ({ qnaData, isLoadingQa }) => {
                                                 className={ classes.itemText }
                                                 primary={ <Title1 title={ item.question } /> }
                                                 secondary={
+                                                    <>
                                                     <Card
-                                                        sx={ {
-                                                            display: 'flex',
-                                                            flexWrap: 'wrap',
-                                                            '& > :not(style)': {
-                                                                mb: 3,
-                                                                ml: 2,
-                                                                mt: 2,
-                                                                maxWidth: 700,
-                                                                minHeight: 50,
-                                                            },
-                                                        } }
-                                                    >
-                                                        <SubTitle2 title={ item.answers } />
+                                                            sx={ {
+                                                                flexWrap: 'wrap',
+                                                                '& > :not(style)': {
+                                                                    ml: 2,
+                                                                    mt: 2,
+                                                                    mb: 2
+                                                                },
+                                                            } }
+                                                        >
+
+
+                                                            { item.answer ? <SubTitle2 title={ item.answer } /> :
+                                                                <div>
+                                                                    <form>
+                                                                        <textarea
+                                                                            value={ ans }
+                                                                            rows="5"
+                                                                            cols="123"
+                                                                            onChange={ (e) => setAns(e.target.value) }
+                                                                        // style='border-style : none;'
+                                                                        >
+                                                                        </textarea>
+                                                                    </form>
+                                                                </div>
+                                                            }
                                                     </Card>
+                                                    </>
                                                 }
                                             />
                                         </Grid>
@@ -98,7 +130,21 @@ const ListView2 = ({ qnaData, isLoadingQa }) => {
                     }
                 </>
             ))}
-
+            <Grid container spacing={ 16 }>
+                <Grid item xs={ 8 }></Grid>
+                <Grid item xs={ 4 }>
+                    <Button
+                        variant="contained"
+                        size="large"
+                        type="button"
+                        color="primary"
+                        onClick={ handleSend }
+                    >
+                        {/* { isLoadingQa ? <BeatLoader color="#fff" /> : 'Send' } */ }
+                        Send
+                    </Button>
+                </Grid>
+            </Grid>
         </List>
     )
 }

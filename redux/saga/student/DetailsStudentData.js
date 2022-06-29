@@ -1,6 +1,14 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
-import { GetDashboardData, GetClassesDetail, GetAssignmentDetail, GetSubmissionDetail, GetQnaDetail, GetFeedbackDetail } from '../../api/student/DetailStudentAPI';
+import {
+    GetDashboardData,
+    GetClassesDetail,
+    GetAssignmentDetail,
+    GetSubmissionDetail,
+    GetQnaDetail,
+    GetFeedbackDetail,
+    SendAnswerData,
+} from '../../api/student/DetailStudentAPI';
 
 /**
  * Get classes data
@@ -106,7 +114,6 @@ export function* GetStudentSubmissions() {
  */
 
 export function* onLoadQna(action) {
-    console.log("actionactionaction", action)
     const { response, error } = yield call(GetQnaDetail, action.class_id, action.folder_id);
     if (response) {
         yield put({
@@ -126,26 +133,47 @@ export function* GetStudentQna() {
 }
 
 /**
+ * Send qna data
+ * @param {*} action
+ */
+
+export function* onLoadSendAnswer(action) {
+    const { response, error } = yield call(SendAnswerData, action.query, action.class_id, action.folder_id);
+    if (response) {
+        yield put({ type: types.FETCH_STUDENTS_QA_ANSWER_DETAILS_SUCCESS, payload: response?.data, });
+        yield put({ type: types.FETCH_STUDENTS_QA_ANSWER_DETAILS_START });
+    } else {
+        yield put({
+            type: types.FETCH_STUDENTS_QA_ANSWER_DETAILS_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* SendQnaAnswer() {
+    yield takeLatest(types.FETCH_STUDENTS_QA_ANSWER_DETAILS_START, onLoadSendAnswer);
+}
+
+/**
  * Get feedback data
  * @param {*} action
  */
 
 export function* onLoadFeedback(action) {
-    console.log("actionactionaction", action)
     const { response, error } = yield call(GetFeedbackDetail, action.class_id, action.folder_id, action.paper_id);
     if (response) {
         yield put({
-            type: types.FETCH_STUDENTS_QA_DETAILS_SUCCESS,
+            type: types.FETCH_STUDENTS_FEEDBACK_DETAILS_SUCCESS,
             payload: response?.data,
         });
     } else {
         yield put({
-            type: types.FETCH_STUDENTS_QA_DETAILS_FAIL,
+            type: types.FETCH_STUDENTS_FEEDBACK_DETAILS_FAIL,
             payload: error,
         });
     }
 }
 
 export function* GetStudentFeedback() {
-    yield takeLatest(types.FETCH_STUDENTS_QA_DETAILS_START, onLoadFeedback);
+    yield takeLatest(types.FETCH_STUDENTS_FEEDBACK_DETAILS_START, onLoadFeedback);
 }

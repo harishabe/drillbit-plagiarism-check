@@ -87,21 +87,38 @@ const DetailsStudentReducer = (state = {}, action) => {
                 isLoadingQa: false,
                 qnaError: action.payload,
             };
+        case types.FETCH_STUDENTS_QA_ANSWER_DETAILS_START:
+            return {
+                ...state,
+                isLoadingAns: true,
+            };
+        case types.FETCH_STUDENTS_QA_ANSWER_DETAILS_SUCCESS:
+            return {
+                ...state,
+                isLoadingAns: false,
+                qnaAnsData: action.payload,
+            };
+        case types.FETCH_STUDENTS_QA_ANSWER_DETAILS_FAIL:
+            return {
+                ...state,
+                isLoadingAns: false,
+                qnaAnsError: action.payload,
+            };
         case types.FETCH_STUDENTS_FEEDBACK_DETAILS_START:
             return {
                 ...state,
-                isLoadingQa: true,
+                isLoadingFeedback: true,
             };
         case types.FETCH_STUDENTS_FEEDBACK_DETAILS_SUCCESS:
             return {
                 ...state,
-                isLoadingQa: false,
+                isLoadingFeedback: false,
                 feedbackData: action.payload,
             };
         case types.FETCH_STUDENTS_FEEDBACK_DETAILS_FAIL:
             return {
                 ...state,
-                isLoadingQa: false,
+                isLoadingFeedback: false,
                 feedbackError: action.payload,
             };
         default:

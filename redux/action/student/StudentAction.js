@@ -53,3 +53,12 @@ export const GetFeedback = (class_id, folder_id, paper_id) => {
         type: types.FETCH_STUDENTS_FEEDBACK_DETAILS_START, class_id: class_id, folder_id: folder_id, paper_id: paper_id
     };
 };
+
+/**
+ * Send answer from Qna
+ */
+export const SendData = (data, class_id, folder_id) => {
+    return {
+        type: types.FETCH_STUDENTS_QA_ANSWER_DETAILS_START, query: data, class_id: class_id, folder_id: folder_id
+    };
+};
