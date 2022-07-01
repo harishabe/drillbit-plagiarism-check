@@ -62,6 +62,7 @@ const InputTextField = ({
                         error={!!error}
                         value={value}
                         fullWidth
+                        disabled={field.disabled}
                         name={field.name}
                         id={field.name}
                         variant="outlined"

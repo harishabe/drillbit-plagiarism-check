@@ -3,13 +3,11 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
-import { CreateInstructorData, EditData } from '../../../redux/action/admin/AdminAction';
-import FormJson from '../../../constant/form/instructor-form.json';
+import { EditData } from '../../../redux/action/admin/AdminAction';
+import FormJson from '../../../constant/form/student-form.json';
 import { AddImageIcon } from '../../../assets/icon';
-import { convertDate } from '../../../utils/RegExp';
 
-const InstructorForm = ({
-    CreateInstructorData,
+const StudentForm = ({
     isLoading,
     editData,
     EditData
@@ -24,51 +22,28 @@ const InstructorForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            data['expiry_date'] = convertDate(data.expiry_date);
-            EditData(editData?.user_id?.props?.title, data, 'instructor');
-        } else {
-            let Detaileddata = { ...data, "expiry_date": convertDate(data.expiry_date) }
-            CreateInstructorData(Detaileddata);
+            EditData(editData?.id, data, 'students');
         }
     };
-
-    const modifyFormField = (buttonLabel, isEmailDisabled) => {
-        let formField = formJsonField?.map((field) => {
-            if (field.name === 'expiry_date') {
-                field.minDate = false;
-            }
-            if (field.field_type === 'button') {
-                field.label = buttonLabel;
-            }
-            if (field.type === 'email') {
-                field.disabled = isEmailDisabled;
-            }
-            return field;
-        });
-        setFormJsonField(formField);
-    }
 
     useEffect(() => {
         if (editData) {
             let a = {
                 'name': editData.name,
                 'email': editData.email,
-                'expiry_date': convertDate(editData.creationDate),
-                'plagiarism': editData.plagairism,
-                'grammar': editData.grammar
+                'studentId': editData?.user_id?.props?.title,
+                'department': editData.department,
+                'section': editData.section
             };
             const fields = [
                 'name',
                 'email',
-                'expiry_date',
-                'plagiarism',
-                'grammar'
+                'studentId',
+                'department',
+                'section'
             ];
             fields.forEach(field => setValue(field, a[field]));
-            modifyFormField('Edit Instructor', true);
             setEditOperation(true);
-        } else {
-            modifyFormField('Create Instructor', false);
         }
     }, [editData]);
 
@@ -101,9 +76,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        CreateInstructorData: (data) => dispatch(CreateInstructorData(data)),
         EditData: (instructorId, requestPayload, API_END_POINT) => dispatch(EditData(instructorId, requestPayload, API_END_POINT)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InstructorForm);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentForm);

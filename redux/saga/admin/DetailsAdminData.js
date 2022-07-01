@@ -72,7 +72,7 @@ export function* GetInstructorStudentStats() {
  * @param {*} action
  */
 
- export function* onLoadCsvReportStats(action) {
+export function* onLoadCsvReportStats(action) {
     const { response, error } = yield call(GetExportCsvFile, action.emailId);
     if (response || response === undefined) {
         yield put({
@@ -191,19 +191,25 @@ export function* GetReportDataDownload() {
  * @param {*} action
  */
 
-
-export function* onLoadEdit() {
-    const { response, error } = yield call(EditRow);
+export function* onLoadEdit(action) {
+    const { response, error } = yield call(EditRow, action);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_EDIT_ROW_SUCCESS,
             payload: response?.data,
         });
+        if (action.API_END_POINT === 'instructor') {
+            yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: PaginationValue });
+        } else if (action.API_END_POINT === 'students') {
+            yield put({ type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: PaginationValue });
+        }
+        toastrValidation(response);
     } else {
         yield put({
             type: types.FETCH_ADMIN_EDIT_ROW_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 

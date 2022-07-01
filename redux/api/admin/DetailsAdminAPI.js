@@ -88,9 +88,9 @@ export const GetExportCsvFile = async (emailId) => {
  * API CALL FOR EDIT
  */
 
-export const EditRow = async () => {
-    const url = END_POINTS.EDIT_DATA;
-    return PostMethod(url);
+export const EditRow = async (action) => {
+    const url = END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + action.API_END_POINT + '/' + action.instructorId;
+    return PutMethod(url, action.requestPayload);
 };
 
 /**

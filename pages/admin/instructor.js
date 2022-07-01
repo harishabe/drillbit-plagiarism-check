@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
-import { Skeleton, TextField, Pagination, IconButton } from '@mui/material';
+import { TextField, Pagination, IconButton } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
 import {
@@ -22,8 +22,7 @@ import {
 } from '../../components';
 import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
 import {
-    GetInstructorData,
-    EditData,
+    GetInstructorData,    
     DeleteData,
     DeactivateData
 } from '../../redux/action/admin/AdminAction';
@@ -42,8 +41,8 @@ const columns = [
     { id: 'action', label: 'Action', minWidth: 100 }
 ]
 
-function createData(user_id, name, email, creationDate, status, stats, action) {
-    return { user_id, name, email, creationDate, status, stats, action }
+function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action) {
+    return { user_id, name, email, creationDate, plagairism, grammar, status, stats, action }
 };
 
 const AddButtonBottom = styled.div`
@@ -68,8 +67,7 @@ const InstructorBreadCrumb = [
 const Instructor = ({
     pageDetails,
     GetInstructorData,
-    instructorData,
-    EditData,
+    instructorData,    
     DeleteData,
     DeactivateData,
     isLoading
@@ -90,6 +88,8 @@ const Instructor = ({
         field: PaginationValue?.field,
         orderBy: PaginationValue?.orderBy,
     });
+    const [editInstructor, setEditInstructor] = useState(false);
+    const [editInstructorData, setEditInstructorData] = useState('');
 
     useEffect(() => {
         GetInstructorData(paginationPayload);
@@ -105,6 +105,8 @@ const Instructor = ({
                     instructor.name,
                     instructor.username,
                     instructor.creation_date,
+                    instructor.plagairism,
+                    instructor.grammar,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     [{ 'component': <StatsIcon />, 'type': 'stats' }],
                     [{ 'component': <EditIcon />, 'type': 'edit' },
@@ -151,7 +153,8 @@ const Instructor = ({
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'edit') {
-            EditData();
+            setEditInstructor(true);
+            setEditInstructorData(rowData);
         } else if (icon === 'delete') {
             setDeleteRowData(rowData?.user_id?.props?.title);
             setShowDeleteWarning(true);
@@ -281,10 +284,23 @@ const Instructor = ({
 
             <AddButtonBottom>
                 <CreateDrawer
-                    title="create instructor">
+                    title="Add Instructor"
+                    isShowAddIcon={true}
+                >
                     <InstructorForm />
                 </CreateDrawer>
             </AddButtonBottom>
+
+            {editInstructor &&
+                <CreateDrawer
+                    title="Edit Instructor"
+                    isShowAddIcon={false}
+                    showDrawer={editInstructor}
+                >
+                    <InstructorForm                        
+                        editData={editInstructorData}
+                    />
+                </CreateDrawer>}
 
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
@@ -357,8 +373,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),
-        EditData: (data) => dispatch(EditData(data)),
+        GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),        
         DeactivateData: (data, paginationPayload) => dispatch(DeactivateData(data, paginationPayload)),
         DeleteData: (deleteRowData, paginationPayload) => dispatch(DeleteData(deleteRowData, paginationPayload)),
     };

@@ -13,13 +13,15 @@ import {
     MainHeading,
     WarningDialog,
     AvatarName,
-    DialogModal
+    DialogModal,
+    CreateDrawer
 } from '../../components';
 import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
 import { GetStudnetData, EditData, DeleteStudentData } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import StudentStats from './student/StudentStats';
 import { removeCommaWordEnd } from '../../utils/RegExp';
+import StudentForm from './form/StudentForm';
 
 const columns = [
     { id: 'user_id', label: 'Student ID', minWidth: 170 },
@@ -31,8 +33,8 @@ const columns = [
     { id: 'action', label: 'Action', minWidth: 100 },
 ]
 
-function createData(user_id, name, email, department, section, stats, action) {
-    return { user_id, name, email, department, section, stats, action }
+function createData(user_id, id, name, email, department, section, stats, action) {
+    return { user_id, id, name, email, department, section, stats, action }
 }
 
 const IntegrationBreadCrumb = [
@@ -70,6 +72,10 @@ const Students = ({
         orderBy: PaginationValue?.orderBy,
     });
 
+    const [editStudent, setEditStudent] = useState(false);
+
+    const [editStudentData, setEditStudentData] = useState('');
+
 
     useEffect(() => {
         GetStudnetData(paginationPayload);
@@ -82,6 +88,7 @@ const Students = ({
             row =
                 createData(
                     <AvatarName avatarText="S" title={student.student_id} color='#4795EE' />,
+                    student.id,
                     student.name,
                     student.username,
                     student.department,
@@ -115,7 +122,8 @@ const Students = ({
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'edit') {
-            EditData();
+            setEditStudent(true);
+            setEditStudentData(rowData);
         } else if (icon === 'delete') {
             const student = studentData.filter((s) => {
                 if (s.student_id === rowData?.user_id?.props?.title) {
@@ -211,6 +219,17 @@ const Students = ({
                     handleNo={handleCloseWarning}
                     isOpen={true}
                 />}
+
+            {editStudent &&
+                <CreateDrawer
+                    title="Edit Instructor"
+                    isShowAddIcon={false}
+                    showDrawer={editStudent}
+                >
+                    <StudentForm
+                        editData={editStudentData}
+                    />
+                </CreateDrawer>}
 
             {showDialogModal &&
                 <>

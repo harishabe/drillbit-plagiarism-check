@@ -40,7 +40,7 @@ export const GetStats = (id) => {
 /**
  * Export csv file from stats report
  */
- export const GetExportToCSV = (emailId) => {
+export const GetExportToCSV = (emailId) => {
     return {
         type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START, emailId: emailId
     };
@@ -79,7 +79,7 @@ export const ReportsData = () => {
  */
 export const DownloadInstructorStudentData = (userType) => {
     return {
-        type: types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_START, userType:userType
+        type: types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_START, userType: userType
     };
 };
 
@@ -95,7 +95,7 @@ export const ViewAndDownloadData = (url) => {
 /**
  * submission reports view & download data download
  */
- export const ViewDownloadSubmissiondData = (url) => {
+export const ViewDownloadSubmissiondData = (url) => {
     return {
         type: types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_START, url: url
     };
@@ -104,9 +104,9 @@ export const ViewAndDownloadData = (url) => {
 /**
  * Edit data
  */
-export const EditData = () => {
+export const EditData = (instructorId, requestPayload, API_END_POINT) => {
     return {
-        type: types.FETCH_ADMIN_EDIT_ROW_START,
+        type: types.FETCH_ADMIN_EDIT_ROW_START, instructorId: instructorId, requestPayload: requestPayload, API_END_POINT: API_END_POINT
     };
 };
 

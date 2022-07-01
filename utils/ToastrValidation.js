@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import RedirectToLogin from './RedirectToLogin';
 
 const error = (message) => {
     toast.error(message, {
@@ -29,7 +30,7 @@ const toastrValidation = (response) => {
         success(response?.data?.message);
     } else if (response?.status === 200) {
         success(response?.data?.message);
-    } else if (response?.response?.status === 401) {
+    } else if (response?.response?.status === 401) {        
         error(response?.response?.data?.error);
     } else if (response?.response?.status === 400) {
         error(response?.response?.data?.message);
@@ -45,3 +46,4 @@ const toastrValidation = (response) => {
 };
 
 export default toastrValidation;
+

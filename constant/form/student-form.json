@@ -13,40 +13,38 @@
         "id": "email",
         "name": "email",
         "label": "Email address",
-        "disabled":false,
+        "disabled":true,
         "required": "Enter email address",
         "validationMsg": "Invalid email address"
     },
     
     {
-        "field_type": "datepicker",
-        "id": "expiry_date",
-        "name": "expiry_date",
-        "label": "Select expiry date",
-        "minDate":true,
-        "required": "Select expiry date",
-        "validationMsg": "Select expiry date"
-    },
-    
-    {
         "field_type": "input",
         "type": "text",
-        "id": "plagiarism",
-        "name": "plagiarism",
-        "label": "Allocate documents",
+        "id": "studentId",
+        "name": "studentId",
+        "label": "Studnet Id",
         "required": "Enter documents"
     },
     {
         "field_type": "input",
         "type": "text",
-        "id": "grammar",
-        "name": "grammar",
-        "label": "Grammar documents",
-        "required": "Enter grammar documents"
+        "id": "department",
+        "name": "department",
+        "label": "Department documents",
+        "required": "Enter department documents"
+    },
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "section",
+        "name": "section",
+        "label": "Section documents",
+        "required": "Section"
     },
     {
         "field_type": "button",
         "type": "submit",
-        "label": "Create Instructor"
+        "label": "Edit Student"
     }
 ]
