@@ -1,4 +1,5 @@
 import React from 'react'
+import { Skeleton } from '@mui/material';
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import { MainHeading, Title1, SubTitle2 } from '../../components'

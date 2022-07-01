@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import { useRouter } from "next/router";
 import { Skeleton, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import List from '@mui/material/List';
@@ -24,29 +25,55 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
+const Colors = ['#7B68C8', '#68C886', '#8D34FF', '#34C2FF', '#3491FF', '#68C886'];
+
+function createId(questionId) {
+    return { questionId }
+};
 
 const ListView2 = ({
+    // GetQna,
     qnaData,
     isLoadingQa,
+    isLoadingAns,
     handleSend
 }) => {
-    const classes = useStyles()
 
-    const [ans, setAns] = useState("");
+    // const router = useRouter();
+    const classes = useStyles();
+
+    const [id, setId] = useState([]);
+    const [ans1, setAns1] = useState();
+    const [ans2, setAns2] = useState();
+    const [ans3, setAns3] = useState();
+    const [ans4, setAns4] = useState();
+    const [ans5, setAns5] = useState();
+
+    // useEffect(() => {
+    //     GetQna(router.query.clasId, router.query.assId);
+    // }, [router.query.clasId, router.query.assId])
+
+    useEffect(() => {
+        let id = '';
+        let arr = [];
+        qnaData?.map((item, index) => {
+            id = createId(
+                item.id = `qId${index + 1}`,
+            );
+            arr.push(id)
+        });
+        setId([...arr]);
+    }, [qnaData]);
 
     return (
-        <List>
-            { qnaData.map((item, index) => (
-                item['bgcolor'] = Colors[index],
-                <>
-                    {
-                        isLoadingQa ?
-                            <>
-                                <Skeleton />
-                                <Skeleton />
-                                <Skeleton />
-                            </> :
+        <>
+
+            <List>
+                { qnaData.map((item, index) => (
+                    item['bgcolor'] = Colors[index],
+                    item['id'] = item.id,
+                    <>
+                        {
                             <>
                                 <ListItem
                                     key={ index }
@@ -67,7 +94,7 @@ const ListView2 = ({
                                                         color: '#fff',
                                                     } }
                                                 >
-                                                    A1
+                                                    A{ index + 1 }
                                                 </Avatar>
                                             </ListItemAvatar>
                                         </Grid>
@@ -78,7 +105,7 @@ const ListView2 = ({
                                                 primary={ <Title1 title={ item.question } /> }
                                                 secondary={
                                                     <>
-                                                    <Card
+                                                        <Card
                                                             sx={ {
                                                                 flexWrap: 'wrap',
                                                                 '& > :not(style)': {
@@ -88,23 +115,86 @@ const ListView2 = ({
                                                                 },
                                                             } }
                                                         >
-
-
                                                             { item.answer ? <SubTitle2 title={ item.answer } /> :
-                                                                <div>
-                                                                    <form>
+                                                                <>
+                                                                    { item.id === 'qId1' &&
+
                                                                         <textarea
-                                                                            value={ ans }
                                                                             rows="5"
+                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                            value={ ans1 }
                                                                             cols="123"
-                                                                            onChange={ (e) => setAns(e.target.value) }
-                                                                        // style='border-style : none;'
+                                                                            onChange={ (e) => {
+                                                                                setAns1(e.target.value)
+                                                                            } }
+                                                                            placeholder='Click to Answer here'
                                                                         >
                                                                         </textarea>
-                                                                    </form>
-                                                                </div>
+
+                                                                    }
+                                                                    { item.id === 'qId2' &&
+
+                                                                        <textarea
+                                                                            rows="5"
+                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                            value={ ans2 }
+                                                                            cols="123"
+                                                                            onChange={ (e) => {
+                                                                                setAns2(e.target.value)
+                                                                            } }
+                                                                            placeholder='Click to Answer here'
+                                                                        >
+                                                                        </textarea>
+
+                                                                    }
+                                                                    { item.id === 'qId3' &&
+
+                                                                        <textarea
+                                                                            rows="5"
+                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                            value={ ans3 }
+                                                                            cols="123"
+                                                                            onChange={ (e) => {
+                                                                                setAns3(e.target.value)
+                                                                            } }
+                                                                            placeholder='Click to Answer here'
+                                                                        >
+                                                                        </textarea>
+
+                                                                    }
+                                                                    { item.id === 'qId4' &&
+
+                                                                        <textarea
+                                                                            rows="5"
+                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                            value={ ans4 }
+                                                                            cols="123"
+                                                                            onChange={ (e) => {
+                                                                                setAns4(e.target.value)
+                                                                            } }
+                                                                            placeholder='Click to Answer here'
+                                                                        >
+                                                                        </textarea>
+
+                                                                    }
+                                                                    { item.id === 'qId5' &&
+
+                                                                        <textarea
+                                                                            rows="5"
+                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                            value={ ans5 }
+                                                                            cols="123"
+                                                                            onChange={ (e) => {
+                                                                                setAns5(e.target.value)
+                                                                            } }
+                                                                            placeholder='Click to Answer here'
+                                                                        >
+                                                                        </textarea>
+
+                                                                    }
+                                                                </>
                                                             }
-                                                    </Card>
+                                                        </Card>
                                                     </>
                                                 }
                                             />
@@ -120,25 +210,26 @@ const ListView2 = ({
                                     </Grid>
                                 </ListItem>
                             </>
-                    }
-                </>
-            ))}
-            <Grid container spacing={ 16 }>
-                <Grid item xs={ 8 }></Grid>
-                <Grid item xs={ 4 }>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        type="button"
-                        color="primary"
-                        onClick={ (e) => handleSend(e, ans) }
-                    >
-                        {/* { isLoadingQa ? <BeatLoader color="#fff" /> : 'Send' } */ }
-                        Send
-                    </Button>
+                        }
+                    </>
+                )) }
+                <Grid container spacing={ 1 }>
+                    <Grid item xs={ 8 }></Grid>
+                    <Grid item xs={ 4 }>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            type="button"
+                            color="primary"
+                            onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
+                        >
+                            { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </List>
+            </List>
+        </>
+
     )
 }
 

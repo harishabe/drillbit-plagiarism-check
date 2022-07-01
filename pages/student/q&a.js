@@ -4,6 +4,7 @@ import { ListView2 } from '../../components'
 const QA = ({
     qnaData,
     isLoadingQa,
+    isLoadingAns,
     handleSend
 }) => {
     return (
@@ -11,6 +12,7 @@ const QA = ({
             <ListView2
                 qnaData={ qnaData }
                 isLoadingQa={ isLoadingQa }
+                isLoadingAns={ isLoadingAns }
                 handleSend={ handleSend }
             />
         </>
