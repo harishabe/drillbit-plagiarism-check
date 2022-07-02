@@ -51,7 +51,7 @@ const ListView2 = ({
 
     useEffect(() => {
         GetQna(router.query.clasId, router.query.assId);
-    }, [router.query.clasId, router.query.assId]);
+    }, []);
 
     useEffect(() => {
         let id = '';
@@ -67,9 +67,6 @@ const ListView2 = ({
 
     return (
         <>
-
-
-
             <List>
                 { isLoadingQa ?
                     <>
@@ -103,7 +100,7 @@ const ListView2 = ({
                                                                 color: '#fff',
                                                             } }
                                                         >
-                                                            A{ index + 1 }
+                                                            Q{ index + 1 }
                                                         </Avatar>
                                                     </ListItemAvatar>
                                                 </Grid>
@@ -224,9 +221,9 @@ const ListView2 = ({
                         ))
                         }
 
-                        <Grid container spacing={ 1 }>
-                            <Grid item xs={ 8 }></Grid>
-                            <Grid item xs={ 4 }>
+                        <Grid container spacing={ 21.5 }>
+                            <Grid item xs={ 7 }></Grid>
+                            <Grid item xs={ 5 }>
                                 <Button
                                     variant="contained"
                                     size="large"
@@ -241,10 +238,7 @@ const ListView2 = ({
                     </>
                 }
             </List>
-
-
         </>
-
     )
 }
 

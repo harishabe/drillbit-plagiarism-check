@@ -164,6 +164,8 @@ const MyAssignmentDetails = ({
             handleSend={ handleSend }
         />,
         <Feedback
+            GetFeedback={ GetFeedback }
+            feedbackPaperId={ feedbackPaperId }
             feedbackData={ feedbackData }
             isLoadingFeedback={ isLoadingFeedback }
         />
@@ -176,7 +178,7 @@ const MyAssignmentDetails = ({
                 <Grid container spacing={ 0 }>
                     {details.map((item, index) => (
                         <>
-                            <Grid md={ 1.7 } xs={ 12 } sx={ { ml: 3 } }>
+                            <Grid md={ 1.7 } xs={ 12 } sx={ { ml: 2.5 } }>
                                 <SubTitle title={ item.label } />
                                 { isLoadingHeader ? <Skeleton /> :
                                     <SubTitle1 title={ item.name } />
@@ -187,7 +189,11 @@ const MyAssignmentDetails = ({
                         </>
                     ))}
                     <DownloadButton>
-                        <IconButton color="primary" aria-label="download-file" onClick={ handleDownload }>
+                        <IconButton
+                            color="primary"
+                            aria-label="download-file"
+                            size="large"
+                            onClick={ handleDownload }>
                             <DownloadFileIcon />
                         </IconButton>
                     </DownloadButton>
@@ -203,12 +209,12 @@ const mapStateToProps = (state) => ({
     headerData: state?.studentClasses?.headerData,
     feedbackData: state?.studentClasses?.feedbackData,
     qnaData: state?.studentClasses?.qnaData,
+    feedbackPaperId: state?.studentClasses?.submissionData?._embedded?.submissionsList?.[0]?.paper_id,
     isLoadingSubmission: state?.studentClasses?.isLoadingSubmission,
     isLoadingHeader: state?.studentClasses?.isLoadingHeader,
     isLoadingQa: state?.studentClasses?.isLoadingQa,
     isLoadingFeedback: state?.studentClasses?.isLoadingFeedback,
     isLoadingAns: state?.studentClasses?.isLoadingAns,
-    feedbackPaperId: state?.studentClasses?.submissionData?._embedded?.submissionsList?.[0]?.paper_id,
 });
 
 const mapDispatchToProps = (dispatch) => {
