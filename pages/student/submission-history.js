@@ -2,17 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Skeleton } from '@mui/material';
 import { CommonTable } from '../../components';
 
-const columns = [
-    { id: 'name', label: 'File name' },
-    { id: 'id', label: 'Paper ID' },
-    { id: 'date', label: 'Submission date' },
-    { id: 'similarity', label: 'Similarity' },
-    { id: 'grammer', label: 'Grammer' },
-    { id: 'score', label: 'Score/Mark' },
-    { id: 'status', label: 'Status' },
-    { id: 'language', label: 'Language' },
-]
-
 function createData(name, id, date, similarity, grammer, score, status, language) {
     return { name, id, date, similarity, grammer, score, status, language }
 }
@@ -22,6 +11,17 @@ const SubmissionHistory = ({
     isLoadingSubmission,
 }) => {
     const [rows, setRows] = useState([]);
+
+    const columns = [
+        { id: 'name', label: 'File name' },
+        { id: 'id', label: 'Paper ID' },
+        { id: 'date', label: 'Submission date' },
+        { id: 'similarity', label: 'Similarity' },
+        { id: 'grammer', label: 'Grammer' },
+        { id: 'score', label: 'Score/Mark' },
+        { id: 'status', label: 'Status' },
+        { id: 'language', label: 'Language' },
+    ]
 
     useEffect(() => {
         let row = '';
@@ -52,7 +52,7 @@ const SubmissionHistory = ({
                 </> :
                 <>
                     <CommonTable
-                        isCheckbox={ true }
+                        isCheckbox={ false }
                         tableHeader={ columns }
                         tableData={ rows }
                     />

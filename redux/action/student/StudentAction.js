@@ -28,11 +28,29 @@ export const GetAssignmentData = (class_id, paginationPayload) => {
 };
 
 /**
+ * Get all submission header data
+ */
+export const GetSubmissionHeaderData = (class_id, folder_id) => {
+    return {
+        type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_HEADER_START, class_id: class_id, folder_id: folder_id
+    };
+};
+
+/**
  * Get all submission data
  */
 export const GetSubmissionData = (class_id, folder_id) => {
     return {
         type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_START, class_id: class_id, folder_id: folder_id
+    };
+};
+
+/**
+ * Students submission header data download
+ */
+export const DownloadStudentCsv = (url) => {
+    return {
+        type: types.FETCH_STUDENTS_SUBMISSION_HISTORY_DOWNLOAD_START, url: url
     };
 };
 
