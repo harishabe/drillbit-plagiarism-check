@@ -8,7 +8,7 @@ import Pagination from '@mui/material/Pagination';
 import { Skeleton } from '@mui/material';
 import Student from '../../layouts/Student';
 import { BreadCrumb, CardInfoView, MainHeading } from '../../components';
-import { renameKeys, findByExpiryDate } from '../../utils/RegExp';
+import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../utils/RegExp';
 
 const StudentBreadCrumb = [
     {
@@ -28,32 +28,7 @@ const StudentBreadCrumb = [
     },
 ]
 
-// const classes = [
-//     {
-//         class_name: 'Assignment 1',
-//         description: 'The only condition to run that byte code',
-//         validity: '2 days left',
-//         color: '#38BE62',
-//     },
-//     {
-//         class_name: 'Assignment 2',
-//         description: 'Our team is here round the clock to help',
-//         validity: '2 days left',
-//         color: '#F1A045',
-//     },
-//     {
-//         class_name: 'Assignment 3',
-//         description: 'Our team is here round the clock to help',
-//         validity: '2 days left',
-//         color: '#8D34FF',
-//     },
-// ]
-
 const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
-
-function createData(validity, color) {
-    return { validity, color }
-};
 
 const MyAssignments = ({
     GetAssignmentData,
@@ -63,11 +38,11 @@ const MyAssignments = ({
 }) => {
 
     const router = useRouter();
-    // console.log('router', router);
 
-    const id = router.query.item;
+    const class_id = router.query.item;
 
     const [item, setItem] = useState([]);
+    // const [classId, setclassId] = useState();
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -77,8 +52,8 @@ const MyAssignments = ({
     });
 
     useEffect(() => {
-        GetAssignmentData(id, paginationPayload);
-    }, [id, paginationPayload]);
+        GetAssignmentData(class_id, paginationPayload);
+    }, [, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -90,7 +65,7 @@ const MyAssignments = ({
             arr.push(row)
         });
 
-        console.log('arrrrrrr', arr);
+        // console.log('arrrrrrr', arr);
         setItem([...arr]);
     }, [assignmentData]);
 
@@ -99,20 +74,10 @@ const MyAssignments = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
-    const checkStatus = (validity) => {
-        if (validity <= 15) {
-            return '#FF0000';
-        } else if (validity >= 15 && validity <= 100) {
-            return '#FFFF00';
-        } else {
-            return '#CCCCCC';
-        }
-    }
-
     return (
         <React.Fragment>
             <BreadCrumb item={StudentBreadCrumb} />
-            <MainHeading title='My Assignments' />
+            <MainHeading title={ 'My Assignments' + '(' + pageDetails?.totalElements + ')' } />
             { isLoading ?
                 <Grid container spacing={ 2 }>
                     <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
@@ -134,9 +99,10 @@ const MyAssignments = ({
                                     isTimer={ true }
                                     isSubmit={ true }
                                     isDownload={ true }
-                                    statusColor={ checkStatus(item.validity) }
+                                    statusColor={ expiryDateBgColor(item.validity) }
                                     path=''
-                                    submitPath='/student/myassignment-details'
+                                    submitPath={ { pathname: '/student/myassignment-details', query: { assId: item.id, clasId: class_id } } }
+                                    // submitPath='/student/myassignment-details'
                                 />
                             </Grid>
                         )) }

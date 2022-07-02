@@ -31,7 +31,10 @@ import {
     GetStudentDashboard,
     GetStudentClasses,
     GetStudentAssignments,
-    GetStudentSubmissions
+    GetStudentSubmissions,
+    GetStudentQna,
+    GetStudentFeedback,
+    SendQnaAnswer,
 } from './student/DetailsStudentData';
 import {
     profileDetails,
@@ -61,6 +64,9 @@ const saga = [
     fork(GetStudentClasses),
     fork(GetStudentAssignments),
     fork(GetStudentSubmissions),
+    fork(GetStudentQna),
+    fork(GetStudentFeedback),
+    fork(SendQnaAnswer),
     fork(CreateClass),
     fork(CreateStudent),
     fork(CreateAssignment),
