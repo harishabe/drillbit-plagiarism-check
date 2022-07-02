@@ -158,7 +158,7 @@ const MyAssignmentDetails = ({
             <CardView>
                 <Grid container spacing={1}>
                     {details.map((item, index) => (
-                        <Grid item lg={ 2 } xs={ 12 }>
+                        <Grid item sm={ 2 } xs={ 12 }>
                             <SubTitle title={item.label} />
                             <SubTitle1 title={item.name} />
                             <Divider orientation='vertical' flexItem />
