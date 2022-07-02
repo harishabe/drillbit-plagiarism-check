@@ -367,7 +367,7 @@ const Instructor = ({
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.page,
-    instructorData: state?.detailsData?.instructorData?._embedded?.instructorDTOList,
+    instructorData: state?.detailsData?.instructorData?.list?.content,
     isLoading: state?.detailsData?.isLoading,
 });
 

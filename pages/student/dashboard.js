@@ -90,15 +90,10 @@ const Dashboard = ({
         let submission = studentDashboardData?.monthlySubmissions?.map((item) => {
             return item.submissions;
         });
-<<<<<<< HEAD
-        setRecentSubmission(submission);
-        
-=======
         setSubmissionOverview(submission);
         studentDashboardData?.recentSubmissions?.map((item, index) => {
             item['bgcolor'] = Colors[index];
         });
->>>>>>> c54e8064e7110c9f722fd1acb508213d079d63c3
     }, [studentDashboardData]);
 
     return (
