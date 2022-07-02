@@ -185,7 +185,7 @@ const Dashboard = ({
                                 </> :
                                 <>
                                     <TopStudents
-                                        topStudentData={adminDashboardData?.topStudent}
+                                        topStudentData={ adminDashboardData?.students }
                                     />
                                     <CurveChartContainer>
                                         <CurveChart

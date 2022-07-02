@@ -69,7 +69,7 @@ const tabMenu = [
 const DownloadButton = styled.div`
     position:static;
     top:30px;
-    right:30px;
+    right:10px;
 `;
 
 const MyAssignmentDetails = ({
@@ -175,7 +175,7 @@ const MyAssignmentDetails = ({
         <React.Fragment>
             <BreadCrumb item={ StudentBreadCrumb } />
             <CardView>
-                <Grid container spacing={ 0 }>
+                <Grid container spacing={ 1 }>
                     {details.map((item, index) => (
                         <>
                             <Grid md={ 1.7 } xs={ 12 } sx={ { ml: 2.5 } }>
@@ -187,16 +187,15 @@ const MyAssignmentDetails = ({
                             <Divider orientation="vertical" flexItem>
                             </Divider>
                         </>
-                    ))}
-                    <DownloadButton>
+                    )) }
                         <IconButton
+                        sx={ { ml: 1 } }
                             color="primary"
                             aria-label="download-file"
                             size="large"
                             onClick={ handleDownload }>
                             <DownloadFileIcon />
-                        </IconButton>
-                    </DownloadButton>
+                    </IconButton>
                 </Grid>
             </CardView>
             <TabMenu menuButton={tabMenu} components={componentList} />

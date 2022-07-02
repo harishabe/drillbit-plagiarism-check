@@ -39,10 +39,10 @@ const MyAssignments = ({
 
     const router = useRouter();
 
-    const class_id = router.query.item;
+    // const class_id = router.query.item;
 
     const [item, setItem] = useState([]);
-    // const [classId, setclassId] = useState();
+    const [classId, setClassId] = useState(router.query.item);
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -52,8 +52,8 @@ const MyAssignments = ({
     });
 
     useEffect(() => {
-        GetAssignmentData(class_id, paginationPayload);
-    }, [, paginationPayload]);
+        GetAssignmentData(classId, paginationPayload);
+    }, [classId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -64,8 +64,6 @@ const MyAssignments = ({
             row = renameKeys(item, { folder_id: 'id', folder_name: 'name', color: 'color', creation_date: 'expiry_date' })
             arr.push(row)
         });
-
-        // console.log('arrrrrrr', arr);
         setItem([...arr]);
     }, [assignmentData]);
 
@@ -101,8 +99,7 @@ const MyAssignments = ({
                                     isDownload={ true }
                                     statusColor={ expiryDateBgColor(item.validity) }
                                     path=''
-                                    submitPath={ { pathname: '/student/myassignment-details', query: { assId: item.id, clasId: class_id } } }
-                                    // submitPath='/student/myassignment-details'
+                                    submitPath={ { pathname: '/student/myassignment-details', query: { assId: item.id, clasId: router.query.item } } }
                                 />
                             </Grid>
                         )) }

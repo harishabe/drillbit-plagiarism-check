@@ -38,7 +38,7 @@ const Feedback = ({
                     </ListItem>
                     <Grid display={ 'flex' } sx={ { ml: 2 } }>
                         <SubTitle2 title='Your Score : &nbsp;' />
-                    { isLoadingFeedback ? <Skeleton /> :
+                    { isLoadingFeedback ? <Skeleton width={ "70px" } /> :
                         <Title1 title={ `${feedbackData.obtained_marks} / ${feedbackData.max_marks}` } />
                     }
                     </Grid>
@@ -60,7 +60,7 @@ const Feedback = ({
                                     },
                                 } }
                             >
-                                { isLoadingFeedback ? <Skeleton /> :
+                                { isLoadingFeedback ? <Skeleton width={ "300px" } height={ "2px" } /> :
                                 <SubTitle2 title={ feedbackData.feedback } />
                                 }
                             </Card>
