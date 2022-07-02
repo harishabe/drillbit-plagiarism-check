@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { Skeleton } from '@mui/material';
 import { CommonTable } from '../../components';
-import { GetSubmissionData } from '../../redux/action/student/StudentAction';
 
 const columns = [
     { id: 'name', label: 'File name' },
@@ -19,39 +17,11 @@ function createData(name, id, date, similarity, grammer, score, status, language
     return { name, id, date, similarity, grammer, score, status, language }
 }
 
-const rows = [
-    createData(
-        'file1',
-        '023451',
-        '05/03/2022/7:10',
-        '75%',
-        'NA',
-        42,
-        'Reviewed',
-        'English'
-    ),
-    createData(
-        'file2',
-        '023526',
-        '08/02/2022/6:45',
-        '20%',
-        'NA',
-        '--',
-        'Pending',
-        'English'
-    ),
-]
-
 const SubmissionHistory = ({
-    GetSubmissionData,
     submissionData,
-    isLoading
+    isLoadingSubmission,
 }) => {
     const [rows, setRows] = useState([]);
-
-    useEffect(() => {
-        GetSubmissionData();
-    }, []);
 
     useEffect(() => {
         let row = '';
@@ -60,13 +30,13 @@ const SubmissionHistory = ({
             row =
                 createData(
                     submission.name,
-                    submission.id,
-                    submission.date,
-                    submission.similarity,
-                    submission.grammer,
-                    submission.score,
+                    submission.paper_id,
+                    submission.date_up,
+                    submission.percent,
+                    submission.grammar,
+                    submission.feedback?.marks,
                     submission.status,
-                    submission.language,
+                    submission.lang1,
                 );
             arr.push(row)
         });
@@ -74,7 +44,7 @@ const SubmissionHistory = ({
     }, [submissionData]);
     return (
         <>
-            { isLoading ?
+            { isLoadingSubmission ?
                 <>
                     <Skeleton />
                     <Skeleton />
@@ -87,20 +57,9 @@ const SubmissionHistory = ({
                         tableData={ rows }
                     />
                 </>
-            }
+            } 
         </>
     )
 }
 
-const mapStateToProps = (state) => ({
-    submissionData: state?.detailsData?.submissionData,
-    isLoading: state?.detailsData?.isLoading,
-});
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        GetSubmissionData: () => dispatch(GetSubmissionData()),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SubmissionHistory);
+export default SubmissionHistory;
