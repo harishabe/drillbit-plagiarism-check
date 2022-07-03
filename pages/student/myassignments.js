@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/router";
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { GetAssignmentData } from '../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
@@ -39,10 +39,7 @@ const MyAssignments = ({
 
     const router = useRouter();
 
-    // const class_id = router.query.item;
-
     const [item, setItem] = useState([]);
-    const [classId, setClassId] = useState(router.query.item);
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -52,8 +49,8 @@ const MyAssignments = ({
     });
 
     useEffect(() => {
-        GetAssignmentData(classId, paginationPayload);
-    }, [classId, paginationPayload]);
+        GetAssignmentData(router.query.clasId, paginationPayload);
+    }, [router.query.clasId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -83,10 +80,7 @@ const MyAssignments = ({
                     <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                 </Grid> :
                 <>
-
-
                     <Grid container spacing={ 2 }>
-
                         { item?.map((item, index) => (
                             <Grid item md={ 4 } xs={ 12 }>
                                 <CardInfoView
@@ -98,8 +92,7 @@ const MyAssignments = ({
                                     isSubmit={ true }
                                     isDownload={ true }
                                     statusColor={ expiryDateBgColor(item.validity) }
-                                    path=''
-                                    submitPath={ { pathname: '/student/myassignment-details', query: { assId: item.id, clasId: router.query.item } } }
+                                    submitPath={ { pathname: '/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId } } }
                                 />
                             </Grid>
                         )) }

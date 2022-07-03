@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { Skeleton } from '@mui/material';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton';
-import Grid from '@mui/material/Grid'
+import { Grid, Tooltip } from '@mui/material'
 import Student from '../../layouts/Student'
 import {
     BreadCrumb,
@@ -25,34 +24,10 @@ import {
     DownloadStudentCsv
 } from '../../redux/action/student/StudentAction';
 
-
 import SubmissionHistory from './submission-history'
 import QA from './q&a'
 import Feedback from './feedback'
 import { formatDate } from '../../utils/RegExp';
-
-const StudentBreadCrumb = [
-    {
-        name: 'Dashboard',
-        link: '/student/dashboard',
-        active: false,
-    },
-    {
-        name: 'My classes',
-        link: '/student/myclasses',
-        active: false,
-    },
-    {
-        name: 'My assignments',
-        link: '/student/myassignments',
-        active: false,
-    },
-    {
-        name: 'My assignments details',
-        link: '',
-        active: true,
-    },
-]
 
 const tabMenu = [
     {
@@ -65,12 +40,6 @@ const tabMenu = [
         label: 'Feedback',
     },
 ]
-
-const DownloadButton = styled.div`
-    position:static;
-    top:30px;
-    right:10px;
-`;
 
 const MyAssignmentDetails = ({
     GetSubmissionData,
@@ -92,6 +61,30 @@ const MyAssignmentDetails = ({
 }) => {
 
     const router = useRouter();
+
+    const StudentBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/student/dashboard',
+            active: false,
+        },
+        {
+            name: 'My classes',
+            link: '/student/myclasses',
+            active: false,
+        },
+        {
+            name: 'My assignments',
+            link: '/student/myassignments?' + router?.asPath?.slice(router?.pathname?.length).split('&')[1],
+            active: false,
+        },
+        {
+            name: 'My assignments details',
+            link: '',
+            active: true,
+        },
+    ]
+
 
     const details = [
         {
@@ -123,7 +116,6 @@ const MyAssignmentDetails = ({
     useEffect(() => {
         GetSubmissionData(router.query.clasId, router.query.assId);
         GetSubmissionHeaderData(router.query.clasId, router.query.assId);
-        // GetQna(router.query.clasId, router.query.assId);
         { submissionData && GetFeedback(router.query.clasId, router.query.assId, feedbackPaperId); }
 
     }, [router.query.clasId, router.query.assId, feedbackPaperId]);
@@ -188,6 +180,7 @@ const MyAssignmentDetails = ({
                             </Divider>
                         </>
                     )) }
+                    <Tooltip title="Download csv">
                         <IconButton
                         sx={ { ml: 1 } }
                             color="primary"
@@ -196,6 +189,7 @@ const MyAssignmentDetails = ({
                             onClick={ handleDownload }>
                             <DownloadFileIcon />
                     </IconButton>
+                    </Tooltip>
                 </Grid>
             </CardView>
             <TabMenu menuButton={tabMenu} components={componentList} />
