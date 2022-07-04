@@ -7,12 +7,14 @@ const LineChart = ({
     chartWidth,
     chartHeight,
     chartType,
-    strokeCurve
+    strokeCurve,
+    graphData,
+    graphName
 }) => {
     const [chartData, setChartData] = useState({
         series: [{
-            name: "Desktops",
-            data: [0,10, 41, 35, 51]
+            name: graphName,
+            data: graphData
         }],
         options: {
             colors: color,
@@ -42,7 +44,7 @@ const LineChart = ({
                 },
             },
             xaxis: {
-                categories: ['0','0 - 10%', '11% - 40%', '41% - 60%', '61% - 100%'],
+                categories: ['0','0 - 10%', '11% - 40%', '41% - 60%', '61% - 100%','DocError'],
             },
         },
     })

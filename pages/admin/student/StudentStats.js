@@ -37,9 +37,10 @@ const StudentStats = ({
     isLoadingCsvExport,
 }) => {
 
-    const [submissionData, setSubmissionData] = useState([0,0,0,0,0,0,0,0,0,0,0,0]);
+    const [submissionData, setSubmissionData] = useState([]);
 
     useEffect(() => {
+        console.log('studentStatsstudentStatsstudentStats'),
         GetStats(studentId);
     }, []);
 
@@ -85,7 +86,7 @@ const StudentStats = ({
                                 <Skeleton />
                                 <Skeleton />
                             </> :
-                            submissionData?.length !== 0 && <ColumnChart
+                            submissionData?.length > 0 && <ColumnChart
                                 type={ COLUMN_ADMIN_CHART_TYPE }
                                 color={ COLUMN_ADMIN_CHART_COLOR }
                                 xaxisData={ COLUMN_ADMIN_XAXIS_DATA }

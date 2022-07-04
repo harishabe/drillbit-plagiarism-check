@@ -22,7 +22,7 @@ import {
 } from '../../components';
 import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
 import {
-    GetInstructorData,    
+    GetInstructorData,
     DeleteData,
     DeactivateData
 } from '../../redux/action/admin/AdminAction';
@@ -67,7 +67,7 @@ const InstructorBreadCrumb = [
 const Instructor = ({
     pageDetails,
     GetInstructorData,
-    instructorData,    
+    instructorData,
     DeleteData,
     DeactivateData,
     isLoading
@@ -251,34 +251,39 @@ const Instructor = ({
 
     return (
         <React.Fragment>
-            {showDeleteWarning &&
+            {
+                showDeleteWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
                     message="Are you sure you want to delete ?"
                     handleYes={handleYesWarning}
                     handleNo={handleCloseWarning}
                     isOpen={true}
-                />}
-            {showStatusWarning &&
+                />
+            }
+
+            {
+                showStatusWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
                     message={"Are you sure, you want to " + statusMessage + "?"}
                     handleYes={handleStatusWarning}
                     handleNo={handleStatusCloseWarning}
                     isOpen={true}
-                />}
-            {showDialogModal &&
-                <>
-                    <DialogModal
-                        headingTitle="Instructor Statistics"
-                        isOpen={true}
-                        fullWidth="lg"
-                        maxWidth="lg"
-                        handleClose={handleCloseDialog}
-                    >
-                        <InstructorStats instructorId={instructorId} />
-                    </DialogModal>
-                </>
+                />
+            }
+
+            {
+                showDialogModal &&
+                <DialogModal
+                    headingTitle="Instructor Statistics"
+                    isOpen={true}
+                    fullWidth="lg"
+                    maxWidth="lg"
+                    handleClose={handleCloseDialog}
+                >
+                    <InstructorStats instructorId={instructorId} />
+                </DialogModal>
             }
 
             <AddButtonBottom>
@@ -290,16 +295,18 @@ const Instructor = ({
                 </CreateDrawer>
             </AddButtonBottom>
 
-            {editInstructor &&
+            {
+                editInstructor &&
                 <CreateDrawer
                     title="Edit Instructor"
                     isShowAddIcon={false}
                     showDrawer={editInstructor}
                 >
-                    <InstructorForm                        
+                    <InstructorForm
                         editData={editInstructorData}
                     />
-                </CreateDrawer>}
+                </CreateDrawer>
+            }
 
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
@@ -372,7 +379,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),        
+        GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),
         DeactivateData: (data, paginationPayload) => dispatch(DeactivateData(data, paginationPayload)),
         DeleteData: (deleteRowData, paginationPayload) => dispatch(DeleteData(deleteRowData, paginationPayload)),
     };

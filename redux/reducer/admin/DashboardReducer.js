@@ -22,18 +22,18 @@ const DashboardReducer = (state = {}, action) => {
         case types.FETCH_ADMIN_DASH_TOP_STUDENT_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingTopStudent: true,
             };
         case types.FETCH_ADMIN_DASH_TOP_STUDENT_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingTopStudent: false,
                 topStudent: action.payload
             };
         case types.FETCH_ADMIN_DASH_TOP_STUDENT_FAIL:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingTopStudent: false,
                 topStudentError: action.payload
             };
         case types.FETCH_ADMIN_DASH_TREND_ANALYSIS_START:

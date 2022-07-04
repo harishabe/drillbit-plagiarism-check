@@ -118,8 +118,6 @@ const Students = ({
         }, [100]);
     };
 
-
-
     const handleAction = (event, icon, rowData) => {
         const student = studentData.filter((s) => {
             if (s.student_id === rowData?.user_id?.props?.title) {
@@ -135,7 +133,7 @@ const Students = ({
             setShowDeleteWarning(true);
 
         } else if (icon === 'stats') {
-            setStudentId(student[0].id);
+            setStudentId(rowData.id);
             setShowDialogModal(true);
         }
     }
@@ -247,7 +245,14 @@ const Students = ({
                 </>
             }
 
-            <BreadCrumb item={ IntegrationBreadCrumb } />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
+                        <BreadCrumb item={IntegrationBreadCrumb} />
+                    </Grid>
+                </Grid>
+            </Box>
+
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={12}>
