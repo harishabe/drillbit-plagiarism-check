@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+import debouce from "lodash.debounce";
 import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import { connect } from 'react-redux';
 import { GetAssignmentData } from '../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import Pagination from '@mui/material/Pagination';
-import { Skeleton } from '@mui/material';
+import { Skeleton, TextField } from '@mui/material';
 import Student from '../../layouts/Student';
 import { BreadCrumb, CardInfoView, MainHeading } from '../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../utils/RegExp';
@@ -69,10 +71,59 @@ const MyAssignments = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
+    /** search implementation using debounce concepts */
+
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    }
+
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
+    /** end debounce concepts */
+
     return (
         <React.Fragment>
             <BreadCrumb item={StudentBreadCrumb} />
-            <MainHeading title={ 'My Assignments' + '(' + pageDetails?.totalElements + ')' } />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 8 }>
+                        <MainHeading title={ 'My Assignments' + '(' + pageDetails?.totalElements + ')' } />
+                    </Grid>
+                    <Grid
+                        item
+                        md={ 4 }
+                        xs={ 12 }
+                        container
+                        direction='row'
+                        justifyContent={ 'right' }
+                    >
+                        <TextField
+                            placeholder='Search'
+                            onChange={ debouncedResults }
+                            inputProps={ {
+                                style: {
+                                    padding: 5,
+                                    display: 'inline-flex'
+                                }
+                            } }
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
             { isLoading ?
                 <Grid container spacing={ 2 }>
                     <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
