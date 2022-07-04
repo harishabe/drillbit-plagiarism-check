@@ -245,7 +245,6 @@ const Students = ({
                 </>
             }
 
-
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={10}>
