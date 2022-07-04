@@ -97,6 +97,8 @@ const MyAssignments = ({
                             </Grid>
                         )) }
                     </Grid>
+                </>
+            }
 
                     <div style={ { marginLeft: '30%', marginTop: '25px' } }>
                         <Pagination
@@ -107,8 +109,7 @@ const MyAssignments = ({
                             shape="rounded"
                         />
                     </div>
-                </>
-            }
+
         </React.Fragment>
     )
 }

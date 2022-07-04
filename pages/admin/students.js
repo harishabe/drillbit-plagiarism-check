@@ -247,14 +247,7 @@ const Students = ({
                 </>
             }
 
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={IntegrationBreadCrumb} />
-                    </Grid>
-                </Grid>
-            </Box>
-
+            <BreadCrumb item={ IntegrationBreadCrumb } />
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={12}>

@@ -104,7 +104,14 @@ const MyClasses = ({
                     <Grid item md={ 8 }>
                         <MainHeading title={ 'My Classes' + '(' + pageDetails?.totalElements + ')' } />
                     </Grid>
-                    <Grid item md={ 4 } xs container direction='row' justifyContent={ 'right' }>
+                    <Grid
+                        item
+                        md={ 4 }
+                        xs={ 12 }
+                        container
+                        direction='row'
+                        justifyContent={ 'right' }
+                    >
                         <TextField
                             placeholder='Search'
                             onChange={ debouncedResults }
@@ -140,7 +147,8 @@ const MyClasses = ({
                             </Grid>
                         )) }
                     </Grid>
-
+                </>
+            }
                     <div style={ { marginLeft: '40%', marginTop: '25px' } }>
                         <Pagination
                             count={ pageDetails?.totalPages }
@@ -150,8 +158,8 @@ const MyClasses = ({
                             shape="rounded"
                         />
                     </div>
-                </>
-            }
+
+
         </React.Fragment>
     )
 }
@@ -164,7 +172,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetClassesData: (PaginationValue) => dispatch(GetClassesData(PaginationValue)),
+        GetClassesData: (paginationPayload) => dispatch(GetClassesData(paginationPayload)),
     };
 };
 
