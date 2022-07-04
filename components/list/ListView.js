@@ -45,7 +45,7 @@ const ListView = ({
                         <ListItemText style={{ textAlign: 'right' }}
                             disableTypography
                             className={classes.right}
-                            primary={<Title title={'+' + '10' + '%'} color="primary" />}
+                            primary={<Title title={item.percentage + '%'} color="primary" />}
                         />
                     </ListItem>
                     <Divider />

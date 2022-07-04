@@ -13,7 +13,6 @@ const FormComponent = ({
     options,
     isLoading
 }) => {
-    console.log('fieldfieldfieldfield',field);
     switch (field.field_type) {
         case 'input':
             return (

@@ -23,3 +23,8 @@ testingagain@mailinator.com |     Test@1234            |       instructor
 sagarxtream@mailinator.com  |     Bit@1234
 ---------------------------------------------------------------------------
 
+Existing app 
+---------------------------------------------------------------------------
+admin@xtream                         123456                        admin
+sagarxtream@mailinator.com           12345                         instructor
+ganashree.s@drillbitplagiarism.com   Gana@123                     student

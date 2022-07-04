@@ -68,7 +68,7 @@ const CurveChartContainer = styled.div`
 `;
 
 const Dashboard = ({
-    isLoading,
+    isLoadingTopStudent,
     isLoadingDashboard,
     isLoadingTrendAnalysis,
     GetWidgetCount,
@@ -95,7 +95,7 @@ const Dashboard = ({
         setRecentSubmission(submission);
     }, [adminDashboardData]);
 
-    console.log('recentSubmission',recentSubmission);
+    console.log('recentSubmission', recentSubmission);
 
     return (
         <React.Fragment>
@@ -160,13 +160,27 @@ const Dashboard = ({
                                     <Skeleton /> :
                                     <UsageChart SERIES_DATA={usageGraphData} />
                             } */}
-                            <LineChart
-                                chartType="line"
-                                strokeCurve="straight"
-                                xaxisLabelShow={true}
-                                yaxisLabelShow={true}
-                                chartHeight={350}
-                            />
+                            {isLoadingTopStudent ?
+                                <>
+                                    <Skeleton />
+                                </> :
+                                <LineChart
+                                    chartType="line"
+                                    graphName="File Submission"
+                                    graphData={[
+                                        0,
+                                        adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
+                                        adminDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
+                                        adminDashboardData?.topStudent?.submissionsGraph?.fourtyOneSixty,
+                                        adminDashboardData?.topStudent?.submissionsGraph?.sixtyOneHundred,
+                                        adminDashboardData?.topStudent?.submissionsGraph?.docError,
+                                    ]}
+                                    strokeCurve="straight"
+                                    xaxisLabelShow={true}
+                                    yaxisLabelShow={true}
+                                    chartHeight={350}
+                                />
+                            }
                         </CardView>
                     </Grid>
                 </Grid>
@@ -176,7 +190,7 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <CardView height="443px">
                             <Heading title='Top Students' />
-                            {isLoading ?
+                            {isLoadingTopStudent ?
                                 <>
                                     <ListSkeleton />
                                     <ListSkeleton />
@@ -185,12 +199,21 @@ const Dashboard = ({
                                 </> :
                                 <>
                                     <TopStudents
-                                        topStudentData={adminDashboardData?.topStudent}
+                                        topStudentData={adminDashboardData?.topStudent?.students}
                                     />
                                     <CurveChartContainer>
                                         <CurveChart
                                             chartType="area"
                                             strokeCurve="smooth"
+                                            graphName="Submission"
+                                            graphData={[
+                                                0,
+                                                adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
+                                                adminDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
+                                                adminDashboardData?.topStudent?.submissionsGraph?.fourtyOneSixty,
+                                                adminDashboardData?.topStudent?.submissionsGraph?.sixtyOneHundred,
+                                                adminDashboardData?.topStudent?.submissionsGraph?.docError,
+                                            ]}
                                             xaxisLabelShow={false}
                                             yaxisLabelShow={false}
                                             chartHeight={190}
@@ -239,7 +262,7 @@ const Dashboard = ({
                                 </Grid>
                                 <Grid item md={3} xs={12}>
                                     {
-                                        isLoading ?
+                                        isLoadingTrendAnalysis ?
                                             <Skeleton /> :
                                             <TextAlignRight>
                                                 <SubTitle
@@ -276,7 +299,7 @@ const Dashboard = ({
 };
 
 const mapStateToProps = (state) => ({
-    isLoading: state?.adminDashboard?.isLoading,
+    isLoadingTopStudent: state?.adminDashboard?.isLoadingTopStudent,
     adminDashboardData: state?.adminDashboard,
     isLoadingDashboard: state?.adminDashboard?.isLoadingDashboard,
     isLoadingTrendAnalysis: state?.adminDashboard?.isLoadingTrendAnalysis,

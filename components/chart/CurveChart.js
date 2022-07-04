@@ -9,12 +9,14 @@ const CurveChart = ({
     chartType,
     strokeCurve,
     xaxisLabelShow,
-    yaxisLabelShow
+    yaxisLabelShow,
+    graphData,
+    graphName
 }) => {
     const [chartData, setChartData] = useState({
         series: [{
-            name: "Desktops",
-            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+            name: graphName,
+            data: graphData
         }],
         options: {
             colors: color,

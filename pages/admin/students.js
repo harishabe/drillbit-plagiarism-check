@@ -118,8 +118,6 @@ const Students = ({
         }, [100]);
     };
 
-
-
     const handleAction = (event, icon, rowData) => {
         if (icon === 'edit') {
             setEditStudent(true);
@@ -133,7 +131,7 @@ const Students = ({
             setDeleteRowData(student[0].id);
             setShowDeleteWarning(true);
         } else if (icon === 'stats') {
-            setStudentId(student[0].id);
+            setStudentId(rowData.id);
             setShowDialogModal(true);
         }
     }
@@ -244,6 +242,7 @@ const Students = ({
                     </DialogModal>
                 </>
             }
+
 
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>

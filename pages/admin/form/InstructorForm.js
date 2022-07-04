@@ -12,10 +12,13 @@ const InstructorForm = ({
     CreateInstructorData,
     isLoading,
     editData,
-    EditData
+    EditData,
+    remainingDocuments,
+    remainingGrammar
 }) => {
 
     const [formJsonField, setFormJsonField] = useState(FormJson);
+
     const [editOperation, setEditOperation] = useState(false);
 
     const { handleSubmit, control, setValue } = useForm({
@@ -42,6 +45,12 @@ const InstructorForm = ({
             }
             if (field.type === 'email') {
                 field.disabled = isEmailDisabled;
+            }
+            if(field.name === 'grammar'){
+                field['info'] = '* Note : Document remaining-'+remainingDocuments;
+            }
+            if(field.name === 'plagiarism'){
+                field['info'] = '* Note : Document remaining-'+remainingGrammar;
             }
             return field;
         });
@@ -97,6 +106,8 @@ const InstructorForm = ({
 
 const mapStateToProps = (state) => ({
     isLoading: state?.adminCrud?.isLoading,
+    remainingDocuments: state?.detailsData?.instructorData?.remainingDocuments,
+    remainingGrammar: state?.detailsData?.instructorData?.remainingGrammar,
 });
 
 const mapDispatchToProps = (dispatch) => {
