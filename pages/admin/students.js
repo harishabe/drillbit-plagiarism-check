@@ -119,17 +119,19 @@ const Students = ({
     };
 
     const handleAction = (event, icon, rowData) => {
+        const student = studentData.filter((s) => {
+            if (s.student_id === rowData?.user_id?.props?.title) {
+                return s.id;
+            }
+        });
         if (icon === 'edit') {
             setEditStudent(true);
             setEditStudentData(rowData);
+
         } else if (icon === 'delete') {
-            const student = studentData.filter((s) => {
-                if (s.student_id === rowData?.user_id?.props?.title) {
-                    return s.id;
-                }
-            });
             setDeleteRowData(student[0].id);
             setShowDeleteWarning(true);
+
         } else if (icon === 'stats') {
             setStudentId(rowData.id);
             setShowDialogModal(true);

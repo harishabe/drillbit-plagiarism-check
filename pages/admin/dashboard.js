@@ -199,7 +199,11 @@ const Dashboard = ({
                                 </> :
                                 <>
                                     <TopStudents
+<<<<<<< HEAD
                                         topStudentData={adminDashboardData?.topStudent?.students}
+=======
+                                        topStudentData={ adminDashboardData?.students }
+>>>>>>> 3f88b2a762034e8ca6fbfad25a3470a0912f123d
                                     />
                                     <CurveChartContainer>
                                         <CurveChart

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/router";
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { GetAssignmentData } from '../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
@@ -39,10 +39,7 @@ const MyAssignments = ({
 
     const router = useRouter();
 
-    const class_id = router.query.item;
-
     const [item, setItem] = useState([]);
-    // const [classId, setclassId] = useState();
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -52,8 +49,8 @@ const MyAssignments = ({
     });
 
     useEffect(() => {
-        GetAssignmentData(class_id, paginationPayload);
-    }, [, paginationPayload]);
+        GetAssignmentData(router.query.clasId, paginationPayload);
+    }, [router.query.clasId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -64,8 +61,6 @@ const MyAssignments = ({
             row = renameKeys(item, { folder_id: 'id', folder_name: 'name', color: 'color', creation_date: 'expiry_date' })
             arr.push(row)
         });
-
-        // console.log('arrrrrrr', arr);
         setItem([...arr]);
     }, [assignmentData]);
 
@@ -85,10 +80,7 @@ const MyAssignments = ({
                     <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                 </Grid> :
                 <>
-
-
                     <Grid container spacing={ 2 }>
-
                         { item?.map((item, index) => (
                             <Grid item md={ 4 } xs={ 12 }>
                                 <CardInfoView
@@ -100,9 +92,7 @@ const MyAssignments = ({
                                     isSubmit={ true }
                                     isDownload={ true }
                                     statusColor={ expiryDateBgColor(item.validity) }
-                                    path=''
-                                    submitPath={ { pathname: '/student/myassignment-details', query: { assId: item.id, clasId: class_id } } }
-                                    // submitPath='/student/myassignment-details'
+                                    submitPath={ { pathname: '/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId } } }
                                 />
                             </Grid>
                         )) }

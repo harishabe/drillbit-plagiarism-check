@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { Skeleton, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import List from '@mui/material/List';
@@ -32,14 +32,14 @@ function createId(questionId) {
 };
 
 const ListView2 = ({
-    // GetQna,
+    GetQna,
     qnaData,
     isLoadingQa,
     isLoadingAns,
     handleSend
 }) => {
 
-    // const router = useRouter();
+    const router = useRouter();
     const classes = useStyles();
 
     const [id, setId] = useState([]);
@@ -49,9 +49,9 @@ const ListView2 = ({
     const [ans4, setAns4] = useState();
     const [ans5, setAns5] = useState();
 
-    // useEffect(() => {
-    //     GetQna(router.query.clasId, router.query.assId);
-    // }, [router.query.clasId, router.query.assId])
+    useEffect(() => {
+        GetQna(router.query.clasId, router.query.assId);
+    }, []);
 
     useEffect(() => {
         let id = '';
@@ -67,169 +67,178 @@ const ListView2 = ({
 
     return (
         <>
-
             <List>
-                { qnaData.map((item, index) => (
-                    item['bgcolor'] = Colors[index],
-                    item['id'] = item.id,
+                { isLoadingQa ?
                     <>
-                        {
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </> :
+                    <>
+                        { qnaData?.map((item, index) => (
+                            item['bgcolor'] = Colors[index],
+                            item['id'] = item.id,
                             <>
-                                <ListItem
-                                    key={ index }
-                                    style={ {
-                                        paddingLeft: '0px',
-                                        paddingRight: '0px',
-                                    } }
-                                >
-                                    <Grid container spacing={ 1 }>
-                                        <Grid item xs={ 0 }>
-                                            <ListItemAvatar>
-                                                <Avatar
-                                                    sx={ {
-                                                        width: 42,
-                                                        height: 42,
-                                                        marginTop: '8px',
-                                                        background: item.bgcolor,
-                                                        color: '#fff',
-                                                    } }
-                                                >
-                                                    A{ index + 1 }
-                                                </Avatar>
-                                            </ListItemAvatar>
-                                        </Grid>
-                                        <Grid item xs={ 9 }>
-                                            <ListItemText
-                                                disableTypography
-                                                className={ classes.itemText }
-                                                primary={ <Title1 title={ item.question } /> }
-                                                secondary={
-                                                    <>
-                                                        <Card
+                                {
+                                    <>
+                                        <ListItem
+                                            key={ index }
+                                            style={ {
+                                                paddingLeft: '0px',
+                                                paddingRight: '0px',
+                                            } }
+                                        >
+                                            <Grid container spacing={ 1 }>
+                                                <Grid item xs={ 0 }>
+                                                    <ListItemAvatar>
+                                                        <Avatar
                                                             sx={ {
-                                                                flexWrap: 'wrap',
-                                                                '& > :not(style)': {
-                                                                    ml: 2,
-                                                                    mt: 2,
-                                                                    mb: 2
-                                                                },
+                                                                width: 42,
+                                                                height: 42,
+                                                                marginTop: '8px',
+                                                                background: item.bgcolor,
+                                                                color: '#fff',
                                                             } }
                                                         >
-                                                            { item.answer ? <SubTitle2 title={ item.answer } /> :
-                                                                <>
-                                                                    { item.id === 'qId1' &&
+                                                            Q{ index + 1 }
+                                                        </Avatar>
+                                                    </ListItemAvatar>
+                                                </Grid>
+                                                <Grid item xs={ 9 }>
+                                                    <ListItemText
+                                                        disableTypography
+                                                        className={ classes.itemText }
+                                                        primary={ <Title1 title={ item.question } /> }
+                                                        secondary={
+                                                            <>
+                                                                <Card
+                                                                    sx={ {
+                                                                        flexWrap: 'wrap',
+                                                                        '& > :not(style)': {
+                                                                            ml: 2,
+                                                                            mt: 2,
+                                                                            mb: 2
+                                                                        },
+                                                                    } }
+                                                                >
+                                                                    { item.answer ? <SubTitle2 title={ item.answer } /> :
+                                                                        <>
+                                                                            { item.id === 'qId1' &&
 
-                                                                        <textarea
-                                                                            rows="5"
-                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
-                                                                            value={ ans1 }
-                                                                            cols="123"
-                                                                            onChange={ (e) => {
-                                                                                setAns1(e.target.value)
-                                                                            } }
-                                                                            placeholder='Click to Answer here'
-                                                                        >
-                                                                        </textarea>
+                                                                                <textarea
+                                                                                    rows="5"
+                                                                                    name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                                    value={ ans1 }
+                                                                                    cols="123"
+                                                                                    onChange={ (e) => {
+                                                                                        setAns1(e.target.value)
+                                                                                    } }
+                                                                                    placeholder='Click to Answer here'
+                                                                                >
+                                                                                </textarea>
 
+                                                                            }
+                                                                            { item.id === 'qId2' &&
+
+                                                                                <textarea
+                                                                                    rows="5"
+                                                                                    name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                                    value={ ans2 }
+                                                                                    cols="123"
+                                                                                    onChange={ (e) => {
+                                                                                        setAns2(e.target.value)
+                                                                                    } }
+                                                                                    placeholder='Click to Answer here'
+                                                                                >
+                                                                                </textarea>
+
+                                                                            }
+                                                                            { item.id === 'qId3' &&
+
+                                                                                <textarea
+                                                                                    rows="5"
+                                                                                    name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                                    value={ ans3 }
+                                                                                    cols="123"
+                                                                                    onChange={ (e) => {
+                                                                                        setAns3(e.target.value)
+                                                                                    } }
+                                                                                    placeholder='Click to Answer here'
+                                                                                >
+                                                                                </textarea>
+
+                                                                            }
+                                                                            { item.id === 'qId4' &&
+
+                                                                                <textarea
+                                                                                    rows="5"
+                                                                                    name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                                    value={ ans4 }
+                                                                                    cols="123"
+                                                                                    onChange={ (e) => {
+                                                                                        setAns4(e.target.value)
+                                                                                    } }
+                                                                                    placeholder='Click to Answer here'
+                                                                                >
+                                                                                </textarea>
+
+                                                                            }
+                                                                            { item.id === 'qId5' &&
+
+                                                                                <textarea
+                                                                                    rows="5"
+                                                                                    name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                                    value={ ans5 }
+                                                                                    cols="123"
+                                                                                    onChange={ (e) => {
+                                                                                        setAns5(e.target.value)
+                                                                                    } }
+                                                                                    placeholder='Click to Answer here'
+                                                                                >
+                                                                                </textarea>
+
+                                                                            }
+                                                                        </>
                                                                     }
-                                                                    { item.id === 'qId2' &&
-
-                                                                        <textarea
-                                                                            rows="5"
-                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
-                                                                            value={ ans2 }
-                                                                            cols="123"
-                                                                            onChange={ (e) => {
-                                                                                setAns2(e.target.value)
-                                                                            } }
-                                                                            placeholder='Click to Answer here'
-                                                                        >
-                                                                        </textarea>
-
-                                                                    }
-                                                                    { item.id === 'qId3' &&
-
-                                                                        <textarea
-                                                                            rows="5"
-                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
-                                                                            value={ ans3 }
-                                                                            cols="123"
-                                                                            onChange={ (e) => {
-                                                                                setAns3(e.target.value)
-                                                                            } }
-                                                                            placeholder='Click to Answer here'
-                                                                        >
-                                                                        </textarea>
-
-                                                                    }
-                                                                    { item.id === 'qId4' &&
-
-                                                                        <textarea
-                                                                            rows="5"
-                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
-                                                                            value={ ans4 }
-                                                                            cols="123"
-                                                                            onChange={ (e) => {
-                                                                                setAns4(e.target.value)
-                                                                            } }
-                                                                            placeholder='Click to Answer here'
-                                                                        >
-                                                                        </textarea>
-
-                                                                    }
-                                                                    { item.id === 'qId5' &&
-
-                                                                        <textarea
-                                                                            rows="5"
-                                                                            name={ item.question === qnaData[index].question ? item.id : '' }
-                                                                            value={ ans5 }
-                                                                            cols="123"
-                                                                            onChange={ (e) => {
-                                                                                setAns5(e.target.value)
-                                                                            } }
-                                                                            placeholder='Click to Answer here'
-                                                                        >
-                                                                        </textarea>
-
-                                                                    }
-                                                                </>
-                                                            }
-                                                        </Card>
-                                                    </>
-                                                }
-                                            />
-                                        </Grid>
-                                        <Grid item xs>
-                                            <ListItemText
-                                                style={ { textAlign: 'right' } }
-                                                disableTypography
-                                                className={ classes.right }
-                                                primary={ <SubTitle2 title={ 'Asked : ' + item.date } /> }
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                </ListItem>
+                                                                </Card>
+                                                            </>
+                                                        }
+                                                    />
+                                                </Grid>
+                                                <Grid item xs>
+                                                    <ListItemText
+                                                        style={ { textAlign: 'right' } }
+                                                        disableTypography
+                                                        className={ classes.right }
+                                                        primary={ <SubTitle2 title={ 'Asked : ' + item.date } /> }
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </ListItem>
+                                    </>
+                                }
                             </>
+                        ))
                         }
+
+                        <Grid container spacing={ 21.5 }>
+                            <Grid item xs={ 7 }></Grid>
+                            <Grid item xs={ 5 }>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    type="button"
+                                    color="primary"
+                                    onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
+                                >
+                                    { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </>
-                )) }
-                <Grid container spacing={ 1 }>
-                    <Grid item xs={ 8 }></Grid>
-                    <Grid item xs={ 4 }>
-                        <Button
-                            variant="contained"
-                            size="large"
-                            type="button"
-                            color="primary"
-                            onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
-                        >
-                            { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
-                        </Button>
-                    </Grid>
-                </Grid>
+                }
             </List>
         </>
-
     )
 }
 

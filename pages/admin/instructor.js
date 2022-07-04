@@ -73,7 +73,6 @@ const Instructor = ({
     isLoading
 }) => {
     const [rows, setRows] = useState([]);
-
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showStatusWarning, setStatusWarning] = useState(false);

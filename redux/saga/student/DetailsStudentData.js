@@ -5,6 +5,8 @@ import {
     GetClassesDetail,
     GetAssignmentDetail,
     GetSubmissionDetail,
+    GetSubmissionHeader,
+    DownloadHistory,
     GetQnaDetail,
     GetFeedbackDetail,
     SendAnswerData,
@@ -85,6 +87,30 @@ export function* GetStudentAssignments() {
 
 
 /**
+ * Get submissions header data
+ * @param {*} action
+ */
+
+export function* onLoadHeader(action) {
+    const { response, error } = yield call(GetSubmissionHeader, action.class_id, action.folder_id);
+    if (response) {
+        yield put({
+            type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_HEADER_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_HEADER_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetStudentSubmissionHeader() {
+    yield takeLatest(types.FETCH_STUDENTS_SUBMISSION_DETAILS_HEADER_START, onLoadHeader);
+}
+
+/**
  * Get submissions data
  * @param {*} action
  */
@@ -107,6 +133,33 @@ export function* onLoadSubmissions(action) {
 export function* GetStudentSubmissions() {
     yield takeLatest(types.FETCH_STUDENTS_SUBMISSION_DETAILS_START, onLoadSubmissions);
 }
+
+
+/**
+ * Download history
+ * @param {*} action
+ */
+
+
+export function* onLoadDownload(action) {
+    const { response, error } = yield call(DownloadHistory, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_STUDENTS_SUBMISSION_HISTORY_DOWNLOAD_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_STUDENTS_SUBMISSION_HISTORY_DOWNLOAD_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* DownloadStudentCsv() {
+    yield takeLatest(types.FETCH_STUDENTS_SUBMISSION_HISTORY_DOWNLOAD_START, onLoadDownload);
+}
+
 
 /**
  * Get qna data

@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { GetMethod, PostMethod } from '../ApiMethod';
+import { GetMethod, PostMethod, GetMethodDownload } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -30,12 +30,30 @@ export const GetAssignmentDetail = async (class_id, paginationPayload) => {
 };
 
 /**
+ * API CALL FOR SUBMISSION HEADER
+ */
+
+export const GetSubmissionHeader = async (class_id, folder_id) => {
+    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/header';
+    return GetMethod(url);
+};
+
+/**
  * API CALL FOR SUBMISSION DATA
  */
 
 export const GetSubmissionDetail = async (class_id, folder_id) => {
     const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/submissions';
     return GetMethod(url);
+};
+
+/**
+ * API CALL FOR DOWNLOAD CSV
+ */
+
+export const DownloadHistory = async (apiUrl) => {
+    const url = END_POINTS.STUDENT_MY_CLASSES + apiUrl;
+    return GetMethodDownload(url, 'Submission_History.csv');
 };
 
 /**

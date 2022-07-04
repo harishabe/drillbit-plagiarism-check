@@ -2,6 +2,7 @@ import React from 'react'
 import { ListView2 } from '../../components'
 
 const QA = ({
+    GetQna,
     qnaData,
     isLoadingQa,
     isLoadingAns,
@@ -10,6 +11,7 @@ const QA = ({
     return (
         <>
             <ListView2
+                GetQna={ GetQna }
                 qnaData={ qnaData }
                 isLoadingQa={ isLoadingQa }
                 isLoadingAns={ isLoadingAns }
