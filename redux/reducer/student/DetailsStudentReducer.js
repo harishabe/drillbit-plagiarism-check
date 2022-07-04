@@ -70,6 +70,40 @@ const DetailsStudentReducer = (state = {}, action) => {
                 isLoadingSubmission: false,
                 submissionError: action.payload,
             };
+        case types.FETCH_STUDENTS_SUBMISSION_DETAILS_HEADER_START:
+            return {
+                ...state,
+                isLoadingHeader: true,
+            };
+        case types.FETCH_STUDENTS_SUBMISSION_DETAILS_HEADER_SUCCESS:
+            return {
+                ...state,
+                isLoadingHeader: false,
+                headerData: action.payload,
+            };
+        case types.FETCH_STUDENTS_SUBMISSION_DETAILS_HEADER_FAIL:
+            return {
+                ...state,
+                isLoadingHeader: false,
+                headerError: action.payload,
+            };
+        case types.FETCH_STUDENTS_SUBMISSION_HISTORY_DOWNLOAD_START:
+            return {
+                ...state,
+                isLoadingDownload: true,
+            };
+        case types.FETCH_STUDENTS_SUBMISSION_HISTORY_DOWNLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoadingDownload: false,
+                downloadData: action.payload,
+            };
+        case types.FETCH_STUDENTS_SUBMISSION_HISTORY_DOWNLOAD_FAIL:
+            return {
+                ...state,
+                isLoadingDownload: false,
+                downloadError: action.payload,
+            };
         case types.FETCH_STUDENTS_QA_DETAILS_START:
             return {
                 ...state,

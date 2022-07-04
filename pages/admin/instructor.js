@@ -73,7 +73,6 @@ const Instructor = ({
     isLoading
 }) => {
     const [rows, setRows] = useState([]);
-
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showStatusWarning, setStatusWarning] = useState(false);
@@ -366,7 +365,7 @@ const Instructor = ({
 
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.detailsData?.instructorData?.page,
+    pageDetails: state?.detailsData?.instructorData?.list?.page,
     instructorData: state?.detailsData?.instructorData?.list?.content,
     isLoading: state?.detailsData?.isLoading,
 });

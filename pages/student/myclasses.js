@@ -135,13 +135,13 @@ const MyClasses = ({
                                     isHeading={ true }
                                     isTimer={ true }
                                     statusColor={ expiryDateBgColor(item.validity) }
-                                    path={ { pathname: '/student/myassignments', query: { item: item.id } } }
+                                    path={ { pathname: '/student/myassignments', query: { clasId: item.id } } }
                                 />
                             </Grid>
                         )) }
                     </Grid>
 
-                    <div style={ { marginLeft: '30%', marginTop: '25px' } }>
+                    <div style={ { marginLeft: '40%', marginTop: '25px' } }>
                         <Pagination
                             count={ pageDetails?.totalPages }
                             onChange={ handleChange }
