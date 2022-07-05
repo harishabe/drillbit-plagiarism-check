@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
-import { CommonTable } from '../../components';
+import { CommonTable, CreateDrawer } from '../../components';
+import SubmissionForm from './form/SubmissionForm';
+import BeatLoader from "react-spinners/BeatLoader";
+
+const AddButtonBottom = styled.div`
+    position:fixed;
+    bottom: 30px;
+    right:30px;
+`;
 
 function createData(name, id, date, similarity, grammer, score, status, language) {
     return { name, id, date, similarity, grammer, score, status, language }
@@ -9,6 +18,8 @@ function createData(name, id, date, similarity, grammer, score, status, language
 const SubmissionHistory = ({
     submissionData,
     isLoadingSubmission,
+    isLoadingNewSubmission,
+    onSubmit,
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -55,9 +66,17 @@ const SubmissionHistory = ({
                         isCheckbox={ false }
                         tableHeader={ columns }
                         tableData={ rows }
-                    />
+                    />     
                 </>
             } 
+            <AddButtonBottom>
+                <CreateDrawer
+                    title="New Submission"
+                    isShowAddIcon={ true }
+                >
+                    <SubmissionForm onSubmit={ onSubmit } isLoadingNewSubmission={ isLoadingNewSubmission } />
+                </CreateDrawer>
+            </AddButtonBottom>
         </>
     )
 }

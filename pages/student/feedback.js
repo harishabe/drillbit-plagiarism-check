@@ -11,66 +11,56 @@ import { MessageExclamatoryIcon } from '../../assets/icon'
 
 const Feedback = ({
     GetFeedback,
-    feedbackPaperId,
     feedbackData,
     isLoadingFeedback
 }) => {
     const router = useRouter();
 
     useEffect(() => {
-        GetFeedback(router.query.clasId, router.query.assId, feedbackPaperId);
-    }, []);
+        GetFeedback(router.query.clasId, router.query.assId);
+    }, [router.query.clasId, router.query.assId]);
 
     return (
         <>
-            {/* { isLoadingFeedback ?
-                <>
-                    <Skeleton />
-                    <Skeleton />
-                    <Skeleton />
-                </> : */}
-                <>
-                    <ListItem>
-                        <ListItemAvatar style={ { minWidth: '38px', marginTop: '-5px' } }>
-                            <MessageExclamatoryIcon />
-                        </ListItemAvatar>
-                        <MainHeading title='Feedback Form' />
-                    </ListItem>
-                    <Grid display={ 'flex' } sx={ { ml: 2 } }>
-                        <SubTitle2 title='Your Score : &nbsp;' />
-                    { isLoadingFeedback ? <Skeleton width={ "70px" } /> :
-                        <Title1 title={ `${feedbackData.obtained_marks} / ${feedbackData.max_marks}` } />
-                    }
-                    </Grid>
-                    <ListItemText
-                        disableTypography
-                        sx={ { mt: 2, ml: 2 } }
-                        primary={ <SubTitle2 title='Instructor Feedback' /> }
-                        secondary={
-                            <Card
-                                sx={ {
-                                    display: 'flex',
-                                    flexWrap: 'wrap',
-                                    '& > :not(style)': {
-                                        mb: 3,
-                                        ml: 2,
-                                        mt: 2,
-                                        maxWidth: 700,
-                                        minHeight: 50,
-                                    },
-                                } }
-                            >
-                                { isLoadingFeedback ? <Skeleton width={ "300px" } height={ "2px" } /> :
-                                <SubTitle2 title={ feedbackData.feedback } />
-                                }
-                            </Card>
+            <ListItem>
+                <ListItemAvatar style={ { minWidth: '38px', marginTop: '-5px' } }>
+                    <MessageExclamatoryIcon />
+                </ListItemAvatar>
+                <MainHeading title='Feedback Form' />
+            </ListItem>
+            <Grid display={ 'flex' } sx={ { ml: 2 } }>
+                <SubTitle2 title='Your Score : &nbsp;' />
+                { isLoadingFeedback ? <Skeleton width={ "70px" } /> :
+                    <Title1 title={ `${feedbackData.obtained_marks} / ${feedbackData.max_marks}` } />
+                }
+            </Grid>
+            <ListItemText
+                disableTypography
+                sx={ { mt: 2, ml: 2 } }
+                primary={ <SubTitle2 title='Instructor Feedback' /> }
+                secondary={
+                    <Card
+                        sx={ {
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            '& > :not(style)': {
+                                mb: 3,
+                                ml: 2,
+                                mt: 2,
+                                maxWidth: 700,
+                                minHeight: 50,
+                            },
+                        } }
+                    >
+                        { isLoadingFeedback ? <Skeleton width={ "300px" } height={ "2px" } /> :
+                            <SubTitle2 title={ feedbackData.feedback } />
                         }
-                    />
+                    </Card>
+                }
+            />
 
-                    <ListItemText /> 
-            </>
+            <ListItemText /> 
         </>
-
     )
 }
 

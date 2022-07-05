@@ -5,6 +5,7 @@ import {
     GetClassesDetail,
     GetAssignmentDetail,
     GetSubmissionDetail,
+    SendSubmissionData,
     GetSubmissionHeader,
     DownloadHistory,
     GetQnaDetail,
@@ -208,12 +209,34 @@ export function* SendQnaAnswer() {
 }
 
 /**
+ * Send qna data
+ * @param {*} action
+ */
+
+export function* onLoadSendSubmission() {
+    const { response, error } = yield call(SendSubmissionData);
+    if (response) {
+        yield put({ type: types.FETCH_STUDENTS_NEW_SUBMISSION_SUCCESS, payload: response?.data, });
+        yield put({ type: types.FETCH_STUDENTS_NEW_SUBMISSION_START });
+    } else {
+        yield put({
+            type: types.FETCH_STUDENTS_NEW_SUBMISSION_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* SendSubmissionAnswer() {
+    yield takeLatest(types.FETCH_STUDENTS_NEW_SUBMISSION_START, onLoadSendSubmission);
+}
+
+/**
  * Get feedback data
  * @param {*} action
  */
 
 export function* onLoadFeedback(action) {
-    const { response, error } = yield call(GetFeedbackDetail, action.class_id, action.folder_id, action.paper_id);
+    const { response, error } = yield call(GetFeedbackDetail, action.class_id, action.folder_id);
     if (response) {
         yield put({
             type: types.FETCH_STUDENTS_FEEDBACK_DETAILS_SUCCESS,

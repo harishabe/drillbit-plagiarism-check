@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { GetMethod, PostMethod, GetMethodDownload } from '../ApiMethod';
+import { GetMethod, PostMethod, GetMethodDownload, PostFormData } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -67,8 +67,8 @@ export const GetQnaDetail = async (class_id, folder_id) => {
 /**
  * API CALL FOR FEEDBACK DATA
  */
-export const GetFeedbackDetail = async (class_id, folder_id, paper_id) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/feedback/' + paper_id;
+export const GetFeedbackDetail = async (class_id, folder_id) => {
+    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/feedback';
     return GetMethod(url);
 };
 
@@ -78,4 +78,12 @@ export const GetFeedbackDetail = async (class_id, folder_id, paper_id) => {
 export const SendAnswerData = async (data, class_id, folder_id) => {
     const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/answer';
     return PostMethod(url, data);
+};
+
+/**
+ * API CALL FOR NEW SUBMISSION DATA
+ */
+export const SendSubmissionData = async (data) => {
+    const url = END_POINTS.STUDENT_NEW_SUBMISSION;
+    return PostFormData(url, data);
 };

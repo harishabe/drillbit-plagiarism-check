@@ -66,9 +66,9 @@ export const GetQna = (class_id, folder_id) => {
 /**
  * Get all Feedback data
  */
-export const GetFeedback = (class_id, folder_id, paper_id) => {
+export const GetFeedback = (class_id, folder_id) => {
     return {
-        type: types.FETCH_STUDENTS_FEEDBACK_DETAILS_START, class_id: class_id, folder_id: folder_id, paper_id: paper_id
+        type: types.FETCH_STUDENTS_FEEDBACK_DETAILS_START, class_id: class_id, folder_id: folder_id, 
     };
 };
 
@@ -78,5 +78,14 @@ export const GetFeedback = (class_id, folder_id, paper_id) => {
 export const SendData = (data, class_id, folder_id) => {
     return {
         type: types.FETCH_STUDENTS_QA_ANSWER_DETAILS_START, query: data, class_id: class_id, folder_id: folder_id
+    };
+};
+
+/**
+ * Send new submission
+ */
+export const NewSubmission = (data) => {
+    return {
+        type: types.FETCH_STUDENTS_NEW_SUBMISSION_START, query: data,
     };
 };
