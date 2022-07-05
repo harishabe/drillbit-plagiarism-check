@@ -40,12 +40,12 @@ const StudentStats = ({
     const [submissionData, setSubmissionData] = useState([]);
 
     useEffect(() => {
-        console.log('studentStatsstudentStatsstudentStats'),
         GetStats(studentId);
     }, []);
 
     useEffect(() => {
-        let submission = studentStats?.monthlyStats?.map((item) => {
+        let submission = '';
+        submission = studentStats?.monthlyStats?.map((item) => {
             return item.submissions;
         });
         setSubmissionData(submission);

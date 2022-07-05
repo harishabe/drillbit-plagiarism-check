@@ -23,6 +23,7 @@ const DetailsReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingStats: true,
+                StatsData:''
             };
         case types.FETCH_ADMIN_STATS_DATA_SUCCESS:
             return {
@@ -34,7 +35,7 @@ const DetailsReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingStats: false,
-                StatsError: action.payload,
+                StatsData: action.payload,
             };
         case types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START:
             return {

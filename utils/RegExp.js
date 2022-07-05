@@ -27,17 +27,19 @@ export const expiryDateBgColor = (validity) => {
     }
 }
 
+const dateFormat = (str) => {
+    let date = new Date(str),
+        month = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    return [date, month, day];
+};
 
 export const convertDate = (str) => {
-    let date = new Date(str),
-        month = ("0" + (date.getMonth() + 1)).slice(-2),
-        day = ("0" + date.getDate()).slice(-2);
+    const [date, month, day] = dateFormat(str);
     return [date.getFullYear(), month, day].join("-");
-}
+};
 
 export const formatDate = (str) => {
-    let date = new Date(str),
-        month = ("0" + (date.getMonth() + 1)).slice(-2),
-        day = ("0" + date.getDate()).slice(-2);
+    const [date, month, day] = dateFormat(str);
     return [day, month, date.getFullYear()].join("/");
-}
+};

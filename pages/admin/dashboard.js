@@ -155,12 +155,7 @@ const Dashboard = ({
                             <Heading
                                 title='Similarity Percentage'
                             />
-                            {/* {
-                                isLoadingDashboard ?
-                                    <Skeleton /> :
-                                    <UsageChart SERIES_DATA={usageGraphData} />
-                            } */}
-                            {isLoadingTopStudent ?
+                            {isLoadingDashboard ?
                                 <>
                                     <Skeleton />
                                 </> :
