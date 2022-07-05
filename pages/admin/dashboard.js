@@ -169,11 +169,11 @@ const Dashboard = ({
                                     graphName="File Submission"
                                     graphData={[
                                         0,
-                                        adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
-                                        adminDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
-                                        adminDashboardData?.topStudent?.submissionsGraph?.fourtyOneSixty,
-                                        adminDashboardData?.topStudent?.submissionsGraph?.sixtyOneHundred,
-                                        adminDashboardData?.topStudent?.submissionsGraph?.docError,
+                                        adminDashboardData?.data?.submissionsGraph?.zeroTen,
+                                        adminDashboardData?.data?.submissionsGraph?.elevenFourty,
+                                        adminDashboardData?.data?.submissionsGraph?.fourtyOneSixty,
+                                        adminDashboardData?.data?.submissionsGraph?.sixtyOneHundred,
+                                        adminDashboardData?.data?.submissionsGraph?.docError,
                                     ]}
                                     strokeCurve="straight"
                                     xaxisLabelShow={true}
@@ -199,17 +199,13 @@ const Dashboard = ({
                                 </> :
                                 <>
                                     <TopStudents
-<<<<<<< HEAD
                                         topStudentData={adminDashboardData?.topStudent?.students}
-=======
-                                        topStudentData={ adminDashboardData?.students }
->>>>>>> 3f88b2a762034e8ca6fbfad25a3470a0912f123d
                                     />
                                     <CurveChartContainer>
                                         <CurveChart
                                             chartType="area"
                                             strokeCurve="smooth"
-                                            graphName="Submission"
+                                            graphName="No. students"
                                             graphData={[
                                                 0,
                                                 adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
@@ -285,7 +281,7 @@ const Dashboard = ({
                                 <PieChart
                                     type="donut"
                                     color={PIE_CHART_COLOR}
-                                    width={PIE_CHART_WIDTH}
+                                    height={320}
                                     label={PIE_CHART_LABEL}
                                     series={
                                         [

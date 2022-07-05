@@ -27,7 +27,7 @@ const ListView = ({
 }) => {
     const classes = useStyles()
     return (
-        <List>
+        <List style={{height:'273px'}}>
             {listData?.map((item, index) => (
                 <>
                     <ListItem key={item.name} style={{ paddingLeft: '0px', paddingRight: '0px' }}>

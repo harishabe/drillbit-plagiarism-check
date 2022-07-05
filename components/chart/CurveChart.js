@@ -56,7 +56,7 @@ const CurveChart = ({
                 },
             },
             xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                categories: ['0','0 - 10%', '11% - 40%', '41% - 60%', '61% - 100%','DocError'],
                 show: yaxisLabelShow,
                 labels: {
                     show: xaxisLabelShow

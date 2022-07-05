@@ -7,6 +7,7 @@ const PieChart = ({
     color,
     width,
     label,
+    height,
     series
 }) => {
     const [chartData, setChartData] = useState({
@@ -14,6 +15,7 @@ const PieChart = ({
         options: {
             colors: color,
             chart: {
+                height: height,
                 type: type,
             },
             legend: {
@@ -38,7 +40,7 @@ const PieChart = ({
     return (
         <>
             <div id="chart" style={{ padding: '40px 0px' }}>
-                <ApexCharts options={chartData.options} series={chartData.series} width={width} type="donut" />
+                <ApexCharts options={chartData.options} series={chartData.series} height={height} type="donut" />
             </div>
         </>
     )
