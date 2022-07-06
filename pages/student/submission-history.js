@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
 import { CommonTable, CreateDrawer } from '../../components';
 import SubmissionForm from './form/SubmissionForm';
-import BeatLoader from "react-spinners/BeatLoader";
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -18,8 +17,6 @@ function createData(name, id, date, similarity, grammer, score, status, language
 const SubmissionHistory = ({
     submissionData,
     isLoadingSubmission,
-    isLoadingNewSubmission,
-    onSubmit,
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -74,7 +71,7 @@ const SubmissionHistory = ({
                     title="New Submission"
                     isShowAddIcon={ true }
                 >
-                    <SubmissionForm onSubmit={ onSubmit } isLoadingNewSubmission={ isLoadingNewSubmission } />
+                    <SubmissionForm />
                 </CreateDrawer>
             </AddButtonBottom>
         </>

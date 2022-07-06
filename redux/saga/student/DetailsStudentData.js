@@ -213,8 +213,8 @@ export function* SendQnaAnswer() {
  * @param {*} action
  */
 
-export function* onLoadSendSubmission() {
-    const { response, error } = yield call(SendSubmissionData);
+export function* onLoadSendSubmission(action) {
+    const { response, error } = yield call(SendSubmissionData, action.query);
     if (response) {
         yield put({ type: types.FETCH_STUDENTS_NEW_SUBMISSION_SUCCESS, payload: response?.data, });
         yield put({ type: types.FETCH_STUDENTS_NEW_SUBMISSION_START });

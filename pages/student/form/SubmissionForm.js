@@ -1,17 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import FormJson from '../../../constant/form/student-submission-form.json';
 import { AddImageIcon } from '../../../assets/icon';
+import { NewSubmission } from '../../../redux/action/student/StudentAction';
 
 const SubmissionForm = ({
-    onSubmit,
+    NewSubmission,
     isLoadingNewSubmission,
 }) => {
     const { handleSubmit, control } = useForm({
         mode: 'all',
     });
+
+    const onSubmit = (data) => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('file', data.file[0]);
+        NewSubmission(bodyFormData)
+    }
 
     return (
         <>
@@ -36,4 +44,14 @@ const SubmissionForm = ({
     )
 }
 
-export default SubmissionForm;
+const mapStateToProps = (state) => ({
+    isLoadingNewSubmission: state?.studentClasses?.isLoadingNewSubmission,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        NewSubmission: (data) => dispatch(NewSubmission(data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmissionForm);

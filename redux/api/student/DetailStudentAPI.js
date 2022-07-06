@@ -83,7 +83,7 @@ export const SendAnswerData = async (data, class_id, folder_id) => {
 /**
  * API CALL FOR NEW SUBMISSION DATA
  */
-export const SendSubmissionData = async (data) => {
+export const SendSubmissionData = async (query) => {
     const url = END_POINTS.STUDENT_NEW_SUBMISSION;
-    return PostFormData(url, data);
+    return PostFormData(url, query);
 };

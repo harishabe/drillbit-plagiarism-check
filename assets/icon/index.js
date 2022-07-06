@@ -46,4 +46,5 @@ export { default as DeleteWarningIcon } from './DeleteWarningIcon';
 export { default as DrillBitLogoIcon } from './DrillBitLogoIcon';
 export { default as AddImageIcon } from './AddImageIcon';
 export { default as CloseIcon } from './CloseIcon';
+export { default as InstructorIcon } from './InstructorIcon';
 

@@ -20,7 +20,6 @@ import {
     GetQna,
     GetFeedback,
     SendData,
-    NewSubmission,
     GetSubmissionHeaderData,
     DownloadStudentCsv
 } from '../../redux/action/student/StudentAction';
@@ -49,13 +48,11 @@ const MyAssignmentDetails = ({
     GetQna,
     GetFeedback,
     SendData,
-    NewSubmission,
     submissionData,
     headerData,
     qnaData,
     feedbackData,
     isLoadingSubmission,
-    isLoadingNewSubmission,
     isLoadingHeader,
     isLoadingDownload,
     isLoadingQa,
@@ -122,10 +119,6 @@ const MyAssignmentDetails = ({
         GetFeedback(router.query.clasId, router.query.assId);
     }, [router.query.clasId, router.query.assId]);
 
-    const onSubmit = (data) => {
-        NewSubmission(data)
-    }
-
     const handleDownload = () => {
         let url = `/${router.query.clasId}/assignments/${router.query.assId}/downloadHistory`;
         DownloadStudentCsv(url)
@@ -153,8 +146,6 @@ const MyAssignmentDetails = ({
         <SubmissionHistory
             submissionData={ submissionData }
             isLoadingSubmission={ isLoadingSubmission }
-            isLoadingNewSubmission={ isLoadingNewSubmission }
-            onSubmit={ onSubmit }
         />,
         <QA
             GetQna={ GetQna }
@@ -210,7 +201,6 @@ const mapStateToProps = (state) => ({
     feedbackData: state?.studentClasses?.feedbackData,
     qnaData: state?.studentClasses?.qnaData,
     isLoadingSubmission: state?.studentClasses?.isLoadingSubmission,
-    isLoadingNewSubmission: state?.studentClasses?.isLoadingNewSubmission,
     isLoadingHeader: state?.studentClasses?.isLoadingHeader,
     isLoadingDownload: state?.studentClasses?.isLoadingDownload,
     isLoadingQa: state?.studentClasses?.isLoadingQa,
@@ -226,7 +216,6 @@ const mapDispatchToProps = (dispatch) => {
         GetQna: (class_id, folder_id) => dispatch(GetQna(class_id, folder_id)),
         GetFeedback: (class_id, folder_id) => dispatch(GetFeedback(class_id, folder_id)),
         SendData: (data, class_id, folder_id) => dispatch(SendData(data, class_id, folder_id)),
-        NewSubmission: (data) => dispatch(NewSubmission(data)),
     };
 };
 
