@@ -17,6 +17,9 @@ const SubmissionForm = ({
 
     const onSubmit = (data) => {
         let bodyFormData = new FormData();
+        // console.log("first", data.name)
+        bodyFormData.append('name', data.name);
+        bodyFormData.append('assignment', data.title);
         bodyFormData.append('file', data.file[0]);
         NewSubmission(bodyFormData)
     }
