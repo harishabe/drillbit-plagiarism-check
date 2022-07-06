@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Skeleton } from '@mui/material';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
@@ -52,9 +52,9 @@ const MyAssignmentDetails = ({
     headerData,
     qnaData,
     feedbackData,
-    feedbackPaperId,
     isLoadingSubmission,
     isLoadingHeader,
+    isLoadingDownload,
     isLoadingQa,
     isLoadingFeedback,
     isLoadingAns
@@ -116,9 +116,8 @@ const MyAssignmentDetails = ({
     useEffect(() => {
         GetSubmissionData(router.query.clasId, router.query.assId);
         GetSubmissionHeaderData(router.query.clasId, router.query.assId);
-        { submissionData && GetFeedback(router.query.clasId, router.query.assId, feedbackPaperId); }
-
-    }, [router.query.clasId, router.query.assId, feedbackPaperId]);
+        GetFeedback(router.query.clasId, router.query.assId);
+    }, [router.query.clasId, router.query.assId]);
 
     const handleDownload = () => {
         let url = `/${router.query.clasId}/assignments/${router.query.assId}/downloadHistory`;
@@ -157,7 +156,6 @@ const MyAssignmentDetails = ({
         />,
         <Feedback
             GetFeedback={ GetFeedback }
-            feedbackPaperId={ feedbackPaperId }
             feedbackData={ feedbackData }
             isLoadingFeedback={ isLoadingFeedback }
         />
@@ -182,13 +180,13 @@ const MyAssignmentDetails = ({
                     )) }
                     <Tooltip title="Download csv">
                         <IconButton
-                        sx={ { ml: 1 } }
+                            sx={ { ml: 2 } }
                             color="primary"
                             aria-label="download-file"
                             size="large"
                             onClick={ handleDownload }>
-                            <DownloadFileIcon />
-                    </IconButton>
+                            { isLoadingDownload ? <Skeleton sx={ { mt: 1 } } width={ 20 } /> : <DownloadFileIcon /> }
+                        </IconButton>
                     </Tooltip>
                 </Grid>
             </CardView>
@@ -202,9 +200,9 @@ const mapStateToProps = (state) => ({
     headerData: state?.studentClasses?.headerData,
     feedbackData: state?.studentClasses?.feedbackData,
     qnaData: state?.studentClasses?.qnaData,
-    feedbackPaperId: state?.studentClasses?.submissionData?._embedded?.submissionsList?.[0]?.paper_id,
     isLoadingSubmission: state?.studentClasses?.isLoadingSubmission,
     isLoadingHeader: state?.studentClasses?.isLoadingHeader,
+    isLoadingDownload: state?.studentClasses?.isLoadingDownload,
     isLoadingQa: state?.studentClasses?.isLoadingQa,
     isLoadingFeedback: state?.studentClasses?.isLoadingFeedback,
     isLoadingAns: state?.studentClasses?.isLoadingAns,
@@ -216,7 +214,7 @@ const mapDispatchToProps = (dispatch) => {
         GetSubmissionHeaderData: (class_id, folder_id) => dispatch(GetSubmissionHeaderData(class_id, folder_id)),
         DownloadStudentCsv: (url) => dispatch(DownloadStudentCsv(url)),
         GetQna: (class_id, folder_id) => dispatch(GetQna(class_id, folder_id)),
-        GetFeedback: (class_id, folder_id, paper_id) => dispatch(GetFeedback(class_id, folder_id, paper_id)),
+        GetFeedback: (class_id, folder_id) => dispatch(GetFeedback(class_id, folder_id)),
         SendData: (data, class_id, folder_id) => dispatch(SendData(data, class_id, folder_id)),
     };
 };

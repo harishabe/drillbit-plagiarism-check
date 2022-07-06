@@ -50,15 +50,17 @@ const MyClasses = ({
         let arr = [];
         classesData?.map((item, index) => {
             item['color'] = Colors[index];
-            item['validity'] = findByExpiryDate(item.created_date);
+            item['validity'] = findByExpiryDate(item.end_date);
             row = renameKeys(item,
                 {
                     class_id: 'id',
                     class_name: 'name',
-                    color: 'color',
-                    created_date: 'expiry_date',
                     mail_id: 'email',
+                    created_date: 'expiry_date',
+                    end_date: 'end_date',
+                    instructor_name: 'instructorName',
                     status: 'status',
+                    color: 'color',
                     validity: 'validity'
                 })
             arr.push(row)
@@ -140,6 +142,7 @@ const MyClasses = ({
                                     item={ item }
                                     isAvatar={ true }
                                     isHeading={ true }
+                                    isInstructorName={ true }
                                     isTimer={ true }
                                     statusColor={ expiryDateBgColor(item.validity) }
                                     path={ { pathname: '/student/myassignments', query: { clasId: item.id } } }

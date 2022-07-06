@@ -13,12 +13,14 @@ export const renameKeys = (obj, newKeys) => {
 export const findByExpiryDate = (date) => {
     let presentDate = new Date();
     let expiryDate = new Date(date);
-    let differenceInTime = presentDate.getTime() - expiryDate.getTime();
+    let differenceInTime = expiryDate.getTime() - presentDate.getTime();
     return `${Math.round(differenceInTime / (1000 * 3600 * 24))}`;
 }
 
 export const expiryDateBgColor = (validity) => {
-    if (validity <= 15) {
+    if (validity < 0) {
+        return '#E9596F';
+    } else if (validity >= 0 && validity <= 15) {
         return '#FF0000';
     } else if (validity >= 15 && validity <= 100) {
         return '#FFFF00';

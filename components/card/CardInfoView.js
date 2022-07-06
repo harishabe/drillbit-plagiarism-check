@@ -11,7 +11,7 @@ import CardActions from '@mui/material/CardActions'
 import Avatar from '@mui/material/Avatar'
 import { Divider } from '@mui/material'
 import { Heading, SubTitle2, EllipsisText } from '../index'
-import { TimerIcon, DownloadFileIcon } from '../../assets/icon'
+import { TimerIcon, DownloadFileIcon, InstructorIcon } from '../../assets/icon'
 import SubTitle1 from '../typography/SubTitle1'
 import Switch from '@mui/material/Switch'
 
@@ -53,6 +53,7 @@ const CardInfoView = ({
     isConfig,
     isAvatar,
     isHeading,
+    isInstructorName,
     isImage,
     statusColor,
 }) => {
@@ -82,9 +83,19 @@ const CardInfoView = ({
                     { isHeading ?
                         <EllipsisText value={ item.name } charLength={ 30 } />
                         : '' }
-                    <SubTitle2
-                        title={ item.description }
-                    />
+                    { isInstructorName ?
+                        <Grid container sx={ { mt: 1.5 } }>
+                            <Grid>
+                                <InstructorIcon />
+                            </Grid>
+                            <Grid sx={ { ml: 1 } }>
+                                <SubTitle2
+                                    title={ item.instructorName }
+                                />
+                            </Grid>
+                        </Grid> : '' }
+
+
                 </CardContent>
                 <Divider />
                 <CardActions style={ { padding: '18px' } }>
@@ -96,7 +107,7 @@ const CardInfoView = ({
                                 >
                                     <TimerIcon />
                                     <SubTitle2
-                                        title={ item.validity + ' days left' }
+                                        title={ item.validity < 0 ? 'Expired' : item.validity + ' days left' }
                                         ml="10px"
                                     />
                                 </StatusColor> : '' }
