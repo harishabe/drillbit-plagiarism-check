@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
 import { FormComponent, DialogModal } from '../../../components';
-import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData,ViewDownloadSubmissiondData } from '../../../redux/action/admin/AdminAction';
+import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData, ViewDownloadSubmissiondData } from '../../../redux/action/admin/AdminAction';
 import FormJson from '../../../constant/form/admin-report-form.json';
 import ReportView from '../report/ReportView';
 import { bindActionCreators } from 'redux';
@@ -17,8 +17,7 @@ const ReportForm = ({
     assignmentViewDownloadData,
     classesViewDownloadData,
     submissionsViewDownloadData,
-    submissionsDownloadData,
-    submissionsDownloadDataError,
+    reportViewSubmissionResponse,
     reportData,
     isLoading,
     isLoadingDownload,
@@ -69,11 +68,14 @@ const ReportForm = ({
         let fromDate = convertData(reportDownloadData?.fromDate);
         let toDate = convertData(reportDownloadData?.toDate);
         let url = reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
-        ViewDownloadSubmissiondData(url)
-        console.log("firstfirstfirst", submissionsDownloadData)
-        setOpen(submissionsDownloadData === "200" && false)
-        setOpen(submissionsDownloadDataError === "400" && true)
+        ViewDownloadSubmissiondData(url);
     }
+
+    useEffect(() => {
+        if (reportViewSubmissionResponse === 200) {
+            setOpen(false);
+        }
+    }, [reportViewSubmissionResponse])
 
     const reportName = reportDownloadData?.report?.name
 
@@ -112,27 +114,27 @@ const ReportForm = ({
                         maxWidth="xl"
                         handleClose={handleCloseDialog}
                     >
-                    <ReportView
-                        reportName={ reportName }
-                        assignmentViewDownloadData={ assignmentViewDownloadData }
-                        classesViewDownloadData={ classesViewDownloadData }
-                        submissionsViewDownloadData={ submissionsViewDownloadData }
-                        handleDownload={ handleDownload }
-                        open={ open }
-                        setOpen={ setOpen }
-                        closeSendDialog={ closeSendDialog }
-                        onSend={ onSend }
-                        isLoadingViewReport={ isLoadingViewReport }
-                        isLoadingSubmission={isLoadingSubmission}
-                        isLoadingDownload={ isLoadingDownload }
-                    />
+                        <ReportView
+                            reportName={reportName}
+                            assignmentViewDownloadData={assignmentViewDownloadData}
+                            classesViewDownloadData={classesViewDownloadData}
+                            submissionsViewDownloadData={submissionsViewDownloadData}
+                            handleDownload={handleDownload}
+                            open={open}
+                            setOpen={setOpen}
+                            closeSendDialog={closeSendDialog}
+                            onSend={onSend}
+                            isLoadingViewReport={isLoadingViewReport}
+                            isLoadingSubmission={isLoadingSubmission}
+                            isLoadingDownload={isLoadingDownload}
+                        />
                     </DialogModal>
                 </>
             }
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
                     {formData?.map((field, i) => (
-                        <Grid md={5.8} style={{ marginLeft: '8px' }}>
+                        <Grid md={5.8} xs={12} style={{ marginLeft: '8px' }}>
                             {isLoading ? (
                                 <Skeleton />
                             ) : (
@@ -159,8 +161,7 @@ const mapStateToProps = (state) => ({
     assignmentViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.assignmentsReportList,
     classesViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.classesReportList,
     submissionsViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.submissionsReportList,
-    submissionsDownloadData: state?.adminReport?.submissionDownloadData?.status,
-    submissionsDownloadDataError: state?.adminReport?.submissionDownloadDataError?.response?.status,
+    reportViewSubmissionResponse: state?.adminReport?.reportViewSubmission?.status,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -168,7 +169,7 @@ const mapDispatchToProps = (dispatch) => {
         ReportsData: () => dispatch(ReportsData()),
         ViewAndDownloadData: (data) => dispatch(ViewAndDownloadData(data)),
         ViewDownloadSubmissiondData: (data) => dispatch(ViewDownloadSubmissiondData(data)),
-        DownloadInstructorStudentData: (url) => dispatch(DownloadInstructorStudentData(url)),        
+        DownloadInstructorStudentData: (url) => dispatch(DownloadInstructorStudentData(url)),
     };
 };
 

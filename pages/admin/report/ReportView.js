@@ -12,14 +12,12 @@ import {
 } from '../../../components';
 import { DownloadIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/report-submission-form.json';
-import BeatLoader from "react-spinners/BeatLoader";
 
 const DownloadButton = styled.div`
     position:fixed;
     top: 17px;
     right:80px;
 `;
-
 
 const assignmentsColumns = [
     { id: 'ass_id', label: 'Assignment Id', minWidth: 170 },
@@ -31,7 +29,6 @@ const assignmentsColumns = [
     { id: 'class_name', label: 'Class Name', minWidth: 170 },
     { id: 'count', label: 'Submission count', minWidth: 170 },
 ]
-
 
 const classesColumns = [
     { id: 'cls_id', label: 'Class ID', minWidth: 170 },
@@ -165,18 +162,18 @@ const ReportView = ({
                         {
                             reportName === 'assignments' &&
                             <>
-                                { isLoadingDownload ? <Skeleton /> :
+                                {isLoadingDownload ? <Skeleton /> :
                                     <Tooltip title="Download csv">
-                                        <IconButton sx={ {
+                                        <IconButton sx={{
                                             position: 'fixed',
                                             padding: '20px',
                                             top: '9px',
                                             right: '74px'
-                                        } }
-                                            onClick={ handleDownload }>
+                                        }}
+                                            onClick={handleDownload}>
                                             <DownloadButton >
                                                 <DownloadIcon />
-                                            </DownloadButton> 
+                                            </DownloadButton>
                                         </IconButton>
                                     </Tooltip>
                                 }
@@ -193,15 +190,15 @@ const ReportView = ({
                         {
                             reportName === 'classes' &&
                             <>
-                                { isLoadingDownload ? <Skeleton /> :
+                                {isLoadingDownload ? <Skeleton /> :
                                     <Tooltip title="Download csv">
-                                        <IconButton sx={ {
+                                        <IconButton sx={{
                                             position: 'fixed',
                                             padding: '20px',
                                             top: '9px',
                                             right: '74px'
-                                        } }
-                                            onClick={ handleDownload }>
+                                        }}
+                                            onClick={handleDownload}>
                                             <DownloadButton >
                                                 <DownloadIcon />
                                             </DownloadButton>
@@ -221,20 +218,19 @@ const ReportView = ({
                         {
                             reportName === 'submissions' &&
                             <>
-                                { isLoadingSubmission ? <Skeleton /> :
-                                    <Tooltip title="Download csv">
-                                        <IconButton sx={ {
-                                            position: 'fixed',
-                                            padding: '20px',
-                                            top: '9px',
-                                            right: '74px'
-                                        } }
-                                            onClick={ setOpen }>
-                                            <DownloadButton >
-                                                <DownloadIcon />
-                                            </DownloadButton>
-                                        </IconButton>
-                                    </Tooltip>
+                                <Tooltip title="Download csv">
+                                    <IconButton sx={{
+                                        position: 'fixed',
+                                        padding: '20px',
+                                        top: '9px',
+                                        right: '74px'
+                                    }}
+                                        onClick={setOpen}>
+                                        <DownloadButton >
+                                            <DownloadIcon />
+                                        </DownloadButton>
+                                    </IconButton>
+                                </Tooltip>
                                 }
                                 <CommonTable
                                     isCheckbox={false}
@@ -254,7 +250,7 @@ const ReportView = ({
                                     isOpen={true}
                                     fullWidth="sm"
                                     maxWidth="sm"
-                                handleClose={ closeSendDialog }
+                                    handleClose={closeSendDialog}
                                 >
                                     <form onSubmit={handleSubmit(onSend)}>
                                         <Grid container>
@@ -264,7 +260,7 @@ const ReportView = ({
                                                         key={i}
                                                         field={field}
                                                         control={control}
-                                                        isLoading={ isLoadingSubmission && <BeatLoader color="#fff" /> }
+                                                        isLoading={isLoadingSubmission}
                                                     />
                                                 </Grid>
                                             ))}
