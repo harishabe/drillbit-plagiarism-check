@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
@@ -8,6 +7,7 @@ import { FormComponent, DialogModal } from '../../../components';
 import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData,ViewDownloadSubmissiondData } from '../../../redux/action/admin/AdminAction';
 import FormJson from '../../../constant/form/admin-report-form.json';
 import ReportView from '../report/ReportView';
+import { bindActionCreators } from 'redux';
 
 const ReportForm = ({
     ReportsData,
@@ -17,15 +17,18 @@ const ReportForm = ({
     assignmentViewDownloadData,
     classesViewDownloadData,
     submissionsViewDownloadData,
+    submissionsDownloadData,
+    submissionsDownloadDataError,
     reportData,
     isLoading,
+    isLoadingDownload,
     isLoadingViewReport,
     isLoadingSubmission
 }) => {
-    const router = useRouter();
     const [formData, setFormData] = useState();
     const [reportDownloadData, setReportDownloadData] = useState();
     const [showDialogModal, setShowDialogModal] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
@@ -33,6 +36,10 @@ const ReportForm = ({
 
     const handleCloseDialog = () => {
         setShowDialogModal(false);
+    }
+
+    const closeSendDialog = () => {
+        setOpen(false);
     }
 
     const convertData = (str) => {
@@ -63,7 +70,9 @@ const ReportForm = ({
         let toDate = convertData(reportDownloadData?.toDate);
         let url = reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
         ViewDownloadSubmissiondData(url)
-        // setShowDialogModal(true)
+        console.log("firstfirstfirst", submissionsDownloadData)
+        setOpen(submissionsDownloadData === "200" && false)
+        setOpen(submissionsDownloadDataError === "400" && true)
     }
 
     const reportName = reportDownloadData?.report?.name
@@ -90,6 +99,8 @@ const ReportForm = ({
         setFormData(formList);
     }, [reportData])
 
+
+
     return (
         <>
             {showDialogModal &&
@@ -106,10 +117,14 @@ const ReportForm = ({
                         assignmentViewDownloadData={ assignmentViewDownloadData }
                         classesViewDownloadData={ classesViewDownloadData }
                         submissionsViewDownloadData={ submissionsViewDownloadData }
-                        isLoadingViewReport={ isLoadingViewReport }
                         handleDownload={ handleDownload }
+                        open={ open }
+                        setOpen={ setOpen }
+                        closeSendDialog={ closeSendDialog }
                         onSend={ onSend }
+                        isLoadingViewReport={ isLoadingViewReport }
                         isLoadingSubmission={isLoadingSubmission}
+                        isLoadingDownload={ isLoadingDownload }
                     />
                     </DialogModal>
                 </>
@@ -138,11 +153,14 @@ const ReportForm = ({
 const mapStateToProps = (state) => ({
     reportData: state?.adminReport?.reportData,
     isLoading: state?.adminReport?.isLoading,
+    isLoadingDownload: state?.adminReport?.isLoadingDownload,
     isLoadingSubmission: state?.adminReport?.isLoadingSubmissionReport,
     isLoadingViewReport: state?.adminReport?.isLoadingViewReport,
     assignmentViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.assignmentsReportList,
     classesViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.classesReportList,
     submissionsViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.submissionsReportList,
+    submissionsDownloadData: state?.adminReport?.submissionDownloadData?.status,
+    submissionsDownloadDataError: state?.adminReport?.submissionDownloadDataError?.response?.status,
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import { useForm } from 'react-hook-form';
-import Grid from '@mui/material/Grid';
+import { Grid, Tooltip } from '@mui/material';
 import {
     CardView,
     CommonTable,
@@ -11,6 +12,7 @@ import {
 } from '../../../components';
 import { DownloadIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/report-submission-form.json';
+import BeatLoader from "react-spinners/BeatLoader";
 
 const DownloadButton = styled.div`
     position:fixed;
@@ -18,11 +20,6 @@ const DownloadButton = styled.div`
     right:80px;
 `;
 
-const SendButton = styled.div`
-    position:fixed;
-    top: 17px;
-    right:80px;
-`;
 
 const assignmentsColumns = [
     { id: 'ass_id', label: 'Assignment Id', minWidth: 170 },
@@ -79,19 +76,18 @@ const ReportView = ({
     submissionsViewDownloadData,
     isLoadingViewReport,
     isLoadingSubmission,
+    isLoadingDownload,
     handleDownload,
-    onSend
+    open,
+    setOpen,
+    onSend,
+    closeSendDialog
 }) => {
     const [rows, setRows] = useState([]);
-    const [open, setOpen] = useState(false);
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
     });
-
-    const handleCloseDialog = () => {
-        setOpen(false);
-    }
 
     useEffect(() => {
         let row = '';
@@ -169,9 +165,21 @@ const ReportView = ({
                         {
                             reportName === 'assignments' &&
                             <>
-                                <DownloadButton onClick={handleDownload}>
-                                    <DownloadIcon />
-                                </DownloadButton>
+                                { isLoadingDownload ? <Skeleton /> :
+                                    <Tooltip title="Download csv">
+                                        <IconButton sx={ {
+                                            position: 'fixed',
+                                            padding: '20px',
+                                            top: '9px',
+                                            right: '74px'
+                                        } }
+                                            onClick={ handleDownload }>
+                                            <DownloadButton >
+                                                <DownloadIcon />
+                                            </DownloadButton> 
+                                        </IconButton>
+                                    </Tooltip>
+                                }
                                 <CommonTable
                                     isCheckbox={false}
                                     tableHeader={assignmentsColumns}
@@ -185,9 +193,21 @@ const ReportView = ({
                         {
                             reportName === 'classes' &&
                             <>
-                                <DownloadButton onClick={handleDownload}>
-                                    <DownloadIcon />
-                                </DownloadButton>
+                                { isLoadingDownload ? <Skeleton /> :
+                                    <Tooltip title="Download csv">
+                                        <IconButton sx={ {
+                                            position: 'fixed',
+                                            padding: '20px',
+                                            top: '9px',
+                                            right: '74px'
+                                        } }
+                                            onClick={ handleDownload }>
+                                            <DownloadButton >
+                                                <DownloadIcon />
+                                            </DownloadButton>
+                                        </IconButton>
+                                    </Tooltip>
+                                }
                                 <CommonTable
                                     isCheckbox={false}
                                     tableHeader={classesColumns}
@@ -201,10 +221,21 @@ const ReportView = ({
                         {
                             reportName === 'submissions' &&
                             <>
-                                {isLoadingSubmission ? <Skeleton /> :
-                                    <DownloadButton onClick={setOpen}>
-                                        <DownloadIcon />
-                                    </DownloadButton>}
+                                { isLoadingSubmission ? <Skeleton /> :
+                                    <Tooltip title="Download csv">
+                                        <IconButton sx={ {
+                                            position: 'fixed',
+                                            padding: '20px',
+                                            top: '9px',
+                                            right: '74px'
+                                        } }
+                                            onClick={ setOpen }>
+                                            <DownloadButton >
+                                                <DownloadIcon />
+                                            </DownloadButton>
+                                        </IconButton>
+                                    </Tooltip>
+                                }
                                 <CommonTable
                                     isCheckbox={false}
                                     tableHeader={submissionsColumns}
@@ -223,7 +254,7 @@ const ReportView = ({
                                     isOpen={true}
                                     fullWidth="sm"
                                     maxWidth="sm"
-                                    handleClose={handleCloseDialog}
+                                handleClose={ closeSendDialog }
                                 >
                                     <form onSubmit={handleSubmit(onSend)}>
                                         <Grid container>
@@ -233,7 +264,7 @@ const ReportView = ({
                                                         key={i}
                                                         field={field}
                                                         control={control}
-                                                        isLoading={isLoadingViewReport}
+                                                        isLoading={ isLoadingSubmission && <BeatLoader color="#fff" /> }
                                                     />
                                                 </Grid>
                                             ))}
