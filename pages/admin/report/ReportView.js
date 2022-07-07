@@ -231,7 +231,6 @@ const ReportView = ({
                                         </DownloadButton>
                                     </IconButton>
                                 </Tooltip>
-                                }
                                 <CommonTable
                                     isCheckbox={false}
                                     tableHeader={submissionsColumns}
