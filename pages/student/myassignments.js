@@ -59,8 +59,15 @@ const MyAssignments = ({
         let arr = [];
         assignmentData?.map((item, index) => {
             item['color'] = Colors[index];
-            item['validity'] = findByExpiryDate(item.creation_date);
-            row = renameKeys(item, { folder_id: 'id', folder_name: 'name', color: 'color', creation_date: 'expiry_date' })
+            item['validity'] = findByExpiryDate(item.end_date);
+            row = renameKeys(item,
+                {
+                    folder_id: 'id',
+                    folder_name: 'name',
+                    color: 'color',
+                    creation_date: 'creation_date',
+                    end_date: 'end_date'
+                })
             arr.push(row)
         });
         setItem([...arr]);

@@ -1,0 +1,31 @@
+[
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "name",
+        "name": "name",
+        "label": "Student name",
+        "required": "Student name"
+    },
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "title",
+        "name": "title",
+        "label": "Assignment title",
+        "required": "Assignment title"
+    },
+    {
+        "field_type": "file",
+        "id": "file",
+        "name": "file",
+        "label": "Choose File",
+        "required": "Choose File",
+        "validationMsg": "Please choose file"
+    },
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Upload file"
+    }
+]
