@@ -10,11 +10,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TableRow from '@mui/material/TableRow';
-import { SubTitle, SubTitle1, EllipsisText } from '../index';
 import { IconButton, Skeleton } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { TableSkeleton } from '../../components';
+import { SubTitle, TableSkeleton, EllipsisText } from '../../components';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
@@ -50,7 +49,7 @@ const CommonTable = ({
     }
 
     React.useEffect(() => {
-        let selected = _.find(tableData, function(o) { return o.isSelected === true });
+        let selected = _.find(tableData, function (o) { return o.isSelected === true });
         setAllSelected(selected);
     }, [tableData]);
 

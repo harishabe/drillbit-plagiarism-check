@@ -43,3 +43,12 @@ export const formatDate = (str) => {
     const [date, month, day] = dateFormat(str);
     return [day, month, date.getFullYear()].join("/");
 };
+
+export const setItemLocalStorage = (key,value) => {
+    localStorage.setItem(key,value);
+};
+
+export const getItemLocalStorage = (key) => {
+    let a = localStorage.getItem(key);
+    return a;
+}
