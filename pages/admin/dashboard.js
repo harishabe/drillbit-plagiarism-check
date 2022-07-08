@@ -46,6 +46,7 @@ import {
     USAGE_CHART_DATA,
 } from './../../constant/data/ChartData';
 import { Skeleton } from '@mui/material';
+import { setItemLocalStorage, getItemLocalStorage } from '../../utils/RegExp';
 
 const InLineText = styled.span`
     display: inline-flex;
@@ -93,9 +94,8 @@ const Dashboard = ({
             return item.submissions;
         });
         setRecentSubmission(submission);
+        setItemLocalStorage('name',adminDashboardData?.data?.userProfileLite?.name);
     }, [adminDashboardData]);
-
-    console.log('recentSubmission', recentSubmission);
 
     return (
         <React.Fragment>

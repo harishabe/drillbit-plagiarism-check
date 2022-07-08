@@ -14,7 +14,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { Button } from '@mui/material';
+import { Button, Skeleton } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
 import {
     ToggleBarIcon,
@@ -26,7 +26,8 @@ import {
     AccountIcon,
     HelpIcon
 } from '../../assets/icon';
-
+import { getItemLocalStorage } from '../../utils/RegExp';
+import { Role } from '../../constant/data';
 
 const drawerWidth = 240
 
@@ -60,9 +61,12 @@ const NavBar = ({
     handleDrawerOpen,
     dashboardData
 }) => {
-    const [anchorEl, setAnchorEl] = React.useState(null)
-    const openProfile = Boolean(anchorEl)
-    const router = useRouter()
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const openProfile = Boolean(anchorEl);
+    const router = useRouter();
+    const [name, setName] = React.useState('');
+    const [role, setRole] = React.useState('');
+
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
@@ -70,13 +74,21 @@ const NavBar = ({
         setAnchorEl(null)
     }
     const handleLogout = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         router.push('/auth/login')
     }
+
+    React.useEffect(() => {
+        let b = getItemLocalStorage('name');
+        let role = getItemLocalStorage('role');
+        setName(b);
+        setRole(role);
+    }, [dashboardData === undefined]);
+
     return (
         <>
             <Hidden mdDown implementation="css">
-                <AppBar position="fixed" open={open} color="appbar" style={{zIndex:999}}>
+                <AppBar position="fixed" open={open} color="appbar" style={{ zIndex: 999 }}>
                     <Box sx={{ boxShadow: 1 }}>
                         <Hidden mdDown implementation="css">
                             <Toolbar>
@@ -96,7 +108,7 @@ const NavBar = ({
                                 </Box>
                                 <Box sx={{ flexGrow: 1 }} />
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                                    <IconButton
+                                    {/* <IconButton
                                         color="inherit"
                                         aria-label="open drawer"
                                         edge="start"
@@ -107,9 +119,9 @@ const NavBar = ({
                                         }}
                                     >
                                         <MessageIcon />
-                                    </IconButton>
-                                    <Divider orientation="vertical" flexItem />
-                                    <IconButton
+                                    </IconButton> */}
+                                    {/* <Divider orientation="vertical" flexItem /> */}
+                                    {/* <IconButton
                                         color="inherit"
                                         aria-label="open drawer"
                                         edge="start"
@@ -120,20 +132,24 @@ const NavBar = ({
                                         }}
                                     >
                                         <BellIcon />
-                                    </IconButton>
+                                    </IconButton> */}
                                     <Divider orientation="vertical" flexItem />
                                     <div style={{ display: 'block', marginLeft: '15px', marginRight: '15px' }}>
                                         <div style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}>
-                                            {dashboardData?.data?.userProfileLite?.name}
+                                            {role === Role?.admin && (dashboardData?.data?.userProfileLite?.name || (name === undefined ? <Skeleton /> : name))}
+                                            {role === Role?.instructor && (dashboardData?.data?.userProfileLite?.name || (name === undefined ? <Skeleton /> : name))}
+                                            {role === Role?.student && (dashboardData?.data?.userProfileLite?.name || (name === undefined ? <Skeleton /> : name))}
                                         </div>
                                         <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right' }}>
-                                            {dashboardData?.data?.userProfileLite?.role}
+                                            {role === Role?.admin && (dashboardData?.data?.userProfileLite?.role || role)}
+                                            {role === Role?.instructor && (dashboardData?.data?.userProfileLite?.role || role)}
+                                            {role === Role?.student && (dashboardData?.data?.userProfileLite?.role || role)}
                                         </div>
                                     </div>
 
                                     <div style={{ marginLeft: '15px', marginRight: '15px', cursor: 'pointer' }}>
                                         <Avatar onClick={handleProfileClick} alt="Remy Sharp" sx={{ width: 45, height: 45, background: '#68C886', color: '#fff' }}>
-                                            {dashboardData?.data?.userProfileLite?.name.match(/\b(\w)/g).join('')}
+                                            {dashboardData?.data?.userProfileLite?.name?.match(/\b(\w)/g).join('') || (name && name.match(/\b(\w)/g).join(''))}
                                         </Avatar>
                                     </div>
                                     <IconButton
@@ -189,17 +205,19 @@ const NavBar = ({
                     <MenuList>
                         <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                             <Avatar alt="Remy Sharp" style={{ width: '56px', height: '56px', background: '#68C886', color: '#fff' }}>
-                                {dashboardData?.data?.userProfileLite?.name.match(/\b(\w)/g).join('')}
+                                {name && name.match(/\b(\w)/g).join('')}
                             </Avatar>
-                            <ListItemText style={{ padding: '5px 15px' }} primary={dashboardData?.data?.userProfileLite?.name} secondary="vivek.jayanna@drillbit.com" />
+                            <ListItemText style={{ padding: '5px 15px' }} primary={name} secondary="vivek.jayanna@drillbit.com" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
-                            <ListItemIcon>
-                                <SwitchAccountIcon />
-                            </ListItemIcon>
-                            <ListItemText style={{ padding: '5px 15px' }} primary="Switch account" secondary="Switch to admin" />
-                        </MenuItem>
+                        {role === Role?.admin &&
+                            <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                                <ListItemIcon>
+                                    <SwitchAccountIcon />
+                                </ListItemIcon>
+                                <ListItemText style={{ padding: '5px 15px' }} primary="Switch account" secondary="Switch to admin" />
+                            </MenuItem>
+                        }
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                         <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/admin/profile/accountinfo')}>
                             <ListItemIcon>
@@ -233,6 +251,7 @@ const NavBar = ({
 
 const mapStateToProps = (state) => ({
     dashboardData: state?.adminDashboard,
+    StudentData: state?.studentClasses?.dashboardData,
 });
 
 export default connect(mapStateToProps, {})(NavBar);

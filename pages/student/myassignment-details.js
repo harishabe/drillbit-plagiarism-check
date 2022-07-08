@@ -170,8 +170,7 @@ const MyAssignmentDetails = ({
                     {details.map((item, index) => (
                         <>
                             <Grid md={ 1.7 } xs={ 12 } sx={ { ml: 2.5 } }>
-                                <EllipsisText value={ item.label } charLength={ 10 } />
-                                {/* <EllipsisText title={ item.name }  /> */ }
+                                <EllipsisText value={ item.label } charLength={10} />
                                 { isLoadingHeader ? <Skeleton /> :
                                     <SubTitle title={ item.name } />
                                 }
