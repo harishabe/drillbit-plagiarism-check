@@ -12,3 +12,10 @@ export const PaginationValue = {
     'field': 'user_id',
     'orderBy': 'asc'
 };
+
+export const InstructorPaginationValue = {
+    'page': 0,
+    'size': 6,
+    'field': 'class_id',
+    'orderBy': 'asc'
+}
