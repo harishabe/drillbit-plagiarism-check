@@ -35,6 +35,7 @@ import {
     PIE_CHART_WIDTH,
     PIE_CHART_LABEL,
 } from './../../constant/data/ChartData';
+import { setItemLocalStorage, getItemLocalStorage } from '../../utils/RegExp';
 
 
 const TextAlignRight = styled.div`
@@ -45,6 +46,7 @@ const TextAlignRight = styled.div`
 const Dashboard = ({ GetWidgetCount, instructorDashboardData, isLoading }) => {
     useEffect(() => {
         GetWidgetCount();
+        setItemLocalStorage('name', instructorDashboardData?.data?.userProfileLite?.name)
     }, []);
 
     return (

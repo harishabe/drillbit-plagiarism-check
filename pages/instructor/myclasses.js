@@ -55,7 +55,7 @@ const MyClasses = ({
 
     useEffect(() => {
         GetClassesData(paginationPayload);
-    }, []);
+    }, [, paginationPayload]);
 
     const handleSearch = (event) => {
         if (event.target.value !== '') {

@@ -7,11 +7,12 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton';
 import CardActions from '@mui/material/CardActions'
 import Avatar from '@mui/material/Avatar'
 import { Divider } from '@mui/material'
 import { Heading, SubTitle2, EllipsisText } from '../index'
-import { TimerIcon, DownloadFileIcon, InstructorIcon } from '../../assets/icon'
+import { TimerIcon, DownloadFileIcon, InstructorIcon, EditIcon } from '../../assets/icon'
 import SubTitle1 from '../typography/SubTitle1'
 import Switch from '@mui/material/Switch'
 
@@ -35,6 +36,7 @@ const AlignRight = styled.div`
     text-align:right;
 `
 
+
 const StatusColor = styled.div`
     display: inline-flex;
     background: ${(props) => props.color};
@@ -56,6 +58,8 @@ const CardInfoView = ({
     isInstructorName,
     isImage,
     statusColor,
+    isAction,
+    handleAction,
 }) => {
     const router = useRouter();
 
@@ -69,20 +73,34 @@ const CardInfoView = ({
                         <AlignRight>
                             <DownloadFileIcon />
                         </AlignRight> : '' }
-                    { isAvatar ?
-                        <Avatar
-                            sx={ { bgcolor: item.color, width: 50, height: 50, fontSize: '15px' } }
-                            variant="circle"
-                            className={ classes.margin }
-                        >
-                            { item.name.toUpperCase().charAt(0) }
-                        </Avatar> : '' }
+                    <Grid container spacing={ 2 }>
+                        <Grid item xs={ 10 }>
+                            { isAvatar ?
+                                <Avatar
+                                    sx={ { bgcolor: item.color, width: 50, height: 50, fontSize: '15px' } }
+                                    variant="circle"
+                                    className={ classes.margin }
+                                >
+                                    { item.name.toUpperCase().charAt(0) }
+                                </Avatar> : '' }
+                        </Grid>
+                        <Grid item xs={ 2 }>
+                            { isAction ?
+                                <AlignRight>
+                                    <IconButton>
+                                        <EditIcon onClick={ (e) => handleAction(e) } />
+                                    </IconButton>
+                                </AlignRight> : '' }
+                        </Grid>
+                    </Grid>
+
                     { isImage ?
                         <img style={ { marginBottom: '15px' } } src={ item.img } alt={ item.name } /> : '' }
 
                     { isHeading ?
                         <EllipsisText value={ item.name } charLength={ 30 } />
                         : '' }
+
                     { isInstructorName ?
                         <Grid container sx={ { mt: 1.5 } }>
                             <Grid>

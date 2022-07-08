@@ -5,47 +5,49 @@ import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateClass } from '../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../constant/form/myclasses-form.json';
+import { AddImageIcon } from '../../../assets/icon';
+import { convertDate } from '../../../utils/RegExp';
 
 const MyClassesForm = ({
-    CreateClass
+    CreateClass,
+    isLoading,
 }) => {
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
     });
 
-    const convertData = (str) => {
-        let date = new Date(str),
-            month = ("0" + (date.getMonth() + 1)).slice(-2),
-            day = ("0" + date.getDate()).slice(-2);
-        return [date.getFullYear(), month, day].join("-");
-    }
-
     const onSubmit = (data) => {
-        let Detaileddata = { ...data, "expiry_date": convertData(data.expiry_date) }
+        let Detaileddata = { ...data, "end_date": convertDate(data.end_date) }
         CreateClass(Detaileddata);
-        console.log("first", data)
     };
 
     return (
-        <div>
+        <>
+            <div style={ { textAlign: 'center' } }>
+                <AddImageIcon />
+            </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
                     { FormJson?.map((field, i) => (
-                        <Grid md={ 12 } style={ { marginLeft: '8px' } }>
+                        <Grid item md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
                                 key={ i }
                                 field={ field }
                                 control={ control }
+                                isLoading={ isLoading }
                             />
-
                         </Grid>
                     )) }
                 </Grid>
             </form>
-        </div>
+        </>
     )
 }
+
+const mapStateToProps = (state) => ({
+    isLoading: state?.instructorClasses?.isLoading,
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -53,4 +55,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(MyClassesForm);
+export default connect(mapStateToProps, mapDispatchToProps)(MyClassesForm);

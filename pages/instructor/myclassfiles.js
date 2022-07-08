@@ -7,13 +7,10 @@ import { CardInfoView, CreateDrawer } from '../../components';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { Skeleton } from '@mui/material';
 import MyClassesForm from './form/MyclassesForm';
-
-function createData(validity) {
-    return { validity }
-};
+import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../utils/RegExp';
 
 const AddButtonBottom = styled.div`
-    position:absolute;
+    position:fixed;
     bottom: 30px;
     right:30px;
 `;
@@ -26,6 +23,8 @@ const MyClassFiles = ({
 }) => {
 
     const [item, setItem] = useState([]);
+
+    const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -41,17 +40,19 @@ const MyClassFiles = ({
     useEffect(() => {
         let row = '';
         let arr = [];
-        let presentDate;
-        let expiryDate;
-        let differenceInTime;
-        classesData?.map((item) => {
-            row =
-                createData(
-                    presentDate = new Date(),
-                    expiryDate = new Date(item.expiry_date),
-                    differenceInTime = presentDate.getTime() - expiryDate.getTime(),
-                    item.validity = `${Math.round(differenceInTime / (1000 * 3600 * 24))} Days left`,
-                );
+        classesData?.map((item, index) => {
+            item['color'] = Colors[index];
+            item['validity'] = findByExpiryDate(item.expiry_date);
+            row = renameKeys(item,
+                {
+                    class_id: 'id',
+                    class_name: 'name',
+                    creation_date: 'creation_date',
+                    expiry_date: 'expiry_date',
+                    status: 'status',
+                    color: 'color',
+                    validity: 'validity'
+                })
             arr.push(row)
         });
         setItem([...arr]);
@@ -62,62 +63,57 @@ const MyClassFiles = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
-    const checkStatus = (validity) => {
-        if (validity <= 15) {
-            return '#FF0000';
-        } else if (validity >= 15 && validity <= 100) {
-            return '#FFFF00';
-        }else{
-            return '#CCCCCC';
-        }
-    }
+    const handleAction = (event, type, data) => {
+        console.log("firstfirst", event, type, data)
+    };
 
     return (
         <React.Fragment>
-            {isLoading ?
-                <Grid container spacing={2}>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+            { isLoading ?
+                <Grid container spacing={ 2 }>
+                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                 </Grid> :
                 <>
+                    <Grid container spacing={ 2 }>
 
-
-                <Grid container spacing={2}>
-
-                    {classesData?.map((item, index) => (
-                        <Grid item md={4} xs={12}>
-                            <CardInfoView
-                                key={index}
-                                item={item}
-                                isAvatar={true}
-                                isHeading={true}
-                                isTimer={true}
-                                statusColor={checkStatus(item.validity)}
-                                path='/instructor/myclasstables'
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
+                        { item?.map((item, index) => (
+                            <Grid item md={ 4 } xs={ 12 }>
+                                <CardInfoView
+                                    key={ index }
+                                    item={ item }
+                                    isAvatar={ true }
+                                    isHeading={ true }
+                                    isTimer={ true }
+                                    isAction={ true }
+                                    handleAction={ handleAction }
+                                    statusColor={ expiryDateBgColor(item.validity) }
+                                    path='/instructor/myclasstables'
+                                />
+                            </Grid>
+                        )) }
+                    </Grid>
 
                     <AddButtonBottom>
-                        <CreateDrawer title="Create Class">
+                        <CreateDrawer
+                            title="Create Class"
+                            isShowAddIcon={ true }>
                             <MyClassesForm />
                         </CreateDrawer>
-                    </AddButtonBottom> 
-
-                <div style={{ marginLeft: '30%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                     />
-                </div>
+                    </AddButtonBottom>
                 </>
             }
-            
+
+            <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    onChange={ handleChange }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </div>
         </React.Fragment>
     );
 };

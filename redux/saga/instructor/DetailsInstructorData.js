@@ -37,7 +37,7 @@ export function* onLoadCreateClass(action) {
     const { response, error } = yield call(CreateClassData, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_START, paginationPayload: PaginationValue });
+        yield put({ type: types.FETCH_INSTRUCTOR_CLASSES_DATA_START, paginationPayload: PaginationValue });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_FAIL, payload: error });
