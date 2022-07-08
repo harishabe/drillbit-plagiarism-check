@@ -59,7 +59,7 @@ const CardInfoView = ({
     isImage,
     statusColor,
     isAction,
-    handleAction,
+    handleClick,
 }) => {
     const router = useRouter();
 
@@ -87,8 +87,8 @@ const CardInfoView = ({
                         <Grid item xs={ 2 }>
                             { isAction ?
                                 <AlignRight>
-                                    <IconButton>
-                                        <EditIcon onClick={ (e) => handleAction(e) } />
+                                    <IconButton onClick={ handleClick }>
+                                        <EditIcon />
                                     </IconButton>
                                 </AlignRight> : '' }
                         </Grid>

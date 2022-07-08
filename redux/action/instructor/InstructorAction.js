@@ -34,6 +34,16 @@ export const CreateStudent = (data) => {
 };
 
 /**
+ * Edit class
+ */
+export const EditClass = (classId, requestPayload) => {
+    return {
+        type: types.FETCH_ADMIN_EDIT_ROW_START, classId: classId, requestPayload: requestPayload,
+    };
+};
+
+
+/**
  * Create Assignment
  */
 export const CreateAssignment = (data) => {

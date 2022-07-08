@@ -15,6 +15,7 @@ const END_POINTS = {
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_MY_CLASSES: '/extreme/classes',
     INSTRUCTOR_MY_FOLDERS: '/extreme/instructor/myFolders',
+    INSTRUCTOR_CLASS_EDIT_DATA: '/extreme/classes/',
     STUDENT_DASHBOARD_WIDGET: '/extreme/student/dashboard',
     STUDENT_MY_CLASSES: '/extreme/student/classes',
     STUDENT_MY_ASSIGNMENTS_SUBMISSION: '/extreme/student/myassignments-details',

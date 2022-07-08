@@ -23,6 +23,8 @@ const MyClassFiles = ({
 }) => {
 
     const [item, setItem] = useState([]);
+    const [editClasses, setEditClasses] = useState(false);
+    const [editClassesData, setEditClassesData] = useState('');
 
     const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
 
@@ -63,9 +65,11 @@ const MyClassFiles = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
-    const handleAction = (event, type, data) => {
-        console.log("firstfirst", event, type, data)
+    const handleClick = (event, rowData) => {
+        setEditClasses(true);
+        setEditClassesData(rowData);
     };
+
 
     return (
         <React.Fragment>
@@ -87,7 +91,7 @@ const MyClassFiles = ({
                                     isHeading={ true }
                                     isTimer={ true }
                                     isAction={ true }
-                                    handleAction={ handleAction }
+                                    handleClick={ handleClick }
                                     statusColor={ expiryDateBgColor(item.validity) }
                                     path='/instructor/myclasstables'
                                 />
@@ -102,6 +106,19 @@ const MyClassFiles = ({
                             <MyClassesForm />
                         </CreateDrawer>
                     </AddButtonBottom>
+
+                    {
+                        editClasses &&
+                        <CreateDrawer
+                            title="Edit Class"
+                            isShowAddIcon={ false }
+                            showDrawer={ editClasses }
+                        >
+                            <MyClassesForm
+                                editData={ editClassesData }
+                            />
+                        </CreateDrawer>
+                    }
                 </>
             }
 
