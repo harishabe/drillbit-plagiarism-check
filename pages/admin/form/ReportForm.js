@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
 import { FormComponent, DialogModal } from '../../../components';
-import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData,ViewDownloadSubmissiondData } from '../../../redux/action/admin/AdminAction';
+import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData, ViewDownloadSubmissiondData } from '../../../redux/action/admin/AdminAction';
 import FormJson from '../../../constant/form/admin-report-form.json';
 import ReportView from '../report/ReportView';
+import { bindActionCreators } from 'redux';
 
 const ReportForm = ({
     ReportsData,
@@ -17,15 +17,17 @@ const ReportForm = ({
     assignmentViewDownloadData,
     classesViewDownloadData,
     submissionsViewDownloadData,
+    reportViewSubmissionResponse,
     reportData,
     isLoading,
+    isLoadingDownload,
     isLoadingViewReport,
     isLoadingSubmission
 }) => {
-    const router = useRouter();
     const [formData, setFormData] = useState();
     const [reportDownloadData, setReportDownloadData] = useState();
     const [showDialogModal, setShowDialogModal] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
@@ -33,6 +35,10 @@ const ReportForm = ({
 
     const handleCloseDialog = () => {
         setShowDialogModal(false);
+    }
+
+    const closeSendDialog = () => {
+        setOpen(false);
     }
 
     const convertData = (str) => {
@@ -62,9 +68,14 @@ const ReportForm = ({
         let fromDate = convertData(reportDownloadData?.fromDate);
         let toDate = convertData(reportDownloadData?.toDate);
         let url = reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
-        ViewDownloadSubmissiondData(url)
-        // setShowDialogModal(true)
+        ViewDownloadSubmissiondData(url);
     }
+
+    useEffect(() => {
+        if (reportViewSubmissionResponse === 200) {
+            setOpen(false);
+        }
+    }, [reportViewSubmissionResponse])
 
     const reportName = reportDownloadData?.report?.name
 
@@ -90,6 +101,8 @@ const ReportForm = ({
         setFormData(formList);
     }, [reportData])
 
+
+
     return (
         <>
             {showDialogModal &&
@@ -101,23 +114,27 @@ const ReportForm = ({
                         maxWidth="xl"
                         handleClose={handleCloseDialog}
                     >
-                    <ReportView
-                        reportName={ reportName }
-                        assignmentViewDownloadData={ assignmentViewDownloadData }
-                        classesViewDownloadData={ classesViewDownloadData }
-                        submissionsViewDownloadData={ submissionsViewDownloadData }
-                        isLoadingViewReport={ isLoadingViewReport }
-                        handleDownload={ handleDownload }
-                        onSend={ onSend }
-                        isLoadingSubmission={isLoadingSubmission}
-                    />
+                        <ReportView
+                            reportName={reportName}
+                            assignmentViewDownloadData={assignmentViewDownloadData}
+                            classesViewDownloadData={classesViewDownloadData}
+                            submissionsViewDownloadData={submissionsViewDownloadData}
+                            handleDownload={handleDownload}
+                            open={open}
+                            setOpen={setOpen}
+                            closeSendDialog={closeSendDialog}
+                            onSend={onSend}
+                            isLoadingViewReport={isLoadingViewReport}
+                            isLoadingSubmission={isLoadingSubmission}
+                            isLoadingDownload={isLoadingDownload}
+                        />
                     </DialogModal>
                 </>
             }
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
                     {formData?.map((field, i) => (
-                        <Grid md={5.8} style={{ marginLeft: '8px' }}>
+                        <Grid md={5.8} xs={12} style={{ marginLeft: '8px' }}>
                             {isLoading ? (
                                 <Skeleton />
                             ) : (
@@ -138,11 +155,13 @@ const ReportForm = ({
 const mapStateToProps = (state) => ({
     reportData: state?.adminReport?.reportData,
     isLoading: state?.adminReport?.isLoading,
+    isLoadingDownload: state?.adminReport?.isLoadingDownload,
     isLoadingSubmission: state?.adminReport?.isLoadingSubmissionReport,
     isLoadingViewReport: state?.adminReport?.isLoadingViewReport,
     assignmentViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.assignmentsReportList,
     classesViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.classesReportList,
     submissionsViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.submissionsReportList,
+    reportViewSubmissionResponse: state?.adminReport?.reportViewSubmission?.status,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -150,7 +169,7 @@ const mapDispatchToProps = (dispatch) => {
         ReportsData: () => dispatch(ReportsData()),
         ViewAndDownloadData: (data) => dispatch(ViewAndDownloadData(data)),
         ViewDownloadSubmissiondData: (data) => dispatch(ViewDownloadSubmissiondData(data)),
-        DownloadInstructorStudentData: (url) => dispatch(DownloadInstructorStudentData(url)),        
+        DownloadInstructorStudentData: (url) => dispatch(DownloadInstructorStudentData(url)),
     };
 };
 

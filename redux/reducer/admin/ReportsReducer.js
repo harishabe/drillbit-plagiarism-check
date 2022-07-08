@@ -62,13 +62,13 @@ const ReportsReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingSubmissionReport: false,
-                submissionDownloadData: action.payload,
+                reportViewSubmission: action.payload,
             };
         case types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_FAIL:
             return {
                 ...state,
                 isLoadingSubmissionReport: false,
-                submissionDownloadDataError: action.payload,
+                reportViewSubmission: action.payload,
             };
         default:
             return state;

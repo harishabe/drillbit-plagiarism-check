@@ -13,7 +13,7 @@ import {
     SubTitle,
     TabMenu,
     StatusDot,
-    EllipsisText
+    EllipsisText,
 } from '../../components'
 import { DownloadFileIcon } from '../../assets/icon'
 import {
@@ -172,7 +172,7 @@ const MyAssignmentDetails = ({
                             <Grid md={ 1.7 } xs={ 12 } sx={ { ml: 2.5 } }>
                                 <EllipsisText value={ item.label } charLength={10} />
                                 { isLoadingHeader ? <Skeleton /> :
-                                    <SubTitle1 title={ item.name } />
+                                    <SubTitle title={ item.name } />
                                 }
                             </Grid> 
                             <Divider orientation="vertical" flexItem>
