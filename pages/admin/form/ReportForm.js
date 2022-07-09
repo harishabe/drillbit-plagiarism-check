@@ -8,6 +8,9 @@ import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData, ViewDo
 import FormJson from '../../../constant/form/admin-report-form.json';
 import ReportView from '../report/ReportView';
 import { bindActionCreators } from 'redux';
+import { convertDate } from '../../../utils/RegExp';
+
+import { PaginationValue } from '../../../utils/PaginationUrl';
 
 const ReportForm = ({
     ReportsData,
@@ -19,6 +22,7 @@ const ReportForm = ({
     submissionsViewDownloadData,
     reportViewSubmissionResponse,
     reportData,
+    pageDetails,
     isLoading,
     isLoadingDownload,
     isLoadingViewReport,
@@ -28,6 +32,10 @@ const ReportForm = ({
     const [reportDownloadData, setReportDownloadData] = useState();
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [open, setOpen] = useState(false);
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+    });
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
@@ -41,32 +49,34 @@ const ReportForm = ({
         setOpen(false);
     }
 
-    const convertData = (str) => {
-        let date = new Date(str),
-            month = ("0" + (date.getMonth() + 1)).slice(-2),
-            day = ("0" + date.getDate()).slice(-2);
-        return [date.getFullYear(), month, day].join("-");
-    }
+    const handleChange = (event, value) => {
+        event.preventDefault();
+        let fromDate = convertDate(reportDownloadData?.fromDate);
+        let toDate = convertDate(reportDownloadData?.toDate);
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+        let url = reportDownloadData?.report?.name + '?page=' + value + '&size=' + PaginationValue?.size + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        ViewAndDownloadData(url);
+    };
 
     const onSubmit = (data) => {
-        let fromDate = convertData(data?.fromDate);
-        let toDate = convertData(data?.toDate);
-        let url = data?.report?.name + '?page=' + 0 + '&size=' + 25 + '&instructor=' + data?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        let fromDate = convertDate(data?.fromDate);
+        let toDate = convertDate(data?.toDate);
+        let url = data?.report?.name + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&instructor=' + data?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
         ViewAndDownloadData(url);
         setShowDialogModal(true);
         setReportDownloadData(data);
     };
 
     const handleDownload = () => {
-        let fromDate = convertData(reportDownloadData?.fromDate);
-        let toDate = convertData(reportDownloadData?.toDate);
+        let fromDate = convertDate(reportDownloadData?.fromDate);
+        let toDate = convertDate(reportDownloadData?.toDate);
         let url = reportDownloadData?.report?.name + 'Report?&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
         DownloadInstructorStudentData(url);
     }
 
     const onSend = (data) => {
-        let fromDate = convertData(reportDownloadData?.fromDate);
-        let toDate = convertData(reportDownloadData?.toDate);
+        let fromDate = convertDate(reportDownloadData?.fromDate);
+        let toDate = convertDate(reportDownloadData?.toDate);
         let url = reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
         ViewDownloadSubmissiondData(url);
     }
@@ -114,19 +124,21 @@ const ReportForm = ({
                         maxWidth="xl"
                         handleClose={handleCloseDialog}
                     >
-                        <ReportView
-                            reportName={reportName}
-                            assignmentViewDownloadData={assignmentViewDownloadData}
-                            classesViewDownloadData={classesViewDownloadData}
-                            submissionsViewDownloadData={submissionsViewDownloadData}
-                            handleDownload={handleDownload}
-                            open={open}
-                            setOpen={setOpen}
-                            closeSendDialog={closeSendDialog}
-                            onSend={onSend}
-                            isLoadingViewReport={isLoadingViewReport}
-                            isLoadingSubmission={isLoadingSubmission}
-                            isLoadingDownload={isLoadingDownload}
+                    <ReportView
+                        reportName={ reportName }
+                        assignmentViewDownloadData={ assignmentViewDownloadData }
+                        classesViewDownloadData={ classesViewDownloadData }
+                        submissionsViewDownloadData={ submissionsViewDownloadData }
+                        handleDownload={ handleDownload }
+                        open={ open }
+                        setOpen={ setOpen }
+                        closeSendDialog={ closeSendDialog }
+                        onSend={ onSend }
+                        handleChange={ handleChange }
+                        pageDetails={ pageDetails }
+                        isLoadingViewReport={ isLoadingViewReport }
+                        isLoadingSubmission={ isLoadingSubmission }
+                        isLoadingDownload={ isLoadingDownload }
                         />
                     </DialogModal>
                 </>
@@ -154,6 +166,7 @@ const ReportForm = ({
 
 const mapStateToProps = (state) => ({
     reportData: state?.adminReport?.reportData,
+    pageDetails: state?.adminReport?.viewDownloadData?.page,
     isLoading: state?.adminReport?.isLoading,
     isLoadingDownload: state?.adminReport?.isLoadingDownload,
     isLoadingSubmission: state?.adminReport?.isLoadingSubmissionReport,

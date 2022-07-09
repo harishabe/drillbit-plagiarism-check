@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateFolder } from '../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../constant/form/myfolders-form.json';
+import { AddImageIcon } from '../../../assets/icon';
+import { convertDate } from '../../../utils/RegExp';
 
 const MyFoldersForm = ({
     CreateFolder
@@ -14,20 +16,16 @@ const MyFoldersForm = ({
         mode: 'all',
     });
 
-    const convertData = (str) => {
-        let date = new Date(str),
-            month = ("0" + (date.getMonth() + 1)).slice(-2),
-            day = ("0" + date.getDate()).slice(-2);
-        return [date.getFullYear(), month, day].join("-");
-    }
-
     const onSubmit = (data) => {
-        let Detaileddata = { ...data, "expiry_date": convertData(data.expiry_date) }
+        let Detaileddata = { ...data, "expiry_date": convertDate(data.expiry_date) }
         CreateFolder(Detaileddata);
         console.log("first", data)
     };
     return (
-        <div>
+        <>
+            <div style={ { textAlign: 'center' } }>
+                <AddImageIcon />
+            </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
                     { FormJson?.map((field, i) => (
@@ -37,12 +35,11 @@ const MyFoldersForm = ({
                                 field={ field }
                                 control={ control }
                             />
-
                         </Grid>
                     )) }
                 </Grid>
             </form>
-        </div>
+        </>
     )
 }
 
