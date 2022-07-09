@@ -12,6 +12,7 @@ import {
 } from '../../../components';
 import { DownloadIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/report-submission-form.json';
+import { Pagination } from '@mui/material';
 
 const DownloadButton = styled.div`
     position:fixed;
@@ -78,7 +79,9 @@ const ReportView = ({
     open,
     setOpen,
     onSend,
-    closeSendDialog
+    closeSendDialog,
+    handleChange,
+    pageDetails
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -270,6 +273,16 @@ const ReportView = ({
                         }
                     </>
                 }
+
+                <div style={ { marginLeft: '42%', marginTop: '25px' } }>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div>
             </>
         </CardView>
     )

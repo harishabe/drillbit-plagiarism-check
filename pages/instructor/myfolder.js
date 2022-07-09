@@ -85,37 +85,40 @@ const MyFolder = ({
                 </Grid>
             </Box>
             <MainHeading title={'My Folder'+'('+pageDetails?.totalElements+')'} />
-            {isLoading ? <Grid container spacing={2}>
-                <Grid item md={4} xs={12}><Skeleton /></Grid>
-                <Grid item md={4} xs={12}><Skeleton /></Grid>
-                <Grid item md={4} xs={12}><Skeleton /></Grid>
-            </Grid> : 
+
+            { isLoading ?
+                <Grid container spacing={ 2 }>
+                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                </Grid> :
                 <>
-                    <AddButtonBottom>
-                        <CreateDrawer title="Create Folder">
-                            <MyFoldersForm />
-                        </CreateDrawer>
-                    </AddButtonBottom>
-                <Grid container spacing={2}>
-                    {myFolders?.map((item, index) => (
-                        <Grid key={index} item md={3} sm={4} xs={6}>
-                            <Folder item={item} path='/instructor/studentlist' />
-                        </Grid>
-                    ))}
-                </Grid>
-                <div style={{ marginLeft: '30%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                     />
-                </div>
+                    <Grid container spacing={ 2 }>
+                        { myFolders?.map((item, index) => (
+                            <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
+                                <Folder item={ item } path='/instructor/studentlist' />
+                            </Grid>
+                        )) }
+                    </Grid>
                 </>
             }
+            <AddButtonBottom>
+                <CreateDrawer
+                    title="Create Folder"
+                    isShowAddIcon={ true }>
+                    <MyFoldersForm />
+                </CreateDrawer>
+            </AddButtonBottom>
 
-            
+            <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    onChange={ handleChange }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </div>
         </React.Fragment>
     );
 };
