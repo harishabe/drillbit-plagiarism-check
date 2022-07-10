@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
 import Instructor from '../../layouts/Instructor';
-import { CardInfoView, CreateDrawer } from '../../components';
-import { PaginationValue } from '../../utils/PaginationUrl';
+import { CardInfoView, CreateDrawer, WarningDialog } from '../../components';
+import { DeleteWarningIcon } from '../../assets/icon';
 import { Skeleton } from '@mui/material';
 import MyClassesForm from './form/MyclassesForm';
-import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../utils/RegExp';
+import { renameKeys, findByExpiryDate, expiryDateBgColor, convertDate } from '../../utils/RegExp';
+import { DeleteClass } from '../../redux/action/instructor/InstructorAction';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -16,28 +18,21 @@ const AddButtonBottom = styled.div`
 `;
 
 const MyClassFiles = ({
-    GetClassesData,
     classesData,
     pageDetails,
     isLoading,
+    DeleteClass,
+    handlePagination,
 }) => {
 
     const [item, setItem] = useState([]);
     const [editClasses, setEditClasses] = useState(false);
     const [editClassesData, setEditClassesData] = useState('');
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [selectedClass, setSelectedClass] = useState('');
+    
 
     const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
-
-    const [paginationPayload, setPaginationPayload] = useState({
-        page: PaginationValue?.page,
-        size: PaginationValue?.size,
-        field: 'class_id',
-        orderBy: PaginationValue?.orderBy,
-    });
-
-    useEffect(() => {
-        GetClassesData(paginationPayload);
-    }, [, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -60,72 +55,96 @@ const MyClassFiles = ({
         setItem([...arr]);
     }, [classesData]);
 
-    const handleChange = (event, value) => {
-        event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-    };
 
-    const handleClick = (event, rowData) => {
+    const handleClassEdit = (e, rowData) => {
+        e.preventDefault();
         setEditClasses(true);
         setEditClassesData(rowData);
     };
 
+    const handleClassDelete = (e, data) => {
+        e.preventDefault();
+        setSelectedClass(data);
+        setShowDeleteWarning(true);
+    }
+
+    const handleYesWarning = () => {
+        DeleteClass(selectedClass.id);
+        setTimeout(() => {
+            setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    const handleCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
 
     return (
         <React.Fragment>
-            { isLoading ?
-                <Grid container spacing={ 2 }>
-                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+            {isLoading ?
+                <Grid container spacing={2}>
+                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                    <Grid item md={4} xs={12}><Skeleton /></Grid>
                 </Grid> :
-                <>
-                    <Grid container spacing={ 2 }>
-
-                        { item?.map((item, index) => (
-                            <Grid item md={ 4 } xs={ 12 }>
-                                <CardInfoView
-                                    key={ index }
-                                    item={ item }
-                                    isAvatar={ true }
-                                    isHeading={ true }
-                                    isTimer={ true }
-                                    isAction={ true }
-                                    handleClick={ handleClick }
-                                    statusColor={ expiryDateBgColor(item.validity) }
-                                    path='/instructor/myclasstables'
-                                />
-                            </Grid>
-                        )) }
-                    </Grid>
-
-                    <AddButtonBottom>
-                        <CreateDrawer
-                            title="Create Class"
-                            isShowAddIcon={ true }>
-                            <MyClassesForm />
-                        </CreateDrawer>
-                    </AddButtonBottom>
-
-                    {
-                        editClasses &&
-                        <CreateDrawer
-                            title="Edit Class"
-                            isShowAddIcon={ false }
-                            showDrawer={ editClasses }
-                        >
-                            <MyClassesForm
-                                editData={ editClassesData }
+                <Grid container spacing={2}>
+                    {item?.map((item, index) => (
+                        <Grid item md={4} xs={12}>
+                            <CardInfoView
+                                key={index}
+                                item={item}
+                                isAvatar={true}
+                                isHeading={true}
+                                isTimer={true}
+                                isAction={true}
+                                isNextPath={true}
+                                handleClick={handleClassEdit}
+                                handleDelete={handleClassDelete}
+                                statusColor={expiryDateBgColor(item.validity)}
+                                path='/instructor/myclasstables'
                             />
-                        </CreateDrawer>
-                    }
-                </>
+                        </Grid>
+                    ))}
+                </Grid>
             }
 
-            <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+            {
+                showDeleteWarning &&
+                <WarningDialog
+                    warningIcon={<DeleteWarningIcon />}
+                    message="Are you sure you want to delete ?"
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
+                />
+            }
+
+
+            <AddButtonBottom>
+                <CreateDrawer
+                    title="Create Class"
+                    isShowAddIcon={true}>
+                    <MyClassesForm />
+                </CreateDrawer>
+            </AddButtonBottom>
+
+            {
+                editClasses &&
+                <CreateDrawer
+                    title="Edit Class"
+                    isShowAddIcon={false}
+                    showDrawer={editClasses}
+                >
+                    <MyClassesForm
+                        editData={editClassesData}
+                    />
+                </CreateDrawer>
+            }
+
+            <div style={{ marginLeft: '45%', marginTop: '25px' }}>
                 <Pagination
-                    count={ pageDetails?.totalPages }
-                    onChange={ handleChange }
+                    count={pageDetails?.totalPages}
+                    onChange={handlePagination}
                     color="primary"
                     variant="outlined"
                     shape="rounded"
@@ -135,6 +154,20 @@ const MyClassFiles = ({
     );
 };
 
+
+const mapStateToProps = (state) => ({
+    pageDetails: state?.instructorClasses?.classesData?.page,
+    classesData: state?.instructorClasses?.classesData?._embedded?.classDTOList,
+    isLoading: state?.instructorClasses?.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        DeleteClass: (id) => dispatch(DeleteClass(id)),
+    };
+};
+
 MyClassFiles.layout = Instructor;
 
-export default MyClassFiles;
+export default connect(mapStateToProps, mapDispatchToProps)(MyClassFiles);
+

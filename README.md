@@ -20,11 +20,12 @@ sanjay@gmail.com            |     Bit@1234             |       student
 drillbitsatish@gmail.com    |     12345678             |       
 ---------------------------------------------------------------------------
 testingagain@mailinator.com |     Test@1234            |       instructor
-sagarxtream@mailinator.com  |     Bit@1234
+sagarxtream@mailinator.com  |     Bit@1234  
+okwyenoch@yahoo.com         |     BUTOLJUX
 ---------------------------------------------------------------------------
 
 Existing app 
 ---------------------------------------------------------------------------
 admin@xtream                         123456                        admin
 sagarxtream@mailinator.com           12345                         instructor
-ganashree.s@drillbitplagiarism.com   Gana@123                     student
+ganashree.s@drillbitplagiarism.com   Gana@123                      student

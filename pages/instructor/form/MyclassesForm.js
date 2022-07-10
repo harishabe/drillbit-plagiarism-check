@@ -19,26 +19,24 @@ const MyClassesForm = ({
 
     const [editOperation, setEditOperation] = useState(false);
 
-    const { handleSubmit, control } = useForm({
+    const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
     });
 
     const onSubmit = (data) => {
         if (editOperation) {
             data['end_date'] = convertDate(data.expiry_date);
-            // EditClass(editData?.user_id?.props?.title, data);
-            console.log("datadatadata", editData?.user_id?.props?.title, data)
+            delete data.expiry_date;
+            EditClass(editData?.id, data);
         } else {
-            let Detaileddata = { ...data, "end_date": convertDate(data.end_date) }
-            CreateClass(Detaileddata);
+            let DetailedData = { ...data, "end_date": convertDate(data.expiry_date) }
+            delete DetailedData.expiry_date;
+            CreateClass(DetailedData);
         }
     };
 
     const modifyFormField = (buttonLabel) => {
         let formField = formJsonField?.map((field) => {
-            if (field.name === 'class_name') {
-                field.name = "";
-            }
             if (field.name === 'end_date') {
                 field.minDate = false;
             }
@@ -48,43 +46,43 @@ const MyClassesForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         if (editData) {
             let a = {
-                'name': editData.name,
-                'end_date': convertDate(editData.expiry_date),
+                'class_name': editData.name,
+                'expiry_date': convertDate(editData.expiry_date),
             };
             const fields = [
-                'name',
-                'end_date',
+                'class_name',
+                'expiry_date',
             ];
             fields.forEach(field => setValue(field, a[field]));
-            modifyFormField('Edit Class', true);
+            modifyFormField('Edit Class');
             setEditOperation(true);
         } else {
-            modifyFormField('Create Class', false);
+            modifyFormField('Create Class');
         }
     }, [editData]);
 
     return (
         <>
-            <div style={ { textAlign: 'center' } }>
+            <div style={{ textAlign: 'center' }}>
                 <AddImageIcon />
             </div>
-            <form onSubmit={ handleSubmit(onSubmit) }>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
-                    { FormJson?.map((field, i) => (
-                        <Grid item md={ 12 } style={ { marginLeft: '8px' } }>
+                    {formJsonField?.map((field, i) => (
+                        <Grid item md={12} style={{ marginLeft: '8px' }}>
                             <FormComponent
-                                key={ i }
-                                field={ field }
-                                control={ control }
-                                isLoading={ isLoading }
+                                key={i}
+                                field={field}
+                                control={control}
+                                isLoading={isLoading}
                             />
                         </Grid>
-                    )) }
+                    ))}
                 </Grid>
             </form>
         </>
@@ -92,7 +90,7 @@ const MyClassesForm = ({
 }
 
 const mapStateToProps = (state) => ({
-    isLoading: state?.instructorClasses?.isLoading,
+    isLoading: state?.instructorCrud?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {

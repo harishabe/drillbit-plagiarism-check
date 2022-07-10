@@ -11,7 +11,7 @@
     {
         "field_type": "datepicker",
         "id": "expiry_date",
-        "name": "end_date",
+        "name": "expiry_date",
         "label": "Select expiry date",
         "minDate":true,
         "required": "Select expiry date",

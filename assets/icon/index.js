@@ -47,4 +47,6 @@ export { default as DrillBitLogoIcon } from './DrillBitLogoIcon';
 export { default as AddImageIcon } from './AddImageIcon';
 export { default as CloseIcon } from './CloseIcon';
 export { default as InstructorPersonIcon } from './InstructorPersonIcon';
+export { default as ThreeDotIcon } from './ThreeDotIcon';
+export { default as ArchieveIcon } from './ArchieveIcon';
 

@@ -100,8 +100,14 @@ const SideBar = ({ open }) => {
     const [sidebarItem, setSidebarItem] = React.useState();
     const router = useRouter();
 
-    function activeRoute(routeName) {
-        return router.route.indexOf(routeName) > -1 ? true : false;
+    function activeRoute(routeName, name) {
+        if (router.pathname === '/instructor/myclasstables' && name === 'My Classes') {
+            return true;
+        } else if (router.pathname === '/instructor/studentlist' && name === 'My Folders') {
+            return true;
+        } else {
+            return router.route.indexOf(routeName) > -1 ? true : false;
+        }
     }
 
     React.useEffect(() => {
@@ -128,10 +134,10 @@ const SideBar = ({ open }) => {
                         </DrawerHeader>
                         <List>
                             {sidebarItem?.map((text, key) => {
-                                let active = activeRoute(text.layout + text.path);
+                                let active = activeRoute(text.layout + text.path, text.name);
                                 const whiteFontClasses = classNames({
                                     [" " + classes.activeClass]:
-                                        activeRoute(text.layout + text.path)
+                                        activeRoute(text.layout + text.path, text.name)
                                 });
                                 return (
                                     <Link href={text.layout + text.path} key={key}>

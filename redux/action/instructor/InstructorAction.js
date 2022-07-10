@@ -38,7 +38,16 @@ export const CreateStudent = (data) => {
  */
 export const EditClass = (classId, requestPayload) => {
     return {
-        type: types.FETCH_ADMIN_EDIT_ROW_START, classId: classId, requestPayload: requestPayload,
+        type: types.FETCH_INSTRUCTOR_EDIT_CLASS_DATA_START, classId: classId, requestPayload: requestPayload,
+    };
+};
+
+/**
+ * Delete class
+ */
+export const DeleteClass = (classId) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_DELETE_CLASS_START, classId: classId,
     };
 };
 

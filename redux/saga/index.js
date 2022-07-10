@@ -26,7 +26,8 @@ import {
     CreateFolder,
     CreateStudent,
     CreateAssignment,
-    EditClassesData
+    EditClassesData,
+    DeleteClassesData
 } from './instructor/DetailsInstructorData';
 import {
     GetStudentDashboard,
@@ -76,12 +77,12 @@ const saga = [
     fork(SendSubmissionAnswer),
     fork(CreateClass),
     fork(EditClassesData),
+    fork(DeleteClassesData),
     fork(CreateStudent),
     fork(CreateAssignment),
     fork(GetMyFolders),
     fork(CreateFolder),
     fork(GetStudentData),
-    fork(InsDashboardWidget),
     fork(EditData),
     fork(DeleteData),
     fork(DeleteStudentData),

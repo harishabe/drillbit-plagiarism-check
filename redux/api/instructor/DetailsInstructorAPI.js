@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { GetMethod, PostMethod, PutMethod } from '../ApiMethod';
+import { DeleteMethod, GetMethod, PostMethod, PutMethod } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -21,12 +21,21 @@ export const CreateClassData = async (data) => {
 };
 
 /**
- * API CALL FOR EDIT CLASS
+ * API CALL FOR EDIT CLASS IN INSTRUCTOR
  */
 
 export const EditClassData = async (action) => {
     const url = END_POINTS.INSTRUCTOR_CLASS_EDIT_DATA + action.classId;
     return PutMethod(url, action.requestPayload);
+};
+
+/**
+ * API CALL FOR DELETE CLASS IN INSTRUCTOR
+ */
+
+ export const DeleteClass = async (action) => {
+    const url = END_POINTS.INSTRUCTOR_CLASS_EDIT_DATA + action.classId;
+    return DeleteMethod(url);
 };
 
 

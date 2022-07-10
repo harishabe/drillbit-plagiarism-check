@@ -30,7 +30,7 @@ const InstructorForm = ({
             data['expiry_date'] = convertDate(data.expiry_date);
             EditData(editData?.user_id?.props?.title, data, 'instructor');
         } else {
-            let Detaileddata = { ...data, "expiry_date": convertDate(data.expiry_date) }
+            let Detaileddata = { ...data, "expiry_date": convertDate(data.expiry_date) };
             CreateInstructorData(Detaileddata);
         }
     };

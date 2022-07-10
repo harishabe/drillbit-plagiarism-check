@@ -42,18 +42,12 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
     selected: {
         background: '#5181F1',
-        color: '#fff !important',
-        borderTopLeftRadius: '25px',
-        borderTopRightRadius: '25px'
-    },
-    selected1: {
-        background: 'red',
-        color: '#fff !important',
+        color: '#000 !important',
         borderTopLeftRadius: '25px',
         borderTopRightRadius: '25px'
     },
     marginTop: {
-        marginTop: '25px'
+        marginTop: '5px'
     }
 }))
 
@@ -72,7 +66,7 @@ const TabMenu = ({
     }
 
     return (
-        <Box className={classes.marginTop} sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs
                     value={value}
