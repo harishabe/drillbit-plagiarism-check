@@ -74,7 +74,7 @@ const TabMenu = ({
                     indicatorColor='primary'
                 >
                     {menuButton.map((item, index) => (
-                        <Tab
+                        <Tab key={index}
                             classes={{
                                 selected: isTabMenu === true ? classes.selected : '',
                             }}
