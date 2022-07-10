@@ -3,18 +3,9 @@
         "field_type": "input",
         "type": "text",
         "id": "name",
-        "name": "name",
+        "name": "class_name",
         "label": "Class name",
         "required": "Class name"
-    },
-
-    {
-        "field_type": "input",
-        "type": "text",
-        "id": "description",
-        "name": "description",
-        "label": "Class description",
-        "required": "Class description"
     },
     
     {

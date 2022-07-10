@@ -1,8 +1,17 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
-import { GetClassesDetail, GetMyFoldersDetail, CreateClassData, CreateFolderData, CreateStudentData, CreateAssignmentData } from '../../api/instructor/DetailsInstructorAPI';
+import {
+    GetClassesDetail,
+    GetMyFoldersDetail,
+    CreateClassData,
+    CreateFolderData,
+    CreateStudentData,
+    CreateAssignmentData,
+    EditClassData,
+    DeleteClass
+} from '../../api/instructor/DetailsInstructorAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { PaginationValue } from '../../../utils/PaginationUrl';
+import { PaginationValue, InstructorPaginationValue } from '../../../utils/PaginationUrl';
 
 /**
  * Get classes data
@@ -37,7 +46,7 @@ export function* onLoadCreateClass(action) {
     const { response, error } = yield call(CreateClassData, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_START, paginationPayload: PaginationValue });
+        yield put({ type: types.FETCH_INSTRUCTOR_CLASSES_DATA_START, paginationPayload: InstructorPaginationValue });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_FAIL, payload: error });
@@ -47,6 +56,57 @@ export function* onLoadCreateClass(action) {
 
 export function* CreateClass() {
     yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_START, onLoadCreateClass);
+}
+
+/**
+ * Edit
+ * @param {*} action
+ */
+
+export function* onLoadEditClass(action) {
+    const { response, error } = yield call(EditClassData, action);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_EDIT_CLASS_DATA_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_CLASSES_DATA_START, paginationPayload: InstructorPaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_EDIT_CLASS_DATA_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* EditClassesData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_EDIT_CLASS_DATA_START, onLoadEditClass);
+}
+
+/**
+ * Delete class
+ * @param {*} action
+ */
+
+export function* onLoadDeleteClass(action) {
+    const { response, error } = yield call(DeleteClass, action);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DELETE_CLASS_SUCCESS,
+            payload: response?.data,
+        });
+        yield put({ type: types.FETCH_INSTRUCTOR_CLASSES_DATA_START, paginationPayload: InstructorPaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DELETE_CLASS_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* DeleteClassesData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_DELETE_CLASS_START, onLoadDeleteClass);
 }
 
 /**

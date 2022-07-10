@@ -25,11 +25,11 @@ const InstructorBreadCrumb = [
     },
 ]
 
-const MyClasses = ({ 
+const MyClasses = ({
     GetClassesData,
     classesData,
     pageDetails,
-    isLoading 
+    isLoading
 }) => {
 
     const [paginationPayload, setPaginationPayload] = useState({
@@ -39,13 +39,19 @@ const MyClasses = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    const componentList = 
-    [<MyClassFiles 
-        GetClassesData={GetClassesData} 
-        pageDetails={pageDetails} 
-        classesData={classesData} 
-        isLoading={isLoading} />, 
-    <Archives />]
+    const handlePagination = (e, value) => {
+        e.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
+
+    const componentList = [
+        <MyClassFiles
+            pageDetails={pageDetails}
+            classesData={classesData}
+            isLoading={isLoading}
+            handlePagination={handlePagination} />,
+        <Archives />
+    ];
 
     const tabMenu = [{
         label: `My Classes(${pageDetails?.totalElements})`,
@@ -55,7 +61,7 @@ const MyClasses = ({
 
     useEffect(() => {
         GetClassesData(paginationPayload);
-    }, []);
+    }, [, paginationPayload]);
 
     const handleSearch = (event) => {
         if (event.target.value !== '') {
@@ -77,7 +83,7 @@ const MyClasses = ({
                     <Grid item md={2} xs={2}>
                         <TextField
                             placeholder='Search'
-                             onChange={handleSearch}
+                            onChange={handleSearch}
                             inputProps={{
                                 style: {
                                     padding: 5,
@@ -88,7 +94,7 @@ const MyClasses = ({
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title={'My Classes'+'('+pageDetails?.totalElements+')'} />
+            {/* <MainHeading title={'My Classes' + '(' + pageDetails?.totalElements + ')'} /> */}
             <TabMenu
                 menuButton={tabMenu}
                 components={componentList}

@@ -58,10 +58,10 @@ const CommonTable = ({
             <Table stickyHeader>
                 <TableHead>
                     <TableRow>
-                        {isCheckbox ?
+                        {isCheckbox &&
                             <TableCell padding="checkbox" className={classes.padding}>
                                 <Checkbox checked={allSelected} onChange={handleCheckboxSelect} />
-                            </TableCell> : ''}
+                            </TableCell>}
                         {tableHeader.map((column) => (
                             <TableCell
                                 key={column.id}
@@ -89,10 +89,10 @@ const CommonTable = ({
                         <TableSkeleton />
                         : tableData.map((row) => (
                             <TableRow hover key={row.id} onClick={(e) => router.push(path)}>
-                                {isCheckbox ?
+                                {isCheckbox &&
                                     <TableCell padding="checkbox" className={classes.padding}>
                                         <Checkbox onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
-                                    </TableCell> : ''}
+                                    </TableCell>}
                                 {tableHeader.map((column) => {
                                     const value = row[column.id];
                                     return (

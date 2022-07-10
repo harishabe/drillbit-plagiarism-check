@@ -315,6 +315,7 @@ const Instructor = ({
                     </Grid>
                 </Grid>
             </Box>
+
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={8}>
@@ -336,6 +337,7 @@ const Instructor = ({
                     </Grid>
                 </Grid>
             </Box>
+
             <CardView>
                 <>
                     {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
@@ -366,7 +368,8 @@ const Instructor = ({
                     </div>
                 </>
             </CardView>
-        </React.Fragment >
+
+        </React.Fragment>
     )
 }
 

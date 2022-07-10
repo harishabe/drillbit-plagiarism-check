@@ -17,6 +17,7 @@ const SidebarInstructor = [
         "activeIcon": <DashboardWhiteIcon />,
         "name": "Dashboard",
         "path": "/dashboard",
+        "pathList": ["/dashboard"],
         "layout": "/instructor",
     },
     {
@@ -24,6 +25,7 @@ const SidebarInstructor = [
         "activeIcon": <ClassWhiteIcon />,
         "name": "My Classes",
         "path": "/myclasses",
+        "pathList": ["/myclasses", "/myclasstables"],
         "layout": "/instructor",
     },
     {
@@ -31,6 +33,7 @@ const SidebarInstructor = [
         "activeIcon": <FolderWhiteIcon />,
         "name": "My Folders",
         "path": "/myfolder",
+        "pathList": ["/myfolder"],
         "layout": "/instructor",
     },
     {
@@ -38,6 +41,7 @@ const SidebarInstructor = [
         "activeIcon": <RepositoryWhiteIcon />,
         "name": "Repository",
         "path": "/repository",
+        "pathList": ["/repository"],
         "layout": "/instructor",
     },
     {
@@ -45,6 +49,7 @@ const SidebarInstructor = [
         "activeIcon": <IntegrationWhiteIcon />,
         "name": "Compare Doc",
         "path": "/comparedoc",
+        "pathList": ["/comparedoc"],
         "layout": "/instructor",
     }
 ];
