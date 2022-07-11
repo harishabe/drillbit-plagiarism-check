@@ -21,6 +21,7 @@ import {
 } from './admin/ReportsData';
 import {
     GetClassesData,
+    GetClassesStudentData,
     GetMyFolders,
     CreateClass,
     CreateFolder,
@@ -65,6 +66,7 @@ const saga = [
     fork(GetReportViewDownload),
     fork(GetSubmissionDownload),
     fork(GetClassesData),
+    fork(GetClassesStudentData),
     fork(GetStudentDashboard),
     fork(GetStudentClasses),
     fork(GetStudentAssignments),

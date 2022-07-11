@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateStudent } from '../../../redux/action/instructor/InstructorAction';
+import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/instructor-student-form.json';
 
 const StudentForm = ({
@@ -20,7 +21,10 @@ const StudentForm = ({
     };
 
     return (
-        <div>
+        <>
+            <div style={ { textAlign: 'center' } }>
+                <AddImageIcon />
+            </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
                     { FormJson?.map((field, i) => (
@@ -35,7 +39,7 @@ const StudentForm = ({
                     )) }
                 </Grid>
             </form>
-        </div>
+        </>
     )
 }
 

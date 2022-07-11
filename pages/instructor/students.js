@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import _ from 'lodash';
 import styled from 'styled-components';
 import Instructor from '../../layouts/Instructor'
-import { CardView, CommonTable, AvatarName, CreateDrawer } from '../../components'
-import { EditIcon, DeleteIcon, LockIcon } from '../../assets/icon'
+import {
+    CardView,
+    CommonTable,
+    AvatarName,
+    CreateDrawer,
+    WarningDialog,
+} from '../../components'
+import { Pagination, IconButton } from '@mui/material';
+import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../assets/icon'
 import StudentForm from './form/StudentForm';
+import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
+import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 
 const columns = [
     { id: 'id', label: 'Student ID', minWidth: 170 },
@@ -24,62 +34,148 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-const rows = [
-    createData(
-        <AvatarName title='S101' color='#4795EE' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-    createData(
-        <AvatarName title='S101' color='#5E47EE' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-    createData(
-        <AvatarName title='S101' color='#EE4747' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-    createData(
-        <AvatarName title='S101' color='#4795EE' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-    createData(
-        <AvatarName title='S101' color='#5E47EE' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-    createData(
-        <AvatarName title='S101' color='#EE4747' />,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'CS',
-        'A',
-        [<EditIcon />, <DeleteIcon />, <LockIcon />]
-    ),
-]
+const Students = ({
+    studentData,
+    pageDetails,
+    paginationPayload,
+    setPaginationPayload,
+    isLoadingStudent
+}) => {
 
-const actionIcon = [<EditIcon />, <DeleteIcon />, <LockIcon />]
+    const [rows, setRows] = useState([]);
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [deleteRowData, setDeleteRowData] = useState('');
+    const [showStatusWarning, setStatusWarning] = useState(false);
+    const [statusRowData, setStatusRowData] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
+    const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
+    // const [editStudent, setEditStudent] = useState(false);
+    // const [editStudentData, setEditStudentData] = useState('');
 
-const Students = () => {
+    useEffect(() => {
+        let row = '';
+        let arr = [];
+        studentData?.map((student) => {
+            row =
+                createData(
+                    <AvatarName avatarText="S" title={ student.id } color='#4795EE' />,
+                    student.name,
+                    student.username,
+                    student.department,
+                    student.section,
+                    [{ 'component': <EditIcon />, 'type': 'edit' },
+                    { 'component': <DeleteIcon />, 'type': 'delete' },
+                    {
+                        'component': student.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                        'type': student.status === 'active' ? 'lock' : 'unlock'
+                    }
+                    ]
+                );
+            row['isSelected'] = false;
+            arr.push(row)
+        });
+        setRows([...arr]);
+    }, [studentData]);
+
+    const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
+
+    const handleCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
+
+    const handleStatusCloseWarning = () => {
+        setStatusWarning(false);
+    };
+
+    const handleYesWarning = () => {
+        DeleteData(deleteRowData, paginationPayload);
+        setShowDeleteAllIcon(false);
+        setTimeout(() => {
+            setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    const handleStatusWarning = () => {
+        DeactivateData(statusRowData, paginationPayload);
+        setTimeout(() => {
+            setStatusWarning(false);
+        }, [100]);
+    };
+
+    const handleAction = (event, icon, rowData) => {
+        if (icon === 'edit') {
+            setEditInstructor(true);
+            setEditInstructorData(rowData);
+        } else if (icon === 'delete') {
+            setDeleteRowData(rowData?.id?.props?.title);
+            setShowDeleteWarning(true);
+        } else if (icon === 'lock') {
+            let activateDeactive = {
+                'id': rowData?.id?.props?.title,
+                'status': 'inactive'
+            }
+            setStatusRowData(activateDeactive);
+            setStatusWarning(true);
+            setStatusMessage('inactive');
+        } else if (icon === 'unlock') {
+            let activateDeactive = {
+                'id': rowData?.id?.props?.title,
+                'status': 'active'
+            };
+            setStatusRowData(activateDeactive);
+            setStatusWarning(true);
+            setStatusMessage('active');
+        }
+    }
+
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
+    }
+
+    const handleCheckboxSelect = () => {
+        let rowData = rows?.map((rowItem) => {
+            rowItem['isSelected'] = !rowItem['isSelected'];
+            return rowItem;
+        });
+        setRows(rowData);
+    }
+
+    const handleSingleSelect = (e, row) => {
+        let rowData = rows?.map((rowItem) => {
+            if (rowItem?.id?.props?.title === row?.id?.props?.title) {
+                rowItem['isSelected'] = !rowItem['isSelected'];
+            }
+            return rowItem;
+        });
+        setRows(rowData);
+    }
+
+    const deleteAllStudent = () => {
+        let rowsId = '';
+        _.filter(rows, function (o) {
+            if (o.isSelected === true) {
+                return rows;
+            }
+        }).map((rowItem) => {
+            rowsId += rowItem?.id?.props?.title + ',';
+        });
+        setDeleteRowData(removeCommaWordEnd(rowsId));
+        setShowDeleteWarning(true);
+    }
+
     return (
         <React.Fragment>
+<<<<<<< HEAD
             <CardView>
                 <AddButtonBottom>
                     <CreateDrawer isShowAddIcon={true} title="Add Student">
@@ -92,7 +188,80 @@ const Students = () => {
                     tableData={rows}
                     actionIcon={actionIcon}
                     isActionIcon={true}
+=======
+
+            {
+                showDeleteWarning &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message="Are you sure you want to delete ?"
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
+>>>>>>> 90f050644966da451083a8a46db50f8cb378ebaf
                 />
+            }
+
+            {
+                showStatusWarning &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message={ "Are you sure, you want to " + statusMessage + "?" }
+                    handleYes={ handleStatusWarning }
+                    handleNo={ handleStatusCloseWarning }
+                    isOpen={ true }
+                />
+            }
+            <AddButtonBottom>
+                <CreateDrawer
+                    title="Add Student"
+                    isShowAddIcon={ true }>
+                    <StudentForm />
+                </CreateDrawer>
+            </AddButtonBottom> 
+
+            {/* {
+                editStudent &&
+                <CreateDrawer
+                    title="Edit Instructor"
+                    isShowAddIcon={ false }
+                    showDrawer={ editStudent }
+                >
+                    <InstructorForm
+                        editData={ editStudent }
+                    />
+                </CreateDrawer>
+            } */}
+
+            <CardView>
+                <>
+                    { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
+                        <IconButton onClick={ deleteAllStudent }>
+                            <DeleteIcon />
+                        </IconButton>
+                    </div> }
+                <CommonTable
+                        isCheckbox={ true }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
+                        handleCheckboxSelect={ handleCheckboxSelect }
+                        handleSingleSelect={ handleSingleSelect }
+                        isLoading={ isLoadingStudent }
+                        charLength={ 17 }
+                        path=''
+                    />
+                    <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+                        <Pagination
+                            count={ pageDetails?.totalPages }
+                            onChange={ handleChange }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </div>
+                </>
             </CardView>
         </React.Fragment>
     )

@@ -59,10 +59,11 @@ const InstructorStats = ({
             <Grid item container>
                 {isLoading ? <Skeleton width={210} /> :
                     <>
-                        <Grid item md={2} xs={2}> <SubTitle1 title="Instructor name" /></Grid>
-                        <Grid item md={1} xs={1}> <SubTitle1 title=":" /></Grid>
-                        <Grid item md={7} xs={7}>
-                            <SubTitle1 title={instructorStats?.name} />
+                        <Grid item md={ 4 } xs={ 4 }>
+                            <SubTitle1 title={ `Instructor name : ${instructorStats?.name}` } />
+                        </Grid>
+                        <Grid item md={ 3 } xs={ 3 }>
+                            <SubTitle1 title={ `Documents processed : ${instructorStats?.trendAnalysis?.documentsProcessed}` } />
                         </Grid>
                         {isLoadingCsvExport ? <Skeleton width={150} style={{ marginLeft: 'auto' }} /> :
                             <Tooltip title="Export to csv">

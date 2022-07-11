@@ -51,6 +51,15 @@ export const DeleteClass = (classId) => {
     };
 };
 
+/**
+ * Get Student
+ */
+export const GetStudent = (class_id, paginationPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START, class_id: class_id, paginationPayload: paginationPayload
+    };
+};
+
 
 /**
  * Create Assignment
