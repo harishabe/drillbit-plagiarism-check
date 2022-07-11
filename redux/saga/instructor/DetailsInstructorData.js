@@ -176,7 +176,7 @@ export function* GetMyFolders() {
 }
 
 /**
- * create folders
+ * create folders 
  * @param {*} action
  */
 
@@ -195,3 +195,5 @@ export function* onLoadCreateFolder(action) {
 export function* CreateFolder() {
     yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, onLoadCreateFolder);
 }
+
+

@@ -75,13 +75,11 @@ const Assignments = () => {
     <React.Fragment>
       <CardView>
         <AddButtonBottom>
-          <CreateDrawer title="Create Assignment">
+          <CreateDrawer isShowAddIcon={true} title="Create Assignment">
             <AssignmentForm />
           </CreateDrawer>
         </AddButtonBottom>
-        <Link href={'/instructor/mysubmissions'}>
-          <CommonTable
-            onClick={() => router.push('/instructor/mysubmissions')}
+          <CommonTable           
             isCheckbox={true}
             tableHeader={columns}
             tableData={rows}
@@ -89,7 +87,6 @@ const Assignments = () => {
             isActionIcon={true}
             path='/instructor/mysubmissions'
           />
-        </Link>
       </CardView>
     </React.Fragment>
   ); 

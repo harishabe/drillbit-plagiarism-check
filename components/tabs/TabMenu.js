@@ -41,8 +41,8 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
     selected: {
-        background: '#5181F1',
-        color: '#000 !important',
+        background: '#3672FF',
+        color: '#fff !important',
         borderTopLeftRadius: '25px',
         borderTopRightRadius: '25px'
     },

@@ -139,6 +139,8 @@ const MyClasses = ({
                             <Grid item md={ 4 } xs={ 12 }>
                                 <CardInfoView
                                     key={ index }
+                                    isNextPath={false}
+                                    isAction={false}
                                     item={ item }
                                     isAvatar={ true }
                                     isHeading={ true }

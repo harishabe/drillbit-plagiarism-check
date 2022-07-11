@@ -82,7 +82,7 @@ const Students = () => {
         <React.Fragment>
             <CardView>
                 <AddButtonBottom>
-                    <CreateDrawer title="Add Student">
+                    <CreateDrawer isShowAddIcon={true} title="Add Student">
                         <StudentForm />
                     </CreateDrawer>
                 </AddButtonBottom> 

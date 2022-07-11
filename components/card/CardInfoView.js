@@ -234,4 +234,4 @@ const CardInfoView = ({
     )
 }
 
-export default CardInfoView
+export default CardInfoView;
