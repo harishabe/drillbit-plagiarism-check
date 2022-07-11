@@ -2,6 +2,7 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
     GetClassesDetail,
+    GetStudentDetail,
     GetMyFoldersDetail,
     CreateClassData,
     CreateFolderData,
@@ -59,7 +60,7 @@ export function* CreateClass() {
 }
 
 /**
- * Edit
+ * Edit classes
  * @param {*} action
  */
 
@@ -83,31 +84,30 @@ export function* EditClassesData() {
 }
 
 /**
- * Delete class
+ * Get student data
+ * My Classes > Student
  * @param {*} action
  */
 
-export function* onLoadDeleteClass(action) {
-    const { response, error } = yield call(DeleteClass, action);
+export function* onLoadClassesStudent(action) {
+    const { response, error } = yield call(GetStudentDetail, action.class_id, action.paginationPayload);
     if (response) {
         yield put({
-            type: types.FETCH_INSTRUCTOR_DELETE_CLASS_SUCCESS,
+            type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_SUCCESS,
             payload: response?.data,
         });
-        yield put({ type: types.FETCH_INSTRUCTOR_CLASSES_DATA_START, paginationPayload: InstructorPaginationValue });
-        toastrValidation(response);
     } else {
         yield put({
-            type: types.FETCH_INSTRUCTOR_DELETE_CLASS_FAIL,
+            type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_FAIL,
             payload: error,
         });
-        toastrValidation(error);
     }
 }
 
-export function* DeleteClassesData() {
-    yield takeLatest(types.FETCH_INSTRUCTOR_DELETE_CLASS_START, onLoadDeleteClass);
+export function* GetClassesStudentData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START, onLoadClassesStudent);
 }
+
 
 /**
  * create student
