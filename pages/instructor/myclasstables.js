@@ -22,9 +22,7 @@ const MyClassesTables = ({
     const router = useRouter();
 
     const ClasId = router.query.clasId;
-
-    // console.log("id", router.query.clasId)
-
+    
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
@@ -80,13 +78,13 @@ const MyClassesTables = ({
 
     const componentList = [
         <Students
-            // GetStudent={ GetStudent }
-            studentData={ studentData }
-            pageDetails={ pageDetails }
-            paginationPayload={ paginationPayload }
-            setPaginationPayload={ setPaginationPayload }
-            isLoadingStudent={ isLoadingStudent } />,
-        <Assignments />]
+            studentData={studentData}
+            pageDetails={pageDetails}
+            paginationPayload={paginationPayload}
+            setPaginationPayload={setPaginationPayload}
+            isLoadingStudent={isLoadingStudent} />,
+        <Assignments />
+    ];
 
     const tabMenu = [
         {
@@ -95,7 +93,7 @@ const MyClassesTables = ({
         {
             label: 'Assignments(27)',
         },
-    ]
+    ];
 
     return (
         <React.Fragment>
@@ -104,16 +102,16 @@ const MyClassesTables = ({
                     <Grid item md={10} xs={10}>
                         <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
-                    <Grid item md={ 2 } xs={ 2 }>
+                    <Grid item md={2} xs={2}>
                         <TextField
                             placeholder='Search'
-                            onChange={ debouncedResults }
-                            inputProps={ {
+                            onChange={debouncedResults}
+                            inputProps={{
                                 style: {
                                     padding: 5,
                                     display: 'inline-flex',
                                 },
-                            } }
+                            }}
                         />
                     </Grid>
                 </Grid>
@@ -136,6 +134,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-MyClassesTables.layout = Instructor
+MyClassesTables.layout = Instructor;
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyClassesTables);

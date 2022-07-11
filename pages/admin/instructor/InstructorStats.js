@@ -59,11 +59,8 @@ const InstructorStats = ({
             <Grid item container>
                 {isLoading ? <Skeleton width={210} /> :
                     <>
-                        <Grid item md={ 4 } xs={ 4 }>
-                            <SubTitle1 title={ `Instructor name : ${instructorStats?.name}` } />
-                        </Grid>
-                        <Grid item md={ 3 } xs={ 3 }>
-                            <SubTitle1 title={ `Documents processed : ${instructorStats?.trendAnalysis?.documentsProcessed}` } />
+                        <Grid item md={6} xs={6}>
+                            <SubTitle1 title={`Instructor name : ${instructorStats?.name}`} />
                         </Grid>
                         {isLoadingCsvExport ? <Skeleton width={150} style={{ marginLeft: 'auto' }} /> :
                             <Tooltip title="Export to csv">
@@ -78,7 +75,10 @@ const InstructorStats = ({
             <Grid item md={12} xs={12}>
                 <Grid container>
                     <Grid item md={8} xs={12}>
-                        <SubTitle title='Document Processed' />
+                        <SubTitle title={
+                            `Documents processed (${instructorStats?.trendAnalysis?.documentsProcessed !== undefined ?
+                                instructorStats?.trendAnalysis?.documentsProcessed : 0})`}
+                        />
                         {isLoading ?
                             <>
                                 <Skeleton />

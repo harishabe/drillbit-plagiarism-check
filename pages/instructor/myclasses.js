@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { connect } from 'react-redux';
+import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
 import { TextField } from '@mui/material';
 import { PaginationValue } from '../../utils/PaginationUrl';
-
 import Instructor from '../../layouts/Instructor';
-import { BreadCrumb, MainHeading, TabMenu } from '../../components';
-
+import { BreadCrumb, MainHeading } from '../../components';
 import MyClassFiles from './myclassfiles';
-import Archives from './archives';
 
 const InstructorBreadCrumb = [
     {
@@ -23,7 +20,7 @@ const InstructorBreadCrumb = [
         link: '/instructor/myclasses',
         active: true,
     },
-]
+];
 
 const MyClasses = ({
     GetClassesData,
@@ -43,21 +40,6 @@ const MyClasses = ({
         e.preventDefault();
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
-
-    const componentList = [
-        <MyClassFiles
-            pageDetails={pageDetails}
-            classesData={classesData}
-            isLoading={isLoading}
-            handlePagination={handlePagination} />,
-        <Archives />
-    ];
-
-    const tabMenu = [{
-        label: `My Classes(${pageDetails?.totalElements})`,
-    }, {
-        label: 'Archives(1)',
-    }];
 
     useEffect(() => {
         GetClassesData(paginationPayload);
@@ -94,11 +76,12 @@ const MyClasses = ({
                     </Grid>
                 </Grid>
             </Box>
-            {/* <MainHeading title={'My Classes' + '(' + pageDetails?.totalElements + ')'} /> */}
-            <TabMenu
-                menuButton={tabMenu}
-                components={componentList}
-                isTabMenu={false}
+            <MainHeading title={'My Classes' + '(' + pageDetails?.totalElements + ')'} />
+            <MyClassFiles
+                pageDetails={pageDetails}
+                classesData={classesData}
+                isLoading={isLoading}
+                handlePagination={handlePagination}
             />
         </React.Fragment>
     )

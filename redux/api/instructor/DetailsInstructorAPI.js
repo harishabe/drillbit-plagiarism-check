@@ -30,6 +30,15 @@ export const EditClassData = async (action) => {
 };
 
 /**
+ * API CALL FOR DELETE CLASS IN INSTRUCTOR
+ */
+
+export const DeleteClass = async (action) => {
+    const url = END_POINTS.INSTRUCTOR_CLASS_EDIT_DATA + action.classId;
+    return DeleteMethod(url);
+}
+
+/**
  * API CALL FOR STUDENT DATA
  */
 

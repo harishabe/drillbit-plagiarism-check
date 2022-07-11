@@ -84,6 +84,34 @@ export function* EditClassesData() {
 }
 
 /**
+ * Delete classes
+ * My Classes 
+ * @param {*} action
+ */
+
+export function* onLoadDeleteClass(action) {
+    const { response, error } = yield call(DeleteClass, action);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DELETE_CLASS_SUCCESS,
+            payload: response?.data,
+        });
+        yield put({ type: types.FETCH_INSTRUCTOR_CLASSES_DATA_START, paginationPayload: InstructorPaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DELETE_CLASS_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* DeleteClasses() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_DELETE_CLASS_START, onLoadDeleteClass);
+}
+
+/**
  * Get student data
  * My Classes > Student
  * @param {*} action

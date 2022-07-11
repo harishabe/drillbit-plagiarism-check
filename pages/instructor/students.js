@@ -58,7 +58,7 @@ const Students = ({
         studentData?.map((student) => {
             row =
                 createData(
-                    <AvatarName avatarText="S" title={ student.id } color='#4795EE' />,
+                    <AvatarName avatarText="S" title={student.id} color='#4795EE' />,
                     student.name,
                     student.username,
                     student.department,
@@ -175,87 +175,61 @@ const Students = ({
 
     return (
         <React.Fragment>
-<<<<<<< HEAD
-            <CardView>
-                <AddButtonBottom>
-                    <CreateDrawer isShowAddIcon={true} title="Add Student">
-                        <StudentForm />
-                    </CreateDrawer>
-                </AddButtonBottom> 
-                <CommonTable
-                    isCheckbox={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    actionIcon={actionIcon}
-                    isActionIcon={true}
-=======
 
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
+                    warningIcon={<DeleteWarningIcon />}
                     message="Are you sure you want to delete ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
->>>>>>> 90f050644966da451083a8a46db50f8cb378ebaf
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
 
             {
                 showStatusWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
-                    message={ "Are you sure, you want to " + statusMessage + "?" }
-                    handleYes={ handleStatusWarning }
-                    handleNo={ handleStatusCloseWarning }
-                    isOpen={ true }
+                    warningIcon={<DeleteWarningIcon />}
+                    message={"Are you sure, you want to " + statusMessage + "?"}
+                    handleYes={handleStatusWarning}
+                    handleNo={handleStatusCloseWarning}
+                    isOpen={true}
                 />
             }
             <AddButtonBottom>
                 <CreateDrawer
                     title="Add Student"
-                    isShowAddIcon={ true }>
+                    isShowAddIcon={true}>
                     <StudentForm />
                 </CreateDrawer>
-            </AddButtonBottom> 
-
-            {/* {
-                editStudent &&
-                <CreateDrawer
-                    title="Edit Instructor"
-                    isShowAddIcon={ false }
-                    showDrawer={ editStudent }
-                >
-                    <InstructorForm
-                        editData={ editStudent }
-                    />
-                </CreateDrawer>
-            } */}
+            </AddButtonBottom>
 
             <CardView>
                 <>
-                    { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
-                        <IconButton onClick={ deleteAllStudent }>
+                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+                        <IconButton onClick={deleteAllStudent}>
                             <DeleteIcon />
                         </IconButton>
-                    </div> }
-                <CommonTable
-                        isCheckbox={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        handleAction={ handleAction }
-                        handleTableSort={ handleTableSort }
-                        handleCheckboxSelect={ handleCheckboxSelect }
-                        handleSingleSelect={ handleSingleSelect }
-                        isLoading={ isLoadingStudent }
-                        charLength={ 17 }
+                    </div>}
+
+                    <CommonTable
+                        isCheckbox={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        handleAction={handleAction}
+                        handleTableSort={handleTableSort}
+                        handleCheckboxSelect={handleCheckboxSelect}
+                        handleSingleSelect={handleSingleSelect}
+                        isLoading={isLoadingStudent}
+                        charLength={17}
                         path=''
                     />
-                    <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+
+                    <div style={{ marginLeft: '35%', marginTop: '25px' }}>
                         <Pagination
-                            count={ pageDetails?.totalPages }
-                            onChange={ handleChange }
+                            count={pageDetails?.totalPages}
+                            onChange={handleChange}
                             color="primary"
                             variant="outlined"
                             shape="rounded"
