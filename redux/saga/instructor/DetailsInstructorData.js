@@ -1,6 +1,15 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
-import { GetClassesDetail, GetMyFoldersDetail, CreateClassData, CreateFolderData, CreateStudentData, CreateAssignmentData, EditClassData } from '../../api/instructor/DetailsInstructorAPI';
+import {
+    GetClassesDetail,
+    GetStudentDetail,
+    GetMyFoldersDetail,
+    CreateClassData,
+    CreateFolderData,
+    CreateStudentData,
+    CreateAssignmentData,
+    EditClassData
+} from '../../api/instructor/DetailsInstructorAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { PaginationValue, InstructorPaginationValue } from '../../../utils/PaginationUrl';
 
@@ -50,7 +59,7 @@ export function* CreateClass() {
 }
 
 /**
- * Edit
+ * Edit classes
  * @param {*} action
  */
 
@@ -74,6 +83,32 @@ export function* onLoadEditClass(action) {
 export function* EditClassesData() {
     yield takeLatest(types.FETCH_INSTRUCTOR_EDIT_CLASS_DATA_START, onLoadEditClass);
 }
+
+/**
+ * Get student data
+ * My Classes > Student
+ * @param {*} action
+ */
+
+export function* onLoadClassesStudent(action) {
+    const { response, error } = yield call(GetStudentDetail, action.class_id, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetClassesStudentData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START, onLoadClassesStudent);
+}
+
 
 /**
  * create student

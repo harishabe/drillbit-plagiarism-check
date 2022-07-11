@@ -29,6 +29,15 @@ export const EditClassData = async (action) => {
     return PutMethod(url, action.requestPayload);
 };
 
+/**
+ * API CALL FOR STUDENT DATA
+ */
+
+export const GetStudentDetail = async (class_id, paginationPayload) => {
+    const url = END_POINTS.INSTRUCTOR_MY_CLASSES_STUDENTS + class_id + '/students' + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};
+
 
 /**
  * API CALL FOR CREATE STUDENT

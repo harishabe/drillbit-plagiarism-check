@@ -14,6 +14,8 @@ const END_POINTS = {
     ADMIN_STUDENT_DELETE: '/extreme/admin/student',
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_MY_CLASSES: '/extreme/classes',
+    INSTRUCTOR_MY_CLASSES_STUDENTS: '/extreme/classes/',
+    INSTRUCTOR_MY_CLASSES_ASSIGNMENT: '/extreme/classes/assignment',
     INSTRUCTOR_MY_FOLDERS: '/extreme/instructor/myFolders',
     INSTRUCTOR_CLASS_EDIT_DATA: '/extreme/classes/',
     STUDENT_DASHBOARD_WIDGET: '/extreme/student/dashboard',

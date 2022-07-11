@@ -93,7 +93,7 @@ const MyClassFiles = ({
                                     isAction={ true }
                                     handleClick={ handleClick }
                                     statusColor={ expiryDateBgColor(item.validity) }
-                                    path='/instructor/myclasstables'
+                                    path={ { pathname: '/instructor/myclasstables', query: { clasId: item.id } } }
                                 />
                             </Grid>
                         )) }
