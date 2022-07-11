@@ -92,7 +92,7 @@ const Assignments = () => {
         </Link>
       </CardView>
     </React.Fragment>
-  );
+  ); 
 };
 
 Assignments.layout = Instructor;

@@ -49,8 +49,6 @@ const AccountInfo = ({
     }, []);
 
     useEffect(() => {
-        console.log('rolerolerole',role);
-        console.log('adminrole',Role);
         if (role === Role.admin) {
             let row = [
                 createData("Institution Name", accountInfo?.institutionName),
@@ -69,34 +67,28 @@ const AccountInfo = ({
             setRows([...row])
         } else if (role === Role.instructor) {
             let row = [
+                createData("Name", accountInfo?.name),
                 createData("Institution Name", accountInfo?.institutionName),
-                createData("Admin Username", accountInfo?.adminUsername),
-                createData("Account ID", accountInfo?.accountId),
-                createData("Date Of Activation", accountInfo?.dateOfActivation),
-                createData("Instructor Account", accountInfo?.instructorAccount),
-                createData("Student Account", accountInfo?.studentAccount),
-                createData("Number Of Documents", accountInfo?.numberOfDocuments),
-                createData("One Document Length", accountInfo?.oneDocumentLength),
-                createData("Date of Expiry", accountInfo?.dateOfExpiry),
-                createData("Grammer", accountInfo?.grammar),
-                createData("Product Name", accountInfo?.productName),
+                createData("Instructor ID", accountInfo?.accountId),
+                createData("Instructor Email Address", accountInfo?.email),
+                createData("Created Date", accountInfo?.createdDate),
+                createData("Expiry Date", accountInfo?.expiryDate),
+                createData("Total Documents Alloted", accountInfo?.totalDocumentsSubmitted),
+                createData("Total Documents Submitted", accountInfo?.totalDocumentsAlloted),
+                createData("Files Saved to Repository", accountInfo?.totalDocumentsAddedToRepository),
                 createData("Time Zone", accountInfo?.timeZone),
             ];
             setRows([...row])
         } else if (role === Role.student) {
-            let row = [
-                createData("Institution Name", accountInfo?.institutionName),
-                createData("Admin Username", accountInfo?.adminUsername),
+            let row = [                
                 createData("Account ID", accountInfo?.accountId),
-                createData("Date Of Activation", accountInfo?.dateOfActivation),
-                createData("Instructor Account", accountInfo?.instructorAccount),
-                createData("Student Account", accountInfo?.studentAccount),
-                createData("Number Of Documents", accountInfo?.numberOfDocuments),
-                createData("One Document Length", accountInfo?.oneDocumentLength),
-                createData("Date of Expiry", accountInfo?.dateOfExpiry),
-                createData("Grammer", accountInfo?.grammar),
-                createData("Product Name", accountInfo?.productName),
-                createData("Time Zone", accountInfo?.timeZone),
+                createData("Student ID", accountInfo?.stuednt_id),
+                createData("Name", accountInfo?.name),                
+                createData("Email", accountInfo?.email),                
+                createData("Institution Name", accountInfo?.institutionName),
+                createData("Department", accountInfo?.department),                
+                createData("Created Date", accountInfo?.createdDate),
+                createData("Expiry Date", accountInfo?.expiryDate),
             ];
             setRows([...row])
         }

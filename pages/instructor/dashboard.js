@@ -46,8 +46,11 @@ const TextAlignRight = styled.div`
 const Dashboard = ({ GetWidgetCount, instructorDashboardData, isLoading }) => {
     useEffect(() => {
         GetWidgetCount();
-        setItemLocalStorage('name', instructorDashboardData?.data?.userProfileLite?.name)
     }, []);
+
+    useEffect(() => {
+        setItemLocalStorage('name', instructorDashboardData?.data?.userProfileLite?.name);
+    }, [instructorDashboardData]);
 
     return (
         <React.Fragment>

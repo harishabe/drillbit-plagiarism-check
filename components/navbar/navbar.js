@@ -28,6 +28,7 @@ import {
 } from '../../assets/icon';
 import { getItemLocalStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
+import EllipsisText from '../ellipsis/EllipsisText';
 
 const drawerWidth = 240
 
@@ -59,13 +60,18 @@ const AppBar = styled(MuiAppBar, {
 const NavBar = ({
     open,
     handleDrawerOpen,
-    dashboardData
+    dashboardData,
+    instructorDashboardData
 }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openProfile = Boolean(anchorEl);
     const router = useRouter();
     const [name, setName] = React.useState('');
     const [role, setRole] = React.useState('');
+    const [userName, setUserName] = React.useState({
+        name: '',
+        role: ''
+    });
 
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -85,7 +91,17 @@ const NavBar = ({
         setRole(role);
     }, [dashboardData === undefined]);
 
+    React.useEffect(() => {
+        if (getItemLocalStorage('role') === Role.admin) {
+            setUserName({ ...userName, name: dashboardData?.name, role: dashboardData?.role });
+        } else if (getItemLocalStorage('role') === Role.instructor) {
+            setUserName({ ...userName, name: instructorDashboardData?.name, role: instructorDashboardData?.role })
+        }
+    }, []);
+
+
     return (
+        console.log('userName', userName),
         <>
             <Hidden mdDown implementation="css">
                 <AppBar position="fixed" open={open} color="appbar" style={{ zIndex: 999 }}>
@@ -136,20 +152,16 @@ const NavBar = ({
                                     <Divider orientation="vertical" flexItem />
                                     <div style={{ display: 'block', marginLeft: '15px', marginRight: '15px' }}>
                                         <div style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}>
-                                            {role === Role?.admin && (dashboardData?.data?.userProfileLite?.name || (name === undefined ? <Skeleton /> : name))}
-                                            {role === Role?.instructor && (dashboardData?.data?.userProfileLite?.name || (name === undefined ? <Skeleton /> : name))}
-                                            {role === Role?.student && (dashboardData?.data?.userProfileLite?.name || (name === undefined ? <Skeleton /> : name))}
+                                            <EllipsisText value={userName?.name || (name !== undefined && name)} charLength={12} />
                                         </div>
                                         <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right' }}>
-                                            {role === Role?.admin && (dashboardData?.data?.userProfileLite?.role || role)}
-                                            {role === Role?.instructor && (dashboardData?.data?.userProfileLite?.role || role)}
-                                            {role === Role?.student && (dashboardData?.data?.userProfileLite?.role || role)}
+                                            {(userName?.role) || (role === undefined ? <Skeleton /> : role)}
                                         </div>
                                     </div>
 
                                     <div style={{ marginLeft: '15px', marginRight: '15px', cursor: 'pointer' }}>
                                         <Avatar onClick={handleProfileClick} alt="Remy Sharp" sx={{ width: 45, height: 45, background: '#68C886', color: '#fff' }}>
-                                            {dashboardData?.data?.userProfileLite?.name?.match(/\b(\w)/g).join('') || (name && name.match(/\b(\w)/g).join(''))}
+                                            {userName && userName.name?.charAt(0) || (name && name.charAt(0))}
                                         </Avatar>
                                     </div>
                                     <IconButton
@@ -204,21 +216,23 @@ const NavBar = ({
                 <Paper sx={{ width: 328, boxShadow: 'none', maxWidth: '100%' }}>
                     <MenuList>
                         <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
-                            <Avatar alt="Remy Sharp" style={{ width: '56px', height: '56px', background: '#68C886', color: '#fff' }}>
-                                {name && name.match(/\b(\w)/g).join('')}
+                            <Avatar alt={name} style={{ width: '56px', height: '56px', background: '#68C886', color: '#fff' }}>
+                                {name && name.charAt(0)}
                             </Avatar>
-                            <ListItemText style={{ padding: '5px 15px' }} primary={name} secondary="vivek.jayanna@drillbit.com" />
+                            <EllipsisText value={userName?.name || (name !== undefined && name)} charLength={20} />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                         {role === Role?.admin &&
-                            <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
-                                <ListItemIcon>
-                                    <SwitchAccountIcon />
-                                </ListItemIcon>
-                                <ListItemText style={{ padding: '5px 15px' }} primary="Switch account" secondary="Switch to admin" />
-                            </MenuItem>
+                            <>
+                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                                    <ListItemIcon>
+                                        <SwitchAccountIcon />
+                                    </ListItemIcon>
+                                    <ListItemText style={{ padding: '5px 15px' }} primary="Switch account" secondary="Switch to admin" />
+                                </MenuItem>
+                                <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
+                            </>
                         }
-                        <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                         <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/admin/profile/accountinfo')}>
                             <ListItemIcon>
                                 <AccountIcon />
@@ -250,7 +264,8 @@ const NavBar = ({
 }
 
 const mapStateToProps = (state) => ({
-    dashboardData: state?.adminDashboard,
+    dashboardData: state?.adminDashboard?.data?.userProfileLite,
+    instructorDashboardData: state?.instructorDashboard?.data?.userProfileLite,
     StudentData: state?.studentClasses?.dashboardData,
 });
 
