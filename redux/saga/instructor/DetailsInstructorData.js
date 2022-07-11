@@ -8,7 +8,8 @@ import {
     CreateFolderData,
     CreateStudentData,
     CreateAssignmentData,
-    EditClassData
+    EditClassData,
+    DeleteClass
 } from '../../api/instructor/DetailsInstructorAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { PaginationValue, InstructorPaginationValue } from '../../../utils/PaginationUrl';
@@ -66,10 +67,8 @@ export function* CreateClass() {
 export function* onLoadEditClass(action) {
     const { response, error } = yield call(EditClassData, action);
     if (response) {
-        yield put({
-            type: types.FETCH_INSTRUCTOR_EDIT_CLASS_DATA_SUCCESS,
-            payload: response?.data,
-        });
+        yield put({ type: types.FETCH_INSTRUCTOR_EDIT_CLASS_DATA_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_CLASSES_DATA_START, paginationPayload: InstructorPaginationValue });
         toastrValidation(response);
     } else {
         yield put({

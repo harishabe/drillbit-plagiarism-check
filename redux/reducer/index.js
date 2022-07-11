@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import LoginReducer from '../reducer/login/LoginReducer';
 import DashboardReducer from './admin/DashboardReducer';
 import CRUDReducer from './admin/CRUDReducer';
+import InstructorCRUDReducer from './instructor/CRUDReducer';
 import InsDashboardReducer from './instructor/DashboardReducer';
 import DetailsInstructorReducer from './instructor/DetailsInstructorReducer';
 import DetailsStudentReducer from './student/DetailsStudentReducer';
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     instructorClasses: DetailsInstructorReducer,
     instructorMyFolders: MyFoldersInstructorReducer,
     adminCrud: CRUDReducer,
+    instructorCrud: InstructorCRUDReducer,
     adminReport: ReportsReducer,
     studentClasses: DetailsStudentReducer,
 });

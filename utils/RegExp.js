@@ -8,14 +8,14 @@ export const renameKeys = (obj, newKeys) => {
         return { [newKey]: obj[key] };
     });
     return Object.assign({}, ...keyValues);
-}
+};
 
 export const findByExpiryDate = (date) => {
     let presentDate = new Date();
     let expiryDate = new Date(date);
     let differenceInTime = expiryDate.getTime() - presentDate.getTime();
     return `${Math.round(differenceInTime / (1000 * 3600 * 24))}`;
-}
+};
 
 export const expiryDateBgColor = (validity) => {
     if (validity < 0) {
@@ -27,7 +27,7 @@ export const expiryDateBgColor = (validity) => {
     } else if (validity >= 100) {
         return '#CCCC';
     }
-}
+};
 
 const dateFormat = (str) => {
     let date = new Date(str),
@@ -37,6 +37,7 @@ const dateFormat = (str) => {
 };
 
 export const convertDate = (str) => {
+    console.log('11111111111',str);
     const [date, month, day] = dateFormat(str);
     return [date.getFullYear(), month, day].join("-");
 };
@@ -53,4 +54,4 @@ export const setItemLocalStorage = (key,value) => {
 export const getItemLocalStorage = (key) => {
     let a = localStorage.getItem(key);
     return a;
-}
+};
