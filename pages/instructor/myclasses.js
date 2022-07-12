@@ -76,7 +76,7 @@ const MyClasses = ({
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title={'My Classes' + '(' + pageDetails?.totalElements + ')'} />
+            <MainHeading title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
             <MyClassFiles
                 pageDetails={pageDetails}
                 classesData={classesData}

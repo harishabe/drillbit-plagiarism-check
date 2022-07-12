@@ -4,6 +4,7 @@ import {
     GetClassesDetail,
     GetStudentDetail,
     GetMyFoldersDetail,
+    GetSubmissionDetail,
     CreateClassData,
     CreateFolderData,
     CreateStudentData,
@@ -224,4 +225,28 @@ export function* CreateFolder() {
     yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, onLoadCreateFolder);
 }
 
+/**
+ * Get student data
+ * My Folder > Submission List
+ * @param {*} action
+ */
+
+export function* onLoadFolderSubmission(action) {
+    const { response, error } = yield call(GetSubmissionDetail, action.folder_id, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetFolderSubmissionData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, onLoadFolderSubmission);
+}
 

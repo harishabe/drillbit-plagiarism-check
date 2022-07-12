@@ -87,3 +87,12 @@ export const CreateFolder = (data) => {
         type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, query: data
     };
 };
+
+/**
+ * Get myfolder > submissionList
+ */
+export const GetSubmissionList = (folder_id, paginationPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, folder_id: folder_id, paginationPayload: paginationPayload
+    };
+};

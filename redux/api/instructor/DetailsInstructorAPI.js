@@ -83,3 +83,12 @@ export const CreateFolderData = async (data) => {
     const url = END_POINTS.CREATE_FOLDER;
     return PostMethod(url, data);
 };
+
+/**
+ * API CALL FOR MY FOLDER > SUBMISSION DATA
+ */
+
+export const GetSubmissionDetail = async (folder_id, paginationPayload) => {
+    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS + '/' + folder_id + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};

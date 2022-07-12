@@ -36,6 +36,23 @@ const MyFoldersInstructorReducer = (state = {}, action) => {
                 isLoading: false,
                 createFolderError: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START:
+            return {
+                ...state,
+                isLoadingSubmission: true,
+            };
+        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_SUCCESS:
+            return {
+                ...state,
+                isLoadingSubmission: false,
+                submissionData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_FAIL:
+            return {
+                ...state,
+                isLoadingSubmission: false,
+                submissionDataError: action.payload,
+            };
 
         default:
             return state;
