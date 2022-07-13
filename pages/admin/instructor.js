@@ -319,7 +319,7 @@ const Instructor = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={8}>
-                        <MainHeading title={'Instructors' + '(' + pageDetails?.totalElements + ')'} />
+                        <MainHeading title={ `Instructors(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
                     <Grid item md={4} xs container direction='row' justifyContent={'right'}>
                         <TextField

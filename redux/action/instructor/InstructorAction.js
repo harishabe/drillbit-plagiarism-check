@@ -82,8 +82,35 @@ export const GetAllFolders = (paginationPayload) => {
 /**
  * Create Folder
  */
-export const CreateFolder = (data) => {
+export const CreateFolder = (clasId, data) => {
     return {
-        type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, query: data
+        type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, clasId: clasId, query: data
+    };
+};
+
+/**
+ * Edit folder
+ */
+export const EditFolder = (classId, folderId, requestPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_START, classId: classId, folderId: folderId, requestPayload: requestPayload,
+    };
+};
+
+/**
+ * Delete folder
+ */
+export const DeleteFolder = (classId, folderId) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_DELETE_FOLDER_START, classId: classId, folderId: folderId,
+    };
+};
+
+/**
+ * Get myfolder > submissionList
+ */
+export const GetSubmissionList = (folder_id, paginationPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, folder_id: folder_id, paginationPayload: paginationPayload
     };
 };

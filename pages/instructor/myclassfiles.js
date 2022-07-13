@@ -101,7 +101,8 @@ const MyClassFiles = ({
                                 handleClick={handleClassEdit}
                                 handleDelete={handleClassDelete}
                                 statusColor={expiryDateBgColor(item.validity)}
-                                path='/instructor/myclasstables'
+                                // path='/instructor/myclasstables'
+                                path={ { pathname: '/instructor/myclasstables', query: { clasId: item.id } } }
                             />
                         </Grid>
                     ))}
@@ -141,15 +142,17 @@ const MyClassFiles = ({
                 </CreateDrawer>
             }
 
-            <div style={{ marginLeft: '45%', marginTop: '25px' }}>
-                <Pagination
-                    count={pageDetails?.totalPages}
-                    onChange={handlePagination}
-                    color="primary"
-                    variant="outlined"
-                    shape="rounded"
-                />
-            </div>
+            { pageDetails?.totalPages > '1' ? 
+                <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handlePagination }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div> : ''
+            }
         </React.Fragment>
     );
 };

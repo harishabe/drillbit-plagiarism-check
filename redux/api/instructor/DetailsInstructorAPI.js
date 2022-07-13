@@ -34,7 +34,7 @@ export const EditClassData = async (action) => {
  */
 
 export const DeleteClass = async (action) => {
-    const url = END_POINTS.INSTRUCTOR_CLASS_EDIT_DATA + action.classId;
+    const url = END_POINTS.INSTRUCTOR_CLASS_DELETE_DATA + action.classId;
     return DeleteMethod(url);
 }
 
@@ -79,7 +79,34 @@ export const CreateAssignmentData = async (data) => {
  * API CALL FOR CREATE CLASS
  */
 
-export const CreateFolderData = async (data) => {
-    const url = END_POINTS.CREATE_FOLDER;
+export const CreateFolderData = async (clasId, data) => {
+    const url = END_POINTS.CREATE_FOLDER + clasId + '/folder';
     return PostMethod(url, data);
+};
+
+/**
+ * API CALL FOR EDIT FOLDER IN INSTRUCTOR
+ */
+
+export const EditFolderData = async (action) => {
+    const url = END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + action.classId + '/folder/' + action.folderId;
+    return PutMethod(url, action.requestPayload);
+};
+
+/**
+ * API CALL FOR DELETE FOLDERS IN INSTRUCTOR
+ */
+
+export const DeleteFolders = async (action) => {
+    const url = END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + action.classId + '/assignments?id=' + action.folderId;
+    return DeleteMethod(url);
+}
+
+/**
+ * API CALL FOR MY FOLDER > SUBMISSION DATA
+ */
+
+export const GetSubmissionDetail = async (folder_id, paginationPayload) => {
+    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS + '/' + folder_id + PaginationUrl(paginationPayload);
+    return GetMethod(url);
 };

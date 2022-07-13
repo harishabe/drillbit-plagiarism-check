@@ -47,10 +47,10 @@ const InstructorForm = ({
                 field.disabled = isEmailDisabled;
             }
             if(field.name === 'grammar'){
-                field['info'] = '* Note : Document remaining-'+remainingDocuments;
+                field['info'] = '* Note : Document remaining-' + remainingGrammar;
             }
             if(field.name === 'plagiarism'){
-                field['info'] = '* Note : Document remaining-'+remainingGrammar;
+                field['info'] = '* Note : Document remaining-' + remainingDocuments;
             }
             return field;
         });

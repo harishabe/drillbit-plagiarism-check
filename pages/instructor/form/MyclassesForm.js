@@ -24,6 +24,8 @@ const MyClassesForm = ({
     });
 
     const onSubmit = (data) => {
+        console.log("data", data)
+        console.log("editData", editData)
         if (editOperation) {
             data['end_date'] = convertDate(data.expiry_date);
             delete data.expiry_date;

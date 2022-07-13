@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
+import debouce from "lodash.debounce";
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
 import { TextField, Skeleton } from '@mui/material';
 import Instructor from '../../layouts/Instructor';
-import { BreadCrumb, MainHeading, Folder, CreateDrawer } from '../../components';
-import { GetAllFolders } from '../../redux/action/instructor/InstructorAction';
+import { DeleteWarningIcon } from '../../assets/icon';
+import { BreadCrumb, MainHeading, Folder, CreateDrawer, WarningDialog } from '../../components';
+import { GetAllFolders, DeleteFolder } from '../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import MyFoldersForm from './form/MyFolderForm';
 
@@ -32,11 +34,17 @@ const AddButtonBottom = styled.div`
 
 const MyFolder = ({
     GetAllFolders,
+    DeleteFolder,
     myFolders,
+    clasId,
     pageDetails,
     isLoading
 }) => {
 
+    const [editFolder, setEditFolder] = useState(false);
+    const [editFolderData, setEditFolderData] = useState('');
+    const [selectedFolder, setSelectedFolder] = useState('');
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -53,7 +61,32 @@ const MyFolder = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
 
-     const handleSearch = (event) => {
+    const handleFolderEdit = (e, rowData) => {
+        e.preventDefault();
+        setEditFolder(true);
+        setEditFolderData(rowData);
+    };
+
+    const handleFolderDelete = (e, data) => {
+        e.preventDefault();
+        setShowDeleteWarning(true);
+        setSelectedFolder(data);
+    };
+
+    const handleYesWarning = () => {
+        DeleteFolder(clasId, selectedFolder.folder_id);
+        setTimeout(() => {
+            setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    const handleCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
+
+    /** search implementation using debounce concepts */
+
+    const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
             setPaginationPayload({ ...paginationPayload, paginationPayload });
@@ -61,7 +94,19 @@ const MyFolder = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    };
+    }
+
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
+    /** end debounce concepts */
 
     return (
         <React.Fragment>
@@ -73,7 +118,7 @@ const MyFolder = ({
                     <Grid item md={2} xs={2}>
                         <TextField
                             placeholder='Search'
-                            onChange={handleSearch}
+                            onChange={ debouncedResults }
                             inputProps={{
                                 style: {
                                     padding: 5,
@@ -84,7 +129,7 @@ const MyFolder = ({
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title={'My Folder'+'('+pageDetails?.totalElements+')'} />
+            <MainHeading title={ `My Folder(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
 
             { isLoading ?
                 <Grid container spacing={ 2 }>
@@ -96,29 +141,67 @@ const MyFolder = ({
                     <Grid container spacing={ 2 }>
                         { myFolders?.map((item, index) => (
                             <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
-                                <Folder item={ item } path='/instructor/studentlist' />
+                                <Folder
+                                    item={ item }
+                                    isAction={ true }
+                                    handleClick={ handleFolderEdit }
+                                    handleDelete={ handleFolderDelete }
+                                    path={ { pathname: '/instructor/studentlist', query: { name: item.folder_name, id: item.folder_id } } }
+                                />
                             </Grid>
                         )) }
                     </Grid>
                 </>
             }
+
+            {
+                showDeleteWarning &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message="Are you sure you want to delete ?"
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
+                />
+            }
+
             <AddButtonBottom>
                 <CreateDrawer
                     title="Create Folder"
                     isShowAddIcon={ true }>
-                    <MyFoldersForm />
+                    <MyFoldersForm
+                        clasId={ clasId }
+                        isLoading={ isLoading }
+                    />
                 </CreateDrawer>
             </AddButtonBottom>
 
-            <div style={ { marginLeft: '45%', marginTop: '25px' } }>
-                <Pagination
-                    count={ pageDetails?.totalPages }
-                    onChange={ handleChange }
-                    color="primary"
-                    variant="outlined"
-                    shape="rounded"
-                />
-            </div>
+            {
+                editFolder &&
+                <CreateDrawer
+                    title="Edit Folder"
+                    isShowAddIcon={ false }
+                    showDrawer={ editFolder }
+                >
+                    <MyFoldersForm
+                        clasId={ clasId }
+                        editData={ editFolderData }
+                    />
+                </CreateDrawer>
+            }
+
+            { pageDetails?.totalPages > 1 &&
+                <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div>
+            }
+
         </React.Fragment>
     );
 };
@@ -126,12 +209,14 @@ const MyFolder = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.instructorMyFolders?.myFolders?.page,
     myFolders: state?.instructorMyFolders?.myFolders?._embedded?.folderDTOList,
+    clasId: state?.instructorMyFolders?.myFolders?._embedded?.folderDTOList?.[0]?.class_id,
     isLoading: state?.instructorMyFolders?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetAllFolders: (paginationPayload) => dispatch(GetAllFolders(paginationPayload)),
+        DeleteFolder: (clasId, folderId) => dispatch(DeleteFolder(clasId, folderId)),
     };
 };
 
