@@ -10,10 +10,12 @@ import {
     CreateStudentData,
     CreateAssignmentData,
     EditClassData,
-    DeleteClass
+    EditFolderData,
+    DeleteClass,
+    DeleteFolders
 } from '../../api/instructor/DetailsInstructorAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { PaginationValue, InstructorPaginationValue } from '../../../utils/PaginationUrl';
+import { PaginationValue, InstructorPaginationValue, InstructorFolderPaginationValue } from '../../../utils/PaginationUrl';
 
 /**
  * Get classes data
@@ -210,10 +212,10 @@ export function* GetMyFolders() {
  */
 
 export function* onLoadCreateFolder(action) {
-    const { response, error } = yield call(CreateFolderData, action.query);
+    const { response, error } = yield call(CreateFolderData, action.clasId, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, paginationPayload: PaginationValue });
+        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: InstructorFolderPaginationValue });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_FAIL, payload: error });
@@ -223,6 +225,59 @@ export function* onLoadCreateFolder(action) {
 
 export function* CreateFolder() {
     yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, onLoadCreateFolder);
+}
+
+/**
+ * Edit folder
+ * Instructor > Myfolders
+ * @param {*} action
+ */
+
+export function* onLoadEditFolder(action) {
+    const { response, error } = yield call(EditFolderData, action);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: InstructorFolderPaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* EditMyFolderData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_START, onLoadEditFolder);
+}
+
+/**
+ * Delete folders
+ * My Folders 
+ * @param {*} action
+ */
+
+export function* onLoadDeleteFolder(action) {
+    const { response, error } = yield call(DeleteFolders, action);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DELETE_FOLDER_SUCCESS,
+            payload: response?.data,
+        });
+        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: InstructorFolderPaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DELETE_FOLDER_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* DeleteMyFolders() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_DELETE_FOLDER_START, onLoadDeleteFolder);
 }
 
 /**

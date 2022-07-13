@@ -19,3 +19,10 @@ export const InstructorPaginationValue = {
     'field': 'class_id',
     'orderBy': 'asc'
 }
+
+export const InstructorFolderPaginationValue = {
+    'page': 0,
+    'size': 6,
+    'field': 'ass_id',
+    'orderBy': 'asc'
+}

@@ -3,7 +3,7 @@
         "field_type": "input",
         "type": "text",
         "id": "name",
-        "name": "name",
+        "name": "assignment_name",
         "label": "New Folder Name",
         "required": "Please Enter Folder name"
     },
@@ -12,10 +12,10 @@
         "field_type": "datepicker",
         "id": "expiry_date",
         "name": "expiry_date",
-        "label": "Validity",
+        "label": "Select expiry date",
         "minDate":true,
-        "required": "Select validity date",
-        "validationMsg": "Select validity date"
+        "required": "Select expiry date",
+        "validationMsg": "Select expiry date"
     },
     
     {
