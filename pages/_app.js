@@ -22,10 +22,12 @@ Router.events.on("routeChangeStart", (url) => {
         document.getElementById("page-transition")
     );
 });
+
 Router.events.on("routeChangeComplete", () => {
     ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
     document.body.classList.remove("body-page-transition");
 });
+
 Router.events.on("routeChangeError", () => {
     ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
     document.body.classList.remove("body-page-transition");
@@ -37,7 +39,7 @@ export default function MyApp(props) {
     return (
         <React.Fragment>
             <Head>
-                <meta name="viewport" content="initial-scale=1, width=device-width" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <ThemeProvider theme={theme}>
                 {/* <CssBaseline /> */}

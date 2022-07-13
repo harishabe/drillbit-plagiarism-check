@@ -190,7 +190,7 @@ const MyFolder = ({
                 </CreateDrawer>
             }
 
-            { pageDetails?.totalPages > '1' ?
+            { pageDetails?.totalPages > 1 &&
                 <div style={ { marginLeft: '45%', marginTop: '25px' } }>
                     <Pagination
                         count={ pageDetails?.totalPages }
@@ -199,7 +199,7 @@ const MyFolder = ({
                         variant="outlined"
                         shape="rounded"
                     />
-                </div> : ''
+                </div>
             }
 
         </React.Fragment>

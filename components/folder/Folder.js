@@ -18,19 +18,20 @@ const Container = styled.div`
     background-image: url(${'/img/FolderPng.png'});
     background-repeat: no-repeat;
     color: white;
+    width: 273px;
     height: 100%;
 `;
 
 const Center = styled.div`
-    padding-top: 35%;
-    padding-left: 5%;
+    padding-top: 30%;
+    padding-left: 10px;
 `;
 
 const Wrapper = styled.div`
     background-image: url(${'/img/FolderPng.png'});
     position: relative;
     height: 96%;
-    width: 275px;
+    width: 273px;
 `;
 
 const AlignRight = styled.div`
@@ -122,7 +123,7 @@ const Folder = ({
             </Grid>
             <Center onClick={ (e) => router.push(path) }>
                 <div>{item.folder_name}</div>
-                <div style={{ marginBottom: '10px' }}>Empty folder</div>
+                <div style={{ marginBottom: '10px' }}>2 day left</div>
             </Center>
         </Container>
     );
