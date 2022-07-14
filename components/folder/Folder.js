@@ -20,6 +20,7 @@ const Container = styled.div`
     color: white;
     width: 273px;
     height: 100%;
+    cursor:pointer;
 `;
 
 const Center = styled.div`
@@ -115,7 +116,7 @@ const Folder = ({
                                 setAnchorEl(null);
                                 handleDelete(e, item);
                             } }>
-                                <ListItemText>Delete</ListItemText>
+                            <ListItemText sx={ { mr: 1 } }>Delete</ListItemText>
                                 <DeleteIcon />
                             </MenuItem>
                         </Menu>
@@ -123,7 +124,7 @@ const Folder = ({
             </Grid>
             <Center onClick={ (e) => router.push(path) }>
                 <div>{item.folder_name}</div>
-                <div style={{ marginBottom: '10px' }}>2 day left</div>
+                <div style={ { marginBottom: '10px' } }>2 Days left</div>
             </Center>
         </Container>
     );

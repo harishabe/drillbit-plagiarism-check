@@ -20,8 +20,8 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import { formatDate } from '../../utils/RegExp';
 
 const columns = [
-    { id: 'id', label: 'Student ID' },
-    { id: 'STname', label: 'Student Name' },
+    // { id: 'id', label: 'Student ID' },
+    // { id: 'STname', label: 'Student Name' },
     { id: 'PAname', label: 'Paper Name' },
     { id: 'file', label: 'Original File' },
     { id: 'lang', label: 'Language' },
@@ -32,91 +32,14 @@ const columns = [
     { id: 'action', label: 'Actions' },
 ]
 
-function createData(id, STname, PAname, file, lang, grammer, similarity, paperid, date, action) {
-    return { id, STname, PAname, file, lang, grammer, similarity, paperid, date, action }
+function createData(
+    // id, STname, 
+    PAname, file, lang, grammer, similarity, paperid, date, action) {
+    return {
+        // id, STname, 
+        PAname, file, lang, grammer, similarity, paperid, date, action
+    }
 }
-
-// const rows = [
-//     createData(
-//         <AvatarName avatarText="S" title="S101" color='#4795EE' />,
-//         'Harisha B E',
-//         'UPSC',
-//         '22',
-//         'English',
-//         'NA',
-//         '70%',
-//         '223421',
-//         '4/03/2022',
-//         [<EditIcon />, <DeleteIcon />, <LockIcon />]
-//     ),
-
-//     createData(
-//         <AvatarName avatarText="S" title="S101" color='#4795EE' />,
-//         'Harisha B E',
-//         'UPSC',
-//         '22',
-//         'English',
-//         'NA',
-//         '70%',
-//         '223421',
-//         '4/03/2022',
-//         [<EditIcon />, <DeleteIcon />, <LockIcon />]
-//     ),
-
-//     createData(
-//         <AvatarName avatarText="S" title="S101" color='#4795EE' />,
-//         'Harisha B E',
-//         'UPSC',
-//         '22',
-//         'English',
-//         'NA',
-//         '70%',
-//         '223421',
-//         '4/03/2022',
-//         [<EditIcon />, <DeleteIcon />, <LockIcon />]
-//     ),
-
-//     createData(
-//         <AvatarName avatarText="S" title="S101" color='#4795EE' />,
-//         'Harisha B E',
-//         'UPSC',
-//         '22',
-//         'English',
-//         'NA',
-//         '70%',
-//         '223421',
-//         '4/03/2022',
-//         [<EditIcon />, <DeleteIcon />, <LockIcon />]
-//     ),
-
-//     createData(
-//         <AvatarName avatarText="S" title="S101" color='#4795EE' />,
-//         'Harisha B E',
-//         'UPSC',
-//         '22',
-//         'English',
-//         'NA',
-//         '70%',
-//         '223421',
-//         '4/03/2022',
-//         [<EditIcon />, <DeleteIcon />, <LockIcon />]
-//     ),
-
-//     createData(
-//         <AvatarName avatarText="S" title="S101" color='#4795EE' />,
-//         'Harisha B E',
-//         'UPSC',
-//         '22',
-//         'English',
-//         'NA',
-//         '70%',
-//         '223421',
-//         '4/03/2022',
-//         [<EditIcon />, <DeleteIcon />, <LockIcon />]
-//     ),
-// ]
-
-// const actionIcon = [<EditIcon />, <DeleteIcon />, <LockIcon />]
 
 const StudentList = ({
     GetSubmissionList,
@@ -128,8 +51,8 @@ const StudentList = ({
     const router = useRouter();
     const [rows, setRows] = useState([]);
 
-    const folderId = router.query.id;
-
+    const clasId = router.query.clasId;
+    const folderId = router.query.folderId;
     const folderName = router.query.name;
 
     const InstructorBreadCrumb = [
@@ -153,7 +76,7 @@ const StudentList = ({
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
-        field: 'user_id',
+        field: 'name',
         orderBy: PaginationValue?.orderBy,
     });
 
@@ -182,8 +105,8 @@ const StudentList = ({
     /** end debounce concepts */
 
     useEffect(() => {
-        GetSubmissionList(folderId, paginationPayload);
-    }, [folderId, paginationPayload]);
+        GetSubmissionList(clasId, folderId, paginationPayload);
+    }, [clasId, folderId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -191,15 +114,15 @@ const StudentList = ({
         submissionData?.map((student) => {
             row =
                 createData(
-                    <AvatarName avatarText="S" title={ student.student_id } color='#4795EE' />,
-                    student.student_name,
-                    student.paper_name,
-                    student.original_file,
+                    // <AvatarName avatarText="S" title={ student.student_id } color='#4795EE' />,
+                    // student.student_name,
+                    student.title,
+                    student.original_fn,
                     student.lang1,
                     student.grammar,
-                    student.similarity,
+                    student.percent,
                     student.paper_id,
-                    formatDate(student.submission_date),
+                    formatDate(student.date_up),
                     [{ 'component': <EditIcon />, 'type': 'edit' },
                     { 'component': <DeleteIcon />, 'type': 'delete' },
                         // {
@@ -243,11 +166,11 @@ const StudentList = ({
             </Box>
             <CardView>
                 <CommonTable
-                    isCheckbox={true}
+                    isCheckbox={ true }
                     tableHeader={columns}
                     tableData={rows}
-                    // actionIcon={actionIcon}
-                    // isActionIcon={true}
+                    // actionIcon={ actionIcon }
+                    // isActionIcon={ true }
                     isLoading={ isLoadingSubmission }
                     charLength={ 17 }
                 />
@@ -268,14 +191,14 @@ const StudentList = ({
 }
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.instructorClasses?.submissionData?.page,
-    submissionData: state?.instructorClasses?.submissionData?._embedded?.studentDTOList,
-    isLoadingSubmission: state?.instructorClasses?.isLoadingSubmission,
+    pageDetails: state?.instructorMyFolders?.submissionData?.page,
+    submissionData: state?.instructorMyFolders?.submissionData?._embedded?.submissionsList,
+    isLoadingSubmission: state?.instructorMyFolders?.isLoadingSubmission,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetSubmissionList: (folderId, PaginationValue) => dispatch(GetSubmissionList(folderId, PaginationValue)),
+        GetSubmissionList: (clasId, folderId, PaginationValue) => dispatch(GetSubmissionList(clasId, folderId, PaginationValue)),
     };
 };
 

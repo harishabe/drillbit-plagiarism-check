@@ -287,7 +287,7 @@ export function* DeleteMyFolders() {
  */
 
 export function* onLoadFolderSubmission(action) {
-    const { response, error } = yield call(GetSubmissionDetail, action.folder_id, action.paginationPayload);
+    const { response, error } = yield call(GetSubmissionDetail, action.clasId, action.folder_id, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_SUCCESS,
