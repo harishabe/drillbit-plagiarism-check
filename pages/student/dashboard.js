@@ -36,6 +36,7 @@ import {
     NoOfAssignmntIcon,
 } from '../../assets/icon'
 import MyRecentSubmissionTable from '../../components/table/MyRecentSubmissionTable'
+import { setItemLocalStorage } from '../../utils/RegExp';
 
 const TextAlignRight = styled.div`
     text-align: right;
@@ -85,6 +86,10 @@ const Dashboard = ({
     useEffect(() => {
         GetDashboardData();
     }, []);
+
+    useEffect(() => {
+        setItemLocalStorage('name', studentDashboardData?.userProfileLite?.name);
+    }, [studentDashboardData]);
 
     useEffect(() => {
         let submission = studentDashboardData?.monthlySubmissions?.map((item) => {

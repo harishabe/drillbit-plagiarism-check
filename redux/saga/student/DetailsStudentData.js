@@ -12,6 +12,7 @@ import {
     GetFeedbackDetail,
     SendAnswerData,
 } from '../../api/student/DetailStudentAPI';
+import toastrValidation from '../../../utils/ToastrValidation';
 
 /**
  * Get classes data
@@ -209,20 +210,22 @@ export function* SendQnaAnswer() {
 }
 
 /**
- * Send qna data
+ * Send submission data
  * @param {*} action
  */
 
 export function* onLoadSendSubmission(action) {
-    const { response, error } = yield call(SendSubmissionData, action.query);
+    const { response, error } = yield call(SendSubmissionData, action.query, action.class_id, action.folder_id);
     if (response) {
         yield put({ type: types.FETCH_STUDENTS_NEW_SUBMISSION_SUCCESS, payload: response?.data, });
         yield put({ type: types.FETCH_STUDENTS_NEW_SUBMISSION_START });
+        toastrValidation(response);
     } else {
         yield put({
             type: types.FETCH_STUDENTS_NEW_SUBMISSION_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 
