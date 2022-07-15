@@ -19,7 +19,7 @@ import { SubTitle2, EllipsisText } from '../index';
 import {
     TimerIcon,
     DownloadFileIcon,
-    InstructorIcon,
+    InstructorPersonIcon,
     ThreeDotIcon,
     EditIcon,
     DeleteIcon,
@@ -182,14 +182,15 @@ const CardInfoView = ({
                     {isInstructorName &&
                         <Grid container sx={{ mt: 1.5 }}>
                             <Grid>
-                                <InstructorIcon />
+                                <InstructorPersonIcon />
                             </Grid>
                             <Grid sx={{ ml: 1 }}>
                                 <SubTitle2
                                     title={item.instructorName}
                                 />
                             </Grid>
-                        </Grid>}
+                        </Grid>
+                    }
 
                 </CardContent>
                 <Divider />
