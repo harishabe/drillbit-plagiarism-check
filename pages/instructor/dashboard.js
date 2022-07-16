@@ -105,7 +105,6 @@ const Dashboard = ({
                                     <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
-                                    <ListSkeleton />
                                 </> :
                                 <>
                                     <TopStudents topStudentData={ instructorDashboardData?.data?.top_students?.students } />
@@ -118,7 +117,6 @@ const Dashboard = ({
                             <Heading title='Recent Submissions' />
                             { isLoading ?
                                 <>
-                                    <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
