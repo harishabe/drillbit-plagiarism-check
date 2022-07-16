@@ -1,27 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { useForm } from 'react-hook-form';
+import { useRouter } from "next/router";
 import { FormComponent } from '../../../components';
 import FormJson from '../../../constant/form/student-submission-form.json';
 import { AddImageIcon } from '../../../assets/icon';
 import { NewSubmission } from '../../../redux/action/student/StudentAction';
+import { getItemLocalStorage } from '../../../utils/RegExp';
 
 const SubmissionForm = ({
     NewSubmission,
     isLoadingNewSubmission,
+    instructorName
 }) => {
-    const { handleSubmit, control } = useForm({
+    const router = useRouter();
+
+    const [formJsonField, setFormJsonField] = useState(FormJson);
+
+    const class_id = router.query.clasId;
+    const folder_id = router.query.assId;
+
+    const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
     });
 
     const onSubmit = (data) => {
+        console.log('data',data);
         let bodyFormData = new FormData();
-        bodyFormData.append('name', data.name);
-        bodyFormData.append('assignment', data.title);
+        bodyFormData.append('authorName', instructorName);
+        // bodyFormData.append('name', 'drillbit');
+        bodyFormData.append('title', data.title);
         bodyFormData.append('file', data.file[0]);
-        NewSubmission(bodyFormData)
+        NewSubmission(bodyFormData, class_id, folder_id)
     }
+
+    const modifyFormField = (isDisabled) => {
+        let formField = formJsonField?.map((field) => {
+            if (field.name === 'name') {
+                field.label = isDisabled;
+            }
+            return field;
+        });
+        setFormJsonField(formField);
+    };
+
+    useEffect(() => {
+        let a = {
+            'name': instructorName
+        };
+        const fields = [
+            'name'
+        ];
+        fields.forEach(field => setValue(field, a[field]));
+        modifyFormField("Upload file");
+    }, []);
 
     return (
         <>
@@ -48,11 +81,12 @@ const SubmissionForm = ({
 
 const mapStateToProps = (state) => ({
     isLoadingNewSubmission: state?.studentClasses?.isLoadingNewSubmission,
+    instructorName: state?.studentClasses?.headerData?.instructorName,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        NewSubmission: (data) => dispatch(NewSubmission(data)),
+        NewSubmission: (data, class_id, folder_id) => dispatch(NewSubmission(data, class_id, folder_id)),
     };
 };
 

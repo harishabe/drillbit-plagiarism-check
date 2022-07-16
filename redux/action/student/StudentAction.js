@@ -84,8 +84,8 @@ export const SendData = (data, class_id, folder_id) => {
 /**
  * Send new submission
  */
-export const NewSubmission = (data) => {
+export const NewSubmission = (data, class_id, folder_id) => {
     return {
-        type: types.FETCH_STUDENTS_NEW_SUBMISSION_START, query: data,
+        type: types.FETCH_STUDENTS_NEW_SUBMISSION_START, query: data, class_id: class_id, folder_id: folder_id
     };
 };

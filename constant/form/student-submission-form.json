@@ -5,7 +5,8 @@
         "id": "name",
         "name": "name",
         "label": "Student name",
-        "required": "Student name"
+        "required": "Student name",
+        "disabled":true
     },
     {
         "field_type": "input",

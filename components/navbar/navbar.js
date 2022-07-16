@@ -61,7 +61,8 @@ const NavBar = ({
     open,
     handleDrawerOpen,
     dashboardData,
-    instructorDashboardData
+    instructorDashboardData,
+    StudentData,
 }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openProfile = Boolean(anchorEl);
@@ -96,6 +97,8 @@ const NavBar = ({
             setUserName({ ...userName, name: dashboardData?.name, role: dashboardData?.role });
         } else if (getItemLocalStorage('role') === Role.instructor) {
             setUserName({ ...userName, name: instructorDashboardData?.name, role: instructorDashboardData?.role })
+        } else if (getItemLocalStorage('role') === Role.student) {
+            setUserName({ ...userName, name: StudentData?.name, role: StudentData?.role })
         }
     }, []);
 
@@ -266,7 +269,7 @@ const NavBar = ({
 const mapStateToProps = (state) => ({
     dashboardData: state?.adminDashboard?.data?.userProfileLite,
     instructorDashboardData: state?.instructorDashboard?.data?.userProfileLite,
-    StudentData: state?.studentClasses?.dashboardData,
+    StudentData: state?.studentClasses?.dashboardData?.userProfileLite,
 });
 
 export default connect(mapStateToProps, {})(NavBar);
