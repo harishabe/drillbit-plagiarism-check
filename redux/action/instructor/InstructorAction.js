@@ -109,8 +109,8 @@ export const DeleteFolder = (classId, folderId) => {
 /**
  * Get myfolder > submissionList
  */
-export const GetSubmissionList = (folder_id, paginationPayload) => {
+export const GetSubmissionList = (clasId, folder_id, paginationPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, folder_id: folder_id, paginationPayload: paginationPayload
+        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, clasId: clasId, folder_id: folder_id, paginationPayload: paginationPayload
     };
 };

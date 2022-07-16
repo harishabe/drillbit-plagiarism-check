@@ -106,7 +106,7 @@ export const DeleteFolders = async (action) => {
  * API CALL FOR MY FOLDER > SUBMISSION DATA
  */
 
-export const GetSubmissionDetail = async (folder_id, paginationPayload) => {
-    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS + '/' + folder_id + PaginationUrl(paginationPayload);
+export const GetSubmissionDetail = async (clasId, folder_id, paginationPayload) => {
+    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };

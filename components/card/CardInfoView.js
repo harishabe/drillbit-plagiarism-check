@@ -98,7 +98,7 @@ const CardInfoView = ({
                             <DownloadFileIcon />
                         </AlignRight>}
                     <Grid container spacing={2}>
-                        <Grid item xs={10}>
+                        <Grid item xs={ 10 }> 
                             {isAvatar &&
                                 <Avatar
                                     sx={{ bgcolor: item.color, width: 50, height: 50, fontSize: '15px' }}
@@ -108,7 +108,7 @@ const CardInfoView = ({
                                     {item.name.toUpperCase().charAt(0)}
                                 </Avatar>}
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={ 2 }> 
                             {isAction &&
                                 <>
                                     <AlignRight>
@@ -173,7 +173,7 @@ const CardInfoView = ({
                                     </Menu>
                                 </>}
                         </Grid>
-                    </Grid>
+                    </Grid> 
 
                     {isImage && <img style={{ marginBottom: '15px' }} src={item.img} alt={item.name} />}
 

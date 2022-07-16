@@ -17,6 +17,7 @@ const END_POINTS = {
     INSTRUCTOR_MY_CLASSES_STUDENTS: '/extreme/classes/',
     INSTRUCTOR_MY_CLASSES_ASSIGNMENT: '/extreme/classes/assignment',
     INSTRUCTOR_MY_FOLDERS: '/extreme/instructor/myFolders',
+    INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST: '/extreme/classes/',
     INSTRUCTOR_CLASS_EDIT_DATA: '/extreme/classes/',
     INSTRUCTOR_CLASS_DELETE_DATA: '/extreme/classes?id=',
     INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA: '/extreme/classes/',

@@ -28,18 +28,19 @@ const MyFoldersForm = ({
         console.log("data", data)
         console.log("editData", editData)
         if (editOperation) {
-            data['expiry_date'] = convertDate(data.expiry_date);
+            data['end_date'] = convertDate(data.expiry_date);
             data['exclude_refernces'] = "no";
             data['exclude_quotes'] = "no";
             data['exclude_small_sources'] = "no";
             data['exclude_include_sources'] = "yes";
             data['grammar_check'] = "no";
             data['exclude_phrases'] = "no";
+            delete data.expiry_date;
             EditFolder(clasId, editData?.folder_id, data);
         } else {
             let Detaileddata = {
                 ...data,
-                "expiry_date": convertDate(data.expiry_date),
+                "end_date": convertDate(data.expiry_date),
                 "exclude_refernces": "no",
                 "exclude_quotes": "no",
                 "exclude_small_sources": "no",
@@ -47,13 +48,17 @@ const MyFoldersForm = ({
                 "grammar_check": "no",
                 "exclude_phrases": "no",
             }
+            delete Detaileddata.expiry_date;
             CreateFolder(clasId, Detaileddata);
         }
     };
 
-    const modifyFormField = (buttonLabel) => {
+    const modifyFormField = (buttonLabel, isNameDisabled) => {
         let formField = formJsonField?.map((field) => {
-            if (field.name === 'expiry_date') {
+            if (field.name === 'assignment_name') {
+                field.disabled = isNameDisabled;
+            }
+            if (field.name === 'end_date') {
                 field.minDate = false;
             }
             if (field.field_type === 'button') {
@@ -67,7 +72,7 @@ const MyFoldersForm = ({
     useEffect(() => {
         if (editData) {
             let a = {
-                'name': editData.folder_name,
+                'assignment_name': editData.folder_name,
                 'expiry_date': convertDate(editData.end_date),
                 "exclude_refernces": "no",
                 "exclude_quotes": "no",
@@ -77,7 +82,7 @@ const MyFoldersForm = ({
                 "exclude_phrases": "no",
             };
             const fields = [
-                'name',
+                'assignment_name',
                 'expiry_date',
                 "exclude_refernces",
                 "exclude_quotes",

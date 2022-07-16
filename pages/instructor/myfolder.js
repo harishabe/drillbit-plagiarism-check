@@ -146,7 +146,7 @@ const MyFolder = ({
                                     isAction={ true }
                                     handleClick={ handleFolderEdit }
                                     handleDelete={ handleFolderDelete }
-                                    path={ { pathname: '/instructor/studentlist', query: { name: item.folder_name, id: item.folder_id } } }
+                                    path={ { pathname: '/instructor/studentlist', query: { name: item.folder_name, clasId, folderId: item.folder_id } } }
                                 />
                             </Grid>
                         )) }
