@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -13,6 +13,8 @@ import {
     CardView,
     Heading,
     SubTitle,
+    ListSkeleton,
+    // RecentSubmissionTable
 } from '../../components';
 import {
     NoOfClassIcon,
@@ -22,13 +24,13 @@ import {
 import TopStudents from './dashboard/TopStudents';
 import RecentSubmissions from './dashboard/RecentSubmissions';
 import {
-    COLUMN_CHART_TYPE,
-    COLUMN_CHART_COLOR,
-    COLUMN_XAXIS_DATA,
-    COLUMN_WIDTH,
-    COLUMN_CHART_HEIGHT,
-    COLUMN_CHART_SERIES_DATA,
-    COLUMN_CHART_BORDER_RADIUS,
+    COLUMN_ADMIN_CHART_TYPE,
+    COLUMN_ADMIN_CHART_COLOR,
+    COLUMN_ADMIN_XAXIS_DATA,
+    COLUMN_ADMIN_WIDTH,
+    COLUMN_ADMIN_CHART_HEIGHT,
+    COLUMN_ADMIN_CHART_GRADIENT,
+    COLUMN_ADMIN_CHART_BORDER_RADIUS,
     PIE_CHART_TYPE,
     PIE_CHART_COLOR,
     PIE_CHART_SERIES,
@@ -43,12 +45,23 @@ const TextAlignRight = styled.div`
     margin-top: 5px;
 `;
 
-const Dashboard = ({ GetWidgetCount, instructorDashboardData, isLoading }) => {
+const Dashboard = ({
+    GetWidgetCount,
+    instructorDashboardData,
+    isLoading
+}) => {
+
+    const [recentSubmission, setRecentSubmission] = useState([]);
+
     useEffect(() => {
         GetWidgetCount();
     }, []);
 
     useEffect(() => {
+        let submission = instructorDashboardData?.data?.monthlySubmissions?.map((item) => {
+            return item.submissions;
+        });
+        setRecentSubmission(submission);
         setItemLocalStorage('name', instructorDashboardData?.data?.userProfileLite?.name);
     }, [instructorDashboardData]);
 
@@ -59,25 +72,24 @@ const Dashboard = ({ GetWidgetCount, instructorDashboardData, isLoading }) => {
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No of classes'
-                            count={
-                                instructorDashboardData?.data?.no_of_assignments
-                            }
+                            isLoading={ isLoading }
+                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_assignments }
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No of assignments'
-                            count={instructorDashboardData?.data?.no_of_classes}
+                            isLoading={ isLoading }
+                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_classes }
                             icon={<NoOfAssignmntIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No of submissions'
-                            count={
-                                instructorDashboardData?.data?.no_of_submissions
-                            }
+                            isLoading={ isLoading }
+                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_submissions }
                             icon={<NoOfSubmission />}
                         />
                     </Grid>
@@ -86,10 +98,36 @@ const Dashboard = ({ GetWidgetCount, instructorDashboardData, isLoading }) => {
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
-                        <TopStudents topStudentData={instructorDashboardData?.data?.top_students} />
+                        <CardView height="443px">
+                            <Heading title='Top Students' />
+                            { isLoading ?
+                                <>
+                                    <ListSkeleton />
+                                    <ListSkeleton />
+                                    <ListSkeleton />
+                                    <ListSkeleton />
+                                </> :
+                                <>
+                                    <TopStudents topStudentData={ instructorDashboardData?.data?.top_students?.students } />
+                                </>
+                            }
+                        </CardView>
                     </Grid>
                     <Grid item md={8} xs={12}>
-                        <RecentSubmissions />
+                        <CardView height="443px">
+                            <Heading title='Recent Submissions' />
+                            { isLoading ?
+                                <>
+                                    <ListSkeleton />
+                                    <ListSkeleton />
+                                    <ListSkeleton />
+                                    <ListSkeleton />
+                                </> :
+                                <>
+                                    <RecentSubmissions recentSubmission={ instructorDashboardData?.data?.recent_submissions } />
+                                </>
+                            }
+                        </CardView>
                     </Grid>
                 </Grid>
             </Box>
@@ -98,27 +136,22 @@ const Dashboard = ({ GetWidgetCount, instructorDashboardData, isLoading }) => {
                     <Grid item md={8} xs={12}>
                         <CardView>
                             <Heading title='Submission Overview' />
-                            {isLoading ?
-                                <>
-                                    <Skeleton />
-                                </>
-                                : <>
-                                    {instructorDashboardData?.data && <ColumnChart
-                                        type={COLUMN_CHART_TYPE}
-                                        color={COLUMN_CHART_COLOR}
-                                        xaxisData={COLUMN_XAXIS_DATA}
-                                        columnWidth={COLUMN_WIDTH}
-                                        height={COLUMN_CHART_HEIGHT}
-                                        seriesData={[
-                                            {
-                                                name: 'Monthly Submissions',
-                                                data: instructorDashboardData?.data?.monthlySubmissions
-                                            }
-                                        ]}
-                                        borderRadius={COLUMN_CHART_BORDER_RADIUS}
-                                    />
-                                    }
-                                </>
+                            { isLoading ? <Skeleton /> :
+                                recentSubmission?.length > 0 && <ColumnChart
+                                    type={ COLUMN_ADMIN_CHART_TYPE }
+                                    color={ COLUMN_ADMIN_CHART_COLOR }
+                                    xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
+                                    columnWidth={ COLUMN_ADMIN_WIDTH }
+                                    height={ COLUMN_ADMIN_CHART_HEIGHT }
+                                    seriesData={ [
+                                        {
+                                            name: 'Submission Overview',
+                                            data: recentSubmission
+                                        }
+                                    ] }
+                                    gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                                    borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                />
                             }
                         </CardView>
                     </Grid>

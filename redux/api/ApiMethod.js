@@ -18,6 +18,7 @@ const headerWithoutToken = () => {
 
 const FormDataHeader = () => {
     return {
+        "Accept-Language": "en",
         "Content-Type": "multipart/form-data",
         'authorization': `Bearer ${localStorage.getItem('token')}`
     }

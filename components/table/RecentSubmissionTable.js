@@ -8,14 +8,18 @@ import TableRow from '@mui/material/TableRow'
 import Button from '@mui/material/Button'
 import { SubTitle, SubTitle1 } from '../index'
 
+const Colors = ['#7B68C8', '#68C886', '#34C2FF', '#3491FF', '#8D34FF', '#7B68C8'];
+
 const RecentSubmissionTable = ({
     tableData
 }) => {
+    console.log("firstfirstfirst", tableData)
     return (
         <TableContainer>
-            <Table sx={{ minWidth: 350 }} aria-label="simple table">
+            <Table sx={ { minWidth: 350 } } aria-label="simple table">
                 <TableBody>
-                    {tableData.map((item, index) => (
+                    { tableData?.map((item, index) => (
+                        item['color'] = Colors[index],
                         <TableRow key={index}>
                             <TableCell style={{ width: '45px' }}>
                                 <Avatar
@@ -28,11 +32,12 @@ const RecentSubmissionTable = ({
                                 <SubTitle1
                                     title={item.name} />
                                 <SubTitle
-                                    title={item.course} />
+                                        title={ item.class_name } />
                             </TableCell>
                             <TableCell>
                                 <SubTitle1
-                                    title={item.feedback} />
+                                        // title={item.feedback} />
+                                        title="Good" />
                                 <SubTitle
                                     title={item.percent} />
                             </TableCell>
@@ -44,7 +49,7 @@ const RecentSubmissionTable = ({
                                 <Button variant="contained" color="primary">Review</Button>
                             </TableCell>
                         </TableRow>
-                    ))}
+                    )) } 
                 </TableBody>
             </Table>
         </TableContainer>

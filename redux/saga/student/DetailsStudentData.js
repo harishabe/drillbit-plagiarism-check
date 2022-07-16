@@ -218,7 +218,7 @@ export function* onLoadSendSubmission(action) {
     const { response, error } = yield call(SendSubmissionData, action.query, action.class_id, action.folder_id);
     if (response) {
         yield put({ type: types.FETCH_STUDENTS_NEW_SUBMISSION_SUCCESS, payload: response?.data, });
-        yield put({ type: types.FETCH_STUDENTS_NEW_SUBMISSION_START });
+        yield put({ type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_START, class_id: action.class_id, folder_id: action.folder_id });
         toastrValidation(response);
     } else {
         yield put({
