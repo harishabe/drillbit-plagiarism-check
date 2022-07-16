@@ -37,7 +37,7 @@ const SubmissionHistory = ({
         submissionData?.map((submission) => {
             row =
                 createData(
-                    submission.name,
+                    submission.title,
                     submission.paper_id,
                     submission.date_up,
                     submission.percent,
