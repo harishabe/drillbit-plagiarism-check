@@ -12,6 +12,7 @@ import { getItemLocalStorage } from '../../../utils/RegExp';
 const SubmissionForm = ({
     NewSubmission,
     isLoadingNewSubmission,
+    instructorName
 }) => {
     const router = useRouter();
 
@@ -25,10 +26,11 @@ const SubmissionForm = ({
     });
 
     const onSubmit = (data) => {
+        console.log('data',data);
         let bodyFormData = new FormData();
-        bodyFormData.append('name', getItemLocalStorage("name"));
+        bodyFormData.append('authorName', instructorName);
         // bodyFormData.append('name', 'drillbit');
-        bodyFormData.append('assignment', data.title);
+        bodyFormData.append('title', data.title);
         bodyFormData.append('file', data.file[0]);
         NewSubmission(bodyFormData, class_id, folder_id)
     }
@@ -38,9 +40,6 @@ const SubmissionForm = ({
             if (field.name === 'name') {
                 field.label = isDisabled;
             }
-            if (field.field_type === 'button') {
-                field.label = "Upload file";
-            }
             return field;
         });
         setFormJsonField(formField);
@@ -48,13 +47,10 @@ const SubmissionForm = ({
 
     useEffect(() => {
         let a = {
-            'name': getItemLocalStorage("name"),
-            // 'name': 'drillbit',
-            'button': "Upload file",
+            'name': instructorName
         };
         const fields = [
-            'name',
-            'button',
+            'name'
         ];
         fields.forEach(field => setValue(field, a[field]));
         modifyFormField("Upload file");
@@ -85,6 +81,7 @@ const SubmissionForm = ({
 
 const mapStateToProps = (state) => ({
     isLoadingNewSubmission: state?.studentClasses?.isLoadingNewSubmission,
+    instructorName: state?.studentClasses?.headerData?.instructorName,
 });
 
 const mapDispatchToProps = (dispatch) => {
