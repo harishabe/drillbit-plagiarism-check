@@ -39,9 +39,9 @@ export const GetSubmissionHeaderData = (class_id, folder_id) => {
 /**
  * Get all submission data
  */
-export const GetSubmissionData = (class_id, folder_id) => {
+export const GetSubmissionData = (class_id, folder_id, paginationPayload) => {
     return {
-        type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_START, class_id: class_id, folder_id: folder_id
+        type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_START, class_id: class_id, folder_id: folder_id, paginationPayload: paginationPayload
     };
 };
 

@@ -34,6 +34,7 @@ function createId(questionId) {
 const ListView2 = ({
     GetQna,
     qnaData,
+    qnaError,
     isLoadingQa,
     isLoadingAns,
     handleSend
@@ -220,21 +221,23 @@ const ListView2 = ({
                             </>
                         ))
                         }
-
-                        <Grid container spacing={ 21.5 }>
-                            <Grid item xs={ 7 }></Grid>
-                            <Grid item xs={ 5 }>
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    type="button"
-                                    color="primary"
-                                    onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
-                                >
-                                    { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
-                                </Button>
+                        { qnaError ? '' :
+                            <Grid container spacing={ 21.5 }>
+                                <Grid item xs={ 7 }></Grid>
+                                <Grid item xs={ 5 }>
+                                    <Button
+                                        variant="contained"
+                                        size="large"
+                                        type="button"
+                                        color="primary"
+                                        onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
+                                    >
+                                        { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
+                                    </Button>
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        }
+
                     </>
                 }
             </List>

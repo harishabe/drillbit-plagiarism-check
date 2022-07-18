@@ -87,7 +87,7 @@ const CommonTable = ({
                 <TableBody>
                     {isLoading ?
                         <TableSkeleton />
-                        : tableData.map((row) => (
+                        : tableData?.map((row) => (
                             <TableRow hover key={row.id} onClick={(e) => router.push(path)}>
                                 {isCheckbox &&
                                     <TableCell padding="checkbox" className={classes.padding}>
