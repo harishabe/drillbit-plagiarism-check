@@ -42,8 +42,8 @@ export const GetSubmissionHeader = async (class_id, folder_id) => {
  * API CALL FOR SUBMISSION DATA
  */
 
-export const GetSubmissionDetail = async (class_id, folder_id) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/submissions';
+export const GetSubmissionDetail = async (class_id, folder_id, paginationPayload) => {
+    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/submissions' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 

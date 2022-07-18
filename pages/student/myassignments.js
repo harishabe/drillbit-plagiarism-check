@@ -108,7 +108,7 @@ const MyAssignments = ({
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 8 }>
-                        <MainHeading title={ 'My Assignments' + '(' + pageDetails?.totalElements + ')' } />
+                        <MainHeading title={ `My Assignments(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
                     <Grid
                         item
@@ -158,15 +158,17 @@ const MyAssignments = ({
                 </>
             }
 
-                    <div style={ { marginLeft: '30%', marginTop: '25px' } }>
-                        <Pagination
-                            count={ pageDetails?.totalPages }
-                            onChange={ handleChange }
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </div>
+            { pageDetails?.totalPages > 1 &&
+                <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div>
+            }
 
         </React.Fragment>
     )

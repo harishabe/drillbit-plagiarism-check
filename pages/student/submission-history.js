@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
-import { CommonTable, CreateDrawer } from '../../components';
+import {
+    CommonTable,
+    CreateDrawer,
+    EllipsisText,
+} from '../../components';
 import SubmissionForm from './form/SubmissionForm';
+import Pagination from '@mui/material/Pagination';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -17,6 +22,8 @@ function createData(name, id, date, similarity, grammer, score, status, language
 const SubmissionHistory = ({
     submissionData,
     isLoadingSubmission,
+    pageDetails,
+    handleChange,
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -37,7 +44,7 @@ const SubmissionHistory = ({
         submissionData?.map((submission) => {
             row =
                 createData(
-                    submission.title,
+                    <EllipsisText value={ submission.title } charLength={ 18 } />,
                     submission.paper_id,
                     submission.date_up,
                     submission.percent,
@@ -52,19 +59,24 @@ const SubmissionHistory = ({
     }, [submissionData]);
     return (
         <>
-            { isLoadingSubmission ?
-                <>
-                    <Skeleton />
-                    <Skeleton />
-                    <Skeleton />
-                </> :
-                <>
-                    <CommonTable
-                        isCheckbox={ false }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                    />     
-                </>
+            { isLoadingSubmission ? <Skeleton /> :
+                <CommonTable
+                    isCheckbox={ false }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                />
+            }
+
+            { pageDetails?.totalPages > 1 &&
+                <div style={ { marginLeft: '40%', marginTop: '25px' } }>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div>
             } 
             <AddButtonBottom>
                 <CreateDrawer

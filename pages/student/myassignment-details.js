@@ -24,6 +24,7 @@ import {
     GetSubmissionHeaderData,
     DownloadStudentCsv
 } from '../../redux/action/student/StudentAction';
+import { PaginationValue } from '../../utils/PaginationUrl';
 
 import SubmissionHistory from './submission-history'
 import QA from './q&a'
@@ -52,7 +53,9 @@ const MyAssignmentDetails = ({
     submissionData,
     headerData,
     qnaData,
+    qnaError,
     feedbackData,
+    pageDetails,
     isLoadingSubmission,
     isLoadingHeader,
     isLoadingDownload,
@@ -62,6 +65,13 @@ const MyAssignmentDetails = ({
 }) => {
 
     const router = useRouter();
+
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: 'paper_id',
+        orderBy: PaginationValue?.orderBy,
+    });
 
     const StudentBreadCrumb = [
         {
@@ -90,15 +100,15 @@ const MyAssignmentDetails = ({
     const details = [
         {
             label: 'Subject',
-            name: headerData?.subject,
+            name: <EllipsisText value={ headerData?.subject } charLength={ 18 } />,
         },
         {
             label: 'Assignment Name',
-            name: headerData?.assignmentName,
+            name: <EllipsisText value={ headerData?.assignmentName } charLength={ 18 } />,
         },
         {
             label: 'Instructor Name',
-            name: headerData?.instructorName,
+            name: <EllipsisText value={ headerData?.instructorName } charLength={ 18 } />,
         },
         {
             label: 'Status',
@@ -115,9 +125,11 @@ const MyAssignmentDetails = ({
     ]
 
     useEffect(() => {
-        GetSubmissionData(router.query.clasId, router.query.assId);
+        GetSubmissionData(router.query.clasId, router.query.assId, paginationPayload);
+    }, [router.query.clasId, router.query.assId, paginationPayload]);
+
+    useEffect(() => {
         GetSubmissionHeaderData(router.query.clasId, router.query.assId);
-        GetFeedback(router.query.clasId, router.query.assId);
     }, [router.query.clasId, router.query.assId]);
 
     const handleDownload = () => {
@@ -143,14 +155,22 @@ const MyAssignmentDetails = ({
         GetQna(router.query.clasId, router.query.assId);
     }
 
+    const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
+
     const componentList = [
         <SubmissionHistory
             submissionData={ submissionData }
             isLoadingSubmission={ isLoadingSubmission }
+            pageDetails={ pageDetails }
+            handleChange={ handleChange }
         />,
         <QA
             GetQna={ GetQna }
             qnaData={ qnaData }
+            qnaError={ qnaError }
             isLoadingQa={ isLoadingQa }
             isLoadingAns={ isLoadingAns }
             handleSend={ handleSend }
@@ -181,7 +201,7 @@ const MyAssignmentDetails = ({
                     )) }
                     <Tooltip title="Download csv">
                         <IconButton
-                            sx={ { ml: 2 } }
+                            sx={ { ml: 2, p: 1 } }
                             color="primary"
                             aria-label="download-file"
                             size="large"
@@ -201,6 +221,8 @@ const mapStateToProps = (state) => ({
     headerData: state?.studentClasses?.headerData,
     feedbackData: state?.studentClasses?.feedbackData,
     qnaData: state?.studentClasses?.qnaData,
+    qnaError: state?.studentClasses?.qnaError,
+    pageDetails: state?.studentClasses?.submissionData?.page,
     isLoadingSubmission: state?.studentClasses?.isLoadingSubmission,
     isLoadingHeader: state?.studentClasses?.isLoadingHeader,
     isLoadingDownload: state?.studentClasses?.isLoadingDownload,
@@ -211,7 +233,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetSubmissionData: (class_id, folder_id) => dispatch(GetSubmissionData(class_id, folder_id)),
+        GetSubmissionData: (class_id, folder_id, PaginationValue) => dispatch(GetSubmissionData(class_id, folder_id, PaginationValue)),
         GetSubmissionHeaderData: (class_id, folder_id) => dispatch(GetSubmissionHeaderData(class_id, folder_id)),
         DownloadStudentCsv: (url) => dispatch(DownloadStudentCsv(url)),
         GetQna: (class_id, folder_id) => dispatch(GetQna(class_id, folder_id)),

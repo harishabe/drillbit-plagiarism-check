@@ -53,7 +53,7 @@ const Feedback = ({
                         } }
                     >
                         { isLoadingFeedback ? <Skeleton width={ "300px" } height={ "2px" } /> :
-                            <SubTitle2 title={ feedbackData.feedback === undefined ? feedbackData.message : feedbackData.feedback } />
+                            <SubTitle2 title={ feedbackData?.feedback === undefined ? feedbackData?.message : feedbackData?.feedback } />
                         }
                     </Card>
                 }

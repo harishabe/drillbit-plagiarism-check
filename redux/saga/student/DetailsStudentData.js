@@ -13,6 +13,7 @@ import {
     SendAnswerData,
 } from '../../api/student/DetailStudentAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
+import { StudentSubmissionsPaginationValue } from '../../../utils/PaginationUrl'
 
 /**
  * Get classes data
@@ -118,7 +119,7 @@ export function* GetStudentSubmissionHeader() {
  */
 
 export function* onLoadSubmissions(action) {
-    const { response, error } = yield call(GetSubmissionDetail, action.class_id, action.folder_id);
+    const { response, error } = yield call(GetSubmissionDetail, action.class_id, action.folder_id, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_SUCCESS,
@@ -180,6 +181,7 @@ export function* onLoadQna(action) {
             type: types.FETCH_STUDENTS_QA_DETAILS_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 
@@ -196,7 +198,7 @@ export function* onLoadSendAnswer(action) {
     const { response, error } = yield call(SendAnswerData, action.query, action.class_id, action.folder_id);
     if (response) {
         yield put({ type: types.FETCH_STUDENTS_QA_ANSWER_DETAILS_SUCCESS, payload: response?.data, });
-        yield put({ type: types.FETCH_STUDENTS_QA_ANSWER_DETAILS_START });
+        yield put({ type: types.FETCH_STUDENTS_QA_DETAILS_START, class_id: action.class_id, folder_id: action.folder_id });
     } else {
         yield put({
             type: types.FETCH_STUDENTS_QA_ANSWER_DETAILS_FAIL,
@@ -218,7 +220,7 @@ export function* onLoadSendSubmission(action) {
     const { response, error } = yield call(SendSubmissionData, action.query, action.class_id, action.folder_id);
     if (response) {
         yield put({ type: types.FETCH_STUDENTS_NEW_SUBMISSION_SUCCESS, payload: response?.data, });
-        yield put({ type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_START, class_id: action.class_id, folder_id: action.folder_id });
+        yield put({ type: types.FETCH_STUDENTS_SUBMISSION_DETAILS_START, class_id: action.class_id, folder_id: action.folder_id, paginationPayload: StudentSubmissionsPaginationValue });
         toastrValidation(response);
     } else {
         yield put({
