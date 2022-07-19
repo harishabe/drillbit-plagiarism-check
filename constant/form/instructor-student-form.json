@@ -20,8 +20,8 @@
     {
         "field_type": "input",
         "type": "text",
-        "id": "id",
-        "name": "id",
+        "id": "studentId",
+        "name": "studentId",
         "label": "Student ID",
         "required": "Student ID"
     },
