@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux';
+import { useRouter } from "next/router";
 import _ from 'lodash';
 import styled from 'styled-components';
 import Instructor from '../../layouts/Instructor'
@@ -12,8 +14,10 @@ import {
 import { Pagination, IconButton } from '@mui/material';
 import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../assets/icon'
 import StudentForm from './form/StudentForm';
+import { GetStudent, DeleteStudent } from '../../redux/action/instructor/InstructorAction';
 import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
+import { PaginationValue } from '../../utils/PaginationUrl';
 
 const columns = [
     { id: 'id', label: 'Student ID', minWidth: 170 },
@@ -35,14 +39,19 @@ const AddButtonBottom = styled.div`
 `;
 
 const Students = ({
+    GetStudent,
+    DeleteStudent,
     studentData,
     pageDetails,
-    paginationPayload,
-    setPaginationPayload,
     isLoadingStudent
 }) => {
 
+    const router = useRouter();
+
+    const ClasId = router.query.clasId;
+
     const [rows, setRows] = useState([]);
+    const [clasId, setClasId] = useState(router.query.clasId);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showStatusWarning, setStatusWarning] = useState(false);
@@ -51,6 +60,18 @@ const Students = ({
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     // const [editStudent, setEditStudent] = useState(false);
     // const [editStudentData, setEditStudentData] = useState('');
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: 'user_id',
+        orderBy: PaginationValue?.orderBy,
+    });
+
+    // setClasId(router.query.clasId);
+
+    useEffect(() => {
+        GetStudent(ClasId, paginationPayload);
+    }, [ClasId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -91,8 +112,9 @@ const Students = ({
     };
 
     const handleYesWarning = () => {
-        DeleteData(deleteRowData, paginationPayload);
-        setShowDeleteAllIcon(false);
+        DeleteStudent(clasId, deleteRowData);
+        console.log("datadatadata", clasId, deleteRowData)
+        // setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -226,21 +248,36 @@ const Students = ({
                         path=''
                     />
 
-                    <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                        <Pagination
-                            count={pageDetails?.totalPages}
-                            onChange={handleChange}
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </div>
+                    { pageDetails?.totalPages > 1 &&
+                        <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+                            <Pagination
+                                count={ pageDetails?.totalPages }
+                                onChange={ handleChange }
+                                color="primary"
+                                variant="outlined"
+                                shape="rounded"
+                            />
+                        </div>
+                    }
                 </>
             </CardView>
         </React.Fragment>
     )
 }
 
+const mapStateToProps = (state) => ({
+    pageDetails: state?.instructorClasses?.studentAssignmentData?.page,
+    studentData: state?.instructorClasses?.studentAssignmentData?._embedded?.studentDTOList,
+    isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetStudent: (ClasId, PaginationValue) => dispatch(GetStudent(ClasId, PaginationValue)),
+        DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
+    };
+};
+
 Students.layout = Instructor
 
-export default Students
+export default connect(mapStateToProps, mapDispatchToProps)(Students);

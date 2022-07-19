@@ -12,6 +12,7 @@ import {
     EditClassData,
     EditFolderData,
     DeleteClass,
+    DeleteStudentData,
     DeleteFolders
 } from '../../api/instructor/DetailsInstructorAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
@@ -146,10 +147,10 @@ export function* GetClassesStudentData() {
  */
 
 export function* onLoadCreateStudent(action) {
-    const { response, error } = yield call(CreateStudentData, action.query);
+    const { response, error } = yield call(CreateStudentData, action.classId, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_STUDENT_DATA_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_STUDENT_DATA_START, paginationPayload: PaginationValue });
+        yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START, class_id: action.classId, paginationPayload: PaginationValue });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_STUDENT_DATA_FAIL, payload: error });
@@ -159,6 +160,31 @@ export function* onLoadCreateStudent(action) {
 
 export function* CreateStudent() {
     yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_STUDENT_DATA_START, onLoadCreateStudent);
+}
+
+/**
+ * Delete student
+ * Student 
+ * @param {*} action
+ */
+
+export function* onLoadDeleteStudent(action) {
+    const { response, error } = yield call(DeleteStudentData, action.class_id, action.user_id);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_DELETE_STUDENT_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START, class_id: action.class_id, paginationPayload: PaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DELETE_STUDENT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* DeleteStudents() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_DELETE_STUDENT_START, onLoadDeleteStudent);
 }
 
 /**

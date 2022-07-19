@@ -30,11 +30,11 @@ export const EditClassData = async (action) => {
 };
 
 /**
- * API CALL FOR DELETE CLASS IN INSTRUCTOR
+ * API CALL FOR DELETE STUDENT IN INSTRUCTOR
  */
 
-export const DeleteClass = async (action) => {
-    const url = END_POINTS.INSTRUCTOR_CLASS_DELETE_DATA + action.classId;
+export const DeleteStudentData = async (action) => {
+    const url = END_POINTS.INSTRUCTOR_STUDENT_DELETE_DATA + action.classId + 'students?id=' + action.userId;
     return DeleteMethod(url);
 }
 
@@ -52,10 +52,19 @@ export const GetStudentDetail = async (class_id, paginationPayload) => {
  * API CALL FOR CREATE STUDENT
  */
 
-export const CreateStudentData = async (data) => {
-    const url = END_POINTS.CREATE_STUDENT;
+export const CreateStudentData = async (class_id, data) => {
+    const url = END_POINTS.CREATE_STUDENT + class_id + '/students';
     return PostMethod(url, data);
 };
+
+/**
+ * API CALL FOR DELETE STUDENT IN INSTRUCTOR
+ */
+
+export const DeleteClass = async (action) => {
+    const url = END_POINTS.INSTRUCTOR_CLASS_DELETE_DATA + action.classId;
+    return DeleteMethod(url);
+}
 
 /**
  * API CALL FOR CREATE ASSIGNMENT

@@ -31,6 +31,7 @@ import {
     EditClassesData,
     EditMyFolderData,
     DeleteClasses,
+    DeleteStudents,
     DeleteMyFolders
 } from './instructor/DetailsInstructorData';
 import {
@@ -85,6 +86,7 @@ const saga = [
     fork(DeleteClasses),
     fork(CreateStudent),
     fork(CreateAssignment),
+    fork(DeleteStudents),
     fork(GetMyFolders),
     fork(CreateFolder),
     fork(EditMyFolderData),

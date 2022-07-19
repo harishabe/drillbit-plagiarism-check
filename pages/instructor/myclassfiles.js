@@ -30,7 +30,6 @@ const MyClassFiles = ({
     const [editClassesData, setEditClassesData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [selectedClass, setSelectedClass] = useState('');
-    
 
     const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
 
@@ -100,8 +99,7 @@ const MyClassFiles = ({
                                 isNextPath={true}
                                 handleClick={handleClassEdit}
                                 handleDelete={handleClassDelete}
-                                statusColor={expiryDateBgColor(item.validity)}
-                                // path='/instructor/myclasstables'
+                                statusColor={ expiryDateBgColor(item.validity) }
                                 path={ { pathname: '/instructor/myclasstables', query: { clasId: item.id } } }
                             />
                         </Grid>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
+import { useRouter } from "next/router";
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateStudent } from '../../../redux/action/instructor/InstructorAction';
@@ -8,16 +9,20 @@ import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/instructor-student-form.json';
 
 const StudentForm = ({
-    CreateStudent
+    CreateStudent,
+    isLoadingCreate
 }) => {
+
+    const router = useRouter();
+
+    const ClasId = router.query.clasId;
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
     });
 
     const onSubmit = (data) => {
-        CreateStudent(data);
-        console.log("first", data)
+        CreateStudent(ClasId, data);
     };
 
     return (
@@ -33,8 +38,8 @@ const StudentForm = ({
                                 key={ i }
                                 field={ field }
                                 control={ control }
+                                isLoading={ isLoadingCreate }
                             />
-
                         </Grid>
                     )) }
                 </Grid>
@@ -43,10 +48,14 @@ const StudentForm = ({
     )
 }
 
+const mapStateToProps = (state) => ({
+    isLoadingCreate: state?.instructorClasses?.isLoadingCreate,
+});
+
 const mapDispatchToProps = (dispatch) => {
     return {
-        CreateStudent: (data) => dispatch(CreateStudent(data)),
+        CreateStudent: (ClasId, data) => dispatch(CreateStudent(ClasId, data)),
     };
 };
 
-export default connect(null, mapDispatchToProps)(StudentForm);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentForm);
