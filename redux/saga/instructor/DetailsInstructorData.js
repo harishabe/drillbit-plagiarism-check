@@ -12,10 +12,12 @@ import {
     EditClassData,
     EditFolderData,
     DeleteClass,
-    DeleteFolders
+    DeleteFolders,
+    UploadSubmission,
+    DeleteSubmission
 } from '../../api/instructor/DetailsInstructorAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { PaginationValue, InstructorPaginationValue, InstructorFolderPaginationValue } from '../../../utils/PaginationUrl';
+import { PaginationValue, InstructorPaginationValue, InstructorFolderPaginationValue, InstructorFolderSubmissionPaginationValue } from '../../../utils/PaginationUrl';
 
 /**
  * Get classes data
@@ -305,3 +307,51 @@ export function* GetFolderSubmissionData() {
     yield takeLatest(types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, onLoadFolderSubmission);
 }
 
+/**
+ * my folder > submission list > upload file
+ * @param {*} action
+ */
+
+export function* onLoadUploadFile(action) {
+    const { response, error } = yield call(UploadSubmission, action.clasId, action.folder_id, action.query);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_UPLOAD_SUCCESS, payload: response?.data });
+        yield put({
+            type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, clasId: action.clasId,
+            folder_id: action.folder_id, paginationPayload: InstructorFolderSubmissionPaginationValue
+        });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_UPLOAD_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* UploadSubmissionFile() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_UPLOAD_START, onLoadUploadFile);
+}
+
+/**
+ * my folder > submission list > delete file
+ * @param {*} action
+ */
+
+export function* onLoadDeleteFile(action) {
+    console.log("actionactionaction", action)
+    const { response, error } = yield call(DeleteSubmission, action.clasId, action.folder_id, action.paper_id);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_DELETE_SUCCESS, payload: response?.data });
+        yield put({
+            type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, clasId: action.clasId,
+            folder_id: action.folder_id, paginationPayload: InstructorFolderSubmissionPaginationValue
+        });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_DELETE_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* DeleteSubmissionFile() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_DELETE_START, onLoadDeleteFile);
+}

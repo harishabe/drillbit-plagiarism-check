@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { DeleteMethod, GetMethod, PostMethod, PutMethod } from '../ApiMethod';
+import { DeleteMethod, GetMethod, PostMethod, PutMethod, PostFormData } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -109,4 +109,22 @@ export const DeleteFolders = async (action) => {
 export const GetSubmissionDetail = async (clasId, folder_id, paginationPayload) => {
     const url = END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions' + PaginationUrl(paginationPayload);
     return GetMethod(url);
+};
+
+/**
+ * API CALL FOR MY FOLDER > SUBMISSION DATA > DELETE
+ */
+
+export const DeleteSubmission = async (clasId, folder_id, paper_id) => {
+    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions?paperId=' + paper_id;
+    return GetMethod(url);
+};
+
+/**
+ * API CALL FOR MY FOLDER > SUBMISSION DATA > UPLOAD FILE
+ */
+
+export const UploadSubmission = async (clasId, folder_id, data) => {
+    const url = END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + clasId + '/assignments/' + folder_id + '/file';
+    return PostFormData(url, data);
 };
