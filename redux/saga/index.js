@@ -36,6 +36,9 @@ import {
     UploadSubmissionFile,
     DeleteSubmissionFile
 } from './instructor/DetailsInstructorData';
+import { 
+    GetSubmissionQnaGrading
+} from './instructor/SubmissionData'
 import {
     GetStudentDashboard,
     GetStudentClasses,
@@ -89,6 +92,7 @@ const saga = [
     fork(CreateStudent),
     fork(CreateAssignment),
     fork(DeleteStudents),
+    fork(GetSubmissionQnaGrading),
     fork(GetMyFolders),
     fork(CreateFolder),
     fork(EditMyFolderData),
