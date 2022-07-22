@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux';
+import { useRouter } from "next/router";
 import _ from 'lodash';
 import styled from 'styled-components';
+import { Pagination } from '@mui/material';
 import Instructor from '../../layouts/Instructor'
 import {
     CardView,
@@ -9,11 +12,17 @@ import {
     CreateDrawer,
     WarningDialog,
 } from '../../components'
-import { Pagination, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../assets/icon'
 import StudentForm from './form/StudentForm';
-import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
-import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
+import { DeleteStudent } from '../../redux/action/instructor/InstructorAction';
+import { removeCommaWordEnd } from '../../utils/RegExp';
+
+const AddButtonBottom = styled.div`
+    position:absolute;
+    bottom: 30px;
+    right:30px;
+`;
 
 const columns = [
     { id: 'id', label: 'Student ID', minWidth: 170 },
@@ -28,29 +37,24 @@ function createData(id, name, email, department, section, action) {
     return { id, name, email, department, section, action }
 }
 
-const AddButtonBottom = styled.div`
-    position:absolute;
-    bottom: 30px;
-    right:30px;
-`;
 
 const Students = ({
     studentData,
     pageDetails,
-    paginationPayload,
-    setPaginationPayload,
-    isLoadingStudent
+    isLoadingStudent,
+    DeleteStudent,
+    handlePagination,
 }) => {
+
+    const router = useRouter();
 
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
-    const [deleteRowData, setDeleteRowData] = useState('');
-    const [showStatusWarning, setStatusWarning] = useState(false);
-    const [statusRowData, setStatusRowData] = useState('');
-    const [statusMessage, setStatusMessage] = useState('');
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
-    // const [editStudent, setEditStudent] = useState(false);
-    // const [editStudentData, setEditStudentData] = useState('');
+    const [deleteRowData, setDeleteRowData] = useState('');
+    const [clasId, setClasId] = useState(router.query.clasId);
+    const [editStudent, setEditStudent] = useState(false);
+    const [editStudentData, setEditStudentData] = useState('');
 
     useEffect(() => {
         let row = '';
@@ -64,11 +68,7 @@ const Students = ({
                     student.department,
                     student.section,
                     [{ 'component': <EditIcon />, 'type': 'edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete' },
-                    {
-                        'component': student.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                        'type': student.status === 'active' ? 'lock' : 'unlock'
-                    }
+                        { 'component': <DeleteIcon />, 'type': 'delete' },
                     ]
                 );
             row['isSelected'] = false;
@@ -77,59 +77,30 @@ const Students = ({
         setRows([...arr]);
     }, [studentData]);
 
-    const handleChange = (event, value) => {
-        event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-    };
-
-    const handleCloseWarning = () => {
-        setShowDeleteWarning(false);
-    };
-
-    const handleStatusCloseWarning = () => {
-        setStatusWarning(false);
-    };
+    const handleAction = (event, icon, rowData) => {
+        if (icon === 'edit') {
+            setEditStudent(true);
+            setEditStudentData(rowData);
+        } else if (icon === 'delete') {
+            setDeleteRowData(rowData?.id?.props?.title);
+            setShowDeleteWarning(true);
+        }
+    }
 
     const handleYesWarning = () => {
-        DeleteData(deleteRowData, paginationPayload);
+        // router.push(`/instructor/myclasstables?clasId=${clasId}`);
+        router.replace('/instructor/myclasstables', `/instructor/myclasstables?clasId=${clasId}`);
+        DeleteStudent(clasId, deleteRowData);
+        console.log("datadatadata", clasId, deleteRowData)
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
     };
 
-    const handleStatusWarning = () => {
-        DeactivateData(statusRowData, paginationPayload);
-        setTimeout(() => {
-            setStatusWarning(false);
-        }, [100]);
+    const handleCloseWarning = () => {
+        setShowDeleteWarning(false);
     };
-
-    const handleAction = (event, icon, rowData) => {
-        if (icon === 'edit') {
-            setEditInstructor(true);
-            setEditInstructorData(rowData);
-        } else if (icon === 'delete') {
-            setDeleteRowData(rowData?.id?.props?.title);
-            setShowDeleteWarning(true);
-        } else if (icon === 'lock') {
-            let activateDeactive = {
-                'id': rowData?.id?.props?.title,
-                'status': 'inactive'
-            }
-            setStatusRowData(activateDeactive);
-            setStatusWarning(true);
-            setStatusMessage('inactive');
-        } else if (icon === 'unlock') {
-            let activateDeactive = {
-                'id': rowData?.id?.props?.title,
-                'status': 'active'
-            };
-            setStatusRowData(activateDeactive);
-            setStatusWarning(true);
-            setStatusMessage('active');
-        }
-    }
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
@@ -187,16 +158,6 @@ const Students = ({
                 />
             }
 
-            {
-                showStatusWarning &&
-                <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
-                    message={"Are you sure, you want to " + statusMessage + "?"}
-                    handleYes={handleStatusWarning}
-                    handleNo={handleStatusCloseWarning}
-                    isOpen={true}
-                />
-            }
             <AddButtonBottom>
                 <CreateDrawer
                     title="Add Student"
@@ -226,21 +187,34 @@ const Students = ({
                         path=''
                     />
 
-                    <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                        <Pagination
-                            count={pageDetails?.totalPages}
-                            onChange={handleChange}
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </div>
+                    { pageDetails?.totalPages > 1 &&
+                        <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+                            <Pagination
+                                count={ pageDetails?.totalPages }
+                                onChange={ handlePagination }
+                                color="primary"
+                                variant="outlined"
+                                shape="rounded"
+                            />
+                        </div>
+                    } 
                 </>
             </CardView>
         </React.Fragment>
     )
 }
 
+const mapStateToProps = (state) => ({
+    studentData: state?.instructorClasses?.studentAssignmentData?._embedded?.studentDTOList,
+    // isLoading: state?.instructorClasses?.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
+    };
+};
+
 Students.layout = Instructor
 
-export default Students
+export default connect(mapStateToProps, mapDispatchToProps)(Students);

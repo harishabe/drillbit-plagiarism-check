@@ -20,6 +20,7 @@ const END_POINTS = {
     INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST: '/extreme/classes/',
     INSTRUCTOR_CLASS_EDIT_DATA: '/extreme/classes/',
     INSTRUCTOR_CLASS_DELETE_DATA: '/extreme/classes?id=',
+    INSTRUCTOR_STUDENT_DELETE_DATA: '/extreme/classes/',
     INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA: '/extreme/classes/',
     INSTRUCTOR_SUBMISSION_UPLOAD: '/upload/classes/',
     STUDENT_DASHBOARD_WIDGET: '/extreme/student/dashboard',
@@ -34,7 +35,7 @@ const END_POINTS = {
     CREATE_INSTRUCTOR: '/extreme/admin/instructor',
     CREATE_CLASS: '/extreme/classes',
     CREATE_FOLDER: '/extreme/classes/',
-    CREATE_STUDENT: '/extreme/instructor/classes/student',
+    CREATE_STUDENT: '/extreme/classes/',
     CREATE_ASSIGNMENT: '/extreme/instructor/classes/assignment',
 };
 

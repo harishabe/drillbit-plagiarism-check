@@ -4,11 +4,19 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
 import Instructor from '../../layouts/Instructor';
-import { CardInfoView, CreateDrawer, WarningDialog } from '../../components';
+import {
+    CardInfoView,
+    CreateDrawer,
+    WarningDialog
+} from '../../components';
 import { DeleteWarningIcon } from '../../assets/icon';
 import { Skeleton } from '@mui/material';
 import MyClassesForm from './form/MyclassesForm';
-import { renameKeys, findByExpiryDate, expiryDateBgColor, convertDate } from '../../utils/RegExp';
+import {
+    renameKeys,
+    findByExpiryDate,
+    expiryDateBgColor
+} from '../../utils/RegExp';
 import { DeleteClass } from '../../redux/action/instructor/InstructorAction';
 
 const AddButtonBottom = styled.div`
@@ -30,7 +38,6 @@ const MyClassFiles = ({
     const [editClassesData, setEditClassesData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [selectedClass, setSelectedClass] = useState('');
-    
 
     const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
 
@@ -100,9 +107,8 @@ const MyClassFiles = ({
                                 isNextPath={true}
                                 handleClick={handleClassEdit}
                                 handleDelete={handleClassDelete}
-                                statusColor={expiryDateBgColor(item.validity)}
-                                // path='/instructor/myclasstables'
-                                path={ { pathname: '/instructor/myclasstables', query: { clasId: item.id } } }
+                                statusColor={ expiryDateBgColor(item.validity) }
+                                path={ { pathname: '/instructor/myclasstables', query: { name: item.name, clasId: item.id } } }
                             />
                         </Grid>
                     ))}

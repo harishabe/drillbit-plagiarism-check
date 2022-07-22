@@ -1,28 +1,25 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
-import debouce from "lodash.debounce";
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import { TextField } from '@mui/material'
-import { GetStudent } from '../../redux/action/instructor/InstructorAction';
 import Instructor from '../../layouts/Instructor'
 import { BreadCrumb, TabMenu } from '../../components'
 import Assignments from './assignments'
 import Students from './students'
+import { GetStudent } from '../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 
 const MyClassesTables = ({
     GetStudent,
-    studentData,
     pageDetails,
-    isLoadingStudent
+    studentData,
+    isLoadingStudent,
 }) => {
 
     const router = useRouter();
+    const [clasId, setClasId] = useState(router.query.clasId);
 
-    const ClasId = router.query.clasId;
-    
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
@@ -35,7 +32,7 @@ const MyClassesTables = ({
             active: false,
         },
         {
-            name: 'Java',
+            name: router.query.name,
             link: '/instructor/myclasstables',
             active: true,
         },
@@ -48,52 +45,35 @@ const MyClassesTables = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    /** search implementation using debounce concepts */
-
-    const handleSearch = (event) => {
-        if (event.target.value !== '') {
-            paginationPayload['search'] = event.target.value;
-            setPaginationPayload({ ...paginationPayload, paginationPayload });
-        } else {
-            delete paginationPayload['search'];
-            setPaginationPayload({ ...paginationPayload, paginationPayload });
-        }
-    }
-
-    const debouncedResults = useMemo(() => {
-        return debouce(handleSearch, 300);
-    }, []);
+    const handlePagination = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
 
     useEffect(() => {
-        return () => {
-            debouncedResults.cancel();
-        };
-    });
-
-    /** end debounce concepts */
-
-    useEffect(() => {
-        GetStudent(ClasId, paginationPayload);
-    }, [ClasId, paginationPayload]);
+        GetStudent(clasId, paginationPayload);
+    }, [clasId, paginationPayload]);
 
     const componentList = [
         <Students
-            studentData={studentData}
-            pageDetails={pageDetails}
-            paginationPayload={paginationPayload}
-            setPaginationPayload={setPaginationPayload}
-            isLoadingStudent={isLoadingStudent} />,
+            studentData={ studentData }
+            pageDetails={ pageDetails }
+            isLoadingStudent={ isLoadingStudent }
+            handlePagination={ handlePagination }
+        />,
         <Assignments />
     ];
 
     const tabMenu = [
         {
-            label: `Students(${pageDetails?.totalElements})`,
+            label: `Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
         },
         {
             label: 'Assignments(27)',
         },
     ];
+
+
 
     return (
         <React.Fragment>
@@ -102,7 +82,7 @@ const MyClassesTables = ({
                     <Grid item md={10} xs={10}>
                         <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
-                    <Grid item md={2} xs={2}>
+                    {/* <Grid item md={2} xs={2}>
                         <TextField
                             placeholder='Search'
                             onChange={debouncedResults}
@@ -113,10 +93,12 @@ const MyClassesTables = ({
                                 },
                             }}
                         />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
             <TabMenu menuButton={tabMenu} components={componentList} />
+
+
         </React.Fragment>
     )
 }
@@ -124,7 +106,7 @@ const MyClassesTables = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.instructorClasses?.studentAssignmentData?.page,
     studentData: state?.instructorClasses?.studentAssignmentData?._embedded?.studentDTOList,
-    isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
+    isLoadingStudent: state?.instructorClasses?.isLoadingStudent
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -132,7 +114,6 @@ const mapDispatchToProps = (dispatch) => {
         GetStudent: (ClasId, PaginationValue) => dispatch(GetStudent(ClasId, PaginationValue)),
     };
 };
-
 
 MyClassesTables.layout = Instructor;
 
