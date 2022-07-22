@@ -114,3 +114,21 @@ export const GetSubmissionList = (clasId, folder_id, paginationPayload) => {
         type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, clasId: clasId, folder_id: folder_id, paginationPayload: paginationPayload
     };
 };
+
+/**
+ * myfolder > submissionList > uploadfile
+ */
+export const SubmissionListUpload = (clasId, folder_id, data) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_UPLOAD_START, clasId: clasId, folder_id: folder_id, query: data
+    };
+};
+
+/**
+ * Get myfolder > submissionList > delete
+ */
+export const DeleteSubmission = (clasId, folder_id, paper_id) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_DELETE_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id
+    };
+};
