@@ -1,3 +1,3 @@
-const BASE_URL = 'http://52.148.73.8:8080';
+const BASE_URL = 'http://20.198.235.118:8080';
 
 export default BASE_URL;
