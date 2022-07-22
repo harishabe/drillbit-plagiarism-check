@@ -141,3 +141,12 @@ export const DeleteSubmission = (clasId, folder_id, paper_id) => {
         type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_DELETE_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id
     };
 };
+
+/**
+ * Get myclasses > assignments > submission
+ */
+export const SubmissionGradingQna = (url) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_START, url: url
+    };
+};
