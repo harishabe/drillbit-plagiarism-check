@@ -38,6 +38,22 @@ const MyClassesTables = ({
         },
     ]
 
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: 'user_id',
+        orderBy: PaginationValue?.orderBy,
+    });
+
+    const handlePagination = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
+
+    useEffect(() => {
+        GetStudent(clasId, paginationPayload);
+    }, [clasId, paginationPayload]);
+
     const componentList = [
         <Students
             studentData={ studentData }
@@ -57,21 +73,7 @@ const MyClassesTables = ({
         },
     ];
 
-    const [paginationPayload, setPaginationPayload] = useState({
-        page: PaginationValue?.page,
-        size: PaginationValue?.size,
-        field: 'user_id',
-        orderBy: PaginationValue?.orderBy,
-    });
 
-    const handlePagination = (event, value) => {
-        event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-    };
-
-    useEffect(() => {
-        GetStudent(clasId, paginationPayload);
-    }, [clasId, paginationPayload]);
 
     return (
         <React.Fragment>
