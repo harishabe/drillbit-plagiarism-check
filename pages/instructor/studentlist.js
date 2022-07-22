@@ -1,27 +1,29 @@
 import React, { useState, useEffect, useMemo } from 'react'
+import _ from 'lodash';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import debouce from "lodash.debounce";
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import Pagination from '@mui/material/Pagination';
+import { Pagination, IconButton } from '@mui/material';
 import { TextField } from '@mui/material'
 import Instructor from '../../layouts/Instructor'
 import {
     CardView,
     CommonTable,
-    AvatarName,
     BreadCrumb,
     MainHeading,
+    CreateDrawer,
+    WarningDialog
 } from '../../components'
-import { GetSubmissionList } from '../../redux/action/instructor/InstructorAction';
-import { EditIcon, DeleteIcon } from '../../assets/icon'
+import { GetSubmissionList, DeleteSubmissionFile } from '../../redux/action/instructor/InstructorAction';
+import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon'
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { formatDate } from '../../utils/RegExp';
+import SubmissionForm from './form/SubmissionForm';
 
 const columns = [
-    // { id: 'id', label: 'Student ID' },
-    // { id: 'STname', label: 'Student Name' },
     { id: 'PAname', label: 'Paper Name' },
     { id: 'file', label: 'Original File' },
     { id: 'lang', label: 'Language' },
@@ -32,24 +34,32 @@ const columns = [
     { id: 'action', label: 'Actions' },
 ]
 
-function createData(
-    // id, STname, 
-    PAname, file, lang, grammer, similarity, paperid, date, action) {
+function createData(PAname, file, lang, grammer, similarity, paperid, date, action) {
     return {
-        // id, STname, 
         PAname, file, lang, grammer, similarity, paperid, date, action
     }
 }
+
+const AddButtonBottom = styled.div`
+    position:absolute;
+    bottom: 30px;
+    right:30px;
+`;
 
 const StudentList = ({
     GetSubmissionList,
     submissionData,
     isLoadingSubmission,
+    isLoadingUpload,
+    DeleteSubmissionFile,
     pageDetails,
 }) => {
 
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [deleteRowData, setDeleteRowData] = useState('');
+    const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
 
     const clasId = router.query.clasId;
     const folderId = router.query.folderId;
@@ -114,8 +124,6 @@ const StudentList = ({
         submissionData?.map((student) => {
             row =
                 createData(
-                    // <AvatarName avatarText="S" title={ student.student_id } color='#4795EE' />,
-                    // student.student_name,
                     student.title,
                     student.original_fn,
                     student.lang1,
@@ -123,13 +131,7 @@ const StudentList = ({
                     student.percent,
                     student.paper_id,
                     formatDate(student.date_up),
-                    [{ 'component': <EditIcon />, 'type': 'edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete' },
-                        // {
-                        //     'component': student.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                        //     'type': student.status === 'active' ? 'lock' : 'unlock'
-                        // }
-                    ]
+                    [{ 'component': <DeleteIcon />, 'type': 'edit' }]
                 );
             row['isSelected'] = false;
             arr.push(row)
@@ -137,10 +139,73 @@ const StudentList = ({
         setRows([...arr]);
     }, [submissionData]);
 
+    const handleAction = (event, icon, rowData) => {
+        if (icon === 'delete') {
+            console.log("rowdata", rowData)
+            setDeleteRowData(rowData?.id?.props?.title);
+            setShowDeleteWarning(true);
+        }
+    }
+
     const handleChange = (event, value) => {
         event.preventDefault();
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
+
+    const handleCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
+
+    const handleYesWarning = () => {
+        // DeleteSubmissionFile(clasId, folderId, deleteRowData);
+        console.log("DeleteSubmissionFile", clasId, folderId, deleteRowData)
+        setShowDeleteAllIcon(false);
+        setTimeout(() => {
+            setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
+    }
+
+    const handleCheckboxSelect = () => {
+        let rowData = rows?.map((rowItem) => {
+            rowItem['isSelected'] = !rowItem['isSelected'];
+            return rowItem;
+        });
+        setRows(rowData);
+    }
+
+    const handleSingleSelect = (e, row) => {
+        let rowData = rows?.map((rowItem) => {
+            if (rowItem?.id?.props?.title === row?.id?.props?.title) {
+                rowItem['isSelected'] = !rowItem['isSelected'];
+            }
+            return rowItem;
+        });
+        setRows(rowData);
+    }
+
+    const deleteAllStudent = () => {
+        let rowsId = '';
+        _.filter(rows, function (o) {
+            if (o.isSelected === true) {
+                return rows;
+            }
+        }).map((rowItem) => {
+            rowsId += rowItem?.id?.props?.title + ',';
+        });
+        setDeleteRowData(removeCommaWordEnd(rowsId));
+        setShowDeleteWarning(true);
+    }
 
     return (
         <React.Fragment>
@@ -148,7 +213,7 @@ const StudentList = ({
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={10}>
                         <BreadCrumb item={InstructorBreadCrumb} />
-                        <MainHeading title={ `${folderName + '(' + pageDetails?.totalElements + ')'}` } />
+                        <MainHeading title={ `${folderName} (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
                     <Grid item md={2} xs={2}>
                         <TextField
@@ -165,15 +230,49 @@ const StudentList = ({
                 </Grid>
             </Box>
             <CardView>
+
+                { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
+                    <IconButton onClick={ deleteAllStudent }>
+                        <DeleteIcon />
+                    </IconButton>
+                </div> }
+
                 <CommonTable
                     isCheckbox={ true }
                     tableHeader={columns}
                     tableData={rows}
-                    // actionIcon={ actionIcon }
-                    // isActionIcon={ true }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    handleCheckboxSelect={ handleCheckboxSelect }
+                    handleSingleSelect={ handleSingleSelect }
                     isLoading={ isLoadingSubmission }
                     charLength={ 17 }
+                    path=''
                 />
+
+                <AddButtonBottom>
+                    <CreateDrawer
+                        title="Upload File"
+                        isShowAddIcon={ true }>
+                        <SubmissionForm
+                            clasId={ clasId }
+                            folderId={ folderId }
+                            isLoadingUpload={ isLoadingUpload }
+                        />
+                    </CreateDrawer>
+                </AddButtonBottom>
+
+                {
+                    showDeleteWarning &&
+                    <WarningDialog
+                        warningIcon={ <DeleteWarningIcon /> }
+                        message="Are you sure you want to delete ?"
+                        handleYes={ handleYesWarning }
+                        handleNo={ handleCloseWarning }
+                        isOpen={ true }
+                    />
+                }
+
                 { pageDetails?.totalPages > '1' ?
                     <div style={ { marginLeft: '35%', marginTop: '25px' } }>
                         <Pagination
@@ -194,11 +293,13 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.instructorMyFolders?.submissionData?.page,
     submissionData: state?.instructorMyFolders?.submissionData?._embedded?.submissionsList,
     isLoadingSubmission: state?.instructorMyFolders?.isLoadingSubmission,
+    isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionList: (clasId, folderId, PaginationValue) => dispatch(GetSubmissionList(clasId, folderId, PaginationValue)),
+        DeleteSubmissionFile: (clasId, folderId, paperId) => dispatch(DeleteSubmissionFile(clasId, folderId, paperId)),
     };
 };
 

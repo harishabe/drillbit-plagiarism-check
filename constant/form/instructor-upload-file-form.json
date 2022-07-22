@@ -1,0 +1,74 @@
+[
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "authorName",
+        "name": "authorName",
+        "label": "Author Name",
+        "required": "Author Name"
+    },
+
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "title",
+        "name": "title",
+        "label": "Title",
+        "required": "Enter Title"
+    },
+    
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "documentType",
+        "name": "documentType",
+        "label": "Choose Document Type",
+        "required": "Choose Document Type",
+        "validationMsg": "Please select Type"
+    },
+    
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "plagiarismCheck",
+        "name": "plagiarismCheck",
+        "label": "Plagiarism Check",
+        "required": "Plagiarism Check",
+        "validationMsg": "Please select Type"
+    },
+
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "grammarCheck",
+        "name": "grammarCheck",
+        "label": "Grammar Check",
+        "required": "Grammar Check",
+        "validationMsg": "Please select Type"
+    },
+
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "language",
+        "name": "language",
+        "label": "Language",
+        "required": "Language",
+        "validationMsg": "Please select Language"
+    },
+
+    {
+        "field_type": "file",
+        "id": "file",
+        "name": "file",
+        "label": "Choose File",
+        "required": "Choose File",
+        "validationMsg": "Please choose file"
+    },
+
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Upload File"
+    }
+]

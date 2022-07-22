@@ -32,7 +32,9 @@ import {
     EditMyFolderData,
     DeleteClasses,
     DeleteStudents,
-    DeleteMyFolders
+    DeleteMyFolders,
+    UploadSubmissionFile,
+    DeleteSubmissionFile
 } from './instructor/DetailsInstructorData';
 import {
     GetStudentDashboard,
@@ -92,6 +94,8 @@ const saga = [
     fork(EditMyFolderData),
     fork(DeleteMyFolders),
     fork(GetFolderSubmissionData),
+    fork(UploadSubmissionFile),
+    fork(DeleteSubmissionFile),
     fork(GetStudentData),
     fork(EditData),
     fork(DeleteData),
