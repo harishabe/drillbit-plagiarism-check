@@ -113,15 +113,17 @@ export const DeleteFolders = async (action) => {
 
 /**
  * API CALL FOR MY FOLDER > SUBMISSION DATA
+ * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION
  */
 
-export const GetSubmissionDetail = async (clasId, folder_id, paginationPayload) => {
-    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions' + PaginationUrl(paginationPayload);
+export const GetSubmissionDetail = async (apiUrl) => {
+    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + apiUrl;
     return GetMethod(url);
 };
 
 /**
  * API CALL FOR MY FOLDER > SUBMISSION DATA > DELETE
+ * API CALL FOR MY CLASSES > ASSIGNMENTS > DELETE
  */
 
 export const DeleteSubmission = async (clasId, folder_id, paper_id) => {
@@ -131,6 +133,7 @@ export const DeleteSubmission = async (clasId, folder_id, paper_id) => {
 
 /**
  * API CALL FOR MY FOLDER > SUBMISSION DATA > UPLOAD FILE
+ * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION > UPLOAD FILE
  */
 
 export const UploadSubmission = async (clasId, folder_id, data) => {

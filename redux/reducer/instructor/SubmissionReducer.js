@@ -2,22 +2,56 @@ import * as types from '../../action/ActionType';
 
 const SubmissionReducer = (state = {}, action) => {
     switch (action.type) {
-        case types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_START:
+        case types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_EDIT_START:
             return {
                 ...state,
-                isLoadingSubmissionGrading: true,
+                isLoadingEditSubmission: true,
             };
-        case types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_SUCCESS:
+        case types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_EDIT_SUCCESS:
             return {
                 ...state,
-                isLoadingSubmissionGrading: false,
-                SubmissionGradingData: action.payload,
+                isLoadingEditSubmission: false,
+                EditSubmissionData: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_FAIL:
+        case types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_EDIT_FAIL:
             return {
                 ...state,
-                isLoadingSubmissionGrading: false,
-                SubmissionGradingError: action.payload,
+                isLoadingEditSubmission: false,
+                EditSubmissionError: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_SUBMISSIONS_SAVE_TO_REPOSITARY_START:
+            return {
+                ...state,
+                isLoadingRepo: true,
+            };
+        case types.FETCH_INSTRUCTOR_SUBMISSIONS_SAVE_TO_REPOSITARY_SUCCESS:
+            return {
+                ...state,
+                isLoadingRepo: false,
+                repoData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_SUBMISSIONS_SAVE_TO_REPOSITARY_FAIL:
+            return {
+                ...state,
+                isLoadingRepo: false,
+                repoError: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_START:
+            return {
+                ...state,
+                isLoadingFeedback: true,
+            };
+        case types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_SUCCESS:
+            return {
+                ...state,
+                isLoadingFeedback: false,
+                feedbackData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_FAIL:
+            return {
+                ...state,
+                isLoadingFeedback: false,
+                feedbackError: action.payload,
             };
         default:
             return state;
