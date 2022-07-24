@@ -115,7 +115,9 @@ const StudentList = ({
     /** end debounce concepts */
 
     useEffect(() => {
-        GetSubmissionList(clasId, folderId, paginationPayload);
+        let url = '/classes/' + clasId + '/assignments/' + folderId + '/submissions?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&field=' + PaginationValue?.field + '&orderBy=' + PaginationValue?.orderBy;
+
+        GetSubmissionList(url);
     }, [clasId, folderId, paginationPayload]);
 
     useEffect(() => {
