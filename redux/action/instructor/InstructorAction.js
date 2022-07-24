@@ -117,36 +117,57 @@ export const DeleteFolder = (classId, folderId) => {
 
 /**
  * Get myfolder > submissionList
+ * Get myclasses > assignments > submission
  */
-export const GetSubmissionList = (clasId, folder_id, paginationPayload) => {
+export const GetSubmissionList = (url) => {
     return {
-        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START, clasId: clasId, folder_id: folder_id, paginationPayload: paginationPayload
+        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: url
     };
 };
 
 /**
- * myfolder > submissionList > uploadfile
+ * Myfolder > submissionList > uploadfile
+ * myclasses > assignments > submission-upload
  */
 export const SubmissionListUpload = (clasId, folder_id, data) => {
     return {
-        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_UPLOAD_START, clasId: clasId, folder_id: folder_id, query: data
+        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_START, clasId: clasId, folder_id: folder_id, query: data
     };
 };
 
 /**
  * Get myfolder > submissionList > delete
+ * My classes > Assignments > delete submission
  */
 export const DeleteSubmission = (clasId, folder_id, paper_id) => {
     return {
-        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_DELETE_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id
+        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id
     };
 };
 
 /**
- * Get myclasses > assignments > submission
+ * My classes > Assignments > edit assignments setting
  */
-export const SubmissionGradingQna = (url) => {
+export const EditSubmission = (clasId, folder_id, requestPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_START, url: url
+        type: types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_EDIT_START, clasId: clasId, folder_id: folder_id, requestPayload: requestPayload
+    };
+};
+
+/**
+ * My classes > Assignments > save to repositary
+ */
+export const SaveToRepositary = (clasId, folder_id, paper_id) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_SUBMISSIONS_SAVE_TO_REPOSITARY_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id
+    };
+};
+
+/**
+ * My classes > Assignments > grading > feedback
+ */
+export const InstructorFeedback = (clasId, folder_id, paper_id) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id
     };
 };

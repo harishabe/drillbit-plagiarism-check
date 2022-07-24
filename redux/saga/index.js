@@ -23,7 +23,6 @@ import {
     GetClassesData,
     GetClassesStudentData,
     GetMyFolders,
-    GetFolderSubmissionData,
     CreateClass,
     CreateFolder,
     CreateStudent,
@@ -33,11 +32,15 @@ import {
     DeleteClasses,
     DeleteStudents,
     DeleteMyFolders,
-    UploadSubmissionFile,
-    DeleteSubmissionFile
+
 } from './instructor/DetailsInstructorData';
 import { 
-    GetSubmissionQnaGrading
+    GetSubmissionData,
+    EditSubmissionDetail,
+    SaveToRepo,
+    InstructorFeedbackDetail,
+    UploadSubmissionFile,
+    DeleteSubmissionFile
 } from './instructor/SubmissionData'
 import {
     GetStudentDashboard,
@@ -92,12 +95,14 @@ const saga = [
     fork(CreateStudent),
     fork(CreateAssignment),
     fork(DeleteStudents),
-    fork(GetSubmissionQnaGrading),
+    fork(EditSubmissionDetail),
+    fork(SaveToRepo),
+    fork(InstructorFeedbackDetail),
     fork(GetMyFolders),
     fork(CreateFolder),
     fork(EditMyFolderData),
     fork(DeleteMyFolders),
-    fork(GetFolderSubmissionData),
+    fork(GetSubmissionData),
     fork(UploadSubmissionFile),
     fork(DeleteSubmissionFile),
     fork(GetStudentData),

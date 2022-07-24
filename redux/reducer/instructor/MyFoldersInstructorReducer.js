@@ -70,52 +70,52 @@ const MyFoldersInstructorReducer = (state = {}, action) => {
                 isLoading: false,
                 deleteFolderError: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_START:
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START:
             return {
                 ...state,
                 isLoadingSubmission: true,
             };
-        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_SUCCESS:
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_SUCCESS:
             return {
                 ...state,
                 isLoadingSubmission: false,
                 submissionData: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_FAIL:
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_FAIL:
             return {
                 ...state,
                 isLoadingSubmission: false,
                 submissionDataError: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_UPLOAD_START:
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_START:
             return {
                 ...state,
                 isLoadingUpload: true,
             };
-        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_UPLOAD_SUCCESS:
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_SUCCESS:
             return {
                 ...state,
                 isLoadingUpload: false,
                 uploadData: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_UPLOAD_FAIL:
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_FAIL:
             return {
                 ...state,
                 isLoadingUpload: false,
                 uploadDataError: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_DELETE_START:
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_START:
             return {
                 ...state,
                 isLoadingDelete: true,
             };
-        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_DELETE_SUCCESS:
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_SUCCESS:
             return {
                 ...state,
                 isLoadingDelete: false,
                 deleteData: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST_DELETE_FAIL:
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_FAIL:
             return {
                 ...state,
                 isLoadingDelete: false,
