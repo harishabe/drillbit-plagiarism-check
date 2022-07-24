@@ -1,4 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { GetMethod } from './../ApiMethod';
 
 /**
@@ -6,17 +7,17 @@ import { GetMethod } from './../ApiMethod';
  */
 
 export const GetWidgetData = async () => {
-    const url = END_POINTS.ADMIN_DASHBOARD_WIDGET;
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_WIDGET;
     return GetMethod(url);
 };
 
 export const GetTopStudnet = async () => {
-    const url = END_POINTS.ADMIN_TOP_STUDENT;
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_TOP_STUDENT;
     return GetMethod(url);
 };
 
 export const GetTrendAnalysis = async () => {
-    const url = END_POINTS.ADMIN_TREND_ANALYSIS;
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_TREND_ANALYSIS;
     return GetMethod(url);
 };
 

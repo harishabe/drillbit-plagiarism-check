@@ -4,10 +4,11 @@ import PropTypes from 'prop-types'
 
 const Heading = ({
     title,
-    color
+    color,
+    mb
 }) => {
     return (
-        <Typography variant="h2" color={color} component="div" gutterBottom>
+        <Typography variant="h2" color={color} component="div" gutterBottom style={{ marginBottom: mb }}>
             {title}
         </Typography>
     )

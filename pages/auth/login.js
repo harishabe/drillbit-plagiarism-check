@@ -11,7 +11,7 @@ import {
     ImgContainer
 } from './login-style'
 import LoginForm from './login-form'
-import { Heading, SubTitle } from '../../components'
+import { Heading, SubTitle,MainHeading } from '../../components'
 import { DrillBitLogo, DrillBitLogoIcon } from '../../assets/icon'
 import {
     LOGIN_IMG_BANNER,
@@ -40,8 +40,8 @@ const Login = () => {
                     </Grid>
                     <Grid item md={5} style={{ width: '100%' }}>
                         <LoginContainer>
-                            {/* <Heading title={LOGIN_WELCOME_DRILLBIT} /> */}
-                            <DrillBitLogoIcon />
+                            <MainHeading mb={'20px'} title={LOGIN_WELCOME_DRILLBIT} />
+                            {/* <DrillBitLogoIcon /> */}
                             <LoginForm />
                             {/* <InlineText>
                                 <AccountLink>

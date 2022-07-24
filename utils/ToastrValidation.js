@@ -1,5 +1,4 @@
 import { toast } from 'react-toastify';
-import RedirectToLogin from './RedirectToLogin';
 
 const error = (message) => {
     toast.error(message, {

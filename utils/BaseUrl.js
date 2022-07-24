@@ -1,3 +1,3 @@
-const BASE_URL = 'http://20.198.235.118:8080';
-
-export default BASE_URL;
+export const BASE_URL = 'http://uat.drillbitplagiarismcheck.com:8081';
+export const BASE_URL_EXTREM = 'http://uat.drillbitplagiarismcheck.com:8082';
+export const BASE_URL_UPLOAD = 'http://uat.drillbitplagiarismcheck.com:8083';

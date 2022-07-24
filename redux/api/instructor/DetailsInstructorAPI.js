@@ -1,4 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import { DeleteMethod, GetMethod, PostMethod, PutMethod, PostFormData } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
@@ -7,7 +8,7 @@ import { PaginationUrl } from '../../../utils/PaginationUrl';
  */
 
 export const GetClassesDetail = async (paginationPayload) => {
-    const url = END_POINTS.INSTRUCTOR_MY_CLASSES + PaginationUrl(paginationPayload);
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_CLASSES + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -16,7 +17,7 @@ export const GetClassesDetail = async (paginationPayload) => {
  */
 
 export const CreateClassData = async (data) => {
-    const url = END_POINTS.CREATE_CLASS;
+    const url = BASE_URL_EXTREM + END_POINTS.CREATE_CLASS;
     return PostMethod(url, data);
 };
 
@@ -25,7 +26,7 @@ export const CreateClassData = async (data) => {
  */
 
 export const EditClassData = async (action) => {
-    const url = END_POINTS.INSTRUCTOR_CLASS_EDIT_DATA + action.classId;
+    const url = BASE_URL_EXTREM+END_POINTS.INSTRUCTOR_CLASS_EDIT_DATA + action.classId;
     return PutMethod(url, action.requestPayload);
 };
 
@@ -34,7 +35,7 @@ export const EditClassData = async (action) => {
  */
 
 export const DeleteStudentData = async (action) => {
-    const url = END_POINTS.INSTRUCTOR_STUDENT_DELETE_DATA + action.classId + 'students?id=' + action.userId;
+    const url = BASE_URL_EXTREM+END_POINTS.INSTRUCTOR_STUDENT_DELETE_DATA + action.classId + 'students?id=' + action.userId;
     return DeleteMethod(url);
 }
 
@@ -43,7 +44,7 @@ export const DeleteStudentData = async (action) => {
  */
 
 export const GetStudentDetail = async (class_id, paginationPayload) => {
-    const url = END_POINTS.INSTRUCTOR_MY_CLASSES_STUDENTS + class_id + '/students' + PaginationUrl(paginationPayload);
+    const url = BASE_URL_EXTREM+END_POINTS.INSTRUCTOR_MY_CLASSES_STUDENTS + class_id + '/students' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -53,7 +54,7 @@ export const GetStudentDetail = async (class_id, paginationPayload) => {
  */
 
 export const CreateStudentData = async (class_id, data) => {
-    const url = END_POINTS.CREATE_STUDENT + class_id + '/students';
+    const url = BASE_URL_EXTREM+END_POINTS.CREATE_STUDENT + class_id + '/students';
     return PostMethod(url, data);
 };
 
@@ -62,7 +63,7 @@ export const CreateStudentData = async (class_id, data) => {
  */
 
 export const DeleteClass = async (action) => {
-    const url = END_POINTS.INSTRUCTOR_CLASS_DELETE_DATA + action.classId;
+    const url = BASE_URL_EXTREM+END_POINTS.INSTRUCTOR_CLASS_DELETE_DATA + action.classId;
     return DeleteMethod(url);
 }
 
@@ -71,7 +72,7 @@ export const DeleteClass = async (action) => {
  */
 
 export const CreateAssignmentData = async (data) => {
-    const url = END_POINTS.CREATE_ASSIGNMENT;
+    const url = BASE_URL_EXTREM+END_POINTS.CREATE_ASSIGNMENT;
     return PostMethod(url, data);
 };
 
@@ -79,8 +80,8 @@ export const CreateAssignmentData = async (data) => {
  * API CALL FOR GET FOLDER DATA
  */
 
- export const GetMyFoldersDetail = async (paginationPayload) => {
-    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS + PaginationUrl(paginationPayload);
+export const GetMyFoldersDetail = async (paginationPayload) => {
+    const url = BASE_URL_EXTREM+END_POINTS.INSTRUCTOR_MY_FOLDERS + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -89,7 +90,7 @@ export const CreateAssignmentData = async (data) => {
  */
 
 export const CreateFolderData = async (clasId, data) => {
-    const url = END_POINTS.CREATE_FOLDER + clasId + '/folder';
+    const url = BASE_URL_EXTREM+END_POINTS.CREATE_FOLDER + clasId + '/folder';
     return PostMethod(url, data);
 };
 
@@ -98,7 +99,7 @@ export const CreateFolderData = async (clasId, data) => {
  */
 
 export const EditFolderData = async (action) => {
-    const url = END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + action.classId + '/folder/' + action.folderId;
+    const url = BASE_URL_EXTREM+END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + action.classId + '/folder/' + action.folderId;
     return PutMethod(url, action.requestPayload);
 };
 
@@ -107,7 +108,7 @@ export const EditFolderData = async (action) => {
  */
 
 export const DeleteFolders = async (action) => {
-    const url = END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + action.classId + '/assignments?id=' + action.folderId;
+    const url = BASE_URL_EXTREM+END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + action.classId + '/assignments?id=' + action.folderId;
     return DeleteMethod(url);
 }
 
@@ -116,7 +117,7 @@ export const DeleteFolders = async (action) => {
  */
 
 export const GetSubmissionDetail = async (clasId, folder_id, paginationPayload) => {
-    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions' + PaginationUrl(paginationPayload);
+    const url = BASE_URL_EXTREM+END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -125,7 +126,7 @@ export const GetSubmissionDetail = async (clasId, folder_id, paginationPayload) 
  */
 
 export const DeleteSubmission = async (clasId, folder_id, paper_id) => {
-    const url = END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions?paperId=' + paper_id;
+    const url = BASE_URL_EXTREM+END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions?paperId=' + paper_id;
     return GetMethod(url);
 };
 
@@ -134,6 +135,6 @@ export const DeleteSubmission = async (clasId, folder_id, paper_id) => {
  */
 
 export const UploadSubmission = async (clasId, folder_id, data) => {
-    const url = END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + clasId + '/assignments/' + folder_id + '/file';
+    const url = BASE_URL_UPLOAD+END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + clasId + '/assignments/' + folder_id + '/file';
     return PostFormData(url, data);
 };

@@ -1,4 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { GetMethod } from './../ApiMethod';
 
 /**
@@ -6,6 +7,6 @@ import { GetMethod } from './../ApiMethod';
  */
 
 export const GetWidgetData = () => {
-    const url = END_POINTS.INSTRUCTOR_DASHBOARD_WIDGET;
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DASHBOARD_WIDGET;
     return GetMethod(url);
 };

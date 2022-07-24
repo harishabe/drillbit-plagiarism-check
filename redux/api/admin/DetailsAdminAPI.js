@@ -1,4 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { GetMethod, PostMethod, PutMethod, DeleteMethod, GetMethodDownload } from './../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
@@ -7,7 +8,7 @@ import { PaginationUrl } from '../../../utils/PaginationUrl';
  */
 
 export const GetInstructorDetail = async (paginationPayload) => {
-    const url = END_POINTS.ADMIN_INSTRUCTOR + PaginationUrl(paginationPayload);
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -16,7 +17,7 @@ export const GetInstructorDetail = async (paginationPayload) => {
  */
 
 export const CreateInstructorData = async (data) => {
-    const url = END_POINTS.CREATE_INSTRUCTOR;
+    const url = BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR;
     return PostMethod(url, data);
 };
 
@@ -25,7 +26,7 @@ export const CreateInstructorData = async (data) => {
  */
 
 export const GetStudentDetail = async (paginationPayload) => {
-    const url = END_POINTS.ADMIN_STUDENT + PaginationUrl(paginationPayload);
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_STUDENT + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -34,7 +35,7 @@ export const GetStudentDetail = async (paginationPayload) => {
  */
 
 export const DeleteStudent = async (id) => {
-    const url = END_POINTS.ADMIN_STUDENT_DELETE + '?id=' + id;
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_STUDENT_DELETE + '?id=' + id;
     return DeleteMethod(url);
 };
 
@@ -43,7 +44,7 @@ export const DeleteStudent = async (id) => {
  */
 
 export const GetReports = async () => {
-    const url = END_POINTS.ADMIN_REPORTS;
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS;
     return GetMethod(url);
 };
 
@@ -52,7 +53,7 @@ export const GetReports = async () => {
  */
 
 export const DownloadReports = async (action) => {
-    const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + action.userType + '/download';
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + action.userType + '/download';
     return GetMethodDownload(url, action.userType + '.csv');
 };
 
@@ -61,7 +62,7 @@ export const DownloadReports = async (action) => {
  */
 
 export const ViewDownloadReports = async (apiUrl) => {
-    const url = END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + apiUrl;
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + apiUrl;
     return GetMethod(url);
 };
 
@@ -70,7 +71,7 @@ export const ViewDownloadReports = async (apiUrl) => {
  */
 
 export const GetStats = async (id) => {
-    const url = END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS + '/' + id + '/stats';
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS + '/' + id + '/stats';
     return GetMethod(url);
 };
 
@@ -80,7 +81,7 @@ export const GetStats = async (id) => {
  */
 
 export const GetExportCsvFile = async (emailId) => {
-    const url = END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + emailId;
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + emailId;
     return GetMethodDownload(url, 'Submission_Report.csv');
 };
 
@@ -89,7 +90,7 @@ export const GetExportCsvFile = async (emailId) => {
  */
 
 export const EditRow = async (action) => {
-    const url = END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + action.API_END_POINT + '/' + action.instructorId;
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + action.API_END_POINT + '/' + action.instructorId;
     return PutMethod(url, action.requestPayload);
 };
 
@@ -98,7 +99,7 @@ export const EditRow = async (action) => {
  */
 
 export const DeleteRow = async (id) => {
-    const url = END_POINTS.ADMIN_INSTRUCTOR_DELETE + '?id=' + id;
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_DELETE + '?id=' + id;
     return DeleteMethod(url);
 };
 
@@ -107,6 +108,6 @@ export const DeleteRow = async (id) => {
  */
 
 export const DeactivateRow = async (payload) => {
-    const url = END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + payload.id + '/' + payload.status;
+    const url = BASE_URL_EXTREM + END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + payload.id + '/' + payload.status;
     return PutMethod(url, {});
 };

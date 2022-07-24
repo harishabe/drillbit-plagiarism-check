@@ -1,4 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import { GetMethod, PostMethod, GetMethodDownload, PostFormData } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
@@ -7,7 +8,7 @@ import { PaginationUrl } from '../../../utils/PaginationUrl';
  */
 
 export const GetDashboardData = async () => {
-    const url = END_POINTS.STUDENT_DASHBOARD_WIDGET;
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_DASHBOARD_WIDGET;
     return GetMethod(url);
 };
 
@@ -16,7 +17,7 @@ export const GetDashboardData = async () => {
  */
 
 export const GetClassesDetail = async (paginationPayload) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + PaginationUrl(paginationPayload);
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -25,7 +26,7 @@ export const GetClassesDetail = async (paginationPayload) => {
  */
 
 export const GetAssignmentDetail = async (class_id, paginationPayload) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments' + PaginationUrl(paginationPayload);
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -34,7 +35,7 @@ export const GetAssignmentDetail = async (class_id, paginationPayload) => {
  */
 
 export const GetSubmissionHeader = async (class_id, folder_id) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/header';
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/header';
     return GetMethod(url);
 };
 
@@ -43,7 +44,7 @@ export const GetSubmissionHeader = async (class_id, folder_id) => {
  */
 
 export const GetSubmissionDetail = async (class_id, folder_id, paginationPayload) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/submissions' + PaginationUrl(paginationPayload);
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/submissions' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -52,7 +53,7 @@ export const GetSubmissionDetail = async (class_id, folder_id, paginationPayload
  */
 
 export const DownloadHistory = async (apiUrl) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + apiUrl;
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + apiUrl;
     return GetMethodDownload(url, 'Submission_History.csv');
 };
 
@@ -60,7 +61,7 @@ export const DownloadHistory = async (apiUrl) => {
  * API CALL FOR QNA DATA
  */
 export const GetQnaDetail = async (class_id, folder_id) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/qa';
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/qa';
     return GetMethod(url);
 };
 
@@ -68,7 +69,7 @@ export const GetQnaDetail = async (class_id, folder_id) => {
 //  * API CALL FOR FEEDBACK DATA
 //  */
 export const GetFeedbackDetail = async (class_id, folder_id) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/feedback';
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/feedback';
     return GetMethod(url);
 };
 
@@ -77,7 +78,7 @@ export const GetFeedbackDetail = async (class_id, folder_id) => {
  * API CALL FOR FEEDBACK DATA
  */
 export const SendAnswerData = async (data, class_id, folder_id) => {
-    const url = END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/answer';
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/answer';
     return PostMethod(url, data);
 };
 
@@ -85,6 +86,6 @@ export const SendAnswerData = async (data, class_id, folder_id) => {
  * API CALL FOR NEW SUBMISSION DATA
  */
 export const SendSubmissionData = async (query, class_id, folder_id) => {
-    const url = END_POINTS.STUDENT_NEW_SUBMISSION + class_id + '/assignments/' + folder_id + '/studentFile';
+    const url = BASE_URL_UPLOAD + END_POINTS.STUDENT_NEW_SUBMISSION + class_id + '/assignments/' + folder_id + '/studentFile';
     return PostFormData(url, query);
 };

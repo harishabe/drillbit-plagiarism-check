@@ -1,5 +1,4 @@
 import axois from 'axios';
-import BASE_URL from '../../utils/BaseUrl';
 
 const header = () => {
     return {
@@ -30,7 +29,7 @@ const FormDataHeader = () => {
  */
 
 export const LoginPostMethod = async (url, query) => {
-    return await axois.post(BASE_URL + url, query, {
+    return await axois.post(url, query, {
         headers: headerWithoutToken()
     })
         .then(response => ({ response }))
@@ -43,7 +42,7 @@ export const LoginPostMethod = async (url, query) => {
  */
 
 export const PostMethod = async (url, query) => {
-    return await axois.post(BASE_URL + url, query, {
+    return await axois.post(url, query, {
         headers: header()
     })
         .then(response => ({ response }))
@@ -56,7 +55,7 @@ export const PostMethod = async (url, query) => {
  */
 
 export const PutMethod = async (url, query) => {
-    return await axois.put(BASE_URL + url, query, {
+    return await axois.put(url, query, {
         headers: header()
     })
         .then(response => ({ response }))
@@ -69,7 +68,7 @@ export const PutMethod = async (url, query) => {
  */
 
 export const GetMethod = async (url) => {
-    return await axois.get(BASE_URL + url, {
+    return await axois.get(url, {
         headers: header()
     })
         .then(response => ({ response }))
@@ -82,7 +81,7 @@ export const GetMethod = async (url) => {
  */
 
 export const GetMethodDownload = async (url,fileName) => {
-    return await axois.get(BASE_URL + url, {
+    return await axois.get(url, {
         headers: header()
     })
         .then((response) => {
@@ -103,7 +102,7 @@ export const GetMethodDownload = async (url,fileName) => {
  */
 
 export const PostFormData = async (url, query) => {
-    return await axois.post(BASE_URL + url, query, {
+    return await axois.post(url, query, {
         headers: FormDataHeader()
     })
         .then(response => ({ response }))
@@ -116,7 +115,7 @@ export const PostFormData = async (url, query) => {
  */
 
 export const DeleteMethod = async (url) => {
-    return await axois.delete(BASE_URL + url, {
+    return await axois.delete(url, {
         headers: header()
     })
         .then(response => ({ response }))
