@@ -16,8 +16,15 @@ const SidebarSuperAdmin = [
   {
     icon: <ClassIcon />,
     activeIcon: <ClassWhiteIcon />,
-    name: 'Super Admin',
-    path: '/myclasses',
+    name: 'Ref Product',
+    path: '/refproduct',
+    layout: '/super',
+  },
+  {
+    icon: <ClassIcon />,
+    activeIcon: <ClassWhiteIcon />,
+    name: 'Extrem Product',
+    path: '/extremproduct',
     layout: '/super',
   },
 ];
