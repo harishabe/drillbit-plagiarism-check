@@ -59,6 +59,9 @@ import {
     profileLogoSubmission,
     profileChangePassword
 } from './profile/ProfileData';
+import {
+    CreateExtremeRefAccount
+} from './super/DetailsSuperAdminData';
 
 const saga = [
     fork(userLogin),
@@ -110,6 +113,7 @@ const saga = [
     fork(DeleteData),
     fork(DeleteStudentData),
     fork(DeactivateData),
+    fork(CreateExtremeRefAccount),
 ];
 
 export default function* rootSaga() {

@@ -11,6 +11,7 @@ import SubmissionReducer from './instructor/SubmissionReducer';
 import DetailsReducer from './admin/DetailsReducer';
 import ReportsReducer from './admin/ReportsReducer';
 import ProfileReducer from './profile/ProfileReducer';
+import SuperReducer from './super/SuperReducer';
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     instructorCrud: InstructorCRUDReducer,
     adminReport: ReportsReducer,
     studentClasses: DetailsStudentReducer,
+    superAdmin: SuperReducer
 });
 
 export default rootReducer;
