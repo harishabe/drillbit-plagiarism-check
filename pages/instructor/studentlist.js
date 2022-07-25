@@ -115,7 +115,7 @@ const StudentList = ({
     /** end debounce concepts */
 
     useEffect(() => {
-        let url = '/classes/' + clasId + '/assignments/' + folderId + '/submissions?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&field=' + PaginationValue?.field + '&orderBy=' + PaginationValue?.orderBy;
+        let url = clasId + '/assignments/' + folderId + '/submissions?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&field=name&orderBy=' + PaginationValue?.orderBy;
 
         GetSubmissionList(url);
     }, [clasId, folderId, paginationPayload]);
@@ -300,7 +300,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetSubmissionList: (clasId, folderId, PaginationValue) => dispatch(GetSubmissionList(clasId, folderId, PaginationValue)),
+        GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
         DeleteSubmissionFile: (clasId, folderId, paperId) => dispatch(DeleteSubmissionFile(clasId, folderId, paperId)),
     };
 };
