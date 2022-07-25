@@ -27,6 +27,20 @@ const SidebarSuperAdmin = [
     path: '/extremproduct',
     layout: '/super',
   },
+  {
+    icon: <ClassIcon />,
+    activeIcon: <ClassWhiteIcon />,
+    name: 'Reports',
+    path: '/report',
+    layout: '/super',
+  },
+  {
+    icon: <ClassIcon />,
+    activeIcon: <ClassWhiteIcon />,
+    name: 'Settings',
+    path: '/report',
+    layout: '/super',
+  },
 ];
 
 export default SidebarSuperAdmin;

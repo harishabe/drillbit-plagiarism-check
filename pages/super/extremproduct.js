@@ -7,6 +7,6 @@ const ExtremProduct = () => {
     )
 };
 
-ExtremProduct.layout = SuperAdmin
+ExtremProduct.layout = SuperAdmin;
 
-export default ExtremProduct
+export default ExtremProduct;
