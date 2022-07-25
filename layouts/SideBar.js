@@ -118,7 +118,7 @@ const SideBar = ({ open }) => {
             setSidebarItem(SidebarInstructor);
         } else if (role === 'student') {
             setSidebarItem(SidebarStudent);
-        } else if (role === 'super') {
+        } else if (role === 'drillbit') {
             setSidebarItem(SidebarSuperAdmin);
         }
     }, []);

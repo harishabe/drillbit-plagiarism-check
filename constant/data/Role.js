@@ -1,7 +1,8 @@
 const Role = {
     'admin': 'admin',
     'instructor': 'instructor',
-    'student': 'student'
+    'student': 'student',
+    'super':'drillbit'
 };
 
 export default Role;

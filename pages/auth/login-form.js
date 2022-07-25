@@ -36,6 +36,10 @@ const LoginForm = ({
             localStorage.setItem('role', Role.student);
             localStorage.setItem('token', loginState?.token);
             router.push('/student/dashboard');
+        } else if (loginState?.role === Role.super) {
+            localStorage.setItem('role', Role.super);
+            localStorage.setItem('token', loginState?.token);
+            router.push('/super/dashboard');
         }
     }, [loginState]);
 
