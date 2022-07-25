@@ -62,23 +62,23 @@ const rows = [
 
 const actionIcon = [<EditIcon />, <DeleteIcon />]
 
-const IntegrationBreadCrumb = [
-    {
-        name: 'Dashboard',
-        link: '/admin/dashboard',
-        active: false,
-    },
-    {
-        name: 'Reports',
-        link: '',
-        active: true,
-    },
-]
+// const IntegrationBreadCrumb = [
+//     {
+//         name: 'Dashboard',
+//         link: '/admin/dashboard',
+//         active: false,
+//     },
+//     {
+//         name: 'Reports',
+//         link: '',
+//         active: true,
+//     },
+// ]
 
 const Dashboard = () => {
     return (
         <React.Fragment>
-            <BreadCrumb item={IntegrationBreadCrumb} />
+            {/* <BreadCrumb item={IntegrationBreadCrumb} /> */ }
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
