@@ -1,12 +1,12 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
+    GetSubmissionGradingQna,
     EditSubmissionData,
     SaveToRepoSubmission,
     InstructorFeedbackData
 } from '../../api//instructor/DetailsSubmissionAPI';
 import {
-    GetSubmissionDetail,
     UploadSubmission,
     DeleteSubmission,
 } from '../../api//instructor/DetailsInstructorAPI';
@@ -22,7 +22,7 @@ import toastrValidation from '../../../utils/ToastrValidation';
  */
 
 export function* onLoadSubmission(action) {
-    const { response, error } = yield call(GetSubmissionDetail, action.url);
+    const { response, error } = yield call(GetSubmissionGradingQna, action.url);
     if (response) {
         yield put({
             type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_SUCCESS,

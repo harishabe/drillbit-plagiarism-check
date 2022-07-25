@@ -1,6 +1,6 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
-import { PostMethod, PutMethod } from './../ApiMethod';
+import { PostMethod, PutMethod, GetMethod } from './../ApiMethod';
 
 /**
  * API CALL FOR EDIT-SUBMISSION
