@@ -39,6 +39,7 @@ const END_POINTS = {
     CREATE_STUDENT: '/extreme/classes/',
     CREATE_ASSIGNMENT: '/extreme/instructor/classes/assignment',
     CREATE_EXTREME_REF_ACCOUNT: '/drillbit/register/',
+    SUPER_ADMIN_EXTREME_REF: '/drillbit/register/',
 };
 
 export default END_POINTS;

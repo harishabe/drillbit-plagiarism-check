@@ -32,7 +32,6 @@ import {
     DeleteClasses,
     DeleteStudents,
     DeleteMyFolders,
-
 } from './instructor/DetailsInstructorData';
 import { 
     GetSubmissionData,
@@ -60,7 +59,8 @@ import {
     profileChangePassword
 } from './profile/ProfileData';
 import {
-    CreateExtremeRefAccount
+    GetExtremeRef,
+    CreateExtremeRefAccount,
 } from './super/DetailsSuperAdminData';
 
 const saga = [
@@ -114,6 +114,7 @@ const saga = [
     fork(DeleteStudentData),
     fork(DeactivateData),
     fork(CreateExtremeRefAccount),
+    fork(GetExtremeRef),
 ];
 
 export default function* rootSaga() {
