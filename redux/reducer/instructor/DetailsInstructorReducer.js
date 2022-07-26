@@ -19,22 +19,39 @@ const DetailsInstructorReducer = (state = {}, action) => {
                 isLoading: false,
                 classesError: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START:
+        case types.FETCH_INSTRUCTOR_STUDENTS_DATA_START:
             return {
                 ...state,
                 isLoadingStudent: true,
             };
-        case types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_SUCCESS:
+        case types.FETCH_INSTRUCTOR_STUDENTS_DATA_SUCCESS:
             return {
                 ...state,
                 isLoadingStudent: false,
-                studentAssignmentData: action.payload,
+                studentData: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_FAIL:
+        case types.FETCH_INSTRUCTOR_STUDENTS_DATA_FAIL:
             return {
                 ...state,
                 isLoadingStudent: false,
-                studentAssignmentError: action.payload,
+                studentError: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START:
+            return {
+                ...state,
+                isLoadingAssignment: true,
+            };
+        case types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_SUCCESS:
+            return {
+                ...state,
+                isLoadingAssignment: false,
+                assignmentData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_FAIL:
+            return {
+                ...state,
+                isLoadingAssignment: false,
+                assignmentError: action.payload,
             };
         case types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_START:
             return {

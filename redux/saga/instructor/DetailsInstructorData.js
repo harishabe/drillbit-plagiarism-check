@@ -3,6 +3,7 @@ import * as types from '../../action/ActionType';
 import {
     GetClassesDetail,
     GetStudentDetail,
+    GetAssignmentDetail,
     GetMyFoldersDetail,
     CreateClassData,
     CreateFolderData,
@@ -124,19 +125,44 @@ export function* onLoadClassesStudent(action) {
     const { response, error } = yield call(GetStudentDetail, action.class_id, action.paginationPayload);
     if (response) {
         yield put({
-            type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_SUCCESS,
+            type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_SUCCESS,
             payload: response?.data,
         });
     } else {
         yield put({
-            type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_FAIL,
+            type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_FAIL,
             payload: error,
         });
     }
 }
 
 export function* GetClassesStudentData() {
-    yield takeLatest(types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START, onLoadClassesStudent);
+    yield takeLatest(types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, onLoadClassesStudent);
+}
+
+/**
+ * Get assignment data
+ * My Classes > Assignment
+ * @param {*} action
+ */
+
+export function* onLoadClassesAssignment(action) {
+    const { response, error } = yield call(GetAssignmentDetail, action.class_id, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetClassesAssignmentData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START, onLoadClassesAssignment);
 }
 
 
@@ -149,7 +175,7 @@ export function* onLoadCreateStudent(action) {
     const { response, error } = yield call(CreateStudentData, action.classId, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_STUDENT_DATA_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START, class_id: action.classId, paginationPayload: PaginationValue });
+        yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, class_id: action.classId, paginationPayload: PaginationValue });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_STUDENT_DATA_FAIL, payload: error });
@@ -171,7 +197,7 @@ export function* onLoadDeleteStudent(action) {
     const { response, error } = yield call(DeleteStudentData, action.class_id, action.user_id);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_DELETE_STUDENT_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START, class_id: action.class_id, paginationPayload: PaginationValue });
+        yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, class_id: action.class_id, paginationPayload: PaginationValue });
         toastrValidation(response);
     } else {
         yield put({
@@ -192,10 +218,10 @@ export function* DeleteStudents() {
  */
 
 export function* onLoadCreateAssignment(action) {
-    const { response, error } = yield call(CreateAssignmentData, action.query);
+    const { response, error } = yield call(CreateAssignmentData, action.classId, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_ASSIGNMENT_DATA_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_CREATE_ASSIGNMENT_DATA_START, paginationPayload: PaginationValue });
+        yield put({ type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START, class_id: action.classId, paginationPayload: InstructorFolderPaginationValue });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_ASSIGNMENT_DATA_FAIL, payload: error });
@@ -203,7 +229,7 @@ export function* onLoadCreateAssignment(action) {
     }
 }
 
-export function* CreateAssignment() {
+export function* CreateAssignmentDetail() {
     yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_ASSIGNMENT_DATA_START, onLoadCreateAssignment);
 }
 

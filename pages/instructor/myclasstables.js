@@ -7,12 +7,14 @@ import Instructor from '../../layouts/Instructor'
 import { BreadCrumb, TabMenu } from '../../components'
 import Assignments from './assignments'
 import Students from './students'
-import { GetStudent } from '../../redux/action/instructor/InstructorAction';
+import { GetStudent, GetAssignment } from '../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 
 const MyClassesTables = ({
     GetStudent,
+    GetAssignment,
     pageDetails,
+    pageDetailsAssignment,
     studentData,
     isLoadingStudent,
 }) => {
@@ -45,6 +47,13 @@ const MyClassesTables = ({
         orderBy: PaginationValue?.orderBy,
     });
 
+    const [paginationAssignment, setPaginationAssignment] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: 'ass_id',
+        orderBy: PaginationValue?.orderBy,
+    });
+
     const handlePagination = (event, value) => {
         event.preventDefault();
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
@@ -53,6 +62,10 @@ const MyClassesTables = ({
     useEffect(() => {
         GetStudent(clasId, paginationPayload);
     }, [clasId, paginationPayload]);
+
+    useEffect(() => {
+        GetAssignment(clasId, paginationAssignment);
+    }, [clasId, paginationAssignment]);
 
     const componentList = [
         <Students
@@ -69,7 +82,7 @@ const MyClassesTables = ({
             label: `Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
         },
         {
-            label: 'Assignments(27)',
+            label: `Assignments(${pageDetailsAssignment?.totalElements !== undefined ? pageDetailsAssignment?.totalElements : 0})`,
         },
     ];
 
@@ -104,14 +117,16 @@ const MyClassesTables = ({
 }
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.instructorClasses?.studentAssignmentData?.page,
-    studentData: state?.instructorClasses?.studentAssignmentData?._embedded?.studentDTOList,
+    pageDetails: state?.instructorClasses?.studentData?.page,
+    pageDetailsAssignment: state?.instructorClasses?.assignmentData?.page,
+    studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
     isLoadingStudent: state?.instructorClasses?.isLoadingStudent
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetStudent: (ClasId, PaginationValue) => dispatch(GetStudent(ClasId, PaginationValue)),
+        GetAssignment: (ClasId, PaginationValue) => dispatch(GetAssignment(ClasId, PaginationValue)),
     };
 };
 

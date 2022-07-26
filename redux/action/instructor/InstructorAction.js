@@ -65,7 +65,16 @@ export const DeleteStudent = (classId, userId) => {
  */
 export const GetStudent = (class_id, paginationPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_STUDENTS_ASSIGNMENTS_DATA_START, class_id: class_id, paginationPayload: paginationPayload
+        type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, class_id: class_id, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Get Assignment
+ */
+export const GetAssignment = (class_id, paginationPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START, class_id: class_id, paginationPayload: paginationPayload
     };
 };
 
@@ -73,9 +82,9 @@ export const GetStudent = (class_id, paginationPayload) => {
 /**
  * Create Assignment
  */
-export const CreateAssignment = (data) => {
+export const CreateAssignment = (classId, data) => {
     return {
-        type: types.FETCH_INSTRUCTOR_CREATE_ASSIGNMENT_DATA_START, query: data
+        type: types.FETCH_INSTRUCTOR_CREATE_ASSIGNMENT_DATA_START, classId: classId, query: data
     };
 };
 
