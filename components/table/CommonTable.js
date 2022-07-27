@@ -54,65 +54,72 @@ const CommonTable = ({
     }, [tableData]);
 
     return (
-        <TableContainer classes={{ root: classes.customTableContainer }}>
+        <TableContainer classes={ { root: classes.customTableContainer } }>
             <Table stickyHeader>
                 <TableHead>
                     <TableRow>
-                        {isCheckbox &&
-                            <TableCell padding="checkbox" className={classes.padding}>
-                                <Checkbox checked={allSelected} onChange={handleCheckboxSelect} />
-                            </TableCell>}
-                        {tableHeader.map((column) => (
+                        { isCheckbox &&
+                            <TableCell padding="checkbox" className={ classes.padding }>
+                                <Checkbox checked={ allSelected } onChange={ handleCheckboxSelect } />
+                            </TableCell> }
+                        { tableHeader.map((column) => (
                             <TableCell
-                                key={column.id}
-                                align={column.align}
-                                style={{ minWidth: column.minWidth }}
+                                key={ column.id }
+                                align={ column.align }
+                                style={ { minWidth: column.minWidth } }
                             >
                                 <TableSortLabel
-                                    onClick={((e) => sortHandle(e, column))}
-                                    IconComponent={() => <div style={{ marginTop: '2px' }}>
+                                    onClick={ ((e) => sortHandle(e, column)) }
+                                    IconComponent={ () => <div style={ { marginTop: '2px' } }>
                                         {
                                             toggle ?
-                                                <ArrowDownwardIcon style={{ fontSize: '18px' }} /> :
-                                                <ArrowUpwardIcon style={{ fontSize: '18px' }} />
+                                                <ArrowDownwardIcon style={ { fontSize: '18px' } } /> :
+                                                <ArrowUpwardIcon style={ { fontSize: '18px' } } />
                                         }
                                     </div>
                                     }>
-                                    <EllipsisText value={column.label} charLength={charLength} />
+                                    <EllipsisText value={ column.label } charLength={ charLength } />
                                 </TableSortLabel>
                             </TableCell>
-                        ))}
+                        )) }
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {isLoading ?
+                    { isLoading ?
                         <TableSkeleton />
                         : tableData?.map((row) => (
-                            <TableRow hover key={row.id} onClick={(e) => router.push(path)}>
-                                {isCheckbox &&
-                                    <TableCell padding="checkbox" className={classes.padding}>
-                                        <Checkbox onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
-                                    </TableCell>}
-                                {tableHeader.map((column) => {
+                            <TableRow hover key={ row.id } onClick={ (e) => {
+                                if (path && path?.query?.isAssignment) {
+                                    path.query['assId'] = row?.id?.props?.title
+                                    router.push(path)
+                                } else {
+                                    router.push(path);
+                                }
+                            } }>
+                                { isCheckbox &&
+                                    <TableCell padding="checkbox" className={ classes.padding }>
+                                        <Checkbox onChange={ (e) => handleSingleSelect(e, row) } checked={ row.isSelected } />
+                                    </TableCell> }
+                                { tableHeader.map((column) => {
                                     const value = row[column.id];
                                     return (
                                         <>
                                             {
                                                 column.id === 'action' || column.id === 'stats' ?
                                                     <TableCell>
-                                                        {value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}</IconButton>))}
+                                                        { value.map((icon) => (<IconButton onClick={ (e) => handleAction(e, icon.type, row) }>{ icon.component }</IconButton>)) }
                                                     </TableCell> :
-                                                    <TableCell key={column.id} align={column.align}>
-                                                        {typeof (value) === 'string' ?
-                                                            <EllipsisText value={value} charLength={charLength} /> :
-                                                            <SubTitle title={value} />}
+                                                    <TableCell key={ column.id } align={ column.align }>
+                                                        { typeof (value) === 'string' ?
+                                                            <EllipsisText value={ value } charLength={ charLength } /> :
+                                                            <SubTitle title={ value } /> }
                                                     </TableCell>
                                             }
                                         </>
                                     )
-                                })}
+                                }) }
                             </TableRow>
-                        ))}
+                        )) }
                 </TableBody>
             </Table>
         </TableContainer>
