@@ -67,26 +67,24 @@ const MyClassesTables = ({
         GetAssignment(clasId, paginationAssignment);
     }, [clasId, paginationAssignment]);
 
-    const componentList = [
+    const componentList = [        
+        <Assignments />,
         <Students
             studentData={ studentData }
             pageDetails={ pageDetails }
             isLoadingStudent={ isLoadingStudent }
             handlePagination={ handlePagination }
-        />,
-        <Assignments />
+        />
     ];
 
-    const tabMenu = [
-        {
-            label: `Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
-        },
+    const tabMenu = [        
         {
             label: `Assignments(${pageDetailsAssignment?.totalElements !== undefined ? pageDetailsAssignment?.totalElements : 0})`,
         },
+        {
+            label: `Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
+        }
     ];
-
-
 
     return (
         <React.Fragment>

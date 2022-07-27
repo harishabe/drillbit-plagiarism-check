@@ -43,8 +43,14 @@ const useStyles = makeStyles((theme) => ({
     selected: {
         background: '#3672FF',
         color: '#fff !important',
-        borderTopLeftRadius: '25px',
-        borderTopRightRadius: '25px'
+        borderTopLeftRadius: '15px',
+        borderTopRightRadius: '15px'
+    },
+    unSelected: {
+        background: '#f8f8f8',
+        color: '#fff !important',
+        borderTopLeftRadius: '15px',
+        borderTopRightRadius: '15px'
     },
     marginTop: {
         marginTop: '5px'
@@ -76,7 +82,7 @@ const TabMenu = ({
                     {menuButton.map((item, index) => (
                         <Tab key={index}
                             classes={{
-                                selected: isTabMenu === true ? classes.selected : '',
+                                selected: classes.selected,
                             }}
                             label={item.label}
                             {...a11yProps(index)}
