@@ -85,6 +85,7 @@ const Assignments = ({
 }) => {
   const router = useRouter();
   const [clasId, setClasId] = useState(router.query.clasId);
+  const [assId, setAssId] = useState('');
   const [rows, setRows] = useState([]);
   const [paginationPayload, setPaginationPayload] = useState({
     page: PaginationValue?.page,
@@ -162,7 +163,8 @@ const Assignments = ({
           tableData={ rows }
           handleAction={ handleAction }
           isLoading={ isLoadingAssignment }
-          path='/instructor/mysubmissions'
+          path={ { pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: clasId, assId: assId } } }
+        // path='/instructor/mysubmissions'
         />
 
         { pageDetails?.totalPages > 1 && (
