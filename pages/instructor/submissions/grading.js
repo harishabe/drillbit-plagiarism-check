@@ -1,30 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Instructor from '../../../layouts/Instructor';
 import { CardView, CommonTable } from '../../../components';
 import { MessageExclamatoryIcon } from '../../../assets/icon';
-
-const InstructorBreadCrumb = [
-  {
-    name: 'Dashboard',
-    link: '/instructor/dashboard',
-    active: false,
-  },
-  {
-    name: 'My classes',
-    link: '/instructor/myclasses',
-    active: false,
-  },
-  {
-    name: 'Java',
-    link: '/instructor/myclasstables',
-    active: false,
-  },
-  {
-    name: 'Submissions',
-    link: '/instructor/mysubmissions',
-    active: true,
-  },
-];
+import { connect } from 'react-redux';
+import { GetSubmissionList } from '../../../redux/action/instructor/InstructorAction';
+import { useRouter } from "next/router";
 
 const columns = [
   { id: 'STname', label: 'Student Name' },
@@ -35,38 +15,72 @@ const columns = [
 
 function createData(STname, marks, similarity, feedback) {
   return {
-    STname,
-    marks,
-    similarity,
-    feedback,
+    STname, marks, similarity, feedback
   };
 }
 
-const rows = [
-  createData('Harisha B E', '22', '70%', [<MessageExclamatoryIcon />]),
-  createData('Harisha B E', '22', '70%', [<MessageExclamatoryIcon />]),
-  createData('Harisha B E', '22', '70%', [<MessageExclamatoryIcon />]),
-  createData('Harisha B E', '22', '70%', [<MessageExclamatoryIcon />]),
-];
+const Grading = ({
+  GetSubmissionList,
+  gradingData,
+  isLoading
+}) => {
 
-const actionIcon = [<MessageExclamatoryIcon />];
+  const router = useRouter();
 
-const Grading = () => {
+  const clasId = router.query.clasId;
+
+  const assId = router.query.assId;
+
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    let url = `${clasId}/assignments/${assId}/grading`
+    GetSubmissionList(url);
+  }, [clasId, assId]);
+
+  useEffect(() => {
+    let row = '';
+    let arr = [];
+    gradingData?.map((grading) => {
+      row = createData(
+        grading.stduentName,
+        grading.obtained_marks,
+        grading.similarity,
+        [
+          <MessageExclamatoryIcon />,
+        ]
+      );
+      row['isSelected'] = false;
+      arr.push(row);
+    });
+    setRows([...arr]);
+  }, [gradingData]);
+
   return (
     <React.Fragment>
       <CardView>
         <CommonTable
-          isCheckbox={true}
-          tableHeader={columns}
-          tableData={rows}
-          actionIcon={actionIcon}
-          isActionIcon={true}
-        />
+          isCheckbox={ true }
+          tableHeader={ columns }
+          tableData={ rows }
+          isLoading={ isLoading }
+        /> 
       </CardView>
     </React.Fragment>
   );
 };
 
+const mapStateToProps = (state) => ({
+  isLoading: state?.instructorMyFolders?.isLoadingSubmission,
+  gradingData: state?.instructorMyFolders?.submissionData?._embedded?.gradingDTOList,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+  };
+};
+
 Grading.layout = Instructor;
 
-export default Grading;
+export default connect(mapStateToProps, mapDispatchToProps)(Grading);
