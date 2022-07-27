@@ -48,6 +48,15 @@ export const GetStudentDetail = async (class_id, paginationPayload) => {
     return GetMethod(url);
 };
 
+/**
+ * API CALL FOR STUDENT DATA
+ */
+
+export const GetAssignmentDetail = async (class_id, paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_CLASSES_STUDENTS + class_id + '/assignments' + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};
+
 
 /**
  * API CALL FOR CREATE STUDENT
@@ -71,9 +80,9 @@ export const DeleteClass = async (action) => {
  * API CALL FOR CREATE ASSIGNMENT
  */
 
-export const CreateAssignmentData = async (data) => {
-    const url = BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT;
-    return PostMethod(url, data);
+export const CreateAssignmentData = async (class_id, data) => {
+    const url = BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + class_id + '/assignments';
+    return PostFormData(url, data);
 };
 
 /**

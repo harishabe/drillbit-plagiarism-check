@@ -205,7 +205,7 @@ const Students = ({
 }
 
 const mapStateToProps = (state) => ({
-    studentData: state?.instructorClasses?.studentAssignmentData?._embedded?.studentDTOList,
+    studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
     // isLoading: state?.instructorClasses?.isLoading,
 });
 
