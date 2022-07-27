@@ -1,11 +1,12 @@
-import React from 'react'
-import InputTextField from './elements/InputTextField'
-import InputButton from './elements/InputButton'
-import InputDatePicker from './elements/InputDatePicker'
-import InputAutoComplete from './elements/InputAutoComplete'
-import InputToggleButton from './elements/InputToggleButton'
-import InputFileType from './elements/InputFileType'
-import InputMultiAutoComplete from './elements/InputMultiAutoComplete'
+import React from 'react';
+import InputTextField from './elements/InputTextField';
+import InputButton from './elements/InputButton';
+import InputDatePicker from './elements/InputDatePicker';
+import InputAutoComplete from './elements/InputAutoComplete';
+import InputToggleButton from './elements/InputToggleButton';
+import InputFileType from './elements/InputFileType';
+import InputMultiAutoComplete from './elements/InputMultiAutoComplete';
+import LinkField from './elements/LinkField';
 
 const FormComponent = ({
     field,
@@ -63,6 +64,12 @@ const FormComponent = ({
                 <InputButton
                     field={field}
                     isLoading={isLoading}
+                />
+            )
+        case 'linkField':
+            return (
+                <LinkField
+                    field={field}
                 />
             )
         default:

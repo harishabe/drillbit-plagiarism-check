@@ -1,24 +1,21 @@
-import React from 'react'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Image from 'next/image'
-import Link from 'next/link'
+import React from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Image from 'next/image';
 import {
     LoginContainer,
-    InlineText,
-    AccountLink,
     BannerContainer,
     ImgContainer
-} from './login-style'
-import LoginForm from './login-form'
-import { Heading, SubTitle,MainHeading } from '../../components'
-import { DrillBitLogo, DrillBitLogoIcon } from '../../assets/icon'
+} from './login-style';
+import LoginForm from './login-form';
+import { Heading, SubTitle, MainHeading } from '../../components';
+import { DrillBitLogo, DrillBitLogoIcon } from '../../assets/icon';
 import {
     LOGIN_IMG_BANNER,
     LOGIN_WELCOME_DRILLBIT,
     LOGIN_NEW_DRILLBIT,
     LOGIN_CREATE_ACCOUNT
-} from '../../constant/data/content'
+} from '../../constant/data/content';
 
 const Login = () => {
     return (

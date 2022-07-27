@@ -14,14 +14,17 @@ Users
 USERNAME                    |     PASSWORD             |       ROLE
 ---------------------------------------------------------------------------
 yatheendra72@gmail.com      |     12345678             |       admin
-admin@xtream.com                  Bit@1234
+admin@xtream.com            |     Bit@1234             | 
+satheeshreddy45@gmail.com   |     12345678             | 
 ---------------------------------------------------------------------------
 sanjay@gmail.com            |     Bit@1234             |       student
 drillbitsatish@gmail.com    |     12345678             |       
 ---------------------------------------------------------------------------
 testingagain@mailinator.com |     Test@1234            |       instructor
-sagarxtream@mailinator.com  |     Bit@1234  
-okwyenoch@yahoo.com         |     BUTOLJUX
+sagarxtream@mailinator.com  |     Bit@1234             | 
+okwyenoch@yahoo.com         |     BUTOLJUX             |
+bsrreddy803@gmail.com       |     PBARHYWD             |
+
 ---------------------------------------------------------------------------
 
 Existing app 

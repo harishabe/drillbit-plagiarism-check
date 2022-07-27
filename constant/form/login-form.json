@@ -18,6 +18,12 @@
         "validationMsg": "Minimum eight characters, at least one letter and one number"
     },
     {
+        "field_type":"linkField",
+        "align":"right",
+        "path":"/auth/forgot-password",
+        "label":"Forgot password?"
+    },
+    {
         "field_type": "button",
         "type": "submit",
         "label": "Sign in"
