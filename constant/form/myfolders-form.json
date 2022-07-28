@@ -19,9 +19,99 @@
     },
     {
         "field_type": "toggle",
-        "id": "excludeSmallSources",
-        "label": "Exclude small sources ",
-        "name": "excludeSmallSources",
+        "id": "exclude_refernces",
+        "name": "exclude_refernces",
+        "label": "Exclude Reference / Bibliography",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "toggle",
+        "id": "exclude_quotes",
+        "name": "exclude_quotes",
+        "label": "Exclude Quotes",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "toggle",
+        "id": "exclude_small_sources",
+        "name": "exclude_small_sources",
+        "label": "Exclude small sources (less than 14 similarity words)",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "toggle",
+        "id": "exclude_include_sources",
+        "name": "exclude_include_sources",
+        "label": "Option To Exclude/Include Sources",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "toggle",
+        "id": "grammar_check",
+        "name": "grammar_check",
+        "label": "Grammar Check",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "toggle",
+        "id": "exclude_phrases",
+        "name": "exclude_phrases",
+        "label": "Exclude Phrases",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "toggle",
+        "id": "db_studentpaper",
+        "name": "db_studentpaper",
+        "label": "Student Repositary",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "toggle",
+        "id": "db_publications",
+        "name": "db_publications",
+        "label": "Publications And Journals",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "toggle",
+        "id": "db_internet",
+        "name": "db_internet",
+        "label": "Internet Source",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "toggle",
+        "id": "institution_repository",
+        "name": "institution_repository",
+        "label": "Institution Repository",
         "options": [
             "yes",
             "no"
@@ -29,12 +119,15 @@
     },
     {
         "field_type": "dropdown",
-        "id": "language",
-        "name": "language",
-        "label": "Select language",
+        "id": "repository_scope",
+        "name": "repository_scope",
+        "label": "Repository Scope",
         "options": [
             {
-                "name": "English"
+                "name": "Local"
+            },
+            {
+                "name": "Global"
             }
         ]
     },

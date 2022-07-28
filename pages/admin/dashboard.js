@@ -121,7 +121,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='No. of submissions'
                             isLoading={isLoadingDashboard}
-                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.no_of_submissions)}
+                            count={ isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + " / " + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions) }
                             icon={<NoOfSubmission />}
                         />
                     </Grid>

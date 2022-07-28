@@ -147,6 +147,6 @@ export const DeleteSubmission = async (clasId, folder_id, paper_id) => {
  */
 
 export const UploadSubmission = async (clasId, folder_id, data) => {
-    const url = BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + clasId + '/assignments/' + folder_id + '/file';
+    const url = BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + clasId + '/assignments/' + folder_id + '/singleFile';
     return PostFormData(url, data);
 };
