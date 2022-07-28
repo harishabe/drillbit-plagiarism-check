@@ -142,7 +142,6 @@ const Students = ({
         setShowDialogModal(false);
     }
 
-    /** search implementation using debounce concepts */
 
     const handleSearch = (event) => {
         if (event.target.value !== '') {
@@ -256,7 +255,7 @@ const Students = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={12}>
-                        <MainHeading title={ `Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                        <MainHeading title={`Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                     </Grid>
                     <Grid
                         item
