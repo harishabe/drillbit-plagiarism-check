@@ -4,21 +4,40 @@
         "type": "text",
         "id": "name",
         "name": "assignment_name",
-        "disabled":false,
+        "disabled": false,
         "label": "Folder Name",
         "required": "Please Enter Folder name"
     },
-
     {
         "field_type": "datepicker",
         "id": "expiry_date",
         "name": "expiry_date",
         "label": "Select expiry date",
-        "minDate":true,
+        "minDate": true,
         "required": "Select expiry date",
         "validationMsg": "Select expiry date"
     },
-    
+    {
+        "field_type": "toggle",
+        "id": "excludeSmallSources",
+        "label": "Exclude small sources ",
+        "name": "excludeSmallSources",
+        "options": [
+            "yes",
+            "no"
+        ]
+    },
+    {
+        "field_type": "dropdown",
+        "id": "language",
+        "name": "language",
+        "label": "Select language",
+        "options": [
+            {
+                "name": "English"
+            }
+        ]
+    },
     {
         "field_type": "button",
         "type": "submit",

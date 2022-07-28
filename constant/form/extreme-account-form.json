@@ -7,7 +7,6 @@
         "required": "Enter Institution Name",
         "validationMsg": "Invalid Institution Name"
     },
-
     {
         "field_type": "input",
         "id": "state",
@@ -16,7 +15,6 @@
         "required": "State",
         "validationMsg": "Invalid State"
     },
-
     {
         "field_type": "input",
         "id": "country",
@@ -25,7 +23,6 @@
         "required": "Country",
         "validationMsg": "Invalid Country"
     },
-
     {
         "field_type": "input",
         "id": "address",
@@ -34,7 +31,6 @@
         "required": "Address",
         "validationMsg": "Invalid Address"
     },
-
     {
         "field_type": "input",
         "id": "adminName",
@@ -43,7 +39,6 @@
         "required": "Admin Name",
         "validationMsg": "Invalid Admin Name"
     },
-
     {
         "field_type": "input",
         "id": "adminEmail",
@@ -52,7 +47,6 @@
         "required": "Admin Email",
         "validationMsg": "Invalid Admin Email"
     },
-
     {
         "field_type": "input",
         "id": "designation",
@@ -61,7 +55,6 @@
         "required": "Designation",
         "validationMsg": "Invalid Designation"
     },
-
     {
         "field_type": "input",
         "id": "phone",
