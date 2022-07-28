@@ -51,7 +51,7 @@ export function* onLoadUploadFile(action) {
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_SUCCESS, payload: response?.data });
         yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: action.url
+            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: `${action.clasId}/assignments/${action.folder_id}/submissions?page=0&size=25&field=name&orderBy=desc`
         });
         toastrValidation(response);
     } else {
@@ -75,7 +75,7 @@ export function* onLoadDeleteFile(action) {
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_SUCCESS, payload: response?.data });
         yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: action.url
+            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: `${action.clasId}/assignments/${action.folder_id}/submissions?page=0&size=25&field=name&orderBy=desc`
         });
         toastrValidation(response);
     } else {
@@ -96,7 +96,7 @@ export function* onLoadEditSubmission(action) {
     const { response, error } = yield call(EditSubmissionData, action);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_EDIT_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: action.url });
+        yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: `${action.clasId}/assignments/${action.folder_id}/submissions?page=0&size=25&field=name&orderBy=desc` });
         toastrValidation(response)
     } else {
         yield put({

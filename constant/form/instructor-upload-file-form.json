@@ -18,43 +18,79 @@
     },
     
     {
-        "field_type": "input",
-        "type": "text",
+        "field_type": "dropdown",
         "id": "documentType",
         "name": "documentType",
-        "label": "Choose Document Type",
-        "required": "Choose Document Type",
-        "validationMsg": "Please select Type"
+        "label": "Document Type",
+        "options": [
+            {
+                "name": "Thesis"
+            },
+            {
+                "name": "Dissertation"
+            },
+            {
+                "name": "Article"
+            },
+            {
+                "name": "e-Book"
+            },
+            {
+                "name": "Synopsis"
+            },
+            {
+                "name": "Assignment"
+            },
+            {
+                "name": "Project Work"
+            },
+            {
+                "name": "Research Paper"
+            },
+            {
+                "name": "Technical Report"
+            },
+            {
+                "name": "White Paper"
+            },
+            {
+                "name": "Chapter In Books"
+            },
+            {
+                "name": "Analytical/Business Report"
+            },
+            {
+                "name": "Blogs"
+            },
+            {
+                "name": "Web Page"
+            },
+            {
+                "name": "Others"
+            }
+        ]
     },
     
     {
-        "field_type": "input",
-        "type": "text",
+        "field_type": "toggle",
         "id": "plagiarismCheck",
         "name": "plagiarismCheck",
         "label": "Plagiarism Check",
-        "required": "Plagiarism Check",
-        "validationMsg": "Please select Type"
+        "options": [
+            "yes",
+            "no"
+        ]
     },
 
     {
-        "field_type": "input",
-        "type": "text",
+        "field_type": "toggle",
         "id": "grammarCheck",
         "name": "grammarCheck",
         "label": "Grammar Check",
-        "required": "Grammar Check",
-        "validationMsg": "Please select Type"
-    },
-
-    {
-        "field_type": "input",
-        "type": "text",
-        "id": "language",
-        "name": "language",
-        "label": "Language",
-        "required": "Language",
-        "validationMsg": "Please select Language"
+        "options": [
+            "yes",
+            "no"
+        ]
     },
 
     {

@@ -25,28 +25,36 @@ const MyFoldersForm = ({
     });
 
     const onSubmit = (data) => {
-        console.log("data", data)
-        console.log("editData", editData)
         if (editOperation) {
             data['end_date'] = convertDate(data.expiry_date);
-            data['exclude_refernces'] = "no";
-            data['exclude_quotes'] = "no";
-            data['exclude_small_sources'] = "no";
-            data['exclude_include_sources'] = "yes";
-            data['grammar_check'] = "no";
-            data['exclude_phrases'] = "no";
+            data['exclude_refernces'] = data.exclude_refernces;
+            data['exclude_quotes'] = data.exclude_quotes;
+            data['exclude_small_sources'] = data.exclude_small_sources;
+            data['exclude_include_sources'] = data.exclude_include_sources;
+            data['grammar_check'] = data.grammar_check;
+            data['exclude_phrases'] = data.exclude_phrases;
+            data['db_studentpaper'] = data.db_studentpaper;
+            data['db_publications'] = data.db_publications;
+            data['db_internet'] = data.db_internet;
+            data['institution_repository'] = data.institution_repository;
+            data['repository_scope'] = data.repository_scope.name;
             delete data.expiry_date;
             EditFolder(clasId, editData?.folder_id, data);
         } else {
             let Detaileddata = {
                 ...data,
                 "end_date": convertDate(data.expiry_date),
-                "exclude_refernces": "no",
-                "exclude_quotes": "no",
-                "exclude_small_sources": "no",
-                "exclude_include_sources": "yes",
-                "grammar_check": "no",
-                "exclude_phrases": "no",
+                'exclude_refernces': data.exclude_refernces,
+                'exclude_quotes': data.exclude_quotes,
+                'exclude_small_sources': data.exclude_small_sources,
+                'exclude_include_sources': data.exclude_include_sources,
+                'grammar_check': data.grammar_check,
+                'exclude_phrases': data.exclude_phrases,
+                'db_studentpaper': data.db_studentpaper,
+                'db_publications': data.db_publications,
+                'db_internet': data.db_internet,
+                'institution_repository': data.institution_repository,
+                'repository_scope': data.repository_scope.name
             }
             delete Detaileddata.expiry_date;
             CreateFolder(clasId, Detaileddata);
@@ -74,12 +82,17 @@ const MyFoldersForm = ({
             let a = {
                 'assignment_name': editData.folder_name,
                 'expiry_date': convertDate(editData.end_date),
-                "exclude_refernces": "no",
-                "exclude_quotes": "no",
-                "exclude_small_sources": "no",
-                "exclude_include_sources": "yes",
-                "grammar_check": "no",
-                "exclude_phrases": "no",
+                'exclude_refernces': editData.exclude_refernces,
+                'exclude_quotes': editData.exclude_quotes,
+                'exclude_small_sources': editData.exclude_small_sources,
+                'exclude_include_sources': editData.exclude_include_sources,
+                'grammar_check': editData.grammar_check,
+                'exclude_phrases': editData.exclude_phrases,
+                'db_studentpaper': editData.db_studentpaper,
+                'db_publications': editData.db_publications,
+                'db_internet': editData.db_internet,
+                'institution_repository': data.institution_repository,
+                'repository_scope': data.repository_scope.name
             };
             const fields = [
                 'assignment_name',
@@ -90,6 +103,11 @@ const MyFoldersForm = ({
                 "exclude_include_sources",
                 "grammar_check",
                 "exclude_phrases",
+                "db_studentpaper",
+                "db_publications",
+                "db_internet",
+                "institution_repository",
+                "repository_scope",
             ];
             fields.forEach(field => setValue(field, a[field]));
             modifyFormField('Edit Folder');

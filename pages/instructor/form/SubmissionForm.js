@@ -22,10 +22,10 @@ const SubmissionForm = ({
         let bodyFormData = new FormData();
         bodyFormData.append('authorName', data.authorName);
         bodyFormData.append('title', data.title);
-        bodyFormData.append('documentType', data.documentType);
+        bodyFormData.append('documentType', data.documentType.name);
         bodyFormData.append('plagiarismCheck', data.plagiarismCheck);
         bodyFormData.append('grammarCheck', data.grammarCheck);
-        bodyFormData.append('language', data.language);
+        bodyFormData.append('language', "English");
         bodyFormData.append('file', data.file[0]);
 
         SubmissionListUpload(clasId, folderId, bodyFormData);
