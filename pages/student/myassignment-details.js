@@ -53,7 +53,7 @@ const MyAssignmentDetails = ({
     submissionData,
     headerData,
     qnaData,
-    qnaError,
+    qnaMessage,
     feedbackData,
     pageDetails,
     isLoadingSubmission,
@@ -99,7 +99,7 @@ const MyAssignmentDetails = ({
 
     const details = [
         {
-            label: 'Subject',
+            label: 'Class Name',
             name: <EllipsisText value={ headerData?.subject } charLength={ 18 } />,
         },
         {
@@ -170,7 +170,7 @@ const MyAssignmentDetails = ({
         <QA
             GetQna={ GetQna }
             qnaData={ qnaData }
-            qnaError={ qnaError }
+            qnaMessage={ qnaMessage }
             isLoadingQa={ isLoadingQa }
             isLoadingAns={ isLoadingAns }
             handleSend={ handleSend }
@@ -221,7 +221,7 @@ const mapStateToProps = (state) => ({
     headerData: state?.studentClasses?.headerData,
     feedbackData: state?.studentClasses?.feedbackData,
     qnaData: state?.studentClasses?.qnaData,
-    qnaError: state?.studentClasses?.qnaError,
+    qnaMessage: state?.studentClasses?.qnaData,
     pageDetails: state?.studentClasses?.submissionData?.page,
     isLoadingSubmission: state?.studentClasses?.isLoadingSubmission,
     isLoadingHeader: state?.studentClasses?.isLoadingHeader,

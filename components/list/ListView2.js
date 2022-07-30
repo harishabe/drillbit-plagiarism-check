@@ -11,6 +11,7 @@ import { Title1, SubTitle2 } from '../index';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import BeatLoader from "react-spinners/BeatLoader";
+import { SubTitle1 } from '../index'
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -34,7 +35,7 @@ function createId(questionId) {
 const ListView2 = ({
     GetQna,
     qnaData,
-    qnaError,
+    qnaMessage,
     isLoadingQa,
     isLoadingAns,
     handleSend
@@ -53,6 +54,7 @@ const ListView2 = ({
     useEffect(() => {
         GetQna(router.query.clasId, router.query.assId);
     }, []);
+
 
     useEffect(() => {
         let id = '';
@@ -76,7 +78,9 @@ const ListView2 = ({
                         <Skeleton />
                     </> :
                     <>
-                        { qnaData?.map((item, index) => (
+                        { <SubTitle1 title={ qnaMessage?.message } /> ||
+
+                            qnaData?.map((item, index) => (
                             item['bgcolor'] = Colors[index],
                             item['id'] = item.id,
                             <>
@@ -216,12 +220,27 @@ const ListView2 = ({
                                                 </Grid>
                                             </Grid>
                                         </ListItem>
+                                            <Grid container spacing={ 21.5 }>
+                                                <Grid item xs={ 7 }></Grid>
+                                                <Grid item xs={ 5 }>
+                                                    <Button
+                                                        variant="contained"
+                                                        size="large"
+                                                        type="button"
+                                                        color="primary"
+                                                        onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
+                                                    >
+                                                        { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
                                     </>
                                 }
                             </>
-                        ))
+                            ))  
                         }
-                        { qnaError ? '' :
+
+                        {/* { qnaError ? '' :
                             <Grid container spacing={ 21.5 }>
                                 <Grid item xs={ 7 }></Grid>
                                 <Grid item xs={ 5 }>
@@ -236,8 +255,7 @@ const ListView2 = ({
                                     </Button>
                                 </Grid>
                             </Grid>
-                        }
-
+                        } */}
                     </>
                 }
             </List>
