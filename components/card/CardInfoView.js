@@ -88,6 +88,18 @@ const CardInfoView = ({
         setAnchorEl(null);
     };
 
+    const Validity = (validity) => {
+        if (validity < '0') {
+            return 'Expired'
+        } else if (validity === '0') {
+            return 'Expires today'
+        } else if (validity === '1') {
+            return `${validity} day left`
+        } else {
+            return `${validity} days left`
+        }
+    }
+
     return (
         <React.Fragment>
             {/* onClick={ (e) => router.push(path) } */}
@@ -203,7 +215,7 @@ const CardInfoView = ({
                                 >
                                     <TimerIcon />
                                     <SubTitle2
-                                        title={item.validity < 0 ? 'Expired' : item.validity + ' days left'}
+                                        title={ Validity(item.validity) }
                                         ml="10px"
                                     />
                                 </StatusColor>}

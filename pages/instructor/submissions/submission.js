@@ -9,29 +9,6 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import styled from 'styled-components';
 import SubmissionForm from '../form/SubmissionForm';
 
-// const InstructorBreadCrumb = [
-//   {
-//     name: 'Dashboard',
-//     link: '/instructor/dashboard',
-//     active: false,
-//   },
-//   {
-//     name: 'My classes',
-//     link: '/instructor/myclasses',
-//     active: false,
-//   },
-//   {
-//     name: 'Java',
-//     link: '/instructor/myclasstables',
-//     active: false,
-//   },
-//   {
-//     name: 'Submissions',
-//     link: '/instructor/mysubmissions',
-//     active: true,
-//   },
-// ];
-
 const columns = [
   { id: 'id', label: 'Student ID' },
   { id: 'STname', label: 'Student Name' },
@@ -57,86 +34,6 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-const data = [
-  createData(
-    <AvatarName title='S101' color='#4795EE' />,
-    'Harisha B E',
-    'UPSC',
-    '22',
-    'English',
-    'NA',
-    '70%',
-    '223421',
-    '4/03/2022',
-    [<EditIcon />, <DeleteIcon />]
-  ),
-
-  createData(
-    <AvatarName title='S101' color='#4795EE' />,
-    'Harisha B E',
-    'UPSC',
-    '22',
-    'English',
-    'NA',
-    '70%',
-    '223421',
-    '4/03/2022',
-    [<EditIcon />, <DeleteIcon />]
-  ),
-
-  createData(
-    <AvatarName title='S101' color='#4795EE' />,
-    'Harisha B E',
-    'UPSC',
-    '22',
-    'English',
-    'NA',
-    '70%',
-    '223421',
-    '4/03/2022',
-    [<EditIcon />, <DeleteIcon />]
-  ),
-
-  createData(
-    <AvatarName title='S101' color='#4795EE' />,
-    'Harisha B E',
-    'UPSC',
-    '22',
-    'English',
-    'NA',
-    '70%',
-    '223421',
-    '4/03/2022',
-    [<EditIcon />, <DeleteIcon />]
-  ),
-
-  createData(
-    <AvatarName title='S101' color='#4795EE' />,
-    'Harisha B E',
-    'UPSC',
-    '22',
-    'English',
-    'NA',
-    '70%',
-    '223421',
-    '4/03/2022',
-    [<EditIcon />, <DeleteIcon />]
-  ),
-
-  createData(
-    <AvatarName title='S101' color='#4795EE' />,
-    'Harisha B E',
-    'UPSC',
-    '22',
-    'English',
-    'NA',
-    '70%',
-    '223421',
-    '4/03/2022',
-    [<EditIcon />, <DeleteIcon />]
-  ),
-];
-
 const Submission = ({
   GetSubmissionList,
   submissionData,
@@ -150,6 +47,29 @@ const Submission = ({
   const clasId = router.query.clasId;
 
   const assId = router.query.assId;
+
+  // const InstructorBreadCrumb = [
+  //   {
+  //     name: 'Dashboard',
+  //     link: '/instructor/dashboard',
+  //     active: false,
+  //   },
+  //   {
+  //     name: 'My classes',
+  //     link: '/instructor/myclasses',
+  //     active: false,
+  //   },
+  //   {
+  //     name: router.query.className,
+  //     link: '/instructor/myclasstables' + router?.asPath?.slice(router?.pathname?.length),
+  //     active: false,
+  //   },
+  //   {
+  //     name: 'Submissions',
+  //     link: '/instructor/mysubmissions',
+  //     active: true,
+  //   },
+  // ];
 
   const [rows, setRows] = useState([]);
   const [paginationPayload, setPaginationPayload] = useState({

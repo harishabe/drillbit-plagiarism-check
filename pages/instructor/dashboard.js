@@ -73,7 +73,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='No of classes'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_assignments }
+                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_classes }
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
@@ -81,7 +81,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='No of assignments'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_classes }
+                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_assignments }
                             icon={<NoOfAssignmntIcon />}
                         />
                     </Grid>

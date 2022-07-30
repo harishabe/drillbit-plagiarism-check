@@ -4,7 +4,7 @@ import { ListView2 } from '../../components'
 const QA = ({
     GetQna,
     qnaData,
-    qnaError,
+    qnaMessage,
     isLoadingQa,
     isLoadingAns,
     handleSend
@@ -14,7 +14,7 @@ const QA = ({
             <ListView2
                 GetQna={ GetQna }
                 qnaData={ qnaData }
-                qnaError={ qnaError }
+                qnaMessage={ qnaMessage }
                 isLoadingQa={ isLoadingQa }
                 isLoadingAns={ isLoadingAns }
                 handleSend={ handleSend }

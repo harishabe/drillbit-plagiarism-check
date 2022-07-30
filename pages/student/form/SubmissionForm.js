@@ -25,10 +25,12 @@ const SubmissionForm = ({
         mode: 'all',
     });
 
+    console.log(getItemLocalStorage('name'))
+
     const onSubmit = (data) => {
         console.log('data',data);
         let bodyFormData = new FormData();
-        bodyFormData.append('authorName', instructorName);
+        bodyFormData.append('authorName', getItemLocalStorage('name'));
         // bodyFormData.append('name', 'drillbit');
         bodyFormData.append('title', data.title);
         bodyFormData.append('file', data.file[0]);
@@ -47,13 +49,13 @@ const SubmissionForm = ({
 
     useEffect(() => {
         let a = {
-            'name': instructorName
+            'name': getItemLocalStorage('name')
         };
         const fields = [
             'name'
         ];
         fields.forEach(field => setValue(field, a[field]));
-        modifyFormField("Upload file");
+        modifyFormField("Student name");
     }, []);
 
     return (
