@@ -82,6 +82,7 @@ const Assignments = ({
   assignmentData,
   pageDetails,
   isLoadingAssignment,
+  className
 }) => {
   const router = useRouter();
   const [clasId, setClasId] = useState(router.query.clasId);
@@ -163,7 +164,7 @@ const Assignments = ({
           tableData={ rows }
           handleAction={ handleAction }
           isLoading={ isLoadingAssignment }
-          path={ { pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: clasId, assId: assId } } }
+          path={ { pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: clasId, assId: assId, className: className } } }
         // path='/instructor/mysubmissions'
         />
 

@@ -21,6 +21,9 @@ const MyClassesTables = ({
 
     const router = useRouter();
     const [clasId, setClasId] = useState(router.query.clasId);
+    const [className, setClassName] = useState(router.query.className);
+
+    console.log("routerrouterrouter", router)
 
     const InstructorBreadCrumb = [
         {
@@ -34,8 +37,8 @@ const MyClassesTables = ({
             active: false,
         },
         {
-            name: router.query.name,
-            link: '/instructor/myclasstables',
+            name: className,
+            link: '/instructor/myclasstables?' + router?.asPath?.slice(router?.pathname?.length),
             active: true,
         },
     ]
@@ -68,7 +71,9 @@ const MyClassesTables = ({
     }, [clasId, paginationAssignment]);
 
     const componentList = [        
-        <Assignments />,
+        <Assignments
+            className={ className }
+        />,
         <Students
             studentData={ studentData }
             pageDetails={ pageDetails }

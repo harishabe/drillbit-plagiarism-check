@@ -11,7 +11,7 @@ import { Title1, SubTitle2 } from '../index';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import BeatLoader from "react-spinners/BeatLoader";
-import { SubTitle1 } from '../index'
+import { SubTitle } from '../index'
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -55,18 +55,17 @@ const ListView2 = ({
         GetQna(router.query.clasId, router.query.assId);
     }, []);
 
-
-    useEffect(() => {
-        let id = '';
-        let arr = [];
-        qnaData?.map((item, index) => {
-            id = createId(
-                item.id = `qId${index + 1}`,
-            );
-            arr.push(id)
-        });
-        setId([...arr]);
-    }, [qnaData]);
+    // useEffect(() => {
+    //     let id = '';
+    //     let arr = [];
+    //     qnaData?.map((item, index) => {
+    //         id = createId(
+    //             item.id = `qId${index + 1}`,
+    //         );
+    //         arr.push(id)
+    //     });
+    //     setId([...arr]);
+    // }, [qnaData]);
 
     return (
         <>
@@ -78,7 +77,7 @@ const ListView2 = ({
                         <Skeleton />
                     </> :
                     <>
-                        { <SubTitle1 title={ qnaMessage?.message } /> ||
+                        { <SubTitle title={ qnaMessage?.message } /> ||
 
                             qnaData?.map((item, index) => (
                             item['bgcolor'] = Colors[index],

@@ -28,7 +28,7 @@ const END_POINTS = {
     STUDENT_DASHBOARD_WIDGET: '/extreme/student/dashboard',
     STUDENT_MY_CLASSES: '/extreme/student/classes',
     STUDENT_MY_ASSIGNMENTS_SUBMISSION: '/extreme/student/myassignments-details',
-    STUDENT_NEW_SUBMISSION: '/upload/classes/',
+    STUDENT_NEW_SUBMISSION: '/files/classes/',
     PROFILE_DATA: '/extreme/',
     ADMIN_PROFILE_UPLOAD_LOGO:'/extreme/admin/uploadLogo',
     PROFILE_CHANGE_PASSWORD: '/extreme/account/password',
