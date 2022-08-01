@@ -1,6 +1,6 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
-import { GetMethod, PostMethod, PutMethod, DeleteMethod, GetMethodDownload } from './../ApiMethod';
+import { GetMethod, PostMethod, PutMethod, DeleteMethod, GetMethodDownload, PostFormData } from './../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -19,6 +19,24 @@ export const GetInstructorDetail = async (paginationPayload) => {
 export const CreateInstructorData = async (data) => {
     const url = BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR;
     return PostMethod(url, data);
+};
+
+/**
+ * API CALL DOWNLOAD TEMPLATE
+ */
+
+export const DownloadInstructorTemplate = async () => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_TEMPLATE;
+    return GetMethodDownload(url, 'Multiple_Instructor_Upload_Template.csv');
+};
+
+/**
+ * API CALL UPLOAD MULTIPLE INSTRUCTOR
+ */
+
+export const MultipleInstructorUpload = async (query) => {
+    const url = BASE_URL_EXTREM + END_POINTS.CREATE_MULTIPLE_INSTRUCTOR;
+    return PostFormData(url, query);
 };
 
 /**

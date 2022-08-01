@@ -5,6 +5,8 @@ import { InsDashboardWidget } from './instructor/Dashboard';
 import {
     GetInstructorData,
     CreateInstructor,
+    GetDownloadTemplate,
+    UploadMultipleInstructor,
     GetStudentData,
     EditData,
     DeleteData,
@@ -77,6 +79,8 @@ const saga = [
     fork(GetInstructorStudentStats),
     fork(GetCsvReportStats),
     fork(CreateInstructor),
+    fork(GetDownloadTemplate),
+    fork(UploadMultipleInstructor),
     fork(InsDashboardWidget),
     fork(GetReportData),
     fork(GetReportDataDownload),

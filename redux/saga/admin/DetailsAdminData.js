@@ -3,6 +3,8 @@ import * as types from '../../action/ActionType';
 import {
     GetInstructorDetail,
     CreateInstructorData,
+    DownloadInstructorTemplate,
+    MultipleInstructorUpload,
     GetStudentDetail,
     GetReports,
     DownloadReports,
@@ -111,6 +113,50 @@ export function* onLoadCreateInstructor(action) {
 
 export function* CreateInstructor() {
     yield takeLatest(types.FETCH_ADMIN_INSTRUCTOR_CREATE_START, onLoadCreateInstructor);
+}
+
+/**
+ * Download csv file format data for instructor
+ * @param {*} action
+ */
+
+export function* onLoadInstructorTemplate(action) {
+    const { response, error } = yield call(DownloadInstructorTemplate, action);
+    if (response || response === undefined) {
+        yield put({
+            type: types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetDownloadTemplate() {
+    yield takeLatest(types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_START, onLoadInstructorTemplate);
+}
+
+/**
+ * Multiple instructor upload
+ * @param {*} action
+ */
+
+export function* onLoadInstructorUpload(action) {
+    const { response, error } = yield call(MultipleInstructorUpload, action.query);
+    if (response) {
+        yield put({ type: types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: PaginationValue });
+    } else {
+        yield put({ type: types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* UploadMultipleInstructor() {
+    yield takeLatest(types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_START, onLoadInstructorUpload);
 }
 
 /**

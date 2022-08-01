@@ -19,6 +19,40 @@ const DetailsReducer = (state = {}, action) => {
                 isLoading: false,
                 instructorError: action.payload,
             };
+        case types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_START:
+            return {
+                ...state,
+                isLoadingTemplate: true,
+            };
+        case types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoadingTemplate: false,
+                templateDownload: action.payload,
+            };
+        case types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_FAIL:
+            return {
+                ...state,
+                isLoadingTemplate: false,
+                templateDownloadError: action.payload,
+            };
+        case types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                sendData: action.payload,
+            };
+        case types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                sendDataError: action.payload,
+            };
         case types.FETCH_ADMIN_STATS_DATA_START:
             return {
                 ...state,

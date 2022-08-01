@@ -41,6 +41,8 @@ const END_POINTS = {
     CREATE_ASSIGNMENT: '/extreme/classes/',
     CREATE_EXTREME_REF_ACCOUNT: '/drillbit/register/',
     SUPER_ADMIN_EXTREME_REF: '/drillbit/register/',
+    INSTRUCTOR_DOWNLOAD_TEMPLATE: '/extreme/admin/instructorTemplate',
+    CREATE_MULTIPLE_INSTRUCTOR: '/extreme/admin/addMultipleInstructors',
 };
 
 export default END_POINTS;

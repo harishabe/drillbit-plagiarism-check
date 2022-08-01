@@ -48,7 +48,7 @@ const Reports = ({
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Instructors lists'
-                            count={reportsData?.instructorList.length}
+                            count={ reportsData?.no_of_instructors }
                             handleDownload={handDownload}
                             isLoading={isLoading}
                             isLoadingIcon={usersType === 'instructors' ? isLoadingDownload : false}
@@ -58,7 +58,7 @@ const Reports = ({
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Student lists'
-                            count={10}
+                            count={ reportsData?.no_of_students }
                             handleDownload={handDownload}
                             isLoading={isLoading}
                             isLoadingIcon={usersType === 'students' ? isLoadingDownload : false}

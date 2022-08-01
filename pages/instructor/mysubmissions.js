@@ -26,7 +26,6 @@ const MySubmissions = ({
 
   const assId = router.query.assId;
 
-  const [className, setClassName] = useState(router.query.className);
   const [paginationPayload, setPaginationPayload] = useState({
     page: PaginationValue?.page,
     size: PaginationValue?.size,
@@ -46,7 +45,7 @@ const MySubmissions = ({
       active: false,
     },
     {
-      name: className,
+      name: 'My assignments',
       link: '/instructor/myclasstables' + router?.asPath?.slice(router?.pathname?.length),
       active: false,
     },

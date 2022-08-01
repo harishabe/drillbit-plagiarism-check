@@ -3,11 +3,11 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import debouce from "lodash.debounce";
-import Grid from '@mui/material/Grid';
+import { Grid, Tooltip, Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
-import { TextField, Pagination, IconButton } from '@mui/material';
+import { TextField, Pagination, IconButton, Button } from '@mui/material';
 import Admin from './../../layouts/Admin';
 import { BreadCrumb } from './../../components';
 import {
@@ -18,13 +18,16 @@ import {
     AvatarName,
     CreateDrawer,
     WarningDialog,
-    DialogModal
+    DialogModal,
+    SubTitle
 } from '../../components';
-import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
+import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon, DownloadIcon, UploadIcon } from '../../assets/icon';
 import {
     GetInstructorData,
     DeleteData,
-    DeactivateData
+    DeactivateData,
+    DownloadTemplate,
+    UploadFile
 } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
@@ -51,6 +54,15 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
+const UploadButtonAlign = styled('div')({
+    marginBottom: '-5px',
+    marginLeft: '10px'
+});
+
+const Input = styled('input')({
+    display: 'none',
+});
+
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
@@ -67,12 +79,16 @@ const InstructorBreadCrumb = [
 const Instructor = ({
     pageDetails,
     GetInstructorData,
+    DownloadTemplate,
+    UploadFile,
     instructorData,
     DeleteData,
     DeactivateData,
-    isLoading
+    isLoading,
+    isLoadingTemplate,
 }) => {
     const [rows, setRows] = useState([]);
+    const [show, setShow] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showStatusWarning, setStatusWarning] = useState(false);
@@ -249,6 +265,16 @@ const Instructor = ({
         setShowDeleteWarning(true);
     }
 
+    const handleDownload = () => {
+        DownloadTemplate()
+        setShow(true)
+    }
+
+    const handleSubmit = (data) => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('file', data.target.files[0]);
+        UploadFile(bodyFormData);
+    }
     return (
         <React.Fragment>
             {
@@ -332,10 +358,44 @@ const Instructor = ({
                                 }
                             }}
                         />
-                        {/* <SubTitle title='6/10 users' />
-                        <InfoIcon /> */}
+                        { show ? '' :
+                            <Tooltip title="Download Template">
+                                <IconButton sx={ {
+                                    position: 'absolute',
+                                    padding: '7px',
+                                    top: '118px',
+                                    right: '230px'
+                                } }
+                                    onClick={ handleDownload }>
+                                    { isLoadingTemplate ? <Skeleton sx={ { mt: 1 } } width={ 20 } /> : <DownloadIcon /> }
+                                </IconButton>
+                            </Tooltip>
+                        }
+
                     </Grid>
+                    { show &&
+                        <>
+                            <Grid item md={ 10.3 }></Grid>
+                            <Grid item md={ 1.7 }>
+                                <form>
+                                    <label htmlFor="contained-button-file">
+                                        <Input id="contained-button-file" onChange={ handleSubmit } multiple type="file" />
+                                        <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
+                                            <>
+                                                <UploadIcon />
+                                                <UploadButtonAlign>
+                                                    <SubTitle textColor='#fff' title='Upload File' />
+                                                </UploadButtonAlign>
+                                            </>
+                                        </Button>
+                                    </label>
+                                </form>
+                            </Grid>
+                        </>
+                    }
                 </Grid>
+                {/* <SubTitle title='6/10 users' />
+                <InfoIcon /> */}
             </Box>
 
             <CardView>
@@ -378,6 +438,7 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.list?.page,
     instructorData: state?.detailsData?.instructorData?.list?.content,
     isLoading: state?.detailsData?.isLoading,
+    isLoadingTemplate: state?.detailsData?.isLoadingTemplate,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -385,6 +446,8 @@ const mapDispatchToProps = (dispatch) => {
         GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),
         DeactivateData: (data, paginationPayload) => dispatch(DeactivateData(data, paginationPayload)),
         DeleteData: (deleteRowData, paginationPayload) => dispatch(DeleteData(deleteRowData, paginationPayload)),
+        DownloadTemplate: () => dispatch(DownloadTemplate()),
+        UploadFile: (data) => dispatch(UploadFile(data)),
     };
 };
 

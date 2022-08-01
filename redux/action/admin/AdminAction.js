@@ -57,6 +57,24 @@ export const CreateInstructorData = (data) => {
 };
 
 /**
+ * Create multiple instructor template
+ */
+export const DownloadTemplate = () => {
+    return {
+        type: types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_START
+    };
+};
+
+/**
+ * Upload multiple instructor 
+ */
+export const UploadFile = (data) => {
+    return {
+        type: types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_START, query: data
+    };
+};
+
+/**
  * Get all student data
  */
 export const GetStudnetData = (paginationPayload) => {
