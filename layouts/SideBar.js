@@ -22,7 +22,7 @@ import {
     SidebarSuperAdmin
 } from '../constant/data';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
     activeClass: {

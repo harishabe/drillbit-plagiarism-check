@@ -30,7 +30,7 @@ import { getItemLocalStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
 import EllipsisText from '../ellipsis/EllipsisText';
 
-const drawerWidth = 240
+const drawerWidth = 200
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',

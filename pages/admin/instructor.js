@@ -56,7 +56,7 @@ const AddButtonBottom = styled.div`
 
 const UploadButtonAlign = styled('div')({
     marginBottom: '-5px',
-    marginLeft: '10px'
+    // marginLeft: '10px'
 });
 
 const Input = styled('input')({
@@ -345,7 +345,7 @@ const Instructor = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={8}>
-                        <MainHeading title={ `Instructors(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                        <MainHeading title={`Instructors(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                     </Grid>
                     <Grid item md={4} xs container direction='row' justifyContent={'right'}>
                         <TextField
@@ -358,40 +358,35 @@ const Instructor = ({
                                 }
                             }}
                         />
-                        { show ? '' :
+                        {show ? '' :
                             <Tooltip title="Download Template">
-                                <IconButton sx={ {
+                                <IconButton sx={{
                                     position: 'absolute',
                                     padding: '7px',
                                     top: '118px',
                                     right: '230px'
-                                } }
-                                    onClick={ handleDownload }>
-                                    { isLoadingTemplate ? <Skeleton sx={ { mt: 1 } } width={ 20 } /> : <DownloadIcon /> }
+                                }}
+                                    onClick={handleDownload}>
+                                    {isLoadingTemplate ? <Skeleton sx={{ mt: 1 }} width={20} /> : <DownloadIcon />}
                                 </IconButton>
                             </Tooltip>
                         }
 
                     </Grid>
-                    { show &&
-                        <>
-                            <Grid item md={ 10.3 }></Grid>
-                            <Grid item md={ 1.7 }>
-                                <form>
-                                    <label htmlFor="contained-button-file">
-                                        <Input id="contained-button-file" onChange={ handleSubmit } multiple type="file" />
-                                        <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
-                                            <>
-                                                <UploadIcon />
-                                                <UploadButtonAlign>
-                                                    <SubTitle textColor='#fff' title='Upload File' />
-                                                </UploadButtonAlign>
-                                            </>
-                                        </Button>
-                                    </label>
-                                </form>
-                            </Grid>
-                        </>
+                    {show &&
+                        <form>
+                            <label htmlFor="contained-button-file">
+                                <Input id="contained-button-file" onChange={handleSubmit} multiple type="file" />
+                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
+                                    <>
+                                        <UploadIcon />
+                                        <UploadButtonAlign>
+                                            <SubTitle textColor='#fff' title='Upload File' />
+                                        </UploadButtonAlign>
+                                    </>
+                                </Button>
+                            </label>
+                        </form>
                     }
                 </Grid>
                 {/* <SubTitle title='6/10 users' />
