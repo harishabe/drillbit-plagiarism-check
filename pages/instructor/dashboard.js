@@ -168,6 +168,7 @@ const Dashboard = ({
                             {isLoading ? <> <Skeleton /> </> : <> {instructorDashboardData?.data?.trendAnalysis &&
                                 <PieChart
                                     type="donut"
+                                height={ 320 }
                                     color={PIE_CHART_COLOR}
                                     width={PIE_CHART_WIDTH}
                                     label={PIE_CHART_LABEL}

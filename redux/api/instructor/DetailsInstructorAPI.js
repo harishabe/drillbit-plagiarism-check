@@ -1,6 +1,6 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
-import { DeleteMethod, GetMethod, PostMethod, PutMethod, PostFormData } from '../ApiMethod';
+import { DeleteMethod, GetMethod, PostMethod, PutMethod, PostFormData, GetMethodDownload } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -65,6 +65,24 @@ export const GetAssignmentDetail = async (class_id, paginationPayload) => {
 export const CreateStudentData = async (class_id, data) => {
     const url = BASE_URL_EXTREM + END_POINTS.CREATE_STUDENT + class_id + '/students';
     return PostMethod(url, data);
+};
+
+/**
+ * API CALL DOWNLOAD TEMPLATE
+ */
+
+export const DownloadStudentTemplate = async (classId) => {
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_DOWNLOAD_TEMPLATE + classId + '/studentTemplate';
+    return GetMethodDownload(url, 'Multiple_Student_Upload_Template.csv');
+};
+
+/**
+ * API CALL UPLOAD MULTIPLE STUDENT
+ */
+
+export const MultipleStudentUpload = async (classId, query) => {
+    const url = BASE_URL_EXTREM + END_POINTS.CREATE_MULTIPLE_STUDENT + classId + '/bulkStudents';
+    return PostFormData(url, query);
 };
 
 /**

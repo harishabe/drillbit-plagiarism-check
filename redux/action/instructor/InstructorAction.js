@@ -34,6 +34,24 @@ export const CreateStudent = (classId, data) => {
 };
 
 /**
+ * Create multiple student template
+ */
+export const DownloadTemplate = (classId) => {
+    return {
+        type: types.FETCH_ADMIN_STUDENT_TEMPLATE_DOWNLOAD_START, classId: classId
+    };
+};
+
+/**
+ * Upload multiple student 
+ */
+export const UploadFile = (classId, data) => {
+    return {
+        type: types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_START, classId: classId, query: data
+    };
+};
+
+/**
  * Edit class
  */
 export const EditClass = (classId, requestPayload) => {
