@@ -28,13 +28,13 @@ const toastrValidation = (response) => {
     if (response?.status === 201) {
         success(response?.data?.message);
     } else if (response?.status === 200) {
-        success(response?.data?.message || data?.message);
+        success(response?.data?.message);
     } else if (response?.status === 202) {
-        success(response?.data?.message || data?.message);
+        success(response?.data?.message);
     } else if (response?.response?.status === 401) {        
         error(response?.response?.data?.error);
     } else if (response?.response?.status === 400) {
-        error(response?.response?.data?.message || response?.response?.data?.error);
+        error(response?.response?.data?.message);
     } else if (response?.response?.data?.status === 409) {
         error(response?.response?.data?.message);
     } else if (response?.response?.data?.status === 500) {
