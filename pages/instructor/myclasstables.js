@@ -20,8 +20,7 @@ const MyClassesTables = ({
 }) => {
 
     const router = useRouter();
-    const [clasId, setClasId] = useState(router.query.clasId);
-    const [className, setClassName] = useState(router.query.className);
+    const [clasId, setClasId] = useState(router.query.clasId);;
 
     console.log("routerrouterrouter", router)
 
@@ -37,8 +36,8 @@ const MyClassesTables = ({
             active: false,
         },
         {
-            name: className,
-            link: '/instructor/myclasstables?' + router?.asPath?.slice(router?.pathname?.length),
+            name: 'My assignments',
+            link: '/instructor/myclasstables',
             active: true,
         },
     ]
@@ -71,9 +70,7 @@ const MyClassesTables = ({
     }, [clasId, paginationAssignment]);
 
     const componentList = [        
-        <Assignments
-            className={ className }
-        />,
+        <Assignments />,
         <Students
             studentData={ studentData }
             pageDetails={ pageDetails }
