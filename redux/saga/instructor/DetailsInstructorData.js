@@ -8,6 +8,8 @@ import {
     CreateClassData,
     CreateFolderData,
     CreateStudentData,
+    DownloadStudentTemplate,
+    MultipleStudentUpload,
     CreateAssignmentData,
     EditClassData,
     EditFolderData,
@@ -138,6 +140,51 @@ export function* onLoadClassesStudent(action) {
 
 export function* GetClassesStudentData() {
     yield takeLatest(types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, onLoadClassesStudent);
+}
+
+/**
+ * Download csv file format data for student
+ * @param {*} action
+ */
+
+export function* onLoadStudentTemplate(action) {
+    const { response, error } = yield call(DownloadStudentTemplate, action.classId);
+    if (response || response === undefined) {
+        yield put({
+            type: types.FETCH_ADMIN_STUDENT_TEMPLATE_DOWNLOAD_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_STUDENT_TEMPLATE_DOWNLOAD_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetDownloadStudentTemplate() {
+    yield takeLatest(types.FETCH_ADMIN_STUDENT_TEMPLATE_DOWNLOAD_START, onLoadStudentTemplate);
+}
+
+/**
+ * Multiple student upload
+ * @param {*} action
+ */
+
+export function* onLoadStudentUpload(action) {
+    const { response, error } = yield call(MultipleStudentUpload, action.classId, action.query);
+    if (response) {
+        yield put({ type: types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, class_id: action.classId, paginationPayload: PaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* UploadMultipleStudent() {
+    yield takeLatest(types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_START, onLoadStudentUpload);
 }
 
 /**

@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import _ from 'lodash';
+import debouce from "lodash.debounce";
 import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import { Grid, Tooltip, Skeleton, Button, TextField } from '@mui/material';
 import { Pagination } from '@mui/material';
 import Instructor from '../../layouts/Instructor'
 import {
@@ -11,11 +14,16 @@ import {
     AvatarName,
     CreateDrawer,
     WarningDialog,
+    SubTitle
 } from '../../components'
 import { IconButton } from '@mui/material';
-import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../assets/icon'
+import { EditIcon, DeleteIcon, DeleteWarningIcon, DownloadIcon, UploadIcon } from '../../assets/icon'
 import StudentForm from './form/StudentForm';
-import { DeleteStudent } from '../../redux/action/instructor/InstructorAction';
+import {
+    DeleteStudent,
+    DownloadTemplate,
+    UploadFile
+} from '../../redux/action/instructor/InstructorAction';
 import { removeCommaWordEnd } from '../../utils/RegExp';
 
 const AddButtonBottom = styled.div`
@@ -23,6 +31,15 @@ const AddButtonBottom = styled.div`
     bottom: 30px;
     right:30px;
 `;
+
+const UploadButtonAlign = styled('div')({
+    marginBottom: '-5px',
+    marginLeft: '10px'
+});
+
+const Input = styled('input')({
+    display: 'none',
+});
 
 const columns = [
     { id: 'id', label: 'Student ID', minWidth: 170 },
@@ -44,11 +61,15 @@ const Students = ({
     isLoadingStudent,
     DeleteStudent,
     handlePagination,
+    DownloadTemplate,
+    isLoadingTemplate,
+    UploadFile
 }) => {
 
     const router = useRouter();
 
     const [rows, setRows] = useState([]);
+    const [show, setShow] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
@@ -144,6 +165,42 @@ const Students = ({
         setShowDeleteWarning(true);
     }
 
+    /** search implementation using debounce concepts */
+
+    // const handleSearch = (event) => {
+    //     if (event.target.value !== '') {
+    //         paginationPayload['search'] = event.target.value;
+    //         setPaginationPayload({ ...paginationPayload, paginationPayload });
+    //     } else {
+    //         delete paginationPayload['search'];
+    //         setPaginationPayload({ ...paginationPayload, paginationPayload });
+    //     }
+    // }
+
+    // const debouncedResults = useMemo(() => {
+    //     return debouce(handleSearch, 300);
+    // }, []);
+
+    // useEffect(() => {
+    //     return () => {
+    //         debouncedResults.cancel();
+    //     };
+    // });
+
+    /** end debounce concepts */
+
+
+    const handleDownload = () => {
+        DownloadTemplate(clasId)
+        setShow(true)
+    }
+
+    const handleSubmit = (data) => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('file', data.target.files[0]);
+        UploadFile(clasId, bodyFormData);
+    }
+
     return (
         <React.Fragment>
 
@@ -165,6 +222,64 @@ const Students = ({
                     <StudentForm />
                 </CreateDrawer>
             </AddButtonBottom>
+
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 8 }></Grid>
+                    <Grid item md={ 4 } xs container direction='row' justifyContent={ 'right' }>
+                        {/* <TextField
+                            placeholder='Search'
+                            onChange={ debouncedResults }
+                            inputProps={ {
+                                style: {
+                                    padding: 5,
+                                    display: 'inline-flex'
+                                }
+                            } }
+                        /> */}
+                        { show ? '' :
+                            <Tooltip title="Download Template">
+                                <IconButton sx={ {
+                                    position: 'absolute',
+                                    padding: '7px',
+                                    top: '118px',
+                                    right: '50px'
+                                } }
+                                    onClick={ handleDownload }>
+                                    { isLoadingTemplate ? <Skeleton sx={ { mt: 1 } } width={ 20 } /> : <DownloadIcon /> }
+                                </IconButton>
+                            </Tooltip>
+                        }
+
+                        { show &&
+                            <>
+
+                                <form>
+                                    <label htmlFor="contained-button-file">
+                                        <Input id="contained-button-file" onChange={ handleSubmit } multiple type="file" />
+                                        <Button variant="contained" component="span" style={ {
+                                            position: 'absolute',
+                                            padding: '7px',
+                                            top: '118px',
+                                            right: '50px'
+                                        } }>
+                                            <>
+                                                <UploadIcon />
+                                                <UploadButtonAlign>
+                                                    <SubTitle textColor='#fff' title='Upload File' />
+                                                </UploadButtonAlign>
+                                            </>
+                                        </Button>
+                                    </label>
+                                </form>
+
+                            </>
+                        }
+
+                    </Grid>
+                </Grid>
+            </Box>
+
 
             <CardView>
                 <>
@@ -206,12 +321,14 @@ const Students = ({
 
 const mapStateToProps = (state) => ({
     studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
-    // isLoading: state?.instructorClasses?.isLoading,
+    isLoadingTemplate: state?.instructorClasses?.isLoadingTemplate,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
+        DownloadTemplate: (ClasId) => dispatch(DownloadTemplate(ClasId)),
+        UploadFile: (ClasId, data) => dispatch(UploadFile(ClasId, data)),
     };
 };
 
