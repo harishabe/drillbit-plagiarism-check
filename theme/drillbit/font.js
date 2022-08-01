@@ -9,7 +9,8 @@ const font = {
     h1: {
         fontFamily: fontName,
         fontSize: '24px',
-        fontWeight: '500',
+        fontWeight: '600',
+        fontStyle: 'normal',
         lineHeight: '36px',
         letterSpacing: '0.15px'
     },
