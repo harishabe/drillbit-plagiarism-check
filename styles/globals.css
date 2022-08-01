@@ -85,7 +85,7 @@ a {
   font-weight: 300;
   src: url('../font/Montserrat/Montserrat-LightItalic.ttf') format('truetype');
 }
-
+/* 
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
@@ -97,7 +97,7 @@ a {
   font-style: normal;
   font-weight: 500;
   src: url('../font/Montserrat/Montserrat-MediumItalic.ttf') format('truetype');
-}
+} */
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;

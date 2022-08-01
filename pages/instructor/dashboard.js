@@ -14,6 +14,7 @@ import {
     Heading,
     SubTitle,
     ListSkeleton,
+    ErrorBlock,
     // RecentSubmissionTable
 } from '../../components';
 import {
@@ -38,6 +39,8 @@ import {
     PIE_CHART_LABEL,
 } from './../../constant/data/ChartData';
 import { setItemLocalStorage, getItemLocalStorage } from '../../utils/RegExp';
+
+import { INSTRUCTOR_DASHBOARD_STUDENT_NOT_FOUNT } from '../../constant/data/ErrorMessage';
 
 
 const TextAlignRight = styled.div`
@@ -72,24 +75,24 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No of classes'
-                            isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_classes }
+                            isLoading={isLoading}
+                            count={isLoading ? '' : instructorDashboardData?.data?.no_of_classes}
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No of assignments'
-                            isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_assignments }
+                            isLoading={isLoading}
+                            count={isLoading ? '' : instructorDashboardData?.data?.no_of_assignments}
                             icon={<NoOfAssignmntIcon />}
                         />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='No of submissions'
-                            isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_submissions }
+                            isLoading={isLoading}
+                            count={isLoading ? '' : instructorDashboardData?.data?.no_of_submissions}
                             icon={<NoOfSubmission />}
                         />
                     </Grid>
@@ -100,14 +103,16 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <CardView height="443px">
                             <Heading title='Top Students' />
-                            { isLoading ?
+                            {isLoading ?
                                 <>
                                     <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
                                 </> :
                                 <>
-                                    <TopStudents topStudentData={ instructorDashboardData?.data?.top_students?.students } />
+                                    {instructorDashboardData?.data?.top_students?.students?.length > 0 ?
+                                        <TopStudents topStudentData={instructorDashboardData?.data?.top_students?.students} />
+                                        : <ErrorBlock message={INSTRUCTOR_DASHBOARD_STUDENT_NOT_FOUNT} />}
                                 </>
                             }
                         </CardView>
@@ -115,14 +120,15 @@ const Dashboard = ({
                     <Grid item md={8} xs={12}>
                         <CardView height="443px">
                             <Heading title='Recent Submissions' />
-                            { isLoading ?
+                            {isLoading ?
                                 <>
+                                    <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
                                 </> :
                                 <>
-                                    <RecentSubmissions recentSubmission={ instructorDashboardData?.data?.recent_submissions } />
+                                    <RecentSubmissions recentSubmission={instructorDashboardData?.data?.recent_submissions} />
                                 </>
                             }
                         </CardView>
@@ -134,21 +140,21 @@ const Dashboard = ({
                     <Grid item md={8} xs={12}>
                         <CardView>
                             <Heading title='Submission Overview' />
-                            { isLoading ? <Skeleton /> :
+                            {isLoading ? <Skeleton /> :
                                 recentSubmission?.length > 0 && <ColumnChart
-                                    type={ COLUMN_ADMIN_CHART_TYPE }
-                                    color={ COLUMN_ADMIN_CHART_COLOR }
-                                    xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
-                                    columnWidth={ COLUMN_ADMIN_WIDTH }
-                                    height={ COLUMN_ADMIN_CHART_HEIGHT }
-                                    seriesData={ [
+                                    type={COLUMN_ADMIN_CHART_TYPE}
+                                    color={COLUMN_ADMIN_CHART_COLOR}
+                                    xaxisData={COLUMN_ADMIN_XAXIS_DATA}
+                                    columnWidth={COLUMN_ADMIN_WIDTH}
+                                    height={COLUMN_ADMIN_CHART_HEIGHT}
+                                    seriesData={[
                                         {
                                             name: 'Submission Overview',
                                             data: recentSubmission
                                         }
-                                    ] }
-                                    gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                    borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                    ]}
+                                    gradient={COLUMN_ADMIN_CHART_GRADIENT}
+                                    borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
                                 />
                             }
                         </CardView>
@@ -168,7 +174,7 @@ const Dashboard = ({
                             {isLoading ? <> <Skeleton /> </> : <> {instructorDashboardData?.data?.trendAnalysis &&
                                 <PieChart
                                     type="donut"
-                                height={ 320 }
+                                    height={318}
                                     color={PIE_CHART_COLOR}
                                     width={PIE_CHART_WIDTH}
                                     label={PIE_CHART_LABEL}

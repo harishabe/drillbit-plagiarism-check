@@ -33,3 +33,4 @@ export { default as WarningDialog } from './dialog/WarningDialog';
 export { default as ListSkeleton } from './skeleton/ListSkeleton';
 export { default as TableSkeleton } from './skeleton/TableSkeleton';
 export { default as DialogModal } from './dialog/DialogModal';
+export { default as ErrorBlock } from './error/ErrorBlock';

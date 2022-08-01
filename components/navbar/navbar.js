@@ -60,19 +60,12 @@ const AppBar = styled(MuiAppBar, {
 const NavBar = ({
     open,
     handleDrawerOpen,
-    dashboardData,
-    instructorDashboardData,
-    StudentData,
 }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openProfile = Boolean(anchorEl);
     const router = useRouter();
     const [name, setName] = React.useState('');
     const [role, setRole] = React.useState('');
-    const [userName, setUserName] = React.useState({
-        name: '',
-        role: ''
-    });
 
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -82,29 +75,19 @@ const NavBar = ({
     }
     const handleLogout = (event) => {
         event.preventDefault();
-        router.push('/auth/login')
+        window.location.href = '/auth/login';
+        //router.push('/auth/login')
     }
 
     React.useEffect(() => {
-        let b = getItemLocalStorage('name');
-        let role = getItemLocalStorage('role');
-        setName(b);
-        setRole(role);
-    }, [dashboardData === undefined]);
-
-    React.useEffect(() => {
-        if (getItemLocalStorage('role') === Role.admin) {
-            setUserName({ ...userName, name: dashboardData?.name, role: dashboardData?.role });
-        } else if (getItemLocalStorage('role') === Role.instructor) {
-            setUserName({ ...userName, name: instructorDashboardData?.name, role: instructorDashboardData?.role })
-        } else if (getItemLocalStorage('role') === Role.student) {
-            setUserName({ ...userName, name: StudentData?.name, role: StudentData?.role })
-        }
+        let userName = getItemLocalStorage('name');
+        let userRole = getItemLocalStorage('role');
+        setName(userName);
+        setRole(userRole);
     }, []);
 
 
     return (
-        console.log('userName', userName),
         <>
             <Hidden mdDown implementation="css">
                 <AppBar position="fixed" open={open} color="appbar" style={{ zIndex: 999 }}>
@@ -140,7 +123,7 @@ const NavBar = ({
                                         <MessageIcon />
                                     </IconButton> */}
                                     {/* <Divider orientation="vertical" flexItem /> */}
-                                    {/* <IconButton
+                                    <IconButton
                                         color="inherit"
                                         aria-label="open drawer"
                                         edge="start"
@@ -151,26 +134,26 @@ const NavBar = ({
                                         }}
                                     >
                                         <BellIcon />
-                                    </IconButton> */}
+                                    </IconButton>
                                     <Divider orientation="vertical" flexItem />
                                     <div style={{ display: 'block', marginLeft: '15px', marginRight: '15px' }}>
                                         <div style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}>
-                                            <EllipsisText value={userName?.name || (name !== undefined && name)} charLength={12} />
+                                            <EllipsisText value={name} charLength={12} />
                                         </div>
                                         <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right' }}>
-                                            {(userName?.role) || (role === undefined ? <Skeleton /> : role)}
+                                            {role?.charAt(0)?.toUpperCase() + role?.slice(1)}
                                         </div>
                                     </div>
 
                                     <div style={{ marginLeft: '15px', marginRight: '15px', cursor: 'pointer' }}>
                                         <Avatar onClick={handleProfileClick} alt="Remy Sharp" sx={{ width: 45, height: 45, background: '#68C886', color: '#fff' }}>
-                                            {userName && userName.name?.charAt(0) || (name && name.charAt(0))}
+                                            {name && name.charAt(0)}
                                         </Avatar>
                                     </div>
                                     <IconButton
                                         onClick={handleProfileClick}
                                         color="inherit"
-                                        aria-label="open drawer"
+                                        aria-label="open dr awer"
                                         edge="start"
                                     >
                                         <DownArrowIcon />
@@ -222,7 +205,7 @@ const NavBar = ({
                             <Avatar alt={name} style={{ width: '56px', height: '56px', background: '#68C886', color: '#fff' }}>
                                 {name && name.charAt(0)}
                             </Avatar>
-                            <EllipsisText value={userName?.name || (name !== undefined && name)} charLength={20} />
+                            <EllipsisText value={name} charLength={20} />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                         {role === Role?.admin &&

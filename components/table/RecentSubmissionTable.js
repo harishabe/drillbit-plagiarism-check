@@ -6,14 +6,15 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableRow from '@mui/material/TableRow'
 import Button from '@mui/material/Button'
-import { SubTitle, SubTitle1 } from '../index'
+import { SubTitle, SubTitle1 } from '../index';
+
+import { StatusDot } from '../../components';
 
 const Colors = ['#7B68C8', '#68C886', '#34C2FF', '#3491FF', '#8D34FF', '#7B68C8'];
 
 const RecentSubmissionTable = ({
     tableData
 }) => {
-    console.log("firstfirstfirst", tableData)
     return (
         <TableContainer>
             <Table sx={ { minWidth: 350 } } aria-label="simple table">
@@ -36,14 +37,12 @@ const RecentSubmissionTable = ({
                             </TableCell>
                             <TableCell>
                                 <SubTitle1
-                                        // title={item.feedback} />
                                         title="Good" />
                                 <SubTitle
                                     title={item.percent} />
                             </TableCell>
                             <TableCell>
-                                <SubTitle
-                                    title={item.status} />
+                                <StatusDot color="#69C886" title="Active" />                                
                             </TableCell>
                             <TableCell align='right'>
                                 <Button variant="contained" color="primary">Review</Button>
