@@ -6,8 +6,9 @@ import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
 import { TextField } from '@mui/material';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import Instructor from '../../layouts/Instructor';
-import { BreadCrumb, MainHeading } from '../../components';
+import { BreadCrumb, MainHeading, ErrorBlock } from '../../components';
 import MyClassFiles from './myclassfiles';
+import { CLASS_NOT_FOUND } from '../../constant/data/ErrorMessage'; 
 
 const InstructorBreadCrumb = [
     {
@@ -77,12 +78,15 @@ const MyClasses = ({
                 </Grid>
             </Box>
             <MainHeading title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
-            <MyClassFiles
-                pageDetails={pageDetails}
-                classesData={classesData}
-                isLoading={isLoading}
-                handlePagination={handlePagination}
-            />
+            { classesData?.length > 0 ? 
+                <MyClassFiles
+                    pageDetails={ pageDetails }
+                    classesData={ classesData }
+                    isLoading={ isLoading }
+                    handlePagination={ handlePagination }
+                /> 
+                : <ErrorBlock message={ CLASS_NOT_FOUND } />
+            }
         </React.Fragment>
     )
 }

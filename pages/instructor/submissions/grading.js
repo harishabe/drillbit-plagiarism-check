@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Instructor from '../../../layouts/Instructor';
-import { CardView, CommonTable } from '../../../components';
+import { CardView, CommonTable, ErrorBlock } from '../../../components';
 import { MessageExclamatoryIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
+import { GRADING_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const columns = [
   { id: 'STname', label: 'Student Name' },
@@ -59,12 +60,16 @@ const Grading = ({
   return (
     <React.Fragment>
       <CardView>
-        <CommonTable
-          isCheckbox={ true }
-          tableHeader={ columns }
-          tableData={ rows }
-          isLoading={ isLoading }
-        /> 
+        { gradingData?.length > 0 ? 
+          <CommonTable
+            isCheckbox={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            isLoading={ isLoading }
+          />
+          : <ErrorBlock message={ GRADING_NOT_FOUND } />
+        }
+
       </CardView>
     </React.Fragment>
   );

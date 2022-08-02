@@ -1,36 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Instructor from '../../../layouts/Instructor';
-import { CardView, CommonTable } from '../../../components';
+import { CardView, CommonTable, ErrorBlock } from '../../../components';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
-
-// const data = [
-//   createData(
-//     'Harisha B E',
-//     'Lorem ipsum dolor sit amet.',
-//     'Lorem ipsum dolor sit amet.',
-//     'Lorem ipsum dolor sit amet.'
-//   ),
-//   createData(
-//     'Harisha B E',
-//     'Lorem ipsum dolor sit amet.',
-//     'Lorem ipsum dolor sit amet.',
-//     'Lorem ipsum dolor sit amet.'
-//   ),
-//   createData(
-//     'Harisha B E',
-//     'Lorem ipsum dolor sit amet.',
-//     'Lorem ipsum dolor sit amet.',
-//     'Lorem ipsum dolor sit amet.'
-//   ),
-//   createData(
-//     'Harisha B E',
-//     'Lorem ipsum dolor sit amet.',
-//     'Lorem ipsum dolor sit amet.',
-//     'Lorem ipsum dolor sit amet.'
-//   ),
-// ];
+import { QNA_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const QNA = ({
   GetSubmissionList,
@@ -88,12 +62,16 @@ const QNA = ({
   return (
     <React.Fragment>
       <CardView>
-        <CommonTable
-          isCheckbox={ true }
-          tableHeader={ columns }
-          tableData={ rows }
-          isLoading={ isLoading }
-        />
+        { ansData?.length > 0 ? 
+          <CommonTable
+            isCheckbox={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            isLoading={ isLoading }
+          />
+          : <ErrorBlock message={ QNA_NOT_FOUND } />
+        }
+
       </CardView>
     </React.Fragment>
   );
