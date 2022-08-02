@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import debouce from "lodash.debounce";
 import { Skeleton, TextField, Pagination, IconButton } from '@mui/material';
-import { BreadCrumb } from './../../components';
 import {
     CardView,
     CommonTable,
@@ -14,7 +13,9 @@ import {
     WarningDialog,
     AvatarName,
     DialogModal,
-    CreateDrawer
+    CreateDrawer,
+    ErrorBlock,
+    BreadCrumb
 } from '../../components';
 import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
 import { GetStudnetData, EditData, DeleteStudentData } from '../../redux/action/admin/AdminAction';
@@ -22,6 +23,7 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import StudentStats from './student/StudentStats';
 import { removeCommaWordEnd } from '../../utils/RegExp';
 import StudentForm from './form/StudentForm';
+import { STUDENT_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const columns = [
     { id: 'user_id', label: 'Student ID', minWidth: 170 },
@@ -288,27 +290,34 @@ const Students = ({
                             <DeleteIcon />
                         </IconButton>
                     </div>}
-                    <CommonTable
-                        isCheckbox={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        handleAction={handleAction}
-                        handleTableSort={handleTableSort}
-                        handleCheckboxSelect={handleCheckboxSelect}
-                        handleSingleSelect={handleSingleSelect}
-                        isLoading={isLoading}
-                        charLength={20}
-                        path=''
-                    />
-                    <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                        <Pagination
-                            count={pageDetails?.totalPages}
-                            onChange={handleChange}
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
+                    { studentData?.length > 0 ? 
+                        <CommonTable
+                            isCheckbox={ true }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                            handleAction={ handleAction }
+                            handleTableSort={ handleTableSort }
+                            handleCheckboxSelect={ handleCheckboxSelect }
+                            handleSingleSelect={ handleSingleSelect }
+                            isLoading={ isLoading }
+                            charLength={ 20 }
+                            path=''
                         />
-                    </div>
+                        : <ErrorBlock message={ STUDENT_NOT_FOUND } />
+                    }
+
+                    { pageDetails?.totalPages > '1' &&
+                        <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+                            <Pagination
+                                count={ pageDetails?.totalPages }
+                                onChange={ handleChange }
+                                color="primary"
+                                variant="outlined"
+                                shape="rounded"
+                            />
+                        </div> 
+                    }
+
                 </>
             </CardView>
         </React.Fragment>
