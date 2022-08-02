@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Instructor from '../../../layouts/Instructor';
-import { CardView, CommonTable, AvatarName, CreateDrawer } from '../../../components';
+import {
+  CardView,
+  CommonTable,
+  AvatarName,
+  CreateDrawer,
+  ErrorBlock
+} from '../../../components';
 import { EditIcon, DeleteIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../redux/action/instructor/InstructorAction';
@@ -8,6 +14,7 @@ import { useRouter } from "next/router";
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import styled from 'styled-components';
 import SubmissionForm from '../form/SubmissionForm';
+import { SUBMISSION_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const columns = [
   { id: 'id', label: 'Student ID' },
@@ -121,12 +128,15 @@ const Submission = ({
   return (
     <React.Fragment>
       <CardView>
-        <CommonTable
-          isCheckbox={ true }
-          tableHeader={ columns }
-          tableData={ rows }
-          isLoading={ isLoading }
-        />
+        { submissionData?.length > 0 ? 
+          <CommonTable
+            isCheckbox={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            isLoading={ isLoading }
+          />
+          : <ErrorBlock message={ SUBMISSION_NOT_FOUND } />
+        }
 
         <AddButtonBottom>
           <CreateDrawer

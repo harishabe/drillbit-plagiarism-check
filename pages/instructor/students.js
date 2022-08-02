@@ -14,7 +14,8 @@ import {
     AvatarName,
     CreateDrawer,
     WarningDialog,
-    SubTitle
+    SubTitle,
+    ErrorBlock
 } from '../../components'
 import { IconButton } from '@mui/material';
 import { EditIcon, DeleteIcon, DeleteWarningIcon, DownloadIcon, UploadIcon } from '../../assets/icon'
@@ -25,6 +26,7 @@ import {
     UploadFile
 } from '../../redux/action/instructor/InstructorAction';
 import { removeCommaWordEnd } from '../../utils/RegExp';
+import { STUDENT_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const AddButtonBottom = styled.div`
     position:absolute;
@@ -289,18 +291,22 @@ const Students = ({
                         </IconButton>
                     </div>}
 
-                    <CommonTable
-                        isCheckbox={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        handleAction={handleAction}
-                        handleTableSort={handleTableSort}
-                        handleCheckboxSelect={handleCheckboxSelect}
-                        handleSingleSelect={handleSingleSelect}
-                        isLoading={isLoadingStudent}
-                        charLength={17}
-                        path=''
-                    />
+                    { studentData?.length > 0 ? 
+                        <CommonTable
+                            isCheckbox={ true }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                            handleAction={ handleAction }
+                            handleTableSort={ handleTableSort }
+                            handleCheckboxSelect={ handleCheckboxSelect }
+                            handleSingleSelect={ handleSingleSelect }
+                            isLoading={ isLoadingStudent }
+                            charLength={ 17 }
+                            path=''
+                        />
+                        : <ErrorBlock message={ STUDENT_NOT_FOUND } />
+                    }
+
 
                     { pageDetails?.totalPages > 1 &&
                         <div style={ { marginLeft: '35%', marginTop: '25px' } }>

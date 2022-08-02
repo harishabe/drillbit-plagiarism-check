@@ -9,12 +9,14 @@ import {
   AvatarName,
   StatusDot,
   CreateDrawer,
+  ErrorBlock
 } from '../../components';
 import { EditIcon, DeleteIcon, TimerIcon } from '../../assets/icon';
 import { GetAssignment } from '../../redux/action/instructor/InstructorAction';
 import AssignmentForm from './form/AssignmentForm';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { Pagination } from '@mui/material';
+import { ASSIGNMENT_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const AddButtonBottom = styled.div`
     position: absolute;
@@ -35,47 +37,6 @@ const columns = [
 function createData(id, name, status, statstics, creation, end, action) {
   return { id, name, status, statstics, creation, end, action };
 }
-
-// const data = [
-//   createData(
-//     <AvatarName title='S101' color='#4795EE' />,
-//     'Harisha B E',
-//     <StatusDot color='#38BE62' title='Active' />,
-//     '25/40',
-//     '01/01/2022',
-//     '06/02/2022',
-//     [<TimerIcon />, <EditIcon />, <DeleteIcon />]
-//   ),
-//   createData(
-//     <AvatarName title='S101' color='#5E47EE' />,
-//     'Harisha B E',
-//     <StatusDot color='#E9596F' title='In Active' />,
-//     '32/40',
-//     '01/01/2022',
-//     '06/02/2022',
-//     [<TimerIcon />, <EditIcon />, <DeleteIcon />]
-//   ),
-//   createData(
-//     <AvatarName title='S101' color='#EE4747' />,
-//     'Harisha B E',
-//     <StatusDot color='#38BE62' title='Active' />,
-//     '38/40',
-//     '01/01/2022',
-//     '06/02/2022',
-//     [<TimerIcon />, <EditIcon />, <DeleteIcon />]
-//   ),
-//   createData(
-//     <AvatarName title='S101' color='#4795EE' />,
-//     'Harisha B E',
-//     <StatusDot color='#38BE62' title='Active' />,
-//     '26/40',
-//     '01/01/2022',
-//     '06/02/2022',
-//     [<TimerIcon />, <EditIcon />, <DeleteIcon />]
-//   ),
-// ];
-
-// const actionIcon = [<TimerIcon />, <EditIcon />, <DeleteIcon />];
 
 const Assignments = ({
   GetAssignment,
@@ -157,15 +118,19 @@ const Assignments = ({
             <AssignmentForm />
           </CreateDrawer>
         </AddButtonBottom>
-        <CommonTable
-          isCheckbox={ true }
-          tableHeader={ columns }
-          tableData={ rows }
-          handleAction={ handleAction }
-          isLoading={ isLoadingAssignment }
-          path={ { pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: clasId, assId: assId } } }
-        // path='/instructor/mysubmissions'
-        />
+        { assignmentData?.length > 0 ?
+          <CommonTable
+            isCheckbox={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            handleAction={ handleAction }
+            isLoading={ isLoadingAssignment }
+            path={ { pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: clasId, assId: assId } } }
+          // path='/instructor/mysubmissions'
+          /> 
+          : <ErrorBlock message={ ASSIGNMENT_NOT_FOUND } />
+        }
+
 
         { pageDetails?.totalPages > 1 && (
           <div style={ { marginLeft: '35%', marginTop: '25px' } }>

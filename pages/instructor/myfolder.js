@@ -8,10 +8,18 @@ import styled from 'styled-components';
 import { TextField, Skeleton } from '@mui/material';
 import Instructor from '../../layouts/Instructor';
 import { DeleteWarningIcon } from '../../assets/icon';
-import { BreadCrumb, MainHeading, Folder, CreateDrawer, WarningDialog } from '../../components';
+import {
+    BreadCrumb,
+    MainHeading,
+    Folder,
+    CreateDrawer,
+    WarningDialog,
+    ErrorBlock
+} from '../../components';
 import { GetAllFolders, DeleteFolder } from '../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import MyFoldersForm from './form/MyFolderForm';
+import { FOLDERS_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const InstructorBreadCrumb = [
     {
@@ -138,19 +146,22 @@ const MyFolder = ({
                     <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                 </Grid> :
                 <>
-                    <Grid container spacing={ 2 }>
-                        { myFolders?.map((item, index) => (
-                            <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
-                                <Folder
-                                    item={ item }
-                                    isAction={ true }
-                                    handleClick={ handleFolderEdit }
-                                    handleDelete={ handleFolderDelete }
-                                    path={ { pathname: '/instructor/studentlist', query: { name: item.folder_name, clasId, folderId: item.folder_id } } }
-                                />
-                            </Grid>
-                        )) }
-                    </Grid>
+                    { myFolders?.length > 0 ? 
+                        <Grid container spacing={ 2 }>
+                            { myFolders?.map((item, index) => (
+                                <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
+                                    <Folder
+                                        item={ item }
+                                        isAction={ true }
+                                        handleClick={ handleFolderEdit }
+                                        handleDelete={ handleFolderDelete }
+                                        path={ { pathname: '/instructor/studentlist', query: { name: item.folder_name, clasId, folderId: item.folder_id } } }
+                                    />
+                                </Grid>
+                            )) }
+                        </Grid>   
+                        : <ErrorBlock message={ FOLDERS_NOT_FOUND } />
+                    }    
                 </>
             }
 
