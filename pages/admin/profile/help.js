@@ -14,14 +14,14 @@ const Help = () => {
                     <Grid item md={ 4 } sm={ 12 }>
                         <CardView>
                             <Title title='Admin' />
-                            <div style={ { marginTop: '20px', padding: "5px" } }>
+                            <div style={ { marginTop: '20px' } }>
                                 <Link href="https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf">
-                                    <a style={ { color: 'blue' } } target='_blank'>Admin tutorial PDF download</a>
+                                    <a target='_blank' style={ { textDecoration: 'underline' } }>Admin tutorial PDF download</a>
                                 </Link>
                             </div>
-                            <div style={ { padding: "5px" } }>
+                            <div style={ { paddingTop: "5px" } }>
                                 <Link href="https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf">
-                                    <a style={ { color: 'blue' } } target='_blank'>Admin video tutorial</a>
+                                    <a target='_blank'>Admin video tutorial</a>
                                 </Link>
                             </div>
                         </CardView>
@@ -31,12 +31,12 @@ const Help = () => {
                             <Title title='Instructor' />
                             <div style={ { marginTop: '20px', padding: "5px" } }>
                                 <Link href="https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf">
-                                    <a style={ { color: 'blue' } } target='_blank'>Instructor tutorial PDF download</a>
+                                    <a target='_blank'>Instructor tutorial PDF download</a>
                                 </Link>
                             </div>
                             <div style={ { padding: "5px" } }>
                                 <Link href="https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf">
-                                    <a style={ { color: 'blue' } } target='_blank'>Instructor video tutorial</a>
+                                    <a target='_blank'>Instructor video tutorial</a>
                                 </Link>
                             </div>
                         </CardView>
@@ -46,12 +46,12 @@ const Help = () => {
                             <Title title='Student' />
                             <div style={ { marginTop: '20px', padding: "5px" } }>
                                 <Link href="https://www.drillbitplagiarism.com/userGuide/DrillBit%20Student%20user%20guide%20-%202022.pdf">
-                                    <a style={ { color: 'blue' } } target='_blank'>Student tutorial PDF download</a>
+                                    <a target='_blank'>Student tutorial PDF download</a>
                                 </Link>
                             </div>
                             <div style={ { padding: "5px" } }>
                                 <Link href="https://www.drillbitplagiarism.com/userGuide/DrillBit%20Student%20user%20guide%20-%202022.pdf">
-                                    <a style={ { color: 'blue' } } target='_blank'>Student video tutorial</a>
+                                    <a target='_blank'>Student video tutorial</a>
                                 </Link>
                             </div>
                         </CardView>

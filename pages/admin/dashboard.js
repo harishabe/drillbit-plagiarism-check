@@ -21,6 +21,7 @@ import {
     ListSkeleton,
     LineChart,
     CurveChart,
+    ErrorBlock
 } from '../../components';
 import {
     NoOfClassIcon,
@@ -47,6 +48,11 @@ import {
 } from './../../constant/data/ChartData';
 import { Skeleton } from '@mui/material';
 import { setItemLocalStorage, getItemLocalStorage } from '../../utils/RegExp';
+import {
+    DOCUMENT_PROCESSED_NOT_FOUND,
+    STUDENT_NOT_FOUND,
+    TREND_ANALYSIS_NOT_FOUND
+} from '../../constant/data/ErrorMessage';
 
 const InLineText = styled.span`
     display: inline-flex;
@@ -133,7 +139,7 @@ const Dashboard = ({
                         <CardView>
                             <Heading title='Document Processed' />
                             {isLoadingDashboard ? <Skeleton /> :
-                                recentSubmission?.length > 0 && <ColumnChart
+                                recentSubmission?.length && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ? <ColumnChart
                                     type={COLUMN_ADMIN_CHART_TYPE}
                                     color={COLUMN_ADMIN_CHART_COLOR}
                                     xaxisData={COLUMN_ADMIN_XAXIS_DATA}
@@ -147,7 +153,9 @@ const Dashboard = ({
                                     ]}
                                     gradient={COLUMN_ADMIN_CHART_GRADIENT}
                                     borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
-                                />}
+                                />
+                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                            }
                         </CardView>
                     </Grid>
                     <Grid item md={5} xs={12}>
@@ -193,9 +201,13 @@ const Dashboard = ({
                                     <ListSkeleton />
                                 </> :
                                 <>
-                                    <TopStudents
-                                        topStudentData={adminDashboardData?.topStudent?.students}
-                                    />
+                                    { adminDashboardData?.topStudent?.students?.length > 0 ?
+                                        <TopStudents
+                                            topStudentData={ adminDashboardData?.topStudent?.students }
+                                        />
+                                        : <ErrorBlock message={ STUDENT_NOT_FOUND } />
+                                    }
+
                                     <CurveChartContainer>
                                         <CurveChart
                                             chartType="area"
@@ -273,18 +285,24 @@ const Dashboard = ({
                                     style={{ margin: '59px auto' }}
                                     height={250} width={250}
                                 /> :
-                                <PieChart
-                                    type="donut"
-                                    color={PIE_CHART_COLOR}
-                                    height={320}
-                                    label={PIE_CHART_LABEL}
-                                    series={
-                                        [
-                                            adminDashboardData?.trendAnalysis?.similarWork,
-                                            adminDashboardData?.trendAnalysis?.ownWork
-                                        ]
+                                <>
+                                    { adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
+                                        <PieChart
+                                            type="donut"
+                                            color={ PIE_CHART_COLOR }
+                                            height={ 320 }
+                                            label={ PIE_CHART_LABEL }
+                                            series={
+                                                [
+                                                    adminDashboardData?.trendAnalysis?.similarWork,
+                                                    adminDashboardData?.trendAnalysis?.ownWork
+                                                ]
+                                            }
+                                        />
+                                        : <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
                                     }
-                                />}
+                                </>
+                            }
                         </CardView>
                     </Grid>
                 </Grid>

@@ -44,6 +44,7 @@ import {
     STUDENT_NOT_FOUND,
     DASHBOARD_RECENT_SUBMISSION_NOT_FOUND,
     DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND,
+    TREND_ANALYSIS_NOT_FOUND
 } from '../../constant/data/ErrorMessage';
 
 
@@ -149,7 +150,7 @@ const Dashboard = ({
                         <CardView height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }>
                             <Heading title='Submission Overview' />
                             { isLoading ? <Skeleton /> :
-                                instructorDashboardData?.data?.no_of_submissions ? <ColumnChart
+                                instructorDashboardData?.data?.no_of_submissions > 0 ? <ColumnChart
                                     type={ COLUMN_ADMIN_CHART_TYPE }
                                     color={ COLUMN_ADMIN_CHART_COLOR }
                                     xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
@@ -181,21 +182,26 @@ const Dashboard = ({
                                     </TextAlignRight>
                                 </Grid>
                             </Grid>
-                            { isLoading ? <> <Skeleton /> </> : <> { instructorDashboardData?.data?.trendAnalysis &&
-                                <PieChart
-                                    type="donut"
-                                height={ 318 }
-                                color={ PIE_CHART_COLOR }
-                                width={ PIE_CHART_WIDTH }
-                                label={ PIE_CHART_LABEL }
-                                    series={
-                                        [
-                                            instructorDashboardData?.data?.trendAnalysis?.similarWork,
-                                            instructorDashboardData?.data?.trendAnalysis?.ownWork
-                                        ]
+                            { isLoading ? <Skeleton />
+                                : <>
+                                    { instructorDashboardData?.data?.trendAnalysis?.documentsProcessed ?
+                                        <PieChart
+                                            type="donut"
+                                            height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '443px' }
+                                            color={ PIE_CHART_COLOR }
+                                            width={ PIE_CHART_WIDTH }
+                                            label={ PIE_CHART_LABEL }
+                                            series={
+                                                [
+                                                    instructorDashboardData?.data?.trendAnalysis?.similarWork,
+                                                    instructorDashboardData?.data?.trendAnalysis?.ownWork
+                                                ]
+                                            }
+                                        />
+                                        : <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
                                     }
-                                />
-                            } </> }
+                                </>
+                            }
 
                         </CardView>
                     </Grid>

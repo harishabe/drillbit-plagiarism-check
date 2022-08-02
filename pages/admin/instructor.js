@@ -9,19 +9,27 @@ import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import { TextField, Pagination, IconButton, Button } from '@mui/material';
 import Admin from './../../layouts/Admin';
-import { BreadCrumb } from './../../components';
 import {
     CardView,
     CommonTable,
     MainHeading,
     StatusDot,
+    BreadCrumb,
+    ErrorBlock,
     AvatarName,
     CreateDrawer,
     WarningDialog,
     DialogModal,
     SubTitle
 } from '../../components';
-import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon, DownloadIcon, UploadIcon } from '../../assets/icon';
+import {
+    EditIcon,
+    DeleteIcon,
+    StatsIcon,
+    DeleteWarningIcon,
+    DownloadIcon,
+    UploadIcon
+} from '../../assets/icon';
 import {
     GetInstructorData,
     DeleteData,
@@ -33,6 +41,7 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
 import InstructorStats from './instructor/InstructorStats';
 import { removeCommaWordEnd } from '../../utils/RegExp';
+import { INSTRUCTOR_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const columns = [
     { id: 'user_id', label: 'ID', minWidth: 100 },
@@ -400,27 +409,33 @@ const Instructor = ({
                             <DeleteIcon />
                         </IconButton>
                     </div>}
-                    <CommonTable
-                        isCheckbox={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        handleAction={handleAction}
-                        handleTableSort={handleTableSort}
-                        handleCheckboxSelect={handleCheckboxSelect}
-                        handleSingleSelect={handleSingleSelect}
-                        isLoading={isLoading}
-                        charLength={17}
-                        path=''
-                    />
-                    <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                        <Pagination
-                            count={pageDetails?.totalPages}
-                            onChange={handleChange}
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
+                    { instructorData?.length > 0 ? 
+                        <CommonTable
+                            isCheckbox={ true }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                            handleAction={ handleAction }
+                            handleTableSort={ handleTableSort }
+                            handleCheckboxSelect={ handleCheckboxSelect }
+                            handleSingleSelect={ handleSingleSelect }
+                            isLoading={ isLoading }
+                            charLength={ 17 }
+                            path=''
                         />
-                    </div>
+                        : <ErrorBlock message={ INSTRUCTOR_NOT_FOUND } />
+                    }
+
+                    { pageDetails?.totalPages > '1' &&
+                        <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+                            <Pagination
+                                count={ pageDetails?.totalPages }
+                                onChange={ handleChange }
+                                color="primary"
+                                variant="outlined"
+                                shape="rounded"
+                            />
+                        </div>
+                    }
                 </>
             </CardView>
 
