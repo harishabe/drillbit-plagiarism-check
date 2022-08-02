@@ -60,6 +60,9 @@ const AppBar = styled(MuiAppBar, {
 const NavBar = ({
     open,
     handleDrawerOpen,
+    instructorDashboardData,
+    dashboardData,
+    studentData
 }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openProfile = Boolean(anchorEl);
@@ -75,8 +78,8 @@ const NavBar = ({
     }
     const handleLogout = (event) => {
         event.preventDefault();
+        localStorage.clear();
         window.location.href = '/auth/login';
-        //router.push('/auth/login')
     }
 
     React.useEffect(() => {
@@ -86,6 +89,17 @@ const NavBar = ({
         setRole(userRole);
     }, []);
 
+    React.useEffect(() => {
+        setName(dashboardData?.name);
+    }, [dashboardData]);
+
+    React.useEffect(() => {
+        setName(instructorDashboardData?.name);
+    }, [instructorDashboardData]);
+
+    React.useEffect(() => {
+        setName(studentData?.name);
+    }, [studentData]);
 
     return (
         <>
@@ -138,7 +152,7 @@ const NavBar = ({
                                     <Divider orientation="vertical" flexItem />
                                     <div style={{ display: 'block', marginLeft: '15px', marginRight: '15px' }}>
                                         <div style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}>
-                                            <EllipsisText value={name} charLength={12} />
+                                            {name !== undefined ? <EllipsisText value={name} charLength={12} /> : <Skeleton />}
                                         </div>
                                         <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right' }}>
                                             {role?.charAt(0)?.toUpperCase() + role?.slice(1)}
@@ -205,12 +219,12 @@ const NavBar = ({
                             <Avatar alt={name} style={{ width: '56px', height: '56px', background: '#68C886', color: '#fff' }}>
                                 {name && name.charAt(0)}
                             </Avatar>
-                            <EllipsisText value={name} charLength={20} />
+                            {name !== undefined ? <EllipsisText value={name} charLength={20} /> : <Skeleton />}
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                         {role === Role?.admin &&
                             <>
-                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/instructor/dashboard')}>
                                     <ListItemIcon>
                                         <SwitchAccountIcon />
                                     </ListItemIcon>
@@ -252,7 +266,7 @@ const NavBar = ({
 const mapStateToProps = (state) => ({
     dashboardData: state?.adminDashboard?.data?.userProfileLite,
     instructorDashboardData: state?.instructorDashboard?.data?.userProfileLite,
-    StudentData: state?.studentClasses?.dashboardData?.userProfileLite,
+    studentData: state?.studentClasses?.dashboardData?.userProfileLite,
 });
 
 export default connect(mapStateToProps, {})(NavBar);
