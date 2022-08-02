@@ -42,6 +42,7 @@ const END_POINTS = {
     CREATE_EXTREME_REF_ACCOUNT: '/drillbit/register/',
     SUPER_ADMIN_EXTREME_REF: '/drillbit/register/',
     INSTRUCTOR_DOWNLOAD_TEMPLATE: '/extreme/admin/instructorTemplate',
+    CREATE_MULTIPLE_INSTRUCTOR:'/extreme/admin/addMultipleInstructors',
     STUDENT_DOWNLOAD_TEMPLATE: '/extreme/classes/',
     CREATE_MULTIPLE_STUDENT: '/extreme/classes/',
 };
