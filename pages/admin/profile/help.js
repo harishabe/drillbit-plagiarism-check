@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Admin from '../../../layouts/Admin';
-import { MainHeading, Title, CardView } from './../../../components'
-import Link from 'next/link'
+import { MainHeading, Title, CardView } from './../../../components';
+import Link from 'next/link';
 
 const Help = () => {
 
@@ -36,7 +36,6 @@ const Help = () => {
 
     useEffect(() => {
         let d = data?.map((item) => {
-            console.log('test', item.role === 'admin' && item.role === 'instructor' && item.role === 'student');
             if (localStorage.getItem('role') === 'admin') {
                 item['isShow'] = true;
             } else {
