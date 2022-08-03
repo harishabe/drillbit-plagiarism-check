@@ -5,9 +5,11 @@ import {
     CommonTable,
     CreateDrawer,
     EllipsisText,
+    ErrorBlock
 } from '../../components';
 import SubmissionForm from './form/SubmissionForm';
 import Pagination from '@mui/material/Pagination';
+import { SUBMISSION_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -60,11 +62,16 @@ const SubmissionHistory = ({
     return (
         <>
             { isLoadingSubmission ? <Skeleton /> :
-                <CommonTable
-                    isCheckbox={ false }
-                    tableHeader={ columns }
-                    tableData={ rows }
-                />
+                <>
+                    { submissionData?.length > 0 ? 
+                        <CommonTable
+                            isCheckbox={ false }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                        />
+                        : <ErrorBlock message={ SUBMISSION_NOT_FOUND } />
+                    }
+                </>
             }
 
             { pageDetails?.totalPages > 1 &&

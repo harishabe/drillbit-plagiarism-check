@@ -9,8 +9,9 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import Pagination from '@mui/material/Pagination';
 import { Skeleton, TextField } from '@mui/material';
 import Student from '../../layouts/Student';
-import { BreadCrumb, CardInfoView, MainHeading } from '../../components';
+import { BreadCrumb, CardInfoView, MainHeading, ErrorBlock } from '../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../utils/RegExp';
+import { ASSIGNMENT_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const StudentBreadCrumb = [
     {
@@ -138,23 +139,27 @@ const MyAssignments = ({
                     <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                 </Grid> :
                 <>
-                    <Grid container spacing={ 2 }>
-                        { item?.map((item, index) => (
-                            <Grid item md={ 4 } xs={ 12 }>
-                                <CardInfoView
-                                    key={ index }
-                                    item={ item }
-                                    isAvatar={ true }
-                                    isHeading={ true }
-                                    isTimer={ true }
-                                    isSubmit={ true }
-                                    isDownload={ true }
-                                    statusColor={ expiryDateBgColor(item.validity) }
-                                    submitPath={ { pathname: '/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId } } }
-                                />
-                            </Grid>
-                        )) }
-                    </Grid>
+                    { assignmentData?.length > 0 ? 
+                        <Grid container spacing={ 2 }>
+                            { item?.map((item, index) => (
+                                <Grid item md={ 4 } xs={ 12 }>
+                                    <CardInfoView
+                                        key={ index }
+                                        item={ item }
+                                        isAvatar={ true }
+                                        isHeading={ true }
+                                        isTimer={ true }
+                                        isSubmit={ true }
+                                        isDownload={ true }
+                                        statusColor={ expiryDateBgColor(item.validity) }
+                                        submitPath={ { pathname: '/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId } } }
+                                    />
+                                </Grid>
+                            )) }
+                        </Grid>
+                        : <ErrorBlock message={ ASSIGNMENT_NOT_FOUND } />
+                    }
+
                 </>
             }
 
