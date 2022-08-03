@@ -35,11 +35,9 @@ const RecentSubmissionTable = ({
                                 <SubTitle
                                         title={ item.class_name } />
                             </TableCell>
-                            <TableCell>
-                                <SubTitle1
-                                        title="Good" />
+                                <TableCell>
                                 <SubTitle
-                                    title={item.percent} />
+                                        title={ item.percent === '--' ? "--" : `${item.percent}%` } />
                             </TableCell>
                             <TableCell>
                                 <StatusDot color="#69C886" title="Active" />                                

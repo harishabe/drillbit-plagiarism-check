@@ -12,6 +12,7 @@ import {
     CardView,
     Heading,
     SubTitle,
+    ErrorBlock
 } from '../../components'
 import {
     GetDashboardData
@@ -37,6 +38,11 @@ import {
 } from '../../assets/icon'
 import MyRecentSubmissionTable from '../../components/table/MyRecentSubmissionTable'
 import { setItemLocalStorage } from '../../utils/RegExp';
+import {
+    DASHBOARD_RECENT_SUBMISSION_NOT_FOUND,
+    DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND,
+    TREND_ANALYSIS_NOT_FOUND
+} from '../../constant/data/ErrorMessage';
 
 const TextAlignRight = styled.div`
     text-align: right;
@@ -137,7 +143,14 @@ const Dashboard = ({
                         <CardView>
                             <Heading title='My Recent submissions' />
                             { isLoadingDashboard ? <Skeleton /> :
-                                <MyRecentSubmissionTable tableData={ studentDashboardData?.recentSubmissions } /> }
+                                <>
+                                    { studentDashboardData?.recentSubmissions.length > 0 ?
+                                        <MyRecentSubmissionTable tableData={ studentDashboardData?.recentSubmissions } />
+                                        : <ErrorBlock message={ DASHBOARD_RECENT_SUBMISSION_NOT_FOUND } />
+                                    }
+
+                                </>
+                            }
 
                         </CardView>
                     </Grid>
@@ -149,7 +162,7 @@ const Dashboard = ({
                         <CardView>
                             <Heading title='Submission Overview' />
                             { isLoadingDashboard ? <Skeleton /> :
-                                submissionOverview?.length > 0 && <ColumnChart
+                                submissionOverview?.length && studentDashboardData?.no_of_submissions > 0 ? <ColumnChart
                                     type={ COLUMN_ADMIN_CHART_TYPE }
                                     color={ COLUMN_ADMIN_CHART_COLOR }
                                     xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
@@ -163,7 +176,9 @@ const Dashboard = ({
                                     ] }
                                     gradient={ COLUMN_ADMIN_CHART_GRADIENT }
                                     borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
-                                /> }
+                                />
+                                    : <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
+                            }
                         </CardView>
                     </Grid>
                     <Grid item md={4} xs={12}>
@@ -190,18 +205,25 @@ const Dashboard = ({
                                     style={ { margin: '59px auto' } }
                                     height={ 250 } width={ 250 }
                                 /> :
-                                <PieChart
-                                    type={ PIE_CHART_TYPE }
-                                    color={ PIE_CHART_COLOR }
-                                    width={ PIE_CHART_WIDTH }
-                                    label={ PIE_CHART_LABEL }
-                                    series={
-                                        [
-                                            studentDashboardData?.trendAnalysis?.similarWork,
-                                            studentDashboardData?.trendAnalysis?.ownWork
-                                        ]
+                                <>
+                                    { studentDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
+                                        <PieChart
+                                            type={ PIE_CHART_TYPE }
+                                            color={ PIE_CHART_COLOR }
+                                            width={ PIE_CHART_WIDTH }
+                                            label={ PIE_CHART_LABEL }
+                                            height={ studentDashboardData?.trendAnalysis?.documentsProcessed === 0 ? '' : '318px' }
+                                            series={
+                                                [
+                                                    studentDashboardData?.trendAnalysis?.similarWork,
+                                                    studentDashboardData?.trendAnalysis?.ownWork
+                                                ]
+                                            }
+                                        />
+                                        : <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
                                     }
-                                /> }
+                                </>
+                            }
                         </CardView>
                     </Grid>
                 </Grid>

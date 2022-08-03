@@ -8,8 +8,9 @@ import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import { Skeleton, TextField } from '@mui/material';
 import Student from '../../layouts/Student';
-import { BreadCrumb, CardInfoView, MainHeading } from '../../components';
+import { BreadCrumb, CardInfoView, MainHeading, ErrorBlock } from '../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../utils/RegExp';
+import { CLASS_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const StudentBreadCrumb = [
     {
@@ -134,24 +135,27 @@ const MyClasses = ({
                     <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                 </Grid> :
                 <>
-                    <Grid container spacing={ 2 }>
-                        { item?.map((item, index) => (
-                            <Grid item md={ 4 } xs={ 12 }>
-                                <CardInfoView
-                                    key={ index }
-                                    isNextPath={ true }
-                                    isAction={false}
-                                    item={ item }
-                                    isAvatar={ true }
-                                    isHeading={ true }
-                                    isInstructorName={ true }
-                                    isTimer={ true }
-                                    statusColor={ expiryDateBgColor(item.validity) }
-                                    path={ { pathname: '/student/myassignments', query: { clasId: item.id } } }
-                                />
-                            </Grid>
-                        )) }
-                    </Grid>
+                    { classesData?.length > 0 ? 
+                        <Grid container spacing={ 2 }>
+                            { item?.map((item, index) => (
+                                <Grid item md={ 4 } xs={ 12 }>
+                                    <CardInfoView
+                                        key={ index }
+                                        isNextPath={ true }
+                                        isAction={ false }
+                                        item={ item }
+                                        isAvatar={ true }
+                                        isHeading={ true }
+                                        isInstructorName={ true }
+                                        isTimer={ true }
+                                        statusColor={ expiryDateBgColor(item.validity) }
+                                        path={ { pathname: '/student/myassignments', query: { clasId: item.id } } }
+                                    />
+                                </Grid>
+                            )) }
+                        </Grid>
+                        : <ErrorBlock message={ CLASS_NOT_FOUND } />
+                    }
                 </>
             }
             { pageDetails?.totalPages > 1 &&

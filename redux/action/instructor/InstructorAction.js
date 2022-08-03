@@ -118,27 +118,27 @@ export const GetAllFolders = (paginationPayload) => {
 /**
  * Create Folder
  */
-export const CreateFolder = (clasId, data) => {
+export const CreateFolder = (data) => {
     return {
-        type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, clasId: clasId, query: data
+        type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, query: data
     };
 };
 
 /**
  * Edit folder
  */
-export const EditFolder = (classId, folderId, requestPayload) => {
+export const EditFolder = (folderId, requestPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_START, classId: classId, folderId: folderId, requestPayload: requestPayload,
+        type: types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_START, folderId: folderId, requestPayload: requestPayload,
     };
 };
 
 /**
  * Delete folder
  */
-export const DeleteFolder = (classId, folderId) => {
+export const DeleteFolder = (folderId) => {
     return {
-        type: types.FETCH_INSTRUCTOR_DELETE_FOLDER_START, classId: classId, folderId: folderId,
+        type: types.FETCH_INSTRUCTOR_DELETE_FOLDER_START, folderId: folderId,
     };
 };
 

@@ -36,12 +36,15 @@ const dateFormat = (str) => {
     return [date, month, day];
 };
 
-const ISO = (timeStamp = Date.now()) => {
-    return new Date(timeStamp - (new Date().getTimezoneOffset() * 60 * 1000)).toISOString().slice(0, -5).replace('T', ' ')
-}
-
 export const convertDate = (str) => {
-    return ISO(str);
+    var date = new Date(str);
+    var dateStr = date.getFullYear() + "-" +
+        ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+        ("00" + date.getDate()).slice(-2) + " " +
+        ("00" + date.getHours()).slice(-2) + ":" +
+        ("00" + date.getMinutes()).slice(-2) + ":" +
+        ("00" + date.getSeconds()).slice(-2);
+    return dateStr;
 };
 
 export const formatDate = (str) => {

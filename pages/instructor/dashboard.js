@@ -50,7 +50,7 @@ import {
 
 const TextAlignRight = styled.div`
     text-align: right;
-    margin-top: 5px;
+    marginTop: 2px;
 `;
 
 const Dashboard = ({
@@ -136,7 +136,8 @@ const Dashboard = ({
                                 <>
                                     { instructorDashboardData?.data?.recent_submissions?.length > 0 ?
                                         <RecentSubmissions recentSubmission={ instructorDashboardData?.data?.recent_submissions } />
-                                        : <ErrorBlock message={ DASHBOARD_RECENT_SUBMISSION_NOT_FOUND } /> }
+                                        : <ErrorBlock message={ DASHBOARD_RECENT_SUBMISSION_NOT_FOUND } />
+                                    }
 
                                 </>
                             }
@@ -150,7 +151,7 @@ const Dashboard = ({
                         <CardView height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }>
                             <Heading title='Submission Overview' />
                             { isLoading ? <Skeleton /> :
-                                instructorDashboardData?.data?.no_of_submissions > 0 ? <ColumnChart
+                                recentSubmission?.length && instructorDashboardData?.data?.no_of_submissions > 0 ? <ColumnChart
                                     type={ COLUMN_ADMIN_CHART_TYPE }
                                     color={ COLUMN_ADMIN_CHART_COLOR }
                                     xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
@@ -187,7 +188,7 @@ const Dashboard = ({
                                     { instructorDashboardData?.data?.trendAnalysis?.documentsProcessed ?
                                         <PieChart
                                             type="donut"
-                                            height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '443px' }
+                                            height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '318px' }
                                             color={ PIE_CHART_COLOR }
                                             width={ PIE_CHART_WIDTH }
                                             label={ PIE_CHART_LABEL }

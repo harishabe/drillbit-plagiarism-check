@@ -116,8 +116,8 @@ export const GetMyFoldersDetail = async (paginationPayload) => {
  * API CALL FOR CREATE CLASS
  */
 
-export const CreateFolderData = async (clasId, data) => {
-    const url = BASE_URL_EXTREM + END_POINTS.CREATE_FOLDER + clasId + '/folder';
+export const CreateFolderData = async (data) => {
+    const url = BASE_URL_EXTREM + END_POINTS.CREATE_FOLDER;
     return PostMethod(url, data);
 };
 
@@ -126,7 +126,7 @@ export const CreateFolderData = async (clasId, data) => {
  */
 
 export const EditFolderData = async (action) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + action.classId + '/folder/' + action.folderId;
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '/' + action.folderId;
     return PutMethod(url, action.requestPayload);
 };
 
@@ -135,7 +135,7 @@ export const EditFolderData = async (action) => {
  */
 
 export const DeleteFolders = async (action) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + action.classId + '/assignments?id=' + action.folderId;
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '?id=' + action.folderId;
     return DeleteMethod(url);
 }
 

@@ -310,7 +310,7 @@ export function* GetMyFolders() {
  */
 
 export function* onLoadCreateFolder(action) {
-    const { response, error } = yield call(CreateFolderData, action.clasId, action.query);
+    const { response, error } = yield call(CreateFolderData, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_SUCCESS, payload: response?.data });
         yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: InstructorFolderPaginationValue });

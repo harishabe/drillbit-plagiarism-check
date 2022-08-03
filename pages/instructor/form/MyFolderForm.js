@@ -6,12 +6,11 @@ import { FormComponent } from '../../../components';
 import { CreateFolder, EditFolder } from '../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../constant/form/myfolders-form.json';
 import { AddImageIcon } from '../../../assets/icon';
-import { convertDate } from '../../../utils/RegExp';
+import { convertDate, formatDate } from '../../../utils/RegExp';
 
 const MyFoldersForm = ({
     isLoading,
     CreateFolder,
-    clasId,
     EditFolder,
     editData,
 }) => {
@@ -25,6 +24,7 @@ const MyFoldersForm = ({
     });
 
     const onSubmit = (data) => {
+        // console.log('tets', data.expiry_date.slice(0, -9));
         if (editOperation) {
             data['end_date'] = convertDate(data.expiry_date);
             data['exclude_refernces'] = data.exclude_refernces;
@@ -39,7 +39,7 @@ const MyFoldersForm = ({
             data['institution_repository'] = data.institution_repository;
             data['repository_scope'] = data.repository_scope.name;
             delete data.expiry_date;
-            EditFolder(clasId, editData?.folder_id, data);
+            EditFolder(editData?.folder_id, data);
         } else {
             let Detaileddata = {
                 ...data,
@@ -57,7 +57,7 @@ const MyFoldersForm = ({
                 'repository_scope': data.repository_scope.name
             }
             delete Detaileddata.expiry_date;
-            CreateFolder(clasId, Detaileddata);
+            CreateFolder(Detaileddata);
         }
     };
 
@@ -82,17 +82,17 @@ const MyFoldersForm = ({
             let a = {
                 'assignment_name': editData.folder_name,
                 'expiry_date': convertDate(editData.end_date),
-                'exclude_refernces': editData.exclude_refernces,
-                'exclude_quotes': editData.exclude_quotes,
-                'exclude_small_sources': editData.exclude_small_sources,
-                'exclude_include_sources': editData.exclude_include_sources,
-                'grammar_check': editData.grammar_check,
-                'exclude_phrases': editData.exclude_phrases,
+                'exclude_refernces': editData.excludeReferences,
+                'exclude_quotes': editData.excludeQuotes,
+                'exclude_small_sources': editData.excludeSmallSources,
+                'exclude_include_sources': editData.excludeIncludeSources,
+                'grammar_check': editData.grammarCheck,
+                'exclude_phrases': editData.excludePhrases,
                 'db_studentpaper': editData.db_studentpaper,
                 'db_publications': editData.db_publications,
                 'db_internet': editData.db_internet,
-                'institution_repository': data.institution_repository,
-                'repository_scope': data.repository_scope.name
+                'institution_repository': editData.institution_repository,
+                'repository_scope': editData.repository_scope
             };
             const fields = [
                 'assignment_name',
@@ -142,8 +142,8 @@ const MyFoldersForm = ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        CreateFolder: (clasId, data) => dispatch(CreateFolder(clasId, data)),
-        EditFolder: (clasId, folderId, requestPayload) => dispatch(EditFolder(clasId, folderId, requestPayload)),
+        CreateFolder: (data) => dispatch(CreateFolder(data)),
+        EditFolder: (folderId, requestPayload) => dispatch(EditFolder(folderId, requestPayload)),
     };
 };
 

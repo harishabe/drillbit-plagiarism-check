@@ -82,7 +82,7 @@ const MyFolder = ({
     };
 
     const handleYesWarning = () => {
-        DeleteFolder(clasId, selectedFolder.folder_id);
+        DeleteFolder(selectedFolder.folder_id);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -227,7 +227,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetAllFolders: (paginationPayload) => dispatch(GetAllFolders(paginationPayload)),
-        DeleteFolder: (clasId, folderId) => dispatch(DeleteFolder(clasId, folderId)),
+        DeleteFolder: (folderId) => dispatch(DeleteFolder(folderId)),
     };
 };
 
