@@ -170,10 +170,10 @@ const CardInfoView = ({
                                             <EditIcon />
                                         </MenuItem>
                                         <Divider />
-                                        <MenuItem>
+                                    {/* <MenuItem>
                                             <ListItemText sx={{ marginRight: '5px' }}>Archieve</ListItemText>
                                             <ArchieveIcon />
-                                        </MenuItem>
+                                        </MenuItem> */}
                                         <Divider />
                                         <MenuItem onClick={(e) => {
                                             setAnchorEl(null);
