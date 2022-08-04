@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
+import Link from 'next/link';
 import Instructor from '../../layouts/Instructor';
 import { GetWidgetCount } from '../../redux/action/instructor/InstructorAction';
 import {
@@ -50,7 +51,7 @@ import {
 
 const TextAlignRight = styled.div`
     text-align: right;
-    marginTop: 2px;
+    marginTop: 4px;
 `;
 
 const Dashboard = ({
@@ -106,7 +107,7 @@ const Dashboard = ({
             <Box mt={ 1 } sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 4 } xs={ 12 }>
-                        <CardView height={ instructorDashboardData?.data?.top_students?.students?.length === 0 ? '' : '443px' }>
+                        <CardView height={ instructorDashboardData?.data?.top_students?.students?.length === 0 ? '' : '400px' }>
                             <Heading title='Top Students' />
                             { isLoading ?
                                 <>
@@ -124,8 +125,25 @@ const Dashboard = ({
                         </CardView>
                     </Grid>
                     <Grid item md={ 8 } xs={ 12 }>
-                        <CardView height={ instructorDashboardData?.data?.recent_submissions?.length === 0 ? '' : '443px' }>
-                            <Heading title='Recent Submissions' />
+                        <CardView height={ instructorDashboardData?.data?.recent_submissions?.length === 0 ? '' : '400px' }>
+                            <Grid container spacing={ 1 }>
+                                <Grid item md={ 10 } xs={ 12 }>
+                                    <Heading title='Recent Submissions' />
+                                </Grid>
+                                <Grid item md={ 2 } xs={ 12 }>
+                                    { instructorDashboardData?.data?.recent_submissions?.length !== 0 &&
+                                        <TextAlignRight>
+                                            <Link href={ ' ' }>
+                                                <a target='_blank' style={ { textDecoration: 'underline' } }>
+                                                    View all
+                                                </a>
+                                            </Link>
+                                        </TextAlignRight>
+                                    }
+
+                                </Grid>
+                            </Grid>
+
                             { isLoading ?
                                 <>
                                     <ListSkeleton />
@@ -148,7 +166,9 @@ const Dashboard = ({
             <Box mt={ 1 } sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 8 } xs={ 12 }>
-                        <CardView height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }>
+                        <CardView
+                        // height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }
+                        >
                             <Heading title='Submission Overview' />
                             { isLoading ? <Skeleton /> :
                                 recentSubmission?.length && instructorDashboardData?.data?.no_of_submissions > 0 ? <ColumnChart
@@ -183,12 +203,18 @@ const Dashboard = ({
                                     </TextAlignRight>
                                 </Grid>
                             </Grid>
-                            { isLoading ? <Skeleton />
+                            { isLoading ?
+                                <Skeleton
+                                    variant="circular"
+                                    style={ { margin: '58px auto' } }
+                                    height={ 250 }
+                                    width={ 250 }
+                                />
                                 : <>
                                     { instructorDashboardData?.data?.trendAnalysis?.documentsProcessed ?
                                         <PieChart
                                             type="donut"
-                                            height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '318px' }
+                                            height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '319px' }
                                             color={ PIE_CHART_COLOR }
                                             width={ PIE_CHART_WIDTH }
                                             label={ PIE_CHART_LABEL }
