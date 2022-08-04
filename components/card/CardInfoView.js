@@ -169,8 +169,8 @@ const CardInfoView = ({
                                             <ListItemText>Edit</ListItemText>
                                             <EditIcon />
                                         </MenuItem>
-                                        <Divider />
-                                    {/* <MenuItem>
+                                    {/* <Divider />
+                                    <MenuItem>
                                             <ListItemText sx={{ marginRight: '5px' }}>Archieve</ListItemText>
                                             <ArchieveIcon />
                                         </MenuItem> */}
