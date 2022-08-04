@@ -25,13 +25,13 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-  { id: 'id', label: 'Id', minWidth: 170 },
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'status', label: 'Status', minWidth: 170 },
-  { id: 'statstics', label: 'Stats', minWidth: 170 },
-  { id: 'creation', label: 'Creation Date', minWidth: 170 },
-  { id: 'end', label: 'End Date', minWidth: 170 },
-  { id: 'action', label: 'Action', minWidth: 100 },
+  { id: 'id', label: 'Id' },
+  { id: 'name', label: 'Name' },
+  { id: 'status', label: 'Status' },
+  { id: 'statstics', label: 'Stats' },
+  { id: 'creation', label: 'Creation Date' },
+  { id: 'end', label: 'End Date' },
+  { id: 'action', label: 'Action' },
 ];
 
 function createData(id, name, status, statstics, creation, end, action) {
@@ -64,17 +64,13 @@ const Assignments = ({
     let arr = [];
     assignmentData?.map((assignment) => {
       row = createData(
-        <AvatarName
-          avatarText='S'
-          title={ assignment.ass_id }
-          color='#4795EE'
-        />,
+        assignment.ass_id,
         assignment.assignment_name,
         <StatusDot
           color={
             assignment.status === 'active' ? '#38BE62' : '#E9596F'
           }
-          title={ assignment.status }
+          title={assignment.status}
         />,
         assignment.ass_id,
         assignment.creation_date,
@@ -97,7 +93,7 @@ const Assignments = ({
 
   const handleAction = (event, icon, rowData) => {
     if (icon === 'edit') {
-      // setEditStudent(true);
+      setEditStudent(true);
       // setEditStudentData(rowData);
       console.log('edit');
     } else if (icon === 'delete') {
@@ -112,37 +108,37 @@ const Assignments = ({
       <CardView>
         <AddButtonBottom>
           <CreateDrawer
-            isShowAddIcon={ true }
+            isShowAddIcon={true}
             title='Create Assignment'
           >
             <AssignmentForm />
           </CreateDrawer>
         </AddButtonBottom>
-        { assignmentData?.length > 0 ?
+        {assignmentData?.length > 0 ?
           <CommonTable
-            isCheckbox={ true }
-            tableHeader={ columns }
-            tableData={ rows }
-            handleAction={ handleAction }
-            isLoading={ isLoadingAssignment }
-            path={ { pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: clasId, assId: assId } } }
+            isCheckbox={true}
+            tableHeader={columns}
+            tableData={rows}
+            handleAction={handleAction}
+            isLoading={isLoadingAssignment}
+            path={{ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: clasId, assId: assId } }}
           // path='/instructor/mysubmissions'
-          /> 
-          : <ErrorBlock message={ ASSIGNMENT_NOT_FOUND } />
+          />
+          : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
         }
 
 
-        { pageDetails?.totalPages > 1 && (
-          <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+        {pageDetails?.totalPages > 1 && (
+          <div style={{ marginLeft: '35%', marginTop: '25px' }}>
             <Pagination
-              count={ pageDetails?.totalPages }
-              onChange={ handlePagination }
+              count={pageDetails?.totalPages}
+              onChange={handlePagination}
               color='primary'
               variant='outlined'
               shape='rounded'
             />
           </div>
-        ) }
+        )}
       </CardView>
     </React.Fragment>
   );

@@ -74,7 +74,7 @@ export const DeleteClass = (classId) => {
  */
 export const DeleteStudent = (classId, userId) => {
     return {
-        type: types.FETCH_INSTRUCTOR_DELETE_STUDENT_START, classId: classId, userId: userId
+        type: types.FETCH_INSTRUCTOR_DELETE_STUDENT_START, class_id: classId, user_id: userId
     };
 };
 

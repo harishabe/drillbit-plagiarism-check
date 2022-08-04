@@ -44,12 +44,12 @@ const Input = styled('input')({
 });
 
 const columns = [
-    { id: 'id', label: 'Student ID', minWidth: 170 },
-    { id: 'name', label: 'Student Name', minWidth: 170 },
-    { id: 'email', label: 'Email', minWidth: 170 },
-    { id: 'department', label: 'Department', minWidth: 170 },
-    { id: 'section', label: 'Section', minWidth: 170 },
-    { id: 'action', label: 'Action', minWidth: 100 },
+    { id: 'id', label: 'Student ID'},
+    { id: 'name', label: 'Student Name' },
+    { id: 'email', label: 'Email' },
+    { id: 'department', label: 'Department'},
+    { id: 'section', label: 'Section' },
+    { id: 'action', label: 'Action' },
 ]
 
 function createData(id, name, email, department, section, action) {
@@ -85,7 +85,7 @@ const Students = ({
         studentData?.map((student) => {
             row =
                 createData(
-                    <AvatarName avatarText="S" title={student.id} color='#4795EE' />,
+                    student.id,
                     student.name,
                     student.username,
                     student.department,
@@ -101,20 +101,21 @@ const Students = ({
     }, [studentData]);
 
     const handleAction = (event, icon, rowData) => {
+        console.log('rowData',rowData);
         if (icon === 'edit') {
             setEditStudent(true);
             setEditStudentData(rowData);
         } else if (icon === 'delete') {
-            setDeleteRowData(rowData?.id?.props?.title);
+            setDeleteRowData(rowData?.id);
             setShowDeleteWarning(true);
         }
     }
 
     const handleYesWarning = () => {
-        // router.push(`/instructor/myclasstables?clasId=${clasId}`);
-        router.replace('/instructor/myclasstables', `/instructor/myclasstables?clasId=${clasId}`);
+        debugger;
+        
+        console.log("datadatadata", clasId,deleteRowData);
         DeleteStudent(clasId, deleteRowData);
-        console.log("datadatadata", clasId, deleteRowData)
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);

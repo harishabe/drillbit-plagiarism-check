@@ -35,7 +35,8 @@ export const EditClassData = async (action) => {
  */
 
 export const DeleteStudentData = async (action) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_STUDENT_DELETE_DATA + action.classId + 'students?id=' + action.userId;
+    console.log('deletestudentherer',action);
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_STUDENT_DELETE_DATA + action?.class_id + '/students?id=' + action?.user_id;
     return DeleteMethod(url);
 }
 

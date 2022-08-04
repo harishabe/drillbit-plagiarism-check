@@ -241,7 +241,8 @@ export function* CreateStudent() {
  */
 
 export function* onLoadDeleteStudent(action) {
-    const { response, error } = yield call(DeleteStudentData, action.class_id, action.user_id);
+    console.log('actionaction',action);
+    const { response, error } = yield call(DeleteStudentData, action);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_DELETE_STUDENT_SUCCESS, payload: response?.data });
         yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, class_id: action.class_id, paginationPayload: PaginationValue });
