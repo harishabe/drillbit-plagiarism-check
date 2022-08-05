@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Pagination } from '@mui/material';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import Instructor from '../../layouts/Instructor';
+import Instructor from '../../../layouts/Instructor';
 import {
   CardView,
   CommonTable,
@@ -10,13 +11,12 @@ import {
   StatusDot,
   CreateDrawer,
   ErrorBlock
-} from '../../components';
-import { EditIcon, DeleteIcon, TimerIcon } from '../../assets/icon';
-import { GetAssignment } from '../../redux/action/instructor/InstructorAction';
-import AssignmentForm from './form/AssignmentForm';
-import { PaginationValue } from '../../utils/PaginationUrl';
-import { Pagination } from '@mui/material';
-import { ASSIGNMENT_NOT_FOUND } from '../../constant/data/ErrorMessage';
+} from '../../../components';
+import { EditIcon, DeleteIcon, TimerIcon } from '../../../assets/icon';
+import { GetAssignment } from '../../../redux/action/instructor/InstructorAction';
+import AssignmentForm from './../form/AssignmentForm';
+import { PaginationValue } from '../../../utils/PaginationUrl';
+import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const AddButtonBottom = styled.div`
     position: absolute;
@@ -55,9 +55,9 @@ const Assignments = ({
     orderBy: PaginationValue?.orderBy,
   });
 
-  useEffect(() => {
-    GetAssignment(clasId, paginationPayload);
-  }, [clasId, paginationPayload]);
+  // useEffect(() => {
+  //   GetAssignment(clasId, paginationPayload);
+  // }, [clasId, paginationPayload]);
 
   useEffect(() => {
     let row = '';

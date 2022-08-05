@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import Instructor from '../../layouts/Instructor'
-import { BreadCrumb, TabMenu } from '../../components'
-import Assignments from './assignments'
-import Students from './students'
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Instructor from '../../layouts/Instructor';
+import { BreadCrumb, TabMenu } from '../../components';
+import Assignments from './myAssignment/Assignments';
+import Students from './myAssignment/Students';
 import { GetStudent, GetAssignment } from '../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 
 const MyClassesTables = ({
     GetStudent,
     GetAssignment,
+    assignmentData,
     pageDetails,
     pageDetailsAssignment,
     studentData,
@@ -20,9 +21,8 @@ const MyClassesTables = ({
 }) => {
 
     const router = useRouter();
-    const [clasId, setClasId] = useState(router.query.clasId);;
 
-    console.log("routerrouterrouter", router)
+    const [clasId, setClasId] = useState(router.query.clasId);
 
     const InstructorBreadCrumb = [
         {
@@ -62,29 +62,29 @@ const MyClassesTables = ({
     };
 
     useEffect(() => {
-        GetStudent(clasId, paginationPayload);
-    }, [clasId, paginationPayload]);
+        GetStudent(router.query.clasId, paginationPayload);
+    }, [router.query.clasId, paginationPayload]);
 
     useEffect(() => {
-        GetAssignment(clasId, paginationAssignment);
-    }, [clasId, paginationAssignment]);
+        GetAssignment(router.query.clasId, paginationAssignment);
+    }, [router.query.clasId, paginationAssignment]);
 
-    const componentList = [        
-        <Assignments />,
+    const componentList = [
         <Students
-            studentData={ studentData }
-            pageDetails={ pageDetails }
-            isLoadingStudent={ isLoadingStudent }
-            handlePagination={ handlePagination }
-        />
+            studentData={studentData}
+            pageDetails={pageDetails}
+            isLoadingStudent={isLoadingStudent}
+            handlePagination={handlePagination}
+        />,
+        <Assignments assignmentData={assignmentData} />
     ];
 
-    const tabMenu = [        
-        {
-            label: `Assignments(${pageDetailsAssignment?.totalElements !== undefined ? pageDetailsAssignment?.totalElements : 0})`,
-        },
+    const tabMenu = [
         {
             label: `Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
+        },
+        {
+            label: `Assignments(${pageDetailsAssignment?.totalElements !== undefined ? pageDetailsAssignment?.totalElements : 0})`,
         }
     ];
 
@@ -95,23 +95,10 @@ const MyClassesTables = ({
                     <Grid item md={10} xs={10}>
                         <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
-                    {/* <Grid item md={2} xs={2}>
-                        <TextField
-                            placeholder='Search'
-                            onChange={debouncedResults}
-                            inputProps={{
-                                style: {
-                                    padding: 5,
-                                    display: 'inline-flex',
-                                },
-                            }}
-                        />
-                    </Grid> */}
                 </Grid>
             </Box>
+          
             <TabMenu menuButton={tabMenu} components={componentList} />
-
-
         </React.Fragment>
     )
 }
@@ -120,7 +107,8 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.instructorClasses?.studentData?.page,
     pageDetailsAssignment: state?.instructorClasses?.assignmentData?.page,
     studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
-    isLoadingStudent: state?.instructorClasses?.isLoadingStudent
+    isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
+    assignmentData: state?.instructorClasses?.assignmentData?._embedded?.assignmentDTOList,
 });
 
 const mapDispatchToProps = (dispatch) => {

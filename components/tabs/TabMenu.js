@@ -19,7 +19,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box>
-                    <Typography>{children}</Typography>
+                    {children}
                 </Box>
             )}
         </div>
@@ -91,7 +91,7 @@ const TabMenu = ({
                 </Tabs>
             </Box>
             {components.map((component, index) => (
-                <TabPanel value={value} index={index}>
+                <TabPanel key={index} value={value} index={index}>
                     {component}
                 </TabPanel>
             ))}

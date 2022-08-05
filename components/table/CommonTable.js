@@ -87,14 +87,14 @@ const CommonTable = ({
                 <TableBody>
                     { isLoading ?
                         <TableSkeleton />
-                        // onClick={ (e) => {
-                        //     if (path && path?.query?.isAssignment) {
-                        //         path.query['assId'] = row?.id?.props?.title
-                        //         router.push(path)
-                        //     } else {
-                        //         router.push(path);
-                        //     }
-                        // } }
+                        //onClick={ (e) => {
+                                // if (path && path?.query?.isAssignment) {
+                                //     path.query['assId'] = row?.id?.props?.title
+                                //     router.push(path)
+                                // } else {
+                                //     router.push(path);
+                                // }
+                            //} }
                         : tableData?.map((row) => (
                             <TableRow hover key={ row.id }>
                                 { isCheckbox &&

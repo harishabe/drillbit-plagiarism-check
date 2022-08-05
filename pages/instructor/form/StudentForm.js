@@ -10,7 +10,8 @@ import FormJson from '../../../constant/form/instructor-student-form.json';
 
 const StudentForm = ({
     CreateStudent,
-    isLoadingCreate
+    isLoadingCreate,
+    editData
 }) => {
 
     const router = useRouter();

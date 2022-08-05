@@ -7,7 +7,8 @@ import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import { Grid, Tooltip, Skeleton, Button, TextField } from '@mui/material';
 import { Pagination } from '@mui/material';
-import Instructor from '../../layouts/Instructor'
+import { IconButton } from '@mui/material';
+import Instructor from '../../../layouts/Instructor'
 import {
     CardView,
     CommonTable,
@@ -16,17 +17,16 @@ import {
     WarningDialog,
     SubTitle,
     ErrorBlock
-} from '../../components'
-import { IconButton } from '@mui/material';
-import { EditIcon, DeleteIcon, DeleteWarningIcon, DownloadIcon, UploadIcon } from '../../assets/icon'
-import StudentForm from './form/StudentForm';
+} from '../../../components';
+import { EditIcon, DeleteIcon, DeleteWarningIcon, DownloadIcon, UploadIcon } from '../../../assets/icon'
+import StudentForm from '../form/StudentForm';
 import {
     DeleteStudent,
     DownloadTemplate,
     UploadFile
-} from '../../redux/action/instructor/InstructorAction';
-import { removeCommaWordEnd } from '../../utils/RegExp';
-import { STUDENT_NOT_FOUND } from '../../constant/data/ErrorMessage';
+} from '../../../redux/action/instructor/InstructorAction';
+import { removeCommaWordEnd } from '../../../utils/RegExp';
+import { STUDENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const AddButtonBottom = styled.div`
     position:absolute;
@@ -44,10 +44,10 @@ const Input = styled('input')({
 });
 
 const columns = [
-    { id: 'id', label: 'Student ID'},
+    { id: 'id', label: 'Student ID' },
     { id: 'name', label: 'Student Name' },
     { id: 'email', label: 'Email' },
-    { id: 'department', label: 'Department'},
+    { id: 'department', label: 'Department' },
     { id: 'section', label: 'Section' },
     { id: 'action', label: 'Action' },
 ]
@@ -91,7 +91,7 @@ const Students = ({
                     student.department,
                     student.section,
                     [{ 'component': <EditIcon />, 'type': 'edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete' },
+                    { 'component': <DeleteIcon />, 'type': 'delete' },
                     ]
                 );
             row['isSelected'] = false;
@@ -101,7 +101,7 @@ const Students = ({
     }, [studentData]);
 
     const handleAction = (event, icon, rowData) => {
-        console.log('rowData',rowData);
+        console.log('rowData', rowData);
         if (icon === 'edit') {
             setEditStudent(true);
             setEditStudentData(rowData);
@@ -113,8 +113,8 @@ const Students = ({
 
     const handleYesWarning = () => {
         debugger;
-        
-        console.log("datadatadata", clasId,deleteRowData);
+
+        console.log("datadatadata", clasId, deleteRowData);
         DeleteStudent(clasId, deleteRowData);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
@@ -226,10 +226,10 @@ const Students = ({
                 </CreateDrawer>
             </AddButtonBottom>
 
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 8 }></Grid>
-                    <Grid item md={ 4 } xs container direction='row' justifyContent={ 'right' }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={8}></Grid>
+                    <Grid item md={4} xs container direction='row' justifyContent={'right'}>
                         {/* <TextField
                             placeholder='Search'
                             onChange={ debouncedResults }
@@ -240,32 +240,32 @@ const Students = ({
                                 }
                             } }
                         /> */}
-                        { show ? '' :
+                        {show ? '' :
                             <Tooltip title="Download Template">
-                                <IconButton sx={ {
+                                <IconButton sx={{
                                     position: 'absolute',
                                     padding: '7px',
                                     top: '118px',
                                     right: '50px'
-                                } }
-                                    onClick={ handleDownload }>
-                                    { isLoadingTemplate ? <Skeleton sx={ { mt: 1 } } width={ 20 } /> : <DownloadIcon /> }
+                                }}
+                                    onClick={handleDownload}>
+                                    {isLoadingTemplate ? <Skeleton sx={{ mt: 1 }} width={20} /> : <DownloadIcon />}
                                 </IconButton>
                             </Tooltip>
                         }
 
-                        { show &&
+                        {show &&
                             <>
 
                                 <form>
                                     <label htmlFor="contained-button-file">
-                                        <Input id="contained-button-file" onChange={ handleSubmit } multiple type="file" />
-                                        <Button variant="contained" component="span" style={ {
+                                        <Input id="contained-button-file" onChange={handleSubmit} multiple type="file" />
+                                        <Button variant="contained" component="span" style={{
                                             position: 'absolute',
                                             padding: '7px',
                                             top: '118px',
                                             right: '50px'
-                                        } }>
+                                        }}>
                                             <>
                                                 <UploadIcon />
                                                 <UploadButtonAlign>
@@ -292,34 +292,34 @@ const Students = ({
                         </IconButton>
                     </div>}
 
-                    { studentData?.length > 0 ? 
+                    {studentData?.length > 0 ?
                         <CommonTable
-                            isCheckbox={ true }
-                            tableHeader={ columns }
-                            tableData={ rows }
-                            handleAction={ handleAction }
-                            handleTableSort={ handleTableSort }
-                            handleCheckboxSelect={ handleCheckboxSelect }
-                            handleSingleSelect={ handleSingleSelect }
-                            isLoading={ isLoadingStudent }
-                            charLength={ 17 }
+                            isCheckbox={true}
+                            tableHeader={columns}
+                            tableData={rows}
+                            handleAction={handleAction}
+                            handleTableSort={handleTableSort}
+                            handleCheckboxSelect={handleCheckboxSelect}
+                            handleSingleSelect={handleSingleSelect}
+                            isLoading={isLoadingStudent}
+                            charLength={17}
                             path=''
                         />
-                        : <ErrorBlock message={ STUDENT_NOT_FOUND } />
+                        : <ErrorBlock message={STUDENT_NOT_FOUND} />
                     }
 
 
-                    { pageDetails?.totalPages > 1 &&
-                        <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+                    {pageDetails?.totalPages > 1 &&
+                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
                             <Pagination
-                                count={ pageDetails?.totalPages }
-                                onChange={ handlePagination }
+                                count={pageDetails?.totalPages}
+                                onChange={handlePagination}
                                 color="primary"
                                 variant="outlined"
                                 shape="rounded"
                             />
                         </div>
-                    } 
+                    }
                 </>
             </CardView>
         </React.Fragment>

@@ -25,7 +25,7 @@ const SidebarInstructor = [
         "activeIcon": <ClassWhiteIcon />,
         "name": "My Classes",
         "path": "/myclasses",
-        "pathList": ["/myclasses", "/myclasstables"],
+        "pathList": ["/myclasses", "/my-assignment"],
         "layout": "/instructor",
     },
     {
@@ -44,14 +44,14 @@ const SidebarInstructor = [
         "pathList": ["/repository"],
         "layout": "/instructor",
     },
-    {
-        "icon": <CompareDocIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Compare Doc",
-        "path": "/comparedoc",
-        "pathList": ["/comparedoc"],
-        "layout": "/instructor",
-    }
+    // {
+    //     "icon": <CompareDocIcon />,
+    //     "activeIcon": <IntegrationWhiteIcon />,
+    //     "name": "Compare Doc",
+    //     "path": "/comparedoc",
+    //     "pathList": ["/comparedoc"],
+    //     "layout": "/instructor",
+    // }
 ];
 
 export default SidebarInstructor;

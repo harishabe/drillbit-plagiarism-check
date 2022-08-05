@@ -215,12 +215,12 @@ const StudentList = ({
                 <Grid container spacing={1}>
                     <Grid item md={10} xs={10}>
                         <BreadCrumb item={InstructorBreadCrumb} />
-                        <MainHeading title={ `${folderName} (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                        <MainHeading title={`${folderName} (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                     </Grid>
                     <Grid item md={2} xs={2}>
                         <TextField
                             placeholder='Search'
-                            onChange={ debouncedResults }
+                            onChange={debouncedResults}
                             inputProps={{
                                 style: {
                                     padding: 5,
@@ -233,33 +233,33 @@ const StudentList = ({
             </Box>
             <CardView>
 
-                { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
-                    <IconButton onClick={ deleteAllStudent }>
+                {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+                    <IconButton onClick={deleteAllStudent}>
                         <DeleteIcon />
                     </IconButton>
-                </div> }
+                </div>}
 
                 <CommonTable
-                    isCheckbox={ true }
+                    isCheckbox={true}
                     tableHeader={columns}
                     tableData={rows}
-                    handleAction={ handleAction }
-                    handleTableSort={ handleTableSort }
-                    handleCheckboxSelect={ handleCheckboxSelect }
-                    handleSingleSelect={ handleSingleSelect }
-                    isLoading={ isLoadingSubmission }
-                    charLength={ 17 }
+                    handleAction={handleAction}
+                    handleTableSort={handleTableSort}
+                    handleCheckboxSelect={handleCheckboxSelect}
+                    handleSingleSelect={handleSingleSelect}
+                    isLoading={isLoadingSubmission}
+                    charLength={17}
                     path=''
                 />
 
                 <AddButtonBottom>
                     <CreateDrawer
                         title="Upload File"
-                        isShowAddIcon={ true }>
+                        isShowAddIcon={true}>
                         <SubmissionForm
-                            clasId={ clasId }
-                            folderId={ folderId }
-                            isLoadingUpload={ isLoadingUpload }
+                            clasId={clasId}
+                            folderId={folderId}
+                            isLoadingUpload={isLoadingUpload}
                         />
                     </CreateDrawer>
                 </AddButtonBottom>
@@ -267,19 +267,19 @@ const StudentList = ({
                 {
                     showDeleteWarning &&
                     <WarningDialog
-                        warningIcon={ <DeleteWarningIcon /> }
+                        warningIcon={<DeleteWarningIcon />}
                         message="Are you sure you want to delete ?"
-                        handleYes={ handleYesWarning }
-                        handleNo={ handleCloseWarning }
-                        isOpen={ true }
+                        handleYes={handleYesWarning}
+                        handleNo={handleCloseWarning}
+                        isOpen={true}
                     />
                 }
 
-                { pageDetails?.totalPages > '1' ?
-                    <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+                {pageDetails?.totalPages > '1' ?
+                    <div style={{ marginLeft: '35%', marginTop: '25px' }}>
                         <Pagination
-                            count={ pageDetails?.totalPages }
-                            onChange={ handleChange }
+                            count={pageDetails?.totalPages}
+                            onChange={handleChange}
                             color="primary"
                             variant="outlined"
                             shape="rounded"

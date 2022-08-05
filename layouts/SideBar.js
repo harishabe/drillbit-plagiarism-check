@@ -101,7 +101,7 @@ const SideBar = ({ open }) => {
     const router = useRouter();
 
     function activeRoute(routeName, name) {
-        if (router.pathname === '/instructor/myclasstables' && name === 'My Classes') {
+        if (router.pathname === '/instructor/my-assignment' && name === 'My Classes') {
             return true;
         } else if (router.pathname === '/instructor/studentlist' && name === 'My Folders') {
             return true;

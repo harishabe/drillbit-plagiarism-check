@@ -108,7 +108,7 @@ const MyClassFiles = ({
                                 handleClick={handleClassEdit}
                                 handleDelete={handleClassDelete}
                                 statusColor={ expiryDateBgColor(item.validity) }
-                                path={ { pathname: '/instructor/myclasstables', query: { clasId: item.id } } }
+                                path={ { pathname: '/instructor/my-assignment', query: { clasId: item.id } } }
                             />
                         </Grid>
                     ))}
