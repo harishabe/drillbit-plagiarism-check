@@ -138,6 +138,40 @@ const DetailsInstructorReducer = (state = {}, action) => {
                 isLoading: false,
                 createAssignmentError: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                editAssignmentData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                editAssignmentError: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                deleteAssignmentData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                deleteAssignmentError: action.payload,
+            };
         case types.FETCH_ADMIN_STUDENT_TEMPLATE_DOWNLOAD_START:
             return {
                 ...state,

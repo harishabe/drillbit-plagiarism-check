@@ -10,6 +10,16 @@
 
     {
         "field_type": "datepicker",
+        "id": "start_date",
+        "name": "start_date",
+        "label": "Start Date",
+        "minDate":true,
+        "required": "Select start date",
+        "validationMsg": "Select start date"
+    },
+
+    {
+        "field_type": "datepicker",
         "id": "end_date",
         "name": "end_date",
         "label": "End Date",
@@ -20,8 +30,8 @@
 
     {
         "field_type": "toggle",
-        "id": "exclude_refernces",
-        "name": "exclude_refernces",
+        "id": "exclude_references",
+        "name": "exclude_references",
         "label": "Exclude Reference / Bibliography",
         "options": [
             "yes",
