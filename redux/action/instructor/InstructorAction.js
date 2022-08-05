@@ -61,6 +61,15 @@ export const EditClass = (classId, requestPayload) => {
 };
 
 /**
+ * Edit student
+ */
+export const EditStudent = (classId, userId, requestPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_EDIT_STUDENT_START, classId: classId, userId: userId, requestPayload: requestPayload,
+    };
+};
+
+/**
  * Delete class
  */
 export const DeleteClass = (classId) => {

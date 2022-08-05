@@ -12,6 +12,7 @@ import {
     MultipleStudentUpload,
     CreateAssignmentData,
     EditClassData,
+    EditStudentData,
     EditFolderData,
     DeleteClass,
     DeleteStudentData,
@@ -232,6 +233,30 @@ export function* onLoadCreateStudent(action) {
 
 export function* CreateStudent() {
     yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_STUDENT_DATA_START, onLoadCreateStudent);
+}
+
+/**
+ * Edit student
+ * @param {*} action
+ */
+
+export function* onLoadEditStudent(action) {
+    const { response, error } = yield call(EditStudentData, action);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_EDIT_STUDENT_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, class_id: action.classId, paginationPayload: PaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_EDIT_STUDENT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* EditStudentsData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_EDIT_STUDENT_START, onLoadEditStudent);
 }
 
 /**

@@ -87,6 +87,23 @@ const DetailsInstructorReducer = (state = {}, action) => {
                 isLoadingCreate: false,
                 createStudentError: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_EDIT_STUDENT_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_INSTRUCTOR_EDIT_STUDENT_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                editStudentData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_EDIT_STUDENT_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                editStudentError: action.payload,
+            };
         case types.FETCH_INSTRUCTOR_DELETE_STUDENT_START:
             return {
                 ...state,
