@@ -82,8 +82,10 @@ const Students = ({
         let row = '';
         let arr = [];
         studentData?.map((student) => {
+            student['id'] = student.id;
             row =
                 createData(
+                    // student.student_id,
                     student.id,
                     student.name,
                     student.username,
@@ -221,6 +223,19 @@ const Students = ({
                     <StudentForm />
                 </CreateDrawer>
             </AddButtonBottom>
+
+            {
+                editStudent &&
+                <CreateDrawer
+                    title="Edit Student"
+                    isShowAddIcon={ false }
+                    showDrawer={ editStudent }
+                >
+                    <StudentForm
+                        editData={ editStudentData }
+                    />
+                </CreateDrawer>
+            }
 
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>

@@ -31,6 +31,16 @@ export const EditClassData = async (action) => {
 };
 
 /**
+ * API CALL FOR EDIT STUDENT IN INSTRUCTOR
+ */
+
+export const EditStudentData = async (action) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_STUDENT_EDIT_DATA + action.classId + '/students/' + action.userId;
+    return PutMethod(url, action.requestPayload);
+};
+
+
+/**
  * API CALL FOR DELETE STUDENT IN INSTRUCTOR
  */
 
