@@ -75,7 +75,6 @@ const Students = ({
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
-    const [clasId, setClasId] = useState(router.query.clasId);
     const [editStudent, setEditStudent] = useState(false);
     const [editStudentData, setEditStudentData] = useState('');
 
@@ -112,10 +111,7 @@ const Students = ({
     }
 
     const handleYesWarning = () => {
-        debugger;
-
-        console.log("datadatadata", clasId, deleteRowData);
-        DeleteStudent(clasId, deleteRowData);
+        DeleteStudent(router.query.clasId, deleteRowData);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -194,14 +190,14 @@ const Students = ({
 
 
     const handleDownload = () => {
-        DownloadTemplate(clasId)
+        DownloadTemplate(router.query.clasId)
         setShow(true)
     }
 
     const handleSubmit = (data) => {
         let bodyFormData = new FormData();
         bodyFormData.append('file', data.target.files[0]);
-        UploadFile(clasId, bodyFormData);
+        UploadFile(router.query.clasId, bodyFormData);
     }
 
     return (
