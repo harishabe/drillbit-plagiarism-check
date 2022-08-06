@@ -67,6 +67,23 @@ export const GetAssignmentDetail = async (class_id, paginationPayload) => {
     return GetMethod(url);
 };
 
+/**
+ * API CALL FOR EDIT ASSIGNMENT IN INSTRUCTOR
+ */
+
+export const EditAssignmentData = async (action) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_ASSIGNMENT_EDIT_DATA + action?.classId + '/assignments/' + action?.assId;
+    return PutMethod(url, action.requestPayload);
+};
+
+/**
+ * API CALL FOR DELETE ASSIGNMENT IN INSTRUCTOR
+ */
+
+export const DeleteAssignmentData = async (action) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_ASSIGNMENT_DELETE_DATA + action?.class_id + '/assignments?id=' + action?.assId;
+    return DeleteMethod(url);
+}
 
 /**
  * API CALL FOR CREATE STUDENT

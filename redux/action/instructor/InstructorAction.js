@@ -116,6 +116,24 @@ export const CreateAssignment = (classId, data) => {
 };
 
 /**
+ * Edit assignment
+ */
+export const EditAssignment = (classId, assId, requestPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_START, classId: classId, assId: assId, requestPayload: requestPayload,
+    };
+};
+
+/**
+ * Delete assignment
+ */
+export const DeleteAssignment = (classId, assId) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_START, class_id: classId, assId: assId
+    };
+};
+
+/**
  * Get all folders
  */
 export const GetAllFolders = (paginationPayload) => {

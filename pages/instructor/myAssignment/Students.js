@@ -160,7 +160,7 @@ const Students = ({
                 return rows;
             }
         }).map((rowItem) => {
-            rowsId += rowItem?.id?.props?.title + ',';
+            rowsId += rowItem?.id + ',';
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);

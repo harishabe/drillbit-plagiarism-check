@@ -16,6 +16,7 @@ import {
     EditFolderData,
     DeleteClass,
     DeleteStudentData,
+    DeleteAssignmentData,
     DeleteFolders,
 } from '../../api/instructor/DetailsInstructorAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
@@ -266,7 +267,6 @@ export function* EditStudentsData() {
  */
 
 export function* onLoadDeleteStudent(action) {
-    console.log('actionaction',action);
     const { response, error } = yield call(DeleteStudentData, action);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_DELETE_STUDENT_SUCCESS, payload: response?.data });
@@ -304,6 +304,55 @@ export function* onLoadCreateAssignment(action) {
 
 export function* CreateAssignmentDetail() {
     yield takeLatest(types.FETCH_INSTRUCTOR_CREATE_ASSIGNMENT_DATA_START, onLoadCreateAssignment);
+}
+
+/**
+ * Edit assignment
+ * @param {*} action
+ */
+
+export function* onLoadEditAssignment(action) {
+    const { response, error } = yield call(EditAssignmentData, action);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START, class_id: action.class_id, paginationPayload: InstructorFolderPaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* EditAssignmentsData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_START, onLoadEditAssignment);
+}
+
+/**
+ * Delete assignment
+ * Assignment 
+ * @param {*} action
+ */
+
+export function* onLoadDeleteAssignment(action) {
+    const { response, error } = yield call(DeleteAssignmentData, action);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START, class_id: action.class_id, paginationPayload: InstructorFolderPaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* DeleteAssignments() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_START, onLoadDeleteAssignment);
 }
 
 /**
