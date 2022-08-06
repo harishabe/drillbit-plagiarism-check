@@ -50,6 +50,7 @@ const Assignments = ({
 }) => {
   const router = useRouter();
   const [rows, setRows] = useState([]);
+  const [assId, setAssId] = useState('');
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
   const [deleteRowData, setDeleteRowData] = useState('');
@@ -210,6 +211,7 @@ const Assignments = ({
         {assignmentData?.length > 0 ?
           <CommonTable
             isCheckbox={true}
+            isNextPath={ true }
             tableHeader={columns}
             tableData={rows}
             handleAction={handleAction}
@@ -217,7 +219,7 @@ const Assignments = ({
             handleCheckboxSelect={ handleCheckboxSelect }
             handleSingleSelect={ handleSingleSelect }
             isLoading={isLoadingAssignment}
-            path={ { pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId } } }
+            path={ { pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } } }
           />
           : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
         }

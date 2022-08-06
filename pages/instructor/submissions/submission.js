@@ -5,15 +5,19 @@ import {
   CommonTable,
   AvatarName,
   CreateDrawer,
-  ErrorBlock
+  ErrorBlock,
+  WarningDialog
 } from '../../../components';
-import { EditIcon, DeleteIcon } from '../../../assets/icon';
+import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
-import { GetSubmissionList } from '../../../redux/action/instructor/InstructorAction';
+import { GetSubmissionList, DeleteSubmission } from '../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
 import { PaginationValue } from '../../../utils/PaginationUrl';
+import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 import SubmissionForm from '../form/SubmissionForm';
+import AssignmentForm from '../form/AssignmentForm';
+import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { SUBMISSION_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const columns = [
@@ -43,6 +47,7 @@ const AddButtonBottom = styled.div`
 
 const Submission = ({
   GetSubmissionList,
+  DeleteSubmission,
   submissionData,
   isLoading,
   isLoadingUpload,
@@ -55,29 +60,6 @@ const Submission = ({
 
   const assId = router.query.assId;
 
-  // const InstructorBreadCrumb = [
-  //   {
-  //     name: 'Dashboard',
-  //     link: '/instructor/dashboard',
-  //     active: false,
-  //   },
-  //   {
-  //     name: 'My classes',
-  //     link: '/instructor/myclasses',
-  //     active: false,
-  //   },
-  //   {
-  //     name: router.query.className,
-  //     link: '/instructor/myclasstables' + router?.asPath?.slice(router?.pathname?.length),
-  //     active: false,
-  //   },
-  //   {
-  //     name: 'Submissions',
-  //     link: '/instructor/mysubmissions',
-  //     active: true,
-  //   },
-  // ];
-
   const [rows, setRows] = useState([]);
   const [paginationPayload, setPaginationPayload] = useState({
     page: PaginationValue?.page,
@@ -85,6 +67,11 @@ const Submission = ({
     field: 'name',
     orderBy: PaginationValue?.orderBy,
   });
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+  const [editAssignment, setEditAssignment] = useState(false);
+  const [editAssignmentData, setEditAssignmentData] = useState('');
+  const [deleteRowData, setDeleteRowData] = useState('');
+  const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
 
   useEffect(() => {
     let url = `${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
@@ -125,30 +112,116 @@ const Submission = ({
     setPaginationPayload({ ...paginationPayload, page: value - 1 });
   };
 
+  const handleAction = (event, icon, rowData) => {
+    console.log('rowData', rowData);
+    if (icon === 'edit') {
+      setEditAssignment(true);
+      setEditAssignmentData(rowData);
+    } else if (icon === 'delete') {
+      setDeleteRowData(rowData?.paperid);
+      setShowDeleteWarning(true);
+    }
+  }
+
+  const handleYesWarning = () => {
+    DeleteSubmission(clasId, assId, deleteRowData);
+    setShowDeleteAllIcon(false);
+    setTimeout(() => {
+      setShowDeleteWarning(false);
+    }, [100]);
+  };
+
+  const handleCloseWarning = () => {
+    setShowDeleteWarning(false);
+  };
+
+  const handleCheckboxSelect = () => {
+    let rowData = rows?.map((rowItem) => {
+      rowItem['isSelected'] = !rowItem['isSelected'];
+      return rowItem;
+    });
+    setRows(rowData);
+  }
+
+  const handleSingleSelect = (e, row) => {
+    let rowData = rows?.map((rowItem) => {
+      if (rowItem?.id?.props?.title === row?.id?.props?.title) {
+        rowItem['isSelected'] = !rowItem['isSelected'];
+      }
+      return rowItem;
+    });
+    setRows(rowData);
+  }
+
+  const deleteAllAssignment = () => {
+    let rowsId = '';
+    _.filter(rows, function (o) {
+      if (o.isSelected === true) {
+        return rows;
+      }
+    }).map((rowItem) => {
+      rowsId += rowItem?.paperid + ',';
+    });
+    setDeleteRowData(removeCommaWordEnd(rowsId));
+    setShowDeleteWarning(true);
+  }
+
   return (
     <React.Fragment>
+      <AddButtonBottom>
+        <CreateDrawer
+          title="Create Folder"
+          isShowAddIcon={ true }>
+          <SubmissionForm
+            clasId={ clasId }
+            folderId={ assId }
+            isLoadingUpload={ isLoadingUpload }
+          />
+        </CreateDrawer>
+      </AddButtonBottom>
+
+      {
+        showDeleteWarning &&
+        <WarningDialog
+          warningIcon={ <DeleteWarningIcon /> }
+          message="Are you sure you want to delete ?"
+          handleYes={ handleYesWarning }
+          handleNo={ handleCloseWarning }
+          isOpen={ true }
+        />
+      }
+
+      {
+        editAssignment &&
+        <CreateDrawer
+          title="Edit Student"
+          isShowAddIcon={ false }
+          showDrawer={ editAssignment }
+        >
+          <AssignmentForm
+            editData={ editAssignmentData }
+          />
+        </CreateDrawer>
+      }
       <CardView>
-        { submissionData?.length > 0 ? 
+        { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
+          <IconButton onClick={ deleteAllAssignment }>
+            <DeleteIcon />
+          </IconButton>
+        </div> }
+
+        { submissionData?.length > 0 ?
           <CommonTable
             isCheckbox={ true }
             tableHeader={ columns }
             tableData={ rows }
+            handleAction={ handleAction }
+            handleCheckboxSelect={ handleCheckboxSelect }
+            handleSingleSelect={ handleSingleSelect }
             isLoading={ isLoading }
           />
           : <ErrorBlock message={ SUBMISSION_NOT_FOUND } />
         }
-
-        <AddButtonBottom>
-          <CreateDrawer
-            title="Create Folder"
-            isShowAddIcon={ true }>
-            <SubmissionForm
-              clasId={ clasId }
-              folderId={ assId }
-              isLoadingUpload={ isLoadingUpload }
-            />
-          </CreateDrawer>
-        </AddButtonBottom>
 
         { pageDetails?.totalPages > 1 && (
           <div style={ { marginLeft: '35%', marginTop: '25px' } }>
@@ -177,6 +250,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+    DeleteSubmission: (clasId, folderId, paperId) => dispatch(DeleteSubmission(clasId, folderId, paperId)),
   };
 };
 

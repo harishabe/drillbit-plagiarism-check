@@ -46,7 +46,7 @@ const MySubmissions = ({
     },
     {
       name: 'My assignments',
-      link: '/instructor/myclasstables' + router?.asPath?.slice(router?.pathname?.length),
+      link: '/instructor/my-assignment' + router?.asPath?.slice(router?.pathname?.length),
       active: false,
     },
     {

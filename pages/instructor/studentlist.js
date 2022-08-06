@@ -20,7 +20,7 @@ import {
 import { GetSubmissionList, DeleteSubmissionFile } from '../../redux/action/instructor/InstructorAction';
 import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon'
 import { PaginationValue } from '../../utils/PaginationUrl';
-import { formatDate } from '../../utils/RegExp';
+import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
 
 const columns = [

@@ -97,6 +97,15 @@ export const GetStudent = (class_id, paginationPayload) => {
 };
 
 /**
+ * Get students in institute
+ */
+export const GetStudentList = (paginationPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_START, paginationPayload: paginationPayload
+    };
+};
+
+/**
  * Get Assignment
  */
 export const GetAssignment = (class_id, paginationPayload) => {

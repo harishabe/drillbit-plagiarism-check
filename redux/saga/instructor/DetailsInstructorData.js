@@ -3,6 +3,7 @@ import * as types from '../../action/ActionType';
 import {
     GetClassesDetail,
     GetStudentDetail,
+    GetStudentListDetail,
     GetAssignmentDetail,
     GetMyFoldersDetail,
     CreateClassData,
@@ -142,6 +143,31 @@ export function* onLoadClassesStudent(action) {
 
 export function* GetClassesStudentData() {
     yield takeLatest(types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, onLoadClassesStudent);
+}
+
+/**
+ * Get students in institute
+ * My Classes > Student
+ * @param {*} action
+ */
+
+export function* onLoadClassesStudentList(action) {
+    const { response, error } = yield call(GetStudentListDetail, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetStudentListData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_START, onLoadClassesStudentList);
 }
 
 /**
