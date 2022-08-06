@@ -13,6 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import { IconButton, Skeleton } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { SubTitle, TableSkeleton, EllipsisText } from '../../components';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     },
     customTableContainer: {
         overflowX: 'initial'
+    },
+    customArrowContainer: {
+        marginTop: '14px'
     }
 }))
 
@@ -34,6 +38,7 @@ const CommonTable = ({
     handleTableSort,
     handleCheckboxSelect,
     handleSingleSelect,
+    isNextPath,
     isLoading
 }) => {
 
@@ -87,16 +92,9 @@ const CommonTable = ({
                 <TableBody>
                     { isLoading ?
                         <TableSkeleton />
-                        //onClick={ (e) => {
-                                // if (path && path?.query?.isAssignment) {
-                                //     path.query['assId'] = row?.id?.props?.title
-                                //     router.push(path)
-                                // } else {
-                                //     router.push(path);
-                                // }
-                            //} }
                         : tableData?.map((row) => (
-                            <TableRow hover key={ row.id }>
+
+                            < TableRow hover key={ row.id }>
                                 { isCheckbox &&
                                     <TableCell padding="checkbox" className={ classes.padding }>
                                         <Checkbox onChange={ (e) => handleSingleSelect(e, row) } checked={ row.isSelected } />
@@ -119,6 +117,20 @@ const CommonTable = ({
                                         </>
                                     )
                                 }) }
+                                { isNextPath &&
+                                    <IconButton className={ classes.customArrowContainer }
+                                        onClick={ (e) => {
+                                            if (path && path?.query?.isAssignment) {
+                                                path.query['assId'] = row?.id
+                                                router.push(path)
+                                            } else {
+                                                router.push(path);
+                                            }
+                                        } }
+                                    >
+                                        <ArrowForwardOutlinedIcon />
+                                    </IconButton>
+                                }
                             </TableRow>
                         )) }
                 </TableBody>

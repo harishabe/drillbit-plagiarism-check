@@ -59,6 +59,15 @@ export const GetStudentDetail = async (class_id, paginationPayload) => {
 };
 
 /**
+ * API CALL FOR STUDENTS IN INSTITUTE DATA
+ */
+
+export const GetStudentListDetail = async (paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_STUDENT_LIST_DATA + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};
+
+/**
  * API CALL FOR STUDENT DATA
  */
 
@@ -183,7 +192,7 @@ export const GetSubmissionDetail = async (clasId, folder_id, paginationPayload) 
 
 export const DeleteSubmission = async (clasId, folder_id, paper_id) => {
     const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions?paperId=' + paper_id;
-    return GetMethod(url);
+    return DeleteMethod(url);
 };
 
 /**

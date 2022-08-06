@@ -36,6 +36,23 @@ const DetailsInstructorReducer = (state = {}, action) => {
                 isLoadingStudent: false,
                 studentError: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_START:
+            return {
+                ...state,
+                isLoadingInstitute: true,
+            };
+        case types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_SUCCESS:
+            return {
+                ...state,
+                isLoadingInstitute: false,
+                instituteData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_FAIL:
+            return {
+                ...state,
+                isLoadingInstitute: false,
+                instituteError: action.payload,
+            };
         case types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START:
             return {
                 ...state,

@@ -24,6 +24,7 @@ import {
 import {
     GetClassesData,
     GetClassesStudentData,
+    GetStudentListData,
     GetClassesAssignmentData,
     GetMyFolders,
     CreateClass,
@@ -93,6 +94,7 @@ const saga = [
     fork(GetSubmissionDownload),
     fork(GetClassesData),
     fork(GetClassesStudentData),
+    fork(GetStudentListData),
     fork(GetClassesAssignmentData),
     fork(GetStudentDashboard),
     fork(GetStudentClasses),
