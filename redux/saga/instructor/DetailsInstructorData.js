@@ -4,6 +4,7 @@ import {
     GetClassesDetail,
     GetStudentDetail,
     GetStudentListDetail,
+    EnrollStudentDetail,
     GetAssignmentDetail,
     GetMyFoldersDetail,
     CreateClassData,
@@ -168,6 +169,31 @@ export function* onLoadClassesStudentList(action) {
 
 export function* GetStudentListData() {
     yield takeLatest(types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_START, onLoadClassesStudentList);
+}
+
+/**
+ * Enroll Students to class
+ * My Classes > Student
+ * @param {*} action
+ */
+
+export function* onLoadEnrollStudentList(action) {
+    const { response, error } = yield call(EnrollStudentDetail, action.class_id, action.data);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_ENROLL_STUDENT_DATA_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_START, class_id: action.class_id, paginationPayload: PaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_ENROLL_STUDENT_DATA_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* EnrollStudentListData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_ENROLL_STUDENT_DATA_START, onLoadEnrollStudentList);
 }
 
 /**

@@ -25,7 +25,6 @@ import {
     DeleteStudent,
     DownloadTemplate,
     UploadFile,
-    GetStudentList
 } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import StudentInstitute from '../studentInstitute';
@@ -63,17 +62,13 @@ function createData(id, name, email, department, section, action) {
 
 const Students = ({
     studentData,
-    GetStudentList,
-    studentInstituteData,
-    isLoadingInstitute,
     pageDetails,
-    pageInstituteDetails,
     isLoadingStudent,
     DeleteStudent,
     handlePagination,
     DownloadTemplate,
     isLoadingTemplate,
-    UploadFile
+    UploadFile,
 }) => {
 
     const router = useRouter();
@@ -209,14 +204,6 @@ const Students = ({
         setShow(true)
     }
 
-    useEffect(() => {
-        GetStudentList(paginationPayload)
-    }, [paginationPayload]);
-
-    const handleShow = () => {
-        // GetStudentList(paginationPayload)
-        setShowDialogModal(true)
-    }
 
     const handleSubmit = (data) => {
         let bodyFormData = new FormData();
@@ -224,14 +211,13 @@ const Students = ({
         UploadFile(router.query.clasId, bodyFormData);
     }
 
+    const handleShow = () => {
+        setShowDialogModal(true)
+    }
+
     const handleCloseDialog = () => {
         setShowDialogModal(false);
     }
-
-    const handlePaginationInstitute = (event, value) => {
-        event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-    };
 
     return (
         <React.Fragment>
@@ -245,16 +231,9 @@ const Students = ({
                         maxWidth="lg"
                         handleClose={ handleCloseDialog }
                     >
-                        <StudentInstitute
-                            studentInstituteData={ studentInstituteData }
-                            isLoadingInstitute={ isLoadingInstitute }
-                            pageInstituteDetails={ pageInstituteDetails }
-                            handleAction={ handleAction }
-                            handleTableSort={ handleTableSort }
-                            handleCheckboxSelect={ handleCheckboxSelect }
-                            handleSingleSelect={ handleSingleSelect }
-                            handlePaginationInstitute={ handlePaginationInstitute }
-                        />
+                    <StudentInstitute
+                        classId={ router.query.clasId }
+                    />
                     </DialogModal>
                 </>
             }
@@ -406,9 +385,6 @@ const mapStateToProps = (state) => ({
     studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
     pageDetails: state?.instructorClasses?.studentData?.page,
     isLoadingTemplate: state?.instructorClasses?.isLoadingTemplate,
-    studentInstituteData: state?.instructorClasses?.instituteData?._embedded?.studentDTOList,
-    pageInstituteDetails: state?.instructorClasses?.instituteData?.page,
-    isLoadingInstitute: state?.instructorClasses?.isLoadingInstitute,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -416,7 +392,6 @@ const mapDispatchToProps = (dispatch) => {
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
         DownloadTemplate: (ClasId) => dispatch(DownloadTemplate(ClasId)),
         UploadFile: (ClasId, data) => dispatch(UploadFile(ClasId, data)),
-        GetStudentList: (PaginationValue) => dispatch(GetStudentList(PaginationValue)),
     };
 };
 

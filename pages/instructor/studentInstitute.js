@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { connect } from 'react-redux';
+import Fab from '@mui/material/Fab';
 import debouce from "lodash.debounce";
 import styled from 'styled-components'
 import { Grid, Tooltip, Skeleton, Button, TextField } from '@mui/material';
@@ -15,8 +17,14 @@ import {
     ErrorBlock,
     DialogModal
 } from '../../components';
+import BeatLoader from "react-spinners/BeatLoader";
 import AddIcon from '@mui/icons-material/Add';
 import { removeCommaWordEnd } from '../../utils/RegExp';
+import { PaginationValue } from '../../utils/PaginationUrl';
+import {
+    GetStudentList,
+    EnrollStudent,
+} from '../../redux/action/instructor/InstructorAction';
 
 const columns = [
     { id: 'id', label: 'Student ID' },
@@ -32,16 +40,25 @@ function createData(id, name, email, department, section, action) {
 }
 
 function StudentInstitute({
+    GetStudentList,
+    EnrollStudent,
     studentInstituteData,
     isLoadingInstitute,
+    isLoadingEnroll,
     pageInstituteDetails,
-    handleAction,
-    handleTableSort,
-    handleCheckboxSelect,
-    handleSingleSelect,
-    handlePaginationInstitute
+    classId,
 }) {
     const [data, setData] = useState([]);
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: PaginationValue?.field,
+        orderBy: PaginationValue?.orderBy,
+    });
+
+    useEffect(() => {
+        GetStudentList(paginationPayload)
+    }, [paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -62,8 +79,67 @@ function StudentInstitute({
         setData([...arr]);
     }, [studentInstituteData]);
 
+    const handleAction = (event, icon, rowData) => {
+        if (icon === 'add') {
+            EnrollStudent(classId, rowData?.email);
+        }
+    }
+
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
+    }
+
+    const handleCheckboxSelect = () => {
+        let rowData = data?.map((rowItem) => {
+            rowItem['isSelected'] = !rowItem['isSelected'];
+            return rowItem;
+        });
+        setData(rowData);
+    }
+
+    const handleSingleSelect = (e, row) => {
+        console.log("row", row)
+        let rowData = data?.map((rowItem) => {
+            if (rowItem?.id === row?.id) {
+                rowItem['isSelected'] = !rowItem['isSelected'];
+            }
+            return rowItem;
+        });
+        setData(rowData);
+    }
+
+    const addAllStudent = () => {
+        let rowsEmail = '';
+        _.filter(data, function (o) {
+            if (o.isSelected === true) {
+                return data;
+            }
+        }).map((rowItem) => {
+            rowsEmail += rowItem?.email + ',';
+        });
+        EnrollStudent(classId, removeCommaWordEnd(rowsEmail));
+    }
+
+    const handlePagination = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
+
     return (
         <>
+            { _.find(data, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'left' } }>
+                <Button variant="contained" onClick={ addAllStudent } >
+                    { isLoadingEnroll ? <BeatLoader color="#fff" /> : `Add new student` }
+                </Button>
+            </div> }
+
             <CommonTable
                 isCheckbox={ true }
                 tableHeader={ columns }
@@ -80,7 +156,7 @@ function StudentInstitute({
             <div style={ { marginLeft: '40%', marginTop: '25px' } }>
                 <Pagination
                     count={ pageInstituteDetails?.totalPages }
-                    onChange={ handlePaginationInstitute }
+                    onChange={ handlePagination }
                     color="primary"
                     variant="outlined"
                     shape="rounded"
@@ -90,6 +166,20 @@ function StudentInstitute({
     )
 }
 
+const mapStateToProps = (state) => ({
+    studentInstituteData: state?.instructorClasses?.instituteData?._embedded?.studentDTOList,
+    pageInstituteDetails: state?.instructorClasses?.instituteData?.page,
+    isLoadingInstitute: state?.instructorClasses?.isLoadingInstitute,
+    isLoadingEnroll: state?.instructorClasses?.isLoadingEnroll,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetStudentList: (PaginationValue) => dispatch(GetStudentList(PaginationValue)),
+        EnrollStudent: (ClasId, data) => dispatch(EnrollStudent(ClasId, data)),
+    };
+};
+
 StudentInstitute.layout = Instructor
 
-export default StudentInstitute;
+export default connect(mapStateToProps, mapDispatchToProps)(StudentInstitute);
