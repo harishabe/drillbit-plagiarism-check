@@ -68,6 +68,15 @@ export const GetStudentListDetail = async (paginationPayload) => {
 };
 
 /**
+ * API CALL FOR ENROLL STUDENTS FROM INSTITUTE DATA
+ */
+
+export const EnrollStudentDetail = async (class_id, data) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_STUDENT_ENROLL_DATA + class_id + '/enrollStudents?email=' + data;
+    return PostMethod(url, data);
+};
+
+/**
  * API CALL FOR STUDENT DATA
  */
 

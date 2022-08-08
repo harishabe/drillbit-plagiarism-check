@@ -22,6 +22,7 @@ const END_POINTS = {
     INSTRUCTOR_CLASS_EDIT_DATA: '/extreme/classes/',
     INSTRUCTOR_CLASS_DELETE_DATA: '/extreme/classes?id=',
     INSTRUCTOR_STUDENT_LIST_DATA: '/extreme/classes/allStudents',
+    INSTRUCTOR_STUDENT_ENROLL_DATA: '/extreme/classes/',
     INSTRUCTOR_STUDENT_EDIT_DATA: '/extreme/classes/',
     INSTRUCTOR_STUDENT_DELETE_DATA: '/extreme/classes/',
     INSTRUCTOR_ASSIGNMENT_EDIT_DATA: '/extreme/classes/',
