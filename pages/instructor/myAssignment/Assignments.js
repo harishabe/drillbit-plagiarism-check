@@ -14,7 +14,7 @@ import {
 } from '../../../components';
 import { EditIcon, DeleteIcon, TimerIcon } from '../../../assets/icon';
 import { GetAssignment } from '../../../redux/action/instructor/InstructorAction';
-import AssignmentForm from './../form/AssignmentForm';
+import AssignmentForms from './../form/AssignmentForms';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
@@ -111,7 +111,7 @@ const Assignments = ({
             isShowAddIcon={true}
             title='Create Assignment'
           >
-            <AssignmentForm />
+            <AssignmentForms />
           </CreateDrawer>
         </AddButtonBottom>
         {assignmentData?.length > 0 ?
@@ -126,7 +126,6 @@ const Assignments = ({
           />
           : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
         }
-
 
         {pageDetails?.totalPages > 1 && (
           <div style={{ marginLeft: '35%', marginTop: '25px' }}>

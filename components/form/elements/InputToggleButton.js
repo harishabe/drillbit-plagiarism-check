@@ -1,9 +1,18 @@
 import React from 'react'
+import { styled } from "@mui/material/styles";
 import { Controller } from 'react-hook-form'
 import PropTypes from 'prop-types'
-import ToggleButton from '@mui/material/ToggleButton'
+import MuiToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
-import InputLabel from '@mui/material/InputLabel'
+import InputLabel from '@mui/material/InputLabel';
+
+
+const ToggleButton = styled(MuiToggleButton)({
+    "&.Mui-selected, &.Mui-selected:hover": {
+        color: "white",
+        backgroundColor: '#3672FF'
+    }
+});
 
 const InputToggleButton = ({
     control,
@@ -30,7 +39,7 @@ const InputToggleButton = ({
                             onChange={onChange}
                         >
                             {field.options.map((item, i) => (
-                                <ToggleButton style={{paddingLeft:'100%',paddingRight:'100%'}}
+                                <ToggleButton style={{ paddingLeft: '100%', paddingRight: '100%' }}
                                     key={i} value={item}>
                                     {item}
                                 </ToggleButton>

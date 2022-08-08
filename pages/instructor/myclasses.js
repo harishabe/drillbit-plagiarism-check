@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
+import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { connect } from 'react-redux';
 import { GetClassesData } from '../../redux/action/instructor/InstructorAction';
 import { TextField } from '@mui/material';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import Instructor from '../../layouts/Instructor';
-import { BreadCrumb, MainHeading, ErrorBlock } from '../../components';
+import { BreadCrumb, MainHeading } from '../../components';
 import MyClassFiles from './myclassfiles';
-import { CLASS_NOT_FOUND } from '../../constant/data/ErrorMessage'; 
 
 const InstructorBreadCrumb = [
     {
@@ -77,15 +77,20 @@ const MyClasses = ({
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
-            { classesData?.length > 0 ? 
+            <MainHeading title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+
+            {isLoading ?
+                <Grid container spacing={2}>
+                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                </Grid> :
                 <MyClassFiles
-                    pageDetails={ pageDetails }
-                    classesData={ classesData }
-                    isLoading={ isLoading }
-                    handlePagination={ handlePagination }
-                /> 
-                : <ErrorBlock message={ CLASS_NOT_FOUND } />
+                    pageDetails={pageDetails}
+                    classesData={classesData}
+                    isLoading={isLoading}
+                    handlePagination={handlePagination}
+                />
             }
         </React.Fragment>
     )

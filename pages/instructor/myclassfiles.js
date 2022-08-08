@@ -7,7 +7,8 @@ import Instructor from '../../layouts/Instructor';
 import {
     CardInfoView,
     CreateDrawer,
-    WarningDialog
+    WarningDialog,
+    ErrorBlock
 } from '../../components';
 import { DeleteWarningIcon } from '../../assets/icon';
 import { Skeleton } from '@mui/material';
@@ -19,6 +20,8 @@ import {
 } from '../../utils/RegExp';
 import { DeleteClass } from '../../redux/action/instructor/InstructorAction';
 
+import { CLASS_NOT_FOUND } from '../../constant/data/ErrorMessage';
+
 const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
@@ -28,7 +31,6 @@ const AddButtonBottom = styled.div`
 const MyClassFiles = ({
     classesData,
     pageDetails,
-    isLoading,
     DeleteClass,
     handlePagination,
 }) => {
@@ -88,32 +90,29 @@ const MyClassFiles = ({
 
     return (
         <React.Fragment>
-            {isLoading ?
-                <Grid container spacing={2}>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                </Grid> :
-                <Grid container spacing={2}>
-                    {item?.map((item, index) => (
-                        <Grid item md={4} xs={12}>
-                            <CardInfoView
-                                key={index}
-                                item={item}
-                                isAvatar={true}
-                                isHeading={true}
-                                isTimer={true}
-                                isAction={true}
-                                isNextPath={true}
-                                handleClick={handleClassEdit}
-                                handleDelete={handleClassDelete}
-                                statusColor={ expiryDateBgColor(item.validity) }
-                                path={ { pathname: '/instructor/my-assignment', query: { clasId: item.id } } }
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-            }
+            <Grid container spacing={2}>
+                {item?.length > 0 ? item?.map((item, index) => (
+                    <Grid item md={4} xs={12}>
+                        <CardInfoView
+                            key={index}
+                            item={item}
+                            isAvatar={true}
+                            isHeading={true}
+                            isTimer={true}
+                            isAction={true}
+                            isNextPath={true}
+                            handleClick={handleClassEdit}
+                            handleDelete={handleClassDelete}
+                            statusColor={expiryDateBgColor(item.validity)}
+                            path={{ pathname: '/instructor/my-assignment', query: { clasId: item.id } }}
+                        />
+                    </Grid>
+                )) :
+                    <Grid item md={12} xs={12}>
+                        <ErrorBlock message={CLASS_NOT_FOUND} />
+                    </Grid>
+                }
+            </Grid>
 
             {
                 showDeleteWarning &&
@@ -148,26 +147,23 @@ const MyClassFiles = ({
                 </CreateDrawer>
             }
 
-            { pageDetails?.totalPages > '1' ? 
-                <div style={ { marginLeft: '45%', marginTop: '25px' } }>
-                    <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handlePagination }
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div> : ''
-            }
+
+            <div style={{ marginLeft: '45%', marginTop: '25px' }}>
+                <Pagination
+                    count={pageDetails?.totalPages}
+                    onChange={handlePagination}
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </div>
         </React.Fragment>
     );
 };
 
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.instructorClasses?.classesData?.page,
-    classesData: state?.instructorClasses?.classesData?._embedded?.classDTOList,
-    isLoading: state?.instructorClasses?.isLoading,
+    pageDetails: state?.instructorClasses?.classesData?.page
 });
 
 const mapDispatchToProps = (dispatch) => {
