@@ -18,7 +18,7 @@ const Container = styled.div`
     background-image: url(${'/img/FolderPng.png'});
     background-repeat: no-repeat;
     color: white;
-    width: 273px;
+    width: 250px;
     height: 100%;
     cursor:pointer;
 `;
@@ -124,7 +124,7 @@ const Folder = ({
             </Grid>
             <Center onClick={ (e) => router.push(path) }>
                 <div>{item.folder_name}</div>
-                <div style={ { marginBottom: '10px' } }>2 Days left</div>
+                <div style={ { marginBottom: '10px' } }>{ item.no_of_submissions } Files</div>
             </Center>
         </Container>
     );
