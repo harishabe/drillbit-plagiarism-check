@@ -106,6 +106,15 @@ export const GetStudentList = (paginationPayload) => {
 };
 
 /**
+ * Enroll Students to class
+ */
+export const EnrollStudent = (class_id, data) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_ENROLL_STUDENT_DATA_START, class_id: class_id, data: data
+    };
+};
+
+/**
  * Get Assignment
  */
 export const GetAssignment = (class_id, paginationPayload) => {
