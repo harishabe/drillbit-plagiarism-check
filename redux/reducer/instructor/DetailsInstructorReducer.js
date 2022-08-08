@@ -36,6 +36,23 @@ const DetailsInstructorReducer = (state = {}, action) => {
                 isLoadingStudent: false,
                 studentError: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_START:
+            return {
+                ...state,
+                isLoadingInstitute: true,
+            };
+        case types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_SUCCESS:
+            return {
+                ...state,
+                isLoadingInstitute: false,
+                instituteData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_FAIL:
+            return {
+                ...state,
+                isLoadingInstitute: false,
+                instituteError: action.payload,
+            };
         case types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START:
             return {
                 ...state,
@@ -137,6 +154,40 @@ const DetailsInstructorReducer = (state = {}, action) => {
                 ...state,
                 isLoading: false,
                 createAssignmentError: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                editAssignmentData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                editAssignmentError: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_START:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                deleteAssignmentData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_FAIL:
+            return {
+                ...state,
+                isLoading: false,
+                deleteAssignmentError: action.payload,
             };
         case types.FETCH_ADMIN_STUDENT_TEMPLATE_DOWNLOAD_START:
             return {

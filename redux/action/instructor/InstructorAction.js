@@ -97,6 +97,15 @@ export const GetStudent = (class_id, paginationPayload) => {
 };
 
 /**
+ * Get students in institute
+ */
+export const GetStudentList = (paginationPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_STUDENTS_INSTITUTE_DATA_START, paginationPayload: paginationPayload
+    };
+};
+
+/**
  * Get Assignment
  */
 export const GetAssignment = (class_id, paginationPayload) => {
@@ -112,6 +121,24 @@ export const GetAssignment = (class_id, paginationPayload) => {
 export const CreateAssignment = (classId, data) => {
     return {
         type: types.FETCH_INSTRUCTOR_CREATE_ASSIGNMENT_DATA_START, classId: classId, query: data
+    };
+};
+
+/**
+ * Edit assignment
+ */
+export const EditAssignment = (classId, assId, requestPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_START, classId: classId, assId: assId, requestPayload: requestPayload,
+    };
+};
+
+/**
+ * Delete assignment
+ */
+export const DeleteAssignment = (classId, assId) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_DELETE_ASSIGNMENT_START, class_id: classId, assId: assId
     };
 };
 

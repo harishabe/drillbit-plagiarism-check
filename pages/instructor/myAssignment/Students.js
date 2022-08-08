@@ -16,15 +16,19 @@ import {
     CreateDrawer,
     WarningDialog,
     SubTitle,
-    ErrorBlock
+    ErrorBlock,
+    DialogModal
 } from '../../../components';
-import { EditIcon, DeleteIcon, DeleteWarningIcon, DownloadIcon, UploadIcon } from '../../../assets/icon'
+import { EditIcon, DeleteIcon, DeleteWarningIcon, DownloadIcon, UploadIcon } from '../../../assets/icon';
 import StudentForm from '../form/StudentForm';
 import {
     DeleteStudent,
     DownloadTemplate,
-    UploadFile
+    UploadFile,
+    GetStudentList
 } from '../../../redux/action/instructor/InstructorAction';
+import { PaginationValue } from '../../../utils/PaginationUrl';
+import StudentInstitute from '../studentInstitute';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { STUDENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
@@ -59,7 +63,11 @@ function createData(id, name, email, department, section, action) {
 
 const Students = ({
     studentData,
+    GetStudentList,
+    studentInstituteData,
+    isLoadingInstitute,
     pageDetails,
+    pageInstituteDetails,
     isLoadingStudent,
     DeleteStudent,
     handlePagination,
@@ -72,20 +80,25 @@ const Students = ({
 
     const [rows, setRows] = useState([]);
     const [show, setShow] = useState(false);
+    const [showDialogModal, setShowDialogModal] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [editStudent, setEditStudent] = useState(false);
     const [editStudentData, setEditStudentData] = useState('');
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: PaginationValue?.field,
+        orderBy: PaginationValue?.orderBy,
+    });
 
     useEffect(() => {
         let row = '';
         let arr = [];
         studentData?.map((student) => {
-            student['id'] = student.id;
             row =
                 createData(
-                    // student.student_id,
                     student.id,
                     student.name,
                     student.username,
@@ -160,7 +173,7 @@ const Students = ({
                 return rows;
             }
         }).map((rowItem) => {
-            rowsId += rowItem?.id?.props?.title + ',';
+            rowsId += rowItem?.id + ',';
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
@@ -196,15 +209,55 @@ const Students = ({
         setShow(true)
     }
 
+    useEffect(() => {
+        GetStudentList(paginationPayload)
+    }, [paginationPayload]);
+
+    const handleShow = () => {
+        // GetStudentList(paginationPayload)
+        setShowDialogModal(true)
+    }
+
     const handleSubmit = (data) => {
         let bodyFormData = new FormData();
         bodyFormData.append('file', data.target.files[0]);
         UploadFile(router.query.clasId, bodyFormData);
     }
 
+    const handleCloseDialog = () => {
+        setShowDialogModal(false);
+    }
+
+    const handlePaginationInstitute = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
+
     return (
         <React.Fragment>
 
+            { showDialogModal &&
+                <>
+                    <DialogModal
+                        headingTitle={ "Institute Students List" }
+                        isOpen={ true }
+                        fullWidth="lg"
+                        maxWidth="lg"
+                        handleClose={ handleCloseDialog }
+                    >
+                        <StudentInstitute
+                            studentInstituteData={ studentInstituteData }
+                            isLoadingInstitute={ isLoadingInstitute }
+                            pageInstituteDetails={ pageInstituteDetails }
+                            handleAction={ handleAction }
+                            handleTableSort={ handleTableSort }
+                            handleCheckboxSelect={ handleCheckboxSelect }
+                            handleSingleSelect={ handleSingleSelect }
+                            handlePaginationInstitute={ handlePaginationInstitute }
+                        />
+                    </DialogModal>
+                </>
+            }
             {
                 showDeleteWarning &&
                 <WarningDialog
@@ -303,6 +356,18 @@ const Students = ({
                         </IconButton>
                     </div>}
 
+                    <Tooltip title="Add student from list">
+                        <IconButton sx={ {
+                            position: 'absolute',
+                            padding: '7px',
+                            top: '118px',
+                            right: '100px'
+                        } }
+                            onClick={ handleShow }>
+                            <DownloadIcon />
+                        </IconButton>
+                    </Tooltip>
+
                     {studentData?.length > 0 ?
                         <CommonTable
                             isCheckbox={true}
@@ -339,7 +404,11 @@ const Students = ({
 
 const mapStateToProps = (state) => ({
     studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
+    pageDetails: state?.instructorClasses?.studentData?.page,
     isLoadingTemplate: state?.instructorClasses?.isLoadingTemplate,
+    studentInstituteData: state?.instructorClasses?.instituteData?._embedded?.studentDTOList,
+    pageInstituteDetails: state?.instructorClasses?.instituteData?.page,
+    isLoadingInstitute: state?.instructorClasses?.isLoadingInstitute,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -347,6 +416,7 @@ const mapDispatchToProps = (dispatch) => {
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
         DownloadTemplate: (ClasId) => dispatch(DownloadTemplate(ClasId)),
         UploadFile: (ClasId, data) => dispatch(UploadFile(ClasId, data)),
+        GetStudentList: (PaginationValue) => dispatch(GetStudentList(PaginationValue)),
     };
 };
 
