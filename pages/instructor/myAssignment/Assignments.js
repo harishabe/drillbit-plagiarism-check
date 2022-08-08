@@ -171,7 +171,7 @@ const Assignments = ({
           isShowAddIcon={true}
           title='Create Assignment'
         >
-          <AssignmentForm />
+          <AssignmentForms />
         </CreateDrawer>
       </AddButtonBottom>
 
