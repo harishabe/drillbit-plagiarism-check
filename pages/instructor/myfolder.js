@@ -147,7 +147,7 @@ const MyFolder = ({
                 </Grid> :
                 <>
                     { myFolders?.length > 0 ? 
-                        <Grid container spacing={ 2 }>
+                        <Grid container spacing={ 2 } sx={ { overflowX: 'hidden' } }>
                             { myFolders?.map((item, index) => (
                                 <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
                                     <Folder
@@ -212,7 +212,6 @@ const MyFolder = ({
                     />
                 </div>
             }
-
         </React.Fragment>
     );
 };
