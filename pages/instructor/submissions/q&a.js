@@ -22,7 +22,7 @@ const QNA = ({
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    let url = `${clasId}/assignments/${assId}/qa`
+    let url = `classes/${clasId}/assignments/${assId}/qa`
     GetSubmissionList(url);
   }, [clasId, assId]);
 

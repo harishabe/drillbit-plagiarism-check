@@ -27,8 +27,12 @@ const SubmissionForm = ({
         bodyFormData.append('grammarCheck', data.grammarCheck);
         bodyFormData.append('language', "English");
         bodyFormData.append('file', data.file[0]);
+        if (clasId) {
+            SubmissionListUpload(`classes/${clasId}/assignments/${folderId}/singleFile`, bodyFormData);
+        } else {
+            SubmissionListUpload(`myFolder/${folderId}/singleFile`, bodyFormData);
+        }
 
-        SubmissionListUpload(clasId, folderId, bodyFormData);
     };
 
     return (
@@ -57,7 +61,7 @@ const SubmissionForm = ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        SubmissionListUpload: (clasId, folderId, data) => dispatch(SubmissionListUpload(clasId, folderId, data)),
+        SubmissionListUpload: (apiUrl, data) => dispatch(SubmissionListUpload(apiUrl, data)),
     };
 };
 

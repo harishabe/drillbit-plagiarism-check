@@ -1,5 +1,5 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { DeleteMethod, GetMethod, PostMethod, PutMethod, PostFormData, GetMethodDownload } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
@@ -183,33 +183,3 @@ export const DeleteFolders = async (action) => {
     const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '?id=' + action.folderId;
     return DeleteMethod(url);
 }
-
-/**
- * API CALL FOR MY FOLDER > SUBMISSION DATA
- * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION
- */
-
-export const GetSubmissionDetail = async (clasId, folder_id, paginationPayload) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions' + PaginationUrl(paginationPayload);
-    return GetMethod(url);
-};
-
-/**
- * API CALL FOR MY FOLDER > SUBMISSION DATA > DELETE
- * API CALL FOR MY CLASSES > ASSIGNMENTS > DELETE
- */
-
-export const DeleteSubmission = async (clasId, folder_id, paper_id) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDERS_SUBMISSION_LIST + clasId + '/assignments/' + folder_id + '/submissions?paperId=' + paper_id;
-    return DeleteMethod(url);
-};
-
-/**
- * API CALL FOR MY FOLDER > SUBMISSION DATA > UPLOAD FILE
- * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION > UPLOAD FILE
- */
-
-export const UploadSubmission = async (clasId, folder_id, data) => {
-    const url = BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + clasId + '/assignments/' + folder_id + '/singleFile';
-    return PostFormData(url, data);
-};

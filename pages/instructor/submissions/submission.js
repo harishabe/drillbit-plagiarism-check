@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
 import Instructor from '../../../layouts/Instructor';
 import {
   CardView,
@@ -74,7 +75,7 @@ const Submission = ({
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
 
   useEffect(() => {
-    let url = `${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
+    let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
     GetSubmissionList(url);
   }, [clasId, assId, paginationPayload]);
 
@@ -124,7 +125,7 @@ const Submission = ({
   }
 
   const handleYesWarning = () => {
-    DeleteSubmission(clasId, assId, deleteRowData);
+    DeleteSubmission(`classes/${clasId}/assignments/${assId}/submissions?paperId=${deleteRowData}`);
     setShowDeleteAllIcon(false);
     setTimeout(() => {
       setShowDeleteWarning(false);
@@ -145,7 +146,7 @@ const Submission = ({
 
   const handleSingleSelect = (e, row) => {
     let rowData = rows?.map((rowItem) => {
-      if (rowItem?.id?.props?.title === row?.id?.props?.title) {
+      if (rowItem?.paperid === row?.paperid) {
         rowItem['isSelected'] = !rowItem['isSelected'];
       }
       return rowItem;
@@ -250,7 +251,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
-    DeleteSubmission: (clasId, folderId, paperId) => dispatch(DeleteSubmission(clasId, folderId, paperId)),
+    DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
   };
 };
 

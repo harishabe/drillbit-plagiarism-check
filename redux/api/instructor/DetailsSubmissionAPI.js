@@ -1,19 +1,51 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
-import { PostMethod, PutMethod, GetMethod } from './../ApiMethod';
+import { BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
+import { PostMethod, PutMethod, GetMethod, DeleteMethod, PostFormData, GetMethodDownload } from './../ApiMethod';
 
 /**
- * API CALL FOR EDIT-SUBMISSION
+ * API CALL FOR MY FOLDER > SUBMISSION DATA
+ * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION
  */
-
 export const GetSubmissionGradingQna = async (apiUrl) => {
     const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl;
     return GetMethod(url);
 }
 
+/**
+ * API CALL FOR MY FOLDER > SUBMISSION DATA > UPLOAD FILE
+ * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION > UPLOAD FILE
+ */
+
+export const UploadSubmission = async (apiUrl, data) => {
+    const url = BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + apiUrl;
+    return PostFormData(url, data);
+};
+
+/**
+ * API CALL FOR MY FOLDER > SUBMISSION DATA > DELETE
+ * API CALL FOR MY CLASSES > ASSIGNMENTS > DELETE
+ */
+
+export const DeleteSubmission = async (apiUrl) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl;
+    return DeleteMethod(url);
+};
+
+/**
+ * API CALL FOR EDIT-SUBMISSION
+ */
 export const EditSubmissionData = async (action) => {
     const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + action.clasId + '/assignments/' + action.folder_id;
     return PutMethod(url, action.requestPayload);
+};
+
+/**
+ * API CALL FOR DOWNLOAD CSV
+ */
+
+export const DownloadSubmissionData = async (apiUrl) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl;
+    return GetMethodDownload(url, 'Submission_List.csv');
 };
 
 /**

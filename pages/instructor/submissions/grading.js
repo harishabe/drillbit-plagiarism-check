@@ -35,7 +35,7 @@ const Grading = ({
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    let url = `${clasId}/assignments/${assId}/grading`
+    let url = `classes/${clasId}/assignments/${assId}/grading`
     GetSubmissionList(url);
   }, [clasId, assId]);
 

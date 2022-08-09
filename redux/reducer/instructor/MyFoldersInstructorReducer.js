@@ -121,6 +121,23 @@ const MyFoldersInstructorReducer = (state = {}, action) => {
                 isLoadingDelete: false,
                 deleteDataError: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_START:
+            return {
+                ...state,
+                isLoadingDownload: true,
+            };
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoadingDownload: false,
+                downloadData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_FAIL:
+            return {
+                ...state,
+                isLoadingDownload: false,
+                downloadDataError: action.payload,
+            };
 
         default:
             return state;
