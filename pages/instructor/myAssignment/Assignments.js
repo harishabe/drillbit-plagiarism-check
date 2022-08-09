@@ -193,7 +193,7 @@ const Assignments = ({
           isShowAddIcon={false}
           showDrawer={editAssignment}
         >
-          <AssignmentForm
+            <AssignmentForms
             editData={editAssignmentData}
           />
         </CreateDrawer>

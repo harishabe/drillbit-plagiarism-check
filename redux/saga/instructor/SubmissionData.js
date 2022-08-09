@@ -3,21 +3,20 @@ import * as types from '../../action/ActionType';
 import {
     GetSubmissionGradingQna,
     EditSubmissionData,
-    SaveToRepoSubmission,
-    InstructorFeedbackData
-} from '../../api//instructor/DetailsSubmissionAPI';
-import {
-    UploadSubmission,
     DeleteSubmission,
-} from '../../api//instructor/DetailsInstructorAPI';
+    SaveToRepoSubmission,
+    InstructorFeedbackData,
+    UploadSubmission,
+    DownloadSubmissionData
+} from '../../api//instructor/DetailsSubmissionAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 
 /**
- * Get student data
+ * Get Folder submission data
  * My Folder > Submission List
  * 
- * My classes > assignments > submissions
  * Submission-Grading-Qna
+ * My classes > assignments > submissions
  * @param {*} action
  */
 
@@ -41,17 +40,18 @@ export function* GetSubmissionData() {
 }
 
 /**
- * my folder > submission list > upload file
+ * Myfolder > submissionList > uploadfile
  * myclasses > assignments > submission-upload
  * @param {*} action
  */
 
 export function* onLoadUploadFile(action) {
-    const { response, error } = yield call(UploadSubmission, action.clasId, action.folder_id, action.query);
+    const { response, error } = yield call(UploadSubmission, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_SUCCESS, payload: response?.data });
         yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: `${action.clasId}/assignments/${action.folder_id}/submissions?page=0&size=25&field=name&orderBy=desc`
+            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START,
+            url: action.url.split('/')[0] === 'classes' ? `classes/${action.url.split('/')[1]}/assignments/${action.url.split('/')[3]}/submissions?page=0&size=25&field=name&orderBy=desc` : `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc`
         });
         toastrValidation(response);
     } else {
@@ -65,17 +65,19 @@ export function* UploadSubmissionFile() {
 }
 
 /**
- * my folder > submission list > delete file
+ * Get myfolder > submissionList > delete
+ * My classes > Assignments > delete submission
  * @param {*} action
  */
 
 export function* onLoadDeleteFile(action) {
-    console.log("actionactionaction", action)
-    const { response, error } = yield call(DeleteSubmission, action.clasId, action.folder_id, action.paper_id);
+    console.log("actionactionaction", action.url.split('/'))
+    const { response, error } = yield call(DeleteSubmission, action.url);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_SUCCESS, payload: response?.data });
         yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: `${action.clasId}/assignments/${action.folder_id}/submissions?page=0&size=25&field=name&orderBy=desc`
+            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START,
+            url: action.url.split('/')[0] === 'classes' ? `classes/${action.url.split('/')[1]}/assignments/${action.url.split('/')[3]}/submissions?page=0&size=25&field=name&orderBy=desc` : `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc`
         });
         toastrValidation(response);
     } else {
@@ -96,7 +98,7 @@ export function* onLoadEditSubmission(action) {
     const { response, error } = yield call(EditSubmissionData, action);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_EDIT_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: `${action.clasId}/assignments/${action.folder_id}/submissions?page=0&size=25&field=name&orderBy=desc` });
+        yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: `classes/${action.clasId}/assignments/${action.folder_id}/submissions?page=0&size=25&field=name&orderBy=desc` });
         toastrValidation(response)
     } else {
         yield put({
@@ -149,4 +151,29 @@ export function* onLoadInstructorFeedback(action) {
 
 export function* InstructorFeedbackDetail() {
     yield takeLatest(types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_START, onLoadInstructorFeedback);
+}
+
+/**
+ * Submission list data download
+ * @param {*} action
+ */
+
+
+export function* onLoadDownload(action) {
+    const { response, error } = yield call(DownloadSubmissionData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* DownloadSubmissionDetail() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_START, onLoadDownload);
 }

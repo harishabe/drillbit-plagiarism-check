@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import debouce from "lodash.debounce";
-import Grid from '@mui/material/Grid'
+import { Grid, Tooltip } from '@mui/material';
+import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box'
 import { Pagination, IconButton } from '@mui/material';
-import { TextField } from '@mui/material'
-import Instructor from '../../layouts/Instructor'
+import { TextField } from '@mui/material';
+import Instructor from '../../layouts/Instructor';
 import {
     CardView,
     CommonTable,
@@ -16,9 +17,9 @@ import {
     MainHeading,
     CreateDrawer,
     WarningDialog
-} from '../../components'
-import { GetSubmissionList, DeleteSubmissionFile } from '../../redux/action/instructor/InstructorAction';
-import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon'
+} from '../../components';
+import { GetSubmissionList, DeleteSubmission, DownloadSubmissionList } from '../../redux/action/instructor/InstructorAction';
+import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../assets/icon';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
@@ -48,10 +49,12 @@ const AddButtonBottom = styled.div`
 
 const StudentList = ({
     GetSubmissionList,
+    DownloadSubmissionList,
+    DeleteSubmission,
     submissionData,
     isLoadingSubmission,
     isLoadingUpload,
-    DeleteSubmissionFile,
+    isLoadingDownload,
     pageDetails,
 }) => {
 
@@ -61,7 +64,6 @@ const StudentList = ({
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
 
-    const clasId = router.query.clasId;
     const folderId = router.query.folderId;
     const folderName = router.query.name;
 
@@ -72,7 +74,7 @@ const StudentList = ({
             active: false,
         },
         {
-            name: 'My Folder',
+            name: 'My folder',
             link: '/instructor/myfolder',
             active: false,
         },
@@ -115,10 +117,10 @@ const StudentList = ({
     /** end debounce concepts */
 
     useEffect(() => {
-        let url = clasId + '/assignments/' + folderId + '/submissions?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&field=name&orderBy=' + PaginationValue?.orderBy;
+        let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
 
         GetSubmissionList(url);
-    }, [clasId, folderId, paginationPayload]);
+    }, [folderId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -133,7 +135,7 @@ const StudentList = ({
                     student.percent,
                     student.paper_id,
                     formatDate(student.date_up),
-                    [{ 'component': <DeleteIcon />, 'type': 'edit' }]
+                    [{ 'component': <DeleteIcon />, 'type': 'delete' }]
                 );
             row['isSelected'] = false;
             arr.push(row)
@@ -144,7 +146,7 @@ const StudentList = ({
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
             console.log("rowdata", rowData)
-            setDeleteRowData(rowData?.id?.props?.title);
+            setDeleteRowData(rowData?.paperid);
             setShowDeleteWarning(true);
         }
     }
@@ -159,8 +161,7 @@ const StudentList = ({
     };
 
     const handleYesWarning = () => {
-        // DeleteSubmissionFile(clasId, folderId, deleteRowData);
-        console.log("DeleteSubmissionFile", clasId, folderId, deleteRowData)
+        DeleteSubmission(`myFolder/${folderId}/submissions?paperId=${deleteRowData}`);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -188,7 +189,7 @@ const StudentList = ({
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
-            if (rowItem?.id?.props?.title === row?.id?.props?.title) {
+            if (rowItem?.paperid === row?.paperid) {
                 rowItem['isSelected'] = !rowItem['isSelected'];
             }
             return rowItem;
@@ -196,28 +197,33 @@ const StudentList = ({
         setRows(rowData);
     }
 
-    const deleteAllStudent = () => {
+    const deleteAllSubmission = () => {
         let rowsId = '';
         _.filter(rows, function (o) {
             if (o.isSelected === true) {
                 return rows;
             }
         }).map((rowItem) => {
-            rowsId += rowItem?.id?.props?.title + ',';
+            rowsId += rowItem?.paperid + ',';
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
+    }
+
+    const handleDownload = () => {
+        let url = `myFolder/${folderId}/downloadSubmissions`;
+        DownloadSubmissionList(url)
     }
 
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
+                    <Grid item md={ 10 } xs={ 10 }>
                         <BreadCrumb item={InstructorBreadCrumb} />
                         <MainHeading title={`${folderName} (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                     </Grid>
-                    <Grid item md={2} xs={2}>
+                    <Grid item md={ 2 } xs={ 2 }>
                         <TextField
                             placeholder='Search'
                             onChange={debouncedResults}
@@ -228,13 +234,25 @@ const StudentList = ({
                                 },
                             }}
                         />
+                        { submissionData?.length > 0 &&
+                            <Tooltip title="Download csv">
+                                <IconButton
+                                    sx={ { ml: 20, p: 1 } }
+                                    color="primary"
+                                    aria-label="download-file"
+                                    size="large"
+                                    onClick={ handleDownload }>
+                                    { isLoadingDownload ? <Skeleton width={ 20 } /> : <DownloadIcon /> }
+                                </IconButton>
+                            </Tooltip>
+                        }
                     </Grid>
                 </Grid>
             </Box>
             <CardView>
 
                 {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
-                    <IconButton onClick={deleteAllStudent}>
+                    <IconButton onClick={ deleteAllSubmission }>
                         <DeleteIcon />
                     </IconButton>
                 </div>}
@@ -257,7 +275,6 @@ const StudentList = ({
                         title="Upload File"
                         isShowAddIcon={true}>
                         <SubmissionForm
-                            clasId={clasId}
                             folderId={folderId}
                             isLoadingUpload={isLoadingUpload}
                         />
@@ -296,12 +313,14 @@ const mapStateToProps = (state) => ({
     submissionData: state?.instructorMyFolders?.submissionData?._embedded?.submissionsList,
     isLoadingSubmission: state?.instructorMyFolders?.isLoadingSubmission,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
+    isLoadingDownload: state?.instructorMyFolders?.isLoadingDownload,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
-        DeleteSubmissionFile: (clasId, folderId, paperId) => dispatch(DeleteSubmissionFile(clasId, folderId, paperId)),
+        DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
+        DownloadSubmissionList: (url) => dispatch(DownloadSubmissionList(url)),
     };
 };
 

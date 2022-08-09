@@ -188,6 +188,15 @@ export const DeleteFolder = (folderId) => {
 };
 
 /**
+ * Submission list data download
+ */
+export const DownloadSubmissionList = (url) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_START, url: url
+    };
+};
+
+/**
  * Get myfolder > submissionList
  * Get myclasses > assignments > submission
  */
@@ -201,9 +210,9 @@ export const GetSubmissionList = (url) => {
  * Myfolder > submissionList > uploadfile
  * myclasses > assignments > submission-upload
  */
-export const SubmissionListUpload = (clasId, folder_id, data) => {
+export const SubmissionListUpload = (url, data) => {
     return {
-        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_START, clasId: clasId, folder_id: folder_id, query: data
+        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_START, url: url, query: data
     };
 };
 
@@ -211,9 +220,9 @@ export const SubmissionListUpload = (clasId, folder_id, data) => {
  * Get myfolder > submissionList > delete
  * My classes > Assignments > delete submission
  */
-export const DeleteSubmission = (clasId, folder_id, paper_id) => {
+export const DeleteSubmission = (url) => {
     return {
-        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id
+        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_START, url: url
     };
 };
 
