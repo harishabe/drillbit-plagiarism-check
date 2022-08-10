@@ -54,7 +54,7 @@ const ReportForm = ({
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-        let url = reportDownloadData?.report?.name + '?page=' + value + '&size=' + PaginationValue?.size + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        let url = reportDownloadData?.report?.name + '?page=' + (value - 1) + '&size=' + PaginationValue?.size + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
         ViewAndDownloadData(url);
     };
 
