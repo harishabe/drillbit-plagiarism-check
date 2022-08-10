@@ -252,3 +252,21 @@ export const InstructorFeedback = (clasId, folder_id, paper_id) => {
         type: types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id
     };
 };
+
+/**
+ * Get repositary data
+ */
+export const GetRepoList = (paginationPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Repositary > uploadfile
+ */
+export const RepoUpload = (data) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_START, query: data
+    };
+};

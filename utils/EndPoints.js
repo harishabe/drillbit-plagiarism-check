@@ -29,6 +29,8 @@ const END_POINTS = {
     INSTRUCTOR_ASSIGNMENT_DELETE_DATA: '/extreme/classes/',
     INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA: '/extreme/folder',
     INSTRUCTOR_SUBMISSION_UPLOAD: '/files/',
+    INSTRUCTOR_REPOSITARY_DATA: '/extreme/privateRepositoryInbox',
+    INSTRUCTOR_REPOSITARY_UPLOAD: '/extreme/privateRepository',
     STUDENT_DASHBOARD_WIDGET: '/extreme/student/dashboard',
     STUDENT_MY_CLASSES: '/extreme/student/classes',
     STUDENT_MY_ASSIGNMENTS_SUBMISSION: '/extreme/student/myassignments-details',
