@@ -183,3 +183,21 @@ export const DeleteFolders = async (action) => {
     const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '?id=' + action.folderId;
     return DeleteMethod(url);
 }
+
+/**
+ * API CALL FOR REPOSITARY DATA
+ */
+
+export const GetRepoDetail = async (paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_DATA + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};
+
+/**
+ * REPOSITARY > UPLOADFILE
+ */
+
+export const RepoUploadDetail = async (data) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD;
+    return PostFormData(url, data);
+};

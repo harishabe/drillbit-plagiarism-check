@@ -7,6 +7,8 @@ import {
     EnrollStudentDetail,
     GetAssignmentDetail,
     GetMyFoldersDetail,
+    GetRepoDetail,
+    RepoUploadDetail,
     CreateClassData,
     CreateFolderData,
     CreateStudentData,
@@ -22,7 +24,7 @@ import {
     DeleteFolders,
 } from '../../api/instructor/DetailsInstructorAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { PaginationValue, InstructorPaginationValue, InstructorFolderPaginationValue } from '../../../utils/PaginationUrl';
+import { PaginationValue, InstructorPaginationValue, InstructorFolderPaginationValue, StudentSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
 
 /**
  * Get classes data
@@ -503,4 +505,51 @@ export function* onLoadDeleteFolder(action) {
 
 export function* DeleteMyFolders() {
     yield takeLatest(types.FETCH_INSTRUCTOR_DELETE_FOLDER_START, onLoadDeleteFolder);
+}
+
+/**
+ * Get repositary data
+ * @param {*} action
+ */
+
+export function* onLoadRepo(action) {
+    const { response, error } = yield call(GetRepoDetail, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetRepoData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, onLoadRepo);
+}
+
+/**
+ * Repositary > uploadfile
+ * @param {*} action
+ */
+
+export function* onLoadUploadFile(action) {
+    const { response, error } = yield call(RepoUploadDetail, action.query);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_SUCCESS, payload: response?.data });
+        yield put({
+            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue
+        });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* RepoUploadData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_START, onLoadUploadFile);
 }

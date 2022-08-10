@@ -1,0 +1,71 @@
+[
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "name",
+        "name": "name",
+        "label": "Author name",
+        "required": "Author name"
+    },
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "title",
+        "name": "title",
+        "label": "Paper title",
+        "required": "Paper title"
+    },
+    {
+        "field_type": "input",
+        "type": "number",
+        "id": "year",
+        "name": "year",
+        "label": "Year",
+        "required": "Year"
+    },
+    {
+        "field_type": "dropdown",
+        "type": "text",
+        "id": "repository",
+        "name": "repository",
+        "label": "Repository Type",
+        "required": "Repository Type",
+        "options":[
+            {
+                "name": "Local"
+            },
+            {
+                "name": "Global"
+            }
+        ]
+    },
+    {
+        "field_type": "dropdown",
+        "type": "text",
+        "id": "language",
+        "name": "language",
+        "label": "Language",
+        "required": "Language",
+        "options":[
+            {
+                "name": "English"
+            },
+            {
+                "name": "Non-English"
+            }
+        ]
+    },
+    {
+        "field_type": "file",
+        "id": "file",
+        "name": "file",
+        "label": "Choose File",
+        "required": "Choose File",
+        "validationMsg": "Please choose file"
+    },
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Upload file"
+    }
+]
