@@ -13,6 +13,8 @@ const END_POINTS = {
     ADMIN_REPORTS_DOWNLOAD_STUDENTS_LIST: '/extreme/admin/students/download',
     ADMIN_INSTRUCTOR_DELETE: '/extreme/admin/instructor',
     ADMIN_STUDENT_DELETE: '/extreme/admin/student',
+    ADMIN_REPOSITARY_DATA: '/extreme/admin/directRepositoryInbox',
+    ADMIN_REPOSITARY_UPLOAD: '/extreme/admin/directRepository',
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_MY_CLASSES: '/extreme/classes',
     INSTRUCTOR_MY_CLASSES_STUDENTS: '/extreme/classes/',

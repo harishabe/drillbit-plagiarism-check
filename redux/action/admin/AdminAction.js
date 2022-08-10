@@ -154,3 +154,20 @@ export const DeactivateData = (data, paginationPayload) => {
         type: types.FETCH_ADMIN_DEACTIVATE_ROW_START, query: data, paginationPayload: paginationPayload
     };
 };
+/**
+ * Get repositary data
+ */
+export const GetRepoList = (paginationPayload) => {
+    return {
+        type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Repositary > uploadfile
+ */
+export const RepoUpload = (data) => {
+    return {
+        type: types.FETCH_ADMIN_REPOSITARY_UPLOAD_START, query: data
+    };
+};

@@ -129,3 +129,20 @@ export const DeactivateRow = async (payload) => {
     const url = BASE_URL_EXTREM + END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + payload.id + '/' + payload.status;
     return PutMethod(url, {});
 };
+/**
+ * API CALL FOR REPOSITARY DATA
+ */
+
+export const GetRepoDetail = async (paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_DATA + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};
+
+/**
+ * REPOSITARY > UPLOADFILE
+ */
+
+export const RepoUploadDetail = async (data) => {
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD;
+    return PostFormData(url, data);
+};

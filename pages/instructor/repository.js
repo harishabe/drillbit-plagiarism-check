@@ -13,16 +13,17 @@ import {
     CardView,
     CommonTable,
     CreateDrawer
-} from './../../components'
-import Instructor from '../../layouts/Instructor'
+} from './../../components';
+import { DeleteIcon } from '../../assets/icon';
+import Instructor from '../../layouts/Instructor';
 import { GetRepoList } from '../../redux/action/instructor/InstructorAction';
-import RepositaryForm from './form/RepositaryForm'
+import RepositaryForm from './form/RepositaryForm';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/admin/dashboard',
+        link: '/instructor/dashboard',
         active: false,
     },
     {
@@ -39,7 +40,6 @@ const AddButtonBottom = styled.div`
 `
 
 const columns = [
-    { id: 'sl_no', label: 'Sl No' },
     { id: 'id', label: 'Paper ID' },
     { id: 'name', label: 'Author Name' },
     { id: 'email', label: 'Paper Title' },
@@ -47,9 +47,9 @@ const columns = [
     { id: 'action', label: 'Actions' },
 ]
 
-function createData(sl_no, id, name, email, date, action) {
+function createData(id, name, email, date, action) {
     return {
-        sl_no, id, name, email, date, action
+        id, name, email, date, action
     }
 }
 
@@ -74,18 +74,16 @@ const Repository = ({
 
     useEffect(() => {
         let row = '';
-        let i = 1;
         let arr = [];
         repoData?.map((repo) => {
             row =
-                repo['sl_no'] = i++;
-            createData(
-                repo.paper_id,
-                repo.name,
-                repo.email,
-                formatDate(repo.date_up),
-                [{ 'component': <DeleteIcon />, 'type': 'delete' }]
-            );
+                createData(
+                    repo.paper_id,
+                    repo.name,
+                    repo.title,
+                    formatDate(repo.date_up),
+                    [{ 'component': <DeleteIcon />, 'type': 'delete' }]
+                );
             row['isSelected'] = false;
             arr.push(row)
         });
@@ -189,7 +187,7 @@ const Repository = ({
 
 const mapStateToProps = (state) => ({
     repoData: state?.instructorClasses?.repoData?._embedded?.directRepositoryInboxList,
-    pageDetails: state?.instructorClasses?.repoData?._embedded?.page,
+    pageDetails: state?.instructorClasses?.repoData?.page,
     isLoadingRepo: state?.instructorClasses?.isLoadingRepo,
 });
 

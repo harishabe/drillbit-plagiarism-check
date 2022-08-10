@@ -7,6 +7,8 @@ import {
     MultipleInstructorUpload,
     GetStudentDetail,
     GetReports,
+    GetRepoDetail,
+    RepoUploadDetail,
     DownloadReports,
     EditRow,
     DeleteRow,
@@ -16,7 +18,7 @@ import {
     GetExportCsvFile,
 } from '../../api/admin/DetailsAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { PaginationValue } from '../../../utils/PaginationUrl';
+import { PaginationValue, StudentSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
 
 /**
  * Get instructor details
@@ -339,4 +341,49 @@ export function* onLoadDeactivate(action) {
 export function* DeactivateData() {
     yield takeLatest(types.FETCH_ADMIN_DEACTIVATE_ROW_START, onLoadDeactivate);
 }
+/**
+ * Get repositary data
+ * @param {*} action
+ */
 
+export function* onLoadRepo(action) {
+    const { response, error } = yield call(GetRepoDetail, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_REPOSITARY_DETAILS_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_REPOSITARY_DETAILS_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetAdminRepoData() {
+    yield takeLatest(types.FETCH_ADMIN_REPOSITARY_DETAILS_START, onLoadRepo);
+}
+
+/**
+ * Repositary > uploadfile
+ * @param {*} action
+ */
+
+export function* onLoadUploadFile(action) {
+    const { response, error } = yield call(RepoUploadDetail, action.query);
+    if (response) {
+        yield put({ type: types.FETCH_ADMIN_REPOSITARY_UPLOAD_SUCCESS, payload: response?.data });
+        yield put({
+            type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue
+        });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_ADMIN_REPOSITARY_UPLOAD_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* RepoAdminUploadData() {
+    yield takeLatest(types.FETCH_ADMIN_REPOSITARY_UPLOAD_START, onLoadUploadFile);
+}

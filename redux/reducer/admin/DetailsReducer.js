@@ -105,6 +105,40 @@ const DetailsReducer = (state = {}, action) => {
                 isLoading: false,
                 studentDataError: action.payload,
             };
+        case types.FETCH_ADMIN_REPOSITARY_DETAILS_START:
+            return {
+                ...state,
+                isLoadingRepo: true,
+            };
+        case types.FETCH_ADMIN_REPOSITARY_DETAILS_SUCCESS:
+            return {
+                ...state,
+                isLoadingRepo: false,
+                repoData: action.payload,
+            };
+        case types.FETCH_ADMIN_REPOSITARY_DETAILS_FAIL:
+            return {
+                ...state,
+                isLoadingRepo: false,
+                repoError: action.payload,
+            };
+        case types.FETCH_ADMIN_REPOSITARY_UPLOAD_START:
+            return {
+                ...state,
+                isLoadingUpload: true,
+            };
+        case types.FETCH_ADMIN_REPOSITARY_UPLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoadingUpload: false,
+                uploadData: action.payload,
+            };
+        case types.FETCH_ADMIN_REPOSITARY_UPLOAD_FAIL:
+            return {
+                ...state,
+                isLoadingUpload: false,
+                uploadError: action.payload,
+            };
         default:
             return state;
     }
