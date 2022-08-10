@@ -8,7 +8,9 @@ import {
     DashboardWhiteIcon,
     ClassWhiteIcon,
     ReportWhiteIcon,
-    IntegrationWhiteIcon
+    IntegrationWhiteIcon,
+    RepositoryIcon,
+    RepositoryWhiteIcon,
 } from '../../assets/icon';
 
 const SidebarAdmin = [
@@ -38,6 +40,14 @@ const SidebarAdmin = [
         "activeIcon": <ReportWhiteIcon />,
         "name": "Reports",
         "path": "/reports",
+        "layout": "/admin",
+    },
+    {
+        "icon": <RepositoryIcon />,
+        "activeIcon": <RepositoryWhiteIcon />,
+        "name": "Repository",
+        "path": "/repository",
+        "pathList": ["/repository"],
         "layout": "/admin",
     },
     {
