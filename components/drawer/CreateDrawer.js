@@ -110,7 +110,7 @@ const CreateDrawer = ({
                         {options?.map((item) => (
                             <div key={item.title}>
                                 {item.handleFromCreateDrawer ?
-                                    <MenuItem onClick={handleMultiData} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                                    <MenuItem onClick={(e)=>handleMultiData(e,item)} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                                         <ListItemIcon>
                                             {item.icon}
                                         </ListItemIcon>

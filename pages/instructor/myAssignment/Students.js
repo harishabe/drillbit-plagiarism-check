@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import { Grid, Tooltip, Skeleton, Button, TextField } from '@mui/material';
 import { Pagination } from '@mui/material';
 import { IconButton } from '@mui/material';
-import Instructor from '../../../layouts/Instructor'
+import Instructor from '../../../layouts/Instructor';
 import {
     CardView,
     CommonTable,
@@ -220,8 +220,13 @@ const Students = ({
         UploadFile(router.query.clasId, bodyFormData);
     }
 
-    const handleShow = () => {
-        setShowDialogModal(true)
+    const handleShow = (e, info) => {
+        console.log('handleShow', e, info);
+        if (info?.title === 'Add From List') {
+            setShowDialogModal(true);
+        } else if (info?.title === 'Add Multiple Student') {
+            router.push('/instructor/addBulkStudent')
+        }
     }
 
     const handleCloseDialog = () => {
@@ -263,17 +268,17 @@ const Students = ({
                         {
                             icon: <AddPersonIcon />,
                             title: 'Add Student',
-                            handleFromCreateDrawer:false
+                            handleFromCreateDrawer: false
                         },
                         {
                             icon: <AddMultipleIcon />,
                             title: 'Add Multiple Student',
-                            handleFromCreateDrawer:true
+                            handleFromCreateDrawer: true
                         },
                         {
                             icon: <AddFromListIcon />,
                             title: 'Add From List',
-                            handleFromCreateDrawer:true
+                            handleFromCreateDrawer: true
                         }]}
                     title="Add Student"
                     handleMultiData={handleShow}
@@ -374,18 +379,18 @@ const Students = ({
                     </Tooltip>
 
                     {/* {studentData?.length > 0 ? */}
-                        <CommonTable
-                            isCheckbox={true}
-                            tableHeader={columns}
-                            tableData={rows}
-                            handleAction={handleAction}
-                            handleTableSort={handleTableSort}
-                            handleCheckboxSelect={handleCheckboxSelect}
-                            handleSingleSelect={handleSingleSelect}
-                            isLoading={isLoadingStudent}
-                            charLength={17}
-                            path=''
-                        />
+                    <CommonTable
+                        isCheckbox={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        handleAction={handleAction}
+                        handleTableSort={handleTableSort}
+                        handleCheckboxSelect={handleCheckboxSelect}
+                        handleSingleSelect={handleSingleSelect}
+                        isLoading={isLoadingStudent}
+                        charLength={17}
+                        path=''
+                    />
                     {/* : <ErrorBlock message={STUDENT_NOT_FOUND} />
                     } */}
 
@@ -421,6 +426,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-Students.layout = Instructor
+Students.layout = Instructor;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Students);

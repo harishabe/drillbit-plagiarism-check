@@ -117,7 +117,7 @@ const Repository = ({
         };
     });
 
-/** end debounce concepts */
+    /** end debounce concepts */
 
     return (
         <React.Fragment>
@@ -129,7 +129,7 @@ const Repository = ({
                     <Grid item md={2} xs={2}>
                         <TextField
                             placeholder='Search'
-                            onChange={ debouncedResults }
+                            onChange={debouncedResults}
                             inputProps={{
                                 style: {
                                     padding: 5,
@@ -140,10 +140,10 @@ const Repository = ({
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+            <MainHeading title={`Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
             <AddButtonBottom>
                 <CreateDrawer
-                    isShowAddIcon={ true }
+                    isShowAddIcon={true}
                     title='Upload File'
                 >
                     <RepositaryForm />
@@ -151,29 +151,19 @@ const Repository = ({
             </AddButtonBottom>
             <CardView>
                 <>
-                    {/* { _.find(data, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'left' } }>
-                        <Button variant="contained" onClick={ addAllStudent } >
-                            { isLoadingEnroll ? <BeatLoader color="#fff" /> : `Add new student` }
-                        </Button>
-                    </div> } */}
-
                     <CommonTable
-                        isCheckbox={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        charLength={ 10 }
-                        isLoading={ isLoadingRepo }
-                    // handleAction={ handleAction }
-                    // handleTableSort={ handleTableSort }
-                    // handleCheckboxSelect={ handleCheckboxSelect }
-                    // handleSingleSelect={ handleSingleSelect }
-                    // path=''
+                        isCheckbox={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        charLength={10}
+                        isLoading={isLoadingRepo}
+                        path=''
                     />
 
-                    <div style={ { marginLeft: '40%', marginTop: '25px' } }>
+                    <div style={{ marginLeft: '40%', marginTop: '25px' }}>
                         <Pagination
-                            count={ pageDetails?.totalPages }
-                            onChange={ handlePagination }
+                            count={pageDetails?.totalPages}
+                            onChange={handlePagination}
                             color="primary"
                             variant="outlined"
                             shape="rounded"

@@ -105,6 +105,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/instructor/studentlist' && name === 'My Folders') {
             return true;
+        } else if (router.pathname === '/instructor/addBulkStudent' && name === 'My Classes') {
+            return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }
