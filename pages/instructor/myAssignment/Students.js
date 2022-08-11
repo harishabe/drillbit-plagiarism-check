@@ -19,7 +19,16 @@ import {
     ErrorBlock,
     DialogModal
 } from '../../../components';
-import { EditIcon, DeleteIcon, DeleteWarningIcon, DownloadIcon, UploadIcon } from '../../../assets/icon';
+import {
+    EditIcon,
+    DeleteIcon,
+    DeleteWarningIcon,
+    DownloadIcon,
+    UploadIcon,
+    AddMultipleIcon,
+    AddPersonIcon,
+    AddFromListIcon
+} from '../../../assets/icon';
 import StudentForm from '../form/StudentForm';
 import {
     DeleteStudent,
@@ -222,18 +231,18 @@ const Students = ({
     return (
         <React.Fragment>
 
-            { showDialogModal &&
+            {showDialogModal &&
                 <>
                     <DialogModal
-                        headingTitle={ "Institute Students List" }
-                        isOpen={ true }
+                        headingTitle={"Institute Students List"}
+                        isOpen={true}
                         fullWidth="lg"
                         maxWidth="lg"
-                        handleClose={ handleCloseDialog }
+                        handleClose={handleCloseDialog}
                     >
-                    <StudentInstitute
-                        classId={ router.query.clasId }
-                    />
+                        <StudentInstitute
+                            classId={router.query.clasId}
+                        />
                     </DialogModal>
                 </>
             }
@@ -250,7 +259,24 @@ const Students = ({
 
             <AddButtonBottom>
                 <CreateDrawer
+                    options={[
+                        {
+                            icon: <AddPersonIcon />,
+                            title: 'Add Student',
+                            handleFromCreateDrawer:false
+                        },
+                        {
+                            icon: <AddMultipleIcon />,
+                            title: 'Add Multiple Student',
+                            handleFromCreateDrawer:true
+                        },
+                        {
+                            icon: <AddFromListIcon />,
+                            title: 'Add From List',
+                            handleFromCreateDrawer:true
+                        }]}
                     title="Add Student"
+                    handleMultiData={handleShow}
                     isShowAddIcon={true}>
                     <StudentForm />
                 </CreateDrawer>
@@ -260,11 +286,11 @@ const Students = ({
                 editStudent &&
                 <CreateDrawer
                     title="Edit Student"
-                    isShowAddIcon={ false }
-                    showDrawer={ editStudent }
+                    isShowAddIcon={false}
+                    showDrawer={editStudent}
                 >
                     <StudentForm
-                        editData={ editStudentData }
+                        editData={editStudentData}
                     />
                 </CreateDrawer>
             }
@@ -336,18 +362,18 @@ const Students = ({
                     </div>}
 
                     <Tooltip title="Add student from list">
-                        <IconButton sx={ {
+                        <IconButton sx={{
                             position: 'absolute',
                             padding: '7px',
                             top: '118px',
                             right: '100px'
-                        } }
-                            onClick={ handleShow }>
+                        }}
+                            onClick={handleShow}>
                             <DownloadIcon />
                         </IconButton>
                     </Tooltip>
 
-                    {studentData?.length > 0 ?
+                    {/* {studentData?.length > 0 ? */}
                         <CommonTable
                             isCheckbox={true}
                             tableHeader={columns}
@@ -360,8 +386,8 @@ const Students = ({
                             charLength={17}
                             path=''
                         />
-                        : <ErrorBlock message={STUDENT_NOT_FOUND} />
-                    }
+                    {/* : <ErrorBlock message={STUDENT_NOT_FOUND} />
+                    } */}
 
 
                     {pageDetails?.totalPages > 1 &&

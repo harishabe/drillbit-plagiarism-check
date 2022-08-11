@@ -19,12 +19,13 @@ satheeshreddy45@gmail.com   |     12345678             |
 ---------------------------------------------------------------------------
 sanjay@gmail.com            |     Bit@1234             |       student
 drillbitsatish@gmail.com    |     12345678             |       
+kumarkishan31954@gmail.com  |     YXAZZSKN2M           |
 ---------------------------------------------------------------------------
 testingagain@mailinator.com |     Test@1234            |       instructor
 sagarxtream@mailinator.com  |     Bit@1234             | 
 okwyenoch@yahoo.com         |     BUTOLJUX             |
 bsrreddy803@gmail.com       |     PBARHYWD             |
-drillbit.regional@gmail.com |     H9NLPX12  
+drillbit.regional@gmail.com |     H9NLPX12             |
 ---------------------------------------------------------------------------
 
 Existing app 

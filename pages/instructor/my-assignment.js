@@ -69,23 +69,23 @@ const MyClassesTables = ({
         GetAssignment(router.query.clasId, paginationAssignment);
     }, [router.query.clasId, paginationAssignment]);
 
-    const componentList = [
+    const componentList = [        
+        <Assignments assignmentData={assignmentData} />,
         <Students
             studentData={studentData}
             pageDetails={pageDetails}
             isLoadingStudent={isLoadingStudent}
             handlePagination={handlePagination}
-        />,
-        <Assignments assignmentData={assignmentData} />
+        />
     ];
 
     const tabMenu = [
         {
-            label: `Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
+            label: `Assignments(${pageDetailsAssignment?.totalElements !== undefined ? pageDetailsAssignment?.totalElements : 0})`,
         },
         {
-            label: `Assignments(${pageDetailsAssignment?.totalElements !== undefined ? pageDetailsAssignment?.totalElements : 0})`,
-        }
+            label: `Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
+        }      
     ];
 
     return (

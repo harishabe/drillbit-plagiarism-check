@@ -49,4 +49,6 @@ export { default as CloseIcon } from './CloseIcon';
 export { default as InstructorPersonIcon } from './InstructorPersonIcon';
 export { default as ThreeDotIcon } from './ThreeDotIcon';
 export { default as ArchieveIcon } from './ArchieveIcon';
-
+export { default as AddMultipleIcon } from './AddMultipleIcon';
+export { default as AddPersonIcon } from './AddPersonIcon';
+export { default as AddFromListIcon } from './AddFromListIcon';
