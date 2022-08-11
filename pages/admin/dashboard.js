@@ -202,30 +202,31 @@ const Dashboard = ({
                                 </> :
                                 <>
                                     { adminDashboardData?.topStudent?.students?.length > 0 ?
+                                        <>
                                         <TopStudents
                                             topStudentData={ adminDashboardData?.topStudent?.students }
-                                        />
+                                            />
+                                            <CurveChartContainer>
+                                                <CurveChart
+                                                    chartType="area"
+                                                    strokeCurve="smooth"
+                                                    graphName="No. students"
+                                                    graphData={ [
+                                                        0,
+                                                        adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
+                                                        adminDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
+                                                        adminDashboardData?.topStudent?.submissionsGraph?.fourtyOneSixty,
+                                                        adminDashboardData?.topStudent?.submissionsGraph?.sixtyOneHundred,
+                                                        adminDashboardData?.topStudent?.submissionsGraph?.docError,
+                                                    ] }
+                                                    xaxisLabelShow={ false }
+                                                    yaxisLabelShow={ false }
+                                                    chartHeight={ 190 }
+                                                />
+                                            </CurveChartContainer>
+                                        </>
                                         : <ErrorBlock message={ STUDENT_NOT_FOUND } />
                                     }
-
-                                    <CurveChartContainer>
-                                        <CurveChart
-                                            chartType="area"
-                                            strokeCurve="smooth"
-                                            graphName="No. students"
-                                            graphData={[
-                                                0,
-                                                adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
-                                                adminDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
-                                                adminDashboardData?.topStudent?.submissionsGraph?.fourtyOneSixty,
-                                                adminDashboardData?.topStudent?.submissionsGraph?.sixtyOneHundred,
-                                                adminDashboardData?.topStudent?.submissionsGraph?.docError,
-                                            ]}
-                                            xaxisLabelShow={false}
-                                            yaxisLabelShow={false}
-                                            chartHeight={190}
-                                        />
-                                    </CurveChartContainer>
                                 </>
                             }
                         </CardView>

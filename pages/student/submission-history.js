@@ -17,8 +17,8 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-function createData(name, id, date, similarity, grammer, score, status, language) {
-    return { name, id, date, similarity, grammer, score, status, language }
+function createData(name, id, date, similarity, grammer, score, status) {
+    return { name, id, date, similarity, grammer, score, status }
 }
 
 const SubmissionHistory = ({
@@ -37,7 +37,6 @@ const SubmissionHistory = ({
         { id: 'grammer', label: 'Grammer' },
         { id: 'score', label: 'Score/Mark' },
         { id: 'status', label: 'Status' },
-        { id: 'language', label: 'Language' },
     ]
 
     useEffect(() => {
@@ -53,7 +52,6 @@ const SubmissionHistory = ({
                     submission.grammar,
                     submission.feedback?.marks,
                     submission.status,
-                    submission.lang1,
                 );
             arr.push(row)
         });

@@ -187,7 +187,10 @@ const CardInfoView = ({
                         </Grid>
                     </Grid> 
 
-                    {isImage && <img style={{ marginBottom: '15px' }} src={item.img} alt={item.name} />}
+                    { isImage && <img style={ { marginBottom: '15px' } } src={ item.img } alt={ item.lms } /> }
+
+                    { isKnowMore ?
+                        <SubTitle1 textColor="#808080" title={ item?.description } /> : '' }
 
                     {isHeading && <EllipsisText value={item.name} charLength={30} />}
 
@@ -221,6 +224,7 @@ const CardInfoView = ({
                                 </StatusColor>}
                             {isKnowMore ?
                                 <SubTitle1 textColor="primary" title="Know More" /> : ''}
+
                         </Grid>
 
                         <Grid className={classes.right} item md={3} xs={3}>
@@ -233,7 +237,7 @@ const CardInfoView = ({
                                     </Button>
                                 </Link>
                                 : ''}
-                            {isConfig ? <Switch defaultChecked /> : ''}
+                            { isConfig ? <Switch checked={ item?.lmsconfigured } /> : '' }
                             {isNextPath &&
                                 <IconButton onClick={(e) => router.push(path)}>
                                     <ArrowForwardOutlinedIcon />

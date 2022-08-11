@@ -32,14 +32,13 @@ const columns = [
   { id: 'id', label: 'Id' },
   { id: 'name', label: 'Name' },
   { id: 'status', label: 'Status' },
-  { id: 'statstics', label: 'Stats' },
   { id: 'creation', label: 'Creation Date' },
   { id: 'end', label: 'End Date' },
   { id: 'action', label: 'Action' },
 ];
 
-function createData(id, name, status, statstics, creation, end, action) {
-  return { id, name, status, statstics, creation, end, action };
+function createData(id, name, status, creation, end, action) {
+  return { id, name, status, creation, end, action };
 }
 
 const Assignments = ({
@@ -81,7 +80,6 @@ const Assignments = ({
           }
           title={assignment.status}
         />,
-        assignment.ass_id,
         assignment.creation_date,
         assignment.end_date,
         [
@@ -217,7 +215,7 @@ const Assignments = ({
           </IconButton>
         </div>}
 
-        {assignmentData?.length > 0 ?
+        {/* {assignmentData?.length > 0 ? */ }
           <CommonTable
             isCheckbox={true}
             isNextPath={true}
@@ -230,8 +228,8 @@ const Assignments = ({
             isLoading={isLoadingAssignment}
             path={{ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } }}
           />
-          : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
-        }
+        {/* //   : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
+        // } */}
 
         {pageDetails?.totalPages > 1 && (
           <div style={{ marginLeft: '35%', marginTop: '25px' }}>

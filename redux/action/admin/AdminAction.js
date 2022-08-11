@@ -154,6 +154,7 @@ export const DeactivateData = (data, paginationPayload) => {
         type: types.FETCH_ADMIN_DEACTIVATE_ROW_START, query: data, paginationPayload: paginationPayload
     };
 };
+
 /**
  * Get repositary data
  */
@@ -169,5 +170,14 @@ export const GetRepoList = (paginationPayload) => {
 export const RepoUpload = (data) => {
     return {
         type: types.FETCH_ADMIN_REPOSITARY_UPLOAD_START, query: data
+    };
+};
+
+/**
+ * Get integration data
+ */
+export const GetIntegrationList = () => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_DETAILS_START
     };
 };
