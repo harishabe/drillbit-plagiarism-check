@@ -16,6 +16,7 @@ import {
     SubTitle,
     ListSkeleton,
     ErrorBlock,
+    CurveChart,
     // RecentSubmissionTable
 } from '../../components';
 import {
@@ -52,6 +53,12 @@ import {
 const TextAlignRight = styled.div`
     text-align: right;
     marginTop: 4px;
+`;
+
+const CurveChartContainer = styled.div`
+    position:relative;
+    bottom:103px;
+    margin-right:-27px;
 `;
 
 const Dashboard = ({
@@ -118,7 +125,28 @@ const Dashboard = ({
                                 </> :
                                 <>
                                     { instructorDashboardData?.data?.top_students?.students?.length > 0 ?
-                                        <TopStudents topStudentData={ instructorDashboardData?.data?.top_students?.students } />
+                                        <>
+                                            <TopStudents topStudentData={ instructorDashboardData?.data?.top_students?.students }
+                                            />
+                                            <CurveChartContainer>
+                                                <CurveChart
+                                                    chartType="area"
+                                                    strokeCurve="smooth"
+                                                    graphName="No. students"
+                                                    graphData={ [
+                                                        0,
+                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.zeroTen,
+                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.elevenFourty,
+                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.fourtyOneSixty,
+                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.sixtyOneHundred,
+                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.docError,
+                                                    ] }
+                                                    xaxisLabelShow={ false }
+                                                    yaxisLabelShow={ false }
+                                                    chartHeight={ 190 }
+                                                />
+                                            </CurveChartContainer>
+                                        </>
                                         : <ErrorBlock message={ STUDENT_NOT_FOUND } /> }
                                 </>
                             }

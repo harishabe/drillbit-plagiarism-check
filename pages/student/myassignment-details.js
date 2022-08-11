@@ -53,7 +53,6 @@ const MyAssignmentDetails = ({
     submissionData,
     headerData,
     qnaData,
-    qnaMessage,
     feedbackData,
     pageDetails,
     isLoadingSubmission,
@@ -170,7 +169,6 @@ const MyAssignmentDetails = ({
         <QA
             GetQna={ GetQna }
             qnaData={ qnaData }
-            qnaMessage={ qnaMessage }
             isLoadingQa={ isLoadingQa }
             isLoadingAns={ isLoadingAns }
             handleSend={ handleSend }
@@ -221,7 +219,6 @@ const mapStateToProps = (state) => ({
     headerData: state?.studentClasses?.headerData,
     feedbackData: state?.studentClasses?.feedbackData,
     qnaData: state?.studentClasses?.qnaData,
-    qnaMessage: state?.studentClasses?.qnaData,
     pageDetails: state?.studentClasses?.submissionData?.page,
     isLoadingSubmission: state?.studentClasses?.isLoadingSubmission,
     isLoadingHeader: state?.studentClasses?.isLoadingHeader,

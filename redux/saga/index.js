@@ -24,6 +24,9 @@ import {
     GetSubmissionDownload
 } from './admin/ReportsData';
 import {
+    GetAdminIntegrationData
+} from './admin/IntegrationAdminData';
+import {
     GetClassesData,
     GetClassesStudentData,
     GetStudentListData,
@@ -144,6 +147,7 @@ const saga = [
     fork(DeleteData),
     fork(DeleteStudentData),
     fork(DeactivateData),
+    fork(GetAdminIntegrationData),
     fork(CreateExtremeRefAccount),
     fork(GetExtremeRef),
 ];

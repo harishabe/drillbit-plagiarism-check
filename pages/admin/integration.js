@@ -1,9 +1,11 @@
-import React from 'react'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import { TextField } from '@mui/material'
-import Admin from './../../layouts/Admin'
-import { BreadCrumb, CardInfoView, MainHeading } from './../../components'
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
+import Admin from './../../layouts/Admin';
+import { BreadCrumb, CardInfoView, MainHeading } from './../../components';
+import { GetIntegrationList } from '../../redux/action/admin/AdminAction';
 
 const IntegrationBreadCrumb = [
     {
@@ -18,52 +20,81 @@ const IntegrationBreadCrumb = [
     },
 ]
 
-const classes = [
-    {
-        name: 'Java',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
-        validity: '2 days left',
-        color: '#38BE62',
-        img: '/img/lms/quicklr.svg'
-    },
-    {
-        name: 'Machine Learning',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
-        validity: '2 days left',
-        color: '#F1A045',
-        img: '/img/lms/moodle.svg'
-    },
-    {
-        name: 'Data Science',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
-        validity: '2 days left',
-        color: '#8D34FF',
-        img: '/img/lms/blackboard.svg'
-    },
-    {
-        name: 'Data Management',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
-        validity: '2 days left',
-        color: '#B94D34',
-        img: '/img/lms/google-classroom.svg'
-    },
-    {
-        name: 'Data Management',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
-        validity: '2 days left',
-        color: '#666AF6',
-        img: '/img/lms/canvas.svg'
-    },
-    {
-        name: 'Data Management',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
-        validity: '2 days left',
-        color: '#E9596F',
-        img: '/img/lms/langquil.svg'
-    },
-]
+// const classes = [
+//     {
+//         name: 'Java',
+//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
+//         validity: '2 days left',
+//         color: '#38BE62',
+//         img: '/img/lms/quicklr.svg'
+//     },
+//     {
+//         name: 'Machine Learning',
+//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
+//         validity: '2 days left',
+//         color: '#F1A045',
+//         img: '/img/lms/moodle.svg'
+//     },
+//     {
+//         name: 'Data Science',
+//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
+//         validity: '2 days left',
+//         color: '#8D34FF',
+//         img: '/img/lms/blackboard.svg'
+//     },
+//     {
+//         name: 'Data Management',
+//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
+//         validity: '2 days left',
+//         color: '#B94D34',
+//         img: '/img/lms/google-classroom.svg'
+//     },
+//     {
+//         name: 'Data Management',
+//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
+//         validity: '2 days left',
+//         color: '#666AF6',
+//         img: '/img/lms/canvas.svg'
+//     },
+//     {
+//         name: 'Data Management',
+//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Arcu eget augue arcu gravida. Laoreet  eget aliquet consequat.',
+//         validity: '2 days left',
+//         color: '#E9596F',
+//         img: '/img/lms/langquil.svg'
+//     },
+// ]
 
-const Integration = () => {
+const Integration = ({
+    GetIntegrationList,
+    integrationData,
+    isLoading
+}) => {
+
+    const [lmsData, setLmsData] = useState([]);
+    useEffect(() => {
+        GetIntegrationList();
+    }, []);
+
+    useEffect(() => {
+        let lmsData = integrationData?.map((item) => {
+            if (item.lms === 'MOODLE') {
+                item['img'] = '/img/lms/moodle.svg';
+                item['description'] = 'Moodle is a software package for producing Internet-based courses and web sites';
+            }
+            if (item.lms === 'CANVAS') {
+                item['img'] = '/img/lms/canvas.svg';
+                item['description'] = 'The Canvas LMS is the world\'s fastest growing learning management system.'
+            }
+            if (item.lms === 'BLACKBOARD') {
+                item['img'] = '/img/lms/blackboard.svg';
+                item['description'] = 'Blackboard Learn is a web-based virtual learning environment and learning management system'
+            }
+            return item;
+        })
+        setLmsData(lmsData);
+    }, [integrationData]);
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -87,7 +118,7 @@ const Integration = () => {
 
             <MainHeading title='Integrations (6)' />
             <Grid container spacing={2}>
-                {classes.map((item, index) => (
+                { lmsData?.map((item, index) => (
                     <Grid key={index} item md={4} xs={12}>
                         <CardInfoView
                             item={item}
@@ -105,6 +136,17 @@ const Integration = () => {
     )
 }
 
+const mapStateToProps = (state) => ({
+    integrationData: state?.adminIntegrationData?.integrationData,
+    isLoading: state?.adminIntegrationData?.integrationData?.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetIntegrationList: () => dispatch(GetIntegrationList()),
+    };
+};
+
 Integration.layout = Admin
 
-export default Integration
+export default connect(mapStateToProps, mapDispatchToProps)(Integration);

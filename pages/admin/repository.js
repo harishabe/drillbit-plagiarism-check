@@ -151,23 +151,12 @@ const Repository = ({
             </AddButtonBottom>
             <CardView>
                 <>
-                    {/* { _.find(data, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'left' } }>
-                        <Button variant="contained" onClick={ addAllStudent } >
-                            { isLoadingEnroll ? <BeatLoader color="#fff" /> : `Add new student` }
-                        </Button>
-                    </div> } */}
-
                     <CommonTable
                         isCheckbox={ true }
                         tableHeader={ columns }
                         tableData={ rows }
                         charLength={ 10 }
                         isLoading={ isLoadingRepo }
-                    // handleAction={ handleAction }
-                    // handleTableSort={ handleTableSort }
-                    // handleCheckboxSelect={ handleCheckboxSelect }
-                    // handleSingleSelect={ handleSingleSelect }
-                    // path=''
                     />
 
                     <div style={ { marginLeft: '40%', marginTop: '25px' } }>

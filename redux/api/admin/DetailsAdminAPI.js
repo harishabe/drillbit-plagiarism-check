@@ -129,6 +129,7 @@ export const DeactivateRow = async (payload) => {
     const url = BASE_URL_EXTREM + END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + payload.id + '/' + payload.status;
     return PutMethod(url, {});
 };
+
 /**
  * API CALL FOR REPOSITARY DATA
  */

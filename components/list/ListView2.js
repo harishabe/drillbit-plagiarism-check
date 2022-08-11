@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 import { Skeleton, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import styled from 'styled-components';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -11,7 +12,8 @@ import { Title1, SubTitle2 } from '../index';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import BeatLoader from "react-spinners/BeatLoader";
-import { SubTitle } from '../index'
+import { ErrorBlock } from '../index'
+import { formatDate } from '../../utils/RegExp'
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -26,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
+const AlignRight = styled.div`
+    text-align:right;
+    margin-right: 200px;
+`
+
 const Colors = ['#7B68C8', '#68C886', '#8D34FF', '#34C2FF', '#3491FF', '#68C886'];
 
 function createId(questionId) {
@@ -35,7 +42,6 @@ function createId(questionId) {
 const ListView2 = ({
     GetQna,
     qnaData,
-    qnaMessage,
     isLoadingQa,
     isLoadingAns,
     handleSend
@@ -55,17 +61,29 @@ const ListView2 = ({
         GetQna(router.query.clasId, router.query.assId);
     }, []);
 
-    // useEffect(() => {
-    //     let id = '';
-    //     let arr = [];
-    //     qnaData?.map((item, index) => {
-    //         id = createId(
-    //             item.id = `qId${index + 1}`,
-    //         );
-    //         arr.push(id)
-    //     });
-    //     setId([...arr]);
-    // }, [qnaData]);
+    const QnaMessage = (qnaData) => {
+        if (qnaData?.message) {
+            return qnaData?.message
+        } else {
+            QnaData(qnaData)
+        }
+    }
+
+    const QnaData = (qnaData) => {
+        let id = '';
+        let arr = [];
+        qnaData?.map((item, index) => {
+            id = createId(
+                item.id = `qId${index + 1}`,
+            );
+            arr.push(id)
+        });
+        setId([...arr]);
+    }
+
+    useEffect(() => {
+        QnaMessage(qnaData)
+    }, [qnaData]);
 
     return (
         <>
@@ -77,8 +95,8 @@ const ListView2 = ({
                         <Skeleton />
                     </> :
                     <>
-                        { <SubTitle title={ qnaMessage?.message } /> ||
-
+                        { qnaData?.message ?
+                            <ErrorBlock message={ qnaData?.message } /> :
                             qnaData?.map((item, index) => (
                             item['bgcolor'] = Colors[index],
                             item['id'] = item.id,
@@ -214,35 +232,19 @@ const ListView2 = ({
                                                         style={ { textAlign: 'right' } }
                                                         disableTypography
                                                         className={ classes.right }
-                                                        primary={ <SubTitle2 title={ 'Asked : ' + item.date } /> }
+                                                            primary={ <SubTitle2 title={ 'Asked : ' + formatDate(item.question_date) } /> }
                                                     />
                                                 </Grid>
                                             </Grid>
-                                        </ListItem>
-                                            <Grid container spacing={ 21.5 }>
-                                                <Grid item xs={ 7 }></Grid>
-                                                <Grid item xs={ 5 }>
-                                                    <Button
-                                                        variant="contained"
-                                                        size="large"
-                                                        type="button"
-                                                        color="primary"
-                                                        onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
-                                                    >
-                                                        { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
-                                                    </Button>
-                                                </Grid>
-                                            </Grid>
+                                            </ListItem>
                                     </>
                                 }
-                            </>
-                            ))  
+                                </>
+                            ))
                         }
 
-                        {/* { qnaError ? '' :
-                            <Grid container spacing={ 21.5 }>
-                                <Grid item xs={ 7 }></Grid>
-                                <Grid item xs={ 5 }>
+                        { qnaData?.message ? '' :
+                            <AlignRight>
                                     <Button
                                         variant="contained"
                                         size="large"
@@ -252,9 +254,8 @@ const ListView2 = ({
                                     >
                                         { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
                                     </Button>
-                                </Grid>
-                            </Grid>
-                        } */}
+                            </AlignRight>
+                        }
                     </>
                 }
             </List>

@@ -26,7 +26,6 @@ const columns = [
   { id: 'STname', label: 'Student Name' },
   { id: 'PAname', label: 'Paper Name' },
   { id: 'file', label: 'Original File' },
-  { id: 'lang', label: 'Language' },
   { id: 'grammer', label: 'Grammer' },
   { id: 'similarity', label: 'Similarity' },
   { id: 'paperid', label: 'Paper Id' },
@@ -34,9 +33,9 @@ const columns = [
   { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, STname, PAname, file, lang, grammer, similarity, paperid, date, action) {
+function createData(id, STname, PAname, file, grammer, similarity, paperid, date, action) {
   return {
-    id, STname, PAname, file, lang, grammer, similarity, paperid, date, action
+    id, STname, PAname, file, grammer, similarity, paperid, date, action
   };
 }
 
@@ -92,7 +91,6 @@ const Submission = ({
         submission.name,
         submission.title,
         submission.original_fn,
-        submission.lang1,
         submission.grammar,
         submission.percent,
         submission.paper_id,
