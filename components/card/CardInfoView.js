@@ -103,14 +103,14 @@ const CardInfoView = ({
     return (
         <React.Fragment>
             {/* onClick={ (e) => router.push(path) } */}
-            <Card style={{ marginTop: '10px' }}>
+            <Card style={{ marginTop: '10px', cursor: 'pointer' }}>
                 <CardContent>
                     {isDownload &&
                         <AlignRight>
                             <DownloadFileIcon />
                         </AlignRight>}
                     <Grid container spacing={2}>
-                        <Grid item xs={ 10 }> 
+                        <Grid item xs={10}>
                             {isAvatar &&
                                 <Avatar
                                     sx={{ bgcolor: item.color, width: 50, height: 50, fontSize: '15px' }}
@@ -120,7 +120,7 @@ const CardInfoView = ({
                                     {item.name.toUpperCase().charAt(0)}
                                 </Avatar>}
                         </Grid>
-                        <Grid item xs={ 2 }> 
+                        <Grid item xs={2}>
                             {isAction &&
                                 <>
                                     <AlignRight>
@@ -169,7 +169,7 @@ const CardInfoView = ({
                                             <ListItemText>Edit</ListItemText>
                                             <EditIcon />
                                         </MenuItem>
-                                    {/* <Divider />
+                                        {/* <Divider />
                                     <MenuItem>
                                             <ListItemText sx={{ marginRight: '5px' }}>Archieve</ListItemText>
                                             <ArchieveIcon />
@@ -185,12 +185,12 @@ const CardInfoView = ({
                                     </Menu>
                                 </>}
                         </Grid>
-                    </Grid> 
+                    </Grid>
 
-                    { isImage && <img style={ { marginBottom: '15px' } } src={ item.img } alt={ item.lms } /> }
+                    {isImage && <img style={{ marginBottom: '15px' }} src={item.img} alt={item.lms} />}
 
-                    { isKnowMore ?
-                        <SubTitle1 textColor="#808080" title={ item?.description } /> : '' }
+                    {isKnowMore ?
+                        <SubTitle1 textColor="#808080" title={item?.description} /> : ''}
 
                     {isHeading && <EllipsisText value={item.name} charLength={30} />}
 
@@ -218,12 +218,15 @@ const CardInfoView = ({
                                 >
                                     <TimerIcon />
                                     <SubTitle2
-                                        title={ Validity(item.validity) }
+                                        title={Validity(item.validity)}
                                         ml="10px"
                                     />
                                 </StatusColor>}
                             {isKnowMore ?
-                                <SubTitle1 textColor="primary" title="Know More" /> : ''}
+                                <div onClick={(e) => router.push({ 'pathname': item?.path, query: {integration:'moodle'} })}>
+                                    <SubTitle1 textColor="primary" title="Know More" />
+                                </div>
+                                : ''}
 
                         </Grid>
 
@@ -237,7 +240,7 @@ const CardInfoView = ({
                                     </Button>
                                 </Link>
                                 : ''}
-                            { isConfig ? <Switch checked={ item?.lmsconfigured } /> : '' }
+                            {isConfig ? <Switch checked={item?.lmsconfigured} /> : ''}
                             {isNextPath &&
                                 <IconButton onClick={(e) => router.push(path)}>
                                     <ArrowForwardOutlinedIcon />

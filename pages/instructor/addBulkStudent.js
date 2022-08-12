@@ -46,11 +46,10 @@ const AddBulkStudent = () => {
                 <Grid container spacing={1}>
                     <Grid item md={12} xs={12}>
                         <CardView>
-
                             <div style={{ padding: '25px 150px' }}>
                                 <Grid container spacing={1}>
                                     <Grid item md={6} xs={6}>
-                                        <Heading title='Add Student' />
+                                        <MainHeading title='Add Student' />
                                     </Grid>
                                     <Grid item md={6} xs={6}>
 

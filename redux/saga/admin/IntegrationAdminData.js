@@ -10,8 +10,8 @@ import toastrValidation from '../../../utils/ToastrValidation';
  * @param {*} action
  */
 
-export function* onLoadIntegration() {
-    const { response, error } = yield call(GetIntegrationDetail);
+export function* onLoadIntegration(action) {
+    const { response, error } = yield call(GetIntegrationDetail,action.apiUrl);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_INTEGRATION_DETAILS_SUCCESS,

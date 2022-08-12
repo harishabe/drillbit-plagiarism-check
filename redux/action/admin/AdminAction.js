@@ -176,8 +176,8 @@ export const RepoUpload = (data) => {
 /**
  * Get integration data
  */
-export const GetIntegrationList = () => {
+export const GetIntegrationList = (apiUrl) => {
     return {
-        type: types.FETCH_ADMIN_INTEGRATION_DETAILS_START
+        type: types.FETCH_ADMIN_INTEGRATION_DETAILS_START, apiUrl: apiUrl
     };
 };
