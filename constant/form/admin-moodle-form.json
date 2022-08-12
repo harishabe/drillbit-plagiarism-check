@@ -1,0 +1,40 @@
+[
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "name",
+        "name": "name",
+        "label": "Name",
+        "required": "Enter name"
+    },
+    {
+        "field_type": "input",
+        "type": "email",
+        "id": "email",
+        "name": "email",
+        "label": "Email",
+        "required": "Enter email address",
+        "validationMsg": "Invalid email address"
+    },
+    {
+        "field_type": "input",
+        "type": "number",
+        "id": "phone",
+        "name": "phone",
+        "label": "Phone Number",
+        "required": "Phone Number"
+    },
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "moodle_url",
+        "name": "moodle_url",
+        "label": "Moodle LMS URL",
+        "required": "Moodle LMS URL"
+    },
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Confirm"
+    }
+]

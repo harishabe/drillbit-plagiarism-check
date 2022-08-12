@@ -36,6 +36,40 @@ const IntegrationReducer = (state = {}, action) => {
                 isLoading: false,
                 integrationTypeDataError: action.payload,
             };
+        case types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_START:
+            return {
+                ...state,
+                isLoadingUpload: true,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_SUCCESS:
+            return {
+                ...state,
+                isLoadingUpload: false,
+                uploadData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_FAIL:
+            return {
+                ...state,
+                isLoadingUpload: false,
+                uploadDataError: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_START:
+            return {
+                ...state,
+                isLoadingUpload: true,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_SUCCESS:
+            return {
+                ...state,
+                isLoadingUpload: false,
+                configData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_FAIL:
+            return {
+                ...state,
+                isLoadingUpload: false,
+                configDataError: action.payload,
+            };
         default:
             return state;
     }

@@ -14,7 +14,7 @@ Users
 USERNAME                    |     PASSWORD             |       ROLE
 ---------------------------------------------------------------------------
 yatheendra72@gmail.com      |     12345678             |       admin
-admin@xtream.com            |     Bit@1234             | 
+admin@xtream                |     123456               | 
 satheeshreddy45@gmail.com   |     12345678             | 
 ---------------------------------------------------------------------------
 sanjay@gmail.com            |     Bit@1234             |       student
@@ -22,7 +22,7 @@ drillbitsatish@gmail.com    |     12345678             |
 kumarkishan31954@gmail.com  |     YXAZZSKN2M           |
 ---------------------------------------------------------------------------
 testingagain@mailinator.com |     Test@1234            |       instructor
-sagarxtream@mailinator.com  |     Bit@1234             | 
+sagarxtream@mailinator.com  |     12345                | 
 okwyenoch@yahoo.com         |     BUTOLJUX             |
 bsrreddy803@gmail.com       |     PBARHYWD             |
 drillbit.regional@gmail.com |     H9NLPX12             |
