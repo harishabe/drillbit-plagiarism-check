@@ -54,7 +54,9 @@ const END_POINTS = {
     CREATE_MULTIPLE_INSTRUCTOR:'/extreme/admin/addMultipleInstructors',
     STUDENT_DOWNLOAD_TEMPLATE: '/extreme/classes/',
     CREATE_MULTIPLE_STUDENT: '/extreme/classes/',
-    ADMIN_MOODLE_INTEGRATION:'/extreme/integrations/moodle'
+    ADMIN_MOODLE_INTEGRATION: '/extreme/integrations/moodle',
+    ADMIN_CANVAS_INTEGRATION: '/extreme/integrations/canvas',
+    ADMIN_BLACKBOARD_INTEGRATION: '/extreme/integrations/blackboard'
 };
 
 export default END_POINTS;

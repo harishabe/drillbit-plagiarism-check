@@ -36,7 +36,7 @@ const BlackBoard = ({
 }) => {
 
     useEffect(() => {
-        GetIntegrationList(END_POINTS.ADMIN_MOODLE_INTEGRATION);
+        GetIntegrationList(END_POINTS.ADMIN_BLACKBOARD_INTEGRATION);
     }, []);
 
     return (
@@ -64,6 +64,22 @@ const BlackBoard = ({
     )
 };
 
+const mapStateToProps = (state) => ({
+    integrationData: state?.adminIntegrationData?.integrationData,
+    isLoading: state?.adminIntegrationData?.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetIntegrationList: (apiUrl) => dispatch(GetIntegrationList(apiUrl)),
+    };
+};
+
+
 BlackBoard.layout = Admin;
 
-export default BlackBoard;
+BlackBoard.propTypes = {
+    GetIntegrationList: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlackBoard);
