@@ -1,17 +1,18 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { useRouter } from "next/router";
+import { Grid, Box, Skeleton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
+import styled from 'styled-components';
 import {
     BreadCrumb,
-    CardView,
-    Heading,
-    MainHeading
+    CreateDrawer
 } from '../../../components';
-import { GetIntegrationList } from '../../../redux/action/admin/AdminAction';
+import { GetIntegrationDetailData } from '../../../redux/action/admin/AdminAction';
 import END_POINTS from '../../../utils/EndPoints';
+import IntegrationTypeDetail from './IntegrationTypeDetail';
+import BlackboardForm from '../form/BlackboardForm';
 
 const InstructorBreadCrumb = [
     {
@@ -31,55 +32,77 @@ const InstructorBreadCrumb = [
     },
 ];
 
+const AddButtonBottom = styled.div`
+    position:fixed;
+    bottom: 30px;
+    right:30px;
+`;
+
 const BlackBoard = ({
-    GetIntegrationList
+    GetIntegrationDetailData,
+    integrationData,
+    isLoading
 }) => {
 
+    const router = useRouter();
+
     useEffect(() => {
-        GetIntegrationList(END_POINTS.ADMIN_BLACKBOARD_INTEGRATION);
+        GetIntegrationDetailData(END_POINTS.ADMIN_BLACKBOARD_INTEGRATION);
     }, []);
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
-                    </Grid>
-                    <Grid item md={2} xs={2}>
-
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
-                <Grid container spacing={1}>
-                    <Grid item md={12} xs={12}>
-                        <MainHeading title='Integrations' />
-                        <CardView>
-
-
-                        </CardView>
-                    </Grid>
+                <Grid container spacing={ 1 }>
+                    { isLoading ? <Grid container spacing={ 2 }>
+                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                    </Grid> :
+                        <Grid item md={ 12 } xs={ 12 }>
+                            {
+                                integrationData && <IntegrationTypeDetail
+                                    routerData={ router?.query }
+                                    integrationData={ integrationData }
+                                />
+                            }
+                        </Grid>
+                    }
                 </Grid>
+                <AddButtonBottom>
+                    <CreateDrawer
+                        title="Add Instructor"
+                        isShowAddIcon={ true }
+                    >
+                        <BlackboardForm />
+                    </CreateDrawer>
+                </AddButtonBottom>
             </Box>
         </React.Fragment>
     )
 };
 
 const mapStateToProps = (state) => ({
-    integrationData: state?.adminIntegrationData?.integrationData,
+    integrationData: state?.adminIntegrationData?.integrationTypeData,
     isLoading: state?.adminIntegrationData?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetIntegrationList: (apiUrl) => dispatch(GetIntegrationList(apiUrl)),
+        GetIntegrationDetailData: (apiUrl) => dispatch(GetIntegrationDetailData(apiUrl)),
     };
 };
-
 
 BlackBoard.layout = Admin;
 
 BlackBoard.propTypes = {
-    GetIntegrationList: PropTypes.func.isRequired
+    GetIntegrationDetailData: PropTypes.func.isRequired,
+    integrationData: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlackBoard);

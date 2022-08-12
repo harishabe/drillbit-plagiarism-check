@@ -25,7 +25,9 @@ import {
 } from './admin/ReportsData';
 import {
     GetAdminIntegrationData,
-    GetAdminIntegrationType
+    GetAdminIntegrationType,
+    UploadAdminIntegration,
+    ChangeConfiguration
 } from './admin/IntegrationAdminData';
 import {
     GetClassesData,
@@ -150,6 +152,8 @@ const saga = [
     fork(DeactivateData),
     fork(GetAdminIntegrationData),
     fork(GetAdminIntegrationType),    
+    fork(UploadAdminIntegration),
+    fork(ChangeConfiguration),    
     fork(CreateExtremeRefAccount),
     fork(GetExtremeRef),
 ];

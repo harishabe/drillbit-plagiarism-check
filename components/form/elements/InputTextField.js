@@ -32,9 +32,9 @@ const InputTextField = ({
     const [regex, setRegex] = useState()
 
     useEffect(() => {
-        if (field.type === 'email') {
-            setRegex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
-        }
+        // if (field.type === 'email') {
+        //     setRegex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
+        // }
         if (field.type === 'password') {
             setRegex(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g)
         }

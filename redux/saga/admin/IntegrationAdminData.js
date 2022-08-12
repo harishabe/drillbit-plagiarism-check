@@ -1,7 +1,9 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
-    GetIntegrationDetail
+    GetIntegrationDetail,
+    LmsIntegrationDetail,
+    ChangeConfigDetail
 } from '../../api/admin/IntegrationAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 
@@ -52,4 +54,60 @@ export function* GetAdminIntegrationData() {
 
 export function* GetAdminIntegrationType() {
     yield takeLatest(types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_START, onLoadIntegrationDetails);
+}
+
+/**
+ * Upload integration details data
+ * @param {*} action
+ */
+
+export function* onLoadIntegrationDetailsUpload(action) {
+    const { response, error } = yield call(LmsIntegrationDetail, action.apiUrl, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* UploadAdminIntegration() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_START, onLoadIntegrationDetailsUpload);
+}
+
+/**
+ * change config data
+ * @param {*} action
+ */
+
+export function* onLoadChangeConfigDetail(action) {
+    const { response, error } = yield call(ChangeConfigDetail, action.apiUrl, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_SUCCESS,
+            payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_START, apiUrl: action.apiUrl,
+            payload: response?.data,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* ChangeConfiguration() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_START, onLoadChangeConfigDetail);
 }

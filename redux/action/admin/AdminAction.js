@@ -190,3 +190,21 @@ export const GetIntegrationList = (apiUrl) => {
         type: types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_START, apiUrl: apiUrl
     };
 };
+
+/**
+ * Upload integration data
+ */
+export const LmsIntegration = (apiUrl, data) => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_START, apiUrl: apiUrl, query: data
+    };
+};
+
+/**
+ * change config data
+ */
+export const ChangeConfig = (apiUrl, data) => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_START, apiUrl: apiUrl, query: data
+    };
+};

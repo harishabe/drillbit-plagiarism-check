@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from "next/router";
 import { makeStyles } from '@mui/styles';
 import { Button, Divider } from '@mui/material';
 import { ConfigIcon } from '../../../assets/icon';
 import {
     CardView,
     SubHeading,
+    MainHeading,
     SubTitle,
     SubTitle1
 } from '../../../components';
@@ -33,17 +35,19 @@ const useStyles = makeStyles({
 
 const IntegrationTypeDetail = ({
     integrationData,
-    routerData
+    routerData,
+    handleConfig
 }) => {
 
     const classes = useStyles();
+    const router = useRouter();
 
     return (
         <>
             <MainHeading title={routerData?.integration?.charAt(0).toUpperCase() + router?.query?.integration?.slice(1) + ' ' + 'Integration'} />
             <CardView>
                 <SubHeading title={routerData?.integration?.charAt(0).toUpperCase() + routerData?.integration?.slice(1) + ' ' + 'is configured'} />
-                <Button className={classes.margin} variant="contained">
+                <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
                     <ConfigIcon /> <span className={classes.ml10}>Change Configuration</span>
                 </Button>
                 <Divider className={classes.mt10} />
