@@ -52,3 +52,4 @@ export { default as ArchieveIcon } from './ArchieveIcon';
 export { default as AddMultipleIcon } from './AddMultipleIcon';
 export { default as AddPersonIcon } from './AddPersonIcon';
 export { default as AddFromListIcon } from './AddFromListIcon';
+export { default as ConfigIcon } from './ConfigIcon';

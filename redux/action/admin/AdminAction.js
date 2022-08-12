@@ -181,3 +181,12 @@ export const GetIntegrationList = (apiUrl) => {
         type: types.FETCH_ADMIN_INTEGRATION_DETAILS_START, apiUrl: apiUrl
     };
 };
+
+/**
+ * Get integration data
+ */
+ export const GetIntegrationDetailData = (apiUrl) => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_START, apiUrl: apiUrl
+    };
+};

@@ -16,24 +16,31 @@ import {
     SubTitle,
     SubTitle1
 } from '../../../components';
-import { GetIntegrationList } from '../../../redux/action/admin/AdminAction';
+import { ConfigIcon } from '../../../assets/icon';
+import { GetIntegrationDetailData } from '../../../redux/action/admin/AdminAction';
 import END_POINTS from '../../../utils/EndPoints';
 import { Divider } from '@mui/material';
 
 const useStyles = makeStyles({
-    margin:{
-        margin: '25px 0px'
+    margin: {
+        margin: '15px 0px'
     },
-    inlineDisplay:{
-        display:'flex'
+    inlineDisplay: {
+        display: 'flex'
     },
-    mr25:{
+    mr25: {
         marginRight: '25px'
     },
-    ml25:{
+    ml25: {
         marginLeft: '25px'
+    },
+    ml10:{
+        marginLeft: '10px'
+    },
+    mt10: {
+        marginTop: '10px'
     }
-  });
+});
 
 const InstructorBreadCrumb = [
     {
@@ -54,7 +61,8 @@ const InstructorBreadCrumb = [
 ];
 
 const Moodle = ({
-    GetIntegrationList
+    GetIntegrationDetailData,
+    integrationData
 }) => {
 
     const classes = useStyles();
@@ -62,8 +70,7 @@ const Moodle = ({
     const router = useRouter();
 
     useEffect(() => {
-        GetIntegrationList(END_POINTS.ADMIN_MOODLE_INTEGRATION);
-        console.log('router', router);
+        GetIntegrationDetailData(END_POINTS.ADMIN_MOODLE_INTEGRATION);
     }, []);
 
 
@@ -81,13 +88,48 @@ const Moodle = ({
                         <CardView>
                             <SubHeading title={router?.query?.integration?.charAt(0).toUpperCase() + router?.query?.integration?.slice(1) + ' ' + 'is configured'} />
                             <Button className={classes.margin} variant="contained">
-                                Change Configuration
+                                <ConfigIcon /> <span className={classes.ml10}>Change Configuration</span>
                             </Button>
-                            <Divider />
+                            <Divider className={classes.mt10} />
                             <div className={classes.margin}></div>
                             <SubTitle title="Technical Contact" />
                             <div className={classes.inlineDisplay}>
-                                <SubTitle1 title="Name" /> <div className={classes.mr25}></div>: <div className={classes.ml25}><SubTitle title="Harisha" /></div>
+                                <SubTitle1 title="Name" />
+                                <div className={classes.mr25}></div>: <div className={classes.ml25}>
+                                    <SubTitle title={integrationData?.name} /></div>
+                            </div>
+                            <div className={classes.inlineDisplay}>
+                                <SubTitle1 title="Email Address" />
+                                <div className={classes.mr25}></div>: <div className={classes.ml25}>
+                                    <SubTitle title={integrationData?.email} /></div>
+                            </div>
+                            <div className={classes.inlineDisplay}>
+                                <SubTitle1 title="Phone Number" />
+                                <div className={classes.mr25}></div>: <div className={classes.ml25}>
+                                    <SubTitle title={integrationData?.phone} /></div>
+                            </div>
+                            <Divider className={classes.mt10} />
+                            <div className={classes.margin}></div>
+                            <SubTitle title="Configuration Details :" />
+                            <div className={classes.inlineDisplay}>
+                                <SubTitle1 title="API Key" />
+                                <div className={classes.mr25}></div>: <div className={classes.ml25}>
+                                    <SubTitle title={integrationData?.api_key} /></div>
+                            </div>
+                            <div className={classes.inlineDisplay}>
+                                <SubTitle1 title="College Name" />
+                                <div className={classes.mr25}></div>: <div className={classes.ml25}>
+                                    <SubTitle title={integrationData?.college_name} /></div>
+                            </div>
+                            <div className={classes.inlineDisplay}>
+                                <SubTitle1 title="Configured Date" />
+                                <div className={classes.mr25}></div>: <div className={classes.ml25}>
+                                    <SubTitle title={integrationData?.created_date} /></div>
+                            </div>
+                            <div className={classes.inlineDisplay}>
+                                <SubTitle1 title="Moodle URL" />
+                                <div className={classes.mr25}></div>: <div className={classes.ml25}>
+                                    <SubTitle title={integrationData?.lms_url} /></div>
                             </div>
                         </CardView>
                     </Grid>
@@ -98,13 +140,13 @@ const Moodle = ({
 };
 
 const mapStateToProps = (state) => ({
-    integrationData: state?.adminIntegrationData?.integrationData,
+    integrationData: state?.adminIntegrationData?.integrationTypeData,
     isLoading: state?.adminIntegrationData?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetIntegrationList: (apiUrl) => dispatch(GetIntegrationList(apiUrl)),
+        GetIntegrationDetailData: (apiUrl) => dispatch(GetIntegrationDetailData(apiUrl)),
     };
 };
 
@@ -112,7 +154,8 @@ const mapDispatchToProps = (dispatch) => {
 Moodle.layout = Admin;
 
 Moodle.propTypes = {
-    GetIntegrationList: PropTypes.func.isRequired
+    GetIntegrationDetailData: PropTypes.func.isRequired,
+    integrationData: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Moodle);
