@@ -51,7 +51,6 @@ const Moodle = ({
                 </Grid>
                 <Grid container spacing={1}>
                     <Grid item md={12} xs={12}>
-                        <MainHeading title={router?.query?.integration?.charAt(0).toUpperCase() + router?.query?.integration?.slice(1) + ' ' + 'Integration'} />
                         {
                             integrationData && <IntegrationTypeDetail
                                 routerData={router?.query}
