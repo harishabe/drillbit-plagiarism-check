@@ -86,11 +86,10 @@ const DragAndDrop = ({
             obj['title'] = data['title' + i];
             obj['documentType'] = data['documentType' + i];
             obj['file'] = item[1];
-            console.log('9999', obj);
             fileArr.push(obj);
         });
         bodyFormData.append('multiFile', fileArr);
-        SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`, bodyFormData);
+        SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/sendFile`, bodyFormData);
     }
 
     return (
