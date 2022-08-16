@@ -6,7 +6,7 @@ import { Grid, Box, Skeleton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
 import styled from 'styled-components';
 import {
-    BreadCrumb, 
+    BreadCrumb,
     CreateDrawer
 } from '../../../components';
 import { GetIntegrationDetailData } from '../../../redux/action/admin/AdminAction';
@@ -58,27 +58,28 @@ const Moodle = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
-                <Grid container spacing={1}>
+                <Grid container spacing={ 1 }>
                     { isLoading ? <Grid container spacing={ 2 }>
                         <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                         <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                         <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                     </Grid> :
-                    <Grid item md={12} xs={12}>
-                        {
-                            integrationData && <IntegrationTypeDetail
-                                routerData={router?.query}
-                                integrationData={integrationData}
+                        <Grid item md={ 12 } xs={ 12 }>
+                            {
+                                integrationData && <IntegrationTypeDetail
+                                    routerData={ router?.query }
+                                    integrationData={ integrationData }
                                     handleConfig={ handleConfig }
-                            />
-                        }
-                    </Grid>
+                                    isMoodleTrue={ true }
+                                />
+                            }
+                        </Grid>
                     }
                 </Grid>
                 <AddButtonBottom>

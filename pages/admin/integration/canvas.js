@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
@@ -41,14 +41,20 @@ const AddButtonBottom = styled.div`
 const Canvas = ({
     GetIntegrationDetailData,
     integrationData,
-    isLoading
+    isLoading,
+    isLoadingUpload
 }) => {
 
     const router = useRouter();
+    const [form, setForm] = useState(false);
 
     useEffect(() => {
         GetIntegrationDetailData(END_POINTS.ADMIN_CANVAS_INTEGRATION);
     }, []);
+
+    const handleConfig = () => {
+        setForm(true)
+    }
 
     return (
         <React.Fragment>
@@ -66,22 +72,39 @@ const Canvas = ({
                     </Grid> :
                         <Grid item md={ 12 } xs={ 12 }>
                             {
-                                integrationData && <IntegrationTypeDetail
+                                integrationData &&
+                                <IntegrationTypeDetail
                                     routerData={ router?.query }
                                     integrationData={ integrationData }
+                                    handleConfig={ handleConfig }
+                                    isCanvasTrue={ true }
                                 />
                             }
                         </Grid>
                     }
                 </Grid>
+
                 <AddButtonBottom>
                     <CreateDrawer
-                        title="Add Instructor"
+                        title="Canvas Configuration"
                         isShowAddIcon={ true }
                     >
                         <CanvasForm />
                     </CreateDrawer>
                 </AddButtonBottom>
+
+                { form &&
+                    <CreateDrawer
+                        title="Canvas Configuration"
+                        isShowAddIcon={ false }
+                        showDrawer={ form }
+                    >
+                        <CanvasForm
+                            editData={ integrationData }
+                            isLoadingUpload={ isLoadingUpload }
+                        />
+                    </CreateDrawer>
+                }
             </Box>
         </React.Fragment>
     )
@@ -90,6 +113,7 @@ const Canvas = ({
 const mapStateToProps = (state) => ({
     integrationData: state?.adminIntegrationData?.integrationTypeData,
     isLoading: state?.adminIntegrationData?.isLoading,
+    isLoadingUpload: state?.adminIntegrationData?.integrationTypeData?.isLoadingUpload,
 });
 
 const mapDispatchToProps = (dispatch) => {
