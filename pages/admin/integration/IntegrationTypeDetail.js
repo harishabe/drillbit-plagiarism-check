@@ -34,6 +34,9 @@ const useStyles = makeStyles({
 });
 
 const IntegrationTypeDetail = ({
+    isMoodleTrue,
+    isCanvasTrue,
+    isBlackboardTrue,
     integrationData,
     routerData,
     handleConfig
@@ -44,54 +47,178 @@ const IntegrationTypeDetail = ({
 
     return (
         <>
-            <MainHeading title={routerData?.integration?.charAt(0).toUpperCase() + router?.query?.integration?.slice(1) + ' ' + 'Integration'} />
-            <CardView>
-                <SubHeading title={routerData?.integration?.charAt(0).toUpperCase() + routerData?.integration?.slice(1) + ' ' + 'is configured'} />
-                <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
-                    <ConfigIcon /> <span className={classes.ml10}>Change Configuration</span>
-                </Button>
-                <Divider className={classes.mt10} />
-                <div className={classes.margin}></div>
-                <SubTitle title="Technical Contact" />
-                <div className={classes.inlineDisplay}>
-                    <SubTitle1 title="Name" />
-                    <div className={classes.mr25}></div>: <div className={classes.ml25}>
-                        <SubTitle title={integrationData?.name} /></div>
-                </div>
-                <div className={classes.inlineDisplay}>
-                    <SubTitle1 title="Email Address" />
-                    <div className={classes.mr25}></div>: <div className={classes.ml25}>
-                        <SubTitle title={integrationData?.email} /></div>
-                </div>
-                <div className={classes.inlineDisplay}>
-                    <SubTitle1 title="Phone Number" />
-                    <div className={classes.mr25}></div>: <div className={classes.ml25}>
-                        <SubTitle title={integrationData?.phone} /></div>
-                </div>
-                <Divider className={classes.mt10} />
-                <div className={classes.margin}></div>
-                <SubTitle title="Configuration Details :" />
-                <div className={classes.inlineDisplay}>
-                    <SubTitle1 title="API Key" />
-                    <div className={classes.mr25}></div>: <div className={classes.ml25}>
-                        <SubTitle title={integrationData?.api_key} /></div>
-                </div>
-                <div className={classes.inlineDisplay}>
-                    <SubTitle1 title="College Name" />
-                    <div className={classes.mr25}></div>: <div className={classes.ml25}>
-                        <SubTitle title={integrationData?.college_name} /></div>
-                </div>
-                <div className={classes.inlineDisplay}>
-                    <SubTitle1 title="Configured Date" />
-                    <div className={classes.mr25}></div>: <div className={classes.ml25}>
-                        <SubTitle title={integrationData?.created_date} /></div>
-                </div>
-                <div className={classes.inlineDisplay}>
-                    <SubTitle1 title="Moodle URL" />
-                    <div className={classes.mr25}></div>: <div className={classes.ml25}>
-                        <SubTitle title={integrationData?.lms_url} /></div>
-                </div>
-            </CardView>
+            { isMoodleTrue &&
+                <>
+                    <MainHeading title={ routerData?.integration?.charAt(0).toUpperCase() + router?.query?.integration?.slice(1) + ' ' + 'Plugin Setup' } />
+                    <CardView>
+                    <SubHeading title={ routerData?.integration?.charAt(0).toUpperCase() + routerData?.integration?.slice(1) + ' ' + 'Plug-in – Configured ' } />
+                    <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
+                        <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
+                    </Button>
+
+                    <Divider className={ classes.mt10 } />
+                    <div className={ classes.margin }></div>
+                    <SubTitle title="Configuration Details :" />
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="API Key" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.api_key } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="College Name" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.college_name } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Configured Date" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.created_date } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Moodle URL" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.lms_url } /></div>
+                    </div>
+
+                    <Divider className={ classes.mt10 } />
+                    <div className={ classes.margin }></div>
+                    <SubTitle title="Technical Contact Details :" />
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Name" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.name } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Email Address" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.email } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Phone Number" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.phone } /></div>
+                    </div>
+                    </CardView>
+                </>
+            }
+            { isCanvasTrue &&
+                <>
+                    <MainHeading title={ 'Canvas Plugin Setup' } />
+                    <CardView>
+                        <SubHeading title={ 'Canvas Plug-in – Configured' } />
+                        <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
+                            <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
+                        </Button>
+                        <Divider className={ classes.mt10 } />
+                        <div className={ classes.margin }></div>
+                        <SubTitle title="Configuration Details :" />
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Access end point" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.access_end_point } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Authentication end point" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.auth_end_point } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Configured Date" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.creation_time } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Client id" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.client_id } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="College Name" />
+                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                                <SubTitle title={ integrationData?.college_name } /></div>
+                        </div>
+                        <div className={ classes.inlineDisplay }>
+                            <SubTitle1 title="Keyset end point" />
+                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                                <SubTitle title={ integrationData?.keyset_end_point } /></div>
+                        </div>
+                        <div className={ classes.inlineDisplay }>
+                            <SubTitle1 title="Email Address" />
+                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                                <SubTitle title={ integrationData?.mail_id } /></div>
+                        </div>
+                        <div className={ classes.inlineDisplay }>
+                            <SubTitle1 title="Method" />
+                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                                <SubTitle title={ integrationData?.method } /></div>
+                        </div>
+                        <div className={ classes.inlineDisplay }>
+                            <SubTitle1 title="Platform url" />
+                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                                <SubTitle title={ integrationData?.platform_url } /></div>
+                        </div>
+                    </CardView>
+                </>
+            }
+            { isBlackboardTrue &&
+                <>
+                    <MainHeading title={ 'Blackboard Plugin Setup' } />
+                    <CardView>
+                        <SubHeading title={ 'Blackboard Plug-in – Configured' } />
+                        <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
+                            <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
+                        </Button>
+                        <Divider className={ classes.mt10 } />
+                        <div className={ classes.margin }></div>
+                        <SubTitle title="Configuration Details :" />
+                        <div className={ classes.inlineDisplay }>
+                            <SubTitle1 title="Access end point" />
+                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                                <SubTitle title={ integrationData?.access_end_point } /></div>
+                        </div>
+                        <div className={ classes.inlineDisplay }>
+                            <SubTitle1 title="Authentication end point" />
+                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                                <SubTitle title={ integrationData?.auth_end_point } /></div>
+                        </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Configured Date" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.creation_time } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Client id" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.client_id } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="College Name" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.college_name } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Keyset end point" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.keyset_end_point } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Email Address" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.mail_id } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Method" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.method } /></div>
+                    </div>
+                    <div className={ classes.inlineDisplay }>
+                        <SubTitle1 title="Platform url" />
+                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
+                            <SubTitle title={ integrationData?.platform_url } /></div>
+                    </div>
+                </CardView>
+                </>
+            }
         </>
     )
 };

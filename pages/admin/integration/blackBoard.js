@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
@@ -41,14 +41,20 @@ const AddButtonBottom = styled.div`
 const BlackBoard = ({
     GetIntegrationDetailData,
     integrationData,
-    isLoading
+    isLoading,
+    isLoadingUpload
 }) => {
 
     const router = useRouter();
+    const [form, setForm] = useState(false);
 
     useEffect(() => {
         GetIntegrationDetailData(END_POINTS.ADMIN_BLACKBOARD_INTEGRATION);
     }, []);
+
+    const handleConfig = () => {
+        setForm(true)
+    }
 
     return (
         <React.Fragment>
@@ -66,22 +72,39 @@ const BlackBoard = ({
                     </Grid> :
                         <Grid item md={ 12 } xs={ 12 }>
                             {
-                                integrationData && <IntegrationTypeDetail
+                                integrationData &&
+                                <IntegrationTypeDetail
                                     routerData={ router?.query }
                                     integrationData={ integrationData }
+                                    handleConfig={ handleConfig }
+                                    isBlackboardTrue={ true }
                                 />
                             }
                         </Grid>
                     }
                 </Grid>
+
                 <AddButtonBottom>
                     <CreateDrawer
-                        title="Add Instructor"
+                        title="Blackboard Configuration"
                         isShowAddIcon={ true }
                     >
                         <BlackboardForm />
                     </CreateDrawer>
                 </AddButtonBottom>
+
+                { form &&
+                    <CreateDrawer
+                        title="Canvas Configuration"
+                        isShowAddIcon={ false }
+                        showDrawer={ form }
+                    >
+                        <BlackboardForm
+                            editData={ integrationData }
+                            isLoadingUpload={ isLoadingUpload }
+                        />
+                    </CreateDrawer>
+                }
             </Box>
         </React.Fragment>
     )
@@ -90,6 +113,7 @@ const BlackBoard = ({
 const mapStateToProps = (state) => ({
     integrationData: state?.adminIntegrationData?.integrationTypeData,
     isLoading: state?.adminIntegrationData?.isLoading,
+    isLoadingUpload: state?.adminIntegrationData?.integrationTypeData?.isLoadingUpload,
 });
 
 const mapDispatchToProps = (dispatch) => {

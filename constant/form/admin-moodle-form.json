@@ -35,6 +35,6 @@
     {
         "field_type": "button",
         "type": "submit",
-        "label": "Confirm"
+        "label": "Submit"
     }
 ]

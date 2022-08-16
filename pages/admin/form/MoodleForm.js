@@ -55,10 +55,10 @@ const MoodleForm = ({
                 'moodle_url',
             ];
             fields.forEach(field => setValue(field, a[field]));
-            modifyFormField('Confirm', true);
+            modifyFormField('Submit', true);
             setEditOperation(true);
         } else {
-            modifyFormField('Confirm', false);
+            modifyFormField('Submit', false);
         }
     }, [editData]);
 
