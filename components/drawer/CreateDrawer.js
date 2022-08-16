@@ -36,7 +36,9 @@ const CreateDrawer = ({
     showDrawer,
     isShowAddIcon,
     options,
-    handleMultiData
+    handleMultiData,
+    navigateToMultiFile,
+    handleNavigateMultiFile
 }) => {
     console.log('options', options);
     const [state, setState] = React.useState({
@@ -110,7 +112,7 @@ const CreateDrawer = ({
                         {options?.map((item) => (
                             <div key={item.title}>
                                 {item.handleFromCreateDrawer ?
-                                    <MenuItem onClick={(e)=>handleMultiData(e,item)} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
+                                    <MenuItem onClick={(e) => handleMultiData(e, item)} style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                                         <ListItemIcon>
                                             {item.icon}
                                         </ListItemIcon>
@@ -137,7 +139,7 @@ const CreateDrawer = ({
                                     <AddIcon />
                                 </Fab>
                                 :
-                                <Fab onClick={toggleDrawer(anchor, true)} color="primary" aria-label="add">
+                                <Fab onClick={navigateToMultiFile ? handleNavigateMultiFile : toggleDrawer(anchor, true)} color="primary" aria-label="add">
                                     <AddIcon />
                                 </Fab>}
                         </Tooltip>}

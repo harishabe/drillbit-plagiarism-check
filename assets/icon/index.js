@@ -53,3 +53,6 @@ export { default as AddMultipleIcon } from './AddMultipleIcon';
 export { default as AddPersonIcon } from './AddPersonIcon';
 export { default as AddFromListIcon } from './AddFromListIcon';
 export { default as ConfigIcon } from './ConfigIcon';
+export { default as DownBorderArrowIcon } from './DownBorderArrowIcon';
+export { default as UploadFileIcon } from './UploadFileIcon';
+export { default as GoogleDriveIcon } from './GoogleDriveIcon';

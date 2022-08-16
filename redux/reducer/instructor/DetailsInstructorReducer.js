@@ -226,19 +226,24 @@ const DetailsInstructorReducer = (state = {}, action) => {
         case types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingStudentFileUpload: true,
             };
         case types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
-                sendData: action.payload,
+                isLoadingStudentFileUpload: false,
+                fileUploadData: action.payload,
+            };
+        case types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_DATA_CLEAR:
+            return {
+                ...state,
+                fileUploadData: '',
             };
         case types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_FAIL:
             return {
                 ...state,
-                isLoading: false,
-                sendDataError: action.payload,
+                isLoadingStudentFileUpload: false,
+                fileUploadDataError: action.payload,
             };
         case types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START:
             return {

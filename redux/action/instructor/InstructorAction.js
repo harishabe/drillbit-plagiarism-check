@@ -52,6 +52,16 @@ export const UploadFile = (classId, data) => {
 };
 
 /**
+ * Clear upload data
+ */
+export const UploadFileDataClear = () => {
+    return {
+        type: types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_DATA_CLEAR
+    };
+};
+
+
+/**
  * Edit class
  */
 export const EditClass = (classId, requestPayload) => {

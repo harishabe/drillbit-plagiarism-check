@@ -34,6 +34,7 @@ import {
     DeleteStudent,
     DownloadTemplate,
     UploadFile,
+    UploadFileDataClear,
 } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import StudentInstitute from '../studentInstitute';
@@ -78,6 +79,7 @@ const Students = ({
     DownloadTemplate,
     isLoadingTemplate,
     UploadFile,
+    UploadFileDataClear,
 }) => {
 
     const router = useRouter();
@@ -221,11 +223,11 @@ const Students = ({
     }
 
     const handleShow = (e, info) => {
-        console.log('handleShow', e, info);
         if (info?.title === 'Add From List') {
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Student') {
-            router.push('/instructor/addBulkStudent')
+            UploadFileDataClear();
+            router.push({ pathname: '/instructor/addBulkStudent', query: { classId: router.query.clasId } })
         }
     }
 
@@ -423,6 +425,7 @@ const mapDispatchToProps = (dispatch) => {
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
         DownloadTemplate: (ClasId) => dispatch(DownloadTemplate(ClasId)),
         UploadFile: (ClasId, data) => dispatch(UploadFile(ClasId, data)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };
 

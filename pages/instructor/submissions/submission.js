@@ -9,7 +9,7 @@ import {
   ErrorBlock,
   WarningDialog
 } from '../../../components';
-import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
+import { EditIcon, DeleteIcon, DeleteWarningIcon, AddMultipleIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
 import { GetSubmissionList, DeleteSubmission } from '../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
@@ -85,7 +85,7 @@ const Submission = ({
       row = createData(
         <AvatarName
           avatarText='S'
-          title={ submission.ass_id }
+          title={submission.ass_id}
           color='#4795EE'
         />,
         submission.name,
@@ -165,16 +165,23 @@ const Submission = ({
     setShowDeleteWarning(true);
   }
 
+  const handleUploadFile = () => {
+    router.push({ pathname: '/instructor/uploadFile', query: router.query })
+  }
+
   return (
     <React.Fragment>
       <AddButtonBottom>
         <CreateDrawer
-          title="Create Folder"
-          isShowAddIcon={ true }>
+          title="Upload File"
+          isShowAddIcon={true}
+          navigateToMultiFile={true}
+          handleNavigateMultiFile={handleUploadFile}
+        >
           <SubmissionForm
-            clasId={ clasId }
-            folderId={ assId }
-            isLoadingUpload={ isLoadingUpload }
+            clasId={clasId}
+            folderId={assId}
+            isLoadingUpload={isLoadingUpload}
           />
         </CreateDrawer>
       </AddButtonBottom>
@@ -182,11 +189,11 @@ const Submission = ({
       {
         showDeleteWarning &&
         <WarningDialog
-          warningIcon={ <DeleteWarningIcon /> }
+          warningIcon={<DeleteWarningIcon />}
           message="Are you sure you want to delete ?"
-          handleYes={ handleYesWarning }
-          handleNo={ handleCloseWarning }
-          isOpen={ true }
+          handleYes={handleYesWarning}
+          handleNo={handleCloseWarning}
+          isOpen={true}
         />
       }
 
@@ -194,45 +201,45 @@ const Submission = ({
         editAssignment &&
         <CreateDrawer
           title="Edit Student"
-          isShowAddIcon={ false }
-          showDrawer={ editAssignment }
+          isShowAddIcon={false}
+          showDrawer={editAssignment}
         >
           <AssignmentForm
-            editData={ editAssignmentData }
+            editData={editAssignmentData}
           />
         </CreateDrawer>
       }
       <CardView>
-        { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
-          <IconButton onClick={ deleteAllAssignment }>
+        {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+          <IconButton onClick={deleteAllAssignment}>
             <DeleteIcon />
           </IconButton>
-        </div> }
+        </div>}
 
-        { submissionData?.length > 0 ?
+        {submissionData?.length > 0 ?
           <CommonTable
-            isCheckbox={ true }
-            tableHeader={ columns }
-            tableData={ rows }
-            handleAction={ handleAction }
-            handleCheckboxSelect={ handleCheckboxSelect }
-            handleSingleSelect={ handleSingleSelect }
-            isLoading={ isLoading }
+            isCheckbox={true}
+            tableHeader={columns}
+            tableData={rows}
+            handleAction={handleAction}
+            handleCheckboxSelect={handleCheckboxSelect}
+            handleSingleSelect={handleSingleSelect}
+            isLoading={isLoading}
           />
-          : <ErrorBlock message={ SUBMISSION_NOT_FOUND } />
+          : <ErrorBlock message={SUBMISSION_NOT_FOUND} />
         }
 
-        { pageDetails?.totalPages > 1 && (
-          <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+        {pageDetails?.totalPages > 1 && (
+          <div style={{ marginLeft: '35%', marginTop: '25px' }}>
             <Pagination
-              count={ pageDetails?.totalPages }
-              onChange={ handlePagination }
+              count={pageDetails?.totalPages}
+              onChange={handlePagination}
               color='primary'
               variant='outlined'
               shape='rounded'
             />
           </div>
-        ) }
+        )}
 
       </CardView>
     </React.Fragment>

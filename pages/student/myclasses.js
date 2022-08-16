@@ -101,68 +101,70 @@ const MyClasses = ({
 
     return (
         <React.Fragment>
-            <BreadCrumb item={ StudentBreadCrumb } />
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 8 }>
-                        <MainHeading title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+            <BreadCrumb item={StudentBreadCrumb} />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={8}>
+                        <MainHeading
+                            title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`}
+                        />
                     </Grid>
                     <Grid
                         item
-                        md={ 4 }
-                        xs={ 12 }
+                        md={4}
+                        xs={12}
                         container
                         direction='row'
-                        justifyContent={ 'right' }
+                        justifyContent={'right'}
                     >
                         <TextField
                             placeholder='Search'
-                            onChange={ debouncedResults }
-                            inputProps={ {
+                            onChange={debouncedResults}
+                            inputProps={{
                                 style: {
                                     padding: 5,
                                     display: 'inline-flex'
                                 }
-                            } }
+                            }}
                         />
                     </Grid>
                 </Grid>
             </Box>
-            { isLoading ?
-                <Grid container spacing={ 2 }>
-                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                    <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+            {isLoading ?
+                <Grid container spacing={2}>
+                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                    <Grid item md={4} xs={12}><Skeleton /></Grid>
                 </Grid> :
                 <>
-                    { classesData?.length > 0 ? 
-                        <Grid container spacing={ 2 }>
-                            { item?.map((item, index) => (
-                                <Grid item md={ 4 } xs={ 12 }>
+                    {classesData?.length > 0 ?
+                        <Grid container spacing={2}>
+                            {item?.map((item, index) => (
+                                <Grid item md={4} xs={12}>
                                     <CardInfoView
-                                        key={ index }
-                                        isNextPath={ true }
-                                        isAction={ false }
-                                        item={ item }
-                                        isAvatar={ true }
-                                        isHeading={ true }
-                                        isInstructorName={ true }
-                                        isTimer={ true }
-                                        statusColor={ expiryDateBgColor(item.validity) }
-                                        path={ { pathname: '/student/myassignments', query: { clasId: item.id } } }
+                                        key={index}
+                                        isNextPath={true}
+                                        isAction={false}
+                                        item={item}
+                                        isAvatar={true}
+                                        isHeading={true}
+                                        isInstructorName={true}
+                                        isTimer={true}
+                                        statusColor={expiryDateBgColor(item.validity)}
+                                        path={{ pathname: '/student/myassignments', query: { clasId: item.id } }}
                                     />
                                 </Grid>
-                            )) }
+                            ))}
                         </Grid>
-                        : <ErrorBlock message={ CLASS_NOT_FOUND } />
+                        : <ErrorBlock message={CLASS_NOT_FOUND} />
                     }
                 </>
             }
-            { pageDetails?.totalPages > 1 &&
-                <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+            {pageDetails?.totalPages > 1 &&
+                <div style={{ marginLeft: '45%', marginTop: '25px' }}>
                     <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handleChange }
+                        count={pageDetails?.totalPages}
+                        onChange={handleChange}
                         color="primary"
                         variant="outlined"
                         shape="rounded"
