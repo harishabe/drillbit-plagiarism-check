@@ -74,6 +74,8 @@ const CardInfoView = ({
     isAction,
     handleClick,
     handleDelete,
+    handleConfig,
+    checked
 }) => {
     const router = useRouter();
 
@@ -240,7 +242,15 @@ const CardInfoView = ({
                                     </Button>
                                 </Link>
                                 : ''}
-                            {isConfig ? <Switch checked={item?.lmsconfigured} /> : ''}
+                            { isConfig &&
+                                <Switch
+                                    disabled={ item?.lmsconfigured === true }
+                                    checked={ item?.lmsconfigured }
+                                    onChange={ handleConfig }
+                                    inputProps={ { 'aria-label': 'controlled' } }
+                                    name={ item?.lms }
+                                />
+                            }
                             {isNextPath &&
                                 <IconButton onClick={(e) => router.push(path)}>
                                     <ArrowForwardOutlinedIcon />

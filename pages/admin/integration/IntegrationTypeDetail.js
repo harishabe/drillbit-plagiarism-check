@@ -103,9 +103,9 @@ const IntegrationTypeDetail = ({
             }
             { isCanvasTrue &&
                 <>
-                    <MainHeading title={ 'Canvas Plugin Setup' } />
+                <MainHeading title={ 'Canvas LTI Setup' } />
                     <CardView>
-                        <SubHeading title={ 'Canvas Plug-in – Configured' } />
+                    <SubHeading title={ 'Canvas LTI – Configured' } />
                         <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
                             <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
                         </Button>
@@ -162,9 +162,9 @@ const IntegrationTypeDetail = ({
             }
             { isBlackboardTrue &&
                 <>
-                    <MainHeading title={ 'Blackboard Plugin Setup' } />
+                <MainHeading title={ 'Blackboard LTI Setup' } />
                     <CardView>
-                        <SubHeading title={ 'Blackboard Plug-in – Configured' } />
+                    <SubHeading title={ 'Blackboard LTI – Configured' } />
                         <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
                             <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
                         </Button>

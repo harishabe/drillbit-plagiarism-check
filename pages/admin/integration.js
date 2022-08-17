@@ -5,9 +5,12 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Skeleton, TextField } from '@mui/material';
 import Admin from './../../layouts/Admin';
-import { BreadCrumb, CardInfoView, MainHeading } from './../../components';
+import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer } from './../../components';
 import { GetIntegrationList } from '../../redux/action/admin/AdminAction';
 import END_POINTS from '../../utils/EndPoints';
+import MoodleForm from './form/MoodleForm';
+import CanvasForm from './form/CanvasForm';
+import BlackboardForm from './form/BlackboardForm';
 
 const IntegrationBreadCrumb = [
     {
@@ -29,6 +32,16 @@ const Integration = ({
 }) => {
 
     const [lmsData, setLmsData] = useState([]);
+    const [showMoodle, setShowMoodle] = useState(false);
+    const [showCanvas, setShowCanvas] = useState(false);
+    const [showBlackboard, setShowBlackboard] = useState(false);
+    const [checked, setChecked] = useState({
+        MOODLE: integrationData && integrationData[0]?.lmsconfigured,
+        CANVAS: integrationData && integrationData[1]?.lmsconfigured,
+        BLACKBOARD: integrationData && integrationData[2]?.lmsconfigured,
+    });
+
+
     useEffect(() => {
         GetIntegrationList(END_POINTS.ADMIN_INTEGRATION_DATA);
     }, []);
@@ -37,23 +50,38 @@ const Integration = ({
         let lmsData = integrationData && integrationData?.map((item) => {
             if (item.lms === 'MOODLE') {
                 item['img'] = '/img/lms/moodle.svg';
-                item['description'] = 'Moodle is a software package for producing Internet-based courses and web sites';
+                item['description'] = 'Moodle Plug-In Integration';
                 item['path'] = '/admin/integration/moodle';
             }
             if (item.lms === 'CANVAS') {
                 item['img'] = '/img/lms/canvas.svg';
-                item['description'] = 'The Canvas LMS is the world\'s fastest growing learning management system.';
+                item['description'] = 'Canvas LTI Integration';
                 item['path'] = '/admin/integration/canvas';
             }
             if (item.lms === 'BLACKBOARD') {
                 item['img'] = '/img/lms/blackboard.svg';
-                item['description'] = 'Blackboard Learn is a web-based virtual learning environment and learning management system';
+                item['description'] = 'Blackboard LTI Integration';
                 item['path'] = '/admin/integration/blackBoard';
             }
             return item;
         })
         setLmsData(lmsData);
     }, [integrationData]);
+
+    const handleConfig = (event) => {
+        setChecked({
+            ...checked,
+            [event.target.name]: event.target.checked,
+        })
+        console.log("moodle", showMoodle)
+        if (event.target.name === 'MOODLE') {
+            setShowMoodle(true)
+        } else if (event.target.name === 'CANVAS') {
+            setShowCanvas(true)
+        } else if (event.target.name === 'BLACKBOARD') {
+            setShowBlackboard(true)
+        }
+    }
 
     return (
         <React.Fragment>
@@ -67,7 +95,7 @@ const Integration = ({
                 </Grid>
             </Box>
 
-            <MainHeading title={`Integrations (${integrationData?.length})`} />
+            <MainHeading title={ `Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})` } />
 
             {isLoading ? <Grid container spacing={2}>
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
@@ -79,6 +107,8 @@ const Integration = ({
                         <Grid key={index} item md={4} xs={12}>
                             <CardInfoView
                                 item={item}
+                                handleConfig={ handleConfig }
+                                checked={ checked }
                                 isTimer={false}
                                 isKnowMore={true}
                                 isConfig={true}
@@ -91,6 +121,30 @@ const Integration = ({
                 </Grid>
             }
 
+            { showMoodle &&
+                <CreateDrawer
+                    isShowAddIcon={ false }
+                    showDrawer={ showMoodle }
+                >
+                    <MoodleForm />
+                </CreateDrawer>
+            }
+            { showCanvas &&
+                <CreateDrawer
+                    isShowAddIcon={ false }
+                    showDrawer={ showCanvas }
+                >
+                    <CanvasForm />
+                </CreateDrawer>
+            }
+            { showBlackboard &&
+                <CreateDrawer
+                    isShowAddIcon={ false }
+                    showDrawer={ showBlackboard }
+                >
+                    <BlackboardForm />
+                </CreateDrawer>
+            }
         </React.Fragment>
     )
 }
