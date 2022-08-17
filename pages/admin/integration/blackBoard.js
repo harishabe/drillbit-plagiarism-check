@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import { Grid, Box, Skeleton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
-import styled from 'styled-components';
 import {
     BreadCrumb,
     CreateDrawer
@@ -31,12 +30,6 @@ const InstructorBreadCrumb = [
         active: true,
     },
 ];
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-`;
 
 const BlackBoard = ({
     GetIntegrationDetailData,
@@ -83,15 +76,6 @@ const BlackBoard = ({
                         </Grid>
                     }
                 </Grid>
-
-                <AddButtonBottom>
-                    <CreateDrawer
-                        title="Blackboard Configuration"
-                        isShowAddIcon={ true }
-                    >
-                        <BlackboardForm />
-                    </CreateDrawer>
-                </AddButtonBottom>
 
                 { form &&
                     <CreateDrawer

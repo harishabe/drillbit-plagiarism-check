@@ -64,10 +64,8 @@ export function* GetAdminIntegrationType() {
 export function* onLoadIntegrationDetailsUpload(action) {
     const { response, error } = yield call(LmsIntegrationDetail, action.apiUrl, action.query);
     if (response) {
-        yield put({
-            type: types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_SUCCESS,
-            payload: response?.data,
-        });
+        yield put({ type: types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_ADMIN_INTEGRATION_DETAILS_START, apiUrl: '/extreme/integrations/home' });
         toastrValidation(response)
     } else {
         yield put({
