@@ -57,7 +57,7 @@ const TextAlignRight = styled.div`
 
 const CurveChartContainer = styled.div`
     position:relative;
-    bottom:58px;
+    bottom:53px;
     margin-right:-27px;
 `;
 
@@ -142,7 +142,7 @@ const Dashboard = ({
                                                     ] }
                                                     xaxisLabelShow={ false }
                                                     yaxisLabelShow={ false }
-                                                    chartHeight={ 190 }
+                                                    chartHeight={ 140 }
                                                 />
                                             </CurveChartContainer>
                                         </>
