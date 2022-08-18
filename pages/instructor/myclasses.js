@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Grid from '@mui/material/Grid';
+import debouce from "lodash.debounce";
 import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { connect } from 'react-redux';
@@ -46,6 +47,8 @@ const MyClasses = ({
         GetClassesData(paginationPayload);
     }, [, paginationPayload]);
 
+    /** search implementation using debounce concepts */
+
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
@@ -54,7 +57,19 @@ const MyClasses = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    };
+    }
+
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
+    /** end debounce concepts */
 
     return (
         <React.Fragment>
@@ -66,7 +81,7 @@ const MyClasses = ({
                     <Grid item md={2} xs={2}>
                         <TextField
                             placeholder='Search'
-                            onChange={handleSearch}
+                            onChange={ debouncedResults }
                             inputProps={{
                                 style: {
                                     padding: 5,
