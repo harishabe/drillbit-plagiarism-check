@@ -31,7 +31,7 @@ export const expiryDateBgColor = (validity) => {
 
 const dateFormat = (str) => {
     let date = new Date(str),
-        month = (date.getMonth() < 10) ? "0" + ((date.getMonth() + 1)) : date.getMonth(),
+        month = (date.getMonth() + 1 < 10) ? "0" + (date.getMonth() + 1) : date.getMonth() + 1,
         day = (date.getDate() < 10) ? "0" + date.getDate().toString() : date.getDate();
     return [date, month, day];
 };

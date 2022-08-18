@@ -63,8 +63,8 @@ const MyAssignments = ({
             item['validity'] = findByExpiryDate(item.end_date);
             row = renameKeys(item,
                 {
-                    folder_id: 'id',
-                    folder_name: 'name',
+                    ass_id: 'id',
+                    assignment_name: 'name',
                     color: 'color',
                     creation_date: 'creation_date',
                     end_date: 'end_date'
@@ -181,7 +181,7 @@ const MyAssignments = ({
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.studentClasses?.assignmentData?.page,
-    assignmentData: state?.studentClasses?.assignmentData?._embedded?.folderDTOList,
+    assignmentData: state?.studentClasses?.assignmentData?._embedded?.assignmentDTOList,
     isLoading: state?.studentClasses?.isLoading,
 });
 
