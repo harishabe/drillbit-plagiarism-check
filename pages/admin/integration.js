@@ -52,16 +52,19 @@ const Integration = ({
                 item['img'] = '/img/lms/moodle.svg';
                 item['description'] = 'Moodle Plug-In Integration';
                 item['path'] = '/admin/integration/moodle';
+                item['type'] = 'Moodle';
             }
             if (item.lms === 'CANVAS') {
                 item['img'] = '/img/lms/canvas.svg';
                 item['description'] = 'Canvas LTI Integration';
                 item['path'] = '/admin/integration/canvas';
+                item['type'] = 'Canvas';
             }
             if (item.lms === 'BLACKBOARD') {
                 item['img'] = '/img/lms/blackboard.svg';
                 item['description'] = 'Blackboard LTI Integration';
                 item['path'] = '/admin/integration/blackBoard';
+                item['type'] = 'Blackboard'
             }
             return item;
         })

@@ -114,11 +114,10 @@ const Dashboard = ({
             <Box mt={ 1 } sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 4 } xs={ 12 }>
-                        <CardView height={ instructorDashboardData?.data?.top_students?.students?.length === 0 ? '' : '400px' }>
+                        <CardView height={ instructorDashboardData?.data?.top_students?.students?.length === 0 ? '' : '440px' }>
                             <Heading title='Top Students' />
                             { isLoading ?
                                 <>
-                                    <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
@@ -153,7 +152,7 @@ const Dashboard = ({
                         </CardView>
                     </Grid>
                     <Grid item md={ 8 } xs={ 12 }>
-                        <CardView height={ instructorDashboardData?.data?.recent_submissions?.length === 0 ? '' : '400px' }>
+                        <CardView height={ instructorDashboardData?.data?.recent_submissions?.length === 0 ? '' : '440px' }>
                             <Grid container spacing={ 1 }>
                                 <Grid item md={ 10 } xs={ 12 }>
                                     <Heading title='Recent Submissions' />

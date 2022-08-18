@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import Chip from '@mui/material/Chip';
-import { Grid, Link } from '@mui/material';
+import { Grid, Link, Button } from '@mui/material';
+import useDrivePicker from "react-google-drive-picker";
 import styled from 'styled-components';
 import {
     UploadFileIcon
@@ -40,6 +41,8 @@ const DragAndDrop = ({
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
     const [fileWarning, setFileWarning] = useState(false);
+    const [openPicker, data, authResponse] = useDrivePicker();
+
     const handleDelete = (e, item) => {
         e.preventDefault();
         let a = fileData.filter((filterItem) => {
@@ -73,24 +76,64 @@ const DragAndDrop = ({
         bodyFormData.append('authorName', data.authorName0);
         bodyFormData.append('title', data.title0);
         bodyFormData.append('documentType', data.documentType0);
+        bodyFormData.append('plagiarismCheck', 'yes');
+        bodyFormData.append('grammarCheck', 'yes');
+        bodyFormData.append('language', 'English');
         bodyFormData.append('file', files[0][1]);
         SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`, bodyFormData);
     }
 
     const multiFileUpload = (files, data) => {
-        let fileArr = [];
+        let authorNameArr = [], titleArr = [], documentTypeArr = [], filesArr = [];
         let bodyFormData = new FormData();
         fileData?.map((item, i) => {
-            let obj = {};
-            obj['authorName'] = data['authorName' + i];
-            obj['title'] = data['title' + i];
-            obj['documentType'] = data['documentType' + i];
-            obj['file'] = item[1];
-            fileArr.push(obj);
+            authorNameArr.push(data['authorName' + i]);
+            titleArr.push(data['title' + i]);
+            documentTypeArr.push(data['documentType' + i]);
+            console.log('item[1]', item[1]);
+            filesArr.push(item[1]);
         });
-        bodyFormData.append('multiFile', fileArr);
-        SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/sendFile`, bodyFormData);
+
+        
+        console.log('authorNameArr',authorNameArr);
+        console.log('documentTypeArr',documentTypeArr);
+        console.log('titleArr',titleArr);        
+        console.log('filesArrfilesArrfilesArr',filesArr);
+
+        
+        bodyFormData.append('authorName', authorNameArr);
+        bodyFormData.append('title', titleArr);
+        bodyFormData.append('documentType', documentTypeArr);
+        bodyFormData.append('file', filesArr);
+        SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`, bodyFormData);
     }
+
+    const handleUploadZipFile = (e) => {
+        e.preventDefault();
+        let bodyFormData = new FormData();
+        console.log('fileDatafileData', fileData);
+        bodyFormData.append('file', fileData[0][1]);
+        SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`, bodyFormData);
+    }
+
+    const handleOpenPicker = () => {
+        openPicker({
+            clientId: "32303602935-bbvsv5k7sksm71pipiru8jur6puhtm66.apps.googleusercontent.com",
+            developerKey: "AIzaSyAJq_NcYAf92IKUBf53Wj5ywQYlPt7-Now",
+            viewId: "DOCS",
+            showUploadView: true,
+            showUploadFolders: true,
+            supportDrives: true,
+            multiselect: true,
+        });
+    };
+
+    useEffect(() => {
+        console.log('datadatadata', data);
+        // if (data) {
+        //     data.docs.map((i) => console.log('11111111111222222333',i));
+        // }
+    }, [data]);
 
     return (
         <CardView>
@@ -122,19 +165,13 @@ const DragAndDrop = ({
                                 </div>
                                 : <div>
                                     <Link style={{ marginLeft: '5px' }}>
-                                        <ChooseLabel for="file-upload">
+                                        <ChooseLabel onClick={() => handleOpenPicker()}>
                                             {choseFileTitle}
                                         </ChooseLabel>
                                     </Link>
-                                    <Input
-                                        multiple
-                                        onChange={handleUpload}
-                                        id="file-upload"
-                                        type="file"
-                                    />
                                 </div>}
                             <div>
-                                {fileData?.length > 0 && fileData?.map((item) => (
+                                {(fileData?.length > 0) && fileData?.map((item) => (
                                     <ChipContainer>
                                         <Chip
                                             label={item[1]?.name}
@@ -145,12 +182,20 @@ const DragAndDrop = ({
                             </div>
                             {fileWarning && <div style={{ color: 'red' }}>{UPLOAD_FILE_MAX_LIMIT}</div>}
                         </DragDropArea>
-                        {fileData && fileData?.length > 0 &&
+                        {(isZipFile !== true && fileData) && fileData?.length > 0 &&
                             <FileForm
                                 handleSubmitFile={handleSubmit}
                                 files={fileData}
                                 btnTitle={btnTitle}
                             />}
+
+                        {isZipFile &&
+                            <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                                <Button type="submit" onClick={handleUploadZipFile} variant="contained" size="large">
+                                    Process File
+                                </Button>
+                            </div>
+                        }
                     </Grid>
                 </Grid>
             </DragAreaPadding>

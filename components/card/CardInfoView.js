@@ -225,7 +225,7 @@ const CardInfoView = ({
                                     />
                                 </StatusColor>}
                             {isKnowMore ?
-                                <div onClick={(e) => router.push({ 'pathname': item?.path, query: {integration:'moodle'} })}>
+                                <div onClick={(e) => router.push({ 'pathname': item?.path, query: { integration: item.type } })}>
                                     <SubTitle1 textColor="primary" title="Know More" />
                                 </div>
                                 : ''}
@@ -242,13 +242,13 @@ const CardInfoView = ({
                                     </Button>
                                 </Link>
                                 : ''}
-                            { isConfig &&
+                            {isConfig &&
                                 <Switch
-                                    disabled={ item?.lmsconfigured === true }
-                                    checked={ item?.lmsconfigured }
-                                    onChange={ handleConfig }
-                                    inputProps={ { 'aria-label': 'controlled' } }
-                                    name={ item?.lms }
+                                    disabled={item?.lmsconfigured === true}
+                                    checked={item?.lmsconfigured}
+                                    onChange={handleConfig}
+                                    inputProps={{ 'aria-label': 'controlled' }}
+                                    name={item?.lms}
                                 />
                             }
                             {isNextPath &&

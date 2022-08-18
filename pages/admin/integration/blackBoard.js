@@ -13,24 +13,6 @@ import END_POINTS from '../../../utils/EndPoints';
 import IntegrationTypeDetail from './IntegrationTypeDetail';
 import BlackboardForm from '../form/BlackboardForm';
 
-const InstructorBreadCrumb = [
-    {
-        name: 'Dashboard',
-        link: '/admin/dashboard',
-        active: false,
-    },
-    {
-        name: 'Integrations',
-        link: '/admin/integration',
-        active: false,
-    },
-    {
-        name: 'Integration details',
-        link: '',
-        active: true,
-    },
-];
-
 const BlackBoard = ({
     GetIntegrationDetailData,
     integrationData,
@@ -40,6 +22,24 @@ const BlackBoard = ({
 
     const router = useRouter();
     const [form, setForm] = useState(false);
+
+    const InstructorBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/admin/dashboard',
+            active: false,
+        },
+        {
+            name: 'Integrations',
+            link: '/admin/integration',
+            active: false,
+        },
+        {
+            name: `${router?.query?.integration} details`,
+            link: '',
+            active: true,
+        },
+    ];
 
     useEffect(() => {
         GetIntegrationDetailData(END_POINTS.ADMIN_BLACKBOARD_INTEGRATION);
@@ -51,41 +51,40 @@ const BlackBoard = ({
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
-                        <BreadCrumb item={ InstructorBreadCrumb } />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
+                        <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
                 </Grid>
-                <Grid container spacing={ 1 }>
-                    { isLoading ? <Grid container spacing={ 2 }>
-                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                <Grid container spacing={1}>
+                    {isLoading ? <Grid container spacing={2}>
+                        <Grid item md={4} xs={12}><Skeleton /></Grid>
+                        <Grid item md={4} xs={12}><Skeleton /></Grid>
+                        <Grid item md={4} xs={12}><Skeleton /></Grid>
                     </Grid> :
-                        <Grid item md={ 12 } xs={ 12 }>
+                        <Grid item md={12} xs={12}>
                             {
                                 integrationData &&
                                 <IntegrationTypeDetail
-                                    routerData={ router?.query }
-                                    integrationData={ integrationData }
-                                    handleConfig={ handleConfig }
-                                    isBlackboardTrue={ true }
+                                    integrationData={integrationData}
+                                    handleConfig={handleConfig}
+                                    isBlackboardTrue={true}
                                 />
                             }
                         </Grid>
                     }
                 </Grid>
 
-                { form &&
+                {form &&
                     <CreateDrawer
                         title="Canvas Configuration"
-                        isShowAddIcon={ false }
-                        showDrawer={ form }
+                        isShowAddIcon={false}
+                        showDrawer={form}
                     >
                         <BlackboardForm
-                            editData={ integrationData }
-                            isLoadingUpload={ isLoadingUpload }
+                            editData={integrationData}
+                            isLoadingUpload={isLoadingUpload}
                         />
                     </CreateDrawer>
                 }
