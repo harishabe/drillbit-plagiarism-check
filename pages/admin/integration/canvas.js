@@ -13,23 +13,6 @@ import END_POINTS from '../../../utils/EndPoints';
 import IntegrationTypeDetail from './IntegrationTypeDetail';
 import CanvasForm from '../form/CanvasForm';
 
-const InstructorBreadCrumb = [
-    {
-        name: 'Dashboard',
-        link: '/admin/dashboard',
-        active: false,
-    },
-    {
-        name: 'Integrations',
-        link: '/admin/integration',
-        active: false,
-    },
-    {
-        name: 'Integration details',
-        link: '',
-        active: true,
-    },
-];
 
 const Canvas = ({
     GetIntegrationDetailData,
@@ -41,6 +24,25 @@ const Canvas = ({
     const router = useRouter();
     const [form, setForm] = useState(false);
 
+    const InstructorBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/admin/dashboard',
+            active: false,
+        },
+        {
+            name: 'Integrations',
+            link: '/admin/integration',
+            active: false,
+        },
+        {
+            name: `${router?.query?.integration} details`,
+            link: '',
+            active: true,
+        },
+    ];
+
+    
     useEffect(() => {
         GetIntegrationDetailData(END_POINTS.ADMIN_CANVAS_INTEGRATION);
     }, []);
