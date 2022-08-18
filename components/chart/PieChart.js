@@ -25,6 +25,13 @@ const PieChart = ({
                 fontFamily:'Montserrat',
                 color:'#f5f5f5'
             },
+            tooltip: {
+                enabled: true,
+                style: {
+                    fontSize: '12px',
+                    fontFamily: 'Montserrat'
+                }
+            },
             labels: label,
             responsive: [{
                 breakpoint: 480,

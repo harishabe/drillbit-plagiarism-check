@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import dynamic from 'next/dynamic'
-const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false })
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import dynamic from 'next/dynamic';
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const RadialBarChart = ({
     type,
@@ -16,6 +17,18 @@ const RadialBarChart = ({
             chart: {
                 height: height,
                 type: type
+            },
+            tooltip: {
+                enabled: true,
+                style: {
+                    fontSize: '12px',
+                    fontFamily: 'Montserrat'
+                },
+                y: {
+                    formatter: function () {
+                        return '';
+                    }
+                }
             },
             plotOptions: {
                 radialBar: {
@@ -88,7 +101,9 @@ const RadialBarChart = ({
         }
     })
     return (
-        <ApexCharts options={chartData.options} series={chartData.series} type={type} height={height} />
+        <div id="radialBar">
+            <ApexCharts options={chartData.options} series={chartData.series} type={type} height={height} />
+        </div>
     )
 }
 

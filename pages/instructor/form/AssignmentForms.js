@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -14,7 +14,9 @@ import DatePicker from '@mui/lab/DatePicker';
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Button from '@mui/material/Button';
-
+import InputDatePicker from '../../../components/form/elements/InputDatePicker';
+import InputToggleButton from '../../../components/form/elements/InputToggleButton';
+import InputTextField from '../../../components/form/elements/InputTextField';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -42,8 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AssignmentForms = () => {
     const classes = useStyles();
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    
+
     const [value, setValue] = React.useState(null);
     const [endDate, setEndDate] = React.useState(null);
     const [showSetting, setShowSetting] = React.useState(false);
@@ -60,8 +61,11 @@ const AssignmentForms = () => {
     const [addQuestion, setAddQuestion] = React.useState(false);
     const [excludePhrases, setExcludePhrases] = React.useState(false);
 
+
+    const { register, control, handleSubmit, formState: { errors } } = useForm();
+
     const onSubmit = (data) => {
-        console.log('datadatadata',data)
+        console.log('datadatadata', data)
     }
 
 
@@ -154,61 +158,29 @@ const AssignmentForms = () => {
                         className: classes.helperText
                     }}
                 />
-                <LabelContainer>
-                    <InputLabel style={{ marginBottom: '10px' }}>
-                        Start Date
-                    </InputLabel>
-                </LabelContainer>
-                <LocalizationProvider
-                    dateAdapter={AdapterDateFns}>
-                    <Stack spacing={3}>
-                        <DatePicker
-                            style={{ margin: '10px 0px' }}
-                            fullWidth
-                            margin="normal"
-                            value={endDate}
-                            name="start_date"
-                            onChange={(newValue) => {
-                                setEndDate(newValue);
-                            }}
-                            renderInput={(params) => <TextField
-                                helperText={errors['start_date'] && 'Required'}
-                                {...register("start_date", { required: true })}
-                                FormHelperTextProps={{
-                                    className: classes.helperText
-                                }} {...params}
-                            />}
-                        />
-                    </Stack>
-                </LocalizationProvider>
-                <LabelContainer>
-                    <InputLabel style={{ margin: '10px 0px' }}>
-                        End Date
-                    </InputLabel>
-                </LabelContainer>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <Stack spacing={3}>
-                        <DatePicker
-                            style={{ margin: '10px 0px' }}
-                            fullWidth
-                            margin="normal"
-                            value={value}
-                            name="end_date"
-                            onChange={(newValue) => {
-                                setValue(newValue);
-                            }}
-                            renderInput={(params) =>
-                                <TextField
-                                    helperText={errors['end_date'] && 'Required'}
-                                    {...register("end_date", { required: true })}
-                                    {...params}
-                                    FormHelperTextProps={{
-                                        className: classes.helperText
-                                    }}
-                                />}
-                        />
-                    </Stack>
-                </LocalizationProvider>
+
+                <InputDatePicker
+                    control={control}
+                    field={{
+                        "field_type": "datepicker",
+                        "id": "startDate",
+                        "name": "startDate",
+                        "label": "Select Start Date",
+                        "minDate": true,
+                        "required": "Select Start Date",
+                        "validationMsg": "Select Start Date"
+                    }} />
+                <InputDatePicker
+                    control={control}
+                    field={{
+                        "field_type": "datepicker",
+                        "id": "endDate",
+                        "name": "endDate",
+                        "label": "Select End Date",
+                        "minDate": true,
+                        "required": "Select End Date",
+                        "validationMsg": "Select End Date"
+                    }} />
                 <Grid container>
                     <Grid item md={6} style={{ marginLeft: '2px', marginTop: '5px' }}>
                         <InputLabel style={{ margin: '10px 0px' }}>
@@ -264,6 +236,13 @@ const AssignmentForms = () => {
                                     type="text"
                                     variant="outlined"
                                 />
+                                {/* <InputTextField control={control} field={{
+                                    "field_type": "input",
+                                    "id": "assignment_name",
+                                    "name": "assignment_name",
+                                    "label": "Enter Max Assignment Marks",
+                                    "required": "Enter max assignment marks"
+                                }} /> */}
                             </>
                             }
                         </div>

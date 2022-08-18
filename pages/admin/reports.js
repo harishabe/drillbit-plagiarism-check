@@ -47,6 +47,7 @@ const Reports = ({
                 <Grid container spacing={1}>
                     <Grid item md={6} xs={12}>
                         <WidgetCard
+                            isClickAble={true}
                             title='Instructors lists'
                             count={ reportsData?.no_of_instructors }
                             handleDownload={handDownload}
@@ -58,6 +59,7 @@ const Reports = ({
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Student lists'
+                            isClickAble={true}
                             count={ reportsData?.no_of_students }
                             handleDownload={handDownload}
                             isLoading={isLoading}
