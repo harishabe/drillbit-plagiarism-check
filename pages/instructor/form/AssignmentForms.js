@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@mui/styles';
+import { useForm } from "react-hook-form";
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -32,8 +34,16 @@ const ToggleButton = styled(MuiToggleButton)({
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-const AssignmentForms = () => {
+const useStyles = makeStyles((theme) => ({
+    helperText: {
+        marginLeft: 0
+    }
+}));
 
+const AssignmentForms = () => {
+    const classes = useStyles();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    
     const [value, setValue] = React.useState(null);
     const [endDate, setEndDate] = React.useState(null);
     const [showSetting, setShowSetting] = React.useState(false);
@@ -50,6 +60,9 @@ const AssignmentForms = () => {
     const [addQuestion, setAddQuestion] = React.useState(false);
     const [excludePhrases, setExcludePhrases] = React.useState(false);
 
+    const onSubmit = (data) => {
+        console.log('datadatadata',data)
+    }
 
 
     const handleSwitchChange = (event) => {
@@ -116,23 +129,30 @@ const AssignmentForms = () => {
         setExcludePhrases(value);
     }
 
+
     return (
         <div>
             <div style={{ textAlign: 'center' }}>
                 <AddImageIcon />
             </div>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <LabelContainer>
                     <InputLabel>
                         Assignment Name
                     </InputLabel>
                 </LabelContainer>
+
                 <TextField
                     fullWidth
                     margin="normal"
-                    name="assignment_name"
+                    name={"assignment_name"}
                     type="text"
                     variant="outlined"
+                    {...register("assignment_name", { required: true })}
+                    helperText={errors['assignment_name'] && 'Required'}
+                    FormHelperTextProps={{
+                        className: classes.helperText
+                    }}
                 />
                 <LabelContainer>
                     <InputLabel style={{ marginBottom: '10px' }}>
@@ -146,11 +166,18 @@ const AssignmentForms = () => {
                             style={{ margin: '10px 0px' }}
                             fullWidth
                             margin="normal"
-                            value={value}
+                            value={endDate}
+                            name="start_date"
                             onChange={(newValue) => {
-                                setValue(newValue);
+                                setEndDate(newValue);
                             }}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => <TextField
+                                helperText={errors['start_date'] && 'Required'}
+                                {...register("start_date", { required: true })}
+                                FormHelperTextProps={{
+                                    className: classes.helperText
+                                }} {...params}
+                            />}
                         />
                     </Stack>
                 </LocalizationProvider>
@@ -162,13 +189,23 @@ const AssignmentForms = () => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <Stack spacing={3}>
                         <DatePicker
-                            style={{ marginTop: '10px' }}
+                            style={{ margin: '10px 0px' }}
                             fullWidth
-                            value={endDate}
+                            margin="normal"
+                            value={value}
+                            name="end_date"
                             onChange={(newValue) => {
-                                setEndDate(newValue);
+                                setValue(newValue);
                             }}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) =>
+                                <TextField
+                                    helperText={errors['end_date'] && 'Required'}
+                                    {...register("end_date", { required: true })}
+                                    {...params}
+                                    FormHelperTextProps={{
+                                        className: classes.helperText
+                                    }}
+                                />}
                         />
                     </Stack>
                 </LocalizationProvider>
@@ -605,6 +642,7 @@ const AssignmentForms = () => {
                     margin="normal"
                     variant="contained"
                     color="primary"
+                    type='submit'
                 >
                     Submit
                 </Button>
