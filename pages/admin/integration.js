@@ -11,6 +11,20 @@ import END_POINTS from '../../utils/EndPoints';
 import MoodleForm from './form/MoodleForm';
 import CanvasForm from './form/CanvasForm';
 import BlackboardForm from './form/BlackboardForm';
+import {
+    ADMIN_INTEGRATION_MOODLE,
+    ADMIN_INTEGRATION_CANVAS,
+    ADMIN_INTEGRATION_BLACKBOARD,
+    ADMIN_INTEGRATION_MOODLE_IMG,
+    ADMIN_INTEGRATION_CANVAS_IMG,
+    ADMIN_INTEGRATION_BLACKBOARD_IMG,
+    ADMIN_INTEGRATION_MOODLE_DESCRIPTION,
+    ADMIN_INTEGRATION_CANVAS_DESCRIPTION,
+    ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION,
+    ADMIN_INTEGRATION_MOODLE_PATH,
+    ADMIN_INTEGRATION_CANVAS_PATH,
+    ADMIN_INTEGRATION_BLACKBOARD_PATH,
+} from '../../constant/data/Integration'
 
 const IntegrationBreadCrumb = [
     {
@@ -48,22 +62,22 @@ const Integration = ({
 
     useEffect(() => {
         let lmsData = integrationData && integrationData?.map((item) => {
-            if (item.lms === 'MOODLE') {
-                item['img'] = '/img/lms/moodle.svg';
-                item['description'] = 'Moodle Plug-In Integration';
-                item['path'] = '/admin/integration/moodle';
+            if (item.lms === ADMIN_INTEGRATION_MOODLE) {
+                item['img'] = ADMIN_INTEGRATION_MOODLE_IMG;
+                item['description'] = ADMIN_INTEGRATION_MOODLE_DESCRIPTION;
+                item['path'] = ADMIN_INTEGRATION_MOODLE_PATH;
                 item['type'] = 'Moodle';
             }
-            if (item.lms === 'CANVAS') {
-                item['img'] = '/img/lms/canvas.svg';
-                item['description'] = 'Canvas LTI Integration';
-                item['path'] = '/admin/integration/canvas';
+            if (item.lms === ADMIN_INTEGRATION_CANVAS) {
+                item['img'] = ADMIN_INTEGRATION_CANVAS_IMG;
+                item['description'] = ADMIN_INTEGRATION_CANVAS_DESCRIPTION;
+                item['path'] = ADMIN_INTEGRATION_CANVAS_PATH;
                 item['type'] = 'Canvas';
             }
-            if (item.lms === 'BLACKBOARD') {
-                item['img'] = '/img/lms/blackboard.svg';
-                item['description'] = 'Blackboard LTI Integration';
-                item['path'] = '/admin/integration/blackBoard';
+            if (item.lms === ADMIN_INTEGRATION_BLACKBOARD) {
+                item['img'] = ADMIN_INTEGRATION_BLACKBOARD_IMG;
+                item['description'] = ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION;
+                item['path'] = ADMIN_INTEGRATION_BLACKBOARD_PATH;
                 item['type'] = 'Blackboard'
             }
             return item;
