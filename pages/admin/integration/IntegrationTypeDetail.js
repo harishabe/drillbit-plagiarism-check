@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useRouter } from "next/router";
 import { makeStyles } from '@mui/styles';
 import { Button, Divider } from '@mui/material';
 import { ConfigIcon } from '../../../assets/icon';
@@ -9,7 +8,8 @@ import {
     SubHeading,
     MainHeading,
     SubTitle,
-    SubTitle1
+    SubTitle1,
+    CommonTable
 } from '../../../components';
 
 const useStyles = makeStyles({
@@ -33,6 +33,15 @@ const useStyles = makeStyles({
     }
 });
 
+const columns = [
+    { id: 'name', label: 'Name' },
+    { id: 'details', label: 'Details' },
+];
+
+function createData(name, details) {
+    return { name, details }
+};
+
 const IntegrationTypeDetail = ({
     isMoodleTrue,
     isCanvasTrue,
@@ -43,15 +52,60 @@ const IntegrationTypeDetail = ({
 }) => {
 
     const classes = useStyles();
-    const router = useRouter();
+    const [rows, setRows] = useState([]);
+    const [technical, setTechnical] = useState([]);
 
+
+    useEffect(() => {
+        if (routerData?.integration === 'Moodle') {
+            let row = [
+                createData("API Key", integrationData?.api_key),
+                createData("College Name", integrationData?.college_name),
+                createData("Configured Date", integrationData?.created_date),
+                createData("Moodle URL", integrationData?.lms_url),
+            ];
+            let tech = [
+                createData("Name", integrationData?.name),
+                createData("Email Address", integrationData?.email),
+                createData("Phone Number", integrationData?.phone),
+            ];
+            setRows([...row])
+            setTechnical([...tech])
+        } else if (routerData?.integration === 'Canvas') {
+            let row = [
+                createData("Access end point", integrationData?.access_end_point),
+                createData("Authentication end point", integrationData?.auth_end_point),
+                createData("Configured Date", integrationData?.creation_time),
+                createData("Client id", integrationData?.client_id),
+                createData("College Name", integrationData?.college_name),
+                createData("Keyset end point", integrationData?.keyset_end_point),
+                createData("Email Address", integrationData?.mail_id),
+                createData("Method", integrationData?.method),
+                createData("Platform url", integrationData?.platform_url),
+            ];
+            setRows([...row])
+        } else if (routerData?.integration === 'Blackboard') {
+            let row = [
+                createData("Access end point", integrationData?.access_end_point),
+                createData("Authentication end point", integrationData?.auth_end_point),
+                createData("Configured Date", integrationData?.creation_time),
+                createData("Client id", integrationData?.client_id),
+                createData("College Name", integrationData?.college_name),
+                createData("Keyset end point", integrationData?.keyset_end_point),
+                createData("Email Address", integrationData?.mail_id),
+                createData("Method", integrationData?.method),
+                createData("Platform url", integrationData?.platform_url),
+            ];
+            setRows([...row])
+        }
+    }, [integrationData])
     return (
         <>
             { isMoodleTrue &&
                 <>
-                    <MainHeading title={ routerData?.integration?.charAt(0).toUpperCase() + router?.query?.integration?.slice(1) + ' ' + 'Plugin Setup' } />
+                <MainHeading title={ 'Moodle Plugin Setup' } />
                     <CardView>
-                    <SubHeading title={ routerData?.integration?.charAt(0).toUpperCase() + routerData?.integration?.slice(1) + ' ' + 'Plug-in – Configured ' } />
+                    <SubHeading title={ 'Moodle Plug-in – Configured' } />
                     <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
                         <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
                     </Button>
@@ -59,45 +113,25 @@ const IntegrationTypeDetail = ({
                     <Divider className={ classes.mt10 } />
                     <div className={ classes.margin }></div>
                     <SubTitle title="Configuration Details :" />
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="API Key" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.api_key } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="College Name" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.college_name } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Configured Date" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.created_date } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Moodle URL" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.lms_url } /></div>
-                    </div>
 
-                    <Divider className={ classes.mt10 } />
+                    <CommonTable
+                        isCheckbox={ false }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        charLength={ 50 }
+                        path=''
+                    />
+
                     <div className={ classes.margin }></div>
                     <SubTitle title="Technical Contact Details :" />
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Name" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.name } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Email Address" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.email } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Phone Number" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.phone } /></div>
-                    </div>
+
+                    <CommonTable
+                        isCheckbox={ false }
+                        tableHeader={ columns }
+                        tableData={ technical }
+                        charLength={ 50 }
+                        path=''
+                    />
                     </CardView>
                 </>
             }
@@ -112,51 +146,14 @@ const IntegrationTypeDetail = ({
                         <Divider className={ classes.mt10 } />
                         <div className={ classes.margin }></div>
                         <SubTitle title="Configuration Details :" />
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Access end point" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.access_end_point } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Authentication end point" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.auth_end_point } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Configured Date" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.creation_time } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Client id" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.client_id } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="College Name" />
-                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                                <SubTitle title={ integrationData?.college_name } /></div>
-                        </div>
-                        <div className={ classes.inlineDisplay }>
-                            <SubTitle1 title="Keyset end point" />
-                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                                <SubTitle title={ integrationData?.keyset_end_point } /></div>
-                        </div>
-                        <div className={ classes.inlineDisplay }>
-                            <SubTitle1 title="Email Address" />
-                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                                <SubTitle title={ integrationData?.mail_id } /></div>
-                        </div>
-                        <div className={ classes.inlineDisplay }>
-                            <SubTitle1 title="Method" />
-                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                                <SubTitle title={ integrationData?.method } /></div>
-                        </div>
-                        <div className={ classes.inlineDisplay }>
-                            <SubTitle1 title="Platform url" />
-                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                                <SubTitle title={ integrationData?.platform_url } /></div>
-                        </div>
+
+                    <CommonTable
+                        isCheckbox={ false }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        charLength={ 50 }
+                        path=''
+                    />
                     </CardView>
                 </>
             }
@@ -171,51 +168,14 @@ const IntegrationTypeDetail = ({
                         <Divider className={ classes.mt10 } />
                         <div className={ classes.margin }></div>
                         <SubTitle title="Configuration Details :" />
-                        <div className={ classes.inlineDisplay }>
-                            <SubTitle1 title="Access end point" />
-                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                                <SubTitle title={ integrationData?.access_end_point } /></div>
-                        </div>
-                        <div className={ classes.inlineDisplay }>
-                            <SubTitle1 title="Authentication end point" />
-                            <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                                <SubTitle title={ integrationData?.auth_end_point } /></div>
-                        </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Configured Date" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.creation_time } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Client id" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.client_id } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="College Name" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.college_name } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Keyset end point" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.keyset_end_point } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Email Address" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.mail_id } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Method" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.method } /></div>
-                    </div>
-                    <div className={ classes.inlineDisplay }>
-                        <SubTitle1 title="Platform url" />
-                        <div className={ classes.mr25 }></div>: <div className={ classes.ml25 }>
-                            <SubTitle title={ integrationData?.platform_url } /></div>
-                    </div>
+
+                    <CommonTable
+                        isCheckbox={ false }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        charLength={ 50 }
+                        path=''
+                    />
                 </CardView>
                 </>
             }
