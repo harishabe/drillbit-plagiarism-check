@@ -12,11 +12,12 @@ import {
     MainHeading,
     CardView,
     CommonTable,
-    CreateDrawer
+    CreateDrawer,
+    WarningDialog
 } from './../../components';
-import { DeleteIcon } from '../../assets/icon';
+import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
 import Admin from '../../layouts/Admin';
-import { GetRepoList } from '../../redux/action/admin/AdminAction';
+import { GetRepoList, RemoveRepositary } from '../../redux/action/admin/AdminAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 
@@ -55,12 +56,15 @@ function createData(id, name, email, date, action) {
 
 const Repository = ({
     GetRepoList,
+    RemoveRepositary,
     repoData,
     pageDetails,
     isLoadingRepo
 }) => {
 
     const [rows, setRows] = useState([]);
+    const [deleteRowData, setDeleteRowData] = useState('');
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -89,6 +93,24 @@ const Repository = ({
         });
         setRows([...arr]);
     }, [repoData]);
+
+    const handleAction = (event, icon, rowData) => {
+        if (icon === 'delete') {
+            setDeleteRowData(rowData?.id);
+            setShowDeleteWarning(true);
+        }
+    }
+
+    const handleCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
+
+    const handleYesWarning = () => {
+        RemoveRepositary(deleteRowData);
+        setTimeout(() => {
+            setShowDeleteWarning(false);
+        }, [100]);
+    };
 
     const handlePagination = (event, value) => {
         event.preventDefault();
@@ -141,6 +163,18 @@ const Repository = ({
                 </Grid>
             </Box>
             <MainHeading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+
+            {
+                showDeleteWarning &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message="Are you sure you want to delete ?"
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
+                />
+            }
+
             <AddButtonBottom>
                 <CreateDrawer
                     isShowAddIcon={ true }
@@ -149,12 +183,14 @@ const Repository = ({
                     <RepositaryForm />
                 </CreateDrawer>
             </AddButtonBottom>
+
             <CardView>
                 <>
                     <CommonTable
-                        isCheckbox={ true }
+                        isCheckbox={ false }
                         tableHeader={ columns }
                         tableData={ rows }
+                        handleAction={ handleAction }
                         charLength={ 10 }
                         isLoading={ isLoadingRepo }
                     />
@@ -183,6 +219,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetRepoList: (PaginationValue) => dispatch(GetRepoList(PaginationValue)),
+        RemoveRepositary: (id) => dispatch(RemoveRepositary(id)),
     };
 };
 

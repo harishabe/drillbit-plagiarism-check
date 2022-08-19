@@ -33,7 +33,6 @@ export function* profileDetails() {
  */
 
 export function* onLoadProfileLogo(action) {
-    console.log('actionactionaction',action);
     const { response, error } = yield call(UploadLogo, action.query);
     if (response) {
         yield put({ type: types.FETCH_PROFILE_LOGO_SUCCESS, payload: response?.data });

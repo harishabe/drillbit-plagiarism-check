@@ -105,7 +105,6 @@ function StudentInstitute({
     }
 
     const handleSingleSelect = (e, row) => {
-        console.log("row", row)
         let rowData = data?.map((rowItem) => {
             if (rowItem?.id === row?.id) {
                 rowItem['isSelected'] = !rowItem['isSelected'];

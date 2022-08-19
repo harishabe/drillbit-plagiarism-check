@@ -9,6 +9,7 @@ import {
     GetReports,
     GetRepoDetail,
     RepoUploadDetail,
+    RemoveRepositaryData,
     DownloadReports,
     EditRow,
     DeleteRow,
@@ -69,7 +70,6 @@ export function* onLoadStats(action) {
 export function* GetInstructorStudentStats() {
     yield takeLatest(types.FETCH_ADMIN_STATS_DATA_START, onLoadStats);
 }
-
 
 /**
  * Export csv file from stats
@@ -265,12 +265,10 @@ export function* EditData() {
     yield takeLatest(types.FETCH_ADMIN_EDIT_ROW_START, onLoadEdit);
 }
 
-
 /**
  * Delete
  * @param {*} action
  */
-
 
 export function* onLoadDelete(action) {
     const { response, error } = yield call(DeleteRow, action.id);
@@ -299,7 +297,6 @@ export function* DeleteData() {
  * @param {*} action
  */
 
-
 export function* onLoadDeleteStudent(action) {
     const { response, error } = yield call(DeleteStudent, action.id);
     if (response) {
@@ -327,7 +324,6 @@ export function* DeleteStudentData() {
  * @param {*} action
  */
 
-
 export function* onLoadDeactivate(action) {
     const { response, error } = yield call(DeactivateRow, action.query);
     if (response) {
@@ -341,6 +337,7 @@ export function* onLoadDeactivate(action) {
 export function* DeactivateData() {
     yield takeLatest(types.FETCH_ADMIN_DEACTIVATE_ROW_START, onLoadDeactivate);
 }
+
 /**
  * Get repositary data
  * @param {*} action
@@ -386,4 +383,28 @@ export function* onLoadUploadFile(action) {
 
 export function* RepoAdminUploadData() {
     yield takeLatest(types.FETCH_ADMIN_REPOSITARY_UPLOAD_START, onLoadUploadFile);
+}
+
+/**
+ * Remove repositary
+ * @param {*} action
+ */
+
+export function* onLoadRemoveRepositary(action) {
+    const { response, error } = yield call(RemoveRepositaryData, action.id);
+    if (response) {
+        yield put({ type: types.FETCH_ADMIN_REPOSITARY_DELETE_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_REPOSITARY_DELETE_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* RemoveRepositaryDetails() {
+    yield takeLatest(types.FETCH_ADMIN_REPOSITARY_DELETE_START, onLoadRemoveRepositary);
 }

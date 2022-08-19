@@ -24,7 +24,6 @@ const MyFoldersForm = ({
     });
 
     const onSubmit = (data) => {
-        // console.log('tets', data.expiry_date.slice(0, -9));
         if (editOperation) {
             data['end_date'] = convertDate(data.expiry_date);
             data['exclude_refernces'] = data.exclude_refernces;

@@ -121,7 +121,6 @@ const Students = ({
     }, [studentData]);
 
     const handleAction = (event, icon, rowData) => {
-        console.log('rowData', rowData);
         if (icon === 'edit') {
             setEditStudent(true);
             setEditStudentData(rowData);

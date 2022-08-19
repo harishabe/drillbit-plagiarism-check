@@ -145,7 +145,6 @@ const StudentList = ({
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
-            console.log("rowdata", rowData)
             setDeleteRowData(rowData?.paperid);
             setShowDeleteWarning(true);
         }
