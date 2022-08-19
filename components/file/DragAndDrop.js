@@ -129,7 +129,7 @@ const DragAndDrop = ({
     };
 
     useEffect(() => {
-        console.log('datadatadata', data);
+        console.log('google drive file data', data);
         // if (data) {
         //     data.docs.map((i) => console.log('11111111111222222333',i));
         // }

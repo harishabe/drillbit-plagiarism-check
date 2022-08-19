@@ -48,6 +48,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const StyledList = styled(List)({
+    '& .MuiListItemButton-root:hover': {
+        transform: 'scale(1.06)',
+        transition: 'all 0.3s ease-out',
+        borderRadius: 'none !important',
+        borderBottom: '2px solid #014dfa'
+    },
+});
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -146,36 +154,38 @@ const SideBar = ({ open }) => {
                                         activeRoute(text.layout + text.path, text.name)
                                 });
                                 return (
-                                    <Link href={text.layout + text.path} key={key}>
-                                        <a>
-                                            <ListItemButton
-                                                style={{ margin: '10px 15px 0', borderRadius: '4px' }}
-                                                className={whiteFontClasses}
-                                                key={text}
-                                                sx={{
-                                                    minHeight: 58,
-                                                    justifyContent: open ? 'initial' : 'center',
-                                                    px: 2.5,
-                                                }}
-                                            >
-                                                <ListItemIcon
+                                    <StyledList>
+                                        <Link href={text.layout + text.path} key={key}>
+                                            <a className={classes.link} >
+                                                <ListItemButton
+                                                    style={{ margin: '10px 15px 0', borderRadius: '4px' }}
                                                     className={whiteFontClasses}
+                                                    key={text}
                                                     sx={{
-                                                        minWidth: 0,
-                                                        mr: open ? 3 : 'auto',
-                                                        justifyContent: 'center',
+                                                        minHeight: 58,
+                                                        justifyContent: open ? 'initial' : 'center',
+                                                        px: 2.5
                                                     }}
                                                 >
-                                                    {active ? text.activeIcon : text.icon}
-                                                </ListItemIcon>
-                                                <ListItemText
-                                                    primary={text.name}
-                                                    className={classNames(classes.menuClass, whiteFontClasses)}
-                                                    sx={{ opacity: open ? 1 : 0 }}
-                                                />
-                                            </ListItemButton>
-                                        </a>
-                                    </Link>
+                                                    <ListItemIcon
+                                                        className={whiteFontClasses}
+                                                        sx={{
+                                                            minWidth: 0,
+                                                            mr: open ? 3 : 'auto',
+                                                            justifyContent: 'center',
+                                                        }}
+                                                    >
+                                                        {active ? text.activeIcon : text.icon}
+                                                    </ListItemIcon>
+                                                    <ListItemText
+                                                        primary={text.name}
+                                                        className={classNames(classes.menuClass, whiteFontClasses)}
+                                                        sx={{ opacity: open ? 1 : 0 }}
+                                                    />
+                                                </ListItemButton>
+                                            </a>
+                                        </Link>
+                                    </StyledList>
                                 );
                             })}
                         </List>

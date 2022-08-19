@@ -70,7 +70,7 @@ const TextAlignRight = styled.div`
 
 const CurveChartContainer = styled.div`
     position:relative;
-    bottom:60px;
+    bottom:8px;
     margin-right:-27px;
 `;
 
