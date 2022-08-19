@@ -67,6 +67,7 @@ const BlackBoard = ({
                             {
                                 integrationData &&
                                 <IntegrationTypeDetail
+                                    routerData={ router?.query }
                                     integrationData={integrationData}
                                     handleConfig={handleConfig}
                                     isBlackboardTrue={true}

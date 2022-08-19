@@ -21,7 +21,7 @@ const RepositaryForm = ({
         bodyFormData.append('name', data.name);
         bodyFormData.append('title', data.title);
         bodyFormData.append('year', data.year);
-        bodyFormData.append('repository', data.repository.name);
+        bodyFormData.append('repository', data.repository.name === 'Institution' ? 'LOCAL' : 'GLOBAL');
         bodyFormData.append('language', data.language.name);
         bodyFormData.append('file', data.file[0]);
         RepoUpload(bodyFormData)
