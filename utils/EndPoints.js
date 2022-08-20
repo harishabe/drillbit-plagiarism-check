@@ -4,6 +4,7 @@ const END_POINTS = {
     ADMIN_DASHBOARD_WIDGET: '/extreme/admin/dashboard',
     ADMIN_TOP_STUDENT: '/extreme/admin/topStudents',
     ADMIN_TREND_ANALYSIS: '/extreme/admin/trendAnalysis',
+    ADMIN_RENEW_ACCOUNT: '/extreme/admin/reviveValidity',
     ADMIN_INSTRUCTOR: '/extreme/admin/instructors',
     ADMIN_INSTRUCTOR_STUDENT_STATS: `/extreme/admin/instructor`,
     ADMIN_EXPORT_CSV_STATS: `/extreme/admin/exportToCSV`,
