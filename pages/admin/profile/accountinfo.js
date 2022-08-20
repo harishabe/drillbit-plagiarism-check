@@ -51,44 +51,44 @@ const AccountInfo = ({
     useEffect(() => {
         if (role === Role.admin) {
             let row = [
-                createData("Institution Name", accountInfo?.institutionName),
-                createData("Admin Username", accountInfo?.adminUsername),
-                createData("Account ID", accountInfo?.accountId),
-                createData("Date Of Activation", accountInfo?.dateOfActivation),
-                createData("Instructor Account", accountInfo?.instructorAccount),
-                createData("Student Account", accountInfo?.studentAccount),
-                createData("Number Of Documents", accountInfo?.numberOfDocuments),
-                createData("One Document Length", accountInfo?.oneDocumentLength),
-                createData("Date of Expiry", accountInfo?.dateOfExpiry),
-                createData("Grammer", accountInfo?.grammar),
-                createData("Product Name", accountInfo?.productName),
-                createData("Time Zone", accountInfo?.timeZone),
+                createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
+                createData("Admin Username", accountInfo?.name ? accountInfo?.name : '-'),
+                createData("Account ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
+                createData("Date Of Activation", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
+                createData("Instructor Account", accountInfo?.instructorAccount ? accountInfo?.instructorAccount : '-'),
+                createData("Student Account", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
+                createData("Number Of Documents", accountInfo?.totalDocumentsAlloted ? accountInfo?.totalDocumentsAlloted : '-'),
+                createData("One Document Length", accountInfo?.oneDocumentLength ? accountInfo?.oneDocumentLength : '-'),
+                createData("Date of Expiry", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
+                createData("Grammer", accountInfo?.grammar ? accountInfo?.grammar : '-'),
+                createData("Product Name", accountInfo?.productName ? accountInfo?.productName : '-'),
+                createData("Time Zone", accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
             ];
             setRows([...row])
         } else if (role === Role.instructor) {
             let row = [
-                createData("Name", accountInfo?.name),
-                createData("Institution Name", accountInfo?.institutionName),
-                createData("Instructor ID", accountInfo?.accountId),
-                createData("Instructor Email Address", accountInfo?.email),
-                createData("Created Date", accountInfo?.createdDate),
-                createData("Expiry Date", accountInfo?.expiryDate),
-                createData("Total Documents Alloted", accountInfo?.totalDocumentsSubmitted),
-                createData("Total Documents Submitted", accountInfo?.totalDocumentsAlloted),
-                createData("Files Saved to Repository", accountInfo?.totalDocumentsAddedToRepository),
-                createData("Time Zone", accountInfo?.timeZone),
+                createData("Name", accountInfo?.name ? accountInfo?.name : '-'),
+                createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
+                createData("Instructor ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
+                createData("Instructor Email Address", accountInfo?.email ? accountInfo?.email : '-'),
+                createData("Created Date", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
+                createData("Expiry Date", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
+                createData("Total Documents Alloted", accountInfo?.totalDocumentsSubmitted ? accountInfo?.totalDocumentsSubmitted : '-'),
+                createData("Total Documents Submitted", accountInfo?.totalDocumentsAlloted ? accountInfo?.totalDocumentsAlloted : '-'),
+                createData("Files Saved to Repository", accountInfo?.totalDocumentsAddedToRepository ? accountInfo?.totalDocumentsAddedToRepository : '-'),
+                createData("Time Zone", accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
             ];
             setRows([...row])
         } else if (role === Role.student) {
-            let row = [                
-                createData("Account ID", accountInfo?.accountId),
-                createData("Student ID", accountInfo?.stuednt_id),
-                createData("Name", accountInfo?.name),                
-                createData("Email", accountInfo?.email),                
-                createData("Institution Name", accountInfo?.institutionName),
-                createData("Department", accountInfo?.department),                
-                createData("Created Date", accountInfo?.createdDate),
-                createData("Expiry Date", accountInfo?.expiryDate),
+            let row = [
+                createData("Account ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
+                createData("Student ID", accountInfo?.stuednt_id ? accountInfo?.stuednt_id : '-'),
+                createData("Name", accountInfo?.name ? accountInfo?.name : '-'),
+                createData("Email", accountInfo?.email ? accountInfo?.email : '-'),
+                createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
+                createData("Department", accountInfo?.department ? accountInfo?.department : '-'),
+                createData("Created Date", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
+                createData("Expiry Date", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
             ];
             setRows([...row])
         }
@@ -97,7 +97,7 @@ const AccountInfo = ({
     const handleChange = (data) => {
         let bodyFormData = new FormData();
         bodyFormData.append('file', data.target.files[0]);
-        ProfileLogo(bodyFormData);
+        ProfileLogo(localStorage.getItem('role'), bodyFormData);
     }
 
 
@@ -134,8 +134,6 @@ const AccountInfo = ({
                         <Skeleton />
                         <Skeleton />
                         <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
                     </>
                 ) : (
                     <CommonTable
@@ -160,7 +158,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetProfile: (role) => dispatch(GetProfile(role)),
-        ProfileLogo: (data) => dispatch(ProfileLogo(data)),
+        ProfileLogo: (role, data) => dispatch(ProfileLogo(role, data)),
     };
 };
 

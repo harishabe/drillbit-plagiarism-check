@@ -6,9 +6,9 @@ export const GetProfile = (role) => {
     };
 };
 
-export const ProfileLogo = (data) => {
+export const ProfileLogo = (role, data) => {
     return {
-        type: types.FETCH_PROFILE_LOGO_START, query: data
+        type: types.FETCH_PROFILE_LOGO_START, role: role, query: data
     };
 };
 

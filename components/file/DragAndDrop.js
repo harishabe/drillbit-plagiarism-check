@@ -41,6 +41,7 @@ const DragAndDrop = ({
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
     const [fileWarning, setFileWarning] = useState(false);
+    const [pickerApiLoaded, setPickerApiLoaded] = useState(false);
     const [openPicker, data, authResponse] = useDrivePicker();
 
     const handleDelete = (e, item) => {
@@ -94,13 +95,13 @@ const DragAndDrop = ({
             filesArr.push(item[1]);
         });
 
-        
-        console.log('authorNameArr',authorNameArr);
-        console.log('documentTypeArr',documentTypeArr);
-        console.log('titleArr',titleArr);        
-        console.log('filesArrfilesArrfilesArr',filesArr);
 
-        
+        console.log('authorNameArr', authorNameArr);
+        console.log('documentTypeArr', documentTypeArr);
+        console.log('titleArr', titleArr);
+        console.log('filesArrfilesArrfilesArr', filesArr);
+
+
         bodyFormData.append('authorName', authorNameArr);
         bodyFormData.append('title', titleArr);
         bodyFormData.append('documentType', documentTypeArr);
@@ -125,15 +126,15 @@ const DragAndDrop = ({
             showUploadFolders: true,
             supportDrives: true,
             multiselect: true,
+            customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
+            callbackFunction: (data) => {
+                if (data.action === 'cancel') {
+                    console.log('User clicked cancel/close button')
+                }
+                console.log('callbackFunction', data)
+            },
         });
     };
-
-    useEffect(() => {
-        console.log('google drive file data', data);
-        // if (data) {
-        //     data.docs.map((i) => console.log('11111111111222222333',i));
-        // }
-    }, [data]);
 
     return (
         <CardView>

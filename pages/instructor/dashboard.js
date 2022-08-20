@@ -57,7 +57,7 @@ const TextAlignRight = styled.div`
 
 const CurveChartContainer = styled.div`
     position:relative;
-    bottom:53px;
+    bottom:60px;
     margin-right:-27px;
 `;
 
@@ -142,7 +142,7 @@ const Dashboard = ({
                                                     ] }
                                                     xaxisLabelShow={ false }
                                                     yaxisLabelShow={ false }
-                                                    chartHeight={ 140 }
+                                                    chartHeight={ 190 }
                                                 />
                                             </CurveChartContainer>
                                         </>
@@ -156,18 +156,6 @@ const Dashboard = ({
                             <Grid container spacing={ 1 }>
                                 <Grid item md={ 10 } xs={ 12 }>
                                     <Heading title='Recent Submissions' />
-                                </Grid>
-                                <Grid item md={ 2 } xs={ 12 }>
-                                    { instructorDashboardData?.data?.recent_submissions?.length !== 0 &&
-                                        <TextAlignRight>
-                                            <Link href={ ' ' }>
-                                                <a target='_blank' style={ { textDecoration: 'underline' } }>
-                                                    View all
-                                                </a>
-                                            </Link>
-                                        </TextAlignRight>
-                                    }
-
                                 </Grid>
                             </Grid>
 

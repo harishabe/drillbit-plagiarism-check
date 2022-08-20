@@ -21,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
+const StyledInputField = styled(TextField)(() => ({
+    ':hover': {
+        transform: 'scale(1.01)',
+        transition: 'all 0.2s ease-out',
+    },
+}));
 
 const InputTextField = ({
     control,
@@ -54,7 +60,7 @@ const InputTextField = ({
                 render={({
                     field: { onChange, onBlur, value }, fieldState: { error }
                 }) => (
-                    <TextField
+                    <StyledInputField
                         style={{ marginTop: '10px' }}
                         margin="normal"
                         type={field.type}

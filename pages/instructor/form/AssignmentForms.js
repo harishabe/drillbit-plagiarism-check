@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useRouter } from "next/router";
+import { connect } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import { useForm, Controller } from "react-hook-form";
 import styled from 'styled-components';
@@ -17,6 +19,9 @@ import Button from '@mui/material/Button';
 import InputDatePicker from '../../../components/form/elements/InputDatePicker';
 import InputToggleButton from '../../../components/form/elements/InputToggleButton';
 import InputTextField from '../../../components/form/elements/InputTextField';
+import InputFileType from '../../../components/form/elements/InputFileType';
+import { CreateAssignment, EditAssignment } from '../../../redux/action/instructor/InstructorAction';
+import { convertDate } from '../../../utils/RegExp'
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -42,8 +47,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AssignmentForms = () => {
+const AssignmentForms = ({
+    CreateAssignment,
+    EditAssignment,
+}) => {
     const classes = useStyles();
+    const router = useRouter();
 
     const [value, setValue] = React.useState(null);
     const [endDate, setEndDate] = React.useState(null);
@@ -65,7 +74,37 @@ const AssignmentForms = () => {
     const { register, control, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log('datadatadata', data)
+        console.log('datadatadata', data);
+        let bodyFormData = new FormData();
+        if (showSetting) {
+
+        } else {
+            bodyFormData.append('assignment_name', data.assignment_name);
+            bodyFormData.append('start_date', convertDate(data.start_date));
+            bodyFormData.append('end_date', convertDate(data.end_date));
+            bodyFormData.append('file', data.file[0]);
+            bodyFormData.append('exclude_references', showSetting === false && 'NO');
+            bodyFormData.append('exclude_quotes', showSetting === false && 'NO');
+            bodyFormData.append('exclude_small_sources', showSetting === false && 'NO');
+            bodyFormData.append('assignment_grading', showSetting === false && 'NO');
+            bodyFormData.append('exclude_include_sources', showSetting === false && 'NO');
+            bodyFormData.append('save_to_repository', showSetting === false && 'NO');
+            bodyFormData.append('allow_resubmissions', showSetting === false && 'NO');
+            bodyFormData.append('allow_submissions_after_due_date', showSetting === false && 'NO');
+            bodyFormData.append('grammar_check', showSetting === false && 'NO');
+            bodyFormData.append('choice_of_email_notifications', showSetting === false && 'NO');
+            bodyFormData.append('add_questions', showSetting === false && 'NO');
+            bodyFormData.append('exclude_phrases', showSetting === false && 'NO');
+            bodyFormData.append('repository_scope', showSetting === false && 'NO');
+            bodyFormData.append('report_access', showSetting === false && 'NO');
+            bodyFormData.append('db_studentpaper', showSetting === false && 'NO');
+            bodyFormData.append('db_publications', showSetting === false && 'NO');
+            bodyFormData.append('db_internet', showSetting === false && 'NO');
+            bodyFormData.append('institution_repository', showSetting === false && 'NO');
+            bodyFormData.append('daily_submissions_limit', showSetting === false && 0);            
+            CreateAssignment(router.query.clasId, bodyFormData);
+        }
+
     }
 
 
@@ -146,7 +185,7 @@ const AssignmentForms = () => {
                     </InputLabel>
                 </LabelContainer>
 
-                <TextField
+                {/* <TextField
                     fullWidth
                     margin="normal"
                     name={"assignment_name"}
@@ -157,30 +196,56 @@ const AssignmentForms = () => {
                     FormHelperTextProps={{
                         className: classes.helperText
                     }}
+                /> */}
+
+                <InputTextField control={control}
+                    field={{
+                        "field_type": "text",
+                        "id": "assignment_name",
+                        "name": "assignment_name",
+                        "required": "Enter assignment name",
+                        "validationMsg": "Enter assignment name"
+                    }}
                 />
 
                 <InputDatePicker
                     control={control}
                     field={{
                         "field_type": "datepicker",
-                        "id": "startDate",
-                        "name": "startDate",
+                        "id": "start_date",
+                        "name": "start_date",
                         "label": "Select Start Date",
                         "minDate": true,
                         "required": "Select Start Date",
                         "validationMsg": "Select Start Date"
-                    }} />
+                    }}
+                />
+
                 <InputDatePicker
                     control={control}
                     field={{
                         "field_type": "datepicker",
-                        "id": "endDate",
-                        "name": "endDate",
+                        "id": "end_date",
+                        "name": "end_date",
                         "label": "Select End Date",
                         "minDate": true,
                         "required": "Select End Date",
                         "validationMsg": "Select End Date"
-                    }} />
+                    }}
+                />
+
+                <InputFileType control={control}
+                    field={{
+                        "field_type": "file",
+                        "id": "file",
+                        "name": "file",
+                        "label": "Choose File",
+                        "required": "Choose File",
+                        "validationMsg": "Please choose file"
+                    }}
+                />
+
+
                 <Grid container>
                     <Grid item md={6} style={{ marginLeft: '2px', marginTop: '5px' }}>
                         <InputLabel style={{ margin: '10px 0px' }}>
@@ -630,4 +695,15 @@ const AssignmentForms = () => {
     )
 };
 
-export default AssignmentForms;
+const mapStateToProps = (state) => ({
+    isLoading: state?.instructorClasses?.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        CreateAssignment: (ClasId, data) => dispatch(CreateAssignment(ClasId, data)),
+        EditAssignment: (ClasId, assId) => dispatch(EditAssignment(ClasId, assId)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AssignmentForms);

@@ -1,16 +1,23 @@
 import React from 'react';
 import { Box, Paper, Button } from '@mui/material';
+import styled from 'styled-components';
 import BeatLoader from "react-spinners/BeatLoader";
+
+const StyledButton = styled(Button)(() => ({
+    ':hover': {
+        transform: 'scale(1.01)',
+        transition: 'all 0.2s ease-out',
+    },
+}));
 
 const InputButton = ({
     field,
     isLoading
 }) => {
-    // console.log('fieldfieldfoeld',field);
     return (
         <Paper>
             <Box my={2}>
-                <Button
+                <StyledButton
                     style={{ padding: '12px' }}
                     fullWidth
                     size="large"
@@ -20,7 +27,7 @@ const InputButton = ({
                     color="primary"
                 >
                     {isLoading ? <BeatLoader color="#fff" /> : field.label}
-                </Button>
+                </StyledButton>
             </Box>
         </Paper>
     )
