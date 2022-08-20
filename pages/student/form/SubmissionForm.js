@@ -25,10 +25,7 @@ const SubmissionForm = ({
         mode: 'all',
     });
 
-    console.log(getItemLocalStorage('name'))
-
     const onSubmit = (data) => {
-        console.log('data',data);
         let bodyFormData = new FormData();
         bodyFormData.append('authorName', getItemLocalStorage('name'));
         // bodyFormData.append('name', 'drillbit');

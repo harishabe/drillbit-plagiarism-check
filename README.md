@@ -17,7 +17,7 @@ yatheendra72@gmail.com      |     12345678             |       admin
 admin@xtream                |     123456               | 
 satheeshreddy45@gmail.com   |     12345678             | 
 ---------------------------------------------------------------------------
-sanjay@gmail.com            |     Bit@1234             |       student
+sanjay@gmail.com            |     123456               |       student
 drillbitsatish@gmail.com    |     12345678             |       
 kumarkishan31954@gmail.com  |     YXAZZSKN2M           |
 ---------------------------------------------------------------------------

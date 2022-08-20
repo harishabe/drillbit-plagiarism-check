@@ -25,7 +25,6 @@ const StudentForm = ({
     });
 
     const onSubmit = (data) => {
-        console.log("editDataeditData", editData)
         if (editOperation) {
             EditStudent(router.query.clasId, editData?.id, data);
         } else {

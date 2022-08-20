@@ -112,7 +112,6 @@ const Submission = ({
   };
 
   const handleAction = (event, icon, rowData) => {
-    console.log('rowData', rowData);
     if (icon === 'edit') {
       setEditAssignment(true);
       setEditAssignmentData(rowData);

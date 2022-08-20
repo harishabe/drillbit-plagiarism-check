@@ -147,3 +147,12 @@ export const RepoUploadDetail = async (data) => {
     const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD;
     return PostFormData(url, data);
 };
+
+/**
+ * API CALL FOR REMOVE REPOSITARY
+ */
+
+export const RemoveRepositaryData = async (id) => {
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_REMOVE + id;
+    return GetMethod(url);
+};

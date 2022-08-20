@@ -16,6 +16,7 @@ const END_POINTS = {
     ADMIN_STUDENT_DELETE: '/extreme/admin/student',
     ADMIN_REPOSITARY_DATA: '/extreme/admin/directRepositoryInbox',
     ADMIN_REPOSITARY_UPLOAD: '/extreme/admin/directRepository',
+    ADMIN_REPOSITARY_REMOVE: '/extreme/admin/removeRepository/',
     ADMIN_INTEGRATION_DATA: '/extreme/integrations/home',
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_MY_CLASSES: '/extreme/classes',

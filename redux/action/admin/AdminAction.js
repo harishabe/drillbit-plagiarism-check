@@ -180,6 +180,15 @@ export const RepoUpload = (data) => {
 };
 
 /**
+ * Remove repositary
+ */
+export const RemoveRepositary = (id) => {
+    return {
+        type: types.FETCH_ADMIN_REPOSITARY_DELETE_START, id: id
+    };
+};
+
+/**
  * Get integration data
  */
 export const GetIntegrationList = (apiUrl) => {

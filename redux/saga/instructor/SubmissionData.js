@@ -71,7 +71,6 @@ export function* UploadSubmissionFile() {
  */
 
 export function* onLoadDeleteFile(action) {
-    console.log("actionactionaction", action.url.split('/'))
     const { response, error } = yield call(DeleteSubmission, action.url);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_SUCCESS, payload: response?.data });
