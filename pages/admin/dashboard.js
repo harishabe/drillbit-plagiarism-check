@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import Typography from '@mui/material/Typography'
+import { makeStyles } from '@mui/styles'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Admin from '../../layouts/Admin';
 import {
     GetWidgetCount,
     GetTopStudent,
-    GetTrendAnalysis
+    GetTrendAnalysis,
+    RenewValidity
 } from '../../redux/action/admin/AdminAction';
 import {
     WidgetCard,
@@ -74,16 +77,25 @@ const CurveChartContainer = styled.div`
     margin-right:-27px;
 `;
 
+const useStyles = makeStyles((theme) => ({
+    BorderColor: {
+        borderBottom: '2px solid #5a9de9',
+    },
+}))
+
 const Dashboard = ({
     isLoadingTopStudent,
     isLoadingDashboard,
     isLoadingTrendAnalysis,
+    isLoadingRenewAccount,
     GetWidgetCount,
     adminDashboardData,
     GetTopStudent,
-    GetTrendAnalysis
+    GetTrendAnalysis,
+    RenewValidity
 }) => {
 
+    const classes = useStyles()
     const [recentSubmission, setRecentSubmission] = useState([]);
     const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
 
@@ -102,6 +114,11 @@ const Dashboard = ({
         setRecentSubmission(submission);
         setItemLocalStorage('name',adminDashboardData?.data?.userProfileLite?.name);
     }, [adminDashboardData]);
+
+    const renewalClick = (e) => {
+        e.preventDefault();
+        RenewValidity();
+    };
 
     return (
         <React.Fragment>
@@ -254,10 +271,16 @@ const Dashboard = ({
                                         label={[RADIAL_CHART_LABEL + adminDashboardData?.data?.accountValidityDays]}
                                         series={[adminDashboardData?.data?.accountValidityPercentage.toFixed(2)]}
                                     />
-                                    <SubTitle
-                                        title='Renive your account'
-                                        isLink={true}
-                                    />
+                                    { isLoadingRenewAccount ? <Skeleton /> :
+
+                                        <Typography variant="h4" component="div" gutterBottom>
+                                            <a className={ classes.BorderColor } href='' onClick={ renewalClick } >
+                                                Renive your account
+                                            </a>
+                                        </Typography>
+                                    }
+
+
                                 </>
                             }
                         </CardView>
@@ -317,6 +340,7 @@ const mapStateToProps = (state) => ({
     adminDashboardData: state?.adminDashboard,
     isLoadingDashboard: state?.adminDashboard?.isLoadingDashboard,
     isLoadingTrendAnalysis: state?.adminDashboard?.isLoadingTrendAnalysis,
+    isLoadingRenewAccount: state?.adminDashboard?.isLoadingRenewAccount,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -324,6 +348,7 @@ const mapDispatchToProps = (dispatch) => {
         GetWidgetCount: () => dispatch(GetWidgetCount()),
         GetTopStudent: () => dispatch(GetTopStudent()),
         GetTrendAnalysis: () => dispatch(GetTrendAnalysis()),
+        RenewValidity: () => dispatch(RenewValidity()),
     };
 };
 

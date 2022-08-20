@@ -53,6 +53,23 @@ const DashboardReducer = (state = {}, action) => {
                 isLoadingTrendAnalysis: false,
                 trendAnalysisError: action.payload
             };
+        case types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_START:
+            return {
+                ...state,
+                isLoadingRenewAccount: true,
+            };
+        case types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                isLoadingRenewAccount: false,
+                renewAccount: action.payload
+            };
+        case types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_FAIL:
+            return {
+                ...state,
+                isLoadingRenewAccount: false,
+                renewAccountError: action.payload
+            };
         default:
             return state;
     }

@@ -18,6 +18,12 @@ export const GetTrendAnalysis = () => {
     };
 };
 
+export const RenewValidity = () => {
+    return {
+        type: types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_START,
+    };
+};
+
 /**
  * Get all instructor data
  */

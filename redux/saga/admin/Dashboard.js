@@ -3,7 +3,8 @@ import * as types from '../../action/ActionType';
 import {
     GetWidgetData,
     GetTopStudnet,
-    GetTrendAnalysis
+    GetTrendAnalysis,
+    GetRenewValidity
 } from '../../api/admin/DashboardAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 
@@ -67,4 +68,24 @@ export function* TopStudent() {
 
 export function* TrendAnalysis() {
     yield takeLatest(types.FETCH_ADMIN_DASH_TREND_ANALYSIS_START, onLoadTrendAnalysis);
+}
+
+/**
+ * Get renew account
+ * @param {*} action
+ */
+
+export function* onLoadRenewAccount() {
+    const { response, error } = yield call(GetRenewValidity);
+    if (response) {
+        yield put({ type: types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_SUCCESS, payload: response?.data });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* GetRenewalValidity() {
+    yield takeLatest(types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_START, onLoadRenewAccount);
 }
