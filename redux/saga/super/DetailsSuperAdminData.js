@@ -12,7 +12,6 @@ import toastrValidation from '../../../utils/ToastrValidation';
  */
 
 export function* onLoadExtremeRef(action) {
-    console.log("actionactionaction", action)
     const { response, error } = yield call(GetExtremeRefDetail, action.url);
     if (response) {
         yield put({

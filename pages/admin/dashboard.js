@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import Typography from '@mui/material/Typography'
+import { makeStyles } from '@mui/styles'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Admin from '../../layouts/Admin';
 import {
     GetWidgetCount,
     GetTopStudent,
-    GetTrendAnalysis
+    GetTrendAnalysis,
+    RenewValidity
 } from '../../redux/action/admin/AdminAction';
 import {
     WidgetCard,
@@ -74,16 +77,25 @@ const CurveChartContainer = styled.div`
     margin-right:-27px;
 `;
 
+const useStyles = makeStyles((theme) => ({
+    BorderColor: {
+        borderBottom: '2px solid #5a9de9',
+    },
+}))
+
 const Dashboard = ({
     isLoadingTopStudent,
     isLoadingDashboard,
     isLoadingTrendAnalysis,
+    isLoadingRenewAccount,
     GetWidgetCount,
     adminDashboardData,
     GetTopStudent,
-    GetTrendAnalysis
+    GetTrendAnalysis,
+    RenewValidity
 }) => {
 
+    const classes = useStyles()
     const [recentSubmission, setRecentSubmission] = useState([]);
     const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
 
@@ -100,8 +112,13 @@ const Dashboard = ({
             return item.submissions;
         });
         setRecentSubmission(submission);
-        setItemLocalStorage('name',adminDashboardData?.data?.userProfileLite?.name);
+        setItemLocalStorage('name', adminDashboardData?.data?.userProfileLite?.name);
     }, [adminDashboardData]);
+
+    const renewalClick = (e) => {
+        e.preventDefault();
+        RenewValidity();
+    };
 
     return (
         <React.Fragment>
@@ -127,7 +144,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Submissions'
                             isLoading={isLoadingDashboard}
-                            count={ isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + " / " + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions) }
+                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + " / " + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions)}
                             icon={<NoOfSubmission />}
                         />
                     </Grid>
@@ -154,7 +171,7 @@ const Dashboard = ({
                                     gradient={COLUMN_ADMIN_CHART_GRADIENT}
                                     borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
                                 />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                    : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                             }
                         </CardView>
                     </Grid>
@@ -201,31 +218,31 @@ const Dashboard = ({
                                     <ListSkeleton />
                                 </> :
                                 <>
-                                    { adminDashboardData?.topStudent?.students?.length > 0 ?
+                                    {adminDashboardData?.topStudent?.students?.length > 0 ?
                                         <>
-                                        <TopStudents
-                                            topStudentData={ adminDashboardData?.topStudent?.students }
+                                            <TopStudents
+                                                topStudentData={adminDashboardData?.topStudent?.students}
                                             />
                                             <CurveChartContainer>
                                                 <CurveChart
                                                     chartType="area"
                                                     strokeCurve="smooth"
                                                     graphName="No. students"
-                                                    graphData={ [
+                                                    graphData={[
                                                         0,
                                                         adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
                                                         adminDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
                                                         adminDashboardData?.topStudent?.submissionsGraph?.fourtyOneSixty,
                                                         adminDashboardData?.topStudent?.submissionsGraph?.sixtyOneHundred,
                                                         adminDashboardData?.topStudent?.submissionsGraph?.docError,
-                                                    ] }
-                                                    xaxisLabelShow={ false }
-                                                    yaxisLabelShow={ false }
-                                                    chartHeight={ 190 }
+                                                    ]}
+                                                    xaxisLabelShow={false}
+                                                    yaxisLabelShow={false}
+                                                    chartHeight={190}
                                                 />
                                             </CurveChartContainer>
                                         </>
-                                        : <ErrorBlock message={ STUDENT_NOT_FOUND } />
+                                        : <ErrorBlock message={STUDENT_NOT_FOUND} />
                                     }
                                 </>
                             }
@@ -254,10 +271,13 @@ const Dashboard = ({
                                         label={[RADIAL_CHART_LABEL + adminDashboardData?.data?.accountValidityDays]}
                                         series={[adminDashboardData?.data?.accountValidityPercentage.toFixed(2)]}
                                     />
-                                    <SubTitle
-                                        title='Renew your account'
-                                        isLink={true}
-                                    />
+                                    {isLoadingRenewAccount ? <Skeleton /> :
+                                        <Typography variant="h4" component="div" gutterBottom>
+                                            <a className={classes.BorderColor} href='' onClick={renewalClick} >
+                                                Renew your account
+                                            </a>
+                                        </Typography>
+                                    }
                                 </>
                             }
                         </CardView>
@@ -274,7 +294,7 @@ const Dashboard = ({
                                             <Skeleton /> :
                                             <TextAlignRight>
                                                 <SubTitle
-                                                    title={adminDashboardData?.trendAnalysis?.documentsProcessed+'('+'Submissions'+')'}
+                                                    title={adminDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')'}
                                                 />
                                             </TextAlignRight>
                                     }
@@ -287,12 +307,12 @@ const Dashboard = ({
                                     height={250} width={250}
                                 /> :
                                 <>
-                                    { adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
+                                    {adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
                                         <PieChart
                                             type="donut"
-                                            color={ PIE_CHART_COLOR }
-                                            height={ 320 }
-                                            label={ PIE_CHART_LABEL }
+                                            color={PIE_CHART_COLOR}
+                                            height={320}
+                                            label={PIE_CHART_LABEL}
                                             series={
                                                 [
                                                     adminDashboardData?.trendAnalysis?.similarWork,
@@ -300,7 +320,7 @@ const Dashboard = ({
                                                 ]
                                             }
                                         />
-                                        : <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
+                                        : <ErrorBlock message={TREND_ANALYSIS_NOT_FOUND} />
                                     }
                                 </>
                             }
@@ -317,6 +337,7 @@ const mapStateToProps = (state) => ({
     adminDashboardData: state?.adminDashboard,
     isLoadingDashboard: state?.adminDashboard?.isLoadingDashboard,
     isLoadingTrendAnalysis: state?.adminDashboard?.isLoadingTrendAnalysis,
+    isLoadingRenewAccount: state?.adminDashboard?.isLoadingRenewAccount,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -324,6 +345,7 @@ const mapDispatchToProps = (dispatch) => {
         GetWidgetCount: () => dispatch(GetWidgetCount()),
         GetTopStudent: () => dispatch(GetTopStudent()),
         GetTrendAnalysis: () => dispatch(GetTrendAnalysis()),
+        RenewValidity: () => dispatch(RenewValidity()),
     };
 };
 

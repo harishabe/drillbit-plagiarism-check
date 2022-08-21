@@ -18,6 +18,12 @@ export const GetTrendAnalysis = () => {
     };
 };
 
+export const RenewValidity = () => {
+    return {
+        type: types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_START,
+    };
+};
+
 /**
  * Get all instructor data
  */
@@ -170,6 +176,15 @@ export const GetRepoList = (paginationPayload) => {
 export const RepoUpload = (data) => {
     return {
         type: types.FETCH_ADMIN_REPOSITARY_UPLOAD_START, query: data
+    };
+};
+
+/**
+ * Remove repositary
+ */
+export const RemoveRepositary = (id) => {
+    return {
+        type: types.FETCH_ADMIN_REPOSITARY_DELETE_START, id: id
     };
 };
 

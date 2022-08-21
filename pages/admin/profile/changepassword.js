@@ -19,7 +19,6 @@ const ChangePassword = ({
     })
 
     const onSubmit = (data) => {
-        console.log('datadatadata',data);
         ProfileChangePassword(data);
     }
 

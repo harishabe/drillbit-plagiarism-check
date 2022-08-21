@@ -185,7 +185,7 @@ const Instructor = ({
         } else if (icon === 'lock') {
             let activateDeactive = {
                 'id': rowData?.user_id?.props?.title,
-                'status': 'inactive'
+                'status': 'INACTIVE'
             }
             setStatusRowData(activateDeactive);
             setStatusWarning(true);
@@ -193,7 +193,7 @@ const Instructor = ({
         } else if (icon === 'unlock') {
             let activateDeactive = {
                 'id': rowData?.user_id?.props?.title,
-                'status': 'active'
+                'status': 'ACTIVE'
             };
             setStatusRowData(activateDeactive);
             setStatusWarning(true);

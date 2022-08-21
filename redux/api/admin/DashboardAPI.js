@@ -21,4 +21,9 @@ export const GetTrendAnalysis = async () => {
     return GetMethod(url);
 };
 
+export const GetRenewValidity = async () => {
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_RENEW_ACCOUNT;
+    return GetMethod(url);
+};
+
 

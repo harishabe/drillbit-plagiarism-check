@@ -16,7 +16,6 @@ const RepositaryForm = ({
     });
 
     const onSubmit = (data) => {
-        console.log('data', data);
         let bodyFormData = new FormData();
         bodyFormData.append('name', data.name);
         bodyFormData.append('title', data.title);

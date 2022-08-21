@@ -90,7 +90,6 @@ const Integration = ({
             ...checked,
             [event.target.name]: event.target.checked,
         })
-        console.log("moodle", showMoodle)
         if (event.target.name === 'MOODLE') {
             setShowMoodle(true)
         } else if (event.target.name === 'CANVAS') {
