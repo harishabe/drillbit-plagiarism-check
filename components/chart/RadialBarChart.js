@@ -94,7 +94,7 @@ const RadialBarChart = ({
                                 return '';
                             }
                         },
-                    }
+                    },
                 }
             },
             labels: label

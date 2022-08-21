@@ -1,7 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { TextField } from '@mui/material';
+
+const StyledInputField = styled(TextField)(() => ({
+    ':hover': {
+        transform: 'scale(1.01)',
+        transition: 'all 0.2s ease-out',
+    },
+}));
 
 const InputFileType = ({
     control,
@@ -14,7 +22,7 @@ const InputFileType = ({
                 name="file"
                 control={control}
                 render={({ field }) => (
-                    <TextField
+                    <StyledInputField
                         margin="normal"
                         type="file"
                         onChange={e => {

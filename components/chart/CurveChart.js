@@ -46,17 +46,17 @@ const CurveChart = ({
                 },
                 xaxis: {
                     lines: {
-                        show: xaxisLabelShow  
+                        show: xaxisLabelShow
                     }
                 },
                 yaxis: {
                     lines: {
-                        show: yaxisLabelShow 
+                        show: yaxisLabelShow
                     }
                 },
             },
             xaxis: {
-                categories: ['0','0 - 10%', '11% - 40%', '41% - 60%', '61% - 100%','DocError'],
+                categories: ['0', '0 - 10%', '11% - 40%', '41% - 60%', '61% - 100%', 'DocError'],
                 show: yaxisLabelShow,
                 labels: {
                     show: xaxisLabelShow
@@ -79,6 +79,9 @@ const CurveChart = ({
                 axisTicks: {
                     show: yaxisLabelShow
                 }
+            },
+            dataLabels: {
+                enabled: true,
             }
         },
     })

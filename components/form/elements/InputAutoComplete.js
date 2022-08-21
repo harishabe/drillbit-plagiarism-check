@@ -1,9 +1,16 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
-import PropTypes from 'prop-types'
+import React from 'react';
+import styled from 'styled-components';
+import { Controller } from 'react-hook-form';
+import PropTypes from 'prop-types';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
-import TextField from '@mui/material/TextField'
-import Autocomplete from '@mui/material/Autocomplete'
+const StyledAutocompleteField = styled(Autocomplete)(() => ({
+    ':hover': {
+        transform: 'scale(1.01)',
+        transition: 'all 0.2s ease-out',
+    },
+}));
 
 const InputAutoComplete = ({
     field, control, renderOption, options
@@ -18,7 +25,7 @@ const InputAutoComplete = ({
                     fieldState: { error },
                     formState, ...props
                 }) => (
-                    <Autocomplete
+                    <StyledAutocompleteField
                         options={field.options}
                         getOptionLabel={(option) => (option.name)}
                         renderOption={renderOption}

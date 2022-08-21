@@ -1,13 +1,14 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@mui/styles';
 import { TextField } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import InputLabel from '@mui/material/InputLabel'
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import Stack from '@mui/material/Stack';
-import styled from 'styled-components';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -17,10 +18,25 @@ export const LabelContainer = styled.div`
     color:#000
 `;
 
+const StyledDatePickerTextField = styled(TextField)(() => ({
+    ':hover': {
+        transform: 'scale(1.01)',
+        transition: 'all 0.2s ease-out',
+    },
+}));
+
+const useStyles = makeStyles((theme) => ({
+    helperText: {
+        marginLeft: 0,
+        color:'#ff0000'
+    }
+}))
+
 const InputDatePicker = ({
     control,
     field
 }) => {
+    const classes = useStyles();
 
     return (
         <>
@@ -33,7 +49,7 @@ const InputDatePicker = ({
                 name={field.name}
                 control={control}
                 render={({
-                    field: { onChange, value }
+                    field: { onChange, value }, fieldState: { error }
                 }) => (
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <Stack spacing={3}>
@@ -44,12 +60,22 @@ const InputDatePicker = ({
                                 fullWidth
                                 value={value === undefined ? null : value}
                                 onChange={onChange}
-                                minDate={ field.minDate && new Date() } 
-                                renderInput={(params) => <TextField margin="normal" {...params} />}
+                                minDate={field.minDate && new Date()}
+                                renderInput={(params) => <StyledDatePickerTextField
+                                    margin="normal"
+                                    {...params}
+                                    helperText={error && error.message}
+                                    FormHelperTextProps={{
+                                        className: classes.helperText
+                                    }}
+                                />}
                             />
                         </Stack>
                     </LocalizationProvider>
                 )}
+                rules={{
+                    required: field.required
+                }}
             />
         </>
     )

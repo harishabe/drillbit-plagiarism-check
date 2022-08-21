@@ -109,7 +109,7 @@ const Dashboard = ({
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
-                            title='No. of instructors'
+                            title='Instructors'
                             isLoading={isLoadingDashboard}
                             count={isLoadingDashboard ? '' : (adminDashboardData?.data?.instructorAccountUsage?.usedAccounts) + " / " + (adminDashboardData?.data?.instructorAccountUsage)?.totalAccounts}
                             icon={<NoOfClassIcon />}
@@ -117,7 +117,7 @@ const Dashboard = ({
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
-                            title='No. of students'
+                            title='Students'
                             isLoading={isLoadingDashboard}
                             count={isLoadingDashboard ? '' : (adminDashboardData?.data?.studentAccountUsage?.usedAccounts) + " / " + (adminDashboardData?.data?.studentAccountUsage)?.totalAccounts}
                             icon={<NoStudentIcon />}
@@ -125,7 +125,7 @@ const Dashboard = ({
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <WidgetCard
-                            title='No. of submissions'
+                            title='Submissions'
                             isLoading={isLoadingDashboard}
                             count={ isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + " / " + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions) }
                             icon={<NoOfSubmission />}
@@ -137,7 +137,7 @@ const Dashboard = ({
                 <Grid container spacing={1}>
                     <Grid item md={7} xs={12}>
                         <CardView>
-                            <Heading title='Document Processed' />
+                            <Heading title='Submissions' />
                             {isLoadingDashboard ? <Skeleton /> :
                                 recentSubmission?.length && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ? <ColumnChart
                                     type={COLUMN_ADMIN_CHART_TYPE}
@@ -161,7 +161,7 @@ const Dashboard = ({
                     <Grid item md={5} xs={12}>
                         <CardView>
                             <Heading
-                                title='Similarity Percentage'
+                                title='Similarity Ranges'
                             />
                             {isLoadingDashboard ?
                                 <>
@@ -255,7 +255,7 @@ const Dashboard = ({
                                         series={[adminDashboardData?.data?.accountValidityPercentage.toFixed(2)]}
                                     />
                                     <SubTitle
-                                        title='Renive your account'
+                                        title='Renew your account'
                                         isLink={true}
                                     />
                                 </>
@@ -265,16 +265,16 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <CardView>
                             <Grid container>
-                                <Grid item md={9} xs={12}>
+                                <Grid item md={7} xs={12}>
                                     <Heading title='Trend Analysis' />
                                 </Grid>
-                                <Grid item md={3} xs={12}>
+                                <Grid item md={5} xs={12}>
                                     {
                                         isLoadingTrendAnalysis ?
                                             <Skeleton /> :
                                             <TextAlignRight>
                                                 <SubTitle
-                                                    title={adminDashboardData?.trendAnalysis?.documentsProcessed}
+                                                    title={adminDashboardData?.trendAnalysis?.documentsProcessed+'('+'Submissions'+')'}
                                                 />
                                             </TextAlignRight>
                                     }

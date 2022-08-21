@@ -20,6 +20,8 @@ import InputDatePicker from '../../../components/form/elements/InputDatePicker';
 import InputToggleButton from '../../../components/form/elements/InputToggleButton';
 import InputTextField from '../../../components/form/elements/InputTextField';
 import InputFileType from '../../../components/form/elements/InputFileType';
+import InputAutoComplete from '../../../components/form/elements/InputAutoComplete';
+import InputButton from '../../../components/form/elements/InputButton';
 import { CreateAssignment, EditAssignment } from '../../../redux/action/instructor/InstructorAction';
 import { convertDate } from '../../../utils/RegExp'
 
@@ -69,6 +71,17 @@ const AssignmentForms = ({
     const [choiceEmailNotification, setChoiceEmailNotification] = React.useState(false);
     const [addQuestion, setAddQuestion] = React.useState(false);
     const [excludePhrases, setExcludePhrases] = React.useState(false);
+    const [reportAccess, setReportAccess] = React.useState(false);
+    const [studentPaper, setStudentPaper] = React.useState(false);
+    const [publication, setPublication] = React.useState(false);
+    const [internet, setInternet] = React.useState(false);
+    const [repository, setRepository] = React.useState(false);
+    const [questionList, setQuestionList] = React.useState([{
+        "question": ""
+    }]);
+    const [phrasesList, setPhrasesList] = React.useState([{
+        "phrases": ""
+    }]);
 
 
     const { register, control, handleSubmit, formState: { errors } } = useForm();
@@ -77,31 +90,59 @@ const AssignmentForms = ({
         console.log('datadatadata', data);
         let bodyFormData = new FormData();
         if (showSetting) {
-
+            bodyFormData.append('assignment_name', data.assignment_name);
+            bodyFormData.append('start_date', convertDate(data.start_date));
+            bodyFormData.append('end_date', convertDate(data.end_date));
+            if (data.file !== undefined) {
+                bodyFormData.append('file', data?.file[0]);
+            }
+            bodyFormData.append('exclude_references', excludeRefBib ? 'Yes' : 'No');
+            bodyFormData.append('exclude_quotes', excludeQuote ? 'Yes' : 'No');
+            bodyFormData.append('exclude_small_sources', excludeSmallSource ? 'Yes' : 'No');
+            bodyFormData.append('assignment_grading', allowAssGrade ? 'Yes' : 'No');
+            bodyFormData.append('marks', allowAssGrade ? data.marks : '');
+            bodyFormData.append('exclude_include_sources', excludeIncludeSource ? 'Yes' : 'No');
+            bodyFormData.append('save_to_repository', saveToRepo ? 'Yes' : 'No');
+            bodyFormData.append('allow_resubmissions', allowSubmission ? 'Yes' : 'No');
+            bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate ? 'Yes' : 'No');
+            bodyFormData.append('grammar_check', grammarCheck ? 'Yes' : 'No');
+            bodyFormData.append('choice_of_email_notifications', choiceEmailNotification ? 'Yes' : 'No');
+            bodyFormData.append('add_questions', addQuestion ? 'Yes' : 'No');
+            bodyFormData.append('exclude_phrases', excludePhrases ? 'Yes' : 'No');
+            bodyFormData.append('repository_scope', data?.repository_scope);
+            bodyFormData.append('report_access', reportAccess ? 'Yes' : 'No');
+            bodyFormData.append('db_studentpaper', studentPaper ? 'Yes' : 'No');
+            bodyFormData.append('db_publications', publication ? 'Yes' : 'No');
+            bodyFormData.append('db_internet', internet ? 'Yes' : 'No');
+            bodyFormData.append('institution_repository', repository ? 'Yes' : 'No');
+            bodyFormData.append('daily_submissions_limit', data?.daily_submissions_limit);
+            CreateAssignment(router.query.clasId, bodyFormData);
         } else {
             bodyFormData.append('assignment_name', data.assignment_name);
             bodyFormData.append('start_date', convertDate(data.start_date));
             bodyFormData.append('end_date', convertDate(data.end_date));
-            bodyFormData.append('file', data.file[0]);
-            bodyFormData.append('exclude_references', showSetting === false && 'NO');
-            bodyFormData.append('exclude_quotes', showSetting === false && 'NO');
-            bodyFormData.append('exclude_small_sources', showSetting === false && 'NO');
-            bodyFormData.append('assignment_grading', showSetting === false && 'NO');
-            bodyFormData.append('exclude_include_sources', showSetting === false && 'NO');
-            bodyFormData.append('save_to_repository', showSetting === false && 'NO');
-            bodyFormData.append('allow_resubmissions', showSetting === false && 'NO');
-            bodyFormData.append('allow_submissions_after_due_date', showSetting === false && 'NO');
-            bodyFormData.append('grammar_check', showSetting === false && 'NO');
-            bodyFormData.append('choice_of_email_notifications', showSetting === false && 'NO');
-            bodyFormData.append('add_questions', showSetting === false && 'NO');
-            bodyFormData.append('exclude_phrases', showSetting === false && 'NO');
-            bodyFormData.append('repository_scope', showSetting === false && 'NO');
-            bodyFormData.append('report_access', showSetting === false && 'NO');
-            bodyFormData.append('db_studentpaper', showSetting === false && 'NO');
-            bodyFormData.append('db_publications', showSetting === false && 'NO');
-            bodyFormData.append('db_internet', showSetting === false && 'NO');
-            bodyFormData.append('institution_repository', showSetting === false && 'NO');
-            bodyFormData.append('daily_submissions_limit', showSetting === false && 0);            
+            if (data.file !== undefined) {
+                bodyFormData.append('file', data?.file[0]);
+            }
+            bodyFormData.append('exclude_references', showSetting && 'Yes');
+            bodyFormData.append('exclude_quotes', showSetting && 'Yes');
+            bodyFormData.append('exclude_small_sources', showSetting && 'Yes');
+            bodyFormData.append('assignment_grading', showSetting && 'Yes');
+            bodyFormData.append('exclude_include_sources', showSetting && 'Yes');
+            bodyFormData.append('save_to_repository', showSetting && 'Yes');
+            bodyFormData.append('allow_resubmissions', showSetting && 'Yes');
+            bodyFormData.append('allow_submissions_after_due_date', showSetting && 'Yes');
+            bodyFormData.append('grammar_check', showSetting && 'Yes');
+            bodyFormData.append('choice_of_email_notifications', showSetting && 'Yes');
+            bodyFormData.append('add_questions', showSetting && 'Yes');
+            bodyFormData.append('exclude_phrases', showSetting && 'Yes');
+            bodyFormData.append('repository_scope', showSetting && 'Yes');
+            bodyFormData.append('report_access', showSetting && 'Yes');
+            bodyFormData.append('db_studentpaper', showSetting && 'Yes');
+            bodyFormData.append('db_publications', showSetting && 'Yes');
+            bodyFormData.append('db_internet', showSetting && 'Yes');
+            bodyFormData.append('institution_repository', showSetting && 'Yes');
+            bodyFormData.append('daily_submissions_limit', showSetting && 'Yes');
             CreateAssignment(router.query.clasId, bodyFormData);
         }
 
@@ -172,6 +213,56 @@ const AssignmentForms = ({
         setExcludePhrases(value);
     }
 
+    const handleStudentPaper = (e, value) => {
+        e.preventDefault();
+        setStudentPaper(value);
+    }
+
+    const handlePublications = (e, value) => {
+        e.preventDefault();
+        setPublication(value);
+    }
+
+    const handleInternet = (e, value) => {
+        e.preventDefault();
+        setInternet(value);
+    }
+
+    const handleRepository = (e, value) => {
+        e.preventDefault();
+        setRepository(value);
+    }
+
+    const handleReportAccess = (e, value) => {
+        e.preventDefault();
+        setReportAccess(value);
+    }
+
+    const handleMoreAddQuestion = (e) => {
+        e.preventDefault();
+        setQuestionList([...questionList, { question: "" }]);
+    }
+
+    const handleAddQuestionRemove = (e, index) => {
+        e.preventDefault();
+        const list = [...questionList];
+        list.splice(index, 1);
+        setQuestionList(list);
+    }
+
+    const handlePhrases = (e) => {
+        e.preventDefault();
+        setPhrasesList([...phrasesList, { phrases: "" }]);
+    }
+
+    const handleRemovePhrases = (e, index) => {
+        e.preventDefault();
+        const list = [...phrasesList];
+        list.splice(index, 1);
+        setPhrasesList(list);
+    }
+
+
 
     return (
         <div>
@@ -198,7 +289,8 @@ const AssignmentForms = ({
                     }}
                 /> */}
 
-                <InputTextField control={control}
+                <InputTextField
+                    control={control}
                     field={{
                         "field_type": "text",
                         "id": "assignment_name",
@@ -234,7 +326,8 @@ const AssignmentForms = ({
                     }}
                 />
 
-                <InputFileType control={control}
+                <InputFileType
+                    control={control}
                     field={{
                         "field_type": "file",
                         "id": "file",
@@ -289,7 +382,7 @@ const AssignmentForms = ({
                             </Grid>
 
                             {allowAssGrade === 'yes' && <>
-                                <LabelContainer>
+                                {/* <LabelContainer>
                                     <InputLabel style={{ marginTop: '10px' }}>
                                         Enter Max Assignment Marks
                                     </InputLabel>
@@ -300,14 +393,17 @@ const AssignmentForms = ({
                                     name="assignment_name"
                                     type="text"
                                     variant="outlined"
-                                />
-                                {/* <InputTextField control={control} field={{
-                                    "field_type": "input",
-                                    "id": "assignment_name",
-                                    "name": "assignment_name",
-                                    "label": "Enter Max Assignment Marks",
-                                    "required": "Enter max assignment marks"
-                                }} /> */}
+                                /> */}
+                                <InputTextField
+                                    control={control}
+                                    field={{
+                                        "field_type": "input",
+                                        "id": "marks",
+                                        "size": "small",
+                                        "name": "marks",
+                                        "label": "Enter Max Assignment Marks",
+                                        "required": "Enter max assignment marks"
+                                    }} />
                             </>
                             }
                         </div>
@@ -332,10 +428,7 @@ const AssignmentForms = ({
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
-
-
                         </div>
-
 
                         <div>
                             <Grid container>
@@ -356,8 +449,6 @@ const AssignmentForms = ({
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
-
-
                         </div>
 
                         <div>
@@ -381,7 +472,6 @@ const AssignmentForms = ({
                             </Grid>
                         </div>
 
-
                         <div>
                             <Grid container>
                                 <Grid item md={8}>
@@ -403,7 +493,6 @@ const AssignmentForms = ({
                             </Grid>
 
                         </div>
-
 
                         <div>
                             <Grid container>
@@ -445,22 +534,19 @@ const AssignmentForms = ({
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
-                            {allowSubmission === 'yes' && <>
-                                <LabelContainer>
-                                    <InputLabel style={{ marginTop: '10px' }}>
-                                        Number of re-submissions
-                                    </InputLabel>
-                                </LabelContainer>
-                                <TextField
-                                    fullWidth
-                                    margin="normal"
-                                    name="no_of_resubmission"
-                                    type="text"
-                                    variant="outlined"
-                                />
+                            {/* {allowSubmission === 'yes' && <>
+                                <InputTextField
+                                    control={control}
+                                    field={{
+                                        "field_type": "input",
+                                        "id": "no_of_resubmission",
+                                        "name": "no_of_resubmission",
+                                        "size": 'small',
+                                        "label": "Enter no. of submission",
+                                        "required": "Enter number of submission"
+                                    }} />
                             </>
-                            }
-
+                            } */}
                         </div>
 
                         <div>
@@ -548,70 +634,48 @@ const AssignmentForms = ({
                             </Grid>
 
                             {addQuestion === 'yes' &&
-                                <>
-                                    <Grid container spacing={2}>
-                                        <Grid item md={6}>
-                                            <TextField
-                                                margin="normal"
-                                                name="assignment_name"
-                                                type="text"
-                                                label="Question 1"
-                                                size="small"
-                                                variant="outlined"
-                                            />
+                                questionList?.map((item, index) => (
+                                    <>
+                                        <Grid container spacing={2}>
+                                            <Grid item md={9}>
+                                                <InputTextField
+                                                    control={control}
+                                                    field={{
+                                                        "field_type": "input",
+                                                        "id": "question",
+                                                        "value": item?.questionList,
+                                                        "name": "question" + index,
+                                                        "size": 'small',
+                                                        "label": "Enter question " + (index + 1),
+                                                        "required": "Enter question"
+                                                    }}
+                                                />
+                                            </Grid>
+                                            <Grid item md={2}>
+                                                {questionList.length !== 1 &&
+                                                    <Button
+                                                        sx={{ marginTop: '35px' }}
+                                                        variant="contained"
+                                                        onClick={(e) => handleAddQuestionRemove(e, index)}
+                                                    >
+                                                        Remove
+                                                    </Button>}
+                                            </Grid>
                                         </Grid>
-                                        <Grid item md={6}>
-                                            <TextField
-                                                margin="normal"
-                                                label="Question 2"
-                                                name="assignment_name"
-                                                type="text"
-                                                size="small"
-                                                variant="outlined"
-                                            />
+                                        <Grid container spacing={2}>
+                                            <Grid item md={12}>
+                                                {questionList.length - 1 === index && <Button
+                                                    sx={{ marginTop: '14px' }}
+                                                    variant="contained"
+                                                    onClick={handleMoreAddQuestion}
+                                                >
+                                                    Add Questions
+                                                </Button>}
+                                            </Grid>
                                         </Grid>
-                                        <Grid item md={6}>
-                                            <TextField
-                                                margin="normal"
-                                                name="assignment_name"
-                                                type="text"
-                                                label="Question 3"
-                                                size="small"
-                                                variant="outlined"
-                                            />
-                                        </Grid>
-                                        <Grid item md={6}>
-                                            <TextField
-                                                margin="normal"
-                                                label="Question 4"
-                                                name="assignment_name"
-                                                type="text"
-                                                size="small"
-                                                variant="outlined"
-                                            />
-                                        </Grid>
-                                        <Grid item md={6}>
-                                            <TextField
-                                                margin="normal"
-                                                name="assignment_name"
-                                                type="text"
-                                                label="Question 5"
-                                                size="small"
-                                                variant="outlined"
-                                            />
-                                        </Grid>
-                                        <Grid item md={6}>
-                                            <TextField
-                                                margin="normal"
-                                                label="Question 6"
-                                                name="assignment_name"
-                                                type="text"
-                                                size="small"
-                                                variant="outlined"
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                </>}
+                                    </>
+                                ))
+                            }
                         </div>
 
                         <div>
@@ -634,62 +698,189 @@ const AssignmentForms = ({
                                 </Grid>
                             </Grid>
                             {excludePhrases === 'yes' &&
-                                <Grid container spacing={2}>
-                                    <Grid item md={6}>
-                                        <TextField
-                                            margin="normal"
-                                            name="assignment_name"
-                                            type="text"
-                                            label="Phrase 1"
-                                            size="small"
-                                            variant="outlined"
-                                        />
-                                    </Grid>
-                                    <Grid item md={6}>
-                                        <TextField
-                                            margin="normal"
-                                            name="assignment_name"
-                                            type="text"
-                                            label="Phrase 1"
-                                            size="small"
-                                            variant="outlined"
-                                        />
-                                    </Grid>
-                                    <Grid item md={6}>
-                                        <TextField
-                                            margin="normal"
-                                            name="assignment_name"
-                                            type="text"
-                                            label="Phrase 1"
-                                            size="small"
-                                            variant="outlined"
-                                        />
-                                    </Grid>
-                                    <Grid item md={6}>
-                                        <TextField
-                                            margin="normal"
-                                            name="assignment_name"
-                                            type="text"
-                                            label="Phrase 1"
-                                            size="small"
-                                            variant="outlined"
-                                        />
-                                    </Grid>
-                                </Grid>}
+                                phrasesList?.map((item, index) => (
+                                    <>
+                                        <Grid container spacing={2}>
+                                            <Grid item md={9}>
+                                                <InputTextField
+                                                    control={control}
+                                                    field={{
+                                                        "field_type": "input",
+                                                        "id": "phrases",
+                                                        "value": item?.phrases,
+                                                        "name": "phrases" + index,
+                                                        "size": 'small',
+                                                        "label": "Enter phrases " + (index + 1),
+                                                        "required": "Enter phrases"
+                                                    }}
+                                                />
+                                            </Grid>
+                                            <Grid item md={2}>
+                                                {phrasesList.length !== 1 &&
+                                                    <Button
+                                                        sx={{ marginTop: '35px' }}
+                                                        variant="contained"
+                                                        onClick={(e) => handleRemovePhrases(e, index)}
+                                                    >
+                                                        Remove
+                                                    </Button>}
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container spacing={2}>
+                                            <Grid item md={12}>
+                                                {phrasesList.length - 1 === index && <Button
+                                                    sx={{ marginTop: '14px' }}
+                                                    variant="contained"
+                                                    onClick={handlePhrases}
+                                                >
+                                                    Add Phrases
+                                                </Button>}
+                                            </Grid>
+                                        </Grid>
+                                    </>
+                                ))
+                            }
                         </div>
+                        <div>
+                            <Grid container>
+                                <Grid item md={8}>
+                                    <InputLabel style={{ margin: '22px 0px' }}>
+                                        Report Access
+                                    </InputLabel>
+                                </Grid>
+                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                    <ToggleButtonGroup
+                                        color="primary"
+                                        value={reportAccess}
+                                        exclusive
+                                        onChange={handleReportAccess}
+                                    >
+                                        <ToggleButton value="yes">Yes</ToggleButton>
+                                        <ToggleButton value="no">No</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Grid>
+                            </Grid>
+                        </div>
+                        <div>
+                            <Grid container>
+                                <Grid item md={8}>
+                                    <InputLabel style={{ margin: '22px 0px' }}>
+                                        Student Paper
+                                    </InputLabel>
+                                </Grid>
+                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                    <ToggleButtonGroup
+                                        color="primary"
+                                        value={studentPaper}
+                                        exclusive
+                                        onChange={handleStudentPaper}
+                                    >
+                                        <ToggleButton value="yes">Yes</ToggleButton>
+                                        <ToggleButton value="no">No</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Grid>
+                            </Grid>
+                        </div>
+                        <div>
+                            <Grid container>
+                                <Grid item md={8}>
+                                    <InputLabel style={{ margin: '22px 0px' }}>
+                                        Publication
+                                    </InputLabel>
+                                </Grid>
+                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                    <ToggleButtonGroup
+                                        color="primary"
+                                        value={publication}
+                                        exclusive
+                                        onChange={handlePublications}
+                                    >
+                                        <ToggleButton value="yes">Yes</ToggleButton>
+                                        <ToggleButton value="no">No</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Grid>
+                            </Grid>
+                        </div>
+                        <div>
+                            <Grid container>
+                                <Grid item md={8}>
+                                    <InputLabel style={{ margin: '22px 0px' }}>
+                                        Internet
+                                    </InputLabel>
+                                </Grid>
+                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                    <ToggleButtonGroup
+                                        color="primary"
+                                        value={internet}
+                                        exclusive
+                                        onChange={handleInternet}
+                                    >
+                                        <ToggleButton value="yes">Yes</ToggleButton>
+                                        <ToggleButton value="no">No</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Grid>
+                            </Grid>
+                        </div>
+                        <div>
+                            <Grid container>
+                                <Grid item md={8}>
+                                    <InputLabel style={{ margin: '22px 0px' }}>
+                                        Institution Repository
+                                    </InputLabel>
+                                </Grid>
+                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                    <ToggleButtonGroup
+                                        color="primary"
+                                        value={repository}
+                                        exclusive
+                                        onChange={handleRepository}
+                                    >
+                                        <ToggleButton value="yes">Yes</ToggleButton>
+                                        <ToggleButton value="no">No</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Grid>
+                            </Grid>
+                        </div>
+                        <div>
+                            <Grid container>
+                                <Grid item md={12} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                    <InputAutoComplete
+                                        control={control}
+                                        field={{
+                                            "field_type": "dropdown",
+                                            "id": "repoScope",
+                                            "label": "Repository Scope",
+                                            "name": "repository_scope",
+                                            "required": "Choose repository scope",
+                                            "validationMsg": "Please select repository scope",
+                                            "options": [{
+                                                "name": "Local"
+                                            }, {
+                                                "name": "Global"
+                                            }]
+                                        }}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </div>
+                        <InputTextField
+                            control={control}
+                            field={{
+                                "field_type": "input",
+                                "id": "daily_submissions_limit",
+                                "name": "daily_submissions_limit",
+                                "label": "Daily submission limit",
+                                "required": "Enter Daily submissin limit"
+                            }} />
                     </>
                 }
-                <Button
-                    style={{ padding: '12px', margin: '20px 0px' }}
-                    fullWidth
-                    size="large"
-                    margin="normal"
-                    variant="contained"
-                    color="primary"
-                    type='submit'
-                >
-                    Submit
-                </Button>
+
+                <InputButton field={{
+                    "field_type": "button",
+                    "type": "submit",
+                    "label": "Submit"
+                }} />
+
             </form>
         </div>
     )

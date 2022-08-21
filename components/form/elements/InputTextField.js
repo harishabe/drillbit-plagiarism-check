@@ -63,6 +63,7 @@ const InputTextField = ({
                     <StyledInputField
                         style={{ marginTop: '10px' }}
                         margin="normal"
+                        size={field.size}
                         type={field.type}
                         onChange={onChange}
                         onBlur={onBlur}

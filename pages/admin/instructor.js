@@ -368,7 +368,7 @@ const Instructor = ({
                             }}
                         />
                         {show ? '' :
-                            <Tooltip title="Download Template">
+                            <Tooltip title="Download Template" arrow>
                                 <IconButton sx={{
                                     position: 'absolute',
                                     padding: '7px',
@@ -404,32 +404,33 @@ const Instructor = ({
 
             <CardView>
                 <>
-                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
-                        <IconButton onClick={deleteAllInstructor}>
-                            <DeleteIcon />
-                        </IconButton>
+                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ marginLeft: '10px' }}>
+                        <Tooltip title='Delete' arrow>
+                            <IconButton onClick={deleteAllInstructor}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip>
                     </div>}
-                    { instructorData?.length > 0 ? 
-                        <CommonTable
-                            isCheckbox={ true }
-                            tableHeader={ columns }
-                            tableData={ rows }
-                            handleAction={ handleAction }
-                            handleTableSort={ handleTableSort }
-                            handleCheckboxSelect={ handleCheckboxSelect }
-                            handleSingleSelect={ handleSingleSelect }
-                            isLoading={ isLoading }
-                            charLength={ 17 }
-                            path=''
-                        />
-                        : <ErrorBlock message={ INSTRUCTOR_NOT_FOUND } />
-                    }
+                    <CommonTable
+                        isCheckbox={true}
+                        isSorting={true}
+                        tableHeader={columns    }
+                        tableData={rows}
+                        handleAction={handleAction}
+                        handleTableSort={handleTableSort}
+                        handleCheckboxSelect={handleCheckboxSelect}
+                        handleSingleSelect={handleSingleSelect}
+                        isLoading={isLoading}
+                        charLength={17}
+                        path=''
+                    />
 
-                    { pageDetails?.totalPages > '1' &&
-                        <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+
+                    {pageDetails?.totalPages > '1' &&
+                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
                             <Pagination
-                                count={ pageDetails?.totalPages }
-                                onChange={ handleChange }
+                                count={pageDetails?.totalPages}
+                                onChange={handleChange}
                                 color="primary"
                                 variant="outlined"
                                 shape="rounded"

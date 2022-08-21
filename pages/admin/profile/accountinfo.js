@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Grid, Box, Skeleton, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Admin from './../../../layouts/Admin';
-import { CardView, CommonTable, MainHeading, SubTitle } from '../../../components';
+import { CardView, CommonTable, MainHeading, SubTitle2, SubTitle } from '../../../components';
 import { UploadIcon } from '../../../assets/icon';
 import { GetProfile, ProfileLogo } from '../../../redux/action/profile/ProfileAction';
 import { Role } from '../../../constant/data';
@@ -118,11 +118,17 @@ const AccountInfo = ({
                                         </UploadButtonAlign>
                                     </>
                                 </Button>
+                                
+                                <SubTitle2 title='Support File : JPEG,PNG , Dimension : 200 * 300' />
                             </label>
                         </form>
                     </Grid>
                     <Grid item md={2} style={{ textAlign: 'right' }}>
-                        {accountInfo && <ImgLogo src={`data:image/png;base64,${accountInfo.logo}`} />}
+                        {accountInfo &&
+                            <>
+                                <ImgLogo src={`data:image/png;base64,${accountInfo.logo}`} />
+                            </>
+                        }
                     </Grid>
                 </Grid>
             </Box>

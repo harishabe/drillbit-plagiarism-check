@@ -28,8 +28,8 @@ const ListView = ({
     const classes = useStyles()
     return (
         <List style={{height:'273px'}}>
-            {listData?.map((item, index) => (
-                <>
+            {listData?.map((item) => (
+                <div key={item.name}>
                     <ListItem key={item.name} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
                         <ListItemAvatar style={{ marginRight: '5px' }}>
                             <Avatar sx={{ width: 50, height: 50, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>
@@ -49,7 +49,7 @@ const ListView = ({
                         />
                     </ListItem>
                     <Divider />
-                </>
+                </div>
             ))}
         </List>
     )

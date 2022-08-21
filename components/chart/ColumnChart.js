@@ -40,7 +40,7 @@ const ColumnChart = ({
             },
             stroke: {
                 show: true,
-                width: 2,
+                width: 2    ,
                 colors: ['transparent']
             },
             xaxis: {
@@ -61,6 +61,9 @@ const ColumnChart = ({
                         return val
                     }
                 }
+            },
+            dataLabels: {
+                enabled: true,
             }
         },
     })
