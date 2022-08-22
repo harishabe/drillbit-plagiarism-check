@@ -414,7 +414,7 @@ const Instructor = ({
                     <CommonTable
                         isCheckbox={true}
                         isSorting={true}
-                        tableHeader={columns    }
+                        tableHeader={columns}
                         tableData={rows}
                         handleAction={handleAction}
                         handleTableSort={handleTableSort}

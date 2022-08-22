@@ -78,21 +78,25 @@ const MyClasses = ({
                     <Grid item md={10} xs={10}>
                         <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
-                    <Grid item md={2} xs={2}>
-                        <TextField
-                            placeholder='Search'
-                            onChange={ debouncedResults }
-                            inputProps={{
-                                style: {
-                                    padding: 5,
-                                    display: 'inline-flex',
-                                },
-                            }}
-                        />
-                    </Grid>
                 </Grid>
             </Box>
-            <MainHeading title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+            <Grid container spacing={2}>
+                <Grid item md={8} xs={12}>
+                    <MainHeading title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+                </Grid>
+                <Grid item md={4} xs={12} align="right">
+                    <TextField
+                        placeholder='Search'
+                        onChange={debouncedResults}
+                        inputProps={{
+                            style: {
+                                padding: 5,
+                                display: 'inline-flex',
+                            },
+                        }}
+                    />
+                </Grid>
+            </Grid>
 
             {isLoading ?
                 <Grid container spacing={2}>
