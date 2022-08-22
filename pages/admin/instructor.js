@@ -44,7 +44,7 @@ import { removeCommaWordEnd } from '../../utils/RegExp';
 import { INSTRUCTOR_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const columns = [
-    { id: 'user_id', label: 'ID', minWidth: 100 },
+    // { id: 'user_id', label: 'ID', minWidth: 100 },
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'creationDate', label: 'Creation Date', minWidth: 170 },
@@ -125,7 +125,8 @@ const Instructor = ({
         instructorData?.map((instructor) => {
             row =
                 createData(
-                    <AvatarName avatarText="I" title={instructor.id} color='#4795EE' />,
+                    // <AvatarName avatarText="I" title={instructor.id} color='#4795EE' />,
+                    instructor.id,
                     instructor.name,
                     instructor.username,
                     instructor.creation_date,
@@ -176,15 +177,16 @@ const Instructor = ({
     };
 
     const handleAction = (event, icon, rowData) => {
+        console.log("rowData", rowData)
         if (icon === 'edit') {
             setEditInstructor(true);
             setEditInstructorData(rowData);
         } else if (icon === 'delete') {
-            setDeleteRowData(rowData?.user_id?.props?.title);
+            setDeleteRowData(rowData?.user_id);
             setShowDeleteWarning(true);
         } else if (icon === 'lock') {
             let activateDeactive = {
-                'id': rowData?.user_id?.props?.title,
+                'id': rowData?.user_id,
                 'status': 'INACTIVE'
             }
             setStatusRowData(activateDeactive);
@@ -192,14 +194,14 @@ const Instructor = ({
             setStatusMessage('inactive');
         } else if (icon === 'unlock') {
             let activateDeactive = {
-                'id': rowData?.user_id?.props?.title,
+                'id': rowData?.user_id,
                 'status': 'ACTIVE'
             };
             setStatusRowData(activateDeactive);
             setStatusWarning(true);
             setStatusMessage('active');
         } else if (icon === 'stats') {
-            setInstructorId(rowData?.user_id?.props?.title);
+            setInstructorId(rowData?.user_id);
             setShowDialogModal(true);
         }
     }
