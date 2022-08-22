@@ -32,12 +32,20 @@
         "required": "Access end point"
     },
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "type": "text",
         "id": "method",
         "name": "method",
         "label": "Method",
-        "required": "Method"
+        "required": "Method",
+        "options":[
+            {
+                "name": "JWK_SET"
+            },
+            {
+                "name": "RSA"
+            }
+        ]
     },
     {
         "field_type": "input",

@@ -121,26 +121,30 @@ const Repository = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
-                    </Grid>
-                    <Grid item md={2} xs={2}>
-                        <TextField
-                            placeholder='Search'
-                            onChange={debouncedResults}
-                            inputProps={{
-                                style: {
-                                    padding: 5,
-                                    display: 'inline-flex',
-                                },
-                            }}
-                        />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
-            <MainHeading title={`Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+            <Grid container spacing={ 2 }>
+                <Grid item md={ 8 } xs={ 12 }>
+                    <MainHeading title={ `Repositary(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                </Grid>
+                <Grid item md={ 4 } xs={ 12 } align="right">
+                    <TextField
+                        placeholder='Search'
+                        onChange={ debouncedResults }
+                        inputProps={ {
+                            style: {
+                                padding: 5,
+                                display: 'inline-flex',
+                            },
+                        } }
+                    />
+                </Grid>
+            </Grid>
             <AddButtonBottom>
                 <CreateDrawer
                     isShowAddIcon={true}
@@ -153,6 +157,7 @@ const Repository = ({
                 <>
                     <CommonTable
                         isCheckbox={true}
+                        isSorting={ true }
                         tableHeader={columns}
                         tableData={rows}
                         charLength={10}

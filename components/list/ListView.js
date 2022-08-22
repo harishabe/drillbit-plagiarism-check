@@ -40,7 +40,7 @@ const ListView = ({
                             disableTypography
                             className={classes.itemText}
                             primary={<SubTitle1 title={item.name} />}
-                            secondary={<SubTitle title={item.department} />}
+                            secondary={ <SubTitle title={ item.department === null ? '--' : item.department } /> }
                         />
                         <ListItemText style={{ textAlign: 'right' }}
                             disableTypography

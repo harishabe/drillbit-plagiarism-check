@@ -219,6 +219,7 @@ const Assignments = ({
           <CommonTable
             isCheckbox={true}
             isNextPath={true}
+          isSorting={ true }
             tableHeader={columns}
             tableData={rows}
             handleAction={handleAction}

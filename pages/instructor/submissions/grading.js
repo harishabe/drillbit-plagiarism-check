@@ -63,6 +63,7 @@ const Grading = ({
         { gradingData?.length > 0 ? 
           <CommonTable
             isCheckbox={ true }
+            isSorting={ true }
             tableHeader={ columns }
             tableData={ rows }
             isLoading={ isLoading }

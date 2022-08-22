@@ -107,26 +107,28 @@ const AccountInfo = ({
                 <Grid container spacing={1}>
                     <Grid item md={10}>
                         <MainHeading title='Account Information' />
-                        <form>
-                            <label htmlFor="contained-button-file">
-                                <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
-                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
-                                    <>
-                                        <UploadIcon />
-                                        <UploadButtonAlign>
-                                            <SubTitle textColor='#fff' title='Upload Logo' />
-                                        </UploadButtonAlign>
-                                    </>
-                                </Button>
-                                
-                                <SubTitle2 title='Support File : JPEG,PNG , Dimension : 200 * 300' />
-                            </label>
-                        </form>
+                        { role === Role.admin &&
+                            <form>
+                                <label htmlFor="contained-button-file">
+                                    <Input accept="image/*" id="contained-button-file" onChange={ handleChange } multiple type="file" />
+                                    <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
+                                        <>
+                                            <UploadIcon />
+                                            <UploadButtonAlign>
+                                                <SubTitle textColor='#fff' title='Upload Logo' />
+                                            </UploadButtonAlign>
+                                        </>
+                                    </Button>
+
+                                    <SubTitle2 title='Support File : JPG,PNG' />
+                                </label>
+                            </form>
+                        }
                     </Grid>
-                    <Grid item md={2} style={{ textAlign: 'right' }}>
-                        {accountInfo &&
+                    <Grid item md={ 2 } style={ { textAlign: 'right' } }>
+                        { accountInfo &&
                             <>
-                                <ImgLogo src={`data:image/png;base64,${accountInfo.logo}`} />
+                            <ImgLogo src={ `data:image/png;base64,${accountInfo.logo}` } />
                             </>
                         }
                     </Grid>

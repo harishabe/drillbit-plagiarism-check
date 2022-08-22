@@ -228,7 +228,7 @@ const NavBar = ({
                                     <ListItemIcon>
                                         <SwitchAccountIcon />
                                     </ListItemIcon>
-                                    <ListItemText style={{ padding: '5px 15px' }} primary="Switch account" secondary={`Switch to ${role}`} />
+                                <ListItemText style={ { padding: '5px 15px' } } primary="Switch account" secondary={ `Switch to ${role === Role?.admin ? 'instructor' : 'admin'}` } />
                                 </MenuItem>
                                 <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                             </>

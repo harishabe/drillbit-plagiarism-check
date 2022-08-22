@@ -40,7 +40,7 @@ function createData(id, STname, PAname, file, grammer, similarity, paperid, date
 }
 
 const AddButtonBottom = styled.div`
-    position:absolute;
+    position:fixed;
     bottom: 30px;
     right:30px;
 `;
@@ -218,6 +218,7 @@ const Submission = ({
         {submissionData?.length > 0 ?
           <CommonTable
             isCheckbox={true}
+            isSorting={ true }
             tableHeader={columns}
             tableData={rows}
             handleAction={handleAction}

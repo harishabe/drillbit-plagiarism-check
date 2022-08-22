@@ -76,7 +76,7 @@ const CommonTable = ({
                                         align={column.align}
                                         style={{ minWidth: column.minWidth }}
                                     >
-                                        {column.id === 'action' ?
+                                        { column.id === 'action' || column.id === 'stats' || column.id === 'feedback' ?
                                             <EllipsisText value={column.label} charLength={charLength} />
                                             : <TableSortLabel
                                                 onClick={((e) => sortHandle(e, column))}

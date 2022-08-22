@@ -13,7 +13,6 @@ import END_POINTS from '../../../utils/EndPoints';
 import IntegrationTypeDetail from './IntegrationTypeDetail';
 import CanvasForm from '../form/CanvasForm';
 
-
 const Canvas = ({
     GetIntegrationDetailData,
     integrationData,

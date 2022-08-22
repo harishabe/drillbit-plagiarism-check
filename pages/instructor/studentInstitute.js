@@ -141,6 +141,7 @@ function StudentInstitute({
 
             <CommonTable
                 isCheckbox={ true }
+                isSorting={ true }
                 tableHeader={ columns }
                 tableData={ data }
                 charLength={ 10 }

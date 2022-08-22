@@ -64,6 +64,7 @@ const SubmissionHistory = ({
                     { submissionData?.length > 0 ? 
                         <CommonTable
                             isCheckbox={ false }
+                            isSorting={ true }
                             tableHeader={ columns }
                             tableData={ rows }
                         />
