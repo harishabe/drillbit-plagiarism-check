@@ -112,7 +112,7 @@ const IntegrationTypeDetail = ({
 
                     <Divider className={ classes.mt10 } />
                     <div className={ classes.margin }></div>
-                    <SubTitle title="Configuration Details :" />
+                    {/* <SubTitle title="Configuration Details :" /> */ }
 
                     <CommonTable
                         isCheckbox={ false }
@@ -121,7 +121,10 @@ const IntegrationTypeDetail = ({
                         charLength={ 50 }
                         path=''
                     />
+                </CardView>
 
+                <div className={ classes.margin }></div>
+                <CardView>
                     <div className={ classes.margin }></div>
                     <SubTitle title="Technical Contact Details :" />
 

@@ -24,7 +24,8 @@ import {
     ListSkeleton,
     LineChart,
     CurveChart,
-    ErrorBlock
+    ErrorBlock,
+    WarningDialog
 } from '../../components';
 import {
     NoOfClassIcon,
@@ -73,8 +74,8 @@ const TextAlignRight = styled.div`
 
 const CurveChartContainer = styled.div`
     position:relative;
-    bottom:60px;
-    margin-right:-27px;
+    bottom:19px;
+    margin-right:-18px;
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -98,6 +99,7 @@ const Dashboard = ({
     const classes = useStyles()
     const [recentSubmission, setRecentSubmission] = useState([]);
     const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
+    const [showRenewWarning, setShowRenewWarning] = useState(false);
 
     useEffect(() => {
         GetWidgetCount();
@@ -117,9 +119,20 @@ const Dashboard = ({
 
     const renewalClick = (e) => {
         e.preventDefault();
-        RenewValidity();
+        setShowRenewWarning(true);
     };
 
+    const handleCloseWarning = () => {
+        setShowRenewWarning(false);
+    };
+
+    const handleYesWarning = () => {
+        RenewValidity();
+        setShowRenewWarning(false);
+        setTimeout(() => {
+            setShowRenewWarning(false);
+        }, [100]);
+    };
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -205,6 +218,15 @@ const Dashboard = ({
                     </Grid>
                 </Grid>
             </Box>
+            {
+                showRenewWarning &&
+                <WarningDialog
+                    message="Are you sure you want to renew ?"
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
+                />
+            }
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
@@ -238,7 +260,7 @@ const Dashboard = ({
                                                     ]}
                                                     xaxisLabelShow={false}
                                                     yaxisLabelShow={false}
-                                                    chartHeight={190}
+                                                    chartHeight={ 142 }
                                                 />
                                             </CurveChartContainer>
                                         </>

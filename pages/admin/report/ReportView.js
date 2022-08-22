@@ -182,6 +182,7 @@ const ReportView = ({
                                 }
                                 <CommonTable
                                     isCheckbox={false}
+                                    isSorting={ true }
                                     tableHeader={assignmentsColumns}
                                     tableData={rows}
                                     charLength={10}
@@ -210,6 +211,7 @@ const ReportView = ({
                                 }
                                 <CommonTable
                                     isCheckbox={false}
+                                    isSorting={ true }
                                     tableHeader={classesColumns}
                                     tableData={rows}
                                     charLength={10}
@@ -236,6 +238,7 @@ const ReportView = ({
                                 </Tooltip>
                                 <CommonTable
                                     isCheckbox={false}
+                                    isSorting={ true }
                                     tableHeader={submissionsColumns}
                                     tableData={rows}
                                     charLength={10}

@@ -38,14 +38,14 @@ const MyClasses = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    const handlePagination = (e, value) => {
-        e.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-    };
-
     useEffect(() => {
         GetClassesData(paginationPayload);
     }, [, paginationPayload]);
+
+    const handlePagination = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
 
     /** search implementation using debounce concepts */
 

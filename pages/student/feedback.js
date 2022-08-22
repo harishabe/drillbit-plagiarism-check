@@ -31,7 +31,7 @@ const Feedback = ({
             <Grid display={ 'flex' } sx={ { ml: 2 } }>
                 <SubTitle2 title='Your Score : &nbsp;' />
                 { isLoadingFeedback ? <Skeleton width={ "70px" } /> :
-                    <Title1 title={ `${feedbackData[0]?.obtained_marks === undefined ? '--' : feedbackData[0]?.obtained_marks} / ${feedbackData[0]?.max_marks === undefined ? '--' : feedbackData[0]?.max_marks}` } />
+                    <Title1 title={ `${feedbackData?.obtained_marks === undefined ? '--' : feedbackData[0]?.obtained_marks} / ${feedbackData?.max_marks === undefined ? '--' : feedbackData[0]?.max_marks}` } />
                 }
             </Grid>
             <ListItemText
@@ -53,7 +53,7 @@ const Feedback = ({
                         } }
                     >
                         { isLoadingFeedback ? <Skeleton width={ "300px" } height={ "2px" } /> :
-                            <SubTitle2 title={ feedbackData[0]?.feedback === undefined ? feedbackData?.message : feedbackData[0]?.feedback } />
+                            <SubTitle2 title={ feedbackData?.feedback === undefined ? feedbackData?.message : feedbackData[0]?.feedback } />
                         }
                     </Card>
                 }

@@ -258,6 +258,7 @@ const StudentList = ({
 
                 <CommonTable
                     isCheckbox={true}
+                    isSorting={ true }
                     tableHeader={columns}
                     tableData={rows}
                     handleAction={handleAction}
