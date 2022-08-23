@@ -132,7 +132,7 @@ const Instructor = ({
                     instructor.creation_date,
                     instructor.plagairism,
                     instructor.grammar,
-                    <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
+                    <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats' }],
                     [{ 'component': <EditIcon />, 'type': 'edit' },
                     { 'component': <DeleteIcon />, 'type': 'delete' },
@@ -301,22 +301,22 @@ const Instructor = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={ <DeleteWarningIcon /> }
                     message="Are you sure you want to delete ?"
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
             {
                 showStatusWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
-                    message={"Are you sure, you want to " + statusMessage + "?"}
-                    handleYes={handleStatusWarning}
-                    handleNo={handleStatusCloseWarning}
-                    isOpen={true}
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message={ "Are you sure, you want to " + statusMessage + "?" }
+                    handleYes={ handleStatusWarning }
+                    handleNo={ handleStatusCloseWarning }
+                    isOpen={ true }
                 />
             }
 
@@ -324,19 +324,19 @@ const Instructor = ({
                 showDialogModal &&
                 <DialogModal
                     headingTitle="Instructor Statistics"
-                    isOpen={true}
+                        isOpen={ true }
                     fullWidth="lg"
                     maxWidth="lg"
-                    handleClose={handleCloseDialog}
+                        handleClose={ handleCloseDialog }
                 >
-                    <InstructorStats instructorId={instructorId} />
+                        <InstructorStats instructorId={ instructorId } />
                 </DialogModal>
             }
 
             <AddButtonBottom>
                 <CreateDrawer
                     title="Add Instructor"
-                    isShowAddIcon={true}
+                    isShowAddIcon={ true }
                 >
                     <InstructorForm />
                 </CreateDrawer>
@@ -345,7 +345,7 @@ const Instructor = ({
             {
                 editInstructor &&
                 <CreateDrawer
-                    options={[
+                        options={ [
                         {
                             icon: <AddPersonIcon />,
                             title: 'Add Instructor',
@@ -355,62 +355,62 @@ const Instructor = ({
                             icon: <AddMultipleIcon />,
                             title: 'Add Multiple Instructor',
                             handleFromCreateDrawer: true
-                        }]}
+                            }] }
                     title="Edit Instructor"
-                    isShowAddIcon={false}
-                    handleMultiData={handleShow}
-                    showDrawer={editInstructor}
+                        isShowAddIcon={ false }
+                        handleMultiData={ handleShow }
+                        showDrawer={ editInstructor }
                 >
                     <InstructorForm
-                        editData={editInstructorData}
+                            editData={ editInstructorData }
                     />
                 </CreateDrawer>
             }
 
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
 
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={8}>
-                        <MainHeading title={`Instructors(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 8 }>
+                        <MainHeading title={ `Instructors(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={4} xs container direction='row' justifyContent={'right'}>
+                    <Grid item md={ 4 } xs container direction='row' justifyContent={ 'right' }>
                         <TextField
                             placeholder='Search'
-                            onChange={debouncedResults}
-                            inputProps={{
+                            onChange={ debouncedResults }
+                            inputProps={ {
                                 style: {
                                     padding: 5,
                                     display: 'inline-flex'
                                 }
-                            }}
+                            } }
                         />
-                        {show ? '' :
+                        { show ? '' :
                             <Tooltip title="Download Template" arrow>
-                                <IconButton sx={{
+                                <IconButton sx={ {
                                     position: 'absolute',
                                     padding: '7px',
                                     top: '118px',
                                     right: '230px'
-                                }}
-                                    onClick={handleDownload}>
-                                    {isLoadingTemplate ? <Skeleton sx={{ mt: 1 }} width={20} /> : <DownloadIcon />}
+                                } }
+                                    onClick={ handleDownload }>
+                                    { isLoadingTemplate ? <Skeleton sx={ { mt: 1 } } width={ 20 } /> : <DownloadIcon /> }
                                 </IconButton>
                             </Tooltip>
                         }
 
                     </Grid>
-                    {show &&
+                    { show &&
                         <form>
                             <label htmlFor="contained-button-file">
-                                <Input id="contained-button-file" onChange={handleSubmit} multiple type="file" />
-                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
+                                <Input id="contained-button-file" onChange={ handleSubmit } multiple type="file" />
+                                <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
                                     <>
                                         <UploadIcon />
                                         <UploadButtonAlign>
@@ -428,39 +428,36 @@ const Instructor = ({
 
             <CardView>
                 <>
-                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ marginLeft: '10px' }}>
+                    { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { marginLeft: '10px' } }>
                         <Tooltip title='Delete' arrow>
-                            <IconButton onClick={deleteAllInstructor}>
+                            <IconButton onClick={ deleteAllInstructor }>
                                 <DeleteIcon />
                             </IconButton>
                         </Tooltip>
-                    </div>}
+                    </div> }
                     <CommonTable
-                        isCheckbox={true}
-                        isSorting={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        handleAction={handleAction}
-                        handleTableSort={handleTableSort}
-                        handleCheckboxSelect={handleCheckboxSelect}
-                        handleSingleSelect={handleSingleSelect}
-                        isLoading={isLoading}
-                        charLength={17}
+                        isCheckbox={ true }
+                        isSorting={ true }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
+                        handleCheckboxSelect={ handleCheckboxSelect }
+                        handleSingleSelect={ handleSingleSelect }
+                        isLoading={ isLoading }
+                        charLength={ 17 }
                         path=''
                     />
 
-
-                    {pageDetails?.totalPages > '1' &&
-                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                            <Pagination
-                                count={pageDetails?.totalPages}
-                                onChange={handleChange}
-                                color="primary"
-                                variant="outlined"
-                                shape="rounded"
-                            />
-                        </div>
-                    }
+                    <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                        <Pagination
+                            count={ pageDetails?.totalPages }
+                            onChange={ handleChange }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </div>
                 </>
             </CardView>
 

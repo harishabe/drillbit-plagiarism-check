@@ -43,14 +43,16 @@ const AddButtonBottom = styled.div`
 const columns = [
     { id: 'id', label: 'Paper ID' },
     { id: 'name', label: 'Author Name' },
-    { id: 'email', label: 'Paper Title' },
+    { id: 'email', label: 'Email ID' },
+    { id: 'title', label: 'Paper Title' },
+    { id: 'type', label: 'Repositary Type' },
     { id: 'date', label: 'Added Date' },
     { id: 'action', label: 'Actions' },
 ]
 
-function createData(id, name, email, date, action) {
+function createData(id, name, email, title, type, date, action) {
     return {
-        id, name, email, date, action
+        id, name, email, title, type, date, action
     }
 }
 
@@ -84,7 +86,9 @@ const Repository = ({
                 createData(
                     repo.paper_id,
                     repo.name,
+                    repo.email,
                     repo.title,
+                    repo.type,
                     formatDate(repo.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete' }]
                 );

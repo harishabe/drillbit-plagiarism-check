@@ -305,8 +305,8 @@ const Students = ({
                         path=''
                     />
 
-                    {pageDetails?.totalPages > '1' &&
-                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
+
+                    <div style={ { marginLeft: '45%', marginTop: '25px' } }>
                             <Pagination
                                 count={pageDetails?.totalPages}
                                 onChange={handleChange}
@@ -314,9 +314,7 @@ const Students = ({
                                 variant="outlined"
                                 shape="rounded"
                             />
-                        </div>
-                    }
-
+                    </div>
                 </>
             </CardView>
         </React.Fragment>
