@@ -72,6 +72,15 @@ export const DownloadTemplate = () => {
 };
 
 /**
+ * Clear upload data
+ */
+export const UploadFileDataClear = () => {
+    return {
+        type: types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_DATA_CLEAR
+    };
+};
+
+/**
  * Upload multiple instructor 
  */
 export const UploadFile = (data) => {

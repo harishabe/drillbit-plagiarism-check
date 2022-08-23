@@ -150,7 +150,6 @@ export function* onLoadInstructorUpload(action) {
     const { response, error } = yield call(MultipleInstructorUpload, action.query);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: PaginationValue });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_FAIL, payload: error });

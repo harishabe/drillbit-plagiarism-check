@@ -28,8 +28,6 @@ import {
     DeleteIcon,
     StatsIcon,
     DeleteWarningIcon,
-    DownloadIcon,
-    UploadIcon,
     AddMultipleIcon,
     AddPersonIcon
 } from '../../assets/icon';
@@ -37,8 +35,7 @@ import {
     GetInstructorData,
     DeleteData,
     DeactivateData,
-    DownloadTemplate,
-    UploadFile
+    UploadFileDataClear
 } from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
@@ -66,15 +63,6 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-const UploadButtonAlign = styled('div')({
-    marginBottom: '-5px',
-    // marginLeft: '10px'
-});
-
-const Input = styled('input')({
-    display: 'none',
-});
-
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
@@ -91,17 +79,14 @@ const InstructorBreadCrumb = [
 const Instructor = ({
     pageDetails,
     GetInstructorData,
-    DownloadTemplate,
-    UploadFile,
+    UploadFileDataClear,
     instructorData,
     DeleteData,
     DeactivateData,
     isLoading,
-    isLoadingTemplate,
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
-    const [show, setShow] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showStatusWarning, setStatusWarning] = useState(false);
@@ -280,21 +265,11 @@ const Instructor = ({
         setShowDeleteWarning(true);
     }
 
-    const handleDownload = () => {
-        DownloadTemplate()
-        setShow(true)
-    }
-
-    const handleSubmit = (data) => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('file', data.target.files[0]);
-        UploadFile(bodyFormData);
-    }
-
     const handleShow = (e, info) => {
         if (info?.title === 'Add Instructor') {
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Instructor') {
+            UploadFileDataClear();
             router.push({ pathname: '/admin/addBulkInstructor' })
         }
     }
@@ -393,36 +368,7 @@ const Instructor = ({
                                 }
                             }}
                         />
-                        {show ? '' :
-                            <Tooltip title="Download Template" arrow>
-                                <IconButton sx={{
-                                    position: 'absolute',
-                                    padding: '7px',
-                                    top: '118px',
-                                    right: '230px'
-                                }}
-                                    onClick={handleDownload}>
-                                    {isLoadingTemplate ? <Skeleton sx={{ mt: 1 }} width={20} /> : <DownloadIcon />}
-                                </IconButton>
-                            </Tooltip>
-                        }
-
                     </Grid>
-                    {show &&
-                        <form>
-                            <label htmlFor="contained-button-file">
-                                <Input id="contained-button-file" onChange={handleSubmit} multiple type="file" />
-                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
-                                    <>
-                                        <UploadIcon />
-                                        <UploadButtonAlign>
-                                            <SubTitle textColor='#fff' title='Upload File' />
-                                        </UploadButtonAlign>
-                                    </>
-                                </Button>
-                            </label>
-                        </form>
-                    }
                 </Grid>
                 {/* <SubTitle title='6/10 users' />
                 <InfoIcon /> */}
@@ -472,7 +418,6 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.list?.page,
     instructorData: state?.detailsData?.instructorData?.list?.content,
     isLoading: state?.detailsData?.isLoading,
-    isLoadingTemplate: state?.detailsData?.isLoadingTemplate,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -480,8 +425,7 @@ const mapDispatchToProps = (dispatch) => {
         GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),
         DeactivateData: (data, paginationPayload) => dispatch(DeactivateData(data, paginationPayload)),
         DeleteData: (deleteRowData, paginationPayload) => dispatch(DeleteData(deleteRowData, paginationPayload)),
-        DownloadTemplate: () => dispatch(DownloadTemplate()),
-        UploadFile: (data) => dispatch(UploadFile(data)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };
 

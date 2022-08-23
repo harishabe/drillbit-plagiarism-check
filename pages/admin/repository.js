@@ -42,10 +42,10 @@ const AddButtonBottom = styled.div`
 
 const columns = [
     { id: 'id', label: 'Paper ID' },
-    { id: 'name', label: 'Author Name' },
+    { id: 'name', label: 'Name' },
     { id: 'email', label: 'Email ID' },
-    { id: 'title', label: 'Paper Title' },
-    { id: 'type', label: 'Repositary Type' },
+    { id: 'title', label: 'Title' },
+    { id: 'type', label: 'Type' },
     { id: 'date', label: 'Added Date' },
     { id: 'action', label: 'Actions' },
 ]
