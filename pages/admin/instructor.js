@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import _ from 'lodash';
+import { useRouter } from "next/router";
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import debouce from "lodash.debounce";
@@ -28,7 +29,9 @@ import {
     StatsIcon,
     DeleteWarningIcon,
     DownloadIcon,
-    UploadIcon
+    UploadIcon,
+    AddMultipleIcon,
+    AddPersonIcon
 } from '../../assets/icon';
 import {
     GetInstructorData,
@@ -96,6 +99,7 @@ const Instructor = ({
     isLoading,
     isLoadingTemplate,
 }) => {
+    const router = useRouter();
     const [rows, setRows] = useState([]);
     const [show, setShow] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -291,8 +295,7 @@ const Instructor = ({
         if (info?.title === 'Add Instructor') {
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Instructor') {
-            //UploadFileDataClear();
-            router.push({ pathname: '/instructor/addBulkStudent', query: { classId: router.query.clasId } })
+            router.push({ pathname: '/admin/addBulkInstructor'})
         }
     }
 
@@ -335,16 +338,6 @@ const Instructor = ({
 
             <AddButtonBottom>
                 <CreateDrawer
-                    title="Add Instructor"
-                    isShowAddIcon={true}
-                >
-                    <InstructorForm />
-                </CreateDrawer>
-            </AddButtonBottom>
-
-            {
-                editInstructor &&
-                <CreateDrawer
                     options={[
                         {
                             icon: <AddPersonIcon />,
@@ -356,9 +349,19 @@ const Instructor = ({
                             title: 'Add Multiple Instructor',
                             handleFromCreateDrawer: true
                         }]}
+                    title="Add Instructor"
+                    handleMultiData={handleShow}
+                    isShowAddIcon={true}
+                >
+                    <InstructorForm />
+                </CreateDrawer>
+            </AddButtonBottom>
+
+            {
+                editInstructor &&
+                <CreateDrawer
                     title="Edit Instructor"
                     isShowAddIcon={false}
-                    handleMultiData={handleShow}
                     showDrawer={editInstructor}
                 >
                     <InstructorForm
