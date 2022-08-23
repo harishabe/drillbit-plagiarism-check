@@ -286,6 +286,16 @@ const Instructor = ({
         bodyFormData.append('file', data.target.files[0]);
         UploadFile(bodyFormData);
     }
+
+    const handleShow = (e, info) => {
+        if (info?.title === 'Add Instructor') {
+            setShowDialogModal(true);
+        } else if (info?.title === 'Add Multiple Instructor') {
+            //UploadFileDataClear();
+            router.push({ pathname: '/instructor/addBulkStudent', query: { classId: router.query.clasId } })
+        }
+    }
+
     return (
         <React.Fragment>
             {
@@ -335,8 +345,20 @@ const Instructor = ({
             {
                 editInstructor &&
                 <CreateDrawer
+                    options={[
+                        {
+                            icon: <AddPersonIcon />,
+                            title: 'Add Instructor',
+                            handleFromCreateDrawer: false
+                        },
+                        {
+                            icon: <AddMultipleIcon />,
+                            title: 'Add Multiple Instructor',
+                            handleFromCreateDrawer: true
+                        }]}
                     title="Edit Instructor"
                     isShowAddIcon={false}
+                    handleMultiData={handleShow}
                     showDrawer={editInstructor}
                 >
                     <InstructorForm

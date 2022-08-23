@@ -26,8 +26,8 @@ import StudentForm from './form/StudentForm';
 import { STUDENT_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const columns = [
-    { id: 'user_id', label: 'Student ID', minWidth: 170 },
-    { id: 'name', label: 'Student Name', minWidth: 170 },
+    { id: 'name', label: 'Name', minWidth: 170 },
+    { id: 'user_id', label: 'Id', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'department', label: 'Department', minWidth: 170 },
     { id: 'section', label: 'Section', minWidth: 170 },
@@ -35,8 +35,8 @@ const columns = [
     { id: 'action', label: 'Action', minWidth: 100 },
 ]
 
-function createData(user_id, id, name, email, department, section, stats, action) {
-    return { user_id, id, name, email, department, section, stats, action }
+function createData(id, name, user_id, email, department, section, stats, action) {
+    return { id, name, user_id, email, department, section, stats, action }
 }
 
 const IntegrationBreadCrumb = [
@@ -89,9 +89,9 @@ const Students = ({
         studentData?.map((student) => {
             row =
                 createData(
-                    <AvatarName avatarText="S" title={student.student_id} color='#4795EE' />,
                     student.id,
                     student.name,
+                    student.student_id,
                     student.username,
                     student.department,
                     student.section,
@@ -285,38 +285,36 @@ const Students = ({
 
             <CardView>
                 <>
-                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ marginLeft: '10px' }}>
                         <IconButton onClick={deleteAllInstructor}>
                             <DeleteIcon />
                         </IconButton>
                     </div>}
-                    { studentData?.length > 0 ? 
-                        <CommonTable
-                            isCheckbox={ true }
-                            isSorting={true}
-                            tableHeader={ columns }
-                            tableData={ rows }
-                            handleAction={ handleAction }
-                            handleTableSort={ handleTableSort }
-                            handleCheckboxSelect={ handleCheckboxSelect }
-                            handleSingleSelect={ handleSingleSelect }
-                            isLoading={ isLoading }
-                            charLength={ 20 }
-                            path=''
-                        />
-                        : <ErrorBlock message={ STUDENT_NOT_FOUND } />
-                    }
 
-                    { pageDetails?.totalPages > '1' &&
-                        <div style={ { marginLeft: '35%', marginTop: '25px' } }>
+                    <CommonTable
+                        isCheckbox={true}
+                        isSorting={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        handleAction={handleAction}
+                        handleTableSort={handleTableSort}
+                        handleCheckboxSelect={handleCheckboxSelect}
+                        handleSingleSelect={handleSingleSelect}
+                        isLoading={isLoading}
+                        charLength={20}
+                        path=''
+                    />
+
+                    {pageDetails?.totalPages > '1' &&
+                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
                             <Pagination
-                                count={ pageDetails?.totalPages }
-                                onChange={ handleChange }
+                                count={pageDetails?.totalPages}
+                                onChange={handleChange}
                                 color="primary"
                                 variant="outlined"
                                 shape="rounded"
                             />
-                        </div> 
+                        </div>
                     }
 
                 </>

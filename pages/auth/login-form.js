@@ -27,18 +27,26 @@ const LoginForm = ({
         if (loginState?.role === Role.admin) {
             localStorage.setItem('role', Role.admin);
             localStorage.setItem('token', loginState?.token);
+            localStorage.setItem('email', loginState?.username);
+            localStorage.setItem('name', loginState?.name);
             router.push('/admin/dashboard');
         } else if (loginState?.role === Role.instructor) {
             localStorage.setItem('role', Role.instructor);
             localStorage.setItem('token', loginState?.token);
+            localStorage.setItem('email', loginState?.username);
+            localStorage.setItem('name', loginState?.name);
             router.push('/instructor/dashboard')
         } else if (loginState?.role === Role.student) {
             localStorage.setItem('role', Role.student);
             localStorage.setItem('token', loginState?.token);
+            localStorage.setItem('email', loginState?.username);
+            localStorage.setItem('name', loginState?.name);
             router.push('/student/dashboard');
         } else if (loginState?.role === Role.super) {
             localStorage.setItem('role', Role.super);
             localStorage.setItem('token', loginState?.token);
+            localStorage.setItem('email', loginState?.username);
+            localStorage.setItem('name', loginState?.name);
             router.push('/super/dashboard');
         }
     }, [loginState]);

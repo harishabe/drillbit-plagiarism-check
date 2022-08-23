@@ -58,9 +58,9 @@ const AccountInfo = ({
                 createData("Instructor Account", accountInfo?.instructorAccount ? accountInfo?.instructorAccount : '-'),
                 createData("Student Account", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
                 createData("Number Of Documents", accountInfo?.totalDocumentsAlloted ? accountInfo?.totalDocumentsAlloted : '-'),
-                createData("One Document Length", accountInfo?.oneDocumentLength ? accountInfo?.oneDocumentLength : '-'),
+                createData("Max. document length(pages)", accountInfo?.oneDocumentLength ? accountInfo?.oneDocumentLength : '-'),
                 createData("Date of Expiry", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
-                createData("Grammer", accountInfo?.grammar ? accountInfo?.grammar : '-'),
+                createData("Grammar checks", accountInfo?.grammar ? accountInfo?.grammar : '-'),
                 createData("Product Name", accountInfo?.productName ? accountInfo?.productName : '-'),
                 createData("Time Zone", accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
             ];
@@ -120,7 +120,7 @@ const AccountInfo = ({
                                         </>
                                     </Button>
 
-                                    <SubTitle2 title='Support File : JPG,PNG' />
+                                    <SubTitle2 title='Supported formats : JPG,PNG' />
                                 </label>
                             </form>
                         }

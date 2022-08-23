@@ -152,7 +152,7 @@ const Repository = ({
             </Box>
             <Grid container spacing={ 2 }>
                 <Grid item md={ 8 } xs={ 12 }>
-                    <MainHeading title={ `Repositary(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                    <MainHeading title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
                 <Grid item md={ 4 } xs={ 12 } align="right">
                     <TextField

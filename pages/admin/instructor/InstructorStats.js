@@ -76,7 +76,7 @@ const InstructorStats = ({
                 <Grid container>
                     <Grid item md={8} xs={12}>
                         <SubTitle title={
-                            `Documents processed (${instructorStats?.trendAnalysis?.documentsProcessed !== undefined ?
+                            `Submissions (${instructorStats?.trendAnalysis?.documentsProcessed !== undefined ?
                                 instructorStats?.trendAnalysis?.documentsProcessed : 0})`}
                         />
                         {isLoading ?

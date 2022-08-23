@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
 import { Heading, CardView } from '../../components';
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 
 const WidgetCard = ({
     title,
@@ -11,7 +11,8 @@ const WidgetCard = ({
     handleDownload,
     isLoading,
     isLoadingIcon,
-    isClickAble
+    isClickAble,
+    toolTipTxt
 }) => {
     return (
         <CardView>
@@ -26,9 +27,12 @@ const WidgetCard = ({
                         isClickAble ?
                             (isLoadingIcon ?
                                 <Skeleton /> :
-                                <IconButton onClick={(e) => handleDownload(e, title)}>
-                                    {icon}
-                                </IconButton>)
+                                <Tooltip title={toolTipTxt} arrow>
+                                    <IconButton onClick={(e) => handleDownload(e, title)}>
+                                        {icon}
+                                    </IconButton>
+                                </Tooltip>
+                            )
                             : icon
                     }
                 </Grid>

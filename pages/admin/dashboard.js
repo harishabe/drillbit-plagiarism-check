@@ -51,7 +51,6 @@ import {
     USAGE_CHART_DATA,
 } from './../../constant/data/ChartData';
 import { Skeleton } from '@mui/material';
-import { setItemLocalStorage, getItemLocalStorage } from '../../utils/RegExp';
 import {
     DOCUMENT_PROCESSED_NOT_FOUND,
     STUDENT_NOT_FOUND,
@@ -114,7 +113,6 @@ const Dashboard = ({
             return item.submissions;
         });
         setRecentSubmission(submission);
-        setItemLocalStorage('name', adminDashboardData?.data?.userProfileLite?.name);
     }, [adminDashboardData]);
 
     const renewalClick = (e) => {
@@ -222,9 +220,9 @@ const Dashboard = ({
                 showRenewWarning &&
                 <WarningDialog
                     message="Are you sure you want to renew ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
             <Box mt={1} sx={{ flexGrow: 1 }}>
@@ -260,7 +258,7 @@ const Dashboard = ({
                                                     ]}
                                                     xaxisLabelShow={false}
                                                     yaxisLabelShow={false}
-                                                    chartHeight={ 142 }
+                                                    chartHeight={142}
                                                 />
                                             </CurveChartContainer>
                                         </>

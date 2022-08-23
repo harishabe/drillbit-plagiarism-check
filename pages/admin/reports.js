@@ -31,10 +31,10 @@ const Reports = ({
     const [usersType, setUsersType] = useState('');
 
     const handDownload = (e, title) => {
-        if (title === 'Instructors lists') {
+        if (title === 'Instructors list') {
             DownloadInstructorStudentData('instructors');
             setUsersType('instructors');
-        } else if (title === 'Student lists') {
+        } else if (title === 'Student list') {
             DownloadInstructorStudentData('students');
             setUsersType('students');
         }
@@ -48,8 +48,8 @@ const Reports = ({
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             isClickAble={true}
-                            title='Instructors lists'
-                            count={ reportsData?.no_of_instructors }
+                            title={`Instructors list` +' '+ '(' + reportsData?.no_of_instructors + ')'}
+                            toolTipTxt='Download instructors'
                             handleDownload={handDownload}
                             isLoading={isLoading}
                             isLoadingIcon={usersType === 'instructors' ? isLoadingDownload : false}
@@ -58,9 +58,9 @@ const Reports = ({
                     </Grid>
                     <Grid item md={6} xs={12}>
                         <WidgetCard
-                            title='Student lists'
+                            title={`Students list` +' '+ '(' + reportsData?.no_of_students + ')'}
+                            toolTipTxt='Download students'
                             isClickAble={true}
-                            count={ reportsData?.no_of_students }
                             handleDownload={handDownload}
                             isLoading={isLoading}
                             isLoadingIcon={usersType === 'students' ? isLoadingDownload : false}

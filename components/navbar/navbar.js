@@ -69,6 +69,7 @@ const NavBar = ({
     const router = useRouter();
     const [name, setName] = React.useState('');
     const [role, setRole] = React.useState('');
+    const [email, setEmail] = React.useState('');
 
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -85,21 +86,11 @@ const NavBar = ({
     React.useEffect(() => {
         let userName = getItemLocalStorage('name');
         let userRole = getItemLocalStorage('role');
+        let email = getItemLocalStorage('email');
         setName(userName);
         setRole(userRole);
+        setEmail(email);
     }, []);
-
-    React.useEffect(() => {
-        setName(dashboardData?.name);
-    }, [dashboardData]);
-
-    React.useEffect(() => {
-        setName(instructorDashboardData?.name);
-    }, [instructorDashboardData]);
-
-    React.useEffect(() => {
-        setName(studentData?.name);
-    }, [studentData]);
 
     return (
         <>
@@ -219,7 +210,10 @@ const NavBar = ({
                             <Avatar alt={name} style={{ width: '56px', height: '56px', background: '#68C886', color: '#fff' }}>
                                 {name && name.charAt(0)}
                             </Avatar>
-                            {name !== undefined ? <EllipsisText value={name} charLength={20} /> : <Skeleton />}
+                            <ListItemText 
+                                primary={<EllipsisText value={name} charLength={20} />} 
+                                secondary={<EllipsisText value={email} charLength={20} />} 
+                            />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                         {role === Role?.admin &&
@@ -228,7 +222,7 @@ const NavBar = ({
                                     <ListItemIcon>
                                         <SwitchAccountIcon />
                                     </ListItemIcon>
-                                <ListItemText style={ { padding: '5px 15px' } } primary="Switch account" secondary={ `Switch to ${role === Role?.admin ? 'instructor' : 'admin'}` } />
+                                    <ListItemText style={{ padding: '5px 15px' }} primary="Switch account" secondary={`Switch to ${role === Role?.admin ? 'instructor' : 'admin'}`} />
                                 </MenuItem>
                                 <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                             </>
