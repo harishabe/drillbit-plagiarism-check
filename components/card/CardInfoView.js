@@ -224,12 +224,16 @@ const CardInfoView = ({
                                         ml="10px"
                                     />
                                 </StatusColor>}
-                            {isKnowMore ?
-                                <div onClick={(e) => router.push({ 'pathname': item?.path, query: { integration: item.type } })}>
-                                    <SubTitle1 textColor="primary" title="Know More" />
-                                </div>
-                                : ''}
 
+                            { isKnowMore &&
+                                <>
+                                    <div onClick={ (e) => router.push({ 'pathname': item?.path, query: { integration: item.type } }) }>
+                                        { item?.lmsconfigured &&
+                                            <SubTitle1 textColor="primary" title="Know More" />
+                                    }
+                                </div>
+                                </>
+                            }
                         </Grid>
 
                         <Grid className={classes.right} item md={3} xs={3}>

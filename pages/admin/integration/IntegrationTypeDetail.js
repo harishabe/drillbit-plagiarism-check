@@ -112,7 +112,6 @@ const IntegrationTypeDetail = ({
 
                     <Divider className={ classes.mt10 } />
                     <div className={ classes.margin }></div>
-                    {/* <SubTitle title="Configuration Details :" /> */ }
 
                     <CommonTable
                         isCheckbox={ false }
@@ -147,8 +146,7 @@ const IntegrationTypeDetail = ({
                             <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
                         </Button>
                         <Divider className={ classes.mt10 } />
-                        <div className={ classes.margin }></div>
-                        <SubTitle title="Configuration Details :" />
+                    <div className={ classes.margin }></div>
 
                     <CommonTable
                         isCheckbox={ false }
@@ -169,8 +167,7 @@ const IntegrationTypeDetail = ({
                             <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
                         </Button>
                         <Divider className={ classes.mt10 } />
-                        <div className={ classes.margin }></div>
-                        <SubTitle title="Configuration Details :" />
+                    <div className={ classes.margin }></div>
 
                     <CommonTable
                         isCheckbox={ false }

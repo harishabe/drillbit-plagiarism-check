@@ -295,7 +295,7 @@ const Instructor = ({
         if (info?.title === 'Add Instructor') {
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Instructor') {
-            router.push({ pathname: '/admin/addBulkInstructor'})
+            router.push({ pathname: '/admin/addBulkInstructor' })
         }
     }
 
@@ -351,8 +351,7 @@ const Instructor = ({
                         }]}
                     title="Add Instructor"
                     handleMultiData={handleShow}
-                    isShowAddIcon={true}
-                >
+                    isShowAddIcon={true}>
                     <InstructorForm />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -452,18 +451,15 @@ const Instructor = ({
                         path=''
                     />
 
-
-                    {pageDetails?.totalPages > '1' &&
-                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                            <Pagination
-                                count={pageDetails?.totalPages}
-                                onChange={handleChange}
-                                color="primary"
-                                variant="outlined"
-                                shape="rounded"
-                            />
-                        </div>
-                    }
+                    <div style={{ marginLeft: '45%', marginTop: '25px' }}>
+                        <Pagination
+                            count={pageDetails?.totalPages}
+                            onChange={handleChange}
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </div>
                 </>
             </CardView>
 
