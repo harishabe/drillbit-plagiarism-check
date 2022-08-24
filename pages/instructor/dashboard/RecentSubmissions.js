@@ -3,11 +3,15 @@ import * as React from 'react'
 import { RecentSubmissionTable } from '../../../components'
 
 const RecentSubmissions = ({
-    recentSubmission
+    recentSubmission,
+    handlePage
 }) => {
 
     return (
-        <RecentSubmissionTable tableData={ recentSubmission } />
+        <RecentSubmissionTable
+            tableData={ recentSubmission }
+            handlePage={ handlePage }
+        />
     )
 }
 

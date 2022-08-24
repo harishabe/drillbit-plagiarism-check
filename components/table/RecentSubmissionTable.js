@@ -13,7 +13,8 @@ import { StatusDot } from '../../components';
 const Colors = ['#7B68C8', '#68C886', '#34C2FF', '#3491FF', '#8D34FF', '#7B68C8'];
 
 const RecentSubmissionTable = ({
-    tableData
+    tableData,
+    handlePage
 }) => {
     return (
         <TableContainer>
@@ -43,7 +44,11 @@ const RecentSubmissionTable = ({
                                 <StatusDot color="#69C886" title="Active" />                                
                             </TableCell>
                             <TableCell align='right'>
-                                <Button variant="contained" color="primary">Review</Button>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={ (e) => handlePage(e, item) }
+                                    >Review</Button>
                             </TableCell>
                         </TableRow>
                     )) } 

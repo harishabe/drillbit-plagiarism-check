@@ -62,16 +62,14 @@ const QNA = ({
   return (
     <React.Fragment>
       <CardView>
-        { ansData?.length > 0 ? 
+
           <CommonTable
             isCheckbox={ true }
             isSorting={ true }
             tableHeader={ columns }
             tableData={ rows }
             isLoading={ isLoading }
-          />
-          : <ErrorBlock message={ QNA_NOT_FOUND } />
-        }
+        />
 
       </CardView>
     </React.Fragment>

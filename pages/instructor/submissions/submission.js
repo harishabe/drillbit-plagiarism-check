@@ -215,7 +215,7 @@ const Submission = ({
           </IconButton>
         </div>}
 
-        {submissionData?.length > 0 ?
+
           <CommonTable
             isCheckbox={true}
             isSorting={ true }
@@ -225,9 +225,7 @@ const Submission = ({
             handleCheckboxSelect={handleCheckboxSelect}
             handleSingleSelect={handleSingleSelect}
             isLoading={isLoading}
-          />
-          : <ErrorBlock message={SUBMISSION_NOT_FOUND} />
-        }
+        />
 
         {pageDetails?.totalPages > 1 && (
           <div style={{ marginLeft: '35%', marginTop: '25px' }}>

@@ -36,6 +36,7 @@ const END_POINTS = {
     INSTRUCTOR_SUBMISSION_UPLOAD: '/files/',
     INSTRUCTOR_REPOSITARY_DATA: '/extreme/privateRepositoryInbox',
     INSTRUCTOR_REPOSITARY_UPLOAD: '/extreme/privateRepository',
+    INSTRUCTOR_REPOSITARY_REMOVE: '/extreme/removePrivateRepository/',
     STUDENT_DASHBOARD_WIDGET: '/extreme/student/dashboard',
     STUDENT_MY_CLASSES: '/extreme/student/classes',
     STUDENT_MY_ASSIGNMENTS_SUBMISSION: '/extreme/student/myassignments-details',

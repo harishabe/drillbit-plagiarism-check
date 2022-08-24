@@ -279,6 +279,23 @@ const DetailsInstructorReducer = (state = {}, action) => {
                 isLoadingUpload: false,
                 uploadError: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_START:
+            return {
+                ...state,
+                isLoadingRemove: true,
+            };
+        case types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_SUCCESS:
+            return {
+                ...state,
+                isLoadingRemove: false,
+                removeData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_FAIL:
+            return {
+                ...state,
+                isLoadingRemove: false,
+                removeError: action.payload,
+            };
         default:
             return state;
     }
