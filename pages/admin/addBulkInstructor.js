@@ -75,7 +75,7 @@ const AddBulkInstructor = ({
     UploadFile,
     isLoadingTemplate,
     isLoadingInstructorFileUpload,
-    sendData
+    fileUploadData
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -109,11 +109,11 @@ const AddBulkInstructor = ({
     }
 
     useEffect(() => {
-        if (sendData?.status === 200) {
+        if (fileUploadData?.status === 200) {
             setFileData('');
             router.push('/admin/instructor');
         }
-    }, [sendData && sendData !== '']);
+    }, [fileUploadData && fileUploadData !== '']);
 
     return (
         <React.Fragment>
@@ -193,7 +193,7 @@ const AddBulkInstructor = ({
 const mapStateToProps = (state) => ({
     isLoadingTemplate: state?.detailsData?.isLoadingTemplate,
     isLoadingInstructorFileUpload: state?.detailsData?.isLoading,
-    sendData: state?.detailsData?.sendData,
+    fileUploadData: state?.detailsData?.fileUploadData,
 });
 
 const mapDispatchToProps = (dispatch) => {

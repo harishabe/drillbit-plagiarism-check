@@ -45,18 +45,18 @@ const DetailsReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoading: false,
-                sendData: action.payload,
+                fileUploadData: action.payload,
             };
         case types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_DATA_CLEAR:
             return {
                 ...state,
-                sendData: '',
+                fileUploadData: '',
             };
         case types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_FAIL:
             return {
                 ...state,
                 isLoading: false,
-                sendDataError: action.payload,
+                fileUploadDataError: action.payload,
             };
         case types.FETCH_ADMIN_STATS_DATA_START:
             return {
