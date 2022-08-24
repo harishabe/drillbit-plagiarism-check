@@ -32,11 +32,12 @@ const SubmissionHistory = ({
     const columns = [
         { id: 'name', label: 'File name' },
         { id: 'id', label: 'Paper ID' },
-        { id: 'date', label: 'Submission date' },
+        { id: 'date', label: 'Date' },
         { id: 'similarity', label: 'Similarity' },
         { id: 'grammer', label: 'Grammer' },
-        { id: 'score', label: 'Score/Mark' },
+        { id: 'score', label: 'Marks' },
         { id: 'status', label: 'Status' },
+        { id: 'feedback', label: 'Feedback' },
     ]
 
     useEffect(() => {

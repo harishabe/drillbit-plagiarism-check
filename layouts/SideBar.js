@@ -119,6 +119,10 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/instructor/uploadFile' && name === 'My Classes') {
             return true;
+        } else if (router.pathname === '/student/myassignments' && name === 'My Classes') {
+            return true;
+        } else if (router.pathname === '/student/myassignment-details' && name === 'My Classes') {
+            return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }

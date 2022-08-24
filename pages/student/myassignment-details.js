@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
 import { Skeleton } from '@mui/material';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
@@ -13,9 +14,10 @@ import {
     SubTitle,
     TabMenu,
     StatusDot,
+    WidgetCard,
     EllipsisText,
 } from '../../components'
-import { DownloadFileIcon } from '../../assets/icon'
+import { DownloadIcon, NoOfClassIcon, NoOfAssignmntIcon } from '../../assets/icon'
 import {
     GetSubmissionData,
     GetQna,
@@ -33,14 +35,11 @@ import { formatDate } from '../../utils/RegExp';
 
 const tabMenu = [
     {
-        label: 'Submission History',
+        label: 'Submission',
     },
     {
         label: 'Q&A',
-    },
-    {
-        label: 'Feedback',
-    },
+    }
 ]
 
 const MyAssignmentDetails = ({
@@ -89,7 +88,7 @@ const MyAssignmentDetails = ({
             active: false,
         },
         {
-            name: 'My assignments details',
+            name: 'Submission details',
             link: '',
             active: true,
         },
@@ -99,19 +98,19 @@ const MyAssignmentDetails = ({
     const details = [
         {
             label: 'Class Name',
-            name: <EllipsisText value={ headerData?.subject } charLength={ 18 } />,
+            name: <EllipsisText value={headerData?.subject} charLength={18} />,
         },
         {
             label: 'Assignment Name',
-            name: <EllipsisText value={ headerData?.assignmentName } charLength={ 18 } />,
+            name: <EllipsisText value={headerData?.assignmentName} charLength={18} />,
         },
         {
             label: 'Instructor Name',
-            name: <EllipsisText value={ headerData?.instructorName } charLength={ 18 } />,
+            name: <EllipsisText value={headerData?.instructorName} charLength={18} />,
         },
         {
             label: 'Status',
-            name: <StatusDot color={ headerData?.status === 'active' ? '#38BE62' : '#E9596F' } title={ headerData?.status } />,
+            name: <StatusDot color={headerData?.status === 'active' ? '#38BE62' : '#E9596F'} title={headerData?.status} />,
         },
         {
             label: 'Create Date',
@@ -137,12 +136,6 @@ const MyAssignmentDetails = ({
     }
 
     const handleSend = (e, ans1, ans2, ans3, ans4, ans5) => {
-        /*
-        // To simply the data code
-        // const data = qnaData.map((item, index) => {
-        //     return `a${index + 1} : ${item[index].answer === null ? ans1 : item[index].answer}`
-        // })
-        */
         const data = {
             'a1': qnaData[0].answer === null ? ans1 : qnaData[0].answer,
             'a2': qnaData[1].answer === null ? ans2 : qnaData[1].answer,
@@ -161,55 +154,88 @@ const MyAssignmentDetails = ({
 
     const componentList = [
         <SubmissionHistory
-            submissionData={ submissionData }
-            isLoadingSubmission={ isLoadingSubmission }
-            pageDetails={ pageDetails }
-            handleChange={ handleChange }
+            submissionData={submissionData}
+            isLoadingSubmission={isLoadingSubmission}
+            pageDetails={pageDetails}
+            handleChange={handleChange}
         />,
         <QA
-            GetQna={ GetQna }
-            qnaData={ qnaData }
-            isLoadingQa={ isLoadingQa }
-            isLoadingAns={ isLoadingAns }
-            handleSend={ handleSend }
+            GetQna={GetQna}
+            qnaData={qnaData}
+            isLoadingQa={isLoadingQa}
+            isLoadingAns={isLoadingAns}
+            handleSend={handleSend}
         />,
-        <Feedback
-            GetFeedback={ GetFeedback }
-            feedbackData={ feedbackData }
-            isLoadingFeedback={ isLoadingFeedback }
-        />
+        // <Feedback
+        //     GetFeedback={GetFeedback}
+        //     feedbackData={feedbackData}
+        //     isLoadingFeedback={isLoadingFeedback}
+        // />
     ];
 
     return (
         <React.Fragment>
-            <BreadCrumb item={ StudentBreadCrumb } />
-            <CardView>
-                <Grid container spacing={ 1 }>
-                    {details.map((item, index) => (
-                        <>
-                            <Grid md={ 1.7 } xs={ 12 } sx={ { ml: 2.5 } }>
-                                <EllipsisText value={ item.label } charLength={10} />
-                                { isLoadingHeader ? <Skeleton /> :
-                                    <SubTitle title={ item.name } />
-                                }
-                            </Grid> 
-                            <Divider orientation="vertical" flexItem>
-                            </Divider>
-                        </>
-                    )) }
-                    <Tooltip title="Download csv">
-                        <IconButton
-                            sx={ { ml: 2, p: 1 } }
-                            color="primary"
-                            aria-label="download-file"
-                            size="large"
-                            onClick={ handleDownload }>
-                            { isLoadingDownload ? <Skeleton sx={ { mt: 1 } } width={ 20 } /> : <DownloadFileIcon /> }
-                        </IconButton>
-                    </Tooltip>
+            <Grid container>
+                <Grid item md={10} xs={12}>
+                    <BreadCrumb item={StudentBreadCrumb} />
                 </Grid>
+                <Grid item md={1} xs={6} sx={{marginTop:'15px'}}>
+                    <div>
+                        <StatusDot color={headerData?.status === 'active' ? '#38BE62' : '#E9596F'} title={headerData?.status} />
+                    </div>  
+                </Grid>
+                <Grid item md={1} xs={6}>
+                    <Grid container>
+                        <Tooltip arrow title="Download csv">
+                            <IconButton
+                                sx={{ ml: 2, p: 1 }}
+                                color="primary"
+                                aria-label="download-file"
+                                size="large"
+                                onClick={handleDownload}>
+                                {isLoadingDownload ? <Skeleton width={50} /> : <DownloadIcon />}
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={3} xs={12}>
+                        <WidgetCard
+                            title='Class name'
+                            count={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.subject} charLength={18} />}
+                            icon={<NoOfClassIcon />}
+                        />
+                    </Grid>
+                    <Grid item md={3} xs={12}>
+                        <WidgetCard
+                            title='Assignment name'
+                            count={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.assignmentName} charLength={18} />}
+                            icon={<NoOfAssignmntIcon />}
+                        />
+                    </Grid>
+                    <Grid item md={3} xs={12}>
+                        <WidgetCard
+                            title='Instructor name'
+                            count={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.instructorName} charLength={18} />}
+                            icon={<NoOfClassIcon />}
+                        />
+                    </Grid>
+                    <Grid item md={3} xs={12}>
+                        <WidgetCard
+                            title='Date'
+                            count={isLoadingHeader ? <Skeleton /> : <EllipsisText value={formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate)} charLength={18} />}
+                            icon={<NoOfClassIcon />}
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
+
+            <div style={{ margin: '15px 0px' }}></div>
+            <CardView>
+                <TabMenu menuButton={tabMenu} components={componentList} />
             </CardView>
-            <TabMenu menuButton={tabMenu} components={componentList} />
         </React.Fragment>
     )
 }

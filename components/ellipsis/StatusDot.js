@@ -1,27 +1,26 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
+import styled from 'styled-components';
 import { StatusDotIcon } from '../../assets/icon';
 import { SubTitle } from '../../components';
 
-const useStyles = makeStyles((theme) => ({
-    subTitle:{
-        marginTop: '-8px', 
-        marginLeft: '8px'
-    },
-    inline:{
-        display:'flex'
-    }
-}));
+const InlineAlign = styled.div`
+    display:flex
+`;
+
+const SubTitleStyle = styled.div`
+    margin-top: -8px; 
+    margin-left: 8px;
+    text-transform: capitalize;
+`;
 
 const StatusDot = ({
     color,
     title
 }) => {
-    const classes = useStyles();
     return (
-        <div className={classes.inline}>
-            <StatusDotIcon color={color} /> <div className={classes.subTitle}><SubTitle title={title} /></div>
-        </div>
+        <InlineAlign>
+            <StatusDotIcon color={color} /> <SubTitleStyle><SubTitle title={title} /></SubTitleStyle>
+        </InlineAlign>
     )
 }
 
