@@ -55,22 +55,17 @@ const Input = styled('input')({
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/instructor/dashboard',
+        link: '/admin/dashboard',
         active: false,
     },
     {
-        name: 'My classes',
-        link: '/instructor/myclasses',
+        name: 'Instructors',
+        link: '/admin/instructor',
         active: false,
     },
     {
-        name: 'My assignments',
-        link: '/instructor/my-assignment',
-        active: false,
-    },
-    {
-        name: 'Add multiple student',
-        link: '/instructor/my-assignment/addBulkStudent',
+        name: 'Add Multiple Instructor',
+        link: '/admin/addBulkInstructor',
         active: true,
     },
 ];
@@ -79,7 +74,7 @@ const AddBulkInstructor = ({
     DownloadTemplate,
     UploadFile,
     isLoadingTemplate,
-    isLoadingStudentFileUpload,
+    isLoadingInstructorFileUpload,
     fileUploadData
 }) => {
     const router = useRouter();
@@ -88,7 +83,7 @@ const AddBulkInstructor = ({
     const [showError, setShowError] = useState(false);
 
     const handleDownload = () => {
-        DownloadTemplate(router?.query?.classId);
+        DownloadTemplate();
     }
 
     const handleSubmit = () => {
@@ -96,7 +91,7 @@ const AddBulkInstructor = ({
             setShowError(false);
             let bodyFormData = new FormData();
             bodyFormData.append('file', fileData);
-            UploadFile(router?.query?.classId, bodyFormData);
+            UploadFile(bodyFormData);
         } else {
             setShowError(true);
         }
@@ -110,13 +105,13 @@ const AddBulkInstructor = ({
 
     const handleBack = (e) => {
         e.preventDefault();
-        router.push('/instructor/my-assignment?clasId=' + router?.query?.classId);
+        router.push('/admin/instructor');
     }
 
     useEffect(() => {
         if (fileUploadData?.status === 200) {
             setFileData('');
-            router.push('/instructor/my-assignment?clasId=' + router?.query?.classId);
+            router.push('/admin/instructor');
         }
     }, [fileUploadData && fileUploadData !== '']);
 
@@ -135,14 +130,14 @@ const AddBulkInstructor = ({
                     <Grid item md={12} xs={12}>
                         <CardView>
                             <Tooltip title="Back" arrow>
-                                <IconButton onClick={handleBack} size="large">
+                                <IconButton onClick={ handleBack } size="large">
                                     <ArrowBackOutlinedIcon />
                                 </IconButton>
                             </Tooltip>
-                            <div style={{ padding: '25px 150px' }}>
+                            <div style={ { padding: '0px 150px' } }> 
                                 <Grid container spacing={1}>
                                     <Grid item md={6} xs={6}>
-                                        <MainHeading title='Add Student' />
+                                        <MainHeading title='Add Multiple Instructor' />
                                     </Grid>
                                     <Grid item md={6} xs={6} align="right">
                                         <Button
@@ -150,7 +145,7 @@ const AddBulkInstructor = ({
                                             variant="contained"
                                             size="large"
                                             startIcon={!isLoadingTemplate && <DownBorderArrowIcon />}>
-                                            {isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template list'}
+                                            { isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template' }
                                         </Button>
                                     </Grid>
 
@@ -178,7 +173,7 @@ const AddBulkInstructor = ({
                                         <Grid item md={4} xs={4}></Grid>
                                         <Grid item md={4} xs={4} style={{ marginTop: '15px', textAlign: 'center' }}>
                                             <Button onClick={handleSubmit} variant="contained" size="large">
-                                                {isLoadingStudentFileUpload ? <BeatLoader color="#fff" /> : 'Add Student'}
+                                                { isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit' }
                                             </Button>
                                         </Grid>
                                         <Grid item md={4} xs={4}></Grid>
@@ -196,17 +191,15 @@ const AddBulkInstructor = ({
 
 
 const mapStateToProps = (state) => ({
-    studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
-    pageDetails: state?.instructorClasses?.studentData?.page,
-    isLoadingTemplate: state?.instructorClasses?.isLoadingTemplate,
-    isLoadingStudentFileUpload: state?.instructorClasses?.isLoadingStudentFileUpload,
-    fileUploadData: state?.instructorClasses?.fileUploadData,
+    isLoadingTemplate: state?.detailsData?.isLoadingTemplate,
+    isLoadingInstructorFileUpload: state?.detailsData?.isLoading,
+    fileUploadData: state?.detailsData?.fileUploadData,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        DownloadTemplate: (ClasId) => dispatch(DownloadTemplate(ClasId)),
-        UploadFile: (ClasId, data) => dispatch(UploadFile(ClasId, data)),
+        DownloadTemplate: () => dispatch(DownloadTemplate()),
+        UploadFile: (data) => dispatch(UploadFile(data)),
     };
 };
 
@@ -215,10 +208,8 @@ AddBulkInstructor.layout = Instructor;
 AddBulkInstructor.propTypes = {
     DownloadTemplate: propTypes.func.isRequired,
     UploadFile: propTypes.func.isRequired,
-    studentData: propTypes.object,
-    pageDetails: propTypes.object,
     isLoadingTemplate: propTypes.bool,
-    isLoadingStudentFileUpload: propTypes.bool,
+    isLoadingInstructorFileUpload: propTypes.bool,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddBulkInstructor);
