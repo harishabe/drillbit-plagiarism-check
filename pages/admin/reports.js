@@ -48,7 +48,7 @@ const Reports = ({
                     <Grid item md={6} xs={12}>
                         <WidgetCard
                             isClickAble={true}
-                            title={`Instructors list` +' '+ '(' + reportsData?.no_of_instructors + ')'}
+                            title={ `Instructors list (${(reportsData?.no_of_instructors !== undefined ? reportsData?.no_of_instructors : 0)})` }
                             toolTipTxt='Download instructors'
                             handleDownload={handDownload}
                             isLoading={isLoading}
@@ -58,7 +58,7 @@ const Reports = ({
                     </Grid>
                     <Grid item md={6} xs={12}>
                         <WidgetCard
-                            title={`Students list` +' '+ '(' + reportsData?.no_of_students + ')'}
+                            title={ `Students list (${(reportsData?.no_of_students !== undefined ? reportsData?.no_of_students : 0)})` }
                             toolTipTxt='Download students'
                             isClickAble={true}
                             handleDownload={handDownload}
