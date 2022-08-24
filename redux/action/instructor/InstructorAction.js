@@ -280,3 +280,12 @@ export const RepoUpload = (data) => {
         type: types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_START, query: data
     };
 };
+
+/**
+ * Remove repositary
+ */
+export const RemoveRepositary = (id) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_START, id: id
+    };
+};

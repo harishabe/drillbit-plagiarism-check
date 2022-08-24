@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from "next/router";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import styled from 'styled-components';
@@ -67,6 +68,8 @@ const Dashboard = ({
     isLoading
 }) => {
 
+    const router = useRouter();
+
     const [recentSubmission, setRecentSubmission] = useState([]);
 
     useEffect(() => {
@@ -81,13 +84,17 @@ const Dashboard = ({
         setItemLocalStorage('name', instructorDashboardData?.data?.userProfileLite?.name);
     }, [instructorDashboardData]);
 
+    const handlePage = (e, item) => {
+        router.push({ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: item?.class_id, assId: item?.ass_id } })
+    }
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 4 } xs={ 12 }>
                         <WidgetCard
-                            title='No of classes'
+                            title='Classes'
                             isLoading={ isLoading }
                             count={ isLoading ? '' : instructorDashboardData?.data?.no_of_classes }
                             icon={ <NoOfClassIcon /> }
@@ -95,7 +102,7 @@ const Dashboard = ({
                     </Grid>
                     <Grid item md={ 4 } xs={ 12 }>
                         <WidgetCard
-                            title='No of assignments'
+                            title='Assignments'
                             isLoading={ isLoading }
                             count={ isLoading ? '' : instructorDashboardData?.data?.no_of_assignments }
                             icon={ <NoOfAssignmntIcon /> }
@@ -103,7 +110,7 @@ const Dashboard = ({
                     </Grid>
                     <Grid item md={ 4 } xs={ 12 }>
                         <WidgetCard
-                            title='No of submissions'
+                            title='Submissions'
                             isLoading={ isLoading }
                             count={ isLoading ? '' : instructorDashboardData?.data?.no_of_submissions }
                             icon={ <NoOfSubmission /> }
@@ -168,7 +175,10 @@ const Dashboard = ({
                                 </> :
                                 <>
                                     { instructorDashboardData?.data?.recent_submissions?.length > 0 ?
-                                        <RecentSubmissions recentSubmission={ instructorDashboardData?.data?.recent_submissions } />
+                                        <RecentSubmissions
+                                            recentSubmission={ instructorDashboardData?.data?.recent_submissions }
+                                            handlePage={ handlePage }
+                                        />
                                         : <ErrorBlock message={ DASHBOARD_RECENT_SUBMISSION_NOT_FOUND } />
                                     }
 
@@ -209,13 +219,17 @@ const Dashboard = ({
                     <Grid item md={ 4 } xs={ 12 }>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 9 } xs={ 12 }>
+                                <Grid item md={ 7 } xs={ 12 }>
                                     <Heading title='Trend Analysis' />
                                 </Grid>
-                                <Grid item md={ 3 } xs={ 12 }>
-                                    <TextAlignRight>
-                                        <Heading title={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed } />
-                                    </TextAlignRight>
+                                <Grid item md={ 5 } xs={ 12 }>
+                                    {
+                                        isLoading ?
+                                            <Skeleton /> :
+                                            <TextAlignRight>
+                                                <SubTitle title={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } />
+                                            </TextAlignRight>
+                                    }
                                 </Grid>
                             </Grid>
                             { isLoading ?

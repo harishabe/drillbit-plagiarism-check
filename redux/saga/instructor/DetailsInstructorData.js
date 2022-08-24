@@ -9,6 +9,7 @@ import {
     GetMyFoldersDetail,
     GetRepoDetail,
     RepoUploadDetail,
+    RemoveRepositaryData,
     CreateClassData,
     CreateFolderData,
     CreateStudentData,
@@ -552,4 +553,30 @@ export function* onLoadUploadFile(action) {
 
 export function* RepoUploadData() {
     yield takeLatest(types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_START, onLoadUploadFile);
+}
+
+/**
+ * Remove repositary
+ * @param {*} action
+ */
+
+export function* onLoadRemoveRepositary(action) {
+    const { response, error } = yield call(RemoveRepositaryData, action.id);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_SUCCESS, payload: response?.data });
+        yield put({
+            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue
+        });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* RemoveRepositaryInstructorDetails() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_START, onLoadRemoveRepositary);
 }

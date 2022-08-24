@@ -57,15 +57,6 @@ import {
     TREND_ANALYSIS_NOT_FOUND
 } from '../../constant/data/ErrorMessage';
 
-const InLineText = styled.span`
-    display: inline-flex;
-`;
-
-const SubTitleMargin = styled.div`
-    margin-top: 4px;
-    margin-left: 10px;
-`;
-
 const TextAlignRight = styled.div`
     text-align: right;
     margin-top: 5px;
@@ -270,12 +261,22 @@ const Dashboard = ({
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <CardView>
-                            <InLineText>
-                                <Heading title='Account Validity' />
-                                <SubTitleMargin>
-                                    <SubTitle title='(In days)' />
-                                </SubTitleMargin>
-                            </InLineText>
+                            <Grid container>
+                                <Grid item md={ 7 } xs={ 12 }>
+                                    <Heading title='Account Validity' />
+                                </Grid>
+                                <Grid item md={ 5 } xs={ 12 }>
+                                    {
+                                        isLoadingDashboard ?
+                                            <Skeleton /> :
+                                            <TextAlignRight>
+                                                <SubTitle
+                                                    title={ adminDashboardData?.data?.accountTotalDays + '(' + 'In days' + ')' }
+                                                />
+                                            </TextAlignRight>
+                                    }
+                                </Grid>
+                            </Grid>
                             {isLoadingDashboard ?
                                 <Skeleton
                                     variant="circular"

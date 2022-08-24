@@ -60,16 +60,14 @@ const Grading = ({
   return (
     <React.Fragment>
       <CardView>
-        { gradingData?.length > 0 ? 
+
           <CommonTable
             isCheckbox={ true }
             isSorting={ true }
             tableHeader={ columns }
             tableData={ rows }
             isLoading={ isLoading }
-          />
-          : <ErrorBlock message={ GRADING_NOT_FOUND } />
-        }
+        />
 
       </CardView>
     </React.Fragment>

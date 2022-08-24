@@ -86,9 +86,9 @@ const Repository = ({
                 createData(
                     repo.paper_id,
                     repo.name,
-                    repo.email,
+                    repo.mail_id,
                     repo.title,
-                    repo.type,
+                    repo.repository_type,
                     formatDate(repo.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete' }]
                 );

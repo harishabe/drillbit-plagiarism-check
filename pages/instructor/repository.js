@@ -12,11 +12,12 @@ import {
     MainHeading,
     CardView,
     CommonTable,
-    CreateDrawer
+    CreateDrawer,
+    WarningDialog
 } from './../../components';
-import { DeleteIcon } from '../../assets/icon';
+import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
 import Instructor from '../../layouts/Instructor';
-import { GetRepoList } from '../../redux/action/instructor/InstructorAction';
+import { GetRepoList, RemoveRepositary } from '../../redux/action/instructor/InstructorAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 
@@ -41,26 +42,30 @@ const AddButtonBottom = styled.div`
 
 const columns = [
     { id: 'id', label: 'Paper ID' },
-    { id: 'name', label: 'Author Name' },
-    { id: 'email', label: 'Paper Title' },
+    { id: 'name', label: 'Name' },
+    { id: 'email', label: 'Email ID' },
+    { id: 'title', label: 'Title' },
     { id: 'date', label: 'Added Date' },
     { id: 'action', label: 'Actions' },
 ]
 
-function createData(id, name, email, date, action) {
+function createData(id, name, email, title, date, action) {
     return {
-        id, name, email, date, action
+        id, name, email, title, date, action
     }
 }
 
 const Repository = ({
     GetRepoList,
+    RemoveRepositary,
     repoData,
     pageDetails,
     isLoadingRepo
 }) => {
 
     const [rows, setRows] = useState([]);
+    const [deleteRowData, setDeleteRowData] = useState('');
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -80,6 +85,7 @@ const Repository = ({
                 createData(
                     repo.paper_id,
                     repo.name,
+                    repo.mail_id,
                     repo.title,
                     formatDate(repo.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete' }]
@@ -119,6 +125,24 @@ const Repository = ({
 
     /** end debounce concepts */
 
+    const handleAction = (event, icon, rowData) => {
+        if (icon === 'delete') {
+            setDeleteRowData(rowData?.id);
+            setShowDeleteWarning(true);
+        }
+    }
+
+    const handleCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
+
+    const handleYesWarning = () => {
+        RemoveRepositary(deleteRowData);
+        setTimeout(() => {
+            setShowDeleteWarning(false);
+        }, [100]);
+    };
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -145,6 +169,17 @@ const Repository = ({
                     />
                 </Grid>
             </Grid>
+            {
+                showDeleteWarning &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message="Are you sure you want to delete ?"
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
+                />
+            }
+
             <AddButtonBottom>
                 <CreateDrawer
                     isShowAddIcon={true}
@@ -161,6 +196,7 @@ const Repository = ({
                         tableHeader={columns}
                         tableData={rows}
                         charLength={10}
+                        handleAction={ handleAction }
                         isLoading={isLoadingRepo}
                         path=''
                     />
@@ -189,6 +225,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetRepoList: (PaginationValue) => dispatch(GetRepoList(PaginationValue)),
+        RemoveRepositary: (id) => dispatch(RemoveRepositary(id)),
     };
 };
 
