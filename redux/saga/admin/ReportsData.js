@@ -69,11 +69,13 @@ export function* onLoadViewDownload(action) {
             type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_SUCCESS,
             payload: response?.data,
         });
+        toastrValidation(response);
     } else {
         yield put({
             type: types.FETCH_ADMIN_REPORTS_VIEW_DOWNLOAD_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 

@@ -1,6 +1,6 @@
 import END_POINTS from '../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
-import { GetMethod, PostMethod, PostFormData } from './../ApiMethod';
+import { BASE_URL_EXTREM, BASE_URL_INTEGRATION } from '../../../utils/BaseUrl';
+import { GetMethod, PutMethod, PostMethod, PostFormData } from './../ApiMethod';
 
 /**
  * API CALL FOR PROFILE DATA
@@ -25,6 +25,6 @@ export const UploadLogo = async (query) => {
  */
 
 export const ChangePassword = async () => {
-    const url = BASE_URL_EXTREM + END_POINTS.PROFILE_CHANGE_PASSWORD;
-    return PostMethod(url);
+    const url = BASE_URL_INTEGRATION + END_POINTS.PROFILE_CHANGE_PASSWORD;
+    return PutMethod(url);
 };
