@@ -76,18 +76,18 @@ const AssignmentForms = ({
     const [publication, setPublication] = React.useState(false);
     const [internet, setInternet] = React.useState(false);
     const [repository, setRepository] = React.useState(false);
-    const [questionList, setQuestionList] = React.useState([{
-        "question": ""
-    }]);
-    const [phrasesList, setPhrasesList] = React.useState([{
-        "phrases": ""
-    }]);
+    const [phrasesData, setPhrasesData] = React.useState('');
+    const [questionData, setQuestionData] = React.useState('');
+    const [questionList, setQuestionList] = React.useState([]);
+    const [phrasesList, setPhrasesList] = React.useState([]);
 
 
     const { register, control, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
         console.log('datadatadata', data);
+        console.log('questionList', questionList);
+        console.log('phrasesList', phrasesList);
         let bodyFormData = new FormData();
         if (showSetting) {
             bodyFormData.append('assignment_name', data.assignment_name);
@@ -108,8 +108,14 @@ const AssignmentForms = ({
             bodyFormData.append('grammar_check', grammarCheck ? 'Yes' : 'No');
             bodyFormData.append('choice_of_email_notifications', choiceEmailNotification ? 'Yes' : 'No');
             bodyFormData.append('add_questions', addQuestion ? 'Yes' : 'No');
+            if (addQuestion) {
+                bodyFormData.append('questions', questionList);
+            }
             bodyFormData.append('exclude_phrases', excludePhrases ? 'Yes' : 'No');
-            bodyFormData.append('repository_scope', data?.repository_scope);
+            if (excludePhrases) {
+                bodyFormData.append('phrases', phrasesList);
+            }
+            bodyFormData.append('repository_scope', data?.repository_scope?.name);
             bodyFormData.append('report_access', reportAccess ? 'Yes' : 'No');
             bodyFormData.append('db_studentpaper', studentPaper ? 'Yes' : 'No');
             bodyFormData.append('db_publications', publication ? 'Yes' : 'No');
@@ -239,8 +245,10 @@ const AssignmentForms = ({
     }
 
     const handleMoreAddQuestion = (e) => {
-        e.preventDefault();
-        setQuestionList([...questionList, { question: "" }]);
+        console.log('questionData', questionData);
+        let r = [...questionList];
+        r.push(questionData);
+        setQuestionList(r);
     }
 
     const handleAddQuestionRemove = (e, index) => {
@@ -252,7 +260,9 @@ const AssignmentForms = ({
 
     const handlePhrases = (e) => {
         e.preventDefault();
-        setPhrasesList([...phrasesList, { phrases: "" }]);
+        let r = [...phrasesList];
+        r.push(phrasesData);
+        setPhrasesList(r);
     }
 
     const handleRemovePhrases = (e, index) => {
@@ -634,37 +644,26 @@ const AssignmentForms = ({
                             </Grid>
 
                             {addQuestion === 'yes' &&
-                                questionList?.map((item, index) => (
+                                <div>
                                     <>
-                                        <Grid container spacing={2}>
+                                        <Grid container spacing={2} sx={{marginBottom:'15px'}}>
                                             <Grid item md={9}>
-                                                <InputTextField
-                                                    control={control}
-                                                    field={{
-                                                        "field_type": "input",
-                                                        "id": "question",
-                                                        "value": item?.questionList,
-                                                        "name": "question" + index,
-                                                        "size": 'small',
-                                                        "label": "Enter question " + (index + 1),
-                                                        "required": "Enter question"
-                                                    }}
+                                                <TextField
+                                                    id="q"
+                                                    label={"Enter question 1"}
+                                                    size="small"
+                                                    name={"q1"}
+                                                    onChange={(e) => setQuestionData(e.target.value)}
                                                 />
                                             </Grid>
                                             <Grid item md={2}>
-                                                {questionList.length !== 1 &&
                                                     <Button
-                                                        sx={{ marginTop: '35px' }}
                                                         variant="contained"
                                                         onClick={(e) => handleAddQuestionRemove(e, index)}
                                                     >
                                                         Remove
-                                                    </Button>}
-                                            </Grid>
-                                        </Grid>
-                                        <Grid container spacing={2}>
-                                            <Grid item md={12}>
-                                                {questionList.length - 1 === index && <Button
+                                                    </Button>
+                                                {questionList?.length === 0 && <Button
                                                     sx={{ marginTop: '14px' }}
                                                     variant="contained"
                                                     onClick={handleMoreAddQuestion}
@@ -674,7 +673,53 @@ const AssignmentForms = ({
                                             </Grid>
                                         </Grid>
                                     </>
-                                ))
+                                    {questionList?.map((item, index) => (
+                                        <>
+                                            <Grid container spacing={2} sx={{marginBottom:'15px'}}>
+                                                <Grid item md={9}>
+                                                    <TextField
+                                                        id="q"
+                                                        size="small"
+                                                        label={"Enter question " + (index + 2)}
+                                                        name={"q" + index + 1}
+                                                        onChange={(e) => setQuestionData(e.target.value)}
+                                                    />
+                                                    {/* <InputTextField
+                                                    control={control}
+                                                    field={{
+                                                        "field_type": "input",
+                                                        "id": "q",
+                                                        "name": "q" + index,
+                                                        "size": 'small',
+                                                        "label": "Enter question " + (index + 1),
+                                                        "required": "Enter question"
+                                                    }}
+                                                /> */}
+                                                </Grid>
+                                                <Grid item md={2}>
+                                                    {questionList.length !== 1 &&
+                                                        <Button
+                                                            variant="contained"
+                                                            onClick={(e) => handleAddQuestionRemove(e, index)}
+                                                        >
+                                                            Remove
+                                                        </Button>}
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container spacing={2}>
+                                                <Grid item md={12}>
+                                                    {questionList.length - 1 === index && <Button
+                                                        sx={{ marginTop: '14px' }}
+                                                        variant="contained"
+                                                        onClick={handleMoreAddQuestion}
+                                                    >
+                                                        Add Questions
+                                                    </Button>}
+                                                </Grid>
+                                            </Grid>
+                                        </>
+                                    ))}
+                                </div>
                             }
                         </div>
 
@@ -702,18 +747,23 @@ const AssignmentForms = ({
                                     <>
                                         <Grid container spacing={2}>
                                             <Grid item md={9}>
-                                                <InputTextField
+                                                <TextField
+                                                    id="p"
+                                                    label={"Enter phrases " + (index + 1)}
+                                                    name={"p" + index}
+                                                    onChange={(e) => setPhrasesData(e.target.value)}
+                                                />
+                                                {/* <InputTextField
                                                     control={control}
                                                     field={{
                                                         "field_type": "input",
-                                                        "id": "phrases",
-                                                        "value": item?.phrases,
-                                                        "name": "phrases" + index,
+                                                        "id": "p",
+                                                        "name": "p" + index,
                                                         "size": 'small',
                                                         "label": "Enter phrases " + (index + 1),
                                                         "required": "Enter phrases"
                                                     }}
-                                                />
+                                                /> */}
                                             </Grid>
                                             <Grid item md={2}>
                                                 {phrasesList.length !== 1 &&
