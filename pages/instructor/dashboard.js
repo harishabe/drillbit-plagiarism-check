@@ -194,7 +194,7 @@ const Dashboard = ({
                         <CardView
                         // height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }
                         >
-                            <Heading title='Submission Overview' />
+                            <Heading title='Submissions Overview' />
                             { isLoading ? <Skeleton /> :
                                 recentSubmission?.length && instructorDashboardData?.data?.no_of_submissions > 0 ? <ColumnChart
                                     type={ COLUMN_ADMIN_CHART_TYPE }

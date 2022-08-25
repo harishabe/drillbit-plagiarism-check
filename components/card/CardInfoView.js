@@ -75,6 +75,7 @@ const CardInfoView = ({
     handleClick,
     handleDelete,
     handleConfig,
+    handleDownload,
     checked
 }) => {
     const router = useRouter();
@@ -109,7 +110,9 @@ const CardInfoView = ({
                 <CardContent>
                     {isDownload &&
                         <AlignRight>
-                            <DownloadFileIcon />
+                            <IconButton onClick={ (e) => handleDownload(e, item) }>
+                                <DownloadFileIcon />
+                            </IconButton>
                         </AlignRight>}
                     <Grid container spacing={2}>
                         <Grid item xs={10}>
