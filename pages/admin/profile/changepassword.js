@@ -9,7 +9,8 @@ import FormJson from '../../../constant/form/change-password-form.json';
 import { ProfileChangePassword } from '../../../redux/action/profile/ProfileAction';
 
 const ChangePassword = ({
-    ProfileChangePassword
+    ProfileChangePassword,
+    isLoading
 }) => {
     
     const router = useRouter();
@@ -35,6 +36,7 @@ const ChangePassword = ({
                                         key={i}
                                         field={field}
                                         control={control}
+                                        isLoading={ isLoading }
                                     />
                                 </Grid>)
                         }
@@ -45,6 +47,10 @@ const ChangePassword = ({
     )
 }
 
+const mapStateToProps = (state) => ({
+    isLoading: state?.profile?.isLoading,
+});
+
 const mapDispatchToProps = (dispatch) => {
     return {
         ProfileChangePassword: (data) => dispatch(ProfileChangePassword(data)),
@@ -54,4 +60,4 @@ const mapDispatchToProps = (dispatch) => {
 
 ChangePassword.layout = Admin
 
-export default connect(null, mapDispatchToProps)(ChangePassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);
