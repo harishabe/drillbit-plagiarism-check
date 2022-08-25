@@ -8,6 +8,7 @@ import Draggable from 'react-draggable';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Heading from '../typography/heading';
+import { Tooltip } from '@mui/material';
 
 function PaperComponent(props) {
     return (
@@ -41,17 +42,19 @@ const DialogModal = ({
             >
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
                     <Heading title={headingTitle} />
-                    <IconButton
-                        aria-label="close"
-                        onClick={handleClose}
-                        sx={{
-                            position: 'absolute',
-                            right: 8,
-                            top: 8,
-                        }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
+                    <Tooltip title="close" arrow>
+                        <IconButton
+                            aria-label="close"
+                            onClick={handleClose}
+                            sx={{
+                                position: 'absolute',
+                                right: 8,
+                                top: 8,
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Tooltip>
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>

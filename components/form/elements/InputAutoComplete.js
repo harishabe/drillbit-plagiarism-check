@@ -1,9 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import { makeStyles } from '@mui/styles';
+import InputLabel from '@mui/material/InputLabel';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+
+
+export const LabelContainer = styled.div`
+    font-size: 14px,
+    font-weight:400,
+    line-height:24px,
+    font-style:normal,
+    color:#000
+`;
 
 const StyledAutocompleteField = styled(Autocomplete)(() => ({
     ':hover': {
@@ -12,11 +23,24 @@ const StyledAutocompleteField = styled(Autocomplete)(() => ({
     },
 }));
 
+const useStyles = makeStyles((theme) => ({
+    helperText: {
+        marginLeft: 0,
+        color:'#ff0000'
+    }
+}))
+
 const InputAutoComplete = ({
     field, control, renderOption, options
 }) => {
+    const classes = useStyles();
     return (
         <>
+            <LabelContainer>
+                <InputLabel >
+                    {field.label}
+                </InputLabel>
+            </LabelContainer>
             <Controller
                 name={field.name}
                 control={control}
@@ -29,15 +53,24 @@ const InputAutoComplete = ({
                         options={field.options}
                         getOptionLabel={(option) => (option.name)}
                         renderOption={renderOption}
-                        renderInput={(params) => <TextField {...params}
+                        renderInput={(params) => <TextField 
+                            {...params}
                             name={field.name}
                             id={field.name}
-                            label={field.label}
-                            margin="normal" />}
+                            margin="normal"
+                            error={!!error}
+                            helperText={error && error.message}
+                            FormHelperTextProps={{
+                                className: classes.helperText
+                            }}
+                        />}
                         onChange={(e, data) => onChange(data)}
                         {...props}
                     />
                 )}
+                rules={{
+                    required: field.required
+                }}
                 onChange={([, data]) => data}
             />
         </>

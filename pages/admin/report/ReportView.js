@@ -166,7 +166,7 @@ const ReportView = ({
                             reportName === 'assignments' &&
                             <>
                                 {isLoadingDownload ? <Skeleton /> :
-                                    <Tooltip title="Download csv">
+                                    <Tooltip title="Download Assignments" arrow>
                                         <IconButton sx={{
                                             position: 'fixed',
                                             padding: '20px',
@@ -195,7 +195,7 @@ const ReportView = ({
                             reportName === 'classes' &&
                             <>
                                 {isLoadingDownload ? <Skeleton /> :
-                                    <Tooltip title="Download csv">
+                                    <Tooltip title="Download classes" arrow>
                                         <IconButton sx={{
                                             position: 'fixed',
                                             padding: '20px',
@@ -223,7 +223,7 @@ const ReportView = ({
                         {
                             reportName === 'submissions' &&
                             <>
-                                <Tooltip title="Download csv">
+                                <Tooltip title="Download submissions" arrow>
                                     <IconButton sx={{
                                         position: 'fixed',
                                         padding: '20px',
