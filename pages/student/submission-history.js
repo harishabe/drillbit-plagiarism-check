@@ -62,29 +62,25 @@ const SubmissionHistory = ({
         <>
             { isLoadingSubmission ? <Skeleton /> :
                 <>
-                    { submissionData?.length > 0 ? 
-                        <CommonTable
-                            isCheckbox={ false }
-                            isSorting={ true }
-                            tableHeader={ columns }
-                            tableData={ rows }
-                        />
-                        : <ErrorBlock message={ SUBMISSION_NOT_FOUND } />
-                    }
+                    <CommonTable
+                        isCheckbox={ false }
+                        isSorting={ true }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                    />
                 </>
             }
 
-            { pageDetails?.totalPages > 1 &&
-                <div style={ { marginLeft: '40%', marginTop: '25px' } }>
-                    <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handleChange }
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
-            } 
+            <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    onChange={ handleChange }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </div>
+
             <AddButtonBottom>
                 <CreateDrawer
                     title="New Submission"

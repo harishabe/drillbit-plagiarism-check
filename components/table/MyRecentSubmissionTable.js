@@ -21,7 +21,7 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                 <TableHead>
                     <TableRow>
                         <TableCell colSpan="2">
-                            <SubTitle1 title="My assignments" />
+                            <SubTitle1 title="Assignments" />
                         </TableCell>
                         <TableCell>
                             <SubTitle1 title="Marks" />

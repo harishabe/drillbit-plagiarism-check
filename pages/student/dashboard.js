@@ -109,37 +109,37 @@ const Dashboard = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={4} xs={12}>
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 4 } xs={ 12 }>
                         <WidgetCard
-                            title='No of classes'
+                            title='Classes'
                             isLoading={ isLoadingDashboard }
                             count={ studentDashboardData?.no_of_classes }
-                            icon={<NoOfClassIcon />}
+                            icon={ <NoOfClassIcon /> }
                         />
                     </Grid>
-                    <Grid item md={4} xs={12}>
+                    <Grid item md={ 4 } xs={ 12 }>
                         <WidgetCard
-                            title='No of assignments'
+                            title='Assignments'
                             isLoading={ isLoadingDashboard }
                             count={ studentDashboardData?.no_of_assignments }
-                            icon={<NoOfAssignmntIcon />}
+                            icon={ <NoOfAssignmntIcon /> }
                         />
                     </Grid>
-                    <Grid item md={4} xs={12}>
+                    <Grid item md={ 4 } xs={ 12 }>
                         <WidgetCard
-                            title='No of submissions'
+                            title='Submissions'
                             isLoading={ isLoadingDashboard }
                             count={ studentDashboardData?.no_of_submissions }
-                            icon={<NoOfSubmission />}
+                            icon={ <NoOfSubmission /> }
                         />
                     </Grid>
                 </Grid>
             </Box>
-            <Box mt={1} sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={12} xs={12}>
+            <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 12 } xs={ 12 }>
                         <CardView>
                             <Heading title='My Recent submissions' />
                             { isLoadingDashboard ? <Skeleton /> :
@@ -156,11 +156,11 @@ const Dashboard = ({
                     </Grid>
                 </Grid>
             </Box>
-            <Box mt={1} sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={8} xs={12}>
+            <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 8 } xs={ 12 }>
                         <CardView>
-                            <Heading title='Submission Overview' />
+                            <Heading title='Submissions Overview' />
                             { isLoadingDashboard ? <Skeleton /> :
                                 submissionOverview?.length && studentDashboardData?.no_of_submissions > 0 ? <ColumnChart
                                     type={ COLUMN_ADMIN_CHART_TYPE }
@@ -181,19 +181,19 @@ const Dashboard = ({
                             }
                         </CardView>
                     </Grid>
-                    <Grid item md={4} xs={12}>
+                    <Grid item md={ 4 } xs={ 12 }>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 9 } xs={ 12 }>
+                                <Grid item md={ 7 } xs={ 12 }>
                                     <Heading title='Trend Analysis' />
                                 </Grid>
-                                <Grid item md={ 3 } xs={ 12 }>
+                                <Grid item md={ 5 } xs={ 12 }>
                                     {
                                         isLoadingDashboard ?
                                             <Skeleton /> :
                                             <TextAlignRight>
                                                 <SubTitle
-                                                    title={ studentDashboardData?.trendAnalysis?.documentsProcessed }
+                                                    title={ studentDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' }
                                                 />
                                             </TextAlignRight>
                                     }

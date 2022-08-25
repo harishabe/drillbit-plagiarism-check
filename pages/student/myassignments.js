@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { connect } from 'react-redux';
-import { GetAssignmentData } from '../../redux/action/student/StudentAction';
+import { GetAssignmentData, DownloadStudentCsv } from '../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import Pagination from '@mui/material/Pagination';
 import { Skeleton, TextField } from '@mui/material';
@@ -35,6 +35,7 @@ const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'
 
 const MyAssignments = ({
     GetAssignmentData,
+    DownloadStudentCsv,
     assignmentData,
     pageDetails,
     isLoading
@@ -103,6 +104,11 @@ const MyAssignments = ({
 
     /** end debounce concepts */
 
+    const handleDownload = (e, item) => {
+        let url = `/${router.query.clasId}/assignments/${item.id}/downloadHistory`;
+        DownloadStudentCsv(url)
+    }
+
     return (
         <React.Fragment>
             <BreadCrumb item={StudentBreadCrumb} />
@@ -153,6 +159,7 @@ const MyAssignments = ({
                                         isTimer={true}
                                         isSubmit={true}
                                         isDownload={true}
+                                        handleDownload={ handleDownload }
                                         statusColor={expiryDateBgColor(item.validity)}
                                         submitPath={{ pathname: '/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId } }}
                                     />
@@ -165,7 +172,7 @@ const MyAssignments = ({
                 </>
             }
 
-            {pageDetails?.totalPages > 1 &&
+
                 <div style={{ marginLeft: '45%', marginTop: '25px' }}>
                     <Pagination
                         count={pageDetails?.totalPages}
@@ -175,7 +182,7 @@ const MyAssignments = ({
                         shape="rounded"
                     />
                 </div>
-            }
+
 
         </React.Fragment>
     )
@@ -190,6 +197,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetAssignmentData: (id, PaginationValue) => dispatch(GetAssignmentData(id, PaginationValue)),
+        DownloadStudentCsv: (url) => dispatch(DownloadStudentCsv(url)),
     };
 };
 
