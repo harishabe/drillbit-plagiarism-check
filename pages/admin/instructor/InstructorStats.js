@@ -51,7 +51,7 @@ const InstructorStats = ({
     }, [instructorStats]);
 
     const handleExportCsv = () => {
-        GetExportToCSV(instructorStats?.username);
+        GetExportToCSV(instructorStats?.id);
     };
 
     return (
@@ -143,7 +143,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetStats: (id) => dispatch(GetStats(id)),
-        GetExportToCSV: (emailId) => dispatch(GetExportToCSV(emailId)),
+        GetExportToCSV: (id) => dispatch(GetExportToCSV(id)),
     };
 };
 

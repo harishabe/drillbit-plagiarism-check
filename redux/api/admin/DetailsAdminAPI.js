@@ -98,8 +98,8 @@ export const GetStats = async (id) => {
  * Download (export) csv file
  */
 
-export const GetExportCsvFile = async (emailId) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + emailId;
+export const GetExportCsvFile = async (id) => {
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + id;
     return GetMethodDownload(url, 'Submission_Report.csv');
 };
 

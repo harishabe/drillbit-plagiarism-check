@@ -72,7 +72,7 @@ export const GetStudentListDetail = async (paginationPayload) => {
  */
 
 export const EnrollStudentDetail = async (class_id, data) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_STUDENT_ENROLL_DATA + class_id + '/enrollStudents?email=' + data;
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_STUDENT_ENROLL_DATA + class_id + '/enrollStudents?id=' + data;
     return PostMethod(url, data);
 };
 
