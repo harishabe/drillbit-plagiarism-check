@@ -244,7 +244,7 @@ const Instructor = ({
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
-            if (rowItem?.user_id?.props?.title === row?.user_id?.props?.title) {
+            if (rowItem?.user_id === row?.user_id) {
                 rowItem['isSelected'] = !rowItem['isSelected'];
             }
             return rowItem;
@@ -259,7 +259,7 @@ const Instructor = ({
                 return rows;
             }
         }).map((rowItem) => {
-            rowsId += rowItem?.user_id?.props?.title + ',';
+            rowsId += rowItem?.user_id + ',';
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
