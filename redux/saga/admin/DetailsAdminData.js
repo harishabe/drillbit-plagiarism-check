@@ -77,7 +77,7 @@ export function* GetInstructorStudentStats() {
  */
 
 export function* onLoadCsvReportStats(action) {
-    const { response, error } = yield call(GetExportCsvFile, action.emailId);
+    const { response, error } = yield call(GetExportCsvFile, action.id);
     if (response || response === undefined) {
         yield put({
             type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_SUCCESS,
