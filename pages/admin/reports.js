@@ -25,16 +25,16 @@ const Reports = ({
     reportsData,
     DownloadInstructorStudentData,
     isLoadingDownload,
-    isLoading
+    isLoading,
 }) => {
 
     const [usersType, setUsersType] = useState('');
 
     const handDownload = (e, title) => {
-        if (title === 'Instructors list') {
+        if (title.slice(0, 16) === 'Instructors list') {
             DownloadInstructorStudentData('instructors');
             setUsersType('instructors');
-        } else if (title === 'Student list') {
+        } else if (title.slice(0, 13) === 'Students list') {
             DownloadInstructorStudentData('students');
             setUsersType('students');
         }

@@ -15,8 +15,8 @@ import {
   ErrorBlock,
   WarningDialog
 } from '../../../components';
-import { EditIcon, DeleteIcon, TimerIcon } from '../../../assets/icon';
-import { GetAssignment } from '../../../redux/action/instructor/InstructorAction';
+import { EditIcon, DeleteIcon, TimerIcon, DeleteWarningIcon } from '../../../assets/icon';
+import { GetAssignment, DeleteAssignment } from '../../../redux/action/instructor/InstructorAction';
 import AssignmentForms from './../form/AssignmentForms';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { removeCommaWordEnd } from '../../../utils/RegExp';

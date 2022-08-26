@@ -23,7 +23,7 @@
         "type": "text",
         "id": "studentId",
         "name": "studentId",
-        "label": "Studnet Id",
+        "label": "Student Id",
         "required": "Enter documents"
     },
     {

@@ -14,7 +14,8 @@
         "id": "title",
         "name": "title",
         "label": "Assignment title",
-        "required": "Assignment title"
+        "required": "Assignment title",
+        "disabled":true
     },
     {
         "field_type": "file",
