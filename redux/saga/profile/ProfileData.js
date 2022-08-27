@@ -54,9 +54,10 @@ export function* profileLogoSubmission() {
  */
 
 export function* onLoadChangePassword(action) {
-    const { response, error } = yield call(ChangePassword, action.query);
+    const { response, error } = yield call(ChangePassword, action);
     if (response) {
         yield put({ type: types.FETCH_PROFILE_CHANGE_PASSWORD_SUCCESS, payload: response?.data });
+        toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_PROFILE_CHANGE_PASSWORD_FAIL, payload: error });
         toastrValidation(error);

@@ -12,8 +12,8 @@ export const ProfileLogo = (role, data) => {
     };
 };
 
-export const ProfileChangePassword = (data) => {
+export const ProfileChangePassword = (requestPayload) => {
     return {
-        type: types.FETCH_PROFILE_CHANGE_PASSWORD_START, query: data
+        type: types.FETCH_PROFILE_CHANGE_PASSWORD_START, requestPayload: requestPayload
     };
 };
