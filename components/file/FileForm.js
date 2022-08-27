@@ -92,7 +92,7 @@ const FileForm = ({
                         <Grid container spacing={1} key={item[1]?.name}>
                             <Grid item md={3} xs={12}>
                                 <div style={{ marginTop: '25px' }}>
-                                    <EllipsisText value={item[1]?.name} charLength={22} />
+                                    <EllipsisText value={item[1]?.name || item} charLength={22} />
                                 </div>
                             </Grid>
                             <Grid item md={3} xs={12}>

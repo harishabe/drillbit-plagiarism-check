@@ -26,7 +26,8 @@ export const ChooseLabel = styled('label')({
 });
 
 export const ChipContainer = styled('span')({
-    marginTop: '10px', marginLeft: '10px'
+    marginTop: '10px', 
+    marginLeft: '10px'
 });
 
 export const ContentCenter = styled('div')({

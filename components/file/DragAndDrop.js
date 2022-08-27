@@ -33,15 +33,17 @@ const DragAndDrop = ({
     btnTitle,
     fileIcon,
     choseFileTitle,
-    isUploadFile,
     isGoogleDriveFile,
     isZipFile,
-    SubmissionListUpload
+    SubmissionListUpload,
+    uploadData
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
     const [fileWarning, setFileWarning] = useState(false);
-    const [pickerApiLoaded, setPickerApiLoaded] = useState(false);
+    const [driveFile, setDriveFile] = useState('');
+    const [driveFilePayload, setDriveFilePayload] = useState('');
+    const [driveAuthToken, setDriveAuthToken] = useState('');
     const [openPicker, data, authResponse] = useDrivePicker();
 
     const handleDelete = (e, item) => {
@@ -95,13 +97,6 @@ const DragAndDrop = ({
             filesArr.push(item[1]);
         });
 
-
-        console.log('authorNameArr', authorNameArr);
-        console.log('documentTypeArr', documentTypeArr);
-        console.log('titleArr', titleArr);
-        console.log('filesArrfilesArrfilesArr', filesArr);
-
-
         bodyFormData.append('authorName', authorNameArr);
         bodyFormData.append('title', titleArr);
         bodyFormData.append('documentType', documentTypeArr);
@@ -112,7 +107,6 @@ const DragAndDrop = ({
     const handleUploadZipFile = (e) => {
         e.preventDefault();
         let bodyFormData = new FormData();
-        console.log('fileDatafileData', fileData);
         bodyFormData.append('file', fileData[0][1]);
         SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`, bodyFormData);
     }
@@ -131,10 +125,33 @@ const DragAndDrop = ({
                 if (data.action === 'cancel') {
                     console.log('User clicked cancel/close button')
                 }
-                console.log('callbackFunction', data)
+                if (data && data?.docs?.length > 0) {
+                    setDriveFile(data && data?.docs[0].name);
+                    setDriveFilePayload({
+                        "fileId": data.docs[0].id,
+                        "fileName": data.docs[0].name,
+                        "url": data.docs[0].url,
+                        "mimetype": data.docs[0].mimeType,
+                        "token": driveAuthToken
+                    });
+                }
             },
         });
     };
+
+    useEffect(() => {
+        setDriveAuthToken(data?.access_token)
+    }, [data]);
+
+    const handleGoogleDriveFile = (e) => {
+        e.preventDefault();
+        console.log('driverFile', driveFilePayload);
+        //SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`, driveFilePayload);
+    }
+
+    const handleFilesZipUpload = () => {
+
+    }
 
     return (
         <CardView>
@@ -170,6 +187,14 @@ const DragAndDrop = ({
                                             {choseFileTitle}
                                         </ChooseLabel>
                                     </Link>
+                                    <div>
+                                        {driveFile !== '' &&
+                                            <ChipContainer>
+                                                <Chip
+                                                    label={driveFile}
+                                                />
+                                            </ChipContainer>}
+                                    </div>
                                 </div>}
                             <div>
                                 {(fileData?.length > 0) && fileData?.map((item) => (
@@ -181,8 +206,19 @@ const DragAndDrop = ({
                                     </ChipContainer>
                                 ))}
                             </div>
+
+                            <div style={{ marginTop: '10px' }}>
+                                {isZipFile && uploadData?.fileNames?.map((files) => (
+                                    <ChipContainer key={files}>
+                                        <Chip
+                                            label={files}
+                                        />
+                                    </ChipContainer>
+                                ))}
+                            </div>
                             {fileWarning && <div style={{ color: 'red' }}>{UPLOAD_FILE_MAX_LIMIT}</div>}
                         </DragDropArea>
+
                         {(isZipFile !== true && fileData) && fileData?.length > 0 &&
                             <FileForm
                                 handleSubmitFile={handleSubmit}
@@ -190,19 +226,36 @@ const DragAndDrop = ({
                                 btnTitle={btnTitle}
                             />}
 
-                        {isZipFile &&
-                            <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                        <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                            {(isZipFile && uploadData?.fileNames?.length > 0) ?
+                                ''
+                                :
                                 <Button type="submit" onClick={handleUploadZipFile} variant="contained" size="large">
                                     Process File
                                 </Button>
-                            </div>
-                        }
+                            }
+                        </div>
+                        {(isZipFile && uploadData?.fileNames?.length > 0) &&
+                            <FileForm
+                                handleSubmitFile={handleSubmit}
+                                files={uploadData?.fileNames}
+                                btnTitle={btnTitle}
+                            />}
+                        {(isGoogleDriveFile && driveFile !== '') && <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                            <Button type="submit" onClick={handleGoogleDriveFile} variant="contained" size="large">
+                                Process File
+                            </Button>
+                        </div>}
                     </Grid>
                 </Grid>
             </DragAreaPadding>
-        </CardView>
+        </CardView >
     )
 };
+
+const mapStateToProps = (state) => ({
+    uploadData: state?.instructorMyFolders?.uploadData
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -210,4 +263,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(DragAndDrop);
+export default connect(mapStateToProps, mapDispatchToProps)(DragAndDrop);

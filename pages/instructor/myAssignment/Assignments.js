@@ -15,8 +15,8 @@ import {
   ErrorBlock,
   WarningDialog
 } from '../../../components';
-import { EditIcon, DeleteIcon, TimerIcon } from '../../../assets/icon';
-import { GetAssignment } from '../../../redux/action/instructor/InstructorAction';
+import { EditIcon, DeleteIcon, DeleteWarningIcon, TimerIcon } from '../../../assets/icon';
+import { GetAssignment, DeleteAssignment } from '../../../redux/action/instructor/InstructorAction';
 import AssignmentForms from './../form/AssignmentForms';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
@@ -192,7 +192,7 @@ const Assignments = ({
           isShowAddIcon={false}
           showDrawer={editAssignment}
         >
-            <AssignmentForms
+          <AssignmentForms
             editData={editAssignmentData}
           />
         </CreateDrawer>
@@ -215,20 +215,20 @@ const Assignments = ({
           </IconButton>
         </div>}
 
-        {/* {assignmentData?.length > 0 ? */ }
-          <CommonTable
-            isCheckbox={true}
-            isNextPath={true}
-          isSorting={ true }
-            tableHeader={columns}
-            tableData={rows}
-            handleAction={handleAction}
-            handleTableSort={handleTableSort}
-            handleCheckboxSelect={handleCheckboxSelect}
-            handleSingleSelect={handleSingleSelect}
-            isLoading={isLoadingAssignment}
-            path={{ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } }}
-          />
+        {/* {assignmentData?.length > 0 ? */}
+        <CommonTable
+          isCheckbox={true}
+          isNextPath={true}
+          isSorting={true}
+          tableHeader={columns}
+          tableData={rows}
+          handleAction={handleAction}
+          handleTableSort={handleTableSort}
+          handleCheckboxSelect={handleCheckboxSelect}
+          handleSingleSelect={handleSingleSelect}
+          isLoading={isLoadingAssignment}
+          path={{ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } }}
+        />
         {/* //   : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
         // } */}
 
