@@ -214,11 +214,12 @@ const CardInfoView = ({
 
                 </CardContent>
                 <Divider />
-                <CardActions style={{ padding: '18px' }}>
+                <CardActions style={ { padding: '18px' } }>
                     <Grid container>
                         <Grid item md={9} xs={9}>
                             {isTimer &&
                                 <StatusColor
+                                    style={ { borderRadius: '3px' } }
                                     color={statusColor}
                                 >
                                     <TimerIcon />

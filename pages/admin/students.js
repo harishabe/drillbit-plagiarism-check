@@ -18,7 +18,11 @@ import {
     BreadCrumb
 } from '../../components';
 import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../assets/icon';
-import { GetStudnetData, EditData, DeleteStudentData } from '../../redux/action/admin/AdminAction';
+import {
+    GetStudnetData,
+    // EditData, 
+    DeleteStudentData
+} from '../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import StudentStats from './student/StudentStats';
 import { removeCommaWordEnd } from '../../utils/RegExp';
@@ -56,7 +60,7 @@ const Students = ({
     GetStudnetData,
     studentData,
     pageDetails,
-    EditData,
+    // EditData,
     DeleteStudentData,
     isLoading
 }) => {
@@ -66,18 +70,14 @@ const Students = ({
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [studentId, setStudentId] = useState('');
     const [deleteRowData, setDeleteRowData] = useState('');
-
+    const [editStudent, setEditStudent] = useState(false);
+    const [editStudentData, setEditStudentData] = useState('');
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
         field: PaginationValue?.field,
         orderBy: PaginationValue?.orderBy,
     });
-
-    const [editStudent, setEditStudent] = useState(false);
-
-    const [editStudentData, setEditStudentData] = useState('');
-
 
     useEffect(() => {
         GetStudnetData(paginationPayload);
@@ -122,7 +122,7 @@ const Students = ({
 
     const handleAction = (event, icon, rowData) => {
         const student = studentData.filter((s) => {
-            if (s.student_id === rowData?.user_id?.props?.title) {
+            if (s.student_id === rowData?.user_id) {
                 return s.id;
             }
         });
@@ -188,7 +188,7 @@ const Students = ({
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
-            if (rowItem?.user_id?.props?.title === row?.user_id?.props?.title) {
+            if (rowItem?.id === row?.id) {
                 rowItem['isSelected'] = !rowItem['isSelected'];
             }
             return rowItem;
@@ -203,7 +203,7 @@ const Students = ({
                 return rows;
             }
         }).map((rowItem) => {
-            rowsId += rowItem?.user_id?.props?.title + ',';
+            rowsId += rowItem?.id + ',';
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
@@ -331,7 +331,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetStudnetData: (paginationPayload) => dispatch(GetStudnetData(paginationPayload)),
-        EditData: (data) => dispatch(EditData(data)),
+        // EditData: (data) => dispatch(EditData(data)),
         DeleteStudentData: (deleteRowData, paginationPayload) => dispatch(DeleteStudentData(deleteRowData, paginationPayload))
     };
 };

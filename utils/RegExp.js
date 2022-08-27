@@ -19,13 +19,13 @@ export const findByExpiryDate = (date) => {
 
 export const expiryDateBgColor = (validity) => {
     if (validity < 0) {
-        return '#E9596F';
+        return 'rgba(216, 79, 79, 0.4)';
     } else if (validity >= 0 && validity <= 15) {
-        return '#FF0000';
+        return 'rgba(216, 79, 79, 0.4)';
     } else if (validity >= 15 && validity <= 100) {
-        return '#FFFF00';
+        return 'rgba(245, 203, 71, 0.4)';
     } else if (validity >= 100) {
-        return '#CCCC';
+        return 'rgba(204, 204, 204, 0.33)';
     }
 };
 

@@ -262,16 +262,16 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 7 } xs={ 12 }>
+                                <Grid item md={ 6.5 } xs={ 12 }>
                                     <Heading title='Account Validity' />
                                 </Grid>
-                                <Grid item md={ 5 } xs={ 12 }>
+                                <Grid item md={ 5.5 } xs={ 12 }>
                                     {
                                         isLoadingDashboard ?
                                             <Skeleton /> :
                                             <TextAlignRight>
                                                 <SubTitle
-                                                    title={ adminDashboardData?.data?.accountTotalDays + '(' + 'In days' + ')' }
+                                                    title={ adminDashboardData?.data?.accountTotalDays + '(' + 'Total days' + ')' }
                                                 />
                                             </TextAlignRight>
                                     }

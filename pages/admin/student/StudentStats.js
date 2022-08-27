@@ -52,7 +52,7 @@ const StudentStats = ({
     }, [studentStats]);
 
     const handleExportCsv = () => {
-        GetExportToCSV(studentStats?.username);
+        GetExportToCSV(studentStats?.id);
     };
 
     return (
@@ -78,7 +78,8 @@ const StudentStats = ({
             <Grid item md={ 12 } xs={ 12 }>
                 <Grid container>
                     <Grid item md={ 8 } xs={ 12 }>
-                        <SubTitle title='Document Processed' />
+                        <SubTitle
+                            title={ `Document Processed (${studentStats?.trendAnalysis?.documentsProcessed !== undefined ? studentStats?.trendAnalysis?.documentsProcessed : 0})` } />
                         { isLoading ?
                             <>
                                 <Skeleton />

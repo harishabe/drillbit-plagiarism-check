@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { useForm } from 'react-hook-form';
@@ -12,14 +12,9 @@ import { getItemLocalStorage } from '../../../utils/RegExp';
 const SubmissionForm = ({
     NewSubmission,
     isLoadingNewSubmission,
-    instructorName
+    assignmentName
 }) => {
     const router = useRouter();
-
-    const [formJsonField, setFormJsonField] = useState(FormJson);
-
-    const class_id = router.query.clasId;
-    const folder_id = router.query.assId;
 
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
@@ -28,31 +23,21 @@ const SubmissionForm = ({
     const onSubmit = (data) => {
         let bodyFormData = new FormData();
         bodyFormData.append('authorName', getItemLocalStorage('name'));
-        // bodyFormData.append('name', 'drillbit');
-        bodyFormData.append('title', data.title);
+        bodyFormData.append('title', assignmentName);
         bodyFormData.append('file', data.file[0]);
-        NewSubmission(bodyFormData, class_id, folder_id)
+        NewSubmission(bodyFormData, router.query.clasId, router.query.assId)
     }
-
-    const modifyFormField = (isDisabled) => {
-        let formField = formJsonField?.map((field) => {
-            if (field.name === 'name') {
-                field.label = isDisabled;
-            }
-            return field;
-        });
-        setFormJsonField(formField);
-    };
 
     useEffect(() => {
         let a = {
-            'name': getItemLocalStorage('name')
+            'name': getItemLocalStorage('name'),
+            'title': assignmentName
         };
         const fields = [
-            'name'
+            'name',
+            'title'
         ];
         fields.forEach(field => setValue(field, a[field]));
-        modifyFormField("Student name");
     }, []);
 
     return (
@@ -80,7 +65,7 @@ const SubmissionForm = ({
 
 const mapStateToProps = (state) => ({
     isLoadingNewSubmission: state?.studentClasses?.isLoadingNewSubmission,
-    instructorName: state?.studentClasses?.headerData?.instructorName,
+    assignmentName: state?.studentClasses?.headerData?.assignmentName,
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,22 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import Fab from '@mui/material/Fab';
-import debouce from "lodash.debounce";
-import styled from 'styled-components'
-import { Grid, Tooltip, Skeleton, Button, TextField } from '@mui/material';
+import { Button } from '@mui/material';
 import { Pagination } from '@mui/material';
-import { IconButton } from '@mui/material';
 import Instructor from '../../layouts/Instructor';
-import {
-    CardView,
-    CommonTable,
-    AvatarName,
-    CreateDrawer,
-    WarningDialog,
-    SubTitle,
-    ErrorBlock,
-    DialogModal
-} from '../../components';
+import { CommonTable } from '../../components';
 import BeatLoader from "react-spinners/BeatLoader";
 import AddIcon from '@mui/icons-material/Add';
 import { removeCommaWordEnd } from '../../utils/RegExp';
@@ -81,7 +68,7 @@ function StudentInstitute({
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'add') {
-            EnrollStudent(classId, rowData?.email);
+            EnrollStudent(classId, rowData?.id);
         }
     }
 
@@ -115,15 +102,15 @@ function StudentInstitute({
     }
 
     const addAllStudent = () => {
-        let rowsEmail = '';
+        let rowsId = '';
         _.filter(data, function (o) {
             if (o.isSelected === true) {
                 return data;
             }
         }).map((rowItem) => {
-            rowsEmail += rowItem?.email + ',';
+            rowsId += rowItem?.id + ',';
         });
-        EnrollStudent(classId, removeCommaWordEnd(rowsEmail));
+        EnrollStudent(classId, removeCommaWordEnd(rowsId));
     }
 
     const handlePagination = (event, value) => {

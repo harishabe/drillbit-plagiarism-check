@@ -46,9 +46,9 @@ export const GetStats = (id) => {
 /**
  * Export csv file from stats report
  */
-export const GetExportToCSV = (emailId) => {
+export const GetExportToCSV = (id) => {
     return {
-        type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START, emailId: emailId
+        type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START, id: id
     };
 };
 

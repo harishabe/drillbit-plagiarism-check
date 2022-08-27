@@ -26,12 +26,13 @@ const StudentForm = ({
         }
     };
 
+    console.log("editData", editData)
     useEffect(() => {
         if (editData) {
             let a = {
                 'name': editData.name,
                 'email': editData.email,
-                'studentId': editData?.user_id?.props?.title,
+                'studentId': editData?.user_id,
                 'department': editData.department,
                 'section': editData.section
             };

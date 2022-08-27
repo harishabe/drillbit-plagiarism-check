@@ -121,8 +121,8 @@ const CommonTable = ({
                                                     </TableCell> :
                                                     <TableCell key={column.id} align={column.align}>
                                                         {typeof (value) === 'string' ?
-                                                            <EllipsisText value={value} charLength={charLength} /> :
-                                                            <SubTitle title={value} />}
+                                                            <EllipsisText value={ value !== null ? value : '--' } charLength={ charLength } /> :
+                                                            <SubTitle title={ value !== null ? value : '--' } /> }
                                                     </TableCell>
                                             }
                                         </>
