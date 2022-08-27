@@ -128,7 +128,7 @@ const NavBar = ({
                                         <MessageIcon />
                                     </IconButton> */}
                                     {/* <Divider orientation="vertical" flexItem /> */}
-                                    <IconButton
+                                    {/* <IconButton
                                         color="inherit"
                                         aria-label="open drawer"
                                         edge="start"
@@ -139,7 +139,7 @@ const NavBar = ({
                                         }}
                                     >
                                         <BellIcon />
-                                    </IconButton>
+                                    </IconButton> */}
                                     <Divider orientation="vertical" flexItem />
                                     <div style={{ display: 'block', marginLeft: '15px', marginRight: '15px' }}>
                                         <div style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}>
