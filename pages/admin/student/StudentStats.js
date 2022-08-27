@@ -52,7 +52,7 @@ const StudentStats = ({
     }, [studentStats]);
 
     const handleExportCsv = () => {
-        GetExportToCSV(studentStats?.username);
+        GetExportToCSV(studentStats?.id);
     };
 
     return (
