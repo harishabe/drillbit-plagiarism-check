@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Admin from '../../../layouts/Admin';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { FormComponent, MainHeading, CardView } from '../../../components';
@@ -12,8 +11,6 @@ const ChangePassword = ({
     ProfileChangePassword,
     isLoading
 }) => {
-    
-    const router = useRouter();
 
     const { handleSubmit, control } = useForm({
         mode: 'all',
@@ -53,7 +50,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        ProfileChangePassword: (data) => dispatch(ProfileChangePassword(data)),
+        ProfileChangePassword: (requestPayload) => dispatch(ProfileChangePassword(requestPayload)),
     };
 };
 
