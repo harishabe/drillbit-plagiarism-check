@@ -262,10 +262,10 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 6.5 } xs={ 12 }>
+                                <Grid item md={ 6.6 } xs={ 12 }>
                                     <Heading title='Account Validity' />
                                 </Grid>
-                                <Grid item md={ 5.5 } xs={ 12 }>
+                                <Grid item md={ 5.4 } xs={ 12 }>
                                     {
                                         isLoadingDashboard ?
                                             <Skeleton /> :

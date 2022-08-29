@@ -56,22 +56,7 @@ const MySubmissions = () => {
   return (
     <React.Fragment>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={10} xs={10}>
-            <BreadCrumb item={InstructorBreadCrumb} />
-          </Grid>
-          <Grid item md={2} xs={2}>
-            <TextField
-              placeholder='Search'
-              inputProps={{
-                style: {
-                  padding: 5,
-                  display: 'inline-flex',
-                },
-              }}
-            />
-          </Grid>
-        </Grid>
+        <BreadCrumb item={ InstructorBreadCrumb } />
       </Box>
       <TabMenu menuButton={tabMenu} components={componentList} />
     </React.Fragment>

@@ -52,14 +52,14 @@ const SearchField = styled('div')({
     margin: '10px',
 });
 
-const UploadButtonAlign = styled('div')({
-    marginBottom: '-5px',
-    marginLeft: '10px'
-});
+// const UploadButtonAlign = styled('div')({
+//     marginBottom: '-5px',
+//     marginLeft: '10px'
+// });
 
-const Input = styled('input')({
-    display: 'none',
-});
+// const Input = styled('input')({
+//     display: 'none',
+// });
 
 const columns = [
     { id: 'id', label: 'Student ID' },
