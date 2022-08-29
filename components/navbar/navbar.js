@@ -29,6 +29,8 @@ import {
 import { getItemLocalStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
 import EllipsisText from '../ellipsis/EllipsisText';
+import Title from '../typography/title';
+import SubTitle1 from '../typography/SubTitle1';
 
 const drawerWidth = 200
 
@@ -205,14 +207,14 @@ const NavBar = ({
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <Paper sx={{ width: 328, boxShadow: 'none', maxWidth: '100%' }}>
-                    <MenuList>
+                    <MenuList style={{paddingBottom:'0px'}}>
                         <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                             <Avatar alt={name} style={{ width: '56px', height: '56px', background: '#68C886', color: '#fff' }}>
                                 {name && name.charAt(0)}
                             </Avatar>
-                            <ListItemText 
-                                primary={<EllipsisText value={name} charLength={20} />} 
-                                secondary={<EllipsisText value={email} charLength={20} />} 
+                            <ListItemText
+                                primary={<EllipsisText value={name} charLength={20} />}
+                                secondary={<EllipsisText value={email} charLength={20} />}
                             />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
@@ -250,6 +252,10 @@ const NavBar = ({
                         <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px', marginTop: '18px' }}>
                             <Button variant="contained" fullWidth color="primary" onClick={handleLogout}>Log out</Button>
                         </MenuItem>
+
+                        <div style={{ textAlign: 'right',padding:'0px 15px' }}>
+                            <SubTitle1 title="v.2.0.0" />
+                        </div>
                     </MenuList>
                 </Paper>
             </Menu>

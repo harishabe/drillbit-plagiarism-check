@@ -17,9 +17,10 @@ const font = {
     h2: {
         fontFamily: fontName,
         fontSize: '20px',
-        fontWeight: '400',
+        fontWeight: '600',
         fontStyle: 'normal',
-        lineHeight: '28px'
+        lineHeight: '28px',
+        color: '#666666'
     },
     h3: {
         fontFamily: fontName,
@@ -45,7 +46,7 @@ const font = {
         letterSpacing: '0.5px',
         color: '#666666'
     },
-    h5:{
+    h5: {
         fontFamily: fontName,
         fontStyle: 'normal',
         fontSize: '16px',
@@ -65,6 +66,13 @@ const font = {
         fontFamily: fontName,
         fontWeight: 400,
         fontSize: '14px',
+        lineHeight: '20px',
+        color: '#666666'
+    },
+    body2_1: {
+        fontFamily: fontName,
+        fontWeight: 600,
+        fontSize: '16px',
         lineHeight: '20px',
         color: '#666666'
     }

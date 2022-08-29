@@ -3,7 +3,8 @@ import { Box, Paper, Button } from '@mui/material';
 import styled from 'styled-components';
 import BeatLoader from "react-spinners/BeatLoader";
 
-const StyledButton = styled(Button)(() => ({
+const StyledButton = styled(Button)((disabled) => ({
+    'background-color': disabled && '#3672FF !important',
     ':hover': {
         transform: 'scale(1.01)',
         transition: 'all 0.2s ease-out',
@@ -25,6 +26,7 @@ const InputButton = ({
                     variant="contained"
                     type={field.type}
                     color="primary"
+                    disabled={isLoading}
                 >
                     {isLoading ? <BeatLoader color="#fff" /> : field.label}
                 </StyledButton>

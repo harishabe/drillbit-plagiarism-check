@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
+import BeatLoader from "react-spinners/BeatLoader";
 import propTypes from 'prop-types';
 import { Grid, InputLabel, TextField, Button, Autocomplete } from '@mui/material';
 import { EllipsisText } from '../../components';
@@ -76,7 +77,8 @@ const fileType = [
 const FileForm = ({
     files,
     handleSubmitFile,
-    btnTitle
+    btnTitle,
+    isLoading
 }) => {
     const classes = useStyles();
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -166,7 +168,7 @@ const FileForm = ({
                 })}
                 <div style={{ textAlign: 'center', marginTop: '10px' }}>
                     <Button type="submit" variant="contained" size="large">
-                        {btnTitle}
+                        {isLoading ? <BeatLoader color="#fff" /> : btnTitle}
                     </Button>
                 </div>
             </form>
@@ -177,7 +179,8 @@ const FileForm = ({
 FileForm.propTypes = {
     fileData: propTypes.object,
     btnTitle: propTypes.string,
-    handleSubmitFile: propTypes.func
+    handleSubmitFile: propTypes.func,
+    isLoading:propTypes.bool
 }
 
 export default FileForm;

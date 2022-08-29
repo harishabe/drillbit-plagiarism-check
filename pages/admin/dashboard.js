@@ -156,7 +156,7 @@ const Dashboard = ({
                 <Grid container spacing={1}>
                     <Grid item md={7} xs={12}>
                         <CardView>
-                            <Heading title='Submissions' />
+                            <Heading title='Submissions Overview' />
                             {isLoadingDashboard ? <Skeleton /> :
                                 recentSubmission?.length && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ? <ColumnChart
                                     type={COLUMN_ADMIN_CHART_TYPE}

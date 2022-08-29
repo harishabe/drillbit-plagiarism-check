@@ -77,7 +77,7 @@ const CommonTable = ({
                                         style={{ minWidth: column.minWidth }}
                                     >
                                         {column.id === 'action' || column.id === 'stats' || column.id === 'feedback' ?
-                                            <EllipsisText value={column.label} charLength={charLength} />
+                                            <EllipsisText value={column.label} charLength={charLength} variant='body2_1' />
                                             : <TableSortLabel
                                                 onClick={((e) => sortHandle(e, column))}
                                                 IconComponent={
@@ -91,7 +91,7 @@ const CommonTable = ({
                                                         </div>
                                                 }
                                             >
-                                                <EllipsisText value={column.label} charLength={charLength} />
+                                                <EllipsisText value={column.label} charLength={charLength} variant='body2_1' />
                                             </TableSortLabel>}
 
                                     </TableCell>

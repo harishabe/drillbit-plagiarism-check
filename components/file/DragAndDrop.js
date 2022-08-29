@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Chip from '@mui/material/Chip';
 import { Grid, Link, Button } from '@mui/material';
 import useDrivePicker from "react-google-drive-picker";
+import BeatLoader from "react-spinners/BeatLoader";
 import styled from 'styled-components';
 import {
     UploadFileIcon
@@ -27,7 +28,12 @@ import {
     ContentCenter
 } from './FileStyle';
 
-import { SubmissionListUpload } from '../../redux/action/instructor/InstructorAction';
+import {
+    SubmissionListUpload,
+    SubmissionListExtractedFileUpload,
+    UploadZipFileDataClear,
+    UploadFileDataClear
+} from '../../redux/action/instructor/InstructorAction';
 
 const DragAndDrop = ({
     btnTitle,
@@ -36,7 +42,13 @@ const DragAndDrop = ({
     isGoogleDriveFile,
     isZipFile,
     SubmissionListUpload,
-    uploadData
+    SubmissionListExtractedFileUpload,
+    uploadData,
+    isLoadingUploadFile,
+    isLoadingUpload,
+    extractedFileData,
+    isLoadingExtractedFile,
+    UploadZipFileDataClear
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -122,9 +134,6 @@ const DragAndDrop = ({
             multiselect: true,
             customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
             callbackFunction: (data) => {
-                if (data.action === 'cancel') {
-                    console.log('User clicked cancel/close button')
-                }
                 if (data && data?.docs?.length > 0) {
                     setDriveFile(data && data?.docs[0].name);
                     setDriveFilePayload({
@@ -149,9 +158,32 @@ const DragAndDrop = ({
         //SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`, driveFilePayload);
     }
 
-    const handleFilesZipUpload = () => {
-
+    const handleProcessZipFile = (data) => {
+        let authorNameArr = [], titleArr = [], documentTypeArr = [];
+        uploadData?.fileNames?.map((item, i) => {
+            authorNameArr.push(data['authorName' + i]);
+            titleArr.push(data['title' + i]);
+            documentTypeArr.push(data['documentType' + i]);
+        });
+        uploadData['authorName'] = authorNameArr;
+        uploadData['title'] = titleArr;
+        uploadData['documentType'] = documentTypeArr;
+        SubmissionListExtractedFileUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/confirmZipFile`, uploadData);
     }
+
+    useEffect(() => {
+        if (extractedFileData) {
+            UploadZipFileDataClear();
+            router.push({ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } });
+        }
+    }, [extractedFileData && extractedFileData !== '']);
+
+    useEffect(() => {
+        if (uploadData) {
+            UploadFileDataClear();
+            router.push({ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } });
+        }
+    }, [uploadData && uploadData !== '']);
 
     return (
         <CardView>
@@ -224,26 +256,26 @@ const DragAndDrop = ({
                                 handleSubmitFile={handleSubmit}
                                 files={fileData}
                                 btnTitle={btnTitle}
+                                isLoading={isLoadingUpload}
                             />}
 
                         <div style={{ textAlign: 'center', marginTop: '10px' }}>
-                            {(isZipFile && uploadData?.fileNames?.length > 0) ?
-                                ''
-                                :
+                            {(isZipFile && fileData?.length > 0 && uploadData === undefined) &&
                                 <Button type="submit" onClick={handleUploadZipFile} variant="contained" size="large">
-                                    Process File
+                                    {isLoadingUpload ? <BeatLoader color="#fff" /> : 'Upload Zip File'}
                                 </Button>
                             }
                         </div>
                         {(isZipFile && uploadData?.fileNames?.length > 0) &&
                             <FileForm
-                                handleSubmitFile={handleSubmit}
+                                handleSubmitFile={handleProcessZipFile}
                                 files={uploadData?.fileNames}
                                 btnTitle={btnTitle}
+                                isLoading={isLoadingExtractedFile}
                             />}
                         {(isGoogleDriveFile && driveFile !== '') && <div style={{ textAlign: 'center', marginTop: '10px' }}>
                             <Button type="submit" onClick={handleGoogleDriveFile} variant="contained" size="large">
-                                Process File
+                                {isLoadingUpload ? <BeatLoader color="#fff" /> : 'Process File'}
                             </Button>
                         </div>}
                     </Grid>
@@ -254,12 +286,19 @@ const DragAndDrop = ({
 };
 
 const mapStateToProps = (state) => ({
-    uploadData: state?.instructorMyFolders?.uploadData
+    uploadData: state?.instructorMyFolders?.uploadData,
+    isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
+    isLoadingUploadFile: state?.instructorMyFolders?.isLoadingSubmission,
+    extractedFileData: state?.instructorMyFolders?.extractedFileData,
+    isLoadingExtractedFile: state?.instructorMyFolders?.isLoadingExtractedFile,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         SubmissionListUpload: (apiUrl, data) => dispatch(SubmissionListUpload(apiUrl, data)),
+        SubmissionListExtractedFileUpload: (apiUrl, data) => dispatch(SubmissionListExtractedFileUpload(apiUrl, data)),
+        UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear())
     };
 };
 

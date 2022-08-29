@@ -104,6 +104,33 @@ const MyFoldersInstructorReducer = (state = {}, action) => {
                 isLoadingUpload: false,
                 uploadDataError: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_ZIP_EXTRACTED_UPLOAD_DATA_CLEAR:
+            return {
+                ...state,
+                uploadData: '',
+            };
+        case types.FETCH_UPLOAD_EXTRACTED_ZIP_FILE_START:
+            return {
+                ...state,
+                isLoadingExtractedFile: true,
+            };
+        case types.FETCH_UPLOAD_EXTRACTED_ZIP_FILE_SUCCESS:
+            return {
+                ...state,
+                isLoadingExtractedFile: false,
+                extractedFileData: action.payload,
+            };
+        case types.FETCH_UPLOAD_EXTRACTED_ZIP_FILE_FAIL:
+            return {
+                ...state,
+                isLoadingUpload: false,
+                extractedFileError: action.payload,
+            };
+        case types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_DATA_CLEAR:
+            return {
+                ...state,
+                extractedFileData: '',
+            };
         case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_START:
             return {
                 ...state,

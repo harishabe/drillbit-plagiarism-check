@@ -1,6 +1,6 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
-import { PostMethod, PutMethod, GetMethod, DeleteMethod, PostFormData, GetMethodDownload } from './../ApiMethod';
+import { PostMethod, PutMethod, GetMethod, DeleteMethod, PostFormData, GetMethodDownload, PostMethodEN } from './../ApiMethod';
 
 /**
  * API CALL FOR MY FOLDER > SUBMISSION DATA
@@ -18,7 +18,11 @@ export const GetSubmissionGradingQna = async (apiUrl) => {
 
 export const UploadSubmission = async (apiUrl, data) => {
     const url = BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + apiUrl;
-    return PostFormData(url, data);
+    if (apiUrl.includes('confirmZipFile')) {
+        return PostMethodEN(url, data);
+    } else {
+        return PostFormData(url, data);
+    }
 };
 
 /**

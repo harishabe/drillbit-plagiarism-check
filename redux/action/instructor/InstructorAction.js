@@ -60,6 +60,14 @@ export const UploadFileDataClear = () => {
     };
 };
 
+/**
+ * Zip file clear uploaded data
+ */
+ export const UploadZipFileDataClear = () => {
+    return {
+        type: types.FETCH_INSTRUCTOR_ZIP_EXTRACTED_UPLOAD_DATA_CLEAR
+    };
+};
 
 /**
  * Edit class
@@ -225,6 +233,16 @@ export const SubmissionListUpload = (url, data) => {
         type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_START, url: url, query: data
     };
 };
+
+/**
+ * myclasses > assignments > submission-upload > ZIP file
+ */
+ export const SubmissionListExtractedFileUpload = (url, data) => {
+    return {
+        type: types.FETCH_UPLOAD_EXTRACTED_ZIP_FILE_START, url: url, query: data
+    };
+};
+
 
 /**
  * Get myfolder > submissionList > delete

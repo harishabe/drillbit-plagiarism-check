@@ -23,6 +23,14 @@ const FormDataHeader = () => {
     }
 };
 
+const headerEN = () => {
+    return {
+        "Accept-Language": "en",
+        "Content-Type": "application/json",
+        'authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+};
+
 /**
  * API METHOD - POST
  * @param {*} url
@@ -48,6 +56,21 @@ export const PostMethod = async (url, query) => {
         .then(response => ({ response }))
         .catch(error => ({ error }))
 };
+
+
+/**
+ * API METHOD - POST EN
+ * @param {*} url
+ */
+
+ export const PostMethodEN = async (url, query) => {
+    return await axois.post(url, query, {
+        headers: headerEN()
+    })
+        .then(response => ({ response }))
+        .catch(error => ({ error }))
+};
+
 
 /**
  * API METHOD - PUT
@@ -80,7 +103,7 @@ export const GetMethod = async (url) => {
  * @param {*} url
  */
 
-export const GetMethodDownload = async (url,fileName) => {
+export const GetMethodDownload = async (url, fileName) => {
     return await axois.get(url, {
         headers: header()
     })

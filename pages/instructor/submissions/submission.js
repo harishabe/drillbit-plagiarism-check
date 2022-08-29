@@ -11,7 +11,7 @@ import {
 } from '../../../components';
 import { EditIcon, DeleteIcon, DeleteWarningIcon, AddMultipleIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
-import { GetSubmissionList, DeleteSubmission } from '../../../redux/action/instructor/InstructorAction';
+import { GetSubmissionList, DeleteSubmission, UploadFileDataClear, UploadZipFileDataClear } from '../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { IconButton } from '@mui/material';
@@ -51,7 +51,11 @@ const Submission = ({
   submissionData,
   isLoading,
   isLoadingUpload,
-  pageDetails
+  pageDetails,
+  UploadFileDataClear,
+  extractedFileData,
+  uploadData,
+  UploadZipFileDataClear
 }) => {
 
   const router = useRouter();
@@ -165,6 +169,15 @@ const Submission = ({
   }
 
   const handleUploadFile = () => {
+    
+    console.log('uploadDatauploadDatauploadData111',uploadData);
+    if (extractedFileData) {
+      UploadFileDataClear();
+    }
+    if(uploadData){
+      console.log('uploadDatauploadDatauploadData',uploadData);
+      UploadZipFileDataClear();
+    }
     router.push({ pathname: '/instructor/uploadFile', query: router.query })
   }
 
@@ -216,15 +229,15 @@ const Submission = ({
         </div>}
 
 
-          <CommonTable
-            isCheckbox={true}
-            isSorting={ true }
-            tableHeader={columns}
-            tableData={rows}
-            handleAction={handleAction}
-            handleCheckboxSelect={handleCheckboxSelect}
-            handleSingleSelect={handleSingleSelect}
-            isLoading={isLoading}
+        <CommonTable
+          isCheckbox={true}
+          isSorting={true}
+          tableHeader={columns}
+          tableData={rows}
+          handleAction={handleAction}
+          handleCheckboxSelect={handleCheckboxSelect}
+          handleSingleSelect={handleSingleSelect}
+          isLoading={isLoading}
         />
 
         {pageDetails?.totalPages > 1 && (
@@ -249,12 +262,16 @@ const mapStateToProps = (state) => ({
   isLoading: state?.instructorMyFolders?.isLoadingSubmission,
   isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
   submissionData: state?.instructorMyFolders?.submissionData?._embedded?.submissionsList,
+  extractedFileData: state?.instructorMyFolders?.extractedFileData,
+  uploadData: state?.instructorMyFolders?.uploadData,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
     DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
+    UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+    UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())    
   };
 };
 
