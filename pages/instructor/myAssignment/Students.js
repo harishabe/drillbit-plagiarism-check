@@ -31,6 +31,7 @@ import {
 } from '../../../assets/icon';
 import StudentForm from '../form/StudentForm';
 import {
+    GetStudent,
     DeleteStudent,
     DownloadTemplate,
     UploadFile,
@@ -46,6 +47,10 @@ const AddButtonBottom = styled.div`
     bottom: 30px;
     right:30px;
 `;
+
+const SearchField = styled('div')({
+    margin: '10px',
+});
 
 const UploadButtonAlign = styled('div')({
     marginBottom: '-5px',
@@ -69,13 +74,12 @@ function createData(id, name, email, department, section, action) {
     return { id, name, email, department, section, action }
 }
 
-
 const Students = ({
+    GetStudent,
     studentData,
     pageDetails,
     isLoadingStudent,
     DeleteStudent,
-    handlePagination,
     DownloadTemplate,
     isLoadingTemplate,
     UploadFile,
@@ -98,6 +102,10 @@ const Students = ({
         field: PaginationValue?.field,
         orderBy: PaginationValue?.orderBy,
     });
+
+    useEffect(() => {
+        GetStudent(router.query.clasId, paginationPayload);
+    }, [router.query.clasId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -186,40 +194,40 @@ const Students = ({
 
     /** search implementation using debounce concepts */
 
-    // const handleSearch = (event) => {
-    //     if (event.target.value !== '') {
-    //         paginationPayload['search'] = event.target.value;
-    //         setPaginationPayload({ ...paginationPayload, paginationPayload });
-    //     } else {
-    //         delete paginationPayload['search'];
-    //         setPaginationPayload({ ...paginationPayload, paginationPayload });
-    //     }
-    // }
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    }
 
-    // const debouncedResults = useMemo(() => {
-    //     return debouce(handleSearch, 300);
-    // }, []);
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
 
-    // useEffect(() => {
-    //     return () => {
-    //         debouncedResults.cancel();
-    //     };
-    // });
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
 
     /** end debounce concepts */
 
 
-    const handleDownload = () => {
-        DownloadTemplate(router.query.clasId)
-        setShow(true)
-    }
+    // const handleDownload = () => {
+    //     DownloadTemplate(router.query.clasId)
+    //     setShow(true)
+    // }
 
 
-    const handleSubmit = (data) => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('file', data.target.files[0]);
-        UploadFile(router.query.clasId, bodyFormData);
-    }
+    // const handleSubmit = (data) => {
+    //     let bodyFormData = new FormData();
+    //     bodyFormData.append('file', data.target.files[0]);
+    //     UploadFile(router.query.clasId, bodyFormData);
+    // }
 
     const handleShow = (e, info) => {
         if (info?.title === 'Add From List') {
@@ -233,6 +241,11 @@ const Students = ({
     const handleCloseDialog = () => {
         setShowDialogModal(false);
     }
+
+    const handlePagination = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
 
     return (
         <React.Fragment>
@@ -305,17 +318,19 @@ const Students = ({
                 <Grid container spacing={1}>
                     <Grid item md={8}></Grid>
                     <Grid item md={4} xs container direction='row' justifyContent={'right'}>
-                        {/* <TextField
-                            placeholder='Search'
-                            onChange={ debouncedResults }
-                            inputProps={ {
-                                style: {
-                                    padding: 5,
-                                    display: 'inline-flex'
-                                }
-                            } }
-                        /> */}
-                        {show ? '' :
+                        <SearchField>
+                            <TextField
+                                placeholder='Search'
+                                onChange={ debouncedResults }
+                                inputProps={ {
+                                    style: {
+                                        padding: 5,
+                                        display: 'inline-flex'
+                                    }
+                                } }
+                            />
+                        </SearchField>
+                        {/* {show ? '' :
                             <Tooltip title="Download Template">
                                 <IconButton sx={{
                                     position: 'absolute',
@@ -352,7 +367,7 @@ const Students = ({
                                 </form>
 
                             </>
-                        }
+                        } */}
 
                     </Grid>
                 </Grid>
@@ -367,7 +382,7 @@ const Students = ({
                         </IconButton>
                     </div>}
 
-                    <Tooltip title="Add student from list">
+                    {/* <Tooltip title="Add student from list">
                         <IconButton sx={{
                             position: 'absolute',
                             padding: '7px',
@@ -377,7 +392,7 @@ const Students = ({
                             onClick={handleShow}>
                             <DownloadIcon />
                         </IconButton>
-                    </Tooltip>
+                    </Tooltip> */}
 
                     {/* {studentData?.length > 0 ? */}
                     <CommonTable
@@ -417,11 +432,13 @@ const Students = ({
 const mapStateToProps = (state) => ({
     studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
     pageDetails: state?.instructorClasses?.studentData?.page,
+    isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
     isLoadingTemplate: state?.instructorClasses?.isLoadingTemplate,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        GetStudent: (ClasId, PaginationValue) => dispatch(GetStudent(ClasId, PaginationValue)),
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
         DownloadTemplate: (ClasId) => dispatch(DownloadTemplate(ClasId)),
         UploadFile: (ClasId, data) => dispatch(UploadFile(ClasId, data)),
