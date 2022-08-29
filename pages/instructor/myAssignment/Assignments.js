@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import { Pagination } from '@mui/material';
 import { IconButton } from '@mui/material';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
+import { TextField } from '@mui/material';
+import debouce from "lodash.debounce";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import styled from 'styled-components';
 import Instructor from '../../../layouts/Instructor';
 import {
   CardView,
@@ -27,6 +31,10 @@ const AddButtonBottom = styled.div`
     bottom: 30px;
     right: 30px;
 `
+
+const SearchField = styled('div')({
+  margin: '10px',
+});
 
 const columns = [
   { id: 'id', label: 'Id' },
@@ -98,6 +106,30 @@ const Assignments = ({
     setPaginationPayload({ ...paginationPayload, page: value - 1 });
   };
 
+  /** search implementation using debounce concepts */
+
+  const handleSearch = (event) => {
+    if (event.target.value !== '') {
+      paginationPayload['search'] = event.target.value;
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
+    } else {
+      delete paginationPayload['search'];
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
+    }
+  }
+
+  const debouncedResults = useMemo(() => {
+    return debouce(handleSearch, 300);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
+
+  /** end debounce concepts */
+
   const handleAction = (event, icon, rowData) => {
     if (icon === 'edit') {
       setEditAssignment(true);
@@ -164,6 +196,26 @@ const Assignments = ({
 
   return (
     <React.Fragment>
+
+      <Box sx={ { flexGrow: 1 } }>
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 8 }></Grid>
+          <Grid item md={ 4 } xs container direction='row' justifyContent={ 'right' }>
+            <SearchField>
+              <TextField
+                placeholder='Search'
+                onChange={ debouncedResults }
+                inputProps={ {
+                  style: {
+                    padding: 5,
+                    display: 'inline-flex'
+                  }
+                } }
+              />
+            </SearchField>
+          </Grid>
+        </Grid>
+      </Box>
 
       <AddButtonBottom>
         <CreateDrawer
