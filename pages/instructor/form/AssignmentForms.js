@@ -245,9 +245,9 @@ const AssignmentForms = ({
     }
 
     const handleMoreAddQuestion = (e) => {
-        console.log('questionData', questionData);
         let r = [...questionList];
         r.push(questionData);
+        console.log('rrrrrr', r);
         setQuestionList(r);
     }
 
@@ -262,6 +262,7 @@ const AssignmentForms = ({
         e.preventDefault();
         let r = [...phrasesList];
         r.push(phrasesData);
+        console.log('pppppp', r);
         setPhrasesList(r);
     }
 
@@ -646,7 +647,7 @@ const AssignmentForms = ({
                             {addQuestion === 'yes' &&
                                 <div>
                                     <>
-                                        <Grid container spacing={2} sx={{marginBottom:'15px'}}>
+                                        <Grid container spacing={2} sx={{ marginBottom: '15px' }}>
                                             <Grid item md={9}>
                                                 <TextField
                                                     id="q"
@@ -657,25 +658,25 @@ const AssignmentForms = ({
                                                 />
                                             </Grid>
                                             <Grid item md={2}>
-                                                    <Button
-                                                        variant="contained"
-                                                        onClick={(e) => handleAddQuestionRemove(e, index)}
-                                                    >
-                                                        Remove
-                                                    </Button>
-                                                {questionList?.length === 0 && <Button
-                                                    sx={{ marginTop: '14px' }}
+                                                {/* <Button
                                                     variant="contained"
-                                                    onClick={handleMoreAddQuestion}
+                                                    onClick={(e) => handleAddQuestionRemove(e, index)}
                                                 >
-                                                    Add Questions
-                                                </Button>}
+                                                    Remove
+                                                </Button> */}
                                             </Grid>
                                         </Grid>
+                                        {/* {questionList?.length === 0 && <Button
+                                            sx={{ marginTop: '14px' }}
+                                            variant="contained"
+                                            onClick={handleMoreAddQuestion}
+                                        >
+                                            Add Questions
+                                        </Button>} */}
                                     </>
                                     {questionList?.map((item, index) => (
                                         <>
-                                            <Grid container spacing={2} sx={{marginBottom:'15px'}}>
+                                            <Grid container spacing={2} sx={{ marginBottom: '15px' }}>
                                                 <Grid item md={9}>
                                                     <TextField
                                                         id="q"
@@ -684,29 +685,17 @@ const AssignmentForms = ({
                                                         name={"q" + index + 1}
                                                         onChange={(e) => setQuestionData(e.target.value)}
                                                     />
-                                                    {/* <InputTextField
-                                                    control={control}
-                                                    field={{
-                                                        "field_type": "input",
-                                                        "id": "q",
-                                                        "name": "q" + index,
-                                                        "size": 'small',
-                                                        "label": "Enter question " + (index + 1),
-                                                        "required": "Enter question"
-                                                    }}
-                                                /> */}
                                                 </Grid>
                                                 <Grid item md={2}>
-                                                    {questionList.length !== 1 &&
                                                         <Button
                                                             variant="contained"
                                                             onClick={(e) => handleAddQuestionRemove(e, index)}
                                                         >
                                                             Remove
-                                                        </Button>}
+                                                        </Button>
                                                 </Grid>
                                             </Grid>
-                                            <Grid container spacing={2}>
+                                            {/* <Grid container spacing={2}>
                                                 <Grid item md={12}>
                                                     {questionList.length - 1 === index && <Button
                                                         sx={{ marginTop: '14px' }}
@@ -716,9 +705,16 @@ const AssignmentForms = ({
                                                         Add Questions
                                                     </Button>}
                                                 </Grid>
-                                            </Grid>
+                                            </Grid> */}
                                         </>
                                     ))}
+                                    <Button
+                                        sx={{ marginTop: '14px' }}
+                                        variant="contained"
+                                        onClick={handleMoreAddQuestion}
+                                    >
+                                        Add Questions
+                                    </Button>
                                 </div>
                             }
                         </div>
