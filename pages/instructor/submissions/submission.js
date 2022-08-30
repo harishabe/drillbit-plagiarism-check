@@ -25,7 +25,7 @@ import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { SUBMISSION_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const columns = [
-  { id: 'id', label: 'Student ID' },
+  // { id: 'id', label: 'Student ID' },
   { id: 'STname', label: 'Student Name' },
   { id: 'PAname', label: 'Paper Name' },
   { id: 'file', label: 'Original File' },
@@ -48,9 +48,11 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-const SearchField = styled('div')({
-  margin: '10px',
-});
+const SearchField = styled.div`
+    position:absolute;
+    top: 125px;
+    right:16px;
+`;
 
 const Submission = ({
   GetSubmissionList,
@@ -100,11 +102,12 @@ const Submission = ({
     let arr = [];
     submissionData?.map((submission) => {
       row = createData(
-        <AvatarName
-          avatarText='S'
-          title={submission.ass_id}
-          color='#4795EE'
-        />,
+        // <AvatarName
+        //   avatarText='S'
+        //   title={submission.ass_id}
+        //   color='#4795EE'
+        // />,
+        submission.ass_id,
         submission.name,
         submission.title,
         submission.original_fn,
@@ -222,9 +225,7 @@ const Submission = ({
 
   return (
     <React.Fragment>
-      <Grid item md={ 8 } xs={ 12 }>
-      </Grid>
-      <Grid item md={ 4 } xs={ 12 } align="right">
+      <Grid item container direction='row' justifyContent={ 'right' }>
         <SearchField>
           <TextField
             placeholder='Search'

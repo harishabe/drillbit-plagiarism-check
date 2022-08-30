@@ -35,7 +35,7 @@ const InstructorBreadCrumb = [
 ];
 
 const AddButtonBottom = styled.div`
-    position:absolute;
+    position:fixed;
     bottom: 30px;
     right:30px;
 `;
@@ -205,7 +205,7 @@ const MyFolder = ({
                 </CreateDrawer>
             }
 
-            { pageDetails?.totalPages > 1 &&
+            {/* { pageDetails?.totalPages > 1 && */ }
                 <div style={ { marginLeft: '45%', marginTop: '25px' } }>
                     <Pagination
                         count={ pageDetails?.totalPages }
@@ -215,7 +215,7 @@ const MyFolder = ({
                         shape="rounded"
                     />
                 </div>
-            }
+            {/* } */ }
         </React.Fragment>
     );
 };
