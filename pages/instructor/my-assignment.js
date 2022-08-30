@@ -13,16 +13,11 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 const MyClassesTables = ({
     GetStudent,
     GetAssignment,
-    assignmentData,
     pageDetails,
     pageDetailsAssignment,
-    studentData,
-    isLoadingStudent,
 }) => {
 
     const router = useRouter();
-
-    const [clasId, setClasId] = useState(router.query.clasId);
 
     const InstructorBreadCrumb = [
         {
@@ -56,11 +51,6 @@ const MyClassesTables = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    const handlePagination = (event, value) => {
-        event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-    };
-
     useEffect(() => {
         GetStudent(router.query.clasId, paginationPayload);
     }, [router.query.clasId, paginationPayload]);
@@ -70,13 +60,8 @@ const MyClassesTables = ({
     }, [router.query.clasId, paginationAssignment]);
 
     const componentList = [        
-        <Assignments assignmentData={assignmentData} />,
-        <Students
-            studentData={studentData}
-            pageDetails={pageDetails}
-            isLoadingStudent={isLoadingStudent}
-            handlePagination={handlePagination}
-        />
+        <Assignments />,
+        <Students />
     ];
 
     const tabMenu = [
@@ -106,9 +91,6 @@ const MyClassesTables = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.instructorClasses?.studentData?.page,
     pageDetailsAssignment: state?.instructorClasses?.assignmentData?.page,
-    studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
-    isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
-    assignmentData: state?.instructorClasses?.assignmentData?._embedded?.assignmentDTOList,
 });
 
 const mapDispatchToProps = (dispatch) => {

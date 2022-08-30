@@ -301,7 +301,7 @@ const Students = ({
                         handleCheckboxSelect={handleCheckboxSelect}
                         handleSingleSelect={handleSingleSelect}
                         isLoading={isLoading}
-                        charLength={20}
+                        charLength={ 14 }
                         path=''
                     />
 

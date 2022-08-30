@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import Instructor from '../../../layouts/Instructor';
 import {
@@ -13,6 +13,9 @@ import { EditIcon, DeleteIcon, DeleteWarningIcon, AddMultipleIcon } from '../../
 import { connect } from 'react-redux';
 import { GetSubmissionList, DeleteSubmission, UploadFileDataClear, UploadZipFileDataClear } from '../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
+import { TextField } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import debouce from "lodash.debounce";
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { IconButton } from '@mui/material';
 import styled from 'styled-components';
@@ -45,6 +48,10 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
+const SearchField = styled('div')({
+  margin: '10px',
+});
+
 const Submission = ({
   GetSubmissionList,
   DeleteSubmission,
@@ -75,11 +82,17 @@ const Submission = ({
   const [editAssignment, setEditAssignment] = useState(false);
   const [editAssignmentData, setEditAssignmentData] = useState('');
   const [deleteRowData, setDeleteRowData] = useState('');
+  const [text, setText] = useState('');
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
 
   useEffect(() => {
-    let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
-    GetSubmissionList(url);
+    if (text) {
+      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${text}`
+      GetSubmissionList(url);
+    } else {
+      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
+      GetSubmissionList(url);
+    }
   }, [clasId, assId, paginationPayload]);
 
   useEffect(() => {
@@ -114,6 +127,32 @@ const Submission = ({
     event.preventDefault();
     setPaginationPayload({ ...paginationPayload, page: value - 1 });
   };
+
+  /** search implementation using debounce concepts */
+
+  const handleSearch = (event) => {
+    if (event.target.value !== '') {
+      paginationPayload['search'] = event.target.value;
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setText(event.target.value)
+    } else {
+      delete paginationPayload['search'];
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setText(event.target.value)
+    }
+  }
+
+  const debouncedResults = useMemo(() => {
+    return debouce(handleSearch, 300);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
+
+  /** end debounce concepts */
 
   const handleAction = (event, icon, rowData) => {
     if (icon === 'edit') {
@@ -183,6 +222,22 @@ const Submission = ({
 
   return (
     <React.Fragment>
+      <Grid item md={ 8 } xs={ 12 }>
+      </Grid>
+      <Grid item md={ 4 } xs={ 12 } align="right">
+        <SearchField>
+          <TextField
+            placeholder='Search'
+            onChange={ debouncedResults }
+            inputProps={ {
+              style: {
+                padding: 5,
+                display: 'inline-flex',
+              },
+            } }
+          />
+        </SearchField>
+      </Grid>
       <AddButtonBottom>
         <CreateDrawer
           title="Upload File"
