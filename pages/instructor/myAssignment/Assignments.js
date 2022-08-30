@@ -20,21 +20,24 @@ import {
   WarningDialog
 } from '../../../components';
 import { EditIcon, DeleteIcon, DeleteWarningIcon, TimerIcon } from '../../../assets/icon';
-import { GetAssignment, DeleteAssignment } from '../../../redux/action/instructor/InstructorAction';
+import {
+  DeleteAssignment
+} from '../../../redux/action/instructor/InstructorAction';
 import AssignmentForms from './../form/AssignmentForms';
-import { PaginationValue } from '../../../utils/PaginationUrl';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const AddButtonBottom = styled.div`
-    position: absolute;
+    position: fixed;
     bottom: 30px;
     right: 30px;
 `
 
-const SearchField = styled('div')({
-  margin: '10px',
-});
+const SearchField = styled.div`
+    position:absolute;
+    top: 125px;
+    right:16px;
+`;
 
 const columns = [
   { id: 'id', label: 'Id' },
@@ -50,11 +53,12 @@ function createData(id, name, status, creation, end, action) {
 }
 
 const Assignments = ({
-  GetAssignment,
   DeleteAssignment,
   assignmentData,
-  pageDetails,
+  pageDetailsAssignment,
   isLoadingAssignment,
+  paginationAssignment,
+  setPaginationAssignment
 }) => {
   const router = useRouter();
   const [rows, setRows] = useState([]);
@@ -62,18 +66,8 @@ const Assignments = ({
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
   const [deleteRowData, setDeleteRowData] = useState('');
-  const [paginationPayload, setPaginationPayload] = useState({
-    page: PaginationValue?.page,
-    size: PaginationValue?.size,
-    field: 'ass_id',
-    orderBy: PaginationValue?.orderBy,
-  });
   const [editAssignment, setEditAssignment] = useState(false);
   const [editAssignmentData, setEditAssignmentData] = useState('');
-
-  useEffect(() => {
-    GetAssignment(router.query.clasId, paginationPayload);
-  }, [router.query.clasId, paginationPayload]);
 
   useEffect(() => {
     let row = '';
@@ -103,28 +97,28 @@ const Assignments = ({
 
   const handlePagination = (event, value) => {
     event.preventDefault();
-    setPaginationPayload({ ...paginationPayload, page: value - 1 });
+    setPaginationAssignment({ ...paginationAssignment, page: value - 1 });
   };
 
   /** search implementation using debounce concepts */
 
-  const handleSearch = (event) => {
+  const handleSearchAssignment = (event) => {
     if (event.target.value !== '') {
-      paginationPayload['search'] = event.target.value;
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      paginationAssignment['search'] = event.target.value;
+      setPaginationAssignment({ ...paginationAssignment, paginationAssignment });
     } else {
-      delete paginationPayload['search'];
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      delete paginationAssignment['search'];
+      setPaginationAssignment({ ...paginationAssignment, paginationAssignment });
     }
   }
 
-  const debouncedResults = useMemo(() => {
-    return debouce(handleSearch, 300);
+  const debouncedResultsAssignment = useMemo(() => {
+    return debouce(handleSearchAssignment, 300);
   }, []);
 
   useEffect(() => {
     return () => {
-      debouncedResults.cancel();
+      debouncedResultsAssignment.cancel();
     };
   });
 
@@ -154,13 +148,13 @@ const Assignments = ({
 
   const handleTableSort = (e, column, sortToggle) => {
     if (sortToggle) {
-      paginationPayload['field'] = column.id
-      paginationPayload['orderBy'] = 'asc';
+      paginationAssignment['field'] = column.id
+      paginationAssignment['orderBy'] = 'asc';
     } else {
-      paginationPayload['field'] = column.id
-      paginationPayload['orderBy'] = 'desc';
+      paginationAssignment['field'] = column.id
+      paginationAssignment['orderBy'] = 'desc';
     }
-    setPaginationPayload({ ...paginationPayload, paginationPayload })
+    setPaginationAssignment({ ...paginationAssignment, paginationAssignment })
   }
 
   const handleCheckboxSelect = () => {
@@ -199,12 +193,11 @@ const Assignments = ({
 
       <Box sx={ { flexGrow: 1 } }>
         <Grid container spacing={ 1 }>
-          <Grid item md={ 8 }></Grid>
-          <Grid item md={ 4 } xs container direction='row' justifyContent={ 'right' }>
+          <Grid item container direction='row' justifyContent={ 'right' }>
             <SearchField>
               <TextField
                 placeholder='Search'
-                onChange={ debouncedResults }
+                onChange={ debouncedResultsAssignment }
                 inputProps={ {
                   style: {
                     padding: 5,
@@ -284,36 +277,27 @@ const Assignments = ({
         {/* //   : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
         // } */}
 
-        {pageDetails?.totalPages > 1 && (
           <div style={{ marginLeft: '35%', marginTop: '25px' }}>
             <Pagination
-              count={pageDetails?.totalPages}
+            count={ pageDetailsAssignment?.totalPages }
               onChange={handlePagination}
               color='primary'
               variant='outlined'
               shape='rounded'
             />
-          </div>
-        )}
+        </div>
 
       </CardView>
     </React.Fragment>
   );
 };
 
-const mapStateToProps = (state) => ({
-  pageDetails: state?.instructorClasses?.assignmentData?.page,
-  assignmentData: state?.instructorClasses?.assignmentData?._embedded?.assignmentDTOList,
-  isLoadingAssignment: state?.instructorClasses?.isLoadingAssignment,
-});
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetAssignment: (ClasId, PaginationValue) => dispatch(GetAssignment(ClasId, PaginationValue)),
     DeleteAssignment: (ClasId, assId) => dispatch(DeleteAssignment(ClasId, assId)),
   };
 };
 
 Assignments.layout = Instructor;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Assignments);
+export default connect(null, mapDispatchToProps)(Assignments);

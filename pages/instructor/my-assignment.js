@@ -13,8 +13,12 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 const MyClassesTables = ({
     GetStudent,
     GetAssignment,
-    pageDetails,
+    pageDetailsStudent,
     pageDetailsAssignment,
+    assignmentData,
+    isLoadingAssignment,
+    studentData,
+    isLoadingStudent,
 }) => {
 
     const router = useRouter();
@@ -37,7 +41,7 @@ const MyClassesTables = ({
         },
     ]
 
-    const [paginationPayload, setPaginationPayload] = useState({
+    const [paginationStudent, setPaginationStudent] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
         field: 'user_id',
@@ -52,16 +56,28 @@ const MyClassesTables = ({
     });
 
     useEffect(() => {
-        GetStudent(router.query.clasId, paginationPayload);
-    }, [router.query.clasId, paginationPayload]);
+        GetStudent(router.query.clasId, paginationStudent);
+    }, [router.query.clasId, paginationStudent]);
 
     useEffect(() => {
         GetAssignment(router.query.clasId, paginationAssignment);
     }, [router.query.clasId, paginationAssignment]);
 
     const componentList = [        
-        <Assignments />,
-        <Students />
+        <Assignments
+            pageDetailsAssignment={ pageDetailsAssignment }
+            assignmentData={ assignmentData }
+            isLoadingAssignment={ isLoadingAssignment }
+            paginationAssignment={ paginationAssignment }
+            setPaginationAssignment={ setPaginationAssignment }
+        />,
+        <Students
+            pageDetailsStudent={ pageDetailsStudent }
+            studentData={ studentData }
+            isLoadingStudent={ isLoadingStudent }
+            paginationStudent={ paginationStudent }
+            setPaginationStudent={ setPaginationStudent }
+        />
     ];
 
     const tabMenu = [
@@ -69,7 +85,7 @@ const MyClassesTables = ({
             label: `Assignments(${pageDetailsAssignment?.totalElements !== undefined ? pageDetailsAssignment?.totalElements : 0})`,
         },
         {
-            label: `Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
+            label: `Students(${pageDetailsStudent?.totalElements !== undefined ? pageDetailsStudent?.totalElements : 0})`,
         }      
     ];
 
@@ -77,7 +93,7 @@ const MyClassesTables = ({
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
+                    <Grid item md={ 10 } xs={ 12 }>
                         <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
                 </Grid>
@@ -89,8 +105,13 @@ const MyClassesTables = ({
 }
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.instructorClasses?.studentData?.page,
+    pageDetailsStudent: state?.instructorClasses?.studentData?.page,
     pageDetailsAssignment: state?.instructorClasses?.assignmentData?.page,
+    assignmentData: state?.instructorClasses?.assignmentData?._embedded?.assignmentDTOList,
+    isLoadingAssignment: state?.instructorClasses?.isLoadingAssignment,
+    studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
+    isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
+    isLoadingTemplate: state?.instructorClasses?.isLoadingTemplate,
 });
 
 const mapDispatchToProps = (dispatch) => {

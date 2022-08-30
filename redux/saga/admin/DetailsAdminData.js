@@ -394,7 +394,7 @@ export function* onLoadRemoveRepositary(action) {
     const { response, error } = yield call(RemoveRepositaryData, action.id);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_REPOSITARY_DELETE_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue });
+        // yield put({ type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue });
         toastrValidation(response);
     } else {
         yield put({

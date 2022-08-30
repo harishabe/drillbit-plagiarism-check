@@ -45,12 +45,12 @@ import { INSTRUCTOR_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const columns = [
     // { id: 'user_id', label: 'ID', minWidth: 100 },
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'email', label: 'Email', minWidth: 170 },
-    { id: 'creationDate', label: 'Creation Date', minWidth: 170 },
-    { id: 'status', label: 'Status', minWidth: 170 },
-    { id: 'stats', label: 'Statistics', minWidth: 100 },
-    { id: 'action', label: 'Action', minWidth: 100 }
+    { id: 'name', label: 'Name' },
+    { id: 'email', label: 'Email' },
+    { id: 'creationDate', label: 'Creation Date' },
+    { id: 'status', label: 'Status' },
+    { id: 'stats', label: 'Statistics' },
+    { id: 'action', label: 'Action' }
 ]
 
 function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action) {

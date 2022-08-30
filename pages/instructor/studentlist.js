@@ -42,9 +42,15 @@ function createData(PAname, file, lang, grammer, similarity, paperid, date, acti
 }
 
 const AddButtonBottom = styled.div`
-    position:absolute;
+    position:fixed;
     bottom: 30px;
     right:30px;
+`;
+
+const DownloadCsv = styled.div`
+    position:absolute;
+    top: 115px;
+    right:10px;
 `;
 
 const StudentList = ({
@@ -216,13 +222,13 @@ const StudentList = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={ 10 } xs={ 10 }>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <BreadCrumb item={ InstructorBreadCrumb } />
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 9 } xs={ 12 }>
                         <MainHeading title={`${folderName} (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                     </Grid>
-                    <Grid item md={ 2 } xs={ 2 }>
+                    <Grid item md={ 3 } xs={ 12 }>
                         <TextField
                             placeholder='Search'
                             onChange={debouncedResults}
@@ -233,6 +239,8 @@ const StudentList = ({
                                 },
                             }}
                         />
+                    </Grid>
+                    <DownloadCsv>
                         { submissionData?.length > 0 &&
                             <Tooltip title="Download csv">
                                 <IconButton
@@ -245,7 +253,7 @@ const StudentList = ({
                                 </IconButton>
                             </Tooltip>
                         }
-                    </Grid>
+                    </DownloadCsv>
                 </Grid>
             </Box>
             <CardView>
@@ -292,8 +300,8 @@ const StudentList = ({
                     />
                 }
 
-                {pageDetails?.totalPages > '1' ?
-                    <div style={{ marginLeft: '35%', marginTop: '25px' }}>
+                {/* {pageDetails?.totalPages > '1' ? */ }
+                <div style={ { marginLeft: '45%', marginTop: '25px' } }>
                         <Pagination
                             count={pageDetails?.totalPages}
                             onChange={handleChange}
@@ -302,7 +310,7 @@ const StudentList = ({
                             shape="rounded"
                         />
                     </div> : ''
-                }
+                {/* } */ }
             </CardView>
         </React.Fragment>
     )
