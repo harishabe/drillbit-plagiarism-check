@@ -30,13 +30,13 @@ import StudentForm from './form/StudentForm';
 import { STUDENT_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'user_id', label: 'Id', minWidth: 170 },
-    { id: 'email', label: 'Email', minWidth: 170 },
-    { id: 'department', label: 'Department', minWidth: 170 },
-    { id: 'section', label: 'Section', minWidth: 170 },
-    { id: 'stats', label: 'Statistics', minWidth: 100 },
-    { id: 'action', label: 'Action', minWidth: 100 },
+    { id: 'name', label: 'Name' },
+    { id: 'user_id', label: 'Id' },
+    { id: 'email', label: 'Email' },
+    { id: 'department', label: 'Department' },
+    { id: 'section', label: 'Section' },
+    { id: 'stats', label: 'Statistics' },
+    { id: 'action', label: 'Action' },
 ]
 
 function createData(id, name, user_id, email, department, section, stats, action) {

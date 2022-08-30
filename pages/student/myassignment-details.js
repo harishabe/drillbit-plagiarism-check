@@ -241,7 +241,7 @@ const MyAssignmentDetails = ({
 }
 
 const mapStateToProps = (state) => ({
-    submissionData: state?.studentClasses?.submissionData?._embedded?.submissionsList,
+    submissionData: state?.studentClasses?.submissionData?._embedded?.submissionsResponseList,
     headerData: state?.studentClasses?.headerData,
     feedbackData: state?.studentClasses?.feedbackData,
     qnaData: state?.studentClasses?.qnaData,

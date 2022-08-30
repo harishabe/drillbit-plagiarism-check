@@ -31,35 +31,24 @@ import {
 } from '../../../assets/icon';
 import StudentForm from '../form/StudentForm';
 import {
-    GetStudent,
     DeleteStudent,
-    DownloadTemplate,
-    UploadFile,
     UploadFileDataClear,
 } from '../../../redux/action/instructor/InstructorAction';
-import { PaginationValue } from '../../../utils/PaginationUrl';
 import StudentInstitute from '../studentInstitute';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { STUDENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const AddButtonBottom = styled.div`
-    position:absolute;
+    position:fixed;
     bottom: 30px;
     right:30px;
 `;
 
-const SearchField = styled('div')({
-    margin: '10px',
-});
-
-// const UploadButtonAlign = styled('div')({
-//     marginBottom: '-5px',
-//     marginLeft: '10px'
-// });
-
-// const Input = styled('input')({
-//     display: 'none',
-// });
+const SearchField = styled.div`
+    position:absolute;
+    top: 125px;
+    right:16px;
+`;
 
 const columns = [
     { id: 'id', label: 'Student ID' },
@@ -75,37 +64,24 @@ function createData(id, name, email, department, section, action) {
 }
 
 const Students = ({
-    GetStudent,
     studentData,
-    pageDetails,
+    pageDetailsStudent,
     isLoadingStudent,
     DeleteStudent,
-    DownloadTemplate,
-    isLoadingTemplate,
-    UploadFile,
+    paginationStudent,
+    setPaginationStudent,
     UploadFileDataClear,
 }) => {
 
     const router = useRouter();
 
     const [rows, setRows] = useState([]);
-    const [show, setShow] = useState(false);
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [editStudent, setEditStudent] = useState(false);
     const [editStudentData, setEditStudentData] = useState('');
-    const [paginationPayload, setPaginationPayload] = useState({
-        page: PaginationValue?.page,
-        size: PaginationValue?.size,
-        field: PaginationValue?.field,
-        orderBy: PaginationValue?.orderBy,
-    });
-
-    useEffect(() => {
-        GetStudent(router.query.clasId, paginationPayload);
-    }, [router.query.clasId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -152,13 +128,13 @@ const Students = ({
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id
-            paginationPayload['orderBy'] = 'asc';
+            paginationStudent['field'] = column.id
+            paginationStudent['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id
-            paginationPayload['orderBy'] = 'desc';
+            paginationStudent['field'] = column.id
+            paginationStudent['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
+        setPaginationStudent({ ...paginationStudent, paginationStudent })
     }
 
     const handleCheckboxSelect = () => {
@@ -194,40 +170,27 @@ const Students = ({
 
     /** search implementation using debounce concepts */
 
-    const handleSearch = (event) => {
+    const handleSearchStudent = (event) => {
         if (event.target.value !== '') {
-            paginationPayload['search'] = event.target.value;
-            setPaginationPayload({ ...paginationPayload, paginationPayload });
+            paginationStudent['search'] = event.target.value;
+            setPaginationStudent({ ...paginationStudent, paginationStudent });
         } else {
-            delete paginationPayload['search'];
-            setPaginationPayload({ ...paginationPayload, paginationPayload });
+            delete paginationStudent['search'];
+            setPaginationStudent({ ...paginationStudent, paginationStudent });
         }
     }
 
-    const debouncedResults = useMemo(() => {
-        return debouce(handleSearch, 300);
+    const debouncedResultsStudent = useMemo(() => {
+        return debouce(handleSearchStudent, 300);
     }, []);
 
     useEffect(() => {
         return () => {
-            debouncedResults.cancel();
+            debouncedResultsStudent.cancel();
         };
     });
 
     /** end debounce concepts */
-
-
-    // const handleDownload = () => {
-    //     DownloadTemplate(router.query.clasId)
-    //     setShow(true)
-    // }
-
-
-    // const handleSubmit = (data) => {
-    //     let bodyFormData = new FormData();
-    //     bodyFormData.append('file', data.target.files[0]);
-    //     UploadFile(router.query.clasId, bodyFormData);
-    // }
 
     const handleShow = (e, info) => {
         if (info?.title === 'Add From List') {
@@ -244,7 +207,7 @@ const Students = ({
 
     const handlePagination = (event, value) => {
         event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+        setPaginationStudent({ ...paginationStudent, 'page': value - 1 });
     };
 
     return (
@@ -314,14 +277,13 @@ const Students = ({
                 </CreateDrawer>
             }
 
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={1}>
-                    <Grid item md={8}></Grid>
-                    <Grid item md={4} xs container direction='row' justifyContent={'right'}>
+                    <Grid item container direction='row' justifyContent={ 'right' }>
                         <SearchField>
                             <TextField
                                 placeholder='Search'
-                                onChange={ debouncedResults }
+                                onChange={ debouncedResultsStudent }
                                 inputProps={ {
                                     style: {
                                         padding: 5,
@@ -330,48 +292,9 @@ const Students = ({
                                 } }
                             />
                         </SearchField>
-                        {/* {show ? '' :
-                            <Tooltip title="Download Template">
-                                <IconButton sx={{
-                                    position: 'absolute',
-                                    padding: '7px',
-                                    top: '118px',
-                                    right: '50px'
-                                }}
-                                    onClick={handleDownload}>
-                                    {isLoadingTemplate ? <Skeleton sx={{ mt: 1 }} width={20} /> : <DownloadIcon />}
-                                </IconButton>
-                            </Tooltip>
-                        }
-
-                        {show &&
-                            <>
-
-                                <form>
-                                    <label htmlFor="contained-button-file">
-                                        <Input id="contained-button-file" onChange={handleSubmit} multiple type="file" />
-                                        <Button variant="contained" component="span" style={{
-                                            position: 'absolute',
-                                            padding: '7px',
-                                            top: '118px',
-                                            right: '50px'
-                                        }}>
-                                            <>
-                                                <UploadIcon />
-                                                <UploadButtonAlign>
-                                                    <SubTitle textColor='#fff' title='Upload File' />
-                                                </UploadButtonAlign>
-                                            </>
-                                        </Button>
-                                    </label>
-                                </form>
-
-                            </>
-                        } */}
-
                     </Grid>
                 </Grid>
-            </Box>
+            </Box> 
 
 
             <CardView>
@@ -382,19 +305,6 @@ const Students = ({
                         </IconButton>
                     </div>}
 
-                    {/* <Tooltip title="Add student from list">
-                        <IconButton sx={{
-                            position: 'absolute',
-                            padding: '7px',
-                            top: '118px',
-                            right: '100px'
-                        }}
-                            onClick={handleShow}>
-                            <DownloadIcon />
-                        </IconButton>
-                    </Tooltip> */}
-
-                    {/* {studentData?.length > 0 ? */}
                     <CommonTable
                         isCheckbox={true}
                         isSorting={ true }
@@ -408,14 +318,11 @@ const Students = ({
                         charLength={17}
                         path=''
                     />
-                    {/* : <ErrorBlock message={STUDENT_NOT_FOUND} />
-                    } */}
 
-
-                    {pageDetails?.totalPages > 1 &&
+                    { pageDetailsStudent?.totalPages > 1 &&
                         <div style={{ marginLeft: '35%', marginTop: '25px' }}>
                             <Pagination
-                                count={pageDetails?.totalPages}
+                                count={ pageDetailsStudent?.totalPages }
                                 onChange={handlePagination}
                                 color="primary"
                                 variant="outlined"
@@ -429,23 +336,13 @@ const Students = ({
     )
 }
 
-const mapStateToProps = (state) => ({
-    studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
-    pageDetails: state?.instructorClasses?.studentData?.page,
-    isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
-    isLoadingTemplate: state?.instructorClasses?.isLoadingTemplate,
-});
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetStudent: (ClasId, PaginationValue) => dispatch(GetStudent(ClasId, PaginationValue)),
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
-        DownloadTemplate: (ClasId) => dispatch(DownloadTemplate(ClasId)),
-        UploadFile: (ClasId, data) => dispatch(UploadFile(ClasId, data)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };
 
 Students.layout = Instructor;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Students);
+export default connect(null, mapDispatchToProps)(Students);
