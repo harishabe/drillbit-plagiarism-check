@@ -89,3 +89,12 @@ export const SendSubmissionData = async (query, class_id, folder_id) => {
     const url = BASE_URL_UPLOAD + END_POINTS.STUDENT_NEW_SUBMISSION + class_id + '/assignments/' + folder_id + '/studentFile';
     return PostFormData(url, query);
 };
+
+/**
+ * API CALL FOR DOWNLOAD ORIGINAL FILE
+ */
+
+export const DownloadOriginalFileData = async (class_id, folder_id, paper_id) => {
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + class_id + '/assignments/' + folder_id + '/downloadOriginalFile/' + paper_id;
+    return GetMethodDownload(url, 'Submission_History.csv');
+};
