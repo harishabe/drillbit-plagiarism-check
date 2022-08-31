@@ -217,7 +217,7 @@ const MyAssignmentDetails = ({
                     <Grid item md={3} xs={12}>
                         <WidgetCard
                             title='Assignment name'
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.assignmentName } charLength={ 18 } /> }
+                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.assignmentName } charLength={ 10 } /> }
                         />
                     </Grid>
                     <Grid item md={3} xs={12}>
