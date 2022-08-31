@@ -21,11 +21,13 @@ import {
 } from '../../../components';
 import { EditIcon, DeleteIcon, DeleteWarningIcon, TimerIcon } from '../../../assets/icon';
 import {
+  GetAssignment,
   DeleteAssignment
 } from '../../../redux/action/instructor/InstructorAction';
 import AssignmentForms from './../form/AssignmentForms';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { PaginationValue } from '../../../utils/PaginationUrl';
 
 const AddButtonBottom = styled.div`
     position: fixed;
@@ -53,12 +55,14 @@ function createData(id, name, status, creation, end, action) {
 }
 
 const Assignments = ({
+  GetAssignment,
   DeleteAssignment,
   assignmentData,
   pageDetailsAssignment,
   isLoadingAssignment,
   paginationAssignment,
-  setPaginationAssignment
+  setPaginationAssignment,
+  debouncedResultsAssignment,
 }) => {
   const router = useRouter();
   const [rows, setRows] = useState([]);
@@ -68,6 +72,16 @@ const Assignments = ({
   const [deleteRowData, setDeleteRowData] = useState('');
   const [editAssignment, setEditAssignment] = useState(false);
   const [editAssignmentData, setEditAssignmentData] = useState('');
+  const [paginationPayload, setPaginationPayload] = useState({
+    page: PaginationValue?.page,
+    size: PaginationValue?.size,
+    field: 'ass_id',
+    orderBy: PaginationValue?.orderBy,
+  });
+
+  useEffect(() => {
+    GetAssignment(router.query.clasId, paginationPayload);
+  }, [router.query.clasId, paginationPayload]);
 
   useEffect(() => {
     let row = '';
@@ -100,29 +114,7 @@ const Assignments = ({
     setPaginationAssignment({ ...paginationAssignment, page: value - 1 });
   };
 
-  /** search implementation using debounce concepts */
 
-  const handleSearchAssignment = (event) => {
-    if (event.target.value !== '') {
-      paginationAssignment['search'] = event.target.value;
-      setPaginationAssignment({ ...paginationAssignment, paginationAssignment });
-    } else {
-      delete paginationAssignment['search'];
-      setPaginationAssignment({ ...paginationAssignment, paginationAssignment });
-    }
-  }
-
-  const debouncedResultsAssignment = useMemo(() => {
-    return debouce(handleSearchAssignment, 300);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      debouncedResultsAssignment.cancel();
-    };
-  });
-
-  /** end debounce concepts */
 
   const handleAction = (event, icon, rowData) => {
     if (icon === 'edit') {
@@ -295,6 +287,7 @@ const Assignments = ({
 const mapDispatchToProps = (dispatch) => {
   return {
     DeleteAssignment: (ClasId, assId) => dispatch(DeleteAssignment(ClasId, assId)),
+    GetAssignment: (ClasId, PaginationValue) => dispatch(GetAssignment(ClasId, PaginationValue)),
   };
 };
 

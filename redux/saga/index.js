@@ -76,6 +76,7 @@ import {
     GetStudentFeedback,
     SendQnaAnswer,
     SendSubmissionAnswer,
+    GetDownloadFileData
 } from './student/DetailsStudentData';
 import {
     profileDetails,
@@ -123,6 +124,7 @@ const saga = [
     fork(GetStudentFeedback),
     fork(SendQnaAnswer),
     fork(SendSubmissionAnswer),
+    fork(GetDownloadFileData),
     fork(CreateClass),
     fork(EditClassesData),
     fork(EditStudentsData),
