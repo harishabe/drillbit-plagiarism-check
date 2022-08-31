@@ -17,8 +17,8 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-function createData(name, id, date, similarity, grammer, score, status) {
-    return { name, id, date, similarity, grammer, score, status }
+function createData(filename, id, date, similarity, grammer, score, status) {
+    return { filename, id, date, similarity, grammer, score, status }
 }
 
 const SubmissionHistory = ({
@@ -50,7 +50,7 @@ const SubmissionHistory = ({
         submissionData?.map((submission) => {
             row =
                 createData(
-                    <EllipsisText value={ submission.title } charLength={ 18 } />,
+                    <EllipsisText value={ submission.original_fn } charLength={ 18 } />,
                     submission.paper_id,
                     submission.date_up,
                     submission.percent,
