@@ -96,31 +96,41 @@ const AssignmentForms = ({
             if (data.file !== undefined) {
                 bodyFormData.append('file', data?.file[0]);
             }
-            bodyFormData.append('exclude_references', excludeRefBib ? 'yes' : 'No');
-            bodyFormData.append('exclude_quotes', excludeQuote ? 'yes' : 'No');
-            bodyFormData.append('exclude_small_sources', excludeSmallSource ? 'yes' : 'No');
-            bodyFormData.append('assignment_grading', allowAssGrade ? 'yes' : 'No');
+            bodyFormData.append('exclude_references', excludeRefBib ? 'YES' : 'No');
+            bodyFormData.append('exclude_quotes', excludeQuote ? 'YES' : 'No');
+            bodyFormData.append('exclude_small_sources', excludeSmallSource ? 'YES' : 'No');
+            bodyFormData.append('assignment_grading', allowAssGrade ? 'YES' : 'No');
             bodyFormData.append('marks', allowAssGrade ? data.marks : '');
-            bodyFormData.append('exclude_include_sources', excludeIncludeSource ? 'yes' : 'No');
-            bodyFormData.append('save_to_repository', saveToRepo ? 'yes' : 'No');
-            bodyFormData.append('allow_resubmissions', allowSubmission ? 'yes' : 'No');
-            bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate ? 'yes' : 'No');
-            bodyFormData.append('grammar_check', grammarCheck ? 'yes' : 'No');
-            bodyFormData.append('choice_of_email_notifications', choiceEmailNotification ? 'yes' : 'No');
-            bodyFormData.append('add_questions', addQuestion ? 'yes' : 'No');
+            bodyFormData.append('exclude_include_sources', excludeIncludeSource ? 'YES' : 'No');
+            bodyFormData.append('save_to_repository', saveToRepo ? 'YES' : 'No');
+            bodyFormData.append('allow_resubmissions', allowSubmission ? 'YES' : 'No');
+            bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate ? 'YES' : 'No');
+            bodyFormData.append('grammar_check', grammarCheck ? 'YES' : 'No');
+            bodyFormData.append('choice_of_email_notifications', choiceEmailNotification ? 'YES' : 'No');
+            bodyFormData.append('add_questions', addQuestion ? 'YES' : 'No');
             if (addQuestion) {
-                bodyFormData.append('questions', questionList);
+                let questionObj = {};
+                questionList?.map((item, index) => {
+                    questionObj['q' + (index + 1)] = item;
+                });
+                console.log('questionObj',questionObj);
+                bodyFormData.append('questions', questionObj);
             }
-            bodyFormData.append('exclude_phrases', excludePhrases ? 'yes' : 'No');
+            bodyFormData.append('exclude_phrases', excludePhrases ? 'YES' : 'No');
             if (excludePhrases) {
-                bodyFormData.append('phrases', phrasesList);
+                let phrasesObj = {};
+                phrasesList?.map((item, index) => {
+                    phrasesObj['p' + (index + 1)] = item;
+                });
+                console.log('phrasesObj',phrasesObj);
+                bodyFormData.append('phrases', phrasesObj);
             }
-            bodyFormData.append('repository_scope', data?.repository_scope?.name);
-            bodyFormData.append('report_access', reportAccess ? 'yes' : 'No');
-            bodyFormData.append('db_studentpaper', studentPaper ? 'yes' : 'No');
-            bodyFormData.append('db_publications', publication ? 'yes' : 'No');
-            bodyFormData.append('db_internet', internet ? 'yes' : 'No');
-            bodyFormData.append('institution_repository', repository ? 'yes' : 'No');
+            bodyFormData.append('repository_scope', data?.repository_scope?.name.toUpperCase());
+            bodyFormData.append('report_access', reportAccess ? 'YES' : 'No');
+            bodyFormData.append('db_studentpaper', studentPaper ? 'YES' : 'No');
+            bodyFormData.append('db_publications', publication ? 'YES' : 'No');
+            bodyFormData.append('db_internet', internet ? 'YES' : 'No');
+            bodyFormData.append('institution_repository', repository ? 'YES' : 'No');
             bodyFormData.append('daily_submissions_limit', data?.daily_submissions_limit);
             CreateAssignment(router.query.clasId, bodyFormData);
         } else {
@@ -130,25 +140,25 @@ const AssignmentForms = ({
             if (data.file !== undefined) {
                 bodyFormData.append('file', data?.file[0]);
             }
-            bodyFormData.append('exclude_references', showSetting && 'yes');
-            bodyFormData.append('exclude_quotes', showSetting && 'yes');
-            bodyFormData.append('exclude_small_sources', showSetting && 'yes');
-            bodyFormData.append('assignment_grading', showSetting && 'yes');
-            bodyFormData.append('exclude_include_sources', showSetting && 'yes');
-            bodyFormData.append('save_to_repository', showSetting && 'yes');
-            bodyFormData.append('allow_resubmissions', showSetting && 'yes');
-            bodyFormData.append('allow_submissions_after_due_date', showSetting && 'yes');
-            bodyFormData.append('grammar_check', showSetting && 'yes');
-            bodyFormData.append('choice_of_email_notifications', showSetting && 'yes');
-            bodyFormData.append('add_questions', showSetting && 'yes');
-            bodyFormData.append('exclude_phrases', showSetting && 'yes');
-            bodyFormData.append('repository_scope', showSetting && 'yes');
-            bodyFormData.append('report_access', showSetting && 'yes');
-            bodyFormData.append('db_studentpaper', showSetting && 'yes');
-            bodyFormData.append('db_publications', showSetting && 'yes');
-            bodyFormData.append('db_internet', showSetting && 'yes');
-            bodyFormData.append('institution_repository', showSetting && 'yes');
-            bodyFormData.append('daily_submissions_limit', showSetting && 'yes');
+            bodyFormData.append('exclude_references', showSetting && 'YES');
+            bodyFormData.append('exclude_quotes', showSetting && 'YES');
+            bodyFormData.append('exclude_small_sources', showSetting && 'YES');
+            bodyFormData.append('assignment_grading', showSetting && 'YES');
+            bodyFormData.append('exclude_include_sources', showSetting && 'YES');
+            bodyFormData.append('save_to_repository', showSetting && 'YES');
+            bodyFormData.append('allow_resubmissions', showSetting && 'YES');
+            bodyFormData.append('allow_submissions_after_due_date', showSetting && 'YES');
+            bodyFormData.append('grammar_check', showSetting && 'YES');
+            bodyFormData.append('choice_of_email_notifications', showSetting && 'YES');
+            bodyFormData.append('add_questions', showSetting && 'YES');
+            bodyFormData.append('exclude_phrases', showSetting && 'YES');
+            bodyFormData.append('repository_scope', showSetting && 'YES');
+            bodyFormData.append('report_access', showSetting && 'YES');
+            bodyFormData.append('db_studentpaper', showSetting && 'YES');
+            bodyFormData.append('db_publications', showSetting && 'YES');
+            bodyFormData.append('db_internet', showSetting && 'YES');
+            bodyFormData.append('institution_repository', showSetting && 'YES');
+            bodyFormData.append('daily_submissions_limit', showSetting && 'YES');
             CreateAssignment(router.query.clasId, bodyFormData);
         }
 

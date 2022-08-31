@@ -96,5 +96,5 @@ export const SendSubmissionData = async (query, class_id, folder_id) => {
 
 export const DownloadOriginalFileData = async (class_id, folder_id, paper_id, name) => {
     const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/downloadOriginalFile/' + paper_id;
-    return GetMethodDownload(url, name + '.pdf');
+    return GetMethodDownload(url, name);
 };
