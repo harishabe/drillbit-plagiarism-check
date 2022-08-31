@@ -24,8 +24,7 @@ import {
     GetFeedback,
     SendData,
     GetSubmissionHeaderData,
-    DownloadStudentCsv,
-    DownloadOriginalFile
+    DownloadStudentCsv
 } from '../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 
@@ -60,8 +59,7 @@ const MyAssignmentDetails = ({
     isLoadingDownload,
     isLoadingQa,
     isLoadingFeedback,
-    isLoadingAns,
-    DownloadOriginalFile
+    isLoadingAns
 }) => {
 
     const router = useRouter();
@@ -206,25 +204,29 @@ const MyAssignmentDetails = ({
                     <Grid item md={3} xs={12}>
                         <WidgetCard
                             title='Class name'
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.subject } charLength={ 18 } /> }
+                            count={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.subject} charLength={18} />}
+                            icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <WidgetCard
                             title='Assignment name'
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.assignmentName } charLength={ 18 } /> }
+                            count={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.assignmentName} charLength={18} />}
+                            icon={<NoOfAssignmntIcon />}
                         />
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <WidgetCard
                             title='Instructor name'
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.instructorName } charLength={ 18 } /> }
+                            count={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.instructorName} charLength={18} />}
+                            icon={<NoOfClassIcon />}
                         />
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <WidgetCard
                             title='Date'
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate) } charLength={ 25 } /> }
+                            count={isLoadingHeader ? <Skeleton /> : <EllipsisText value={formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate)} charLength={18} />}
+                            icon={<NoOfClassIcon />}
                         />
                     </Grid>
                 </Grid>
@@ -255,7 +257,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionData: (class_id, folder_id, PaginationValue) => dispatch(GetSubmissionData(class_id, folder_id, PaginationValue)),
-        DownloadOriginalFile: (class_id, folder_id, paper_id) => dispatch(DownloadOriginalFile(class_id, folder_id, paper_id)),
         GetSubmissionHeaderData: (class_id, folder_id) => dispatch(GetSubmissionHeaderData(class_id, folder_id)),
         DownloadStudentCsv: (url) => dispatch(DownloadStudentCsv(url)),
         GetQna: (class_id, folder_id) => dispatch(GetQna(class_id, folder_id)),

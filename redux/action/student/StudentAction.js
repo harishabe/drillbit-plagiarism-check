@@ -89,12 +89,3 @@ export const NewSubmission = (data, class_id, folder_id) => {
         type: types.FETCH_STUDENTS_NEW_SUBMISSION_START, query: data, class_id: class_id, folder_id: folder_id
     };
 };
-
-/**
- * Get Download Original File data
- */
-export const DownloadOriginalFile = (class_id, folder_id, paper_id) => {
-    return {
-        type: types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_START, class_id: class_id, folder_id: folder_id, paper_id: paper_id
-    };
-};

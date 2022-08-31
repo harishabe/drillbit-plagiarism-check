@@ -11,7 +11,6 @@ import {
     GetQnaDetail,
     GetFeedbackDetail,
     SendAnswerData,
-    DownloadOriginalFileData
 } from '../../api/student/DetailStudentAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { StudentSubmissionsPaginationValue } from '../../../utils/PaginationUrl'
@@ -258,28 +257,4 @@ export function* onLoadFeedback(action) {
 
 export function* GetStudentFeedback() {
     yield takeLatest(types.FETCH_STUDENTS_FEEDBACK_DETAILS_START, onLoadFeedback);
-}
-
-/**
- * Get Download Original File data
- * @param {*} action
- */
-
-export function* onLoadDownloadFile(action) {
-    const { response, error } = yield call(DownloadOriginalFileData, action.class_id, action.folder_id, action.paper_id);
-    if (response) {
-        yield put({
-            type: types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_SUCCESS,
-            payload: response?.data,
-        });
-    } else {
-        yield put({
-            type: types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_FAIL,
-            payload: error,
-        });
-    }
-}
-
-export function* GetDownloadFileData() {
-    yield takeLatest(types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_START, onLoadDownloadFile);
 }

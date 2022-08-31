@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import debouce from "lodash.debounce";
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid';
@@ -64,54 +63,6 @@ const MyClassesTables = ({
         GetAssignment(router.query.clasId, paginationAssignment);
     }, [router.query.clasId, paginationAssignment]);
 
-    /** search implementation using debounce concepts */
-
-    const handleSearchAssignment = (event) => {
-        if (event.target.value !== '') {
-            paginationAssignment['search'] = event.target.value;
-            setPaginationAssignment({ ...paginationAssignment, paginationAssignment });
-        } else {
-            delete paginationAssignment['search'];
-            setPaginationAssignment({ ...paginationAssignment, paginationAssignment });
-        }
-    }
-
-    const debouncedResultsAssignment = useMemo(() => {
-        return debouce(handleSearchAssignment, 300);
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            debouncedResultsAssignment.cancel();
-        };
-    });
-
-    /** end debounce concepts */
-
-    /** search implementation using debounce concepts */
-
-    const handleSearchStudent = (event) => {
-        if (event.target.value !== '') {
-            paginationStudent['search'] = event.target.value;
-            setPaginationStudent({ ...paginationStudent, paginationStudent });
-        } else {
-            delete paginationStudent['search'];
-            setPaginationStudent({ ...paginationStudent, paginationStudent });
-        }
-    }
-
-    const debouncedResultsStudent = useMemo(() => {
-        return debouce(handleSearchStudent, 300);
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            debouncedResultsStudent.cancel();
-        };
-    });
-
-    /** end debounce concepts */
-
     const componentList = [        
         <Assignments
             pageDetailsAssignment={ pageDetailsAssignment }
@@ -119,7 +70,6 @@ const MyClassesTables = ({
             isLoadingAssignment={ isLoadingAssignment }
             paginationAssignment={ paginationAssignment }
             setPaginationAssignment={ setPaginationAssignment }
-            debouncedResultsAssignment={ debouncedResultsAssignment }
         />,
         <Students
             pageDetailsStudent={ pageDetailsStudent }
@@ -127,7 +77,6 @@ const MyClassesTables = ({
             isLoadingStudent={ isLoadingStudent }
             paginationStudent={ paginationStudent }
             setPaginationStudent={ setPaginationStudent }
-            debouncedResultsStudent={ debouncedResultsStudent }
         />
     ];
 

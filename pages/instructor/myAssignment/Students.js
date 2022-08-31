@@ -31,14 +31,12 @@ import {
 } from '../../../assets/icon';
 import StudentForm from '../form/StudentForm';
 import {
-    GetStudent,
     DeleteStudent,
     UploadFileDataClear,
 } from '../../../redux/action/instructor/InstructorAction';
 import StudentInstitute from '../studentInstitute';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { STUDENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
-import { PaginationValue } from '../../../utils/PaginationUrl';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -66,7 +64,6 @@ function createData(id, name, email, department, section, action) {
 }
 
 const Students = ({
-    GetStudent,
     studentData,
     pageDetailsStudent,
     isLoadingStudent,
@@ -74,7 +71,6 @@ const Students = ({
     paginationStudent,
     setPaginationStudent,
     UploadFileDataClear,
-    debouncedResultsStudent
 }) => {
 
     const router = useRouter();
@@ -86,16 +82,6 @@ const Students = ({
     const [deleteRowData, setDeleteRowData] = useState('');
     const [editStudent, setEditStudent] = useState(false);
     const [editStudentData, setEditStudentData] = useState('');
-    const [paginationPayload, setPaginationPayload] = useState({
-        page: PaginationValue?.page,
-        size: PaginationValue?.size,
-        field: 'user_id',
-        orderBy: PaginationValue?.orderBy,
-    });
-
-    useEffect(() => {
-        GetStudent(router.query.clasId, paginationPayload);
-    }, [router.query.clasId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -182,7 +168,29 @@ const Students = ({
         setShowDeleteWarning(true);
     }
 
+    /** search implementation using debounce concepts */
 
+    const handleSearchStudent = (event) => {
+        if (event.target.value !== '') {
+            paginationStudent['search'] = event.target.value;
+            setPaginationStudent({ ...paginationStudent, paginationStudent });
+        } else {
+            delete paginationStudent['search'];
+            setPaginationStudent({ ...paginationStudent, paginationStudent });
+        }
+    }
+
+    const debouncedResultsStudent = useMemo(() => {
+        return debouce(handleSearchStudent, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResultsStudent.cancel();
+        };
+    });
+
+    /** end debounce concepts */
 
     const handleShow = (e, info) => {
         if (info?.title === 'Add From List') {
@@ -330,7 +338,6 @@ const Students = ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetStudent: (ClasId, PaginationValue) => dispatch(GetStudent(ClasId, PaginationValue)),
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
