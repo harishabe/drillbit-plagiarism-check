@@ -266,7 +266,7 @@ export function* GetStudentFeedback() {
  */
 
 export function* onLoadDownloadFile(action) {
-    const { response, error } = yield call(DownloadOriginalFileData, action.class_id, action.folder_id, action.paper_id);
+    const { response, error } = yield call(DownloadOriginalFileData, action.class_id, action.folder_id, action.paper_id, action.name);
     if (response) {
         yield put({
             type: types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_SUCCESS,

@@ -154,8 +154,9 @@ const MyAssignmentDetails = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
-    const handleOriginalFileDownload = (e,value) => {
-        console.log('handleOriginalFileDownload',e,value);
+    const handleOriginalFileDownload = (e, data) => {
+        // console.log('handleOriginalFileDownload', router.query.clasId, router.query.assId, data?.id, data?.filename?.props?.value);
+        DownloadOriginalFile(router.query.clasId, router.query.assId, data?.id, data?.filename?.props?.value)
     }
 
     const componentList = [
@@ -260,7 +261,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionData: (class_id, folder_id, PaginationValue) => dispatch(GetSubmissionData(class_id, folder_id, PaginationValue)),
-        DownloadOriginalFile: (class_id, folder_id, paper_id) => dispatch(DownloadOriginalFile(class_id, folder_id, paper_id)),
+        DownloadOriginalFile: (class_id, folder_id, paper_id, name) => dispatch(DownloadOriginalFile(class_id, folder_id, paper_id, name)),
         GetSubmissionHeaderData: (class_id, folder_id) => dispatch(GetSubmissionHeaderData(class_id, folder_id)),
         DownloadStudentCsv: (url) => dispatch(DownloadStudentCsv(url)),
         GetQna: (class_id, folder_id) => dispatch(GetQna(class_id, folder_id)),

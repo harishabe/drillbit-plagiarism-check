@@ -93,8 +93,8 @@ export const NewSubmission = (data, class_id, folder_id) => {
 /**
  * Get Download Original File data
  */
-export const DownloadOriginalFile = (class_id, folder_id, paper_id) => {
+export const DownloadOriginalFile = (class_id, folder_id, paper_id, name) => {
     return {
-        type: types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_START, class_id: class_id, folder_id: folder_id, paper_id: paper_id
+        type: types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_START, class_id: class_id, folder_id: folder_id, paper_id: paper_id, name: name
     };
 };

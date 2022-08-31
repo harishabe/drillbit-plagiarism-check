@@ -94,7 +94,7 @@ export const SendSubmissionData = async (query, class_id, folder_id) => {
  * API CALL FOR DOWNLOAD ORIGINAL FILE
  */
 
-export const DownloadOriginalFileData = async (class_id, folder_id, paper_id) => {
-    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + class_id + '/assignments/' + folder_id + '/downloadOriginalFile/' + paper_id;
-    return GetMethodDownload(url, 'Submission_History.csv');
+export const DownloadOriginalFileData = async (class_id, folder_id, paper_id, name) => {
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/downloadOriginalFile/' + paper_id;
+    return GetMethodDownload(url, name + '.pdf');
 };
