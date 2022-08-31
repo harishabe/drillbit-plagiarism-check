@@ -43,7 +43,7 @@ const CommonTable = ({
     isSorting,
     downloadSubmissionFile
 }) => {
-console.log('tableData',tableData);
+// console.log('tableData',tableData);
     const router = useRouter();
     const classes = useStyles();
     const [toggle, setToggle] = React.useState(false);
@@ -113,7 +113,7 @@ console.log('tableData',tableData);
                                     </TableCell>}
                                 {tableHeader.map((column) => {
                                     const value = row[column.id];
-                                    console.log('valuevalue',value);
+                                    // console.log('valuevalue',value);
                                     return (
                                         <>
                                             {
