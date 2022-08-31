@@ -154,12 +154,17 @@ const MyAssignmentDetails = ({
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
+    const handleOriginalFileDownload = (e,value) => {
+        console.log('handleOriginalFileDownload',e,value);
+    }
+
     const componentList = [
         <SubmissionHistory
             submissionData={submissionData}
             isLoadingSubmission={isLoadingSubmission}
             pageDetails={pageDetails}
             handleChange={handleChange}
+            handleOriginalFileDownload={handleOriginalFileDownload}
         />,
         <QA
             GetQna={GetQna}
