@@ -124,7 +124,7 @@ const CommonTable = ({
                                                         {
                                                             column.isDownload ?
                                                                 <TableCell key={column.id} align={column.align}>
-                                                                    <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={downloadSubmissionFile}>
+                                                                    <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={(e)=>downloadSubmissionFile(e,row)}>
                                                                         {typeof (value) === 'string' ?
                                                                             <EllipsisText value={value !== null ? value : '--'} charLength={charLength} /> :
                                                                             <SubTitle title={value !== null ? value : '--'} />}

@@ -40,8 +40,8 @@ const SubmissionHistory = ({
         { id: 'feedback', label: 'Feedback' },
     ];
 
-    const downloadSubmissionFile = () => {
-        console.log('downloadSubmissionFile');
+    const downloadSubmissionFile = (e,value) => {
+        console.log('e,value',e,value);
     }
 
     useEffect(() => {
