@@ -30,7 +30,7 @@ const SubmissionHistory = ({
     const [rows, setRows] = useState([]);
 
     const columns = [
-        { id: 'filename', label: 'File name' },
+        { id: 'name', label: 'File name', isDownload:true },
         { id: 'id', label: 'Paper ID' },
         { id: 'date', label: 'Date' },
         { id: 'similarity', label: 'Similarity' },
@@ -38,7 +38,11 @@ const SubmissionHistory = ({
         { id: 'score', label: 'Marks' },
         { id: 'status', label: 'Status' },
         { id: 'feedback', label: 'Feedback' },
-    ]
+    ];
+
+    const downloadSubmissionFile = () => {
+        console.log('downloadSubmissionFile');
+    }
 
     useEffect(() => {
         let row = '';
@@ -67,6 +71,7 @@ const SubmissionHistory = ({
                         isSorting={ true }
                         tableHeader={ columns }
                         tableData={ rows }
+                        downloadSubmissionFile={downloadSubmissionFile}
                     />
                 </>
             }
