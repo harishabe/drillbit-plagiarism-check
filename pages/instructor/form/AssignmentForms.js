@@ -96,31 +96,31 @@ const AssignmentForms = ({
             if (data.file !== undefined) {
                 bodyFormData.append('file', data?.file[0]);
             }
-            bodyFormData.append('exclude_references', excludeRefBib ? 'Yes' : 'No');
-            bodyFormData.append('exclude_quotes', excludeQuote ? 'Yes' : 'No');
-            bodyFormData.append('exclude_small_sources', excludeSmallSource ? 'Yes' : 'No');
-            bodyFormData.append('assignment_grading', allowAssGrade ? 'Yes' : 'No');
+            bodyFormData.append('exclude_references', excludeRefBib ? 'yes' : 'No');
+            bodyFormData.append('exclude_quotes', excludeQuote ? 'yes' : 'No');
+            bodyFormData.append('exclude_small_sources', excludeSmallSource ? 'yes' : 'No');
+            bodyFormData.append('assignment_grading', allowAssGrade ? 'yes' : 'No');
             bodyFormData.append('marks', allowAssGrade ? data.marks : '');
-            bodyFormData.append('exclude_include_sources', excludeIncludeSource ? 'Yes' : 'No');
-            bodyFormData.append('save_to_repository', saveToRepo ? 'Yes' : 'No');
-            bodyFormData.append('allow_resubmissions', allowSubmission ? 'Yes' : 'No');
-            bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate ? 'Yes' : 'No');
-            bodyFormData.append('grammar_check', grammarCheck ? 'Yes' : 'No');
-            bodyFormData.append('choice_of_email_notifications', choiceEmailNotification ? 'Yes' : 'No');
-            bodyFormData.append('add_questions', addQuestion ? 'Yes' : 'No');
+            bodyFormData.append('exclude_include_sources', excludeIncludeSource ? 'yes' : 'No');
+            bodyFormData.append('save_to_repository', saveToRepo ? 'yes' : 'No');
+            bodyFormData.append('allow_resubmissions', allowSubmission ? 'yes' : 'No');
+            bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate ? 'yes' : 'No');
+            bodyFormData.append('grammar_check', grammarCheck ? 'yes' : 'No');
+            bodyFormData.append('choice_of_email_notifications', choiceEmailNotification ? 'yes' : 'No');
+            bodyFormData.append('add_questions', addQuestion ? 'yes' : 'No');
             if (addQuestion) {
                 bodyFormData.append('questions', questionList);
             }
-            bodyFormData.append('exclude_phrases', excludePhrases ? 'Yes' : 'No');
+            bodyFormData.append('exclude_phrases', excludePhrases ? 'yes' : 'No');
             if (excludePhrases) {
                 bodyFormData.append('phrases', phrasesList);
             }
             bodyFormData.append('repository_scope', data?.repository_scope?.name);
-            bodyFormData.append('report_access', reportAccess ? 'Yes' : 'No');
-            bodyFormData.append('db_studentpaper', studentPaper ? 'Yes' : 'No');
-            bodyFormData.append('db_publications', publication ? 'Yes' : 'No');
-            bodyFormData.append('db_internet', internet ? 'Yes' : 'No');
-            bodyFormData.append('institution_repository', repository ? 'Yes' : 'No');
+            bodyFormData.append('report_access', reportAccess ? 'yes' : 'No');
+            bodyFormData.append('db_studentpaper', studentPaper ? 'yes' : 'No');
+            bodyFormData.append('db_publications', publication ? 'yes' : 'No');
+            bodyFormData.append('db_internet', internet ? 'yes' : 'No');
+            bodyFormData.append('institution_repository', repository ? 'yes' : 'No');
             bodyFormData.append('daily_submissions_limit', data?.daily_submissions_limit);
             CreateAssignment(router.query.clasId, bodyFormData);
         } else {
@@ -130,25 +130,25 @@ const AssignmentForms = ({
             if (data.file !== undefined) {
                 bodyFormData.append('file', data?.file[0]);
             }
-            bodyFormData.append('exclude_references', showSetting && 'Yes');
-            bodyFormData.append('exclude_quotes', showSetting && 'Yes');
-            bodyFormData.append('exclude_small_sources', showSetting && 'Yes');
-            bodyFormData.append('assignment_grading', showSetting && 'Yes');
-            bodyFormData.append('exclude_include_sources', showSetting && 'Yes');
-            bodyFormData.append('save_to_repository', showSetting && 'Yes');
-            bodyFormData.append('allow_resubmissions', showSetting && 'Yes');
-            bodyFormData.append('allow_submissions_after_due_date', showSetting && 'Yes');
-            bodyFormData.append('grammar_check', showSetting && 'Yes');
-            bodyFormData.append('choice_of_email_notifications', showSetting && 'Yes');
-            bodyFormData.append('add_questions', showSetting && 'Yes');
-            bodyFormData.append('exclude_phrases', showSetting && 'Yes');
-            bodyFormData.append('repository_scope', showSetting && 'Yes');
-            bodyFormData.append('report_access', showSetting && 'Yes');
-            bodyFormData.append('db_studentpaper', showSetting && 'Yes');
-            bodyFormData.append('db_publications', showSetting && 'Yes');
-            bodyFormData.append('db_internet', showSetting && 'Yes');
-            bodyFormData.append('institution_repository', showSetting && 'Yes');
-            bodyFormData.append('daily_submissions_limit', showSetting && 'Yes');
+            bodyFormData.append('exclude_references', showSetting && 'yes');
+            bodyFormData.append('exclude_quotes', showSetting && 'yes');
+            bodyFormData.append('exclude_small_sources', showSetting && 'yes');
+            bodyFormData.append('assignment_grading', showSetting && 'yes');
+            bodyFormData.append('exclude_include_sources', showSetting && 'yes');
+            bodyFormData.append('save_to_repository', showSetting && 'yes');
+            bodyFormData.append('allow_resubmissions', showSetting && 'yes');
+            bodyFormData.append('allow_submissions_after_due_date', showSetting && 'yes');
+            bodyFormData.append('grammar_check', showSetting && 'yes');
+            bodyFormData.append('choice_of_email_notifications', showSetting && 'yes');
+            bodyFormData.append('add_questions', showSetting && 'yes');
+            bodyFormData.append('exclude_phrases', showSetting && 'yes');
+            bodyFormData.append('repository_scope', showSetting && 'yes');
+            bodyFormData.append('report_access', showSetting && 'yes');
+            bodyFormData.append('db_studentpaper', showSetting && 'yes');
+            bodyFormData.append('db_publications', showSetting && 'yes');
+            bodyFormData.append('db_internet', showSetting && 'yes');
+            bodyFormData.append('institution_repository', showSetting && 'yes');
+            bodyFormData.append('daily_submissions_limit', showSetting && 'yes');
             CreateAssignment(router.query.clasId, bodyFormData);
         }
 
@@ -259,10 +259,8 @@ const AssignmentForms = ({
     }
 
     const handlePhrases = (e) => {
-        e.preventDefault();
         let r = [...phrasesList];
         r.push(phrasesData);
-        console.log('pppppp', r);
         setPhrasesList(r);
     }
 
@@ -658,21 +656,8 @@ const AssignmentForms = ({
                                                 />
                                             </Grid>
                                             <Grid item md={2}>
-                                                {/* <Button
-                                                    variant="contained"
-                                                    onClick={(e) => handleAddQuestionRemove(e, index)}
-                                                >
-                                                    Remove
-                                                </Button> */}
                                             </Grid>
                                         </Grid>
-                                        {/* {questionList?.length === 0 && <Button
-                                            sx={{ marginTop: '14px' }}
-                                            variant="contained"
-                                            onClick={handleMoreAddQuestion}
-                                        >
-                                            Add Questions
-                                        </Button>} */}
                                     </>
                                     {questionList?.map((item, index) => (
                                         <>
@@ -687,25 +672,14 @@ const AssignmentForms = ({
                                                     />
                                                 </Grid>
                                                 <Grid item md={2}>
-                                                        <Button
-                                                            variant="contained"
-                                                            onClick={(e) => handleAddQuestionRemove(e, index)}
-                                                        >
-                                                            Remove
-                                                        </Button>
+                                                    <Button
+                                                        variant="contained"
+                                                        onClick={(e) => handleAddQuestionRemove(e, index)}
+                                                    >
+                                                        Remove
+                                                    </Button>
                                                 </Grid>
                                             </Grid>
-                                            {/* <Grid container spacing={2}>
-                                                <Grid item md={12}>
-                                                    {questionList.length - 1 === index && <Button
-                                                        sx={{ marginTop: '14px' }}
-                                                        variant="contained"
-                                                        onClick={handleMoreAddQuestion}
-                                                    >
-                                                        Add Questions
-                                                    </Button>}
-                                                </Grid>
-                                            </Grid> */}
                                         </>
                                     ))}
                                     <Button
@@ -739,52 +713,53 @@ const AssignmentForms = ({
                                 </Grid>
                             </Grid>
                             {excludePhrases === 'yes' &&
-                                phrasesList?.map((item, index) => (
+                                <div>
                                     <>
-                                        <Grid container spacing={2}>
+                                        <Grid container spacing={2} sx={{ marginBottom: '15px' }}>
                                             <Grid item md={9}>
                                                 <TextField
                                                     id="p"
-                                                    label={"Enter phrases " + (index + 1)}
-                                                    name={"p" + index}
+                                                    label={"Enter pharses 1"}
+                                                    size="small"
+                                                    name={"p1"}
                                                     onChange={(e) => setPhrasesData(e.target.value)}
                                                 />
-                                                {/* <InputTextField
-                                                    control={control}
-                                                    field={{
-                                                        "field_type": "input",
-                                                        "id": "p",
-                                                        "name": "p" + index,
-                                                        "size": 'small',
-                                                        "label": "Enter phrases " + (index + 1),
-                                                        "required": "Enter phrases"
-                                                    }}
-                                                /> */}
                                             </Grid>
                                             <Grid item md={2}>
-                                                {phrasesList.length !== 1 &&
+                                            </Grid>
+                                        </Grid>
+                                    </>
+                                    {phrasesList?.map((item, index) => (
+                                        <>
+                                            <Grid container spacing={2} sx={{ marginBottom: '15px' }}>
+                                                <Grid item md={9}>
+                                                    <TextField
+                                                        id="p"
+                                                        size="small"
+                                                        label={"Enter pharses " + (index + 2)}
+                                                        name={"p" + index + 1}
+                                                        onChange={(e) => setPhrasesData(e.target.value)}
+                                                    />
+                                                </Grid>
+                                                <Grid item md={2}>
                                                     <Button
-                                                        sx={{ marginTop: '35px' }}
                                                         variant="contained"
                                                         onClick={(e) => handleRemovePhrases(e, index)}
                                                     >
                                                         Remove
-                                                    </Button>}
+                                                    </Button>
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                        <Grid container spacing={2}>
-                                            <Grid item md={12}>
-                                                {phrasesList.length - 1 === index && <Button
-                                                    sx={{ marginTop: '14px' }}
-                                                    variant="contained"
-                                                    onClick={handlePhrases}
-                                                >
-                                                    Add Phrases
-                                                </Button>}
-                                            </Grid>
-                                        </Grid>
-                                    </>
-                                ))
+                                        </>
+                                    ))}
+                                    <Button
+                                        sx={{ marginTop: '14px' }}
+                                        variant="contained"
+                                        onClick={handlePhrases}
+                                    >
+                                        Add Phrases
+                                    </Button>
+                                </div>
                             }
                         </div>
                         <div>

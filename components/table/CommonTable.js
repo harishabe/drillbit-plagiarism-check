@@ -40,7 +40,8 @@ const CommonTable = ({
     handleSingleSelect,
     isNextPath,
     isLoading,
-    isSorting
+    isSorting,
+    downloadSubmissionFile
 }) => {
 
     const router = useRouter();
@@ -119,11 +120,25 @@ const CommonTable = ({
                                                     <TableCell>
                                                         {value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}</IconButton>))}
                                                     </TableCell> :
-                                                    <TableCell key={column.id} align={column.align}>
-                                                        {typeof (value) === 'string' ?
-                                                            <EllipsisText value={ value !== null ? value : '--' } charLength={ charLength } /> :
-                                                            <SubTitle title={ value !== null ? value : '--' } /> }
-                                                    </TableCell>
+                                                    <>
+                                                        {
+                                                            column.isDownload ?
+                                                                <TableCell key={column.id} align={column.align}>
+                                                                    <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={downloadSubmissionFile}>
+                                                                        {typeof (value) === 'string' ?
+                                                                            <EllipsisText value={value !== null ? value : '--'} charLength={charLength} /> :
+                                                                            <SubTitle title={value !== null ? value : '--'} />}
+                                                                    </a>
+                                                                </TableCell>
+                                                                :
+                                                                <TableCell key={column.id} align={column.align}>
+                                                                    {typeof (value) === 'string' ?
+                                                                        <EllipsisText value={value !== null ? value : '--'} charLength={charLength} /> :
+                                                                        <SubTitle title={value !== null ? value : '--'} />}
+                                                                </TableCell>
+                                                        }
+                                                    </>
+
                                             }
                                         </>
                                     )
