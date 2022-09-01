@@ -142,7 +142,7 @@ const AddBulkStudent = ({
                             <div style={{ padding: '25px 150px' }}>
                                 <Grid container spacing={1}>
                                     <Grid item md={6} xs={6}>
-                                        <MainHeading title='Add Student' />
+                                        <MainHeading title='Add Multiple Student' />
                                     </Grid>
                                     <Grid item md={6} xs={6} align="right">
                                         <Button
@@ -150,7 +150,7 @@ const AddBulkStudent = ({
                                             variant="contained"
                                             size="large"
                                             startIcon={!isLoadingTemplate && <DownBorderArrowIcon />}>
-                                            {isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template list'}
+                                            { isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template' }
                                         </Button>
                                     </Grid>
 
@@ -178,7 +178,7 @@ const AddBulkStudent = ({
                                         <Grid item md={4} xs={4}></Grid>
                                         <Grid item md={4} xs={4} style={{ marginTop: '15px', textAlign: 'center' }}>
                                             <Button onClick={handleSubmit} variant="contained" size="large">
-                                                {isLoadingStudentFileUpload ? <BeatLoader color="#fff" /> : 'Add Student'}
+                                                { isLoadingStudentFileUpload ? <BeatLoader color="#fff" /> : 'Submit' }
                                             </Button>
                                         </Grid>
                                         <Grid item md={4} xs={4}></Grid>

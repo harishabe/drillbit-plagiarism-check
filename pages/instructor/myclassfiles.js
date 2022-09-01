@@ -101,6 +101,7 @@ const MyClassFiles = ({
                             isTimer={true}
                             isAction={true}
                             isNextPath={true}
+                            isDescription={ true }
                             handleClick={handleClassEdit}
                             handleDelete={handleClassDelete}
                             statusColor={expiryDateBgColor(item.validity)}

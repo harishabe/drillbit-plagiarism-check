@@ -5,9 +5,19 @@
         "id": "name",
         "name": "class_name",
         "label": "Class name",
-        "required": "Class name"
+        "disabled":false,
+        "required": "Class name",
+        "validationMsg": "Enter Class name"
     },
     
+    {
+        "field_type": "input",
+        "id": "description",
+        "name": "description",
+        "label": "Description",
+        "required": "Enter Description",
+        "validationMsg": "Enter Description"
+    },
     {
         "field_type": "datepicker",
         "id": "expiry_date",

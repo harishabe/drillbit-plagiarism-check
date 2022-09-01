@@ -35,7 +35,7 @@ const SubmissionHistory = ({
         { id: 'id', label: 'Paper ID' },
         { id: 'date', label: 'Date' },
         { id: 'similarity', label: 'Similarity' },
-        { id: 'grammer', label: 'Grammer' },
+        { id: 'grammer', label: 'Grammar' },
         { id: 'score', label: 'Marks' },
         { id: 'status', label: 'Status' },
         { id: 'feedback', label: 'Feedback' },
@@ -47,7 +47,7 @@ const SubmissionHistory = ({
         submissionData?.map((submission) => {
             row =
                 createData(
-                    <EllipsisText value={ submission.original_fn } charLength={ 18 } />,
+                    <EllipsisText value={ submission.original_fn } charLength={ 12 } />,
                     submission.paper_id,
                     submission.date_up,
                     submission.percent,

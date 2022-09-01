@@ -27,17 +27,16 @@ import SubmissionForm from './form/SubmissionForm';
 const columns = [
     { id: 'PAname', label: 'Paper Name' },
     { id: 'file', label: 'Original File' },
-    { id: 'lang', label: 'Language' },
-    { id: 'grammer', label: 'Grammer' },
+    { id: 'grammer', label: 'Grammar' },
     { id: 'similarity', label: 'Similarity' },
     { id: 'paperid', label: 'Paper Id' },
     { id: 'date', label: 'Submission Date' },
-    { id: 'action', label: 'Actions' },
+    { id: 'action', label: 'Action' },
 ]
 
-function createData(PAname, file, lang, grammer, similarity, paperid, date, action) {
+function createData(PAname, file, grammer, similarity, paperid, date, action) {
     return {
-        PAname, file, lang, grammer, similarity, paperid, date, action
+        PAname, file, grammer, similarity, paperid, date, action
     }
 }
 
@@ -136,7 +135,6 @@ const StudentList = ({
                 createData(
                     student.title,
                     student.original_fn,
-                    student.lang1,
                     student.grammar,
                     student.percent,
                     student.paper_id,
@@ -226,7 +224,7 @@ const StudentList = ({
                 <BreadCrumb item={ InstructorBreadCrumb } />
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 9 } xs={ 12 }>
-                        <MainHeading title={`${folderName} (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+                        <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
                     <Grid item md={ 3 } xs={ 12 }>
                         <TextField

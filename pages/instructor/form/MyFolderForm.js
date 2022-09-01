@@ -25,37 +25,37 @@ const MyFoldersForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            data['end_date'] = convertDate(data.expiry_date);
+            // data['end_date'] = convertDate(data.expiry_date);
             data['exclude_refernces'] = data.exclude_refernces;
             data['exclude_quotes'] = data.exclude_quotes;
             data['exclude_small_sources'] = data.exclude_small_sources;
-            data['exclude_include_sources'] = data.exclude_include_sources;
+            // data['exclude_include_sources'] = data.exclude_include_sources;
             data['grammar_check'] = data.grammar_check;
             data['exclude_phrases'] = data.exclude_phrases;
             data['db_studentpaper'] = data.db_studentpaper;
             data['db_publications'] = data.db_publications;
             data['db_internet'] = data.db_internet;
             data['institution_repository'] = data.institution_repository;
-            data['repository_scope'] = data.repository_scope.name;
-            delete data.expiry_date;
+            // data['repository_scope'] = data.repository_scope.name;
+            // delete data.expiry_date;
             EditFolder(editData?.folder_id, data);
         } else {
             let Detaileddata = {
                 ...data,
-                "end_date": convertDate(data.expiry_date),
+                // "end_date": convertDate(data.expiry_date),
                 'exclude_refernces': data.exclude_refernces,
                 'exclude_quotes': data.exclude_quotes,
                 'exclude_small_sources': data.exclude_small_sources,
-                'exclude_include_sources': data.exclude_include_sources,
+                // 'exclude_include_sources': data.exclude_include_sources,
                 'grammar_check': data.grammar_check,
                 'exclude_phrases': data.exclude_phrases,
                 'db_studentpaper': data.db_studentpaper,
                 'db_publications': data.db_publications,
                 'db_internet': data.db_internet,
                 'institution_repository': data.institution_repository,
-                'repository_scope': data.repository_scope.name
+                // 'repository_scope': data.repository_scope.name
             }
-            delete Detaileddata.expiry_date;
+            // delete Detaileddata.expiry_date;
             CreateFolder(Detaileddata);
         }
     };
@@ -65,9 +65,9 @@ const MyFoldersForm = ({
             if (field.name === 'assignment_name') {
                 field.disabled = isNameDisabled;
             }
-            if (field.name === 'end_date') {
-                field.minDate = false;
-            }
+            // if (field.name === 'end_date') {
+            //     field.minDate = false;
+            // }
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
             }
@@ -80,33 +80,33 @@ const MyFoldersForm = ({
         if (editData) {
             let a = {
                 'assignment_name': editData.folder_name,
-                'expiry_date': convertDate(editData.end_date),
+                // 'expiry_date': convertDate(editData.end_date),
                 'exclude_refernces': editData.excludeReferences,
                 'exclude_quotes': editData.excludeQuotes,
                 'exclude_small_sources': editData.excludeSmallSources,
-                'exclude_include_sources': editData.excludeIncludeSources,
+                // 'exclude_include_sources': editData.excludeIncludeSources,
                 'grammar_check': editData.grammarCheck,
                 'exclude_phrases': editData.excludePhrases,
                 'db_studentpaper': editData.db_studentpaper,
                 'db_publications': editData.db_publications,
                 'db_internet': editData.db_internet,
                 'institution_repository': editData.institution_repository,
-                'repository_scope': editData.repository_scope
+                // 'repository_scope': editData.repository_scope
             };
             const fields = [
                 'assignment_name',
-                'expiry_date',
+                // 'expiry_date',
                 "exclude_refernces",
                 "exclude_quotes",
                 "exclude_small_sources",
-                "exclude_include_sources",
+                // "exclude_include_sources",
                 "grammar_check",
                 "exclude_phrases",
                 "db_studentpaper",
                 "db_publications",
                 "db_internet",
                 "institution_repository",
-                "repository_scope",
+                // "repository_scope",
             ];
             fields.forEach(field => setValue(field, a[field]));
             modifyFormField('Edit Folder');

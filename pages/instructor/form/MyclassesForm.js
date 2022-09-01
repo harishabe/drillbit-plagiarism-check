@@ -35,8 +35,11 @@ const MyClassesForm = ({
         }
     };
 
-    const modifyFormField = (buttonLabel) => {
+    const modifyFormField = (buttonLabel, isNameDisabled) => {
         let formField = formJsonField?.map((field) => {
+            if (field.type === 'text') {
+                field.disabled = isNameDisabled;
+            }
             if (field.name === 'end_date') {
                 field.minDate = false;
             }
@@ -52,17 +55,19 @@ const MyClassesForm = ({
         if (editData) {
             let a = {
                 'class_name': editData.name,
+                'description': editData.description,
                 'expiry_date': convertDate(editData.expiry_date),
             };
             const fields = [
                 'class_name',
+                'description',
                 'expiry_date',
             ];
             fields.forEach(field => setValue(field, a[field]));
-            modifyFormField('Edit Class');
+            modifyFormField('Edit Class', true);
             setEditOperation(true);
         } else {
-            modifyFormField('Create Class');
+            modifyFormField('Create Class', false);
         }
     }, [editData]);
 

@@ -76,6 +76,7 @@ const CardInfoView = ({
     handleDelete,
     handleConfig,
     handleDownload,
+    isDescription,
     checked
 }) => {
     const router = useRouter();
@@ -194,10 +195,13 @@ const CardInfoView = ({
 
                     {isImage && <img style={{ marginBottom: '15px' }} src={item.img} alt={item.lms} />}
 
-                    {isKnowMore ?
-                        <SubTitle1 textColor="#808080" title={item?.description} /> : ''}
 
                     {isHeading && <EllipsisText value={item.name} charLength={30} />}
+
+                    { isDescription &&
+                        <EllipsisText value={ item?.description === null ? '--' : item?.description }
+                            variant={ 'subtitle2' } charLength={ 30 } />
+                    }
 
                     {isInstructorName &&
                         <Grid container sx={{ mt: 1.5 }}>
