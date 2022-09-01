@@ -42,12 +42,12 @@ const SearchField = styled.div`
 `;
 
 const columns = [
-  { id: 'id', label: 'Id' },
+  // { id: 'id', label: 'Id' },
   { id: 'name', label: 'Name' },
   { id: 'status', label: 'Status' },
   { id: 'creation', label: 'Creation Date' },
   { id: 'end', label: 'End Date' },
-  { id: 'action', label: 'Action' },
+  { id: 'action', label: 'Actions' },
 ];
 
 function createData(id, name, status, creation, end, action) {

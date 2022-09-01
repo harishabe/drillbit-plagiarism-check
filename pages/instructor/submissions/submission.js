@@ -29,11 +29,11 @@ const columns = [
   { id: 'STname', label: 'Student Name' },
   { id: 'PAname', label: 'Paper Name' },
   { id: 'file', label: 'Original File' },
-  { id: 'grammer', label: 'Grammer' },
+  { id: 'grammer', label: 'Grammar' },
   { id: 'similarity', label: 'Similarity' },
   { id: 'paperid', label: 'Paper Id' },
   { id: 'date', label: 'Submission Date' },
-  { id: 'action', label: 'Actions' },
+  { id: 'action', label: 'Action' },
 ];
 
 function createData(id, STname, PAname, file, grammer, similarity, paperid, date, action) {
@@ -116,7 +116,7 @@ const Submission = ({
         submission.paper_id,
         submission.date_up,
         [
-          { 'component': <EditIcon />, 'type': 'edit' },
+          // { 'component': <EditIcon />, 'type': 'edit' },
           { 'component': <DeleteIcon />, 'type': 'delete' },
         ]
       );
