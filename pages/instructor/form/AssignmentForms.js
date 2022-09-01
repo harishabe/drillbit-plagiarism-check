@@ -23,7 +23,8 @@ import InputFileType from '../../../components/form/elements/InputFileType';
 import InputAutoComplete from '../../../components/form/elements/InputAutoComplete';
 import InputButton from '../../../components/form/elements/InputButton';
 import { CreateAssignment, EditAssignment } from '../../../redux/action/instructor/InstructorAction';
-import { convertDate } from '../../../utils/RegExp'
+import { convertDate } from '../../../utils/RegExp';
+import { ASSIGNMENT_SETTING_VALUE_YES,ASSIGNMENT_SETTING_VALUE_NO} from '../../../constant/data/Constant';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -96,18 +97,18 @@ const AssignmentForms = ({
             if (data.file !== undefined) {
                 bodyFormData.append('file', data?.file[0]);
             }
-            bodyFormData.append('exclude_references', excludeRefBib ? 'YES' : 'No');
-            bodyFormData.append('exclude_quotes', excludeQuote ? 'YES' : 'No');
-            bodyFormData.append('exclude_small_sources', excludeSmallSource ? 'YES' : 'No');
-            bodyFormData.append('assignment_grading', allowAssGrade ? 'YES' : 'No');
+            bodyFormData.append('exclude_references', excludeRefBib === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('exclude_quotes', excludeQuote === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('exclude_small_sources', excludeSmallSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('assignment_grading', allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('marks', allowAssGrade ? data.marks : '');
-            bodyFormData.append('exclude_include_sources', excludeIncludeSource ? 'YES' : 'No');
-            bodyFormData.append('save_to_repository', saveToRepo ? 'YES' : 'No');
-            bodyFormData.append('allow_resubmissions', allowSubmission ? 'YES' : 'No');
-            bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate ? 'YES' : 'No');
-            bodyFormData.append('grammar_check', grammarCheck ? 'YES' : 'No');
-            bodyFormData.append('choice_of_email_notifications', choiceEmailNotification ? 'YES' : 'No');
-            bodyFormData.append('add_questions', addQuestion ? 'YES' : 'No');
+            bodyFormData.append('exclude_include_sources', excludeIncludeSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('save_to_repository', saveToRepo === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('allow_resubmissions', allowSubmission === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('grammar_check', grammarCheck === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('choice_of_email_notifications', choiceEmailNotification === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('add_questions', addQuestion === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             if (addQuestion) {
                 let questionObj = {};
                 questionList?.map((item, index) => {
@@ -116,7 +117,7 @@ const AssignmentForms = ({
                 console.log('questionObj',questionObj);
                 bodyFormData.append('questions', questionObj);
             }
-            bodyFormData.append('exclude_phrases', excludePhrases ? 'YES' : 'No');
+            bodyFormData.append('exclude_phrases', excludePhrases  === ASSIGNMENT_SETTING_VALUE_YES? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             if (excludePhrases) {
                 let phrasesObj = {};
                 phrasesList?.map((item, index) => {
@@ -126,11 +127,11 @@ const AssignmentForms = ({
                 bodyFormData.append('phrases', phrasesObj);
             }
             bodyFormData.append('repository_scope', data?.repository_scope?.name.toUpperCase());
-            bodyFormData.append('report_access', reportAccess ? 'YES' : 'No');
-            bodyFormData.append('db_studentpaper', studentPaper ? 'YES' : 'No');
-            bodyFormData.append('db_publications', publication ? 'YES' : 'No');
-            bodyFormData.append('db_internet', internet ? 'YES' : 'No');
-            bodyFormData.append('institution_repository', repository ? 'YES' : 'No');
+            bodyFormData.append('report_access', reportAccess === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('db_studentpaper', studentPaper === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('db_publications', publication === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('db_internet', internet === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('institution_repository', repository === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('daily_submissions_limit', data?.daily_submissions_limit);
             CreateAssignment(router.query.clasId, bodyFormData);
         } else {
@@ -140,25 +141,25 @@ const AssignmentForms = ({
             if (data.file !== undefined) {
                 bodyFormData.append('file', data?.file[0]);
             }
-            bodyFormData.append('exclude_references', showSetting && 'YES');
-            bodyFormData.append('exclude_quotes', showSetting && 'YES');
-            bodyFormData.append('exclude_small_sources', showSetting && 'YES');
-            bodyFormData.append('assignment_grading', showSetting && 'YES');
-            bodyFormData.append('exclude_include_sources', showSetting && 'YES');
-            bodyFormData.append('save_to_repository', showSetting && 'YES');
-            bodyFormData.append('allow_resubmissions', showSetting && 'YES');
-            bodyFormData.append('allow_submissions_after_due_date', showSetting && 'YES');
-            bodyFormData.append('grammar_check', showSetting && 'YES');
-            bodyFormData.append('choice_of_email_notifications', showSetting && 'YES');
-            bodyFormData.append('add_questions', showSetting && 'YES');
-            bodyFormData.append('exclude_phrases', showSetting && 'YES');
-            bodyFormData.append('repository_scope', showSetting && 'YES');
-            bodyFormData.append('report_access', showSetting && 'YES');
-            bodyFormData.append('db_studentpaper', showSetting && 'YES');
-            bodyFormData.append('db_publications', showSetting && 'YES');
-            bodyFormData.append('db_internet', showSetting && 'YES');
-            bodyFormData.append('institution_repository', showSetting && 'YES');
-            bodyFormData.append('daily_submissions_limit', showSetting && 'YES');
+            bodyFormData.append('exclude_references', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('exclude_quotes', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('exclude_small_sources', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('assignment_grading', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('exclude_include_sources', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('save_to_repository', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('allow_resubmissions', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('allow_submissions_after_due_date', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('grammar_check', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('choice_of_email_notifications', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('add_questions', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('exclude_phrases', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('repository_scope', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('report_access', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('db_studentpaper', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('db_publications', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('db_internet', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('institution_repository', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('daily_submissions_limit', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
             CreateAssignment(router.query.clasId, bodyFormData);
         }
 
@@ -169,13 +170,15 @@ const AssignmentForms = ({
         setShowSetting(event.target.checked);
     }
 
-    const handleAllowAssgnmtGrade = (e, newAlignment) => {
+    const handleAllowAssgnmtGrade = (e, value) => {
         e.preventDefault();
-        setAllowAssGrade(newAlignment);
+        setAllowAssGrade(value);
     }
 
     const handleExcludeRef = (e, value) => {
         e.preventDefault();
+        
+        console.log('handleExcludeRef',value);
         setExcludeRefBib(value)
     }
 
@@ -393,14 +396,14 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleAllowAssgnmtGrade}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
 
                                 </Grid>
                             </Grid>
 
-                            {allowAssGrade === 'yes' && <>
+                            {allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES && <>
                                 {/* <LabelContainer>
                                     <InputLabel style={{ marginTop: '10px' }}>
                                         Enter Max Assignment Marks
@@ -442,8 +445,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleExcludeRef}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -463,8 +466,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleExcludeQuote}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -484,8 +487,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleExcludeSmallSource}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -505,8 +508,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleExcludeIncludeSource}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -527,8 +530,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleSaveToRepo}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -548,8 +551,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleAllowSubmission}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -582,8 +585,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleAllowSubmissionDueDate}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -603,8 +606,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleGrammarCheck}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -625,8 +628,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleChoiceEmailNotification}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -646,13 +649,13 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleAddQuestion}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
 
-                            {addQuestion === 'yes' &&
+                            {addQuestion === ASSIGNMENT_SETTING_VALUE_YES &&
                                 <div>
                                     <>
                                         <Grid container spacing={2} sx={{ marginBottom: '15px' }}>
@@ -717,12 +720,12 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleExcludePhrases}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
-                            {excludePhrases === 'yes' &&
+                            {excludePhrases === ASSIGNMENT_SETTING_VALUE_YES &&
                                 <div>
                                     <>
                                         <Grid container spacing={2} sx={{ marginBottom: '15px' }}>
@@ -786,8 +789,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleReportAccess}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -806,8 +809,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleStudentPaper}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -826,8 +829,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handlePublications}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -846,8 +849,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleInternet}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -866,8 +869,8 @@ const AssignmentForms = ({
                                         exclusive
                                         onChange={handleRepository}
                                     >
-                                        <ToggleButton value="yes">Yes</ToggleButton>
-                                        <ToggleButton value="no">No</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
