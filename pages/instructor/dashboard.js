@@ -111,20 +111,20 @@ const Dashboard = ({
                     </Grid>
                     <Grid item md={ 3 } xs={ 12 }>
                         <WidgetCard
-                            title='Submissions'
-                            isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_submissions }
-                            icon={ <NoOfSubmission /> }
-                        />
-                    </Grid>
-                    <Grid item md={ 3 } xs={ 12 }>
-                        <WidgetCard
                             title='Students'
                             isLoading={ isLoading }
                             count={ isLoading ? '' : instructorDashboardData?.data?.no_of_sudents }
                             icon={ <NoStudentIcon /> }
                         />
                     </Grid>
+                    <Grid item md={ 3 } xs={ 12 }>
+                        <WidgetCard
+                            title='Submissions'
+                            isLoading={ isLoading }
+                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_submissions }
+                            icon={ <NoOfSubmission /> }
+                        />
+                    </Grid>                    
                 </Grid>
             </Box>
             <Box mt={ 1 } sx={ { flexGrow: 1 } }>

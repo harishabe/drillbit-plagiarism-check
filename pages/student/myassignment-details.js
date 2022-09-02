@@ -16,7 +16,8 @@ import {
     StatusDot,
     WidgetCard,
     EllipsisText,
-    WarningDialog
+    WarningDialog,
+    Heading
 } from '../../components'
 import { DownloadIcon, NoOfClassIcon, NoOfAssignmntIcon } from '../../assets/icon'
 import {
@@ -204,10 +205,10 @@ const MyAssignmentDetails = ({
                 <Grid item md={10} xs={12}>
                     <BreadCrumb item={StudentBreadCrumb} />
                 </Grid>
-                <Grid item md={1} xs={6} sx={{marginTop:'15px'}}>
+                <Grid item md={1} xs={6} sx={{ marginTop: '15px' }}>
                     <div>
                         <StatusDot color={headerData?.status === 'active' ? '#38BE62' : '#E9596F'} title={headerData?.status} />
-                    </div>  
+                    </div>
                 </Grid>
                 <Grid item md={1} xs={6}>
                     <Grid container>
@@ -227,28 +228,33 @@ const MyAssignmentDetails = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={3} xs={12}>
-                        <WidgetCard
-                            title={ <EllipsisText value={ 'Class name' } variant={ 'h2' } charLength={ 10 } /> }
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.subject } charLength={ 13 } /> }
-                        />
+                        <CardView>
+                            <Heading
+                                title={<EllipsisText value={'Class name'} variant={'h2'} charLength={10} />}
+                                color="common.gray"
+                            />
+                            <Heading
+                                title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.subject} charLength={30} />}
+                            />
+                        </CardView>
                     </Grid>
                     <Grid item md={3} xs={12}>
-                        <WidgetCard
-                            title={ <EllipsisText value={ 'Assignment name' } variant={ 'h2' } charLength={ 10 } /> }
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.assignmentName } charLength={ 13 } /> }
-                        />
+                        <CardView>
+                            <Heading title={<EllipsisText value={'Assignment name'} variant={'h2'} charLength={15} />} color="common.gray" />
+                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.assignmentName} charLength={30} />} />
+                        </CardView>
                     </Grid>
                     <Grid item md={3} xs={12}>
-                        <WidgetCard
-                            title={ <EllipsisText value={ 'Instructor name' } variant={ 'h2' } charLength={ 10 } /> }
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.instructorName } charLength={ 13 } /> }
-                        />
+                        <CardView>
+                            <Heading title={<EllipsisText value={'Instructor name'} variant={'h2'} charLength={15} />} color="common.gray" />
+                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value='Sagar xtreamSagar xtreamSagar xtream' charLength={30} />} />
+                        </CardView>
                     </Grid>
                     <Grid item md={3} xs={12}>
-                        <WidgetCard
-                            title={ <EllipsisText value={ 'Date' } variant={ 'h2' } charLength={ 10 } /> }
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate) } charLength={ 13 } /> }
-                        />
+                        <CardView>
+                            <Heading title={<EllipsisText value={'Date'} variant={'h2'} charLength={15} />} color="common.gray" />
+                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate)} charLength={30} />} />
+                        </CardView>
                     </Grid>
                 </Grid>
             </Box>
@@ -261,9 +267,9 @@ const MyAssignmentDetails = ({
                 showRenewWarning &&
                 <WarningDialog
                     message="Are you sure you want to download ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
         </React.Fragment>
