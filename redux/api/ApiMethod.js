@@ -120,6 +120,28 @@ export const GetMethodDownload = async (url, fileName) => {
 };
 
 /**
+ * API METHOD - GET PDF
+ * @param {*} url
+ */
+
+export const GetMethodDownloadPdf = async (url, fileName) => {
+    return await axois.get(url, {
+        responseType: 'blob',
+        headers: header()
+    })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]), { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', fileName);
+            document.body.appendChild(link);
+            link.click();
+            return true;
+        })
+        .catch(error => ({ error }))
+};
+
+/**
  * API METHOD - POST accepts only form data
  * @param {*} url
  */

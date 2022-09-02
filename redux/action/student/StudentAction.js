@@ -98,3 +98,12 @@ export const DownloadOriginalFile = (class_id, folder_id, paper_id, name) => {
         type: types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_START, class_id: class_id, folder_id: folder_id, paper_id: paper_id, name: name
     };
 };
+
+/**
+ * Students assignment instruction data download
+ */
+export const DownloadAssignmentInstruction = (class_id, folder_id) => {
+    return {
+        type: types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_START, class_id: class_id, folder_id: folder_id
+    };
+};
