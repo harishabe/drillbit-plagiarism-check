@@ -24,6 +24,7 @@ import {
     NoOfClassIcon,
     NoOfSubmission,
     NoOfAssignmntIcon,
+    NoStudentIcon
 } from '../../assets/icon';
 import TopStudents from './dashboard/TopStudents';
 import RecentSubmissions from './dashboard/RecentSubmissions';
@@ -92,7 +93,7 @@ const Dashboard = ({
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 4 } xs={ 12 }>
+                    <Grid item md={ 3 } xs={ 12 }>
                         <WidgetCard
                             title='Classes'
                             isLoading={ isLoading }
@@ -100,7 +101,7 @@ const Dashboard = ({
                             icon={ <NoOfClassIcon /> }
                         />
                     </Grid>
-                    <Grid item md={ 4 } xs={ 12 }>
+                    <Grid item md={ 3 } xs={ 12 }>
                         <WidgetCard
                             title='Assignments'
                             isLoading={ isLoading }
@@ -108,12 +109,20 @@ const Dashboard = ({
                             icon={ <NoOfAssignmntIcon /> }
                         />
                     </Grid>
-                    <Grid item md={ 4 } xs={ 12 }>
+                    <Grid item md={ 3 } xs={ 12 }>
                         <WidgetCard
                             title='Submissions'
                             isLoading={ isLoading }
                             count={ isLoading ? '' : instructorDashboardData?.data?.no_of_submissions }
                             icon={ <NoOfSubmission /> }
+                        />
+                    </Grid>
+                    <Grid item md={ 3 } xs={ 12 }>
+                        <WidgetCard
+                            title='Students'
+                            isLoading={ isLoading }
+                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_sudents }
+                            icon={ <NoStudentIcon /> }
                         />
                     </Grid>
                 </Grid>

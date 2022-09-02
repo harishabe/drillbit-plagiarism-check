@@ -45,13 +45,14 @@ const columns = [
     { id: 'name', label: 'Name' },
     { id: 'email', label: 'Email ID' },
     { id: 'title', label: 'Title' },
+    { id: 'type', label: 'Type' },
     { id: 'date', label: 'Added Date' },
-    { id: 'action', label: 'Actions' },
+    { id: 'action', label: 'Action' },
 ]
 
-function createData(id, name, email, title, date, action) {
+function createData(id, name, email, title, type, date, action) {
     return {
-        id, name, email, title, date, action
+        id, name, email, title, type, date, action
     }
 }
 
@@ -87,6 +88,7 @@ const Repository = ({
                     repo.name,
                     repo.mail_id,
                     repo.title,
+                    repo.repository_type,
                     formatDate(repo.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete' }]
                 );
@@ -154,7 +156,7 @@ const Repository = ({
             </Box>
             <Grid container spacing={ 2 }>
                 <Grid item md={ 8 } xs={ 12 }>
-                    <MainHeading title={ `Repositary(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                    <MainHeading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
                 <Grid item md={ 4 } xs={ 12 } align="right">
                     <TextField

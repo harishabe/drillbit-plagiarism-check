@@ -58,7 +58,7 @@ const columns = [
     { id: 'email', label: 'Email' },
     { id: 'department', label: 'Department' },
     { id: 'section', label: 'Section' },
-    { id: 'action', label: 'Action' },
+    { id: 'action', label: 'Actions' },
 ]
 
 function createData(id, name, email, department, section, action) {

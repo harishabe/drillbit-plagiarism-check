@@ -4,7 +4,10 @@ import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { connect } from 'react-redux';
-import { GetAssignmentData, DownloadStudentCsv } from '../../redux/action/student/StudentAction';
+import {
+    GetAssignmentData,
+    DownloadAssignmentInstruction
+} from '../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import Pagination from '@mui/material/Pagination';
 import { Skeleton, TextField } from '@mui/material';
@@ -35,10 +38,11 @@ const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'
 
 const MyAssignments = ({
     GetAssignmentData,
-    DownloadStudentCsv,
+    DownloadAssignmentInstruction,
     assignmentData,
     pageDetails,
-    isLoading
+    isLoading,
+    isLoadingInstructions
 }) => {
 
     const router = useRouter();
@@ -105,8 +109,7 @@ const MyAssignments = ({
     /** end debounce concepts */
 
     const handleDownload = (e, item) => {
-        let url = `/${router.query.clasId}/assignments/${item.id}/downloadHistory`;
-        DownloadStudentCsv(url)
+        DownloadAssignmentInstruction(router.query.clasId, item.id)
     }
 
     return (
@@ -154,6 +157,7 @@ const MyAssignments = ({
                                     <CardInfoView
                                         key={index}
                                         item={item}
+                                        isLoading={ isLoadingInstructions }
                                         isAvatar={true}
                                         isHeading={true}
                                         isTimer={true}
@@ -192,12 +196,13 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.studentClasses?.assignmentData?.page,
     assignmentData: state?.studentClasses?.assignmentData?._embedded?.assignmentDTOList,
     isLoading: state?.studentClasses?.isLoading,
+    isLoadingInstructions: state?.studentClasses?.isLoadingInstructions,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetAssignmentData: (id, PaginationValue) => dispatch(GetAssignmentData(id, PaginationValue)),
-        DownloadStudentCsv: (url) => dispatch(DownloadStudentCsv(url)),
+        DownloadAssignmentInstruction: (class_id, folder_id) => dispatch(DownloadAssignmentInstruction(class_id, folder_id)),
     };
 };
 

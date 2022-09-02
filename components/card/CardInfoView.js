@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
-import { Divider } from '@mui/material';
+import { Divider, Skeleton } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { SubTitle2, EllipsisText } from '../index';
 import {
@@ -76,7 +76,8 @@ const CardInfoView = ({
     handleDelete,
     handleConfig,
     handleDownload,
-    checked
+    isDescription,
+    isLoading
 }) => {
     const router = useRouter();
 
@@ -105,40 +106,47 @@ const CardInfoView = ({
 
     return (
         <React.Fragment>
-            {/* onClick={ (e) => router.push(path) } */}
-            <Card style={{ marginTop: '10px', cursor: 'pointer' }}>
+            {/* onClick={ (e) => router.push(path) } */ }
+            <Card style={ { marginTop: '10px', cursor: 'pointer' } }>
                 <CardContent>
-                    {isDownload &&
-                        <AlignRight>
-                            <IconButton onClick={ (e) => handleDownload(e, item) }>
-                                <DownloadFileIcon />
-                            </IconButton>
-                        </AlignRight>}
-                    <Grid container spacing={2}>
-                        <Grid item xs={10}>
-                            {isAvatar &&
+                    { isDownload &&
+                        <>
+                            { isLoading ?
+                                <Skeleton variant="rounded" sx={ { width: '20px', marginLeft: '280px' } } />
+                                :
+                                <AlignRight>
+                                    <IconButton onClick={ (e) => handleDownload(e, item) }>
+                                        <DownloadFileIcon />
+                                    </IconButton>
+                                </AlignRight>
+                            }
+                        </>
+                    }
+                    <Grid container spacing={ 2 }>
+                        <Grid item xs={ 10 }>
+                            { isAvatar &&
                                 <Avatar
-                                    sx={{ bgcolor: item.color, width: 50, height: 50, fontSize: '15px' }}
+                                    sx={ { bgcolor: item.color, width: 50, height: 50, fontSize: '15px' } }
                                     variant="circle"
-                                    className={classes.margin}
+                                    className={ classes.margin }
                                 >
-                                    {item.name.toUpperCase().charAt(0)}
-                                </Avatar>}
+                                    { item.name.toUpperCase().charAt(0) }
+                                </Avatar> }
                         </Grid>
-                        <Grid item xs={2}>
-                            {isAction &&
+                        <Grid item xs={ 2 }>
+                            { isAction &&
                                 <>
                                     <AlignRight>
-                                        <IconButton onClick={handleMenuClick}>
+                                    <IconButton onClick={ handleMenuClick }>
                                             <ThreeDotIcon />
                                         </IconButton>
                                     </AlignRight>
                                     <Menu
                                         id="action-menu"
-                                        anchorEl={anchorEl}
-                                        open={open}
-                                        onClose={handleClose}
-                                        PaperProps={{
+                                    anchorEl={ anchorEl }
+                                    open={ open }
+                                    onClose={ handleClose }
+                                    PaperProps={ {
                                             elevation: 0,
                                             sx: {
                                                 overflow: 'visible',
@@ -163,14 +171,14 @@ const CardInfoView = ({
                                                     zIndex: 0,
                                                 },
                                             },
-                                        }}
-                                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                    } }
+                                    transformOrigin={ { horizontal: 'right', vertical: 'top' } }
+                                    anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
                                     >
-                                        <MenuItem onClick={(e) => {
+                                    <MenuItem onClick={ (e) => {
                                             setAnchorEl(null);
                                             handleClick(e, item);
-                                        }}>
+                                    } }>
                                             <ListItemText>Edit</ListItemText>
                                             <EditIcon />
                                         </MenuItem>
@@ -180,33 +188,36 @@ const CardInfoView = ({
                                             <ArchieveIcon />
                                         </MenuItem> */}
                                         <Divider />
-                                        <MenuItem onClick={(e) => {
+                                    <MenuItem onClick={ (e) => {
                                             setAnchorEl(null);
                                             handleDelete(e, item);
-                                        }}>
+                                    } }>
                                             <ListItemText>Delete</ListItemText>
                                             <DeleteIcon />
                                         </MenuItem>
                                     </Menu>
-                                </>}
+                                </> }
                         </Grid>
                     </Grid>
 
-                    {isImage && <img style={{ marginBottom: '15px' }} src={item.img} alt={item.lms} />}
+                    { isImage && <img style={ { marginBottom: '15px' } } src={ item.img } alt={ item.lms } /> }
 
-                    {isKnowMore ?
-                        <SubTitle1 textColor="#808080" title={item?.description} /> : ''}
 
-                    {isHeading && <EllipsisText value={item.name} charLength={30} />}
+                    { isHeading && <EllipsisText value={ item.name } charLength={ 30 } /> }
 
-                    {isInstructorName &&
-                        <Grid container sx={{ mt: 1.5 }}>
+                    { isDescription &&
+                        <EllipsisText value={ item?.description === null ? '--' : item?.description }
+                            variant={ 'subtitle2' } charLength={ 30 } />
+                    }
+
+                    { isInstructorName &&
+                        <Grid container sx={ { mt: 1.5 } }>
                             <Grid>
                                 <InstructorPersonIcon />
                             </Grid>
-                            <Grid sx={{ ml: 1 }}>
+                            <Grid sx={ { ml: 1 } }>
                                 <SubTitle2
-                                    title={item.instructorName}
+                                    title={ item.instructorName }
                                 />
                             </Grid>
                         </Grid>
@@ -216,18 +227,18 @@ const CardInfoView = ({
                 <Divider />
                 <CardActions style={ { padding: '18px' } }>
                     <Grid container>
-                        <Grid item md={9} xs={9}>
-                            {isTimer &&
+                        <Grid item md={ 9 } xs={ 9 }>
+                            { isTimer &&
                                 <StatusColor
                                     style={ { borderRadius: '3px' } }
-                                    color={statusColor}
+                                    color={ statusColor }
                                 >
                                     <TimerIcon />
                                     <SubTitle2
-                                        title={Validity(item.validity)}
+                                        title={ Validity(item.validity) }
                                         ml="10px"
                                     />
-                                </StatusColor>}
+                                </StatusColor> }
 
                             { isKnowMore &&
                                 <>
@@ -240,27 +251,27 @@ const CardInfoView = ({
                             }
                         </Grid>
 
-                        <Grid className={classes.right} item md={3} xs={3}>
-                            {isSubmit ?
-                                <Link href={submitPath}>
+                        <Grid className={ classes.right } item md={ 3 } xs={ 3 }>
+                            { isSubmit ?
+                                <Link href={ submitPath }>
                                     <Button
                                         variant="contained"
                                         size="small">
                                         Submit
                                     </Button>
                                 </Link>
-                                : ''}
-                            {isConfig &&
+                                : '' }
+                            { isConfig &&
                                 <Switch
-                                    disabled={item?.lmsconfigured === true}
-                                    checked={item?.lmsconfigured}
-                                    onChange={handleConfig}
-                                    inputProps={{ 'aria-label': 'controlled' }}
-                                    name={item?.lms}
+                                disabled={ item?.lmsconfigured === true }
+                                checked={ item?.lmsconfigured }
+                                onChange={ handleConfig }
+                                inputProps={ { 'aria-label': 'controlled' } }
+                                name={ item?.lms }
                                 />
                             }
-                            {isNextPath &&
-                                <IconButton onClick={(e) => router.push(path)}>
+                            { isNextPath &&
+                                <IconButton onClick={ (e) => router.push(path) }>
                                     <ArrowForwardOutlinedIcon />
                                 </IconButton>
                             }

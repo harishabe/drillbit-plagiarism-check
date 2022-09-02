@@ -189,6 +189,23 @@ const DetailsStudentReducer = (state = {}, action) => {
                 isLoadingDownloadFile: false,
                 downloadFileError: action.payload,
             };
+        case types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_START:
+            return {
+                ...state,
+                isLoadingInstructions: true,
+            };
+        case types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoadingInstructions: false,
+                downloadInstructionsData: action.payload,
+            };
+        case types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_FAIL:
+            return {
+                ...state,
+                isLoadingInstructions: false,
+                downloadInstructionsError: action.payload,
+            };
         default:
             return state;
     }

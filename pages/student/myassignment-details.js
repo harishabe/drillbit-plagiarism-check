@@ -16,6 +16,7 @@ import {
     StatusDot,
     WidgetCard,
     EllipsisText,
+    WarningDialog
 } from '../../components'
 import { DownloadIcon, NoOfClassIcon, NoOfAssignmntIcon } from '../../assets/icon'
 import {
@@ -66,6 +67,8 @@ const MyAssignmentDetails = ({
 
     const router = useRouter();
 
+    const [showRenewWarning, setShowRenewWarning] = useState(false);
+    const [data, setData] = useState();
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -155,10 +158,23 @@ const MyAssignmentDetails = ({
     };
 
     const handleOriginalFileDownload = (e, data) => {
-        // console.log('handleOriginalFileDownload', router.query.clasId, router.query.assId, data?.id, data?.filename?.props?.value);
         e.preventDefault();
+        setShowRenewWarning(true);
+        setData(data)
+    };
+
+    const handleCloseWarning = () => {
+        setShowRenewWarning(false);
+    };
+
+    const handleYesWarning = () => {
         DownloadOriginalFile(router.query.clasId, router.query.assId, data?.id, data?.filename?.props?.value)
-    }
+        setShowRenewWarning(false);
+        setTimeout(() => {
+            setShowRenewWarning(false);
+        }, [100]);
+    };
+
 
     const componentList = [
         <SubmissionHistory
@@ -212,26 +228,26 @@ const MyAssignmentDetails = ({
                 <Grid container spacing={1}>
                     <Grid item md={3} xs={12}>
                         <WidgetCard
-                            title='Class name'
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.subject } charLength={ 18 } /> }
+                            title={ <EllipsisText value={ 'Class name' } variant={ 'h2' } charLength={ 10 } /> }
+                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.subject } charLength={ 13 } /> }
                         />
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <WidgetCard
-                            title='Assignment name'
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.assignmentName } charLength={ 10 } /> }
+                            title={ <EllipsisText value={ 'Assignment name' } variant={ 'h2' } charLength={ 10 } /> }
+                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.assignmentName } charLength={ 13 } /> }
                         />
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <WidgetCard
-                            title='Instructor name'
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.instructorName } charLength={ 18 } /> }
+                            title={ <EllipsisText value={ 'Instructor name' } variant={ 'h2' } charLength={ 10 } /> }
+                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.instructorName } charLength={ 13 } /> }
                         />
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <WidgetCard
-                            title='Date'
-                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate) } charLength={ 25 } /> }
+                            title={ <EllipsisText value={ 'Date' } variant={ 'h2' } charLength={ 10 } /> }
+                            count={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate) } charLength={ 13 } /> }
                         />
                     </Grid>
                 </Grid>
@@ -241,6 +257,15 @@ const MyAssignmentDetails = ({
             <CardView>
                 <TabMenu menuButton={tabMenu} components={componentList} />
             </CardView>
+            {
+                showRenewWarning &&
+                <WarningDialog
+                    message="Are you sure you want to download ?"
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
+                />
+            }
         </React.Fragment>
     )
 }
