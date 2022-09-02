@@ -11,7 +11,8 @@ import {
     GetQnaDetail,
     GetFeedbackDetail,
     SendAnswerData,
-    DownloadOriginalFileData
+    DownloadOriginalFileData,
+    DownloadAssignmentInstructions
 } from '../../api/student/DetailStudentAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { StudentSubmissionsPaginationValue } from '../../../utils/PaginationUrl'
@@ -152,11 +153,13 @@ export function* onLoadDownload(action) {
             type: types.FETCH_STUDENTS_SUBMISSION_HISTORY_DOWNLOAD_SUCCESS,
             payload: response?.data,
         });
+        toastrValidation(response);
     } else {
         yield put({
             type: types.FETCH_STUDENTS_SUBMISSION_HISTORY_DOWNLOAD_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 
@@ -272,14 +275,44 @@ export function* onLoadDownloadFile(action) {
             type: types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_SUCCESS,
             payload: response?.data,
         });
+        toastrValidation(response);
     } else {
         yield put({
             type: types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 
 export function* GetDownloadFileData() {
     yield takeLatest(types.FETCH_STUDENTS_DOWNLOAD_ORIGINAL_FILE_START, onLoadDownloadFile);
+}
+
+/**
+ * Students assignment instruction data download
+ * @param {*} action
+ */
+
+export function* onLoadDownloadInstructionsFile(action) {
+    const { response, error } = yield call(DownloadAssignmentInstructions, action.class_id, action.folder_id);
+    if (response) {
+        yield put({
+            type: types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response);
+        console.log("response", response?.response?.data?.message)
+    } else {
+        yield put({
+            type: types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+        console.log("error", error)
+    }
+}
+
+export function* GetDownloadAssignmentInstructions() {
+    yield takeLatest(types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_START, onLoadDownloadInstructionsFile);
 }

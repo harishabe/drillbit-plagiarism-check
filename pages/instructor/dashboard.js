@@ -24,6 +24,7 @@ import {
     NoOfClassIcon,
     NoOfSubmission,
     NoOfAssignmntIcon,
+    NoStudentIcon
 } from '../../assets/icon';
 import TopStudents from './dashboard/TopStudents';
 import RecentSubmissions from './dashboard/RecentSubmissions';
@@ -121,7 +122,7 @@ const Dashboard = ({
                             title='Students'
                             isLoading={ isLoading }
                             count={ isLoading ? '' : instructorDashboardData?.data?.no_of_sudents }
-                            icon={ <NoOfSubmission /> }
+                            icon={ <NoStudentIcon /> }
                         />
                     </Grid>
                 </Grid>

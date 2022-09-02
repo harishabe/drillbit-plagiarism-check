@@ -307,7 +307,7 @@ const StudentList = ({
                             variant="outlined"
                             shape="rounded"
                         />
-                    </div> : ''
+                </div>
                 {/* } */ }
             </CardView>
         </React.Fragment>

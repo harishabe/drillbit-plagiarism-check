@@ -1,7 +1,8 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
-import { GetMethod, PostMethod, GetMethodDownload, PostFormData } from '../ApiMethod';
+import { GetMethod, PostMethod, GetMethodDownload, PostFormData, GetMethodDownloadPdf } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
+import { FILE_TYPE } from '../../../constant/data/Constant'
 
 /**
  * API CALL FOR STUDENT DASHBOARD DATA
@@ -96,5 +97,14 @@ export const SendSubmissionData = async (query, class_id, folder_id) => {
 
 export const DownloadOriginalFileData = async (class_id, folder_id, paper_id, name) => {
     const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/downloadOriginalFile/' + paper_id;
-    return GetMethodDownload(url, name);
+    return GetMethodDownloadPdf(url, name);
+};
+
+/**
+ * API CALL FOR DOWNLOAD ORIGINAL FILE
+ */
+
+export const DownloadAssignmentInstructions = async (class_id, folder_id) => {
+    const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/instructions';
+    return GetMethodDownloadPdf(url, FILE_TYPE.value);
 };
