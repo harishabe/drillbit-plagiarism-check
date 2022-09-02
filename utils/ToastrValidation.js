@@ -42,7 +42,7 @@ const toastrValidation = (response) => {
     } else if (response?.code === "ECONNABORTED") {
         error('ERR_TIMED_OUT');
     } else if (response?.code === "ERR_NETWORK") {
-        error('Network error, Please check your internet');
+        error('No response from server. Check if you are still connected to internet.');
     }
 };
 

@@ -37,7 +37,6 @@ import {
     NoOfAssignmntIcon,
 } from '../../assets/icon'
 import MyRecentSubmissionTable from '../../components/table/MyRecentSubmissionTable'
-import { setItemLocalStorage } from '../../utils/RegExp';
 import {
     DASHBOARD_RECENT_SUBMISSION_NOT_FOUND,
     DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND,
@@ -94,10 +93,6 @@ const Dashboard = ({
     }, []);
 
     useEffect(() => {
-        setItemLocalStorage('name', studentDashboardData?.userProfileLite?.name);
-    }, [studentDashboardData]);
-
-    useEffect(() => {
         let submission = studentDashboardData?.monthlySubmissions?.map((item) => {
             return item.submissions;
         });
@@ -109,44 +104,44 @@ const Dashboard = ({
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 4 } xs={ 12 }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='Classes'
-                            isLoading={ isLoadingDashboard }
-                            count={ studentDashboardData?.no_of_classes }
-                            icon={ <NoOfClassIcon /> }
+                            isLoading={isLoadingDashboard}
+                            count={studentDashboardData?.no_of_classes}
+                            icon={<NoOfClassIcon />}
                         />
                     </Grid>
-                    <Grid item md={ 4 } xs={ 12 }>
+                    <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='Assignments'
-                            isLoading={ isLoadingDashboard }
-                            count={ studentDashboardData?.no_of_assignments }
-                            icon={ <NoOfAssignmntIcon /> }
+                            isLoading={isLoadingDashboard}
+                            count={studentDashboardData?.no_of_assignments}
+                            icon={<NoOfAssignmntIcon />}
                         />
                     </Grid>
-                    <Grid item md={ 4 } xs={ 12 }>
+                    <Grid item md={4} xs={12}>
                         <WidgetCard
                             title='Submissions'
-                            isLoading={ isLoadingDashboard }
-                            count={ studentDashboardData?.no_of_submissions }
-                            icon={ <NoOfSubmission /> }
+                            isLoading={isLoadingDashboard}
+                            count={studentDashboardData?.no_of_submissions}
+                            icon={<NoOfSubmission />}
                         />
                     </Grid>
                 </Grid>
             </Box>
-            <Box mt={ 1 } sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 12 } xs={ 12 }>
+            <Box mt={1} sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={12} xs={12}>
                         <CardView>
                             <Heading title='My Recent submissions' />
-                            { isLoadingDashboard ? <Skeleton /> :
+                            {isLoadingDashboard ? <Skeleton /> :
                                 <>
-                                    { studentDashboardData?.recentSubmissions.length > 0 ?
-                                        <MyRecentSubmissionTable tableData={ studentDashboardData?.recentSubmissions } />
-                                        : <ErrorBlock message={ DASHBOARD_RECENT_SUBMISSION_NOT_FOUND } />
+                                    {studentDashboardData?.recentSubmissions.length > 0 ?
+                                        <MyRecentSubmissionTable tableData={studentDashboardData?.recentSubmissions} />
+                                        : <ErrorBlock message={DASHBOARD_RECENT_SUBMISSION_NOT_FOUND} />
                                     }
 
                                 </>
@@ -156,71 +151,67 @@ const Dashboard = ({
                     </Grid>
                 </Grid>
             </Box>
-            <Box mt={ 1 } sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 8 } xs={ 12 }>
+            <Box mt={1} sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={8} xs={12}>
                         <CardView>
                             <Heading title='Submissions Overview' />
-                            { isLoadingDashboard ? <Skeleton /> :
+                            {isLoadingDashboard ? <Skeleton /> :
                                 submissionOverview?.length && studentDashboardData?.no_of_submissions > 0 ? <ColumnChart
-                                    type={ COLUMN_ADMIN_CHART_TYPE }
-                                    color={ COLUMN_ADMIN_CHART_COLOR }
-                                    xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
-                                    columnWidth={ COLUMN_ADMIN_WIDTH }
-                                    height={ COLUMN_ADMIN_CHART_HEIGHT }
-                                    seriesData={ [
+                                    type={COLUMN_ADMIN_CHART_TYPE}
+                                    color={COLUMN_ADMIN_CHART_COLOR}
+                                    xaxisData={COLUMN_ADMIN_XAXIS_DATA}
+                                    columnWidth={COLUMN_ADMIN_WIDTH}
+                                    height={COLUMN_ADMIN_CHART_HEIGHT}
+                                    seriesData={[
                                         {
                                             name: 'Submission Overview',
                                             data: submissionOverview
                                         }
-                                    ] }
-                                    gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                    borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                    ]}
+                                    gradient={COLUMN_ADMIN_CHART_GRADIENT}
+                                    borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
                                 />
-                                    : <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
+                                    : <ErrorBlock message={DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND} />
                             }
                         </CardView>
                     </Grid>
-                    <Grid item md={ 4 } xs={ 12 }>
+                    <Grid item md={4} xs={12}>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 7 } xs={ 12 }>
+                                <Grid item md={12} xs={12}>
                                     <Heading title='Trend Analysis' />
                                 </Grid>
-                                <Grid item md={ 5 } xs={ 12 }>
-                                    {
-                                        isLoadingDashboard ?
-                                            <Skeleton /> :
-                                            <TextAlignRight>
-                                                <SubTitle
-                                                    title={ studentDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' }
-                                                />
-                                            </TextAlignRight>
-                                    }
-                                </Grid>
                             </Grid>
-                            { isLoadingDashboard ?
+                            {isLoadingDashboard ?
                                 <Skeleton
                                     variant="circular"
-                                    style={ { margin: '59px auto' } }
-                                    height={ 250 } width={ 250 }
+                                    style={{ margin: '59px auto' }}
+                                    height={250} width={250}
                                 /> :
                                 <>
-                                    { studentDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
-                                        <PieChart
-                                            type={ PIE_CHART_TYPE }
-                                            color={ PIE_CHART_COLOR }
-                                            width={ PIE_CHART_WIDTH }
-                                            label={ PIE_CHART_LABEL }
-                                            height={ studentDashboardData?.trendAnalysis?.documentsProcessed === 0 ? '' : '318px' }
-                                            series={
-                                                [
-                                                    studentDashboardData?.trendAnalysis?.similarWork,
-                                                    studentDashboardData?.trendAnalysis?.ownWork
-                                                ]
-                                            }
-                                        />
-                                        : <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
+                                    {studentDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
+                                        <>
+                                            <TextAlignRight>
+                                                <SubTitle
+                                                    title={studentDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')'}
+                                                />
+                                            </TextAlignRight>
+                                            <PieChart
+                                                type={PIE_CHART_TYPE}
+                                                color={PIE_CHART_COLOR}
+                                                width={PIE_CHART_WIDTH}
+                                                label={PIE_CHART_LABEL}
+                                                height={studentDashboardData?.trendAnalysis?.documentsProcessed === 0 ? '' : '318px'}
+                                                series={
+                                                    [
+                                                        studentDashboardData?.trendAnalysis?.similarWork,
+                                                        studentDashboardData?.trendAnalysis?.ownWork
+                                                    ]
+                                                }
+                                            />
+                                        </>
+                                        : <ErrorBlock message={TREND_ANALYSIS_NOT_FOUND} />
                                     }
                                 </>
                             }

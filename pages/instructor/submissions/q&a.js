@@ -64,7 +64,7 @@ const QNA = ({
       <CardView>
 
           <CommonTable
-            isCheckbox={ true }
+            isCheckbox={ false }
             isSorting={ true }
             tableHeader={ columns }
             tableData={ rows }

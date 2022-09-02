@@ -24,7 +24,7 @@ import InputAutoComplete from '../../../components/form/elements/InputAutoComple
 import InputButton from '../../../components/form/elements/InputButton';
 import { CreateAssignment, EditAssignment } from '../../../redux/action/instructor/InstructorAction';
 import { convertDate } from '../../../utils/RegExp';
-import { ASSIGNMENT_SETTING_VALUE_YES,ASSIGNMENT_SETTING_VALUE_NO} from '../../../constant/data/Constant';
+import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../constant/data/Constant';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 const AssignmentForms = ({
     CreateAssignment,
     EditAssignment,
+    isLoading,
 }) => {
     const classes = useStyles();
     const router = useRouter();
@@ -114,16 +115,16 @@ const AssignmentForms = ({
                 questionList?.map((item, index) => {
                     questionObj['q' + (index + 1)] = item;
                 });
-                console.log('questionObj',questionObj);
+                console.log('questionObj', questionObj);
                 bodyFormData.append('questions', JSON.stringify(questionObj));
             }
-            bodyFormData.append('exclude_phrases', excludePhrases  === ASSIGNMENT_SETTING_VALUE_YES? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('exclude_phrases', excludePhrases === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             if (excludePhrases) {
                 let phrasesObj = {};
                 phrasesList?.map((item, index) => {
                     phrasesObj['p' + (index + 1)] = item;
                 });
-                console.log('phrasesObj',phrasesObj);
+                console.log('phrasesObj', phrasesObj);
                 bodyFormData.append('phrases', JSON.stringify(phrasesObj));
             }
             bodyFormData.append('repository_scope', data?.repository_scope?.name.toUpperCase());
@@ -141,25 +142,25 @@ const AssignmentForms = ({
             if (data.file !== undefined) {
                 bodyFormData.append('file', data?.file[0]);
             }
-            bodyFormData.append('exclude_references', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('exclude_quotes', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('exclude_small_sources', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('assignment_grading', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('exclude_references', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('exclude_quotes', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('exclude_small_sources', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('assignment_grading', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
             //bodyFormData.append('exclude_include_sources', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('save_to_repository', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('allow_resubmissions', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('allow_submissions_after_due_date', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('grammar_check', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('choice_of_email_notifications', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('add_questions', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('exclude_phrases', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('repository_scope', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('report_access', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('db_studentpaper', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('db_publications', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('db_internet', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('institution_repository', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('daily_submissions_limit', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('save_to_repository', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('allow_resubmissions', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('allow_submissions_after_due_date', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('grammar_check', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('choice_of_email_notifications', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('add_questions', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('exclude_phrases', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('repository_scope', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('report_access', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('db_studentpaper', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('db_publications', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('db_internet', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('institution_repository', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('daily_submissions_limit', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
             CreateAssignment(router.query.clasId, bodyFormData);
         }
 
@@ -911,7 +912,9 @@ const AssignmentForms = ({
                     "field_type": "button",
                     "type": "submit",
                     "label": "Submit"
-                }} />
+                }}
+                    isLoading={isLoading}
+                />
 
             </form>
         </div>

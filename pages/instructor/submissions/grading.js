@@ -62,11 +62,12 @@ const Grading = ({
       <CardView>
 
           <CommonTable
-            isCheckbox={ true }
+            isCheckbox={ false }
             isSorting={ true }
             tableHeader={ columns }
             tableData={ rows }
             isLoading={ isLoading }
+
         />
 
       </CardView>
