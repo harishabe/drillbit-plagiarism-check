@@ -102,7 +102,7 @@ const AssignmentForms = ({
             bodyFormData.append('exclude_small_sources', excludeSmallSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('assignment_grading', allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('marks', allowAssGrade ? data.marks : '');
-            bodyFormData.append('exclude_include_sources', excludeIncludeSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            //bodyFormData.append('exclude_include_sources', excludeIncludeSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('save_to_repository', saveToRepo === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('allow_resubmissions', allowSubmission === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
@@ -115,7 +115,7 @@ const AssignmentForms = ({
                     questionObj['q' + (index + 1)] = item;
                 });
                 console.log('questionObj',questionObj);
-                bodyFormData.append('questions', questionObj);
+                bodyFormData.append('questions', JSON.stringify(questionObj));
             }
             bodyFormData.append('exclude_phrases', excludePhrases  === ASSIGNMENT_SETTING_VALUE_YES? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             if (excludePhrases) {
@@ -124,7 +124,7 @@ const AssignmentForms = ({
                     phrasesObj['p' + (index + 1)] = item;
                 });
                 console.log('phrasesObj',phrasesObj);
-                bodyFormData.append('phrases', phrasesObj);
+                bodyFormData.append('phrases', JSON.stringify(phrasesObj));
             }
             bodyFormData.append('repository_scope', data?.repository_scope?.name.toUpperCase());
             bodyFormData.append('report_access', reportAccess === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
@@ -145,7 +145,7 @@ const AssignmentForms = ({
             bodyFormData.append('exclude_quotes', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('exclude_small_sources', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('assignment_grading', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('exclude_include_sources', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
+            //bodyFormData.append('exclude_include_sources', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('save_to_repository', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('allow_resubmissions', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('allow_submissions_after_due_date', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
@@ -177,8 +177,6 @@ const AssignmentForms = ({
 
     const handleExcludeRef = (e, value) => {
         e.preventDefault();
-        
-        console.log('handleExcludeRef',value);
         setExcludeRefBib(value)
     }
 
@@ -494,7 +492,7 @@ const AssignmentForms = ({
                             </Grid>
                         </div>
 
-                        <div>
+                        {/* <div>
                             <Grid container>
                                 <Grid item md={8}>
                                     <InputLabel style={{ margin: '22px 0px' }}>
@@ -514,7 +512,7 @@ const AssignmentForms = ({
                                 </Grid>
                             </Grid>
 
-                        </div>
+                        </div> */}
 
                         <div>
                             <Grid container>

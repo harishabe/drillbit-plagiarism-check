@@ -156,6 +156,7 @@ const MyAssignmentDetails = ({
 
     const handleOriginalFileDownload = (e, data) => {
         // console.log('handleOriginalFileDownload', router.query.clasId, router.query.assId, data?.id, data?.filename?.props?.value);
+        e.preventDefault();
         DownloadOriginalFile(router.query.clasId, router.query.assId, data?.id, data?.filename?.props?.value)
     }
 
