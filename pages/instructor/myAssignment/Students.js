@@ -53,16 +53,17 @@ const SearchField = styled.div`
 `;
 
 const columns = [
-    { id: 'id', label: 'Student ID' },
+    // { id: 'id', label: 'Student ID' },
+    { id: 'student_id', label: 'Student ID' },
     { id: 'name', label: 'Student Name' },
-    { id: 'email', label: 'Email' },
+    { id: 'username', label: 'Email' },
     { id: 'department', label: 'Department' },
     { id: 'section', label: 'Section' },
     { id: 'action', label: 'Actions' },
 ]
 
-function createData(id, name, email, department, section, action) {
-    return { id, name, email, department, section, action }
+function createData(id, student_id, name, username, department, section, action) {
+    return { id, student_id, name, username, department, section, action }
 }
 
 const Students = ({
@@ -104,6 +105,7 @@ const Students = ({
             row =
                 createData(
                     student.id,
+                    student.student_id,
                     student.name,
                     student.username,
                     student.department,
@@ -111,6 +113,7 @@ const Students = ({
                     [{ 'component': <EditIcon />, 'type': 'edit' },
                     { 'component': <DeleteIcon />, 'type': 'delete' },
                     ]
+
                 );
             row['isSelected'] = false;
             arr.push(row)
@@ -142,10 +145,10 @@ const Students = ({
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationStudent['field'] = column.id
+            paginationStudent['field'] = column.id;
             paginationStudent['orderBy'] = 'asc';
         } else {
-            paginationStudent['field'] = column.id
+            paginationStudent['field'] = column.id;
             paginationStudent['orderBy'] = 'desc';
         }
         setPaginationStudent({ ...paginationStudent, paginationStudent })
@@ -161,7 +164,7 @@ const Students = ({
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
-            if (rowItem?.id?.props?.title === row?.id?.props?.title) {
+            if (rowItem?.id === row?.id) {
                 rowItem['isSelected'] = !rowItem['isSelected'];
             }
             return rowItem;
@@ -205,17 +208,17 @@ const Students = ({
     return (
         <React.Fragment>
 
-            {showDialogModal &&
+            { showDialogModal &&
                 <>
                     <DialogModal
-                        headingTitle={"Institute Students List"}
-                        isOpen={true}
+                    headingTitle={ "Institute Students List" }
+                    isOpen={ true }
                         fullWidth="lg"
                         maxWidth="lg"
-                        handleClose={handleCloseDialog}
+                    handleClose={ handleCloseDialog }
                     >
                         <StudentInstitute
-                            classId={router.query.clasId}
+                        classId={ router.query.clasId }
                         />
                     </DialogModal>
                 </>
@@ -223,17 +226,17 @@ const Students = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={ <DeleteWarningIcon /> }
                     message="Are you sure you want to delete ?"
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
             <AddButtonBottom>
                 <CreateDrawer
-                    options={[
+                    options={ [
                         {
                             icon: <AddPersonIcon />,
                             title: 'Add Student',
@@ -248,10 +251,10 @@ const Students = ({
                             icon: <AddFromListIcon />,
                             title: 'Add From List',
                             handleFromCreateDrawer: true
-                        }]}
+                        }] }
                     title="Add Student"
-                    handleMultiData={handleShow}
-                    isShowAddIcon={true}>
+                    handleMultiData={ handleShow }
+                    isShowAddIcon={ true }>
                     <StudentForm />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -260,17 +263,17 @@ const Students = ({
                 editStudent &&
                 <CreateDrawer
                     title="Edit Student"
-                    isShowAddIcon={false}
-                    showDrawer={editStudent}
+                        isShowAddIcon={ false }
+                        showDrawer={ editStudent }
                 >
                     <StudentForm
-                        editData={editStudentData}
+                            editData={ editStudentData }
                     />
                 </CreateDrawer>
             }
 
             <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={1}>
+                <Grid container spacing={ 1 }>
                     <Grid item container direction='row' justifyContent={ 'right' }>
                         <SearchField>
                             <TextField
@@ -286,42 +289,40 @@ const Students = ({
                         </SearchField>
                     </Grid>
                 </Grid>
-            </Box> 
+            </Box>
 
 
             <CardView>
                 <>
-                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
-                        <IconButton onClick={deleteAllStudent}>
+                    { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
+                        <IconButton onClick={ deleteAllStudent }>
                             <DeleteIcon />
                         </IconButton>
-                    </div>}
+                    </div> }
 
                     <CommonTable
-                        isCheckbox={true}
+                        isCheckbox={ true }
                         isSorting={ true }
-                        tableHeader={columns}
-                        tableData={rows}
-                        handleAction={handleAction}
-                        handleTableSort={handleTableSort}
-                        handleCheckboxSelect={handleCheckboxSelect}
-                        handleSingleSelect={handleSingleSelect}
-                        isLoading={isLoadingStudent}
-                        charLength={17}
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
+                        handleCheckboxSelect={ handleCheckboxSelect }
+                        handleSingleSelect={ handleSingleSelect }
+                        isLoading={ isLoadingStudent }
+                        charLength={ 17 }
                         path=''
                     />
 
-                    { pageDetailsStudent?.totalPages > 1 &&
-                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                            <Pagination
-                                count={ pageDetailsStudent?.totalPages }
-                                onChange={handlePagination}
-                                color="primary"
-                                variant="outlined"
-                                shape="rounded"
-                            />
-                        </div>
-                    }
+                    <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                        <Pagination
+                            count={ pageDetailsStudent?.totalPages }
+                            onChange={ handlePagination }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </div>
                 </>
             </CardView>
         </React.Fragment>

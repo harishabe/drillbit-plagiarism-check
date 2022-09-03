@@ -2,6 +2,23 @@ import * as types from '../../action/ActionType';
 
 const SubmissionReducer = (state = {}, action) => {
     switch (action.type) {
+        case types.FETCH_INSTRUCTOR_MY_CLASSES_SUBMISSION_LIST_START:
+            return {
+                ...state,
+                isLoadingSubmission: true,
+            };
+        case types.FETCH_INSTRUCTOR_MY_CLASSES_SUBMISSION_LIST_SUCCESS:
+            return {
+                ...state,
+                isLoadingSubmission: false,
+                submissionData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_MY_CLASSES_SUBMISSION_LIST_FAIL:
+            return {
+                ...state,
+                isLoadingSubmission: false,
+                submissionDataError: action.payload,
+            };
         case types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_EDIT_START:
             return {
                 ...state,

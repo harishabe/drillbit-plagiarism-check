@@ -32,3 +32,9 @@ export const StudentSubmissionsPaginationValue = {
     'field': 'paper_id',
     'orderBy': 'asc'
 }
+export const InstructorSubmissionPaginationValue = {
+    'page': 0,
+    'size': 6,
+    'field': 'name',
+    'orderBy': 'asc'
+}

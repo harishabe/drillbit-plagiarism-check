@@ -43,15 +43,15 @@ const SearchField = styled.div`
 
 const columns = [
   // { id: 'id', label: 'Id' },
-  { id: 'name', label: 'Name' },
+  { id: 'assignment_name', label: 'Name' },
   { id: 'status', label: 'Status' },
-  { id: 'creation', label: 'Creation Date' },
-  { id: 'end', label: 'End Date' },
+  { id: 'start_date', label: 'Creation Date' },
+  { id: 'end_date', label: 'End Date' },
   { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, name, status, creation, end, action) {
-  return { id, name, status, creation, end, action };
+function createData(id, assignment_name, status, start_date, end_date, action) {
+  return { id, assignment_name, status, start_date, end_date, action };
 }
 
 const Assignments = ({
@@ -114,8 +114,6 @@ const Assignments = ({
     setPaginationAssignment({ ...paginationAssignment, page: value - 1 });
   };
 
-
-
   const handleAction = (event, icon, rowData) => {
     if (icon === 'edit') {
       setEditAssignment(true);
@@ -159,7 +157,7 @@ const Assignments = ({
 
   const handleSingleSelect = (e, row) => {
     let rowData = rows?.map((rowItem) => {
-      if (rowItem?.id?.props?.title === row?.id?.props?.title) {
+      if (rowItem?.id === row?.id) {
         rowItem['isSelected'] = !rowItem['isSelected'];
       }
       return rowItem;
@@ -252,7 +250,6 @@ const Assignments = ({
           </IconButton>
         </div>}
 
-        {/* {assignmentData?.length > 0 ? */}
         <CommonTable
           isCheckbox={true}
           isNextPath={true}
@@ -266,10 +263,8 @@ const Assignments = ({
           isLoading={isLoadingAssignment}
           path={{ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } }}
         />
-        {/* //   : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
-        // } */}
 
-          <div style={{ marginLeft: '35%', marginTop: '25px' }}>
+        <div style={ { marginLeft: '45%', marginTop: '25px' } }>
             <Pagination
             count={ pageDetailsAssignment?.totalPages }
               onChange={handlePagination}

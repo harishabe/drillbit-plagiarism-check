@@ -214,13 +214,32 @@ export const DownloadSubmissionList = (url) => {
     };
 };
 
+// /**
+//  * Get myfolder > submissionList
+//  * Get myclasses > assignments > submission
+//  */
+// export const GetSubmissionList = (url) => {
+//     return {
+//         type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: url
+//     };
+// };
+// 
+
 /**
- * Get myfolder > submissionList
- * Get myclasses > assignments > submission
- */
-export const GetSubmissionList = (url) => {
+//  * Get myclasses > assignments > submission
+//  */
+export const GetMyClassesSubmissionList = (clasId, assId, paginationPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: url
+        type: types.FETCH_INSTRUCTOR_MY_CLASSES_SUBMISSION_LIST_START, clasId: clasId, assId: assId, paginationPayload: paginationPayload
+    };
+};
+
+/**
+//  * Get myfolder > submissionList
+//  */
+export const GetMyFolderSubmissionList = (folderId, paginationPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_MY_FOLDER_SUBMISSION_LIST_START, folderId: folderId, paginationPayload: paginationPayload
     };
 };
 

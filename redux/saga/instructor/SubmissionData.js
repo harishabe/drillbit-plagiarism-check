@@ -1,7 +1,9 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
-    GetSubmissionGradingQna,
+    // GetSubmissionGradingQna,
+    GetSubmissionMyClasses,
+    GetSubmissionMyFolder,
     EditSubmissionData,
     DeleteSubmission,
     SaveToRepoSubmission,
@@ -10,33 +12,56 @@ import {
     DownloadSubmissionData
 } from '../../api//instructor/DetailsSubmissionAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
+import { InstructorSubmissionPaginationValue } from '../../../utils/PaginationUrl'
 
 /**
- * Get Folder submission data
- * My Folder > Submission List
- * 
  * Submission-Grading-Qna
  * My classes > assignments > submissions
  * @param {*} action
  */
 
-export function* onLoadSubmission(action) {
-    const { response, error } = yield call(GetSubmissionGradingQna, action.url);
+export function* onLoadSubmissionMyClasses(action) {
+    const { response, error } = yield call(GetSubmissionMyClasses, action.clasId, action.assId, action.paginationPayload);
     if (response) {
         yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_SUCCESS,
+            type: types.FETCH_INSTRUCTOR_MY_CLASSES_SUBMISSION_LIST_SUCCESS,
             payload: response?.data,
         });
     } else {
         yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_FAIL,
+            type: types.FETCH_INSTRUCTOR_MY_CLASSES_SUBMISSION_LIST_FAIL,
             payload: error,
         });
     }
 }
 
-export function* GetSubmissionData() {
-    yield takeLatest(types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, onLoadSubmission);
+export function* GetSubmissionMyClassesData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_MY_CLASSES_SUBMISSION_LIST_START, onLoadSubmissionMyClasses);
+}
+
+/**
+ * Get Folder submission data
+ * My Folder > Submission List
+ * @param {*} action
+ */
+
+export function* onLoadSubmissionMyFolder(action) {
+    const { response, error } = yield call(GetSubmissionMyFolder, action.folderId, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_MY_FOLDER_SUBMISSION_LIST_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_MY_FOLDER_SUBMISSION_LIST_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetSubmissionMyFolderData() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_MY_FOLDER_SUBMISSION_LIST_START, onLoadSubmissionMyFolder);
 }
 
 /**
@@ -49,10 +74,6 @@ export function* onLoadUploadFile(action) {
     const { response, error } = yield call(UploadSubmission, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_SUCCESS, payload: response?.data });
-        yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START,
-            url: action.url.split('/')[0] === 'classes' ? `classes/${action.url.split('/')[1]}/assignments/${action.url.split('/')[3]}/submissions?page=0&size=25&field=name&orderBy=desc` : `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc`
-        });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_FAIL, payload: error });
@@ -73,10 +94,10 @@ export function* onLoadExtractedZipFileUpload(action) {
     const { response, error } = yield call(UploadSubmission, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_UPLOAD_EXTRACTED_ZIP_FILE_SUCCESS, payload: response?.data });
-        yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START,
-            url: action.url.split('/')[0] === 'classes' ? `classes/${action.url.split('/')[1]}/assignments/${action.url.split('/')[3]}/submissions?page=0&size=25&field=name&orderBy=desc` : `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc`
-        });
+        // yield put({
+        //     type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START,
+        //     url: action.url.split('/')[0] === 'classes' ? `classes/${action.url.split('/')[1]}/assignments/${action.url.split('/')[3]}/submissions?page=0&size=25&field=name&orderBy=desc` : `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc`
+        // });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_UPLOAD_EXTRACTED_ZIP_FILE_FAIL, payload: error });
@@ -98,10 +119,11 @@ export function* onLoadDeleteFile(action) {
     const { response, error } = yield call(DeleteSubmission, action.url);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_SUCCESS, payload: response?.data });
-        yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START,
-            url: action.url.split('/')[0] === 'classes' ? `classes/${action.url.split('/')[1]}/assignments/${action.url.split('/')[3]}/submissions?page=0&size=25&field=name&orderBy=desc` : `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc`
-        });
+        // yield put({
+        //     type: action.url.split('/')[0] === 'classes' ?
+        //         (types.FETCH_INSTRUCTOR_MY_CLASSES_SUBMISSION_LIST_START, action.url.split('/')[1], action.url.split('/')[3], InstructorSubmissionPaginationValue) :
+        //         (types.FETCH_INSTRUCTOR_MY_FOLDER_SUBMISSION_LIST_START, action.url.split('/')[1], InstructorSubmissionPaginationValue)
+        // });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DELETE_FAIL, payload: error });

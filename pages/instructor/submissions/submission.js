@@ -11,7 +11,11 @@ import {
 } from '../../../components';
 import { EditIcon, DeleteIcon, DeleteWarningIcon, AddMultipleIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
-import { GetSubmissionList, DeleteSubmission, UploadFileDataClear, UploadZipFileDataClear } from '../../../redux/action/instructor/InstructorAction';
+import {
+  // GetSubmissionList,
+  GetMyClassesSubmissionList,
+  DeleteSubmission, UploadFileDataClear, UploadZipFileDataClear
+} from '../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
 import { TextField } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -26,19 +30,19 @@ import { SUBMISSION_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const columns = [
   // { id: 'id', label: 'Student ID' },
-  { id: 'authorName', label: 'Author Name' },
-  { id: 'PAname', label: 'Paper Name' },
+  { id: 'name', label: 'Author Name' },
+  { id: 'title', label: 'Paper Title' },
   { id: 'file', label: 'Original File' },
   { id: 'grammer', label: 'Grammar' },
-  { id: 'similarity', label: 'Similarity' },
-  { id: 'paperid', label: 'Paper Id' },
-  { id: 'date', label: 'Submission Date' },
+  { id: 'percent', label: 'Similarity' },
+  { id: 'paper_id', label: 'Paper Id' },
+  { id: 'date_up', label: 'Submission Date' },
   { id: 'action', label: 'Action' },
 ];
 
-function createData(id, authorName, PAname, file, grammer, similarity, paperid, date, action) {
+function createData(id, name, title, file, grammer, percent, paper_id, date_up, action) {
   return {
-    id, authorName, PAname, file, grammer, similarity, paperid, date, action
+    id, name, title, file, grammer, percent, paper_id, date_up, action
   };
 }
 
@@ -55,7 +59,8 @@ const SearchField = styled.div`
 `;
 
 const Submission = ({
-  GetSubmissionList,
+  // GetSubmissionList,
+  GetMyClassesSubmissionList,
   DeleteSubmission,
   submissionData,
   isLoading,
@@ -84,17 +89,18 @@ const Submission = ({
   const [editAssignment, setEditAssignment] = useState(false);
   const [editAssignmentData, setEditAssignmentData] = useState('');
   const [deleteRowData, setDeleteRowData] = useState('');
-  const [text, setText] = useState('');
+  // const [text, setText] = useState('');
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
 
   useEffect(() => {
-    if (text) {
-      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${text}`
-      GetSubmissionList(url);
-    } else {
-      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
-      GetSubmissionList(url);
-    }
+    // if (text) {
+    //   let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${text}`
+    //   GetSubmissionList(url);
+    // } else {
+    //   let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
+    //   GetSubmissionList(url);
+    // }
+    GetMyClassesSubmissionList(clasId, assId, paginationPayload)
   }, [clasId, assId, paginationPayload]);
 
   useEffect(() => {
@@ -129,11 +135,11 @@ const Submission = ({
     if (event.target.value !== '') {
       paginationPayload['search'] = event.target.value;
       setPaginationPayload({ ...paginationPayload, paginationPayload });
-      setText(event.target.value)
+      // setText(event.target.value)
     } else {
       delete paginationPayload['search'];
       setPaginationPayload({ ...paginationPayload, paginationPayload });
-      setText(event.target.value)
+      // setText(event.target.value)
     }
   }
 
@@ -147,13 +153,12 @@ const Submission = ({
     };
   });
 
-
   const handleAction = (event, icon, rowData) => {
     if (icon === 'edit') {
       setEditAssignment(true);
       setEditAssignmentData(rowData);
     } else if (icon === 'delete') {
-      setDeleteRowData(rowData?.paperid);
+      setDeleteRowData(rowData?.paper_id);
       setShowDeleteWarning(true);
     }
   }
@@ -164,11 +169,25 @@ const Submission = ({
     setTimeout(() => {
       setShowDeleteWarning(false);
     }, [100]);
+    setTimeout(() => {
+      GetMyClassesSubmissionList(clasId, assId, paginationPayload)
+    }, [2000]);
   };
 
   const handleCloseWarning = () => {
     setShowDeleteWarning(false);
   };
+
+  const handleTableSort = (e, column, sortToggle) => {
+    if (sortToggle) {
+      paginationPayload['field'] = column.id;
+      paginationPayload['orderBy'] = 'asc';
+    } else {
+      paginationPayload['field'] = column.id;
+      paginationPayload['orderBy'] = 'desc';
+    }
+    setPaginationPayload({ ...paginationPayload, paginationPayload })
+  }
 
   const handleCheckboxSelect = () => {
     let rowData = rows?.map((rowItem) => {
@@ -279,6 +298,7 @@ const Submission = ({
           tableHeader={columns}
           tableData={rows}
           handleAction={handleAction}
+          handleTableSort={ handleTableSort }
           handleCheckboxSelect={handleCheckboxSelect}
           handleSingleSelect={handleSingleSelect}
           isLoading={isLoading}
@@ -303,17 +323,18 @@ const Submission = ({
 };
 
 const mapStateToProps = (state) => ({
-  pageDetails: state?.instructorMyFolders?.submissionData?.page,
-  isLoading: state?.instructorMyFolders?.isLoadingSubmission,
-  isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
-  submissionData: state?.instructorMyFolders?.submissionData?._embedded?.submissionsList,
-  extractedFileData: state?.instructorMyFolders?.extractedFileData,
-  uploadData: state?.instructorMyFolders?.uploadData,
+  pageDetails: state?.instructorSubmissionGrading?.submissionData?.page,
+  isLoading: state?.instructorSubmissionGrading?.isLoadingSubmission,
+  isLoadingUpload: state?.instructorSubmissionGrading?.isLoadingUpload,
+  submissionData: state?.instructorSubmissionGrading?.submissionData?._embedded?.submissionsList,
+  extractedFileData: state?.instructorSubmissionGrading?.extractedFileData,
+  uploadData: state?.instructorSubmissionGrading?.uploadData,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+    // GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+    GetMyClassesSubmissionList: (clasId, assId, paginationPayload) => dispatch(GetMyClassesSubmissionList(clasId, assId, paginationPayload)),
     DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
     UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())

@@ -1,13 +1,21 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import { PostMethod, PutMethod, GetMethod, DeleteMethod, PostFormData, GetMethodDownload, PostMethodEN } from './../ApiMethod';
+import { PaginationUrl } from '../../../utils/PaginationUrl';
+
+/**
+ * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION
+ */
+export const GetSubmissionMyClasses = async (clasId, assId, paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_CLASSES_SUBMISSION + clasId + '/assignments/' + assId + '/submissions' + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+}
 
 /**
  * API CALL FOR MY FOLDER > SUBMISSION DATA
- * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION
  */
-export const GetSubmissionGradingQna = async (apiUrl) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl;
+export const GetSubmissionMyFolder = async (folderId, paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDER_SUBMISSION + 'myFolder/' + folderId + '/submissions' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 }
 

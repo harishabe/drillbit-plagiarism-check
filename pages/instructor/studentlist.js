@@ -18,25 +18,30 @@ import {
     CreateDrawer,
     WarningDialog
 } from '../../components';
-import { GetSubmissionList, DeleteSubmission, DownloadSubmissionList } from '../../redux/action/instructor/InstructorAction';
+import {
+    // GetSubmissionList,
+    GetMyFolderSubmissionList,
+    DeleteSubmission, DownloadSubmissionList
+} from '../../redux/action/instructor/InstructorAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../assets/icon';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
 
 const columns = [
-    { id: 'PAname', label: 'Paper Name' },
+    { id: 'name', label: 'Author Name' },
+    { id: 'title', label: 'Paper Title' },
     { id: 'file', label: 'Original File' },
     { id: 'grammer', label: 'Grammar' },
-    { id: 'similarity', label: 'Similarity' },
-    { id: 'paperid', label: 'Paper Id' },
-    { id: 'date', label: 'Submission Date' },
+    { id: 'percent', label: 'Similarity' },
+    { id: 'paper_id', label: 'Paper Id' },
+    { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action' },
 ]
 
-function createData(PAname, file, grammer, similarity, paperid, date, action) {
+function createData(name, title, file, grammer, percent, paper_id, date_up, action) {
     return {
-        PAname, file, grammer, similarity, paperid, date, action
+        name, title, file, grammer, percent, paper_id, date_up, action
     }
 }
 
@@ -53,7 +58,8 @@ const DownloadCsv = styled.div`
 `;
 
 const StudentList = ({
-    GetSubmissionList,
+    // GetSubmissionList,
+    GetMyFolderSubmissionList,
     DownloadSubmissionList,
     DeleteSubmission,
     submissionData,
@@ -93,7 +99,7 @@ const StudentList = ({
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
-        field: 'name',
+        field: 'paper_id',
         orderBy: PaginationValue?.orderBy,
     });
 
@@ -122,23 +128,25 @@ const StudentList = ({
     /** end debounce concepts */
 
     useEffect(() => {
-        let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
+        // let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
 
-        GetSubmissionList(url);
+        // GetSubmissionList(url);
+        GetMyFolderSubmissionList(folderId, paginationPayload)
     }, [folderId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
         let arr = [];
-        submissionData?.map((student) => {
+        submissionData?.map((submission) => {
             row =
                 createData(
-                    student.title,
-                    student.original_fn,
-                    student.grammar,
-                    student.percent,
-                    student.paper_id,
-                    formatDate(student.date_up),
+                    submission.name,
+                    submission.title,
+                    submission.original_fn,
+                    submission.grammar,
+                    submission.percent,
+                    submission.paper_id,
+                    formatDate(submission.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete' }]
                 );
             row['isSelected'] = false;
@@ -223,10 +231,10 @@ const StudentList = ({
             <Box sx={ { flexGrow: 1 } }>
                 <BreadCrumb item={ InstructorBreadCrumb } />
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 9 } xs={ 12 }>
+                    <Grid item md={ 8 } xs={ 12 }>
                         <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={ 3 } xs={ 12 }>
+                    <Grid item md={ 4 } xs={ 12 } align="right">
                         <TextField
                             placeholder='Search'
                             onChange={debouncedResults}
@@ -272,7 +280,7 @@ const StudentList = ({
                     handleCheckboxSelect={handleCheckboxSelect}
                     handleSingleSelect={handleSingleSelect}
                     isLoading={isLoadingSubmission}
-                    charLength={17}
+                    charLength={ 10 }
                     path=''
                 />
 
@@ -324,7 +332,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+        // GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+        GetMyFolderSubmissionList: (folderId, paginationPayload) => dispatch(GetMyFolderSubmissionList(folderId, paginationPayload)),
         DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
         DownloadSubmissionList: (url) => dispatch(DownloadSubmissionList(url)),
     };

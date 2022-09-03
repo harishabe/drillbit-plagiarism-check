@@ -56,7 +56,9 @@ import {
     DeleteMyFolders    
 } from './instructor/DetailsInstructorData';
 import { 
-    GetSubmissionData,
+    // GetSubmissionData,
+    GetSubmissionMyClassesData,
+    GetSubmissionMyFolderData,
     EditSubmissionDetail,
     SaveToRepo,
     InstructorFeedbackDetail,
@@ -148,7 +150,9 @@ const saga = [
     fork(GetRepoData),
     fork(RepoUploadData),
     fork(RemoveRepositaryInstructorDetails),
-    fork(GetSubmissionData),
+    // fork(GetSubmissionData),
+    fork(GetSubmissionMyClassesData),
+    fork(GetSubmissionMyFolderData),
     fork(UploadSubmissionFile),
     fork(UploadExtractedFile),
     fork(DeleteSubmissionFile),

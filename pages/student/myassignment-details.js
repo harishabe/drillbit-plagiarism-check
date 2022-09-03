@@ -234,26 +234,26 @@ const MyAssignmentDetails = ({
                                 color="common.gray"
                             />
                             <Heading
-                                title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.subject} charLength={30} />}
+                                title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.subject } charLength={ 20 } /> }
                             />
                         </CardView>
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <CardView>
                             <Heading title={<EllipsisText value={'Assignment name'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.assignmentName} charLength={30} />} />
+                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.assignmentName } charLength={ 20 } /> } />
                         </CardView>
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <CardView>
                             <Heading title={<EllipsisText value={'Instructor name'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value='Sagar xtreamSagar xtreamSagar xtream' charLength={30} />} />
+                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value='Sagar xtreamSagar xtreamSagar xtream' charLength={ 20 } /> } />
                         </CardView>
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <CardView>
                             <Heading title={<EllipsisText value={'Date'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate)} charLength={30} />} />
+                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate) } charLength={ 22 } /> } />
                         </CardView>
                     </Grid>
                 </Grid>

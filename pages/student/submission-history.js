@@ -31,14 +31,14 @@ const SubmissionHistory = ({
     const [rows, setRows] = useState([]);
 
     const columns = [
-        { id: 'filename', label: 'File name', isDownload:true },
-        { id: 'id', label: 'Paper ID' },
-        { id: 'date', label: 'Date' },
-        { id: 'similarity', label: 'Similarity' },
-        { id: 'grammer', label: 'Grammar' },
-        { id: 'score', label: 'Marks' },
-        { id: 'status', label: 'Status' },
-        { id: 'feedback', label: 'Feedback' },
+        { id: 'filename', label: 'File name', isDownload: true, minWidth: 140 },
+        { id: 'id', label: 'Paper ID', minWidth: 140 },
+        { id: 'date', label: 'Date', minWidth: 140 },
+        { id: 'similarity', label: 'Similarity', minWidth: 80 },
+        { id: 'grammer', label: 'Grammar', minWidth: 80 },
+        { id: 'score', label: 'Marks', minWidth: 80 },
+        { id: 'status', label: 'Status', minWidth: 100 },
+        { id: 'feedback', label: 'Feedback', minWidth: 80 },
     ];
 
     useEffect(() => {
@@ -47,7 +47,7 @@ const SubmissionHistory = ({
         submissionData?.map((submission) => {
             row =
                 createData(
-                    <EllipsisText value={ submission.original_fn } charLength={ 12 } />,
+                    submission.original_fn,
                     submission.paper_id,
                     submission.date_up,
                     submission.percent,
@@ -68,6 +68,7 @@ const SubmissionHistory = ({
                         isSorting={ true }
                         tableHeader={ columns }
                         tableData={ rows }
+                        charLength={ 11 }
                         downloadSubmissionFile={handleOriginalFileDownload}
                     />
                 </>
