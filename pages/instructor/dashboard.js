@@ -42,8 +42,6 @@ import {
     PIE_CHART_WIDTH,
     PIE_CHART_LABEL,
 } from './../../constant/data/ChartData';
-import { setItemLocalStorage, getItemLocalStorage } from '../../utils/RegExp';
-
 import {
     STUDENT_NOT_FOUND,
     DASHBOARD_RECENT_SUBMISSION_NOT_FOUND,
@@ -82,7 +80,6 @@ const Dashboard = ({
             return item.submissions;
         });
         setRecentSubmission(submission);
-        setItemLocalStorage('name', instructorDashboardData?.data?.userProfileLite?.name);
     }, [instructorDashboardData]);
 
     const handlePage = (e, item) => {

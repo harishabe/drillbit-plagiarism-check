@@ -14,7 +14,8 @@ import { IconButton, Skeleton } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import { SubTitle, TableSkeleton, EllipsisText } from '../../components';
+import { SubTitle, TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
+import { TABLE_HEADER_SORT_DISABLE, TABLE_BODY_ALLOW_ICON } from '../../constant/data/Constant';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
@@ -43,7 +44,6 @@ const CommonTable = ({
     isSorting,
     downloadSubmissionFile
 }) => {
-// console.log('tableData',tableData);
     const router = useRouter();
     const classes = useStyles();
     const [toggle, setToggle] = React.useState(false);
@@ -77,7 +77,7 @@ const CommonTable = ({
                                         align={column.align}
                                         style={{ minWidth: column.minWidth }}
                                     >
-                                        {column.id === 'action' || column.id === 'stats' || column.id === 'feedback' ?
+                                        {TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
                                             <EllipsisText value={column.label} charLength={charLength} variant='body2_1' />
                                             : <TableSortLabel
                                                 onClick={((e) => sortHandle(e, column))}
@@ -105,19 +105,17 @@ const CommonTable = ({
                     {isLoading ?
                         <TableSkeleton />
                         : tableData?.map((row) => (
-
-                            < TableRow hover key={row.id}>
+                            <TableRow hover key={row.id}>
                                 {isCheckbox &&
                                     <TableCell padding="checkbox" className={classes.padding}>
                                         <Checkbox onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
                                     </TableCell>}
                                 {tableHeader.map((column) => {
                                     const value = row[column.id];
-                                    // console.log('valuevalue',value);
                                     return (
                                         <>
                                             {
-                                                column.id === 'action' || column.id === 'stats' ?
+                                                TABLE_BODY_ALLOW_ICON.includes(column.id) ?
                                                     <TableCell>
                                                         {value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}</IconButton>))}
                                                     </TableCell> :
@@ -125,7 +123,7 @@ const CommonTable = ({
                                                         {
                                                             column.isDownload ?
                                                                 <TableCell key={column.id} align={column.align}>
-                                                                    <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={(e)=>downloadSubmissionFile(e,row)}>
+                                                                    <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={(e) => downloadSubmissionFile(e, row)}>
                                                                         {typeof (value) === 'string' ?
                                                                             <EllipsisText value={value !== null ? value : '--'} charLength={charLength} /> :
                                                                             <SubTitle title={value !== null ? value : '--'} />}
@@ -162,6 +160,10 @@ const CommonTable = ({
                         ))}
                 </TableBody>
             </Table>
+
+            <>
+                {(tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" />}
+            </>
         </TableContainer>
     )
 }

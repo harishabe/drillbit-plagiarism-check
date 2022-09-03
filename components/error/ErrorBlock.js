@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         border: '1px solid gray',
         padding: '15px',
         borderRadius: '10px',
-        marginTop: '50px',
+        marginTop: '20px',
     },
     color: {
         color: 'gray'

@@ -26,7 +26,7 @@ import { SUBMISSION_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const columns = [
   // { id: 'id', label: 'Student ID' },
-  { id: 'STname', label: 'Student Name' },
+  { id: 'authorName', label: 'Author Name' },
   { id: 'PAname', label: 'Paper Name' },
   { id: 'file', label: 'Original File' },
   { id: 'grammer', label: 'Grammar' },
@@ -36,9 +36,9 @@ const columns = [
   { id: 'action', label: 'Action' },
 ];
 
-function createData(id, STname, PAname, file, grammer, similarity, paperid, date, action) {
+function createData(id, authorName, PAname, file, grammer, similarity, paperid, date, action) {
   return {
-    id, STname, PAname, file, grammer, similarity, paperid, date, action
+    id, authorName, PAname, file, grammer, similarity, paperid, date, action
   };
 }
 
@@ -102,11 +102,6 @@ const Submission = ({
     let arr = [];
     submissionData?.map((submission) => {
       row = createData(
-        // <AvatarName
-        //   avatarText='S'
-        //   title={submission.ass_id}
-        //   color='#4795EE'
-        // />,
         submission.ass_id,
         submission.name,
         submission.title,
@@ -116,7 +111,6 @@ const Submission = ({
         submission.paper_id,
         submission.date_up,
         [
-          // { 'component': <EditIcon />, 'type': 'edit' },
           { 'component': <DeleteIcon />, 'type': 'delete' },
         ]
       );
@@ -130,8 +124,6 @@ const Submission = ({
     event.preventDefault();
     setPaginationPayload({ ...paginationPayload, page: value - 1 });
   };
-
-  /** search implementation using debounce concepts */
 
   const handleSearch = (event) => {
     if (event.target.value !== '') {
@@ -155,7 +147,6 @@ const Submission = ({
     };
   });
 
-  /** end debounce concepts */
 
   const handleAction = (event, icon, rowData) => {
     if (icon === 'edit') {
@@ -211,13 +202,10 @@ const Submission = ({
   }
 
   const handleUploadFile = () => {
-    
-    console.log('uploadDatauploadDatauploadData111',uploadData);
     if (extractedFileData) {
       UploadFileDataClear();
     }
-    if(uploadData){
-      console.log('uploadDatauploadDatauploadData',uploadData);
+    if (uploadData) {
       UploadZipFileDataClear();
     }
     router.push({ pathname: '/instructor/uploadFile', query: router.query })
@@ -225,17 +213,17 @@ const Submission = ({
 
   return (
     <React.Fragment>
-      <Grid item container direction='row' justifyContent={ 'right' }>
+      <Grid item container direction='row' justifyContent={'right'}>
         <SearchField>
           <TextField
             placeholder='Search'
-            onChange={ debouncedResults }
-            inputProps={ {
+            onChange={debouncedResults}
+            inputProps={{
               style: {
                 padding: 5,
                 display: 'inline-flex',
               },
-            } }
+            }}
           />
         </SearchField>
       </Grid>
@@ -294,6 +282,7 @@ const Submission = ({
           handleCheckboxSelect={handleCheckboxSelect}
           handleSingleSelect={handleSingleSelect}
           isLoading={isLoading}
+          charLength={10}
         />
 
         {pageDetails?.totalPages > 1 && (
@@ -327,7 +316,7 @@ const mapDispatchToProps = (dispatch) => {
     GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
     DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
     UploadFileDataClear: () => dispatch(UploadFileDataClear()),
-    UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())    
+    UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
   };
 };
 

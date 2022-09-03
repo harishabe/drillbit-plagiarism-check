@@ -14,6 +14,7 @@
         "id": "exclude_refernces",
         "name": "exclude_refernces",
         "label": "Exclude Reference / Bibliography",
+        "width":"22%",
         "options": [
             "YES",
             "NO"
@@ -24,6 +25,7 @@
         "id": "exclude_quotes",
         "name": "exclude_quotes",
         "label": "Exclude Quotes",
+        "width":"22%",
         "options": [
             "YES",
             "NO"
@@ -34,6 +36,7 @@
         "id": "exclude_small_sources",
         "name": "exclude_small_sources",
         "label": "Exclude small sources (less than 14 similarity words)",
+        "width":"22%",
         "options": [
             "YES",
             "NO"
@@ -45,6 +48,7 @@
         "id": "grammar_check",
         "name": "grammar_check",
         "label": "Grammar Check",
+        "width":"22%",
         "options": [
             "YES",
             "NO"
@@ -55,6 +59,7 @@
         "id": "exclude_phrases",
         "name": "exclude_phrases",
         "label": "Exclude Phrases",
+        "width":"22%",
         "options": [
             "YES",
             "NO"
@@ -65,6 +70,7 @@
         "id": "db_studentpaper",
         "name": "db_studentpaper",
         "label": "Student Repositary",
+        "width":"22%",
         "options": [
             "YES",
             "NO"
@@ -75,6 +81,7 @@
         "id": "db_publications",
         "name": "db_publications",
         "label": "Publications And Journals",
+        "width":"22%",
         "options": [
             "YES",
             "NO"
@@ -85,6 +92,7 @@
         "id": "db_internet",
         "name": "db_internet",
         "label": "Internet Source",
+        "width":"22%",
         "options": [
             "YES",
             "NO"
@@ -95,6 +103,7 @@
         "id": "institution_repository",
         "name": "institution_repository",
         "label": "Institution Repository",
+        "width":"22%",
         "options": [
             "YES",
             "NO"
