@@ -28,7 +28,7 @@ import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 }
 
 const columns = [
     { id: 'name', label: 'Author Name' },
-    { id: 'title', label: 'Paper Name' },
+    { id: 'title', label: 'Paper Title' },
     { id: 'original_fn', label: 'Original File' },
     { id: 'grammar', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
@@ -37,10 +37,10 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(name, title, original_fn, grammar, percent, paper_id, date_up, action) {
+function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action) {
     return {
-        name, title, original_fn, grammar, percent, paper_id, date_up, action
-    };
+        id, name, title, original_fn, grammar, percent, paper_id, date_up, action
+    }
 }
 
 const AddButtonBottom = styled.div`
@@ -99,7 +99,7 @@ const StudentList = ({
     });
 
     useEffect(() => {
-        let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
+        let url = `myFolder/${folderId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=name&orderBy=${paginationPayload?.orderBy}`;
         GetSubmissionList(url);
     }, [folderId, paginationPayload]);
 
@@ -109,6 +109,7 @@ const StudentList = ({
         submissionData?.map((submission) => {
             row =
                 createData(
+                    submission.ass_id,
                     submission.name,
                     submission.title,
                     submission.original_fn,
@@ -158,13 +159,10 @@ const StudentList = ({
    */
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id
-            paginationPayload['orderBy'] = 'asc';
+            setPaginationPayload({ ...paginationPayload, 'field': column.id, 'orderBy': 'asc' });
         } else {
-            paginationPayload['field'] = column.id
-            paginationPayload['orderBy'] = 'desc';
+            setPaginationPayload({ ...paginationPayload, 'field': column.id, 'orderBy': 'desc' });
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
     const handleSearch = (event) => {

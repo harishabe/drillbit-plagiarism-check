@@ -103,7 +103,7 @@ const Submission = ({
         submission.grammar,
         submission.percent !== NO_DATA_PLACEHOLDER && ((submission.percent !== DOC_ERROR_PLACEHOLDER_1) && (submission.percent !== DOC_ERROR_PLACEHOLDER_2)) ? submission.percent + '%' : submission.percent,
         submission.paper_id,
-        submission.date_up,
+        formatDate(submission.date_up),
         [
           { 'component': <DeleteIcon />, 'type': 'delete' },
         ]
