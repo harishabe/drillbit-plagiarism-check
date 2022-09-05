@@ -29,4 +29,5 @@ export const TABLE_BODY_ALLOW_ICON = [
 export const TABLE_SORTING_ARROW_HANDLE = [
     'paper_id',
     'date_up'
-]
+];
+

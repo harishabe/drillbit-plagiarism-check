@@ -13,7 +13,7 @@ import { EditIcon, DeleteIcon, DeleteWarningIcon, AddMultipleIcon } from '../../
 import { connect } from 'react-redux';
 import { GetSubmissionList, DeleteSubmission, UploadFileDataClear, UploadZipFileDataClear } from '../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
-import { TextField } from '@mui/material';
+import { TextField, Pagination } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import debouce from "lodash.debounce";
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -22,7 +22,7 @@ import styled from 'styled-components';
 import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
-import { SUBMISSION_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { PaginationContainer } from '../../style/index';
 
 const columns = [
   // { id: 'id', label: 'Student ID' },
@@ -101,7 +101,7 @@ const Submission = ({
         submission.title,
         submission.original_fn,
         submission.grammar,
-        submission.percent,
+        submission.percent !== '--' && ((submission.percent !== 'doc:error') || (submission.percent !== 'doc_error')) ? submission.percent + '%' : submission.percent,
         submission.paper_id,
         submission.date_up,
         [
@@ -310,17 +310,16 @@ const Submission = ({
           charLength={10}
         />
 
-        {pageDetails?.totalPages > 1 && (
-          <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-            <Pagination
-              count={pageDetails?.totalPages}
-              onChange={handlePagination}
-              color='primary'
-              variant='outlined'
-              shape='rounded'
-            />
-          </div>
-        )}
+
+        <PaginationContainer>
+          <Pagination
+            count={pageDetails?.totalPages}
+            onChange={handlePagination}
+            color='primary'
+            variant='outlined'
+            shape='rounded'
+          />
+        </PaginationContainer>
 
       </CardView>
     </React.Fragment>

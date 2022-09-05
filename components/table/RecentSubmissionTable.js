@@ -18,9 +18,9 @@ const RecentSubmissionTable = ({
 }) => {
     return (
         <TableContainer>
-            <Table sx={ { minWidth: 350 } } aria-label="simple table">
+            <Table sx={{ minWidth: 350 }} aria-label="simple table">
                 <TableBody>
-                    { tableData?.map((item, index) => (
+                    {tableData?.map((item, index) => (
                         item['color'] = Colors[index],
                         <TableRow key={index}>
                             <TableCell style={{ width: '45px' }}>
@@ -34,24 +34,25 @@ const RecentSubmissionTable = ({
                                 <SubTitle1
                                     title={item.name} />
                                 <SubTitle
-                                        title={ item.class_name } />
-                            </TableCell>
-                                <TableCell>
-                                <SubTitle
-                                        title={ item.percent === '--' ? "--" : `${item.percent}%` } />
+                                    title={item.class_name} />
                             </TableCell>
                             <TableCell>
-                                <StatusDot color="#69C886" title="Active" />                                
+                                {(item.percent === 'doc:error') || (item.percent === 'doc_error') ?
+                                    <SubTitle title={item.percent} /> : <SubTitle
+                                        title={item.percent === '--' ? "--" : `${item.percent}%`} />}
+                            </TableCell>
+                            <TableCell>
+                                <StatusDot color="#69C886" title="Active" />
                             </TableCell>
                             <TableCell align='right'>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={ (e) => handlePage(e, item) }
-                                    >Review</Button>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={(e) => handlePage(e, item)}
+                                >Review</Button>
                             </TableCell>
                         </TableRow>
-                    )) } 
+                    ))}
                 </TableBody>
             </Table>
         </TableContainer>
