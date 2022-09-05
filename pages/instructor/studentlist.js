@@ -24,6 +24,7 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
 import { PaginationContainer } from '../style/index';
+import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -112,7 +113,7 @@ const StudentList = ({
                     submission.title,
                     submission.original_fn,
                     submission.grammar,
-                    submission.percent !== '--' ? submission.percent + '%' : '--',
+                    submission.percent !== NO_DATA_PLACEHOLDER ? submission.percent + '%' : NO_DATA_PLACEHOLDER,
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete' }]

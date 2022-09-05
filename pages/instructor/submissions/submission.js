@@ -23,6 +23,7 @@ import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
+import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../../constant/data/Constant';
 
 const columns = [
   // { id: 'id', label: 'Student ID' },
@@ -100,7 +101,7 @@ const Submission = ({
         submission.title,
         submission.original_fn,
         submission.grammar,
-        submission.percent !== '--' && ((submission.percent !== 'doc:error') || (submission.percent !== 'doc_error')) ? submission.percent + '%' : submission.percent,
+        submission.percent !== NO_DATA_PLACEHOLDER && ((submission.percent !== DOC_ERROR_PLACEHOLDER_1) && (submission.percent !== DOC_ERROR_PLACEHOLDER_2)) ? submission.percent + '%' : submission.percent,
         submission.paper_id,
         submission.date_up,
         [

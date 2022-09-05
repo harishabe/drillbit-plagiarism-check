@@ -27,6 +27,7 @@ import {
 } from '../../assets/icon';
 import SubTitle1 from '../typography/SubTitle1';
 import Switch from '@mui/material/Switch';
+import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
 
 const useStyles = makeStyles((theme) => ({
     inline: {
@@ -206,7 +207,7 @@ const CardInfoView = ({
                     { isHeading && <EllipsisText value={ item.name } charLength={ 30 } /> }
 
                     { isDescription &&
-                        <EllipsisText value={ item?.description === null ? '--' : item?.description }
+                        <EllipsisText value={ item?.description === null ? NO_DATA_PLACEHOLDER : item?.description }
                             variant={ 'subtitle2' } charLength={ 30 } />
                     }
 

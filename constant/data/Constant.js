@@ -31,3 +31,9 @@ export const TABLE_SORTING_ARROW_HANDLE = [
     'date_up'
 ];
 
+export const NO_DATA_PLACEHOLDER = '--';
+
+export const DOC_ERROR_PLACEHOLDER_1 = 'doc:error';
+export const DOC_ERROR_PLACEHOLDER_2 = 'doc_error';
+
+

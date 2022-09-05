@@ -96,7 +96,7 @@ const Assignments = ({
           }
           title={assignment.status}
         />,
-        assignment.creation_date,
+        assignment.start_date,
         assignment.end_date,
         [
           { 'component': <EditIcon />, 'type': 'edit' },

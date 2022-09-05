@@ -15,7 +15,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { SubTitle, TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
-import { TABLE_HEADER_SORT_DISABLE, TABLE_BODY_ALLOW_ICON, TABLE_SORTING_ARROW_HANDLE } from '../../constant/data/Constant';
+import { TABLE_HEADER_SORT_DISABLE, TABLE_BODY_ALLOW_ICON, TABLE_SORTING_ARROW_HANDLE, NO_DATA_PLACEHOLDER } from '../../constant/data/Constant';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
@@ -127,15 +127,15 @@ const CommonTable = ({
                                                                 <TableCell key={column.id} align={column.align}>
                                                                     <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={(e) => downloadSubmissionFile(e, row)}>
                                                                         {typeof (value) === 'string' ?
-                                                                            <EllipsisText value={value !== null ? value : '--'} charLength={charLength} /> :
-                                                                            <SubTitle title={value !== null ? value : '--'} />}
+                                                                            <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } /> :
+                                                                            <SubTitle title={ value !== null ? value : NO_DATA_PLACEHOLDER } /> }
                                                                     </a>
                                                                 </TableCell>
                                                                 :
                                                                 <TableCell key={column.id} align={column.align}>
                                                                     {typeof (value) === 'string' ?
-                                                                        <EllipsisText value={value !== null ? value : '--'} charLength={charLength} /> :
-                                                                        <SubTitle title={value !== null ? value : '--'} />}
+                                                                        <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } /> :
+                                                                        <SubTitle title={ value !== null ? value : NO_DATA_PLACEHOLDER } /> }
                                                                 </TableCell>
                                                         }
                                                     </>
