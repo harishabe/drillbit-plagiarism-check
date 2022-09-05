@@ -103,7 +103,7 @@ const Submission = ({
         submission.grammar,
         submission.percent !== '--' && ((submission.percent !== 'doc:error') || (submission.percent !== 'doc_error')) ? submission.percent + '%' : submission.percent,
         submission.paper_id,
-        submission.date_up,
+        formatDate(submission.date_up),
         [
           { 'component': <DeleteIcon />, 'type': 'delete' },
         ]
