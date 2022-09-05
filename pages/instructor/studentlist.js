@@ -24,23 +24,23 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
 import { PaginationContainer } from '../style/index';
-import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
+import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../constant/data/Constant'
 
 const columns = [
     { id: 'name', label: 'Author Name' },
-    { id: 'title', label: 'Paper Title' },
-    { id: 'file', label: 'Original File' },
-    { id: 'grammer', label: 'Grammar' },
+    { id: 'title', label: 'Paper Name' },
+    { id: 'original_fn', label: 'Original File' },
+    { id: 'grammar', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
     { id: 'paper_id', label: 'Paper Id' },
     { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action' },
-]
+];
 
-function createData(name, title, file, grammer, percent, paper_id, date_up, action) {
+function createData(name, title, original_fn, grammar, percent, paper_id, date_up, action) {
     return {
-        name, title, file, grammer, percent, paper_id, date_up, action
-    }
+        name, title, original_fn, grammar, percent, paper_id, date_up, action
+    };
 }
 
 const AddButtonBottom = styled.div`
@@ -113,10 +113,12 @@ const StudentList = ({
                     submission.title,
                     submission.original_fn,
                     submission.grammar,
-                    submission.percent !== NO_DATA_PLACEHOLDER ? submission.percent + '%' : NO_DATA_PLACEHOLDER,
+                    submission.percent !== NO_DATA_PLACEHOLDER && ((submission.percent !== DOC_ERROR_PLACEHOLDER_1) && (submission.percent !== DOC_ERROR_PLACEHOLDER_2)) ? submission.percent + '%' : submission.percent,
                     submission.paper_id,
                     formatDate(submission.date_up),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete' }]
+                    [
+                        { 'component': <DeleteIcon />, 'type': 'delete' }
+                    ]
                 );
             row['isSelected'] = false;
             arr.push(row)
