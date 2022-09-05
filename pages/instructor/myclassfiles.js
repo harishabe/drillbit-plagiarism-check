@@ -19,7 +19,7 @@ import {
     expiryDateBgColor
 } from '../../utils/RegExp';
 import { DeleteClass } from '../../redux/action/instructor/InstructorAction';
-
+import { PaginationContainer } from '../style/index';
 import { CLASS_NOT_FOUND } from '../../constant/data/ErrorMessage';
 
 const AddButtonBottom = styled.div`
@@ -149,7 +149,7 @@ const MyClassFiles = ({
             }
 
 
-            <div style={{ marginLeft: '45%', marginTop: '25px' }}>
+            <PaginationContainer>
                 <Pagination
                     count={pageDetails?.totalPages}
                     page={ pageDetails?.number + 1 }
@@ -158,7 +158,7 @@ const MyClassFiles = ({
                     variant="outlined"
                     shape="rounded"
                 />
-            </div>
+            </PaginationContainer>
         </React.Fragment>
     );
 };

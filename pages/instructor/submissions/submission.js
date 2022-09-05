@@ -80,7 +80,6 @@ const Submission = ({
   const [editAssignment, setEditAssignment] = useState(false);
   const [editAssignmentData, setEditAssignmentData] = useState('');
   const [deleteRowData, setDeleteRowData] = useState('');
-  const [text, setText] = useState('');
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
 
   useEffect(() => {
@@ -130,7 +129,7 @@ const Submission = ({
    */
   const handleSearch = (event) => {
     if (event.target.value !== '') {
-      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${text}`
+      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${event.target.value}`
       GetSubmissionList(url);
     } else {
       let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
@@ -154,7 +153,7 @@ const Submission = ({
       setEditAssignment(true);
       setEditAssignmentData(rowData);
     } else if (icon === 'delete') {
-      setDeleteRowData(rowData?.paperid);
+      setDeleteRowData(rowData?.paper_id);
       setShowDeleteWarning(true);
     }
   }
@@ -181,7 +180,7 @@ const Submission = ({
 
   const handleSingleSelect = (e, row) => {
     let rowData = rows?.map((rowItem) => {
-      if (rowItem?.paperid === row?.paperid) {
+      if (rowItem?.paper_id === row?.paper_id) {
         rowItem['isSelected'] = !rowItem['isSelected'];
       }
       return rowItem;
@@ -199,7 +198,7 @@ const Submission = ({
         return rows;
       }
     }).map((rowItem) => {
-      rowsId += rowItem?.paperid + ',';
+      rowsId += rowItem?.paper_id + ',';
     });
     setDeleteRowData(removeCommaWordEnd(rowsId));
     setShowDeleteWarning(true);
