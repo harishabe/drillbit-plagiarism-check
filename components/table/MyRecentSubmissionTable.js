@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import styled from 'styled-components';
 import { SubTitle, SubTitle1, EllipsisText } from '../index';
 import { StatusDot } from '../index';
+import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../constant/data/Constant'
 
 const MarginTop = styled.div`
     marginTop:'7px';
@@ -67,10 +68,10 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                 <SubTitle title={item.paper_id} />
                             </TableCell>
                             <TableCell>
-                                <EllipsisText value={item.feedback !== null ? item.feedback : '--'} charLength={10} />
+                                <EllipsisText value={ item.feedback !== null ? item.feedback : NO_DATA_PLACEHOLDER } charLength={ 10 } />
                             </TableCell>
                             <TableCell>
-                                <SubTitle title={item.percent === '--' ? '--' : item.percent + '%'} />
+                                <SubTitle title={ item.percent !== NO_DATA_PLACEHOLDER && ((item.percent !== DOC_ERROR_PLACEHOLDER_1) && (item.percent !== DOC_ERROR_PLACEHOLDER_2)) ? item.percent + '%' : item.percent } />
                             </TableCell>
                             <TableCell>
                                 <MarginTop>

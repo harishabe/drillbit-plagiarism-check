@@ -91,8 +91,8 @@ const DragAndDrop = ({
         bodyFormData.append('authorName', data.authorName0);
         bodyFormData.append('title', data.title0);
         bodyFormData.append('documentType', data.documentType0);
-        bodyFormData.append('plagiarismCheck', 'yes');
-        bodyFormData.append('grammarCheck', 'yes');
+        bodyFormData.append('plagiarismCheck', 'YES');
+        bodyFormData.append('grammarCheck', 'YES');
         bodyFormData.append('language', 'English');
         bodyFormData.append('file', files[0][1]);
         SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`, bodyFormData);

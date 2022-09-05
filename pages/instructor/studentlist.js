@@ -23,6 +23,8 @@ import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../assets/icon';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
+import { PaginationContainer } from '../style/index';
+import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -96,26 +98,6 @@ const StudentList = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    const handleSearch = (event) => {
-        if (event.target.value !== '') {
-            let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${event.target.value}`;
-            GetSubmissionList(url);
-        } else {
-            let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
-            GetSubmissionList(url);
-        }
-    }
-
-    const debouncedResults = useMemo(() => {
-        return debouce(handleSearch, 300);
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            debouncedResults.cancel();
-        };
-    });
-
     useEffect(() => {
         let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
         GetSubmissionList(url);
@@ -131,7 +113,7 @@ const StudentList = ({
                     submission.title,
                     submission.original_fn,
                     submission.grammar,
-                    submission.percent !== '--' ? submission.percent + '%' : '--',
+                    submission.percent !== NO_DATA_PLACEHOLDER ? submission.percent + '%' : NO_DATA_PLACEHOLDER,
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete' }]
@@ -144,7 +126,7 @@ const StudentList = ({
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
-            setDeleteRowData(rowData?.paperid);
+            setDeleteRowData(rowData?.paper_id);
             setShowDeleteWarning(true);
         }
     }
@@ -166,6 +148,12 @@ const StudentList = ({
         }, [100]);
     };
 
+    /**
+   * table sorting order - ascending and descending
+   * @param {*} e 
+   * @param {*} column 
+   * @param {*} sortToggle 
+   */
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
             paginationPayload['field'] = column.id
@@ -177,6 +165,26 @@ const StudentList = ({
         setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${event.target.value}`;
+            GetSubmissionList(url);
+        } else {
+            let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
+            GetSubmissionList(url);
+        }
+    }
+
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
     const handleCheckboxSelect = () => {
         let rowData = rows?.map((rowItem) => {
             rowItem['isSelected'] = !rowItem['isSelected'];
@@ -187,7 +195,7 @@ const StudentList = ({
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
-            if (rowItem?.paperid === row?.paperid) {
+            if (rowItem?.paper_id === row?.paper_id) {
                 rowItem['isSelected'] = !rowItem['isSelected'];
             }
             return rowItem;
@@ -195,6 +203,9 @@ const StudentList = ({
         setRows(rowData);
     }
 
+    /**
+     * delete all submission
+     */
     const deleteAllSubmission = () => {
         let rowsId = '';
         _.filter(rows, function (o) {
@@ -202,7 +213,7 @@ const StudentList = ({
                 return rows;
             }
         }).map((rowItem) => {
-            rowsId += rowItem?.paperid + ',';
+            rowsId += rowItem?.paper_id + ',';
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
@@ -294,8 +305,7 @@ const StudentList = ({
                     />
                 }
 
-                {/* {pageDetails?.totalPages > '1' ? */}
-                <div style={{ marginLeft: '45%', marginTop: '25px' }}>
+                <PaginationContainer>
                     <Pagination
                         count={pageDetails?.totalPages}
                         onChange={handleChange}
@@ -303,8 +313,7 @@ const StudentList = ({
                         variant="outlined"
                         shape="rounded"
                     />
-                </div>
-                {/* } */}
+                </PaginationContainer>
             </CardView>
         </React.Fragment>
     )

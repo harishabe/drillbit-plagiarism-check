@@ -12,18 +12,19 @@ import {
     GetStudentList,
     EnrollStudent,
 } from '../../redux/action/instructor/InstructorAction';
+import { PaginationContainer } from '../style/index';
 
 const columns = [
-    { id: 'id', label: 'Student ID' },
+    { id: 'student_id', label: 'Student ID' },
     { id: 'name', label: 'Student Name' },
-    { id: 'email', label: 'Email' },
+    { id: 'username', label: 'Email' },
     { id: 'department', label: 'Department' },
     { id: 'section', label: 'Section' },
     { id: 'action', label: 'Action' },
 ]
 
-function createData(id, name, email, department, section, action) {
-    return { id, name, email, department, section, action }
+function createData(id, student_id, name, username, department, section, action) {
+    return { id, student_id, name, username, department, section, action }
 }
 
 function StudentInstitute({
@@ -54,6 +55,7 @@ function StudentInstitute({
             row =
                 createData(
                     student.id,
+                    student.student_id, 
                     student.name,
                     student.username,
                     student.department,
@@ -140,7 +142,7 @@ function StudentInstitute({
                 path=''
             />
 
-            <div style={ { marginLeft: '40%', marginTop: '25px' } }>
+            <PaginationContainer>
                 <Pagination
                     count={ pageInstituteDetails?.totalPages }
                     onChange={ handlePagination }
@@ -148,7 +150,7 @@ function StudentInstitute({
                     variant="outlined"
                     shape="rounded"
                 />
-            </div>
+            </PaginationContainer>
         </>
     )
 }

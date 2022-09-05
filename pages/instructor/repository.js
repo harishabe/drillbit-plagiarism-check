@@ -20,6 +20,7 @@ import Instructor from '../../layouts/Instructor';
 import { GetRepoList, RemoveRepositary } from '../../redux/action/instructor/InstructorAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
+import { PaginationContainer } from '../style/index';
 
 const InstructorBreadCrumb = [
     {
@@ -41,18 +42,18 @@ const AddButtonBottom = styled.div`
 `
 
 const columns = [
-    { id: 'id', label: 'Paper ID' },
+    { id: 'paper_id', label: 'Paper ID' },
     { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email ID' },
+    { id: 'username', label: 'Email ID' },
     { id: 'title', label: 'Title' },
     { id: 'type', label: 'Type' },
-    { id: 'date', label: 'Added Date' },
+    { id: 'date_up', label: 'Added Date' },
     { id: 'action', label: 'Action' },
 ]
 
-function createData(id, name, email, title, type, date, action) {
+function createData(paper_id, name, username, title, type, date_up, action) {
     return {
-        id, name, email, title, type, date, action
+        paper_id, name, username, title, type, date_up, action
     }
 }
 
@@ -129,7 +130,7 @@ const Repository = ({
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
-            setDeleteRowData(rowData?.id);
+            setDeleteRowData(rowData?.paper_id);
             setShowDeleteWarning(true);
         }
     }
@@ -144,6 +145,17 @@ const Repository = ({
             setShowDeleteWarning(false);
         }, [100]);
     };
+
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
+    }
 
     return (
         <React.Fragment>
@@ -193,17 +205,18 @@ const Repository = ({
             <CardView>
                 <>
                     <CommonTable
-                        isCheckbox={true}
+                        isCheckbox={ false }
                         isSorting={ true }
                         tableHeader={columns}
                         tableData={rows}
                         charLength={10}
                         handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
                         isLoading={isLoadingRepo}
                         path=''
                     />
 
-                    <div style={{ marginLeft: '40%', marginTop: '25px' }}>
+                    <PaginationContainer>
                         <Pagination
                             count={pageDetails?.totalPages}
                             onChange={handlePagination}
@@ -211,7 +224,7 @@ const Repository = ({
                             variant="outlined"
                             shape="rounded"
                         />
-                    </div>
+                    </PaginationContainer>
                 </>
             </CardView>
         </React.Fragment>
