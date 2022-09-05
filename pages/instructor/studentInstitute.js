@@ -122,7 +122,7 @@ function StudentInstitute({
         <>
             { _.find(data, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'left' } }>
                 <Button variant="contained" onClick={ addAllStudent } >
-                    { isLoadingEnroll ? <BeatLoader color="#fff" /> : `Add new student` }
+                    { isLoadingEnroll ? <BeatLoader color="#fff" /> : `Add Students` }
                 </Button>
             </div> }
 

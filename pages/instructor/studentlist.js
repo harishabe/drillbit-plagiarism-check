@@ -25,18 +25,19 @@ import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
 
 const columns = [
-    { id: 'PAname', label: 'Paper Name' },
+    { id: 'name', label: 'Author Name' },
+    { id: 'title', label: 'Paper Title' },
     { id: 'file', label: 'Original File' },
     { id: 'grammer', label: 'Grammar' },
-    { id: 'similarity', label: 'Similarity' },
-    { id: 'paperid', label: 'Paper Id' },
-    { id: 'date', label: 'Submission Date' },
+    { id: 'percent', label: 'Similarity' },
+    { id: 'paper_id', label: 'Paper Id' },
+    { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action' },
 ]
 
-function createData(PAname, file, grammer, similarity, paperid, date, action) {
+function createData(name, title, file, grammer, percent, paper_id, date_up, action) {
     return {
-        PAname, file, grammer, similarity, paperid, date, action
+        name, title, file, grammer, percent, paper_id, date_up, action
     }
 }
 
@@ -47,9 +48,7 @@ const AddButtonBottom = styled.div`
 `;
 
 const DownloadCsv = styled.div`
-    position:absolute;
-    top: 115px;
-    right:10px;
+    margin-top:-5px;
 `;
 
 const StudentList = ({
@@ -125,15 +124,16 @@ const StudentList = ({
     useEffect(() => {
         let row = '';
         let arr = [];
-        submissionData?.map((student) => {
+        submissionData?.map((submission) => {
             row =
                 createData(
-                    student.title,
-                    student.original_fn,
-                    student.grammar,
-                    student.percent,
-                    student.paper_id,
-                    formatDate(student.date_up),
+                    submission.name,
+                    submission.title,
+                    submission.original_fn,
+                    submission.grammar,
+                    submission.percent !== '--' ? submission.percent + '%' : '--',
+                    submission.paper_id,
+                    formatDate(submission.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete' }]
                 );
             row['isSelected'] = false;
@@ -218,10 +218,25 @@ const StudentList = ({
             <Box sx={{ flexGrow: 1 }}>
                 <BreadCrumb item={InstructorBreadCrumb} />
                 <Grid container spacing={1}>
-                    <Grid item md={9} xs={12}>
+                    <Grid item md={9} xs={7}>
                         <MainHeading title={`Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                     </Grid>
-                    <Grid item md={3} xs={12}>
+                    <Grid item md={1} xs={1} align="right">
+                        <DownloadCsv>
+                            {submissionData?.length > 0 &&
+                                <Tooltip title="Download csv">
+                                    <IconButton
+                                        color="primary"
+                                        aria-label="download-file"
+                                        size="large"
+                                        onClick={handleDownload}>
+                                        {isLoadingDownload ? <Skeleton width={50} /> : <DownloadIcon />}
+                                    </IconButton>
+                                </Tooltip>
+                            }
+                        </DownloadCsv>
+                    </Grid>
+                    <Grid item md={2} xs={12} align="right">
                         <TextField
                             placeholder='Search'
                             onChange={debouncedResults}
@@ -233,20 +248,6 @@ const StudentList = ({
                             }}
                         />
                     </Grid>
-                    <DownloadCsv>
-                        {submissionData?.length > 0 &&
-                            <Tooltip title="Download csv">
-                                <IconButton
-                                    sx={{ ml: 20, p: 1 }}
-                                    color="primary"
-                                    aria-label="download-file"
-                                    size="large"
-                                    onClick={handleDownload}>
-                                    {isLoadingDownload ? <Skeleton width={20} /> : <DownloadIcon />}
-                                </IconButton>
-                            </Tooltip>
-                        }
-                    </DownloadCsv>
                 </Grid>
             </Box>
             <CardView>

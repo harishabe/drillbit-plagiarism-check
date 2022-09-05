@@ -159,7 +159,7 @@ const Assignments = ({
 
   const handleSingleSelect = (e, row) => {
     let rowData = rows?.map((rowItem) => {
-      if (rowItem?.id?.props?.title === row?.id?.props?.title) {
+      if (rowItem?.id === row?.id) {
         rowItem['isSelected'] = !rowItem['isSelected'];
       }
       return rowItem;
@@ -183,19 +183,19 @@ const Assignments = ({
   return (
     <React.Fragment>
 
-      <Box sx={ { flexGrow: 1 } }>
-        <Grid container spacing={ 1 }>
-          <Grid item container direction='row' justifyContent={ 'right' }>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={1}>
+          <Grid item container direction='row' justifyContent={'right'}>
             <SearchField>
               <TextField
                 placeholder='Search'
-                onChange={ debouncedResultsAssignment }
-                inputProps={ {
+                onChange={debouncedResultsAssignment}
+                inputProps={{
                   style: {
                     padding: 5,
                     display: 'inline-flex'
                   }
-                } }
+                }}
               />
             </SearchField>
           </Grid>
@@ -252,7 +252,6 @@ const Assignments = ({
           </IconButton>
         </div>}
 
-        {/* {assignmentData?.length > 0 ? */}
         <CommonTable
           isCheckbox={true}
           isNextPath={true}
@@ -266,17 +265,15 @@ const Assignments = ({
           isLoading={isLoadingAssignment}
           path={{ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } }}
         />
-        {/* //   : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
-        // } */}
 
-          <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-            <Pagination
-            count={ pageDetailsAssignment?.totalPages }
-              onChange={handlePagination}
-              color='primary'
-              variant='outlined'
-              shape='rounded'
-            />
+        <div style={{ marginLeft: '45%', marginTop: '25px' }}>
+          <Pagination
+            count={pageDetailsAssignment?.totalPages}
+            onChange={handlePagination}
+            color='primary'
+            variant='outlined'
+            shape='rounded'
+          />
         </div>
 
       </CardView>

@@ -53,7 +53,7 @@ const SearchField = styled.div`
 `;
 
 const columns = [
-    { id: 'id', label: 'Student ID' },
+    { id: 'student_id', label: 'Student ID' },
     { id: 'name', label: 'Student Name' },
     { id: 'email', label: 'Email' },
     { id: 'department', label: 'Department' },
@@ -61,8 +61,8 @@ const columns = [
     { id: 'action', label: 'Actions' },
 ]
 
-function createData(id, name, email, department, section, action) {
-    return { id, name, email, department, section, action }
+function createData(id, student_id,name, email, department, section, action) {
+    return { id, student_id,name, email, department, section, action }
 }
 
 const Students = ({
@@ -104,6 +104,7 @@ const Students = ({
             row =
                 createData(
                     student.id,
+                    student.student_id, 
                     student.name,
                     student.username,
                     student.department,
@@ -161,7 +162,7 @@ const Students = ({
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
-            if (rowItem?.id?.props?.title === row?.id?.props?.title) {
+            if (rowItem?.id === row?.id) {
                 rowItem['isSelected'] = !rowItem['isSelected'];
             }
             return rowItem;
@@ -181,8 +182,6 @@ const Students = ({
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
     }
-
-
 
     const handleShow = (e, info) => {
         if (info?.title === 'Add From List') {
