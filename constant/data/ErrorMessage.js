@@ -20,3 +20,7 @@ export const UPLOAD_FILE_AUTHOR_NAME = "Author name is required";
 export const UPLOAD_FILE_AUTHOR_TITLE = "Author title is required";
 export const UPLOAD_FILE_TYPE = "Select file type";
 
+/**
+ * Confirm password
+ */
+export const CONFIRM_PASSWORD_NOT_VALID = "Passwords do not match";

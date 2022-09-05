@@ -26,7 +26,7 @@ const InputButton = ({
                     variant="contained"
                     type={field.type}
                     color="primary"
-                    disabled={isLoading}
+                    disabled={isLoading || field.isDisabled}
                 >
                     {isLoading ? <BeatLoader color="#fff" /> : field.label}
                 </StyledButton>
