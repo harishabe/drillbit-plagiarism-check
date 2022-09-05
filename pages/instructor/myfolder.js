@@ -20,6 +20,7 @@ import { GetAllFolders, DeleteFolder } from '../../redux/action/instructor/Instr
 import { PaginationValue } from '../../utils/PaginationUrl';
 import MyFoldersForm from './form/MyFolderForm';
 import { FOLDERS_NOT_FOUND } from '../../constant/data/ErrorMessage';
+import { PaginationContainer } from '../style/index';
 
 const InstructorBreadCrumb = [
     {
@@ -205,17 +206,15 @@ const MyFolder = ({
                 </CreateDrawer>
             }
 
-            {/* { pageDetails?.totalPages > 1 && */ }
-                <div style={ { marginLeft: '45%', marginTop: '25px' } }>
-                    <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handleChange }
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
-            {/* } */ }
+            <PaginationContainer>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    onChange={ handleChange }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </PaginationContainer>
         </React.Fragment>
     );
 };

@@ -26,8 +26,8 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import AssignmentForms from './../form/AssignmentForms';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
-import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 import { PaginationValue } from '../../../utils/PaginationUrl';
+import { PaginationContainer } from '../../style/index';
 
 const AddButtonBottom = styled.div`
     position: fixed;
@@ -96,7 +96,7 @@ const Assignments = ({
           }
           title={assignment.status}
         />,
-        assignment.creation_date,
+        assignment.start_date,
         assignment.end_date,
         [
           { 'component': <EditIcon />, 'type': 'edit' },
@@ -266,7 +266,7 @@ const Assignments = ({
           path={{ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } }}
         />
 
-        <div style={{ marginLeft: '45%', marginTop: '25px' }}>
+        <PaginationContainer>
           <Pagination
             count={pageDetailsAssignment?.totalPages}
             onChange={handlePagination}
@@ -274,7 +274,7 @@ const Assignments = ({
             variant='outlined'
             shape='rounded'
           />
-        </div>
+        </PaginationContainer>
 
       </CardView>
     </React.Fragment>

@@ -8,6 +8,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { MessageExclamatoryIcon } from '../../assets/icon'
+import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
 
 const Feedback = ({
     GetFeedback,
@@ -31,7 +32,7 @@ const Feedback = ({
             <Grid display={ 'flex' } sx={ { ml: 2 } }>
                 <SubTitle2 title='Your Score : &nbsp;' />
                 { isLoadingFeedback ? <Skeleton width={ "70px" } /> :
-                    <Title1 title={ `${feedbackData?.obtained_marks === undefined ? '--' : feedbackData[0]?.obtained_marks} / ${feedbackData?.max_marks === undefined ? '--' : feedbackData[0]?.max_marks}` } />
+                    <Title1 title={ `${feedbackData?.obtained_marks === undefined ? NO_DATA_PLACEHOLDER : feedbackData[0]?.obtained_marks} / ${feedbackData?.max_marks === undefined ? NO_DATA_PLACEHOLDER : feedbackData[0]?.max_marks}` } />
                 }
             </Grid>
             <ListItemText

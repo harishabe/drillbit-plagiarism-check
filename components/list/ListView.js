@@ -7,6 +7,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Avatar from '@mui/material/Avatar'
 import { Title, SubTitle, SubTitle1 } from '../index'
 import { Divider } from '@mui/material'
+import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -40,7 +41,7 @@ const ListView = ({
                             disableTypography
                             className={classes.itemText}
                             primary={<SubTitle1 title={item.name} />}
-                            secondary={ <SubTitle title={ item.department === null ? '--' : item.department } /> }
+                            secondary={ <SubTitle title={ item.department === null ? NO_DATA_PLACEHOLDER : item.department } /> }
                         />
                         <ListItemText style={{ textAlign: 'right' }}
                             disableTypography

@@ -37,8 +37,8 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import StudentInstitute from '../studentInstitute';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
-import { STUDENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 import { PaginationValue } from '../../../utils/PaginationUrl';
+import { PaginationContainer } from '../../style/index';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -55,14 +55,14 @@ const SearchField = styled.div`
 const columns = [
     { id: 'student_id', label: 'Student ID' },
     { id: 'name', label: 'Student Name' },
-    { id: 'email', label: 'Email' },
+    { id: 'username', label: 'Email' },
     { id: 'department', label: 'Department' },
     { id: 'section', label: 'Section' },
     { id: 'action', label: 'Actions' },
 ]
 
-function createData(id, student_id,name, email, department, section, action) {
-    return { id, student_id,name, email, department, section, action }
+function createData(id, student_id, name, username, department, section, action) {
+    return { id, student_id, name, username, department, section, action }
 }
 
 const Students = ({
@@ -310,17 +310,15 @@ const Students = ({
                         path=''
                     />
 
-                    { pageDetailsStudent?.totalPages > 1 &&
-                        <div style={{ marginLeft: '35%', marginTop: '25px' }}>
-                            <Pagination
-                                count={ pageDetailsStudent?.totalPages }
-                                onChange={handlePagination}
-                                color="primary"
-                                variant="outlined"
-                                shape="rounded"
-                            />
-                        </div>
-                    }
+                    <PaginationContainer>
+                        <Pagination
+                            count={ pageDetailsStudent?.totalPages }
+                            onChange={ handlePagination }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </PaginationContainer>
                 </>
             </CardView>
         </React.Fragment>
