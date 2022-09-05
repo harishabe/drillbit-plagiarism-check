@@ -160,7 +160,7 @@ const AssignmentForms = ({
             bodyFormData.append('db_publications', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
             bodyFormData.append('db_internet', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
             bodyFormData.append('institution_repository', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
-            bodyFormData.append('daily_submissions_limit', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+            bodyFormData.append('daily_submissions_limit', 0);
             CreateAssignment(router.query.clasId, bodyFormData);
         }
 
@@ -534,6 +534,29 @@ const AssignmentForms = ({
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
+                            {saveToRepo === ASSIGNMENT_SETTING_VALUE_YES && <>
+                                <Grid container>
+                                    <Grid item md={12}>
+                                        <InputAutoComplete
+                                            control={control}
+                                            field={{
+                                                "field_type": "dropdown",
+                                                "id": "repoScope",
+                                                "label": "Repository Scope",
+                                                "name": "repository_scope",
+                                                "required": "Choose repository scope",
+                                                "validationMsg": "Please select repository scope",
+                                                "size":"small",
+                                                "options": [{
+                                                    "name": "Local"
+                                                }, {
+                                                    "name": "Global"
+                                                }]
+                                            }}
+                                        />
+                                    </Grid>
+                                </Grid>
+                            </>}
                         </div>
 
                         <div>
@@ -555,7 +578,7 @@ const AssignmentForms = ({
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
-                            {/* {allowSubmission === 'yes' && <>
+                            {allowSubmission === ASSIGNMENT_SETTING_VALUE_YES && <>
                                 <InputTextField
                                     control={control}
                                     field={{
@@ -567,7 +590,7 @@ const AssignmentForms = ({
                                         "required": "Enter number of submission"
                                     }} />
                             </>
-                            } */}
+                            }
                         </div>
 
                         <div>
@@ -874,28 +897,6 @@ const AssignmentForms = ({
                                 </Grid>
                             </Grid>
                         </div>
-                        <div>
-                            <Grid container>
-                                <Grid item md={12} style={{ textAlign: 'right', margin: '15px 0px' }}>
-                                    <InputAutoComplete
-                                        control={control}
-                                        field={{
-                                            "field_type": "dropdown",
-                                            "id": "repoScope",
-                                            "label": "Repository Scope",
-                                            "name": "repository_scope",
-                                            "required": "Choose repository scope",
-                                            "validationMsg": "Please select repository scope",
-                                            "options": [{
-                                                "name": "Local"
-                                            }, {
-                                                "name": "Global"
-                                            }]
-                                        }}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </div>
                         <InputTextField
                             control={control}
                             field={{
@@ -903,7 +904,8 @@ const AssignmentForms = ({
                                 "id": "daily_submissions_limit",
                                 "name": "daily_submissions_limit",
                                 "label": "Daily submission limit",
-                                "required": "Enter Daily submissin limit"
+                                "required": "Enter Daily submissin limit",
+                                "size":"small"
                             }} />
                     </>
                 }

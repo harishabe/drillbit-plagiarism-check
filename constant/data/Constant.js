@@ -25,4 +25,8 @@ export const TABLE_HEADER_SORT_DISABLE = [
 export const TABLE_BODY_ALLOW_ICON = [
     'action',
     'stats'
+];
+export const TABLE_SORTING_ARROW_HANDLE = [
+    'paper_id',
+    'date_up'
 ]

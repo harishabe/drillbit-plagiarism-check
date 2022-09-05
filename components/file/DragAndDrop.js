@@ -135,13 +135,15 @@ const DragAndDrop = ({
             customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
             callbackFunction: (data) => {
                 if (data && data?.docs?.length > 0) {
+                    console.log('datadatadatadata',data);
                     setDriveFile(data && data?.docs[0].name);
                     setDriveFilePayload({
                         "fileId": data.docs[0].id,
                         "fileName": data.docs[0].name,
                         "url": data.docs[0].url,
                         "mimetype": data.docs[0].mimeType,
-                        "token": driveAuthToken
+                        "token": driveAuthToken,
+                        "fileSize": data.docs[0].sizeBytes
                     });
                 }
             },
@@ -149,6 +151,7 @@ const DragAndDrop = ({
     };
 
     useEffect(() => {
+        console.log('accesstoken',data);
         setDriveAuthToken(data?.access_token)
     }, [data]);
 

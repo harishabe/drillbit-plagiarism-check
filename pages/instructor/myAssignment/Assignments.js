@@ -43,15 +43,15 @@ const SearchField = styled.div`
 
 const columns = [
   // { id: 'id', label: 'Id' },
-  { id: 'name', label: 'Name' },
+  { id: 'assignment_name', label: 'Name' },
   { id: 'status', label: 'Status' },
-  { id: 'creation', label: 'Creation Date' },
-  { id: 'end', label: 'End Date' },
+  { id: 'start_date', label: 'Creation Date' },
+  { id: 'end_date', label: 'End Date' },
   { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, name, status, creation, end, action) {
-  return { id, name, status, creation, end, action };
+function createData(id, assignment_name, status, start_date, end_date, action) {
+  return { id, assignment_name, status, start_date, end_date, action };
 }
 
 const Assignments = ({

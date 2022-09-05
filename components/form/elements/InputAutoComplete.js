@@ -53,6 +53,7 @@ const InputAutoComplete = ({
                         options={field.options}
                         getOptionLabel={(option) => (option.name)}
                         renderOption={renderOption}
+                        size={field.size}
                         renderInput={(params) => <TextField 
                             {...params}
                             name={field.name}

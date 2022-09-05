@@ -97,15 +97,13 @@ const StudentList = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    /** search implementation using debounce concepts */
-
     const handleSearch = (event) => {
         if (event.target.value !== '') {
-            paginationPayload['search'] = event.target.value;
-            setPaginationPayload({ ...paginationPayload, paginationPayload });
+            let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${event.target.value}`;
+            GetSubmissionList(url);
         } else {
-            delete paginationPayload['search'];
-            setPaginationPayload({ ...paginationPayload, paginationPayload });
+            let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
+            GetSubmissionList(url);
         }
     }
 
@@ -119,11 +117,8 @@ const StudentList = ({
         };
     });
 
-    /** end debounce concepts */
-
     useEffect(() => {
         let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
-
         GetSubmissionList(url);
     }, [folderId, paginationPayload]);
 
@@ -220,13 +215,13 @@ const StudentList = ({
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <BreadCrumb item={ InstructorBreadCrumb } />
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 9 } xs={ 12 }>
-                        <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+            <Box sx={{ flexGrow: 1 }}>
+                <BreadCrumb item={InstructorBreadCrumb} />
+                <Grid container spacing={1}>
+                    <Grid item md={9} xs={12}>
+                        <MainHeading title={`Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                     </Grid>
-                    <Grid item md={ 3 } xs={ 12 }>
+                    <Grid item md={3} xs={12}>
                         <TextField
                             placeholder='Search'
                             onChange={debouncedResults}
@@ -239,15 +234,15 @@ const StudentList = ({
                         />
                     </Grid>
                     <DownloadCsv>
-                        { submissionData?.length > 0 &&
+                        {submissionData?.length > 0 &&
                             <Tooltip title="Download csv">
                                 <IconButton
-                                    sx={ { ml: 20, p: 1 } }
+                                    sx={{ ml: 20, p: 1 }}
                                     color="primary"
                                     aria-label="download-file"
                                     size="large"
-                                    onClick={ handleDownload }>
-                                    { isLoadingDownload ? <Skeleton width={ 20 } /> : <DownloadIcon /> }
+                                    onClick={handleDownload}>
+                                    {isLoadingDownload ? <Skeleton width={20} /> : <DownloadIcon />}
                                 </IconButton>
                             </Tooltip>
                         }
@@ -257,14 +252,14 @@ const StudentList = ({
             <CardView>
 
                 {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
-                    <IconButton onClick={ deleteAllSubmission }>
+                    <IconButton onClick={deleteAllSubmission}>
                         <DeleteIcon />
                     </IconButton>
                 </div>}
 
                 <CommonTable
                     isCheckbox={true}
-                    isSorting={ true }
+                    isSorting={true}
                     tableHeader={columns}
                     tableData={rows}
                     handleAction={handleAction}
@@ -298,17 +293,17 @@ const StudentList = ({
                     />
                 }
 
-                {/* {pageDetails?.totalPages > '1' ? */ }
-                <div style={ { marginLeft: '45%', marginTop: '25px' } }>
-                        <Pagination
-                            count={pageDetails?.totalPages}
-                            onChange={handleChange}
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
+                {/* {pageDetails?.totalPages > '1' ? */}
+                <div style={{ marginLeft: '45%', marginTop: '25px' }}>
+                    <Pagination
+                        count={pageDetails?.totalPages}
+                        onChange={handleChange}
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
                 </div>
-                {/* } */ }
+                {/* } */}
             </CardView>
         </React.Fragment>
     )

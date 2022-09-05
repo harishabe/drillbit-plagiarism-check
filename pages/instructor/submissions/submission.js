@@ -26,19 +26,19 @@ import { SUBMISSION_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const columns = [
   // { id: 'id', label: 'Student ID' },
-  { id: 'authorName', label: 'Author Name' },
-  { id: 'PAname', label: 'Paper Name' },
-  { id: 'file', label: 'Original File' },
-  { id: 'grammer', label: 'Grammar' },
-  { id: 'similarity', label: 'Similarity' },
-  { id: 'paperid', label: 'Paper Id' },
-  { id: 'date', label: 'Submission Date' },
+  { id: 'name', label: 'Author Name' },
+  { id: 'title', label: 'Paper Name' },
+  { id: 'original_fn', label: 'Original File' },
+  { id: 'grammar', label: 'Grammar' },
+  { id: 'percent', label: 'Similarity' },
+  { id: 'paper_id', label: 'Paper Id' },
+  { id: 'date_up', label: 'Submission Date' },
   { id: 'action', label: 'Action' },
 ];
 
-function createData(id, authorName, PAname, file, grammer, similarity, paperid, date, action) {
+function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action) {
   return {
-    id, authorName, PAname, file, grammer, similarity, paperid, date, action
+    id, name, title, original_fn, grammar, percent, paper_id, date_up, action
   };
 }
 
@@ -66,13 +66,9 @@ const Submission = ({
   uploadData,
   UploadZipFileDataClear
 }) => {
-
   const router = useRouter();
-
   const clasId = router.query.clasId;
-
   const assId = router.query.assId;
-
   const [rows, setRows] = useState([]);
   const [paginationPayload, setPaginationPayload] = useState({
     page: PaginationValue?.page,
@@ -88,15 +84,13 @@ const Submission = ({
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
 
   useEffect(() => {
-    if (text) {
-      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${text}`
-      GetSubmissionList(url);
-    } else {
-      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
-      GetSubmissionList(url);
-    }
-  }, [clasId, assId, paginationPayload]);
+    let url = `classes/${clasId}/assignments/${assId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=${paginationPayload?.field}&orderBy=${paginationPayload?.orderBy}`
+    GetSubmissionList(url);
+  }, [, paginationPayload]);
 
+  /**
+   * table submission data
+   */
   useEffect(() => {
     let row = '';
     let arr = [];
@@ -120,20 +114,27 @@ const Submission = ({
     setRows([...arr]);
   }, [submissionData]);
 
+  /**
+   * handle pagination
+   * @param {*} event 
+   * @param {*} value 
+   */
   const handlePagination = (event, value) => {
     event.preventDefault();
     setPaginationPayload({ ...paginationPayload, page: value - 1 });
   };
 
+  /**
+   * search submissions
+   * @param {*} event 
+   */
   const handleSearch = (event) => {
     if (event.target.value !== '') {
-      paginationPayload['search'] = event.target.value;
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
-      setText(event.target.value)
+      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${text}`
+      GetSubmissionList(url);
     } else {
-      delete paginationPayload['search'];
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
-      setText(event.target.value)
+      let url = `classes/${clasId}/assignments/${assId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`
+      GetSubmissionList(url);
     }
   }
 
@@ -188,6 +189,9 @@ const Submission = ({
     setRows(rowData);
   }
 
+  /**
+   * delete all assignments
+   */
   const deleteAllAssignment = () => {
     let rowsId = '';
     _.filter(rows, function (o) {
@@ -201,6 +205,9 @@ const Submission = ({
     setShowDeleteWarning(true);
   }
 
+  /**
+   * file upload single, multiple and zip file
+   */
   const handleUploadFile = () => {
     if (extractedFileData) {
       UploadFileDataClear();
@@ -209,6 +216,23 @@ const Submission = ({
       UploadZipFileDataClear();
     }
     router.push({ pathname: '/instructor/uploadFile', query: router.query })
+  }
+
+  /**
+   * table sorting order - ascending and descending
+   * @param {*} e 
+   * @param {*} column 
+   * @param {*} sortToggle 
+   */
+  const handleTableSort = (e, column, sortToggle) => {
+    if (sortToggle) {
+      paginationPayload['field'] = column.id
+      paginationPayload['orderBy'] = 'asc';
+    } else {
+      paginationPayload['field'] = column.id
+      paginationPayload['orderBy'] = 'desc';
+    }
+    setPaginationPayload({ ...paginationPayload, paginationPayload })
   }
 
   return (
@@ -281,6 +305,7 @@ const Submission = ({
           handleAction={handleAction}
           handleCheckboxSelect={handleCheckboxSelect}
           handleSingleSelect={handleSingleSelect}
+          handleTableSort={handleTableSort}
           isLoading={isLoading}
           charLength={10}
         />

@@ -15,7 +15,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { SubTitle, TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
-import { TABLE_HEADER_SORT_DISABLE, TABLE_BODY_ALLOW_ICON } from '../../constant/data/Constant';
+import { TABLE_HEADER_SORT_DISABLE, TABLE_BODY_ALLOW_ICON, TABLE_SORTING_ARROW_HANDLE } from '../../constant/data/Constant';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
@@ -47,11 +47,13 @@ const CommonTable = ({
     const router = useRouter();
     const classes = useStyles();
     const [toggle, setToggle] = React.useState(false);
+    const [sortArrow, setSortArrow] = React.useState('');
     const [allSelected, setAllSelected] = React.useState(false);
 
     const sortHandle = (e, column) => {
         let a = !toggle
         setToggle(a);
+        setSortArrow(column.id);
         handleTableSort(e, column, toggle);
     }
 
@@ -85,7 +87,7 @@ const CommonTable = ({
                                                     () =>
                                                         <div style={{ marginTop: '2px' }}>
                                                             {
-                                                                toggle ?
+                                                                (toggle && sortArrow === column.id) ?
                                                                     <ArrowDownwardIcon style={{ fontSize: '18px' }} /> :
                                                                     <ArrowUpwardIcon style={{ fontSize: '18px' }} />
                                                             }
