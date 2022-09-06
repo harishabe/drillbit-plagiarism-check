@@ -18,7 +18,12 @@ import {
     CreateDrawer,
     WarningDialog
 } from '../../components';
-import { GetSubmissionList, DeleteSubmission, DownloadSubmissionList } from '../../redux/action/instructor/InstructorAction';
+import {
+    GetSubmissionList,
+    DeleteSubmission,
+    DownloadSubmissionList,
+} from '../../redux/action/instructor/InstructorAction';
+import { DownloadOriginalFile } from '../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../assets/icon';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
@@ -29,7 +34,7 @@ import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 }
 const columns = [
     { id: 'name', label: 'Author Name' },
     { id: 'title', label: 'Paper Title' },
-    { id: 'original_fn', label: 'Original File' },
+    { id: 'original_fn', label: 'Original File', isDownload: true },
     { id: 'grammar', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
     { id: 'paper_id', label: 'Paper Id' },
@@ -56,6 +61,7 @@ const DownloadCsv = styled.div`
 const StudentList = ({
     GetSubmissionList,
     DownloadSubmissionList,
+    DownloadOriginalFile,
     DeleteSubmission,
     submissionData,
     isLoadingSubmission,
@@ -69,6 +75,8 @@ const StudentList = ({
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
+    const [showDownloadWarning, setShowDownloadWarning] = useState(false);
+    const [data, setData] = useState();
 
     const folderId = router.query.folderId;
     const folderName = router.query.name;
@@ -224,6 +232,30 @@ const StudentList = ({
         DownloadSubmissionList(url)
     }
 
+    const handleOriginalFileDownload = (e, data) => {
+        e.preventDefault();
+        setShowDownloadWarning(true);
+        setData(data)
+    };
+
+    const handleFileDownloadCloseWarning = () => {
+        setShowDownloadWarning(false);
+    };
+
+    const handleFileDownloadYesWarning = () => {
+        let detailedData = {
+            folderId: folderId,
+            paperId: data?.paper_id,
+            name: data?.original_fn,
+            path: 'folderSubmission'
+        }
+        DownloadOriginalFile(detailedData)
+        setShowDownloadWarning(false);
+        setTimeout(() => {
+            setShowDownloadWarning(false);
+        }, [100]);
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -278,8 +310,9 @@ const StudentList = ({
                     handleTableSort={handleTableSort}
                     handleCheckboxSelect={handleCheckboxSelect}
                     handleSingleSelect={handleSingleSelect}
+                    downloadSubmissionFile={ handleOriginalFileDownload }
                     isLoading={isLoadingSubmission}
-                    charLength={17}
+                    charLength={ 10 }
                     path=''
                 />
 
@@ -305,6 +338,15 @@ const StudentList = ({
                     />
                 }
 
+                {
+                    showDownloadWarning &&
+                    <WarningDialog
+                        message="Are you sure you want to download ?"
+                        handleYes={ handleFileDownloadYesWarning }
+                        handleNo={ handleFileDownloadCloseWarning }
+                        isOpen={ true }
+                    />
+                }
                 <PaginationContainer>
                     <Pagination
                         count={pageDetails?.totalPages}
@@ -330,6 +372,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+        DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
         DownloadSubmissionList: (url) => dispatch(DownloadSubmissionList(url)),
     };

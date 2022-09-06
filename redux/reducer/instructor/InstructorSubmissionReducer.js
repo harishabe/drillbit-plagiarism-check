@@ -1,6 +1,6 @@
 import * as types from '../../action/ActionType';
 
-const SubmissionReducer = (state = {}, action) => {
+const InstructorSubmissionReducer = (state = {}, action) => {
     switch (action.type) {
         case types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_EDIT_START:
             return {
@@ -58,4 +58,4 @@ const SubmissionReducer = (state = {}, action) => {
     }
 };
 
-export default SubmissionReducer;
+export default InstructorSubmissionReducer;

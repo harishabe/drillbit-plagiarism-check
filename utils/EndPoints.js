@@ -24,6 +24,7 @@ const END_POINTS = {
     INSTRUCTOR_MY_CLASSES_ASSIGNMENT: '/extreme/classes/assignment',
     INSTRUCTOR_MY_FOLDERS: '/extreme/myFolders',
     INSTRUCTOR_SUBMISSION_GRADING_QNA: '/extreme/',
+    INSTRUCTOR_SUBMISSION_LIST_ORIGINAL_LIST_DOWNLOAD: '/extreme/',
     INSTRUCTOR_CLASS_EDIT_DATA: '/extreme/classes/',
     INSTRUCTOR_CLASS_DELETE_DATA: '/extreme/classes?id=',
     INSTRUCTOR_STUDENT_LIST_DATA: '/extreme/classes/allStudents',
