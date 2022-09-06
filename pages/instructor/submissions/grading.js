@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Instructor from '../../../layouts/Instructor';
-import { CardView, CommonTable, ErrorBlock } from '../../../components';
+import { CardView, CommonTable, ErrorBlock, SimilarityStatus } from '../../../components';
 import { MessageExclamatoryIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../redux/action/instructor/InstructorAction';
@@ -46,7 +46,7 @@ const Grading = ({
       row = createData(
         grading.stduentName,
         grading.obtained_marks,
-        grading.similarity,
+        <SimilarityStatus percent={ grading.similarity } />,
         [
           <MessageExclamatoryIcon />,
         ]
