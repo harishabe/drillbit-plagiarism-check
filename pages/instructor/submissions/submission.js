@@ -11,7 +11,13 @@ import {
 } from '../../../components';
 import { EditIcon, DeleteIcon, DeleteWarningIcon, AddMultipleIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
-import { GetSubmissionList, DeleteSubmission, UploadFileDataClear, UploadZipFileDataClear } from '../../../redux/action/instructor/InstructorAction';
+import {
+  GetSubmissionList,
+  DeleteSubmission,
+  UploadFileDataClear,
+  UploadZipFileDataClear,
+  DownloadOriginalFile
+} from '../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
 import { TextField, Pagination } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -24,12 +30,12 @@ import AssignmentForm from '../form/AssignmentForm';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
 import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../../constant/data/Constant';
+import { formatDate } from '../../../utils/RegExp'
 
 const columns = [
-  // { id: 'id', label: 'Student ID' },
   { id: 'name', label: 'Author Name' },
   { id: 'title', label: 'Paper Name' },
-  { id: 'original_fn', label: 'Original File' },
+  { id: 'original_fn', label: 'Original File', isDownload: true },
   { id: 'grammar', label: 'Grammar' },
   { id: 'percent', label: 'Similarity' },
   { id: 'paper_id', label: 'Paper Id' },
@@ -57,6 +63,7 @@ const SearchField = styled.div`
 
 const Submission = ({
   GetSubmissionList,
+  DownloadOriginalFile,
   DeleteSubmission,
   submissionData,
   isLoading,
@@ -82,6 +89,8 @@ const Submission = ({
   const [editAssignmentData, setEditAssignmentData] = useState('');
   const [deleteRowData, setDeleteRowData] = useState('');
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
+  const [showDownloadWarning, setShowDownloadWarning] = useState(false);
+  const [data, setData] = useState();
 
   useEffect(() => {
     let url = `classes/${clasId}/assignments/${assId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=${paginationPayload?.field}&orderBy=${paginationPayload?.orderBy}`
@@ -159,18 +168,6 @@ const Submission = ({
     }
   }
 
-  const handleYesWarning = () => {
-    DeleteSubmission(`classes/${clasId}/assignments/${assId}/submissions?paperId=${deleteRowData}`);
-    setShowDeleteAllIcon(false);
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
-  };
-
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-
   const handleCheckboxSelect = () => {
     let rowData = rows?.map((rowItem) => {
       rowItem['isSelected'] = !rowItem['isSelected'];
@@ -234,6 +231,24 @@ const Submission = ({
     }
     setPaginationPayload({ ...paginationPayload, paginationPayload })
   }
+
+  const handleOriginalFileDownload = (e, data) => {
+    e.preventDefault();
+    setShowDownloadWarning(true);
+    setData(data)
+  };
+
+  const handleCloseWarning = () => {
+    setShowDownloadWarning(false);
+  };
+
+  const handleYesWarning = () => {
+    DownloadOriginalFile(`classes/${clasId}/assignments/${assId}/downloadOriginalFile/${data?.paper_id}`, data?.original_fn)
+    setShowDownloadWarning(false);
+    setTimeout(() => {
+      setShowDownloadWarning(false);
+    }, [100]);
+  };
 
   return (
     <React.Fragment>
@@ -306,10 +321,20 @@ const Submission = ({
           handleCheckboxSelect={handleCheckboxSelect}
           handleSingleSelect={handleSingleSelect}
           handleTableSort={handleTableSort}
+          downloadSubmissionFile={ handleOriginalFileDownload }
           isLoading={isLoading}
           charLength={10}
         />
 
+        {
+          showDownloadWarning &&
+          <WarningDialog
+            message="Are you sure you want to download ?"
+            handleYes={ handleYesWarning }
+            handleNo={ handleCloseWarning }
+            isOpen={ true }
+          />
+        }
 
         <PaginationContainer>
           <Pagination
@@ -339,6 +364,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
     DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
+    DownloadOriginalFile: (url, data) => dispatch(DownloadOriginalFile(url, data)),
     UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
   };

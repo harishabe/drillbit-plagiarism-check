@@ -63,7 +63,8 @@ import {
     UploadSubmissionFile,
     UploadExtractedFile,
     DeleteSubmissionFile,
-    DownloadSubmissionDetail
+    DownloadSubmissionDetail,
+    GetDownloadFileSubmissionData
 } from './instructor/SubmissionData'
 import {
     GetStudentDashboard,
@@ -153,6 +154,7 @@ const saga = [
     fork(UploadExtractedFile),
     fork(DeleteSubmissionFile),
     fork(DownloadSubmissionDetail),
+    fork(GetDownloadFileSubmissionData),
     fork(GetStudentData),
     fork(GetAdminRepoData),
     fork(RepoAdminUploadData),

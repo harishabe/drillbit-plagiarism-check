@@ -45,7 +45,6 @@ const MyFolder = ({
     GetAllFolders,
     DeleteFolder,
     myFolders,
-    clasId,
     pageDetails,
     isLoading
 }) => {
@@ -160,7 +159,7 @@ const MyFolder = ({
                                         isAction={ true }
                                         handleClick={ handleFolderEdit }
                                         handleDelete={ handleFolderDelete }
-                                        path={ { pathname: '/instructor/studentlist', query: { name: item.folder_name, clasId, folderId: item.folder_id } } }
+                                        path={ { pathname: '/instructor/studentlist', query: { name: item.folder_name, folderId: item.folder_id } } }
                                     />
                                 </Grid>
                             )) }
@@ -186,7 +185,6 @@ const MyFolder = ({
                     title="Create Folder"
                     isShowAddIcon={ true }>
                     <MyFoldersForm
-                        clasId={ clasId }
                         isLoading={ isLoading }
                     />
                 </CreateDrawer>
@@ -199,8 +197,7 @@ const MyFolder = ({
                     isShowAddIcon={ false }
                     showDrawer={ editFolder }
                 >
-                    <MyFoldersForm
-                        clasId={ clasId }
+                        <MyFoldersForm
                         editData={ editFolderData }
                     />
                 </CreateDrawer>
@@ -222,7 +219,6 @@ const MyFolder = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.instructorMyFolders?.myFolders?.page,
     myFolders: state?.instructorMyFolders?.myFolders?._embedded?.folderDTOList,
-    clasId: state?.instructorMyFolders?.myFolders?._embedded?.folderDTOList?.[0]?.class_id,
     isLoading: state?.instructorMyFolders?.isLoading,
 });
 
