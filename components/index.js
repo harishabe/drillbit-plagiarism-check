@@ -26,6 +26,7 @@ export { default as CurveChart } from './chart/CurveChart';
 export { default as TabMenu } from './tabs/TabMenu';
 export { default as Folder } from './folder/Folder';
 export { default as StatusDot } from './ellipsis/StatusDot';
+export { default as SimilarityStatus } from './ellipsis/SimilarityStatus';
 export { default as AvatarName } from './ellipsis/AvatarName';
 export { default as EllipsisText } from './ellipsis/EllipsisText';
 export { default as CreateDrawer } from './drawer/CreateDrawer';

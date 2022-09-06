@@ -11,3 +11,13 @@ export const ErrorMessageContainer = styled.div`
     font-size:15px;
     text-align:center;  
 `;
+
+export const StatusColor = styled.div`
+    display: inline-flex;
+    color:${(props) => props.textColor};
+    background: ${(props) => props.color};
+    width:75px;
+    padding: 5px 20px;
+    text-align: center;
+    border-radius: 5px;
+`;

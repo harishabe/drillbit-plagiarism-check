@@ -27,7 +27,8 @@ import {
 } from '../../assets/icon';
 import SubTitle1 from '../typography/SubTitle1';
 import Switch from '@mui/material/Switch';
-import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
+import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant';
+import { StatusColor } from '../../pages/style/index';
 
 const useStyles = makeStyles((theme) => ({
     inline: {
@@ -47,15 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AlignRight = styled.div`
     text-align:right;
-`
-
-
-const StatusColor = styled.div`
-    display: inline-flex;
-    background: ${(props) => props.color};
-    padding: 5px 5px 0px 5px;
 `;
-
 
 const CardInfoView = ({
     item,
@@ -183,11 +176,6 @@ const CardInfoView = ({
                                             <ListItemText>Edit</ListItemText>
                                             <EditIcon />
                                         </MenuItem>
-                                        {/* <Divider />
-                                    <MenuItem>
-                                            <ListItemText sx={{ marginRight: '5px' }}>Archieve</ListItemText>
-                                            <ArchieveIcon />
-                                        </MenuItem> */}
                                         <Divider />
                                     <MenuItem onClick={ (e) => {
                                             setAnchorEl(null);

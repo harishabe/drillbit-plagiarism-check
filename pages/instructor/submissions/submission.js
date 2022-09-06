@@ -7,7 +7,8 @@ import {
   AvatarName,
   CreateDrawer,
   ErrorBlock,
-  WarningDialog
+  WarningDialog,
+  SimilarityStatus
 } from '../../../components';
 import { EditIcon, DeleteIcon, DeleteWarningIcon, AddMultipleIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
@@ -21,7 +22,7 @@ import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
-import { removeCommaWordEnd } from '../../../utils/RegExp';
+import { removeCommaWordEnd,formatDate } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
 import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../../constant/data/Constant';
 
@@ -95,13 +96,14 @@ const Submission = ({
     let row = '';
     let arr = [];
     submissionData?.map((submission) => {
+      console.log('submission',submission),
       row = createData(
         submission.ass_id,
         submission.name,
         submission.title,
         submission.original_fn,
         submission.grammar,
-        submission.percent !== NO_DATA_PLACEHOLDER && ((submission.percent !== DOC_ERROR_PLACEHOLDER_1) && (submission.percent !== DOC_ERROR_PLACEHOLDER_2)) ? submission.percent + '%' : submission.percent,
+        <SimilarityStatus percent={submission.percent} />,       
         submission.paper_id,
         formatDate(submission.date_up),
         [
