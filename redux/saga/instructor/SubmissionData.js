@@ -7,7 +7,7 @@ import {
     SaveToRepoSubmission,
     InstructorFeedbackData,
     UploadSubmission,
-    DownloadSubmissionData
+    DownloadSubmissionData,
 } from '../../api//instructor/DetailsSubmissionAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 

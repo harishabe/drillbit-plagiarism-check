@@ -1,6 +1,8 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
-import { PostMethod, PutMethod, GetMethod, DeleteMethod, PostFormData, GetMethodDownload, PostMethodEN } from './../ApiMethod';
+import {
+    PostMethod, PutMethod, GetMethod, DeleteMethod, PostFormData, GetMethodDownload, PostMethodEN,
+} from './../ApiMethod';
 
 /**
  * API CALL FOR MY FOLDER > SUBMISSION DATA

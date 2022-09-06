@@ -27,8 +27,8 @@ import {
     SendData,
     GetSubmissionHeaderData,
     DownloadStudentCsv,
-    DownloadOriginalFile
 } from '../../redux/action/student/StudentAction';
+import { DownloadOriginalFile } from '../../redux/action/common/Submission/SubmissionAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 
 import SubmissionHistory from './submission-history'
@@ -169,7 +169,14 @@ const MyAssignmentDetails = ({
     };
 
     const handleYesWarning = () => {
-        DownloadOriginalFile(router.query.clasId, router.query.assId, data?.id, data?.filename?.props?.value)
+        let detailedData = {
+            clasId: router.query.clasId,
+            assId: router.query.assId,
+            paperId: data?.id,
+            name: data?.filename?.props?.value,
+            path: 'studentSubmission'
+        }
+        DownloadOriginalFile(detailedData)
         setShowRenewWarning(false);
         setTimeout(() => {
             setShowRenewWarning(false);
@@ -293,7 +300,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionData: (class_id, folder_id, PaginationValue) => dispatch(GetSubmissionData(class_id, folder_id, PaginationValue)),
-        DownloadOriginalFile: (class_id, folder_id, paper_id, name) => dispatch(DownloadOriginalFile(class_id, folder_id, paper_id, name)),
+        DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         GetSubmissionHeaderData: (class_id, folder_id) => dispatch(GetSubmissionHeaderData(class_id, folder_id)),
         DownloadStudentCsv: (url) => dispatch(DownloadStudentCsv(url)),
         GetQna: (class_id, folder_id) => dispatch(GetQna(class_id, folder_id)),

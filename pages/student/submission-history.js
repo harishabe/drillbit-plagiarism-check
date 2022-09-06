@@ -9,7 +9,7 @@ import {
 } from '../../components';
 import SubmissionForm from './form/SubmissionForm';
 import Pagination from '@mui/material/Pagination';
-import { SUBMISSION_NOT_FOUND } from '../../constant/data/ErrorMessage';
+import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../constant/data/Constant'
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -50,7 +50,7 @@ const SubmissionHistory = ({
                     <EllipsisText value={submission.original_fn} charLength={12} />,
                     submission.paper_id,
                     submission.date_up,
-                    submission.percent,
+                    submission.percent !== NO_DATA_PLACEHOLDER && ((submission.percent !== DOC_ERROR_PLACEHOLDER_1) && (submission.percent !== DOC_ERROR_PLACEHOLDER_2)) ? submission.percent + '%' : submission.percent,
                     submission.grammar,
                     submission.feedback?.marks,
                     submission.status,
