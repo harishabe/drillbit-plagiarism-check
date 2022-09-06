@@ -16,7 +16,8 @@ import {
     BreadCrumb,
     MainHeading,
     CreateDrawer,
-    WarningDialog
+    WarningDialog,
+    SimilarityStatus
 } from '../../components';
 import {
     GetSubmissionList,
@@ -122,7 +123,7 @@ const StudentList = ({
                     submission.title,
                     submission.original_fn,
                     submission.grammar,
-                    submission.percent !== NO_DATA_PLACEHOLDER && ((submission.percent !== DOC_ERROR_PLACEHOLDER_1) && (submission.percent !== DOC_ERROR_PLACEHOLDER_2)) ? submission.percent + '%' : submission.percent,
+                    < SimilarityStatus percent={ submission.percent } />,
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [

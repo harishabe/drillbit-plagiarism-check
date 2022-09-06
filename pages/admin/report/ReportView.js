@@ -13,6 +13,9 @@ import {
 import { DownloadIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/report-submission-form.json';
 import { Pagination } from '@mui/material';
+import { SimilarityStatus } from '../../../components';
+import { formatDate } from '../../../utils/RegExp';
+import { PaginationContainer } from '../../style/index';
 
 const DownloadButton = styled.div`
     position:fixed;
@@ -45,7 +48,7 @@ const submissionsColumns = [
     { id: 'assignment_name', label: 'Assignment Name', minWidth: 110 },
     { id: 'assignmet_id', label: 'Assignment Id', minWidth: 110 },
     { id: 'author', label: 'Author Name', minWidth: 110 },
-    { id: 'clas_id', label: 'Class Id', minWidth: 110 },
+    { id: 'clas_id', label: 'Class Id', minWidth: 90 },
     { id: 'clas_name', label: 'Class Name', minWidth: 110 },
     { id: 'email', label: 'Email', minWidth: 110 },
     { id: 'no_of_page', label: 'Number Of Pages', minWidth: 110 },
@@ -142,8 +145,8 @@ const ReportView = ({
                     data.email_id,
                     data.number_of_pages,
                     data.paper_id,
-                    data.similarity,
-                    data.submission_date,
+                    <SimilarityStatus percent={ data.similarity } />,
+                    formatDate(data.submission_date),
                     data.title,
                 );
             arr.push(row)
@@ -277,7 +280,7 @@ const ReportView = ({
                     </>
                 }
 
-                <div style={ { marginLeft: '42%', marginTop: '25px' } }>
+                <PaginationContainer>
                     <Pagination
                         count={ pageDetails?.totalPages }
                         onChange={ handleChange }
@@ -285,7 +288,7 @@ const ReportView = ({
                         variant="outlined"
                         shape="rounded"
                     />
-                </div>
+                </PaginationContainer>
             </>
         </CardView>
     )

@@ -1,7 +1,7 @@
 import React from 'react';
 import { SubTitle } from '../../components';
 import { StatusColor } from '../../pages/style/index';
-import { SIMILARITY_COLOR_STANDARD, NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2, COLORS } from '../../constant/data/Constant';
+import { SIMILARITY_COLOR_STANDARD, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2, COLORS } from '../../constant/data/Constant';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -27,7 +27,7 @@ const SimilarityStatus = ({
         } else if ((percent === DOC_ERROR_PLACEHOLDER_1 || percent === DOC_ERROR_PLACEHOLDER_2)) {
             setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_UNACCEPTABLE);
             setTextColor(COLORS.white);
-        } else if (percent === NO_DATA_PLACEHOLDER) {
+        } else if (percent === NO_DATA_PLACEHOLDER || percent === NA_DATA_PLACEHOLDER) {
             setColor(COLORS.white)
             setTextColor(COLORS.black);
         }
@@ -35,7 +35,7 @@ const SimilarityStatus = ({
 
     return (
         <StatusColor color={color} textColor={txtColor}>
-            {percent !== NO_DATA_PLACEHOLDER && ((percent !== DOC_ERROR_PLACEHOLDER_1) && (percent !== DOC_ERROR_PLACEHOLDER_2)) ? percent + '%' : percent}
+            { percent !== NO_DATA_PLACEHOLDER && ((percent !== DOC_ERROR_PLACEHOLDER_1) && ((percent !== NA_DATA_PLACEHOLDER)) && (percent !== DOC_ERROR_PLACEHOLDER_2)) ? percent + '%' : percent }
         </StatusColor>
     )
 }
