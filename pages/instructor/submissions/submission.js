@@ -4,13 +4,11 @@ import Instructor from '../../../layouts/Instructor';
 import {
   CardView,
   CommonTable,
-  AvatarName,
   CreateDrawer,
-  ErrorBlock,
   WarningDialog,
   SimilarityStatus
 } from '../../../components';
-import { EditIcon, DeleteIcon, DeleteWarningIcon, AddMultipleIcon } from '../../../assets/icon';
+import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
 import { connect } from 'react-redux';
 import {
   GetSubmissionList,
@@ -28,10 +26,8 @@ import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
-import { removeCommaWordEnd,formatDate } from '../../../utils/RegExp';
+import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
-import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../../constant/data/Constant';
-import { formatDate } from '../../../utils/RegExp'
 
 const columns = [
   { id: 'name', label: 'Author Name' },
@@ -105,20 +101,20 @@ const Submission = ({
     let row = '';
     let arr = [];
     submissionData?.map((submission) => {
-      console.log('submission',submission),
-      row = createData(
-        submission.ass_id,
-        submission.name,
-        submission.title,
-        submission.original_fn,
-        submission.grammar,
-        <SimilarityStatus percent={submission.percent} />,       
-        submission.paper_id,
-        formatDate(submission.date_up),
-        [
-          { 'component': <DeleteIcon />, 'type': 'delete' },
-        ]
-      );
+      console.log('submission', submission),
+        row = createData(
+          submission.ass_id,
+          submission.name,
+          submission.title,
+          submission.original_fn,
+          submission.grammar,
+          <SimilarityStatus percent={submission.percent} />,
+          submission.paper_id,
+          formatDate(submission.date_up),
+          [
+            { 'component': <DeleteIcon />, 'type': 'delete' },
+          ]
+        );
       row['isSelected'] = false;
       arr.push(row);
     });
@@ -330,7 +326,7 @@ const Submission = ({
           handleCheckboxSelect={handleCheckboxSelect}
           handleSingleSelect={handleSingleSelect}
           handleTableSort={handleTableSort}
-          downloadSubmissionFile={ handleOriginalFileDownload }
+          downloadSubmissionFile={handleOriginalFileDownload}
           isLoading={isLoading}
           charLength={10}
         />
@@ -339,9 +335,9 @@ const Submission = ({
           showDownloadWarning &&
           <WarningDialog
             message="Are you sure you want to download ?"
-            handleYes={ handleFileDownloadYesWarning }
-            handleNo={ handleFileDownloadCloseWarning }
-            isOpen={ true }
+            handleYes={handleFileDownloadYesWarning}
+            handleNo={handleFileDownloadCloseWarning}
+            isOpen={true}
           />
         }
 
