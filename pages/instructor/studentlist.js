@@ -22,8 +22,8 @@ import {
     GetSubmissionList,
     DeleteSubmission,
     DownloadSubmissionList,
-    DownloadOriginalFile
 } from '../../redux/action/instructor/InstructorAction';
+import { DownloadOriginalFile } from '../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../assets/icon';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
@@ -243,7 +243,13 @@ const StudentList = ({
     };
 
     const handleFileDownloadYesWarning = () => {
-        DownloadOriginalFile(`myFolder/${folderId}/downloadOriginalFile/${data?.paper_id}`, data?.original_fn)
+        let detailedData = {
+            folderId: folderId,
+            paperId: data?.paper_id,
+            name: data?.original_fn,
+            path: 'folderSubmission'
+        }
+        DownloadOriginalFile(detailedData)
         setShowDownloadWarning(false);
         setTimeout(() => {
             setShowDownloadWarning(false);
@@ -366,7 +372,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
-        DownloadOriginalFile: (url, data) => dispatch(DownloadOriginalFile(url, data)),
+        DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
         DownloadSubmissionList: (url) => dispatch(DownloadSubmissionList(url)),
     };

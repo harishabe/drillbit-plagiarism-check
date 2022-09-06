@@ -16,8 +16,8 @@ import {
   DeleteSubmission,
   UploadFileDataClear,
   UploadZipFileDataClear,
-  DownloadOriginalFile
 } from '../../../redux/action/instructor/InstructorAction';
+import { DownloadOriginalFile } from '../../../redux/action/common/Submission/SubmissionAction';
 import { useRouter } from "next/router";
 import { TextField, Pagination } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -238,12 +238,19 @@ const Submission = ({
     setData(data)
   };
 
-  const handleCloseWarning = () => {
+  const handleFileDownloadCloseWarning = () => {
     setShowDownloadWarning(false);
   };
 
-  const handleYesWarning = () => {
-    DownloadOriginalFile(`classes/${clasId}/assignments/${assId}/downloadOriginalFile/${data?.paper_id}`, data?.original_fn)
+  const handleFileDownloadYesWarning = () => {
+    let detailedData = {
+      clasId: clasId,
+      assId: assId,
+      paperId: data?.paper_id,
+      name: data?.original_fn,
+      path: 'assignmentSubmission'
+    }
+    DownloadOriginalFile(detailedData)
     setShowDownloadWarning(false);
     setTimeout(() => {
       setShowDownloadWarning(false);
@@ -330,8 +337,8 @@ const Submission = ({
           showDownloadWarning &&
           <WarningDialog
             message="Are you sure you want to download ?"
-            handleYes={ handleYesWarning }
-            handleNo={ handleCloseWarning }
+            handleYes={ handleFileDownloadYesWarning }
+            handleNo={ handleFileDownloadCloseWarning }
             isOpen={ true }
           />
         }
@@ -364,7 +371,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
     DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
-    DownloadOriginalFile: (url, data) => dispatch(DownloadOriginalFile(url, data)),
+    DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
     UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
   };

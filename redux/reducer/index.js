@@ -7,12 +7,13 @@ import InsDashboardReducer from './instructor/DashboardReducer';
 import DetailsInstructorReducer from './instructor/DetailsInstructorReducer';
 import DetailsStudentReducer from './student/DetailsStudentReducer';
 import MyFoldersInstructorReducer from './instructor/MyFoldersInstructorReducer';
-import SubmissionReducer from './instructor/SubmissionReducer';
+import InstructorSubmissionReducer from './instructor/InstructorSubmissionReducer';
 import DetailsReducer from './admin/DetailsReducer';
 import ReportsReducer from './admin/ReportsReducer';
 import IntegrationReducer from './admin/IntegrationReducer';
 import ProfileReducer from './profile/ProfileReducer';
 import SuperReducer from './super/SuperReducer';
+import SubmissionReducer from './common/Submission/SubmissionReducer';
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -23,12 +24,13 @@ const rootReducer = combineReducers({
     instructorDashboard: InsDashboardReducer,
     instructorClasses: DetailsInstructorReducer,
     instructorMyFolders: MyFoldersInstructorReducer,
-    instructorSubmissionGrading: SubmissionReducer,
+    instructorSubmissionGrading: InstructorSubmissionReducer,
     adminCrud: CRUDReducer,
     instructorCrud: InstructorCRUDReducer,
     adminReport: ReportsReducer,
     studentClasses: DetailsStudentReducer,
-    superAdmin: SuperReducer
+    superAdmin: SuperReducer,
+    Submission: SubmissionReducer
 });
 
 export default rootReducer;

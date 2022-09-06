@@ -235,15 +235,6 @@ export const SubmissionListUpload = (url, data) => {
 };
 
 /**
- * Get Download Original File data
- */
-export const DownloadOriginalFile = (url, data) => {
-    return {
-        type: types.FETCH_INSTRUCTOR_DOWNLOAD_ORIGINAL_FILE_START, url: url, query: data
-    };
-};
-
-/**
  * myclasses > assignments > submission-upload > ZIP file
  */
  export const SubmissionListExtractedFileUpload = (url, data) => {

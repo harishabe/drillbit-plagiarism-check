@@ -1,6 +1,7 @@
 import { all, fork } from 'redux-saga/effects';
 import { userLogin, userForgetPassword } from './login/Login';
 import { DashboardWidget, TopStudent, TrendAnalysis, GetRenewalValidity } from './admin/Dashboard';
+import { GetDownloadFileData } from './common/Submission/DetailSubmissionData';
 import { InsDashboardWidget } from './instructor/Dashboard';
 import {
     GetInstructorData,
@@ -64,7 +65,6 @@ import {
     UploadExtractedFile,
     DeleteSubmissionFile,
     DownloadSubmissionDetail,
-    GetDownloadFileSubmissionData
 } from './instructor/SubmissionData'
 import {
     GetStudentDashboard,
@@ -77,7 +77,6 @@ import {
     GetStudentFeedback,
     SendQnaAnswer,
     SendSubmissionAnswer,
-    GetDownloadFileData,
     GetDownloadAssignmentInstructions
 } from './student/DetailsStudentData';
 import {
@@ -154,7 +153,6 @@ const saga = [
     fork(UploadExtractedFile),
     fork(DeleteSubmissionFile),
     fork(DownloadSubmissionDetail),
-    fork(GetDownloadFileSubmissionData),
     fork(GetStudentData),
     fork(GetAdminRepoData),
     fork(RepoAdminUploadData),

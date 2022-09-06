@@ -1,6 +1,8 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
-import { PostMethod, PutMethod, GetMethod, DeleteMethod, PostFormData, GetMethodDownload, PostMethodEN, GetMethodDownloadPdf } from './../ApiMethod';
+import {
+    PostMethod, PutMethod, GetMethod, DeleteMethod, PostFormData, GetMethodDownload, PostMethodEN,
+} from './../ApiMethod';
 
 /**
  * API CALL FOR MY FOLDER > SUBMISSION DATA
@@ -23,16 +25,6 @@ export const UploadSubmission = async (apiUrl, data) => {
     } else {
         return PostFormData(url, data);
     }
-};
-
-
-/**
- * API CALL FOR DOWNLOAD ORIGINAL FILE
- */
-
-export const DownloadOriginalFileData = async (apiUrl, data) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_LIST_ORIGINAL_LIST_DOWNLOAD + apiUrl;
-    return GetMethodDownloadPdf(url, data);
 };
 
 /**

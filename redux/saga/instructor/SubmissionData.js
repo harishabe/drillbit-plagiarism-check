@@ -8,7 +8,6 @@ import {
     InstructorFeedbackData,
     UploadSubmission,
     DownloadSubmissionData,
-    DownloadOriginalFileData
 } from '../../api//instructor/DetailsSubmissionAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 
@@ -135,32 +134,6 @@ export function* onLoadEditSubmission(action) {
 
 export function* EditSubmissionDetail() {
     yield takeLatest(types.FETCH_INSTRUCTOR_SUBMISSIONS_GRADING_QNA_EDIT_START, onLoadEditSubmission);
-}
-
-/**
- * Get Download Original File data
- * @param {*} action
- */
-
-export function* onLoadDownloadFile(action) {
-    const { response, error } = yield call(DownloadOriginalFileData, action.url, action.query);
-    if (response) {
-        yield put({
-            type: types.FETCH_INSTRUCTOR_DOWNLOAD_ORIGINAL_FILE_SUCCESS,
-            payload: response?.data,
-        });
-        toastrValidation(response);
-    } else {
-        yield put({
-            type: types.FETCH_INSTRUCTOR_DOWNLOAD_ORIGINAL_FILE_FAIL,
-            payload: error,
-        });
-        toastrValidation(error);
-    }
-}
-
-export function* GetDownloadFileSubmissionData() {
-    yield takeLatest(types.FETCH_INSTRUCTOR_DOWNLOAD_ORIGINAL_FILE_START, onLoadDownloadFile);
 }
 
 /**
