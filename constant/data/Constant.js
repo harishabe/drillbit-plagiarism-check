@@ -46,10 +46,10 @@ export const DOC_ERROR_PLACEHOLDER_2 = 'doc_error';
  * Submissions similarity percentage standard color
  */
 export const SIMILARITY_COLOR_STANDARD = {
-    'SIMILARITY_SATISFACTORY': '#048a16',
-    'SIMILARITY_UPGRADE': '#20049b',
-    'SIMILARITY_POOR': '#f6b11b',
-    'SIMILARITY_UNACCEPTABLE': '#c90000'
+    'SIMILARITY_SATISFACTORY': '#68C886',
+    'SIMILARITY_UPGRADE': '#6648eb',
+    'SIMILARITY_POOR': '#ddcd3b',
+    'SIMILARITY_UNACCEPTABLE': '#efb9b9'
 }
 
 /**
