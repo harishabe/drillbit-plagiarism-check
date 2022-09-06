@@ -5,6 +5,7 @@ import {
     CommonTable,
     CreateDrawer,
     EllipsisText,
+    SimilarityStatus,
     ErrorBlock
 } from '../../components';
 import SubmissionForm from './form/SubmissionForm';
@@ -50,7 +51,7 @@ const SubmissionHistory = ({
                     <EllipsisText value={submission.original_fn} charLength={12} />,
                     submission.paper_id,
                     submission.date_up,
-                    submission.percent !== NO_DATA_PLACEHOLDER && ((submission.percent !== DOC_ERROR_PLACEHOLDER_1) && (submission.percent !== DOC_ERROR_PLACEHOLDER_2)) ? submission.percent + '%' : submission.percent,
+                    <SimilarityStatus percent={ submission.percent } />,
                     submission.grammar,
                     submission.feedback?.marks,
                     submission.status,

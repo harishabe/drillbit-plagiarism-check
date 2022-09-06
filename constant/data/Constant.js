@@ -35,6 +35,7 @@ export const TABLE_SORTING_ARROW_HANDLE = [
  * displaying -- as a placeholder if no data found.
  */
 export const NO_DATA_PLACEHOLDER = '--';
+export const NA_DATA_PLACEHOLDER = 'NA';
 
 /**
  * Doc error
