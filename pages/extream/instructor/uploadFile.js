@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Box } from '@mui/material';
+import { useRouter } from "next/router";
 import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
@@ -46,45 +47,45 @@ const tabMenu = [
         label: 'Zip',
     },
 ];
-{/* <DragAndDrop
-btnTitle='Process the file'
-choseFileTitle='browse your file here'
-fileIcon={< UploadFileIcon />}
-isUploadFile={true}
-/>, */}
-const componentList = [
-
-    <UploadFiles choseFileTitle='browse your file here' fileIcon={ < UploadFileIcon /> } />,
-    <DragAndDrop
-        btnTitle='Process the file'
-        choseFileTitle='Browse your file from google drive'
-        fileIcon={ < GoogleDriveIcon /> }
-        isGoogleDriveFile={ true }
-    />,
-    <DragAndDrop
-        choseFileTitle='browse your zip here'
-        btnTitle='Process the file'
-        fileIcon={ < UploadFileIcon /> }
-        isZipFile={ true }
-    />
-];
 
 const UploadFile = () => {
+    const router = useRouter();
+    const componentList = [
+        <UploadFiles
+            choseFileTitle='browse your file here'
+            fileIcon={< UploadFileIcon />}
+            singleFileUploadAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`}
+            multiFileUploadAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`}
+            routerObj={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } }}
+        />,
+        <DragAndDrop
+            btnTitle='Process the file'
+            choseFileTitle='Browse your file from google drive'
+            fileIcon={< GoogleDriveIcon />}
+            isGoogleDriveFile={true}
+        />,
+        <DragAndDrop
+            choseFileTitle='browse your zip here'
+            btnTitle='Process the file'
+            fileIcon={< UploadFileIcon />}
+            isZipFile={true}
+        />
+    ];
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
                         <BreadCrumb
-                            item={ InstructorBreadCrumb }
+                            item={InstructorBreadCrumb}
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 12 } xs={ 12 }>
+                <Grid container spacing={1}>
+                    <Grid item md={12} xs={12}>
                         <TabMenu
-                            menuButton={ tabMenu }
-                            components={ componentList }
+                            menuButton={tabMenu}
+                            components={componentList}
                         />
                     </Grid>
                 </Grid>

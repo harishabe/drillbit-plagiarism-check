@@ -34,7 +34,10 @@ const UploadFiles = ({
     isLoadingUpload,
     SubmissionListUpload,
     UploadFileDataClear,
-    uploadData
+    uploadData,
+    singleFileUploadAPI,
+    multiFileUploadAPI,
+    routerObj
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -81,7 +84,7 @@ const UploadFiles = ({
         bodyFormData.append('grammarCheck', 'YES');
         bodyFormData.append('language', 'English');
         bodyFormData.append('file', files[0][1]);
-        SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`, bodyFormData);
+        SubmissionListUpload(singleFileUploadAPI, bodyFormData);
     }
 
     const multiFileUpload = (files, data) => {
@@ -99,14 +102,14 @@ const UploadFiles = ({
         bodyFormData.append('title', titleArr);
         bodyFormData.append('documentType', documentTypeArr);
         bodyFormData.append('file', filesArr);
-        SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`, bodyFormData);
+        SubmissionListUpload(multiFileUploadAPI, bodyFormData);
     }
 
     
     useEffect(() => {
         if (uploadData) {
             UploadFileDataClear();
-            router.push({ pathname: '/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } });
+            router.push(routerObj);
         }
     }, [uploadData && uploadData !== '']);
 

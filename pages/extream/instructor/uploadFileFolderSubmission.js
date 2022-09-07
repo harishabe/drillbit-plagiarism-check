@@ -50,15 +50,12 @@ const UploadFileFolderSubmission = () => {
             label: 'Zip',
         },
     ];
-    {/* <DragAndDrop
-btnTitle='Process the file'
-choseFileTitle='browse your file here'
-fileIcon={< UploadFileIcon />}
-isUploadFile={true}
-/>, */}
-    const componentList = [
 
-        <UploadFiles choseFileTitle='browse your file here' fileIcon={ < UploadFileIcon /> } />,
+    const componentList = [
+        <UploadFiles 
+            choseFileTitle='browse your file here' 
+            fileIcon={ < UploadFileIcon /> } 
+        />,
         <DragAndDrop
             btnTitle='Process the file'
             choseFileTitle='Browse your file from google drive'
