@@ -23,6 +23,9 @@ import {
     GetSubmissionList,
     DeleteSubmission,
     DownloadSubmissionList,
+
+    UploadFileDataClear,
+    UploadZipFileDataClear
 } from '../../../redux/action/instructor/InstructorAction';
 import { DownloadOriginalFile } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/icon';
@@ -59,7 +62,7 @@ const DownloadCsv = styled.div`
     margin-top:-5px;
 `;
 
-const StudentList = ({
+const folderSubmission = ({
     GetSubmissionList,
     DownloadSubmissionList,
     DownloadOriginalFile,
@@ -69,6 +72,11 @@ const StudentList = ({
     isLoadingUpload,
     isLoadingDownload,
     pageDetails,
+
+    UploadFileDataClear,
+    extractedFileData,
+    uploadData,
+    UploadZipFileDataClear
 }) => {
 
     const router = useRouter();
@@ -257,15 +265,28 @@ const StudentList = ({
         }, [100]);
     };
 
+    /**
+   * file upload single, multiple and zip file
+   */
+    const handleUploadFile = () => {
+        if (extractedFileData) {
+            UploadFileDataClear();
+        }
+        if (uploadData) {
+            UploadZipFileDataClear();
+        }
+        router.push({ pathname: '/extream/instructor/uploadFileFolderSubmission', query: router.query })
+    }
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
                 <BreadCrumb item={ InstructorBreadCrumb } />
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 9 } xs={ 7 }>
+                    <Grid item md={ 8.9 } xs={ 7 }>
                         <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={ 1 } xs={ 1 } align="right">
+                    <Grid item md={ 0.1 } xs={ 1 } align="right">
                         <DownloadCsv>
                             { submissionData?.length > 0 &&
                                 <Tooltip title="Download csv">
@@ -280,7 +301,7 @@ const StudentList = ({
                             }
                         </DownloadCsv>
                     </Grid>
-                    <Grid item md={ 2 } xs={ 12 } align="right">
+                    <Grid item md={ 3 } xs={ 12 } align="right">
                         <TextField
                             placeholder='Search'
                             onChange={ debouncedResults }
@@ -320,7 +341,10 @@ const StudentList = ({
                 <AddButtonBottom>
                     <CreateDrawer
                         title="Upload File"
-                        isShowAddIcon={ true }>
+                        isShowAddIcon={ true }
+                        navigateToMultiFile={ true }
+                        handleNavigateMultiFile={ handleUploadFile }
+                    >
                         <SubmissionForm
                             folderId={ folderId }
                             isLoadingUpload={ isLoadingUpload }
@@ -368,6 +392,9 @@ const mapStateToProps = (state) => ({
     isLoadingSubmission: state?.instructorMyFolders?.isLoadingSubmission,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
     isLoadingDownload: state?.instructorMyFolders?.isLoadingDownload,
+
+    extractedFileData: state?.instructorMyFolders?.extractedFileData,
+    uploadData: state?.instructorMyFolders?.uploadData,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -376,9 +403,12 @@ const mapDispatchToProps = (dispatch) => {
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
         DownloadSubmissionList: (url) => dispatch(DownloadSubmissionList(url)),
+
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };
 };
 
-StudentList.layout = Instructor
+folderSubmission.layout = Instructor
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentList);
+export default connect(mapStateToProps, mapDispatchToProps)(folderSubmission);

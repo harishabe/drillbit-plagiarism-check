@@ -95,6 +95,10 @@ const CanvasForm = ({
     )
 }
 
+const mapStateToProps = (state) => ({
+    isLoadingUpload: state?.adminIntegrationData?.isLoadingUpload,
+});
+
 const mapDispatchToProps = (dispatch) => {
     return {
         LmsIntegration: (url, data) => dispatch(LmsIntegration(url, data)),
@@ -102,4 +106,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(CanvasForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CanvasForm);

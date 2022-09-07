@@ -85,6 +85,10 @@ const MoodleForm = ({
     )
 }
 
+const mapStateToProps = (state) => ({
+    isLoadingUpload: state?.adminIntegrationData?.isLoadingUpload,
+});
+
 const mapDispatchToProps = (dispatch) => {
     return {
         LmsIntegration: (url, data) => dispatch(LmsIntegration(url, data)),
@@ -92,4 +96,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(MoodleForm);
+export default connect(mapStateToProps, mapDispatchToProps)(MoodleForm);

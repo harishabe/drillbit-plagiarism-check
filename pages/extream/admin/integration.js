@@ -42,7 +42,7 @@ const IntegrationBreadCrumb = [
 const Integration = ({
     GetIntegrationList,
     integrationData,
-    isLoading
+    isLoading,
 }) => {
 
     const [lmsData, setLmsData] = useState([]);
