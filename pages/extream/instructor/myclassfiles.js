@@ -3,24 +3,24 @@ import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
-import Instructor from '../../layouts/Instructor';
+import Instructor from '../../../layouts/Instructor';
 import {
     CardInfoView,
     CreateDrawer,
     WarningDialog,
     ErrorBlock
-} from '../../components';
-import { DeleteWarningIcon } from '../../assets/icon';
+} from '../../../components';
+import { DeleteWarningIcon } from '../../../assets/icon';
 import { Skeleton } from '@mui/material';
 import MyClassesForm from './form/MyclassesForm';
 import {
     renameKeys,
     findByExpiryDate,
     expiryDateBgColor
-} from '../../utils/RegExp';
-import { DeleteClass } from '../../redux/action/instructor/InstructorAction';
-import { PaginationContainer } from '../style/index';
-import { CLASS_NOT_FOUND } from '../../constant/data/ErrorMessage';
+} from '../../../utils/RegExp';
+import { DeleteClass } from '../../../redux/action/instructor/InstructorAction';
+import { PaginationContainer } from '../../style/index';
+import { CLASS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -90,27 +90,27 @@ const MyClassFiles = ({
 
     return (
         <React.Fragment>
-            <Grid container spacing={2}>
-                {item?.length > 0 ? item?.map((item, index) => (
-                    <Grid item md={4} xs={12}>
+            <Grid container spacing={ 2 }>
+                { item?.length > 0 ? item?.map((item, index) => (
+                    <Grid item md={ 4 } xs={ 12 }>
                         <CardInfoView
-                            key={index}
-                            item={item}
-                            isAvatar={true}
-                            isHeading={true}
-                            isTimer={true}
-                            isAction={true}
-                            isNextPath={true}
+                            key={ index }
+                            item={ item }
+                            isAvatar={ true }
+                            isHeading={ true }
+                            isTimer={ true }
+                            isAction={ true }
+                            isNextPath={ true }
                             isDescription={ true }
-                            handleClick={handleClassEdit}
-                            handleDelete={handleClassDelete}
-                            statusColor={expiryDateBgColor(item.validity)}
-                            path={{ pathname: '/instructor/my-assignment', query: { clasId: item.id } }}
+                            handleClick={ handleClassEdit }
+                            handleDelete={ handleClassDelete }
+                            statusColor={ expiryDateBgColor(item.validity) }
+                            path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id } } }
                         />
                     </Grid>
                 )) :
-                    <Grid item md={12} xs={12}>
-                        <ErrorBlock message={CLASS_NOT_FOUND} />
+                    <Grid item md={ 12 } xs={ 12 }>
+                        <ErrorBlock message={ CLASS_NOT_FOUND } />
                     </Grid>
                 }
             </Grid>
@@ -118,11 +118,11 @@ const MyClassFiles = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={ <DeleteWarningIcon /> }
                     message="Are you sure you want to delete ?"
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
@@ -130,7 +130,7 @@ const MyClassFiles = ({
             <AddButtonBottom>
                 <CreateDrawer
                     title="Create Class"
-                    isShowAddIcon={true}>
+                    isShowAddIcon={ true }>
                     <MyClassesForm />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -139,11 +139,11 @@ const MyClassFiles = ({
                 editClasses &&
                 <CreateDrawer
                     title="Edit Class"
-                    isShowAddIcon={false}
-                    showDrawer={editClasses}
+                    isShowAddIcon={ false }
+                    showDrawer={ editClasses }
                 >
                     <MyClassesForm
-                        editData={editClassesData}
+                        editData={ editClassesData }
                     />
                 </CreateDrawer>
             }
@@ -151,9 +151,9 @@ const MyClassFiles = ({
 
             <PaginationContainer>
                 <Pagination
-                    count={pageDetails?.totalPages}
+                    count={ pageDetails?.totalPages }
                     page={ pageDetails?.number + 1 }
-                    onChange={handlePagination}
+                    onChange={ handlePagination }
                     color="primary"
                     variant="outlined"
                     shape="rounded"

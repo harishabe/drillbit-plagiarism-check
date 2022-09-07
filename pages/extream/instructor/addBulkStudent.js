@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, IconButton, Link, Tooltip } from '@mui/material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import Instructor from '../../layouts/Instructor';
+import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
     CardView,
@@ -16,15 +16,15 @@ import {
     Heading,
     MainHeading,
     Title1
-} from '../../components';
+} from '../../../components';
 import {
     DownBorderArrowIcon,
     UploadFileIcon
-} from '../../assets/icon';
+} from '../../../assets/icon';
 import {
     DownloadTemplate,
     UploadFile,
-} from '../../redux/action/instructor/InstructorAction';
+} from '../../../redux/action/instructor/InstructorAction';
 
 const useStyles = makeStyles({
     customFileUpload: {
@@ -55,22 +55,22 @@ const Input = styled('input')({
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/instructor/dashboard',
+        link: '/extream/instructor/dashboard',
         active: false,
     },
     {
         name: 'My classes',
-        link: '/instructor/myclasses',
+        link: '/extream/instructor/myclasses',
         active: false,
     },
     {
         name: 'My assignments',
-        link: '/instructor/my-assignment',
+        link: '/extream/instructor/my-assignment',
         active: false,
     },
     {
         name: 'Add multiple student',
-        link: '/instructor/my-assignment/addBulkStudent',
+        link: '/extream/instructor/my-assignment/addBulkStudent',
         active: true,
     },
 ];
@@ -122,66 +122,66 @@ const AddBulkStudent = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
-                    <Grid item md={2} xs={2}>
+                    <Grid item md={ 2 } xs={ 2 }>
 
                     </Grid>
                 </Grid>
-                <Grid container spacing={1}>
-                    <Grid item md={12} xs={12}>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 12 } xs={ 12 }>
                         <CardView>
                             <Tooltip title="Back" arrow>
-                                <IconButton onClick={handleBack} size="large">
+                                <IconButton onClick={ handleBack } size="large">
                                     <ArrowBackOutlinedIcon />
                                 </IconButton>
                             </Tooltip>
-                            <div style={{ padding: '25px 150px' }}>
-                                <Grid container spacing={1}>
-                                    <Grid item md={6} xs={6}>
+                            <div style={ { padding: '25px 150px' } }>
+                                <Grid container spacing={ 1 }>
+                                    <Grid item md={ 6 } xs={ 6 }>
                                         <MainHeading title='Add Multiple Student' />
                                     </Grid>
-                                    <Grid item md={6} xs={6} align="right">
+                                    <Grid item md={ 6 } xs={ 6 } align="right">
                                         <Button
-                                            onClick={handleDownload}
+                                            onClick={ handleDownload }
                                             variant="contained"
                                             size="large"
-                                            startIcon={!isLoadingTemplate && <DownBorderArrowIcon />}>
+                                            startIcon={ !isLoadingTemplate && <DownBorderArrowIcon /> }>
                                             { isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template' }
                                         </Button>
                                     </Grid>
 
-                                    <Grid container spacing={1}>
-                                        <Grid item md={12} xs={12}>
-                                            <div className={classes.dragAndDropArea}>
+                                    <Grid container spacing={ 1 }>
+                                        <Grid item md={ 12 } xs={ 12 }>
+                                            <div className={ classes.dragAndDropArea }>
                                                 <UploadFileIcon />
-                                                <div className={classes.padding30}>
+                                                <div className={ classes.padding30 }>
                                                     <Title1 title='Drag and drop, or ' />
-                                                    <Link style={{ marginLeft: '5px' }}>
-                                                        <label for="file-upload" className={classes.customFileUpload}>
+                                                    <Link style={ { marginLeft: '5px' } }>
+                                                        <label for="file-upload" className={ classes.customFileUpload }>
                                                             browse your file here
                                                         </label>
                                                     </Link>
-                                                    <Input onChange={handleUpload} id="file-upload" type="file" />
-                                                    <EllipsisText value={fileData !== '' ? fileData?.name : ''} charLength={80} />
-                                                    {showError ? <div style={{ color: 'red' }}>Please select your file to upload </div> : ''}
+                                                    <Input onChange={ handleUpload } id="file-upload" type="file" />
+                                                    <EllipsisText value={ fileData !== '' ? fileData?.name : '' } charLength={ 80 } />
+                                                    { showError ? <div style={ { color: 'red' } }>Please select your file to upload </div> : '' }
                                                 </div>
                                             </div>
                                         </Grid>
 
                                     </Grid>
 
-                                    <Grid container spacing={1}>
-                                        <Grid item md={4} xs={4}></Grid>
-                                        <Grid item md={4} xs={4} style={{ marginTop: '15px', textAlign: 'center' }}>
-                                            <Button onClick={handleSubmit} variant="contained" size="large">
+                                    <Grid container spacing={ 1 }>
+                                        <Grid item md={ 4 } xs={ 4 }></Grid>
+                                        <Grid item md={ 4 } xs={ 4 } style={ { marginTop: '15px', textAlign: 'center' } }>
+                                            <Button onClick={ handleSubmit } variant="contained" size="large">
                                                 { isLoadingStudentFileUpload ? <BeatLoader color="#fff" /> : 'Submit' }
                                             </Button>
                                         </Grid>
-                                        <Grid item md={4} xs={4}></Grid>
+                                        <Grid item md={ 4 } xs={ 4 }></Grid>
                                     </Grid>
                                 </Grid>
                             </div>

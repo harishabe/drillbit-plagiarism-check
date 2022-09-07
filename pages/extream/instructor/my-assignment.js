@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Instructor from '../../layouts/Instructor';
-import { BreadCrumb, TabMenu } from '../../components';
+import Instructor from '../../../layouts/Instructor';
+import { BreadCrumb, TabMenu } from '../../../components';
 import Assignments from './myAssignment/Assignments';
 import Students from './myAssignment/Students';
-import { GetStudent, GetAssignment } from '../../redux/action/instructor/InstructorAction';
-import { PaginationValue } from '../../utils/PaginationUrl';
+import { GetStudent, GetAssignment } from '../../../redux/action/instructor/InstructorAction';
+import { PaginationValue } from '../../../utils/PaginationUrl';
 
 const MyClassesTables = ({
     GetStudent,
@@ -32,7 +32,7 @@ const MyClassesTables = ({
         },
         {
             name: 'My classes',
-            link: '/instructor/myclasses',
+            link: '/extream/instructor/myclasses',
             active: false,
         },
         {
@@ -112,7 +112,7 @@ const MyClassesTables = ({
 
     /** end debounce concepts */
 
-    const componentList = [        
+    const componentList = [
         <Assignments
             pageDetailsAssignment={ pageDetailsAssignment }
             assignmentData={ assignmentData }
@@ -137,20 +137,20 @@ const MyClassesTables = ({
         },
         {
             label: `Students(${pageDetailsStudent?.totalElements !== undefined ? pageDetailsStudent?.totalElements : 0})`,
-        }      
+        }
     ];
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
                     <Grid item md={ 10 } xs={ 12 }>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
-          
-            <TabMenu menuButton={tabMenu} components={componentList} />
+
+            <TabMenu menuButton={ tabMenu } components={ componentList } />
         </React.Fragment>
     )
 }

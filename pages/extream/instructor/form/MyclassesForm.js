@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { FormComponent } from '../../../components';
-import { CreateClass, EditClass } from '../../../redux/action/instructor/InstructorAction';
-import FormJson from '../../../constant/form/myclasses-form.json';
-import { AddImageIcon } from '../../../assets/icon';
-import { convertDate } from '../../../utils/RegExp';
+import { FormComponent } from '../../../../components';
+import { CreateClass, EditClass } from '../../../../redux/action/instructor/InstructorAction';
+import FormJson from '../../../../constant/form/myclasses-form.json';
+import { AddImageIcon } from '../../../../assets/icon';
+import { convertDate } from '../../../../utils/RegExp';
 
 const MyClassesForm = ({
     isLoading,
@@ -73,21 +73,21 @@ const MyClassesForm = ({
 
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    {formJsonField?.map((field, i) => (
-                        <Grid item md={12} style={{ marginLeft: '8px' }}>
+                    { formJsonField?.map((field, i) => (
+                        <Grid item md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
-                                key={i}
-                                field={field}
-                                control={control}
-                                isLoading={isLoading}
+                                key={ i }
+                                field={ field }
+                                control={ control }
+                                isLoading={ isLoading }
                             />
                         </Grid>
-                    ))}
+                    )) }
                 </Grid>
             </form>
         </>

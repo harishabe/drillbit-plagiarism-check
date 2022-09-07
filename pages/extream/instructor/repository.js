@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import { TextField } from '@mui/material'
 import { Pagination } from '@mui/material';
-import { PaginationValue } from '../../utils/PaginationUrl';
+import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     BreadCrumb,
     MainHeading,
@@ -14,18 +14,18 @@ import {
     CommonTable,
     CreateDrawer,
     WarningDialog
-} from './../../components';
-import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
-import Instructor from '../../layouts/Instructor';
-import { GetRepoList, RemoveRepositary } from '../../redux/action/instructor/InstructorAction';
+} from './../../../components';
+import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
+import Instructor from '../../../layouts/Instructor';
+import { GetRepoList, RemoveRepositary } from '../../../redux/action/instructor/InstructorAction';
 import RepositaryForm from './form/RepositaryForm';
-import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
-import { PaginationContainer } from '../style/index';
+import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
+import { PaginationContainer } from '../../style/index';
 
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/instructor/dashboard',
+        link: '/extream/instructor/dashboard',
         active: false,
     },
     {
@@ -196,7 +196,7 @@ const Repository = ({
 
             <AddButtonBottom>
                 <CreateDrawer
-                    isShowAddIcon={true}
+                    isShowAddIcon={ true }
                     title='Upload File'
                 >
                     <RepositaryForm />
@@ -207,19 +207,19 @@ const Repository = ({
                     <CommonTable
                         isCheckbox={ false }
                         isSorting={ true }
-                        tableHeader={columns}
-                        tableData={rows}
-                        charLength={10}
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        charLength={ 10 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
-                        isLoading={isLoadingRepo}
+                        isLoading={ isLoadingRepo }
                         path=''
                     />
 
                     <PaginationContainer>
                         <Pagination
-                            count={pageDetails?.totalPages}
-                            onChange={handlePagination}
+                            count={ pageDetails?.totalPages }
+                            onChange={ handlePagination }
                             color="primary"
                             variant="outlined"
                             shape="rounded"

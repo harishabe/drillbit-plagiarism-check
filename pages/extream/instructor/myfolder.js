@@ -6,8 +6,8 @@ import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
 import { TextField, Skeleton } from '@mui/material';
-import Instructor from '../../layouts/Instructor';
-import { DeleteWarningIcon } from '../../assets/icon';
+import Instructor from '../../../layouts/Instructor';
+import { DeleteWarningIcon } from '../../../assets/icon';
 import {
     BreadCrumb,
     MainHeading,
@@ -15,17 +15,17 @@ import {
     CreateDrawer,
     WarningDialog,
     ErrorBlock
-} from '../../components';
-import { GetAllFolders, DeleteFolder } from '../../redux/action/instructor/InstructorAction';
-import { PaginationValue } from '../../utils/PaginationUrl';
+} from '../../../components';
+import { GetAllFolders, DeleteFolder } from '../../../redux/action/instructor/InstructorAction';
+import { PaginationValue } from '../../../utils/PaginationUrl';
 import MyFoldersForm from './form/MyFolderForm';
-import { FOLDERS_NOT_FOUND } from '../../constant/data/ErrorMessage';
-import { PaginationContainer } from '../style/index';
+import { FOLDERS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { PaginationContainer } from '../../style/index';
 
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/instructor/dashboard',
+        link: '/extream/instructor/dashboard',
         active: false,
     },
     {
@@ -150,7 +150,7 @@ const MyFolder = ({
                     <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                 </Grid> :
                 <>
-                    { myFolders?.length > 0 ? 
+                    { myFolders?.length > 0 ?
                         <Grid container spacing={ 2 } sx={ { overflowX: 'hidden' } }>
                             { myFolders?.map((item, index) => (
                                 <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
@@ -159,13 +159,13 @@ const MyFolder = ({
                                         isAction={ true }
                                         handleClick={ handleFolderEdit }
                                         handleDelete={ handleFolderDelete }
-                                        path={ { pathname: '/instructor/studentlist', query: { name: item.folder_name, folderId: item.folder_id } } }
+                                        path={ { pathname: '/extream/instructor/studentlist', query: { name: item.folder_name, folderId: item.folder_id } } }
                                     />
                                 </Grid>
                             )) }
-                        </Grid>   
+                        </Grid>
                         : <ErrorBlock message={ FOLDERS_NOT_FOUND } />
-                    }    
+                    }
                 </>
             }
 
@@ -197,7 +197,7 @@ const MyFolder = ({
                     isShowAddIcon={ false }
                     showDrawer={ editFolder }
                 >
-                        <MyFoldersForm
+                    <MyFoldersForm
                         editData={ editFolderData }
                     />
                 </CreateDrawer>

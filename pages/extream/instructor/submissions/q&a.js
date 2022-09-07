@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Instructor from '../../../layouts/Instructor';
-import { CardView, CommonTable, ErrorBlock } from '../../../components';
+import Instructor from '../../../../layouts/Instructor';
+import { CardView, CommonTable, ErrorBlock } from '../../../../components';
 import { connect } from 'react-redux';
-import { GetSubmissionList } from '../../../redux/action/instructor/InstructorAction';
+import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
-import { QNA_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { QNA_NOT_FOUND } from '../../../../constant/data/ErrorMessage';
 
 const QNA = ({
   GetSubmissionList,
@@ -20,7 +20,7 @@ const QNA = ({
   const assId = router.query.assId;
 
   const [rows, setRows] = useState([]);
-  
+
   useEffect(() => {
     let url = `classes/${clasId}/assignments/${assId}/qa`
     GetSubmissionList(url);
@@ -63,11 +63,11 @@ const QNA = ({
     <React.Fragment>
       <CardView>
         <CommonTable
-          isCheckbox={false}
-          isSorting={true}
-          tableHeader={columns}
-          tableData={rows}
-          isLoading={isLoading}
+          isCheckbox={ false }
+          isSorting={ true }
+          tableHeader={ columns }
+          tableData={ rows }
+          isLoading={ isLoading }
         />
       </CardView>
     </React.Fragment>

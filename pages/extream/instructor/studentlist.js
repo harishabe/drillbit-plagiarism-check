@@ -9,7 +9,7 @@ import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box'
 import { Pagination, IconButton } from '@mui/material';
 import { TextField } from '@mui/material';
-import Instructor from '../../layouts/Instructor';
+import Instructor from '../../../layouts/Instructor';
 import {
     CardView,
     CommonTable,
@@ -18,19 +18,19 @@ import {
     CreateDrawer,
     WarningDialog,
     SimilarityStatus
-} from '../../components';
+} from '../../../components';
 import {
     GetSubmissionList,
     DeleteSubmission,
     DownloadSubmissionList,
-} from '../../redux/action/instructor/InstructorAction';
-import { DownloadOriginalFile } from '../../redux/action/common/Submission/SubmissionAction';
-import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../assets/icon';
-import { PaginationValue } from '../../utils/PaginationUrl';
-import { formatDate, removeCommaWordEnd } from '../../utils/RegExp';
+} from '../../../redux/action/instructor/InstructorAction';
+import { DownloadOriginalFile } from '../../../redux/action/common/Submission/SubmissionAction';
+import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/icon';
+import { PaginationValue } from '../../../utils/PaginationUrl';
+import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
-import { PaginationContainer } from '../style/index';
-import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../constant/data/Constant'
+import { PaginationContainer } from '../../style/index';
+import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../../constant/data/Constant'
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -85,12 +85,12 @@ const StudentList = ({
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
-            link: '/instructor/dashboard',
+            link: '/extream/instructor/dashboard',
             active: false,
         },
         {
             name: 'My folder',
-            link: '/instructor/myfolder',
+            link: '/extream/instructor/myfolder',
             active: false,
         },
         {
@@ -259,60 +259,60 @@ const StudentList = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <BreadCrumb item={InstructorBreadCrumb} />
-                <Grid container spacing={1}>
-                    <Grid item md={9} xs={7}>
-                        <MainHeading title={`Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+            <Box sx={ { flexGrow: 1 } }>
+                <BreadCrumb item={ InstructorBreadCrumb } />
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 9 } xs={ 7 }>
+                        <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={1} xs={1} align="right">
+                    <Grid item md={ 1 } xs={ 1 } align="right">
                         <DownloadCsv>
-                            {submissionData?.length > 0 &&
+                            { submissionData?.length > 0 &&
                                 <Tooltip title="Download csv">
                                     <IconButton
                                         color="primary"
                                         aria-label="download-file"
                                         size="large"
-                                        onClick={handleDownload}>
-                                        {isLoadingDownload ? <Skeleton width={50} /> : <DownloadIcon />}
+                                        onClick={ handleDownload }>
+                                        { isLoadingDownload ? <Skeleton width={ 50 } /> : <DownloadIcon /> }
                                     </IconButton>
                                 </Tooltip>
                             }
                         </DownloadCsv>
                     </Grid>
-                    <Grid item md={2} xs={12} align="right">
+                    <Grid item md={ 2 } xs={ 12 } align="right">
                         <TextField
                             placeholder='Search'
-                            onChange={debouncedResults}
-                            inputProps={{
+                            onChange={ debouncedResults }
+                            inputProps={ {
                                 style: {
                                     padding: 5,
                                     display: 'inline-flex',
                                 },
-                            }}
+                            } }
                         />
                     </Grid>
                 </Grid>
             </Box>
             <CardView>
 
-                {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
-                    <IconButton onClick={deleteAllSubmission}>
+                { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
+                    <IconButton onClick={ deleteAllSubmission }>
                         <DeleteIcon />
                     </IconButton>
-                </div>}
+                </div> }
 
                 <CommonTable
-                    isCheckbox={true}
-                    isSorting={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    handleAction={handleAction}
-                    handleTableSort={handleTableSort}
-                    handleCheckboxSelect={handleCheckboxSelect}
-                    handleSingleSelect={handleSingleSelect}
+                    isCheckbox={ true }
+                    isSorting={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    handleCheckboxSelect={ handleCheckboxSelect }
+                    handleSingleSelect={ handleSingleSelect }
                     downloadSubmissionFile={ handleOriginalFileDownload }
-                    isLoading={isLoadingSubmission}
+                    isLoading={ isLoadingSubmission }
                     charLength={ 10 }
                     path=''
                 />
@@ -320,10 +320,10 @@ const StudentList = ({
                 <AddButtonBottom>
                     <CreateDrawer
                         title="Upload File"
-                        isShowAddIcon={true}>
+                        isShowAddIcon={ true }>
                         <SubmissionForm
-                            folderId={folderId}
-                            isLoadingUpload={isLoadingUpload}
+                            folderId={ folderId }
+                            isLoadingUpload={ isLoadingUpload }
                         />
                     </CreateDrawer>
                 </AddButtonBottom>
@@ -331,11 +331,11 @@ const StudentList = ({
                 {
                     showDeleteWarning &&
                     <WarningDialog
-                        warningIcon={<DeleteWarningIcon />}
+                        warningIcon={ <DeleteWarningIcon /> }
                         message="Are you sure you want to delete ?"
-                        handleYes={handleYesWarning}
-                        handleNo={handleCloseWarning}
-                        isOpen={true}
+                        handleYes={ handleYesWarning }
+                        handleNo={ handleCloseWarning }
+                        isOpen={ true }
                     />
                 }
 
@@ -350,8 +350,8 @@ const StudentList = ({
                 }
                 <PaginationContainer>
                     <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
                         color="primary"
                         variant="outlined"
                         shape="rounded"

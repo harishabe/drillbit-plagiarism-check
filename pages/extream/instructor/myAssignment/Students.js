@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import { Grid, Tooltip, Skeleton, Button, TextField } from '@mui/material';
 import { Pagination } from '@mui/material';
 import { IconButton } from '@mui/material';
-import Instructor from '../../../layouts/Instructor';
+import Instructor from '../../../../layouts/Instructor';
 import {
     CardView,
     CommonTable,
@@ -18,7 +18,7 @@ import {
     SubTitle,
     ErrorBlock,
     DialogModal
-} from '../../../components';
+} from '../../../../components';
 import {
     EditIcon,
     DeleteIcon,
@@ -28,17 +28,17 @@ import {
     AddMultipleIcon,
     AddPersonIcon,
     AddFromListIcon
-} from '../../../assets/icon';
+} from '../../../../assets/icon';
 import StudentForm from '../form/StudentForm';
 import {
     GetStudent,
     DeleteStudent,
     UploadFileDataClear,
-} from '../../../redux/action/instructor/InstructorAction';
+} from '../../../../redux/action/instructor/InstructorAction';
 import StudentInstitute from '../studentInstitute';
-import { removeCommaWordEnd } from '../../../utils/RegExp';
-import { PaginationValue } from '../../../utils/PaginationUrl';
-import { PaginationContainer } from '../../style/index';
+import { removeCommaWordEnd } from '../../../../utils/RegExp';
+import { PaginationValue } from '../../../../utils/PaginationUrl';
+import { PaginationContainer } from '../../../style/index';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -104,7 +104,7 @@ const Students = ({
             row =
                 createData(
                     student.id,
-                    student.student_id, 
+                    student.student_id,
                     student.name,
                     student.username,
                     student.department,
@@ -188,7 +188,7 @@ const Students = ({
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Student') {
             UploadFileDataClear();
-            router.push({ pathname: '/instructor/addBulkStudent', query: { classId: router.query.clasId } })
+            router.push({ pathname: '/extream/instructor/addBulkStudent', query: { classId: router.query.clasId } })
         }
     }
 
@@ -204,17 +204,17 @@ const Students = ({
     return (
         <React.Fragment>
 
-            {showDialogModal &&
+            { showDialogModal &&
                 <>
                     <DialogModal
-                        headingTitle={"Institute Students List"}
-                        isOpen={true}
+                        headingTitle={ "Institute Students List" }
+                        isOpen={ true }
                         fullWidth="lg"
                         maxWidth="lg"
-                        handleClose={handleCloseDialog}
+                        handleClose={ handleCloseDialog }
                     >
                         <StudentInstitute
-                            classId={router.query.clasId}
+                            classId={ router.query.clasId }
                         />
                     </DialogModal>
                 </>
@@ -222,17 +222,17 @@ const Students = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={ <DeleteWarningIcon /> }
                     message="Are you sure you want to delete ?"
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
             <AddButtonBottom>
                 <CreateDrawer
-                    options={[
+                    options={ [
                         {
                             icon: <AddPersonIcon />,
                             title: 'Add Student',
@@ -247,10 +247,10 @@ const Students = ({
                             icon: <AddFromListIcon />,
                             title: 'Add From List',
                             handleFromCreateDrawer: true
-                        }]}
+                        }] }
                     title="Add Student"
-                    handleMultiData={handleShow}
-                    isShowAddIcon={true}>
+                    handleMultiData={ handleShow }
+                    isShowAddIcon={ true }>
                     <StudentForm />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -259,17 +259,17 @@ const Students = ({
                 editStudent &&
                 <CreateDrawer
                     title="Edit Student"
-                    isShowAddIcon={false}
-                    showDrawer={editStudent}
+                    isShowAddIcon={ false }
+                    showDrawer={ editStudent }
                 >
                     <StudentForm
-                        editData={editStudentData}
+                        editData={ editStudentData }
                     />
                 </CreateDrawer>
             }
 
             <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={1}>
+                <Grid container spacing={ 1 }>
                     <Grid item container direction='row' justifyContent={ 'right' }>
                         <SearchField>
                             <TextField
@@ -285,28 +285,28 @@ const Students = ({
                         </SearchField>
                     </Grid>
                 </Grid>
-            </Box> 
+            </Box>
 
 
             <CardView>
                 <>
-                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
-                        <IconButton onClick={deleteAllStudent}>
+                    { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
+                        <IconButton onClick={ deleteAllStudent }>
                             <DeleteIcon />
                         </IconButton>
-                    </div>}
+                    </div> }
 
                     <CommonTable
-                        isCheckbox={true}
+                        isCheckbox={ true }
                         isSorting={ true }
-                        tableHeader={columns}
-                        tableData={rows}
-                        handleAction={handleAction}
-                        handleTableSort={handleTableSort}
-                        handleCheckboxSelect={handleCheckboxSelect}
-                        handleSingleSelect={handleSingleSelect}
-                        isLoading={isLoadingStudent}
-                        charLength={17}
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
+                        handleCheckboxSelect={ handleCheckboxSelect }
+                        handleSingleSelect={ handleSingleSelect }
+                        isLoading={ isLoadingStudent }
+                        charLength={ 17 }
                         path=''
                     />
 
