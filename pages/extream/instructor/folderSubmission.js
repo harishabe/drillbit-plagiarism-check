@@ -23,7 +23,6 @@ import {
     GetSubmissionList,
     DeleteSubmission,
     DownloadSubmissionList,
-
     UploadFileDataClear,
     UploadZipFileDataClear
 } from '../../../redux/action/instructor/InstructorAction';
@@ -31,9 +30,7 @@ import { DownloadOriginalFile } from '../../../redux/action/common/Submission/Su
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
-import SubmissionForm from './form/SubmissionForm';
 import { PaginationContainer } from '../../style/index';
-import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../../constant/data/Constant'
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -72,7 +69,6 @@ const folderSubmission = ({
     isLoadingUpload,
     isLoadingDownload,
     pageDetails,
-
     UploadFileDataClear,
     extractedFileData,
     uploadData,
@@ -344,12 +340,7 @@ const folderSubmission = ({
                         isShowAddIcon={ true }
                         navigateToMultiFile={ true }
                         handleNavigateMultiFile={ handleUploadFile }
-                    >
-                        <SubmissionForm
-                            folderId={ folderId }
-                            isLoadingUpload={ isLoadingUpload }
-                        />
-                    </CreateDrawer>
+                    />
                 </AddButtonBottom>
 
                 {
@@ -392,7 +383,6 @@ const mapStateToProps = (state) => ({
     isLoadingSubmission: state?.instructorMyFolders?.isLoadingSubmission,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
     isLoadingDownload: state?.instructorMyFolders?.isLoadingDownload,
-
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
     uploadData: state?.instructorMyFolders?.uploadData,
 });
@@ -403,7 +393,6 @@ const mapDispatchToProps = (dispatch) => {
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
         DownloadSubmissionList: (url) => dispatch(DownloadSubmissionList(url)),
-
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };

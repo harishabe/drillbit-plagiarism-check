@@ -11,10 +11,11 @@ import {
     UploadFileIcon,
     GoogleDriveIcon
 } from '../../../assets/icon';
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 
 const UploadFileFolderSubmission = () => {
     const router = useRouter();
+    console.log("router", router.query.folderId)
 
     const InstructorBreadCrumb = [
         {
@@ -55,6 +56,9 @@ const UploadFileFolderSubmission = () => {
         <UploadFiles 
             choseFileTitle='browse your file here' 
             fileIcon={ < UploadFileIcon /> } 
+            singleFileUploadAPI={ `myFolder/${router.query.folderId}/singleFile` }
+            multiFileUploadAPI={ `myFolder/${router.query.folderId}/multipleFiles` }
+            routerObj={ { pathname: '/extream/instructor/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />,
         <DragAndDrop
             btnTitle='Process the file'
