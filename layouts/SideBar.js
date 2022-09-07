@@ -109,15 +109,15 @@ const SideBar = ({ open }) => {
     const router = useRouter();
 
     function activeRoute(routeName, name) {
-        if (router.pathname === '/instructor/my-assignment' && name === 'My Classes') {
+        if (router.pathname === '/extream/instructor/my-assignment' && name === 'My Classes') {
             return true;
-        } else if (router.pathname === '/instructor/studentlist' && name === 'My Folders') {
+        } else if (router.pathname === '/extream/instructor/studentlist' && name === 'My Folders') {
             return true;
-        } else if (router.pathname === '/instructor/addBulkStudent' && name === 'My Classes') {
+        } else if (router.pathname === '/extream/instructor/addBulkStudent' && name === 'My Classes') {
             return true;
-        } else if (router.pathname === '/instructor/mysubmissions' && name === 'My Classes') {
+        } else if (router.pathname === '/extream/instructor/mysubmissions' && name === 'My Classes') {
             return true;
-        } else if (router.pathname === '/instructor/uploadFile' && name === 'My Classes') {
+        } else if (router.pathname === '/extream/instructor/uploadFile' && name === 'My Classes') {
             return true;
         } else if (router.pathname === '/extream/student/myassignments' && name === 'My Classes') {
             return true;
