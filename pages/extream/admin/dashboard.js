@@ -33,7 +33,7 @@ import {
     NoOfSubmission,
     NoStudentIcon,
 } from '../../../assets/icon';
-import TopStudents from '../../../instructor/dashboard/TopStudents';
+import TopStudents from '../instructor/dashboard/TopStudents';
 import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
