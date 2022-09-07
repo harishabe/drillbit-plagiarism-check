@@ -37,3 +37,4 @@ export { default as DialogModal } from './dialog/DialogModal';
 export { default as ErrorBlock } from './error/ErrorBlock';
 export { default as DragAndDrop } from './file/DragAndDrop';
 export { default as GoogleDriveFileUpload } from './file/GoogleDriveFileUpload';
+export { default as UploadFiles } from './file/UploadFiles';

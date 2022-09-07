@@ -29,7 +29,7 @@ const LoginForm = ({
             localStorage.setItem('token', loginState?.token);
             localStorage.setItem('email', loginState?.username);
             localStorage.setItem('name', loginState?.name);
-            router.push('/admin/dashboard');
+            router.push('/extream/admin/dashboard');
         } else if (loginState?.role === Role.instructor) {
             localStorage.setItem('role', Role.instructor);
             localStorage.setItem('token', loginState?.token);
@@ -41,7 +41,7 @@ const LoginForm = ({
             localStorage.setItem('token', loginState?.token);
             localStorage.setItem('email', loginState?.username);
             localStorage.setItem('name', loginState?.name);
-            router.push('/student/dashboard');
+            router.push('/extream/student/dashboard');
         } else if (loginState?.role === Role.super) {
             localStorage.setItem('role', Role.super);
             localStorage.setItem('token', loginState?.token);

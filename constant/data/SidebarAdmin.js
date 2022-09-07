@@ -19,28 +19,28 @@ const SidebarAdmin = [
         "activeIcon": <DashboardWhiteIcon />,
         "name": "Dashboard",
         "path": "/dashboard",
-        "layout": "/admin",
+        "layout": "/extream/admin",
     },
     {
         "icon": <ClassIcon />,
         "activeIcon": <ClassWhiteIcon />,
         "name": "Instructors",
         "path": "/instructor",
-        "layout": "/admin",
+        "layout": "/extream/admin",
     },
     {
         "icon": <StudentIcon />,
         "activeIcon": <StudentWhiteIcon />,
         "name": "Students",
         "path": "/students",
-        "layout": "/admin",
+        "layout": "/extream/admin",
     },
     {
         "icon": <ReportIcon />,
         "activeIcon": <ReportWhiteIcon />,
         "name": "Reports",
         "path": "/reports",
-        "layout": "/admin",
+        "layout": "/extream/admin",
     },
     {
         "icon": <RepositoryIcon />,
@@ -48,14 +48,14 @@ const SidebarAdmin = [
         "name": "Repository",
         "path": "/repository",
         "pathList": ["/repository"],
-        "layout": "/admin",
+        "layout": "/extream/admin",
     },
     {
         "icon": <IntegrationIcon />,
         "activeIcon": <IntegrationWhiteIcon />,
         "name": "Integration",
         "path": "/integration",
-        "layout": "/admin",
+        "layout": "/extream/admin",
     }
 ];
 

@@ -21,7 +21,6 @@ export const DragDropArea = styled('div')({
 
 export const ChooseLabel = styled('label')({
     display: 'inline-block',
-    padding: '6px 12px',
     cursor: 'pointer'
 });
 

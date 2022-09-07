@@ -18,7 +18,7 @@ const SidebarInstructor = [
         "name": "Dashboard",
         "path": "/dashboard",
         "pathList": ["/dashboard"],
-        "layout": "/instructor",
+        "layout": "/extream/instructor",
     },
     {
         "icon": <ClassIcon />,
@@ -26,7 +26,7 @@ const SidebarInstructor = [
         "name": "My Classes",
         "path": "/myclasses",
         "pathList": ["/myclasses", "/my-assignment"],
-        "layout": "/instructor",
+        "layout": "/extream/instructor",
     },
     {
         "icon": <FolderIcon />,
@@ -34,7 +34,7 @@ const SidebarInstructor = [
         "name": "My Folders",
         "path": "/myfolder",
         "pathList": ["/myfolder"],
-        "layout": "/instructor",
+        "layout": "/extream/instructor",
     },
     {
         "icon": <RepositoryIcon />,
@@ -42,7 +42,7 @@ const SidebarInstructor = [
         "name": "Repository",
         "path": "/repository",
         "pathList": ["/repository"],
-        "layout": "/instructor",
+        "layout": "/extream/instructor",
     },
     // {
     //     "icon": <CompareDocIcon />,

@@ -11,14 +11,14 @@ const SidebarStudent = [
         "activeIcon": <DashboardWhiteIcon />,
         "name": "Dashboard",
         "path": "/dashboard",
-        "layout": "/student",
+        "layout": "/extream/student",
     },
     {
         "icon": <ClassIcon />,
         "activeIcon": <ClassWhiteIcon />,
         "name": "My Classes",
         "path": "/myclasses",
-        "layout": "/student",
+        "layout": "/extream/student",
     }
 ];
 

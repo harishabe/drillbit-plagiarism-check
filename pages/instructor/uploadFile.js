@@ -4,7 +4,8 @@ import Instructor from '../../layouts/Instructor';
 import {
     BreadCrumb,
     DragAndDrop,
-    TabMenu
+    TabMenu,
+    UploadFiles
 } from '../../components';
 import {
     UploadFileIcon,
@@ -45,14 +46,15 @@ const tabMenu = [
         label: 'Zip',
     },
 ];
-
+{/* <DragAndDrop
+btnTitle='Process the file'
+choseFileTitle='browse your file here'
+fileIcon={< UploadFileIcon />}
+isUploadFile={true}
+/>, */}
 const componentList = [
-    <DragAndDrop
-        btnTitle='Process the file'
-        choseFileTitle='browse your file here'
-        fileIcon={< UploadFileIcon />}
-        isUploadFile={true}
-    />,
+   
+    <UploadFiles choseFileTitle='browse your file here' fileIcon={< UploadFileIcon />} />,
     <DragAndDrop
         btnTitle='Process the file'
         choseFileTitle='Browse your file from google drive'
