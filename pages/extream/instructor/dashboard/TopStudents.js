@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { ListView } from '../../../components';
+import { ListView } from '../../../../components';
 
 const Colors = ['#7B68C8', '#68C886', '#68C886'];
 
@@ -15,7 +15,7 @@ const TopStudents = ({
     }, [topStudentData]);
 
     return (
-        <ListView listData={topStudentData} />
+        <ListView listData={ topStudentData } />
     )
 }
 

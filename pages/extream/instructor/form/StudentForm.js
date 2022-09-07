@@ -3,10 +3,10 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import { useForm } from 'react-hook-form';
-import { FormComponent } from '../../../components';
-import { CreateStudent, EditStudent } from '../../../redux/action/instructor/InstructorAction';
-import { AddImageIcon } from '../../../assets/icon';
-import FormJson from '../../../constant/form/instructor-student-form.json';
+import { FormComponent } from '../../../../components';
+import { CreateStudent, EditStudent } from '../../../../redux/action/instructor/InstructorAction';
+import { AddImageIcon } from '../../../../assets/icon';
+import FormJson from '../../../../constant/form/instructor-student-form.json';
 
 const StudentForm = ({
     CreateStudent,

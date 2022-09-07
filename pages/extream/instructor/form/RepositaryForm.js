@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { useForm } from 'react-hook-form';
-import { FormComponent } from '../../../components';
-import FormJson from '../../../constant/form/instructor-repositary-form.json';
-import { AddImageIcon } from '../../../assets/icon';
-import { RepoUpload } from '../../../redux/action/instructor/InstructorAction';
+import { FormComponent } from '../../../../components';
+import FormJson from '../../../../constant/form/instructor-repositary-form.json';
+import { AddImageIcon } from '../../../../assets/icon';
+import { RepoUpload } from '../../../../redux/action/instructor/InstructorAction';
 
 const RepositaryForm = ({
     RepoUpload,

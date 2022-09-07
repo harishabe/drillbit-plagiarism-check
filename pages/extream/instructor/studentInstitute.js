@@ -2,17 +2,17 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@mui/material';
 import { Pagination } from '@mui/material';
-import Instructor from '../../layouts/Instructor';
-import { CommonTable } from '../../components';
+import Instructor from '../../../layouts/Instructor';
+import { CommonTable } from '../../../components';
 import BeatLoader from "react-spinners/BeatLoader";
 import AddIcon from '@mui/icons-material/Add';
-import { removeCommaWordEnd } from '../../utils/RegExp';
-import { PaginationValue } from '../../utils/PaginationUrl';
+import { removeCommaWordEnd } from '../../../utils/RegExp';
+import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     GetStudentList,
     EnrollStudent,
-} from '../../redux/action/instructor/InstructorAction';
-import { PaginationContainer } from '../style/index';
+} from '../../../redux/action/instructor/InstructorAction';
+import { PaginationContainer } from '../../style/index';
 
 const columns = [
     { id: 'student_id', label: 'Student ID' },
@@ -55,7 +55,7 @@ function StudentInstitute({
             row =
                 createData(
                     student.id,
-                    student.student_id, 
+                    student.student_id,
                     student.name,
                     student.username,
                     student.department,

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Instructor from '../../../layouts/Instructor';
-import { CardView, CommonTable, ErrorBlock, SimilarityStatus } from '../../../components';
-import { MessageExclamatoryIcon } from '../../../assets/icon';
+import Instructor from '../../../../layouts/Instructor';
+import { CardView, CommonTable, ErrorBlock, SimilarityStatus } from '../../../../components';
+import { MessageExclamatoryIcon } from '../../../../assets/icon';
 import { connect } from 'react-redux';
-import { GetSubmissionList } from '../../../redux/action/instructor/InstructorAction';
+import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
-import { GRADING_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { GRADING_NOT_FOUND } from '../../../../constant/data/ErrorMessage';
 
 const columns = [
   { id: 'STname', label: 'Student Name' },
@@ -61,12 +61,12 @@ const Grading = ({
     <React.Fragment>
       <CardView>
 
-          <CommonTable
-            isCheckbox={ false }
-            isSorting={ true }
-            tableHeader={ columns }
-            tableData={ rows }
-            isLoading={ isLoading }
+        <CommonTable
+          isCheckbox={ false }
+          isSorting={ true }
+          tableHeader={ columns }
+          tableData={ rows }
+          isLoading={ isLoading }
 
         />
 

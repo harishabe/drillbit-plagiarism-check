@@ -2,10 +2,10 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { FormComponent } from '../../../components';
-import { SubmissionListUpload } from '../../../redux/action/instructor/InstructorAction';
-import { AddImageIcon } from '../../../assets/icon';
-import FormJson from '../../../constant/form/instructor-upload-file-form.json';
+import { FormComponent } from '../../../../components';
+import { SubmissionListUpload } from '../../../../redux/action/instructor/InstructorAction';
+import { AddImageIcon } from '../../../../assets/icon';
+import FormJson from '../../../../constant/form/instructor-upload-file-form.json';
 
 const SubmissionForm = ({
     SubmissionListUpload,

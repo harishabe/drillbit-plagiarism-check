@@ -1,33 +1,33 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
-import Instructor from '../../../layouts/Instructor';
+import Instructor from '../../../../layouts/Instructor';
 import {
   CardView,
   CommonTable,
   CreateDrawer,
   WarningDialog,
   SimilarityStatus
-} from '../../../components';
-import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
+} from '../../../../components';
+import { DeleteIcon, DeleteWarningIcon } from '../../../../assets/icon';
 import { connect } from 'react-redux';
 import {
   GetSubmissionList,
   DeleteSubmission,
   UploadFileDataClear,
   UploadZipFileDataClear,
-} from '../../../redux/action/instructor/InstructorAction';
-import { DownloadOriginalFile } from '../../../redux/action/common/Submission/SubmissionAction';
+} from '../../../../redux/action/instructor/InstructorAction';
+import { DownloadOriginalFile } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { useRouter } from "next/router";
 import { TextField, Pagination } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import debouce from "lodash.debounce";
-import { PaginationValue } from '../../../utils/PaginationUrl';
+import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
-import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../style/index';
+import { removeCommaWordEnd, formatDate } from '../../../../utils/RegExp';
+import { PaginationContainer } from '../../../style/index';
 
 const columns = [
   { id: 'name', label: 'Author Name' },
@@ -108,7 +108,7 @@ const Submission = ({
           submission.title,
           submission.original_fn,
           submission.grammar,
-          <SimilarityStatus percent={submission.percent} />,
+          <SimilarityStatus percent={ submission.percent } />,
           submission.paper_id,
           formatDate(submission.date_up),
           [
@@ -210,7 +210,7 @@ const Submission = ({
     if (uploadData) {
       UploadZipFileDataClear();
     }
-    router.push({ pathname: '/instructor/uploadFile', query: router.query })
+    router.push({ pathname: '/extream/instructor/uploadFile', query: router.query })
   }
 
   /**
@@ -257,31 +257,31 @@ const Submission = ({
 
   return (
     <React.Fragment>
-      <Grid item container direction='row' justifyContent={'right'}>
+      <Grid item container direction='row' justifyContent={ 'right' }>
         <SearchField>
           <TextField
             placeholder='Search'
-            onChange={debouncedResults}
-            inputProps={{
+            onChange={ debouncedResults }
+            inputProps={ {
               style: {
                 padding: 5,
                 display: 'inline-flex',
               },
-            }}
+            } }
           />
         </SearchField>
       </Grid>
       <AddButtonBottom>
         <CreateDrawer
           title="Upload File"
-          isShowAddIcon={true}
-          navigateToMultiFile={true}
-          handleNavigateMultiFile={handleUploadFile}
+          isShowAddIcon={ true }
+          navigateToMultiFile={ true }
+          handleNavigateMultiFile={ handleUploadFile }
         >
           <SubmissionForm
-            clasId={clasId}
-            folderId={assId}
-            isLoadingUpload={isLoadingUpload}
+            clasId={ clasId }
+            folderId={ assId }
+            isLoadingUpload={ isLoadingUpload }
           />
         </CreateDrawer>
       </AddButtonBottom>
@@ -289,11 +289,11 @@ const Submission = ({
       {
         showDeleteWarning &&
         <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
+          warningIcon={ <DeleteWarningIcon /> }
           message="Are you sure you want to delete ?"
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
+          handleYes={ handleYesWarning }
+          handleNo={ handleCloseWarning }
+          isOpen={ true }
         />
       }
 
@@ -301,50 +301,50 @@ const Submission = ({
         editAssignment &&
         <CreateDrawer
           title="Edit Student"
-          isShowAddIcon={false}
-          showDrawer={editAssignment}
+          isShowAddIcon={ false }
+          showDrawer={ editAssignment }
         >
           <AssignmentForm
-            editData={editAssignmentData}
+            editData={ editAssignmentData }
           />
         </CreateDrawer>
       }
       <CardView>
-        {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
-          <IconButton onClick={deleteAllAssignment}>
+        { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
+          <IconButton onClick={ deleteAllAssignment }>
             <DeleteIcon />
           </IconButton>
-        </div>}
+        </div> }
 
 
         <CommonTable
-          isCheckbox={true}
-          isSorting={true}
-          tableHeader={columns}
-          tableData={rows}
-          handleAction={handleAction}
-          handleCheckboxSelect={handleCheckboxSelect}
-          handleSingleSelect={handleSingleSelect}
-          handleTableSort={handleTableSort}
-          downloadSubmissionFile={handleOriginalFileDownload}
-          isLoading={isLoading}
-          charLength={10}
+          isCheckbox={ true }
+          isSorting={ true }
+          tableHeader={ columns }
+          tableData={ rows }
+          handleAction={ handleAction }
+          handleCheckboxSelect={ handleCheckboxSelect }
+          handleSingleSelect={ handleSingleSelect }
+          handleTableSort={ handleTableSort }
+          downloadSubmissionFile={ handleOriginalFileDownload }
+          isLoading={ isLoading }
+          charLength={ 10 }
         />
 
         {
           showDownloadWarning &&
           <WarningDialog
             message="Are you sure you want to download ?"
-            handleYes={handleFileDownloadYesWarning}
-            handleNo={handleFileDownloadCloseWarning}
-            isOpen={true}
+            handleYes={ handleFileDownloadYesWarning }
+            handleNo={ handleFileDownloadCloseWarning }
+            isOpen={ true }
           />
         }
 
         <PaginationContainer>
           <Pagination
-            count={pageDetails?.totalPages}
-            onChange={handlePagination}
+            count={ pageDetails?.totalPages }
+            onChange={ handlePagination }
             color='primary'
             variant='outlined'
             shape='rounded'

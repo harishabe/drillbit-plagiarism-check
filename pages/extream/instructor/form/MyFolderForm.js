@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { FormComponent } from '../../../components';
-import { CreateFolder, EditFolder } from '../../../redux/action/instructor/InstructorAction';
-import FormJson from '../../../constant/form/myfolders-form.json';
-import { AddImageIcon } from '../../../assets/icon';
-import { convertDate, formatDate } from '../../../utils/RegExp';
+import { FormComponent } from '../../../../components';
+import { CreateFolder, EditFolder } from '../../../../redux/action/instructor/InstructorAction';
+import FormJson from '../../../../constant/form/myfolders-form.json';
+import { AddImageIcon } from '../../../../assets/icon';
+import { convertDate, formatDate } from '../../../../utils/RegExp';
 
 const MyFoldersForm = ({
     isLoading,

@@ -35,7 +35,7 @@ const LoginForm = ({
             localStorage.setItem('token', loginState?.token);
             localStorage.setItem('email', loginState?.username);
             localStorage.setItem('name', loginState?.name);
-            router.push('/instructor/dashboard')
+            router.push('/extream/instructor/dashboard')
         } else if (loginState?.role === Role.student) {
             localStorage.setItem('role', Role.student);
             localStorage.setItem('token', loginState?.token);

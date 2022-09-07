@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { RecentSubmissionTable } from '../../../components'
+import { RecentSubmissionTable } from '../../../../components'
 
 const RecentSubmissions = ({
     recentSubmission,

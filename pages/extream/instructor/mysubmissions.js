@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import { TextField } from '@mui/material';
 import { useRouter } from "next/router";
 
-import Instructor from '../../layouts/Instructor';
-import { BreadCrumb, TabMenu } from '../../components';
+import Instructor from '../../../layouts/Instructor';
+import { BreadCrumb, TabMenu } from '../../../components';
 
 import Submission from './submissions/submission';
 import Grading from './submissions/grading';
@@ -18,17 +18,17 @@ const MySubmissions = () => {
   const InstructorBreadCrumb = [
     {
       name: 'Dashboard',
-      link: '/instructor/dashboard',
+      link: '/extream/instructor/dashboard',
       active: false,
     },
     {
       name: 'My classes',
-      link: '/instructor/myclasses',
+      link: '/extream/instructor/myclasses',
       active: false,
     },
     {
       name: 'My assignments',
-      link: '/instructor/my-assignment' + router?.asPath?.slice(router?.pathname?.length),
+      link: '/extream/instructor/my-assignment' + router?.asPath?.slice(router?.pathname?.length),
       active: false,
     },
     {
@@ -55,10 +55,10 @@ const MySubmissions = () => {
 
   return (
     <React.Fragment>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={ { flexGrow: 1 } }>
         <BreadCrumb item={ InstructorBreadCrumb } />
       </Box>
-      <TabMenu menuButton={tabMenu} components={componentList} />
+      <TabMenu menuButton={ tabMenu } components={ componentList } />
     </React.Fragment>
   );
 };

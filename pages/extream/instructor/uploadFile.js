@@ -1,31 +1,31 @@
 import React from 'react';
 import { Grid, Box } from '@mui/material';
-import Instructor from '../../layouts/Instructor';
+import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
     DragAndDrop,
     TabMenu,
     UploadFiles
-} from '../../components';
+} from '../../../components';
 import {
     UploadFileIcon,
     GoogleDriveIcon
-} from '../../assets/icon';
+} from '../../../assets/icon';
 
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/instructor/dashboard',
+        link: '/extream/instructor/dashboard',
         active: false,
     },
     {
         name: 'My classes',
-        link: '/instructor/myclasses',
+        link: '/extream/instructor/myclasses',
         active: false,
     },
     {
         name: 'My assignments',
-        link: '/instructor/my-assignment',
+        link: '/extream/instructor/my-assignment',
         active: false,
     },
     {
@@ -53,38 +53,38 @@ fileIcon={< UploadFileIcon />}
 isUploadFile={true}
 />, */}
 const componentList = [
-   
-    <UploadFiles choseFileTitle='browse your file here' fileIcon={< UploadFileIcon />} />,
+
+    <UploadFiles choseFileTitle='browse your file here' fileIcon={ < UploadFileIcon /> } />,
     <DragAndDrop
         btnTitle='Process the file'
         choseFileTitle='Browse your file from google drive'
-        fileIcon={< GoogleDriveIcon />}
-        isGoogleDriveFile={true}
+        fileIcon={ < GoogleDriveIcon /> }
+        isGoogleDriveFile={ true }
     />,
     <DragAndDrop
         choseFileTitle='browse your zip here'
         btnTitle='Process the file'
-        fileIcon={< UploadFileIcon />}
-        isZipFile={true}
+        fileIcon={ < UploadFileIcon /> }
+        isZipFile={ true }
     />
 ];
 
 const UploadFile = () => {
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
                         <BreadCrumb
-                            item={InstructorBreadCrumb}
+                            item={ InstructorBreadCrumb }
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={1}>
-                    <Grid item md={12} xs={12}>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 12 } xs={ 12 }>
                         <TabMenu
-                            menuButton={tabMenu}
-                            components={componentList}
+                            menuButton={ tabMenu }
+                            components={ componentList }
                         />
                     </Grid>
                 </Grid>
