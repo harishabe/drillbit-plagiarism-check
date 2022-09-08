@@ -14,7 +14,7 @@ Users
 USERNAME                    |     PASSWORD             |       ROLE
 ---------------------------------------------------------------------------
 yatheendra72@gmail.com      |     12345678             |       admin
-admin@xtream                |     Admin@123            | 
+admin@xtream                |     123456               | 
 satheeshreddy45@gmail.com   |     12345678             | 
 
 ---------------------------------------------------------------------------
