@@ -4,13 +4,13 @@ import { useRouter } from "next/router";
 import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
-    DragAndDrop,
     TabMenu,
-    UploadFiles
+    UploadFiles,
+    GDriveFileUpload,
+    ZipFileUpload
 } from '../../../components';
 import {
     UploadFileIcon,
-    GoogleDriveIcon
 } from '../../../assets/icon';
 
 const InstructorBreadCrumb = [
@@ -53,22 +53,16 @@ const UploadFile = () => {
     const componentList = [
         <UploadFiles
             choseFileTitle='browse your file here'
-            fileIcon={< UploadFileIcon />}
+            fileIcon={<UploadFileIcon />}
             singleFileUploadAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`}
             multiFileUploadAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`}
             routerObj={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } }}
         />,
-        <DragAndDrop
-            btnTitle='Process the file'
-            choseFileTitle='Browse your file from google drive'
-            fileIcon={< GoogleDriveIcon />}
-            isGoogleDriveFile={true}
-        />,
-        <DragAndDrop
-            choseFileTitle='browse your zip here'
-            btnTitle='Process the file'
-            fileIcon={< UploadFileIcon />}
-            isZipFile={true}
+        <GDriveFileUpload />,
+        <ZipFileUpload
+            zipFileUploadAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`} 
+            confirmZipFileAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/confirmZipFile`} 
+            routerObj={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } }}
         />
     ];
     return (
