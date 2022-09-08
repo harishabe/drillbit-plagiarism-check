@@ -88,20 +88,20 @@ const UploadFiles = ({
     }
 
     const multiFileUpload = (files, data) => {
-        let authorNameArr = [], titleArr = [], documentTypeArr = [], filesArr = [];
+        let authorNameArr = [], titleArr = [], documentTypeArr = [];
         let bodyFormData = new FormData();
         fileData?.map((item, i) => {
             authorNameArr.push(data['authorName' + i]);
             titleArr.push(data['title' + i]);
             documentTypeArr.push(data['documentType' + i]);
-            console.log('item[1]', item[1]);
-            filesArr.push(item[1]);
         });
 
         bodyFormData.append('authorName', authorNameArr);
         bodyFormData.append('title', titleArr);
         bodyFormData.append('documentType', documentTypeArr);
-        bodyFormData.append('file', filesArr);
+        for (let i = 0; i < files.length; i++) {
+            bodyFormData.append("file", files[i][1]);
+        }
         SubmissionListUpload(multiFileUploadAPI, bodyFormData);
     }
 

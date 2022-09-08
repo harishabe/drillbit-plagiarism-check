@@ -240,6 +240,18 @@ const Submission = ({
     setShowDownloadWarning(false);
   };
 
+  const handleCloseWarning = () => {
+    setShowDeleteWarning(false);
+  };
+
+  const handleYesWarning = () => {
+    DeleteSubmission(`classes/${clasId}/assignments/${assId}/submissions?paperId=${deleteRowData}`);
+    setShowDeleteAllIcon(false);
+    setTimeout(() => {
+      setShowDeleteWarning(false);
+    }, [100]);
+  };
+
   const handleFileDownloadYesWarning = () => {
     let detailedData = {
       clasId: clasId,
