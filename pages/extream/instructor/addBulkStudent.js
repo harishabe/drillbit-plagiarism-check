@@ -142,7 +142,7 @@ const AddBulkStudent = ({
                             <div style={ { padding: '25px 150px' } }>
                                 <Grid container spacing={ 1 }>
                                     <Grid item md={ 6 } xs={ 6 }>
-                                        <MainHeading title='Add Multiple Student' />
+                                        <MainHeading title='Add Multiple Students' />
                                     </Grid>
                                     <Grid item md={ 6 } xs={ 6 } align="right">
                                         <Button

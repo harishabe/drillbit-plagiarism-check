@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
     adminReport: ReportsReducer,
     studentClasses: DetailsStudentReducer,
     superAdmin: SuperReducer,
-    Submission: SubmissionReducer
+    submission: SubmissionReducer
 });
 
 export default rootReducer;

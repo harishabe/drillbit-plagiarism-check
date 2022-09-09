@@ -31,7 +31,7 @@ import { PaginationContainer } from '../../../style/index';
 
 const columns = [
   { id: 'name', label: 'Author Name' },
-  { id: 'title', label: 'Paper Name' },
+  { id: 'title', label: 'Paper Title' },
   { id: 'original_fn', label: 'Original File', isDownload: true },
   { id: 'grammar', label: 'Grammar' },
   { id: 'percent', label: 'Similarity' },

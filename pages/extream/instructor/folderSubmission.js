@@ -20,12 +20,14 @@ import {
     SimilarityStatus
 } from '../../../components';
 import {
-    GetSubmissionList,
-    DeleteSubmission,
     DownloadSubmissionList,
     UploadFileDataClear,
     UploadZipFileDataClear
 } from '../../../redux/action/instructor/InstructorAction';
+import {
+    folderSubmissionsFileData,
+    DeletefolderSubmissionData
+} from '../../../redux/action/common/Submission/SubmissionAction';
 import { DownloadOriginalFile } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -60,11 +62,11 @@ const DownloadCsv = styled.div`
 `;
 
 const folderSubmission = ({
-    GetSubmissionList,
+    folderSubmissionsFileData,
     DownloadSubmissionList,
     DownloadOriginalFile,
-    DeleteSubmission,
-    submissionData,
+    DeletefolderSubmissionData,
+    folderSubmissionData,
     isLoadingSubmission,
     isLoadingUpload,
     isLoadingDownload,
@@ -113,13 +115,13 @@ const folderSubmission = ({
 
     useEffect(() => {
         let url = `myFolder/${folderId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=name&orderBy=${paginationPayload?.orderBy}`;
-        GetSubmissionList(url);
+        folderSubmissionsFileData(url);
     }, [folderId, paginationPayload]);
 
     useEffect(() => {
         let row = '';
         let arr = [];
-        submissionData?.map((submission) => {
+        folderSubmissionData?.map((submission) => {
             row =
                 createData(
                     submission.ass_id,
@@ -138,7 +140,7 @@ const folderSubmission = ({
             arr.push(row)
         });
         setRows([...arr]);
-    }, [submissionData]);
+    }, [folderSubmissionData]);
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
@@ -157,7 +159,7 @@ const folderSubmission = ({
     };
 
     const handleYesWarning = () => {
-        DeleteSubmission(`myFolder/${folderId}/submissions?paperId=${deleteRowData}`);
+        DeletefolderSubmissionData(`myFolder/${folderId}/submissions?paperId=${deleteRowData}`);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -181,10 +183,10 @@ const folderSubmission = ({
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${event.target.value}`;
-            GetSubmissionList(url);
+            folderSubmissionsFileData(url);
         } else {
             let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
-            GetSubmissionList(url);
+            folderSubmissionsFileData(url);
         }
     }
 
@@ -284,7 +286,7 @@ const folderSubmission = ({
                     </Grid>
                     <Grid item md={ 0.1 } xs={ 1 } align="right">
                         <DownloadCsv>
-                            { submissionData?.length > 0 &&
+                            { folderSubmissionData?.length > 0 &&
                                 <Tooltip title="Download csv">
                                     <IconButton
                                         color="primary"
@@ -378,9 +380,9 @@ const folderSubmission = ({
 }
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.instructorMyFolders?.submissionData?.page,
-    submissionData: state?.instructorMyFolders?.submissionData?._embedded?.submissionsList,
-    isLoadingSubmission: state?.instructorMyFolders?.isLoadingSubmission,
+    pageDetails: state?.submission?.folderSubmissionData?.page,
+    folderSubmissionData: state?.submission?.folderSubmissionData?._embedded?.submissionsList,
+    isLoadingSubmission: state?.submission?.isLoadingSubmission,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
     isLoadingDownload: state?.instructorMyFolders?.isLoadingDownload,
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
@@ -389,9 +391,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+        folderSubmissionsFileData: (url) => dispatch(folderSubmissionsFileData(url)),
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
-        DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
+        DeletefolderSubmissionData: (url) => dispatch(DeletefolderSubmissionData(url)),
         DownloadSubmissionList: (url) => dispatch(DownloadSubmissionList(url)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
