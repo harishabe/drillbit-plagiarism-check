@@ -20,8 +20,6 @@ import {
     SimilarityStatus
 } from '../../../components';
 import {
-    // GetSubmissionList,
-    // DeleteSubmission,
     DownloadSubmissionList,
     UploadFileDataClear,
     UploadZipFileDataClear
@@ -65,10 +63,8 @@ const DownloadCsv = styled.div`
 
 const folderSubmission = ({
     folderSubmissionsFileData,
-    // GetSubmissionList,
     DownloadSubmissionList,
     DownloadOriginalFile,
-    // DeleteSubmission,
     DeletefolderSubmissionData,
     folderSubmissionData,
     isLoadingSubmission,
@@ -120,7 +116,6 @@ const folderSubmission = ({
     useEffect(() => {
         let url = `myFolder/${folderId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=name&orderBy=${paginationPayload?.orderBy}`;
         folderSubmissionsFileData(url);
-        // GetSubmissionList(url);
     }, [folderId, paginationPayload]);
 
     useEffect(() => {
@@ -165,7 +160,6 @@ const folderSubmission = ({
 
     const handleYesWarning = () => {
         DeletefolderSubmissionData(`myFolder/${folderId}/submissions?paperId=${deleteRowData}`);
-        // DeleteSubmission(`myFolder/${folderId}/submissions?paperId=${deleteRowData}`);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -190,11 +184,9 @@ const folderSubmission = ({
         if (event.target.value !== '') {
             let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}&search=${event.target.value}`;
             folderSubmissionsFileData(url);
-            // GetSubmissionList(url);
         } else {
             let url = `myFolder/${folderId}/submissions?page=${PaginationValue?.page}&size=${PaginationValue?.size}&field=name&orderBy=${PaginationValue?.orderBy}`;
             folderSubmissionsFileData(url);
-            // GetSubmissionList(url);
         }
     }
 
@@ -388,9 +380,9 @@ const folderSubmission = ({
 }
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.Submission?.folderSubmissionData?.page,
-    folderSubmissionData: state?.Submission?.folderSubmissionData?._embedded?.submissionsList,
-    isLoadingSubmission: state?.Submission?.isLoadingSubmission,
+    pageDetails: state?.submission?.folderSubmissionData?.page,
+    folderSubmissionData: state?.submission?.folderSubmissionData?._embedded?.submissionsList,
+    isLoadingSubmission: state?.submission?.isLoadingSubmission,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
     isLoadingDownload: state?.instructorMyFolders?.isLoadingDownload,
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
@@ -400,9 +392,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         folderSubmissionsFileData: (url) => dispatch(folderSubmissionsFileData(url)),
-        // GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
-        // DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
         DeletefolderSubmissionData: (url) => dispatch(DeletefolderSubmissionData(url)),
         DownloadSubmissionList: (url) => dispatch(DownloadSubmissionList(url)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),

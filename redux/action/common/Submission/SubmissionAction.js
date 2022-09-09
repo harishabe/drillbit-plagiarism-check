@@ -14,7 +14,7 @@ export const DownloadOriginalFile = (data) => {
  */
 export const folderSubmissionsFileData = (url) => {
     return {
-        type: types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_START, url: url
+        type: types.FETCH_FOLDER_SUBMISSION_LIST_START, url: url
     };
 };
 
@@ -23,6 +23,6 @@ export const folderSubmissionsFileData = (url) => {
  */
 export const DeletefolderSubmissionData = (url) => {
     return {
-        type: types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_DELETE_START, url: url
+        type: types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_START, url: url
     };
 };

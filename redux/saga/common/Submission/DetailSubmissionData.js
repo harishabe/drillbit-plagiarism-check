@@ -43,19 +43,19 @@ export function* onLoadSubmission(action) {
     const { response, error } = yield call(GetFolderSubmission, action.url);
     if (response) {
         yield put({
-            type: types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_SUCCESS,
+            type: types.FETCH_FOLDER_SUBMISSION_LIST_SUCCESS,
             payload: response?.data,
         });
     } else {
         yield put({
-            type: types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_FAIL,
+            type: types.FETCH_FOLDER_SUBMISSION_LIST_FAIL,
             payload: error,
         });
     }
 }
 
 export function* GetFolderSubmissionData() {
-    yield takeLatest(types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_START, onLoadSubmission);
+    yield takeLatest(types.FETCH_FOLDER_SUBMISSION_LIST_START, onLoadSubmission);
 }
 
 /**
@@ -66,16 +66,16 @@ export function* GetFolderSubmissionData() {
 export function* onLoadDeleteFile(action) {
     const { response, error } = yield call(DeletefolderSubmission, action.url);
     if (response) {
-        yield put({ type: types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_DELETE_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_START, url: `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc` });
+        yield put({ type: types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_FOLDER_SUBMISSION_LIST_START, url: `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc` });
     } else {
         yield put({
-            type: types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_DELETE_FAIL,
+            type: types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_FAIL,
             payload: error,
         });
     }
 }
 
 export function* DeleteFolderSubmissionFile() {
-    yield takeLatest(types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_DELETE_START, onLoadDeleteFile);
+    yield takeLatest(types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_START, onLoadDeleteFile);
 }

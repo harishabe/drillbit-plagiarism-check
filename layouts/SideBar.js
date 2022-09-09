@@ -113,7 +113,7 @@ const SideBar = ({ open }) => {
     function activeRoute(routeName, name) {
         if (router.pathname === '/extream/instructor/my-assignment' && name === 'My Classes') {
             return true;
-        } else if (router.pathname === '/extream/instructor/studentlist' && name === 'My Folders') {
+        } else if (router.pathname === '/extream/instructor/folderSubmission' && name === 'My Folders') {
             return true;
         } else if (router.pathname === '/extream/instructor/addBulkStudent' && name === 'My Classes') {
             return true;

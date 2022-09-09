@@ -19,35 +19,35 @@ const SubmissionReducer = (state = {}, action) => {
                 isLoadingDownloadFile: false,
                 downloadFileError: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_START:
+        case types.FETCH_FOLDER_SUBMISSION_LIST_START:
             return {
                 ...state,
                 isLoadingSubmission: true,
             };
-        case types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_SUCCESS:
+        case types.FETCH_FOLDER_SUBMISSION_LIST_SUCCESS:
             return {
                 ...state,
                 isLoadingSubmission: false,
                 folderSubmissionData: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_FAIL:
+        case types.FETCH_FOLDER_SUBMISSION_LIST_FAIL:
             return {
                 ...state,
                 isLoadingSubmission: false,
                 folderSubmissionError: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_DELETE_START:
+        case types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_START:
             return {
                 ...state,
                 isLoadingDelete: true,
             };
-        case types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_DELETE_SUCCESS:
+        case types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_SUCCESS:
             return {
                 ...state,
                 isLoadingDelete: false,
                 deleteData: action.payload,
             };
-        case types.FETCH_INSTRUCTOR_FOLDER_SUBMISSION_LIST_DELETE_FAIL:
+        case types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_FAIL:
             return {
                 ...state,
                 isLoadingDelete: false,
