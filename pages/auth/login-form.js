@@ -48,6 +48,18 @@ const LoginForm = ({
             localStorage.setItem('email', loginState?.username);
             localStorage.setItem('name', loginState?.name);
             router.push('/super/dashboard');
+        } else if (loginState?.role === Role.proAdmin) {
+            localStorage.setItem('role', Role.proAdmin);
+            localStorage.setItem('token', loginState?.token);
+            localStorage.setItem('email', loginState?.username);
+            localStorage.setItem('name', loginState?.name);
+            router.push('/pro/admin/dashboard');
+        } else if (loginState?.role === Role.proUser) {
+            localStorage.setItem('role', Role.proUser);
+            localStorage.setItem('token', loginState?.token);
+            localStorage.setItem('email', loginState?.username);
+            localStorage.setItem('name', loginState?.name);
+            router.push('/pro/user/dashboard');
         }
     }, [loginState]);
 
