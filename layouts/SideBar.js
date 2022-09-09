@@ -19,7 +19,9 @@ import {
     SidebarAdmin,
     SidebarInstructor,
     SidebarStudent,
-    SidebarSuperAdmin
+    SidebarSuperAdmin,
+    SidebarProAdmin,
+    SidebarProUser,
 } from '../constant/data';
 
 const drawerWidth = 200;
@@ -138,6 +140,10 @@ const SideBar = ({ open }) => {
             setSidebarItem(SidebarStudent);
         } else if (role === 'drillbit') {
             setSidebarItem(SidebarSuperAdmin);
+        } else if (role === 'lim-admin') {
+            setSidebarItem(SidebarProAdmin);
+        } else if(role === 'lim-instructor'){
+            setSidebarItem(SidebarProUser);
         }
     }, []);
 
