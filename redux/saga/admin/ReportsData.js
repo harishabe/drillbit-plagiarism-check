@@ -12,8 +12,8 @@ import toastrValidation from '../../../utils/ToastrValidation';
  * @param {*} action
  */
 
-export function* onLoadReport() {
-    const { response, error } = yield call(GetReports);
+export function* onLoadReport(action) {
+    const { response, error } = yield call(GetReports, action.url);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_REPORTS_DATA_SUCCESS,
@@ -37,7 +37,7 @@ export function* GetReportData() {
  */
 
 export function* onLoadReportDownload(action) {
-    const { response, error } = yield call(DownloadReports, action);
+    const { response, error } = yield call(DownloadReports, action.url, action.userType);
     if (response || response === undefined) {
         yield put({
             type: types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_SUCCESS,

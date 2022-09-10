@@ -7,6 +7,9 @@ import { BreadCrumb, CardView, WidgetCard, Heading } from './../../../components
 import { DownloadIcon } from '../../../assets/icon';
 import { DownloadInstructorStudentData } from '../../../redux/action/admin/AdminAction';
 import ReportForm from './form/ReportForm';
+import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
+
 
 const IntegrationBreadCrumb = [
     {
@@ -32,10 +35,10 @@ const Reports = ({
 
     const handDownload = (e, title) => {
         if (title.slice(0, 16) === 'Instructors list') {
-            DownloadInstructorStudentData('instructors');
+            DownloadInstructorStudentData(BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + 'instructors/download', 'Instructors');
             setUsersType('instructors');
         } else if (title.slice(0, 13) === 'Students list') {
-            DownloadInstructorStudentData('students');
+            DownloadInstructorStudentData(BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + 'students/download', 'Students');
             setUsersType('students');
         }
     };
@@ -87,7 +90,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        DownloadInstructorStudentData: (userType) => dispatch(DownloadInstructorStudentData(userType)),
+        DownloadInstructorStudentData: (url, userType) => dispatch(DownloadInstructorStudentData(url, userType)),
     };
 };
 

@@ -61,8 +61,7 @@ export const DeleteStudent = async (id) => {
  * API CALL FOR REPORTS
  */
 
-export const GetReports = async () => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS;
+export const GetReports = async (url) => {
     return GetMethod(url);
 };
 
@@ -70,17 +69,15 @@ export const GetReports = async () => {
  * API CALL FOR REPORTS DOWNLOAD
  */
 
-export const DownloadReports = async (action) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + action.userType + '/download';
-    return GetMethodDownload(url, action.userType + '.csv');
+export const DownloadReports = async (url, userType) => {
+    return GetMethodDownload(url, userType + '.csv');
 };
 
 /**
  * API CALL FOR REPORTS VIEW & DOWNLOAD
  */
 
-export const ViewDownloadReports = async (apiUrl) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + apiUrl;
+export const ViewDownloadReports = async (url) => {
     return GetMethod(url);
 };
 
