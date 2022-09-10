@@ -40,9 +40,9 @@ const columns = [
   { id: 'action', label: 'Action' },
 ];
 
-function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action) {
+function createData(id, d_key, name, title, original_fn, grammar, percent, paper_id, date_up, action) {
   return {
-    id, name, title, original_fn, grammar, percent, paper_id, date_up, action
+    id, d_key, name, title, original_fn, grammar, percent, paper_id, date_up, action
   };
 }
 
@@ -104,11 +104,12 @@ const Submission = ({
       console.log('submission', submission),
         row = createData(
           submission.ass_id,
+          submission.d_key,
           submission.name,
           submission.title,
           submission.original_fn,
           submission.grammar,
-          <SimilarityStatus percent={ submission.percent } />,
+          <SimilarityStatus percent={submission.percent} />,
           submission.paper_id,
           formatDate(submission.date_up),
           [
@@ -267,33 +268,43 @@ const Submission = ({
     }, [100]);
   };
 
+  /**
+   * show analysis page
+   */
+  const handleShowAnalysisPage = (e, row) => {
+    console.log('eeee', e, row);
+    let token = localStorage.getItem('token');
+    let url = 'http://uat.drillbitplagiarismcheck.com:8083/drillbit-analysis/analysis/' + row.paper_id + '/' + row.d_key + '/' + token
+    window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+  }
+
   return (
     <React.Fragment>
-      <Grid item container direction='row' justifyContent={ 'right' }>
+      <Grid item container direction='row' justifyContent={'right'}>
         <SearchField>
           <TextField
             placeholder='Search'
-            onChange={ debouncedResults }
-            inputProps={ {
+            onChange={debouncedResults}
+            inputProps={{
               style: {
                 padding: 5,
                 display: 'inline-flex',
               },
-            } }
+            }}
           />
         </SearchField>
       </Grid>
       <AddButtonBottom>
         <CreateDrawer
           title="Upload File"
-          isShowAddIcon={ true }
-          navigateToMultiFile={ true }
-          handleNavigateMultiFile={ handleUploadFile }
+          isShowAddIcon={true}
+          navigateToMultiFile={true}
+          handleNavigateMultiFile={handleUploadFile}
         >
           <SubmissionForm
-            clasId={ clasId }
-            folderId={ assId }
-            isLoadingUpload={ isLoadingUpload }
+            clasId={clasId}
+            folderId={assId}
+            isLoadingUpload={isLoadingUpload}
           />
         </CreateDrawer>
       </AddButtonBottom>
@@ -301,11 +312,11 @@ const Submission = ({
       {
         showDeleteWarning &&
         <WarningDialog
-          warningIcon={ <DeleteWarningIcon /> }
+          warningIcon={<DeleteWarningIcon />}
           message="Are you sure you want to delete ?"
-          handleYes={ handleYesWarning }
-          handleNo={ handleCloseWarning }
-          isOpen={ true }
+          handleYes={handleYesWarning}
+          handleNo={handleCloseWarning}
+          isOpen={true}
         />
       }
 
@@ -313,50 +324,51 @@ const Submission = ({
         editAssignment &&
         <CreateDrawer
           title="Edit Student"
-          isShowAddIcon={ false }
-          showDrawer={ editAssignment }
+          isShowAddIcon={false}
+          showDrawer={editAssignment}
         >
           <AssignmentForm
-            editData={ editAssignmentData }
+            editData={editAssignmentData}
           />
         </CreateDrawer>
       }
       <CardView>
-        { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
-          <IconButton onClick={ deleteAllAssignment }>
+        {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+          <IconButton onClick={deleteAllAssignment}>
             <DeleteIcon />
           </IconButton>
-        </div> }
+        </div>}
 
 
         <CommonTable
-          isCheckbox={ true }
-          isSorting={ true }
-          tableHeader={ columns }
-          tableData={ rows }
-          handleAction={ handleAction }
-          handleCheckboxSelect={ handleCheckboxSelect }
-          handleSingleSelect={ handleSingleSelect }
-          handleTableSort={ handleTableSort }
-          downloadSubmissionFile={ handleOriginalFileDownload }
-          isLoading={ isLoading }
-          charLength={ 10 }
+          isCheckbox={true}
+          isSorting={true}
+          tableHeader={columns}
+          tableData={rows}
+          handleAction={handleAction}
+          handleCheckboxSelect={handleCheckboxSelect}
+          handleSingleSelect={handleSingleSelect}
+          handleTableSort={handleTableSort}
+          downloadSubmissionFile={handleOriginalFileDownload}
+          showAnalysisPage={handleShowAnalysisPage}
+          isLoading={isLoading}
+          charLength={10}
         />
 
         {
           showDownloadWarning &&
           <WarningDialog
             message="Are you sure you want to download ?"
-            handleYes={ handleFileDownloadYesWarning }
-            handleNo={ handleFileDownloadCloseWarning }
-            isOpen={ true }
+            handleYes={handleFileDownloadYesWarning}
+            handleNo={handleFileDownloadCloseWarning}
+            isOpen={true}
           />
         }
 
         <PaginationContainer>
           <Pagination
-            count={ pageDetails?.totalPages }
-            onChange={ handlePagination }
+            count={pageDetails?.totalPages}
+            onChange={handlePagination}
             color='primary'
             variant='outlined'
             shape='rounded'

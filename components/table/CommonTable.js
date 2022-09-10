@@ -42,7 +42,8 @@ const CommonTable = ({
     isNextPath,
     isLoading,
     isSorting,
-    downloadSubmissionFile
+    downloadSubmissionFile,
+    showAnalysisPage
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -127,16 +128,24 @@ const CommonTable = ({
                                                                 <TableCell key={column.id} align={column.align}>
                                                                     <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={(e) => downloadSubmissionFile(e, row)}>
                                                                         {typeof (value) === 'string' ?
-                                                                            <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } /> :
-                                                                            <SubTitle title={ value !== null ? value : NO_DATA_PLACEHOLDER } /> }
+                                                                            <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} /> :
+                                                                            <SubTitle title={value !== null ? value : NO_DATA_PLACEHOLDER} />}
                                                                     </a>
                                                                 </TableCell>
                                                                 :
-                                                                <TableCell key={column.id} align={column.align}>
-                                                                    {typeof (value) === 'string' ?
-                                                                        <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } /> :
-                                                                        <SubTitle title={ value !== null ? value : NO_DATA_PLACEHOLDER } /> }
-                                                                </TableCell>
+                                                                <>
+                                                                    {column.id === 'percent' ?
+                                                                        <TableCell key={column.id} align={column.align}>
+                                                                            <a href='#' onClick={(e) => showAnalysisPage(e, row)}>
+                                                                                {value !== null ? value : NO_DATA_PLACEHOLDER}
+                                                                            </a>
+                                                                        </TableCell> :
+                                                                        <TableCell key={column.id} align={column.align}>
+                                                                            {typeof (value) === 'string' ?
+                                                                                <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} /> :
+                                                                                <SubTitle title={value !== null ? value : NO_DATA_PLACEHOLDER} />}
+                                                                        </TableCell>}
+                                                                </>
                                                         }
                                                     </>
 
