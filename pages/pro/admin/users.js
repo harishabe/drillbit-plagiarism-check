@@ -104,7 +104,7 @@ const Users = ({
     const [editInstructorData, setEditInstructorData] = useState('');
 
     useEffect(() => {
-        GetInstructorData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_INSTRUCTOR, paginationPayload);
+        GetInstructorData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER, paginationPayload);
     }, [, paginationPayload]);
 
     useEffect(() => {

@@ -8,7 +8,6 @@ import { PaginationUrl } from '../../../utils/PaginationUrl';
  */
 
 export const GetInstructorDetail = async (apiUrl, paginationPayload) => {
-    // const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR + PaginationUrl(paginationPayload);
     const url = apiUrl + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
