@@ -1,8 +1,8 @@
 import * as types from '../ActionType';
 
-export const GetWidgetCount = () => {
+export const GetWidgetCount = (url) => {
     return {
-        type: types.FETCH_ADMIN_DASH_WIDGET_START
+        type: types.FETCH_ADMIN_DASH_WIDGET_START, url: url
     };
 };
 
@@ -12,24 +12,24 @@ export const GetTopStudent = () => {
     };
 };
 
-export const GetTrendAnalysis = () => {
+export const GetTrendAnalysis = (url) => {
     return {
-        type: types.FETCH_ADMIN_DASH_TREND_ANALYSIS_START,
+        type: types.FETCH_ADMIN_DASH_TREND_ANALYSIS_START, url: url
     };
 };
 
-export const RenewValidity = () => {
+export const RenewValidity = (url) => {
     return {
-        type: types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_START,
+        type: types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_START, url: url
     };
 };
 
 /**
  * Get all instructor data
  */
-export const GetInstructorData = (paginationPayload) => {
+export const GetInstructorData = (url, paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: paginationPayload
+        type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, url: url, paginationPayload: paginationPayload
     };
 };
 

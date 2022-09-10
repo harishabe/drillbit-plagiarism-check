@@ -7,8 +7,9 @@ import { PaginationUrl } from '../../../utils/PaginationUrl';
  * API CALL FOR INSTRUCTOR DATA
  */
 
-export const GetInstructorDetail = async (paginationPayload) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR + PaginationUrl(paginationPayload);
+export const GetInstructorDetail = async (apiUrl, paginationPayload) => {
+    // const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR + PaginationUrl(paginationPayload);
+    const url = apiUrl + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 

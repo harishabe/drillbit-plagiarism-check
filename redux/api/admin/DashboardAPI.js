@@ -6,8 +6,7 @@ import { GetMethod } from './../ApiMethod';
  * API CALL FOR ADMIN DASHBOARD WIDGETS
  */
 
-export const GetWidgetData = async () => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_WIDGET;
+export const GetWidgetData = async (url) => {
     return GetMethod(url);
 };
 
@@ -16,13 +15,11 @@ export const GetTopStudnet = async () => {
     return GetMethod(url);
 };
 
-export const GetTrendAnalysis = async () => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_TREND_ANALYSIS;
+export const GetTrendAnalysis = async (url) => {
     return GetMethod(url);
 };
 
-export const GetRenewValidity = async () => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_RENEW_ACCOUNT;
+export const GetRenewValidity = async (url) => {
     return GetMethod(url);
 };
 
