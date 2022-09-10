@@ -41,6 +41,8 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
 import InstructorStats from './instructor/InstructorStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
+import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 
 const columns = [
     // { id: 'user_id', label: 'ID', minWidth: 100 },
@@ -104,7 +106,7 @@ const Instructor = ({
     const [editInstructorData, setEditInstructorData] = useState('');
 
     useEffect(() => {
-        GetInstructorData(paginationPayload);
+        GetInstructorData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR, paginationPayload);
     }, [, paginationPayload]);
 
     useEffect(() => {
@@ -421,7 +423,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetInstructorData: (paginationPayload) => dispatch(GetInstructorData(paginationPayload)),
+        GetInstructorData: (url, paginationPayload) => dispatch(GetInstructorData(url, paginationPayload)),
         DeactivateData: (data, paginationPayload) => dispatch(DeactivateData(data, paginationPayload)),
         DeleteData: (deleteRowData, paginationPayload) => dispatch(DeleteData(deleteRowData, paginationPayload)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),

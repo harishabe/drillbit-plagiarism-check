@@ -56,6 +56,8 @@ import {
     STUDENT_NOT_FOUND,
     TREND_ANALYSIS_NOT_FOUND
 } from '../../../constant/data/ErrorMessage';
+import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 
 const TextAlignRight = styled.div`
     text-align: right;
@@ -92,9 +94,9 @@ const Dashboard = ({
     const [showRenewWarning, setShowRenewWarning] = useState(false);
 
     useEffect(() => {
-        GetWidgetCount();
+        GetWidgetCount(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_WIDGET);
         GetTopStudent();
-        GetTrendAnalysis();
+        GetTrendAnalysis(BASE_URL_EXTREM + END_POINTS.ADMIN_TREND_ANALYSIS);
         trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork)
         setTrendAnalysisSeries([...trendAnalysisSeries]);
     }, []);
@@ -116,7 +118,7 @@ const Dashboard = ({
     };
 
     const handleYesWarning = () => {
-        RenewValidity();
+        RenewValidity(BASE_URL_EXTREM + END_POINTS.ADMIN_RENEW_ACCOUNT);
         setShowRenewWarning(false);
         setTimeout(() => {
             setShowRenewWarning(false);
@@ -360,10 +362,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetWidgetCount: () => dispatch(GetWidgetCount()),
+        GetWidgetCount: (url) => dispatch(GetWidgetCount(url)),
         GetTopStudent: () => dispatch(GetTopStudent()),
-        GetTrendAnalysis: () => dispatch(GetTrendAnalysis()),
-        RenewValidity: () => dispatch(RenewValidity()),
+        GetTrendAnalysis: (url) => dispatch(GetTrendAnalysis(url)),
+        RenewValidity: (url) => dispatch(RenewValidity(url)),
     };
 };
 

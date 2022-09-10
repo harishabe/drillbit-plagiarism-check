@@ -16,8 +16,8 @@ import toastrValidation from '../../../utils/ToastrValidation';
  * @param {*} action
  */
 
-export function* onLoadDashboardWidget() {
-    const { response, error } = yield call(GetWidgetData);
+export function* onLoadDashboardWidget(action) {
+    const { response, error } = yield call(GetWidgetData, action.url);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_DASH_WIDGET_SUCCESS, payload: response?.data });
     } else {
@@ -56,8 +56,8 @@ export function* TopStudent() {
  * @param {*} action
  */
 
- export function* onLoadTrendAnalysis() {
-    const { response, error } = yield call(GetTrendAnalysis);
+export function* onLoadTrendAnalysis(action) {
+    const { response, error } = yield call(GetTrendAnalysis, action.url);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_DASH_TREND_ANALYSIS_SUCCESS, payload: response?.data });
     } else {
@@ -75,8 +75,8 @@ export function* TrendAnalysis() {
  * @param {*} action
  */
 
-export function* onLoadRenewAccount() {
-    const { response, error } = yield call(GetRenewValidity);
+export function* onLoadRenewAccount(action) {
+    const { response, error } = yield call(GetRenewValidity, action.url);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_DASH_RENEW_ACCOUNT_SUCCESS, payload: response?.data });
         toastrValidation(response);
