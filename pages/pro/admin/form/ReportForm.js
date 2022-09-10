@@ -5,20 +5,19 @@ import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
 import { FormComponent, DialogModal } from '../../../../components';
 import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData, ViewDownloadSubmissiondData } from '../../../../redux/action/admin/AdminAction';
-import FormJson from '../../../../constant/form/admin-report-form.json';
+import FormJson from '../../../../constant/form/pro-admin-report-form.json';
 import ReportView from '../report/ReportView';
 import { convertDate } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
-import END_POINTS from '../../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../../utils/EndPointPro';
+import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 
 const ReportForm = ({
     ReportsData,
     ViewAndDownloadData,
     ViewDownloadSubmissiondData,
     DownloadInstructorStudentData,
-    assignmentViewDownloadData,
-    classesViewDownloadData,
+    folderViewDownloadData,
     submissionsViewDownloadData,
     reportViewSubmissionResponse,
     reportData,
@@ -54,14 +53,14 @@ const ReportForm = ({
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + '?page=' + (value - 1) + '&size=' + PaginationValue?.size + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + reportDownloadData?.report?.name + '?page=' + (value - 1) + '&size=' + PaginationValue?.size + '&user=' + reportDownloadData?.user?.username + '&from=' + fromDate + '&to=' + toDate;
         ViewAndDownloadData(url);
     };
 
     const onSubmit = (data) => {
         let fromDate = convertDate(data?.fromDate);
         let toDate = convertDate(data?.toDate);
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + data?.report?.name + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&instructor=' + data?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + data?.report?.name + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&user=' + data?.user?.username + '&from=' + fromDate + '&to=' + toDate;
         ViewAndDownloadData(url);
         setShowDialogModal(true);
         setReportDownloadData(data);
@@ -70,14 +69,14 @@ const ReportForm = ({
     const handleDownload = () => {
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + reportDownloadData?.report?.name + 'Report?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&user=' + reportDownloadData?.user?.username + '&from=' + fromDate + '&to=' + toDate;
         DownloadInstructorStudentData(url, reportDownloadData?.report?.name);
     }
 
     const onSend = (data) => {
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + reportDownloadData?.report?.name + 'Report?email=' + data.username + '&user=' + reportDownloadData?.user?.username + '&from=' + fromDate + '&to=' + toDate;
         ViewDownloadSubmissiondData(url);
     }
 
@@ -90,11 +89,12 @@ const ReportForm = ({
     const reportName = reportDownloadData?.report?.name
 
     useEffect(() => {
-        ReportsData(BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS);
+        ReportsData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS);
     }, []);
 
     useEffect(() => {
         let reportType = [];
+        let userName = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'report') {
                 reportData?.reportTypes?.map((item) => {
@@ -102,9 +102,9 @@ const ReportForm = ({
                 });
                 formItem['options'] = reportType;
             }
-            if (formItem.name === 'instructor') {
-                reportData?.instructorList.unshift({ 'name': 'All', 'username': 'all' });
-                formItem['options'] = reportData?.instructorList;
+            if (formItem.name === 'user') {
+                reportData?.users.unshift({ 'name': 'All', 'username': 'all' });
+                formItem['options'] = reportData?.users;
             }
             return formItem;
         });
@@ -115,49 +115,48 @@ const ReportForm = ({
 
     return (
         <>
-            {showDialogModal &&
+            { showDialogModal &&
                 <>
                     <DialogModal
                         headingTitle="Reports"
-                        isOpen={true}
+                        isOpen={ true }
                         fullWidth="xl"
                         maxWidth="xl"
-                        handleClose={handleCloseDialog}
+                        handleClose={ handleCloseDialog }
                     >
-                    <ReportView
-                        reportName={ reportName }
-                        assignmentViewDownloadData={ assignmentViewDownloadData }
-                        classesViewDownloadData={ classesViewDownloadData }
-                        submissionsViewDownloadData={ submissionsViewDownloadData }
-                        handleDownload={ handleDownload }
-                        open={ open }
-                        setOpen={ setOpen }
-                        closeSendDialog={ closeSendDialog }
-                        onSend={ onSend }
-                        handleChange={ handleChange }
-                        pageDetails={ pageDetails }
-                        isLoadingViewReport={ isLoadingViewReport }
-                        isLoadingSubmission={ isLoadingSubmission }
-                        isLoadingDownload={ isLoadingDownload }
+                        <ReportView
+                            reportName={ reportName }
+                            folderViewDownloadData={ folderViewDownloadData }
+                            submissionsViewDownloadData={ submissionsViewDownloadData }
+                            handleDownload={ handleDownload }
+                            open={ open }
+                            setOpen={ setOpen }
+                            closeSendDialog={ closeSendDialog }
+                            onSend={ onSend }
+                            handleChange={ handleChange }
+                            pageDetails={ pageDetails }
+                            isLoadingViewReport={ isLoadingViewReport }
+                            isLoadingSubmission={ isLoadingSubmission }
+                            isLoadingDownload={ isLoadingDownload }
                         />
                     </DialogModal>
                 </>
             }
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    {formData?.map((field, i) => (
-                        <Grid md={5.8} xs={12} style={{ marginLeft: '8px' }}>
-                            {isLoading ? (
+                    { formData?.map((field, i) => (
+                        <Grid md={ 5.8 } xs={ 12 } style={ { marginLeft: '8px' } }>
+                            { isLoading ? (
                                 <Skeleton />
                             ) : (
                                 <FormComponent
-                                    key={i}
-                                    field={field}
-                                    control={control}
+                                    key={ i }
+                                    field={ field }
+                                    control={ control }
                                 />
-                            )}
+                            ) }
                         </Grid>
-                    ))}
+                    )) }
                 </Grid>
             </form>
         </>
@@ -171,9 +170,8 @@ const mapStateToProps = (state) => ({
     isLoadingDownload: state?.adminReport?.isLoadingDownload,
     isLoadingSubmission: state?.adminReport?.isLoadingSubmissionReport,
     isLoadingViewReport: state?.adminReport?.isLoadingViewReport,
-    assignmentViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.assignmentsReportList,
-    classesViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.classesReportList,
-    submissionsViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.submissionsReportList,
+    folderViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.foldersDTOList,
+    submissionsViewDownloadData: state?.adminReport?.viewDownloadData?._embedded?.submissionsDTOList,
     reportViewSubmissionResponse: state?.adminReport?.reportViewSubmission?.status,
 });
 

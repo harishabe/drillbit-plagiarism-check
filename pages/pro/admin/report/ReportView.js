@@ -1,0 +1,220 @@
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Pagination } from '@mui/material';
+import { Skeleton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import { useForm } from 'react-hook-form';
+import { Grid, Tooltip } from '@mui/material';
+import {
+    CardView,
+    CommonTable,
+    FormComponent,
+    DialogModal,
+    SimilarityStatus
+} from '../../../../components';
+import { DownloadIcon } from '../../../../assets/icon';
+import FormJson from '../../../../constant/form/report-submission-form.json';
+import { formatDate } from '../../../../utils/RegExp';
+import { PaginationContainer } from '../../../style/index';
+
+const DownloadButton = styled.div`
+    position:fixed;
+    top: 17px;
+    right:80px;
+`;
+
+const foldersColumn = [
+    { id: 'name', label: 'Folder Name', minWidth: 170 },
+    { id: 'id', label: 'Folder Id', minWidth: 170 },
+    { id: 'username', label: 'Email', minWidth: 170 },
+    { id: 'created', label: 'Created Date', minWidth: 170 },
+    { id: 'endDate', label: 'End Date', minWidth: 170 },
+    { id: 'count', label: 'Submissions', minWidth: 170 },
+]
+
+const submissionsColumns = [
+    { id: 'name', label: 'Author Name', minWidth: 110 },
+    { id: 'title', label: 'Title', minWidth: 110 },
+    { id: 'date_up', label: 'Submission Date', minWidth: 110 },
+    { id: 'username', label: 'Email', minWidth: 110 },
+    { id: 'paper_id', label: 'Paper Id', minWidth: 110 },
+    { id: 'percent', label: 'Similarity', minWidth: 110 },
+]
+
+function submissionData(name, title, date_up, username, paper_id, percent) {
+    return { name, title, date_up, username, paper_id, percent }
+}
+
+function folderData(name, id, username, created, endDate, count) {
+    return { name, id, username, created, endDate, count }
+}
+
+const ReportView = ({
+    reportName,
+    folderViewDownloadData,
+    submissionsViewDownloadData,
+    isLoadingViewReport,
+    isLoadingSubmission,
+    isLoadingDownload,
+    handleDownload,
+    open,
+    setOpen,
+    onSend,
+    closeSendDialog,
+    handleChange,
+    pageDetails
+}) => {
+    const [rows, setRows] = useState([]);
+
+    const { handleSubmit, control } = useForm({
+        mode: 'all',
+    });
+
+    useEffect(() => {
+        let row = '';
+        let arr = [];
+        folderViewDownloadData?.map((data) => {
+            row =
+                folderData(
+                    data.folder_name,
+                    data.folder_id,
+                    data.mail_id,
+                    data.created_id,
+                    data.end_date,
+                    data.no_of_submissions,
+                );
+            arr.push(row)
+        });
+        setRows([...arr]);
+    }, [folderViewDownloadData]);
+
+    useEffect(() => {
+        let row = '';
+        let arr = [];
+        submissionsViewDownloadData?.map((data) => {
+            row =
+                submissionData(
+                    data.name,
+                    data.title,
+                    formatDate(data.date_up),
+                    data.mail_id,
+                    data.paper_id,
+                    <SimilarityStatus percent={ data.percent } />,
+                );
+            arr.push(row)
+        });
+        setRows([...arr]);
+    }, [submissionsViewDownloadData]);
+
+    return (
+        <CardView>
+            <>
+                { isLoadingViewReport ?
+                    <>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </>
+                    :
+                    <>
+                        {
+                            reportName === 'folders' &&
+                            <>
+                                { isLoadingDownload ? <Skeleton /> :
+                                    <Tooltip title="Download Folders" arrow>
+                                        <IconButton sx={ {
+                                            position: 'fixed',
+                                            padding: '20px',
+                                            top: '9px',
+                                            right: '74px'
+                                        } }
+                                            onClick={ handleDownload }>
+                                            <DownloadButton >
+                                                <DownloadIcon />
+                                            </DownloadButton>
+                                        </IconButton>
+                                    </Tooltip>
+                                }
+                                <CommonTable
+                                    isCheckbox={ false }
+                                    isSorting={ true }
+                                    tableHeader={ foldersColumn }
+                                    tableData={ rows }
+                                    charLength={ 10 }
+                                    path=''
+                                />
+                            </>
+                        }
+
+                        {
+                            reportName === 'submissions' &&
+                            <>
+                                <Tooltip title="Download submissions" arrow>
+                                    <IconButton sx={ {
+                                        position: 'fixed',
+                                        padding: '20px',
+                                        top: '9px',
+                                        right: '74px'
+                                    } }
+                                        onClick={ setOpen }>
+                                        <DownloadButton >
+                                            <DownloadIcon />
+                                        </DownloadButton>
+                                    </IconButton>
+                                </Tooltip>
+                                <CommonTable
+                                    isCheckbox={ false }
+                                    isSorting={ true }
+                                    tableHeader={ submissionsColumns }
+                                    tableData={ rows }
+                                    charLength={ 10 }
+                                    path=''
+                                />
+                            </>
+
+                        }
+
+                        { open &&
+                            <>
+                                <DialogModal
+                                    headingTitle="Mail"
+                                    isOpen={ true }
+                                    fullWidth="sm"
+                                    maxWidth="sm"
+                                    handleClose={ closeSendDialog }
+                                >
+                                    <form onSubmit={ handleSubmit(onSend) }>
+                                        <Grid container>
+                                            { FormJson?.map((field, i) => (
+                                                <Grid md={ 12 } style={ { marginLeft: '8px' } }>
+                                                    <FormComponent
+                                                        key={ i }
+                                                        field={ field }
+                                                        control={ control }
+                                                        isLoading={ isLoadingSubmission }
+                                                    />
+                                                </Grid>
+                                            )) }
+                                        </Grid>
+                                    </form>
+                                </DialogModal>
+                            </>
+                        }
+                    </>
+                }
+
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </PaginationContainer>
+            </>
+        </CardView>
+    )
+}
+
+export default ReportView;

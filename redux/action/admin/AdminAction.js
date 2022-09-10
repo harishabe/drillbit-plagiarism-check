@@ -101,18 +101,18 @@ export const GetStudnetData = (paginationPayload) => {
 /**
  * reports data
  */
-export const ReportsData = () => {
+export const ReportsData = (url) => {
     return {
-        type: types.FETCH_ADMIN_REPORTS_DATA_START,
+        type: types.FETCH_ADMIN_REPORTS_DATA_START, url: url
     };
 };
 
 /**
  * instructor and student csv file download
  */
-export const DownloadInstructorStudentData = (userType) => {
+export const DownloadInstructorStudentData = (url, userType) => {
     return {
-        type: types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_START, userType: userType
+        type: types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_START, url: url, userType: userType
     };
 };
 
