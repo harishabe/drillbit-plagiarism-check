@@ -7,6 +7,7 @@ import { LmsIntegration, ChangeConfig } from '../../../../redux/action/admin/Adm
 import FormJson from '../../../../constant/form/admin-blackboard-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import END_POINTS from '../../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 
 const BlackboardForm = ({
     LmsIntegration,
@@ -27,12 +28,12 @@ const BlackboardForm = ({
             let detailedData = {
                 ...data, 'method': data.method.name
             }
-            ChangeConfig(END_POINTS.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
+            ChangeConfig(BASE_URL_EXTREM + END_POINTS.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
         } else {
             let detailedData = {
                 ...data, 'method': data.method.name
             }
-            LmsIntegration(END_POINTS.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
+            LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
         }
     };
 

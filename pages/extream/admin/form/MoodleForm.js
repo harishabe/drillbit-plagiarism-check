@@ -7,6 +7,7 @@ import { LmsIntegration, ChangeConfig } from '../../../../redux/action/admin/Adm
 import FormJson from '../../../../constant/form/admin-moodle-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import END_POINTS from '../../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 
 const MoodleForm = ({
     LmsIntegration,
@@ -24,9 +25,9 @@ const MoodleForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            ChangeConfig(END_POINTS.ADMIN_MOODLE_INTEGRATION, data);
+            ChangeConfig(BASE_URL_EXTREM + END_POINTS.ADMIN_MOODLE_INTEGRATION, data);
         } else {
-            LmsIntegration(END_POINTS.ADMIN_MOODLE_INTEGRATION, data)
+            LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_MOODLE_INTEGRATION, data)
         }
     };
 

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { LmsIntegration, ChangeConfig } from '../../../../redux/action/admin/AdminAction';
-import FormJson from '../../../../constant/form/admin-canvas-form.json';
+import FormJson from '../../../../constant/form/admin-blackboard-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
-import END_POINTS from '../../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../../utils/EndPointPro';
+import { BASE_URL_PRO } from '../../../../utils/BaseUrl'
 
-const CanvasForm = ({
+const BlackboardForm = ({
     LmsIntegration,
     ChangeConfig,
     editData,
@@ -28,12 +28,12 @@ const CanvasForm = ({
             let detailedData = {
                 ...data, 'method': data.method.name
             }
-            ChangeConfig(BASE_URL_EXTREM + END_POINTS.ADMIN_CANVAS_INTEGRATION, detailedData);
+            ChangeConfig(BASE_URL_PRO + END_POINTS_PRO.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
         } else {
             let detailedData = {
                 ...data, 'method': data.method.name
             }
-            LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_CANVAS_INTEGRATION, detailedData)
+            LmsIntegration(BASE_URL_PRO + END_POINTS_PRO.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
         }
     };
 
@@ -54,7 +54,7 @@ const CanvasForm = ({
                 'client_id': editData?.client_id,
                 'auth_end_point': editData?.auth_end_point,
                 'access_end_point': editData?.access_end_point,
-                'method': editData?.method?.name,
+                'method': editData?.method.name,
                 'keyset_end_point': editData?.keyset_end_point,
             };
             const fields = [
@@ -107,4 +107,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CanvasForm);
+export default connect(mapStateToProps, mapDispatchToProps)(BlackboardForm);

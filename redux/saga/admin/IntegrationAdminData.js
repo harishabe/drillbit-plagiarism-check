@@ -62,7 +62,7 @@ export function* GetAdminIntegrationType() {
  */
 
 export function* onLoadIntegrationDetailsUpload(action) {
-    const { response, error } = yield call(LmsIntegrationDetail, action.apiUrl, action.query);
+    const { response, error } = yield call(LmsIntegrationDetail, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_SUCCESS, payload: response?.data });
         yield put({ type: types.FETCH_ADMIN_INTEGRATION_DETAILS_START, apiUrl: '/extreme/integrations/home' });
@@ -86,14 +86,14 @@ export function* UploadAdminIntegration() {
  */
 
 export function* onLoadChangeConfigDetail(action) {
-    const { response, error } = yield call(ChangeConfigDetail, action.apiUrl, action.query);
+    const { response, error } = yield call(ChangeConfigDetail, action.url, action.query);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_SUCCESS,
             payload: response?.data,
         });
         yield put({
-            type: types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_START, apiUrl: action.apiUrl,
+            type: types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_START, apiUrl: action.url,
             payload: response?.data,
         });
         toastrValidation(response)

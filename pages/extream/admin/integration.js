@@ -25,6 +25,7 @@ import {
     ADMIN_INTEGRATION_CANVAS_PATH,
     ADMIN_INTEGRATION_BLACKBOARD_PATH,
 } from '../../../constant/data/Integration'
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl'
 
 const IntegrationBreadCrumb = [
     {
@@ -57,7 +58,7 @@ const Integration = ({
 
 
     useEffect(() => {
-        GetIntegrationList(END_POINTS.ADMIN_INTEGRATION_DATA);
+        GetIntegrationList(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_DATA);
     }, []);
 
     useEffect(() => {
