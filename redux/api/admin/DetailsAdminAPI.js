@@ -131,8 +131,8 @@ export const DeactivateRow = async (payload) => {
  * API CALL FOR REPOSITARY DATA
  */
 
-export const GetRepoDetail = async (paginationPayload) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_DATA + PaginationUrl(paginationPayload);
+export const GetRepoDetail = async (apiUrl, paginationPayload) => {
+    const url = apiUrl + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -149,7 +149,6 @@ export const RepoUploadDetail = async (data) => {
  * API CALL FOR REMOVE REPOSITARY
  */
 
-export const RemoveRepositaryData = async (id) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_REMOVE + id;
+export const RemoveRepositaryData = async (url) => {
     return GetMethod(url);
 };

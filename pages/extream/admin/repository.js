@@ -20,6 +20,8 @@ import Admin from '../../../layouts/Admin';
 import { GetRepoList, RemoveRepositary } from '../../../redux/action/admin/AdminAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate } from '../../../utils/RegExp';
+import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 
 const AdminBreadCrumb = [
     {
@@ -75,7 +77,7 @@ const Repository = ({
     });
 
     useEffect(() => {
-        GetRepoList(paginationPayload);
+        GetRepoList(BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_DATA, paginationPayload);
     }, [, paginationPayload]);
 
     useEffect(() => {
@@ -110,7 +112,7 @@ const Repository = ({
     };
 
     const handleYesWarning = () => {
-        RemoveRepositary(deleteRowData);
+        RemoveRepositary(BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_REMOVE + deleteRowData);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -229,8 +231,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetRepoList: (PaginationValue) => dispatch(GetRepoList(PaginationValue)),
-        RemoveRepositary: (id) => dispatch(RemoveRepositary(id)),
+        GetRepoList: (url, PaginationValue) => dispatch(GetRepoList(url, PaginationValue)),
+        RemoveRepositary: (url) => dispatch(RemoveRepositary(url)),
     };
 };
 

@@ -16,10 +16,12 @@ import {
     WarningDialog
 } from './../../../components';
 import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
-import ProAdmin from '../../../layouts/Admin';
+import Admin from '../../../layouts/Admin';
 import { GetRepoList, RemoveRepositary } from '../../../redux/action/admin/AdminAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate } from '../../../utils/RegExp';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
+import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 
 const AdminBreadCrumb = [
     {
@@ -75,7 +77,7 @@ const Repository = ({
     });
 
     useEffect(() => {
-        GetRepoList(paginationPayload);
+        GetRepoList(BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_DATA, paginationPayload);
     }, [, paginationPayload]);
 
     useEffect(() => {
@@ -110,7 +112,7 @@ const Repository = ({
     };
 
     const handleYesWarning = () => {
-        RemoveRepositary(deleteRowData);
+        RemoveRepositary(BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_REMOVE + deleteRowData);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -143,7 +145,7 @@ const Repository = ({
         };
     });
 
-/** end debounce concepts */
+    /** end debounce concepts */
 
     return (
         <React.Fragment>
@@ -156,8 +158,8 @@ const Repository = ({
             </Box>
             <Grid container spacing={ 2 }>
                 <Grid item md={ 8 } xs={ 12 }>
-                    <MainHeading 
-                        title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } 
+                    <MainHeading
+                        title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
                 <Grid item md={ 4 } xs={ 12 } align="right">
@@ -198,7 +200,7 @@ const Repository = ({
                 <>
                     <CommonTable
                         isCheckbox={ false }
-                        isSorting={true}
+                        isSorting={ true }
                         tableHeader={ columns }
                         tableData={ rows }
                         handleAction={ handleAction }
@@ -229,11 +231,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetRepoList: (PaginationValue) => dispatch(GetRepoList(PaginationValue)),
-        RemoveRepositary: (id) => dispatch(RemoveRepositary(id)),
+        GetRepoList: (url, PaginationValue) => dispatch(GetRepoList(url, PaginationValue)),
+        RemoveRepositary: (url) => dispatch(RemoveRepositary(url)),
     };
 };
 
-Repository.layout = ProAdmin
+Repository.layout = Admin
 
 export default connect(mapStateToProps, mapDispatchToProps)(Repository);
