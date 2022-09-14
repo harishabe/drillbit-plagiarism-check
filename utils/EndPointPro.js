@@ -9,6 +9,10 @@ const END_POINTS_PRO = {
     ADMIN_REPOSITARY_DATA: '/admin/repositoryInbox',
     ADMIN_REPOSITARY_UPLOAD: '/admin/directRepository',
     ADMIN_REPOSITARY_REMOVE: '/admin/removeRepository/',
+    ADMIN_INTEGRATION_DATA: '/integrations/home',
+    ADMIN_MOODLE_INTEGRATION: '/integrations/moodle',
+    ADMIN_CANVAS_INTEGRATION: '/integrations/canvas',
+    ADMIN_BLACKBOARD_INTEGRATION: '/integrations/blackboard',
 }
 
 export default END_POINTS_PRO;

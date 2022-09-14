@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import { Grid, Box, Skeleton } from '@mui/material';
-import Admin from './../../../../layouts/Admin';
+import ProAdmin from './../../../../layouts/ProAdmin';
 import {
     BreadCrumb,
     CreateDrawer
 } from '../../../../components';
 import { GetIntegrationDetailData } from '../../../../redux/action/admin/AdminAction';
-import END_POINTS from '../../../../utils/EndPoints';
-import IntegrationTypeDetail from './IntegrationTypeDetail';
+import END_POINTS_PRO from '../../../../utils/EndPointPro';
+import IntegrationTypeDetail from '../../../extream/admin/integration/IntegrationTypeDetail';
 import BlackboardForm from '../form/BlackboardForm';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 
 const BlackBoard = ({
     GetIntegrationDetailData,
@@ -43,7 +43,7 @@ const BlackBoard = ({
     ];
 
     useEffect(() => {
-        GetIntegrationDetailData(BASE_URL_EXTREM + END_POINTS.ADMIN_BLACKBOARD_INTEGRATION);
+        GetIntegrationDetailData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_BLACKBOARD_INTEGRATION);
     }, []);
 
     const handleConfig = () => {
@@ -52,41 +52,41 @@ const BlackBoard = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
-                <Grid container spacing={1}>
-                    {isLoading ? <Grid container spacing={2}>
-                        <Grid item md={4} xs={12}><Skeleton /></Grid>
-                        <Grid item md={4} xs={12}><Skeleton /></Grid>
-                        <Grid item md={4} xs={12}><Skeleton /></Grid>
+                <Grid container spacing={ 1 }>
+                    { isLoading ? <Grid container spacing={ 2 }>
+                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
                     </Grid> :
-                        <Grid item md={12} xs={12}>
+                        <Grid item md={ 12 } xs={ 12 }>
                             {
                                 integrationData &&
                                 <IntegrationTypeDetail
                                     routerData={ router?.query }
-                                    integrationData={integrationData}
-                                    handleConfig={handleConfig}
-                                    isBlackboardTrue={true}
+                                    integrationData={ integrationData }
+                                    handleConfig={ handleConfig }
+                                    isBlackboardTrue={ true }
                                 />
                             }
                         </Grid>
                     }
                 </Grid>
 
-                {form &&
+                { form &&
                     <CreateDrawer
                         title="Canvas Configuration"
-                        isShowAddIcon={false}
-                        showDrawer={form}
+                        isShowAddIcon={ false }
+                        showDrawer={ form }
                     >
                         <BlackboardForm
-                            editData={integrationData}
-                            isLoadingUpload={isLoadingUpload}
+                            editData={ integrationData }
+                            isLoadingUpload={ isLoadingUpload }
                         />
                     </CreateDrawer>
                 }
@@ -107,7 +107,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-BlackBoard.layout = Admin;
+BlackBoard.layout = ProAdmin;
 
 BlackBoard.propTypes = {
     GetIntegrationDetailData: PropTypes.func.isRequired,

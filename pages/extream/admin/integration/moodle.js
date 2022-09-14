@@ -12,6 +12,7 @@ import { GetIntegrationDetailData } from '../../../../redux/action/admin/AdminAc
 import END_POINTS from '../../../../utils/EndPoints';
 import IntegrationTypeDetail from './IntegrationTypeDetail';
 import MoodleForm from '../form/MoodleForm';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 
 const Moodle = ({
     GetIntegrationDetailData,
@@ -42,7 +43,7 @@ const Moodle = ({
     ];
 
     useEffect(() => {
-        GetIntegrationDetailData(END_POINTS.ADMIN_MOODLE_INTEGRATION);
+        GetIntegrationDetailData(BASE_URL_EXTREM + END_POINTS.ADMIN_MOODLE_INTEGRATION);
     }, []);
 
     const handleConfig = () => {

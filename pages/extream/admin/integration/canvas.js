@@ -12,6 +12,7 @@ import { GetIntegrationDetailData } from '../../../../redux/action/admin/AdminAc
 import END_POINTS from '../../../../utils/EndPoints';
 import IntegrationTypeDetail from './IntegrationTypeDetail';
 import CanvasForm from '../form/CanvasForm';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 
 const Canvas = ({
     GetIntegrationDetailData,
@@ -43,7 +44,7 @@ const Canvas = ({
 
     
     useEffect(() => {
-        GetIntegrationDetailData(END_POINTS.ADMIN_CANVAS_INTEGRATION);
+        GetIntegrationDetailData(BASE_URL_EXTREM + END_POINTS.ADMIN_CANVAS_INTEGRATION);
     }, []);
 
     const handleConfig = () => {

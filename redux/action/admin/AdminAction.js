@@ -218,17 +218,17 @@ export const GetIntegrationList = (apiUrl) => {
 /**
  * Upload integration data
  */
-export const LmsIntegration = (apiUrl, data) => {
+export const LmsIntegration = (url, data) => {
     return {
-        type: types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_START, apiUrl: apiUrl, query: data
+        type: types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_START, url: url, query: data
     };
 };
 
 /**
  * change config data
  */
-export const ChangeConfig = (apiUrl, data) => {
+export const ChangeConfig = (url, data) => {
     return {
-        type: types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_START, apiUrl: apiUrl, query: data
+        type: types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_START, url: url, query: data
     };
 };
