@@ -140,8 +140,7 @@ export const GetRepoDetail = async (apiUrl, paginationPayload) => {
  * REPOSITARY > UPLOADFILE
  */
 
-export const RepoUploadDetail = async (data) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD;
+export const RepoUploadDetail = async (url, data) => {
     return PostFormData(url, data);
 };
 

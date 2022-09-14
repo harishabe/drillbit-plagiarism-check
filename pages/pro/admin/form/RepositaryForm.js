@@ -5,7 +5,9 @@ import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import FormJson from '../../../../constant/form/admin-repositary-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
-import { RepoUpload } from '../../../../redux/action//admin/AdminAction';
+import { RepoUpload } from '../../../../redux/action/admin/AdminAction';
+import END_POINTS_PRO from '../../../../utils/EndPointPro';
+import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 
 const RepositaryForm = ({
     RepoUpload,
@@ -16,14 +18,15 @@ const RepositaryForm = ({
     });
 
     const onSubmit = (data) => {
+        let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD;
         let bodyFormData = new FormData();
-        bodyFormData.append('name', data.name);
+        bodyFormData.append('author_name', data.name);
         bodyFormData.append('title', data.title);
         bodyFormData.append('year', data.year);
         bodyFormData.append('repository', data.repository.name === 'Institution' ? 'LOCAL' : 'GLOBAL');
         bodyFormData.append('language', data.language.name);
         bodyFormData.append('file', data.file[0]);
-        RepoUpload(bodyFormData)
+        RepoUpload(url, bodyFormData)
     }
 
     return (
@@ -55,7 +58,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        RepoUpload: (data) => dispatch(RepoUpload(data)),
+        RepoUpload: (url, data) => dispatch(RepoUpload(url, data)),
     };
 };
 
