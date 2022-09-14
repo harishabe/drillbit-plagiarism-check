@@ -1,4 +1,3 @@
-import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { GetMethod, PostMethod, PutMethod } from './../ApiMethod';
 
 /**
@@ -6,7 +5,6 @@ import { GetMethod, PostMethod, PutMethod } from './../ApiMethod';
  */
 
 export const GetIntegrationDetail = async (url) => {
-    // const url = BASE_URL_EXTREM + apiUrl;
     return GetMethod(url);
 };
 
@@ -15,7 +13,6 @@ export const GetIntegrationDetail = async (url) => {
  */
 
 export const LmsIntegrationDetail = async (url, data) => {
-    // const url = BASE_URL_EXTREM + apiUrl;
     return PostMethod(url, data);
 };
 
@@ -24,6 +21,5 @@ export const LmsIntegrationDetail = async (url, data) => {
  */
 
 export const ChangeConfigDetail = async (url, data) => {
-    // const url = BASE_URL_EXTREM + url;
     return PutMethod(url, data);
 };
