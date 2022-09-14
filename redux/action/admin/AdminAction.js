@@ -173,9 +173,9 @@ export const DeactivateData = (data, paginationPayload) => {
 /**
  * Get repositary data
  */
-export const GetRepoList = (paginationPayload) => {
+export const GetRepoList = (url, paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, paginationPayload: paginationPayload
+        type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, url: url, paginationPayload: paginationPayload
     };
 };
 
@@ -191,9 +191,9 @@ export const RepoUpload = (data) => {
 /**
  * Remove repositary
  */
-export const RemoveRepositary = (id) => {
+export const RemoveRepositary = (url) => {
     return {
-        type: types.FETCH_ADMIN_REPOSITARY_DELETE_START, id: id
+        type: types.FETCH_ADMIN_REPOSITARY_DELETE_START, url: url
     };
 };
 

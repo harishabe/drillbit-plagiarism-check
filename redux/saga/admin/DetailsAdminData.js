@@ -344,7 +344,7 @@ export function* DeactivateData() {
  */
 
 export function* onLoadRepo(action) {
-    const { response, error } = yield call(GetRepoDetail, action.paginationPayload);
+    const { response, error } = yield call(GetRepoDetail, action.url, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_REPOSITARY_DETAILS_SUCCESS,
@@ -391,7 +391,7 @@ export function* RepoAdminUploadData() {
  */
 
 export function* onLoadRemoveRepositary(action) {
-    const { response, error } = yield call(RemoveRepositaryData, action.id);
+    const { response, error } = yield call(RemoveRepositaryData, action.url);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_REPOSITARY_DELETE_SUCCESS, payload: response?.data });
         // yield put({ type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue });
