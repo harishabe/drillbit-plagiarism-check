@@ -182,9 +182,9 @@ export const GetRepoList = (url, paginationPayload) => {
 /**
  * Repositary > uploadfile
  */
-export const RepoUpload = (data) => {
+export const RepoUpload = (url, data) => {
     return {
-        type: types.FETCH_ADMIN_REPOSITARY_UPLOAD_START, query: data
+        type: types.FETCH_ADMIN_REPOSITARY_UPLOAD_START, url: url, query: data
     };
 };
 

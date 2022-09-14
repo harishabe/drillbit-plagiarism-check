@@ -368,11 +368,15 @@ export function* GetAdminRepoData() {
  */
 
 export function* onLoadUploadFile(action) {
-    const { response, error } = yield call(RepoUploadDetail, action.query);
+    const { response, error } = yield call(RepoUploadDetail, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_REPOSITARY_UPLOAD_SUCCESS, payload: response?.data });
         yield put({
-            type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue
+            type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/directRepositoryInbox` :
+                `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/repositoryInbox`,
+            paginationPayload: StudentSubmissionsPaginationValue
         });
         toastrValidation(response);
     } else {
