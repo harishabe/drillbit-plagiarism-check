@@ -16,7 +16,7 @@ import {
     WarningDialog
 } from './../../../components';
 import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
-import Admin from '../../../layouts/Admin';
+import ProAdmin from '../../../layouts/Admin';
 import { GetRepoList, RemoveRepositary } from '../../../redux/action/admin/AdminAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate } from '../../../utils/RegExp';
@@ -236,6 +236,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-Repository.layout = Admin
+Repository.layout = ProAdmin
 
 export default connect(mapStateToProps, mapDispatchToProps)(Repository);
