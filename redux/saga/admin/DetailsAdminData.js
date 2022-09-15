@@ -20,6 +20,10 @@ import {
 } from '../../api/admin/DetailsAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { PaginationValue, StudentSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
+import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
+
 
 /**
  * Get instructor details
@@ -108,8 +112,8 @@ export function* onLoadCreateInstructor(action) {
         yield put({
             type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
             url: action.url.split('/')[3] === 'extreme' ?
-                `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/instructors` :
-                `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/users`,
+                BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
+                BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
             paginationPayload: PaginationValue
         });
         toastrValidation(response);
@@ -256,19 +260,19 @@ export function* onLoadEdit(action) {
         if (action.API_END_POINT === 'instructor') {
             yield put({
                 type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
-                url: `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/instructors`,
+                url: BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR,
                 paginationPayload: PaginationValue
             });
         } else if (action.API_END_POINT === 'students') {
             yield put({
                 type: types.FETCH_ADMIN_STUDENT_DATA_START,
-                url: `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/students`,
+                url: BASE_URL_EXTREM + END_POINTS.ADMIN_STUDENT,
                 paginationPayload: PaginationValue
             });
         } else if (action.API_END_POINT === 'user') {
             yield put({
                 type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
-                url: `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/users`,
+                url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
                 paginationPayload: PaginationValue
             });
         }
@@ -301,8 +305,8 @@ export function* onLoadDelete(action) {
         yield put({
             type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
             url: action.url.split('/')[3] === 'extreme' ?
-                `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/instructors` :
-                `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/users`,
+                BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
+                BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
             paginationPayload: action.paginationPayload
         });
         toastrValidation(response);
@@ -358,8 +362,8 @@ export function* onLoadDeactivate(action) {
         yield put({
             type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
             url: action.url.split('/')[3] === 'extreme' ?
-                `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/instructors` :
-                `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/users`,
+                BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
+                BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
             paginationPayload: action.paginationPayload
         });
     } else {
@@ -407,8 +411,8 @@ export function* onLoadUploadFile(action) {
         yield put({
             type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
             url: action.url.split('/')[3] === 'extreme' ?
-                `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/directRepositoryInbox` :
-                `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/repositoryInbox`,
+                BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_DATA :
+                BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_DATA,
             paginationPayload: StudentSubmissionsPaginationValue
         });
         toastrValidation(response);
