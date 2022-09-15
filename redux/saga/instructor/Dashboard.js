@@ -15,7 +15,7 @@ import toastrValidation from '../../../utils/ToastrValidation';
  */
 
 export function* onLoadDashboardWidget(action) {
-    const { response, error } = yield call(GetWidgetData, action.query);
+    const { response, error } = yield call(GetWidgetData, action.url);
     if (response) {
         yield put({
             type: types.FETCH_INSTRUCTOR_DASH_WIDGET_SUCCESS,

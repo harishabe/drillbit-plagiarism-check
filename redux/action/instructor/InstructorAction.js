@@ -1,8 +1,8 @@
 import * as types from '../ActionType';
 
-export const GetWidgetCount = () => {
+export const GetWidgetCount = (url) => {
     return {
-        type: types.FETCH_INSTRUCTOR_DASH_WIDGET_START,
+        type: types.FETCH_INSTRUCTOR_DASH_WIDGET_START, url: url
     };
 };
 

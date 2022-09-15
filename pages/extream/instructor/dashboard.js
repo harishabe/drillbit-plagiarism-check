@@ -48,6 +48,8 @@ import {
     DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND,
     TREND_ANALYSIS_NOT_FOUND
 } from '../../../constant/data/ErrorMessage';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
 
 
 const TextAlignRight = styled.div`
@@ -72,7 +74,7 @@ const Dashboard = ({
     const [recentSubmission, setRecentSubmission] = useState([]);
 
     useEffect(() => {
-        GetWidgetCount();
+        GetWidgetCount(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DASHBOARD_WIDGET);
     }, []);
 
     useEffect(() => {
@@ -276,7 +278,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetWidgetCount: () => dispatch(GetWidgetCount()),
+        GetWidgetCount: (url) => dispatch(GetWidgetCount(url)),
     };
 };
 
