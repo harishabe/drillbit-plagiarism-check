@@ -12,7 +12,7 @@ const END_POINTS = {
     ADMIN_REPORTS: '/extreme/admin/reports',
     ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST: '/extreme/admin/',
     ADMIN_REPORTS_DOWNLOAD_STUDENTS_LIST: '/extreme/admin/students/download',
-    ADMIN_INSTRUCTOR_DELETE: '/extreme/admin/instructor',
+    ADMIN_INSTRUCTOR_DELETE: '/extreme/admin/instructor?id=',
     ADMIN_STUDENT_DELETE: '/extreme/admin/student',
     ADMIN_REPOSITARY_DATA: '/extreme/admin/directRepositoryInbox',
     ADMIN_REPOSITARY_UPLOAD: '/extreme/admin/directRepository',

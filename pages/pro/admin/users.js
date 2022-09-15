@@ -36,8 +36,8 @@ import {
     UploadFileDataClear
 } from '../../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
-import InstructorForm from '../../extream/admin/form/InstructorForm';
-import InstructorStats from '../../extream/admin/instructor/InstructorStats';
+import UserForm from './form/UserForm';
+import UserStats from './users/UserStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
@@ -92,7 +92,7 @@ const Users = ({
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [statusRowData, setStatusRowData] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
-    const [instructorId, setInstructorId] = useState('');
+    const [userId, setUserId] = useState('');
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -149,7 +149,7 @@ const Users = ({
     };
 
     const handleYesWarning = () => {
-        DeleteData(deleteRowData, paginationPayload);
+        DeleteData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_DELETE + deleteRowData, paginationPayload);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -157,7 +157,11 @@ const Users = ({
     };
 
     const handleStatusWarning = () => {
-        DeactivateData(statusRowData, paginationPayload);
+        if (statusRowData?.status === 'ACTIVE') {
+            DeactivateData(BASE_URL_PRO + END_POINTS_PRO.ACTIVATE_USER + statusRowData.id, paginationPayload);
+        } else {
+            DeactivateData(BASE_URL_PRO + END_POINTS_PRO.DEACTIVATE_USER + statusRowData.id, paginationPayload);
+        }
         setTimeout(() => {
             setStatusWarning(false);
         }, [100]);
@@ -188,7 +192,7 @@ const Users = ({
             setStatusWarning(true);
             setStatusMessage('active');
         } else if (icon === 'stats') {
-            setInstructorId(rowData?.user_id);
+            setUserId(rowData?.user_id);
             setShowDialogModal(true);
         }
     }
@@ -305,7 +309,7 @@ const Users = ({
                     maxWidth="lg"
                     handleClose={ handleCloseDialog }
                 >
-                    <InstructorStats instructorId={ instructorId } />
+                        <UserStats userId={ userId } />
                 </DialogModal>
             }
 
@@ -319,13 +323,13 @@ const Users = ({
                         },
                         {
                             icon: <AddMultipleIcon />,
-                            title: 'Add Multiple User',
+                            title: 'Add Multiple Users',
                             handleFromCreateDrawer: true
                         }] }
                     title="Add User"
                     handleMultiData={ handleShow }
                     isShowAddIcon={ true }>
-                    <InstructorForm />
+                    <UserForm />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -336,7 +340,7 @@ const Users = ({
                     isShowAddIcon={ false }
                     showDrawer={ editInstructor }
                 >
-                    <InstructorForm
+                        <UserForm
                         editData={ editInstructorData }
                     />
                 </CreateDrawer>
@@ -420,7 +424,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetInstructorData: (url, paginationPayload) => dispatch(GetInstructorData(url, paginationPayload)),
-        DeactivateData: (data, paginationPayload) => dispatch(DeactivateData(data, paginationPayload)),
+        DeactivateData: (url, paginationPayload) => dispatch(DeactivateData(url, paginationPayload)),
         DeleteData: (deleteRowData, paginationPayload) => dispatch(DeleteData(deleteRowData, paginationPayload)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };

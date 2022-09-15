@@ -152,7 +152,7 @@ const Instructor = ({
     };
 
     const handleYesWarning = () => {
-        DeleteData(deleteRowData, paginationPayload);
+        DeleteData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_DELETE + deleteRowData, paginationPayload);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -160,7 +160,7 @@ const Instructor = ({
     };
 
     const handleStatusWarning = () => {
-        DeactivateData(statusRowData, paginationPayload);
+        DeactivateData(BASE_URL_EXTREM + END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + statusRowData.id + '/' + statusRowData.status, paginationPayload);
         setTimeout(() => {
             setStatusWarning(false);
         }, [100]);
@@ -424,8 +424,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetInstructorData: (url, paginationPayload) => dispatch(GetInstructorData(url, paginationPayload)),
-        DeactivateData: (data, paginationPayload) => dispatch(DeactivateData(data, paginationPayload)),
-        DeleteData: (deleteRowData, paginationPayload) => dispatch(DeleteData(deleteRowData, paginationPayload)),
+        DeactivateData: (url, paginationPayload) => dispatch(DeactivateData(url, paginationPayload)),
+        DeleteData: (url, paginationPayload) => dispatch(DeleteData(url, paginationPayload)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };

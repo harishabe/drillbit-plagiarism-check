@@ -16,8 +16,7 @@ export const GetInstructorDetail = async (apiUrl, paginationPayload) => {
  * API CALL FOR CREATE INSTRUCTOR
  */
 
-export const CreateInstructorData = async (data) => {
-    const url = BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR;
+export const CreateInstructorData = async (url, data) => {
     return PostMethod(url, data);
 };
 
@@ -85,8 +84,7 @@ export const ViewDownloadReports = async (url) => {
  * API CALL FOR STATS
  */
 
-export const GetStats = async (id) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS + '/' + id + '/stats';
+export const GetStats = async (url) => {
     return GetMethod(url);
 };
 
@@ -95,8 +93,7 @@ export const GetStats = async (id) => {
  * Download (export) csv file
  */
 
-export const GetExportCsvFile = async (id) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + id;
+export const GetExportCsvFile = async (url) => {
     return GetMethodDownload(url, 'Submission_Report.csv');
 };
 
@@ -104,17 +101,15 @@ export const GetExportCsvFile = async (id) => {
  * API CALL FOR EDIT
  */
 
-export const EditRow = async (action) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + action.API_END_POINT + '/' + action.instructorId;
-    return PutMethod(url, action.requestPayload);
+export const EditRow = async (url, data) => {
+    return PutMethod(url, data);
 };
 
 /**
  * API CALL FOR DELETE
  */
 
-export const DeleteRow = async (id) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_DELETE + '?id=' + id;
+export const DeleteRow = async (url) => {
     return DeleteMethod(url);
 };
 
@@ -122,8 +117,7 @@ export const DeleteRow = async (id) => {
  * API CALL FOR DEACTIVATE
  */
 
-export const DeactivateRow = async (payload) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + payload.id + '/' + payload.status;
+export const DeactivateRow = async (url) => {
     return PutMethod(url, {});
 };
 

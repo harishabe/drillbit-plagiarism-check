@@ -36,9 +36,9 @@ export const GetInstructorData = (url, paginationPayload) => {
 /**
  * Get instructor & student stats data
  */
-export const GetStats = (id) => {
+export const GetStats = (url) => {
     return {
-        type: types.FETCH_ADMIN_STATS_DATA_START, id: id
+        type: types.FETCH_ADMIN_STATS_DATA_START, url: url
     };
 };
 
@@ -46,9 +46,9 @@ export const GetStats = (id) => {
 /**
  * Export csv file from stats report
  */
-export const GetExportToCSV = (id) => {
+export const GetExportToCSV = (url) => {
     return {
-        type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START, id: id
+        type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_START, url: url
     };
 };
 
@@ -56,9 +56,9 @@ export const GetExportToCSV = (id) => {
 /**
  * Create instructor data
  */
-export const CreateInstructorData = (data) => {
+export const CreateInstructorData = (url, data) => {
     return {
-        type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_START, query: data
+        type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_START, url: url, query: data
     };
 };
 
@@ -137,18 +137,18 @@ export const ViewDownloadSubmissiondData = (url) => {
 /**
  * Edit data
  */
-export const EditData = (instructorId, requestPayload, API_END_POINT) => {
+export const EditData = (url, data, API_END_POINT) => {
     return {
-        type: types.FETCH_ADMIN_EDIT_ROW_START, instructorId: instructorId, requestPayload: requestPayload, API_END_POINT: API_END_POINT
+        type: types.FETCH_ADMIN_EDIT_ROW_START, url: url, data: data, API_END_POINT: API_END_POINT
     };
 };
 
 /**
  * Delete data
  */
-export const DeleteData = (id, paginationPayload) => {
+export const DeleteData = (url, paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_DELETE_ROW_START, id: id, paginationPayload: paginationPayload
+        type: types.FETCH_ADMIN_DELETE_ROW_START, url: url, paginationPayload: paginationPayload
     };
 };
 
@@ -164,9 +164,9 @@ export const DeleteStudentData = (id, paginationPayload) => {
 /**
  * Deactivate data
  */
-export const DeactivateData = (data, paginationPayload) => {
+export const DeactivateData = (url, paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_DEACTIVATE_ROW_START, query: data, paginationPayload: paginationPayload
+        type: types.FETCH_ADMIN_DEACTIVATE_ROW_START, url: url, paginationPayload: paginationPayload
     };
 };
 

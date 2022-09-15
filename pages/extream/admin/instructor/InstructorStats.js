@@ -9,7 +9,6 @@ import {
     SubTitle,
     SubTitle1
 } from '../../../../components';
-
 import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
@@ -27,6 +26,8 @@ import {
     GetStats,
     GetExportToCSV,
 } from '../../../../redux/action/admin/AdminAction';
+import END_POINTS from '../../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 
 const InstructorStats = ({
     instructorId,
@@ -40,7 +41,7 @@ const InstructorStats = ({
     const [submissionData, setSubmissionData] = useState([]);
 
     useEffect(() => {
-        GetStats(instructorId);
+        GetStats(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS + '/' + instructorId + '/stats');
     }, []);
 
     useEffect(() => {
@@ -51,7 +52,7 @@ const InstructorStats = ({
     }, [instructorStats]);
 
     const handleExportCsv = () => {
-        GetExportToCSV(instructorStats?.id);
+        GetExportToCSV(BASE_URL_EXTREM + END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + instructorStats?.id);
     };
 
     return (
@@ -142,8 +143,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetStats: (id) => dispatch(GetStats(id)),
-        GetExportToCSV: (id) => dispatch(GetExportToCSV(id)),
+        GetStats: (url) => dispatch(GetStats(url)),
+        GetExportToCSV: (url) => dispatch(GetExportToCSV(url)),
     };
 };
 

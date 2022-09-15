@@ -7,10 +7,10 @@ import { CreateInstructorData, EditData } from '../../../../redux/action/admin/A
 import FormJson from '../../../../constant/form/instructor-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
-import END_POINTS from '../../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../../utils/EndPointPro';
+import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 
-const InstructorForm = ({
+const UserForm = ({
     CreateInstructorData,
     isLoading,
     editData,
@@ -30,10 +30,10 @@ const InstructorForm = ({
     const onSubmit = (data) => {
         if (editOperation) {
             data['expiry_date'] = convertDate(data.expiry_date);
-            EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, data, 'instructor');
+            EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, data, 'user');
         } else {
             let Detaileddata = { ...data, "expiry_date": convertDate(data.expiry_date) };
-            CreateInstructorData(BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR, Detaileddata);
+            CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, Detaileddata);
         }
     };
 
@@ -48,10 +48,10 @@ const InstructorForm = ({
             if (field.type === 'email') {
                 field.disabled = isEmailDisabled;
             }
-            if(field.name === 'grammar'){
+            if (field.name === 'grammar') {
                 field['info'] = '* Note : Document remaining-' + remainingGrammar;
             }
-            if(field.name === 'plagiarism'){
+            if (field.name === 'plagiarism') {
                 field['info'] = '* Note : Document remaining-' + remainingDocuments;
             }
             return field;
@@ -76,30 +76,30 @@ const InstructorForm = ({
                 'grammar'
             ];
             fields.forEach(field => setValue(field, a[field]));
-            modifyFormField('Edit Instructor', true);
+            modifyFormField('Edit User', true);
             setEditOperation(true);
         } else {
-            modifyFormField('Create Instructor', false);
+            modifyFormField('Create User', false);
         }
     }, [editData]);
 
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    {formJsonField?.map((field, i) => (
-                        <Grid md={12} style={{ marginLeft: '8px' }}>
+                    { formJsonField?.map((field, i) => (
+                        <Grid md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
-                                key={i}
-                                field={field}
-                                control={control}
-                                isLoading={isLoading}
+                                key={ i }
+                                field={ field }
+                                control={ control }
+                                isLoading={ isLoading }
                             />
                         </Grid>
-                    ))}
+                    )) }
                 </Grid>
             </form>
         </>
@@ -119,4 +119,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InstructorForm);
+export default connect(mapStateToProps, mapDispatchToProps)(UserForm);
