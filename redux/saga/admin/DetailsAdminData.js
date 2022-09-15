@@ -52,7 +52,7 @@ export function* GetInstructorData() {
  */
 
 export function* onLoadStats(action) {
-    const { response, error } = yield call(GetStats, action.id);
+    const { response, error } = yield call(GetStats, action.url);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_STATS_DATA_SUCCESS,
@@ -77,7 +77,7 @@ export function* GetInstructorStudentStats() {
  */
 
 export function* onLoadCsvReportStats(action) {
-    const { response, error } = yield call(GetExportCsvFile, action.id);
+    const { response, error } = yield call(GetExportCsvFile, action.url);
     if (response || response === undefined) {
         yield put({
             type: types.FETCH_ADMIN_EXPORT_CSV_STATS_DATA_SUCCESS,
@@ -102,10 +102,16 @@ export function* GetCsvReportStats() {
  */
 
 export function* onLoadCreateInstructor(action) {
-    const { response, error } = yield call(CreateInstructorData, action.query);
+    const { response, error } = yield call(CreateInstructorData, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: PaginationValue });
+        yield put({
+            type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/instructors` :
+                `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/users`,
+            paginationPayload: PaginationValue
+        });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_FAIL, payload: error });
@@ -240,16 +246,31 @@ export function* GetReportDataDownload() {
  */
 
 export function* onLoadEdit(action) {
-    const { response, error } = yield call(EditRow, action);
+    // console.log("action", action)
+    const { response, error } = yield call(EditRow, action.url, action.data, action.API_END_POINT);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_EDIT_ROW_SUCCESS,
             payload: response?.data,
         });
         if (action.API_END_POINT === 'instructor') {
-            yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: PaginationValue });
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/instructors`,
+                paginationPayload: PaginationValue
+            });
         } else if (action.API_END_POINT === 'students') {
-            yield put({ type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: PaginationValue });
+            yield put({
+                type: types.FETCH_ADMIN_STUDENT_DATA_START,
+                url: `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/students`,
+                paginationPayload: PaginationValue
+            });
+        } else if (action.API_END_POINT === 'user') {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/users`,
+                paginationPayload: PaginationValue
+            });
         }
         toastrValidation(response);
     } else {
@@ -271,13 +292,19 @@ export function* EditData() {
  */
 
 export function* onLoadDelete(action) {
-    const { response, error } = yield call(DeleteRow, action.id);
+    const { response, error } = yield call(DeleteRow, action.url, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_DELETE_ROW_SUCCESS,
             payload: response?.data,
         });
-        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: action.paginationPayload });
+        yield put({
+            type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/instructors` :
+                `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/users`,
+            paginationPayload: action.paginationPayload
+        });
         toastrValidation(response);
     } else {
         yield put({
@@ -325,10 +352,16 @@ export function* DeleteStudentData() {
  */
 
 export function* onLoadDeactivate(action) {
-    const { response, error } = yield call(DeactivateRow, action.query);
+    const { response, error } = yield call(DeactivateRow, action.url, action.paginationPayload);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_DEACTIVATE_ROW_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START, paginationPayload: action.paginationPayload });
+        yield put({
+            type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                `http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/instructors` :
+                `http://uat.drillbitplagiarismcheck.com:8087/pro/admin/users`,
+            paginationPayload: action.paginationPayload
+        });
     } else {
         yield put({ type: types.FETCH_ADMIN_DEACTIVATE_ROW_FAIL, payload: error });
     }

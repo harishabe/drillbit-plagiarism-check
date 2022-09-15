@@ -9,6 +9,7 @@ import {
     SubTitle,
     SubTitle1
 } from '../../../../components';
+
 import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
@@ -26,14 +27,14 @@ import {
     GetStats,
     GetExportToCSV,
 } from '../../../../redux/action/admin/AdminAction';
-import END_POINTS from '../../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../../utils/EndPointPro';
+import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 
-const StudentStats = ({
-    studentId,
+const UserStats = ({
+    userId,
     GetStats,
     GetExportToCSV,
-    studentStats,
+    userStats,
     isLoading,
     isLoadingCsvExport,
 }) => {
@@ -41,19 +42,18 @@ const StudentStats = ({
     const [submissionData, setSubmissionData] = useState([]);
 
     useEffect(() => {
-        GetStats(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS + '/' + studentId + '/stats');
+        GetStats(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_STATS + userId);
     }, []);
 
     useEffect(() => {
-        let submission = '';
-        submission = studentStats?.monthlyStats?.map((item) => {
+        let submission = userStats?.monthlyStats?.map((item) => {
             return item.submissions;
         });
         setSubmissionData(submission);
-    }, [studentStats]);
+    }, [userStats]);
 
     const handleExportCsv = () => {
-        GetExportToCSV(BASE_URL_EXTREM + END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + studentStats?.id);
+        GetExportToCSV(BASE_URL_PRO + END_POINTS_PRO.ADMIN_EXPORT_CSV_STATS + userStats?.id);
     };
 
     return (
@@ -61,10 +61,8 @@ const StudentStats = ({
             <Grid item container>
                 { isLoading ? <Skeleton width={ 210 } /> :
                     <>
-                        <Grid item md={ 2 } xs={ 2 }> <SubTitle1 title="Student name" /></Grid>
-                        <Grid item md={ 1 } xs={ 1 }> <SubTitle1 title=":" /></Grid>
-                        <Grid item md={ 7 } xs={ 7 }>
-                            <SubTitle1 title={ studentStats?.name } />
+                        <Grid item md={ 6 } xs={ 6 }>
+                            <SubTitle1 title={ `Instructor name : ${userStats?.name}` } />
                         </Grid>
                         { isLoadingCsvExport ? <Skeleton width={ 150 } style={ { marginLeft: 'auto' } } /> :
                             <Tooltip title="Export to csv">
@@ -79,8 +77,10 @@ const StudentStats = ({
             <Grid item md={ 12 } xs={ 12 }>
                 <Grid container>
                     <Grid item md={ 8 } xs={ 12 }>
-                        <SubTitle
-                            title={ `Submissions (${studentStats?.trendAnalysis?.documentsProcessed !== undefined ? studentStats?.trendAnalysis?.documentsProcessed : 0})` } />
+                        <SubTitle title={
+                            `Submissions (${userStats?.trendAnalysis?.documentsProcessed !== undefined ?
+                                userStats?.trendAnalysis?.documentsProcessed : 0})` }
+                        />
                         { isLoading ?
                             <>
                                 <Skeleton />
@@ -123,8 +123,8 @@ const StudentStats = ({
                                 label={ PIE_CHART_LABEL }
                                 series={
                                     [
-                                        studentStats?.trendAnalysis?.similarWork,
-                                        studentStats?.trendAnalysis?.ownWork
+                                        userStats?.trendAnalysis?.similarWork,
+                                        userStats?.trendAnalysis?.ownWork
                                     ]
                                 }
                             />
@@ -138,7 +138,7 @@ const StudentStats = ({
 
 const mapStateToProps = (state) => ({
     isLoading: state?.detailsData?.isLoadingStats,
-    studentStats: state?.detailsData?.StatsData,
+    userStats: state?.detailsData?.StatsData,
     isLoadingCsvExport: state?.detailsData?.isLoadingCSV,
 });
 
@@ -149,4 +149,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentStats);
+export default connect(mapStateToProps, mapDispatchToProps)(UserStats);

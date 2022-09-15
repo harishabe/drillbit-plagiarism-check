@@ -6,6 +6,8 @@ import { FormComponent } from '../../../../components';
 import { EditData } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/student-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
+import END_POINTS from '../../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 
 const StudentForm = ({
     isLoading,
@@ -22,7 +24,7 @@ const StudentForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            EditData(editData?.id, data, 'students');
+            EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'students/' + editData?.id, data, 'students');
         }
     };
 
@@ -77,7 +79,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        EditData: (instructorId, requestPayload, API_END_POINT) => dispatch(EditData(instructorId, requestPayload, API_END_POINT)),
+        EditData: (url, data, API_END_POINT) => dispatch(EditData(url, data, API_END_POINT)),
     };
 };
 

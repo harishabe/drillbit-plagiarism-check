@@ -24,6 +24,7 @@ import {
     DeleteStudentData
 } from '../../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
+import StudentForm from './form/StudentForm';
 import StudentStats from './student/StudentStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 
