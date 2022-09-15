@@ -20,7 +20,7 @@ const END_POINTS_PRO = {
     ADMIN_MOODLE_INTEGRATION: '/integrations/moodle',
     ADMIN_CANVAS_INTEGRATION: '/integrations/canvas',
     ADMIN_BLACKBOARD_INTEGRATION: '/integrations/blackboard',
-    INSTRUCTOR_DASHBOARD_WIDGET: '/user/dashboard',
+    USERS_DASHBOARD_WIDGET: '/user/dashboard',
 }
 
 export default END_POINTS_PRO;

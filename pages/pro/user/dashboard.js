@@ -64,7 +64,7 @@ const Dashboard = ({
     const [recentSubmission, setRecentSubmission] = useState([]);
 
     useEffect(() => {
-        GetWidgetCount(BASE_URL_PRO + END_POINTS_PRO.INSTRUCTOR_DASHBOARD_WIDGET);
+        GetWidgetCount(BASE_URL_PRO + END_POINTS_PRO.USERS_DASHBOARD_WIDGET);
     }, []);
 
     useEffect(() => {
