@@ -15,22 +15,6 @@ const Help = () => {
             'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf',
             'videoTitle': 'Admin video tutorial',
             'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf'
-        },
-        {
-            'role': 'instructor',
-            'isShow': false,
-            'pdfLinkTitle': 'Instructor tutorial PDF download',
-            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf',
-            'videoTitle': 'Instructor video tutorial',
-            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf'
-        },
-        {
-            'role': 'student',
-            'isShow': false,
-            'pdfLinkTitle': 'Student tutorial PDF download',
-            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Student%20user%20guide%20-%202022.pdf',
-            'videoTitle': 'Student video tutorial',
-            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Student%20user%20guide%20-%202022.pdf'
         }
     ]);
 
@@ -38,13 +22,7 @@ const Help = () => {
         let d = data?.map((item) => {
             if (localStorage.getItem('role') === 'admin') {
                 item['isShow'] = true;
-            } else {
-                if (localStorage.getItem('role') === 'instructor' && item.role === localStorage.getItem('role')) {
-                    item['isShow'] = true;
-                } else if (localStorage.getItem('role') === 'student' && item.role === localStorage.getItem('role')) {
-                    item['isShow'] = true;
-                }
-            }
+            } 
             return item;
         });
         setData(d)

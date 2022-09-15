@@ -229,21 +229,21 @@ const NavBar = ({
                                 <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                             </>
                         }
-                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/extream/admin/profile/accountinfo')}>
+                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`/extream/${role}/profile/accountinfo`) }>
                             <ListItemIcon>
                                 <AccountIcon />
                             </ListItemIcon>
                             <ListItemText style={{ padding: '5px 15px' }} primary="Account info" secondary="Account details" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/extream/admin/profile/help')}>
+                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`/extream/${role}/profile/help`) }>
                             <ListItemIcon>
                                 <HelpIcon />
                             </ListItemIcon>
                             <ListItemText style={{ padding: '5px 15px' }} primary="Help" secondary="PDF / Video" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/extream/admin/profile/changepassword')}>
+                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`/extream/${role}/profile/changepassword`) }>
                             <ListItemIcon>
                                 <ChangePwdIcon />
                             </ListItemIcon>
