@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Box, Skeleton, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Admin from './../../../../layouts/Admin';
+import Student from './../../../../layouts/Student';
 import { CardView, CommonTable, MainHeading, SubTitle2, SubTitle } from '../../../../components';
 import { UploadIcon } from '../../../../assets/icon';
 import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/ProfileAction';
@@ -49,20 +49,16 @@ const AccountInfo = ({
     }, []);
 
     useEffect(() => {
-        if (role === Role.admin) {
+        if (role === Role.student) {
             let row = [
-                createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
-                createData("Admin Username", accountInfo?.name ? accountInfo?.name : '-'),
                 createData("Account ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
-                createData("Date Of Activation", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
-                createData("Instructor Account", accountInfo?.instructorAccount ? accountInfo?.instructorAccount : '-'),
-                createData("Student Account", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
-                createData("Number Of Documents", accountInfo?.totalDocumentsAlloted ? accountInfo?.totalDocumentsAlloted : '-'),
-                createData("Max. document length(pages)", accountInfo?.oneDocumentLength ? accountInfo?.oneDocumentLength : '-'),
-                createData("Date of Expiry", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
-                createData("Grammar checks", accountInfo?.grammar ? accountInfo?.grammar : '-'),
-                createData("Product Name", accountInfo?.productName ? accountInfo?.productName : '-'),
-                createData("Time Zone", accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
+                createData("Student ID", accountInfo?.stuednt_id ? accountInfo?.stuednt_id : '-'),
+                createData("Name", accountInfo?.name ? accountInfo?.name : '-'),
+                createData("Email", accountInfo?.email ? accountInfo?.email : '-'),
+                createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
+                createData("Department", accountInfo?.department ? accountInfo?.department : '-'),
+                createData("Created Date", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
+                createData("Expiry Date", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
             ];
             setRows([...row])
         }
@@ -77,9 +73,9 @@ const AccountInfo = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10}>
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 }>
                         <MainHeading title='Account Information' />
                         { role === Role.admin &&
                             <form>
@@ -102,7 +98,7 @@ const AccountInfo = ({
                     <Grid item md={ 2 } style={ { textAlign: 'right' } }>
                         { accountInfo &&
                             <>
-                            <ImgLogo src={ `data:image/png;base64,${accountInfo.logo}` } />
+                                <ImgLogo src={ `data:image/png;base64,${accountInfo.logo}` } />
                             </>
                         }
                     </Grid>
@@ -111,7 +107,7 @@ const AccountInfo = ({
 
 
             <CardView>
-                {isLoading ? (
+                { isLoading ? (
                     <>
                         <Skeleton />
                         <Skeleton />
@@ -119,13 +115,13 @@ const AccountInfo = ({
                     </>
                 ) : (
                     <CommonTable
-                        isCheckbox={false}
-                        tableHeader={columns}
-                        tableData={rows}
-                        charLength={50}
+                        isCheckbox={ false }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        charLength={ 50 }
                         path=''
                     />
-                )}
+                ) }
 
             </CardView>
         </React.Fragment >
@@ -144,6 +140,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-AccountInfo.layout = Admin
+AccountInfo.layout = Student
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo);
