@@ -1,4 +1,6 @@
 const END_POINTS_PRO = {
+    ADMIN_PROFILE_DATA: '/admin/accountInformation',
+    ADMIN_PROFILE_UPLOAD_LOGO: '/admin/uploadLogo',
     ADMIN_DASHBOARD_WIDGET: '/admin/dashboard',
     ADMIN_TREND_ANALYSIS: '/admin/trendAnalysis',
     ADMIN_RENEW_ACCOUNT: '/admin/reviveValidity',
@@ -21,6 +23,7 @@ const END_POINTS_PRO = {
     ADMIN_CANVAS_INTEGRATION: '/integrations/canvas',
     ADMIN_BLACKBOARD_INTEGRATION: '/integrations/blackboard',
     USERS_DASHBOARD_WIDGET: '/user/dashboard',
+    USER_PROFILE_DATA: '/user/accountInformation',
 }
 
 export default END_POINTS_PRO;

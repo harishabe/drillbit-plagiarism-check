@@ -6,8 +6,7 @@ import { GetMethod, PutMethod, PostFormData } from './../ApiMethod';
  * API CALL FOR PROFILE DATA
  */
 
-export const GetProfile = async (role) => {
-    const url = BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + role + '/accountInformation';
+export const GetProfile = async (url) => {
     return GetMethod(url);
 };
 
@@ -15,8 +14,7 @@ export const GetProfile = async (role) => {
  * API CALL FOR PROFILE LOGO SUBMIT
  */
 
-export const UploadLogo = async (query) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_PROFILE_UPLOAD_LOGO;
+export const UploadLogo = async (url, query) => {
     return PostFormData(url, query);
 };
 

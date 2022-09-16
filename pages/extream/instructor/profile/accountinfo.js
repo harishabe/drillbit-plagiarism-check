@@ -7,6 +7,8 @@ import { CardView, CommonTable, MainHeading, SubTitle2, SubTitle } from '../../.
 import { UploadIcon } from '../../../../assets/icon';
 import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/ProfileAction';
 import { Role } from '../../../../constant/data';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS from '../../../../utils/EndPoints';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -44,7 +46,7 @@ const AccountInfo = ({
     const [role, setRole] = useState('');
 
     useEffect(() => {
-        GetProfile(localStorage.getItem('role'));
+        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation');
         setRole(localStorage.getItem('role'));
     }, []);
 
