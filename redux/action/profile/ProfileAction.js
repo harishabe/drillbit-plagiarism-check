@@ -1,14 +1,14 @@
 import * as types from '../ActionType';
 
-export const GetProfile = (role) => {
+export const GetProfile = (url) => {
     return {
-        type: types.FETCH_PROFILE_DATA_START, query: role
+        type: types.FETCH_PROFILE_DATA_START, url: url
     };
 };
 
-export const ProfileLogo = (role, data) => {
+export const ProfileLogo = (url, data) => {
     return {
-        type: types.FETCH_PROFILE_LOGO_START, role: role, query: data
+        type: types.FETCH_PROFILE_LOGO_START, url: url, query: data
     };
 };
 

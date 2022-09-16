@@ -72,6 +72,7 @@ const NavBar = ({
     const [name, setName] = React.useState('');
     const [role, setRole] = React.useState('');
     const [email, setEmail] = React.useState('');
+    const [path, setPath] = React.useState('');
 
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -92,7 +93,16 @@ const NavBar = ({
         setName(userName);
         setRole(userRole);
         setEmail(email);
+
+        if (userRole === 'lim-admin') {
+            setPath('/pro/admin')
+        } else if (userRole === 'lim-instructor') {
+            setPath('/pro/user')
+        } else if (userRole === 'admin' || 'instructor' || 'student') {
+            setPath('/extream/' + userRole)
+        }
     }, []);
+    console.log("path", path)
 
     return (
         <>
@@ -229,21 +239,21 @@ const NavBar = ({
                                 <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                             </>
                         }
-                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`/extream/${role}/profile/accountinfo`) }>
+                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`${path}/profile/accountinfo`) }>
                             <ListItemIcon>
                                 <AccountIcon />
                             </ListItemIcon>
                             <ListItemText style={{ padding: '5px 15px' }} primary="Account info" secondary="Account details" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`/extream/${role}/profile/help`) }>
+                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`${path}/profile/help`) }>
                             <ListItemIcon>
                                 <HelpIcon />
                             </ListItemIcon>
                             <ListItemText style={{ padding: '5px 15px' }} primary="Help" secondary="PDF / Video" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`/extream/${role}/profile/changepassword`) }>
+                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`${path}/profile/changepassword`) }>
                             <ListItemIcon>
                                 <ChangePwdIcon />
                             </ListItemIcon>

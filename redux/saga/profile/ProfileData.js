@@ -6,6 +6,9 @@ import {
     ChangePassword
 } from '../../api/profile/ProfileAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
+import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
 
 /**
  * User Profile
@@ -13,7 +16,7 @@ import toastrValidation from '../../../utils/ToastrValidation';
  */
 
 export function* onLoadProfile(action) {
-    const { response, error } = yield call(GetProfile, action.query);
+    const { response, error } = yield call(GetProfile, action.url);
     if (response) {
         yield put({ type: types.FETCH_PROFILE_DATA_SUCCESS, payload: response?.data });
     } else {
@@ -33,10 +36,16 @@ export function* profileDetails() {
  */
 
 export function* onLoadProfileLogo(action) {
-    const { response, error } = yield call(UploadLogo, action.query);
+    const { response, error } = yield call(UploadLogo, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_PROFILE_LOGO_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_PROFILE_DATA_START, query: action.role });
+        yield put({
+            type: types.FETCH_PROFILE_DATA_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation' :
+                BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_DATA,
+        });
+        toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_PROFILE_LOGO_FAIL, payload: error });
         toastrValidation(error);
