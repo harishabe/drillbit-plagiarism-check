@@ -94,15 +94,14 @@ const NavBar = ({
         setRole(userRole);
         setEmail(email);
 
-        if (userRole === 'lim-admin') {
-            setPath('/pro/admin')
-        } else if (userRole === 'lim-instructor') {
-            setPath('/pro/user')
-        } else if (userRole === 'admin' || 'instructor' || 'student') {
-            setPath('/extream/' + userRole)
+        if (userRole === Role?.proAdmin) {
+            setPath('/pro/admin');
+        } else if (userRole === Role?.proUser) {
+            setPath('/pro/user');
+        } else if (userRole === Role?.admin || Role?.instructor || Role?.student) {
+            setPath('/extream/' + userRole);
         }
     }, []);
-    console.log("path", path)
 
     return (
         <>
