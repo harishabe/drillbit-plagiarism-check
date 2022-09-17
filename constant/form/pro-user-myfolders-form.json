@@ -3,12 +3,22 @@
         "field_type": "input",
         "type": "text",
         "id": "name",
-        "name": "assignment_name",
+        "name": "folder_name",
         "disabled": false,
         "label": "Folder Name",
         "required": "Please Enter Folder name"
     },
     
+    {
+        "field_type": "datepicker",
+        "id": "expiry_date",
+        "name": "expiry_date",
+        "label": "Select expiry date",
+        "minDate":true,
+        "required": "Select expiry date",
+        "validationMsg": "Select expiry date"
+    },
+
     {
         "field_type": "toggle",
         "id": "exclude_reference",

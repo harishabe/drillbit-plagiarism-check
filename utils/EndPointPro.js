@@ -24,6 +24,9 @@ const END_POINTS_PRO = {
     ADMIN_BLACKBOARD_INTEGRATION: '/integrations/blackboard',
     USERS_DASHBOARD_WIDGET: '/user/dashboard',
     USER_PROFILE_DATA: '/user/accountInformation',
+    USER_MY_FOLDERS: '/folders',
+    USER_FOLDER_EDIT_AND_DELETE_DATA: '/folder',
+    CREATE_FOLDER: '/folder',
 }
 
 export default END_POINTS_PRO;

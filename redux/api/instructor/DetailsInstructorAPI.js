@@ -152,8 +152,8 @@ export const CreateAssignmentData = async (class_id, data) => {
  * API CALL FOR GET FOLDER DATA
  */
 
-export const GetMyFoldersDetail = async (paginationPayload) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDERS + PaginationUrl(paginationPayload);
+export const GetMyFoldersDetail = async (apiUrl, paginationPayload) => {
+    const url = apiUrl + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -161,8 +161,7 @@ export const GetMyFoldersDetail = async (paginationPayload) => {
  * API CALL FOR CREATE CLASS
  */
 
-export const CreateFolderData = async (data) => {
-    const url = BASE_URL_EXTREM + END_POINTS.CREATE_FOLDER;
+export const CreateFolderData = async (url, data) => {
     return PostMethod(url, data);
 };
 
@@ -170,17 +169,15 @@ export const CreateFolderData = async (data) => {
  * API CALL FOR EDIT FOLDER IN INSTRUCTOR
  */
 
-export const EditFolderData = async (action) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '/' + action.folderId;
-    return PutMethod(url, action.requestPayload);
+export const EditFolderData = async (url, requestPayload) => {
+    return PutMethod(url, requestPayload);
 };
 
 /**
  * API CALL FOR DELETE FOLDERS IN INSTRUCTOR
  */
 
-export const DeleteFolders = async (action) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '?id=' + action.folderId;
+export const DeleteFolders = async (url) => {
     return DeleteMethod(url);
 }
 

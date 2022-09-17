@@ -27,12 +27,12 @@ const Canvas = ({
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
-            link: '/extream/admin/dashboard',
+            link: '/pro/admin/dashboard',
             active: false,
         },
         {
             name: 'Integrations',
-            link: '/extream/admin/integration',
+            link: '/pro/admin/integration',
             active: false,
         },
         {
