@@ -8,16 +8,6 @@
         "label": "Folder Name",
         "required": "Please Enter Folder name"
     },
-    
-    {
-        "field_type": "datepicker",
-        "id": "expiry_date",
-        "name": "expiry_date",
-        "label": "Select expiry date",
-        "minDate":true,
-        "required": "Select expiry date",
-        "validationMsg": "Select expiry date"
-    },
 
     {
         "field_type": "toggle",

@@ -6,7 +6,6 @@ import { FormComponent } from '../../../../components';
 import { CreateFolder, EditFolder } from '../../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../../constant/form/pro-user-myfolders-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
-import { convertDate } from '../../../../utils/RegExp';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 
@@ -27,7 +26,7 @@ const MyFoldersForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            data['end_date'] = convertDate(data.expiry_date);
+            // data['end_date'] = convertDate(data.expiry_date);
             data['exclude_reference'] = data.exclude_reference;
             data['exclude_quotes'] = data.exclude_quotes;
             data['exclude_small_sources'] = data.exclude_small_sources;
@@ -37,12 +36,12 @@ const MyFoldersForm = ({
             data['db_publications'] = data.db_publications;
             data['db_internet'] = data.db_internet;
             data['institution_repository'] = data.institution_repository;
-            delete data.expiry_date;
+            // delete data.expiry_date;
             EditFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + editData?.folder_id, data);
         } else {
             let Detaileddata = {
                 ...data,
-                'end_date': convertDate(data.expiry_date),
+                // 'end_date': convertDate(data.expiry_date),
                 'exclude_reference': data.exclude_reference,
                 'exclude_quotes': data.exclude_quotes,
                 'exclude_small_sources': data.exclude_small_sources,
@@ -53,7 +52,7 @@ const MyFoldersForm = ({
                 'db_internet': data.db_internet,
                 'institution_repository': data.institution_repository,
             }
-            delete Detaileddata.expiry_date;
+            // delete Detaileddata.expiry_date;
             CreateFolder(BASE_URL_PRO + END_POINTS_PRO.CREATE_FOLDER, Detaileddata);
         }
     };
@@ -63,9 +62,9 @@ const MyFoldersForm = ({
             if (field.name === 'folder_name') {
                 field.disabled = isNameDisabled;
             }
-            if (field.name === 'end_date') {
-                field.minDate = false;
-            }
+            // if (field.name === 'end_date') {
+            //     field.minDate = false;
+            // }
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
             }
@@ -79,7 +78,7 @@ const MyFoldersForm = ({
             console.log("editData", editData)
             let a = {
                 'folder_name': editData.folder_name,
-                'expiry_date': convertDate(editData.end_date),
+                // 'expiry_date': convertDate(editData.end_date),
                 'exclude_reference': editData.ex_references,
                 'exclude_quotes': editData.ex_quotes,
                 'exclude_small_sources': editData.small_sources,
@@ -92,7 +91,7 @@ const MyFoldersForm = ({
             };
             const fields = [
                 'folder_name',
-                'expiry_date',
+                // 'expiry_date',
                 "exclude_reference",
                 "exclude_quotes",
                 "exclude_small_sources",
