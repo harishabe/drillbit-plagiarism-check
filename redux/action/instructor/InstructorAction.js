@@ -172,36 +172,36 @@ export const DeleteAssignment = (classId, assId) => {
 /**
  * Get all folders
  */
-export const GetAllFolders = (paginationPayload) => {
+export const GetAllFolders = (url, paginationPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: paginationPayload
+        type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, url: url, paginationPayload: paginationPayload
     };
 };
 
 /**
  * Create Folder
  */
-export const CreateFolder = (data) => {
+export const CreateFolder = (url, data) => {
     return {
-        type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, query: data
+        type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_START, url: url, query: data
     };
 };
 
 /**
  * Edit folder
  */
-export const EditFolder = (folderId, requestPayload) => {
+export const EditFolder = (url, requestPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_START, folderId: folderId, requestPayload: requestPayload,
+        type: types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_START, url: url, requestPayload: requestPayload,
     };
 };
 
 /**
  * Delete folder
  */
-export const DeleteFolder = (folderId) => {
+export const DeleteFolder = (url) => {
     return {
-        type: types.FETCH_INSTRUCTOR_DELETE_FOLDER_START, folderId: folderId,
+        type: types.FETCH_INSTRUCTOR_DELETE_FOLDER_START, url: url,
     };
 };
 

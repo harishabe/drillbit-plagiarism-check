@@ -417,7 +417,7 @@ const Users = ({
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.user?.page,
-    instructorData: state?.detailsData?.instructorData?.user?._embedded?.userDTOList,
+    instructorData: state?.detailsData?.instructorData?.user?._embedded?.userResponseList,
     isLoading: state?.detailsData?.isLoading,
 });
 

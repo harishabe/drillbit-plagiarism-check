@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateFolder, EditFolder } from '../../../../redux/action/instructor/InstructorAction';
-import FormJson from '../../../../constant/form/myfolders-form.json';
+import FormJson from '../../../../constant/form/pro-user-myfolders-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
-import END_POINTS from '../../../../utils/EndPoints';
+import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../../utils/EndPointPro';
 
 const MyFoldersForm = ({
     isLoading,
@@ -26,6 +26,7 @@ const MyFoldersForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
+            // data['end_date'] = convertDate(data.expiry_date);
             data['exclude_reference'] = data.exclude_reference;
             data['exclude_quotes'] = data.exclude_quotes;
             data['exclude_small_sources'] = data.exclude_small_sources;
@@ -35,10 +36,12 @@ const MyFoldersForm = ({
             data['db_publications'] = data.db_publications;
             data['db_internet'] = data.db_internet;
             data['institution_repository'] = data.institution_repository;
-            EditFolder(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '/' + editData?.folder_id, data);
+            // delete data.expiry_date;
+            EditFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + editData?.folder_id, data);
         } else {
             let Detaileddata = {
                 ...data,
+                // 'end_date': convertDate(data.expiry_date),
                 'exclude_reference': data.exclude_reference,
                 'exclude_quotes': data.exclude_quotes,
                 'exclude_small_sources': data.exclude_small_sources,
@@ -49,15 +52,19 @@ const MyFoldersForm = ({
                 'db_internet': data.db_internet,
                 'institution_repository': data.institution_repository,
             }
-            CreateFolder(BASE_URL_EXTREM + END_POINTS.CREATE_FOLDER, Detaileddata);
+            // delete Detaileddata.expiry_date;
+            CreateFolder(BASE_URL_PRO + END_POINTS_PRO.CREATE_FOLDER, Detaileddata);
         }
     };
 
     const modifyFormField = (buttonLabel, isNameDisabled) => {
         let formField = formJsonField?.map((field) => {
-            if (field.name === 'assignment_name') {
+            if (field.name === 'folder_name') {
                 field.disabled = isNameDisabled;
             }
+            // if (field.name === 'end_date') {
+            //     field.minDate = false;
+            // }
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
             }
@@ -68,20 +75,23 @@ const MyFoldersForm = ({
 
     useEffect(() => {
         if (editData) {
+            console.log("editData", editData)
             let a = {
-                'assignment_name': editData.folder_name,
-                'exclude_reference': editData.excludeReferences,
-                'exclude_quotes': editData.excludeQuotes,
-                'exclude_small_sources': editData.excludeSmallSources,
-                'grammar_check': editData.grammarCheck,
-                'exclude_phrases': editData.excludePhrases,
+                'folder_name': editData.folder_name,
+                // 'expiry_date': convertDate(editData.end_date),
+                'exclude_reference': editData.ex_references,
+                'exclude_quotes': editData.ex_quotes,
+                'exclude_small_sources': editData.small_sources,
+                'grammar_check': editData.grammar,
+                'exclude_phrases': editData.ex_phrases,
                 'db_studentpaper': editData.db_studentpaper,
                 'db_publications': editData.db_publications,
                 'db_internet': editData.db_internet,
                 'institution_repository': editData.institution_repository,
             };
             const fields = [
-                'assignment_name',
+                'folder_name',
+                // 'expiry_date',
                 "exclude_reference",
                 "exclude_quotes",
                 "exclude_small_sources",
