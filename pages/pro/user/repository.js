@@ -16,18 +16,18 @@ import {
     WarningDialog
 } from './../../../components';
 import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
-import Instructor from '../../../layouts/Instructor';
+import ProUser from '../../../layouts/ProUser';
 import { GetRepoList, RemoveRepositary } from '../../../redux/action/instructor/InstructorAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
-import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
-import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_PRO } from '../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
 
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/extream/instructor/dashboard',
+        link: '/pro/user/dashboard',
         active: false,
     },
     {
@@ -78,7 +78,7 @@ const Repository = ({
     });
 
     useEffect(() => {
-        GetRepoList(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_DATA, paginationPayload);
+        GetRepoList(BASE_URL_PRO + END_POINTS_PRO.USER_REPOSITARY_DATA, paginationPayload);
     }, [, paginationPayload]);
 
     useEffect(() => {
@@ -142,7 +142,7 @@ const Repository = ({
     };
 
     const handleYesWarning = () => {
-        RemoveRepositary(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_REMOVE + deleteRowData);
+        RemoveRepositary(BASE_URL_PRO + END_POINTS_PRO.USER_REPOSITARY_REMOVE + deleteRowData);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -246,6 +246,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-Repository.layout = Instructor
+Repository.layout = ProUser
 
 export default connect(mapStateToProps, mapDispatchToProps)(Repository);

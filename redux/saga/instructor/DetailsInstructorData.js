@@ -535,7 +535,7 @@ export function* DeleteMyFolders() {
  */
 
 export function* onLoadRepo(action) {
-    const { response, error } = yield call(GetRepoDetail, action.paginationPayload);
+    const { response, error } = yield call(GetRepoDetail, action.url, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_SUCCESS,
@@ -559,11 +559,15 @@ export function* GetRepoData() {
  */
 
 export function* onLoadUploadFile(action) {
-    const { response, error } = yield call(RepoUploadDetail, action.query);
+    const { response, error } = yield call(RepoUploadDetail, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_SUCCESS, payload: response?.data });
         yield put({
-            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue
+            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_DATA :
+                BASE_URL_PRO + END_POINTS_PRO.USER_REPOSITARY_DATA,
+            paginationPayload: StudentSubmissionsPaginationValue
         });
         toastrValidation(response);
     } else {
@@ -582,12 +586,16 @@ export function* RepoUploadData() {
  */
 
 export function* onLoadRemoveRepositary(action) {
-    const { response, error } = yield call(RemoveRepositaryData, action.id);
+    const { response, error } = yield call(RemoveRepositaryData, action.url);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_SUCCESS, payload: response?.data });
-        yield put({
-            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue
-        });
+        // yield put({
+        //     type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START,
+        //     url: action.url.split('/')[3] === 'extreme' ?
+        //         BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_DATA :
+        //         BASE_URL_PRO + END_POINTS_PRO.USER_REPOSITARY_DATA,
+        //     paginationPayload: StudentSubmissionsPaginationValue
+        // });
         toastrValidation(response);
     } else {
         yield put({

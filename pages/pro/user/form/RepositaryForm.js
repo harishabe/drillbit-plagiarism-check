@@ -6,8 +6,8 @@ import { FormComponent } from '../../../../components';
 import FormJson from '../../../../constant/form/instructor-repositary-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { RepoUpload } from '../../../../redux/action/instructor/InstructorAction';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
-import END_POINTS from '../../../../utils/EndPoints';
+import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../../utils/EndPointPro';
 
 const RepositaryForm = ({
     RepoUpload,
@@ -25,7 +25,7 @@ const RepositaryForm = ({
         bodyFormData.append('repository', data.repository.name);
         bodyFormData.append('language', data.language.name);
         bodyFormData.append('file', data.file[0]);
-        RepoUpload(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD, bodyFormData)
+        RepoUpload(BASE_URL_PRO + END_POINTS_PRO.USER_REPOSITARY_UPLOAD, bodyFormData)
     }
 
     return (
