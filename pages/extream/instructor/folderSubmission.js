@@ -26,9 +26,9 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import {
     folderSubmissionsFileData,
-    DeletefolderSubmissionData
+    DeletefolderSubmissionData,
+    DownloadOriginalFile
 } from '../../../redux/action/common/Submission/SubmissionAction';
-import { DownloadOriginalFile } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';

@@ -284,26 +284,26 @@ export const InstructorFeedback = (clasId, folder_id, paper_id) => {
 /**
  * Get repositary data
  */
-export const GetRepoList = (paginationPayload) => {
+export const GetRepoList = (url, paginationPayload) => {
     return {
-        type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, paginationPayload: paginationPayload
+        type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, url: url, paginationPayload: paginationPayload
     };
 };
 
 /**
  * Repositary > uploadfile
  */
-export const RepoUpload = (data) => {
+export const RepoUpload = (url, data) => {
     return {
-        type: types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_START, query: data
+        type: types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_START, url: url, query: data
     };
 };
 
 /**
  * Remove repositary
  */
-export const RemoveRepositary = (id) => {
+export const RemoveRepositary = (url) => {
     return {
-        type: types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_START, id: id
+        type: types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_START, url: url
     };
 };
