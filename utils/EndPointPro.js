@@ -27,6 +27,8 @@ const END_POINTS_PRO = {
     USER_MY_FOLDERS: '/folders',
     USER_FOLDER_EDIT_AND_DELETE_DATA: '/folder',
     CREATE_FOLDER: '/folder',
+    USER_SUBMISSION: '/folder/',
+    USER_SUBMISSION_LIST_DOWNLOAD: '/folderReport/',
     USER_REPOSITARY_DATA: '/privateRepositoryInbox',
     USER_REPOSITARY_REMOVE: '/removePrivateRepository/',
     USER_REPOSITARY_UPLOAD: '/privateRepository',

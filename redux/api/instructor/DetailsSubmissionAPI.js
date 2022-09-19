@@ -49,8 +49,7 @@ export const EditSubmissionData = async (action) => {
  * API CALL FOR DOWNLOAD CSV
  */
 
-export const DownloadSubmissionData = async (apiUrl) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl;
+export const DownloadSubmissionData = async (url) => {
     return GetMethodDownload(url, 'Submission_List.csv');
 };
 
