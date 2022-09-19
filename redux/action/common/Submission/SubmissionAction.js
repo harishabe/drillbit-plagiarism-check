@@ -12,9 +12,9 @@ export const DownloadOriginalFile = (data) => {
 /**
  * Get myfolder > folderSubmission > submissionList
  */
-export const folderSubmissionsFileData = (url) => {
+export const folderSubmissionsFileData = (url, paginationPayload) => {
     return {
-        type: types.FETCH_FOLDER_SUBMISSION_LIST_START, url: url
+        type: types.FETCH_FOLDER_SUBMISSION_LIST_START, url: url, paginationPayload: paginationPayload
     };
 };
 
