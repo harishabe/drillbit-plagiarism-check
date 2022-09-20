@@ -1,12 +1,8 @@
-import React from 'react'
-import Grid from '@mui/material/Grid';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
 import { useRouter } from "next/router";
-
 import Instructor from '../../../layouts/Instructor';
 import { BreadCrumb, TabMenu } from '../../../components';
-
 import Submission from './submissions/submission';
 import Grading from './submissions/grading';
 import QNA from './submissions/q&a';
@@ -14,6 +10,7 @@ import QNA from './submissions/q&a';
 const MySubmissions = () => {
 
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState(0);
 
   const InstructorBreadCrumb = [
     {
@@ -38,6 +35,14 @@ const MySubmissions = () => {
     },
   ];
 
+  const handleAPI = (value) => {
+    setActiveTab(value);
+  }
+
+  const SubmissionComponent = activeTab === 0 && <Submission />
+  const GradingComponent = activeTab === 1 && <Grading />
+  const QnaComponent = activeTab === 2 && <QNA />
+
   const tabMenu = [
     {
       // label: `Submission(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
@@ -51,14 +56,22 @@ const MySubmissions = () => {
     },
   ];
 
-  const componentList = [<Submission />, <Grading />, <QNA />];
+  const componentList = [
+    SubmissionComponent,
+    GradingComponent,
+    QnaComponent
+  ];
 
   return (
     <React.Fragment>
       <Box sx={ { flexGrow: 1 } }>
         <BreadCrumb item={ InstructorBreadCrumb } />
       </Box>
-      <TabMenu menuButton={ tabMenu } components={ componentList } />
+      <TabMenu
+        menuButton={ tabMenu }
+        components={ componentList }
+        handleAPI={ handleAPI }
+      />
     </React.Fragment>
   );
 };

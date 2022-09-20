@@ -11,6 +11,7 @@ import {
     SubTitle1,
     CommonTable
 } from '../../../../components';
+import { formatDate } from '../../../../utils/RegExp';
 
 const useStyles = makeStyles({
     margin: {
@@ -61,7 +62,7 @@ const IntegrationTypeDetail = ({
             let row = [
                 createData("API Key", integrationData?.api_key),
                 createData("College Name", integrationData?.college_name),
-                createData("Configured Date", integrationData?.created_date),
+                createData("Configured Date", formatDate(integrationData?.created_date)),
                 createData("Moodle URL", integrationData?.lms_url),
             ];
             let tech = [
@@ -75,7 +76,7 @@ const IntegrationTypeDetail = ({
             let row = [
                 createData("Access end point", integrationData?.access_end_point),
                 createData("Authentication end point", integrationData?.auth_end_point),
-                createData("Configured Date", integrationData?.creation_time),
+                createData("Configured Date", formatDate(integrationData?.creation_time)),
                 createData("Client id", integrationData?.client_id),
                 createData("College Name", integrationData?.college_name),
                 createData("Keyset end point", integrationData?.keyset_end_point),
@@ -88,7 +89,7 @@ const IntegrationTypeDetail = ({
             let row = [
                 createData("Access end point", integrationData?.access_end_point),
                 createData("Authentication end point", integrationData?.auth_end_point),
-                createData("Configured Date", integrationData?.creation_time),
+                createData("Configured Date", formatDate(integrationData?.creation_time)),
                 createData("Client id", integrationData?.client_id),
                 createData("College Name", integrationData?.college_name),
                 createData("Keyset end point", integrationData?.keyset_end_point),

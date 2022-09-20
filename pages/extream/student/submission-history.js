@@ -7,6 +7,7 @@ import {
     EllipsisText,
     SimilarityStatus
 } from '../../../components';
+import { formatDate } from '../../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
 
 const AddButtonBottom = styled.div`
@@ -47,7 +48,7 @@ const SubmissionHistory = ({
                 createData(
                     <EllipsisText value={submission.original_fn} charLength={12} />,
                     submission.paper_id,
-                    submission.date_up,
+                    formatDate(submission.date_up),
                     <SimilarityStatus percent={submission.percent} />,
                     submission.grammar,
                     submission.feedback?.marks,
