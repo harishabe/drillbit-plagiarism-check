@@ -1,30 +1,24 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import _ from 'lodash';
-import debouce from "lodash.debounce";
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
-import { Grid, Tooltip, Skeleton, Button, TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import { Pagination } from '@mui/material';
 import { IconButton } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
 import {
     CardView,
     CommonTable,
-    AvatarName,
     CreateDrawer,
     WarningDialog,
-    SubTitle,
-    ErrorBlock,
     DialogModal
 } from '../../../../components';
 import {
     EditIcon,
     DeleteIcon,
     DeleteWarningIcon,
-    DownloadIcon,
-    UploadIcon,
     AddMultipleIcon,
     AddPersonIcon,
     AddFromListIcon
@@ -92,10 +86,11 @@ const Students = ({
         field: 'user_id',
         orderBy: PaginationValue?.orderBy,
     });
+    const [classId, setClassId] = useState('');
 
     useEffect(() => {
         GetStudent(router.query.clasId, paginationPayload);
-    }, [router.query.clasId, paginationPayload]);
+    }, [router.isReady,paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -119,7 +114,8 @@ const Students = ({
         setRows([...arr]);
     }, [studentData]);
 
-    const handleAction = (event, icon, rowData) => {
+    const handleAction = (e, icon, rowData) => {
+        e.preventDefault();
         if (icon === 'edit') {
             setEditStudent(true);
             setEditStudentData(rowData);
@@ -130,7 +126,7 @@ const Students = ({
     }
 
     const handleYesWarning = () => {
-        DeleteStudent(router.query.clasId, deleteRowData);
+        DeleteStudent(classId, deleteRowData);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -142,6 +138,7 @@ const Students = ({
     };
 
     const handleTableSort = (e, column, sortToggle) => {
+        e.preventDefault();
         if (sortToggle) {
             paginationStudent['field'] = column.id
             paginationStudent['orderBy'] = 'asc';
@@ -188,7 +185,7 @@ const Students = ({
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Student') {
             UploadFileDataClear();
-            router.push({ pathname: '/extream/instructor/addBulkStudent', query: { classId: router.query.clasId } })
+            router.push({ pathname: '/extream/instructor/addBulkStudent', query: { classId: classId } })
         }
     }
 
@@ -203,18 +200,17 @@ const Students = ({
 
     return (
         <React.Fragment>
-
-            { showDialogModal &&
+            {showDialogModal &&
                 <>
                     <DialogModal
-                        headingTitle={ "Institute Students List" }
-                        isOpen={ true }
+                        headingTitle={"Institute Students List"}
+                        isOpen={true}
                         fullWidth="lg"
                         maxWidth="lg"
-                        handleClose={ handleCloseDialog }
+                        handleClose={handleCloseDialog}
                     >
                         <StudentInstitute
-                            classId={ router.query.clasId }
+                            classId={router.query.clasId}
                         />
                     </DialogModal>
                 </>
@@ -222,17 +218,16 @@ const Students = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
+                    warningIcon={<DeleteWarningIcon />}
                     message="Are you sure you want to delete ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
-
             <AddButtonBottom>
                 <CreateDrawer
-                    options={ [
+                    options={[
                         {
                             icon: <AddPersonIcon />,
                             title: 'Add Student',
@@ -247,73 +242,67 @@ const Students = ({
                             icon: <AddFromListIcon />,
                             title: 'Add From List',
                             handleFromCreateDrawer: true
-                        }] }
+                        }]}
                     title="Add Student"
-                    handleMultiData={ handleShow }
-                    isShowAddIcon={ true }>
+                    handleMultiData={handleShow}
+                    isShowAddIcon={true}>
                     <StudentForm />
                 </CreateDrawer>
             </AddButtonBottom>
-
             {
                 editStudent &&
                 <CreateDrawer
                     title="Edit Student"
-                    isShowAddIcon={ false }
-                    showDrawer={ editStudent }
+                    isShowAddIcon={false}
+                    showDrawer={editStudent}
                 >
                     <StudentForm
-                        editData={ editStudentData }
+                        editData={editStudentData}
                     />
                 </CreateDrawer>
             }
-
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item container direction='row' justifyContent={ 'right' }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item container direction='row' justifyContent={'right'}>
                         <SearchField>
                             <TextField
                                 placeholder='Search'
-                                onChange={ debouncedResultsStudent }
-                                inputProps={ {
+                                onChange={debouncedResultsStudent}
+                                inputProps={{
                                     style: {
                                         padding: 5,
                                         display: 'inline-flex'
                                     }
-                                } }
+                                }}
                             />
                         </SearchField>
                     </Grid>
                 </Grid>
             </Box>
-
-
             <CardView>
                 <>
-                    { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
-                        <IconButton onClick={ deleteAllStudent }>
+                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+                        <IconButton onClick={deleteAllStudent}>
                             <DeleteIcon />
                         </IconButton>
-                    </div> }
-
+                    </div>}
                     <CommonTable
-                        isCheckbox={ true }
-                        isSorting={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        handleAction={ handleAction }
-                        handleTableSort={ handleTableSort }
-                        handleCheckboxSelect={ handleCheckboxSelect }
-                        handleSingleSelect={ handleSingleSelect }
-                        isLoading={ isLoadingStudent }
-                        charLength={ 17 }
+                        isCheckbox={true}
+                        isSorting={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        handleAction={handleAction}
+                        handleTableSort={handleTableSort}
+                        handleCheckboxSelect={handleCheckboxSelect}
+                        handleSingleSelect={handleSingleSelect}
+                        isLoading={isLoadingStudent}
+                        charLength={17}
                         path=''
                     />
-
                     <PaginationContainer>
                         <Pagination
-                            count={ pageDetailsStudent?.totalPages }
-                            onChange={ handlePagination }
+                            count={pageDetailsStudent?.totalPages}
+                            onChange={handlePagination}
                             color="primary"
                             variant="outlined"
                             shape="rounded"

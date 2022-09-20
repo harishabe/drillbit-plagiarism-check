@@ -94,7 +94,7 @@ const Assignments = ({
           color={
             assignment.status === 'active' ? '#38BE62' : '#E9596F'
           }
-          title={ assignment.status }
+          title={assignment.status}
         />,
         assignment.start_date,
         assignment.end_date,
@@ -113,8 +113,6 @@ const Assignments = ({
     event.preventDefault();
     setPaginationAssignment({ ...paginationAssignment, page: value - 1 });
   };
-
-
 
   const handleAction = (event, icon, rowData) => {
     if (icon === 'edit') {
@@ -182,100 +180,90 @@ const Assignments = ({
 
   return (
     <React.Fragment>
-
-      <Box sx={ { flexGrow: 1 } }>
-        <Grid container spacing={ 1 }>
-          <Grid item container direction='row' justifyContent={ 'right' }>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={1}>
+          <Grid item container direction='row' justifyContent={'right'}>
             <SearchField>
               <TextField
                 placeholder='Search'
-                onChange={ debouncedResultsAssignment }
-                inputProps={ {
+                onChange={debouncedResultsAssignment}
+                inputProps={{
                   style: {
                     padding: 5,
                     display: 'inline-flex'
                   }
-                } }
+                }}
               />
             </SearchField>
           </Grid>
         </Grid>
       </Box>
-
       <AddButtonBottom>
         <CreateDrawer
-          isShowAddIcon={ true }
+          isShowAddIcon={true}
           title='Create Assignment'
         >
           <AssignmentForms />
         </CreateDrawer>
       </AddButtonBottom>
-
       {
         showDeleteWarning &&
         <WarningDialog
-          warningIcon={ <DeleteWarningIcon /> }
+          warningIcon={<DeleteWarningIcon />}
           message="Are you sure you want to delete ?"
-          handleYes={ handleYesWarning }
-          handleNo={ handleCloseWarning }
-          isOpen={ true }
+          handleYes={handleYesWarning}
+          handleNo={handleCloseWarning}
+          isOpen={true}
         />
       }
-
       {
         editAssignment &&
         <CreateDrawer
           title="Edit Student"
-          isShowAddIcon={ false }
-          showDrawer={ editAssignment }
+          isShowAddIcon={false}
+          showDrawer={editAssignment}
         >
           <AssignmentForms
-            editData={ editAssignmentData }
+            editData={editAssignmentData}
           />
         </CreateDrawer>
       }
-
       <CardView>
         <AddButtonBottom>
           <CreateDrawer
-            isShowAddIcon={ true }
+            isShowAddIcon={true}
             title='Create Assignment'
           >
             <AssignmentForms />
           </CreateDrawer>
         </AddButtonBottom>
-
-
-        { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
-          <IconButton onClick={ deleteAllAssignment }>
+        {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+          <IconButton onClick={deleteAllAssignment}>
             <DeleteIcon />
           </IconButton>
-        </div> }
-
+        </div>}
         <CommonTable
-          isCheckbox={ true }
-          isNextPath={ true }
-          isSorting={ true }
-          tableHeader={ columns }
-          tableData={ rows }
-          handleAction={ handleAction }
-          handleTableSort={ handleTableSort }
-          handleCheckboxSelect={ handleCheckboxSelect }
-          handleSingleSelect={ handleSingleSelect }
-          isLoading={ isLoadingAssignment }
-          path={ { pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } } }
+          isCheckbox={true}
+          isNextPath={true}
+          isSorting={true}
+          tableHeader={columns}
+          tableData={rows}
+          handleAction={handleAction}
+          handleTableSort={handleTableSort}
+          handleCheckboxSelect={handleCheckboxSelect}
+          handleSingleSelect={handleSingleSelect}
+          isLoading={isLoadingAssignment}
+          path={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } }}
         />
-
         <PaginationContainer>
           <Pagination
-            count={ pageDetailsAssignment?.totalPages }
-            onChange={ handlePagination }
+            count={pageDetailsAssignment?.totalPages}
+            onChange={handlePagination}
             color='primary'
             variant='outlined'
             shape='rounded'
           />
         </PaginationContainer>
-
       </CardView>
     </React.Fragment>
   );

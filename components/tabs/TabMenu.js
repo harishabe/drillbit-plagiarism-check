@@ -60,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
 const TabMenu = ({
     menuButton,
     components,
-    isTabMenu
+    isTabMenu,
+    handleAPI
 }) => {
 
     const classes = useStyles()
@@ -68,7 +69,8 @@ const TabMenu = ({
     const [value, setValue] = React.useState(0)
 
     const handleChange = (event, newValue) => {
-        setValue(newValue)
+        setValue(newValue);
+        handleAPI(newValue);
     }
 
     return (

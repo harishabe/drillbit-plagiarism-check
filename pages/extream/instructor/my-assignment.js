@@ -24,6 +24,8 @@ const MyClassesTables = ({
 
     const router = useRouter();
 
+    const [activeTab, setActiveTab] = useState(0);
+
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
@@ -56,15 +58,10 @@ const MyClassesTables = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    useEffect(() => {
-        GetStudent(router.query.clasId, paginationStudent);
-    }, [router.query.clasId, paginationStudent]);
 
-    useEffect(() => {
-        GetAssignment(router.query.clasId, paginationAssignment);
-    }, [router.query.clasId, paginationAssignment]);
-
-    /** search implementation using debounce concepts */
+    // useEffect(() => {
+    //     GetAssignment(router.query.clasId, paginationAssignment);
+    // }, [router.query.clasId, paginationAssignment]);
 
     const handleSearchAssignment = (event) => {
         if (event.target.value !== '') {
@@ -86,10 +83,6 @@ const MyClassesTables = ({
         };
     });
 
-    /** end debounce concepts */
-
-    /** search implementation using debounce concepts */
-
     const handleSearchStudent = (event) => {
         if (event.target.value !== '') {
             paginationStudent['search'] = event.target.value;
@@ -110,25 +103,31 @@ const MyClassesTables = ({
         };
     });
 
-    /** end debounce concepts */
+    const handleAPI = (value) => {
+        setActiveTab(value);
+    }
+
+    const AssignmentComponent = activeTab === 0 && <Assignments
+        pageDetailsAssignment={pageDetailsAssignment}
+        assignmentData={assignmentData}
+        isLoadingAssignment={isLoadingAssignment}
+        paginationAssignment={paginationAssignment}
+        setPaginationAssignment={setPaginationAssignment}
+        debouncedResultsAssignment={debouncedResultsAssignment}
+    />
+
+    const StudentComponent = activeTab === 1 && <Students
+        pageDetailsStudent={pageDetailsStudent}
+        studentData={studentData}
+        isLoadingStudent={isLoadingStudent}
+        paginationStudent={paginationStudent}
+        setPaginationStudent={setPaginationStudent}
+        debouncedResultsStudent={debouncedResultsStudent}
+    />
 
     const componentList = [
-        <Assignments
-            pageDetailsAssignment={ pageDetailsAssignment }
-            assignmentData={ assignmentData }
-            isLoadingAssignment={ isLoadingAssignment }
-            paginationAssignment={ paginationAssignment }
-            setPaginationAssignment={ setPaginationAssignment }
-            debouncedResultsAssignment={ debouncedResultsAssignment }
-        />,
-        <Students
-            pageDetailsStudent={ pageDetailsStudent }
-            studentData={ studentData }
-            isLoadingStudent={ isLoadingStudent }
-            paginationStudent={ paginationStudent }
-            setPaginationStudent={ setPaginationStudent }
-            debouncedResultsStudent={ debouncedResultsStudent }
-        />
+        AssignmentComponent,
+        StudentComponent
     ];
 
     const tabMenu = [
@@ -136,21 +135,25 @@ const MyClassesTables = ({
             label: `Assignments(${pageDetailsAssignment?.totalElements !== undefined ? pageDetailsAssignment?.totalElements : 0})`,
         },
         {
-            label: `Students(${pageDetailsStudent?.totalElements !== undefined ? pageDetailsStudent?.totalElements : 0})`,
+            label: `Students${pageDetailsStudent?.totalElements !== undefined ? '('+pageDetailsStudent?.totalElements+')' : ''}`,
         }
     ];
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 12 }>
-                        <BreadCrumb item={ InstructorBreadCrumb } />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={12}>
+                        <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
                 </Grid>
             </Box>
 
-            <TabMenu menuButton={ tabMenu } components={ componentList } />
+            <TabMenu
+                menuButton={tabMenu}
+                components={componentList}
+                handleAPI={handleAPI}
+            />
         </React.Fragment>
     )
 }
