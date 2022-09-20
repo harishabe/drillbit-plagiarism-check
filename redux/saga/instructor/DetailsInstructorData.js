@@ -26,6 +26,9 @@ import {
 } from '../../api/instructor/DetailsInstructorAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { PaginationValue, InstructorPaginationValue, InstructorFolderPaginationValue, StudentSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
+import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
+import END_POINTS_PRO from '../../../utils/EndPointPro'
 
 /**
  * Get classes data
@@ -416,7 +419,7 @@ export function* DeleteAssignments() {
  */
 
 export function* GetAllFolders(action) {
-    const { response, error } = yield call(GetMyFoldersDetail, action.paginationPayload);
+    const { response, error } = yield call(GetMyFoldersDetail, action.url, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_INSTRUCTOR_MY_FOLDERS_SUCCESS,
@@ -440,10 +443,16 @@ export function* GetMyFolders() {
  */
 
 export function* onLoadCreateFolder(action) {
-    const { response, error } = yield call(CreateFolderData, action.query);
+    const { response, error } = yield call(CreateFolderData, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: InstructorFolderPaginationValue });
+        yield put({
+            type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDERS :
+                BASE_URL_PRO + END_POINTS_PRO.USER_MY_FOLDERS,
+            paginationPayload: InstructorFolderPaginationValue
+        });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_CREATE_MY_FOLDERS_FAIL, payload: error });
@@ -462,10 +471,16 @@ export function* CreateFolder() {
  */
 
 export function* onLoadEditFolder(action) {
-    const { response, error } = yield call(EditFolderData, action);
+    const { response, error } = yield call(EditFolderData, action.url, action.requestPayload);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: InstructorFolderPaginationValue });
+        yield put({
+            type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDERS :
+                BASE_URL_PRO + END_POINTS_PRO.USER_MY_FOLDERS,
+            paginationPayload: InstructorFolderPaginationValue
+        });
         toastrValidation(response);
     } else {
         yield put({
@@ -487,13 +502,19 @@ export function* EditMyFolderData() {
  */
 
 export function* onLoadDeleteFolder(action) {
-    const { response, error } = yield call(DeleteFolders, action);
+    const { response, error } = yield call(DeleteFolders, action.url);
     if (response) {
         yield put({
             type: types.FETCH_INSTRUCTOR_DELETE_FOLDER_SUCCESS,
             payload: response?.data,
         });
-        yield put({ type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START, paginationPayload: InstructorFolderPaginationValue });
+        yield put({
+            type: types.FETCH_INSTRUCTOR_MY_FOLDERS_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDERS :
+                BASE_URL_PRO + END_POINTS_PRO.USER_MY_FOLDERS,
+            paginationPayload: InstructorFolderPaginationValue
+        });
         toastrValidation(response);
     } else {
         yield put({
@@ -514,7 +535,7 @@ export function* DeleteMyFolders() {
  */
 
 export function* onLoadRepo(action) {
-    const { response, error } = yield call(GetRepoDetail, action.paginationPayload);
+    const { response, error } = yield call(GetRepoDetail, action.url, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_SUCCESS,
@@ -538,11 +559,15 @@ export function* GetRepoData() {
  */
 
 export function* onLoadUploadFile(action) {
-    const { response, error } = yield call(RepoUploadDetail, action.query);
+    const { response, error } = yield call(RepoUploadDetail, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_REPOSITARY_UPLOAD_SUCCESS, payload: response?.data });
         yield put({
-            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue
+            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_DATA :
+                BASE_URL_PRO + END_POINTS_PRO.USER_REPOSITARY_DATA,
+            paginationPayload: StudentSubmissionsPaginationValue
         });
         toastrValidation(response);
     } else {
@@ -561,12 +586,16 @@ export function* RepoUploadData() {
  */
 
 export function* onLoadRemoveRepositary(action) {
-    const { response, error } = yield call(RemoveRepositaryData, action.id);
+    const { response, error } = yield call(RemoveRepositaryData, action.url);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_REPOSITARY_DELETE_SUCCESS, payload: response?.data });
-        yield put({
-            type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue
-        });
+        // yield put({
+        //     type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_START,
+        //     url: action.url.split('/')[3] === 'extreme' ?
+        //         BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_DATA :
+        //         BASE_URL_PRO + END_POINTS_PRO.USER_REPOSITARY_DATA,
+        //     paginationPayload: StudentSubmissionsPaginationValue
+        // });
         toastrValidation(response);
     } else {
         yield put({

@@ -3,12 +3,12 @@
         "field_type": "input",
         "type": "text",
         "id": "name",
-        "name": "assignment_name",
+        "name": "folder_name",
         "disabled": false,
         "label": "Folder Name",
         "required": "Please Enter Folder name"
     },
-    
+
     {
         "field_type": "toggle",
         "id": "exclude_reference",

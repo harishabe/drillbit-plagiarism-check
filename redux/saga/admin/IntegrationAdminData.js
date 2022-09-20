@@ -6,7 +6,9 @@ import {
     ChangeConfigDetail
 } from '../../api/admin/IntegrationAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import END_POINTS from '../../../utils/EndPoints'
+import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
 
 /**
  * Get integration data
@@ -66,7 +68,12 @@ export function* onLoadIntegrationDetailsUpload(action) {
     const { response, error } = yield call(LmsIntegrationDetail, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_ADMIN_INTEGRATION_DETAILS_START, apiUrl: END_POINTS.ADMIN_INTEGRATION_DATA });
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_DETAILS_START,
+            apiUrl: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_DATA :
+                BASE_URL_PRO + END_POINTS_PRO.ADMIN_INTEGRATION_DATA,
+        });
         toastrValidation(response)
     } else {
         yield put({

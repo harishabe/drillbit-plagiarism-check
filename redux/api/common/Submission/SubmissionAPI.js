@@ -1,6 +1,8 @@
 import END_POINTS from '../../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../../utils/EndPointPro';
+import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import { GetMethodDownloadPdf, GetMethod, DeleteMethod } from '../../ApiMethod';
+import { PaginationUrl } from '../../../../utils/PaginationUrl';
 
 /**
  * API CALL FOR DOWNLOAD ORIGINAL FILE
@@ -16,14 +18,17 @@ export const DownloadOriginalFileData = async (data) => {
     } else if (data?.path === 'assignmentSubmission') {
         const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_LIST_ORIGINAL_LIST_DOWNLOAD + 'classes/' + data?.clasId + '/assignments/' + data?.assId + '/downloadOriginalFile/' + data?.paperId;
         return GetMethodDownloadPdf(url, data?.name);
+    } else if (data?.path === 'proFolderSubmission') {
+        const url = BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + data?.folderId + '/submissions/downloadOriginalFile/' + data?.paperId;
+        return GetMethodDownloadPdf(url, data?.name);
     }
 };
 
 /**
  * API CALL FOR MY FOLDER > FOLDER SUBMISSION > SUBMISSION DATA
  */
-export const GetFolderSubmission = async (apiUrl) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl;
+export const GetFolderSubmission = async (apiUrl, paginationPayload) => {
+    const url = apiUrl + PaginationUrl(paginationPayload);
     return GetMethod(url);
 }
 
@@ -31,7 +36,6 @@ export const GetFolderSubmission = async (apiUrl) => {
  * API CALL FOR MY FOLDER > SUBMISSION DATA > DELETE
  */
 
-export const DeletefolderSubmission = async (apiUrl) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl;
+export const DeletefolderSubmission = async (url) => {
     return DeleteMethod(url);
 };

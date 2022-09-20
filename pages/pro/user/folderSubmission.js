@@ -9,7 +9,7 @@ import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box'
 import { Pagination, IconButton } from '@mui/material';
 import { TextField } from '@mui/material';
-import Instructor from '../../../layouts/Instructor';
+import ProUser from '../../../layouts/ProUser';
 import {
     CardView,
     CommonTable,
@@ -33,8 +33,8 @@ import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/ico
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
-import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
-import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_PRO } from '../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -90,15 +90,15 @@ const folderSubmission = ({
     const folderId = router.query.folderId;
     const folderName = router.query.name;
 
-    const InstructorBreadCrumb = [
+    const UserBreadCrumb = [
         {
             name: 'Dashboard',
-            link: '/extream/instructor/dashboard',
+            link: '/pro/user/dashboard',
             active: false,
         },
         {
             name: 'My folder',
-            link: '/extream/instructor/myfolder',
+            link: '/pro/user/myfolder',
             active: false,
         },
         {
@@ -116,7 +116,7 @@ const folderSubmission = ({
     });
 
     useEffect(() => {
-        folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
+        folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
     }, [folderId, paginationPayload]);
 
     useEffect(() => {
@@ -128,7 +128,7 @@ const folderSubmission = ({
                     submission.ass_id,
                     submission.name,
                     submission.title,
-                    submission.original_fn,
+                    submission.original_file_name,
                     submission.grammar,
                     < SimilarityStatus percent={ submission.percent } />,
                     submission.paper_id,
@@ -160,7 +160,7 @@ const folderSubmission = ({
     };
 
     const handleYesWarning = () => {
-        DeletefolderSubmissionData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/submissions?paperId=${deleteRowData}`);
+        DeletefolderSubmissionData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + `${folderId}/submissions?paperId=${deleteRowData}`);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -236,7 +236,7 @@ const folderSubmission = ({
     }
 
     const handleDownload = () => {
-        DownloadSubmissionList(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`)
+        DownloadSubmissionList(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION_LIST_DOWNLOAD + folderId)
     }
 
     const handleOriginalFileDownload = (e, data) => {
@@ -253,8 +253,8 @@ const folderSubmission = ({
         let detailedData = {
             folderId: folderId,
             paperId: data?.paper_id,
-            name: data?.original_fn,
-            path: 'folderSubmission'
+            name: data?.original_file_name,
+            path: 'proFolderSubmission'
         }
         DownloadOriginalFile(detailedData)
         setShowDownloadWarning(false);
@@ -273,13 +273,13 @@ const folderSubmission = ({
         if (uploadData) {
             UploadZipFileDataClear();
         }
-        router.push({ pathname: '/extream/instructor/uploadFileFolderSubmission', query: router.query })
+        router.push({ pathname: '/pro/user/uploadFileFolderSubmission', query: router.query })
     }
 
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
-                <BreadCrumb item={ InstructorBreadCrumb } />
+                <BreadCrumb item={ UserBreadCrumb } />
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 8.9 } xs={ 7 }>
                         <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
@@ -381,7 +381,7 @@ const folderSubmission = ({
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.submission?.folderSubmissionData?.page,
-    folderSubmissionData: state?.submission?.folderSubmissionData?._embedded?.submissionsList,
+    folderSubmissionData: state?.submission?.folderSubmissionData?._embedded?.submissionsDTOList,
     isLoadingSubmission: state?.submission?.isLoadingSubmission,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
     isLoadingDownload: state?.instructorMyFolders?.isLoadingDownload,
@@ -400,6 +400,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-folderSubmission.layout = Instructor
+folderSubmission.layout = ProUser
 
 export default connect(mapStateToProps, mapDispatchToProps)(folderSubmission);

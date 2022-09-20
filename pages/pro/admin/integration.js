@@ -8,9 +8,9 @@ import ProAdmin from './../../../layouts/ProAdmin';
 import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer } from './../../../components';
 import { GetIntegrationList } from '../../../redux/action/admin/AdminAction';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
-import MoodleForm from '../../extream/admin/form/MoodleForm';
-import CanvasForm from '../../extream/admin/form/CanvasForm';
-import BlackboardForm from '../../extream/admin/form/BlackboardForm';
+import MoodleForm from './form/MoodleForm';
+import CanvasForm from './form/CanvasForm';
+import BlackboardForm from './form/BlackboardForm';
 import {
     ADMIN_INTEGRATION_MOODLE,
     ADMIN_INTEGRATION_CANVAS,
@@ -21,9 +21,9 @@ import {
     ADMIN_INTEGRATION_MOODLE_DESCRIPTION,
     ADMIN_INTEGRATION_CANVAS_DESCRIPTION,
     ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION,
-    ADMIN_INTEGRATION_MOODLE_PATH,
-    ADMIN_INTEGRATION_CANVAS_PATH,
-    ADMIN_INTEGRATION_BLACKBOARD_PATH,
+    PRO_ADMIN_INTEGRATION_MOODLE_PATH,
+    PRO_ADMIN_INTEGRATION_CANVAS_PATH,
+    PRO_ADMIN_INTEGRATION_BLACKBOARD_PATH,
 } from '../../../constant/data/Integration'
 import { BASE_URL_PRO } from '../../../utils/BaseUrl'
 
@@ -66,19 +66,19 @@ const Integration = ({
             if (item.lms === ADMIN_INTEGRATION_MOODLE) {
                 item['img'] = ADMIN_INTEGRATION_MOODLE_IMG;
                 item['description'] = ADMIN_INTEGRATION_MOODLE_DESCRIPTION;
-                item['path'] = ADMIN_INTEGRATION_MOODLE_PATH;
+                item['path'] = PRO_ADMIN_INTEGRATION_MOODLE_PATH;
                 item['type'] = 'Moodle';
             }
             if (item.lms === ADMIN_INTEGRATION_CANVAS) {
                 item['img'] = ADMIN_INTEGRATION_CANVAS_IMG;
                 item['description'] = ADMIN_INTEGRATION_CANVAS_DESCRIPTION;
-                item['path'] = ADMIN_INTEGRATION_CANVAS_PATH;
+                item['path'] = PRO_ADMIN_INTEGRATION_CANVAS_PATH;
                 item['type'] = 'Canvas';
             }
             if (item.lms === ADMIN_INTEGRATION_BLACKBOARD) {
                 item['img'] = ADMIN_INTEGRATION_BLACKBOARD_IMG;
                 item['description'] = ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION;
-                item['path'] = ADMIN_INTEGRATION_BLACKBOARD_PATH;
+                item['path'] = PRO_ADMIN_INTEGRATION_BLACKBOARD_PATH;
                 item['type'] = 'Blackboard'
             }
             return item;

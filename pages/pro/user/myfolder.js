@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
 import { TextField, Skeleton } from '@mui/material';
-import Instructor from '../../../layouts/Instructor';
+import ProUser from './../../../layouts/ProUser';
 import { DeleteWarningIcon } from '../../../assets/icon';
 import {
     BreadCrumb,
@@ -21,13 +21,13 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import MyFoldersForm from './form/MyFolderForm';
 import { FOLDERS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 import { PaginationContainer } from '../../style/index';
-import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
-import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_PRO } from '../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
 
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/extream/instructor/dashboard',
+        link: '/pro/user/dashboard',
         active: false,
     },
     {
@@ -63,7 +63,7 @@ const MyFolder = ({
     });
 
     useEffect(() => {
-        GetAllFolders(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDERS, paginationPayload);
+        GetAllFolders(BASE_URL_PRO + END_POINTS_PRO.USER_MY_FOLDERS, paginationPayload);
     }, [, paginationPayload]);
 
     const handleChange = (event, value) => {
@@ -85,7 +85,7 @@ const MyFolder = ({
     };
 
     const handleYesWarning = () => {
-        DeleteFolder(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '?id=' + selectedFolder.folder_id);
+        DeleteFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + selectedFolder.folder_id);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -162,7 +162,7 @@ const MyFolder = ({
                                         isAction={ true }
                                         handleClick={ handleFolderEdit }
                                         handleDelete={ handleFolderDelete }
-                                        path={ { pathname: '/extream/instructor/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id } } }
+                                        path={ { pathname: '/pro/user/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id } } }
                                     />
                                 </Grid>
                             )) }
@@ -221,7 +221,7 @@ const MyFolder = ({
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.instructorMyFolders?.myFolders?.page,
-    myFolders: state?.instructorMyFolders?.myFolders?._embedded?.folderDTOList,
+    myFolders: state?.instructorMyFolders?.myFolders?._embedded?.foldersDTOList,
     isLoading: state?.instructorMyFolders?.isLoading,
 });
 
@@ -232,6 +232,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-MyFolder.layout = Instructor;
+MyFolder.layout = ProUser;
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyFolder);

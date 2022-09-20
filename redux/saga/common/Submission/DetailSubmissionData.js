@@ -6,6 +6,10 @@ import {
     DeletefolderSubmission
 } from '../../../api/common/Submission/SubmissionAPI';
 import toastrValidation from '../../../../utils/ToastrValidation';
+import { FolderSubmissionsPaginationValue } from '../../../../utils/PaginationUrl';
+import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../../utils/BaseUrl';
+import END_POINTS from '../../../../utils/EndPoints';
+import END_POINTS_PRO from '../../../../utils/EndPointPro'
 
 /**
  * Get Download Original File data
@@ -40,7 +44,7 @@ export function* GetDownloadFileData() {
  */
 
 export function* onLoadSubmission(action) {
-    const { response, error } = yield call(GetFolderSubmission, action.url);
+    const { response, error } = yield call(GetFolderSubmission, action.url, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_FOLDER_SUBMISSION_LIST_SUCCESS,
@@ -64,15 +68,24 @@ export function* GetFolderSubmissionData() {
  */
 
 export function* onLoadDeleteFile(action) {
+    console.log("action", action.url.split('/'))
     const { response, error } = yield call(DeletefolderSubmission, action.url);
     if (response) {
         yield put({ type: types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_FOLDER_SUBMISSION_LIST_START, url: `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc` });
+        yield put({
+            type: types.FETCH_FOLDER_SUBMISSION_LIST_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${action.url.split('/')[5]}/submissions` :
+                BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + `${action.url.split('/')[5]}/submissions`,
+            paginationPayload: FolderSubmissionsPaginationValue
+        });
+        toastrValidation(response);
     } else {
         yield put({
             type: types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 
