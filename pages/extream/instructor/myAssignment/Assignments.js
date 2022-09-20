@@ -23,7 +23,7 @@ import {
   DeleteAssignment
 } from '../../../../redux/action/instructor/InstructorAction';
 import AssignmentForms from './../form/AssignmentForms';
-import { removeCommaWordEnd } from '../../../../utils/RegExp';
+import { removeCommaWordEnd, formatDate } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
 
@@ -91,8 +91,8 @@ const Assignments = ({
           }
           title={assignment.status}
         />,
-        assignment.start_date,
-        assignment.end_date,
+        formatDate(assignment.start_date),
+        formatDate(assignment.end_date),
         [
           { 'component': <EditIcon />, 'type': 'edit' },
           { 'component': <DeleteIcon />, 'type': 'delete' },
