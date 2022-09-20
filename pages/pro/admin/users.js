@@ -38,7 +38,7 @@ import {
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import UserForm from './form/UserForm';
 import UserStats from './users/UserStats';
-import { removeCommaWordEnd } from '../../../utils/RegExp';
+import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import { PaginationContainer } from '../../style/index';
@@ -116,7 +116,7 @@ const Users = ({
                     instructor.id,
                     instructor.name,
                     instructor.username,
-                    instructor.created_date,
+                    formatDate(instructor.created_date),
                     instructor.plagairism,
                     instructor.grammar,
                     <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
@@ -395,7 +395,7 @@ const Users = ({
                         handleCheckboxSelect={ handleCheckboxSelect }
                         handleSingleSelect={ handleSingleSelect }
                         isLoading={ isLoading }
-                        charLength={ 17 }
+                        charLength={ 15 }
                         path=''
                     />
 
