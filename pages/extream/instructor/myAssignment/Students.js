@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import _ from 'lodash';
+import debouce from 'lodash.debounce';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import { Grid, TextField } from '@mui/material';
@@ -65,10 +66,8 @@ const Students = ({
     pageDetailsStudent,
     isLoadingStudent,
     DeleteStudent,
-    paginationStudent,
     setPaginationStudent,
-    UploadFileDataClear,
-    debouncedResultsStudent
+    UploadFileDataClear
 }) => {
 
     const router = useRouter();
@@ -90,7 +89,8 @@ const Students = ({
 
     useEffect(() => {
         GetStudent(router.query.clasId, paginationPayload);
-    }, [router.isReady,paginationPayload]);
+        setClassId(router.query.clasId);
+    }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -140,13 +140,13 @@ const Students = ({
     const handleTableSort = (e, column, sortToggle) => {
         e.preventDefault();
         if (sortToggle) {
-            paginationStudent['field'] = column.id
-            paginationStudent['orderBy'] = 'asc';
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationStudent['field'] = column.id
-            paginationStudent['orderBy'] = 'desc';
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationStudent({ ...paginationStudent, paginationStudent })
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
     const handleCheckboxSelect = () => {
@@ -195,8 +195,28 @@ const Students = ({
 
     const handlePagination = (event, value) => {
         event.preventDefault();
-        setPaginationStudent({ ...paginationStudent, 'page': value - 1 });
+        setPaginationStudent({ ...paginationPayload, 'page': value - 1 });
     };
+
+    const handleSearchStudent = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    }
+
+    const searchStudents = useMemo(() => {
+        return debouce(handleSearchStudent, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            searchStudents.cancel();
+        };
+    });
 
     return (
         <React.Fragment>
@@ -267,7 +287,7 @@ const Students = ({
                         <SearchField>
                             <TextField
                                 placeholder='Search'
-                                onChange={debouncedResultsStudent}
+                                onChange={searchStudents}
                                 inputProps={{
                                     style: {
                                         padding: 5,

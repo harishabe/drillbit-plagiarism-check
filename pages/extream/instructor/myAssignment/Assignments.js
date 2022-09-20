@@ -13,13 +13,11 @@ import Instructor from '../../../../layouts/Instructor';
 import {
   CardView,
   CommonTable,
-  AvatarName,
   StatusDot,
   CreateDrawer,
-  ErrorBlock,
   WarningDialog
 } from '../../../../components';
-import { EditIcon, DeleteIcon, DeleteWarningIcon, TimerIcon } from '../../../../assets/icon';
+import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../../../assets/icon';
 import {
   GetAssignment,
   DeleteAssignment
@@ -33,7 +31,7 @@ const AddButtonBottom = styled.div`
     position: fixed;
     bottom: 30px;
     right: 30px;
-`
+`;
 
 const SearchField = styled.div`
     position:absolute;
@@ -59,10 +57,7 @@ const Assignments = ({
   DeleteAssignment,
   assignmentData,
   pageDetailsAssignment,
-  isLoadingAssignment,
-  paginationAssignment,
-  setPaginationAssignment,
-  debouncedResultsAssignment,
+  isLoadingAssignment
 }) => {
   const router = useRouter();
   const [rows, setRows] = useState([]);
@@ -114,7 +109,8 @@ const Assignments = ({
     setPaginationAssignment({ ...paginationAssignment, page: value - 1 });
   };
 
-  const handleAction = (event, icon, rowData) => {
+  const handleAction = (e, icon, rowData) => {
+    e.preventDefault();
     if (icon === 'edit') {
       setEditAssignment(true);
       setEditAssignmentData(rowData);
@@ -137,14 +133,15 @@ const Assignments = ({
   };
 
   const handleTableSort = (e, column, sortToggle) => {
+    e.preventDefault();
     if (sortToggle) {
-      paginationAssignment['field'] = column.id
-      paginationAssignment['orderBy'] = 'asc';
+      paginationPayload['field'] = column.id;
+      paginationPayload['orderBy'] = 'asc';
     } else {
-      paginationAssignment['field'] = column.id
-      paginationAssignment['orderBy'] = 'desc';
+      paginationPayload['field'] = column.id;
+      paginationPayload['orderBy'] = 'desc';
     }
-    setPaginationAssignment({ ...paginationAssignment, paginationAssignment })
+    setPaginationPayload({ ...paginationPayload, paginationPayload })
   }
 
   const handleCheckboxSelect = () => {
@@ -178,6 +175,26 @@ const Assignments = ({
     setShowDeleteWarning(true);
   }
 
+  const handleSearchAssignment = (event) => {
+    if (event.target.value !== '') {
+      paginationPayload['search'] = event.target.value;
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
+    } else {
+      delete paginationPayload['search'];
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
+    }
+  }
+
+  const searchAssignment = useMemo(() => {
+    return debouce(handleSearchAssignment, 300);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      searchAssignment.cancel();
+    };
+  });
+
   return (
     <React.Fragment>
       <Box sx={{ flexGrow: 1 }}>
@@ -186,7 +203,7 @@ const Assignments = ({
             <SearchField>
               <TextField
                 placeholder='Search'
-                onChange={debouncedResultsAssignment}
+                onChange={searchAssignment}
                 inputProps={{
                   style: {
                     padding: 5,

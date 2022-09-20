@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import debouce from "lodash.debounce";
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Instructor from '../../../layouts/Instructor';
@@ -9,11 +7,8 @@ import { BreadCrumb, TabMenu } from '../../../components';
 import Assignments from './myAssignment/Assignments';
 import Students from './myAssignment/Students';
 import { GetStudent, GetAssignment } from '../../../redux/action/instructor/InstructorAction';
-import { PaginationValue } from '../../../utils/PaginationUrl';
 
 const MyClassesTables = ({
-    GetStudent,
-    GetAssignment,
     pageDetailsStudent,
     pageDetailsAssignment,
     assignmentData,
@@ -21,8 +16,6 @@ const MyClassesTables = ({
     studentData,
     isLoadingStudent,
 }) => {
-
-    const router = useRouter();
 
     const [activeTab, setActiveTab] = useState(0);
 
@@ -44,65 +37,6 @@ const MyClassesTables = ({
         },
     ]
 
-    const [paginationStudent, setPaginationStudent] = useState({
-        page: PaginationValue?.page,
-        size: PaginationValue?.size,
-        field: 'user_id',
-        orderBy: PaginationValue?.orderBy,
-    });
-
-    const [paginationAssignment, setPaginationAssignment] = useState({
-        page: PaginationValue?.page,
-        size: PaginationValue?.size,
-        field: 'ass_id',
-        orderBy: PaginationValue?.orderBy,
-    });
-
-
-    // useEffect(() => {
-    //     GetAssignment(router.query.clasId, paginationAssignment);
-    // }, [router.query.clasId, paginationAssignment]);
-
-    const handleSearchAssignment = (event) => {
-        if (event.target.value !== '') {
-            paginationAssignment['search'] = event.target.value;
-            setPaginationAssignment({ ...paginationAssignment, paginationAssignment });
-        } else {
-            delete paginationAssignment['search'];
-            setPaginationAssignment({ ...paginationAssignment, paginationAssignment });
-        }
-    }
-
-    const debouncedResultsAssignment = useMemo(() => {
-        return debouce(handleSearchAssignment, 300);
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            debouncedResultsAssignment.cancel();
-        };
-    });
-
-    const handleSearchStudent = (event) => {
-        if (event.target.value !== '') {
-            paginationStudent['search'] = event.target.value;
-            setPaginationStudent({ ...paginationStudent, paginationStudent });
-        } else {
-            delete paginationStudent['search'];
-            setPaginationStudent({ ...paginationStudent, paginationStudent });
-        }
-    }
-
-    const debouncedResultsStudent = useMemo(() => {
-        return debouce(handleSearchStudent, 300);
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            debouncedResultsStudent.cancel();
-        };
-    });
-
     const handleAPI = (value) => {
         setActiveTab(value);
     }
@@ -111,18 +45,12 @@ const MyClassesTables = ({
         pageDetailsAssignment={pageDetailsAssignment}
         assignmentData={assignmentData}
         isLoadingAssignment={isLoadingAssignment}
-        paginationAssignment={paginationAssignment}
-        setPaginationAssignment={setPaginationAssignment}
-        debouncedResultsAssignment={debouncedResultsAssignment}
     />
 
     const StudentComponent = activeTab === 1 && <Students
         pageDetailsStudent={pageDetailsStudent}
         studentData={studentData}
         isLoadingStudent={isLoadingStudent}
-        paginationStudent={paginationStudent}
-        setPaginationStudent={setPaginationStudent}
-        debouncedResultsStudent={debouncedResultsStudent}
     />
 
     const componentList = [
@@ -135,7 +63,7 @@ const MyClassesTables = ({
             label: `Assignments(${pageDetailsAssignment?.totalElements !== undefined ? pageDetailsAssignment?.totalElements : 0})`,
         },
         {
-            label: `Students${pageDetailsStudent?.totalElements !== undefined ? '('+pageDetailsStudent?.totalElements+')' : ''}`,
+            label: `Students${pageDetailsStudent?.totalElements !== undefined && pageDetailsStudent?.totalElements > 0 ? '(' + pageDetailsStudent?.totalElements + ')' : ''}`,
         }
     ];
 
