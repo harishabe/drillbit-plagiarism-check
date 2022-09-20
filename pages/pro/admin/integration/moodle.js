@@ -50,6 +50,10 @@ const Moodle = ({
         setForm(true)
     }
 
+    const handleCloseDrawer = (drawerClose) => {
+        setForm(drawerClose);
+    }
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -82,6 +86,7 @@ const Moodle = ({
                         title="Moodle Configuration"
                         isShowAddIcon={ false }
                         showDrawer={ form }
+                        handleDrawerClose={ handleCloseDrawer }
                     >
                         <MoodleForm
                             editData={ integrationData }

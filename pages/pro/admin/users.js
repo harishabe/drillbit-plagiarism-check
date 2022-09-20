@@ -276,6 +276,10 @@ const Users = ({
         }
     }
 
+    const handleCloseDrawer = (drawerClose) => {
+        setEditInstructor(drawerClose);
+    }
+
     return (
         <React.Fragment>
             {
@@ -339,6 +343,7 @@ const Users = ({
                     title="Edit Instructor"
                     isShowAddIcon={ false }
                     showDrawer={ editInstructor }
+                        handleDrawerClose={ handleCloseDrawer }
                 >
                         <UserForm
                         editData={ editInstructorData }
