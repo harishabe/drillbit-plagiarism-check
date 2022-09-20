@@ -208,6 +208,10 @@ const Students = ({
         setShowDeleteWarning(true);
     }
 
+    const handleCloseDrawer = (value) => {
+        setEditStudent(value);
+    }
+
     return (
         <React.Fragment>
 
@@ -225,6 +229,7 @@ const Students = ({
                     title="Edit Instructor"
                     isShowAddIcon={false}
                     showDrawer={editStudent}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <StudentForm
                         editData={editStudentData}

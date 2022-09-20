@@ -167,7 +167,6 @@ const Instructor = ({
     };
 
     const handleAction = (event, icon, rowData) => {
-        console.log("rowData", rowData)
         if (icon === 'edit') {
             setEditInstructor(true);
             setEditInstructorData(rowData);
@@ -275,6 +274,10 @@ const Instructor = ({
         }
     }
 
+    const handleCloseDrawer = (drawerClose) => {
+        setEditInstructor(drawerClose);
+    }
+
     return (
         <React.Fragment>
             {
@@ -327,7 +330,8 @@ const Instructor = ({
                         }]}
                     title="Add Instructor"
                     handleMultiData={handleShow}
-                    isShowAddIcon={true}>
+                    isShowAddIcon={true}
+                >
                     <InstructorForm />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -338,6 +342,7 @@ const Instructor = ({
                     title="Edit Instructor"
                     isShowAddIcon={false}
                     showDrawer={editInstructor}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <InstructorForm
                         editData={editInstructorData}

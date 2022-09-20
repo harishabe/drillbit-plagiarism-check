@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Tooltip from '@mui/material/Tooltip';
 import AddIcon from '@mui/icons-material/Add';
-import Heading from '../typography/heading';
 import Menu from '@mui/material/Menu';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
@@ -38,9 +37,9 @@ const CreateDrawer = ({
     options,
     handleMultiData,
     navigateToMultiFile,
-    handleNavigateMultiFile
+    handleNavigateMultiFile,
+    handleDrawerClose
 }) => {
-    console.log('options', options);
     const [state, setState] = React.useState({
         top: false,
         left: false,
@@ -48,16 +47,19 @@ const CreateDrawer = ({
         right: showDrawer,
     });
 
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-
         setState({ ...state, [anchor]: open });
+        if (handleDrawerClose !== undefined) {
+            handleDrawerClose(open);
+        }
     };
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
