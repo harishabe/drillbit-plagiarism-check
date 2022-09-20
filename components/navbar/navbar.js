@@ -31,6 +31,7 @@ import { Role } from '../../constant/data';
 import EllipsisText from '../ellipsis/EllipsisText';
 import Title from '../typography/title';
 import SubTitle1 from '../typography/SubTitle1';
+import { PRO_ADMIN, PRO_USER } from '../../constant/data/Constant'
 
 const drawerWidth = 200
 
@@ -95,8 +96,10 @@ const NavBar = ({
         setEmail(email);
 
         if (userRole === Role?.proAdmin) {
+            setRole(PRO_ADMIN);
             setPath('/pro/admin');
         } else if (userRole === Role?.proUser) {
+            setRole(PRO_USER);
             setPath('/pro/user');
         } else if (userRole === Role?.admin || Role?.instructor || Role?.student) {
             setPath('/extream/' + userRole);
