@@ -60,3 +60,9 @@ export const SIMILARITY_COLOR_STANDARD = {
     'white': '#fff',
     'black': '#000'
 }
+
+/**
+ * Pro roles
+ */
+export const PRO_ADMIN = 'admin';
+export const PRO_USER = 'user';

@@ -242,8 +242,19 @@ const Dashboard = ({
                     <Grid item md={ 6 } xs={ 12 }>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 12 } xs={ 12 }>
+                                <Grid item md={ 6.6 } xs={ 12 }>
                                     <Heading title='Trend Analysis' />
+                                </Grid>
+                                <Grid item md={ 5.4 } xs={ 12 }>
+                                    {
+                                        isLoadingDashboard ?
+                                            <Skeleton /> :
+                                            <TextAlignRight>
+                                                <SubTitle
+                                                    title={ adminDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' }
+                                                />
+                                            </TextAlignRight>
+                                    }
                                 </Grid>
                             </Grid>
                             { isLoadingTrendAnalysis ?
@@ -255,15 +266,10 @@ const Dashboard = ({
                                 <>
                                     { adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
                                         <>
-                                            <TextAlignRight>
-                                                <SubTitle
-                                                    title={ adminDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' }
-                                                />
-                                            </TextAlignRight>
                                             <PieChart
                                                 type="donut"
                                                 color={ PIE_CHART_COLOR }
-                                                height={ 320 }
+                                                height={ 352 }
                                                 label={ PIE_CHART_LABEL }
                                                 series={
                                                     [
