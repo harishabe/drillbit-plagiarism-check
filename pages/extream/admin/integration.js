@@ -100,6 +100,12 @@ const Integration = ({
         }
     }
 
+    const handleCloseDrawer = (drawerClose) => {
+        setShowMoodle(drawerClose);
+        setShowCanvas(drawerClose);
+        setShowBlackboard(drawerClose);
+    }
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -142,6 +148,7 @@ const Integration = ({
                 <CreateDrawer
                     isShowAddIcon={ false }
                     showDrawer={ showMoodle }
+                    handleDrawerClose={ handleCloseDrawer }
                 >
                     <MoodleForm />
                 </CreateDrawer>
@@ -150,6 +157,7 @@ const Integration = ({
                 <CreateDrawer
                     isShowAddIcon={ false }
                     showDrawer={ showCanvas }
+                    handleDrawerClose={ handleCloseDrawer }
                 >
                     <CanvasForm />
                 </CreateDrawer>
@@ -158,6 +166,7 @@ const Integration = ({
                 <CreateDrawer
                     isShowAddIcon={ false }
                     showDrawer={ showBlackboard }
+                    handleDrawerClose={ handleCloseDrawer }
                 >
                     <BlackboardForm />
                 </CreateDrawer>

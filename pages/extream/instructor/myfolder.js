@@ -73,8 +73,7 @@ const MyFolder = ({
 
     const handleFolderEdit = (e, rowData) => {
         e.preventDefault();
-        let a = !editFolder
-        setEditFolder(a);
+        setEditFolder(true)
         setEditFolderData(rowData);
     };
 
@@ -118,6 +117,10 @@ const MyFolder = ({
     });
 
     /** end debounce concepts */
+
+    const handleCloseDrawer = (drawerClose) => {
+        setEditFolder(drawerClose);
+    }
 
     return (
         <React.Fragment>
@@ -199,6 +202,7 @@ const MyFolder = ({
                     title="Edit Folder"
                     isShowAddIcon={ false }
                     showDrawer={ editFolder }
+                        handleDrawerClose={ handleCloseDrawer }
                 >
                     <MyFoldersForm
                         editData={ editFolderData }
