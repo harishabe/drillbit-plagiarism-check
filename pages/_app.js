@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import { ThemeProvider } from "@mui/styles";
 import PageChange from '../components/loader/PageChange';
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 
 import theme from '../src/theme';
 
@@ -34,8 +34,39 @@ Router.events.on("routeChangeError", () => {
 });
 
 export default function MyApp(props) {
-    const { Component, pageProps } = props
-    const Layout = Component.layout || (({ children }) => <>{children}</>)
+    const router = useRouter();
+    const [user, setUser] = React.useState(null);
+    const { Component, pageProps } = props;
+    const [authorized, setAuthorized] = React.useState(false);
+
+    React.useEffect(() => {
+        authCheck(router.asPath);
+        const hideContent = () => setAuthorized(false);
+        router.events.on('routeChangeStart', hideContent);
+        router.events.on('routeChangeComplete', authCheck);
+        return () => {
+            router.events.off('routeChangeStart', hideContent);
+            router.events.off('routeChangeComplete', authCheck);
+        }
+    }, []);
+
+    const Layout = Component.layout || (({ children }) => <>{children}</>);
+
+    function authCheck(url) {
+        setUser(localStorage.getItem('token'));
+        const publicPaths = ['/auth/login', '/auth/forgotpassword'];
+        const path = url.split('?')[0];
+        if (!localStorage.getItem('token') && !publicPaths.includes(path)) {
+            setAuthorized(false);
+            router.push({
+                pathname: '/auth/login',
+                query: { returnUrl: router.asPath }
+            });
+        } else {
+            setAuthorized(true);
+        }
+    }
+
     return (
         <React.Fragment>
             <Head>
@@ -46,7 +77,7 @@ export default function MyApp(props) {
                 <Provider store={store}>
                     <Layout>
                         <ToastContainer />
-                        <Component {...pageProps} />
+                        {authorized && <Component {...pageProps} />}
                     </Layout>
                 </Provider>
             </ThemeProvider>
