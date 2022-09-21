@@ -50,6 +50,10 @@ const BlackBoard = ({
         setForm(true)
     }
 
+    const handleCloseDrawer = (drawerClose) => {
+        setForm(drawerClose);
+    }
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -83,6 +87,7 @@ const BlackBoard = ({
                         title="Canvas Configuration"
                         isShowAddIcon={ false }
                         showDrawer={ form }
+                        handleDrawerClose={ handleCloseDrawer }
                     >
                         <BlackboardForm
                             editData={ integrationData }

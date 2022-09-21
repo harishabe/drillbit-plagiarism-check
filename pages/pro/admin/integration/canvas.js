@@ -51,6 +51,10 @@ const Canvas = ({
         setForm(true)
     }
 
+    const handleCloseDrawer = (drawerClose) => {
+        setForm(drawerClose);
+    }
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -84,6 +88,7 @@ const Canvas = ({
                         title="Canvas Configuration"
                         isShowAddIcon={ false }
                         showDrawer={ form }
+                        handleDrawerClose={ handleCloseDrawer }
                     >
                         <CanvasForm
                             editData={ integrationData }

@@ -88,6 +88,10 @@ const MyClassFiles = ({
         setShowDeleteWarning(false);
     };
 
+    const handleCloseDrawer = (drawerClose) => {
+        setEditClasses(drawerClose);
+    }
+
     return (
         <React.Fragment>
             <Grid container spacing={ 2 }>
@@ -141,6 +145,7 @@ const MyClassFiles = ({
                     title="Edit Class"
                     isShowAddIcon={ false }
                     showDrawer={ editClasses }
+                        handleDrawerClose={ handleCloseDrawer }
                 >
                     <MyClassesForm
                         editData={ editClassesData }
