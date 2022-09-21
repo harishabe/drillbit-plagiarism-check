@@ -6,6 +6,8 @@ import { FormComponent } from '../../../components';
 import { CreateAccount } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/extreme-account-form.json';
+import { convertDate } from '../../../utils/RegExp';
+import END_POINTS from '../../../utils/EndPoints';
 
 const ExtremeForm = ({
     CreateAccount,
@@ -16,7 +18,8 @@ const ExtremeForm = ({
     });
 
     const onSubmit = (data) => {
-        CreateAccount('extreme', data);
+        let DetailedData = { ...data, "endDate": convertDate(data.endDate), "startDate": convertDate(data.startDate) }
+        CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, DetailedData);
     };
 
     return (

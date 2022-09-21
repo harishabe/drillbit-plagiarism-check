@@ -1,18 +1,46 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
+    GetWidgetData,
     ExtremeRefAccount,
     GetExtremeRefDetail
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 
 /**
+ * Get Super admin dashboard widget count details
+ * No. of institutions
+ * No. of user
+ * No. of submissions
+ * @param {*} action
+ */
+
+export function* onLoadDashboardWidget(action) {
+    const { response, error } = yield call(GetWidgetData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_DASH_WIDGET_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_DASH_WIDGET_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* SuperDashboardWidget() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_DASH_WIDGET_START, onLoadDashboardWidget);
+}
+/**
  * Get Extreme Ref Account
  * @param {*} action
  */
 
 export function* onLoadExtremeRef(action) {
-    const { response, error } = yield call(GetExtremeRefDetail, action.url);
+    const { response, error } = yield call(GetExtremeRefDetail, action.url, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_SUPER_ADMIN_EXTREME_REF_SUCCESS,

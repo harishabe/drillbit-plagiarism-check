@@ -89,6 +89,7 @@ import {
     profileChangePassword
 } from './profile/ProfileData';
 import {
+    SuperDashboardWidget,
     GetExtremeRef,
     CreateExtremeRefAccount,
 } from './super/DetailsSuperAdminData';
@@ -171,6 +172,7 @@ const saga = [
     fork(GetAdminIntegrationType),    
     fork(UploadAdminIntegration),
     fork(ChangeConfiguration),    
+    fork(SuperDashboardWidget),    
     fork(CreateExtremeRefAccount),
     fork(GetExtremeRef),
 ];
