@@ -38,7 +38,7 @@ const SidebarSuperAdmin = [
     icon: <ClassIcon />,
     activeIcon: <ClassWhiteIcon />,
     name: 'Settings',
-    path: '/report',
+    path: '/settings',
     layout: '/super',
   },
 ];

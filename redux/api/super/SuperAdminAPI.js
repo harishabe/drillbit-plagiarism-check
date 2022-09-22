@@ -1,12 +1,23 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
-import { PostMethod, GetMethod } from '../ApiMethod';
+import { PostMethod, GetMethod, PutMethod } from '../ApiMethod';
+import { PaginationUrl } from '../../../utils/PaginationUrl';
+
+/**
+ * 
+ * API CALL FOR SUPER ADMIN DASHBOARD WIDGETS
+ */
+
+export const GetWidgetData = () => {
+    const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DASHBOARD_WIDGET;
+    return GetMethod(url);
+};
 
 /**
  * API CALL FOR GET EXTREME AND REF ACCOUNT
  */
-export const GetExtremeRefDetail = async (apiUrl) => {
-    const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_EXTREME_REF + apiUrl;
+export const GetExtremeRefDetail = async (apiUrl, paginationPayload) => {
+    const url = BASE_URL_SUPER + apiUrl + '/licenses' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 
@@ -14,6 +25,6 @@ export const GetExtremeRefDetail = async (apiUrl) => {
  * API CALL FOR CREATE EXTREME AND REF ACCOUNT
  */
 export const ExtremeRefAccount = async (endPoint, data) => {
-    const url = BASE_URL_SUPER + END_POINTS.CREATE_EXTREME_REF_ACCOUNT + endPoint;
+    const url = BASE_URL_SUPER + endPoint + '/license';
     return PostMethod(url, data);
 };

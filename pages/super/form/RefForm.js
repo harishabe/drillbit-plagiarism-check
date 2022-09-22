@@ -6,6 +6,8 @@ import { FormComponent } from '../../../components';
 import { CreateAccount } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/ref-account-form.json';
+import { convertDate } from '../../../utils/RegExp';
+import END_POINTS from '../../../utils/EndPoints';
 
 const RefForm = ({
     CreateAccount,
@@ -16,7 +18,8 @@ const RefForm = ({
     });
 
     const onSubmit = (data) => {
-        CreateAccount('professional', data);
+        let DetailedData = { ...data, "endDate": convertDate(data.endDate), "startDate": convertDate(data.startDate) }
+        CreateAccount(END_POINTS.SUPER_ADMIN_REF, DetailedData);
     };
 
     return (
