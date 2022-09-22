@@ -43,6 +43,7 @@ import InstructorStats from './instructor/InstructorStats';
 import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
+import { Role } from '../../../constant/data';
 
 const columns = [
     // { id: 'user_id', label: 'ID', minWidth: 100 },
@@ -124,13 +125,14 @@ const Instructor = ({
                     instructor.grammar,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     [{ 'component': <StatsIcon />, 'type': 'stats' }],
-                    [{ 'component': <EditIcon />, 'type': 'edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete' },
-                    {
-                        'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                        'type': instructor.status === 'active' ? 'lock' : 'unlock'
-                    }
-                    ]
+                    instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit' }]) :
+                        ([{ 'component': <EditIcon />, 'type': 'edit' },
+                        { 'component': <DeleteIcon />, 'type': 'delete' },
+                        {
+                            'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                            'type': instructor.status === 'active' ? 'lock' : 'unlock'
+                        }
+                        ])
                 );
             row['isSelected'] = false;
             arr.push(row)
