@@ -12,7 +12,8 @@ import {
     CardView,
     Heading,
     SubTitle,
-    ErrorBlock
+    ErrorBlock,
+    EllipsisText
 } from '../../../components'
 import {
     GetDashboardData
@@ -136,7 +137,7 @@ const Dashboard = ({
                 <Grid container spacing={1}>
                     <Grid item md={12} xs={12}>
                         <CardView>
-                            <Heading title='My Recent submissions' />
+                            <Heading title='My Recent Submissions' />
                             {isLoadingDashboard ? <Skeleton /> :
                                 <>
                                     {studentDashboardData?.recentSubmissions.length > 0 ?
@@ -179,8 +180,17 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <CardView>
                             <Grid container>
-                                <Grid item md={12} xs={12}>
+                                <Grid item md={ 6.6 } xs={ 12 }>
                                     <Heading title='Trend Analysis' />
+                                </Grid>
+                                <Grid item md={ 5.4 } xs={ 12 }>
+                                    {
+                                        isLoadingDashboard ?
+                                            <Skeleton /> :
+                                            <TextAlignRight>
+                                                <EllipsisText value={ studentDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } charLength={ 12 } />
+                                            </TextAlignRight>
+                                    }
                                 </Grid>
                             </Grid>
                             {isLoadingDashboard ?
@@ -190,27 +200,20 @@ const Dashboard = ({
                                     height={250} width={250}
                                 /> :
                                 <>
-                                    {studentDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
-                                        <>
-                                            <TextAlignRight>
-                                                <SubTitle
-                                                    title={studentDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')'}
-                                                />
-                                            </TextAlignRight>
+                                    { studentDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
                                             <PieChart
                                                 type={PIE_CHART_TYPE}
                                                 color={PIE_CHART_COLOR}
                                                 width={PIE_CHART_WIDTH}
                                                 label={PIE_CHART_LABEL}
-                                                height={studentDashboardData?.trendAnalysis?.documentsProcessed === 0 ? '' : '318px'}
+                                            height={ studentDashboardData?.trendAnalysis?.documentsProcessed === 0 ? '' : '349px' }
                                                 series={
                                                     [
                                                         studentDashboardData?.trendAnalysis?.similarWork,
                                                         studentDashboardData?.trendAnalysis?.ownWork
                                                     ]
                                                 }
-                                            />
-                                        </>
+                                        />
                                         : <ErrorBlock message={TREND_ANALYSIS_NOT_FOUND} />
                                     }
                                 </>

@@ -54,8 +54,8 @@ const columns = [
     { id: 'action', label: 'Action' }
 ]
 
-function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action) {
-    return { user_id, name, email, creationDate, plagairism, grammar, status, stats, action }
+function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action, expiry_date) {
+    return { user_id, name, email, creationDate, plagairism, grammar, status, stats, action, expiry_date }
 };
 
 const AddButtonBottom = styled.div`
@@ -82,6 +82,7 @@ const Instructor = ({
     GetInstructorData,
     UploadFileDataClear,
     instructorData,
+    licenseExpiryDate,
     DeleteData,
     DeactivateData,
     isLoading,
@@ -130,7 +131,8 @@ const Instructor = ({
                         'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
                         'type': instructor.status === 'active' ? 'lock' : 'unlock'
                     }
-                    ]
+                    ],
+                    instructor.expiry_date
                 );
             row['isSelected'] = false;
             arr.push(row)
@@ -268,9 +270,9 @@ const Instructor = ({
     const handleShow = (e, info) => {
         if (info?.title === 'Add Instructor') {
             setShowDialogModal(true);
-        } else if (info?.title === 'Add Multiple Instructor') {
+        } else if (info?.title === 'Add Multiple Instructors') {
             UploadFileDataClear();
-            router.push({ pathname: '/admin/addBulkInstructor' })
+            router.push({ pathname: '/extream/admin/addBulkInstructor' })
         }
     }
 
@@ -325,14 +327,16 @@ const Instructor = ({
                         },
                         {
                             icon: <AddMultipleIcon />,
-                            title: 'Add Multiple Instructor',
+                            title: 'Add Multiple Instructors',
                             handleFromCreateDrawer: true
                         }]}
                     title="Add Instructor"
                     handleMultiData={handleShow}
                     isShowAddIcon={true}
                 >
-                    <InstructorForm />
+                    <InstructorForm
+                        licenseExpiryDate={ licenseExpiryDate }
+                    />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -423,6 +427,7 @@ const Instructor = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.list?.page,
     instructorData: state?.detailsData?.instructorData?.list?.content,
+    licenseExpiryDate: state?.detailsData?.instructorData,
     isLoading: state?.detailsData?.isLoading,
 });
 

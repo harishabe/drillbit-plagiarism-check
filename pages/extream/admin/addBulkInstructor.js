@@ -55,17 +55,17 @@ const Input = styled('input')({
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/admin/dashboard',
+        link: '/extream/admin/dashboard',
         active: false,
     },
     {
         name: 'Instructors',
-        link: '/admin/instructor',
+        link: '/extream/admin/instructor',
         active: false,
     },
     {
-        name: 'Add Multiple Instructor',
-        link: '/admin/addBulkInstructor',
+        name: 'Add Multiple Instructors',
+        link: '/extream/admin/addBulkInstructor',
         active: true,
     },
 ];
@@ -105,13 +105,13 @@ const AddBulkInstructor = ({
 
     const handleBack = (e) => {
         e.preventDefault();
-        router.push('/admin/instructor');
+        router.push('/extream/admin/instructor');
     }
 
     useEffect(() => {
         if (fileUploadData?.status === 200) {
             setFileData('');
-            router.push('/admin/instructor');
+            router.push('/extream/admin/instructor');
         }
     }, [fileUploadData && fileUploadData !== '']);
 
@@ -137,7 +137,7 @@ const AddBulkInstructor = ({
                             <div style={ { padding: '0px 150px' } }> 
                                 <Grid container spacing={1}>
                                     <Grid item md={6} xs={6}>
-                                        <MainHeading title='Add Multiple Instructor' />
+                                        <MainHeading title='Add Multiple Instructors' />
                                     </Grid>
                                     <Grid item md={6} xs={6} align="right">
                                         <Button

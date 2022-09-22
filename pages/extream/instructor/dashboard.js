@@ -18,7 +18,7 @@ import {
     ListSkeleton,
     ErrorBlock,
     CurveChart,
-    // RecentSubmissionTable
+    EllipsisText
 } from '../../../components';
 import {
     NoOfClassIcon,
@@ -227,8 +227,17 @@ const Dashboard = ({
                     <Grid item md={ 4 } xs={ 12 }>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 12 } xs={ 12 }>
+                                <Grid item md={ 6.6 } xs={ 12 }>
                                     <Heading title='Trend Analysis' />
+                                </Grid>
+                                <Grid item md={ 5.4 } xs={ 12 }>
+                                    {
+                                        isLoading ?
+                                            <Skeleton /> :
+                                            <TextAlignRight>
+                                                <EllipsisText value={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } charLength={ 10 } />
+                                            </TextAlignRight>
+                                    }
                                 </Grid>
                             </Grid>
                             { isLoading ?
@@ -241,12 +250,12 @@ const Dashboard = ({
                                 : <>
                                     { instructorDashboardData?.data?.trendAnalysis?.documentsProcessed ?
                                         <>
-                                            <TextAlignRight>
+                                            {/* <TextAlignRight>
                                                 <SubTitle title={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } />
-                                            </TextAlignRight>
+                                            </TextAlignRight> */}
                                             <PieChart
                                                 type="donut"
-                                                height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '319px' }
+                                                height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '349px' }
                                                 color={ PIE_CHART_COLOR }
                                                 width={ PIE_CHART_WIDTH }
                                                 label={ PIE_CHART_LABEL }
