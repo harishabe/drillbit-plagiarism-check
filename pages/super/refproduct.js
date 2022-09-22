@@ -16,11 +16,15 @@ import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction'
 import RefForm from './form/RefForm';
+import { PaginationContainer } from '../style/index';
+import Pagination from '@mui/material/Pagination';
+import { PaginationValue } from '../../utils/PaginationUrl';
+import END_POINTS from '../../utils/EndPoints';
 
 const RefBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/admin/dashboard',
+        link: '/super/dashboard',
         active: false,
     },
     {
@@ -37,52 +41,19 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'id', label: 'Sl.no' },
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Username (Email)' },
-    { id: 'college', label: 'College Name' },
-    { id: 'INlimit', label: 'Instructors Limit' },
-    { id: 'STlimit', label: 'Students Limit' },
-    { id: 'DOlimit', label: 'Documents Limit' },
-    { id: 'action', label: 'Action' },
+    { id: 'lid', label: 'Sl.no' },
+    { id: 'name', label: 'Admin username', minWidth: 150 },
+    { id: 'email', label: 'Email' },
+    { id: 'college_name', label: 'Institution name', minWidth: 150 },
+    { id: 'country', label: 'Location' },
+    { id: 'instructors', label: 'Users' },
+    { id: 'documents', label: 'Documents' },
+    { id: 'action', label: 'Action' }
 ]
 
-function createData(id, name, email, college, INlimit, STlimit, DOlimit, action) {
-    return { id, name, email, college, INlimit, STlimit, DOlimit, action }
+function createData(lid, name, email, college_name, country, instructors, documents, action) {
+    return { lid, name, email, college_name, country, instructors, documents, action }
 }
-
-const data = [
-    createData(
-        1001,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'MIT',
-        100,
-        1000,
-        1737,
-        [{ 'component': <EditIcon />, 'type': 'edit' }]
-    ),
-    createData(
-        1001,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'MIT',
-        100,
-        1000,
-        1737,
-        [{ 'component': <EditIcon />, 'type': 'edit' }]
-    ),
-    createData(
-        1001,
-        'Harisha B E',
-        'harish@drillbit.com',
-        'MIT',
-        100,
-        1000,
-        1737,
-        [{ 'component': <EditIcon />, 'type': 'edit' }]
-    ),
-]
 
 const RefProduct = ({
     GetExtremeRefData,
@@ -91,10 +62,16 @@ const RefProduct = ({
     isLoading
 }) => {
     const [rows, setRows] = useState([]);
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: 'name',
+        orderBy: PaginationValue?.orderBy,
+    });
 
     useEffect(() => {
-        GetExtremeRefData('ref');
-    }, []);
+        GetExtremeRefData(END_POINTS.SUPER_ADMIN_REF, paginationPayload);
+    }, [, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -102,19 +79,25 @@ const RefProduct = ({
         refData?.map((data) => {
             row =
                 createData(
-                    data.id,
+                    data.lid,
                     data.name,
                     data.email,
-                    data.college,
-                    data.INlimit,
-                    data.STlimit,
-                    data.DOlimit,
+                    data.college_name,
+                    data.country,
+                    data.instructors,
+                    data.documents,
                     [{ 'component': <EditIcon />, 'type': 'edit' }],
                 );
             arr.push(row)
         });
         setRows([...arr]);
     }, [refData]);
+
+    const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
+    };
+
     return (
         <>
             <BreadCrumb item={ RefBreadCrumb } />
@@ -123,9 +106,11 @@ const RefProduct = ({
                 <CardView>
                     <CommonTable
                         isCheckbox={ false }
+                        isSorting={ true }
                         tableHeader={ columns }
-                        tableData={ data }
+                        tableData={ rows }
                         isLoading={ isLoading }
+                        charLength={ 10 }
                     />
                 </CardView>
             </Box>
@@ -138,19 +123,29 @@ const RefProduct = ({
                     <RefForm />
                 </CreateDrawer>
             </AddButtonBottom>
+
+            <PaginationContainer>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    onChange={ handleChange }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </PaginationContainer>
         </>
     )
 };
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.superAdmin?.ExtrRefData?.list?.page,
-    refData: state?.superAdmin?.ExtrRefData,
+    pageDetails: state?.superAdmin?.ExtrRefData?.page,
+    refData: state?.superAdmin?.ExtrRefData?._embedded?.licenseDTOList,
     isLoading: state?.superAdmin?.isLoadingExtrRef,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetExtremeRefData: (url) => dispatch(GetExtremeRefData(url)),
+        GetExtremeRefData: (url, paginationPayload) => dispatch(GetExtremeRefData(url, paginationPayload)),
     };
 };
 

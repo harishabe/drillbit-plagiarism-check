@@ -52,15 +52,16 @@ const END_POINTS = {
     CREATE_FOLDER: '/extreme/folder',
     CREATE_STUDENT: '/extreme/classes/',
     CREATE_ASSIGNMENT: '/extreme/classes/',
-    CREATE_EXTREME_REF_ACCOUNT: '/drillbit/register/',
-    SUPER_ADMIN_EXTREME_REF: '/drillbit/register/',
     INSTRUCTOR_DOWNLOAD_TEMPLATE: '/extreme/admin/instructorTemplate',
     CREATE_MULTIPLE_INSTRUCTOR:'/extreme/admin/addMultipleInstructors',
     STUDENT_DOWNLOAD_TEMPLATE: '/extreme/classes/',
     CREATE_MULTIPLE_STUDENT: '/extreme/classes/',
     ADMIN_MOODLE_INTEGRATION: '/extreme/integrations/moodle',
     ADMIN_CANVAS_INTEGRATION: '/extreme/integrations/canvas',
-    ADMIN_BLACKBOARD_INTEGRATION: '/extreme/integrations/blackboard'
+    ADMIN_BLACKBOARD_INTEGRATION: '/extreme/integrations/blackboard',
+    SUPER_ADMIN_DASHBOARD_WIDGET: '/drillbit/dashboard',
+    SUPER_ADMIN_EXTREME: '/extreme',
+    SUPER_ADMIN_REF: '/pro',
 };
 
 export default END_POINTS;

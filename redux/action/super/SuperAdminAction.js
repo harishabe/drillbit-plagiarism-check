@@ -1,11 +1,19 @@
 import * as types from '../ActionType';
 
 /**
+ * Get Dashboard data
+ */
+export const GetWidgetCount = () => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_DASH_WIDGET_START
+    };
+};
+/**
  * Get Extreme and Ref Account
  */
-export const GetExtremeRefData = (url) => {
+export const GetExtremeRefData = (url, paginationPayload) => {
     return {
-        type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: url
+        type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: url, paginationPayload: paginationPayload
     };
 };
 
