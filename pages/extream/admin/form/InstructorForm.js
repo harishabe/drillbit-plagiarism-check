@@ -13,6 +13,7 @@ import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 const InstructorForm = ({
     CreateInstructorData,
     isLoading,
+    licenseExpiryDate,
     editData,
     EditData,
     remainingDocuments,
@@ -60,11 +61,12 @@ const InstructorForm = ({
     }
 
     useEffect(() => {
+        console.log("expiry_date", editData)
         if (editData) {
             let a = {
                 'name': editData.name,
                 'email': editData.email,
-                'expiry_date': convertDate(editData.creationDate),
+                'expiry_date': convertDate(editData.expiry_date),
                 'plagiarism': editData.plagairism,
                 'grammar': editData.grammar
             };
@@ -79,6 +81,13 @@ const InstructorForm = ({
             modifyFormField('Edit Instructor', true);
             setEditOperation(true);
         } else {
+            let a = {
+                'expiry_date': convertDate(licenseExpiryDate?.license_expiry_date),
+            };
+            const fields = [
+                'expiry_date',
+            ];
+            fields.forEach(field => setValue(field, a[field]));
             modifyFormField('Create Instructor', false);
         }
     }, [editData]);

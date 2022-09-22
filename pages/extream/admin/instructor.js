@@ -55,8 +55,8 @@ const columns = [
     { id: 'action', label: 'Action' }
 ]
 
-function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action) {
-    return { user_id, name, email, creationDate, plagairism, grammar, status, stats, action }
+function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action, expiry_date) {
+    return { user_id, name, email, creationDate, plagairism, grammar, status, stats, action, expiry_date }
 };
 
 const AddButtonBottom = styled.div`
@@ -83,6 +83,7 @@ const Instructor = ({
     GetInstructorData,
     UploadFileDataClear,
     instructorData,
+    licenseExpiryDate,
     DeleteData,
     DeactivateData,
     isLoading,
@@ -125,6 +126,7 @@ const Instructor = ({
                     instructor.grammar,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     [{ 'component': <StatsIcon />, 'type': 'stats' }],
+<<<<<<< HEAD
                     instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete' },
@@ -133,6 +135,16 @@ const Instructor = ({
                             'type': instructor.status === 'active' ? 'lock' : 'unlock'
                         }
                         ])
+=======
+                    [{ 'component': <EditIcon />, 'type': 'edit' },
+                    { 'component': <DeleteIcon />, 'type': 'delete' },
+                    {
+                        'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                        'type': instructor.status === 'active' ? 'lock' : 'unlock'
+                    }
+                    ],
+                    instructor.expiry_date
+>>>>>>> 94a1d9fe65673278f53e5d7bcf8e75603faea310
                 );
             row['isSelected'] = false;
             arr.push(row)
@@ -270,9 +282,9 @@ const Instructor = ({
     const handleShow = (e, info) => {
         if (info?.title === 'Add Instructor') {
             setShowDialogModal(true);
-        } else if (info?.title === 'Add Multiple Instructor') {
+        } else if (info?.title === 'Add Multiple Instructors') {
             UploadFileDataClear();
-            router.push({ pathname: '/admin/addBulkInstructor' })
+            router.push({ pathname: '/extream/admin/addBulkInstructor' })
         }
     }
 
@@ -327,14 +339,16 @@ const Instructor = ({
                         },
                         {
                             icon: <AddMultipleIcon />,
-                            title: 'Add Multiple Instructor',
+                            title: 'Add Multiple Instructors',
                             handleFromCreateDrawer: true
                         }]}
                     title="Add Instructor"
                     handleMultiData={handleShow}
                     isShowAddIcon={true}
                 >
-                    <InstructorForm />
+                    <InstructorForm
+                        licenseExpiryDate={ licenseExpiryDate }
+                    />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -425,6 +439,7 @@ const Instructor = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.list?.page,
     instructorData: state?.detailsData?.instructorData?.list?.content,
+    licenseExpiryDate: state?.detailsData?.instructorData,
     isLoading: state?.detailsData?.isLoading,
 });
 
