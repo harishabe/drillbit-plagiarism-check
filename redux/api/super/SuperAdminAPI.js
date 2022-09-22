@@ -17,7 +17,7 @@ export const GetWidgetData = () => {
  * API CALL FOR GET EXTREME AND REF ACCOUNT
  */
 export const GetExtremeRefDetail = async (apiUrl, paginationPayload) => {
-    const url = BASE_URL_SUPER + apiUrl + '/licenses' + PaginationUrl(paginationPayload);;
+    const url = BASE_URL_SUPER + apiUrl + '/licenses' + PaginationUrl(paginationPayload);
     return GetMethod(url);
 };
 

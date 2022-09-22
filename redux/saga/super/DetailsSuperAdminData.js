@@ -6,6 +6,8 @@ import {
     GetExtremeRefDetail
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
+import { FolderSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
+import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 
 /**
  * Get Super admin dashboard widget count details
@@ -65,12 +67,14 @@ export function* GetExtremeRef() {
  * @param {*} action
  */
 
-export function* onLoadCreate(action) {
+export function* onLoadCreateAccount(action) {
     const { response, error } = yield call(ExtremeRefAccount, action.url, action.query);
     if (response) {
         yield put({
-            type: types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_SUCCESS,
-            payload: response?.data,
+            type: types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_SUCCESS, payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.url, paginationPayload: FolderSubmissionsPaginationValue,
         });
         toastrValidation(response)
     } else {
@@ -83,5 +87,5 @@ export function* onLoadCreate(action) {
 }
 
 export function* CreateExtremeRefAccount() {
-    yield takeLatest(types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_START, onLoadCreate);
+    yield takeLatest(types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_START, onLoadCreateAccount);
 }
