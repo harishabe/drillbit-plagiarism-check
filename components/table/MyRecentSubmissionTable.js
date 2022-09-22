@@ -28,7 +28,7 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                             <SubTitle1 title="File Name" />
                         </TableCell>
                         <TableCell>
-                            <SubTitle1 title="Paper Id" />
+                            <SubTitle1 title="Paper ID" />
                         </TableCell>
                         <TableCell>
                             <SubTitle1 title="Marks" />
