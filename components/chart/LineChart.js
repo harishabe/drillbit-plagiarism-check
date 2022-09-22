@@ -44,7 +44,7 @@ const LineChart = ({
                 },
             },
             xaxis: {
-                categories: ['0', '1 - 10%', '11% - 40%', '41% - 60%', '61% - 100%', 'DocError'],
+                categories: ['0 - 10%', '11% - 40%', '41% - 60%', '61% - 100%', 'DocError'],
             },
             dataLabels: {
                 enabled: true,

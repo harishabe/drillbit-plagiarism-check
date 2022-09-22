@@ -192,8 +192,7 @@ const Dashboard = ({
                                 <LineChart
                                     chartType="line"
                                     graphName="File Submission"
-                                    graphData={ [
-                                        0,
+                                    graphData={[
                                         adminDashboardData?.data?.submissionsGraph?.zeroTen,
                                         adminDashboardData?.data?.submissionsGraph?.elevenFourty,
                                         adminDashboardData?.data?.submissionsGraph?.fourtyOneSixty,
