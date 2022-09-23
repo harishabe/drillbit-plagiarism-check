@@ -16,8 +16,8 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-function createData(filename, id, date, similarity, grammer, score, status) {
-    return { filename, id, date, similarity, grammer, score, status }
+function createData(name, paper_id, date_up, percent, grammar, score, status) {
+    return { name, paper_id, date_up, percent, grammar, score, status }
 }
 
 const SubmissionHistory = ({
@@ -26,15 +26,16 @@ const SubmissionHistory = ({
     pageDetails,
     handleChange,
     handleOriginalFileDownload,
+    handleTableSort
 }) => {
     const [rows, setRows] = useState([]);
 
     const columns = [
-        { id: 'filename', label: 'File name', isDownload: true, minWidth: 140 },
-        { id: 'id', label: 'Paper ID', minWidth: 140 },
-        { id: 'date', label: 'Date', minWidth: 140 },
+        { id: 'name', label: 'File name', isDownload: true, minWidth: 140 },
+        { id: 'paper_id', label: 'Paper ID', minWidth: 140 },
+        { id: 'date_up', label: 'Date', minWidth: 140 },
         { id: 'similarity', label: 'Similarity', minWidth: 80 },
-        { id: 'grammer', label: 'Grammar', minWidth: 80 },
+        { id: 'grammar', label: 'Grammar', minWidth: 80 },
         { id: 'score', label: 'Marks', minWidth: 80 },
         { id: 'status', label: 'Status', minWidth: 100 },
         { id: 'feedback', label: 'Feedback', minWidth: 80 },
@@ -60,17 +61,15 @@ const SubmissionHistory = ({
     }, [submissionData]);
     return (
         <>
-            {isLoadingSubmission ? <Skeleton /> :
-                <>
-                    <CommonTable
-                        isCheckbox={false}
-                        isSorting={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        downloadSubmissionFile={handleOriginalFileDownload}
-                    />
-                </>
-            }
+            <CommonTable
+                isCheckbox={false}
+                isSorting={true}
+                tableHeader={columns}
+                tableData={rows}
+                downloadSubmissionFile={handleOriginalFileDownload}
+                handleTableSort={handleTableSort}
+                isLoading={isLoadingSubmission}
+            />
 
             <div style={{ marginLeft: '45%', marginTop: '25px' }}>
                 <Pagination

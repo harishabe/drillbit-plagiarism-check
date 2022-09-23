@@ -126,7 +126,6 @@ const Instructor = ({
                     instructor.grammar,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     [{ 'component': <StatsIcon />, 'type': 'stats' }],
-<<<<<<< HEAD
                     instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete' },
@@ -135,16 +134,6 @@ const Instructor = ({
                             'type': instructor.status === 'active' ? 'lock' : 'unlock'
                         }
                         ])
-=======
-                    [{ 'component': <EditIcon />, 'type': 'edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete' },
-                    {
-                        'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                        'type': instructor.status === 'active' ? 'lock' : 'unlock'
-                    }
-                    ],
-                    instructor.expiry_date
->>>>>>> 94a1d9fe65673278f53e5d7bcf8e75603faea310
                 );
             row['isSelected'] = false;
             arr.push(row)
@@ -347,7 +336,7 @@ const Instructor = ({
                     isShowAddIcon={true}
                 >
                     <InstructorForm
-                        licenseExpiryDate={ licenseExpiryDate }
+                        licenseExpiryDate={licenseExpiryDate}
                     />
                 </CreateDrawer>
             </AddButtonBottom>
