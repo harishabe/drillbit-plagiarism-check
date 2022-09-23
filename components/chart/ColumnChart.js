@@ -21,7 +21,7 @@ const ColumnChart = ({
                 toolbar: {
                     show: true,
                     tools: {
-                        download: false
+                        download: true
                     }
                 }
             },
@@ -36,11 +36,19 @@ const ColumnChart = ({
                 },
             },
             dataLabels: {
-                enabled: false
+                enabled: true,
+                formatter: function (val) {
+                    return val;
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
             },
             stroke: {
                 show: true,
-                width: 2    ,
+                width: 2,
                 colors: ['transparent']
             },
             xaxis: {
@@ -56,14 +64,12 @@ const ColumnChart = ({
                 colors: color
             },
             tooltip: {
+                enabled: true,
                 y: {
                     formatter: function (val) {
                         return val
                     }
                 }
-            },
-            dataLabels: {
-                enabled: true,
             }
         },
     })

@@ -27,12 +27,9 @@ const LineChart = ({
                 toolbar: {
                     show: true,
                     tools: {
-                        download: false
+                        download: true
                     }
                 }
-            },
-            dataLabels: {
-                enabled: false
             },
             stroke: {
                 curve: strokeCurve

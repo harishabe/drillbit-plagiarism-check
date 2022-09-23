@@ -16,7 +16,13 @@ const RadialBarChart = ({
             colors: color,
             chart: {
                 height: height,
-                type: type
+                type: type,
+                toolbar: {
+                    show: true,
+                    tools: {
+                        download: true
+                    }
+                }
             },
             tooltip: {
                 enabled: true,

@@ -163,7 +163,7 @@ const Dashboard = ({
                                     color={COLUMN_ADMIN_CHART_COLOR}
                                     xaxisData={COLUMN_ADMIN_XAXIS_DATA}
                                     columnWidth={COLUMN_ADMIN_WIDTH}
-                                    height={COLUMN_ADMIN_CHART_HEIGHT}
+                                    height={380}
                                     seriesData={[
                                         {
                                             name: 'Submission Overview',
@@ -180,15 +180,15 @@ const Dashboard = ({
                     <Grid item md={4} xs={12}>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 6.6 } xs={ 12 }>
+                                <Grid item md={6.6} xs={12}>
                                     <Heading title='Trend Analysis' />
                                 </Grid>
-                                <Grid item md={ 5.4 } xs={ 12 }>
+                                <Grid item md={5.4} xs={12}>
                                     {
                                         isLoadingDashboard ?
                                             <Skeleton /> :
                                             <TextAlignRight>
-                                                <EllipsisText value={ studentDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } charLength={ 12 } />
+                                                <EllipsisText value={studentDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')'} charLength={12} />
                                             </TextAlignRight>
                                     }
                                 </Grid>
@@ -200,19 +200,19 @@ const Dashboard = ({
                                     height={250} width={250}
                                 /> :
                                 <>
-                                    { studentDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
-                                            <PieChart
-                                                type={PIE_CHART_TYPE}
-                                                color={PIE_CHART_COLOR}
-                                                width={PIE_CHART_WIDTH}
-                                                label={PIE_CHART_LABEL}
-                                            height={ studentDashboardData?.trendAnalysis?.documentsProcessed === 0 ? '' : '349px' }
-                                                series={
-                                                    [
-                                                        studentDashboardData?.trendAnalysis?.similarWork,
-                                                        studentDashboardData?.trendAnalysis?.ownWork
-                                                    ]
-                                                }
+                                    {studentDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
+                                        <PieChart
+                                            type={PIE_CHART_TYPE}
+                                            color={PIE_CHART_COLOR}
+                                            width={PIE_CHART_WIDTH}
+                                            label={PIE_CHART_LABEL}
+                                            height={studentDashboardData?.trendAnalysis?.documentsProcessed === 0 ? '' : '349px'}
+                                            series={
+                                                [
+                                                    studentDashboardData?.trendAnalysis?.similarWork,
+                                                    studentDashboardData?.trendAnalysis?.ownWork
+                                                ]
+                                            }
                                         />
                                         : <ErrorBlock message={TREND_ANALYSIS_NOT_FOUND} />
                                     }

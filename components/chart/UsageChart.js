@@ -15,7 +15,13 @@ const UsageChart = ({
         options: {
             chart: {
                 height: 350,
-                type: 'bar'
+                type: 'bar',
+                toolbar: {
+                    show: true,
+                    tools: {
+                        download: true
+                    }
+                }
             },
             plotOptions: {
                 bar: {
