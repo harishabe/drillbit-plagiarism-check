@@ -52,7 +52,7 @@ const columns = [
     { id: 'creationDate', label: 'Creation Date' },
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
-    { id: 'action', label: 'Action' }
+    { id: 'action', label: 'Actions' }
 ]
 
 function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action, expiry_date) {
@@ -126,25 +126,16 @@ const Instructor = ({
                     instructor.grammar,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     [{ 'component': <StatsIcon />, 'type': 'stats' }],
-<<<<<<< HEAD
+
                     instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete' },
-                        {
-                            'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                            'type': instructor.status === 'active' ? 'lock' : 'unlock'
-                        }
-                        ])
-=======
-                    [{ 'component': <EditIcon />, 'type': 'edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete' },
-                    {
-                        'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                        'type': instructor.status === 'active' ? 'lock' : 'unlock'
-                    }
-                    ],
-                    instructor.expiry_date
->>>>>>> 94a1d9fe65673278f53e5d7bcf8e75603faea310
+                            { 'component': <DeleteIcon />, 'type': 'delete' },
+                            {
+                                'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                                'type': instructor.status === 'active' ? 'lock' : 'unlock'
+                            }
+                        ]),
+                    instructor.expiry_date,
                 );
             row['isSelected'] = false;
             arr.push(row)

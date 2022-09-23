@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import { TextField } from '@mui/material'
 import { Pagination } from '@mui/material';
+import { useRouter } from "next/router";
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     BreadCrumb,
@@ -17,7 +18,12 @@ import {
 } from './../../../components';
 import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
 import Instructor from '../../../layouts/Instructor';
-import { GetRepoList, RemoveRepositary } from '../../../redux/action/instructor/InstructorAction';
+import {
+    GetRepoList,
+    RemoveRepositary,
+    UploadFileDataClear,
+    UploadZipFileDataClear
+} from '../../../redux/action/instructor/InstructorAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
@@ -64,9 +70,14 @@ const Repository = ({
     RemoveRepositary,
     repoData,
     pageDetails,
-    isLoadingRepo
+    isLoadingRepo,
+    isLoadingUpload,
+    UploadFileDataClear,
+    extractedFileData,
+    uploadData,
+    UploadZipFileDataClear
 }) => {
-
+    const router = useRouter();
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -159,6 +170,19 @@ const Repository = ({
         setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
+    /**
+    * file upload single, multiple and zip file
+    */
+    const handleUploadFile = () => {
+        if (extractedFileData) {
+            UploadFileDataClear();
+        }
+        if (uploadData) {
+            UploadZipFileDataClear();
+        }
+        router.push({ pathname: '/extream/instructor/uploadFileRepository' })
+    }
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -196,14 +220,28 @@ const Repository = ({
                 />
             }
 
-            <AddButtonBottom>
+            {/* <AddButtonBottom>
                 <CreateDrawer
                     isShowAddIcon={ true }
                     title='Upload File'
                 >
                     <RepositaryForm />
                 </CreateDrawer>
+            </AddButtonBottom> */}
+
+            <AddButtonBottom>
+                <CreateDrawer
+                    title="Upload File"
+                    isShowAddIcon={ true }
+                    navigateToMultiFile={ true }
+                    handleNavigateMultiFile={ handleUploadFile }
+                >
+                    <RepositaryForm
+                        isLoadingUpload={ isLoadingUpload }
+                    />
+                </CreateDrawer>
             </AddButtonBottom>
+
             <CardView>
                 <>
                     <CommonTable
@@ -237,12 +275,17 @@ const mapStateToProps = (state) => ({
     repoData: state?.instructorClasses?.repoData?._embedded?.directRepositoryInboxList,
     pageDetails: state?.instructorClasses?.repoData?.page,
     isLoadingRepo: state?.instructorClasses?.isLoadingRepo,
+    isLoadingUpload: state?.instructorClasses?.isLoadingUpload,
+    extractedFileData: state?.instructorMyFolders?.extractedFileData,
+    uploadData: state?.instructorMyFolders?.uploadData,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetRepoList: (url, PaginationValue) => dispatch(GetRepoList(url, PaginationValue)),
         RemoveRepositary: (url) => dispatch(RemoveRepositary(url)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };
 };
 

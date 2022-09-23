@@ -100,34 +100,6 @@ const MyAssignmentDetails = ({
         },
     ]
 
-
-    // const details = [
-    //     {
-    //         label: 'Class Name',
-    //         name: <EllipsisText value={headerData?.subject} charLength={18} />,
-    //     },
-    //     {
-    //         label: 'Assignment Name',
-    //         name: <EllipsisText value={headerData?.assignmentName} charLength={18} />,
-    //     },
-    //     {
-    //         label: 'Instructor Name',
-    //         name: <EllipsisText value={headerData?.instructorName} charLength={18} />,
-    //     },
-    //     {
-    //         label: 'Status',
-    //         name: <StatusDot color={headerData?.status === 'active' ? '#38BE62' : '#E9596F'} title={headerData?.status} />,
-    //     },
-    //     {
-    //         label: 'Create Date',
-    //         name: formatDate(headerData?.createdDate),
-    //     },
-    //     {
-    //         label: 'End Date',
-    //         name: formatDate(headerData?.endDate),
-    //     },
-    // ]
-
     useEffect(() => {
         GetSubmissionData(router.query.clasId, router.query.assId, paginationPayload);
     }, [router.query.clasId, router.query.assId, paginationPayload]);

@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import { TextField } from '@mui/material'
 import { Pagination } from '@mui/material';
+import { useRouter } from "next/router";
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     BreadCrumb,
@@ -18,6 +19,10 @@ import {
 import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
 import Admin from '../../../layouts/Admin';
 import { GetRepoList, RemoveRepositary } from '../../../redux/action/admin/AdminAction';
+import {
+    UploadFileDataClear,
+    UploadZipFileDataClear,
+} from '../../../redux/action/instructor/InstructorAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
@@ -49,7 +54,7 @@ const columns = [
     { id: 'title', label: 'Title' },
     { id: 'type', label: 'Type' },
     { id: 'date', label: 'Added Date' },
-    { id: 'action', label: 'Actions' },
+    { id: 'action', label: 'Action' },
 ]
 
 function createData(id, name, email, title, type, date, action) {
@@ -63,9 +68,14 @@ const Repository = ({
     RemoveRepositary,
     repoData,
     pageDetails,
-    isLoadingRepo
+    isLoadingRepo,
+    isLoadingUpload,
+    UploadFileDataClear,
+    extractedFileData,
+    uploadData,
+    UploadZipFileDataClear
 }) => {
-
+    const router = useRouter();
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -145,7 +155,20 @@ const Repository = ({
         };
     });
 
-/** end debounce concepts */
+    /** end debounce concepts */
+
+    /**
+    * file upload single, multiple and zip file
+    */
+    const handleUploadFile = () => {
+        if (extractedFileData) {
+            UploadFileDataClear();
+        }
+        if (uploadData) {
+            UploadZipFileDataClear();
+        }
+        router.push({ pathname: '/extream/admin/uploadFileRepository' })
+    }
 
     return (
         <React.Fragment>
@@ -158,8 +181,8 @@ const Repository = ({
             </Box>
             <Grid container spacing={ 2 }>
                 <Grid item md={ 8 } xs={ 12 }>
-                    <MainHeading 
-                        title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } 
+                    <MainHeading
+                        title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
                 <Grid item md={ 4 } xs={ 12 } align="right">
@@ -189,10 +212,14 @@ const Repository = ({
 
             <AddButtonBottom>
                 <CreateDrawer
+                    title="Upload File"
                     isShowAddIcon={ true }
-                    title='Upload File'
+                    navigateToMultiFile={ true }
+                    handleNavigateMultiFile={ handleUploadFile }
                 >
-                    <RepositaryForm />
+                    <RepositaryForm
+                        isLoadingUpload={ isLoadingUpload }
+                    />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -200,7 +227,7 @@ const Repository = ({
                 <>
                     <CommonTable
                         isCheckbox={ false }
-                        isSorting={true}
+                        isSorting={ true }
                         tableHeader={ columns }
                         tableData={ rows }
                         handleAction={ handleAction }
@@ -227,12 +254,17 @@ const mapStateToProps = (state) => ({
     repoData: state?.detailsData?.repoData?._embedded?.directRepositoryInboxList,
     pageDetails: state?.detailsData?.repoData?.page,
     isLoadingRepo: state?.detailsData?.isLoadingRepo,
+    isLoadingUpload: state?.detailsData?.isLoadingUpload,
+    extractedFileData: state?.instructorMyFolders?.extractedFileData,
+    uploadData: state?.instructorMyFolders?.uploadData,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetRepoList: (url, PaginationValue) => dispatch(GetRepoList(url, PaginationValue)),
         RemoveRepositary: (url) => dispatch(RemoveRepositary(url)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };
 };
 

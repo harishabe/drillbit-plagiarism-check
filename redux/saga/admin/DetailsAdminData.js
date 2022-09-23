@@ -435,7 +435,13 @@ export function* onLoadRemoveRepositary(action) {
     const { response, error } = yield call(RemoveRepositaryData, action.url);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_REPOSITARY_DELETE_SUCCESS, payload: response?.data });
-        // yield put({ type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START, paginationPayload: StudentSubmissionsPaginationValue });
+        yield put({
+            type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
+            url: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_DATA :
+                BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_DATA,
+            paginationPayload: StudentSubmissionsPaginationValue
+        });
         toastrValidation(response);
     } else {
         yield put({

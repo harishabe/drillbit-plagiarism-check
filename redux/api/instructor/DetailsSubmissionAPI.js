@@ -18,9 +18,18 @@ export const GetSubmissionGradingQna = async (apiUrl) => {
  * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION > UPLOAD FILE
  */
 
-export const UploadSubmission = async (apiUrl, data) => {
-    const url = BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + apiUrl;
-    if (apiUrl.includes('confirmZipFile')) {
+// export const UploadSubmission = async (apiUrl, data) => {
+//     const url = BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + apiUrl;
+//     if (apiUrl.includes('confirmZipFile')) {
+//         return PostMethodEN(url, data);
+//     } else {
+//         return PostFormData(url, data);
+//     }
+// };
+
+export const UploadSubmission = async (url, data) => {
+    // const url = BASE_URL_UPLOAD + apiUrl;
+    if (url.includes('confirmZipFile')) {
         return PostMethodEN(url, data);
     } else {
         return PostFormData(url, data);
