@@ -126,7 +126,6 @@ const Instructor = ({
                     instructor.grammar,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
                     [{ 'component': <StatsIcon />, 'type': 'stats' }],
-
                     instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit' },
                             { 'component': <DeleteIcon />, 'type': 'delete' },
@@ -338,7 +337,7 @@ const Instructor = ({
                     isShowAddIcon={true}
                 >
                     <InstructorForm
-                        licenseExpiryDate={ licenseExpiryDate }
+                        licenseExpiryDate={licenseExpiryDate}
                     />
                 </CreateDrawer>
             </AddButtonBottom>

@@ -148,7 +148,6 @@ const Dashboard = ({
                                                     strokeCurve="smooth"
                                                     graphName="No. students"
                                                     graphData={ [
-                                                        0,
                                                         instructorDashboardData?.data?.top_students?.submissionsGraph?.zeroTen,
                                                         instructorDashboardData?.data?.top_students?.submissionsGraph?.elevenFourty,
                                                         instructorDashboardData?.data?.top_students?.submissionsGraph?.fourtyOneSixty,
@@ -209,7 +208,7 @@ const Dashboard = ({
                                     color={ COLUMN_ADMIN_CHART_COLOR }
                                     xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
                                     columnWidth={ COLUMN_ADMIN_WIDTH }
-                                    height={ COLUMN_ADMIN_CHART_HEIGHT }
+                                    height={ 380 }
                                     seriesData={ [
                                         {
                                             name: 'Submission Overview',

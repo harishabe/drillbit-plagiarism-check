@@ -17,6 +17,12 @@ const PieChart = ({
             chart: {
                 height: height,
                 type: type,
+                toolbar: {
+                    show: true,
+                    tools: {
+                        download: true
+                    }
+                }
             },
             legend: {
                 show: true,
@@ -46,7 +52,7 @@ const PieChart = ({
 
     return (
         <>
-            <div id="chart" style={{ padding: '24px 0px' }}>
+            <div id="chart" style={{ padding: '40px 0px' }}>
                 <ApexCharts options={chartData.options} series={chartData.series} height={height} type="donut" />
             </div>
         </>

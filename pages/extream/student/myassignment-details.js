@@ -159,29 +159,37 @@ const MyAssignmentDetails = ({
         setActiveTab(value);
     }
 
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
+    }
+
     const SubmissionComponent = activeTab === 0 && <SubmissionHistory
-        submissionData={ submissionData }
-        isLoadingSubmission={ isLoadingSubmission }
-        pageDetails={ pageDetails }
-        handleChange={ handleChange }
-        handleOriginalFileDownload={ handleOriginalFileDownload }
+        submissionData={submissionData}
+        isLoadingSubmission={isLoadingSubmission}
+        pageDetails={pageDetails}
+        handleChange={handleChange}
+        handleOriginalFileDownload={handleOriginalFileDownload}
+        handleTableSort={handleTableSort}
+
     />
     const QnaComponent = activeTab === 1 && <QA
-        GetQna={ GetQna }
-        qnaData={ qnaData }
-        isLoadingQa={ isLoadingQa }
-        isLoadingAns={ isLoadingAns }
-        handleSend={ handleSend }
+        GetQna={GetQna}
+        qnaData={qnaData}
+        isLoadingQa={isLoadingQa}
+        isLoadingAns={isLoadingAns}
+        handleSend={handleSend}
     />
 
     const componentList = [
         SubmissionComponent,
-        QnaComponent,
-        // <Feedback
-        //     GetFeedback={GetFeedback}
-        //     feedbackData={feedbackData}
-        //     isLoadingFeedback={isLoadingFeedback}
-        // />
+        QnaComponent
     ];
 
     return (
@@ -219,26 +227,26 @@ const MyAssignmentDetails = ({
                                 color="common.gray"
                             />
                             <Heading
-                                title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.subject } charLength={ 23 } /> }
+                                title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.subject} charLength={23} />}
                             />
                         </CardView>
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <CardView>
                             <Heading title={<EllipsisText value={'Assignment name'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.assignmentName } charLength={ 23 } /> } />
+                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.assignmentName} charLength={23} />} />
                         </CardView>
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <CardView>
                             <Heading title={<EllipsisText value={'Instructor name'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.instructorName } charLength={ 23 } /> } />
+                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.instructorName} charLength={23} />} />
                         </CardView>
                     </Grid>
                     <Grid item md={3} xs={12}>
                         <CardView>
                             <Heading title={<EllipsisText value={'Date'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate) } charLength={ 23 } /> } />
+                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate)} charLength={23} />} />
                         </CardView>
                     </Grid>
                 </Grid>
@@ -246,7 +254,7 @@ const MyAssignmentDetails = ({
 
             <div style={{ margin: '15px 0px' }}></div>
             <CardView>
-                <TabMenu menuButton={ tabMenu } components={ componentList } handleAPI={ handleAPI } />
+                <TabMenu menuButton={tabMenu} components={componentList} handleAPI={handleAPI} />
             </CardView>
             {
                 showRenewWarning &&
