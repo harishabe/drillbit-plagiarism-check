@@ -49,7 +49,7 @@ const columns = [
     { id: 'creationDate', label: 'Creation Date' },
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
-    { id: 'action', label: 'Action' }
+    { id: 'action', label: 'Actions' }
 ]
 
 function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action) {

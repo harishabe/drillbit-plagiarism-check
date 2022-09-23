@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import Chip from '@mui/material/Chip';
@@ -9,7 +9,7 @@ import {
     CardView
 } from '..';
 import FileForm from './FileForm';
-
+import RepositoryFileForm from './RepositoryFileForm';
 import {
     Input,
     DragAreaPadding,
@@ -52,6 +52,7 @@ const UploadFiles = ({
         });
         setFileData(a);
     }
+    console.log("fileData", fileData)
 
     const handleUpload = (e) => {
         console.log('dadfdfas', e.target.files);
@@ -74,6 +75,16 @@ const UploadFiles = ({
         }
     }
 
+    const handleSubmitRepository = (data) => {
+        console.log('datadatadata', data);
+        console.log('fileDatafileDatafileData', fileData);
+        if (fileData.length === 1) {
+            singleFileUploadRepository(fileData, data);
+        } else {
+            multiFileUploadRepository(fileData, data);
+        }
+    }
+
     const singleFileUpload = (files, data) => {
         console.log('files', files);
         let bodyFormData = new FormData();
@@ -83,6 +94,18 @@ const UploadFiles = ({
         bodyFormData.append('plagiarismCheck', 'YES');
         bodyFormData.append('grammarCheck', 'YES');
         bodyFormData.append('language', 'English');
+        bodyFormData.append('file', files[0][1]);
+        SubmissionListUpload(singleFileUploadAPI, bodyFormData);
+    }
+
+    const singleFileUploadRepository = (files, data) => {
+        console.log('files', files);
+        let bodyFormData = new FormData();
+        bodyFormData.append('name', data.authorName0);
+        bodyFormData.append('title', data.title0);
+        bodyFormData.append('year', data.year0);
+        bodyFormData.append('repository', data.repository0 === 'Institution' ? 'LOCAL' : 'GLOBAL');
+        bodyFormData.append('language', data.language0);
         bodyFormData.append('file', files[0][1]);
         SubmissionListUpload(singleFileUploadAPI, bodyFormData);
     }
@@ -105,7 +128,28 @@ const UploadFiles = ({
         SubmissionListUpload(multiFileUploadAPI, bodyFormData);
     }
 
-    
+    const multiFileUploadRepository = (files, data) => {
+        let authorNameArr = [], titleArr = [], yearArr = [], repositoryArr = [], languageArr = [];
+        let bodyFormData = new FormData();
+        fileData?.map((item, i) => {
+            authorNameArr.push(data['authorName' + i]);
+            titleArr.push(data['title' + i]);
+            yearArr.push(data['year' + i]);
+            repositoryArr.push(data['repository' + i]);
+            languageArr.push(data['language' + i]);
+        });
+
+        bodyFormData.append('name', authorNameArr);
+        bodyFormData.append('title', titleArr);
+        bodyFormData.append('year', yearArr);
+        bodyFormData.append('repository', repositoryArr);
+        bodyFormData.append('language', languageArr);
+        for (let i = 0; i < files.length; i++) {
+            bodyFormData.append("files", files[i][1]);
+        }
+        SubmissionListUpload(multiFileUploadAPI, bodyFormData);
+    }
+
     useEffect(() => {
         if (uploadData) {
             UploadFileDataClear();
@@ -123,44 +167,61 @@ const UploadFiles = ({
                     />
                 </ContentCenter>
                 <DragAreaPadding>
-                    <Grid container spacing={1}>
-                        <Grid item md={12} xs={12}>
+                    <Grid container spacing={ 1 }>
+                        <Grid item md={ 12 } xs={ 12 }>
                             <DragDropArea>
-                                {fileIcon}
-                                <div style={{ display: 'flex',justifyContent:'center' }}>
+                                { fileIcon }
+                                <div style={ { display: 'flex', justifyContent: 'center' } }>
                                     <Title1 title='Drag and drop, or ' />
-                                    <Link style={{ marginLeft: '5px' }}>
+                                    <Link style={ { marginLeft: '5px' } }>
                                         <ChooseLabel for="file-upload">
-                                            {choseFileTitle}
+                                            { choseFileTitle }
                                         </ChooseLabel>
                                     </Link>
                                     <Input
                                         multiple
-                                        onChange={handleUpload}
+                                        onChange={ handleUpload }
                                         id="file-upload"
                                         type="file"
                                     />
                                 </div>
-                                {(fileData?.length > 0) && fileData?.map((item) => (
+                                { (fileData?.length > 0) && fileData?.map((item) => (
                                     <div>
                                         <ChipContainer>
                                             <Chip
-                                                label={item[1]?.name}
-                                                onDelete={(e) => handleDelete(e, item)}
+                                                label={ item[1]?.name }
+                                                onDelete={ (e) => handleDelete(e, item) }
                                             />
                                         </ChipContainer>
                                     </div>
-                                ))}
-                                {fileWarning && <div style={{ color: 'red' }}>{UPLOAD_FILE_MAX_LIMIT}</div>}
+                                )) }
+                                { fileWarning && <div style={ { color: 'red' } }>{ UPLOAD_FILE_MAX_LIMIT }</div> }
                             </DragDropArea>
 
-                            {fileData?.length > 0 &&
-                                <FileForm
-                                    handleSubmitFile={handleSubmit}
-                                    files={fileData}
+                            { fileData?.length > 0 && router.pathname.split('/')[3] === 'uploadFileRepository' ?
+                                <RepositoryFileForm
+                                    handleSubmitRepository={ handleSubmitRepository }
+                                    files={ fileData }
                                     btnTitle='Process File'
-                                    isLoading={isLoadingUpload}
-                                />}
+                                    isLoading={ isLoadingUpload }
+                                />
+                                :
+                                <FileForm
+                                    handleSubmitFile={ handleSubmit }
+                                    files={ fileData }
+                                    btnTitle='Process File'
+                                    isLoading={ isLoadingUpload }
+                                />
+
+                            }
+
+                            {/* { fileData?.length > 0 &&
+                                <FileForm
+                                    handleSubmitFile={ handleSubmit }
+                                    files={ fileData }
+                                    btnTitle='Process File'
+                                    isLoading={ isLoadingUpload }
+                                /> } */}
                         </Grid>
                     </Grid>
                 </DragAreaPadding>

@@ -15,6 +15,7 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import { Divider, Skeleton } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import Tooltip from '@mui/material/Tooltip';
 import { SubTitle2, EllipsisText } from '../index';
 import {
     TimerIcon,
@@ -108,10 +109,13 @@ const CardInfoView = ({
                             { isLoading ?
                                 <Skeleton variant="rounded" sx={ { width: '20px', marginLeft: '280px' } } />
                                 :
+
                                 <AlignRight>
+                                <Tooltip title={ 'Assignment Instructions' } arrow>
                                     <IconButton onClick={ (e) => handleDownload(e, item) }>
                                         <DownloadFileIcon />
-                                    </IconButton>
+                                    </IconButton> 
+                                </Tooltip>
                                 </AlignRight>
                             }
                         </>

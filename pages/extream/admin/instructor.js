@@ -52,7 +52,7 @@ const columns = [
     { id: 'creationDate', label: 'Creation Date' },
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
-    { id: 'action', label: 'Action' }
+    { id: 'action', label: 'Actions' }
 ]
 
 function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action, expiry_date) {
@@ -128,12 +128,13 @@ const Instructor = ({
                     [{ 'component': <StatsIcon />, 'type': 'stats' }],
                     instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete' },
-                        {
-                            'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                            'type': instructor.status === 'active' ? 'lock' : 'unlock'
-                        }
-                        ])
+                            { 'component': <DeleteIcon />, 'type': 'delete' },
+                            {
+                                'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                                'type': instructor.status === 'active' ? 'lock' : 'unlock'
+                            }
+                        ]),
+                    instructor.expiry_date,
                 );
             row['isSelected'] = false;
             arr.push(row)
