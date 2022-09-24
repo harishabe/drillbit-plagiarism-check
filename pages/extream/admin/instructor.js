@@ -101,7 +101,7 @@ const Instructor = ({
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
-        field: PaginationValue?.field,
+        field: 'user_id',
         orderBy: PaginationValue?.orderBy,
     });
     const [editInstructor, setEditInstructor] = useState(false);

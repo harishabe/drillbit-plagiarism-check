@@ -28,6 +28,7 @@ import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
 import { removeCommaWordEnd, formatDate } from '../../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
+import { BASE_URL_ANALYSIS } from '../../../../utils/BaseUrl';
 
 const columns = [
   { id: 'name', label: 'Author Name' },
@@ -272,9 +273,8 @@ const Submission = ({
    * show analysis page
    */
   const handleShowAnalysisPage = (e, row) => {
-    console.log('eeee', e, row);
     let token = localStorage.getItem('token');
-    let url = 'http://uat.drillbitplagiarismcheck.com:8083/drillbit-analysis/analysis/' + row.paper_id + '/' + row.d_key + '/' + token
+    let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
     window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
   }
 

@@ -9,6 +9,7 @@ import {
 } from '../../../components';
 import { formatDate } from '../../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
+import { BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -34,7 +35,7 @@ const SubmissionHistory = ({
         { id: 'name', label: 'File name', isDownload: true, minWidth: 140 },
         { id: 'paper_id', label: 'Paper ID', minWidth: 140 },
         { id: 'date_up', label: 'Date', minWidth: 140 },
-        { id: 'similarity', label: 'Similarity', minWidth: 80 },
+        { id: 'percent', label: 'Similarity', minWidth: 80 },
         { id: 'grammar', label: 'Grammar', minWidth: 80 },
         { id: 'score', label: 'Marks', minWidth: 80 },
         { id: 'status', label: 'Status', minWidth: 100 },
@@ -59,6 +60,13 @@ const SubmissionHistory = ({
         });
         setRows([...arr]);
     }, [submissionData]);
+
+    const handleShowAnalysisPage = (e, row) => {
+        let token = localStorage.getItem('token');
+        let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
+        window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+    }
+
     return (
         <>
             <CommonTable
@@ -69,6 +77,7 @@ const SubmissionHistory = ({
                 downloadSubmissionFile={handleOriginalFileDownload}
                 handleTableSort={handleTableSort}
                 isLoading={isLoadingSubmission}
+                showAnalysisPage={handleShowAnalysisPage}
             />
 
             <div style={{ marginLeft: '45%', marginTop: '25px' }}>

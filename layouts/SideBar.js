@@ -125,6 +125,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/extream/student/myassignment-details' && name === 'My Classes') {
             return true;
+        }  else if (router.pathname === '/extream/admin/uploadFileRepository' && name === 'Repository') {
+            return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }
