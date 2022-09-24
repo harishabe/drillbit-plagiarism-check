@@ -28,3 +28,11 @@ export const ExtremeRefAccount = async (endPoint, data) => {
     const url = BASE_URL_SUPER + endPoint + '/license';
     return PostMethod(url, data);
 };
+
+/**
+ * API CALL FOR DROPPDOWN LIST EXTREME AND REF ACCOUNT
+ */
+export const DropdownListData = async () => {
+    const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST;
+    return GetMethod(url);
+};

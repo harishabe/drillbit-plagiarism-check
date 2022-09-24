@@ -92,6 +92,7 @@ import {
     SuperDashboardWidget,
     GetExtremeRef,
     CreateExtremeRefAccount,
+    SuperDropdownList
 } from './super/DetailsSuperAdminData';
 
 const saga = [
@@ -174,6 +175,7 @@ const saga = [
     fork(ChangeConfiguration),    
     fork(SuperDashboardWidget),    
     fork(CreateExtremeRefAccount),
+    fork(SuperDropdownList),
     fork(GetExtremeRef),
 ];
 

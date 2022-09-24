@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Box } from '@mui/material';
 import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
-    DragAndDrop,
     TabMenu,
-    UploadFiles
+    UploadFiles,
+    GDriveFileUpload,
+    ZipFileUpload
 } from '../../../components';
 import {
     UploadFileIcon,
@@ -17,8 +18,11 @@ import END_POINTS from '../../../utils/EndPoints';
 
 const UploadFileFolderSubmission = () => {
     const router = useRouter();
-    console.log("router", router.query.folderId)
+    const [activeTab, setActiveTab] = useState(0);
 
+    const handleAPI = (value) => {
+        setActiveTab(value);
+    }
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
@@ -62,17 +66,11 @@ const UploadFileFolderSubmission = () => {
             multiFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/multipleFiles` }
             routerObj={ { pathname: '/extream/instructor/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />,
-        <DragAndDrop
-            btnTitle='Process the file'
-            choseFileTitle='Browse your file from google drive'
-            fileIcon={ < GoogleDriveIcon /> }
-            isGoogleDriveFile={ true }
-        />,
-        <DragAndDrop
-            choseFileTitle='browse your zip here'
-            btnTitle='Process the file'
-            fileIcon={ < UploadFileIcon /> }
-            isZipFile={ true }
+        <GDriveFileUpload />,
+        <ZipFileUpload
+            zipFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/zipFile` }
+            confirmZipFileAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/confirmZipFile` }
+            routerObj={ { pathname: '/extream/instructor/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />
     ];
 
@@ -91,6 +89,7 @@ const UploadFileFolderSubmission = () => {
                         <TabMenu
                             menuButton={ tabMenu }
                             components={ componentList }
+                            handleAPI={ handleAPI }
                         />
                     </Grid>
                 </Grid>

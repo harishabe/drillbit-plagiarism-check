@@ -12,7 +12,7 @@ export const INSTRUCTOR_NOT_FOUND = "No Instructors found!";
 export const DOCUMENT_PROCESSED_NOT_FOUND = "No data found!";
 
 /**
- * Submission Upload file
+ * Submission, Repository Upload file
  */
 export const UPLOAD_FILE_ERROR = "Please select your file to upload";
 export const UPLOAD_FILE_MAX_LIMIT = "Max file upload is 10.";
@@ -21,7 +21,7 @@ export const UPLOAD_FILE_AUTHOR_TITLE = "Author title is required";
 export const UPLOAD_FILE_TYPE = "Select file type";
 
 /**
- * Submission Upload file
+ * Submission, Repository Upload file && Zip
  */
 export const UPLOAD_FILE_PAPER_TITLE = "Paper title is required";
 export const UPLOAD_FILE_YEAR = "Published year is required";
