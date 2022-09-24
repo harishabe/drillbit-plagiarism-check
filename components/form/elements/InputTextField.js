@@ -16,8 +16,8 @@ export const LabelContainer = styled.div`
 `;
 
 const useStyles = makeStyles((theme) => ({
-    helperText: {
-        marginLeft: 0
+    helperTextLeft: {
+        marginLeft: '0 !important'
     }
 }))
 
@@ -74,10 +74,8 @@ const InputTextField = ({
                         name={field.name}
                         id={field.name}
                         variant="outlined"
-                        helperText={error ? error.message : field.info}                        
-                        FormHelperTextProps={{
-                            className: classes.helperText
-                        }}
+                        helperText={error ? error.message : field.info}    
+                        FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
                     />
                 )}
                 rules={{

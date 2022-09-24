@@ -132,9 +132,15 @@ const SideBar = ({ open }) => {
 
     React.useEffect(() => {
         let role = localStorage.getItem('role');
-        if (role === 'admin') {
+        let switchRole = localStorage.getItem('switchRole');
+
+        if (role === 'admin' && switchRole === 'admin') {
             setSidebarItem(SidebarAdmin);
-        } else if (role === 'instructor') {
+        } else if (role === 'admin' && switchRole === 'instructor') {
+            setSidebarItem(SidebarInstructor);
+        } else if (role === 'admin' && switchRole === null) {
+            setSidebarItem(SidebarAdmin);
+        } else if (role === 'instructor' && switchRole === null) {
             setSidebarItem(SidebarInstructor);
         } else if (role === 'student') {
             setSidebarItem(SidebarStudent);
@@ -142,7 +148,7 @@ const SideBar = ({ open }) => {
             setSidebarItem(SidebarSuperAdmin);
         } else if (role === 'lim-admin') {
             setSidebarItem(SidebarProAdmin);
-        } else if(role === 'lim-instructor'){
+        } else if (role === 'lim-instructor') {
             setSidebarItem(SidebarProUser);
         }
     }, []);

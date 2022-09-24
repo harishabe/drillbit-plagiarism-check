@@ -54,7 +54,7 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                         color: '#fff',
                                     }}
                                 >
-                                    {item.lang1.charAt(0)}
+                                    {item.lang1.charAt(0).toUpperCase()}
                                 </Avatar>
                             </TableCell>
                             <TableCell>

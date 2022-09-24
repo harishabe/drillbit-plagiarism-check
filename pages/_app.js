@@ -54,7 +54,7 @@ export default function MyApp(props) {
 
     function authCheck(url) {
         setUser(localStorage.getItem('token'));
-        const publicPaths = ['/auth/login', '/auth/forgotpassword'];
+        const publicPaths = ['/auth/login', '/auth/forgot-password'];
         const path = url.split('?')[0];
         if (!localStorage.getItem('token') && !publicPaths.includes(path)) {
             setAuthorized(false);

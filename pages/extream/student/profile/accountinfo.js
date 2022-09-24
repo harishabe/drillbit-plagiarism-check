@@ -51,7 +51,6 @@ const AccountInfo = ({
     }, []);
 
     useEffect(() => {
-        if (role === Role.student) {
             let row = [
                 createData("Account ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
                 createData("Student ID", accountInfo?.stuednt_id ? accountInfo?.stuednt_id : '-'),
@@ -62,8 +61,7 @@ const AccountInfo = ({
                 createData("Created Date", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
                 createData("Expiry Date", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
             ];
-            setRows([...row])
-        }
+            setRows([...row]);
     }, [accountInfo]);
 
     const handleChange = (data) => {
@@ -71,8 +69,7 @@ const AccountInfo = ({
         bodyFormData.append('file', data.target.files[0]);
         ProfileLogo(localStorage.getItem('role'), bodyFormData);
     }
-
-
+    
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>

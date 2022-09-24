@@ -18,18 +18,15 @@ import { Button, Skeleton } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
 import {
     ToggleBarIcon,
-    MessageIcon,
-    BellIcon,
     DownArrowIcon,
     ChangePwdIcon,
     SwitchAccountIcon,
     AccountIcon,
     HelpIcon
 } from '../../assets/icon';
-import { getItemLocalStorage } from '../../utils/RegExp';
+import { getItemLocalStorage, setItemLocalStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
 import EllipsisText from '../ellipsis/EllipsisText';
-import Title from '../typography/title';
 import SubTitle1 from '../typography/SubTitle1';
 import { PRO_ADMIN, PRO_USER } from '../../constant/data/Constant'
 
@@ -62,49 +59,67 @@ const AppBar = styled(MuiAppBar, {
 
 const NavBar = ({
     open,
-    handleDrawerOpen,
-    instructorDashboardData,
-    dashboardData,
-    studentData
+    handleDrawerOpen
 }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openProfile = Boolean(anchorEl);
     const router = useRouter();
     const [name, setName] = React.useState('');
     const [role, setRole] = React.useState('');
+    const [switchRole, setSwitchRole] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [path, setPath] = React.useState('');
 
     const handleProfileClick = (event) => {
-        setAnchorEl(event.currentTarget)
+        setAnchorEl(event.currentTarget);
     }
+
     const handleClose = () => {
-        setAnchorEl(null)
+        setAnchorEl(null);
     }
+
     const handleLogout = (event) => {
         event.preventDefault();
         localStorage.clear();
         window.location.href = '/auth/login';
     }
 
+    const switchToUser = (e, role) => {
+        e.preventDefault();
+        if (switchRole === role) {
+            setSwitchRole('instructor');
+            setItemLocalStorage('switchRole', 'instructor');
+            router.push('/extream/instructor/dashboard');
+        } else {
+            setSwitchRole('admin');
+            setItemLocalStorage('switchRole', 'admin')
+            router.push('/extream/admin/dashboard');
+        }
+    }
+
     React.useEffect(() => {
         let userName = getItemLocalStorage('name');
         let userRole = getItemLocalStorage('role');
         let email = getItemLocalStorage('email');
+        let switchRoles = getItemLocalStorage('role') !== 'instructor' && getItemLocalStorage('switchRole') === null ? 'admin' : getItemLocalStorage('switchRole');
         setName(userName);
         setRole(userRole);
         setEmail(email);
-
+        setSwitchRole(switchRoles);
         if (userRole === Role?.proAdmin) {
             setRole(PRO_ADMIN);
             setPath('/pro/admin');
         } else if (userRole === Role?.proUser) {
             setRole(PRO_USER);
             setPath('/pro/user');
-        } else if (userRole === Role?.admin || Role?.instructor || Role?.student) {
+        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (switchRole === null)) {
             setPath('/extream/' + userRole);
+        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (switchRole === 'admin')) {
+            setPath('/extream/admin');
+        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (switchRole === 'instructor')) {
+            setPath('/extream/instructor');
         }
-    }, []);
+    }, [, switchRole]);
 
     return (
         <>
@@ -129,31 +144,6 @@ const NavBar = ({
                                 </Box>
                                 <Box sx={{ flexGrow: 1 }} />
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                                    {/* <IconButton
-                                        color="inherit"
-                                        aria-label="open drawer"
-                                        edge="start"
-                                        sx={{
-                                            marginRight: 2,
-                                            marginLeft: 2,
-                                            ...(open && { display: 'block' }),
-                                        }}
-                                    >
-                                        <MessageIcon />
-                                    </IconButton> */}
-                                    {/* <Divider orientation="vertical" flexItem /> */}
-                                    {/* <IconButton
-                                        color="inherit"
-                                        aria-label="open drawer"
-                                        edge="start"
-                                        sx={{
-                                            marginRight: 2,
-                                            marginLeft: 2,
-                                            ...(open && { display: 'block' }),
-                                        }}
-                                    >
-                                        <BellIcon />
-                                    </IconButton> */}
                                     <Divider orientation="vertical" flexItem />
                                     <div style={{ display: 'block', marginLeft: '15px', marginRight: '15px' }}>
                                         <div style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}>
@@ -219,7 +209,7 @@ const NavBar = ({
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <Paper sx={{ width: 328, boxShadow: 'none', maxWidth: '100%' }}>
-                    <MenuList style={{paddingBottom:'0px'}}>
+                    <MenuList style={{ paddingBottom: '0px' }}>
                         <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }}>
                             <Avatar alt={name} style={{ width: '56px', height: '56px', background: '#68C886', color: '#fff' }}>
                                 {name && name.charAt(0)}
@@ -232,30 +222,34 @@ const NavBar = ({
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                         {role === Role?.admin &&
                             <>
-                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push('/instructor/dashboard')}>
+                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToUser(e, role)}>
                                     <ListItemIcon>
                                         <SwitchAccountIcon />
                                     </ListItemIcon>
-                                    <ListItemText style={{ padding: '5px 15px' }} primary="Switch account" secondary={`Switch to ${role === Role?.admin ? 'instructor' : 'admin'}`} />
+                                    <ListItemText
+                                        style={{ padding: '5px 15px' }}
+                                        primary="Switch account"
+                                        secondary={`Switch to ${switchRole === Role?.admin ? 'instructor' : 'admin'}`}
+                                    />
                                 </MenuItem>
                                 <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                             </>
                         }
-                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`${path}/profile/accountinfo`) }>
+                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push(`${path}/profile/accountinfo`)}>
                             <ListItemIcon>
                                 <AccountIcon />
                             </ListItemIcon>
                             <ListItemText style={{ padding: '5px 15px' }} primary="Account info" secondary="Account details" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`${path}/profile/help`) }>
+                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push(`${path}/profile/help`)}>
                             <ListItemIcon>
                                 <HelpIcon />
                             </ListItemIcon>
                             <ListItemText style={{ padding: '5px 15px' }} primary="Help" secondary="PDF / Video" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => router.push(`${path}/profile/changepassword`) }>
+                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push(`${path}/profile/changepassword`)}>
                             <ListItemIcon>
                                 <ChangePwdIcon />
                             </ListItemIcon>
@@ -265,7 +259,7 @@ const NavBar = ({
                             <Button variant="contained" fullWidth color="primary" onClick={handleLogout}>Log out</Button>
                         </MenuItem>
 
-                        <div style={{ textAlign: 'right',padding:'0px 15px' }}>
+                        <div style={{ textAlign: 'right', padding: '0px 15px' }}>
                             <SubTitle1 title="v.2.0.0" />
                         </div>
                     </MenuList>

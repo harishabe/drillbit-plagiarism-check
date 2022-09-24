@@ -51,7 +51,6 @@ const AccountInfo = ({
     }, []);
 
     useEffect(() => {
-        if (role === Role.instructor) {
             let row = [
                 createData("Name", accountInfo?.name ? accountInfo?.name : '-'),
                 createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
@@ -65,8 +64,7 @@ const AccountInfo = ({
                 createData("Files Saved to Repository", accountInfo?.totalDocumentsAddedToRepository ? accountInfo?.totalDocumentsAddedToRepository : '-'),
                 createData("Time Zone", accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
             ];
-            setRows([...row])
-        }
+            setRows([...row]);
     }, [accountInfo]);
 
     const handleChange = (data) => {

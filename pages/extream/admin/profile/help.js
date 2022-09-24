@@ -15,6 +15,14 @@ const Help = () => {
             'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf',
             'videoTitle': 'Admin video tutorial',
             'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf'
+        },
+        {
+            'role': 'instructor',
+            'isShow': false,
+            'pdfLinkTitle': 'Instructor tutorial PDF download',
+            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf',
+            'videoTitle': 'Instructor video tutorial',
+            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf'
         }
     ]);
 
