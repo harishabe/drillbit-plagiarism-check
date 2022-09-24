@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Box } from '@mui/material';
-import Instructor from '../../../layouts/Instructor';
+import Admin from '../../../layouts/Admin';
 import {
     BreadCrumb,
     DragAndDrop,
@@ -11,28 +11,21 @@ import {
     UploadFileIcon,
     GoogleDriveIcon
 } from '../../../assets/icon';
-import Router, { useRouter } from "next/router";
-import { BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+// import Router, { useRouter } from "next/router";
 
-const UploadFileFolderSubmission = () => {
-    const router = useRouter();
-    console.log("router", router.query.folderId)
+const uploadFileRepository = () => {
 
-    const InstructorBreadCrumb = [
+    const AdminBreadCrumb = [
         {
             name: 'Dashboard',
-            link: '/extream/instructor/dashboard',
+            link: '/extream/admin/dashboard',
             active: false,
         },
         {
-            name: 'My folder',
-            link: '/extream/instructor/myfolder',
-            active: false,
-        },
-        {
-            name: router.query.name,
-            link: '/extream/instructor/folderSubmission' + router?.asPath?.slice(router?.pathname?.length),
+            name: 'Repository',
+            link: '/extream/admin/repository',
             active: false,
         },
         {
@@ -55,12 +48,12 @@ const UploadFileFolderSubmission = () => {
     ];
 
     const componentList = [
-        <UploadFiles 
-            choseFileTitle='browse your file here' 
-            fileIcon={ < UploadFileIcon /> } 
-            singleFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/singleFile` }
-            multiFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/multipleFiles` }
-            routerObj={ { pathname: '/extream/instructor/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
+        <UploadFiles
+            choseFileTitle='browse your file here'
+            fileIcon={ < UploadFileIcon /> }
+            singleFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD_SINGLE_FILE }
+            multiFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD_MULTIPLE_FILE }
+            routerObj={ { pathname: '/extream/admin/repository' } }
         />,
         <DragAndDrop
             btnTitle='Process the file'
@@ -82,7 +75,7 @@ const UploadFileFolderSubmission = () => {
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 10 } xs={ 10 }>
                         <BreadCrumb
-                            item={ InstructorBreadCrumb }
+                            item={ AdminBreadCrumb }
                         />
                     </Grid>
                 </Grid>
@@ -99,10 +92,10 @@ const UploadFileFolderSubmission = () => {
     )
 };
 
-UploadFileFolderSubmission.propTypes = {
+uploadFileRepository.propTypes = {
 
 }
 
-UploadFileFolderSubmission.layout = Instructor;
+uploadFileRepository.layout = Admin;
 
-export default UploadFileFolderSubmission;
+export default uploadFileRepository;

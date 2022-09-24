@@ -7,13 +7,13 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import styled from 'styled-components';
-import { SubTitle, SubTitle1, EllipsisText, SimilarityStatus } from '../index';
+import { SubTitle, SubTitle1, SubTitle2, EllipsisText, SimilarityStatus } from '../index';
 import { StatusDot } from '../index';
-import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../constant/data/Constant'
+import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
 
 const MarginTop = styled.div`
     marginTop:'7px';
-`
+`;
 
 const MyRecentSubmissionTable = ({ tableData }) => {
     return (
@@ -54,12 +54,12 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                         color: '#fff',
                                     }}
                                 >
-                                    {item.lang1.charAt(0).toUpperCase()}
+                                    {item.ass_name.charAt(0).toUpperCase()}
                                 </Avatar>
                             </TableCell>
                             <TableCell>
-                                <SubTitle1 title={item.lang1} />
                                 <EllipsisText value={item.ass_name} charLength={15} />
+                                <SubTitle2 title={item.lang1} />
                             </TableCell>
                             <TableCell>
                                 <EllipsisText value={item.original_fn} charLength={15} />
@@ -68,10 +68,10 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                 <SubTitle title={item.paper_id} />
                             </TableCell>
                             <TableCell>
-                                <EllipsisText value={ item.feedback !== null ? item.feedback : NO_DATA_PLACEHOLDER } charLength={ 10 } />
+                                <EllipsisText value={item.feedback !== null ? item.feedback : NO_DATA_PLACEHOLDER} charLength={10} />
                             </TableCell>
                             <TableCell>
-                                <SimilarityStatus percent={ item.percent } />
+                                <SimilarityStatus percent={item.percent} />
                             </TableCell>
                             <TableCell>
                                 <MarginTop>

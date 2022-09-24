@@ -12,6 +12,8 @@ import {
 import {
     UploadFileIcon,
 } from '../../../assets/icon';
+import { BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
 
 const InstructorBreadCrumb = [
     {
@@ -54,14 +56,14 @@ const UploadFile = () => {
         <UploadFiles
             choseFileTitle='browse your file here'
             fileIcon={<UploadFileIcon />}
-            singleFileUploadAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`}
-            multiFileUploadAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`}
+            singleFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile` }
+            multiFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles` }
             routerObj={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } }}
         />,
         <GDriveFileUpload />,
         <ZipFileUpload
-            zipFileUploadAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`} 
-            confirmZipFileAPI={`classes/${router.query.clasId}/assignments/${router.query.assId}/confirmZipFile`} 
+            zipFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile` }
+            confirmZipFileAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/confirmZipFile` } 
             routerObj={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } }}
         />
     ];
