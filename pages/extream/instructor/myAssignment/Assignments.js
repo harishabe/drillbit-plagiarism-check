@@ -40,8 +40,8 @@ const SearchField = styled.div`
 `;
 
 const columns = [
-  // { id: 'id', label: 'Id' },
-  { id: 'assignment_name', label: 'Name' },
+  { id: 'id', label: 'Assignment ID' },
+  { id: 'assignment_name', label: 'Assignment Name' },
   { id: 'status', label: 'Status' },
   { id: 'start_date', label: 'Creation Date' },
   { id: 'end_date', label: 'End Date' },
@@ -91,8 +91,8 @@ const Assignments = ({
           }
           title={ assignment.status }
         />,
-        formatDate(assignment.start_date),
-        formatDate(assignment.end_date),
+        assignment.start_date,
+        assignment.end_date,
         [
           { 'component': <EditIcon />, 'type': 'edit' },
           { 'component': <DeleteIcon />, 'type': 'delete' },

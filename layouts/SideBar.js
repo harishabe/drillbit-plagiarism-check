@@ -173,12 +173,11 @@ const SideBar = ({ open }) => {
                                 });
                                 return (
                                     <StyledList>
-                                        <Link href={text.layout + text.path} key={key}>
+                                        <Link href={text.layout + text.path} key={text.name}>
                                             <a className={classes.link} >
                                                 <ListItemButton
                                                     style={{ margin: '10px 15px 0', borderRadius: '4px' }}
                                                     className={whiteFontClasses}
-                                                    key={text}
                                                     sx={{
                                                         minHeight: 58,
                                                         justifyContent: open ? 'initial' : 'center',

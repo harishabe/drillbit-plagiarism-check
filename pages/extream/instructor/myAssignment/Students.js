@@ -224,17 +224,17 @@ const Students = ({
 
     return (
         <React.Fragment>
-            { showDialogModal &&
+            {showDialogModal &&
                 <>
                     <DialogModal
-                    headingTitle={ "Institute Students List" }
-                    isOpen={ true }
+                        headingTitle={"Institute Students List"}
+                        isOpen={true}
                         fullWidth="lg"
                         maxWidth="lg"
-                    handleClose={ handleCloseDialog }
+                        handleClose={handleCloseDialog}
                     >
                         <StudentInstitute
-                        classId={ router.query.clasId }
+                            classId={router.query.clasId}
                         />
                     </DialogModal>
                 </>
@@ -242,16 +242,16 @@ const Students = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
+                    warningIcon={<DeleteWarningIcon />}
                     message="Are you sure you want to delete ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
             <AddButtonBottom>
                 <CreateDrawer
-                    options={ [
+                    options={[
                         {
                             icon: <AddPersonIcon />,
                             title: 'Add Student',
@@ -266,10 +266,10 @@ const Students = ({
                             icon: <AddFromListIcon />,
                             title: 'Add From List',
                             handleFromCreateDrawer: true
-                        }] }
+                        }]}
                     title="Add Student"
-                    handleMultiData={ handleShow }
-                    isShowAddIcon={ true }>
+                    handleMultiData={handleShow}
+                    isShowAddIcon={true}>
                     <StudentForm />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -277,28 +277,28 @@ const Students = ({
                 editStudent &&
                 <CreateDrawer
                     title="Edit Student"
-                        isShowAddIcon={ false }
-                        showDrawer={ editStudent }
-                        handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={editStudent}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <StudentForm
-                            editData={ editStudentData }
+                        editData={editStudentData}
                     />
                 </CreateDrawer>
             }
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item container direction='row' justifyContent={ 'right' }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item container direction='row' justifyContent={'right'}>
                         <SearchField>
                             <TextField
                                 placeholder='Search'
-                                onChange={ searchStudents }
-                                inputProps={ {
+                                onChange={searchStudents}
+                                inputProps={{
                                     style: {
                                         padding: 5,
                                         display: 'inline-flex'
                                     }
-                                } }
+                                }}
                             />
                         </SearchField>
                     </Grid>
@@ -306,28 +306,28 @@ const Students = ({
             </Box>
             <CardView>
                 <>
-                    { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
-                        <IconButton onClick={ deleteAllStudent }>
+                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+                        <IconButton onClick={deleteAllStudent}>
                             <DeleteIcon />
                         </IconButton>
-                    </div> }
+                    </div>}
                     <CommonTable
-                        isCheckbox={ true }
-                        isSorting={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        handleAction={ handleAction }
-                        handleTableSort={ handleTableSort }
-                        handleCheckboxSelect={ handleCheckboxSelect }
-                        handleSingleSelect={ handleSingleSelect }
-                        isLoading={ isLoadingStudent }
-                        charLength={ 17 }
+                        isCheckbox={true}
+                        isSorting={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        handleAction={handleAction}
+                        handleTableSort={handleTableSort}
+                        handleCheckboxSelect={handleCheckboxSelect}
+                        handleSingleSelect={handleSingleSelect}
+                        isLoading={isLoadingStudent}
+                        charLength={17}
                         path=''
                     />
                     <PaginationContainer>
                         <Pagination
-                            count={ pageDetailsStudent?.totalPages }
-                            onChange={ handlePagination }
+                            count={pageDetailsStudent?.totalPages}
+                            onChange={handlePagination}
                             color="primary"
                             variant="outlined"
                             shape="rounded"

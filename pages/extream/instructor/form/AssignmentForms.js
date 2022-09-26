@@ -346,7 +346,7 @@ const AssignmentForms = ({
                         "validationMsg": "Select End Date"
                     } }
                 />
-
+                <label style={{color:'gray'}}>Instructions</label>
                 <InputFileType
                     control={ control }
                     field={ {
@@ -519,7 +519,7 @@ const AssignmentForms = ({
                             <Grid container>
                                 <Grid item md={ 8 }>
                                     <InputLabel style={ { margin: '22px 0px' } }>
-                                        Save To Institution Repository
+                                        Save to repository
                                     </InputLabel>
                                 </Grid>
                                 <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
@@ -548,7 +548,7 @@ const AssignmentForms = ({
                                                 "validationMsg": "Please select repository scope",
                                                 "size": "small",
                                                 "options": [{
-                                                    "name": "Local"
+                                                    "name": "Institution"
                                                 }, {
                                                     "name": "Global"
                                                 }]
@@ -586,7 +586,7 @@ const AssignmentForms = ({
                                         "id": "no_of_resubmission",
                                         "name": "no_of_resubmission",
                                         "size": 'small',
-                                        "label": "Enter no. of submission",
+                                        "label": "Enter no. of resubmission",
                                         "required": "Enter number of submission"
                                     } } />
                             </>
@@ -801,7 +801,7 @@ const AssignmentForms = ({
                             <Grid container>
                                 <Grid item md={ 8 }>
                                     <InputLabel style={ { margin: '22px 0px' } }>
-                                        Report Access
+                                        Viewing of similarity % and report
                                     </InputLabel>
                                 </Grid>
                                 <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
@@ -821,7 +821,7 @@ const AssignmentForms = ({
                             <Grid container>
                                 <Grid item md={ 8 }>
                                     <InputLabel style={ { margin: '22px 0px' } }>
-                                        Student Paper
+                                        Student Papers
                                     </InputLabel>
                                 </Grid>
                                 <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
@@ -841,7 +841,7 @@ const AssignmentForms = ({
                             <Grid container>
                                 <Grid item md={ 8 }>
                                     <InputLabel style={ { margin: '22px 0px' } }>
-                                        Publication
+                                        Journals & publishers
                                     </InputLabel>
                                 </Grid>
                                 <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
@@ -861,7 +861,7 @@ const AssignmentForms = ({
                             <Grid container>
                                 <Grid item md={ 8 }>
                                     <InputLabel style={ { margin: '22px 0px' } }>
-                                        Internet
+                                        Internet or Web
                                     </InputLabel>
                                 </Grid>
                                 <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>

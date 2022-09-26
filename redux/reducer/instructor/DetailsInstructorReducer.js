@@ -85,7 +85,7 @@ const DetailsInstructorReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingAssignment: false,
-                assignmentError: action.payload,
+                assignmentData: action.payload,
             };
         case types.FETCH_INSTRUCTOR_CREATE_CLASSES_DATA_START:
             return {
