@@ -85,7 +85,7 @@ const CreateDrawer = ({
                         overflow: 'visible',
                         filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                         mt: 1.5,
-                        top: '362px !important',
+                        //top: '362px !important',
                         '& .MuiAvatar-root': {
                             width: 32,
                             height: 32,
@@ -145,8 +145,6 @@ const CreateDrawer = ({
                                     <AddIcon />
                                 </Fab>}
                         </Tooltip>}
-
-
                     <Drawer
                         anchor={anchor}
                         open={state[anchor]}

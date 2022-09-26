@@ -10,6 +10,15 @@ export const DownloadOriginalFile = (data) => {
 };
 
 /**
+ * Download CSV
+ */
+export const DownloadCsv = (url) => {
+    return {
+        type: types.FETCH_DOWNLOAD_CSV_START, url: url
+    };
+};
+
+/**
  * Get myfolder > folderSubmission > submissionList
  */
 export const folderSubmissionsFileData = (url, paginationPayload) => {

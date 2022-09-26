@@ -5,7 +5,7 @@ import _ from 'lodash';
 import debouce from 'lodash.debounce';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
-import { Grid, TextField } from '@mui/material';
+import { Grid, TextField, Tooltip, Skeleton } from '@mui/material';
 import { Pagination } from '@mui/material';
 import { IconButton } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
@@ -22,7 +22,8 @@ import {
     DeleteWarningIcon,
     AddMultipleIcon,
     AddPersonIcon,
-    AddFromListIcon
+    AddFromListIcon,
+    DownloadIcon
 } from '../../../../assets/icon';
 import StudentForm from '../form/StudentForm';
 import {
@@ -30,10 +31,15 @@ import {
     DeleteStudent,
     UploadFileDataClear,
 } from '../../../../redux/action/instructor/InstructorAction';
+import {
+    DownloadCsv,
+} from '../../../../redux/action/common/Submission/SubmissionAction';
 import StudentInstitute from '../studentInstitute';
 import { removeCommaWordEnd } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS from '../../../../utils/EndPoints';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -45,6 +51,16 @@ const SearchField = styled.div`
     position:absolute;
     top: 125px;
     right:16px;
+`;
+
+const DownloadField = styled.div`
+    position:absolute;
+    top: 125px;
+    right:225px;
+`;
+
+const DownloadButton = styled.div`
+    margin-top:-5px;
 `;
 
 const columns = [
@@ -67,7 +83,9 @@ const Students = ({
     isLoadingStudent,
     DeleteStudent,
     setPaginationStudent,
-    UploadFileDataClear
+    UploadFileDataClear,
+    DownloadCsv,
+    isLoadingDownload
 }) => {
 
     const router = useRouter();
@@ -104,8 +122,8 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
-                    [{ 'component': <EditIcon />, 'type': 'edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete' },
+                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                     ]
                 );
             row['isSelected'] = false;
@@ -222,19 +240,23 @@ const Students = ({
         setEditStudent(drawerClose);
     }
 
+    const handleDownload = () => {
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`)
+    }
+
     return (
         <React.Fragment>
-            { showDialogModal &&
+            {showDialogModal &&
                 <>
                     <DialogModal
-                    headingTitle={ "Institute Students List" }
-                    isOpen={ true }
+                        headingTitle={"Institute Students List"}
+                        isOpen={true}
                         fullWidth="lg"
                         maxWidth="lg"
-                    handleClose={ handleCloseDialog }
+                        handleClose={handleCloseDialog}
                     >
                         <StudentInstitute
-                        classId={ router.query.clasId }
+                            classId={router.query.clasId}
                         />
                     </DialogModal>
                 </>
@@ -242,16 +264,16 @@ const Students = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
+                    warningIcon={<DeleteWarningIcon />}
                     message="Are you sure you want to delete ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
             <AddButtonBottom>
                 <CreateDrawer
-                    options={ [
+                    options={[
                         {
                             icon: <AddPersonIcon />,
                             title: 'Add Student',
@@ -266,10 +288,10 @@ const Students = ({
                             icon: <AddFromListIcon />,
                             title: 'Add From List',
                             handleFromCreateDrawer: true
-                        }] }
+                        }]}
                     title="Add Student"
-                    handleMultiData={ handleShow }
-                    isShowAddIcon={ true }>
+                    handleMultiData={handleShow}
+                    isShowAddIcon={true}>
                     <StudentForm />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -277,28 +299,43 @@ const Students = ({
                 editStudent &&
                 <CreateDrawer
                     title="Edit Student"
-                        isShowAddIcon={ false }
-                        showDrawer={ editStudent }
-                        handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={editStudent}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <StudentForm
-                            editData={ editStudentData }
+                        editData={editStudentData}
                     />
                 </CreateDrawer>
             }
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item container direction='row' justifyContent={ 'right' }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item container direction='row' justifyContent={'right'}>
+                        <DownloadField>
+                            <DownloadButton>
+                                { studentData?.length > 0 &&
+                                    <Tooltip title="Download csv" arrow>
+                                        <IconButton
+                                            color="primary"
+                                            aria-label="download-file"
+                                            size="large"
+                                            onClick={ handleDownload }>
+                                            { isLoadingDownload ? <Skeleton width={ 30 } /> : <DownloadIcon /> }
+                                        </IconButton>
+                                    </Tooltip>
+                                }
+                            </DownloadButton>
+                        </DownloadField>
                         <SearchField>
                             <TextField
                                 placeholder='Search'
-                                onChange={ searchStudents }
-                                inputProps={ {
+                                onChange={searchStudents}
+                                inputProps={{
                                     style: {
                                         padding: 5,
                                         display: 'inline-flex'
                                     }
-                                } }
+                                }}
                             />
                         </SearchField>
                     </Grid>
@@ -306,28 +343,28 @@ const Students = ({
             </Box>
             <CardView>
                 <>
-                    { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
-                        <IconButton onClick={ deleteAllStudent }>
+                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+                        <IconButton onClick={deleteAllStudent}>
                             <DeleteIcon />
                         </IconButton>
-                    </div> }
+                    </div>}
                     <CommonTable
-                        isCheckbox={ true }
-                        isSorting={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        handleAction={ handleAction }
-                        handleTableSort={ handleTableSort }
-                        handleCheckboxSelect={ handleCheckboxSelect }
-                        handleSingleSelect={ handleSingleSelect }
-                        isLoading={ isLoadingStudent }
-                        charLength={ 17 }
+                        isCheckbox={true}
+                        isSorting={true}
+                        tableHeader={columns}
+                        tableData={rows}
+                        handleAction={handleAction}
+                        handleTableSort={handleTableSort}
+                        handleCheckboxSelect={handleCheckboxSelect}
+                        handleSingleSelect={handleSingleSelect}
+                        isLoading={isLoadingStudent}
+                        charLength={17}
                         path=''
                     />
                     <PaginationContainer>
                         <Pagination
-                            count={ pageDetailsStudent?.totalPages }
-                            onChange={ handlePagination }
+                            count={pageDetailsStudent?.totalPages}
+                            onChange={handlePagination}
                             color="primary"
                             variant="outlined"
                             shape="rounded"
@@ -339,14 +376,19 @@ const Students = ({
     )
 }
 
+const mapStateToProps = (state) => ({
+    isLoadingDownload: state?.submission?.isLoadingDownload,
+});
+
 const mapDispatchToProps = (dispatch) => {
     return {
         GetStudent: (ClasId, PaginationValue) => dispatch(GetStudent(ClasId, PaginationValue)),
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        DownloadCsv: (url) => dispatch(DownloadCsv(url)),
     };
 };
 
 Students.layout = Instructor;
 
-export default connect(null, mapDispatchToProps)(Students);
+export default connect(mapStateToProps, mapDispatchToProps)(Students);

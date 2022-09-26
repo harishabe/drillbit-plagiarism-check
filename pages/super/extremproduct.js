@@ -89,7 +89,7 @@ const ExtremProduct = ({
                     data.instructors,
                     data.students,
                     data.documents,
-                    [{ 'component': <EditIcon />, 'type': 'edit' }],
+                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }],
                 );
             arr.push(row)
         });

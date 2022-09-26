@@ -11,7 +11,16 @@ const drillBitTheme = {
     mixins: mixins,
     shadows: shadows,
     typography: typography,
-    zIndex: zIndex
+    zIndex: zIndex,
+    components: {
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'capitalize'
+                }
+            }
+        }
+    },
 };
 
 export default drillBitTheme;

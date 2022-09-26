@@ -125,6 +125,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/extream/student/myassignment-details' && name === 'My Classes') {
             return true;
+        }  else if (router.pathname === '/extream/admin/uploadFileRepository' && name === 'Repository') {
+            return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }
@@ -132,9 +134,15 @@ const SideBar = ({ open }) => {
 
     React.useEffect(() => {
         let role = localStorage.getItem('role');
-        if (role === 'admin') {
+        let switchRole = localStorage.getItem('switchRole');
+
+        if (role === 'admin' && switchRole === 'admin') {
             setSidebarItem(SidebarAdmin);
-        } else if (role === 'instructor') {
+        } else if (role === 'admin' && switchRole === 'instructor') {
+            setSidebarItem(SidebarInstructor);
+        } else if (role === 'admin' && switchRole === null) {
+            setSidebarItem(SidebarAdmin);
+        } else if (role === 'instructor' && switchRole === null) {
             setSidebarItem(SidebarInstructor);
         } else if (role === 'student') {
             setSidebarItem(SidebarStudent);
@@ -142,7 +150,7 @@ const SideBar = ({ open }) => {
             setSidebarItem(SidebarSuperAdmin);
         } else if (role === 'lim-admin') {
             setSidebarItem(SidebarProAdmin);
-        } else if(role === 'lim-instructor'){
+        } else if (role === 'lim-instructor') {
             setSidebarItem(SidebarProUser);
         }
     }, []);
@@ -165,12 +173,11 @@ const SideBar = ({ open }) => {
                                 });
                                 return (
                                     <StyledList>
-                                        <Link href={text.layout + text.path} key={key}>
+                                        <Link href={text.layout + text.path} key={text.name}>
                                             <a className={classes.link} >
                                                 <ListItemButton
                                                     style={{ margin: '10px 15px 0', borderRadius: '4px' }}
                                                     className={whiteFontClasses}
-                                                    key={text}
                                                     sx={{
                                                         minHeight: 58,
                                                         justifyContent: open ? 'initial' : 'center',

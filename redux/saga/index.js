@@ -4,7 +4,8 @@ import { DashboardWidget, TopStudent, TrendAnalysis, GetRenewalValidity } from '
 import {
     GetDownloadFileData,
     GetFolderSubmissionData,
-    DeleteFolderSubmissionFile
+    DeleteFolderSubmissionFile,
+    DownloadSubmissionDetail,
 } from './common/Submission/DetailSubmissionData';
 import { InsDashboardWidget } from './instructor/Dashboard';
 import {
@@ -68,7 +69,6 @@ import {
     UploadSubmissionFile,
     UploadExtractedFile,
     DeleteSubmissionFile,
-    DownloadSubmissionDetail,
 } from './instructor/SubmissionData'
 import {
     GetStudentDashboard,

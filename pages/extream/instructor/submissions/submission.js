@@ -8,7 +8,7 @@ import {
   WarningDialog,
   SimilarityStatus
 } from '../../../../components';
-import { DeleteIcon, DeleteWarningIcon } from '../../../../assets/icon';
+import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../../assets/icon';
 import { connect } from 'react-redux';
 import {
   GetSubmissionList,
@@ -16,11 +16,15 @@ import {
   UploadFileDataClear,
   UploadZipFileDataClear,
 } from '../../../../redux/action/instructor/InstructorAction';
+import {
+  DownloadCsv,
+} from '../../../../redux/action/common/Submission/SubmissionAction';
 import { DownloadOriginalFile } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { useRouter } from "next/router";
 import { TextField, Pagination } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import { Grid, Tooltip } from '@mui/material';
 import debouce from "lodash.debounce";
+import { Skeleton } from '@mui/material';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { IconButton } from '@mui/material';
 import styled from 'styled-components';
@@ -28,6 +32,9 @@ import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
 import { removeCommaWordEnd, formatDate } from '../../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
+import { BASE_URL_ANALYSIS } from '../../../../utils/BaseUrl';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS from '../../../../utils/EndPoints';
 
 const columns = [
   { id: 'name', label: 'Author Name' },
@@ -58,13 +65,25 @@ const SearchField = styled.div`
     right:16px;
 `;
 
+const DownloadField = styled.div`
+    position:absolute;
+    top: 125px;
+    right:225px;
+`;
+
+const DownloadButton = styled.div`
+    margin-top:-5px;
+`;
+
 const Submission = ({
   GetSubmissionList,
+  DownloadCsv,
   DownloadOriginalFile,
   DeleteSubmission,
   submissionData,
   isLoading,
   isLoadingUpload,
+  isLoadingDownload,
   pageDetails,
   UploadFileDataClear,
   extractedFileData,
@@ -113,7 +132,7 @@ const Submission = ({
           submission.paper_id,
           formatDate(submission.date_up),
           [
-            { 'component': <DeleteIcon />, 'type': 'delete' },
+            { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
           ]
         );
       row['isSelected'] = false;
@@ -272,15 +291,33 @@ const Submission = ({
    * show analysis page
    */
   const handleShowAnalysisPage = (e, row) => {
-    console.log('eeee', e, row);
     let token = localStorage.getItem('token');
-    let url = 'http://uat.drillbitplagiarismcheck.com:8083/drillbit-analysis/analysis/' + row.paper_id + '/' + row.d_key + '/' + token
+    let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
     window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+  }
+
+  const handleDownload = () => {
+    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/downloadSubmissions`)
   }
 
   return (
     <React.Fragment>
       <Grid item container direction='row' justifyContent={'right'}>
+        <DownloadField>
+          <DownloadButton>
+            { submissionData?.length > 0 &&
+              <Tooltip title="Download csv" arrow>
+                <IconButton
+                  color="primary"
+                  aria-label="download-file"
+                  size="large"
+                  onClick={ handleDownload }>
+                  { isLoadingDownload ? <Skeleton width={ 30 } /> : <DownloadIcon /> }
+                </IconButton>
+              </Tooltip>
+            }
+          </DownloadButton>
+        </DownloadField>
         <SearchField>
           <TextField
             placeholder='Search'
@@ -387,6 +424,7 @@ const mapStateToProps = (state) => ({
   submissionData: state?.instructorMyFolders?.submissionData?._embedded?.submissionsList,
   extractedFileData: state?.instructorMyFolders?.extractedFileData,
   uploadData: state?.instructorMyFolders?.uploadData,
+  isLoadingDownload: state?.submission?.isLoadingDownload,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -395,7 +433,8 @@ const mapDispatchToProps = (dispatch) => {
     DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
     DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
     UploadFileDataClear: () => dispatch(UploadFileDataClear()),
-    UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
+    UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
+    DownloadCsv: (url) => dispatch(DownloadCsv(url)),
   };
 };
 

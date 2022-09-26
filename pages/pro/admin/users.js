@@ -120,14 +120,15 @@ const Users = ({
                     instructor.plagairism,
                     instructor.grammar,
                     <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
-                    [{ 'component': <StatsIcon />, 'type': 'stats' }],
-                    [{ 'component': <EditIcon />, 'type': 'edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete' },
+                    [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
+                    ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                     {
                         'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                        'type': instructor.status === 'active' ? 'lock' : 'unlock'
+                        'type': instructor.status === 'active' ? 'lock' : 'unlock',
+                        'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
                     }
-                    ]
+                    ]),
                 );
             row['isSelected'] = false;
             arr.push(row)

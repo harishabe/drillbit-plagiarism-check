@@ -28,7 +28,7 @@ import {
 } from '../../assets/icon';
 import SubTitle1 from '../typography/SubTitle1';
 import Switch from '@mui/material/Switch';
-import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant';
+import { NO_DATA_PLACEHOLDER, CARD_NEXT_PAGE, CARD_FOLDER_ACTIONS } from '../../constant/data/Constant';
 import { StatusColor } from '../../pages/style/index';
 
 const useStyles = makeStyles((theme) => ({
@@ -114,7 +114,7 @@ const CardInfoView = ({
                                 <Tooltip title={ 'Assignment Instructions' } arrow>
                                     <IconButton onClick={ (e) => handleDownload(e, item) }>
                                         <DownloadFileIcon />
-                                    </IconButton> 
+                                    </IconButton>
                                 </Tooltip>
                                 </AlignRight>
                             }
@@ -135,9 +135,11 @@ const CardInfoView = ({
                             { isAction &&
                                 <>
                                     <AlignRight>
-                                    <IconButton onClick={ handleMenuClick }>
+                                    <Tooltip title={ CARD_FOLDER_ACTIONS } arrow>
+                                        <IconButton onClick={ handleMenuClick }>
                                             <ThreeDotIcon />
                                         </IconButton>
+                                    </Tooltip>
                                     </AlignRight>
                                     <Menu
                                         id="action-menu"
@@ -264,9 +266,11 @@ const CardInfoView = ({
                                 />
                             }
                             { isNextPath &&
-                                <IconButton onClick={ (e) => router.push(path) }>
-                                    <ArrowForwardOutlinedIcon />
-                                </IconButton>
+                                <Tooltip title={ CARD_NEXT_PAGE } arrow>
+                                    <IconButton onClick={ (e) => router.push(path) }>
+                                        <ArrowForwardOutlinedIcon />
+                                    </IconButton>
+                                </Tooltip>
                             }
                         </Grid>
                     </Grid>

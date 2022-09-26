@@ -51,23 +51,21 @@ const AccountInfo = ({
     }, []);
 
     useEffect(() => {
-        if (role === Role.admin) {
-            let row = [
-                createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
-                createData("Admin Username", accountInfo?.name ? accountInfo?.name : '-'),
-                createData("Account ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
-                createData("Date Of Activation", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
-                createData("Instructor Account", accountInfo?.instructorAccount ? accountInfo?.instructorAccount : '-'),
-                createData("Student Account", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
-                createData("Number Of Documents", accountInfo?.totalDocumentsAlloted ? accountInfo?.totalDocumentsAlloted : '-'),
-                createData("Max. document length(pages)", accountInfo?.oneDocumentLength ? accountInfo?.oneDocumentLength : '-'),
-                createData("Date of Expiry", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
-                createData("Grammar checks", accountInfo?.grammar ? accountInfo?.grammar : '-'),
-                createData("Product Name", accountInfo?.productName ? accountInfo?.productName : '-'),
-                createData("Time Zone", accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
-            ];
-            setRows([...row])
-        }
+        let row = [
+            createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
+            createData("Admin Username", accountInfo?.name ? accountInfo?.name : '-'),
+            createData("Account ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
+            createData("Date Of Activation", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
+            createData("Instructor Account", accountInfo?.instructorAccount ? accountInfo?.instructorAccount : '-'),
+            createData("Student Account", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
+            createData("Number Of Documents", accountInfo?.totalDocumentsAlloted ? accountInfo?.totalDocumentsAlloted : '-'),
+            createData("Max. document length(pages)", accountInfo?.oneDocumentLength ? accountInfo?.oneDocumentLength : '-'),
+            createData("Date of Expiry", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
+            createData("Grammar checks", accountInfo?.grammar ? accountInfo?.grammar : '-'),
+            createData("Product Name", accountInfo?.productName ? accountInfo?.productName : '-'),
+            createData("Time Zone", accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
+        ];
+        setRows([...row]);
     }, [accountInfo]);
 
     const handleChange = (data) => {
@@ -83,11 +81,11 @@ const AccountInfo = ({
                 <Grid container spacing={1}>
                     <Grid item md={10}>
                         <MainHeading title='Account Information' />
-                        { role === Role.admin &&
+                        {role === Role.admin &&
                             <form>
                                 <label htmlFor="contained-button-file">
-                                    <Input accept="image/*" id="contained-button-file" onChange={ handleChange } multiple type="file" />
-                                    <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
+                                    <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
+                                    <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
                                         <>
                                             <UploadIcon />
                                             <UploadButtonAlign>
@@ -101,10 +99,10 @@ const AccountInfo = ({
                             </form>
                         }
                     </Grid>
-                    <Grid item md={ 2 } style={ { textAlign: 'right' } }>
-                        { accountInfo &&
+                    <Grid item md={2} style={{ textAlign: 'right' }}>
+                        {accountInfo &&
                             <>
-                            <ImgLogo src={ `data:image/png;base64,${accountInfo.logo}` } />
+                                <ImgLogo src={`data:image/png;base64,${accountInfo.logo}`} />
                             </>
                         }
                     </Grid>

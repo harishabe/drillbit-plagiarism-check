@@ -101,7 +101,7 @@ const Instructor = ({
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
-        field: PaginationValue?.field,
+        field: 'user_id',
         orderBy: PaginationValue?.orderBy,
     });
     const [editInstructor, setEditInstructor] = useState(false);
@@ -125,13 +125,14 @@ const Instructor = ({
                     instructor.plagairism,
                     instructor.grammar,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
-                    [{ 'component': <StatsIcon />, 'type': 'stats' }],
-                    instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit' }]) :
-                        ([{ 'component': <EditIcon />, 'type': 'edit' },
-                            { 'component': <DeleteIcon />, 'type': 'delete' },
+                    [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
+                    instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
+                        ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                            { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                             {
                                 'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                                'type': instructor.status === 'active' ? 'lock' : 'unlock'
+                                'type': instructor.status === 'active' ? 'lock' : 'unlock',
+                                'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
                             }
                         ]),
                     instructor.expiry_date,
@@ -238,14 +239,6 @@ const Instructor = ({
         setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
-    const handleCheckboxSelect = () => {
-        let rowData = rows?.map((rowItem) => {
-            rowItem['isSelected'] = !rowItem['isSelected'];
-            return rowItem;
-        });
-        setRows(rowData);
-    }
-
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
             if (rowItem?.user_id === row?.user_id) {
@@ -255,6 +248,17 @@ const Instructor = ({
         });
         setRows(rowData);
     }
+
+    const handleCheckboxSelect = () => {
+        let rowData = rows?.map((rowItem) => {
+            rowItem['isSelected'] = !rowItem['isSelected'];
+            return rowItem;
+        });
+        console.log("rowData", rowData)
+        setRows(rowData);
+    }
+
+
 
     const deleteAllInstructor = () => {
         let rowsId = '';

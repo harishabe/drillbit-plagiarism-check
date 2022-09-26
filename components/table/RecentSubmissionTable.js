@@ -28,7 +28,7 @@ const RecentSubmissionTable = ({
                                 <Avatar
                                     alt={item.name}
                                     sx={{ width: 50, height: 50, background: item.color, color: '#fff' }}
-                                >{item.name.charAt(0)}
+                                >{item.name.charAt(0).toUpperCase()}
                                 </Avatar>
                             </TableCell>
                             <TableCell align='left'>
@@ -43,7 +43,7 @@ const RecentSubmissionTable = ({
                                 />
                             </TableCell>
                             <TableCell>
-                                <StatusDot color="#69C886" title="Active" />
+                                <StatusDot color="#69C886" title={item.status} />
                             </TableCell>
                             <TableCell align='right'>
                                 <Button

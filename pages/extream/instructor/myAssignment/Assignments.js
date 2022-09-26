@@ -7,7 +7,8 @@ import { useRouter } from 'next/router';
 import { TextField } from '@mui/material';
 import debouce from "lodash.debounce";
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import { Grid, Tooltip } from '@mui/material';
+import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
 import Instructor from '../../../../layouts/Instructor';
 import {
@@ -17,15 +18,25 @@ import {
   CreateDrawer,
   WarningDialog
 } from '../../../../components';
-import { EditIcon, DeleteIcon, DeleteWarningIcon } from '../../../../assets/icon';
+import {
+  EditIcon,
+  DeleteIcon,
+  DeleteWarningIcon,
+  DownloadIcon
+} from '../../../../assets/icon';
 import {
   GetAssignment,
-  DeleteAssignment
+  DeleteAssignment,
 } from '../../../../redux/action/instructor/InstructorAction';
+import {
+  DownloadCsv,
+} from '../../../../redux/action/common/Submission/SubmissionAction';
 import AssignmentForms from './../form/AssignmentForms';
 import { removeCommaWordEnd, formatDate } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS from '../../../../utils/EndPoints';
 
 const AddButtonBottom = styled.div`
     position: fixed;
@@ -39,9 +50,19 @@ const SearchField = styled.div`
     right:16px;
 `;
 
+const DownloadField = styled.div`
+    position:absolute;
+    top: 125px;
+    right:225px;
+`;
+
+const DownloadButton = styled.div`
+    margin-top:-5px;
+`;
+
 const columns = [
-  // { id: 'id', label: 'Id' },
-  { id: 'assignment_name', label: 'Name' },
+  { id: 'id', label: 'Assignment ID' },
+  { id: 'assignment_name', label: 'Assignment Name' },
   { id: 'status', label: 'Status' },
   { id: 'start_date', label: 'Creation Date' },
   { id: 'end_date', label: 'End Date' },
@@ -54,10 +75,12 @@ function createData(id, assignment_name, status, start_date, end_date, action) {
 
 const Assignments = ({
   GetAssignment,
+  DownloadCsv,
   DeleteAssignment,
   assignmentData,
   pageDetailsAssignment,
-  isLoadingAssignment
+  isLoadingAssignment,
+  isLoadingDownload
 }) => {
   const router = useRouter();
   const [rows, setRows] = useState([]);
@@ -91,11 +114,11 @@ const Assignments = ({
           }
           title={ assignment.status }
         />,
-        formatDate(assignment.start_date),
-        formatDate(assignment.end_date),
+        assignment.start_date,
+        assignment.end_date,
         [
-          { 'component': <EditIcon />, 'type': 'edit' },
-          { 'component': <DeleteIcon />, 'type': 'delete' },
+          { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+          { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
         ]
       );
       row['isSelected'] = false;
@@ -199,11 +222,30 @@ const Assignments = ({
     setEditAssignment(drawerClose);
   }
 
+  const handleDownload = () => {
+    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`)
+  }
+
   return (
     <React.Fragment>
       <Box sx={ { flexGrow: 1 } }>
         <Grid container spacing={ 1 }>
           <Grid item container direction='row' justifyContent={ 'right' }>
+            <DownloadField>
+              <DownloadButton>
+                { assignmentData?.length > 0 &&
+                  <Tooltip title="Download csv" arrow>
+                    <IconButton
+                      color="primary"
+                      aria-label="download-file"
+                      size="large"
+                      onClick={ handleDownload }>
+                      { isLoadingDownload ? <Skeleton width={ 30 } /> : <DownloadIcon /> }
+                    </IconButton>
+                  </Tooltip>
+                }
+              </DownloadButton>
+            </DownloadField>
             <SearchField>
               <TextField
                 placeholder='Search'
@@ -276,6 +318,7 @@ const Assignments = ({
           handleSingleSelect={ handleSingleSelect }
           isLoading={ isLoadingAssignment }
           path={ { pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } } }
+          charLength={ 9 }
         />
         <PaginationContainer>
           <Pagination
@@ -291,13 +334,18 @@ const Assignments = ({
   );
 };
 
+const mapStateToProps = (state) => ({
+  isLoadingDownload: state?.submission?.isLoadingDownload,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return {
     DeleteAssignment: (ClasId, assId) => dispatch(DeleteAssignment(ClasId, assId)),
     GetAssignment: (ClasId, PaginationValue) => dispatch(GetAssignment(ClasId, PaginationValue)),
+    DownloadCsv: (url) => dispatch(DownloadCsv(url)),
   };
 };
 
 Assignments.layout = Instructor;
 
-export default connect(null, mapDispatchToProps)(Assignments);
+export default connect(mapStateToProps, mapDispatchToProps)(Assignments);
