@@ -25,3 +25,12 @@ export const CreateAccount = (url, data) => {
         type: types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_START, url: url, query: data
     };
 };
+
+/**
+ * DropdownList Extreme and Ref Account
+ */
+export const DropdownList = () => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START
+    };
+};

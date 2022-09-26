@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Box } from '@mui/material';
 import { useRouter } from "next/router";
 import Instructor from '../../../layouts/Instructor';
@@ -30,8 +30,7 @@ const tabMenu = [
 
 const UploadFile = () => {
     const router = useRouter();
-
-
+    
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
@@ -91,6 +90,7 @@ const UploadFile = () => {
                         <TabMenu
                             menuButton={tabMenu}
                             components={componentList}
+                            handleAPI={ handleAPI }
                         />
                     </Grid>
                 </Grid>

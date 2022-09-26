@@ -14,6 +14,7 @@ import {
     CardView
 } from '../../components';
 import FileForm from './FileForm';
+import RepositoryFileFormZip from './RepositoryFileFormZip';
 import {
     UPLOAD_FILE_MAX_LIMIT
 } from '../../constant/data/ErrorMessage';
@@ -44,10 +45,12 @@ const ZipFileUpload = ({
     isLoadingUpload,
     extractedFileData,
     isLoadingExtractedFile,
-    UploadZipFileDataClear
+    UploadZipFileDataClear,
+    isRepository
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
+    const [data, setData] = useState([]);
     const [fileWarning, setFileWarning] = useState(false);
 
     const handleDelete = (e, item) => {
@@ -72,11 +75,19 @@ const ZipFileUpload = ({
 
     const handleUploadZipFile = (e) => {
         e.preventDefault();
-        let bodyFormData = new FormData();
-        bodyFormData.append('file', fileData[0][1]);
-        SubmissionListUpload(zipFileUploadAPI, bodyFormData);
+        if (isRepository) {
+            let bodyFormData = new FormData();
+            bodyFormData.append('repository', fileData[0][1]);
+            bodyFormData.append('language', fileData[0][1]);
+            bodyFormData.append('file', fileData[0][1]);
+            SubmissionListUpload(zipFileUploadAPI, bodyFormData);
+        } else {
+            let bodyFormData = new FormData();
+            bodyFormData.append('file', fileData[0][1]);
+            SubmissionListUpload(zipFileUploadAPI, bodyFormData);
+        }
     }
-
+    console.log("data", data)
     const handleProcessZipFile = (data) => {
         let authorNameArr = [], titleArr = [], documentTypeArr = [];
         uploadData?.fileNames?.map((item, i) => {
@@ -84,11 +95,32 @@ const ZipFileUpload = ({
             titleArr.push(data['title' + i]);
             documentTypeArr.push(data['documentType' + i]);
         });
-        uploadData['authorName'] = authorNameArr;
+        uploadData['name'] = authorNameArr;
         uploadData['title'] = titleArr;
-        uploadData['documentType'] = documentTypeArr;
+        uploadData['doc_type'] = documentTypeArr;
         SubmissionListExtractedFileUpload(confirmZipFileAPI, uploadData);
     }
+
+    const handleProcessZipFileRepo = (data) => {
+
+        let repositoryArr = [], languageArr = [], documentTypeArr = [];
+        uploadData?.fileNames?.map((item, i) => {
+            authorNameArr.push(data['repository' + i]);
+            titleArr.push(data['language' + i]);
+            documentTypeArr.push(data['documentType' + i]);
+        });
+        uploadData['repository'] = repositoryArr;
+        uploadData['language'] = languageArr;
+        uploadData['file'] = documentTypeArr;
+        // uploadData['repository'] = data['repository'];
+        // uploadData['language'] = data['language'];
+        // uploadData['file'] = data['documentType'];
+        setData(uploadData)
+        SubmissionListExtractedFileUpload(zipFileUploadAPI, uploadData);
+    }
+
+    console.log("uploadData", uploadData)
+    console.log("fileData", fileData)
 
     useEffect(() => {
         if (extractedFileData) {
@@ -144,20 +176,44 @@ const ZipFileUpload = ({
                             {fileWarning && <div style={{ color: 'red' }}>{UPLOAD_FILE_MAX_LIMIT}</div>}
                         </DragDropArea>
 
+                        { (fileData?.length > 0 && isRepository) &&
+                            <RepositoryFileFormZip
+                                handleSubmitRepositoryZip={ handleProcessZipFileRepo }
+                                files={ fileData[0][1] }
+                            // btnTitle='Process the file'
+                            // isLoading={ isLoadingExtractedFile }
+                            /> }
+                        { (uploadData?.fileNames?.length > 0) &&
+                            <FileForm
+                                handleSubmitFile={ handleProcessZipFile }
+                                files={ uploadData?.fileNames }
+                                // btnTitle='Process the file'
+                                isLoading={ isLoadingExtractedFile }
+                            /> }
+
                         <div style={{ textAlign: 'center', marginTop: '10px' }}>
-                            {(fileData?.length > 0 && uploadData === undefined) &&
+                            { (fileData?.length > 0 && uploadData === undefined)
+                                &&
                                 <Button type="submit" onClick={handleUploadZipFile} variant="contained" size="large">
                                     {isLoadingUpload ? <BeatLoader color="#fff" /> : 'Upload Zip File'}
                                 </Button>
                             }
                         </div>
-                        {(uploadData?.fileNames?.length > 0) &&
+                        {/* { (uploadData?.fileNames?.length > 0 && isRepository) ?
+                            <RepositoryFileFormZip
+                                handleSubmitRepositoryZip={ handleProcessZipFileRepo }
+                                files={ uploadData?.fileNames }
+                                // btnTitle='Process the file'
+                                isLoading={ isLoadingExtractedFile }
+                            />
+                            :
                             <FileForm
-                                handleSubmitFile={handleProcessZipFile}
-                                files={uploadData?.fileNames}
-                                btnTitle='Process the file'
-                                isLoading={isLoadingExtractedFile}
-                            />}
+                                handleSubmitFile={ handleProcessZipFile }
+                                files={ uploadData?.fileNames }
+                                // btnTitle='Process the file'
+                                isLoading={ isLoadingExtractedFile }
+                            />
+                        } */}
                     </Grid>
                 </Grid>
             </DragAreaPadding>

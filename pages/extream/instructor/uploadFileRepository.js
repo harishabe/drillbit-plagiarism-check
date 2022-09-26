@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Box } from '@mui/material';
 import Instructor from '../../../layouts/instructor';
 import {
     BreadCrumb,
-    DragAndDrop,
     TabMenu,
-    UploadFiles
+    UploadFiles,
+    GDriveFileUpload,
+    ZipFileUpload
 } from '../../../components';
 import {
     UploadFileIcon,
     GoogleDriveIcon
 } from '../../../assets/icon';
-import Router, { useRouter } from "next/router";
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 
 const uploadFileRepository = () => {
-    const router = useRouter();
-    console.log("router", router.query.folderId)
+    const [activeTab, setActiveTab] = useState(0);
+
+    const handleAPI = (value) => {
+        setActiveTab(value);
+    }
 
     const InstructorBreadCrumb = [
         {
@@ -51,23 +54,18 @@ const uploadFileRepository = () => {
 
     const componentList = [
         <UploadFiles
+            isRepository={ true }
             choseFileTitle='browse your file here'
             fileIcon={ < UploadFileIcon /> }
             singleFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_SINGLE_FILE }
             multiFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_MULTIPLE_FILE }
             routerObj={ { pathname: '/extream/instructor/repository' } }
         />,
-        <DragAndDrop
-            btnTitle='Process the file'
-            choseFileTitle='Browse your file from google drive'
-            fileIcon={ < GoogleDriveIcon /> }
-            isGoogleDriveFile={ true }
-        />,
-        <DragAndDrop
-            choseFileTitle='browse your zip here'
-            btnTitle='Process the file'
-            fileIcon={ < UploadFileIcon /> }
-            isZipFile={ true }
+        <GDriveFileUpload />,
+        <ZipFileUpload
+            isRepository={ true }
+            zipFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_ZIP }
+            routerObj={ { pathname: '/extream/instructor/repository' } }
         />
     ];
 
@@ -86,6 +84,7 @@ const uploadFileRepository = () => {
                         <TabMenu
                             menuButton={ tabMenu }
                             components={ componentList }
+                            handleAPI={ handleAPI }
                         />
                     </Grid>
                 </Grid>

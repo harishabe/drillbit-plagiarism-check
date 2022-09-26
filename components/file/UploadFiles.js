@@ -37,7 +37,8 @@ const UploadFiles = ({
     uploadData,
     singleFileUploadAPI,
     multiFileUploadAPI,
-    routerObj
+    routerObj,
+    isRepository
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -76,8 +77,6 @@ const UploadFiles = ({
     }
 
     const handleSubmitRepository = (data) => {
-        console.log('datadatadata', data);
-        console.log('fileDatafileDatafileData', fileData);
         if (fileData.length === 1) {
             singleFileUploadRepository(fileData, data);
         } else {
@@ -99,7 +98,6 @@ const UploadFiles = ({
     }
 
     const singleFileUploadRepository = (files, data) => {
-        console.log('files', files);
         let bodyFormData = new FormData();
         bodyFormData.append('name', data.authorName0);
         bodyFormData.append('title', data.title0);
@@ -198,7 +196,7 @@ const UploadFiles = ({
                                 { fileWarning && <div style={ { color: 'red' } }>{ UPLOAD_FILE_MAX_LIMIT }</div> }
                             </DragDropArea>
 
-                            { fileData?.length > 0 && router.pathname.split('/')[3] === 'uploadFileRepository' ?
+                            { fileData?.length > 0 && isRepository ?
                                 <RepositoryFileForm
                                     handleSubmitRepository={ handleSubmitRepository }
                                     files={ fileData }
@@ -214,14 +212,6 @@ const UploadFiles = ({
                                 />
 
                             }
-
-                            {/* { fileData?.length > 0 &&
-                                <FileForm
-                                    handleSubmitFile={ handleSubmit }
-                                    files={ fileData }
-                                    btnTitle='Process File'
-                                    isLoading={ isLoadingUpload }
-                                /> } */}
                         </Grid>
                     </Grid>
                 </DragAreaPadding>

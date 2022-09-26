@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Box } from '@mui/material';
 import Admin from '../../../layouts/Admin';
 import {
     BreadCrumb,
-    DragAndDrop,
     TabMenu,
-    UploadFiles
+    UploadFiles,
+    GDriveFileUpload,
+    ZipFileUpload
 } from '../../../components';
 import {
     UploadFileIcon,
@@ -13,9 +14,13 @@ import {
 } from '../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
-// import Router, { useRouter } from "next/router";
 
 const uploadFileRepository = () => {
+    const [activeTab, setActiveTab] = useState(0);
+
+    const handleAPI = (value) => {
+        setActiveTab(value);
+    }
 
     const AdminBreadCrumb = [
         {
@@ -49,23 +54,17 @@ const uploadFileRepository = () => {
 
     const componentList = [
         <UploadFiles
+            isRepository={ true }
             choseFileTitle='browse your file here'
             fileIcon={ < UploadFileIcon /> }
             singleFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD_SINGLE_FILE }
             multiFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD_MULTIPLE_FILE }
             routerObj={ { pathname: '/extream/admin/repository' } }
         />,
-        <DragAndDrop
-            btnTitle='Process the file'
-            choseFileTitle='Browse your file from google drive'
-            fileIcon={ < GoogleDriveIcon /> }
-            isGoogleDriveFile={ true }
-        />,
-        <DragAndDrop
-            choseFileTitle='browse your zip here'
-            btnTitle='Process the file'
-            fileIcon={ < UploadFileIcon /> }
-            isZipFile={ true }
+        <GDriveFileUpload />,
+        <ZipFileUpload
+            zipFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD_ZIP }
+            routerObj={ { pathname: '/extream/admin/repository' } }
         />
     ];
 
@@ -84,6 +83,7 @@ const uploadFileRepository = () => {
                         <TabMenu
                             menuButton={ tabMenu }
                             components={ componentList }
+                            handleAPI={ handleAPI }
                         />
                     </Grid>
                 </Grid>

@@ -111,8 +111,6 @@ const ReportForm = ({
         setFormData(formList);
     }, [reportData])
 
-
-
     return (
         <>
             {showDialogModal &&

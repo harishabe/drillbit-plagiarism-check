@@ -139,12 +139,13 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "id": "institutionType",
         "name": "institutionType",
-        "label": "Institution Type",
+        "label": "Institution Type", 
         "required": "Institution Type",
-        "validationMsg": "Invalid Institution Type"
+        "validationMsg": "Invalid Institution Type",
+        "options": []
     },
 
     {
@@ -157,12 +158,13 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "id": "timeZone",
         "name": "timeZone",
         "label": "Time Zone",
         "required": "Time Zone",
-        "validationMsg": "Invalid Time Zone"
+        "validationMsg": "Invalid Time Zone",
+        "options": []
     },
 
     {

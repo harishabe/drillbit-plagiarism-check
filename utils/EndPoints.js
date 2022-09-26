@@ -16,6 +16,7 @@ const END_POINTS = {
     ADMIN_STUDENT_DELETE: '/extreme/admin/student',
     ADMIN_REPOSITARY_DATA: '/extreme/admin/directRepositoryInbox',
     ADMIN_REPOSITARY_UPLOAD_SINGLE_FILE: '/extreme/admin/directRepository/single',
+    ADMIN_REPOSITARY_UPLOAD_ZIP: '/extreme/admin/directRepository/zip',
     ADMIN_REPOSITARY_UPLOAD_MULTIPLE_FILE: '/extreme/admin/directRepository/multiple',
     ADMIN_REPOSITARY_REMOVE: '/extreme/admin/removeRepository/',
     ADMIN_INTEGRATION_DATA: '/extreme/integrations/home',
@@ -39,6 +40,7 @@ const END_POINTS = {
     INSTRUCTOR_SUBMISSION_UPLOAD: '/files/',
     INSTRUCTOR_REPOSITARY_DATA: '/extreme/privateRepositoryInbox',
     INSTRUCTOR_REPOSITARY_UPLOAD_SINGLE_FILE: '/extreme/privateRepository/single',
+    INSTRUCTOR_REPOSITARY_UPLOAD_ZIP: '/extreme/privateRepository/zip',
     INSTRUCTOR_REPOSITARY_UPLOAD_MULTIPLE_FILE: '/extreme/privateRepository/multiple',
     INSTRUCTOR_REPOSITARY_REMOVE: '/extreme/removePrivateRepository/',
     STUDENT_DASHBOARD_WIDGET: '/extreme/student/dashboard',
@@ -65,6 +67,7 @@ const END_POINTS = {
     SUPER_ADMIN_DASHBOARD_WIDGET: '/drillbit/dashboard',
     SUPER_ADMIN_EXTREME: '/extreme',
     SUPER_ADMIN_REF: '/pro',
+    SUPER_ADMIN_DROPDOWN_LIST: '/drillbit/dplist',
 };
 
 export default END_POINTS;

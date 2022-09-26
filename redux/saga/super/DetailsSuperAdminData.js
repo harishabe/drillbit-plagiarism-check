@@ -3,7 +3,8 @@ import * as types from '../../action/ActionType';
 import {
     GetWidgetData,
     ExtremeRefAccount,
-    GetExtremeRefDetail
+    GetExtremeRefDetail,
+    DropdownListData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { FolderSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
@@ -88,4 +89,28 @@ export function* onLoadCreateAccount(action) {
 
 export function* CreateExtremeRefAccount() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_START, onLoadCreateAccount);
+}
+
+/**
+ * Dropdownlist Extreme Ref Account
+ * @param {*} action
+ */
+export function* onLoadDropdown(action) {
+    const { response, error } = yield call(DropdownListData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* SuperDropdownList() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START, onLoadDropdown);
 }

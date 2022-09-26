@@ -41,12 +41,12 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'Sl.no' },
-    { id: 'name', label: 'Admin username', minWidth: 150 },
+    { id: 'lid', label: 'License Id' },
+    { id: 'name', label: 'Admin name' },
     { id: 'email', label: 'Email' },
-    { id: 'college_name', label: 'Institution name', minWidth: 150 },
+    { id: 'college_name', label: 'Institution name' },
     { id: 'country', label: 'Location' },
-    { id: 'instructors', label: 'Instructors' },
+    { id: 'instructors', label: 'Instructors', },
     { id: 'students', label: 'Students' },
     { id: 'documents', label: 'Documents' },
     { id: 'action', label: 'Action' }
@@ -113,7 +113,7 @@ const ExtremProduct = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 10 }
+                        charLength={ 7 }
                     />
                 </CardView>
             </Box>
