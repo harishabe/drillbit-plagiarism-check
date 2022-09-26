@@ -19,6 +19,23 @@ const SubmissionReducer = (state = {}, action) => {
                 isLoadingDownloadFile: false,
                 downloadFileError: action.payload,
             };
+        case types.FETCH_DOWNLOAD_CSV_START:
+            return {
+                ...state,
+                isLoadingDownload: true,
+            };
+        case types.FETCH_DOWNLOAD_CSV_SUCCESS:
+            return {
+                ...state,
+                isLoadingDownload: false,
+                downloadData: action.payload,
+            };
+        case types.FETCH_DOWNLOAD_CSV_FAIL:
+            return {
+                ...state,
+                isLoadingDownload: false,
+                downloadDataError: action.payload,
+            };
         case types.FETCH_FOLDER_SUBMISSION_LIST_START:
             return {
                 ...state,

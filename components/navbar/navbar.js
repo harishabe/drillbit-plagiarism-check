@@ -14,7 +14,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { Button, Skeleton } from '@mui/material';
+import { Button, Skeleton, Tooltip } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
 import {
     ToggleBarIcon,
@@ -129,6 +129,7 @@ const NavBar = ({
                         <Hidden mdDown implementation="css">
                             <Toolbar>
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                                    <Tooltip title='Menu' arrow>
                                     <IconButton
                                         color="inherit"
                                         aria-label="open drawer"
@@ -141,6 +142,7 @@ const NavBar = ({
                                     >
                                         <ToggleBarIcon />
                                     </IconButton>
+                                    </Tooltip>
                                 </Box>
                                 <Box sx={{ flexGrow: 1 }} />
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

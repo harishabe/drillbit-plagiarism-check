@@ -31,6 +31,7 @@ export const TABLE_SORTING_ARROW_HANDLE = [
     'date_up'
 ];
 
+export const TABLE_NEXT_PAGE = "Next";
 /**
  * displaying -- as a placeholder if no data found.
  */
@@ -66,3 +67,9 @@ export const SIMILARITY_COLOR_STANDARD = {
  */
 export const PRO_ADMIN = 'admin';
 export const PRO_USER = 'user';
+
+/**
+ * Cards & Folders
+ */
+export const CARD_NEXT_PAGE = 'Next';
+export const CARD_FOLDER_ACTIONS = 'Actions';

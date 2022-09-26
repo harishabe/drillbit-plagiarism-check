@@ -206,15 +206,6 @@ export const DeleteFolder = (url) => {
 };
 
 /**
- * Submission list data download
- */
-export const DownloadSubmissionList = (url) => {
-    return {
-        type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_START, url: url
-    };
-};
-
-/**
  * Get myfolder > submissionList
  * Get myclasses > assignments > submission
  */

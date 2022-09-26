@@ -22,7 +22,7 @@ const MyClassesTables = ({
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
-            link: '/instructor/dashboard',
+            link: '/extream/instructor/dashboard',
             active: false,
         },
         {
@@ -32,7 +32,7 @@ const MyClassesTables = ({
         },
         {
             name: 'My assignments',
-            link: '/instructor/myclasstables',
+            link: '/extream/instructor/myclasstables',
             active: true,
         },
     ]

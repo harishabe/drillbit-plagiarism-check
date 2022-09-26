@@ -28,7 +28,7 @@ const RefBreadCrumb = [
         active: false,
     },
     {
-        name: 'Ref',
+        name: 'Pro',
         link: '',
         active: true,
     },
@@ -86,7 +86,7 @@ const RefProduct = ({
                     data.country,
                     data.instructors,
                     data.documents,
-                    [{ 'component': <EditIcon />, 'type': 'edit' }],
+                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }],
                 );
             arr.push(row)
         });

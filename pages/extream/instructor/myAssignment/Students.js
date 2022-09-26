@@ -5,7 +5,7 @@ import _ from 'lodash';
 import debouce from 'lodash.debounce';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
-import { Grid, TextField } from '@mui/material';
+import { Grid, TextField, Tooltip, Skeleton } from '@mui/material';
 import { Pagination } from '@mui/material';
 import { IconButton } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
@@ -22,7 +22,8 @@ import {
     DeleteWarningIcon,
     AddMultipleIcon,
     AddPersonIcon,
-    AddFromListIcon
+    AddFromListIcon,
+    DownloadIcon
 } from '../../../../assets/icon';
 import StudentForm from '../form/StudentForm';
 import {
@@ -30,10 +31,15 @@ import {
     DeleteStudent,
     UploadFileDataClear,
 } from '../../../../redux/action/instructor/InstructorAction';
+import {
+    DownloadCsv,
+} from '../../../../redux/action/common/Submission/SubmissionAction';
 import StudentInstitute from '../studentInstitute';
 import { removeCommaWordEnd } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import END_POINTS from '../../../../utils/EndPoints';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -45,6 +51,16 @@ const SearchField = styled.div`
     position:absolute;
     top: 125px;
     right:16px;
+`;
+
+const DownloadField = styled.div`
+    position:absolute;
+    top: 125px;
+    right:225px;
+`;
+
+const DownloadButton = styled.div`
+    margin-top:-5px;
 `;
 
 const columns = [
@@ -67,7 +83,9 @@ const Students = ({
     isLoadingStudent,
     DeleteStudent,
     setPaginationStudent,
-    UploadFileDataClear
+    UploadFileDataClear,
+    DownloadCsv,
+    isLoadingDownload
 }) => {
 
     const router = useRouter();
@@ -104,8 +122,8 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
-                    [{ 'component': <EditIcon />, 'type': 'edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete' },
+                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                     ]
                 );
             row['isSelected'] = false;
@@ -222,6 +240,10 @@ const Students = ({
         setEditStudent(drawerClose);
     }
 
+    const handleDownload = () => {
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`)
+    }
+
     return (
         <React.Fragment>
             {showDialogModal &&
@@ -289,6 +311,21 @@ const Students = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item container direction='row' justifyContent={'right'}>
+                        <DownloadField>
+                            <DownloadButton>
+                                { studentData?.length > 0 &&
+                                    <Tooltip title="Download csv" arrow>
+                                        <IconButton
+                                            color="primary"
+                                            aria-label="download-file"
+                                            size="large"
+                                            onClick={ handleDownload }>
+                                            { isLoadingDownload ? <Skeleton width={ 30 } /> : <DownloadIcon /> }
+                                        </IconButton>
+                                    </Tooltip>
+                                }
+                            </DownloadButton>
+                        </DownloadField>
                         <SearchField>
                             <TextField
                                 placeholder='Search'
@@ -339,14 +376,19 @@ const Students = ({
     )
 }
 
+const mapStateToProps = (state) => ({
+    isLoadingDownload: state?.submission?.isLoadingDownload,
+});
+
 const mapDispatchToProps = (dispatch) => {
     return {
         GetStudent: (ClasId, PaginationValue) => dispatch(GetStudent(ClasId, PaginationValue)),
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        DownloadCsv: (url) => dispatch(DownloadCsv(url)),
     };
 };
 
 Students.layout = Instructor;
 
-export default connect(null, mapDispatchToProps)(Students);
+export default connect(mapStateToProps, mapDispatchToProps)(Students);

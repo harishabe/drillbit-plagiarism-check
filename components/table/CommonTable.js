@@ -10,12 +10,18 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TableRow from '@mui/material/TableRow';
-import { IconButton, Skeleton } from '@mui/material';
+import { IconButton, Skeleton, Tooltip } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { SubTitle, TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
-import { TABLE_HEADER_SORT_DISABLE, TABLE_BODY_ALLOW_ICON, TABLE_SORTING_ARROW_HANDLE, NO_DATA_PLACEHOLDER } from '../../constant/data/Constant';
+import {
+    TABLE_HEADER_SORT_DISABLE,
+    TABLE_BODY_ALLOW_ICON,
+    TABLE_SORTING_ARROW_HANDLE,
+    NO_DATA_PLACEHOLDER,
+    TABLE_NEXT_PAGE
+} from '../../constant/data/Constant';
 
 const useStyles = makeStyles((theme) => ({
     padding: {
@@ -120,7 +126,11 @@ const CommonTable = ({
                                             {
                                                 TABLE_BODY_ALLOW_ICON.includes(column.id) ?
                                                     <TableCell>
-                                                        {value.map((icon) => (<IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}</IconButton>))}
+                                                        { value.map((icon) => (
+                                                            <Tooltip title={ icon.title } arrow>
+                                                                <IconButton onClick={ (e) => handleAction(e, icon.type, row) }>{ icon.component }
+                                                                </IconButton>
+                                                            </Tooltip>)) }
                                                     </TableCell> :
                                                     <>
                                                         {
@@ -154,6 +164,7 @@ const CommonTable = ({
                                     )
                                 })}
                                 {isNextPath &&
+                                    <Tooltip title={ TABLE_NEXT_PAGE } arrow>
                                     <IconButton className={classes.customArrowContainer}
                                         onClick={(e) => {
                                             if (path && path?.query?.isAssignment) {
@@ -166,6 +177,7 @@ const CommonTable = ({
                                     >
                                         <ArrowForwardOutlinedIcon />
                                     </IconButton>
+                                    </Tooltip>
                                 }
                             </TableRow>
                         ))}

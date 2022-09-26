@@ -94,8 +94,8 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
-                    [{ 'component': <StatsIcon />, 'type': 'stats' }],
-                    [{ 'component': <EditIcon />, 'type': 'edit' }, { 'component': <DeleteIcon />, 'type': 'delete' }]
+                    [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
+                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }, { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
             arr.push(row)
