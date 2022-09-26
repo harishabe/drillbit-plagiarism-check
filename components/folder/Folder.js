@@ -6,12 +6,13 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
-import { Divider } from '@mui/material';
+import { Divider, Tooltip } from '@mui/material';
 import {
     ThreeDotIcon,
     EditIcon,
     DeleteIcon,
 } from '../../assets/icon';
+import { CARD_FOLDER_ACTIONS } from '../../constant/data/Constant';
 
 const Container = styled.div`
     position: relative;
@@ -66,9 +67,11 @@ const Folder = ({
                 { isAction &&
                     <>
                         <AlignRight>
+                        <Tooltip title={ CARD_FOLDER_ACTIONS } arrow>
                             <IconButton onClick={ handleMenuClick }>
                                 <ThreeDotIcon />
                             </IconButton>
+                        </Tooltip>
                         </AlignRight>
                         <Menu
                             id="action-menu"
@@ -123,7 +126,7 @@ const Folder = ({
                     </> }
             </Grid>
             <Center onClick={ (e) => router.push(path) }>
-                <div>{item.folder_name}</div>
+                <div>{ item.folder_name }</div>
                 <div style={ { marginBottom: '10px' } }>{ item.no_of_submissions } Files</div>
             </Center>
         </Container>

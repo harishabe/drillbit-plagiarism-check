@@ -3,7 +3,8 @@ import * as types from '../../../action/CommonActionType';
 import {
     DownloadOriginalFileData,
     GetFolderSubmission,
-    DeletefolderSubmission
+    DeletefolderSubmission,
+    DownloadSubmissionData
 } from '../../../api/common/Submission/SubmissionAPI';
 import toastrValidation from '../../../../utils/ToastrValidation';
 import { FolderSubmissionsPaginationValue } from '../../../../utils/PaginationUrl';
@@ -91,4 +92,29 @@ export function* onLoadDeleteFile(action) {
 
 export function* DeleteFolderSubmissionFile() {
     yield takeLatest(types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_START, onLoadDeleteFile);
+}
+
+/**
+ * Download CSV
+ * @param {*} action
+ */
+
+
+export function* onLoadDownload(action) {
+    const { response, error } = yield call(DownloadSubmissionData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_DOWNLOAD_CSV_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_DOWNLOAD_CSV_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* DownloadSubmissionDetail() {
+    yield takeLatest(types.FETCH_DOWNLOAD_CSV_START, onLoadDownload);
 }

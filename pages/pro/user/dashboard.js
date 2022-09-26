@@ -18,12 +18,12 @@ import {
     ListSkeleton,
     ErrorBlock,
     CurveChart,
+    EllipsisText
 } from '../../../components';
 import {
     NoOfSubmission,
     NoOfAssignmntIcon,
 } from '../../../assets/icon';
-import TopStudents from '../../extream/instructor/dashboard/TopStudents';
 import RecentSubmissions from '../../extream/instructor/dashboard/RecentSubmissions';
 import {
     COLUMN_ADMIN_CHART_TYPE,
@@ -161,8 +161,17 @@ const Dashboard = ({
                     <Grid item md={ 4 } xs={ 12 }>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 12 } xs={ 12 }>
+                                <Grid item md={ 6.6 } xs={ 12 }>
                                     <Heading title='Trend Analysis' />
+                                </Grid>
+                                <Grid item md={ 5.4 } xs={ 12 }>
+                                    {
+                                        isLoading ?
+                                            <Skeleton /> :
+                                            <TextAlignRight>
+                                                <EllipsisText value={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } charLength={ 12 } />
+                                            </TextAlignRight>
+                                    }
                                 </Grid>
                             </Grid>
                             { isLoading ?
@@ -174,13 +183,9 @@ const Dashboard = ({
                                 />
                                 : <>
                                     { instructorDashboardData?.data?.trendAnalysis?.documentsProcessed ?
-                                        <>
-                                            <TextAlignRight>
-                                                <SubTitle title={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } />
-                                            </TextAlignRight>
                                             <PieChart
                                                 type="donut"
-                                                height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '319px' }
+                                            height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '317px' }
                                                 color={ PIE_CHART_COLOR }
                                                 width={ PIE_CHART_WIDTH }
                                                 label={ PIE_CHART_LABEL }
@@ -190,8 +195,7 @@ const Dashboard = ({
                                                         instructorDashboardData?.data?.trendAnalysis?.ownWork
                                                     ]
                                                 }
-                                            />
-                                        </>
+                                        />
                                         : <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
                                     }
                                 </>

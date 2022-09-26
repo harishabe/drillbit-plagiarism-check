@@ -7,7 +7,6 @@ import {
     SaveToRepoSubmission,
     InstructorFeedbackData,
     UploadSubmission,
-    DownloadSubmissionData,
 } from '../../api//instructor/DetailsSubmissionAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 
@@ -170,29 +169,4 @@ export function* onLoadInstructorFeedback(action) {
 
 export function* InstructorFeedbackDetail() {
     yield takeLatest(types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_START, onLoadInstructorFeedback);
-}
-
-/**
- * Submission list data download
- * @param {*} action
- */
-
-
-export function* onLoadDownload(action) {
-    const { response, error } = yield call(DownloadSubmissionData, action.url);
-    if (response) {
-        yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_SUCCESS,
-            payload: response?.data,
-        });
-    } else {
-        yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_FAIL,
-            payload: error,
-        });
-    }
-}
-
-export function* DownloadSubmissionDetail() {
-    yield takeLatest(types.FETCH_INSTRUCTOR_SUBMISSION_LIST_DOWNLOAD_START, onLoadDownload);
 }

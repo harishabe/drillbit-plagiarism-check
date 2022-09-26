@@ -93,7 +93,7 @@ const Repository = ({
                     repo.title,
                     repo.repository_type,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete' }]
+                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
             arr.push(row)

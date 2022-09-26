@@ -32,40 +32,6 @@ function createData(id, name, email, college, INlimit, STlimit, DOlimit, action)
     return { id, name, email, college, INlimit, STlimit, DOlimit, action }
 }
 
-
-// const rows = [
-//     createData(
-//         1001,
-//         'Harisha B E',
-//         'harish@drillbit.com',
-//         'MIT',
-//         100,
-//         1000,
-//         1737,
-//         [{ 'component': <EditIcon />, 'type': 'edit' }]
-//     ),
-//     createData(
-//         1001,
-//         'Harisha B E',
-//         'harish@drillbit.com',
-//         'MIT',
-//         100,
-//         1000,
-//         1737,
-//         [{ 'component': <EditIcon />, 'type': 'edit' }]
-//     ),
-//     createData(
-//         1001,
-//         'Harisha B E',
-//         'harish@drillbit.com',
-//         'MIT',
-//         100,
-//         1000,
-//         1737,
-//         [{ 'component': <EditIcon />, 'type': 'edit' }]
-//     ),
-// ]
-
 const Dashboard = ({
     GetWidgetCount,
     superDashboardData,

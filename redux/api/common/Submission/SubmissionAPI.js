@@ -1,7 +1,7 @@
 import END_POINTS from '../../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../../utils/BaseUrl';
-import { GetMethodDownloadPdf, GetMethod, DeleteMethod } from '../../ApiMethod';
+import { GetMethodDownloadPdf, GetMethod, DeleteMethod, GetMethodDownload } from '../../ApiMethod';
 import { PaginationUrl } from '../../../../utils/PaginationUrl';
 
 /**
@@ -38,4 +38,12 @@ export const GetFolderSubmission = async (apiUrl, paginationPayload) => {
 
 export const DeletefolderSubmission = async (url) => {
     return DeleteMethod(url);
+};
+
+/**
+ * API CALL FOR DOWNLOAD CSV
+ */
+
+export const DownloadSubmissionData = async (url) => {
+    return GetMethodDownload(url, 'Submission_List.csv');
 };

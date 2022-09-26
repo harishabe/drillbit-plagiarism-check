@@ -20,10 +20,12 @@ import {
     SimilarityStatus
 } from '../../../components';
 import {
-    DownloadSubmissionList,
     UploadFileDataClear,
     UploadZipFileDataClear
 } from '../../../redux/action/instructor/InstructorAction';
+import {
+    DownloadCsv,
+} from '../../../redux/action/common/Submission/SubmissionAction';
 import {
     folderSubmissionsFileData,
     DeletefolderSubmissionData,
@@ -59,13 +61,13 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-const DownloadCsv = styled.div`
+const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
 const folderSubmission = ({
     folderSubmissionsFileData,
-    DownloadSubmissionList,
+    DownloadCsv,
     DownloadOriginalFile,
     DeletefolderSubmissionData,
     folderSubmissionData,
@@ -134,7 +136,7 @@ const folderSubmission = ({
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [
-                        { 'component': <DeleteIcon />, 'type': 'delete' }
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }
                     ]
                 );
             row['isSelected'] = false;
@@ -236,7 +238,7 @@ const folderSubmission = ({
     }
 
     const handleDownload = () => {
-        DownloadSubmissionList(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION_LIST_DOWNLOAD + folderId)
+        DownloadCsv(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION_LIST_DOWNLOAD + folderId)
     }
 
     const handleOriginalFileDownload = (e, data) => {
@@ -285,9 +287,9 @@ const folderSubmission = ({
                         <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
                     <Grid item md={ 0.1 } xs={ 1 } align="right">
-                        <DownloadCsv>
+                        <DownloadButton>
                             { folderSubmissionData?.length > 0 &&
-                                <Tooltip title="Download csv">
+                                <Tooltip title="Download csv" arrow>
                                     <IconButton
                                         color="primary"
                                         aria-label="download-file"
@@ -297,7 +299,7 @@ const folderSubmission = ({
                                     </IconButton>
                                 </Tooltip>
                             }
-                        </DownloadCsv>
+                        </DownloadButton>
                     </Grid>
                     <Grid item md={ 3 } xs={ 12 } align="right">
                         <TextField
@@ -384,7 +386,7 @@ const mapStateToProps = (state) => ({
     folderSubmissionData: state?.submission?.folderSubmissionData?._embedded?.submissionsDTOList,
     isLoadingSubmission: state?.submission?.isLoadingSubmission,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
-    isLoadingDownload: state?.instructorMyFolders?.isLoadingDownload,
+    isLoadingDownload: state?.submission?.isLoadingDownload,
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
     uploadData: state?.instructorMyFolders?.uploadData,
 });
@@ -394,7 +396,7 @@ const mapDispatchToProps = (dispatch) => {
         folderSubmissionsFileData: (url, PaginationValue) => dispatch(folderSubmissionsFileData(url, PaginationValue)),
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeletefolderSubmissionData: (url) => dispatch(DeletefolderSubmissionData(url)),
-        DownloadSubmissionList: (url) => dispatch(DownloadSubmissionList(url)),
+        DownloadCsv: (url) => dispatch(DownloadCsv(url)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };
