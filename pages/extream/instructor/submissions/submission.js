@@ -59,6 +59,12 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
+
+const SkeletonContainer = styled.div`
+    margin-top: 10px;
+    margin-right: 5px;
+`;
+
 const SearchField = styled.div`
     position:absolute;
     top: 125px;
@@ -305,14 +311,18 @@ const Submission = ({
       <Grid item container direction='row' justifyContent={'right'}>
         <DownloadField>
           <DownloadButton>
-            { submissionData?.length > 0 &&
+            {submissionData?.length > 0 &&
+              isLoadingDownload ?
+              <SkeletonContainer>
+                <Skeleton width={50} />
+              </SkeletonContainer> :
               <Tooltip title="Download csv" arrow>
                 <IconButton
                   color="primary"
                   aria-label="download-file"
                   size="large"
-                  onClick={ handleDownload }>
-                  { isLoadingDownload ? <Skeleton width={ 30 } /> : <DownloadIcon /> }
+                  onClick={handleDownload}>
+                  <DownloadIcon />
                 </IconButton>
               </Tooltip>
             }

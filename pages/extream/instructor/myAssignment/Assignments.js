@@ -44,6 +44,11 @@ const AddButtonBottom = styled.div`
     right: 30px;
 `;
 
+const SkeletonContainer = styled.div`
+    marginTop: 10px;
+    margin-right: 5px;
+`;
+
 const SearchField = styled.div`
     position:absolute;
     top: 125px;
@@ -112,7 +117,7 @@ const Assignments = ({
           color={
             assignment.status === 'active' ? '#38BE62' : '#E9596F'
           }
-          title={ assignment.status }
+          title={assignment.status}
         />,
         assignment.start_date,
         assignment.end_date,
@@ -228,19 +233,23 @@ const Assignments = ({
 
   return (
     <React.Fragment>
-      <Box sx={ { flexGrow: 1 } }>
-        <Grid container spacing={ 1 }>
-          <Grid item container direction='row' justifyContent={ 'right' }>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={1}>
+          <Grid item container direction='row' justifyContent={'right'}>
             <DownloadField>
               <DownloadButton>
-                { assignmentData?.length > 0 &&
-                  <Tooltip title="Download csv" arrow>
+                {assignmentData?.length > 0 &&
+                  isLoadingDownload ?
+                  <SkeletonContainer>
+                    <Skeleton style={{ marginTop: '10px' }} width={50} />
+                  </SkeletonContainer>
+                  : <Tooltip title="Download csv" arrow>
                     <IconButton
                       color="primary"
                       aria-label="download-file"
                       size="large"
-                      onClick={ handleDownload }>
-                      { isLoadingDownload ? <Skeleton width={ 30 } /> : <DownloadIcon /> }
+                      onClick={handleDownload}>
+                      <DownloadIcon />
                     </IconButton>
                   </Tooltip>
                 }
@@ -249,13 +258,13 @@ const Assignments = ({
             <SearchField>
               <TextField
                 placeholder='Search'
-                onChange={ searchAssignment }
-                inputProps={ {
+                onChange={searchAssignment}
+                inputProps={{
                   style: {
                     padding: 5,
                     display: 'inline-flex'
                   }
-                } }
+                }}
               />
             </SearchField>
           </Grid>
@@ -263,7 +272,7 @@ const Assignments = ({
       </Box>
       <AddButtonBottom>
         <CreateDrawer
-          isShowAddIcon={ true }
+          isShowAddIcon={true}
           title='Create Assignment'
         >
           <AssignmentForms />
@@ -272,58 +281,58 @@ const Assignments = ({
       {
         showDeleteWarning &&
         <WarningDialog
-          warningIcon={ <DeleteWarningIcon /> }
+          warningIcon={<DeleteWarningIcon />}
           message="Are you sure you want to delete ?"
-          handleYes={ handleYesWarning }
-          handleNo={ handleCloseWarning }
-          isOpen={ true }
+          handleYes={handleYesWarning}
+          handleNo={handleCloseWarning}
+          isOpen={true}
         />
       }
       {
         editAssignment &&
         <CreateDrawer
           title="Edit Student"
-            isShowAddIcon={ false }
-            showDrawer={ editAssignment }
-            handleDrawerClose={ handleCloseDrawer }
+          isShowAddIcon={false}
+          showDrawer={editAssignment}
+          handleDrawerClose={handleCloseDrawer}
         >
           <AssignmentForms
-              editData={ editAssignmentData }
+            editData={editAssignmentData}
           />
         </CreateDrawer>
       }
       <CardView>
         <AddButtonBottom>
           <CreateDrawer
-            isShowAddIcon={ true }
+            isShowAddIcon={true}
             title='Create Assignment'
           >
             <AssignmentForms />
           </CreateDrawer>
         </AddButtonBottom>
-        { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
-          <IconButton onClick={ deleteAllAssignment }>
+        {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+          <IconButton onClick={deleteAllAssignment}>
             <DeleteIcon />
           </IconButton>
-        </div> }
+        </div>}
         <CommonTable
-          isCheckbox={ true }
-          isNextPath={ true }
-          isSorting={ true }
-          tableHeader={ columns }
-          tableData={ rows }
-          handleAction={ handleAction }
-          handleTableSort={ handleTableSort }
-          handleCheckboxSelect={ handleCheckboxSelect }
-          handleSingleSelect={ handleSingleSelect }
-          isLoading={ isLoadingAssignment }
-          path={ { pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } } }
-          charLength={ 9 }
+          isCheckbox={true}
+          isNextPath={true}
+          isSorting={true}
+          tableHeader={columns}
+          tableData={rows}
+          handleAction={handleAction}
+          handleTableSort={handleTableSort}
+          handleCheckboxSelect={handleCheckboxSelect}
+          handleSingleSelect={handleSingleSelect}
+          isLoading={isLoadingAssignment}
+          path={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } }}
+          charLength={9}
         />
         <PaginationContainer>
           <Pagination
-            count={ pageDetailsAssignment?.totalPages }
-            onChange={ handlePagination }
+            count={pageDetailsAssignment?.totalPages}
+            onChange={handlePagination}
             color='primary'
             variant='outlined'
             shape='rounded'

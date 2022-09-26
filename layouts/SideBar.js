@@ -115,6 +115,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/extream/instructor/folderSubmission' && name === 'My Folders') {
             return true;
+        } else if (router.pathname === '/extream/instructor/uploadFileFolderSubmission' && name === 'My Folders') {
+            return true;
         } else if (router.pathname === '/extream/instructor/addBulkStudent' && name === 'My Classes') {
             return true;
         } else if (router.pathname === '/extream/instructor/mysubmissions' && name === 'My Classes') {
@@ -125,7 +127,9 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/extream/student/myassignment-details' && name === 'My Classes') {
             return true;
-        }  else if (router.pathname === '/extream/admin/uploadFileRepository' && name === 'Repository') {
+        } else if (router.pathname === '/extream/admin/uploadFileRepository' && name === 'Repository') {
+            return true;
+        } else if (router.pathname === '/extream/instructor/uploadFileRepository' && name === 'Repository') {
             return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;

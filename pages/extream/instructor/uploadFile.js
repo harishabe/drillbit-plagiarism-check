@@ -60,6 +60,10 @@ const UploadFile = () => {
 
     ];
 
+    const handleAPI = () => {
+        
+    }
+
     const componentList = [
         <UploadFiles
             choseFileTitle='browse your file here'
