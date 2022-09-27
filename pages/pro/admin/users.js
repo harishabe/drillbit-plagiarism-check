@@ -52,8 +52,8 @@ const columns = [
     { id: 'action', label: 'Actions' }
 ]
 
-function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action) {
-    return { user_id, name, email, creationDate, plagairism, grammar, status, stats, action }
+function createData(user_id, name, email, creationDate, total_submissions, total_grammar, status, stats, action, expiry_date) {
+    return { user_id, name, email, creationDate, total_submissions, total_grammar, status, stats, action, expiry_date }
 };
 
 const AddButtonBottom = styled.div`
@@ -117,8 +117,8 @@ const Users = ({
                     instructor.name,
                     instructor.username,
                     formatDate(instructor.created_date),
-                    instructor.plagairism,
-                    instructor.grammar,
+                    instructor.total_submissions,
+                    instructor.total_grammar,
                     <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
@@ -129,6 +129,7 @@ const Users = ({
                         'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
                     }
                     ]),
+                    instructor.expiry_date,
                 );
             row['isSelected'] = false;
             arr.push(row)
@@ -269,11 +270,11 @@ const Users = ({
     }
 
     const handleShow = (e, info) => {
-        if (info?.title === 'Add Instructor') {
+        if (info?.title === 'Add User') {
             setShowDialogModal(true);
-        } else if (info?.title === 'Add Multiple Instructor') {
+        } else if (info?.title === 'Add Multiple Users') {
             UploadFileDataClear();
-            router.push({ pathname: '/admin/addBulkInstructor' })
+            router.push({ pathname: '/pro/admin/addBulkUser' })
         }
     }
 

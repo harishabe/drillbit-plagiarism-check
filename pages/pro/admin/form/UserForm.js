@@ -64,9 +64,9 @@ const UserForm = ({
             let a = {
                 'name': editData.name,
                 'email': editData.email,
-                'expiry_date': convertDate(editData.creationDate),
-                'plagiarism': editData.plagairism,
-                'grammar': editData.grammar
+                'expiry_date': convertDate(editData.expiry_date),
+                'plagiarism': editData.total_submissions,
+                'grammar': editData.total_grammar
             };
             const fields = [
                 'name',

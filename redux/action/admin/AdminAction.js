@@ -65,9 +65,9 @@ export const CreateInstructorData = (url, data) => {
 /**
  * Create multiple instructor template
  */
-export const DownloadTemplate = () => {
+export const DownloadTemplate = (url, title) => {
     return {
-        type: types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_START
+        type: types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_START, url: url, title: title
     };
 };
 
@@ -83,9 +83,9 @@ export const UploadFileDataClear = () => {
 /**
  * Upload multiple instructor 
  */
-export const UploadFile = (data) => {
+export const UploadFile = (url, data) => {
     return {
-        type: types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_START, query: data
+        type: types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_START, url: url, query: data
     };
 };
 

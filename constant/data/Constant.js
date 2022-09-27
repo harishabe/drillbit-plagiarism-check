@@ -83,3 +83,6 @@ export const DOWNLOAD_CSV = {
     'ASSIGNMENTS_LISTS': 'Assignments Lists',
     'STUDENTS_LISTS': 'Students Lists',
 }
+
+export const INSTRUCTOR_TEMPLATE_TITLE = 'Multiple_Instructor_Upload_Template';
+export const USER_TEMPLATE_TITLE = 'Multiple_User_Upload_Template';

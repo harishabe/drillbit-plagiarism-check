@@ -24,17 +24,15 @@ export const CreateInstructorData = async (url, data) => {
  * API CALL DOWNLOAD TEMPLATE
  */
 
-export const DownloadInstructorTemplate = async () => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_TEMPLATE;
-    return GetMethodDownload(url, 'Multiple_Instructor_Upload_Template.csv');
+export const DownloadInstructorTemplate = async (url, title) => {
+    return GetMethodDownload(url, title + '.csv');
 };
 
 /**
  * API CALL UPLOAD MULTIPLE INSTRUCTOR
  */
 
-export const MultipleInstructorUpload = async (query) => {
-    const url = BASE_URL_EXTREM + END_POINTS.CREATE_MULTIPLE_INSTRUCTOR;
+export const MultipleInstructorUpload = async (url, query) => {
     return PostFormData(url, query);
 };
 
