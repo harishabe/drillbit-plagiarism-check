@@ -24,12 +24,12 @@ const DownloadButton = styled.div`
 `;
 
 const assignmentsColumns = [
-    { id: 'ass_id', label: 'Assignment Id', minWidth: 170 },
+    { id: 'ass_id', label: 'Assignment ID', minWidth: 170 },
     { id: 'ass_name', label: 'Assignment Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'created', label: 'Created Date', minWidth: 170 },
     { id: 'endDate', label: 'End Date', minWidth: 170 },
-    { id: 'class_id', label: 'Class Id', minWidth: 170 },
+    { id: 'class_id', label: 'Class ID', minWidth: 170 },
     { id: 'class_name', label: 'Class Name', minWidth: 170 },
     { id: 'count', label: 'Submission count', minWidth: 170 },
 ]
@@ -46,13 +46,13 @@ const classesColumns = [
 
 const submissionsColumns = [
     { id: 'assignment_name', label: 'Assignment Name', minWidth: 110 },
-    { id: 'assignmet_id', label: 'Assignment Id', minWidth: 110 },
+    { id: 'assignmet_id', label: 'Assignment ID', minWidth: 110 },
     { id: 'author', label: 'Author Name', minWidth: 110 },
-    { id: 'clas_id', label: 'Class Id', minWidth: 90 },
+    { id: 'clas_id', label: 'Class ID', minWidth: 90 },
     { id: 'clas_name', label: 'Class Name', minWidth: 110 },
     { id: 'email', label: 'Email', minWidth: 110 },
     { id: 'no_of_page', label: 'Number Of Pages', minWidth: 110 },
-    { id: 'paper_id', label: 'Paper Id', minWidth: 110 },
+    { id: 'paper_id', label: 'Paper ID', minWidth: 110 },
     { id: 'similarity', label: 'Similarity', minWidth: 110 },
     { id: 'submission_date', label: 'Submission Date', minWidth: 110 },
     { id: 'title', label: 'Title', minWidth: 110 },
