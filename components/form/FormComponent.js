@@ -7,6 +7,7 @@ import InputToggleButton from './elements/InputToggleButton';
 import InputFileType from './elements/InputFileType';
 import InputMultiAutoComplete from './elements/InputMultiAutoComplete';
 import LinkField from './elements/LinkField';
+import LabelCaption from './elements/LabelCaption';
 
 const FormComponent = ({
     field,
@@ -69,6 +70,12 @@ const FormComponent = ({
         case 'linkField':
             return (
                 <LinkField
+                    field={field}
+                />
+            )
+        case 'labelCaption':
+            return (
+                <LabelCaption
                     field={field}
                 />
             )

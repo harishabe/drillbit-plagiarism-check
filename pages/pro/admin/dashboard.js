@@ -268,7 +268,7 @@ const Dashboard = ({
                                             <PieChart
                                                 type="donut"
                                                 color={ PIE_CHART_COLOR }
-                                                height={ 352 }
+                                                height={ 320 }
                                                 label={ PIE_CHART_LABEL }
                                                 series={
                                                     [

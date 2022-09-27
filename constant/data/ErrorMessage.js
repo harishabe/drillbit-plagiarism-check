@@ -37,3 +37,8 @@ export const CONFIRM_PASSWORD_NOT_VALID = "Passwords do not match";
  * Instructor > my classes
  */
 export const EXPIRY_DATE_GREATER_THAN_CURRENT_DATE = 'Expiry date always greater than equal to current date.';
+
+/**
+ * Instructor > My folder > my folder form
+ */
+export const DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK= 'Choose "yes" on any one of the databases from the list';

@@ -12,6 +12,7 @@ import {
     EditIcon,
     DeleteIcon,
 } from '../../assets/icon';
+import { EllipsisText } from '../../components';
 import { CARD_FOLDER_ACTIONS } from '../../constant/data/Constant';
 
 const Container = styled.div`
@@ -29,17 +30,14 @@ const Center = styled.div`
     padding-left: 10px;
 `;
 
-const Wrapper = styled.div`
-    background-image: url(${'/img/FolderPng.png'});
-    position: relative;
-    height: 96%;
-    width: 273px;
+const FileCountContainer = styled.div`
+    margin-bottom: 10px;
 `;
 
 const AlignRight = styled.div`
     padding-top: 10%;
     text-align:right;
-`
+`;
 
 const Folder = ({
     path,
@@ -61,24 +59,23 @@ const Folder = ({
     };
 
     return (
-        // onClick = {(e) => router.push(path)}
         <Container>
-            <Grid item xs={ 11.8 }>
-                { isAction &&
+            <Grid item xs={11.8}>
+                {isAction &&
                     <>
                         <AlignRight>
-                        <Tooltip title={ CARD_FOLDER_ACTIONS } arrow>
-                            <IconButton onClick={ handleMenuClick }>
-                                <ThreeDotIcon />
-                            </IconButton>
-                        </Tooltip>
+                            <Tooltip title={CARD_FOLDER_ACTIONS} arrow>
+                                <IconButton onClick={handleMenuClick}>
+                                    <ThreeDotIcon />
+                                </IconButton>
+                            </Tooltip>
                         </AlignRight>
                         <Menu
                             id="action-menu"
-                            anchorEl={ anchorEl }
-                            open={ open }
-                            onClose={ handleClose }
-                            PaperProps={ {
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            PaperProps={{
                                 elevation: 0,
                                 sx: {
                                     overflow: 'visible',
@@ -103,31 +100,31 @@ const Folder = ({
                                         zIndex: 0,
                                     },
                                 },
-                            } }
-                            transformOrigin={ { horizontal: 'right', vertical: 'top' } }
-                            anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
+                            }}
+                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                            <MenuItem onClick={ (e) => {
+                            <MenuItem onClick={(e) => {
                                 setAnchorEl(null);
                                 handleClick(e, item);
-                            } }>
+                            }}>
                                 <ListItemText>Edit</ListItemText>
                                 <EditIcon />
                             </MenuItem>
                             <Divider />
-                            <MenuItem onClick={ (e) => {
+                            <MenuItem onClick={(e) => {
                                 setAnchorEl(null);
                                 handleDelete(e, item);
-                            } }>
-                            <ListItemText sx={ { mr: 1 } }>Delete</ListItemText>
+                            }}>
+                                <ListItemText sx={{ mr: 1 }}>Delete</ListItemText>
                                 <DeleteIcon />
                             </MenuItem>
                         </Menu>
-                    </> }
+                    </>}
             </Grid>
-            <Center onClick={ (e) => router.push(path) }>
-                <div>{ item.folder_name }</div>
-                <div style={ { marginBottom: '10px' } }>{ item.no_of_submissions } Files</div>
+            <Center onClick={(e) => router.push(path)}>
+                <EllipsisText variant="body_1" value={item.folder_name} charLength={15} />
+                <FileCountContainer>{item.no_of_submissions} Files</FileCountContainer>
             </Center>
         </Container>
     );

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateFolder, EditFolder } from '../../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../../constant/form/myfolders-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
+import { ErrorMessageContainer } from '../../../style/index';
+import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/data/ErrorMessage';
 
 const MyFoldersForm = ({
     isLoading,
@@ -19,6 +21,8 @@ const MyFoldersForm = ({
     const [formJsonField, setFormJsonField] = useState(FormJson);
 
     const [editOperation, setEditOperation] = useState(false);
+
+    const [errorMsgDBCheck, setErrorMsgDBCheck] = useState('');
 
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
@@ -100,25 +104,113 @@ const MyFoldersForm = ({
         }
     }, [editData]);
 
+    const db_studentpaper = useWatch({
+        control,
+        name: "db_studentpaper",
+    });
+
+    const db_publications = useWatch({
+        control,
+        name: "db_publications",
+    });
+
+    const db_internet = useWatch({
+        control,
+        name: "db_internet",
+    });
+
+    const institution_repository = useWatch({
+        control,
+        name: "institution_repository",
+    });
+
+    useEffect(() => {
+        if (editData) {
+            if (editData.db_studentpaper === 'YES' || editData.db_publications === 'YES' || editData.db_internet === 'YES' || editData.institution_repository === 'YES') {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setErrorMsgDBCheck('');
+                setFormJsonField(fields);
+            }
+        } else {
+            if (db_studentpaper === 'YES' || db_publications === 'YES' || db_internet === 'YES' || institution_repository === 'YES') {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setErrorMsgDBCheck('');
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setErrorMsgDBCheck(DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK);
+                setFormJsonField(fields);
+            }
+        }
+    }, [db_studentpaper, db_publications, db_internet, institution_repository]);
+
+    useEffect(() => {
+        if (editData === undefined) {
+            let a = {
+                'exclude_reference': 'NO',
+                'exclude_quotes': 'NO',
+                'exclude_small_sources': 'NO',
+                'grammar_check': 'NO',
+                'exclude_phrases': 'NO',
+                'db_studentpaper': 'YES',
+                'db_publications': 'YES',
+                'db_internet': 'YES',
+                'institution_repository': 'YES',
+            };
+            const fields = [
+                "exclude_reference",
+                "exclude_quotes",
+                "exclude_small_sources",
+                "grammar_check",
+                "exclude_phrases",
+                "db_studentpaper",
+                "db_publications",
+                "db_internet",
+                "institution_repository",
+            ];
+            fields.forEach(field => setValue(field, a[field]));
+        }
+    }, []);
+
     return (
         <>
-            <div style={ { textAlign: 'center' } }>
+            <div style={{ textAlign: 'center' }}>
                 <AddImageIcon />
             </div>
-            <form onSubmit={ handleSubmit(onSubmit) }>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
-                    { FormJson?.map((field, i) => (
-                        <Grid md={ 12 } style={ { marginLeft: '8px' } }>
-                            <FormComponent
-                                key={ i }
-                                field={ field }
-                                control={ control }
-                                isLoading={ isLoading }
-                            />
-                        </Grid>
-                    )) }
+                    {FormJson?.map((field, i) => (
+                        <>
+                            <Grid md={12} style={{ marginLeft: '8px' }}>
+                                <FormComponent
+                                    key={i}
+                                    field={field}
+                                    control={control}
+                                    isLoading={isLoading}
+                                />
+                            </Grid>
+                        </>
+                    ))}
                 </Grid>
             </form>
+            <div style={{ marginBottom: '15px' }}>
+                {errorMsgDBCheck !== '' ? <ErrorMessageContainer>{errorMsgDBCheck}</ErrorMessageContainer> : ''}
+            </div>
         </>
     )
 }
