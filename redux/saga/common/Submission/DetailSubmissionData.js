@@ -101,7 +101,7 @@ export function* DeleteFolderSubmissionFile() {
 
 
 export function* onLoadDownload(action) {
-    const { response, error } = yield call(DownloadSubmissionData, action.url);
+    const { response, error } = yield call(DownloadSubmissionData, action.url, action.title);
     if (response) {
         yield put({
             type: types.FETCH_DOWNLOAD_CSV_SUCCESS,

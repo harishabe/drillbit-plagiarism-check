@@ -241,7 +241,7 @@ const Students = ({
     }
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`)
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`, 'Students Lists')
     }
 
     return (
@@ -385,7 +385,7 @@ const mapDispatchToProps = (dispatch) => {
         GetStudent: (ClasId, PaginationValue) => dispatch(GetStudent(ClasId, PaginationValue)),
         DeleteStudent: (ClasId, userId) => dispatch(DeleteStudent(ClasId, userId)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
-        DownloadCsv: (url) => dispatch(DownloadCsv(url)),
+        DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
     };
 };
 

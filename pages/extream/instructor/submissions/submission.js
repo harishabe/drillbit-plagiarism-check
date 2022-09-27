@@ -303,7 +303,7 @@ const Submission = ({
   }
 
   const handleDownload = () => {
-    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/downloadSubmissions`)
+    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/downloadSubmissions`, 'Submission Reports')
   }
 
   return (
@@ -444,7 +444,7 @@ const mapDispatchToProps = (dispatch) => {
     DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
     UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
-    DownloadCsv: (url) => dispatch(DownloadCsv(url)),
+    DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
   };
 };
 

@@ -228,7 +228,7 @@ const Assignments = ({
   }
 
   const handleDownload = () => {
-    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`)
+    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`, 'Assignments Lists')
   }
 
   return (
@@ -351,7 +351,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     DeleteAssignment: (ClasId, assId) => dispatch(DeleteAssignment(ClasId, assId)),
     GetAssignment: (ClasId, PaginationValue) => dispatch(GetAssignment(ClasId, PaginationValue)),
-    DownloadCsv: (url) => dispatch(DownloadCsv(url)),
+    DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
   };
 };
 

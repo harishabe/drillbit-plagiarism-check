@@ -91,7 +91,7 @@ const MyClasses = ({
     /** end debounce concepts */
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_CSV_FILES)
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_CSV_FILES, 'Classroom Reports')
     }
 
     return (
@@ -163,7 +163,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetClassesData: (PaginationValue) => dispatch(GetClassesData(PaginationValue)),
-        DownloadCsv: (url) => dispatch(DownloadCsv(url)),
+        DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
     };
 };
 

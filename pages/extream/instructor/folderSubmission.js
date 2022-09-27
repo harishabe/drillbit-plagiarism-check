@@ -243,7 +243,7 @@ const folderSubmission = ({
     }
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`)
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`, 'Submission Reports')
     }
 
     const handleOriginalFileDownload = (e, data) => {
@@ -402,7 +402,7 @@ const mapDispatchToProps = (dispatch) => {
         folderSubmissionsFileData: (url, PaginationValue) => dispatch(folderSubmissionsFileData(url, PaginationValue)),
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeletefolderSubmissionData: (url) => dispatch(DeletefolderSubmissionData(url)),
-        DownloadCsv: (url) => dispatch(DownloadCsv(url)),
+        DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };
