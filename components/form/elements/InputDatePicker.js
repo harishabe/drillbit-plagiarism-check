@@ -64,7 +64,7 @@ const InputDatePicker = ({
                                 renderInput={(params) => <StyledDatePickerTextField
                                     margin="normal"
                                     {...params}
-                                    helperText={error && error.message}
+                                    helperText={error ? error.message : field.info} 
                                     FormHelperTextProps={{
                                         className: classes.helperText
                                     }}

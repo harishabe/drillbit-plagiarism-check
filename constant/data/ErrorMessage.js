@@ -32,3 +32,8 @@ export const UPLOAD_FILE_LANGUAGE = "Language is required";
  * Confirm password
  */
 export const CONFIRM_PASSWORD_NOT_VALID = "Passwords do not match";
+
+/**
+ * Instructor > my classes
+ */
+export const EXPIRY_DATE_GREATER_THAN_CURRENT_DATE = 'Expiry date always greater than equal to current date.';

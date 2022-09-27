@@ -6,7 +6,7 @@
         "name": "class_name",
         "label": "Class name",
         "disabled":false,
-        "required": "Class name",
+        "required": "Enter class name",
         "validationMsg": "Enter Class name"
     },
     
@@ -15,7 +15,7 @@
         "id": "description",
         "name": "description",
         "label": "Description",
-        "required": "Enter Description",
+        "required": "Enter description",
         "validationMsg": "Enter Description"
     },
     {
