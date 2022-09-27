@@ -145,7 +145,7 @@ const UploadFiles = ({
 
     useEffect(() => {
         if (uploadData) {
-            // UploadFileDataClear();
+            UploadFileDataClear();
             router.push(routerObj);
         }
     }, [uploadData && uploadData !== '']);
