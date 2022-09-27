@@ -25,7 +25,7 @@ const DownloadButton = styled.div`
 
 const foldersColumn = [
     { id: 'name', label: 'Folder Name', minWidth: 170 },
-    { id: 'id', label: 'Folder Id', minWidth: 170 },
+    { id: 'id', label: 'Folder ID', minWidth: 170 },
     { id: 'username', label: 'Email', minWidth: 170 },
     { id: 'created', label: 'Created Date', minWidth: 170 },
     { id: 'endDate', label: 'End Date', minWidth: 170 },
@@ -37,7 +37,7 @@ const submissionsColumns = [
     { id: 'title', label: 'Title', minWidth: 110 },
     { id: 'date_up', label: 'Submission Date', minWidth: 110 },
     { id: 'username', label: 'Email', minWidth: 110 },
-    { id: 'paper_id', label: 'Paper Id', minWidth: 110 },
+    { id: 'paper_id', label: 'Paper ID', minWidth: 110 },
     { id: 'percent', label: 'Similarity', minWidth: 110 },
 ]
 

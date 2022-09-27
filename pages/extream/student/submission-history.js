@@ -32,7 +32,7 @@ const SubmissionHistory = ({
     const [rows, setRows] = useState([]);
 
     const columns = [
-        { id: 'name', label: 'File name', isDownload: true, minWidth: 140 },
+        { id: 'name', label: 'Filename', isDownload: true, minWidth: 140 },
         { id: 'paper_id', label: 'Paper ID', minWidth: 140 },
         { id: 'date_up', label: 'Date', minWidth: 140 },
         { id: 'percent', label: 'Similarity', minWidth: 80 },

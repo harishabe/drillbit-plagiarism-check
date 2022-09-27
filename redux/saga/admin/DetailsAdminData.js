@@ -133,7 +133,7 @@ export function* CreateInstructor() {
  */
 
 export function* onLoadInstructorTemplate(action) {
-    const { response, error } = yield call(DownloadInstructorTemplate, action);
+    const { response, error } = yield call(DownloadInstructorTemplate, action.url, action.title);
     if (response || response === undefined) {
         yield put({
             type: types.FETCH_ADMIN_INSTRUCTOR_TEMPLATE_DOWNLOAD_SUCCESS,
@@ -157,7 +157,7 @@ export function* GetDownloadTemplate() {
  */
 
 export function* onLoadInstructorUpload(action) {
-    const { response, error } = yield call(MultipleInstructorUpload, action.query);
+    const { response, error } = yield call(MultipleInstructorUpload, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_MULTIPLE_INSTRUCTOR_UPLOAD_SUCCESS, payload: response?.data });
         toastrValidation(response);

@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, IconButton, Link, Tooltip } from '@mui/material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import Instructor from '../../../layouts/Instructor';
+import ProAdmin from '../../../layouts/ProAdmin';
 import {
     BreadCrumb,
     CardView,
@@ -25,9 +25,9 @@ import {
     DownloadTemplate,
     UploadFile
 } from '../../../redux/action/admin/AdminAction';
-import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
-import END_POINTS from '../../../utils/EndPoints';
-import { INSTRUCTOR_TEMPLATE_TITLE } from '../../../constant/data/Constant';
+import { BASE_URL_PRO } from '../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
+import { USER_TEMPLATE_TITLE } from '../../../constant/data/Constant';
 
 const useStyles = makeStyles({
     customFileUpload: {
@@ -55,25 +55,25 @@ const Input = styled('input')({
     display: 'none',
 });
 
-const InstructorBreadCrumb = [
+const UserBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/extream/admin/dashboard',
+        link: '/pro/admin/dashboard',
         active: false,
     },
     {
-        name: 'Instructors',
-        link: '/extream/admin/instructor',
+        name: 'Users',
+        link: '/pro/admin/users',
         active: false,
     },
     {
-        name: 'Add Multiple Instructors',
-        link: '/extream/admin/addBulkInstructor',
+        name: 'Add Multiple Users',
+        link: '',
         active: true,
     },
 ];
 
-const AddBulkInstructor = ({
+const addBulkUser = ({
     DownloadTemplate,
     UploadFile,
     isLoadingTemplate,
@@ -86,7 +86,7 @@ const AddBulkInstructor = ({
     const [showError, setShowError] = useState(false);
 
     const handleDownload = () => {
-        DownloadTemplate(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_TEMPLATE, INSTRUCTOR_TEMPLATE_TITLE);
+        DownloadTemplate(BASE_URL_PRO + END_POINTS_PRO.USER_DOWNLOAD_TEMPLATE, USER_TEMPLATE_TITLE);
     }
 
     const handleSubmit = () => {
@@ -94,7 +94,7 @@ const AddBulkInstructor = ({
             setShowError(false);
             let bodyFormData = new FormData();
             bodyFormData.append('file', fileData);
-            UploadFile(BASE_URL_EXTREM + END_POINTS.CREATE_MULTIPLE_INSTRUCTOR, bodyFormData);
+            UploadFile(BASE_URL_PRO + END_POINTS_PRO.CREATE_MULTIPLE_USER, bodyFormData);
         } else {
             setShowError(true);
         }
@@ -108,78 +108,78 @@ const AddBulkInstructor = ({
 
     const handleBack = (e) => {
         e.preventDefault();
-        router.push('/extream/admin/instructor');
+        router.push('/pro/admin/users');
     }
 
     useEffect(() => {
         if (fileUploadData?.status === 200) {
             setFileData('');
-            router.push('/extream/admin/instructor');
+            router.push('/pro/admin/users');
         }
     }, [fileUploadData && fileUploadData !== '']);
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ UserBreadCrumb } />
                     </Grid>
-                    <Grid item md={2} xs={2}>
+                    <Grid item md={ 2 } xs={ 2 }>
 
                     </Grid>
                 </Grid>
-                <Grid container spacing={1}>
-                    <Grid item md={12} xs={12}>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 12 } xs={ 12 }>
                         <CardView>
                             <Tooltip title="Back" arrow>
                                 <IconButton onClick={ handleBack } size="large">
                                     <ArrowBackOutlinedIcon />
                                 </IconButton>
                             </Tooltip>
-                            <div style={ { padding: '0px 150px' } }> 
-                                <Grid container spacing={1}>
-                                    <Grid item md={6} xs={6}>
-                                        <MainHeading title='Add Multiple Instructors' />
+                            <div style={ { padding: '0px 150px' } }>
+                                <Grid container spacing={ 1 }>
+                                    <Grid item md={ 6 } xs={ 6 }>
+                                        <MainHeading title='Add Multiple Users' />
                                     </Grid>
-                                    <Grid item md={6} xs={6} align="right">
+                                    <Grid item md={ 6 } xs={ 6 } align="right">
                                         <Button
-                                            onClick={handleDownload}
+                                            onClick={ handleDownload }
                                             variant="contained"
                                             size="large"
-                                            startIcon={!isLoadingTemplate && <DownBorderArrowIcon />}>
+                                            startIcon={ !isLoadingTemplate && <DownBorderArrowIcon /> }>
                                             { isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template' }
                                         </Button>
                                     </Grid>
 
-                                    <Grid container spacing={1}>
-                                        <Grid item md={12} xs={12}>
-                                            <div className={classes.dragAndDropArea}>
+                                    <Grid container spacing={ 1 }>
+                                        <Grid item md={ 12 } xs={ 12 }>
+                                            <div className={ classes.dragAndDropArea }>
                                                 <UploadFileIcon />
-                                                <div className={classes.padding30}>
+                                                <div className={ classes.padding30 }>
                                                     <Title1 title='Drag and drop, or ' />
-                                                    <Link style={{ marginLeft: '5px' }}>
-                                                        <label for="file-upload" className={classes.customFileUpload}>
+                                                    <Link style={ { marginLeft: '5px' } }>
+                                                        <label for="file-upload" className={ classes.customFileUpload }>
                                                             browse your file here
                                                         </label>
                                                     </Link>
-                                                    <Input onChange={handleUpload} id="file-upload" type="file" />
-                                                    <EllipsisText value={fileData !== '' ? fileData?.name : ''} charLength={80} />
-                                                    {showError ? <div style={{ color: 'red' }}>Please select your file to upload </div> : ''}
+                                                    <Input onChange={ handleUpload } id="file-upload" type="file" />
+                                                    <EllipsisText value={ fileData !== '' ? fileData?.name : '' } charLength={ 80 } />
+                                                    { showError ? <div style={ { color: 'red' } }>Please select your file to upload </div> : '' }
                                                 </div>
                                             </div>
                                         </Grid>
 
                                     </Grid>
 
-                                    <Grid container spacing={1}>
-                                        <Grid item md={4} xs={4}></Grid>
-                                        <Grid item md={4} xs={4} style={{ marginTop: '15px', textAlign: 'center' }}>
-                                            <Button onClick={handleSubmit} variant="contained" size="large">
+                                    <Grid container spacing={ 1 }>
+                                        <Grid item md={ 4 } xs={ 4 }></Grid>
+                                        <Grid item md={ 4 } xs={ 4 } style={ { marginTop: '15px', textAlign: 'center' } }>
+                                            <Button onClick={ handleSubmit } variant="contained" size="large">
                                                 { isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit' }
                                             </Button>
                                         </Grid>
-                                        <Grid item md={4} xs={4}></Grid>
+                                        <Grid item md={ 4 } xs={ 4 }></Grid>
                                     </Grid>
                                 </Grid>
                             </div>
@@ -206,13 +206,13 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-AddBulkInstructor.layout = Instructor;
+addBulkUser.layout = ProAdmin;
 
-AddBulkInstructor.propTypes = {
+addBulkUser.propTypes = {
     DownloadTemplate: propTypes.func.isRequired,
     UploadFile: propTypes.func.isRequired,
     isLoadingTemplate: propTypes.bool,
     isLoadingInstructorFileUpload: propTypes.bool,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddBulkInstructor);
+export default connect(mapStateToProps, mapDispatchToProps)(addBulkUser);

@@ -30,7 +30,7 @@ import { removeCommaWordEnd } from '../../../utils/RegExp';
 
 const columns = [
     { id: 'name', label: 'Name' },
-    { id: 'user_id', label: 'Id' },
+    { id: 'user_id', label: 'ID' },
     { id: 'email', label: 'Email' },
     { id: 'department', label: 'Department' },
     { id: 'section', label: 'Section' },

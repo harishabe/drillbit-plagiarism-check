@@ -44,6 +44,6 @@ export const DeletefolderSubmission = async (url) => {
  * API CALL FOR DOWNLOAD CSV
  */
 
-export const DownloadSubmissionData = async (url) => {
-    return GetMethodDownload(url, 'Submission_List.csv');
+export const DownloadSubmissionData = async (url, title) => {
+    return GetMethodDownload(url, title + '.csv');
 };

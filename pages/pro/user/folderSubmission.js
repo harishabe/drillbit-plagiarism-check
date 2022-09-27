@@ -44,7 +44,7 @@ const columns = [
     { id: 'original_fn', label: 'Original File', isDownload: true },
     { id: 'grammar', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'Paper Id' },
+    { id: 'paper_id', label: 'Paper ID' },
     { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action' },
 ];

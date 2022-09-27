@@ -35,6 +35,7 @@ import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_ANALYSIS } from '../../../../utils/BaseUrl';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
+import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
 
 const columns = [
   { id: 'name', label: 'Author Name' },
@@ -42,7 +43,7 @@ const columns = [
   { id: 'original_fn', label: 'Original File', isDownload: true },
   { id: 'grammar', label: 'Grammar' },
   { id: 'percent', label: 'Similarity' },
-  { id: 'paper_id', label: 'Paper Id' },
+  { id: 'paper_id', label: 'Paper ID' },
   { id: 'date_up', label: 'Submission Date' },
   { id: 'action', label: 'Action' },
 ];
@@ -303,7 +304,7 @@ const Submission = ({
   }
 
   const handleDownload = () => {
-    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/downloadSubmissions`)
+    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/downloadSubmissions`, DOWNLOAD_CSV.SUBMISSION_REPORT)
   }
 
   return (
@@ -444,7 +445,7 @@ const mapDispatchToProps = (dispatch) => {
     DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
     UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
-    DownloadCsv: (url) => dispatch(DownloadCsv(url)),
+    DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
   };
 };
 

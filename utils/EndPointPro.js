@@ -10,6 +10,8 @@ const END_POINTS_PRO = {
     ACTIVATE_USER: '/admin/activateUser?id=',
     DEACTIVATE_USER: '/admin/deactivateUser?id=',
     CREATE_USER: '/admin/user',
+    USER_DOWNLOAD_TEMPLATE: '/admin/userTemplate',
+    CREATE_MULTIPLE_USER: '/admin/addMultipleUsers',
     ADMIN_USER_EDIT_DATA: '/admin/user/',
     ADMIN_USER_DELETE: '/admin/user?id=',
     ADMIN_REPORTS: '/admin/reports',

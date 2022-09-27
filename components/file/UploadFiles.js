@@ -53,10 +53,8 @@ const UploadFiles = ({
         });
         setFileData(a);
     }
-    console.log("fileData", fileData)
 
     const handleUpload = (e) => {
-        console.log('dadfdfas', e.target.files);
         e.preventDefault();
         if (Object.entries(e.target.files).length > 10) {
             setFileWarning(true);
@@ -67,8 +65,6 @@ const UploadFiles = ({
     };
 
     const handleSubmit = (data) => {
-        console.log('datadatadata', data);
-        console.log('fileDatafileDatafileData', fileData);
         if (fileData.length === 1) {
             singleFileUpload(fileData, data);
         } else {
@@ -85,7 +81,6 @@ const UploadFiles = ({
     }
 
     const singleFileUpload = (files, data) => {
-        console.log('files', files);
         let bodyFormData = new FormData();
         bodyFormData.append('authorName', data.authorName0);
         bodyFormData.append('title', data.title0);
