@@ -73,3 +73,13 @@ export const PRO_USER = 'user';
  */
 export const CARD_NEXT_PAGE = 'Next';
 export const CARD_FOLDER_ACTIONS = 'Actions';
+
+/**
+ * Instructor Role > Download CSV 
+ */
+export const DOWNLOAD_CSV = {
+    'SUBMISSION_REPORT': 'Submission Reports',
+    'CLASSROOM_REPORTS': 'Classroom Reports',
+    'ASSIGNMENTS_LISTS': 'Assignments Lists',
+    'STUDENTS_LISTS': 'Students Lists',
+}

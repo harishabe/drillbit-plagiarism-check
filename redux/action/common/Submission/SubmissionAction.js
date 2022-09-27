@@ -12,9 +12,9 @@ export const DownloadOriginalFile = (data) => {
 /**
  * Download CSV
  */
-export const DownloadCsv = (url) => {
+export const DownloadCsv = (url, title) => {
     return {
-        type: types.FETCH_DOWNLOAD_CSV_START, url: url
+        type: types.FETCH_DOWNLOAD_CSV_START, url: url, title: title
     };
 };
 

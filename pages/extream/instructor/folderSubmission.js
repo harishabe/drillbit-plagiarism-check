@@ -37,6 +37,7 @@ import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -44,7 +45,7 @@ const columns = [
     { id: 'original_fn', label: 'Original File', isDownload: true },
     { id: 'grammar', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'Paper Id' },
+    { id: 'paper_id', label: 'Paper ID' },
     { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action' },
 ];
@@ -243,7 +244,7 @@ const folderSubmission = ({
     }
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`)
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`, DOWNLOAD_CSV.SUBMISSION_REPORT)
     }
 
     const handleOriginalFileDownload = (e, data) => {
@@ -402,7 +403,7 @@ const mapDispatchToProps = (dispatch) => {
         folderSubmissionsFileData: (url, PaginationValue) => dispatch(folderSubmissionsFileData(url, PaginationValue)),
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeletefolderSubmissionData: (url) => dispatch(DeletefolderSubmissionData(url)),
-        DownloadCsv: (url) => dispatch(DownloadCsv(url)),
+        DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };
