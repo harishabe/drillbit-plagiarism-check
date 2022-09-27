@@ -37,6 +37,7 @@ import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -243,7 +244,7 @@ const folderSubmission = ({
     }
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`, 'Submission Reports')
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`, DOWNLOAD_CSV.SUBMISSION_REPORT)
     }
 
     const handleOriginalFileDownload = (e, data) => {

@@ -37,6 +37,7 @@ import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
+import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
 
 const AddButtonBottom = styled.div`
     position: fixed;
@@ -228,7 +229,7 @@ const Assignments = ({
   }
 
   const handleDownload = () => {
-    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`, 'Assignments Lists')
+    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`, DOWNLOAD_CSV.ASSIGNMENTS_LISTS)
   }
 
   return (

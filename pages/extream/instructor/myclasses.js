@@ -18,6 +18,7 @@ import MyClassFiles from './myclassfiles';
 import { DownloadIcon } from '../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
 
 const InstructorBreadCrumb = [
     {
@@ -91,7 +92,7 @@ const MyClasses = ({
     /** end debounce concepts */
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_CSV_FILES, 'Classroom Reports')
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_CSV_FILES, DOWNLOAD_CSV.CLASSROOM_REPORTS)
     }
 
     return (

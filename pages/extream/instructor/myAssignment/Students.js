@@ -241,7 +241,7 @@ const Students = ({
     }
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`, 'Students Lists')
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/studentTemplate`, 'Students Lists')
     }
 
     return (

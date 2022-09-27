@@ -35,6 +35,7 @@ import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_ANALYSIS } from '../../../../utils/BaseUrl';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
+import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
 
 const columns = [
   { id: 'name', label: 'Author Name' },
@@ -303,7 +304,7 @@ const Submission = ({
   }
 
   const handleDownload = () => {
-    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/downloadSubmissions`, 'Submission Reports')
+    DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/downloadSubmissions`, DOWNLOAD_CSV.SUBMISSION_REPORT)
   }
 
   return (
