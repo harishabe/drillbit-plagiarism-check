@@ -51,8 +51,12 @@ const columns = [
     { id: 'action', label: 'Action' }
 ]
 
-function createData(lid, name, email, college_name, country, instructors, documents, action) {
-    return { lid, name, email, college_name, country, instructors, documents, action }
+function createData(lid, name, email, college_name, country, instructors, documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone
+) {
+    return {
+        lid, name, email, college_name, country, instructors, documents, action, state
+        , address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone
+    }
 }
 
 const RefProduct = ({
@@ -68,6 +72,8 @@ const RefProduct = ({
         field: 'name',
         orderBy: PaginationValue?.orderBy,
     });
+    const [editUser, setEditUser] = useState(false);
+    const [editUserData, setEditUserData] = useState('');
 
     useEffect(() => {
         GetExtremeRefData(END_POINTS.SUPER_ADMIN_REF, paginationPayload);
@@ -87,16 +93,50 @@ const RefProduct = ({
                     data.instructors,
                     data.documents,
                     [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }],
+                    data.state,
+                    data.address,
+                    data.designation,
+                    data.phone,
+                    data.created_date,
+                    data.expiry_date,
+                    data.document_type,
+                    data.grammar,
+                    data.grammar_documents,
+                    data.license_type,
+                    data.product_type,
+                    data.timeZone,
                 );
             arr.push(row)
         });
         setRows([...arr]);
     }, [refData]);
 
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
+    }
+
     const handleChange = (event, value) => {
         event.preventDefault();
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
     };
+
+    const handleAction = (event, icon, rowData) => {
+        if (icon === 'edit') {
+            setEditUser(true);
+            setEditUserData(rowData);
+        }
+    }
+
+    const handleCloseDrawer = (drawerClose) => {
+        setEditUser(drawerClose);
+    }
 
     return (
         <>
@@ -111,9 +151,25 @@ const RefProduct = ({
                         tableData={ rows }
                         isLoading={ isLoading }
                         charLength={ 10 }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
                     />
                 </CardView>
             </Box>
+
+            {
+                editUser &&
+                <CreateDrawer
+                    title="Edit User"
+                    isShowAddIcon={ false }
+                    showDrawer={ editUser }
+                    handleDrawerClose={ handleCloseDrawer }
+                >
+                    <RefForm
+                        editData={ editUserData }
+                    />
+                </CreateDrawer>
+            }
 
             <AddButtonBottom>
                 <CreateDrawer
