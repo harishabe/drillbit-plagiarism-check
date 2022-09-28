@@ -408,3 +408,7 @@ a {
   color: #f3f3f3;
   border: #f3f3f3;
 }
+
+.css-5sb08z-MuiButtonBase-root-MuiToggleButton-root.Mui-selected{
+  background: #3672FF !important;
+}

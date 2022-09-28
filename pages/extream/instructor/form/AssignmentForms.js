@@ -22,9 +22,12 @@ import InputTextField from '../../../../components/form/elements/InputTextField'
 import InputFileType from '../../../../components/form/elements/InputFileType';
 import InputAutoComplete from '../../../../components/form/elements/InputAutoComplete';
 import InputButton from '../../../../components/form/elements/InputButton';
+import LabelCaption from '../../../../components/form/elements/LabelCaption';
 import { CreateAssignment, EditAssignment } from '../../../../redux/action/instructor/InstructorAction';
 import { convertDate } from '../../../../utils/RegExp';
 import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
+import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/data/ErrorMessage';
+import { ErrorMessageContainer } from '../../../style/index';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -82,12 +85,13 @@ const AssignmentForms = ({
     const [questionData, setQuestionData] = React.useState('');
     const [questionList, setQuestionList] = React.useState([]);
     const [phrasesList, setPhrasesList] = React.useState([]);
-
+    const [dailySubmissionLimit, setDailySubmissionLimit] = React.useState(0);
+    const [disabledButton, setDisabledButton] = React.useState(false);
+    const [errorMsgDBCheck, setErrorMsgDBCheck] = useState('');
 
     const { register, control, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log('datadatadatadatadata',data);
         let bodyFormData = new FormData();
         if (showSetting) {
             bodyFormData.append('assignment_name', data.assignment_name);
@@ -100,37 +104,43 @@ const AssignmentForms = ({
             bodyFormData.append('exclude_quotes', excludeQuote === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('exclude_small_sources', excludeSmallSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('assignment_grading', allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('marks', allowAssGrade ? data.marks : '');
+            if (allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('marks', allowAssGrade ? data.marks : '');
+            }
             //bodyFormData.append('exclude_include_sources', excludeIncludeSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('save_to_repository', saveToRepo === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('repository_scope', data?.repository_scope?.name.toUpperCase());
+            }
             bodyFormData.append('allow_resubmissions', allowSubmission === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+            if (allowSubmission === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('resubmission_count', data?.no_of_resubmission);
+            }
             bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('grammar_check', grammarCheck === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('choice_of_email_notifications', choiceEmailNotification === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('add_questions', addQuestion === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
-            if (addQuestion) {
+            if (addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
                 let questionObj = {};
                 questionList?.map((item, index) => {
                     questionObj['q' + (index + 1)] = item;
                 });
-                console.log('questionObj', questionObj);
                 bodyFormData.append('questions', JSON.stringify(questionObj));
             }
             bodyFormData.append('exclude_phrases', excludePhrases === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
-            if (excludePhrases) {
+            if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
                 let phrasesObj = {};
                 phrasesList?.map((item, index) => {
                     phrasesObj['p' + (index + 1)] = item;
                 });
                 bodyFormData.append('phrases', JSON.stringify(phrasesObj));
             }
-            bodyFormData.append('repository_scope', data?.repository_scope?.name.toUpperCase());
             bodyFormData.append('report_access', reportAccess === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('db_studentpaper', studentPaper === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('db_publications', publication === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('db_internet', internet === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('institution_repository', repository === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('daily_submissions_limit', data?.daily_submissions_limit);
+            bodyFormData.append('daily_submissions_limit', dailySubmissionLimit);
             CreateAssignment(router.query.clasId, bodyFormData);
         } else {
             bodyFormData.append('assignment_name', data.assignment_name);
@@ -162,6 +172,16 @@ const AssignmentForms = ({
         }
 
     }
+
+    useEffect(() => {
+        if (internet === 'YES' || publication === 'YES' || repository === 'YES' || internet === 'YES') {
+            setDisabledButton(false);
+            setErrorMsgDBCheck('');
+        } else {
+            setDisabledButton(true);
+            setErrorMsgDBCheck(DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK);
+        }
+    }, [internet, repository, publication, studentPaper])
 
     useEffect(() => {
         setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
@@ -308,7 +328,7 @@ const AssignmentForms = ({
             <form onSubmit={handleSubmit(onSubmit)}>
                 <LabelContainer>
                     <InputLabel>
-                        Assignment Name
+                        Assignment name *
                     </InputLabel>
                 </LabelContainer>
 
@@ -342,7 +362,7 @@ const AssignmentForms = ({
                         "field_type": "datepicker",
                         "id": "start_date",
                         "name": "start_date",
-                        "label": "Select Start Date",
+                        "label": "Select start date *",
                         "minDate": true,
                         "required": "Select Start Date",
                         "validationMsg": "Select Start Date"
@@ -355,7 +375,7 @@ const AssignmentForms = ({
                         "field_type": "datepicker",
                         "id": "end_date",
                         "name": "end_date",
-                        "label": "Select End Date",
+                        "label": "Select end date *",
                         "minDate": true,
                         "required": "Select End Date",
                         "validationMsg": "Select End Date"
@@ -832,107 +852,108 @@ const AssignmentForms = ({
                                 </Grid>
                             </Grid>
                         </div>
-                        <div>
-                            <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
-                                        Student Papers
-                                    </InputLabel>
-                                </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
-                                    <ToggleButtonGroup
-                                        color="primary"
-                                        value={studentPaper}
-                                        exclusive
-                                        onChange={handleStudentPaper}
-                                    >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
-                                    </ToggleButtonGroup>
-                                </Grid>
+                        <Grid container>
+                            <Grid item md={6}>
+                                <InputLabel style={{ margin: '22px 0px' }}>
+                                    Daily submission limit
+                                </InputLabel>
                             </Grid>
-                        </div>
-                        <div>
-                            <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
-                                        Journals & publishers
-                                    </InputLabel>
-                                </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
-                                    <ToggleButtonGroup
-                                        color="primary"
-                                        value={publication}
-                                        exclusive
-                                        onChange={handlePublications}
-                                    >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
-                                    </ToggleButtonGroup>
-                                </Grid>
+                            <Grid item md={6} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                <TextField
+                                    id="outlined-name"
+                                    fullWidth
+                                    name="daily_submissions_limit"
+                                    size="small"
+                                    onChange={(e) => setDailySubmissionLimit(e.target.value)}
+                                />
                             </Grid>
-                        </div>
-                        <div>
-                            <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
-                                        Internet or Web
-                                    </InputLabel>
-                                </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
-                                    <ToggleButtonGroup
-                                        color="primary"
-                                        value={internet}
-                                        exclusive
-                                        onChange={handleInternet}
-                                    >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
-                                    </ToggleButtonGroup>
-                                </Grid>
+                        </Grid>
+                        <b>Compare against databases</b>
+                        <Grid container>
+                            <Grid item md={8}>
+                                <InputLabel style={{ margin: '22px 0px' }}>
+                                    Student Papers
+                                </InputLabel>
                             </Grid>
-                        </div>
-                        <div>
-                            <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
-                                        Institution Repository
-                                    </InputLabel>
-                                </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
-                                    <ToggleButtonGroup
-                                        color="primary"
-                                        value={repository}
-                                        exclusive
-                                        onChange={handleRepository}
-                                    >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
-                                    </ToggleButtonGroup>
-                                </Grid>
+                            <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                <ToggleButtonGroup
+                                    color="primary"
+                                    value={studentPaper}
+                                    exclusive
+                                    onChange={handleStudentPaper}
+                                >
+                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                </ToggleButtonGroup>
                             </Grid>
-                        </div>
-                        <InputTextField
-                            control={control}
-                            field={{
-                                "field_type": "input",
-                                "id": "daily_submissions_limit",
-                                "name": "daily_submissions_limit",
-                                "label": "Daily submission limit",
-                                "required": "Enter Daily submissin limit",
-                                "size": "small"
-                            }} />
+                        </Grid>
+                        <Grid container>
+                            <Grid item md={8}>
+                                <InputLabel style={{ margin: '22px 0px' }}>
+                                    Journals & publishers
+                                </InputLabel>
+                            </Grid>
+                            <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                <ToggleButtonGroup
+                                    color="primary"
+                                    value={publication}
+                                    exclusive
+                                    onChange={handlePublications}
+                                >
+                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                </ToggleButtonGroup>
+                            </Grid>
+                        </Grid>
+                        <Grid container>
+                            <Grid item md={8}>
+                                <InputLabel style={{ margin: '22px 0px' }}>
+                                    Internet or Web
+                                </InputLabel>
+                            </Grid>
+                            <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                <ToggleButtonGroup
+                                    color="primary"
+                                    value={internet}
+                                    exclusive
+                                    onChange={handleInternet}
+                                >
+                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                </ToggleButtonGroup>
+                            </Grid>
+                        </Grid>
+                        <Grid container>
+                            <Grid item md={8}>
+                                <InputLabel style={{ margin: '22px 0px' }}>
+                                    Institution Repository
+                                </InputLabel>
+                            </Grid>
+                            <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                                <ToggleButtonGroup
+                                    color="primary"
+                                    value={repository}
+                                    exclusive
+                                    onChange={handleRepository}
+                                >
+                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                </ToggleButtonGroup>
+                            </Grid>
+                        </Grid>
                     </>
                 }
-
+                <div style={{ marginBottom: '15px' }}>
+                    {errorMsgDBCheck !== '' ? <ErrorMessageContainer>{errorMsgDBCheck}</ErrorMessageContainer> : ''}
+                </div>
                 <InputButton field={{
                     "field_type": "button",
                     "type": "submit",
-                    "label": "Submit"
+                    "label": "Submit",
+                    "isDisabled": disabledButton
                 }}
                     isLoading={isLoading}
                 />
-
             </form>
         </div>
     )
