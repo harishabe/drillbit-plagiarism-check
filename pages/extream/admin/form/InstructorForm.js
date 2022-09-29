@@ -65,7 +65,7 @@ const InstructorForm = ({
         if (editData) {
             let a = {
                 'name': editData.name,
-                'email': editData.email,
+                'email': editData.username,
                 'expiry_date': convertDate(editData.expiry_date),
                 'plagiarism': editData.plagairism,
                 'grammar': editData.grammar

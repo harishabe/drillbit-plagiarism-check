@@ -4,7 +4,7 @@
         "type": "text",
         "id": "name",
         "name": "name",
-        "label": "Name",
+        "label": "Name *",
         "required": "Enter name"
     },
     {
@@ -12,7 +12,7 @@
         "type": "email",
         "id": "email",
         "name": "email",
-        "label": "Email",
+        "label": "Email *",
         "required": "Enter email address",
         "validationMsg": "Invalid email address"
     },
@@ -21,7 +21,7 @@
         "type": "number",
         "id": "phone",
         "name": "phone",
-        "label": "Phone Number",
+        "label": "Phone Number *",
         "required": "Phone Number"
     },
     {
@@ -29,7 +29,7 @@
         "type": "text",
         "id": "moodle_url",
         "name": "moodle_url",
-        "label": "Moodle LMS URL",
+        "label": "Moodle LMS URL *",
         "required": "Moodle LMS URL"
     },
     {

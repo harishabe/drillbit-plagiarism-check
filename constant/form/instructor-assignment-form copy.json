@@ -4,7 +4,7 @@
         "type": "text",
         "id": "assignment_name",
         "name": "assignment_name",
-        "label": "Assignment Name",
+        "label": "Assignment Name *",
         "required": "Please enter assignment name"
     },
 
@@ -12,7 +12,7 @@
         "field_type": "datepicker",
         "id": "end_date",
         "name": "end_date",
-        "label": "End Date",
+        "label": "End Date *",
         "minDate":true,
         "required": "Select end date",
         "validationMsg": "Select end date"
@@ -22,7 +22,7 @@
         "field_type": "toggle",
         "id": "exclude_refernces",
         "name": "exclude_refernces",
-        "label": "Exclude Reference / Bibliography",
+        "label": "Exclude Reference / Bibliography *",
         "options": [
             "yes",
             "no"
@@ -33,7 +33,7 @@
         "field_type": "toggle",
         "id": "exclude_quotes",
         "name": "exclude_quotes",
-        "label": "Exclude Quotes",
+        "label": "Exclude Quotes *",
         "options": [
             "yes",
             "no"
@@ -44,7 +44,7 @@
         "field_type": "toggle",
         "id": "exclude_small_sources",
         "name": "exclude_small_sources",
-        "label": "Exclude small sources (less than 14 similarity words)",
+        "label": "Exclude small sources (less than 14 similarity words) *",
         "options": [
             "yes",
             "no"
@@ -55,7 +55,7 @@
         "field_type": "toggle",
         "id": "assignment_grading",
         "name": "assignment_grading",
-        "label": "Allow Assignment Grading",
+        "label": "Allow Assignment Grading *",
         "options": [
             "yes",
             "no"
@@ -66,7 +66,7 @@
         "field_type": "toggle",
         "id": "exclude_include_sources",
         "name": "exclude_include_sources",
-        "label": "Option To Exclude/Include Sources",
+        "label": "Option To Exclude/Include Sources *",
         "options": [
             "yes",
             "no"
@@ -77,7 +77,7 @@
         "field_type": "toggle",
         "id": "save_to_repository",
         "name": "save_to_repository",
-        "label": "Save To Institution Repository",
+        "label": "Save To Institution Repository *",
         "options": [
             "yes",
             "no"
@@ -88,7 +88,7 @@
         "field_type": "toggle",
         "id": "allow_resubmissions",
         "name": "allow_resubmissions",
-        "label": "Allow Resubmission",
+        "label": "Allow Resubmission *",
         "options": [
             "yes",
             "no"
@@ -99,7 +99,7 @@
         "field_type": "toggle",
         "id": "allow_submissions_after_due_date",
         "name": "allow_submissions_after_due_date",
-        "label": "Allow Submission After Due Date",
+        "label": "Allow Submission After Due Date *",
         "options": [
             "yes",
             "no"
@@ -110,7 +110,7 @@
         "field_type": "toggle",
         "id": "grammar_check",
         "name": "grammar_check",
-        "label": "Grammar Check",
+        "label": "Grammar Check *",
         "options": [
             "yes",
             "no"
@@ -121,7 +121,7 @@
         "field_type": "toggle",
         "id": "choice_of_email_notifications",
         "name": "choice_of_email_notifications",
-        "label": "Choice Of Email Notifications",
+        "label": "Choice Of Email Notifications *",
         "options": [
             "yes",
             "no"
@@ -132,7 +132,7 @@
         "field_type": "toggle",
         "id": "add_questions",
         "name": "add_questions",
-        "label": "Add Questions",
+        "label": "Add Questions *",
         "options": [
             "yes",
             "no"
@@ -143,7 +143,7 @@
         "field_type": "toggle",
         "id": "exclude_phrases",
         "name": "exclude_phrases",
-        "label": "Exclude Phrases",
+        "label": "Exclude Phrases *",
         "options": [
             "yes",
             "no"
@@ -154,7 +154,7 @@
         "field_type": "dropdown",
         "id": "repository_scope",
         "name": "repository_scope",
-        "label": "Repository Scope",
+        "label": "Repository Scope *",
         "options": [
             {
                 "name": "Local"
@@ -169,7 +169,7 @@
         "field_type": "toggle",
         "id": "report_access",
         "name": "report_access",
-        "label": "Report Access",
+        "label": "Report Access *",
         "options": [
             "yes",
             "no"
@@ -180,7 +180,7 @@
         "field_type": "toggle",
         "id": "db_studentpaper",
         "name": "db_studentpaper",
-        "label": "Student Repositary",
+        "label": "Student Repositary *",
         "options": [
             "yes",
             "no"
@@ -191,7 +191,7 @@
         "field_type": "toggle",
         "id": "db_publications",
         "name": "db_publications",
-        "label": "Publications And Journals",
+        "label": "Publications And Journals *",
         "options": [
             "yes",
             "no"
@@ -202,7 +202,7 @@
         "field_type": "toggle",
         "id": "db_internet",
         "name": "db_internet",
-        "label": "Internet Source",
+        "label": "Internet Source *",
         "options": [
             "yes",
             "no"
@@ -213,7 +213,7 @@
         "field_type": "toggle",
         "id": "institution_repository",
         "name": "institution_repository",
-        "label": "Institution Repository",
+        "label": "Institution Repository *",
         "options": [
             "yes",
             "no"
@@ -224,7 +224,7 @@
         "field_type": "file",
         "id": "file",
         "name": "file",
-        "label": "Instraction Option",
+        "label": "Instraction Option *",
         "required": "Instraction Option",
         "validationMsg": "Please Instraction Option"
     },

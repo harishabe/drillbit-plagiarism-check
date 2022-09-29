@@ -3,7 +3,7 @@
         "field_type": "input",
         "id": "institutionName",
         "name": "institutionName",
-        "label": "Institution Name",
+        "label": "Institution Name *",
         "required": "Enter Institution Name",
         "validationMsg": "Invalid Institution Name"
     },
@@ -12,7 +12,7 @@
         "field_type": "input",
         "id": "state",
         "name": "state",
-        "label": "State",
+        "label": "State *",
         "required": "State",
         "validationMsg": "Invalid State"
     },
@@ -21,7 +21,7 @@
         "field_type": "input",
         "id": "country",
         "name": "country",
-        "label": "Country",
+        "label": "Country *",
         "required": "Country",
         "validationMsg": "Invalid Country"
     },
@@ -30,7 +30,7 @@
         "field_type": "input",
         "id": "address",
         "name": "address",
-        "label": "Address",
+        "label": "Address *",
         "required": "Address",
         "validationMsg": "Invalid Address"
     },
@@ -39,7 +39,7 @@
         "field_type": "input",
         "id": "adminName",
         "name": "adminName",
-        "label": "Admin Name",
+        "label": "Admin Name *",
         "required": "Admin Name",
         "validationMsg": "Invalid Admin Name"
     },
@@ -48,7 +48,7 @@
         "field_type": "input",
         "id": "adminEmail",
         "name": "adminEmail",
-        "label": "Admin Email",
+        "label": "Admin Email *",
         "required": "Admin Email",
         "validationMsg": "Invalid Admin Email"
     },
@@ -57,7 +57,7 @@
         "field_type": "input",
         "id": "designation",
         "name": "designation",
-        "label": "Designation",
+        "label": "Designation *",
         "required": "Designation",
         "validationMsg": "Invalid Designation"
     },
@@ -66,7 +66,7 @@
         "field_type": "input",
         "id": "phone",
         "name": "phone",
-        "label": "Phone",
+        "label": "Phone *",
         "required": "Phone",
         "validationMsg": "Invalid Phone"
     },
@@ -75,7 +75,7 @@
         "field_type": "datepicker",
         "id": "startDate",
         "name": "startDate",
-        "label": "Select Start Date",
+        "label": "Select Start Date *",
         "minDate":true,
         "required": "Select Start Date",
         "validationMsg": "Select Start Date"
@@ -85,7 +85,7 @@
         "field_type": "datepicker",
         "id": "endDate",
         "name": "endDate",
-        "label": "Select End Date",
+        "label": "Select End Date *",
         "minDate":true,
         "required": "Select End Date",
         "validationMsg": "Select End Date"
@@ -95,7 +95,7 @@
         "field_type": "input",
         "id": "instructors",
         "name": "instructors",
-        "label": "Instructors",
+        "label": "Instructors *",
         "required": "Instructors",
         "validationMsg": "Invalid Instructors"
     },
@@ -104,7 +104,7 @@
         "field_type": "input",
         "id": "submissions",
         "name": "submissions",
-        "label": "Submissions",
+        "label": "Submissions *",
         "required": "Submissions",
         "validationMsg": "Invalid Submissions"
     },
@@ -113,7 +113,7 @@
         "field_type": "input",
         "id": "documentlength",
         "name": "documentlength",
-        "label": "Document length",
+        "label": "Document length *",
         "required": "Document length",
         "validationMsg": "Invalid Document Length"
     },
@@ -122,7 +122,7 @@
         "field_type": "dropdown",
         "id": "grammarAccess",
         "name": "grammarAccess",
-        "label": "Grammar Access",
+        "label": "Grammar Access *",
         "required": "Grammar Access",
         "validationMsg": "Invalid Grammar Access",
         "options": [
@@ -139,7 +139,7 @@
         "field_type": "input",
         "id": "grammar",
         "name": "grammar",
-        "label": "Grammar",
+        "label": "Grammar *",
         "required": "Grammar",
         "validationMsg": "Invalid Grammar"
     },
@@ -148,7 +148,7 @@
         "field_type": "dropdown",
         "id": "institutionType",
         "name": "institutionType",
-        "label": "Institution Type", 
+        "label": "Institution Type *", 
         "required": "Institution Type",
         "validationMsg": "Invalid Institution Type",
         "options": []
@@ -158,7 +158,7 @@
         "field_type": "dropdown",
         "id": "licenseType",
         "name": "licenseType",
-        "label": "License Type",
+        "label": "License Type *",
         "required": "License Type",
         "validationMsg": "Invalid License Type",
         "options": [
@@ -175,7 +175,7 @@
         "field_type": "dropdown",
         "id": "timeZone",
         "name": "timeZone",
-        "label": "Time Zone",
+        "label": "Time Zone *",
         "required": "Time Zone",
         "validationMsg": "Invalid Time Zone",
         "options": []

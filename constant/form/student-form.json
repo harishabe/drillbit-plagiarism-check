@@ -4,7 +4,7 @@
         "type": "text",
         "id": "name",
         "name": "name",
-        "label": "Enter name",
+        "label": "Enter name *",
         "required": "Enter name"
     },
     {
@@ -12,7 +12,7 @@
         "type": "email",
         "id": "email",
         "name": "email",
-        "label": "Email address",
+        "label": "Email address *",
         "disabled":true,
         "required": "Enter email address",
         "validationMsg": "Invalid email address"
@@ -23,7 +23,7 @@
         "type": "text",
         "id": "studentId",
         "name": "studentId",
-        "label": "Student Id",
+        "label": "Student Id *",
         "required": "Enter documents"
     },
     {
@@ -31,7 +31,7 @@
         "type": "text",
         "id": "department",
         "name": "department",
-        "label": "Department documents",
+        "label": "Department documents *",
         "required": "Enter department documents"
     },
     {
@@ -39,7 +39,7 @@
         "type": "text",
         "id": "section",
         "name": "section",
-        "label": "Section documents",
+        "label": "Section documents *",
         "required": "Section"
     },
     {

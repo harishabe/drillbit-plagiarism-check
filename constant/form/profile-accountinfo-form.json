@@ -3,7 +3,7 @@
         "field_type": "file",
         "id": "logo",
         "name": "logo",
-        "label": "Choose File",
+        "label": "Choose File *",
         "required": "Choose File",
         "validationMsg": "Please choose file"
     },

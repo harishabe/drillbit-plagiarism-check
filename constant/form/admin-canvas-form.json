@@ -4,7 +4,7 @@
         "type": "text",
         "id": "platform_url",
         "name": "platform_url",
-        "label": "Platform url",
+        "label": "Platform url *",
         "required": "Platform url"
     },
     {
@@ -12,7 +12,7 @@
         "type": "text",
         "id": "client_id",
         "name": "client_id",
-        "label": "Client id",
+        "label": "Client id *",
         "required": "Client id"
     },
     {
@@ -20,7 +20,7 @@
         "type": "text",
         "id": "auth_end_point",
         "name": "auth_end_point",
-        "label": "Auth end point",
+        "label": "Auth end point *",
         "required": "Auth end point"
     },
     {
@@ -28,7 +28,7 @@
         "type": "text",
         "id": "access_end_point",
         "name": "access_end_point",
-        "label": "Access end point",
+        "label": "Access end point *",
         "required": "Access end point"
     },
     {
@@ -36,7 +36,7 @@
         "type": "text",
         "id": "method",
         "name": "method",
-        "label": "Method",
+        "label": "Method *",
         "required": "Method",
         "options":[
             {
@@ -52,7 +52,7 @@
         "type": "text",
         "id": "keyset_end_point",
         "name": "keyset_end_point",
-        "label": "Keyset end point",
+        "label": "Keyset end point *",
         "required": "Keyset end point"
     },
     

@@ -4,7 +4,7 @@
         "type": "text",
         "id": "authorName",
         "name": "authorName",
-        "label": "Author Name",
+        "label": "Author Name *",
         "required": "Author Name"
     },
 
@@ -13,7 +13,7 @@
         "type": "text",
         "id": "title",
         "name": "title",
-        "label": "Title",
+        "label": "Title *",
         "required": "Enter Title"
     },
     
@@ -21,7 +21,7 @@
         "field_type": "dropdown",
         "id": "documentType",
         "name": "documentType",
-        "label": "Document Type",
+        "label": "Document Type *",
         "options": [
             {
                 "name": "Thesis"
@@ -75,7 +75,7 @@
         "field_type": "toggle",
         "id": "plagiarismCheck",
         "name": "plagiarismCheck",
-        "label": "Plagiarism Check",
+        "label": "Plagiarism Check *",
         "options": [
             "YES",
             "NO"
@@ -86,7 +86,7 @@
         "field_type": "toggle",
         "id": "grammarCheck",
         "name": "grammarCheck",
-        "label": "Grammar Check",
+        "label": "Grammar Check *",
         "options": [
             "YES",
             "NO"
@@ -97,7 +97,7 @@
         "field_type": "file",
         "id": "file",
         "name": "file",
-        "label": "Choose File",
+        "label": "Choose File *",
         "required": "Choose File",
         "validationMsg": "Please choose file"
     },

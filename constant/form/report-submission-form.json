@@ -4,7 +4,7 @@
         "type": "email",
         "id": "username",
         "name": "username",
-        "label": "Email address",
+        "label": "Email address *",
         "required": "Enter email address",
         "validationMsg": "Invalid email address"
     },

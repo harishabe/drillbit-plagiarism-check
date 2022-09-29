@@ -4,7 +4,7 @@
         "type": "text",
         "id": "name",
         "name": "class_name",
-        "label": "Class name",
+        "label": "Class name *",
         "disabled":false,
         "required": "Enter class name",
         "validationMsg": "Enter Class name"
@@ -14,7 +14,7 @@
         "field_type": "input",
         "id": "description",
         "name": "description",
-        "label": "Description",
+        "label": "Description *",
         "required": "Enter description",
         "validationMsg": "Enter Description"
     },
@@ -22,7 +22,7 @@
         "field_type": "datepicker",
         "id": "expiry_date",
         "name": "expiry_date",
-        "label": "Select expiry date",
+        "label": "Select expiry date *",
         "minDate":true,
         "required": "Select expiry date",
         "validationMsg": "Select expiry date"
