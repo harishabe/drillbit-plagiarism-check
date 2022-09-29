@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Link from "next/link";
+import Tooltip from '@mui/material/Tooltip';
 import classNames from "classnames";
 import Hidden from '@mui/material/Hidden';
 import { styled } from '@mui/material/styles';
@@ -131,6 +132,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/extream/instructor/uploadFileRepository' && name === 'Repository') {
             return true;
+        } else if (router.pathname === '/pro/user/folderSubmission' && name === 'My Folders') {
+            return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }
@@ -176,37 +179,39 @@ const SideBar = ({ open }) => {
                                         activeRoute(text.layout + text.path, text.name)
                                 });
                                 return (
-                                    <StyledList>
-                                        <Link href={text.layout + text.path} key={text.name}>
-                                            <a className={classes.link} >
-                                                <ListItemButton
-                                                    style={{ margin: '10px 15px 0', borderRadius: '4px' }}
-                                                    className={whiteFontClasses}
-                                                    sx={{
-                                                        minHeight: 58,
-                                                        justifyContent: open ? 'initial' : 'center',
-                                                        px: 2.5
-                                                    }}
-                                                >
-                                                    <ListItemIcon
+                                    <Tooltip title={!open ? text.name : ''} arrow>
+                                        <StyledList>
+                                            <Link href={text.layout + text.path} key={text.name}>
+                                                <a className={classes.link} >
+                                                    <ListItemButton
+                                                        style={{ margin: '10px 15px 0', borderRadius: '4px' }}
                                                         className={whiteFontClasses}
                                                         sx={{
-                                                            minWidth: 0,
-                                                            mr: open ? 3 : 'auto',
-                                                            justifyContent: 'center',
+                                                            minHeight: 58,
+                                                            justifyContent: open ? 'initial' : 'center',
+                                                            px: 2.5
                                                         }}
                                                     >
-                                                        {active ? text.activeIcon : text.icon}
-                                                    </ListItemIcon>
-                                                    <ListItemText
-                                                        primary={text.name}
-                                                        className={classNames(classes.menuClass, whiteFontClasses)}
-                                                        sx={{ opacity: open ? 1 : 0 }}
-                                                    />
-                                                </ListItemButton>
-                                            </a>
-                                        </Link>
-                                    </StyledList>
+                                                        <ListItemIcon
+                                                            className={whiteFontClasses}
+                                                            sx={{
+                                                                minWidth: 0,
+                                                                mr: open ? 3 : 'auto',
+                                                                justifyContent: 'center',
+                                                            }}
+                                                        >
+                                                            {active ? text.activeIcon : text.icon}
+                                                        </ListItemIcon>
+                                                        <ListItemText
+                                                            primary={text.name}
+                                                            className={classNames(classes.menuClass, whiteFontClasses)}
+                                                            sx={{ opacity: open ? 1 : 0 }}
+                                                        />
+                                                    </ListItemButton>
+                                                </a>
+                                            </Link>
+                                        </StyledList>
+                                    </Tooltip>
                                 );
                             })}
                         </List>
