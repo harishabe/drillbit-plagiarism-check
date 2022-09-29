@@ -2,8 +2,9 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
     GetWidgetData,
-    ExtremeRefAccount,
     GetExtremeRefDetail,
+    ExtremeRefAccount,
+    EditExtremeRefAccount,
     DropdownListData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
@@ -37,6 +38,7 @@ export function* onLoadDashboardWidget(action) {
 export function* SuperDashboardWidget() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_DASH_WIDGET_START, onLoadDashboardWidget);
 }
+
 /**
  * Get Extreme Ref Account
  * @param {*} action
@@ -89,6 +91,34 @@ export function* onLoadCreateAccount(action) {
 
 export function* CreateExtremeRefAccount() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_START, onLoadCreateAccount);
+}
+
+/**
+ * Edit Extreme Ref Account
+ * @param {*} action
+ */
+
+export function* onLoadEditAccount(action) {
+    const { response, error } = yield call(EditExtremeRefAccount, action.url, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_SUCCESS, payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.url, paginationPayload: FolderSubmissionsPaginationValue,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* EditExtremeRef() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_START, onLoadEditAccount);
 }
 
 /**

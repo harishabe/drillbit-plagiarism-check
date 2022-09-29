@@ -30,6 +30,14 @@ export const ExtremeRefAccount = async (endPoint, data) => {
 };
 
 /**
+ * API CALL FOR CREATE EXTREME AND REF ACCOUNT
+ */
+export const EditExtremeRefAccount = async (apiUrl, data) => {
+    const url = BASE_URL_SUPER + apiUrl;
+    return PostMethod(url, data);
+};
+
+/**
  * API CALL FOR DROPPDOWN LIST EXTREME AND REF ACCOUNT
  */
 export const DropdownListData = async () => {

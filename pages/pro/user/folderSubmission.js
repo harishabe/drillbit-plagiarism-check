@@ -37,6 +37,7 @@ import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
+import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -61,7 +62,12 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-const DownloadButton = styled.div`
+const SkeletonContainer = styled.div`
+    margin-top: 10px;
+    margin-right: 5px;
+`;
+
+const DownloadField = styled.div`
     margin-top:-5px;
 `;
 
@@ -238,7 +244,7 @@ const folderSubmission = ({
     }
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION_LIST_DOWNLOAD + folderId)
+        DownloadCsv(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION_LIST_DOWNLOAD + folderId, DOWNLOAD_CSV.SUBMISSION_REPORT)
     }
 
     const handleOriginalFileDownload = (e, data) => {
@@ -283,25 +289,26 @@ const folderSubmission = ({
             <Box sx={ { flexGrow: 1 } }>
                 <BreadCrumb item={ UserBreadCrumb } />
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 8.9 } xs={ 7 }>
+                    <Grid item md={ 8 } xs={ 7 }>
                         <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={ 0.1 } xs={ 1 } align="right">
-                        <DownloadButton>
+                    <Grid item md={ 4 } xs={ 12 } container direction='row' justifyContent={ 'right' }>
+                        <DownloadField>
                             { folderSubmissionData?.length > 0 &&
+                                isLoadingDownload ? <SkeletonContainer>
+                                <Skeleton width={ 50 } />
+                            </SkeletonContainer> :
                                 <Tooltip title="Download csv" arrow>
                                     <IconButton
                                         color="primary"
                                         aria-label="download-file"
                                         size="large"
                                         onClick={ handleDownload }>
-                                        { isLoadingDownload ? <Skeleton width={ 30 } /> : <DownloadIcon /> }
+                                        <DownloadIcon />
                                     </IconButton>
                                 </Tooltip>
                             }
-                        </DownloadButton>
-                    </Grid>
-                    <Grid item md={ 3 } xs={ 12 } align="right">
+                        </DownloadField>
                         <TextField
                             placeholder='Search'
                             onChange={ debouncedResults }
@@ -396,7 +403,7 @@ const mapDispatchToProps = (dispatch) => {
         folderSubmissionsFileData: (url, PaginationValue) => dispatch(folderSubmissionsFileData(url, PaginationValue)),
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeletefolderSubmissionData: (url) => dispatch(DeletefolderSubmissionData(url)),
-        DownloadCsv: (url) => dispatch(DownloadCsv(url)),
+        DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };

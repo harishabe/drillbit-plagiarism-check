@@ -119,12 +119,20 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "id": "grammarAccess",
         "name": "grammarAccess",
         "label": "Grammar Access",
         "required": "Grammar Access",
-        "validationMsg": "Invalid Grammar Access"
+        "validationMsg": "Invalid Grammar Access",
+        "options": [
+            {
+                "name": "Yes"
+            },
+            {
+                "name": "No"
+            }
+        ]
     },
 
     {
@@ -137,30 +145,40 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "id": "institutionType",
         "name": "institutionType",
-        "label": "Institution Type",
+        "label": "Institution Type", 
         "required": "Institution Type",
-        "validationMsg": "Invalid Institution Type"
+        "validationMsg": "Invalid Institution Type",
+        "options": []
     },
 
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "id": "licenseType",
         "name": "licenseType",
         "label": "License Type",
         "required": "License Type",
-        "validationMsg": "Invalid License Type"
+        "validationMsg": "Invalid License Type",
+        "options": [
+            {
+                "name": "Demo"
+            },
+            {
+                "name": "License"
+            }
+        ]
     },
 
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "id": "timeZone",
         "name": "timeZone",
         "label": "Time Zone",
         "required": "Time Zone",
-        "validationMsg": "Invalid Time Zone"
+        "validationMsg": "Invalid Time Zone",
+        "options": []
     },
 
     {

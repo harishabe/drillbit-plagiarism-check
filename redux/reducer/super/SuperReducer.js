@@ -53,6 +53,23 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingCreate: false,
                 createdError: action.payload,
             };
+        case types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_START:
+            return {
+                ...state,
+                isLoadingEdit: true,
+            };
+        case types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                isLoadingEdit: false,
+                editedSuccess: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_FAIL:
+            return {
+                ...state,
+                isLoadingEdit: false,
+                editedError: action.payload,
+            };
         case types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START:
             return {
                 ...state,

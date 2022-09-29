@@ -20,6 +20,15 @@ export const GetExtremeRefData = (url, paginationPayload) => {
 /**
  * Create Extreme and Ref Account
  */
+export const EditAccount = (url, data) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_START, url: url, query: data
+    };
+};
+
+/**
+ * Create Extreme and Ref Account
+ */
 export const CreateAccount = (url, data) => {
     return {
         type: types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_START, url: url, query: data
