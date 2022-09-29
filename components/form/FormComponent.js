@@ -1,5 +1,6 @@
 import React from 'react';
 import InputTextField from './elements/InputTextField';
+import InputNumberField from './elements/InputNumberField';
 import InputButton from './elements/InputButton';
 import InputDatePicker from './elements/InputDatePicker';
 import InputAutoComplete from './elements/InputAutoComplete';
@@ -19,6 +20,13 @@ const FormComponent = ({
         case 'input':
             return (
                 <InputTextField
+                    field={field}
+                    control={control}
+                />
+            )
+        case 'inputNumber':
+            return (
+                <InputNumberField
                     field={field}
                     control={control}
                 />

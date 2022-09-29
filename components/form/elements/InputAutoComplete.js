@@ -67,7 +67,8 @@ const InputAutoComplete = ({
                             }}
                         />}
                         onChange={(e, data) => onChange(data)}
-                        // defaultValue={{ name: value }}
+                        defaultValue={{ name: value }}
+
                         {...props}
                     />
                 )}
