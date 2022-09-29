@@ -30,6 +30,7 @@ const RefForm = ({
     }, [])
 
     useEffect(() => {
+        console.log('1111');
         let InstitutionTypes = [];
         let timeZoneLists = [];
         let formList = FormJson?.map((formItem) => {
@@ -47,6 +48,7 @@ const RefForm = ({
             }
             return formItem;
         });
+        console.log('formListformList',formList);
         setFormJsonField(formList);
     }, [dpList]);
 
@@ -72,7 +74,9 @@ const RefForm = ({
     }
 
     useEffect(() => {
-        if (editData) {
+        console.log('2222');
+        if (editData !== undefined) {
+            console.log('editDataeditDataeditData', editData);
             let a = {
                 'institutionName': editData.college_name,
                 'state': editData.state,
@@ -122,21 +126,21 @@ const RefForm = ({
 
     return (
         <>
-            <div style={ { textAlign: 'center' } }>
+            <div style={{ textAlign: 'center' }}>
                 <AddImageIcon />
             </div>
-            <form onSubmit={ handleSubmit(onSubmit) }>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
-                    { formJsonField?.map((field, i) => (
-                        <Grid md={ 12 } style={ { marginLeft: '8px' } }>
+                    {formJsonField?.map((field, i) => (
+                        <Grid md={12} style={{ marginLeft: '8px' }}>
                             <FormComponent
-                                key={ i }
-                                field={ field }
-                                control={ control }
-                                isLoading={ isLoadingCreate }
+                                key={i}
+                                field={field}
+                                control={control}
+                                isLoading={isLoadingCreate}
                             />
                         </Grid>
-                    )) }
+                    ))}
                 </Grid>
             </form>
         </>

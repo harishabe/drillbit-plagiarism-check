@@ -127,10 +127,10 @@
         "validationMsg": "Invalid Grammar Access",
         "options": [
             {
-                "name": "Yes"
+                "name": "yes"
             },
             {
-                "name": "No"
+                "name": "no"
             }
         ]
     },

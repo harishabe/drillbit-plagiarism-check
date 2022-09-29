@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateInstructorData, EditData } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/instructor-form.json';
@@ -28,6 +28,99 @@ const InstructorForm = ({
         mode: 'all',
     });
 
+    const expiryDate = useWatch({
+        control,
+        name: "expiry_date",
+    });
+
+    const allocationDocs = useWatch({
+        control,
+        name: "plagiarism",
+    });
+
+    const grammarDocs = useWatch({
+        control,
+        name: "grammar",
+    });
+
+    useEffect(() => {
+        if (allocationDocs !== undefined) {
+            if (allocationDocs > remainingDocuments) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === "plagiarism") {
+                        item['errorMsg'] = 'Allocation document should not greater than give docuemnts';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === "plagiarism") {
+                        item['errorMsg'] = '';
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+
+        if (grammarDocs !== undefined) {
+            if (grammarDocs > remainingGrammar) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === "grammar") {
+                        item['errorMsg'] = 'Grammar document should not greater than give docuemnts';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === "grammar") {
+                        item['errorMsg'] = '';
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+
+        if (new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = 'Expiry date should not greater than give date';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = '';
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+    }, [allocationDocs, grammarDocs, expiryDate]);
+
     const onSubmit = (data) => {
         if (editOperation) {
             data['expiry_date'] = convertDate(data.expiry_date);
@@ -49,10 +142,10 @@ const InstructorForm = ({
             if (field.type === 'email') {
                 field.disabled = isEmailDisabled;
             }
-            if(field.name === 'grammar'){
+            if (field.name === 'grammar') {
                 field['info'] = '* Note : Document remaining-' + remainingGrammar;
             }
-            if(field.name === 'plagiarism'){
+            if (field.name === 'plagiarism') {
                 field['info'] = '* Note : Document remaining-' + remainingDocuments;
             }
             return field;
@@ -61,7 +154,6 @@ const InstructorForm = ({
     }
 
     useEffect(() => {
-        console.log("expiry_date", editData)
         if (editData) {
             let a = {
                 'name': editData.name,

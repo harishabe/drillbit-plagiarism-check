@@ -29,16 +29,16 @@
     },
     
     {
-        "field_type": "input",
-        "type": "text",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "plagiarism",
         "name": "plagiarism",
         "label": "Allocate documents",
         "required": "Enter documents"
     },
     {
-        "field_type": "input",
-        "type": "text",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "grammar",
         "name": "grammar",
         "label": "Grammar documents",

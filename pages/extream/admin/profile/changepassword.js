@@ -52,7 +52,7 @@ const ChangePassword = ({
             });
             setField(fields);
         }
-    }, [newPassword, confirmPassword])
+    }, [newPassword, confirmPassword]);
 
     return (
         <>
