@@ -58,7 +58,6 @@ const InputAutoComplete = ({
                             {...params}
                             name={field.name}
                             id={field.name}
-                            value={value}
                             margin="normal"
                             error={!!error}
                             helperText={error && error.message}
@@ -67,7 +66,7 @@ const InputAutoComplete = ({
                             }}
                         />}
                         onChange={(e, data) => onChange(data)}
-                        defaultValue={{ name: value }}
+                        //defaultValue={{ name: value }}
 
                         {...props}
                     />
