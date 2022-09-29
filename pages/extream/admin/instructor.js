@@ -40,7 +40,7 @@ import {
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
 import InstructorStats from './instructor/InstructorStats';
-import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
+import { removeCommaWordEnd, convertDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
@@ -48,15 +48,15 @@ import { Role } from '../../../constant/data';
 const columns = [
     // { id: 'user_id', label: 'ID', minWidth: 100 },
     { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'creationDate', label: 'Creation Date' },
+    { id: 'username', label: 'Email' },
+    { id: 'created_date', label: 'Creation Date' },
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
     { id: 'action', label: 'Actions' }
 ]
 
-function createData(user_id, name, email, creationDate, plagairism, grammar, status, stats, action, expiry_date) {
-    return { user_id, name, email, creationDate, plagairism, grammar, status, stats, action, expiry_date }
+function createData(user_id, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date) {
+    return { user_id, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date }
 };
 
 const AddButtonBottom = styled.div`
@@ -121,7 +121,7 @@ const Instructor = ({
                     instructor.id,
                     instructor.name,
                     instructor.username,
-                    formatDate(instructor.creation_date),
+                    instructor.creation_date,
                     instructor.plagairism,
                     instructor.grammar,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,

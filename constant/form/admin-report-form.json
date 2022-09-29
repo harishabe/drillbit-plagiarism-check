@@ -3,7 +3,7 @@
         "field_type": "dropdown",
         "id": "report",
         "name": "report",
-        "label": "Choose Reports",
+        "label": "Choose Reports *",
         "required": "Choose Reports",
         "validationMsg": "Please select report",
         "options": []
@@ -11,7 +11,7 @@
     {
         "field_type": "dropdown",
         "id": "instructor",
-        "label": "Choose Instructors",
+        "label": "Choose Instructors *",
         "name": "instructor",
         "required": "Choose Instructors",
         "validationMsg": "Please select instructors",
@@ -22,7 +22,7 @@
     {
         "field_type": "datepicker",
         "id": "fromDate",
-        "label": "Choose From Date",
+        "label": "Choose From Date *",
         "name": "fromDate",
         "required": "Select from date",
         "validationMsg": "Please select from date"
@@ -30,7 +30,7 @@
     {
         "field_type": "datepicker",
         "id": "toDate",
-        "label": "Choose To Date",
+        "label": "Choose To Date *",
         "name": "toDate",
         "required": "Select to date",
         "validationMsg": "Please select to date"

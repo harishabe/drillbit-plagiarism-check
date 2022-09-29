@@ -5,7 +5,7 @@
         "id": "name",
         "name": "folder_name",
         "disabled": false,
-        "label": "Folder Name",
+        "label": "Folder Name *",
         "required": "Please Enter Folder name"
     },
 
@@ -13,7 +13,7 @@
         "field_type": "toggle",
         "id": "exclude_reference",
         "name": "exclude_reference",
-        "label": "Exclude Reference / Bibliography",
+        "label": "Exclude Reference / Bibliography *",
         "width":"22%",
         "options": [
             "YES",
@@ -24,7 +24,7 @@
         "field_type": "toggle",
         "id": "exclude_quotes",
         "name": "exclude_quotes",
-        "label": "Exclude Quotes",
+        "label": "Exclude Quotes *",
         "width":"22%",
         "options": [
             "YES",
@@ -35,7 +35,7 @@
         "field_type": "toggle",
         "id": "exclude_small_sources",
         "name": "exclude_small_sources",
-        "label": "Exclude small sources (less than 14 similarity words)",
+        "label": "Exclude small sources (less than 14 similarity words) *",
         "width":"22%",
         "options": [
             "YES",
@@ -47,7 +47,7 @@
         "field_type": "toggle",
         "id": "grammar_check",
         "name": "grammar_check",
-        "label": "Grammar Check",
+        "label": "Grammar Check *",
         "width":"22%",
         "options": [
             "YES",
@@ -58,7 +58,7 @@
         "field_type": "toggle",
         "id": "exclude_phrases",
         "name": "exclude_phrases",
-        "label": "Exclude Phrases",
+        "label": "Exclude Phrases *",
         "width":"22%",
         "options": [
             "YES",
@@ -69,7 +69,7 @@
         "field_type": "toggle",
         "id": "db_studentpaper",
         "name": "db_studentpaper",
-        "label": "Student Repositary",
+        "label": "Student Repositary *",
         "width":"22%",
         "options": [
             "YES",
@@ -80,7 +80,7 @@
         "field_type": "toggle",
         "id": "db_publications",
         "name": "db_publications",
-        "label": "Publications And Journals",
+        "label": "Publications And Journals *",
         "width":"22%",
         "options": [
             "YES",
@@ -91,7 +91,7 @@
         "field_type": "toggle",
         "id": "db_internet",
         "name": "db_internet",
-        "label": "Internet Source",
+        "label": "Internet Source *",
         "width":"22%",
         "options": [
             "YES",
@@ -102,7 +102,7 @@
         "field_type": "toggle",
         "id": "institution_repository",
         "name": "institution_repository",
-        "label": "Institution Repository",
+        "label": "Institution Repository *",
         "width":"22%",
         "options": [
             "YES",

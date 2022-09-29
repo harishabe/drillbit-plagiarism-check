@@ -116,7 +116,7 @@ const UserStats = ({
                                 height={ 250 }
                                 width={ 250 }
                             /> :
-                            <PieChart
+                            userStats?.trendAnalysis && <PieChart
                                 type="donut"
                                 color={ PIE_CHART_COLOR }
                                 width={ PIE_CHART_WIDTH }
