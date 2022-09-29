@@ -26,7 +26,7 @@ const StyledAutocompleteField = styled(Autocomplete)(() => ({
 const useStyles = makeStyles((theme) => ({
     helperText: {
         marginLeft: 0,
-        color:'#ff0000'
+        color: '#ff0000'
     }
 }))
 
@@ -54,10 +54,11 @@ const InputAutoComplete = ({
                         getOptionLabel={(option) => (option.name)}
                         renderOption={renderOption}
                         size={field.size}
-                        renderInput={(params) => <TextField 
+                        renderInput={(params) => <TextField
                             {...params}
                             name={field.name}
                             id={field.name}
+                            value={value}
                             margin="normal"
                             error={!!error}
                             helperText={error && error.message}
@@ -66,6 +67,7 @@ const InputAutoComplete = ({
                             }}
                         />}
                         onChange={(e, data) => onChange(data)}
+                        defaultValue={{ name: value }}
                         {...props}
                     />
                 )}

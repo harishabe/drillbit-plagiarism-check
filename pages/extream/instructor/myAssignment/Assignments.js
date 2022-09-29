@@ -75,8 +75,8 @@ const columns = [
   { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, assignment_name, status, start_date, end_date, action) {
-  return { id, assignment_name, status, start_date, end_date, action };
+function createData(assignmentData, id, assignment_name, status, start_date, end_date, action) {
+  return { assignmentData, id, assignment_name, status, start_date, end_date, action };
 }
 
 const Assignments = ({
@@ -112,6 +112,7 @@ const Assignments = ({
     let arr = [];
     assignmentData?.map((assignment) => {
       row = createData(
+        assignment,
         assignment.ass_id,
         assignment.assignment_name,
         <StatusDot

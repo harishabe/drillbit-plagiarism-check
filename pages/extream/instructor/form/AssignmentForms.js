@@ -55,13 +55,12 @@ const useStyles = makeStyles((theme) => ({
 
 const AssignmentForms = ({
     CreateAssignment,
-    EditAssignment,
+    editData,
     isLoading,
 }) => {
     const classes = useStyles();
     const router = useRouter();
 
-    const [value, setValue] = React.useState(null);
     const [endDate, setEndDate] = React.useState(null);
     const [showSetting, setShowSetting] = React.useState(false);
     const [allowAssGrade, setAllowAssGrade] = React.useState(false);
@@ -88,8 +87,9 @@ const AssignmentForms = ({
     const [dailySubmissionLimit, setDailySubmissionLimit] = React.useState(0);
     const [disabledButton, setDisabledButton] = React.useState(false);
     const [errorMsgDBCheck, setErrorMsgDBCheck] = useState('');
+    const [btnLabel, setBtnLabel] = useState('Assignment Submit');
 
-    const { register, control, handleSubmit, formState: { errors } } = useForm();
+    const { register, control, handleSubmit, setValue, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
         let bodyFormData = new FormData();
@@ -201,6 +201,49 @@ const AssignmentForms = ({
         setInternet(ASSIGNMENT_SETTING_VALUE_YES);
         setRepository(ASSIGNMENT_SETTING_VALUE_YES);
     }, []);
+
+    useEffect(() => {
+        if (editData !== undefined) {
+            setShowSetting(true);
+            let a = {
+                'assignment_name': editData.assignment_name,
+                'end_date': editData.end_date,
+                'start_date': editData.start_date,
+                'marks': editData.assignmentData.marks,
+                'repository_scope': editData.assignmentData.repository_scope,
+                'no_of_resubmission': editData.assignmentData.resubmission_count
+            };
+            const fields = [
+                'assignment_name',
+                "end_date",
+                "start_date",
+                "marks",
+                "repository_scope",
+                "no_of_resubmission"
+            ];
+            fields.forEach(field => setValue(field, a[field]));
+
+            setDailySubmissionLimit(editData?.assignmentData?.submissions_limit);
+
+            setAllowAssGrade(editData?.assignmentData?.assignment_grading);
+            setExcludeRefBib(editData?.assignmentData?.ex_references);
+            setExcludeQuote(editData?.assignmentData?.ex_quotes);
+            setExcludeSmallSource(editData?.assignmentData?.ex_smallSources);
+            setSaveToRepo(editData?.assignmentData?.save_to_repository);
+            setAllowSubmission(editData?.assignmentData?.allow_resubmission);
+            setAllowSubmissionDueDate(editData?.assignmentData?.allow_submission_after_due);
+            setGrammarCheck(editData?.assignmentData?.grammar);
+            setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_NO);
+            setAddQuestion(editData?.assignmentData?.questions);
+            setExcludePhrases(editData?.assignmentData?.ex_phrases);
+            setReportAccess(editData?.assignmentData?.db_studentpaper);
+            setStudentPaper(editData?.assignmentData?.db_studentpaper);
+            setPublication(editData?.assignmentData?.db_publications);
+            setInternet(editData?.assignmentData?.db_internet);
+            setRepository(ASSIGNMENT_SETTING_VALUE_YES);
+            setBtnLabel('Assignment Edit')
+        }
+    }, [editData]);
 
 
     const handleSwitchChange = (event) => {
@@ -583,9 +626,9 @@ const AssignmentForms = ({
                                                 "validationMsg": "Please select repository scope",
                                                 "size": "small",
                                                 "options": [{
-                                                    "name": "Institution"
+                                                    "name": "LOCAL"
                                                 }, {
-                                                    "name": "Global"
+                                                    "name": "GLOBAL"
                                                 }]
                                             }}
                                         />
@@ -623,7 +666,8 @@ const AssignmentForms = ({
                                         "size": 'small',
                                         "label": "Enter no. of resubmission",
                                         "required": "Enter number of submission"
-                                    }} />
+                                    }}
+                                />
                             </>
                             }
                         </div>
@@ -864,6 +908,7 @@ const AssignmentForms = ({
                                     fullWidth
                                     name="daily_submissions_limit"
                                     size="small"
+                                    value={dailySubmissionLimit}
                                     onChange={(e) => setDailySubmissionLimit(e.target.value)}
                                 />
                             </Grid>
@@ -949,7 +994,7 @@ const AssignmentForms = ({
                 <InputButton field={{
                     "field_type": "button",
                     "type": "submit",
-                    "label": "Submit",
+                    "label": btnLabel,
                     "isDisabled": disabledButton
                 }}
                     isLoading={isLoading}
