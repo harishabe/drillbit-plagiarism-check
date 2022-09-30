@@ -134,7 +134,7 @@ const InstructorForm = ({
         } else if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date().getTime() < new Date(expiryDate).getTime())) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime() === false ? true : false;
+                    item['isDisabled'] = new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime() ? true : false;
                 }
                 return item;
             });
@@ -192,7 +192,7 @@ const InstructorForm = ({
             ];
             fields.forEach(field => setValue(field, a[field]));
             modifyFormField('Edit Instructor', true);
-            setEditOperation(true);
+            setEditOperation(true);           
         } else {
             let a = {
                 'expiry_date': convertDate(licenseExpiryDate?.license_expiry_date),
