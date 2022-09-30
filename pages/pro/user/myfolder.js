@@ -48,7 +48,8 @@ const MyFolder = ({
     DeleteFolder,
     myFolders,
     pageDetails,
-    isLoading
+    isLoading,
+    isLoadingFolder
 }) => {
 
     const [editFolder, setEditFolder] = useState(false);
@@ -191,7 +192,7 @@ const MyFolder = ({
                     title="Create Folder"
                     isShowAddIcon={ true }>
                     <MyFoldersForm
-                        isLoading={ isLoading }
+                        isLoadingFolder={ isLoadingFolder }
                     />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -227,6 +228,7 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.instructorMyFolders?.myFolders?.page,
     myFolders: state?.instructorMyFolders?.myFolders?._embedded?.foldersDTOList,
     isLoading: state?.instructorMyFolders?.isLoading,
+    isLoadingFolder: state?.instructorMyFolders?.isLoadingFolder,
 });
 
 const mapDispatchToProps = (dispatch) => {

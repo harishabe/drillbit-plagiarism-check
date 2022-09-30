@@ -12,7 +12,7 @@ import { ErrorMessageContainer } from '../../../style/index';
 import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/data/ErrorMessage';
 
 const MyFoldersForm = ({
-    isLoading,
+    isLoadingFolder,
     CreateFolder,
     EditFolder,
     editData,
@@ -201,7 +201,7 @@ const MyFoldersForm = ({
                                     key={i}
                                     field={field}
                                     control={control}
-                                    isLoading={isLoading}
+                                    isLoading={ isLoadingFolder }
                                 />
                             </Grid>
                         </>

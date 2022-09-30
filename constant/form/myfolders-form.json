@@ -35,7 +35,7 @@
         "field_type": "toggle",
         "id": "exclude_small_sources",
         "name": "exclude_small_sources",
-        "label": "Exclude small sources (less than 14 similarity words) *",
+        "label": "Exclude small sources *",
         "width":"22%",
         "options": [
             "YES",
