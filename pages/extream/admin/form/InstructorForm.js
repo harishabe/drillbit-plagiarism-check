@@ -90,10 +90,21 @@ const InstructorForm = ({
             }
         }
 
-        if (new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
+        if ((new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
-                    item['info'] = 'Expiry date should not greater than give date';
+                    item['info'] = 'Entered date should not greater than expiry date.';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if ((new Date().getTime() > new Date(expiryDate).getTime()) && !(new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = 'Entered date should not less than current date.';
                 }
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = true;
@@ -110,10 +121,20 @@ const InstructorForm = ({
             });
             setFormJsonField(fields);
         }
-        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
+
+        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar &&
+            new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = false;
+                    item['isDisabled'] = new Date().getTime() > new Date(expiryDate).getTime() ? true : false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date().getTime() < new Date(expiryDate).getTime())) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime() === false ? true : false;
                 }
                 return item;
             });
