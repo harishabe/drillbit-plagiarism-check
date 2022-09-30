@@ -23,7 +23,6 @@ import {
     UploadFileDataClear,
     UploadZipFileDataClear,
 } from '../../../redux/action/instructor/InstructorAction';
-import RepositaryForm from './form/RepositaryForm';
 import { formatDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
@@ -69,7 +68,6 @@ const Repository = ({
     repoData,
     pageDetails,
     isLoadingRepo,
-    isLoadingUpload,
     UploadFileDataClear,
     extractedFileData,
     uploadData,
@@ -217,9 +215,6 @@ const Repository = ({
                     navigateToMultiFile={ true }
                     handleNavigateMultiFile={ handleUploadFile }
                 >
-                    <RepositaryForm
-                        isLoadingUpload={ isLoadingUpload }
-                    />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -254,7 +249,6 @@ const mapStateToProps = (state) => ({
     repoData: state?.detailsData?.repoData?._embedded?.directRepositoryInboxList,
     pageDetails: state?.detailsData?.repoData?.page,
     isLoadingRepo: state?.detailsData?.isLoadingRepo,
-    isLoadingUpload: state?.detailsData?.isLoadingUpload,
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
     uploadData: state?.instructorMyFolders?.uploadData,
 });
