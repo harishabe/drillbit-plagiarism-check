@@ -120,6 +120,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/extream/instructor/addBulkStudent' && name === 'My Classes') {
             return true;
+        }else if (router.pathname === '/extream/admin/addBulkInstructor' && name === 'Instructors') {
+            return true;
         } else if (router.pathname === '/extream/instructor/mysubmissions' && name === 'My Classes') {
             return true;
         } else if (router.pathname === '/extream/instructor/uploadFile' && name === 'My Classes') {

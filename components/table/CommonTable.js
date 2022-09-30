@@ -66,7 +66,8 @@ const CommonTable = ({
 
     React.useEffect(() => {
         let selected = _.find(tableData, function (o) { return o.isSelected === true });
-        setAllSelected(selected);
+        console.log('selected',selected);
+        setAllSelected(selected?.isSelected?true:false);
     }, [tableData]);
 
     return (
@@ -76,7 +77,7 @@ const CommonTable = ({
                     <TableRow>
                         {isCheckbox &&
                             <TableCell padding="checkbox" className={classes.padding}>
-                                <Checkbox checked={allSelected} onChange={handleCheckboxSelect} />
+                                <Checkbox checked={allSelected} onChange={(e)=>handleCheckboxSelect(e,allSelected)} />
                             </TableCell>}
                         {tableHeader?.map((column) => (
                             <>

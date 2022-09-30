@@ -128,12 +128,12 @@ const Instructor = ({
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                            { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                            {
-                                'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                                'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                                'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
-                            }
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                        {
+                            'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                            'type': instructor.status === 'active' ? 'lock' : 'unlock',
+                            'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
+                        }
                         ]),
                     instructor.expiry_date,
                 );
@@ -249,16 +249,22 @@ const Instructor = ({
         setRows(rowData);
     }
 
-    const handleCheckboxSelect = () => {
-        let rowData = rows?.map((rowItem) => {
-            rowItem['isSelected'] = !rowItem['isSelected'];
-            return rowItem;
-        });
-        console.log("rowData", rowData)
-        setRows(rowData);
+    const handleCheckboxSelect = (e, value) => {
+        e.preventDefault();
+        if (value) {
+            let rowData = rows?.map((rowItem) => {
+                rowItem['isSelected'] = false;
+                return rowItem;
+            });
+            setRows(rowData);
+        } else {
+            let rowData = rows?.map((rowItem) => {
+                rowItem['isSelected'] = !rowItem['isSelected'];
+                return rowItem;
+            });
+            setRows(rowData);
+        }
     }
-
-
 
     const deleteAllInstructor = () => {
         let rowsId = '';
