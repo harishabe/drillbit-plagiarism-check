@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import debouce from "lodash.debounce";
-import { Skeleton, TextField, Pagination, IconButton } from '@mui/material';
+import { Grid, Tooltip, Skeleton, TextField, Pagination, IconButton } from '@mui/material';
 import {
     CardView,
     CommonTable,
@@ -290,9 +289,11 @@ const Students = ({
             <CardView>
                 <>
                     {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ marginLeft: '10px' }}>
+                        <Tooltip title='Delete' arrow>
                         <IconButton onClick={deleteAllInstructor}>
                             <DeleteIcon />
                         </IconButton>
+                        </Tooltip>
                     </div>}
 
                     <CommonTable
