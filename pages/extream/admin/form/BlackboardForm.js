@@ -37,10 +37,13 @@ const BlackboardForm = ({
         }
     };
 
-    const modifyFormField = (buttonLabel) => {
+    const modifyFormField = (buttonLabel, isNameDisabled) => {
         let formField = formJsonField?.map((field) => {
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
+            }
+            if (field.name === 'client_id') {
+                field.disabled = isNameDisabled;
             }
             return field;
         });

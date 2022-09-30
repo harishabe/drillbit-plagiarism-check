@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateFolder, EditFolder } from '../../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../../constant/form/pro-user-myfolders-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
+import { ErrorMessageContainer } from '../../../style/index';
+import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/data/ErrorMessage';
 
 const MyFoldersForm = ({
-    isLoading,
+    isLoadingFolder,
     CreateFolder,
     EditFolder,
     editData,
 }) => {
-
     const [formJsonField, setFormJsonField] = useState(FormJson);
 
     const [editOperation, setEditOperation] = useState(false);
+
+    const [errorMsgDBCheck, setErrorMsgDBCheck] = useState('');
 
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
@@ -26,7 +29,6 @@ const MyFoldersForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            // data['end_date'] = convertDate(data.expiry_date);
             data['exclude_reference'] = data.exclude_reference;
             data['exclude_quotes'] = data.exclude_quotes;
             data['exclude_small_sources'] = data.exclude_small_sources;
@@ -36,12 +38,10 @@ const MyFoldersForm = ({
             data['db_publications'] = data.db_publications;
             data['db_internet'] = data.db_internet;
             data['institution_repository'] = data.institution_repository;
-            // delete data.expiry_date;
             EditFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + editData?.folder_id, data);
         } else {
             let Detaileddata = {
                 ...data,
-                // 'end_date': convertDate(data.expiry_date),
                 'exclude_reference': data.exclude_reference,
                 'exclude_quotes': data.exclude_quotes,
                 'exclude_small_sources': data.exclude_small_sources,
@@ -52,7 +52,6 @@ const MyFoldersForm = ({
                 'db_internet': data.db_internet,
                 'institution_repository': data.institution_repository,
             }
-            // delete Detaileddata.expiry_date;
             CreateFolder(BASE_URL_PRO + END_POINTS_PRO.CREATE_FOLDER, Detaileddata);
         }
     };
@@ -62,9 +61,6 @@ const MyFoldersForm = ({
             if (field.name === 'folder_name') {
                 field.disabled = isNameDisabled;
             }
-            // if (field.name === 'end_date') {
-            //     field.minDate = false;
-            // }
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
             }
@@ -75,15 +71,13 @@ const MyFoldersForm = ({
 
     useEffect(() => {
         if (editData) {
-            console.log("editData", editData)
             let a = {
                 'folder_name': editData.folder_name,
-                // 'expiry_date': convertDate(editData.end_date),
-                'exclude_reference': editData.ex_references,
-                'exclude_quotes': editData.ex_quotes,
-                'exclude_small_sources': editData.small_sources,
-                'grammar_check': editData.grammar,
-                'exclude_phrases': editData.ex_phrases,
+                'exclude_reference': editData.excludeReferences,
+                'exclude_quotes': editData.excludeQuotes,
+                'exclude_small_sources': editData.excludeSmallSources,
+                'grammar_check': editData.grammarCheck,
+                'exclude_phrases': editData.excludePhrases,
                 'db_studentpaper': editData.db_studentpaper,
                 'db_publications': editData.db_publications,
                 'db_internet': editData.db_internet,
@@ -91,7 +85,6 @@ const MyFoldersForm = ({
             };
             const fields = [
                 'folder_name',
-                // 'expiry_date',
                 "exclude_reference",
                 "exclude_quotes",
                 "exclude_small_sources",
@@ -110,6 +103,89 @@ const MyFoldersForm = ({
         }
     }, [editData]);
 
+    const db_studentpaper = useWatch({
+        control,
+        name: "db_studentpaper",
+    });
+
+    const db_publications = useWatch({
+        control,
+        name: "db_publications",
+    });
+
+    const db_internet = useWatch({
+        control,
+        name: "db_internet",
+    });
+
+    const institution_repository = useWatch({
+        control,
+        name: "institution_repository",
+    });
+
+    useEffect(() => {
+        if (editData) {
+            if (editData.db_studentpaper === 'YES' || editData.db_publications === 'YES' || editData.db_internet === 'YES' || editData.institution_repository === 'YES') {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setErrorMsgDBCheck('');
+                setFormJsonField(fields);
+            }
+        } else {
+            if (db_studentpaper === 'YES' || db_publications === 'YES' || db_internet === 'YES' || institution_repository === 'YES') {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setErrorMsgDBCheck('');
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setErrorMsgDBCheck(DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK);
+                setFormJsonField(fields);
+            }
+        }
+    }, [db_studentpaper, db_publications, db_internet, institution_repository]);
+
+    useEffect(() => {
+        if (editData === undefined) {
+            let a = {
+                'exclude_reference': 'NO',
+                'exclude_quotes': 'NO',
+                'exclude_small_sources': 'NO',
+                'grammar_check': 'NO',
+                'exclude_phrases': 'NO',
+                'db_studentpaper': 'YES',
+                'db_publications': 'YES',
+                'db_internet': 'YES',
+                'institution_repository': 'YES',
+            };
+            const fields = [
+                "exclude_reference",
+                "exclude_quotes",
+                "exclude_small_sources",
+                "grammar_check",
+                "exclude_phrases",
+                "db_studentpaper",
+                "db_publications",
+                "db_internet",
+                "institution_repository",
+            ];
+            fields.forEach(field => setValue(field, a[field]));
+        }
+    }, []);
+
     return (
         <>
             <div style={ { textAlign: 'center' } }>
@@ -118,17 +194,22 @@ const MyFoldersForm = ({
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
                     { FormJson?.map((field, i) => (
-                        <Grid md={ 12 } style={ { marginLeft: '8px' } }>
-                            <FormComponent
-                                key={ i }
-                                field={ field }
-                                control={ control }
-                                isLoading={ isLoading }
-                            />
-                        </Grid>
+                        <>
+                            <Grid md={ 12 } style={ { marginLeft: '8px' } }>
+                                <FormComponent
+                                    key={ i }
+                                    field={ field }
+                                    control={ control }
+                                    isLoading={ isLoadingFolder }
+                                />
+                            </Grid>
+                        </>
                     )) }
                 </Grid>
             </form>
+            <div style={ { marginBottom: '15px' } }>
+                { errorMsgDBCheck !== '' ? <ErrorMessageContainer>{ errorMsgDBCheck }</ErrorMessageContainer> : '' }
+            </div>
         </>
     )
 }

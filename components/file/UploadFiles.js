@@ -94,7 +94,7 @@ const UploadFiles = ({
 
     const singleFileUploadRepository = (files, data) => {
         let bodyFormData = new FormData();
-        bodyFormData.append('name', data.authorName0);
+        bodyFormData.append((router.route.includes('pro/admin')) ? 'author_name' : 'name', data.authorName0);
         bodyFormData.append('title', data.title0);
         bodyFormData.append('year', data.year0);
         bodyFormData.append('repository', data.repository0 === 'Institution' ? 'LOCAL' : 'GLOBAL');

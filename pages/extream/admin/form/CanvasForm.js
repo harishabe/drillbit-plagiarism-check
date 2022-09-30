@@ -37,10 +37,13 @@ const CanvasForm = ({
         }
     };
 
-    const modifyFormField = (buttonLabel) => {
+    const modifyFormField = (buttonLabel, isNameDisabled) => {
         let formField = formJsonField?.map((field) => {
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
+            }
+            if (field.name === 'client_id') {
+                field.disabled = isNameDisabled;
             }
             return field;
         });
@@ -54,7 +57,7 @@ const CanvasForm = ({
                 'client_id': editData?.client_id,
                 'auth_end_point': editData?.auth_end_point,
                 'access_end_point': editData?.access_end_point,
-                'method': editData?.method?.name,
+                'method': editData?.method,
                 'keyset_end_point': editData?.keyset_end_point,
             };
             const fields = [
