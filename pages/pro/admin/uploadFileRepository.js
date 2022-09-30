@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Box } from '@mui/material';
-import ProUser from '../../../layouts/ProUser';
+import ProAdmin from '../../../layouts/ProAdmin';
 import {
     BreadCrumb,
     TabMenu,
@@ -10,30 +10,27 @@ import {
 } from '../../../components';
 import {
     UploadFileIcon,
+    GoogleDriveIcon
 } from '../../../assets/icon';
-import Router, { useRouter } from "next/router";
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
 
-const UploadFileFolderSubmission = () => {
-    const router = useRouter();
-    console.log("router", router.query.folderId)
-    const handleAPI = () => {
+const uploadFileRepository = () => {
+    const [activeTab, setActiveTab] = useState(0);
+
+    const handleAPI = (value) => {
+        setActiveTab(value);
     }
 
-    const UserBreadCrumb = [
+    const AdminBreadCrumb = [
         {
             name: 'Dashboard',
-            link: '/pro/user/dashboard',
+            link: '/pro/admin/dashboard',
             active: false,
         },
         {
-            name: 'My folder',
-            link: '/pro/user/myfolder',
-            active: false,
-        },
-        {
-            name: router.query.name,
-            link: '/pro/user/folderSubmission' + router?.asPath?.slice(router?.pathname?.length),
+            name: 'Repository',
+            link: '/pro/admin/repository',
             active: false,
         },
         {
@@ -57,17 +54,17 @@ const UploadFileFolderSubmission = () => {
 
     const componentList = [
         <UploadFiles
+            isRepository={ true }
             choseFileTitle='browse your file here'
             fileIcon={ < UploadFileIcon /> }
-            singleFileUploadAPI={ BASE_URL_PRO + `/myFolder/${router.query.folderId}/singleFile` }
-            multiFileUploadAPI={ BASE_URL_PRO + `/myFolder/${router.query.folderId}/multipleFiles` }
-            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
+            singleFileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD_SINGLE_FILE }
+            multiFileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD_MULTIPLE_FILE }
+            routerObj={ { pathname: '/pro/admin/repository' } }
         />,
         <GDriveFileUpload />,
         <ZipFileUpload
-            zipFileUploadAPI={ BASE_URL_PRO + `/folder/${router.query.folderId}/zipFile` }
-            confirmZipFileAPI={ BASE_URL_PRO + `/folder/${router.query.folderId}/confirmZipFile` }
-            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
+            zipFileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD_ZIP }
+            routerObj={ { pathname: '/pro/admin/repository' } }
         />
     ];
 
@@ -77,7 +74,7 @@ const UploadFileFolderSubmission = () => {
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 10 } xs={ 10 }>
                         <BreadCrumb
-                            item={ UserBreadCrumb }
+                            item={ AdminBreadCrumb }
                         />
                     </Grid>
                 </Grid>
@@ -95,10 +92,10 @@ const UploadFileFolderSubmission = () => {
     )
 };
 
-UploadFileFolderSubmission.propTypes = {
+uploadFileRepository.propTypes = {
 
 }
 
-UploadFileFolderSubmission.layout = ProUser;
+uploadFileRepository.layout = ProAdmin;
 
-export default UploadFileFolderSubmission;
+export default uploadFileRepository;

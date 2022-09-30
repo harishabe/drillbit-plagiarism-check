@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import { TextField } from '@mui/material'
 import { Pagination } from '@mui/material';
+import { useRouter } from "next/router";
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     BreadCrumb,
@@ -18,7 +19,10 @@ import {
 import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
 import ProAdmin from '../../../layouts/ProAdmin';
 import { GetRepoList, RemoveRepositary } from '../../../redux/action/admin/AdminAction';
-import RepositaryForm from './form/RepositaryForm';
+import {
+    UploadFileDataClear,
+    UploadZipFileDataClear,
+} from '../../../redux/action/instructor/InstructorAction';
 import { formatDate } from '../../../utils/RegExp';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
@@ -63,9 +67,14 @@ const Repository = ({
     RemoveRepositary,
     repoData,
     pageDetails,
-    isLoadingRepo
+    isLoadingRepo,
+    UploadFileDataClear,
+    UploadZipFileDataClear,
+    extractedFileData,
+    uploadData,
 }) => {
 
+    const router = useRouter();
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -147,6 +156,19 @@ const Repository = ({
 
     /** end debounce concepts */
 
+    /**
+    * file upload single, multiple and zip file
+    */
+    const handleUploadFile = () => {
+        if (extractedFileData) {
+            UploadFileDataClear();
+        }
+        if (uploadData) {
+            UploadZipFileDataClear();
+        }
+        router.push({ pathname: '/pro/admin/uploadFileRepository' })
+    }
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -189,10 +211,11 @@ const Repository = ({
 
             <AddButtonBottom>
                 <CreateDrawer
+                    title="Upload File"
                     isShowAddIcon={ true }
-                    title='Upload File'
+                    navigateToMultiFile={ true }
+                    handleNavigateMultiFile={ handleUploadFile }
                 >
-                    <RepositaryForm />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -227,12 +250,16 @@ const mapStateToProps = (state) => ({
     repoData: state?.detailsData?.repoData?._embedded?.directRepositoryInboxList,
     pageDetails: state?.detailsData?.repoData?.page,
     isLoadingRepo: state?.detailsData?.isLoadingRepo,
+    extractedFileData: state?.instructorMyFolders?.extractedFileData,
+    uploadData: state?.instructorMyFolders?.uploadData,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetRepoList: (url, PaginationValue) => dispatch(GetRepoList(url, PaginationValue)),
         RemoveRepositary: (url) => dispatch(RemoveRepositary(url)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };
 };
 
