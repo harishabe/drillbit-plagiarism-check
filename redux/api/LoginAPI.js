@@ -13,11 +13,21 @@ export const login = (query) => {
 };
 
 /**
- * API CALL FOR LOGIN 
+ * API CALL FOR FORGET PASSWORD 
  * @param {*} query
  */
 
 export const forgetPassword = (query) => {
     const url = BASE_URL + END_POINTS.FORGET_PASSWORD;
+    return LoginPostMethod(url, query);
+};
+
+/**
+ * API CALL FOR RESET PASSWORD 
+ * @param {*} query
+ */
+
+export const resetPassword = (query) => {
+    const url = BASE_URL + END_POINTS.RESET_PASSWORD;
     return LoginPostMethod(url, query);
 };

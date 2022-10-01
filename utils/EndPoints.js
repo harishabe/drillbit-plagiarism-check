@@ -1,6 +1,7 @@
 const END_POINTS = {
     LOGIN: '/authentication/authenticate',
     FORGET_PASSWORD: '/authentication/forgotPassword',
+    RESET_PASSWORD: '/authentication/saveNewPassword',
     ADMIN_DASHBOARD_WIDGET: '/extreme/admin/dashboard',
     ADMIN_TOP_STUDENT: '/extreme/admin/topStudents',
     ADMIN_TREND_ANALYSIS: '/extreme/admin/trendAnalysis',

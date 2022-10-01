@@ -38,7 +38,7 @@ const ForgotPwdForm = ({
 
 const mapStateToProps = (state) => ({
     loginState: state?.login?.data,
-    isLoading: state?.login?.isLoading
+    isLoading: state?.login?.isLoadingForgetPwd
 });
 
 const mapDispatchToProps = (dispatch) => {

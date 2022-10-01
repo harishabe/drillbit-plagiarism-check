@@ -1,5 +1,5 @@
 import { all, fork } from 'redux-saga/effects';
-import { userLogin, userForgetPassword } from './login/Login';
+import { userLogin, userForgetPassword, userResetPassword } from './login/Login';
 import { DashboardWidget, TopStudent, TrendAnalysis, GetRenewalValidity } from './admin/Dashboard';
 import {
     GetDownloadFileData,
@@ -99,6 +99,7 @@ import {
 const saga = [
     fork(userLogin),
     fork(userForgetPassword),
+    fork(userResetPassword),
     fork(profileDetails),
     fork(profileLogoSubmission),
     fork(profileChangePassword),

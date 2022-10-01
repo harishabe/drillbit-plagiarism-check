@@ -5,35 +5,52 @@ const LoginReducer = (state = {}, action) => {
         case types.FETCH_LOGIN_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingLogin: true,
             };
         case types.FETCH_LOGIN_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingLogin: false,
                 data: action.payload
             };
         case types.FETCH_LOGIN_FAIL:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingLogin: false,
                 error: action.payload
             };
         case types.FETCH_FORGET_PASSWORD_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingForgetPwd: true,
             };
         case types.FETCH_FORGET_PASSWORD_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingForgetPwd: false,
                 data: action.payload
             };
         case types.FETCH_FORGET_PASSWORD_FAIL:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingForgetPwd: false,
+                error: action.payload
+            };
+        case types.FETCH_RESET_PASSWORD_START:
+            return {
+                ...state,
+                isLoadingResetPwd: true,
+            };
+        case types.FETCH_RESET_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                isLoadingResetPwd: false,
+                data: action.payload
+            };
+        case types.FETCH_RESET_PASSWORD_FAIL:
+            return {
+                ...state,
+                isLoadingResetPwd: false,
                 error: action.payload
             };
         default:
