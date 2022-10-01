@@ -29,9 +29,10 @@ export const UPLOAD_FILE_REPOSITORY_TYPE = "Repository type is required";
 export const UPLOAD_FILE_LANGUAGE = "Language is required";
 
 /**
- * Confirm password
+ * Confirm and Reset password
  */
 export const CONFIRM_PASSWORD_NOT_VALID = "Passwords do not match";
+export const RESET_PASSWORD_NOT_VALID = "New password and Confirm password does not match";
 
 /**
  * Instructor > my classes

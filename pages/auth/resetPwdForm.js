@@ -6,7 +6,7 @@ import { FormComponent } from '../../components';
 import FormJson from '../../constant/form/reset-password-form.json';
 import { ResetPassword } from '../../redux/action/login/LoginAction';
 import { ErrorMessageContainer } from '../style/index';
-import { CONFIRM_PASSWORD_NOT_VALID } from '../../constant/data/ErrorMessage';
+import { RESET_PASSWORD_NOT_VALID } from '../../constant/data/ErrorMessage';
 
 const ResetPwdForm = ({
     ResetPassword,
@@ -76,7 +76,7 @@ const ResetPwdForm = ({
                         (confirmPassword !== '' && newPassword !== '') &&
                         (confirmPassword !== newPassword)
                     ) ?
-                        <ErrorMessageContainer>{ CONFIRM_PASSWORD_NOT_VALID }</ErrorMessageContainer>
+                        <ErrorMessageContainer>{ RESET_PASSWORD_NOT_VALID }</ErrorMessageContainer>
                         : ''
                 }
             </form>
