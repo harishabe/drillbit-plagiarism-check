@@ -154,9 +154,9 @@ const InstructorForm = ({
 
     const modifyFormField = (buttonLabel, isEmailDisabled) => {
         let formField = formJsonField?.map((field) => {
-            if (field.name === 'expiry_date') {
-                field.minDate = false;
-            }
+            // if (field.name === 'expiry_date') {
+            //     field.minDate = false;
+            // }
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
             }
