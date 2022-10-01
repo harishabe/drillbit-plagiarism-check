@@ -13,6 +13,7 @@ import {
 } from '../../../assets/icon';
 import Router, { useRouter } from "next/router";
 import { BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
+import { UPLOAD_TITLE_CONSTANT } from '../../../constant/data/Constant';
 
 const UploadFileFolderSubmission = () => {
     const router = useRouter();
@@ -57,13 +58,15 @@ const UploadFileFolderSubmission = () => {
     const componentList = [
         <UploadFiles
             choseFileTitle='browse your file here'
+            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             fileIcon={ < UploadFileIcon /> }
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/singleFile` }
             multiFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/multipleFiles` }
             routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />,
-        <GDriveFileUpload />,
+        <GDriveFileUpload title={ UPLOAD_TITLE_CONSTANT.SUBMISSION } />,
         <ZipFileUpload
+            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             zipFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/zipFile` }
             confirmZipFileAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/confirmZipFile` }
             routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }

@@ -14,6 +14,7 @@ import {
 } from '../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+import { UPLOAD_TITLE_CONSTANT } from '../../../constant/data/Constant';
 
 const uploadFileRepository = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -56,14 +57,16 @@ const uploadFileRepository = () => {
         <UploadFiles
             isRepository={ true }
             choseFileTitle='browse your file here'
+            title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             fileIcon={ < UploadFileIcon /> }
             singleFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_SINGLE_FILE }
             multiFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_MULTIPLE_FILE }
             routerObj={ { pathname: '/extream/instructor/repository' } }
         />,
-        <GDriveFileUpload />,
+        <GDriveFileUpload title={ UPLOAD_TITLE_CONSTANT.REPOSITORY } />,
         <ZipFileUpload
             isRepository={ true }
+            title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             zipFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_ZIP }
             routerObj={ { pathname: '/extream/instructor/repository' } }
         />

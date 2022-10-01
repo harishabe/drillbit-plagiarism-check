@@ -38,7 +38,8 @@ const UploadFiles = ({
     singleFileUploadAPI,
     multiFileUploadAPI,
     routerObj,
-    isRepository
+    isRepository,
+    title
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -156,7 +157,7 @@ const UploadFiles = ({
                 <ContentCenter>
                     <Title
                         color='#020B50'
-                        title='Upload your files here to check plagiarism'
+                        title={ title }
                     />
                 </ContentCenter>
                 <DragAreaPadding>
