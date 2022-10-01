@@ -209,12 +209,21 @@ const folderSubmission = ({
         };
     });
 
-    const handleCheckboxSelect = () => {
-        let rowData = rows?.map((rowItem) => {
-            rowItem['isSelected'] = !rowItem['isSelected'];
-            return rowItem;
-        });
-        setRows(rowData);
+    const handleCheckboxSelect = (e, value) => {
+        e.preventDefault();
+        if (value) {
+            let rowData = rows?.map((rowItem) => {
+                rowItem['isSelected'] = false;
+                return rowItem;
+            });
+            setRows(rowData);
+        } else {
+            let rowData = rows?.map((rowItem) => {
+                rowItem['isSelected'] = !rowItem['isSelected'];
+                return rowItem;
+            });
+            setRows(rowData);
+        }
     }
 
     const handleSingleSelect = (e, row) => {
@@ -325,9 +334,11 @@ const folderSubmission = ({
             <CardView>
 
                 { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'right' } }>
+                    <Tooltip title='Delete' arrow>
                     <IconButton onClick={ deleteAllSubmission }>
                         <DeleteIcon />
                     </IconButton>
+                    </Tooltip>
                 </div> }
 
                 <CommonTable

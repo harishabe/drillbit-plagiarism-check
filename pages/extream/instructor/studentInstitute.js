@@ -85,12 +85,21 @@ function StudentInstitute({
         setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
-    const handleCheckboxSelect = () => {
-        let rowData = data?.map((rowItem) => {
-            rowItem['isSelected'] = !rowItem['isSelected'];
-            return rowItem;
-        });
-        setData(rowData);
+    const handleCheckboxSelect = (e, value) => {
+        e.preventDefault();
+        if (value) {
+            let rowData = data?.map((rowItem) => {
+                rowItem['isSelected'] = false;
+                return rowItem;
+            });
+            setData(rowData);
+        } else {
+            let rowData = data?.map((rowItem) => {
+                rowItem['isSelected'] = !rowItem['isSelected'];
+                return rowItem;
+            });
+            setData(rowData);
+        }
     }
 
     const handleSingleSelect = (e, row) => {
