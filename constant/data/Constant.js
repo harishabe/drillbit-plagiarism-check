@@ -86,3 +86,8 @@ export const DOWNLOAD_CSV = {
 
 export const INSTRUCTOR_TEMPLATE_TITLE = 'Multiple_Instructor_Upload_Template';
 export const USER_TEMPLATE_TITLE = 'Multiple_User_Upload_Template';
+
+export const UPLOAD_TITLE_CONSTANT = {
+    'REPOSITORY': 'Upload Files to the Repository',
+    'SUBMISSION': 'Upload Files For Plagiarism Check',
+}

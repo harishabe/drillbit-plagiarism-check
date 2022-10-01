@@ -20,6 +20,7 @@ import {
 
 const GDriveFileUpload = ({
     isLoadingUpload,
+    title
 }) => {
     const [driveFile, setDriveFile] = useState('');
     const [driveFilePayload, setDriveFilePayload] = useState('');
@@ -67,7 +68,7 @@ const GDriveFileUpload = ({
             <ContentCenter>
                 <Title
                     color='#020B50'
-                    title='Upload your files here to check plagiarism'
+                    title={ title }
                 />
                 <DragAreaPadding>
                     <Grid container spacing={1}>

@@ -32,7 +32,7 @@ drillbit.regional@gmail.com |     H9NLPX12             |
 Pro users 
 ---------------------------------------------------------------------------------
 jayanna.belavadi@drillbitplagiarism.com      star1234@                      lim-admin
-sagar.t@drillbitplagiarism.com               Bit@1234                       lim-instructor
+sagar.t@drillbitplagiarism.com               123456                      lim-instructor
 ---------------------------------------------------------------------------------
 
 Existing app 
