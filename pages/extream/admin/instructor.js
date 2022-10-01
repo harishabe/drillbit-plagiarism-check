@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import debouce from "lodash.debounce";
-import { Grid, Tooltip, Skeleton } from '@mui/material';
+import { Grid, Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
 import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
@@ -16,12 +16,9 @@ import {
     MainHeading,
     StatusDot,
     BreadCrumb,
-    ErrorBlock,
-    AvatarName,
     CreateDrawer,
     WarningDialog,
     DialogModal,
-    SubTitle
 } from '../../../components';
 import {
     EditIcon,
@@ -101,7 +98,7 @@ const Instructor = ({
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
-        field: 'user_id',
+        field: PaginationValue?.field,
         orderBy: PaginationValue?.orderBy,
     });
     const [editInstructor, setEditInstructor] = useState(false);
@@ -117,7 +114,6 @@ const Instructor = ({
         instructorData?.map((instructor) => {
             row =
                 createData(
-                    // <AvatarName avatarText="I" title={instructor.id} color='#4795EE' />,
                     instructor.id,
                     instructor.name,
                     instructor.username,

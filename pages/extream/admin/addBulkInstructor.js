@@ -68,7 +68,7 @@ const InstructorBreadCrumb = [
     },
     {
         name: 'Add Multiple Instructors',
-        link: '/extream/admin/addBulkInstructor',
+        link: '',
         active: true,
     },
 ];

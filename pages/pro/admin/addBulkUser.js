@@ -73,7 +73,7 @@ const UserBreadCrumb = [
     },
 ];
 
-const addBulkUser = ({
+const AddBulkUser = ({
     DownloadTemplate,
     UploadFile,
     isLoadingTemplate,
@@ -206,13 +206,13 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-addBulkUser.layout = ProAdmin;
+AddBulkUser.layout = ProAdmin;
 
-addBulkUser.propTypes = {
+AddBulkUser.propTypes = {
     DownloadTemplate: propTypes.func.isRequired,
     UploadFile: propTypes.func.isRequired,
     isLoadingTemplate: propTypes.bool,
     isLoadingInstructorFileUpload: propTypes.bool,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(addBulkUser);
+export default connect(mapStateToProps, mapDispatchToProps)(AddBulkUser);

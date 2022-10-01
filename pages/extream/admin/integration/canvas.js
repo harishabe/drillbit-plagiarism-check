@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { Grid, Box, Skeleton } from '@mui/material';
 import Admin from './../../../../layouts/Admin';
 import {
@@ -21,7 +21,7 @@ const Canvas = ({
     isLoadingUpload
 }) => {
 
-    const router = useRouter();
+    // const router = useRouter();
     const [form, setForm] = useState(false);
 
     const InstructorBreadCrumb = [
@@ -73,7 +73,7 @@ const Canvas = ({
                             {
                                 integrationData &&
                                 <IntegrationTypeDetail
-                                    routerData={ router?.query }
+                                    // routerData={ router?.query }
                                     integrationData={ integrationData }
                                     handleConfig={ handleConfig }
                                     isCanvasTrue={ true }

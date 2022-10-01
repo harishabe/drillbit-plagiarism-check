@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
 import { Grid, Box, Skeleton } from '@mui/material';
 import ProAdmin from './../../../../layouts/ProAdmin';
 import {
@@ -20,8 +19,6 @@ const BlackBoard = ({
     isLoading,
     isLoadingUpload
 }) => {
-
-    const router = useRouter();
     const [form, setForm] = useState(false);
 
     const InstructorBreadCrumb = [
@@ -72,7 +69,6 @@ const BlackBoard = ({
                             {
                                 integrationData &&
                                 <IntegrationTypeDetail
-                                    routerData={ router?.query }
                                     integrationData={ integrationData }
                                     handleConfig={ handleConfig }
                                     isBlackboardTrue={ true }

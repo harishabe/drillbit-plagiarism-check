@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
 import { Grid, Box, Skeleton } from '@mui/material';
 import Admin from './../../../../layouts/Admin';
 import {
@@ -71,7 +70,6 @@ const Moodle = ({
                         <Grid item md={ 12 } xs={ 12 }>
                             {
                                 integrationData && <IntegrationTypeDetail
-                                    routerData={ router?.query }
                                     integrationData={ integrationData }
                                     handleConfig={ handleConfig }
                                     isMoodleTrue={ true }

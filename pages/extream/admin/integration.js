@@ -91,11 +91,11 @@ const Integration = ({
             ...checked,
             [event.target.name]: event.target.checked,
         })
-        if (event.target.name === 'MOODLE') {
+        if (event.target.name === ADMIN_INTEGRATION_MOODLE) {
             setShowMoodle(true)
-        } else if (event.target.name === 'CANVAS') {
+        } else if (event.target.name === ADMIN_INTEGRATION_CANVAS) {
             setShowCanvas(true)
-        } else if (event.target.name === 'BLACKBOARD') {
+        } else if (event.target.name === ADMIN_INTEGRATION_BLACKBOARD) {
             setShowBlackboard(true)
         }
     }
