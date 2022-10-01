@@ -60,7 +60,7 @@ export default function MyApp(props) {
             setAuthorized(false);
             router.push({
                 pathname: '/auth/login',
-                query: { returnUrl: router.asPath }
+                //query: { returnUrl: router.asPath }
             });
         } else {
             setAuthorized(true);

@@ -130,18 +130,18 @@ const NavBar = ({
                             <Toolbar>
                                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                                     <Tooltip title='Menu' arrow>
-                                    <IconButton
-                                        color="inherit"
-                                        aria-label="open drawer"
-                                        onClick={handleDrawerOpen}
-                                        edge="start"
-                                        sx={{
-                                            marginRight: 5,
-                                            ...(open && { display: 'block' }),
-                                        }}
-                                    >
-                                        <ToggleBarIcon />
-                                    </IconButton>
+                                        <IconButton
+                                            color="inherit"
+                                            aria-label="open drawer"
+                                            onClick={handleDrawerOpen}
+                                            edge="start"
+                                            sx={{
+                                                marginRight: 5,
+                                                ...(open && { display: 'block' }),
+                                            }}
+                                        >
+                                            <ToggleBarIcon />
+                                        </IconButton>
                                     </Tooltip>
                                 </Box>
                                 <Box sx={{ flexGrow: 1 }} />
@@ -152,7 +152,7 @@ const NavBar = ({
                                             {name !== undefined ? <EllipsisText value={name} charLength={12} /> : <Skeleton />}
                                         </div>
                                         <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right' }}>
-                                            {role?.charAt(0)?.toUpperCase() + role?.slice(1)}
+                                            {switchRole !== null ? switchRole?.charAt(0)?.toUpperCase() + switchRole?.slice(1) : role?.charAt(0)?.toUpperCase() + role?.slice(1)}
                                         </div>
                                     </div>
 
