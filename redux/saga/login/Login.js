@@ -2,7 +2,8 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../action/ActionType';
 import {
     login,
-    forgetPassword
+    forgetPassword,
+    resetPassword
 } from '../../api/LoginAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 
@@ -26,7 +27,7 @@ export function* userLogin() {
 }
 
 /**
- * User Login
+ * Forget Password
  * @param {*} action
  */
 
@@ -43,4 +44,24 @@ export function* onLoadforgetPassword(action) {
 
 export function* userForgetPassword() {
     yield takeLatest(types.FETCH_FORGET_PASSWORD_START, onLoadforgetPassword);
+}
+
+/**
+ * Reset Password
+ * @param {*} action
+ */
+
+export function* onLoadResetPassword(action) {
+    const { response, error } = yield call(resetPassword, action.query);
+    if (response) {
+        yield put({ type: types.FETCH_RESET_PASSWORD_SUCCESS, payload: response?.data });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_RESET_PASSWORD_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* userResetPassword() {
+    yield takeLatest(types.FETCH_RESET_PASSWORD_START, onLoadResetPassword);
 }

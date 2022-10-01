@@ -9,7 +9,7 @@ import {
     BannerContainer,
     ImgContainer
 } from './login-style';
-import ForgotPwdForm from './forgotPwdForm';
+import ResetPwdForm from './ResetPwdForm';
 import { Heading, SubTitle, MainHeading } from '../../components';
 import { DrillBitLogo, DrillBitLogoIcon } from '../../assets/icon';
 import {
@@ -19,7 +19,7 @@ import {
     LOGIN_CREATE_ACCOUNT
 } from '../../constant/data/content';
 
-const ForgotPwd = () => {
+const ResetPwd = () => {
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
@@ -40,7 +40,7 @@ const ForgotPwd = () => {
                     <Grid item md={5} style={{ width: '100%' }}>
                         <LoginContainer>
                             <MainHeading mb={'20px'} title='Reset Password' />
-                            <ForgotPwdForm />
+                            <ResetPwdForm />
                             <div align='center'>
                                 <InputLabel>
                                     <Link href="/auth/login"> « Back to login</Link>
@@ -54,4 +54,4 @@ const ForgotPwd = () => {
     )
 }
 
-export default ForgotPwd;
+export default ResetPwd;
