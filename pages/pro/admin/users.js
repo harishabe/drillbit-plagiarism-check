@@ -238,12 +238,21 @@ const Users = ({
         setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
-    const handleCheckboxSelect = () => {
-        let rowData = rows?.map((rowItem) => {
-            rowItem['isSelected'] = !rowItem['isSelected'];
-            return rowItem;
-        });
-        setRows(rowData);
+    const handleCheckboxSelect = (e, value) => {
+        e.preventDefault();
+        if (value) {
+            let rowData = rows?.map((rowItem) => {
+                rowItem['isSelected'] = false;
+                return rowItem;
+            });
+            setRows(rowData);
+        } else {
+            let rowData = rows?.map((rowItem) => {
+                rowItem['isSelected'] = !rowItem['isSelected'];
+                return rowItem;
+            });
+            setRows(rowData);
+        }
     }
 
     const handleSingleSelect = (e, row) => {

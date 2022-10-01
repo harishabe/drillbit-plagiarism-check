@@ -12,11 +12,10 @@ import {
     UploadFileIcon,
 } from '../../../assets/icon';
 import Router, { useRouter } from "next/router";
-import { BASE_URL_PRO } from '../../../utils/BaseUrl';
+import { BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 
 const UploadFileFolderSubmission = () => {
     const router = useRouter();
-    console.log("router", router.query.folderId)
     const handleAPI = () => {
     }
 
@@ -59,14 +58,14 @@ const UploadFileFolderSubmission = () => {
         <UploadFiles
             choseFileTitle='browse your file here'
             fileIcon={ < UploadFileIcon /> }
-            singleFileUploadAPI={ BASE_URL_PRO + `/myFolder/${router.query.folderId}/singleFile` }
-            multiFileUploadAPI={ BASE_URL_PRO + `/myFolder/${router.query.folderId}/multipleFiles` }
+            singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/singleFile` }
+            multiFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/multipleFiles` }
             routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />,
         <GDriveFileUpload />,
         <ZipFileUpload
-            zipFileUploadAPI={ BASE_URL_PRO + `/folder/${router.query.folderId}/zipFile` }
-            confirmZipFileAPI={ BASE_URL_PRO + `/folder/${router.query.folderId}/confirmZipFile` }
+            zipFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/zipFile` }
+            confirmZipFileAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/confirmZipFile` }
             routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />
     ];
