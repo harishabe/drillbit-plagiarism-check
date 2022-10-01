@@ -44,6 +44,13 @@ const InputTextField = ({
         // if (field.type === 'password') {
         //     setRegex(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g)
         // }
+
+        if (field.name === 'newPassword') {
+            setRegex(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g);
+        }
+        if (field.name === 'confirmPassword') {
+            setRegex(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g);
+        }
     }, [field])
 
     return (
@@ -74,7 +81,7 @@ const InputTextField = ({
                         name={field.name}
                         id={field.name}
                         variant="outlined"
-                        helperText={error ? error.message : field.info}    
+                        helperText={error ? error.message : field.info}
                         FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
                     />
                 )}

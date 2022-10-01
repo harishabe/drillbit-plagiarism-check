@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Instructor from '../../../../layouts/Instructor';
-import { CardView, CommonTable, ErrorBlock, SimilarityStatus } from '../../../../components';
+import { CardView, CommonTable, ErrorBlock, SimilarityStatus, CreateDrawer } from '../../../../components';
 import { MessageExclamatoryIcon } from '../../../../assets/icon';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
@@ -33,11 +33,13 @@ const Grading = ({
   const assId = router.query.assId;
 
   const [rows, setRows] = useState([]);
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
 
   useEffect(() => {
     let url = `classes/${clasId}/assignments/${assId}/grading`
     GetSubmissionList(url);
   }, [clasId, assId]);
+
 
   useEffect(() => {
     let row = '';
@@ -46,9 +48,9 @@ const Grading = ({
       row = createData(
         grading.stduentName,
         grading.obtained_marks,
-        <SimilarityStatus percent={ grading.similarity } />,
+        <SimilarityStatus percent={grading.similarity} />,
         [
-          <MessageExclamatoryIcon />,
+          <MessageExclamatoryIcon onClick={() => setShowFeedbackForm(true)} />,
         ]
       );
       row['isSelected'] = false;
@@ -57,16 +59,34 @@ const Grading = ({
     setRows([...arr]);
   }, [gradingData]);
 
+  const handleCloseDrawer = () => {
+    
+  }
+
   return (
     <React.Fragment>
+
+      {
+        showFeedbackForm &&
+
+        <CreateDrawer
+          title="Edit Class"
+          isShowAddIcon={false}
+          showDrawer={showFeedbackForm}
+          handleDrawerClose={handleCloseDrawer}
+        >
+          test here
+        </CreateDrawer>
+      }
+
       <CardView>
 
         <CommonTable
-          isCheckbox={ false }
-          isSorting={ true }
-          tableHeader={ columns }
-          tableData={ rows }
-          isLoading={ isLoading }
+          isCheckbox={false}
+          isSorting={true}
+          tableHeader={columns}
+          tableData={rows}
+          isLoading={isLoading}
 
         />
 

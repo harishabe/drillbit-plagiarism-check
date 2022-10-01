@@ -99,7 +99,7 @@ const Repository = ({
                     repo.mail_id,
                     repo.title,
                     repo.repository_type,
-                    formatDate(repo.date_up),
+                    repo.date_up,
                     [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;

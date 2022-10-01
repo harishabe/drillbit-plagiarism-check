@@ -195,14 +195,14 @@ const UploadFiles = ({
                                 <RepositoryFileForm
                                     handleSubmitRepository={ handleSubmitRepository }
                                     files={ fileData }
-                                    btnTitle='Process File'
+                                    btnTitle='Submit'
                                     isLoading={ isLoadingUpload }
                                 />
                                 :
                                 <FileForm
                                     handleSubmitFile={ handleSubmit }
                                     files={ fileData }
-                                    btnTitle='Process File'
+                                    btnTitle='Submit'
                                     isLoading={ isLoadingUpload }
                                 />
 

@@ -48,7 +48,7 @@ const InstructorForm = ({
             if (allocationDocs > remainingDocuments) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === "plagiarism") {
-                        item['errorMsg'] = 'Allocation document should not greater than give docuemnts';
+                        item['errorMsg'] = 'The entered documents should not be more than available documents';
                     }
                     if (item?.field_type === 'button') {
                         item['isDisabled'] = true;
@@ -71,7 +71,7 @@ const InstructorForm = ({
             if (grammarDocs > remainingGrammar) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === "grammar") {
-                        item['errorMsg'] = 'Grammar document should not greater than give docuemnts';
+                        item['errorMsg'] = 'The entered documents should not be more than available documents';
                     }
                     if (item?.field_type === 'button') {
                         item['isDisabled'] = true;
@@ -93,7 +93,7 @@ const InstructorForm = ({
         if ((new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
-                    item['info'] = 'Entered date should not greater than expiry date.';
+                    item['info'] = 'The entered date should not be greater than the expiry date.';
                 }
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = true;
@@ -104,7 +104,7 @@ const InstructorForm = ({
         } else if ((new Date().getTime() > new Date(expiryDate).getTime()) && !(new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
-                    item['info'] = 'Entered date should not less than current date.';
+                    item['info'] = 'The entered date should not less than the current date.';
                 }
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = true;
