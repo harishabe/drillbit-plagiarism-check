@@ -29,7 +29,7 @@ import {
 import SubTitle1 from '../typography/SubTitle1';
 import Switch from '@mui/material/Switch';
 import { NO_DATA_PLACEHOLDER, CARD_NEXT_PAGE, CARD_FOLDER_ACTIONS } from '../../constant/data/Constant';
-import { StatusColor } from '../../pages/style/index';
+import { CardStatusColor } from '../../pages/style/index';
 
 const useStyles = makeStyles((theme) => ({
     inline: {
@@ -224,16 +224,17 @@ const CardInfoView = ({
                     <Grid container>
                         <Grid item md={ 9 } xs={ 9 }>
                             { isTimer &&
-                                <StatusColor
+                                <CardStatusColor
                                     style={ { borderRadius: '3px' } }
                                     color={ statusColor }
+                                    width={0}
                                 >
                                     <TimerIcon />
                                     <SubTitle2
                                         title={ Validity(item.validity) }
                                         ml="10px"
                                     />
-                                </StatusColor> }
+                                </CardStatusColor> }
 
                             { isKnowMore &&
                                 <>

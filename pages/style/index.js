@@ -13,6 +13,15 @@ export const ErrorMessageContainer = styled.div`
 `;
 
 export const StatusColor = styled.div`
+    color:${(props) => props.textColor};
+    background: ${(props) => props.color};
+    width:100%;
+    padding: 5px 20px;
+    text-align: center;
+    border-radius: 5px;
+`;
+
+export const CardStatusColor = styled.div`
     display: inline-flex;
     color:${(props) => props.textColor};
     background: ${(props) => props.color};

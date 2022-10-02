@@ -101,7 +101,7 @@ const NavBar = ({
         let userName = getItemLocalStorage('name');
         let userRole = getItemLocalStorage('role');
         let email = getItemLocalStorage('email');
-        let switchRoles = getItemLocalStorage('role') !== 'instructor' && getItemLocalStorage('switchRole') === null ? 'admin' : getItemLocalStorage('switchRole');
+        let switchRoles = getItemLocalStorage('role') !== Role.instructor && getItemLocalStorage('switchRole') === null && getItemLocalStorage('role') !== Role.student ? 'admin' : getItemLocalStorage('switchRole');
         setName(userName);
         setRole(userRole);
         setEmail(email);

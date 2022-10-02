@@ -46,6 +46,8 @@ const AccountInfo = ({
     const [role, setRole] = useState('');
 
     useEffect(() => {
+        console.log('123',localStorage.getItem('role'));
+        console.log('switchRole',localStorage.getItem('switchRole'));
         GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation');
         setRole(localStorage.getItem('role'));
     }, []);

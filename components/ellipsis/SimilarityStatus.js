@@ -6,27 +6,28 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 const SimilarityStatus = ({
-    percent
+    percent,
+    width
 }) => {
     const [color, setColor] = useState('');
-    const [txtColor, setTextColor] = useState(COLORS.white);
-
+    const [txtColor, setTextColor] = useState(COLORS.black);
+    console.log('widthwidthwidth',width);
     useEffect(() => {
         if (percent >= 0 && percent <= 10) {
             setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_SATISFACTORY);
-            setTextColor(COLORS.white);
+            setTextColor(COLORS.black);
         } else if (percent > 10 && percent <= 40) {
             setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_UPGRADE);
-            setTextColor(COLORS.white);
+            setTextColor(COLORS.black);
         } else if (percent > 40 && percent <= 60) {
             setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_POOR);
-            setTextColor(COLORS.white);
+            setTextColor(COLORS.black);
         } else if (percent > 60 && percent <= 100) {
             setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_UNACCEPTABLE);
-            setTextColor(COLORS.white);
+            setTextColor(COLORS.black);
         } else if ((percent === DOC_ERROR_PLACEHOLDER_1 || percent === DOC_ERROR_PLACEHOLDER_2)) {
             setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_UNACCEPTABLE);
-            setTextColor(COLORS.white);
+            setTextColor(COLORS.black);
         } else if (percent === NO_DATA_PLACEHOLDER || percent === NA_DATA_PLACEHOLDER) {
             setColor(COLORS.white)
             setTextColor(COLORS.black);
@@ -34,7 +35,7 @@ const SimilarityStatus = ({
     }, [percent])
 
     return (
-        <StatusColor color={color} textColor={txtColor}>
+        <StatusColor color={color} textColor={txtColor} width={width}>
             { percent !== NO_DATA_PLACEHOLDER && ((percent !== DOC_ERROR_PLACEHOLDER_1) && ((percent !== NA_DATA_PLACEHOLDER)) && (percent !== DOC_ERROR_PLACEHOLDER_2)) ? percent + '%' : percent }
         </StatusColor>
     )

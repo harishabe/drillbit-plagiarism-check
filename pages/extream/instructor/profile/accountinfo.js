@@ -9,6 +9,7 @@ import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/Profil
 import { Role } from '../../../../constant/data';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
+import { getItemLocalStorage } from '../../../../utils/RegExp';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -46,25 +47,26 @@ const AccountInfo = ({
     const [role, setRole] = useState('');
 
     useEffect(() => {
-        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation');
+        let roleEndpoint = (getItemLocalStorage('switchRole') !== null ? getItemLocalStorage('switchRole') : getItemLocalStorage('role'));
+        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + roleEndpoint + '/accountInformation');
         setRole(localStorage.getItem('role'));
     }, []);
 
     useEffect(() => {
-            let row = [
-                createData("Name", accountInfo?.name ? accountInfo?.name : '-'),
-                createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
-                createData("Instructor ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
-                createData("Instructor Email Address", accountInfo?.email ? accountInfo?.email : '-'),
-                createData("Admin Email Address", accountInfo?.adminEmail ? accountInfo?.adminEmail : '-'),
-                createData("Created Date", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
-                createData("Expiry Date", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
-                createData("Total Documents Alloted", accountInfo?.totalDocumentsAlloted ? accountInfo?.totalDocumentsAlloted : '-'),
-                createData("Total Documents Submitted", accountInfo?.totalDocumentsSubmitted ? accountInfo?.totalDocumentsSubmitted : '-'),
-                createData("Files Saved to Repository", accountInfo?.totalDocumentsAddedToRepository ? accountInfo?.totalDocumentsAddedToRepository : '-'),
-                createData("Time Zone", accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
-            ];
-            setRows([...row]);
+        let row = [
+            createData("Name", accountInfo?.name ? accountInfo?.name : '-'),
+            createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
+            createData("Instructor ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
+            createData("Instructor Email Address", accountInfo?.email ? accountInfo?.email : '-'),
+            createData("Admin Email Address", accountInfo?.adminEmail ? accountInfo?.adminEmail : '-'),
+            createData("Created Date", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
+            createData("Expiry Date", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
+            createData("Total Documents Alloted", accountInfo?.totalDocumentsAlloted ? accountInfo?.totalDocumentsAlloted : '-'),
+            createData("Total Documents Submitted", accountInfo?.totalDocumentsSubmitted ? accountInfo?.totalDocumentsSubmitted : '-'),
+            createData("Files Saved to Repository", accountInfo?.totalDocumentsAddedToRepository ? accountInfo?.totalDocumentsAddedToRepository : '-'),
+            createData("Time Zone", accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
+        ];
+        setRows([...row]);
     }, [accountInfo]);
 
     const handleChange = (data) => {
@@ -76,15 +78,15 @@ const AccountInfo = ({
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10}>
                         <MainHeading title='Account Information' />
-                        { role === Role.admin &&
+                        {role === Role.admin &&
                             <form>
                                 <label htmlFor="contained-button-file">
-                                    <Input accept="image/*" id="contained-button-file" onChange={ handleChange } multiple type="file" />
-                                    <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
+                                    <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
+                                    <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
                                         <>
                                             <UploadIcon />
                                             <UploadButtonAlign>
@@ -98,10 +100,10 @@ const AccountInfo = ({
                             </form>
                         }
                     </Grid>
-                    <Grid item md={ 2 } style={ { textAlign: 'right' } }>
-                        { accountInfo &&
+                    <Grid item md={2} style={{ textAlign: 'right' }}>
+                        {accountInfo &&
                             <>
-                                <ImgLogo src={ `data:image/png;base64,${accountInfo.logo}` } />
+                                <ImgLogo src={`data:image/png;base64,${accountInfo.logo}`} />
                             </>
                         }
                     </Grid>
@@ -110,7 +112,7 @@ const AccountInfo = ({
 
 
             <CardView>
-                { isLoading ? (
+                {isLoading ? (
                     <>
                         <Skeleton />
                         <Skeleton />
@@ -118,13 +120,13 @@ const AccountInfo = ({
                     </>
                 ) : (
                     <CommonTable
-                        isCheckbox={ false }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        charLength={ 50 }
+                        isCheckbox={false}
+                        tableHeader={columns}
+                        tableData={rows}
+                        charLength={50}
                         path=''
                     />
-                ) }
+                )}
 
             </CardView>
         </React.Fragment >

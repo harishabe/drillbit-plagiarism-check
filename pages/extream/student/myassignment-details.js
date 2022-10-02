@@ -141,11 +141,12 @@ const MyAssignmentDetails = ({
     };
 
     const handleYesWarning = () => {
+        console.log('datadatadata',data);
         let detailedData = {
             clasId: router.query.clasId,
             assId: router.query.assId,
-            paperId: data?.id,
-            name: data?.filename?.props?.value,
+            paperId: data?.paper_id,
+            name: data?.name?.props?.value,
             path: 'studentSubmission'
         }
         DownloadOriginalFile(detailedData)
