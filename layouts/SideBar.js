@@ -144,7 +144,7 @@ const SideBar = ({ open }) => {
     React.useEffect(() => {
         let role = localStorage.getItem('role');
         let switchRole = localStorage.getItem('switchRole');
-
+        
         if (role === 'admin' && switchRole === 'admin') {
             setSidebarItem(SidebarAdmin);
         } else if (role === 'admin' && switchRole === 'instructor') {

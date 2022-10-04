@@ -16,6 +16,7 @@ import {
     DownloadStudentTemplate,
     MultipleStudentUpload,
     CreateAssignmentData,
+    EditAssignmentData,
     EditClassData,
     EditStudentData,
     EditFolderData,
@@ -373,7 +374,7 @@ export function* onLoadEditAssignment(action) {
     const { response, error } = yield call(EditAssignmentData, action);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_EDIT_ASSIGNMENT_SUCCESS, payload: response?.data });
-        yield put({ type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START, class_id: action.class_id, paginationPayload: InstructorFolderPaginationValue });
+        yield put({ type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START, class_id: action.classId, paginationPayload: InstructorFolderPaginationValue });
         toastrValidation(response);
     } else {
         yield put({

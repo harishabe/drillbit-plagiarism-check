@@ -90,6 +90,7 @@ export const GetAssignmentDetail = async (class_id, paginationPayload) => {
  */
 
 export const EditAssignmentData = async (action) => {
+    console.log('action',action);
     const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_ASSIGNMENT_EDIT_DATA + action?.classId + '/assignments/' + action?.assId;
     return PutMethod(url, action.requestPayload);
 };

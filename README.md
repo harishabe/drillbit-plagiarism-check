@@ -21,6 +21,7 @@ satheeshreddy45@gmail.com   |     12345678             |
 sanjay@gmail.com            |     123456               |       student
 drillbitsatish@gmail.com    |     12345678             |       
 kumarkishan31954@gmail.com  |     YXAZZSKN2M           |
+shalu12das@gmail.com        |     123456
 ---------------------------------------------------------------------------------
 testingagain@mailinator.com |     Test@1234            |       instructor
 sagarxtream@mailinator.com  |     12345                | 
