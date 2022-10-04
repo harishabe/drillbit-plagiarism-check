@@ -148,7 +148,6 @@ const AssignmentForms = ({
                 bodyFormData.append('exclude_phrases', excludePhrases === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
                     let phrasesObj = {};
-                    console.log('phrasesList0', phrasesList);
                     phrasesList?.map((item, index) => {
                         phrasesObj['p' + (index + 1)] = item.p;
                     });
@@ -196,61 +195,60 @@ const AssignmentForms = ({
 
     const editAssignments = (data) => {
         let bodyFormData = new FormData();
-        console.log('edit-repo',editData);
         bodyFormData.append('assignment_name', data.assignment_name);
         bodyFormData.append('start_date', convertDate(data.start_date));
         bodyFormData.append('end_date', convertDate(data.end_date));
 
         if (editData.assignmentData.ex_references === ASSIGNMENT_SETTING_VALUE_YES) {
-            setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_YES);
+            //setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('exclude_references', excludeRefBib);
         } else {
-            setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_NO);
+            //setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('exclude_references', excludeRefBib);
         }
 
         if (editData.assignmentData.ex_quotes === ASSIGNMENT_SETTING_VALUE_YES) {
-            setExcludeQuote(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('exclude_quotes', excludeRefBib);
+            //setExcludeQuote(ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('exclude_quotes', excludeQuote);
         } else {
-            setExcludeQuote(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('exclude_quotes', excludeRefBib);
+            //setExcludeQuote(ASSIGNMENT_SETTING_VALUE_NO);
+            bodyFormData.append('exclude_quotes', excludeQuote);
         }
 
         if (editData.assignmentData.ex_smallSources === ASSIGNMENT_SETTING_VALUE_YES) {
-            setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_YES);
+            //setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('exclude_small_sources', excludeSmallSource);
         } else {
-            setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_NO);
+            //setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('exclude_small_sources', excludeSmallSource);
         }
 
         if (editData.assignmentData.save_to_repository === ASSIGNMENT_SETTING_VALUE_YES) {
-            setSaveToRepo(ASSIGNMENT_SETTING_VALUE_YES);
+            //setSaveToRepo(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('save_to_repository', saveToRepo);
         } else {
-            setSaveToRepo(ASSIGNMENT_SETTING_VALUE_NO);
+            //setSaveToRepo(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('save_to_repository', saveToRepo);
         }
 
         if (editData.assignmentData.report_access === ASSIGNMENT_SETTING_VALUE_YES) {
-            setReportAccess(ASSIGNMENT_SETTING_VALUE_YES);
+            //setReportAccess(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('report_access', reportAccess);
         } else {
-            setReportAccess(ASSIGNMENT_SETTING_VALUE_NO);
+            //setReportAccess(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('report_access', reportAccess);
         }
 
-        
+
         if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
             bodyFormData.append('repository_scope', editData?.assignmentData?.repository_scope || data?.repository_scope?.name.toUpperCase());
         }
 
         if (editData.assignmentData.assignment_grading === ASSIGNMENT_SETTING_VALUE_YES) {
-            setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_YES);
+            //setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('assignment_grading', allowAssGrade);
         } else {
-            setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
+            //setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('assignment_grading', allowAssGrade);
         }
 
@@ -263,11 +261,11 @@ const AssignmentForms = ({
         }
 
         if (editData.assignmentData.allow_resubmission === ASSIGNMENT_SETTING_VALUE_YES) {
-            setAllowSubmission(ASSIGNMENT_SETTING_VALUE_YES);
+            //setAllowSubmission(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('allow_resubmissions', allowSubmission);
 
         } else {
-            setAllowSubmission(ASSIGNMENT_SETTING_VALUE_NO);
+            //setAllowSubmission(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('allow_resubmissions', allowSubmission);
         }
 
@@ -276,57 +274,56 @@ const AssignmentForms = ({
         }
 
         if (editData.assignmentData.allow_submission_after_due === ASSIGNMENT_SETTING_VALUE_YES) {
-            setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_YES);
+            //setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate);
 
         } else {
-            setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_NO);
+            //setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate);
         }
 
 
         if (editData.assignmentData.grammar === ASSIGNMENT_SETTING_VALUE_YES) {
-            setGrammarCheck(ASSIGNMENT_SETTING_VALUE_YES);
+            //setGrammarCheck(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('grammar_check', grammarCheck);
 
         } else {
-            setGrammarCheck(ASSIGNMENT_SETTING_VALUE_NO);
+            //setGrammarCheck(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('grammar_check', grammarCheck);
         }
 
         if (editData.assignmentData.choice_of_email === ASSIGNMENT_SETTING_VALUE_YES) {
-            setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_YES);
+            //setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('choice_of_email_notifications', choiceEmailNotification);
 
         } else {
-            setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_NO);
+            //setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('choice_of_email_notifications', choiceEmailNotification);
         }
 
         if (editData.assignmentData.questions === ASSIGNMENT_SETTING_VALUE_YES) {
-            setAddQuestion(ASSIGNMENT_SETTING_VALUE_YES);
+            //setAddQuestion(ASSIGNMENT_SETTING_VALUE_YES);
             let questionObj = {};
-            console.log('questionListquestionListquestionList',questionList);
             questionList?.map((item, index) => {
-                questionObj['q' + (index + 1)] = item['q' + (index + 1)];
+                questionObj['q' + (index + 1)] = item.q;
             });
             bodyFormData.append('add_questions', addQuestion);
             bodyFormData.append('questions', JSON.stringify(questionObj));
         } else {
-            setAddQuestion(ASSIGNMENT_SETTING_VALUE_NO);
+            //setAddQuestion(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('add_questions', addQuestion);
         }
 
         if (editData.assignmentData.ex_phrases === ASSIGNMENT_SETTING_VALUE_YES) {
-            setExcludePhrases(ASSIGNMENT_SETTING_VALUE_YES);
-            let phraesObj = {};
+            //setExcludePhrases(ASSIGNMENT_SETTING_VALUE_YES);
+            let phraesObj = {};            
             phrasesList?.map((item, index) => {
-                phraesObj['p' + (index + 1)] = item['p' + (index + 1)];
+                phraesObj['p' + (index + 1)] = item.p;
             });
             bodyFormData.append('exclude_phrases', excludePhrases);
             bodyFormData.append('phrases', JSON.stringify(phraesObj));
         } else {
-            setExcludePhrases(ASSIGNMENT_SETTING_VALUE_NO);
+            //setExcludePhrases(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('exclude_phrases', excludePhrases);
         }
 
@@ -335,34 +332,34 @@ const AssignmentForms = ({
 
         /** Databases */
         if (editData.assignmentData.db_publications === ASSIGNMENT_SETTING_VALUE_YES) {
-            setPublication(ASSIGNMENT_SETTING_VALUE_YES);
+            //setPublication(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('db_publications', publication);
         } else {
-            setPublication(ASSIGNMENT_SETTING_VALUE_NO);
+            //setPublication(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('db_publications', publication);
         }
 
         if (editData.assignmentData.db_internet === ASSIGNMENT_SETTING_VALUE_YES) {
-            setInternet(ASSIGNMENT_SETTING_VALUE_YES);
+            //setInternet(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('db_internet', internet);
         } else {
-            setInternet(ASSIGNMENT_SETTING_VALUE_NO);
+            //setInternet(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('db_internet', internet);
         }
 
         if (editData.assignmentData.db_studentpaper === ASSIGNMENT_SETTING_VALUE_YES) {
-            setStudentPaper(ASSIGNMENT_SETTING_VALUE_YES);
+            //setStudentPaper(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('db_studentpaper', studentPaper);
         } else {
-            setStudentPaper(ASSIGNMENT_SETTING_VALUE_NO);
+            //setStudentPaper(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('db_studentpaper', studentPaper);
         }
 
         if (editData.assignmentData.institution_repository === ASSIGNMENT_SETTING_VALUE_YES) {
-            setRepository(ASSIGNMENT_SETTING_VALUE_YES);
+            //setRepository(ASSIGNMENT_SETTING_VALUE_YES);
             bodyFormData.append('institution_repository', repository);
         } else {
-            setRepository(ASSIGNMENT_SETTING_VALUE_NO);
+            //setRepository(ASSIGNMENT_SETTING_VALUE_NO);
             bodyFormData.append('institution_repository', repository);
         }
         /** End databases */
@@ -370,7 +367,7 @@ const AssignmentForms = ({
     }
 
     useEffect(() => {
-        if (internet === 'YES' || publication === 'YES' || repository === 'YES' || internet === 'YES') {
+        if (studentPaper === 'YES' || publication === 'YES' || repository === 'YES' || internet === 'YES') {
             setDisabledButton(false);
             setErrorMsgDBCheck('');
         } else {
@@ -400,7 +397,6 @@ const AssignmentForms = ({
 
     useEffect(() => {
         if (editData !== undefined) {
-            console.log('editData-123', editData);
             setShowSetting(true);
             let a = {
                 'assignment_name': editData.assignment_name,
@@ -444,24 +440,23 @@ const AssignmentForms = ({
             setRepository(ASSIGNMENT_SETTING_VALUE_YES);
 
             let editQus = [];
-            let obj = {}
             delete editData.assignmentData.questionsList.date;
             delete editData.assignmentData.questionsList.qId;
             Object.entries(editData?.assignmentData?.questionsList).map((item, index) => {
+                let obj = {}
                 if (item[1] !== null) {
-                    obj['q' + (index + 1)] = item[1];
+                    obj['q'] = item[1];
                     editQus.push(obj);
                 }
             });
-
             setQuestionList(editQus);
 
             let editPhrases = [];
-            let phrasesObj = {}
             delete editData.assignmentData.phrases.pId;
             Object.entries(editData?.assignmentData?.phrases).map((item, index) => {
+                let phrasesObj = {}
                 if (item[1] !== null) {
-                    phrasesObj['p' + (index + 1)] = item[1];
+                    phrasesObj['p'] = item[1];
                     editPhrases.push(phrasesObj);
                 }
             });
@@ -496,11 +491,6 @@ const AssignmentForms = ({
     const handleExcludeSmallSource = (e, value) => {
         e.preventDefault();
         setExcludeSmallSource(value)
-    }
-
-    const handleExcludeIncludeSource = (e, value) => {
-        e.preventDefault();
-        setExcludeIncludeSource(value)
     }
 
     const handleSaveToRepo = (e, value) => {
@@ -563,30 +553,11 @@ const AssignmentForms = ({
         setReportAccess(value);
     }
 
-    const handleMoreAddQuestion = (e) => {
-        let r = [...questionList];
-        r.push(questionData);
-        setQuestionList(r);
-    }
-
     const handleAddQuestionRemove = (e, index) => {
         e.preventDefault();
         const list = [...questionList];
         list.splice(index, 1);
         setQuestionList(list);
-    }
-
-    const handlePhrases = (e) => {
-        let r = [...phrasesList];
-        r.push(phrasesData);
-        setPhrasesList(r);
-    }
-
-    const handleRemovePhrases = (e, index) => {
-        e.preventDefault();
-        const list = [...phrasesList];
-        list.splice(index, 1);
-        setPhrasesList(list);
     }
 
     const addInput = () => {
@@ -998,7 +969,7 @@ const AssignmentForms = ({
                             </Grid>
 
                             {addQuestion === ASSIGNMENT_SETTING_VALUE_YES &&
-                                <div>                                   
+                                <div>
                                     {questionList.map((item, i) => {
                                         return (
                                             <>
@@ -1010,7 +981,7 @@ const AssignmentForms = ({
                                                             label={"Enter question " + (i + 1)}
                                                             //name={"q" + index + 1}
                                                             name={item}
-                                                            value={item['q' + (i + 1)]}
+                                                            value={item['q']}
                                                             onChange={handleChange}
                                                         //onChange={(e) => setQuestionData(e.target.value)}
                                                         />
@@ -1031,6 +1002,7 @@ const AssignmentForms = ({
                                         sx={{ marginTop: '14px' }}
                                         variant="contained"
                                         onClick={addInput}
+                                        disabled={questionList.length === 5}
                                     >
                                         Add Questions
                                     </Button>
@@ -1069,7 +1041,7 @@ const AssignmentForms = ({
                                                             size="small"
                                                             label={"Enter pharses " + (i + 1)}
                                                             name={item}
-                                                            value={item['p' + (i + 1)]}
+                                                            value={item['p']}
                                                             onChange={handlePharsesChange}
                                                         />
                                                     </Grid>
@@ -1089,6 +1061,7 @@ const AssignmentForms = ({
                                         sx={{ marginTop: '14px' }}
                                         variant="contained"
                                         onClick={addPhrasesInput}
+                                        disabled={phrasesList.length === 15}
                                     >
                                         Add Phrases
                                     </Button>
