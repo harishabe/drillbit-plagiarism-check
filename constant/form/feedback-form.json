@@ -1,0 +1,25 @@
+[
+    {
+        "field_type": "input",
+        "type": "number",
+        "id": "marks",
+        "name": "marks",
+        "label": "Marks",
+        "required": "Enter marks"
+    },
+
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "feedback",
+        "name": "feedback",
+        "label": "Feedback",
+        "required": "Enter text feedback"
+    },
+    
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Create Class"
+    }
+]

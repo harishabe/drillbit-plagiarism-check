@@ -6,17 +6,19 @@ import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
 import { useRouter } from "next/router";
 import { GRADING_NOT_FOUND } from '../../../../constant/data/ErrorMessage';
+import FeedbackForm from '../form/FeedbackForm';
 
 const columns = [
-  { id: 'STname', label: 'Student Name' },
+  { id: 'STname', label: 'Student Name', minWidth: 200 },
+  { id: 'paper_id', label: 'Paper ID', minWidth: 150 },
   { id: 'similarity', label: 'Similarity' },
-  { id: 'marks', label: 'Assignment Marks(100-0)' },
-  { id: 'feedback', label: 'Feedback' },
+  { id: 'marks', label: 'Assignment Marks', minWidth: 200 },
+  { id: 'action', label: 'Feedback', minWidth: 150 },
 ];
 
-function createData(STname, marks, similarity, feedback) {
+function createData(STname, paper_id, marks, similarity, action) {
   return {
-    STname, marks, similarity, feedback
+    STname, paper_id, marks, similarity, action
   };
 }
 
@@ -33,6 +35,7 @@ const Grading = ({
   const assId = router.query.assId;
 
   const [rows, setRows] = useState([]);
+  const [feedbackData, setFeedbackData] = useState('');
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
 
   useEffect(() => {
@@ -47,10 +50,11 @@ const Grading = ({
     gradingData?.map((grading) => {
       row = createData(
         grading.stduentName,
+        grading.paper_id,
         grading.obtained_marks,
         <SimilarityStatus percent={grading.similarity} />,
         [
-          <MessageExclamatoryIcon onClick={() => setShowFeedbackForm(true)} />,
+          { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },
         ]
       );
       row['isSelected'] = false;
@@ -59,37 +63,44 @@ const Grading = ({
     setRows([...arr]);
   }, [gradingData]);
 
-  const handleCloseDrawer = () => {
-    
+  const handleAction = (event, icon, rowData) => {
+    if (icon === 'feedback') {
+      setShowFeedbackForm(true);
+      setFeedbackData(rowData?.paper_id);
+    }
+  }
+
+  const handleCloseDrawer = (drawerClose) => {
+    setShowFeedbackForm(drawerClose)
   }
 
   return (
     <React.Fragment>
-
       {
         showFeedbackForm &&
-
         <CreateDrawer
-          title="Edit Class"
-          isShowAddIcon={false}
-          showDrawer={showFeedbackForm}
-          handleDrawerClose={handleCloseDrawer}
+            title=""
+            isShowAddIcon={ false }
+            showDrawer={ showFeedbackForm }
+            handleDrawerClose={ handleCloseDrawer }
         >
-          test here
+            <FeedbackForm
+              clasId={ clasId }
+              assId={ assId }
+              feedbackData={ feedbackData }
+            />
         </CreateDrawer>
       }
 
       <CardView>
-
         <CommonTable
           isCheckbox={false}
           isSorting={true}
           tableHeader={columns}
           tableData={rows}
           isLoading={isLoading}
-
+          handleAction={ handleAction }
         />
-
       </CardView>
     </React.Fragment>
   );

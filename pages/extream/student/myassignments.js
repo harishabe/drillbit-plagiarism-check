@@ -16,24 +16,6 @@ import { BreadCrumb, CardInfoView, MainHeading, ErrorBlock } from '../../../comp
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
-const StudentBreadCrumb = [
-    {
-        name: 'Dashboard',
-        link: '/extream/student/dashboard',
-        active: false,
-    },
-    {
-        name: 'My classes',
-        link: '/extream/student/myclasses',
-        active: false,
-    },
-    {
-        name: 'My assignments',
-        link: '',
-        active: true,
-    },
-]
-
 const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
 
 const MyAssignments = ({
@@ -45,7 +27,25 @@ const MyAssignments = ({
     isLoadingInstructions
 }) => {
 
+
     const router = useRouter();
+    const StudentBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/extream/student/dashboard',
+            active: false,
+        },
+        {
+            name: router.query.clasName,
+            link: '/extream/student/myclasses',
+            active: false,
+        },
+        {
+            name: 'My assignments',
+            link: '',
+            active: true,
+        },
+    ]
 
     const [item, setItem] = useState([]);
 
@@ -151,6 +151,7 @@ const MyAssignments = ({
                 </Grid> :
                 <>
                     {assignmentData?.length > 0 ?
+                        <>
                         <Grid container spacing={2}>
                             {item?.map((item, index) => (
                                 <Grid item md={4} xs={12}>
@@ -165,29 +166,26 @@ const MyAssignments = ({
                                         isDownload={true}
                                         handleDownload={ handleDownload }
                                         statusColor={expiryDateBgColor(item.validity)}
-                                        submitPath={{ pathname: '/extream/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId } }}
+                                        submitPath={ { pathname: '/extream/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId, clasName: router.query.clasName, assName: item.name } } }
                                     />
                                 </Grid>
                             ))}
                         </Grid>
-                        : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
+                            <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                                <Pagination
+                                    count={ pageDetails?.totalPages }
+                                    onChange={ handleChange }
+                                    color="primary"
+                                    variant="outlined"
+                                    shape="rounded"
+                                />
+                            </div>
+                        </>
+                        : <ErrorBlock message={ ASSIGNMENT_NOT_FOUND } />
                     }
 
                 </>
             }
-
-
-                <div style={{ marginLeft: '45%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
-
-
         </React.Fragment>
     )
 }

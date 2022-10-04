@@ -138,6 +138,7 @@ const MyClasses = ({
                 </Grid> :
                 <>
                     {classesData?.length > 0 ?
+                        <>
                         <Grid container spacing={2}>
                             {item?.map((item, index) => (
                                 <Grid item md={4} xs={12}>
@@ -151,28 +152,25 @@ const MyClasses = ({
                                         isInstructorName={true}
                                         isTimer={true}
                                         statusColor={expiryDateBgColor(item.validity)}
-                                        path={{ pathname: '/extream/student/myassignments', query: { clasId: item.id } }}
+                                        path={ { pathname: '/extream/student/myassignments', query: { clasId: item.id, clasName: item.name } } }
                                     />
                                 </Grid>
                             ))}
                         </Grid>
-                        : <ErrorBlock message={CLASS_NOT_FOUND} />
+                            <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                                <Pagination
+                                    count={ pageDetails?.totalPages }
+                                    onChange={ handleChange }
+                                    color="primary"
+                                    variant="outlined"
+                                    shape="rounded"
+                                />
+                            </div>
+                        </>
+                        : <ErrorBlock message={ CLASS_NOT_FOUND } />
                     }
                 </>
             }
-            {pageDetails?.totalPages > 1 &&
-                <div style={{ marginLeft: '45%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
-            }
-
-
         </React.Fragment>
     )
 }

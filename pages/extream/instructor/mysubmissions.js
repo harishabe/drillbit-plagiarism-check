@@ -49,7 +49,7 @@ const MySubmissions = () => {
       label: 'Submission',
     },
     {
-      label: 'Grading',
+      label: 'Grades',
     },
     {
       label: 'Question & Answer',

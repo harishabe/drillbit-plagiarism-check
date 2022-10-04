@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
-import { Skeleton, Button } from '@mui/material';
+import { Skeleton, Button, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 import List from '@mui/material/List';
@@ -50,6 +50,9 @@ const ListView2 = ({
     const router = useRouter();
     const classes = useStyles();
 
+    // const [questionList, setQuestionList] = React.useState([]);
+    // const [questionData, setQuestionData] = React.useState('');
+
     const [id, setId] = useState([]);
     const [ans1, setAns1] = useState();
     const [ans2, setAns2] = useState();
@@ -81,9 +84,40 @@ const ListView2 = ({
         setId([...arr]);
     }
 
+    // const QnaData = (qnaData) => {
+    //     qnaData?.map((item, index) => {
+    //         let r = [...questionList];
+    //         r.push(questionData);
+    //         setQuestionList(r);
+    //     });
+    // }
+
     useEffect(() => {
         QnaMessage(qnaData)
     }, [qnaData]);
+
+    // useEffect(() => {
+    //     let r = [...questionList];
+    //     r.push(questionData);
+    //     setQuestionList(r);
+    // }, [questionList]);
+
+
+
+    // let bodyFormData = new FormData();
+    // let questionObj = {};
+    // questionList?.map((item, index) => {
+    //     questionObj['q' + (index + 1)] = item;
+    // });
+    // bodyFormData.append('questions', JSON.stringify(questionObj));
+
+
+
+    // const handleMoreAddQuestion = (e) => {
+    //     let r = [...questionList];
+    //     r.push(questionData);
+    //     setQuestionList(r);
+    // }
 
     return (
         <>
@@ -143,15 +177,31 @@ const ListView2 = ({
                                                                         },
                                                                     } }
                                                                 >
+                                                                    {/* { item?.answer?.map((item, index) => (
+                                                                        <>
+                                                                            <Grid container spacing={ 2 } sx={ { marginBottom: '15px' } }>
+                                                                                <Grid item md={ 9 }>
+                                                                                    <TextField
+                                                                                        id="a"
+                                                                                        size="small"
+                                                                                        label={ "Click to Answer here " + (index + 2) }
+                                                                                        name={ "a" + index + 1 }
+                                                                                        onChange={ (e) => setQuestionData(e.target.value) }
+                                                                                    />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </>
+                                                                    )) } */}
                                                                     { item.answer ? <SubTitle2 title={ item.answer } /> :
                                                                         <>
-                                                                            { item.id === 'qId1' &&
+
+                                                                            { item.id === `qId1` &&
 
                                                                                 <textarea
                                                                                     rows="5"
                                                                                     name={ item.question === qnaData[index].question ? item.id : '' }
                                                                                     value={ ans1 }
-                                                                                    cols="123"
+                                                                                    cols="90"
                                                                                     onChange={ (e) => {
                                                                                         setAns1(e.target.value)
                                                                                     } }
@@ -166,7 +216,7 @@ const ListView2 = ({
                                                                                     rows="5"
                                                                                     name={ item.question === qnaData[index].question ? item.id : '' }
                                                                                     value={ ans2 }
-                                                                                    cols="123"
+                                                                                    cols="90"
                                                                                     onChange={ (e) => {
                                                                                         setAns2(e.target.value)
                                                                                     } }
@@ -181,7 +231,7 @@ const ListView2 = ({
                                                                                     rows="5"
                                                                                     name={ item.question === qnaData[index].question ? item.id : '' }
                                                                                     value={ ans3 }
-                                                                                    cols="123"
+                                                                                    cols="90"
                                                                                     onChange={ (e) => {
                                                                                         setAns3(e.target.value)
                                                                                     } }
@@ -196,7 +246,7 @@ const ListView2 = ({
                                                                                     rows="5"
                                                                                     name={ item.question === qnaData[index].question ? item.id : '' }
                                                                                     value={ ans4 }
-                                                                                    cols="123"
+                                                                                    cols="90"
                                                                                     onChange={ (e) => {
                                                                                         setAns4(e.target.value)
                                                                                     } }
@@ -211,7 +261,7 @@ const ListView2 = ({
                                                                                     rows="5"
                                                                                     name={ item.question === qnaData[index].question ? item.id : '' }
                                                                                     value={ ans5 }
-                                                                                    cols="123"
+                                                                                    cols="90"
                                                                                     onChange={ (e) => {
                                                                                         setAns5(e.target.value)
                                                                                     } }
@@ -250,7 +300,8 @@ const ListView2 = ({
                                         size="large"
                                         type="button"
                                         color="primary"
-                                        onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
+                                    onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
+                                    // onClick={ (e) => handleSend(e, questionList) }
                                     >
                                         { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
                                     </Button>

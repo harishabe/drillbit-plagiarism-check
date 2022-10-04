@@ -7,6 +7,7 @@ import {
     SaveToRepoSubmission,
     InstructorFeedbackData,
     UploadSubmission,
+    EditFeedbackData
 } from '../../api//instructor/DetailsSubmissionAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 
@@ -169,4 +170,24 @@ export function* onLoadInstructorFeedback(action) {
 
 export function* InstructorFeedbackDetail() {
     yield takeLatest(types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_START, onLoadInstructorFeedback);
+}
+
+/**
+ * instructor edit feedback 
+ * @param {*} action
+ */
+
+export function* onLoadEditFeedback(action) {
+    const { response, error } = yield call(EditFeedbackData, action.clasId, action.folder_id, action.paper_id, action.query);
+    if (response) {
+        yield put({ type: types.FETCH_INSTRUCTOR_EDIT_FEEDBACK_DETAILS_SUCCESS, payload: response?.data });
+        toastrValidation(response);
+    } else {
+        yield put({ type: types.FETCH_INSTRUCTOR_EDIT_FEEDBACK_DETAILS_FAIL, payload: error });
+        toastrValidation(error);
+    }
+}
+
+export function* InstructorEditFeedback() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_EDIT_FEEDBACK_DETAILS_START, onLoadEditFeedback);
 }

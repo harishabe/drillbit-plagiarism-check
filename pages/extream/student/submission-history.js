@@ -7,6 +7,7 @@ import {
     EllipsisText,
     SimilarityStatus
 } from '../../../components';
+import { MessageExclamatoryIcon } from '../../../assets/icon';
 import { formatDate } from '../../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
 import { BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
@@ -17,8 +18,8 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-function createData(name, paper_id, date_up, percent, grammar, score, status) {
-    return { name, paper_id, date_up, percent, grammar, score, status }
+function createData(name, paper_id, date_up, percent, grammar, score, status, action) {
+    return { name, paper_id, date_up, percent, grammar, score, status, action }
 }
 
 const SubmissionHistory = ({
@@ -27,7 +28,8 @@ const SubmissionHistory = ({
     pageDetails,
     handleChange,
     handleOriginalFileDownload,
-    handleTableSort
+    handleTableSort,
+    handleAction
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -39,7 +41,7 @@ const SubmissionHistory = ({
         { id: 'grammar', label: 'Grammar', minWidth: 80 },
         { id: 'score', label: 'Marks', minWidth: 80 },
         { id: 'status', label: 'Status', minWidth: 100 },
-        { id: 'feedback', label: 'Feedback', minWidth: 80 },
+        { id: 'action', label: 'Feedback', minWidth: 80 },
     ];
 
     useEffect(() => {
@@ -55,6 +57,9 @@ const SubmissionHistory = ({
                     submission.grammar,
                     submission.feedback?.marks,
                     submission.status,
+                    [
+                        { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },
+                    ]
                 );
             arr.push(row)
         });
@@ -77,6 +82,7 @@ const SubmissionHistory = ({
                 downloadSubmissionFile={handleOriginalFileDownload}
                 handleTableSort={handleTableSort}
                 isLoading={isLoadingSubmission}
+                handleAction={ handleAction }
                 showAnalysisPage={handleShowAnalysisPage}
             />
 

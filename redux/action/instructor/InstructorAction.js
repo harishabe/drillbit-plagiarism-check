@@ -266,9 +266,18 @@ export const SaveToRepositary = (clasId, folder_id, paper_id) => {
 /**
  * My classes > Assignments > grading > feedback
  */
-export const InstructorFeedback = (clasId, folder_id, paper_id) => {
+export const InstructorFeedback = (clasId, folder_id, paper_id, data) => {
     return {
-        type: types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id
+        type: types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id, query: data
+    };
+};
+
+/**
+ * My classes > Assignments > grading > Edit feedback
+ */
+export const EditFeedback = (clasId, folder_id, paper_id, data) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_EDIT_FEEDBACK_DETAILS_START, clasId: clasId, folder_id: folder_id, paper_id: paper_id, query: data
     };
 };
 
