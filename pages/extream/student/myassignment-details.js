@@ -17,7 +17,8 @@ import {
     WidgetCard,
     EllipsisText,
     WarningDialog,
-    Heading
+    Heading,
+    DialogModal
 } from '../../../components'
 import { DownloadIcon, NoOfClassIcon, NoOfAssignmntIcon } from '../../../assets/icon'
 import {
@@ -70,6 +71,7 @@ const MyAssignmentDetails = ({
     const [activeTab, setActiveTab] = useState(0);
     const [showRenewWarning, setShowRenewWarning] = useState(false);
     const [data, setData] = useState();
+    const [showDialogModal, setShowDialogModal] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -84,13 +86,13 @@ const MyAssignmentDetails = ({
             active: false,
         },
         {
-            name: 'My classes',
+            name: router.query.clasName,
             link: '/extream/student/myclasses',
             active: false,
         },
         {
-            name: 'My assignments',
-            link: '/extream/student/myassignments?' + router?.asPath?.slice(router?.pathname?.length).split('&')[1],
+            name: router.query.assName,
+            link: '/extream/student/myassignments?' + router?.asPath,
             active: false,
         },
         {
@@ -122,7 +124,7 @@ const MyAssignmentDetails = ({
             'a5': qnaData[4].answer === null ? ans5 : qnaData[4].answer
         }
         SendData(data, router.query.clasId, router.query.assId);
-        GetQna(router.query.clasId, router.query.assId);
+        console.log(data, router.query.clasId, router.query.assId);
     }
 
     const handleChange = (event, value) => {
@@ -171,11 +173,22 @@ const MyAssignmentDetails = ({
         setPaginationPayload({ ...paginationPayload, paginationPayload })
     }
 
+    const handleAction = (event, icon, rowData) => {
+        if (icon === 'feedback') {
+            setShowDialogModal(true);
+        }
+    }
+
+    const handleCloseDialog = () => {
+        setShowDialogModal(false);
+    }
+
     const SubmissionComponent = activeTab === 0 && <SubmissionHistory
         submissionData={submissionData}
         isLoadingSubmission={isLoadingSubmission}
         pageDetails={pageDetails}
         handleChange={handleChange}
+        handleAction={ handleAction }
         handleOriginalFileDownload={handleOriginalFileDownload}
         handleTableSort={handleTableSort}
 
@@ -186,6 +199,7 @@ const MyAssignmentDetails = ({
         isLoadingQa={isLoadingQa}
         isLoadingAns={isLoadingAns}
         handleSend={handleSend}
+        // handleMoreAddQuestion={ handleMoreAddQuestion }
     />
 
     const componentList = [
@@ -265,6 +279,23 @@ const MyAssignmentDetails = ({
                     handleNo={handleCloseWarning}
                     isOpen={true}
                 />
+            }
+
+            { showDialogModal &&
+                <>
+                    <DialogModal
+                        isOpen={ true }
+                        fullWidth="xl"
+                        maxWidth="xl"
+                        handleClose={ handleCloseDialog }
+                    >
+                        <Feedback
+                            GetFeedback={ GetFeedback }
+                            feedbackData={ feedbackData }
+                            isLoadingFeedback={ isLoadingFeedback }
+                        />
+                    </DialogModal>
+                </>
             }
         </React.Fragment>
     )

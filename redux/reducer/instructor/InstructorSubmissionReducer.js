@@ -53,6 +53,23 @@ const InstructorSubmissionReducer = (state = {}, action) => {
                 isLoadingFeedback: false,
                 feedbackError: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_EDIT_FEEDBACK_DETAILS_START:
+            return {
+                ...state,
+                isLoadingEditFeedback: true,
+            };
+        case types.FETCH_INSTRUCTOR_EDIT_FEEDBACK_DETAILS_SUCCESS:
+            return {
+                ...state,
+                isLoadingEditFeedback: false,
+                editFeedbackData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_EDIT_FEEDBACK_DETAILS_FAIL:
+            return {
+                ...state,
+                isLoadingEditFeedback: false,
+                editFeedbackError: action.payload,
+            };
         default:
             return state;
     }

@@ -62,3 +62,12 @@ export const InstructorFeedbackData = async (clasId, folder_id, paper_id, data) 
     return PostMethod(url, data);
 };
 
+/**
+ * API CALL FOR INSTRUCTOR EDIT FEEDBACK
+ */
+
+export const EditFeedbackData = async (clasId, folder_id, paper_id, data) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + clasId + '/assignments/' + folder_id + '/submissions/' + paper_id + '/feedback';
+    return PutMethod(url, data);
+};
+
