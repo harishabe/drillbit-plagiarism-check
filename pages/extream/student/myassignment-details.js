@@ -115,17 +115,24 @@ const MyAssignmentDetails = ({
         DownloadStudentCsv(url)
     }
 
-    const handleSend = (e, ans1, ans2, ans3, ans4, ans5) => {
+    const handleSend = (e, ans1) => {
         const data = {
-            'a1': qnaData[0].answer === null ? ans1 : qnaData[0].answer,
-            'a2': qnaData[1].answer === null ? ans2 : qnaData[1].answer,
-            'a3': qnaData[2].answer === null ? ans3 : qnaData[2].answer,
-            'a4': qnaData[3].answer === null ? ans4 : qnaData[3].answer,
-            'a5': qnaData[4].answer === null ? ans5 : qnaData[4].answer
+            'a1': ans1,
         }
         SendData(data, router.query.clasId, router.query.assId);
         console.log(data, router.query.clasId, router.query.assId);
     }
+    // const handleSend = (e, ans1, ans2, ans3, ans4, ans5) => {
+    //     const data = {
+    //         'a1': qnaData[0].answer === null ? ans1 : qnaData[0].answer,
+    //         'a2': qnaData[1].answer === null ? ans2 : qnaData[1].answer,
+    //         'a3': qnaData[2].answer === null ? ans3 : qnaData[2].answer,
+    //         'a4': qnaData[3].answer === null ? ans4 : qnaData[3].answer,
+    //         'a5': qnaData[4].answer === null ? ans5 : qnaData[4].answer
+    //     }
+    //     SendData(data, router.query.clasId, router.query.assId);
+    //     console.log(data, router.query.clasId, router.query.assId);
+    // }
 
     const handleChange = (event, value) => {
         event.preventDefault();
@@ -198,8 +205,7 @@ const MyAssignmentDetails = ({
         qnaData={qnaData}
         isLoadingQa={isLoadingQa}
         isLoadingAns={isLoadingAns}
-        handleSend={handleSend}
-        // handleMoreAddQuestion={ handleMoreAddQuestion }
+        handleSend={ handleSend }
     />
 
     const componentList = [

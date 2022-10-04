@@ -339,7 +339,7 @@ const Assignments = ({
           handleCheckboxSelect={handleCheckboxSelect}
           handleSingleSelect={handleSingleSelect}
           isLoading={isLoadingAssignment}
-          path={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: assId } }}
+          path={ { pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, clasName: router.query.clasName, assId: assId } } }
           charLength={9}
         />
         <PaginationContainer>

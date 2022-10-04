@@ -66,61 +66,61 @@ const CommonTable = ({
 
     React.useEffect(() => {
         let selected = _.find(tableData, function (o) { return o.isSelected === true });
-        console.log('selected',selected);
-        setAllSelected(selected?.isSelected?true:false);
+        console.log('selected', selected);
+        setAllSelected(selected?.isSelected ? true : false);
     }, [tableData]);
 
     return (
-        <TableContainer classes={{ root: classes.customTableContainer }}>
+        <TableContainer classes={ { root: classes.customTableContainer } }>
             <Table stickyHeader>
                 <TableHead>
                     <TableRow>
-                        {isCheckbox &&
-                            <TableCell padding="checkbox" className={classes.padding}>
-                                <Checkbox checked={allSelected} onChange={(e)=>handleCheckboxSelect(e,allSelected)} />
-                            </TableCell>}
-                        {tableHeader?.map((column) => (
+                        { isCheckbox &&
+                            <TableCell padding="checkbox" className={ classes.padding }>
+                                <Checkbox checked={ allSelected } onChange={ (e) => handleCheckboxSelect(e, allSelected) } />
+                            </TableCell> }
+                        { tableHeader?.map((column) => (
                             <>
-                                {(isSorting) &&
+                                { (isSorting) &&
                                     <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{ minWidth: column.minWidth }}
+                                        key={ column.id }
+                                        align={ column.align }
+                                        style={ { minWidth: column.minWidth } }
                                     >
-                                        {TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
-                                            <EllipsisText value={column.label} charLength={charLength} variant='body2_1' />
+                                        { TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
+                                            <EllipsisText value={ column.label } charLength={ charLength } variant='body2_1' />
                                             : <TableSortLabel
-                                                onClick={((e) => sortHandle(e, column))}
+                                                onClick={ ((e) => sortHandle(e, column)) }
                                                 IconComponent={
                                                     () =>
-                                                        <div style={{ marginTop: '2px' }}>
+                                                        <div style={ { marginTop: '2px' } }>
                                                             {
                                                                 (toggle && sortArrow === column.id) ?
-                                                                    <ArrowDownwardIcon style={{ fontSize: '18px' }} /> :
-                                                                    <ArrowUpwardIcon style={{ fontSize: '18px' }} />
+                                                                    <ArrowDownwardIcon style={ { fontSize: '18px' } } /> :
+                                                                    <ArrowUpwardIcon style={ { fontSize: '18px' } } />
                                                             }
                                                         </div>
                                                 }
                                             >
-                                                <EllipsisText value={column.label} charLength={charLength} variant='body2_1' />
-                                            </TableSortLabel>}
+                                                <EllipsisText value={ column.label } charLength={ charLength } variant='body2_1' />
+                                            </TableSortLabel> }
 
                                     </TableCell>
                                 }
                             </>
-                        ))}
+                        )) }
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {isLoading ?
+                    { isLoading ?
                         <TableSkeleton />
                         : tableData?.map((row) => (
-                            <TableRow hover key={row.id}>
-                                {isCheckbox &&
-                                    <TableCell padding="checkbox" className={classes.padding}>
-                                        <Checkbox onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
-                                    </TableCell>}
-                                {tableHeader.map((column) => {
+                            <TableRow hover key={ row.id }>
+                                { isCheckbox &&
+                                    <TableCell padding="checkbox" className={ classes.padding }>
+                                        <Checkbox onChange={ (e) => handleSingleSelect(e, row) } checked={ row.isSelected } />
+                                    </TableCell> }
+                                { tableHeader.map((column) => {
                                     const value = row[column.id];
                                     return (
                                         <>
@@ -136,26 +136,30 @@ const CommonTable = ({
                                                     <>
                                                         {
                                                             column.isDownload ?
-                                                                <TableCell key={column.id} align={column.align}>
-                                                                    <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={(e) => downloadSubmissionFile(e, row)}>
-                                                                        {typeof (value) === 'string' ?
-                                                                            <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} /> :
-                                                                            <SubTitle title={value !== null ? value : NO_DATA_PLACEHOLDER} />}
+                                                                <TableCell key={ column.id } align={ column.align }>
+                                                                    <a href='#' style={ { textDecoration: 'underline', color: '#3672FF' } } onClick={ (e) => downloadSubmissionFile(e, row) }>
+                                                                        { typeof (value) === 'string' ?
+                                                                            <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } /> :
+                                                                            <SubTitle title={ value !== null ? value : NO_DATA_PLACEHOLDER } /> }
                                                                     </a>
                                                                 </TableCell>
                                                                 :
                                                                 <>
-                                                                    {column.id === 'percent' ?
-                                                                        <TableCell key={column.id} align={column.align}>
-                                                                            <a href='#' onClick={(e) => showAnalysisPage(e, row)}>
-                                                                                {value !== null ? value : NO_DATA_PLACEHOLDER}
-                                                                            </a>
-                                                                        </TableCell> :
-                                                                        <TableCell key={column.id} align={column.align}>
-                                                                            {typeof (value) === 'string' ?
-                                                                                <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} /> :
-                                                                                <SubTitle title={value !== null ? value : NO_DATA_PLACEHOLDER} />}
-                                                                        </TableCell>}
+                                                                    { column.id === 'percent' ?
+                                                                        <TableCell key={ column.id } align={ column.align }>
+                                                                            <Tooltip title={ 'Similarity Report' } arrow>
+                                                                                <a href='#' onClick={ (e) => showAnalysisPage(e, row) }>
+                                                                                    { value !== null ? value : NO_DATA_PLACEHOLDER }
+                                                                                </a>
+                                                                            </Tooltip>
+                                                                        </TableCell>
+                                                                        :
+                                                                        <TableCell key={ column.id } align={ column.align }>
+                                                                            { typeof (value) === 'string' ?
+                                                                                <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } /> :
+                                                                                <SubTitle title={ value !== null ? value : NO_DATA_PLACEHOLDER } /> }
+                                                                        </TableCell>
+                                                                    }
                                                                 </>
                                                         }
                                                     </>
@@ -163,30 +167,31 @@ const CommonTable = ({
                                             }
                                         </>
                                     )
-                                })}
-                                {isNextPath &&
+                                }) }
+                                { isNextPath &&
                                     <Tooltip title={ TABLE_NEXT_PAGE } arrow>
-                                    <IconButton className={classes.customArrowContainer}
-                                        onClick={(e) => {
-                                            if (path && path?.query?.isAssignment) {
-                                                path.query['assId'] = row?.id
-                                                router.push(path)
-                                            } else {
-                                                router.push(path);
-                                            }
-                                        }}
-                                    >
-                                        <ArrowForwardOutlinedIcon />
-                                    </IconButton>
+                                        <IconButton className={ classes.customArrowContainer }
+                                            onClick={ (e) => {
+                                                if (path && path?.query?.isAssignment) {
+                                                    path.query['assId'] = row?.id
+                                                    path.query['assName'] = row?.assignment_name
+                                                    router.push(path)
+                                                } else {
+                                                    router.push(path);
+                                                }
+                                            } }
+                                        >
+                                            <ArrowForwardOutlinedIcon />
+                                        </IconButton>
                                     </Tooltip>
                                 }
                             </TableRow>
-                        ))}
+                        )) }
                 </TableBody>
             </Table>
 
             <>
-                {(tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" />}
+                { (tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" /> }
             </>
         </TableContainer>
     )

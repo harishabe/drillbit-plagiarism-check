@@ -38,18 +38,18 @@ const UploadFile = () => {
             active: false,
         },
         {
-            name: 'My classes',
+            name: router.query.clasName,
             link: '/extream/instructor/myclasses',
             active: false,
         },
         {
-            name: 'My assignments',
-            link: '/extream/instructor/my-assignment?clasId='+router.query.clasId,
+            name: router.query.assName,
+            link: '/extream/instructor/my-assignment' + router?.asPath?.slice(router?.pathname?.length),
             active: false,
         },
         {
             name: 'Submissions',
-            link: '/extream/instructor/mysubmissions?isAssignment=true&clasId='+router.query.clasId+'&assId='+router.query.assId,
+            link: '/extream/instructor/mysubmissions' + router?.asPath?.slice(router?.pathname?.length),
             active: false,
         },
         {
