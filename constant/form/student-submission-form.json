@@ -26,6 +26,10 @@
         "validationMsg": "Please choose file"
     },
     {
+        "field_type": "labelCaption",
+        "label": "Supported files: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx"
+    },
+    {
         "field_type": "button",
         "type": "submit",
         "label": "Upload file"

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Instructor from '../../../layouts/Instructor';
@@ -16,7 +17,7 @@ const MyClassesTables = ({
     studentData,
     isLoadingStudent,
 }) => {
-
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState(0);
 
     const InstructorBreadCrumb = [
@@ -26,7 +27,7 @@ const MyClassesTables = ({
             active: false,
         },
         {
-            name: 'My classes',
+            name: router.query.clasName,
             link: '/extream/instructor/myclasses',
             active: false,
         },

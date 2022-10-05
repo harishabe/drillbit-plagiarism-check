@@ -109,7 +109,7 @@ const MyClassFiles = ({
                             handleClick={ handleClassEdit }
                             handleDelete={ handleClassDelete }
                             statusColor={ expiryDateBgColor(item.validity) }
-                            path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id } } }
+                            path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
                         />
                     </Grid>
                 )) :

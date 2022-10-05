@@ -50,15 +50,12 @@ const ListView2 = ({
     const router = useRouter();
     const classes = useStyles();
 
-    // const [questionList, setQuestionList] = React.useState([]);
-    // const [questionData, setQuestionData] = React.useState('');
-
     const [id, setId] = useState([]);
     const [ans1, setAns1] = useState();
     const [ans2, setAns2] = useState();
-    const [ans3, setAns3] = useState();
-    const [ans4, setAns4] = useState();
-    const [ans5, setAns5] = useState();
+    // const [ans3, setAns3] = useState();
+    // const [ans4, setAns4] = useState();
+    // const [ans5, setAns5] = useState();
 
     useEffect(() => {
         GetQna(router.query.clasId, router.query.assId);
@@ -72,6 +69,14 @@ const ListView2 = ({
         }
     }
 
+    const Abc = () => {
+        const r = { ...ans1 }
+        r.push(setAns2);
+        setAns1(r)
+    }
+    console.log("ans1ans1ans1", Abc)
+
+
     const QnaData = (qnaData) => {
         let id = '';
         let arr = [];
@@ -84,40 +89,9 @@ const ListView2 = ({
         setId([...arr]);
     }
 
-    // const QnaData = (qnaData) => {
-    //     qnaData?.map((item, index) => {
-    //         let r = [...questionList];
-    //         r.push(questionData);
-    //         setQuestionList(r);
-    //     });
-    // }
-
     useEffect(() => {
         QnaMessage(qnaData)
     }, [qnaData]);
-
-    // useEffect(() => {
-    //     let r = [...questionList];
-    //     r.push(questionData);
-    //     setQuestionList(r);
-    // }, [questionList]);
-
-
-
-    // let bodyFormData = new FormData();
-    // let questionObj = {};
-    // questionList?.map((item, index) => {
-    //     questionObj['q' + (index + 1)] = item;
-    // });
-    // bodyFormData.append('questions', JSON.stringify(questionObj));
-
-
-
-    // const handleMoreAddQuestion = (e) => {
-    //     let r = [...questionList];
-    //     r.push(questionData);
-    //     setQuestionList(r);
-    // }
 
     return (
         <>
@@ -177,25 +151,25 @@ const ListView2 = ({
                                                                         },
                                                                     } }
                                                                 >
-                                                                    {/* { item?.answer?.map((item, index) => (
-                                                                        <>
-                                                                            <Grid container spacing={ 2 } sx={ { marginBottom: '15px' } }>
-                                                                                <Grid item md={ 9 }>
-                                                                                    <TextField
-                                                                                        id="a"
-                                                                                        size="small"
-                                                                                        label={ "Click to Answer here " + (index + 2) }
-                                                                                        name={ "a" + index + 1 }
-                                                                                        onChange={ (e) => setQuestionData(e.target.value) }
-                                                                                    />
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </>
-                                                                    )) } */}
                                                                     { item.answer ? <SubTitle2 title={ item.answer } /> :
                                                                         <>
 
-                                                                            { item.id === `qId1` &&
+                                                                            { item.id === `qId${index + 1}` &&
+
+                                                                                <textarea
+                                                                                    rows="5"
+                                                                                    name={ item.question === qnaData[index].question ? item.id : '' }
+                                                                                    // value={ ans1 }
+                                                                                    cols="90"
+                                                                                    onChange={ (e) => {
+                                                                                        setAns1(e.target.value)
+                                                                                    } }
+                                                                                    placeholder='Click to Answer here'
+                                                                                >
+                                                                                </textarea>
+
+                                                                            }
+                                                                            {/* { item.id === `qId1` &&
 
                                                                                 <textarea
                                                                                     rows="5"
@@ -269,7 +243,7 @@ const ListView2 = ({
                                                                                 >
                                                                                 </textarea>
 
-                                                                            }
+                                                                            } */}
                                                                         </>
                                                                     }
                                                                 </Card>
@@ -300,8 +274,8 @@ const ListView2 = ({
                                         size="large"
                                         type="button"
                                         color="primary"
-                                    onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
-                                    // onClick={ (e) => handleSend(e, questionList) }
+                                    onClick={ (e) => handleSend(e, ans1) }
+                                    // onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
                                     >
                                         { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
                                     </Button>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { useForm } from 'react-hook-form';
@@ -15,31 +15,45 @@ const SubmissionForm = ({
     assignmentName
 }) => {
     const router = useRouter();
-
+    const [formJsonField, setFormJsonField] = useState(FormJson);
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
     });
 
     const onSubmit = (data) => {
+
         let bodyFormData = new FormData();
         bodyFormData.append('authorName', getItemLocalStorage('name'));
         bodyFormData.append('title', assignmentName);
         bodyFormData.append('file', data.file[0]);
         NewSubmission(bodyFormData, router.query.clasId, router.query.assId)
+
+    }
+
+    const modifyFormField = () => {
+        let formField = formJsonField?.map((field) => {
+            if (field.field_type === 'file') {
+                field['info'] = 'Supported files: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx';
+            }
+            return field;
+        });
+        setFormJsonField(formField);
     }
 
     useEffect(() => {
         let a = {
             'name': getItemLocalStorage('name'),
-            'title': assignmentName
+            'title': assignmentName,
         };
         const fields = [
             'name',
-            'title'
+            'title',
         ];
         fields.forEach(field => setValue(field, a[field]));
+        modifyFormField();
     }, []);
 
+    console.log("formJsonField", formJsonField)
     return (
         <>
             <div style={ { textAlign: 'center' } }>
@@ -47,7 +61,7 @@ const SubmissionForm = ({
             </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    { FormJson?.map((field, i) => (
+                    { formJsonField?.map((field, i) => (
                         <Grid md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
                                 key={ i }

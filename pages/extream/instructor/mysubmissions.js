@@ -19,12 +19,12 @@ const MySubmissions = () => {
       active: false,
     },
     {
-      name: 'My classes',
+      name: router.query.clasName,
       link: '/extream/instructor/myclasses',
       active: false,
     },
     {
-      name: 'My assignments',
+      name: router.query.assName,
       link: '/extream/instructor/my-assignment' + router?.asPath?.slice(router?.pathname?.length),
       active: false,
     },

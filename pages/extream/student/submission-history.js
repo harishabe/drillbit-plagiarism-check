@@ -53,7 +53,7 @@ const SubmissionHistory = ({
                     <EllipsisText value={submission.original_fn} charLength={12} />,
                     submission.paper_id,
                     submission.date_up,
-                    <SimilarityStatus percent={submission.percent} width={100} />,
+                    <SimilarityStatus percent={ submission.percent } width={ 100 } />,
                     submission.grammar,
                     submission.feedback?.marks,
                     submission.status,
