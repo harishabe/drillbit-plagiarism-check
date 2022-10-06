@@ -27,8 +27,15 @@ const MyAssignments = ({
     isLoadingInstructions
 }) => {
 
-
     const router = useRouter();
+    const [myclass, setMyclass] = useState('');
+
+    useEffect(() => {
+        if (router.isReady) {
+            setMyclass(router.query.clasName);
+        }
+    }, [router.isReady]);
+
     const StudentBreadCrumb = [
         {
             name: 'Dashboard',
@@ -36,7 +43,7 @@ const MyAssignments = ({
             active: false,
         },
         {
-            name: router.query.clasName,
+            name: myclass,
             link: '/extream/student/myclasses',
             active: false,
         },

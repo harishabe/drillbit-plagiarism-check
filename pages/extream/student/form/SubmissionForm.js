@@ -53,7 +53,6 @@ const SubmissionForm = ({
         modifyFormField();
     }, []);
 
-    console.log("formJsonField", formJsonField)
     return (
         <>
             <div style={ { textAlign: 'center' } }>

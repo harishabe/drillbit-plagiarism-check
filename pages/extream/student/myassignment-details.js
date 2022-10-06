@@ -68,6 +68,8 @@ const MyAssignmentDetails = ({
 }) => {
 
     const router = useRouter();
+    const [myclass, setMyclass] = useState('');
+    const [myassignment, setMyassignment] = useState('');
     const [activeTab, setActiveTab] = useState(0);
     const [showRenewWarning, setShowRenewWarning] = useState(false);
     const [data, setData] = useState();
@@ -79,6 +81,13 @@ const MyAssignmentDetails = ({
         orderBy: PaginationValue?.orderBy,
     });
 
+    useEffect(() => {
+        if (router.isReady) {
+            setMyclass(router.query.clasName);
+            setMyassignment(router.query.assName);
+        }
+    }, [router.isReady]);
+
     const StudentBreadCrumb = [
         {
             name: 'Dashboard',
@@ -86,12 +95,12 @@ const MyAssignmentDetails = ({
             active: false,
         },
         {
-            name: router.query.clasName,
+            name: myclass,
             link: '/extream/student/myclasses',
             active: false,
         },
         {
-            name: router.query.assName,
+            name: myassignment,
             link: '/extream/student/myassignments?' + router?.asPath,
             active: false,
         },
@@ -291,8 +300,8 @@ const MyAssignmentDetails = ({
                 <>
                     <DialogModal
                         isOpen={true}
-                        fullWidth="xl"
-                        maxWidth="xl"
+                        fullWidth="md"
+                        maxWidth="md"
                         handleClose={handleCloseDialog}
                     >
                         <Feedback
