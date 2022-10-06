@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { useRouter } from "next/router";
 import Instructor from '../../../layouts/Instructor';
@@ -10,7 +10,16 @@ import QNA from './submissions/q&a';
 const MySubmissions = () => {
 
   const router = useRouter();
+  const [myclass, setMyclass] = useState('');
+  const [myassignment, setMyassignment] = useState('');
   const [activeTab, setActiveTab] = useState(0);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setMyclass(router.query.clasName);
+      setMyassignment(router.query.assName);
+    }
+  }, [router.isReady]);
 
   const InstructorBreadCrumb = [
     {
@@ -19,12 +28,12 @@ const MySubmissions = () => {
       active: false,
     },
     {
-      name: router.query.clasName,
+      name: myclass,
       link: '/extream/instructor/myclasses',
       active: false,
     },
     {
-      name: router.query.assName,
+      name: myassignment,
       link: '/extream/instructor/my-assignment' + router?.asPath?.slice(router?.pathname?.length),
       active: false,
     },
