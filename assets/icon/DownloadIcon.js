@@ -3,7 +3,7 @@ import * as React from 'react';
 const DownloadFile = (props) => {
   return (
     <svg
-      width='28'
+      width='24'
       height='24'
       viewBox='0 0 28 24'
       fill='none'

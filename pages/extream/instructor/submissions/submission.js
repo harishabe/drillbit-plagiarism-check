@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import {
   CardView,
@@ -62,7 +64,7 @@ const AddButtonBottom = styled.div`
 
 
 const SkeletonContainer = styled.div`
-    margin-top: 10px;
+    margin-top: 16px;
     margin-right: 5px;
 `;
 
@@ -104,7 +106,7 @@ const Submission = ({
   const [paginationPayload, setPaginationPayload] = useState({
     page: PaginationValue?.page,
     size: PaginationValue?.size,
-    field: 'name',
+    field: 'paper_id',
     orderBy: PaginationValue?.orderBy,
   });
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -127,20 +129,20 @@ const Submission = ({
     let row = '';
     let arr = [];
     submissionData?.map((submission) => {
-        row = createData(
-          submission.ass_id,
-          submission.d_key,
-          submission.name,
-          submission.title,
-          submission.original_fn,
-          submission.grammar,
-          <SimilarityStatus percent={submission.percent} />,
-          submission.paper_id,
-          formatDate(submission.date_up),
-          [
-            { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-          ]
-        );
+      row = createData(
+        submission.ass_id,
+        submission.d_key,
+        submission.name,
+        submission.title,
+        submission.original_fn,
+        submission.grammar,
+        <SimilarityStatus percent={submission.percent} />,
+        submission.paper_id,
+        formatDate(submission.date_up),
+        [
+          { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+        ]
+      );
       row['isSelected'] = false;
       arr.push(row);
     });
@@ -315,19 +317,31 @@ const Submission = ({
     DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/downloadSubmissions`, DOWNLOAD_CSV.SUBMISSION_REPORT)
   }
 
+  const handleRefresh = () => {
+    let url = `classes/${clasId}/assignments/${assId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=${paginationPayload?.field}&orderBy=${paginationPayload?.orderBy}`
+    GetSubmissionList(url);
+  }
+
   return (
     <React.Fragment>
       <Grid item container direction='row' justifyContent={'right'}>
         <DownloadField>
           <DownloadButton>
+            <Tooltip title="Refresh" arrow>
+              <IconButton
+                aria-label="download-file"
+                size="large"
+                onClick={handleRefresh}
+              >
+                <RefreshOutlinedIcon />
+              </IconButton>
+            </Tooltip>
             {submissionData?.length > 0 &&
               isLoadingDownload ?
-              <SkeletonContainer>
-                <Skeleton width={50} />
-              </SkeletonContainer> :
+              <Skeleton width={40} />
+              :
               <Tooltip title="Download csv" arrow>
                 <IconButton
-                  color="primary"
                   aria-label="download-file"
                   size="large"
                   onClick={handleDownload}>
@@ -391,9 +405,9 @@ const Submission = ({
       <CardView>
         {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
           <Tooltip title='Delete' arrow>
-          <IconButton onClick={deleteAllAssignment}>
-            <DeleteIcon />
-          </IconButton>
+            <IconButton onClick={deleteAllAssignment}>
+              <DeleteIcon />
+            </IconButton>
           </Tooltip>
         </div>}
 
