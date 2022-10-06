@@ -19,6 +19,23 @@ const UploadFileReducer = (state = {}, action) => {
                 isLoading: false,
                 error: action.payload,
             };
+        case types.FETCH_UPLOAD_GOOGLE_DRIVE_START:
+            return {
+                ...state,
+                isLoadingFileDrive: true,
+            };
+        case types.FETCH_UPLOAD_GOOGLE_DRIVE_SUCCESS:
+            return {
+                ...state,
+                isLoadingFileDrive: false,
+                uploadFileDrive: action.payload,
+            };
+        case types.FETCH_UPLOAD_GOOGLE_DRIVE_FAIL:
+            return {
+                ...state,
+                isLoadingFileDrive: false,
+                uploadFileDriveError: action.payload,
+            };
         default:
             return state;
     }
