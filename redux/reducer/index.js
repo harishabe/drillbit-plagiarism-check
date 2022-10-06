@@ -14,6 +14,7 @@ import IntegrationReducer from './admin/IntegrationReducer';
 import ProfileReducer from './profile/ProfileReducer';
 import SuperReducer from './super/SuperReducer';
 import SubmissionReducer from './common/Submission/SubmissionReducer';
+import UploadFileReducer from './common/UploadFile/UploadFileReducer';
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
     adminReport: ReportsReducer,
     studentClasses: DetailsStudentReducer,
     superAdmin: SuperReducer,
-    submission: SubmissionReducer
+    submission: SubmissionReducer,
+    uploadFile: UploadFileReducer,
 });
 
 export default rootReducer;
