@@ -2,7 +2,8 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../../action/UploadFileActionType';
 import {
     LanguageListDetail,
-    UploadFileDriveDetail
+    UploadFileDriveDetail,
+    UploadNonEngFile
 } from '../../../api/common/UploadFile/UploadFileAPI';
 import toastrValidation from '../../../../utils/ToastrValidation';
 
@@ -56,4 +57,30 @@ export function* onLoadUploadFileDrive(action) {
 
 export function* UploadFileDriveData() {
     yield takeLatest(types.FETCH_UPLOAD_GOOGLE_DRIVE_START, onLoadUploadFileDrive);
+}
+
+/**
+ * Upload file non english
+ * @param {*} action
+ */
+
+ export function* onLoadUploadFileNonEnglish(action) {
+    const { response, error } = yield call(UploadNonEngFile, action.classId, action.assId, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_UPLOAD_FILE_NON_ENGLISH_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_UPLOAD_FILE_NON_ENGLISH_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* UploadFileNonEnglish() {
+    yield takeLatest(types.FETCH_UPLOAD_FILE_NON_ENGLISH_START, onLoadUploadFileNonEnglish);
 }

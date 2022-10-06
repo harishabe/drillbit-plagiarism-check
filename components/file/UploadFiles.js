@@ -30,6 +30,10 @@ import {
 } from '../../redux/action/instructor/InstructorAction';
 
 import {
+    LanguageList
+} from '../../redux/action/common/UploadFile/UploadFileAction';
+
+import {
     UPLOAD_FILE_MAX_LIMIT
 } from '../../constant/data/ErrorMessage';
 
@@ -52,19 +56,22 @@ const UploadFiles = ({
     multiFileUploadAPI,
     routerObj,
     isRepository,
-    title
+    title,
+    LanguageList,
+    nonEnglishLang,
+    isLoadingLang
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
     const [fileWarning, setFileWarning] = useState(false);
     const [value, setValue] = useState('');
     const [inputValue, setInputValue] = useState('');
-    const [language, setLanguage] = useState('');
+    const [language, setLanguage] = useState('English');
     const [nonEnglishLanguage, setNonEnglishLanguage] = useState('');
 
     const [grammarPlagiarismCheck, setGrammarPlagiarismCheck] = useState({
         grammarCheck: false,
-        plagiarismCheck: false
+        plagiarismCheck: true
     });
     const { grammarCheck, plagiarismCheck } = grammarPlagiarismCheck;
 
@@ -105,13 +112,12 @@ const UploadFiles = ({
     }
 
     const singleFileUpload = (files, data) => {
-        console.log('languagelanguage',language);
         let bodyFormData = new FormData();
         bodyFormData.append('authorName', data.authorName0);
         bodyFormData.append('title', data.title0);
         bodyFormData.append('documentType', data.documentType0);
-        bodyFormData.append('plagiarismCheck', 'YES');
-        bodyFormData.append('grammarCheck', 'YES');
+        bodyFormData.append('plagiarismCheck', plagiarismCheck ? 'YES' : 'NO');
+        bodyFormData.append('grammarCheck', grammarCheck ? 'YES' : 'NO');
         bodyFormData.append('language', language);
         bodyFormData.append('file', files[0][1]);
         SubmissionListUpload(singleFileUploadAPI, bodyFormData);
@@ -182,8 +188,14 @@ const UploadFiles = ({
         });
     }
 
+    useEffect(() => {
+        console.log('non-english-RENDER');
+        if (language === 'Non English') {
+            LanguageList();
+        }
+    }, [language === 'Non English']);
+
     return (
-        console.log('inputValueinputValueinputValue', inputValue),
         <>
             <CardView>
                 <ContentCenter>
@@ -228,6 +240,7 @@ const UploadFiles = ({
                                         <Grid item md={3}>
                                             <Autocomplete
                                                 disablePortal
+                                                value={language}
                                                 id="language"
                                                 options={[{
                                                     'label': 'English',
@@ -250,9 +263,7 @@ const UploadFiles = ({
                                                 <Autocomplete
                                                     disablePortal
                                                     id="language"
-                                                    options={[{
-                                                        'label': 'Norweigian',
-                                                    }]}
+                                                    options={nonEnglishLang?.non_english_languages}
                                                     size="small"
                                                     onChange={(event, newValue) => {
                                                         setValue(newValue);
@@ -314,6 +325,8 @@ const UploadFiles = ({
 
 const mapStateToProps = (state) => ({
     uploadData: state?.instructorMyFolders?.uploadData,
+    nonEnglishLang: state?.uploadFile?.nonEnglishLang,
+    isLoadingLang: state?.uploadFile?.isLoadingLang,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
     isLoadingUploadFile: state?.instructorMyFolders?.isLoadingSubmission,
 });
@@ -321,7 +334,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         SubmissionListUpload: (apiUrl, data) => dispatch(SubmissionListUpload(apiUrl, data)),
-        UploadFileDataClear: () => dispatch(UploadFileDataClear())
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        LanguageList: () => dispatch(LanguageList())
     };
 };
 

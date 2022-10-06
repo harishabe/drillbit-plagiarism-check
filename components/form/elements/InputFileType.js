@@ -1,15 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { makeStyles } from '@mui/styles';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { TextField } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-    helperTextLeft: {
-        marginLeft: '0 !important'
-    }
-}))
+const InfoContainer = styled.div`
+    font-size: 13px;
+`;
 
 const StyledInputField = styled(TextField)(() => ({
     ':hover': {
@@ -22,15 +19,12 @@ const InputFileType = ({
     control,
     field
 }) => {
-
-    const classes = useStyles()
-
     return (
         <>
             <Controller
                 name="file"
                 control={control}
-                render={ ({ field, fieldState: { error } }) => (
+                render={({ field, fieldState: { error } }) => (
                     <StyledInputField
                         margin="normal"
                         type="file"
@@ -41,27 +35,27 @@ const InputFileType = ({
                         name={field.name}
                         id={field.name}
                         variant="outlined"
-                        error={ !!error }
-                        helperText={ error ? error.message : field.info }
-                        FormHelperTextProps={ { classes: { root: classes.helperTextLeft } } }
+                        error={!!error}
+                        helperText={error && error.message}
                     />
                 )}
-                rules={ {
+                rules={{
                     required: field.required,
                     pattern: {
                         message: field.validationMsg
                     }
-                } }
+                }}
             />
+            {field.info && <InfoContainer>{field.info}</InfoContainer>}
         </>
     )
-}
+};
 
 InputFileType.propTypes = {
     control: PropTypes.any,
     field: PropTypes.any,
-}
+};
 
-export default InputFileType
+export default InputFileType;
 
 

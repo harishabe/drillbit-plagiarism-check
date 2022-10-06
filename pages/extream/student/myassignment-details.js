@@ -100,7 +100,7 @@ const MyAssignmentDetails = ({
             link: '',
             active: true,
         },
-    ]
+    ];
 
     useEffect(() => {
         GetSubmissionData(router.query.clasId, router.query.assId, paginationPayload);
@@ -150,7 +150,7 @@ const MyAssignmentDetails = ({
     };
 
     const handleYesWarning = () => {
-        console.log('datadatadata',data);
+        console.log('datadatadata', data);
         let detailedData = {
             clasId: router.query.clasId,
             assId: router.query.assId,
@@ -195,7 +195,7 @@ const MyAssignmentDetails = ({
         isLoadingSubmission={isLoadingSubmission}
         pageDetails={pageDetails}
         handleChange={handleChange}
-        handleAction={ handleAction }
+        handleAction={handleAction}
         handleOriginalFileDownload={handleOriginalFileDownload}
         handleTableSort={handleTableSort}
 
@@ -205,7 +205,7 @@ const MyAssignmentDetails = ({
         qnaData={qnaData}
         isLoadingQa={isLoadingQa}
         isLoadingAns={isLoadingAns}
-        handleSend={ handleSend }
+        handleSend={handleSend}
     />
 
     const componentList = [
@@ -287,18 +287,18 @@ const MyAssignmentDetails = ({
                 />
             }
 
-            { showDialogModal &&
+            {showDialogModal &&
                 <>
                     <DialogModal
-                        isOpen={ true }
+                        isOpen={true}
                         fullWidth="xl"
                         maxWidth="xl"
-                        handleClose={ handleCloseDialog }
+                        handleClose={handleCloseDialog}
                     >
                         <Feedback
-                            GetFeedback={ GetFeedback }
-                            feedbackData={ feedbackData }
-                            isLoadingFeedback={ isLoadingFeedback }
+                            GetFeedback={GetFeedback}
+                            feedbackData={feedbackData}
+                            isLoadingFeedback={isLoadingFeedback}
                         />
                     </DialogModal>
                 </>

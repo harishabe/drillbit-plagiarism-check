@@ -5,7 +5,6 @@ import { makeStyles } from '@mui/styles';
 import { TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import styled from 'styled-components';
-import SubTitle1 from '../../typography/SubTitle1';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
