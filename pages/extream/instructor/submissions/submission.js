@@ -127,7 +127,6 @@ const Submission = ({
     let row = '';
     let arr = [];
     submissionData?.map((submission) => {
-      console.log('submission', submission),
         row = createData(
           submission.ass_id,
           submission.d_key,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Box } from '@mui/material';
 import { useRouter } from "next/router";
 import Instructor from '../../../layouts/Instructor';
@@ -30,7 +30,16 @@ const tabMenu = [
 
 const UploadFile = () => {
     const router = useRouter();
-    
+    const [className, setClassName] = useState('');
+    const [assName, setAssName] = useState('');
+
+    useEffect(() => {
+        if (router.isReady) {
+            setClassName(router.query.clasName);
+            setAssName(router.query.assName);
+        }
+    }, [router.isReady]);
+
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
@@ -38,12 +47,12 @@ const UploadFile = () => {
             active: false,
         },
         {
-            name: router.query.clasName,
+            name: className,
             link: '/extream/instructor/myclasses',
             active: false,
         },
         {
-            name: router.query.assName,
+            name: assName,
             link: '/extream/instructor/my-assignment' + router?.asPath?.slice(router?.pathname?.length),
             active: false,
         },
@@ -61,24 +70,27 @@ const UploadFile = () => {
     ];
 
     const handleAPI = () => {
-        
+
     }
 
     const componentList = [
         <UploadFiles
             choseFileTitle='browse your file here'
-            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             fileIcon={<UploadFileIcon />}
             singleFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`}
             multiFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`}
-            routerObj={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } }}
+            routerObj={{
+                pathname: '/extream/instructor/mysubmissions',
+                query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName }
+            }}
         />,
-        <GDriveFileUpload title={ UPLOAD_TITLE_CONSTANT.SUBMISSION } />,
+        <GDriveFileUpload title={UPLOAD_TITLE_CONSTANT.SUBMISSION} />,
         <ZipFileUpload
-            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             zipFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`}
             confirmZipFileAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/confirmZipFile`}
-            routerObj={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId } }}
+            routerObj={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName } }}
         />
     ];
     return (
@@ -96,7 +108,7 @@ const UploadFile = () => {
                         <TabMenu
                             menuButton={tabMenu}
                             components={componentList}
-                            handleAPI={ handleAPI }
+                            handleAPI={handleAPI}
                         />
                     </Grid>
                 </Grid>

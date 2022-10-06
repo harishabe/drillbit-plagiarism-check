@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 import Grid from '@mui/material/Grid';
@@ -19,6 +19,13 @@ const MyClassesTables = ({
 }) => {
     const router = useRouter();
     const [activeTab, setActiveTab] = useState(0);
+    const [myclass, setMyclass] = useState('');
+
+    useEffect(() => {
+        if (router.isReady) {
+            setMyclass(router.query.clasName);
+        }
+    }, [router.isReady]);
 
     const InstructorBreadCrumb = [
         {
@@ -27,13 +34,13 @@ const MyClassesTables = ({
             active: false,
         },
         {
-            name: router.query.clasName,
+            name: myclass,
             link: '/extream/instructor/myclasses',
             active: false,
         },
         {
             name: 'My assignments',
-            link: '/extream/instructor/myclasstables',
+            link: '/extream/instructor/my-assignment',
             active: true,
         },
     ]
