@@ -24,13 +24,15 @@ const InputFileType = ({
 }) => {
 
     const classes = useStyles()
-
     return (
         <>
             <Controller
                 name="file"
                 control={control}
-                render={ ({ field, fieldState: { error } }) => (
+                render={ ({
+                    field: { value },
+                    fieldState: { error }
+                }) => (
                     <StyledInputField
                         margin="normal"
                         type="file"
@@ -42,6 +44,7 @@ const InputFileType = ({
                         id={field.name}
                         variant="outlined"
                         error={ !!error }
+                        value={ value }
                         helperText={ error ? error.message : field.info }
                         FormHelperTextProps={ { classes: { root: classes.helperTextLeft } } }
                     />
