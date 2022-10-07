@@ -8,7 +8,9 @@ import {
     DownloadSubmissionDetail,
 } from './common/Submission/DetailSubmissionData';
 import {
-    LanguageListData
+    LanguageListData,
+    UploadFileDriveData,
+    UploadFileNonEnglish
 } from './common/UploadFile/DetailUploadFile';
 import { InsDashboardWidget } from './instructor/Dashboard';
 import {
@@ -169,6 +171,8 @@ const saga = [
     fork(DeleteSubmissionFile),
     fork(DownloadSubmissionDetail),
     fork(LanguageListData),
+    fork(UploadFileDriveData),
+    fork(UploadFileNonEnglish),
     fork(GetStudentData),
     fork(GetAdminRepoData),
     fork(RepoAdminUploadData),

@@ -14,6 +14,7 @@ import { IconButton, Skeleton, Tooltip } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import BeatLoader from "react-spinners/BeatLoader";
 import { SubTitle, TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
 import {
     TABLE_HEADER_SORT_DISABLE,
@@ -71,93 +72,96 @@ const CommonTable = ({
     }, [tableData]);
 
     return (
-        <TableContainer classes={ { root: classes.customTableContainer } }>
+        <TableContainer classes={{ root: classes.customTableContainer }}>
             <Table stickyHeader>
                 <TableHead>
                     <TableRow>
-                        { isCheckbox &&
-                            <TableCell padding="checkbox" className={ classes.padding }>
-                                <Checkbox checked={ allSelected } onChange={ (e) => handleCheckboxSelect(e, allSelected) } />
-                            </TableCell> }
-                        { tableHeader?.map((column) => (
+                        {isCheckbox &&
+                            <TableCell padding="checkbox" className={classes.padding}>
+                                <Checkbox checked={allSelected} onChange={(e) => handleCheckboxSelect(e, allSelected)} />
+                            </TableCell>}
+                        {tableHeader?.map((column) => (
                             <>
-                                { (isSorting) &&
+                                {(isSorting) &&
                                     <TableCell
-                                        key={ column.id }
-                                        align={ column.align }
-                                        style={ { minWidth: column.minWidth } }
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{ minWidth: column.minWidth }}
                                     >
-                                        { TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
-                                            <EllipsisText value={ column.label } charLength={ charLength } variant='body2_1' />
+                                        {TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
+                                            <EllipsisText value={column.label} charLength={charLength} variant='body2_1' />
                                             : <TableSortLabel
-                                                onClick={ ((e) => sortHandle(e, column)) }
+                                                onClick={((e) => sortHandle(e, column))}
                                                 IconComponent={
                                                     () =>
-                                                        <div style={ { marginTop: '2px' } }>
+                                                        <div style={{ marginTop: '2px' }}>
                                                             {
                                                                 (toggle && sortArrow === column.id) ?
-                                                                    <ArrowDownwardIcon style={ { fontSize: '18px' } } /> :
-                                                                    <ArrowUpwardIcon style={ { fontSize: '18px' } } />
+                                                                    <ArrowDownwardIcon style={{ fontSize: '18px' }} /> :
+                                                                    <ArrowUpwardIcon style={{ fontSize: '18px' }} />
                                                             }
                                                         </div>
                                                 }
                                             >
-                                                <EllipsisText value={ column.label } charLength={ charLength } variant='body2_1' />
-                                            </TableSortLabel> }
+                                                <EllipsisText value={column.label} charLength={charLength} variant='body2_1' />
+                                            </TableSortLabel>}
 
                                     </TableCell>
                                 }
                             </>
-                        )) }
+                        ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    { isLoading ?
+                    {isLoading ?
                         <TableSkeleton />
                         : tableData?.map((row) => (
-                            <TableRow hover key={ row.id }>
-                                { isCheckbox &&
-                                    <TableCell padding="checkbox" className={ classes.padding }>
-                                        <Checkbox onChange={ (e) => handleSingleSelect(e, row) } checked={ row.isSelected } />
-                                    </TableCell> }
-                                { tableHeader.map((column) => {
+                            <TableRow hover key={row.id}>
+                                {isCheckbox &&
+                                    <TableCell padding="checkbox" className={classes.padding}>
+                                        <Checkbox onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
+                                    </TableCell>}
+                                {tableHeader.map((column) => {
                                     const value = row[column.id];
+                                    console.log('valuevaluevalue', value);
                                     return (
                                         <>
                                             {
                                                 TABLE_BODY_ALLOW_ICON.includes(column.id) ?
                                                     <TableCell>
-                                                        { value.map((icon) => (
-                                                            <Tooltip title={ icon.title } arrow>
-                                                                <IconButton onClick={ (e) => handleAction(e, icon.type, row) }>{ icon.component }
+                                                        {value.map((icon) => (
+                                                            <Tooltip title={icon.title} arrow>
+                                                                <IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}
                                                                 </IconButton>
-                                                            </Tooltip>)) }
+                                                            </Tooltip>))}
                                                     </TableCell> :
                                                     <>
                                                         {
                                                             column.isDownload ?
-                                                                <TableCell key={ column.id } align={ column.align }>
-                                                                    <a href='#' style={ { textDecoration: 'underline', color: '#3672FF' } } onClick={ (e) => downloadSubmissionFile(e, row) }>
-                                                                        { typeof (value) === 'string' ?
-                                                                            <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } /> :
-                                                                            <SubTitle title={ value !== null ? value : NO_DATA_PLACEHOLDER } /> }
+                                                                <TableCell key={column.id} align={column.align}>
+                                                                    <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={(e) => downloadSubmissionFile(e, row)}>
+                                                                        {typeof (value) === 'string' ?
+                                                                            <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} /> :
+                                                                            <SubTitle title={value !== null ? value : NO_DATA_PLACEHOLDER} />}
                                                                     </a>
                                                                 </TableCell>
                                                                 :
                                                                 <>
-                                                                    { column.id === 'percent' ?
-                                                                        <TableCell key={ column.id } align={ column.align }>
-                                                                            <Tooltip title={ 'Similarity Report' } arrow>
-                                                                                <a href='#' onClick={ (e) => showAnalysisPage(e, row) }>
-                                                                                    { value !== null ? value : NO_DATA_PLACEHOLDER }
-                                                                                </a>
-                                                                            </Tooltip>
+                                                                    {column.id === 'percent' ?
+                                                                        <TableCell key={column.id} align={column.align}>
+                                                                            {value?.props?.percent === '--' ?
+                                                                                <div style={{ textAlign: 'center' }}><BeatLoader color="#3672FF" /></div> :
+                                                                                <Tooltip title={'Similarity Report'} arrow>
+                                                                                    <a href='#' onClick={(e) => showAnalysisPage(e, row)}>
+                                                                                        {value}
+                                                                                    </a>
+                                                                                </Tooltip>}
                                                                         </TableCell>
                                                                         :
-                                                                        <TableCell key={ column.id } align={ column.align }>
-                                                                            { typeof (value) === 'string' ?
-                                                                                <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } /> :
-                                                                                <SubTitle title={ value !== null ? value : NO_DATA_PLACEHOLDER } /> }
+                                                                        <TableCell key={column.id} align={column.align}>
+                                                                            {typeof (value) === 'string' ?
+                                                                                <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} /> :
+                                                                                <SubTitle title={value !== null ? value : NO_DATA_PLACEHOLDER} />}
                                                                         </TableCell>
                                                                     }
                                                                 </>
@@ -167,31 +171,33 @@ const CommonTable = ({
                                             }
                                         </>
                                     )
-                                }) }
-                                { isNextPath &&
-                                    <Tooltip title={ TABLE_NEXT_PAGE } arrow>
-                                        <IconButton className={ classes.customArrowContainer }
-                                            onClick={ (e) => {
+                                })}
+                                {isNextPath &&
+                                    <Tooltip title={TABLE_NEXT_PAGE} arrow>
+                                        <IconButton className={classes.customArrowContainer}
+                                            onClick={(e) => {
                                                 if (path && path?.query?.isAssignment) {
+                                                    console.log('rowrow',row);
                                                     path.query['assId'] = row?.id
-                                                    path.query['assName'] = row?.assignment_name
-                                                    router.push(path)
+                                                    path.query['assName'] = row?.assignment_name,
+                                                    path.query['grammar'] = row?.assignmentData?.grammar
+                                                    router.push(path);
                                                 } else {
                                                     router.push(path);
                                                 }
-                                            } }
+                                            }}
                                         >
                                             <ArrowForwardOutlinedIcon />
                                         </IconButton>
                                     </Tooltip>
                                 }
                             </TableRow>
-                        )) }
+                        ))}
                 </TableBody>
             </Table>
 
             <>
-                { (tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" /> }
+                {(tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" />}
             </>
         </TableContainer>
     )

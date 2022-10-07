@@ -5,19 +5,19 @@ const UploadFileReducer = (state = {}, action) => {
         case types.FETCH_LANGUAGE_LIST_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingLang: true,
             };
         case types.FETCH_LANGUAGE_LIST_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
-                data: action.payload,
+                isLoadingLang: false,
+                nonEnglishLang: action.payload,
             };
         case types.FETCH_LANGUAGE_LIST_FAIL:
             return {
                 ...state,
-                isLoading: false,
-                error: action.payload,
+                isLoadingLang: false,
+                nonEnglishLang: action.payload,
             };
         case types.FETCH_UPLOAD_GOOGLE_DRIVE_START:
             return {
@@ -35,6 +35,24 @@ const UploadFileReducer = (state = {}, action) => {
                 ...state,
                 isLoadingFileDrive: false,
                 uploadFileDriveError: action.payload,
+            };
+
+        case types.FETCH_UPLOAD_FILE_NON_ENGLISH_START:
+            return {
+                ...state,
+                isLoadingNonEng: true,
+            };
+        case types.FETCH_UPLOAD_FILE_NON_ENGLISH_SUCCESS:
+            return {
+                ...state,
+                isLoadingNonEng: false,
+                uploadFileNonEng: action.payload,
+            };
+        case types.FETCH_UPLOAD_FILE_NON_ENGLISH_FAIL:
+            return {
+                ...state,
+                isLoadingNonEng: false,
+                uploadFileNonEng: action.payload,
             };
         default:
             return state;

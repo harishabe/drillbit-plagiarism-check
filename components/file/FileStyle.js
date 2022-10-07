@@ -24,7 +24,8 @@ export const ChooseLabel = styled('label')({
     cursor: 'pointer'
 });
 
-export const ChipContainer = styled('span')({
+export const ChipContainer = styled('div')({
+    display:'inline-flex',
     marginTop: '10px', 
     marginLeft: '10px'
 });
