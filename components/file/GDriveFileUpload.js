@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useRouter } from "next/router";
 import Chip from '@mui/material/Chip';
 import { Grid, Link, Button } from '@mui/material';
 import useDrivePicker from "react-google-drive-picker";
 import BeatLoader from "react-spinners/BeatLoader";
+import FileForm from './FileForm';
 import {
     Title,
     CardView
@@ -17,13 +20,17 @@ import {
 import {
     GoogleDriveIcon
 } from '../../assets/icon';
+import { UploadFileDrive } from '../../redux/action/common/UploadFile/UploadFileAction';
 
 const GDriveFileUpload = ({
     isLoadingUpload,
-    title
+    title,
+    UploadFileDrive
 }) => {
+    const router = useRouter();
     const [driveFile, setDriveFile] = useState('');
     const [driveFilePayload, setDriveFilePayload] = useState('');
+    const [documnet, setDocument] = useState('');
     const [driveAuthToken, setDriveAuthToken] = useState('');
     const [openPicker, tokenData] = useDrivePicker();
 
@@ -44,6 +51,7 @@ const GDriveFileUpload = ({
             customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
             callbackFunction: (data) => {
                 if (data && data?.docs?.length > 0) {
+                    setDocument(data?.docs);
                     setDriveFile(data && data?.docs[0].name);
                     setDriveFilePayload({
                         "fileId": data.docs[0].id,
@@ -58,9 +66,17 @@ const GDriveFileUpload = ({
         });
     };
 
-    const handleGoogleDriveFile = (e) => {
-        e.preventDefault();
-        console.log('driverFile', driveFilePayload);
+    const handleSubmit = (e) => {
+        console.log('doc',documnet);
+        let bodyFormData = new FormData();
+        bodyFormData.append('authorName', 'AAAAA');
+        bodyFormData.append('title', 'AAAA');
+        bodyFormData.append('documentType', 'Thesis');
+        bodyFormData.append('plagiarismCheck', 'YES');
+        bodyFormData.append('grammarCheck', 'YES');
+        bodyFormData.append('language', 'English');
+        bodyFormData.append('file', document);
+        UploadFileDrive(router.query.clasId, router.query.assId, bodyFormData);
     }
 
     return (
@@ -68,32 +84,45 @@ const GDriveFileUpload = ({
             <ContentCenter>
                 <Title
                     color='#020B50'
-                    title={ title }
+                    title={title}
                 />
                 <DragAreaPadding>
                     <Grid container spacing={1}>
                         <Grid item md={12} xs={12}>
                             <DragDropArea>
-                                <GoogleDriveIcon />
+                                <div>
+                                    <GoogleDriveIcon />
+                                </div>
+                                <Link style={{ marginLeft: '5px' }}>
+                                    <ChooseLabel onClick={() => handleOpenPicker()}>
+                                        Browse your file from google drive
+                                    </ChooseLabel>
+                                </Link>
+                                <div>
+                                    {driveFile !== '' &&
+                                        <ChipContainer>
+                                            <Chip
+                                                label={driveFile}
+                                            />
+                                        </ChipContainer>}
+                                </div>
                             </DragDropArea>
-                            <Link style={{ marginLeft: '5px' }}>
-                                <ChooseLabel onClick={() => handleOpenPicker()}>
-                                    Browse your file from google drive
-                                </ChooseLabel>
-                            </Link>
-                            {driveFile !== '' &&
-                                <ChipContainer>
-                                    <Chip
-                                        label={driveFile}
-                                    />
-                                </ChipContainer>}
                             {driveFile && driveFile?.length > 0 &&
+                                <FileForm
+                                    handleSubmitFile={handleSubmit}
+                                    files={documnet}
+                                    btnTitle='Submit'
+                                    isLoading={isLoadingUpload}
+                                />
+                            }
+
+                            {/* {driveFile && driveFile?.length > 0 &&
                                 <div style={{ textAlign: 'center', marginTop: '10px' }}>
                                     <Button type="submit" onClick={handleGoogleDriveFile} variant="contained" size="large">
                                         {isLoadingUpload ? <BeatLoader color="#fff" /> : 'Process File'}
                                     </Button>
                                 </div>
-                            }
+                            } */}
                         </Grid>
                     </Grid>
                 </DragAreaPadding>
@@ -102,4 +131,18 @@ const GDriveFileUpload = ({
     )
 };
 
-export default GDriveFileUpload;
+const mapStateToProps = (state) => ({
+    uploadData: state?.instructorMyFolders?.uploadData,
+    isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
+    isLoadingUploadFile: state?.instructorMyFolders?.isLoadingSubmission,
+    extractedFileData: state?.instructorMyFolders?.extractedFileData,
+    isLoadingExtractedFile: state?.instructorMyFolders?.isLoadingExtractedFile,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        UploadFileDrive: (clasId, assId, data) => dispatch(UploadFileDrive(clasId, assId, data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GDriveFileUpload);

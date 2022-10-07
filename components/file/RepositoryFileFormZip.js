@@ -46,8 +46,8 @@ const languageType = [
 const RepositoryFileFormZip = ({
     files,
     handleSubmitRepositoryZip,
-    // btnTitle,
-    // isLoading
+    btnTitle,
+    isLoading
 }) => {
     const classes = useStyles();
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -56,16 +56,16 @@ const RepositoryFileFormZip = ({
     }
 
     return (
-        <div style={ { marginTop: '10px' } }>
-            <form onSubmit={ handleSubmit(onSubmit) }>
-                { files &&
-                    <Grid container spacing={ 1 } key={ files?.name }>
-                        <Grid item md={ 4 } xs={ 12 }>
-                            <div style={ { marginTop: '25px' } }>
-                                <EllipsisText value={ files?.name || item } charLength={ 15 } />
+        <div style={{ marginTop: '10px' }}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                {files &&
+                    <Grid container spacing={1} key={files?.name}>
+                        <Grid item md={2} xs={12}>
+                            <div style={{ marginTop: '25px' }}>
+                                <EllipsisText value={files?.name || item} charLength={15} />
                             </div>
                         </Grid>
-                        <Grid item md={ 4 } xs={ 12 }>
+                        <Grid item md={5} xs={12}>
                             <LabelContainer>
                                 <InputLabel>
                                     Repository *
@@ -73,23 +73,23 @@ const RepositoryFileFormZip = ({
                             </LabelContainer>
                             <Autocomplete
                                 disablePortal
-                                id={ "repository" }
-                                name={ "repository" }
-                                options={ repoType }
+                                id={"repository"}
+                                name={"repository"}
+                                options={repoType}
                                 size="small"
                                 renderInput={
                                     (params) =>
                                         <TextField
-                                            { ...register("repository", { required: true }) } { ...params }
-                                            helperText={ errors['repository'] && UPLOAD_FILE_REPOSITORY_TYPE }
-                                            FormHelperTextProps={ {
+                                            {...register("repository", { required: true })} {...params}
+                                            helperText={errors['repository'] && UPLOAD_FILE_REPOSITORY_TYPE}
+                                            FormHelperTextProps={{
                                                 className: classes.helperText
-                                            } }
+                                            }}
                                         />
                                 }
                             />
                         </Grid>
-                        <Grid item md={ 4 } xs={ 12 }>
+                        <Grid item md={5} xs={12}>
                             <LabelContainer>
                                 <InputLabel>
                                     Language *
@@ -97,18 +97,18 @@ const RepositoryFileFormZip = ({
                             </LabelContainer>
                             <Autocomplete
                                 disablePortal
-                                id={ "language" }
-                                name={ "language" }
-                                options={ languageType }
+                                id={"language"}
+                                name={"language"}
+                                options={languageType}
                                 size="small"
                                 renderInput={
                                     (params) =>
                                         <TextField
-                                            { ...register("language", { required: true }) } { ...params }
-                                            helperText={ errors['language'] && UPLOAD_FILE_LANGUAGE }
-                                            FormHelperTextProps={ {
+                                            {...register("language", { required: true })} {...params}
+                                            helperText={errors['language'] && UPLOAD_FILE_LANGUAGE}
+                                            FormHelperTextProps={{
                                                 className: classes.helperText
-                                            } }
+                                            }}
                                         />
                                 }
                             />
@@ -116,11 +116,11 @@ const RepositoryFileFormZip = ({
                     </Grid>
 
                 }
-                {/* <div style={ { textAlign: 'center', marginTop: '10px' } }>
+                <div style={ { textAlign: 'center', marginTop: '10px' } }>
                     <Button type="submit" variant="contained" size="large">
                         { isLoading ? <BeatLoader color="#fff" /> : btnTitle }
                     </Button>
-                </div> */}
+                </div>
             </form>
         </div>
     )

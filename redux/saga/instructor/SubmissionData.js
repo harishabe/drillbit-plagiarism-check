@@ -69,10 +69,6 @@ export function* onLoadExtractedZipFileUpload(action) {
     const { response, error } = yield call(UploadSubmission, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_UPLOAD_EXTRACTED_ZIP_FILE_SUCCESS, payload: response?.data });
-        yield put({
-            type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START,
-            url: action.url.split('/')[0] === 'classes' ? `classes/${action.url.split('/')[1]}/assignments/${action.url.split('/')[3]}/submissions?page=0&size=25&field=name&orderBy=desc` : `myFolder/${action.url.split('/')[1]}/submissions?page=0&size=6&field=name&orderBy=asc`
-        });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_UPLOAD_EXTRACTED_ZIP_FILE_FAIL, payload: error });

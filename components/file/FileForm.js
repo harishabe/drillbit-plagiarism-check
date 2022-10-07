@@ -87,14 +87,15 @@ const FileForm = ({
     }
 
     return (
+        console.log('1111',files),
         <div style={{ marginTop: '10px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {files && files?.map((item, index) => {
                     return (
-                        <Grid container spacing={1} key={item[1]?.name}>
+                        <Grid container spacing={1} key={item[1]?.name || item.name }>
                             <Grid item md={3} xs={12}>
                                 <div style={{ marginTop: '25px' }}>
-                                    <EllipsisText value={item[1]?.name || item} charLength={22} />
+                                    <EllipsisText value={item[1]?.name || item.name || item} charLength={22} />
                                 </div>
                             </Grid>
                             <Grid item md={3} xs={12}>

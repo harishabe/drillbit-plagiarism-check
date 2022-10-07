@@ -103,26 +103,17 @@ const ZipFileUpload = ({
     }
 
     const handleProcessZipFileRepo = (data) => {
-        let repositoryArr = [], languageArr = [], documentTypeArr = [];
-        uploadData?.fileNames?.map((item, i) => {
-            authorNameArr.push(data['repository' + i]);
-            titleArr.push(data['language' + i]);
-            documentTypeArr.push(data['documentType' + i]);
-        });
-        uploadData['repository'] = repositoryArr;
-        uploadData['language'] = languageArr;
-        uploadData['file'] = documentTypeArr;
-        // uploadData['repository'] = data['repository'];
-        // uploadData['language'] = data['language'];
-        // uploadData['file'] = data['documentType'];
-        setData(uploadData)
-        SubmissionListExtractedFileUpload(zipFileUploadAPI, uploadData);
+        let bodyFormData = new FormData();
+        bodyFormData.append('repository', data?.repository?.toUpperCase());
+        bodyFormData.append('language', data?.language);
+        bodyFormData.append('file', fileData[0][1]);
+        SubmissionListExtractedFileUpload(zipFileUploadAPI, bodyFormData);
     }
 
     useEffect(() => {
-        if (extractedFileData) {
-            UploadZipFileDataClear();
+        if (extractedFileData) {            
             router.push(routerObj);
+            UploadZipFileDataClear();
         }
     }, [extractedFileData && extractedFileData !== '']);
 
@@ -139,8 +130,8 @@ const ZipFileUpload = ({
                     <Grid item md={12} xs={12}>
                         <DragDropArea>
                             <UploadFileIcon />
-                            <Title1 title='Drag and drop, or ' />
-                            <Link style={{ marginLeft: '5px' }}>
+                            {/* <Title1 title='Drag and drop, or ' /> */}
+                            <Link style={{ marginLeft: '5px', display: 'block' }}>
                                 <ChooseLabel for="file-upload">
                                     browse your zip here
                                 </ChooseLabel>
@@ -177,10 +168,10 @@ const ZipFileUpload = ({
                             <RepositoryFileFormZip
                                 handleSubmitRepositoryZip={handleProcessZipFileRepo}
                                 files={fileData[0][1]}
-                            // btnTitle='Process the file'
-                            // isLoading={ isLoadingExtractedFile }
+                                btnTitle='Submit'
+                                isLoading={isLoadingExtractedFile}
                             />}
-                        {(uploadData?.fileNames?.length > 0) &&
+                        {(uploadData?.fileNames?.length > 0 && !isRepository) &&
                             <FileForm
                                 handleSubmitFile={handleProcessZipFile}
                                 files={uploadData?.fileNames}
@@ -191,7 +182,7 @@ const ZipFileUpload = ({
                         <div style={{ textAlign: 'center', marginTop: '10px' }}>
                             {(fileData?.length > 0 && uploadData === undefined)
                                 &&
-                                <Button type="submit" onClick={handleUploadZipFile} variant="contained" size="large">
+                                <Button type="submit" disabled={isLoadingUpload} onClick={handleUploadZipFile} variant="contained" size="large">
                                     {isLoadingUpload ? <BeatLoader color="#fff" /> : 'Upload Zip File'}
                                 </Button>
                             }

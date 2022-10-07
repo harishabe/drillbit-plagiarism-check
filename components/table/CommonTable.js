@@ -123,7 +123,6 @@ const CommonTable = ({
                                     </TableCell>}
                                 {tableHeader.map((column) => {
                                     const value = row[column.id];
-                                    console.log('valuevaluevalue', value);
                                     return (
                                         <>
                                             {

@@ -670,7 +670,6 @@ const AssignmentForms = ({
                     }}
                 />
 
-
                 <Grid container>
                     <Grid item md={6} style={{ marginLeft: '2px', marginTop: '5px' }}>
                         <InputLabel style={{ margin: '10px 0px' }}>
