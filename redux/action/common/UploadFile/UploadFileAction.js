@@ -19,11 +19,20 @@ export const UploadFileDrive = (classId, assId, data) => {
 };
 
 /**
- * Upload google drive
+ * Upload Non English
  */
  export const UploadNonEnglish = (classId, assId, data) => {
     return {
         type: types.FETCH_UPLOAD_FILE_NON_ENGLISH_START, classId: classId, assId: assId, query: data
+    };
+};
+
+/**
+ * Upload Non English
+ */
+export const RepositoryUpload = (url, data) => {
+    return {
+        type: types.FETCH_REPO_UPLOAD_FILE_DRIVE_AND_ZIP_START, url: url, query: data
     };
 };
 

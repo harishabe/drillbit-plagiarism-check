@@ -8,6 +8,7 @@ import { Grid, Tooltip } from '@mui/material';
 import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box'
 import { Pagination, IconButton } from '@mui/material';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import { TextField } from '@mui/material';
 import ProUser from '../../../layouts/ProUser';
 import {
@@ -68,6 +69,12 @@ const SkeletonContainer = styled.div`
 `;
 
 const DownloadField = styled.div`
+    position:absolute;
+    top: 118px;
+    right:225px;
+`;
+
+const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
@@ -126,6 +133,10 @@ const folderSubmission = ({
     useEffect(() => {
         folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
     }, [folderId, paginationPayload]);
+
+    const handleRefresh = () => {
+        folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
+    }
 
     useEffect(() => {
         let row = '';
@@ -303,20 +314,30 @@ const folderSubmission = ({
                     </Grid>
                     <Grid item md={ 4 } xs={ 12 } container direction='row' justifyContent={ 'right' }>
                         <DownloadField>
-                            { folderSubmissionData?.length > 0 &&
-                                isLoadingDownload ? <SkeletonContainer>
-                                <Skeleton width={ 50 } />
-                            </SkeletonContainer> :
-                                <Tooltip title="Download csv" arrow>
+                            <DownloadButton>
+                                <Tooltip title="Refresh" arrow>
                                     <IconButton
-                                        color="primary"
                                         aria-label="download-file"
                                         size="large"
-                                        onClick={ handleDownload }>
-                                        <DownloadIcon />
+                                        onClick={ handleRefresh }
+                                    >
+                                        <RefreshOutlinedIcon />
                                     </IconButton>
                                 </Tooltip>
-                            }
+                                { folderSubmissionData?.length > 0 &&
+                                    isLoadingDownload ?
+                                    <Skeleton width={ 40 } />
+                                    :
+                                    <Tooltip title="Download csv" arrow>
+                                        <IconButton
+                                            aria-label="download-file"
+                                            size="large"
+                                            onClick={ handleDownload }>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                }
+                            </DownloadButton>
                         </DownloadField>
                         <TextField
                             placeholder='Search'

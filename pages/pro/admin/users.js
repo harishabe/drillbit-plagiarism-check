@@ -42,18 +42,19 @@ import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import { PaginationContainer } from '../../style/index';
+import { Role } from '../../../constant/data';
 
 const columns = [
     { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'creationDate', label: 'Creation Date' },
+    { id: 'username', label: 'Email' },
+    { id: 'created_date', label: 'Creation Date' },
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
     { id: 'action', label: 'Actions' }
 ]
 
-function createData(user_id, name, email, creationDate, total_submissions, total_grammar, status, stats, action, expiry_date) {
-    return { user_id, name, email, creationDate, total_submissions, total_grammar, status, stats, action, expiry_date }
+function createData(user_id, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date) {
+    return { user_id, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date }
 };
 
 const AddButtonBottom = styled.div`
@@ -78,6 +79,7 @@ const UserBreadCrumb = [
 const Users = ({
     pageDetails,
     GetInstructorData,
+    licenseExpiryDate,
     UploadFileDataClear,
     instructorData,
     DeleteData,
@@ -121,14 +123,15 @@ const Users = ({
                     instructor.total_grammar,
                     <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
-                    ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                    instructor.role === Role.proAdmin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
+                        ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                    {
-                        'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                        'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                        'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
-                    }
-                    ]),
+                            {
+                                'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                                'type': instructor.status === 'active' ? 'lock' : 'unlock',
+                                'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
+                            }
+                        ]),
                     instructor.expiry_date,
                 );
             row['isSelected'] = false;
@@ -344,7 +347,9 @@ const Users = ({
                     title="Add User"
                     handleMultiData={ handleShow }
                     isShowAddIcon={ true }>
-                    <UserForm />
+                    <UserForm
+                        licenseExpiryDate={ licenseExpiryDate }
+                    />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -434,6 +439,7 @@ const Users = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.user?.page,
     instructorData: state?.detailsData?.instructorData?.user?._embedded?.userResponseList,
+    licenseExpiryDate: state?.detailsData?.instructorData,
     isLoading: state?.detailsData?.isLoading,
 });
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -10,65 +10,41 @@ import { AddImageIcon } from '../../../../assets/icon';
 const FeedbackForm = ({
     isLoading,
     InstructorFeedback,
-    EditFeedback,
-    editData,
+    gradingData,
     feedbackData,
     clasId,
     assId
 }) => {
-
-    const [formJsonField, setFormJsonField] = useState(FormJson);
-
-    const [editOperation, setEditOperation] = useState(false);
 
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
     });
 
     const onSubmit = (data) => {
-        if (editOperation) {
-            let DetailedData = {
-                'feedback': data.feedback,
-                'marks': data.marks,
-            }
-            // EditFeedback(clasId, folder_id, editData?.id, DetailedData);
-        } else {
-            let DetailedData = {
-                'feedback': data.feedback,
-                'marks': data.marks,
-            }
-            // console.log("InstructorFeedback", clasId, assId, feedbackData, DetailedData)
-            InstructorFeedback(clasId, assId, feedbackData, DetailedData);
+        let DetailedData = {
+            'feedback': data.feedback,
+            'marks': data.marks,
         }
-    };
-
-    const modifyFormField = (buttonLabel) => {
-        let formField = formJsonField?.map((field) => {
-            if (field.field_type === 'button') {
-                field.label = buttonLabel;
-            }
-            return field;
-        });
-        setFormJsonField(formField);
+        InstructorFeedback(clasId, assId, feedbackData, DetailedData);
     };
 
     useEffect(() => {
-        if (editData) {
-            let a = {
-                'marks': editData.marks,
-                'feedback': editData.feedback,
-            };
-            const fields = [
-                'marks',
-                'feedback',
-            ];
-            fields.forEach(field => setValue(field, a[field]));
-            modifyFormField('Submit');
-            setEditOperation(true);
-        } else {
-            modifyFormField('Submit');
+        if (gradingData) {
+            gradingData?.map((item) => {
+                if (item?.paper_id === feedbackData) {
+                    let a = {
+                        'marks': item?.obtained_marks,
+                        'feedback': item?.feedback,
+                    };
+                    const fields = [
+                        'marks',
+                        'feedback',
+                    ];
+                    fields.forEach(field => setValue(field, a[field]));
+                }
+            })
         }
-    }, [editData]);
+    }, [gradingData]);
 
     return (
         <>
@@ -77,7 +53,7 @@ const FeedbackForm = ({
             </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    { formJsonField?.map((field, i) => (
+                    { FormJson?.map((field, i) => (
                         <Grid item md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
                                 key={ i }

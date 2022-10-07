@@ -665,8 +665,6 @@ const AssignmentForms = ({
                         "id": "file",
                         "name": "file",
                         "label": "Choose File",
-                        "required": "Choose File",
-                        "validationMsg": "Please choose file"
                     }}
                 />
 

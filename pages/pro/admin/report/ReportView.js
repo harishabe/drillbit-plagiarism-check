@@ -62,7 +62,8 @@ const ReportView = ({
     onSend,
     closeSendDialog,
     handleChange,
-    pageDetails
+    pageDetails,
+    handleTableSort
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -79,7 +80,7 @@ const ReportView = ({
                     data.folder_name,
                     data.folder_id,
                     data.mail_id,
-                    data.created_id,
+                    data.created_date,
                     data.end_date,
                     data.no_of_submissions,
                 );
@@ -139,6 +140,7 @@ const ReportView = ({
                                     isCheckbox={ false }
                                     isSorting={ true }
                                     tableHeader={ foldersColumn }
+                                    handleTableSort={ handleTableSort }
                                     tableData={ rows }
                                     charLength={ 10 }
                                     path=''
@@ -166,6 +168,7 @@ const ReportView = ({
                                     isCheckbox={ false }
                                     isSorting={ true }
                                     tableHeader={ submissionsColumns }
+                                    handleTableSort={ handleTableSort }
                                     tableData={ rows }
                                     charLength={ 10 }
                                     path=''

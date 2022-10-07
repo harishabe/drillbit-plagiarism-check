@@ -3,7 +3,8 @@ import * as types from '../../../action/UploadFileActionType';
 import {
     LanguageListDetail,
     UploadFileDriveDetail,
-    UploadNonEngFile
+    UploadNonEngFile,
+    RepositoryUploadDetail
 } from '../../../api/common/UploadFile/UploadFileAPI';
 import toastrValidation from '../../../../utils/ToastrValidation';
 
@@ -83,4 +84,30 @@ export function* UploadFileDriveData() {
 
 export function* UploadFileNonEnglish() {
     yield takeLatest(types.FETCH_UPLOAD_FILE_NON_ENGLISH_START, onLoadUploadFileNonEnglish);
+}
+
+/**
+ * Upload file Repository
+ * @param {*} action
+ */
+
+export function* onLoadUploadFileRepo(action) {
+    const { response, error } = yield call(RepositoryUploadDetail, action.url, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_REPO_UPLOAD_FILE_DRIVE_AND_ZIP_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_REPO_UPLOAD_FILE_DRIVE_AND_ZIP_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* RepositoryUploadData() {
+    yield takeLatest(types.FETCH_REPO_UPLOAD_FILE_DRIVE_AND_ZIP_START, onLoadUploadFileRepo);
 }

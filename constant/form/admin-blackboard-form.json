@@ -13,6 +13,7 @@
         "id": "client_id",
         "name": "client_id",
         "label": "Client id *",
+        "disabled":true,
         "required": "Client id"
     },
     {

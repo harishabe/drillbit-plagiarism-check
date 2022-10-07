@@ -51,29 +51,6 @@ const Input = styled('input')({
     display: 'none',
 });
 
-const InstructorBreadCrumb = [
-    {
-        name: 'Dashboard',
-        link: '/extream/instructor/dashboard',
-        active: false,
-    },
-    {
-        name: 'My classes',
-        link: '/extream/instructor/myclasses',
-        active: false,
-    },
-    {
-        name: 'My assignments',
-        link: '/extream/instructor/my-assignment',
-        active: false,
-    },
-    {
-        name: 'Add multiple student',
-        link: '/extream/instructor/my-assignment/addBulkStudent',
-        active: true,
-    },
-];
-
 const AddBulkStudent = ({
     DownloadTemplate,
     UploadFile,
@@ -83,8 +60,41 @@ const AddBulkStudent = ({
 }) => {
     const router = useRouter();
     const classes = useStyles();
+    const [myclass, setMyClass] = useState('');
+    const [classId, setClassId] = useState('');
     const [fileData, setFileData] = useState('');
     const [showError, setShowError] = useState(false);
+
+    useEffect(() => {
+        if (router.isReady) {
+            setMyClass(router?.query?.className);
+            setClassId(router.query.classId);
+        }
+    }, [router.isReady]);;
+
+    const InstructorBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/extream/instructor/dashboard',
+            active: false,
+        },
+        {
+            name: myclass,
+            link: '/extream/instructor/myclasses',
+            active: false,
+        },
+        {
+            name: 'My assignments',
+            link: '/extream/instructor/my-assignment?clasId=' + classId + '&className=' + myclass,
+            // link: '/extream/instructor/my-assignment' + router?.asPath?.slice(router?.pathname?.length),
+            active: false,
+        },
+        {
+            name: 'Add multiple student',
+            link: '/extream/instructor/my-assignment/addBulkStudent',
+            active: true,
+        },
+    ];
 
     const handleDownload = () => {
         DownloadTemplate(router?.query?.classId);
@@ -109,13 +119,13 @@ const AddBulkStudent = ({
 
     const handleBack = (e) => {
         e.preventDefault();
-        router.push('/extream/instructor/my-assignment?clasId=' + router?.query?.classId);
+        router.push('/extream/instructor/my-assignment?clasId=' + classId + '&className=' + myclass);
     }
 
     useEffect(() => {
         if (fileUploadData?.status === 200) {
             setFileData('');
-            router.push('/extream/instructor/my-assignment?clasId=' + router?.query?.classId);
+            router.push('/extream/instructor/my-assignment?clasId=' + classId + '&className=' + myclass);
         }
     }, [fileUploadData && fileUploadData !== '']);
 

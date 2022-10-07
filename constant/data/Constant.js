@@ -20,7 +20,8 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'q2',
     'q3',
     'q4',
-    'q5'
+    'q5',
+    'repository_type'
 ];
 export const TABLE_BODY_ALLOW_ICON = [
     'action',

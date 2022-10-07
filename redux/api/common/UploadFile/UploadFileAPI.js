@@ -28,3 +28,11 @@ export const UploadFileDriveDetail = async (classId, assId, data) => {
     let url = BASE_URL_UPLOAD + `/files/classes/${classId}/assignments/${assId}/nonEnglishFile`
     return PostMethod(url, data);
 };
+
+/**
+ * API CALL REPOSITORY UPLOAD
+ */
+
+export const RepositoryUploadDetail = async (url, data) => {
+    return PostMethod(url, data);
+};

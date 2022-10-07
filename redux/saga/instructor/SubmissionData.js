@@ -157,6 +157,7 @@ export function* onLoadInstructorFeedback(action) {
     const { response, error } = yield call(InstructorFeedbackData, action.clasId, action.folder_id, action.paper_id, action.query);
     if (response) {
         yield put({ type: types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_SUCCESS, payload: response?.data });
+        yield put({ type: types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, url: `classes/${action.clasId}/assignments/${action.folder_id}/grading` });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_INSTRUCTOR_FEEDBACK_DETAILS_FAIL, payload: error });

@@ -74,6 +74,7 @@ const MyAssignmentDetails = ({
     const [showRenewWarning, setShowRenewWarning] = useState(false);
     const [data, setData] = useState();
     const [showDialogModal, setShowDialogModal] = useState(false);
+    const [feedbackId, setFeedbackId] = useState('');
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -191,6 +192,7 @@ const MyAssignmentDetails = ({
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'feedback') {
+            setFeedbackId(rowData?.paper_id)
             setShowDialogModal(true);
         }
     }
@@ -199,22 +201,27 @@ const MyAssignmentDetails = ({
         setShowDialogModal(false);
     }
 
+    const handleRefresh = () => {
+        GetSubmissionData(router.query.clasId, router.query.assId, paginationPayload);
+    }
+
     const SubmissionComponent = activeTab === 0 && <SubmissionHistory
-        submissionData={submissionData}
-        isLoadingSubmission={isLoadingSubmission}
-        pageDetails={pageDetails}
-        handleChange={handleChange}
-        handleAction={handleAction}
-        handleOriginalFileDownload={handleOriginalFileDownload}
-        handleTableSort={handleTableSort}
+        submissionData={ submissionData }
+        isLoadingSubmission={ isLoadingSubmission }
+        pageDetails={ pageDetails }
+        handleChange={ handleChange }
+        handleAction={ handleAction }
+        handleRefresh={ handleRefresh }
+        handleOriginalFileDownload={ handleOriginalFileDownload }
+        handleTableSort={ handleTableSort }
 
     />
     const QnaComponent = activeTab === 1 && <QA
-        GetQna={GetQna}
-        qnaData={qnaData}
-        isLoadingQa={isLoadingQa}
-        isLoadingAns={isLoadingAns}
-        handleSend={handleSend}
+        GetQna={ GetQna }
+        qnaData={ qnaData }
+        isLoadingQa={ isLoadingQa }
+        isLoadingAns={ isLoadingAns }
+        handleSend={ handleSend }
     />
 
     const componentList = [
@@ -225,89 +232,91 @@ const MyAssignmentDetails = ({
     return (
         <React.Fragment>
             <Grid container>
-                <Grid item md={10} xs={12}>
-                    <BreadCrumb item={StudentBreadCrumb} />
+                <Grid item md={ 10 } xs={ 12 }>
+                    <BreadCrumb item={ StudentBreadCrumb } />
                 </Grid>
-                <Grid item md={1} xs={6} sx={{ marginTop: '15px' }}>
+                <Grid item md={ 1 } xs={ 6 } sx={ { marginTop: '15px' } }>
                     <div>
-                        <StatusDot color={headerData?.status === 'active' ? '#38BE62' : '#E9596F'} title={headerData?.status} />
+                        <StatusDot color={ headerData?.status === 'active' ? '#38BE62' : '#E9596F' } title={ headerData?.status } />
                     </div>
                 </Grid>
-                <Grid item md={1} xs={6}>
+                <Grid item md={ 1 } xs={ 6 }>
                     <Grid container>
                         <Tooltip arrow title="Download csv">
                             <IconButton
-                                sx={{ ml: 2, p: 1 }}
+                                sx={ { ml: 2, p: 1 } }
                                 color="primary"
                                 aria-label="download-file"
                                 size="large"
-                                onClick={handleDownload}>
-                                {isLoadingDownload ? <Skeleton width={50} /> : <DownloadIcon />}
+                                onClick={ handleDownload }>
+                                { isLoadingDownload ? <Skeleton width={ 50 } /> : <DownloadIcon /> }
                             </IconButton>
                         </Tooltip>
                     </Grid>
                 </Grid>
             </Grid>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={3} xs={12}>
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 3 } xs={ 12 }>
                         <CardView>
                             <Heading
-                                title={<EllipsisText value={'Class name'} variant={'h2'} charLength={10} />}
+                                title={ <EllipsisText value={ 'Class name' } variant={ 'h2' } charLength={ 10 } /> }
                                 color="common.gray"
                             />
                             <Heading
-                                title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.subject} charLength={23} />}
+                                title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.subject } charLength={ 23 } /> }
                             />
                         </CardView>
                     </Grid>
-                    <Grid item md={3} xs={12}>
+                    <Grid item md={ 3 } xs={ 12 }>
                         <CardView>
-                            <Heading title={<EllipsisText value={'Assignment name'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.assignmentName} charLength={23} />} />
+                            <Heading title={ <EllipsisText value={ 'Assignment name' } variant={ 'h2' } charLength={ 15 } /> } color="common.gray" />
+                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.assignmentName } charLength={ 23 } /> } />
                         </CardView>
                     </Grid>
-                    <Grid item md={3} xs={12}>
+                    <Grid item md={ 3 } xs={ 12 }>
                         <CardView>
-                            <Heading title={<EllipsisText value={'Instructor name'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={headerData?.instructorName} charLength={23} />} />
+                            <Heading title={ <EllipsisText value={ 'Instructor name' } variant={ 'h2' } charLength={ 15 } /> } color="common.gray" />
+                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ headerData?.instructorName } charLength={ 23 } /> } />
                         </CardView>
                     </Grid>
-                    <Grid item md={3} xs={12}>
+                    <Grid item md={ 3 } xs={ 12 }>
                         <CardView>
-                            <Heading title={<EllipsisText value={'Date'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate)} charLength={23} />} />
+                            <Heading title={ <EllipsisText value={ 'Date' } variant={ 'h2' } charLength={ 15 } /> } color="common.gray" />
+                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ formatDate(headerData?.createdDate) + '-' + formatDate(headerData?.endDate) } charLength={ 23 } /> } />
                         </CardView>
                     </Grid>
                 </Grid>
             </Box>
 
-            <div style={{ margin: '15px 0px' }}></div>
+            <div style={ { margin: '15px 0px' } }></div>
             <CardView>
-                <TabMenu menuButton={tabMenu} components={componentList} handleAPI={handleAPI} />
+                <TabMenu menuButton={ tabMenu } components={ componentList } handleAPI={ handleAPI } />
             </CardView>
             {
                 showRenewWarning &&
                 <WarningDialog
                     message="Are you sure you want to download ?"
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
-            {showDialogModal &&
+            { showDialogModal &&
                 <>
                     <DialogModal
-                        isOpen={true}
-                        fullWidth="md"
-                        maxWidth="md"
-                        handleClose={handleCloseDialog}
+                        isOpen={ true }
+                        fullWidth="sm"
+                        maxWidth="sm"
+                        handleClose={ handleCloseDialog }
+
                     >
                         <Feedback
-                            GetFeedback={GetFeedback}
-                            feedbackData={feedbackData}
-                            isLoadingFeedback={isLoadingFeedback}
+                        GetFeedback={ GetFeedback }
+                        feedbackData={ feedbackData }
+                        feedbackId={ feedbackId }
+                        isLoadingFeedback={ isLoadingFeedback }
                         />
                     </DialogModal>
                 </>
