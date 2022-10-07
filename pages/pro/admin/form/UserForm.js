@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateInstructorData, EditData } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/instructor-form.json';
@@ -13,6 +13,7 @@ import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 const UserForm = ({
     CreateInstructorData,
     isLoading,
+    licenseExpiryDate,
     editData,
     EditData,
     remainingDocuments,
@@ -27,6 +28,120 @@ const UserForm = ({
         mode: 'all',
     });
 
+    const expiryDate = useWatch({
+        control,
+        name: "expiry_date",
+    });
+
+    const allocationDocs = useWatch({
+        control,
+        name: "plagiarism",
+    });
+
+    const grammarDocs = useWatch({
+        control,
+        name: "grammar",
+    });
+
+    useEffect(() => {
+        if (allocationDocs !== undefined) {
+            if (allocationDocs > remainingDocuments) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === "plagiarism") {
+                        item['errorMsg'] = 'The entered documents should not be more than available documents';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === "plagiarism") {
+                        item['errorMsg'] = '';
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+
+        if (grammarDocs !== undefined) {
+            if (grammarDocs > remainingGrammar) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === "grammar") {
+                        item['errorMsg'] = 'The entered documents should not be more than available documents';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === "grammar") {
+                        item['errorMsg'] = '';
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+
+        if ((new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = 'The entered date should not be greater than the expiry date.';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if ((new Date().getTime() > new Date(expiryDate).getTime()) && !(new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = 'The entered date should not less than the current date.';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = '';
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+
+        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar &&
+            new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = new Date().getTime() > new Date(expiryDate).getTime() ? true : false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date().getTime() < new Date(expiryDate).getTime())) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime() ? true : false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+    }, [allocationDocs, grammarDocs, expiryDate]);
+
     const onSubmit = (data) => {
         if (editOperation) {
             data['expiry_date'] = convertDate(data.expiry_date);
@@ -40,7 +155,7 @@ const UserForm = ({
     const modifyFormField = (buttonLabel, isEmailDisabled) => {
         let formField = formJsonField?.map((field) => {
             if (field.name === 'expiry_date') {
-                field.minDate = false;
+                field.minDate = true;
             }
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
@@ -63,7 +178,7 @@ const UserForm = ({
         if (editData) {
             let a = {
                 'name': editData.name,
-                'email': editData.email,
+                'email': editData.username,
                 'expiry_date': convertDate(editData.expiry_date),
                 'plagiarism': editData.total_submissions,
                 'grammar': editData.total_grammar
@@ -79,6 +194,13 @@ const UserForm = ({
             modifyFormField('Edit User', true);
             setEditOperation(true);
         } else {
+            let a = {
+                'expiry_date': convertDate(licenseExpiryDate?.license_expiry_date),
+            };
+            const fields = [
+                'expiry_date',
+            ];
+            fields.forEach(field => setValue(field, a[field]));
             modifyFormField('Create User', false);
         }
     }, [editData]);

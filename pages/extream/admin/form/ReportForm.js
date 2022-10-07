@@ -111,6 +111,17 @@ const ReportForm = ({
         setFormData(formList);
     }, [reportData])
 
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
+    }
+
     return (
         <>
             {showDialogModal &&
@@ -133,6 +144,7 @@ const ReportForm = ({
                         closeSendDialog={ closeSendDialog }
                         onSend={ onSend }
                         handleChange={ handleChange }
+                        handleTableSort={ handleTableSort }
                         pageDetails={ pageDetails }
                         isLoadingViewReport={ isLoadingViewReport }
                         isLoadingSubmission={ isLoadingSubmission }

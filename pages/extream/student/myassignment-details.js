@@ -300,8 +300,8 @@ const MyAssignmentDetails = ({
                 <>
                     <DialogModal
                         isOpen={ true }
-                    fullWidth="md"
-                    maxWidth="md"
+                    fullWidth="sm"
+                    maxWidth="sm"
                         handleClose={ handleCloseDialog }
                     >
                         <Feedback

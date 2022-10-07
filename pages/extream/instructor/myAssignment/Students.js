@@ -105,10 +105,12 @@ const Students = ({
         orderBy: PaginationValue?.orderBy,
     });
     const [classId, setClassId] = useState('');
+    const [className, setClassName] = useState('');
 
     useEffect(() => {
         GetStudent(router.query.clasId, paginationPayload);
         setClassId(router.query.clasId);
+        setClassName(router.query.clasName);
     }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
@@ -213,7 +215,7 @@ const Students = ({
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Student') {
             UploadFileDataClear();
-            router.push({ pathname: '/extream/instructor/addBulkStudent', query: { classId: classId } })
+            router.push({ pathname: '/extream/instructor/addBulkStudent', query: { classId: classId, className: className } })
         }
     }
 

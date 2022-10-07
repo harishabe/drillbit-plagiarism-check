@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Admin from '../../../../layouts/Admin';
+import ProAdmin from '../../../../layouts/ProAdmin';
 import { MainHeading, Title, CardView } from './../../../../components';
 import Link from 'next/link';
 
@@ -15,6 +15,14 @@ const Help = () => {
             'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf',
             'videoTitle': 'Admin video tutorial',
             'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf'
+        },
+        {
+            'role': 'user',
+            'isShow': false,
+            'pdfLinkTitle': 'User tutorial PDF download',
+            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf',
+            'videoTitle': 'User video tutorial',
+            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf'
         }
     ]);
 
@@ -61,7 +69,7 @@ const Help = () => {
     )
 }
 
-Help.layout = Admin;
+Help.layout = ProAdmin;
 
 export default Help;
 

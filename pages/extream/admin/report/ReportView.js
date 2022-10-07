@@ -84,6 +84,7 @@ const ReportView = ({
     onSend,
     closeSendDialog,
     handleChange,
+    handleTableSort,
     pageDetails
 }) => {
     const [rows, setRows] = useState([]);
@@ -187,6 +188,7 @@ const ReportView = ({
                                     isCheckbox={false}
                                     isSorting={ true }
                                     tableHeader={assignmentsColumns}
+                                    handleTableSort={ handleTableSort }
                                     tableData={rows}
                                     charLength={10}
                                     path=''
@@ -216,6 +218,7 @@ const ReportView = ({
                                     isCheckbox={false}
                                     isSorting={ true }
                                     tableHeader={classesColumns}
+                                    handleTableSort={ handleTableSort }
                                     tableData={rows}
                                     charLength={10}
                                     path=''
@@ -243,6 +246,7 @@ const ReportView = ({
                                     isCheckbox={false}
                                     isSorting={ true }
                                     tableHeader={submissionsColumns}
+                                    handleTableSort={ handleTableSort }
                                     tableData={rows}
                                     charLength={10}
                                     path=''
