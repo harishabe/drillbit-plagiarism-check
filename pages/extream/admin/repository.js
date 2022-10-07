@@ -49,16 +49,16 @@ const AddButtonBottom = styled.div`
 const columns = [
     { id: 'paper_id', label: 'Paper ID' },
     { id: 'name', label: 'Name' },
-    { id: 'username', label: 'Email ID' },
+    { id: 'mail_id', label: 'Email ID' },
     { id: 'title', label: 'Title' },
-    { id: 'type', label: 'Type' },
+    { id: 'repository_type', label: 'Type' },
     { id: 'date_up', label: 'Added Date' },
     { id: 'action', label: 'Action' },
 ]
 
-function createData(paper_id, name, username, title, type, date_up, action) {
+function createData(paper_id, name, mail_id, title, repository_type, date_up, action) {
     return {
-        paper_id, name, username, title, type, date_up, action
+        paper_id, name, mail_id, title, repository_type, date_up, action
     }
 }
 
