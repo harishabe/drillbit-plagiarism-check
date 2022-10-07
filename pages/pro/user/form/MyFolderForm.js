@@ -73,15 +73,15 @@ const MyFoldersForm = ({
         if (editData) {
             let a = {
                 'folder_name': editData.folder_name,
-                'exclude_reference': editData.excludeReferences,
-                'exclude_quotes': editData.excludeQuotes,
-                'exclude_small_sources': editData.excludeSmallSources,
-                'grammar_check': editData.grammarCheck,
-                'exclude_phrases': editData.excludePhrases,
-                'db_studentpaper': editData.db_studentpaper,
-                'db_publications': editData.db_publications,
-                'db_internet': editData.db_internet,
-                'institution_repository': editData.institution_repository,
+                'exclude_reference': editData?.excludeReferences?.toUpperCase(),
+                'exclude_quotes': editData?.excludeQuotes?.toUpperCase(),
+                'exclude_small_sources': editData?.excludeSmallSources?.toUpperCase(),
+                'grammar_check': editData?.grammarCheck?.toUpperCase(),
+                'exclude_phrases': editData?.excludePhrases?.toUpperCase(),
+                'db_studentpaper': editData?.db_studentpaper?.toUpperCase(),
+                'db_publications': editData?.db_publications?.toUpperCase(),
+                'db_internet': editData?.db_internet?.toUpperCase(),
+                'institution_repository': editData?.institution_repository?.toUpperCase(),
             };
             const fields = [
                 'folder_name',
@@ -188,27 +188,27 @@ const MyFoldersForm = ({
 
     return (
         <>
-            <div style={ { textAlign: 'center' } }>
+            <div style={{ textAlign: 'center' }}>
                 <AddImageIcon />
             </div>
-            <form onSubmit={ handleSubmit(onSubmit) }>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
-                    { FormJson?.map((field, i) => (
+                    {FormJson?.map((field, i) => (
                         <>
-                            <Grid md={ 12 } style={ { marginLeft: '8px' } }>
+                            <Grid md={12} style={{ marginLeft: '8px' }}>
                                 <FormComponent
-                                    key={ i }
-                                    field={ field }
-                                    control={ control }
-                                    isLoading={ isLoadingFolder }
+                                    key={i}
+                                    field={field}
+                                    control={control}
+                                    isLoading={isLoadingFolder}
                                 />
                             </Grid>
                         </>
-                    )) }
+                    ))}
                 </Grid>
             </form>
-            <div style={ { marginBottom: '15px' } }>
-                { errorMsgDBCheck !== '' ? <ErrorMessageContainer>{ errorMsgDBCheck }</ErrorMessageContainer> : '' }
+            <div style={{ marginBottom: '15px' }}>
+                {errorMsgDBCheck !== '' ? <ErrorMessageContainer>{errorMsgDBCheck}</ErrorMessageContainer> : ''}
             </div>
         </>
     )

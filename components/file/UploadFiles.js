@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { useRouter } from "next/router";
 import Chip from '@mui/material/Chip';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Grid, Link, Autocomplete, Checkbox, TextField } from '@mui/material';
+import { Grid, Link, Autocomplete, Checkbox, TextField, Skeleton, Divider } from '@mui/material';
 import {
     Title,
-    Title1,
+    SubTitle,
     SubTitle1,
     CardView
 } from './../../components';
@@ -30,19 +28,17 @@ import {
 } from '../../redux/action/instructor/InstructorAction';
 
 import {
-    LanguageList
+    LanguageList,
+    UploadNonEnglish
 } from '../../redux/action/common/UploadFile/UploadFileAction';
 
 import {
     UPLOAD_FILE_MAX_LIMIT
 } from '../../constant/data/ErrorMessage';
 
-export const LabelContainer = styled.div`
-    font-size: 14px,
-    font-weight:400,
-    font-style:normal,
-    margin-bottom:10px;
-    color:#000
+const SkeletonStyle = styled.div`
+    margin-top: 20px;
+    margin-left: 5px;
 `;
 
 const UploadFiles = ({
@@ -59,7 +55,9 @@ const UploadFiles = ({
     title,
     LanguageList,
     nonEnglishLang,
-    isLoadingLang
+    isLoadingLang,
+    UploadNonEnglish,
+    isLoadingNonEng
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -68,6 +66,16 @@ const UploadFiles = ({
     const [inputValue, setInputValue] = useState('');
     const [language, setLanguage] = useState('English');
     const [nonEnglishLanguage, setNonEnglishLanguage] = useState('');
+    const [nonEnglishLangValue, setNonEnglishLangValue] = useState('');
+
+    useEffect(() => {
+        if (router.isReady) {
+            setGrammarPlagiarismCheck({
+                ...grammarPlagiarismCheck,
+                'grammarCheck': router.query.grammar === 'YES' ? true : false,
+            });
+        }
+    }, [router.isReady]);
 
     const [grammarPlagiarismCheck, setGrammarPlagiarismCheck] = useState({
         grammarCheck: false,
@@ -96,8 +104,10 @@ const UploadFiles = ({
     };
 
     const handleSubmit = (data) => {
-        if (fileData.length === 1) {
+        if (fileData.length === 1 && language === 'English') {
             singleFileUpload(fileData, data);
+        } else if (fileData.length === 1 && language === 'Non English') {
+            singleFileUploadNonEnglish(fileData, data);
         } else {
             multiFileUpload(fileData, data);
         }
@@ -121,6 +131,18 @@ const UploadFiles = ({
         bodyFormData.append('language', language);
         bodyFormData.append('file', files[0][1]);
         SubmissionListUpload(singleFileUploadAPI, bodyFormData);
+    }
+
+    const singleFileUploadNonEnglish = (files, data) => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('authorName', data.authorName0);
+        bodyFormData.append('title', data.title0);
+        bodyFormData.append('documentType', data.documentType0);
+        bodyFormData.append('plagiarismCheck', plagiarismCheck ? 'YES' : 'NO');
+        bodyFormData.append('grammarCheck', grammarCheck ? 'YES' : 'NO');
+        bodyFormData.append('language', nonEnglishLanguage);
+        bodyFormData.append('file', files[0][1]);
+        UploadNonEnglish(router.query.clasId, router.query.assId, bodyFormData);
     }
 
     const singleFileUploadRepository = (files, data) => {
@@ -189,7 +211,6 @@ const UploadFiles = ({
     }
 
     useEffect(() => {
-        console.log('non-english-RENDER');
         if (language === 'Non English') {
             LanguageList();
         }
@@ -224,62 +245,79 @@ const UploadFiles = ({
                                     />
                                 </div>
                                 {(fileData?.length > 0) && fileData?.map((item) => (
-                                    <div>
-                                        <ChipContainer>
-                                            <Chip
-                                                label={item[1]?.name}
-                                                onDelete={(e) => handleDelete(e, item)}
-                                            />
-                                        </ChipContainer>
-                                    </div>
+                                    <ChipContainer>
+                                        <Chip
+                                            label={item[1]?.name}
+                                            onDelete={(e) => handleDelete(e, item)}
+                                        />
+                                    </ChipContainer>
                                 ))}
                                 {fileWarning && <div style={{ color: 'red' }}>{UPLOAD_FILE_MAX_LIMIT}</div>}
 
-                                {fileData?.length === 1 &&
-                                    <Grid container spacing={3} style={{ marginTop: '5px', display: 'flex', justifyContent: 'center' }}>
-                                        <Grid item md={3}>
-                                            <Autocomplete
-                                                disablePortal
-                                                value={language}
-                                                id="language"
-                                                options={[{
-                                                    'label': 'English',
-                                                }, {
-                                                    'label': 'Non English',
-                                                }]}
-                                                size="small"
-                                                onChange={(event, newValue) => {
-                                                    setValue(newValue);
-                                                }}
-                                                inputValue={language}
-                                                onInputChange={(event, newInputValue) => {
-                                                    setLanguage(newInputValue);
-                                                }}
-                                                renderInput={(params) => <TextField {...params} label="Select Language" />}
-                                            />
-                                        </Grid>
-                                        {language === 'Non English' &&
-                                            <Grid item md={3}>
+                            </DragDropArea>
+
+                            {(fileData?.length === 1 && !isRepository) &&
+                                <Grid container spacing={1}>
+                                    <Grid item md={5} xs={5}>
+                                        <div style={{ marginTop: '15px', marginBottom: '15px' }}>
+                                            <SubTitle1 title="Document Language" />
+                                        </div>
+                                        <Grid container spacing={3} style={{ display: 'flex', justifyContent: 'center' }}>
+                                            <Grid item md={6}>
                                                 <Autocomplete
                                                     disablePortal
+                                                    value={language}
                                                     id="language"
-                                                    options={nonEnglishLang?.non_english_languages}
+                                                    options={[{
+                                                        'label': 'English',
+                                                    }, {
+                                                        'label': 'Non English',
+                                                    }]}
                                                     size="small"
                                                     onChange={(event, newValue) => {
                                                         setValue(newValue);
                                                     }}
-                                                    inputValue={nonEnglishLanguage}
+                                                    inputValue={language}
                                                     onInputChange={(event, newInputValue) => {
-                                                        setNonEnglishLanguage(newInputValue);
+                                                        setLanguage(newInputValue);
                                                     }}
-                                                    renderInput={(params) => <TextField {...params} label="Select non english language" />}
+                                                    renderInput={(params) => <TextField {...params} label="Select Language" />}
                                                 />
                                             </Grid>
-                                        }
-                                        <Grid item md={6}>
+                                            {isLoadingLang ?
+                                                <SkeletonStyle>
+                                                    <Skeleton width={200} height={40} />
+                                                </SkeletonStyle> : <>
+                                                    <Grid item md={6}>
+                                                        {language === 'Non English' &&
+                                                            <Autocomplete
+                                                                disablePortal
+                                                                id="language"
+                                                                options={nonEnglishLang?.non_english_languages}
+                                                                size="small"
+                                                                onChange={(event, newValue) => {
+                                                                    setNonEnglishLangValue(newValue);
+                                                                }}
+                                                                inputValue={nonEnglishLanguage}
+                                                                onInputChange={(event, newInputValue) => {
+                                                                    setNonEnglishLanguage(newInputValue);
+                                                                }}
+                                                                renderInput={(params) => <TextField {...params} label="Select non english lang" />}
+                                                            />
+                                                        }
+                                                    </Grid>
+                                                </>}
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item md={2} xs={2}></Grid>
+                                    <Grid item md={5} xs={5}>
+                                        <div style={{ marginTop: '15px', marginBottom: '5px' }}>
+                                            <SubTitle title="Would you like to check grammar/plagiarism" />
+                                        </div>
+                                        <div>
                                             <FormControlLabel
                                                 control={
-                                                    <Checkbox checked={grammarCheck} onChange={handleGrammarPlagiarismChange} name="grammarCheck" />
+                                                    <Checkbox disabled={router.query.grammar === 'NO'} checked={grammarCheck} onChange={handleGrammarPlagiarismChange} name="grammarCheck" />
                                                 }
                                                 label="Grammar Check"
                                             />
@@ -289,12 +327,10 @@ const UploadFiles = ({
                                                 }
                                                 label="Plagiarism Check"
                                             />
-
-                                        </Grid>
+                                        </div>
                                     </Grid>
-                                }
+                                </Grid>}
 
-                            </DragDropArea>
 
                             {fileData?.length > 0 && isRepository &&
                                 <RepositoryFileForm
@@ -310,9 +346,8 @@ const UploadFiles = ({
                                     handleSubmitFile={handleSubmit}
                                     files={fileData}
                                     btnTitle='Submit'
-                                    isLoading={isLoadingUpload}
+                                    isLoading={isLoadingUpload || isLoadingNonEng}
                                 />
-
                             }
                         </Grid>
                     </Grid>
@@ -327,6 +362,7 @@ const mapStateToProps = (state) => ({
     uploadData: state?.instructorMyFolders?.uploadData,
     nonEnglishLang: state?.uploadFile?.nonEnglishLang,
     isLoadingLang: state?.uploadFile?.isLoadingLang,
+    isLoadingNonEng: state?.uploadFile?.isLoadingNonEng,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
     isLoadingUploadFile: state?.instructorMyFolders?.isLoadingSubmission,
 });
@@ -334,6 +370,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         SubmissionListUpload: (apiUrl, data) => dispatch(SubmissionListUpload(apiUrl, data)),
+        UploadNonEnglish: (clasId, assId, data) => dispatch(UploadNonEnglish(clasId, assId, data)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         LanguageList: () => dispatch(LanguageList())
     };

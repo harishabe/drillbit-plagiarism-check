@@ -402,6 +402,7 @@ const Submission = ({
           />
         </CreateDrawer>
       }
+      
       <CardView>
         {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
           <Tooltip title='Delete' arrow>
@@ -410,7 +411,6 @@ const Submission = ({
             </IconButton>
           </Tooltip>
         </div>}
-
 
         <CommonTable
           isCheckbox={true}

@@ -177,9 +177,11 @@ const CommonTable = ({
                                         <IconButton className={classes.customArrowContainer}
                                             onClick={(e) => {
                                                 if (path && path?.query?.isAssignment) {
+                                                    console.log('rowrow',row);
                                                     path.query['assId'] = row?.id
-                                                    path.query['assName'] = row?.assignment_name
-                                                    router.push(path)
+                                                    path.query['assName'] = row?.assignment_name,
+                                                    path.query['grammar'] = row?.assignmentData?.grammar
+                                                    router.push(path);
                                                 } else {
                                                     router.push(path);
                                                 }
