@@ -21,7 +21,7 @@ const SubmissionForm = ({
     });
 
     const onSubmit = (data) => {
-
+        console.log('datadatadatadata',data);
         let bodyFormData = new FormData();
         bodyFormData.append('authorName', getItemLocalStorage('name'));
         bodyFormData.append('title', assignmentName);
