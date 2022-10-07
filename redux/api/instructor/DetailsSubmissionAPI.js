@@ -58,7 +58,7 @@ export const SaveToRepoSubmission = async (clasId, folder_id, paper_id, data) =>
  */
 
 export const InstructorFeedbackData = async (clasId, folder_id, paper_id, data) => {
-    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + clasId + '/assignments/' + folder_id + '/submissions/' + paper_id + '/feedback';
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'classes/' + clasId + '/assignments/' + folder_id + '/submissions/' + paper_id + '/feedback';
     return PostMethod(url, data);
 };
 
