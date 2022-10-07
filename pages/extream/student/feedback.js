@@ -47,7 +47,7 @@ const Feedback = ({
             <Title>
                 <Box
                     sx={ {
-                        width: 800,
+                        width: 520,
                         height: 'auto',
                         borderRadius: '3px',
                         backgroundColor: '#E7E7E7',
@@ -59,6 +59,7 @@ const Feedback = ({
                 </Box>
             </Title>
         </>
+        // <p></p>
     )
 }
 
