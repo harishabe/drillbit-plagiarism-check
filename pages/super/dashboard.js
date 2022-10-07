@@ -9,8 +9,6 @@ import {
     CommonTable,
 } from './../../components';
 import {
-    EditIcon,
-    DeleteIcon,
     NoOfClassIcon,
     NoOfAssignmntIcon,
     NoOfSubmission,
@@ -26,10 +24,10 @@ const columns = [
     { id: 'STlimit', label: 'Students Limit', minWidth: 147 },
     { id: 'DOlimit', label: 'Documents Limit', minWidth: 163 },
     { id: 'action', label: 'Action' }
-]
+];
 
 function createData(id, name, email, college, INlimit, STlimit, DOlimit, action) {
-    return { id, name, email, college, INlimit, STlimit, DOlimit, action }
+    return { id, name, email, college, INlimit, STlimit, DOlimit, action };
 }
 
 const Dashboard = ({
@@ -107,8 +105,8 @@ const Dashboard = ({
                 </CardView>
             </Box>
         </React.Fragment>
-    )
-}
+    );
+};
 const mapStateToProps = (state) => ({
     superDashboardData: state?.superAdmin,
     isLoading: state?.superAdmin?.isLoading,
@@ -120,6 +118,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-Dashboard.layout = SuperAdmin
+Dashboard.layout = SuperAdmin;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

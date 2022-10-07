@@ -8,13 +8,11 @@ import {
     ImgContainer
 } from './login-style';
 import LoginForm from './login-form';
-import { Heading, SubTitle, MainHeading } from '../../components';
-import { DrillBitLogo, DrillBitLogoIcon } from '../../assets/icon';
+import { MainHeading } from '../../components';
+import { DrillBitLogo } from '../../assets/icon';
 import {
     LOGIN_IMG_BANNER,
-    LOGIN_WELCOME_DRILLBIT,
-    LOGIN_NEW_DRILLBIT,
-    LOGIN_CREATE_ACCOUNT
+    LOGIN_WELCOME_DRILLBIT
 } from '../../constant/data/content';
 
 const Login = () => {
@@ -50,7 +48,7 @@ const Login = () => {
                 </Grid>
             </Box>
         </>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

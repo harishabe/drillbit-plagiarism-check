@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { makeStyles } from '@mui/styles';
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import { AddImageIcon } from '../../../../assets/icon';
 import InputLabel from '@mui/material/InputLabel';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Button from '@mui/material/Button';
 import InputDatePicker from '../../../../components/form/elements/InputDatePicker';
-import InputToggleButton from '../../../../components/form/elements/InputToggleButton';
 import InputTextField from '../../../../components/form/elements/InputTextField';
 import InputFileType from '../../../../components/form/elements/InputFileType';
 import InputAutoComplete from '../../../../components/form/elements/InputAutoComplete';
 import InputButton from '../../../../components/form/elements/InputButton';
-import LabelCaption from '../../../../components/form/elements/LabelCaption';
 import { CreateAssignment, EditAssignment } from '../../../../redux/action/instructor/InstructorAction';
 import { convertDate } from '../../../../utils/RegExp';
 import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
@@ -39,8 +33,8 @@ export const LabelContainer = styled.div`
 `;
 
 const ToggleButton = styled(MuiToggleButton)({
-    "&.Mui-selected, &.Mui-selected:hover": {
-        color: "white",
+    '&.Mui-selected, &.Mui-selected:hover': {
+        color: 'white',
         backgroundColor: '#3672FF'
     }
 });
@@ -191,7 +185,7 @@ const AssignmentForms = ({
             }
         }
 
-    }
+    };
 
     const editAssignments = (data) => {
         let bodyFormData = new FormData();
@@ -364,7 +358,7 @@ const AssignmentForms = ({
         }
         /** End databases */
         EditAssignment(router.query.clasId, editData.id, bodyFormData);
-    }
+    };
 
     useEffect(() => {
         if (studentPaper === 'YES' || publication === 'YES' || repository === 'YES' || internet === 'YES') {
@@ -374,7 +368,7 @@ const AssignmentForms = ({
             setDisabledButton(true);
             setErrorMsgDBCheck(DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK);
         }
-    }, [internet, repository, publication, studentPaper])
+    }, [internet, repository, publication, studentPaper]);
 
     useEffect(() => {
         setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
@@ -410,13 +404,13 @@ const AssignmentForms = ({
             };
             const fields = [
                 'assignment_name',
-                "end_date",
-                "start_date",
-                "marks",
-                "extra_days",
-                "repository_scope",
-                "no_of_resubmission",
-                "resubmission_count"
+                'end_date',
+                'start_date',
+                'marks',
+                'extra_days',
+                'repository_scope',
+                'no_of_resubmission',
+                'resubmission_count'
             ];
             fields.forEach(field => setValue(field, a[field]));
 
@@ -443,7 +437,7 @@ const AssignmentForms = ({
             delete editData.assignmentData.questionsList.date;
             delete editData.assignmentData.questionsList.qId;
             Object.entries(editData?.assignmentData?.questionsList).map((item, index) => {
-                let obj = {}
+                let obj = {};
                 if (item[1] !== null) {
                     obj['q'] = item[1];
                     editQus.push(obj);
@@ -454,7 +448,7 @@ const AssignmentForms = ({
             let editPhrases = [];
             delete editData.assignmentData.phrases.pId;
             Object.entries(editData?.assignmentData?.phrases).map((item, index) => {
-                let phrasesObj = {}
+                let phrasesObj = {};
                 if (item[1] !== null) {
                     phrasesObj['p'] = item[1];
                     editPhrases.push(phrasesObj);
@@ -471,94 +465,94 @@ const AssignmentForms = ({
 
     const handleSwitchChange = (event) => {
         setShowSetting(event.target.checked);
-    }
+    };
 
     const handleAllowAssgnmtGrade = (e, value) => {
         e.preventDefault();
         setAllowAssGrade(value);
-    }
+    };
 
     const handleExcludeRef = (e, value) => {
         e.preventDefault();
-        setExcludeRefBib(value)
-    }
+        setExcludeRefBib(value);
+    };
 
     const handleExcludeQuote = (e, value) => {
         e.preventDefault();
-        setExcludeQuote(value)
-    }
+        setExcludeQuote(value);
+    };
 
     const handleExcludeSmallSource = (e, value) => {
         e.preventDefault();
-        setExcludeSmallSource(value)
-    }
+        setExcludeSmallSource(value);
+    };
 
     const handleSaveToRepo = (e, value) => {
         e.preventDefault();
         setSaveToRepo(value);
-    }
+    };
 
     const handleAllowSubmission = (e, value) => {
         e.preventDefault();
         setAllowSubmission(value);
-    }
+    };
 
     const handleAllowSubmissionDueDate = (e, value) => {
         e.preventDefault();
         setAllowSubmissionDueDate(value);
-    }
+    };
 
     const handleGrammarCheck = (e, value) => {
         e.preventDefault();
         setGrammarCheck(value);
-    }
+    };
 
     const handleChoiceEmailNotification = (e, value) => {
         e.preventDefault();
         setChoiceEmailNotification(value);
-    }
+    };
 
     const handleAddQuestion = (e, value) => {
         e.preventDefault();
         setAddQuestion(value);
-    }
+    };
 
     const handleExcludePhrases = (e, value) => {
         e.preventDefault();
         setExcludePhrases(value);
-    }
+    };
 
     const handleStudentPaper = (e, value) => {
         e.preventDefault();
         setStudentPaper(value);
-    }
+    };
 
     const handlePublications = (e, value) => {
         e.preventDefault();
         setPublication(value);
-    }
+    };
 
     const handleInternet = (e, value) => {
         e.preventDefault();
         setInternet(value);
-    }
+    };
 
     const handleRepository = (e, value) => {
         e.preventDefault();
         setRepository(value);
-    }
+    };
 
     const handleReportAccess = (e, value) => {
         e.preventDefault();
         setReportAccess(value);
-    }
+    };
 
     const handleAddQuestionRemove = (e, index) => {
         e.preventDefault();
         const list = [...questionList];
         list.splice(index, 1);
         setQuestionList(list);
-    }
+    };
 
     const addInput = () => {
         setQuestionList((s) => {
@@ -607,7 +601,7 @@ const AssignmentForms = ({
         const list = [...phrasesList];
         list.splice(index, 1);
         setPhrasesList(list);
-    }
+    };
 
     return (
         <div>
@@ -624,47 +618,47 @@ const AssignmentForms = ({
                 <InputTextField
                     control={control}
                     field={{
-                        "field_type": "text",
-                        "id": "assignment_name",
-                        "name": "assignment_name",
-                        "required": "Enter assignment name",
-                        "validationMsg": "Enter assignment name"
+                        'field_type': 'text',
+                        'id': 'assignment_name',
+                        'name': 'assignment_name',
+                        'required': 'Enter assignment name',
+                        'validationMsg': 'Enter assignment name'
                     }}
                 />
 
                 <InputDatePicker
                     control={control}
                     field={{
-                        "field_type": "datepicker",
-                        "id": "start_date",
-                        "name": "start_date",
-                        "label": "Select start date *",
-                        "minDate": true,
-                        "required": "Select Start Date",
-                        "validationMsg": "Select Start Date"
+                        'field_type': 'datepicker',
+                        'id': 'start_date',
+                        'name': 'start_date',
+                        'label': 'Select start date *',
+                        'minDate': true,
+                        'required': 'Select Start Date',
+                        'validationMsg': 'Select Start Date'
                     }}
                 />
 
                 <InputDatePicker
                     control={control}
                     field={{
-                        "field_type": "datepicker",
-                        "id": "end_date",
-                        "name": "end_date",
-                        "label": "Select end date *",
-                        "minDate": true,
-                        "required": "Select End Date",
-                        "validationMsg": "Select End Date"
+                        'field_type': 'datepicker',
+                        'id': 'end_date',
+                        'name': 'end_date',
+                        'label': 'Select end date *',
+                        'minDate': true,
+                        'required': 'Select End Date',
+                        'validationMsg': 'Select End Date'
                     }}
                 />
                 <label style={{ color: 'gray' }}>Instructions</label>
                 <InputFileType
                     control={control}
                     field={{
-                        "field_type": "file",
-                        "id": "file",
-                        "name": "file",
-                        "label": "Choose File",
+                        'field_type': 'file',
+                        'id': 'file',
+                        'name': 'file',
+                        'label': 'Choose File',
                     }}
                 />
 
@@ -714,12 +708,12 @@ const AssignmentForms = ({
                                 <InputTextField
                                     control={control}
                                     field={{
-                                        "field_type": "input",
-                                        "id": "marks",
-                                        "size": "small",
-                                        "name": "marks",
-                                        "label": "Enter Max Assignment Marks",
-                                        "required": "Enter max assignment marks"
+                                        'field_type': 'input',
+                                        'id': 'marks',
+                                        'size': 'small',
+                                        'name': 'marks',
+                                        'label': 'Enter Max Assignment Marks',
+                                        'required': 'Enter max assignment marks'
                                     }} />
                             }
                         </div>
@@ -813,17 +807,17 @@ const AssignmentForms = ({
                                         <InputAutoComplete
                                             control={control}
                                             field={{
-                                                "field_type": "dropdown",
-                                                "id": "repoScope",
-                                                "label": "Repository Scope",
-                                                "name": "repository_scope",
-                                                "required": "Choose repository scope",
-                                                "validationMsg": "Please select repository scope",
-                                                "size": "small",
-                                                "options": [{
-                                                    "name": "LOCAL"
+                                                'field_type': 'dropdown',
+                                                'id': 'repoScope',
+                                                'label': 'Repository Scope',
+                                                'name': 'repository_scope',
+                                                'required': 'Choose repository scope',
+                                                'validationMsg': 'Please select repository scope',
+                                                'size': 'small',
+                                                'options': [{
+                                                    'name': 'LOCAL'
                                                 }, {
-                                                    "name": "GLOBAL"
+                                                    'name': 'GLOBAL'
                                                 }]
                                             }}
                                         />
@@ -855,12 +849,12 @@ const AssignmentForms = ({
                                 <InputTextField
                                     control={control}
                                     field={{
-                                        "field_type": "input",
-                                        "id": "no_of_resubmission",
-                                        "name": "no_of_resubmission",
-                                        "size": 'small',
-                                        "label": "Enter no. of resubmission",
-                                        "required": "Enter number of submission"
+                                        'field_type': 'input',
+                                        'id': 'no_of_resubmission',
+                                        'name': 'no_of_resubmission',
+                                        'size': 'small',
+                                        'label': 'Enter no. of resubmission',
+                                        'required': 'Enter number of submission'
                                     }}
                                 />
                             </>
@@ -890,12 +884,12 @@ const AssignmentForms = ({
                                 <InputTextField
                                     control={control}
                                     field={{
-                                        "field_type": "input",
-                                        "id": "extra_days",
-                                        "size": "small",
-                                        "name": "extra_days",
-                                        "label": "Enter extra days",
-                                        "required": "Enter extra days after due date"
+                                        'field_type': 'input',
+                                        'id': 'extra_days',
+                                        'size': 'small',
+                                        'name': 'extra_days',
+                                        'label': 'Enter extra days',
+                                        'required': 'Enter extra days after due date'
                                     }} />
                             </>
                             }
@@ -975,7 +969,7 @@ const AssignmentForms = ({
                                                         <TextField
                                                             id={i}
                                                             size="small"
-                                                            label={"Enter question " + (i + 1)}
+                                                            label={'Enter question ' + (i + 1)}
                                                             //name={"q" + index + 1}
                                                             name={item}
                                                             value={item['q']}
@@ -1036,7 +1030,7 @@ const AssignmentForms = ({
                                                         <TextField
                                                             id={i}
                                                             size="small"
-                                                            label={"Enter pharses " + (i + 1)}
+                                                            label={'Enter pharses ' + (i + 1)}
                                                             name={item}
                                                             value={item['p']}
                                                             onChange={handlePharsesChange}
@@ -1181,16 +1175,16 @@ const AssignmentForms = ({
                     {errorMsgDBCheck !== '' ? <ErrorMessageContainer>{errorMsgDBCheck}</ErrorMessageContainer> : ''}
                 </div>
                 <InputButton field={{
-                    "field_type": "button",
-                    "type": "submit",
-                    "label": btnLabel,
-                    "isDisabled": disabledButton
+                    'field_type': 'button',
+                    'type': 'submit',
+                    'label': btnLabel,
+                    'isDisabled': disabledButton
                 }}
-                    isLoading={isLoading}
+                isLoading={isLoading}
                 />
             </form>
         </div>
-    )
+    );
 };
 
 const mapStateToProps = (state) => ({

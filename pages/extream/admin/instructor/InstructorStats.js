@@ -132,7 +132,7 @@ const InstructorStats = ({
                 </Grid>
             </Grid >
         </>
-    )
+    );
 };
 
 const mapStateToProps = (state) => ({

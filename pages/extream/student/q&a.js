@@ -1,5 +1,5 @@
-import React from 'react'
-import { ListView2 } from '../../../components'
+import React from 'react';
+import { ListView2 } from '../../../components';
 
 const QA = ({
     GetQna,
@@ -18,7 +18,7 @@ const QA = ({
                 handleSend={ handleSend }
             />
         </>
-    )
-}
+    );
+};
 
-export default QA
+export default QA;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Grid, Link, Autocomplete, Checkbox, TextField, Skeleton, Divider } from '@mui/material';
+import { Grid, Link, Autocomplete, Checkbox, TextField, Skeleton } from '@mui/material';
 import {
     Title,
     SubTitle,
@@ -91,7 +91,7 @@ const UploadFiles = ({
             }
         });
         setFileData(a);
-    }
+    };
 
     const handleUpload = (e) => {
         e.preventDefault();
@@ -111,7 +111,7 @@ const UploadFiles = ({
         } else {
             multiFileUpload(fileData, data);
         }
-    }
+    };
 
     const handleSubmitRepository = (data) => {
         if (fileData.length === 1) {
@@ -119,7 +119,7 @@ const UploadFiles = ({
         } else {
             multiFileUploadRepository(fileData, data);
         }
-    }
+    };
 
     const singleFileUpload = (files, data) => {
         let bodyFormData = new FormData();
@@ -131,7 +131,7 @@ const UploadFiles = ({
         bodyFormData.append('language', language);
         bodyFormData.append('file', files[0][1]);
         SubmissionListUpload(singleFileUploadAPI, bodyFormData);
-    }
+    };
 
     const singleFileUploadNonEnglish = (files, data) => {
         let bodyFormData = new FormData();
@@ -143,7 +143,7 @@ const UploadFiles = ({
         bodyFormData.append('language', nonEnglishLanguage);
         bodyFormData.append('file', files[0][1]);
         UploadNonEnglish(router.query.clasId, router.query.assId, bodyFormData);
-    }
+    };
 
     const singleFileUploadRepository = (files, data) => {
         let bodyFormData = new FormData();
@@ -154,7 +154,7 @@ const UploadFiles = ({
         bodyFormData.append('language', data.language0);
         bodyFormData.append('file', files[0][1]);
         SubmissionListUpload(singleFileUploadAPI, bodyFormData);
-    }
+    };
 
     const multiFileUpload = (files, data) => {
         let authorNameArr = [], titleArr = [], documentTypeArr = [];
@@ -169,10 +169,10 @@ const UploadFiles = ({
         bodyFormData.append('title', titleArr);
         bodyFormData.append('documentType', documentTypeArr);
         for (let i = 0; i < files.length; i++) {
-            bodyFormData.append("file", files[i][1]);
+            bodyFormData.append('file', files[i][1]);
         }
         SubmissionListUpload(multiFileUploadAPI, bodyFormData);
-    }
+    };
 
     const multiFileUploadRepository = (files, data) => {
         let authorNameArr = [], titleArr = [], yearArr = [], repositoryArr = [], languageArr = [];
@@ -191,10 +191,10 @@ const UploadFiles = ({
         bodyFormData.append('repository', repositoryArr);
         bodyFormData.append('language', languageArr);
         for (let i = 0; i < files.length; i++) {
-            bodyFormData.append("files", files[i][1]);
+            bodyFormData.append('files', files[i][1]);
         }
         SubmissionListUpload(multiFileUploadAPI, bodyFormData);
-    }
+    };
 
     useEffect(() => {
         if (uploadData) {
@@ -208,7 +208,7 @@ const UploadFiles = ({
             ...grammarPlagiarismCheck,
             [event.target.name]: event.target.checked,
         });
-    }
+    };
 
     useEffect(() => {
         if (language === 'Non English') {
@@ -354,7 +354,7 @@ const UploadFiles = ({
                 </DragAreaPadding>
             </CardView>
         </>
-    )
+    );
 };
 
 

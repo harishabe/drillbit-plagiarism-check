@@ -32,7 +32,7 @@ const BreadCrumb = ({
                 ))}
             </Breadcrumbs>
         </div>
-    )
-}
+    );
+};
 
-export default BreadCrumb
+export default BreadCrumb;

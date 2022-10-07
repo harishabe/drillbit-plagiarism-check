@@ -16,7 +16,7 @@ const columns = [
 ];
 
 function createData(name, details) {
-    return { name, details }
+    return { name, details };
 };
 
 const Input = styled('input')({
@@ -51,24 +51,24 @@ const AccountInfo = ({
     }, []);
 
     useEffect(() => {
-            let row = [
-                createData("Account ID", accountInfo?.accountId ? accountInfo?.accountId : '-'),
-                createData("Student ID", accountInfo?.stuednt_id ? accountInfo?.stuednt_id : '-'),
-                createData("Name", accountInfo?.name ? accountInfo?.name : '-'),
-                createData("Email", accountInfo?.email ? accountInfo?.email : '-'),
-                createData("Institution Name", accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
-                createData("Department", accountInfo?.department ? accountInfo?.department : '-'),
-                createData("Created Date", accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
-                createData("Expiry Date", accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
-            ];
-            setRows([...row]);
+        let row = [
+            createData('Account ID', accountInfo?.accountId ? accountInfo?.accountId : '-'),
+            createData('Student ID', accountInfo?.stuednt_id ? accountInfo?.stuednt_id : '-'),
+            createData('Name', accountInfo?.name ? accountInfo?.name : '-'),
+            createData('Email', accountInfo?.email ? accountInfo?.email : '-'),
+            createData('Institution Name', accountInfo?.institutionName ? accountInfo?.institutionName : '-'),
+            createData('Department', accountInfo?.department ? accountInfo?.department : '-'),
+            createData('Created Date', accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
+            createData('Expiry Date', accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
+        ];
+        setRows([...row]);
     }, [accountInfo]);
 
     const handleChange = (data) => {
         let bodyFormData = new FormData();
         bodyFormData.append('file', data.target.files[0]);
         ProfileLogo(localStorage.getItem('role'), bodyFormData);
-    }
+    };
     
     return (
         <React.Fragment>
@@ -124,8 +124,8 @@ const AccountInfo = ({
 
             </CardView>
         </React.Fragment >
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     accountInfo: state?.profile?.profileData,
@@ -139,6 +139,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-AccountInfo.layout = Student
+AccountInfo.layout = Student;
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo);

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
 import { Grid, Link, Button } from '@mui/material';
-import BeatLoader from "react-spinners/BeatLoader";
-import styled from 'styled-components';
+import BeatLoader from 'react-spinners/BeatLoader';
 import {
     UploadFileIcon
 } from '../../assets/icon';
 import {
     Title,
-    Title1,
     CardView
 } from '../../components';
 import FileForm from './FileForm';
@@ -31,8 +29,7 @@ import {
 import {
     SubmissionListUpload,
     SubmissionListExtractedFileUpload,
-    UploadZipFileDataClear,
-    UploadFileDataClear
+    UploadZipFileDataClear
 } from '../../redux/action/instructor/InstructorAction';
 
 const ZipFileUpload = ({
@@ -62,7 +59,7 @@ const ZipFileUpload = ({
             }
         });
         setFileData(a);
-    }
+    };
 
     const handleUpload = (e) => {
         e.preventDefault();
@@ -87,7 +84,7 @@ const ZipFileUpload = ({
             bodyFormData.append('file', fileData[0][1]);
             SubmissionListUpload(zipFileUploadAPI, bodyFormData);
         }
-    }
+    };
 
     const handleProcessZipFile = (data) => {
         let authorNameArr = [], titleArr = [], documentTypeArr = [];
@@ -100,7 +97,7 @@ const ZipFileUpload = ({
         uploadData['title'] = titleArr;
         uploadData['doc_type'] = documentTypeArr;
         SubmissionListExtractedFileUpload(confirmZipFileAPI, uploadData);
-    }
+    };
 
     const handleProcessZipFileRepo = (data) => {
         let bodyFormData = new FormData();
@@ -108,7 +105,7 @@ const ZipFileUpload = ({
         bodyFormData.append('language', data?.language);
         bodyFormData.append('file', fileData[0][1]);
         SubmissionListExtractedFileUpload(zipFileUploadAPI, bodyFormData);
-    }
+    };
 
     useEffect(() => {
         if (extractedFileData) {            
@@ -206,7 +203,7 @@ const ZipFileUpload = ({
                 </Grid>
             </DragAreaPadding>
         </CardView >
-    )
+    );
 };
 
 const mapStateToProps = (state) => ({

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../components';
@@ -35,7 +35,7 @@ const LoginForm = ({
             localStorage.setItem('token', loginState?.token);
             localStorage.setItem('email', loginState?.username);
             localStorage.setItem('name', loginState?.name);
-            router.push('/extream/instructor/dashboard')
+            router.push('/extream/instructor/dashboard');
         } else if (loginState?.role === Role.student) {
             localStorage.setItem('role', Role.student);
             localStorage.setItem('token', loginState?.token);
@@ -78,8 +78,8 @@ const LoginForm = ({
                 }
             </form>
         </>
-    )
-}
+    );
+};
 
 
 const mapStateToProps = (state) => ({
@@ -90,7 +90,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         login: (values) => dispatch(login(values))
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

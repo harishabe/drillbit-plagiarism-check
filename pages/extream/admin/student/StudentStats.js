@@ -133,7 +133,7 @@ const StudentStats = ({
                 </Grid>
             </Grid >
         </>
-    )
+    );
 };
 
 const mapStateToProps = (state) => ({

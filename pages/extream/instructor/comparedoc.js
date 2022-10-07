@@ -1,9 +1,9 @@
-import React from 'react'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import { TextField } from '@mui/material'
-import { BreadCrumb, MainHeading } from './../../components'
-import Instructor from '../../layouts/Instructor'
+import React from 'react';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
+import { BreadCrumb, MainHeading } from './../../components';
+import Instructor from '../../layouts/Instructor';
 
 const InstructorBreadCrumb = [
     {
@@ -16,7 +16,7 @@ const InstructorBreadCrumb = [
         link: '',
         active: true,
     },
-]
+];
 
 const Comparedoc = () => {
     return (
@@ -43,9 +43,9 @@ const Comparedoc = () => {
                 <MainHeading title='Compare Doc' />
             </Grid>
         </React.Fragment>
-    )
-}
+    );
+};
 
-Comparedoc.layout = Instructor
+Comparedoc.layout = Instructor;
 
-export default Comparedoc
+export default Comparedoc;

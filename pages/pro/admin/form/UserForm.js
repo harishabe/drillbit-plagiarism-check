@@ -30,24 +30,24 @@ const UserForm = ({
 
     const expiryDate = useWatch({
         control,
-        name: "expiry_date",
+        name: 'expiry_date',
     });
 
     const allocationDocs = useWatch({
         control,
-        name: "plagiarism",
+        name: 'plagiarism',
     });
 
     const grammarDocs = useWatch({
         control,
-        name: "grammar",
+        name: 'grammar',
     });
 
     useEffect(() => {
         if (allocationDocs !== undefined) {
             if (allocationDocs > remainingDocuments) {
                 let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === "plagiarism") {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                         item['errorMsg'] = 'The entered documents should not be more than available documents';
                     }
                     if (item?.field_type === 'button') {
@@ -58,7 +58,7 @@ const UserForm = ({
                 setFormJsonField(fields);
             } else {
                 let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === "plagiarism") {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                         item['errorMsg'] = '';
                     }
                     return item;
@@ -70,7 +70,7 @@ const UserForm = ({
         if (grammarDocs !== undefined) {
             if (grammarDocs > remainingGrammar) {
                 let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === "grammar") {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                         item['errorMsg'] = 'The entered documents should not be more than available documents';
                     }
                     if (item?.field_type === 'button') {
@@ -81,7 +81,7 @@ const UserForm = ({
                 setFormJsonField(fields);
             } else {
                 let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === "grammar") {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                         item['errorMsg'] = '';
                     }
                     return item;
@@ -147,7 +147,7 @@ const UserForm = ({
             data['expiry_date'] = convertDate(data.expiry_date);
             EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, data, 'user');
         } else {
-            let Detaileddata = { ...data, "expiry_date": convertDate(data.expiry_date) };
+            let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
             CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, Detaileddata);
         }
     };
@@ -172,7 +172,7 @@ const UserForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         if (editData) {
@@ -225,8 +225,8 @@ const UserForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoading: state?.adminCrud?.isLoading,

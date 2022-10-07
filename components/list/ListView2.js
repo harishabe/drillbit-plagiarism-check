@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from "next/router";
-import { Skeleton, Button, TextField } from '@mui/material';
+import { useRouter } from 'next/router';
+import { Skeleton, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 import List from '@mui/material/List';
@@ -11,9 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import { Title1, SubTitle2 } from '../index';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
-import BeatLoader from "react-spinners/BeatLoader";
-import { ErrorBlock } from '../index'
-import { formatDate } from '../../utils/RegExp'
+import BeatLoader from 'react-spinners/BeatLoader';
+import { ErrorBlock } from '../index';
+import { formatDate } from '../../utils/RegExp';
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -26,17 +26,17 @@ const useStyles = makeStyles((theme) => ({
     right: {
         textAlign: 'right',
     },
-}))
+}));
 
 const AlignRight = styled.div`
     text-align:right;
     margin-right: 200px;
-`
+`;
 
 const Colors = ['#7B68C8', '#68C886', '#8D34FF', '#34C2FF', '#3491FF', '#68C886'];
 
 function createId(questionId) {
-    return { questionId }
+    return { questionId };
 };
 
 const ListView2 = ({
@@ -63,18 +63,18 @@ const ListView2 = ({
 
     const QnaMessage = (qnaData) => {
         if (qnaData?.message) {
-            return qnaData?.message
+            return qnaData?.message;
         } else {
-            QnaData(qnaData)
+            QnaData(qnaData);
         }
-    }
+    };
 
     const Abc = () => {
-        const r = { ...ans1 }
+        const r = { ...ans1 };
         r.push(setAns2);
-        setAns1(r)
-    }
-    console.log("ans1ans1ans1", Abc)
+        setAns1(r);
+    };
+    console.log('ans1ans1ans1', Abc);
 
 
     const QnaData = (qnaData) => {
@@ -84,13 +84,13 @@ const ListView2 = ({
             id = createId(
                 item.id = `qId${index + 1}`,
             );
-            arr.push(id)
+            arr.push(id);
         });
         setId([...arr]);
-    }
+    };
 
     useEffect(() => {
-        QnaMessage(qnaData)
+        QnaMessage(qnaData);
     }, [qnaData]);
 
     return (
@@ -106,55 +106,55 @@ const ListView2 = ({
                         { qnaData?.message ?
                             <ErrorBlock message={ qnaData?.message } /> :
                             qnaData?.map((item, index) => (
-                            item['bgcolor'] = Colors[index],
-                            item['id'] = item.id,
-                            <>
-                                {
-                                    <>
-                                        <ListItem
-                                            key={ index }
-                                            style={ {
-                                                paddingLeft: '0px',
-                                                paddingRight: '0px',
-                                            } }
-                                        >
-                                            <Grid container spacing={ 1 }>
-                                                <Grid item xs={ 0 }>
-                                                    <ListItemAvatar>
-                                                        <Avatar
-                                                            sx={ {
-                                                                width: 42,
-                                                                height: 42,
-                                                                marginTop: '8px',
-                                                                background: item.bgcolor,
-                                                                color: '#fff',
-                                                            } }
-                                                        >
+                                item['bgcolor'] = Colors[index],
+                                item['id'] = item.id,
+                                <>
+                                    {
+                                        <>
+                                            <ListItem
+                                                key={ index }
+                                                style={ {
+                                                    paddingLeft: '0px',
+                                                    paddingRight: '0px',
+                                                } }
+                                            >
+                                                <Grid container spacing={ 1 }>
+                                                    <Grid item xs={ 0 }>
+                                                        <ListItemAvatar>
+                                                            <Avatar
+                                                                sx={ {
+                                                                    width: 42,
+                                                                    height: 42,
+                                                                    marginTop: '8px',
+                                                                    background: item.bgcolor,
+                                                                    color: '#fff',
+                                                                } }
+                                                            >
                                                             Q{ index + 1 }
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                </Grid>
-                                                <Grid item xs={ 9 }>
-                                                    <ListItemText
-                                                        disableTypography
-                                                        className={ classes.itemText }
-                                                        primary={ <Title1 title={ item.question } /> }
-                                                        secondary={
-                                                            <>
-                                                                <Card
-                                                                    sx={ {
-                                                                        flexWrap: 'wrap',
-                                                                        '& > :not(style)': {
-                                                                            ml: 2,
-                                                                            mt: 2,
-                                                                            mb: 2
-                                                                        },
-                                                                    } }
-                                                                >
-                                                                    { item.answer ? <SubTitle2 title={ item.answer } /> :
-                                                                        <>
+                                                            </Avatar>
+                                                        </ListItemAvatar>
+                                                    </Grid>
+                                                    <Grid item xs={ 9 }>
+                                                        <ListItemText
+                                                            disableTypography
+                                                            className={ classes.itemText }
+                                                            primary={ <Title1 title={ item.question } /> }
+                                                            secondary={
+                                                                <>
+                                                                    <Card
+                                                                        sx={ {
+                                                                            flexWrap: 'wrap',
+                                                                            '& > :not(style)': {
+                                                                                ml: 2,
+                                                                                mt: 2,
+                                                                                mb: 2
+                                                                            },
+                                                                        } }
+                                                                    >
+                                                                        { item.answer ? <SubTitle2 title={ item.answer } /> :
+                                                                            <>
 
-                                                                            { item.id === `qId${index + 1}` &&
+                                                                                { item.id === `qId${index + 1}` &&
 
                                                                                 <textarea
                                                                                     rows="5"
@@ -162,14 +162,14 @@ const ListView2 = ({
                                                                                     // value={ ans1 }
                                                                                     cols="90"
                                                                                     onChange={ (e) => {
-                                                                                        setAns1(e.target.value)
+                                                                                        setAns1(e.target.value);
                                                                                     } }
                                                                                     placeholder='Click to Answer here'
                                                                                 >
                                                                                 </textarea>
 
-                                                                            }
-                                                                            {/* { item.id === `qId1` &&
+                                                                                }
+                                                                                {/* { item.id === `qId1` &&
 
                                                                                 <textarea
                                                                                     rows="5"
@@ -244,48 +244,48 @@ const ListView2 = ({
                                                                                 </textarea>
 
                                                                             } */}
-                                                                        </>
-                                                                    }
-                                                                </Card>
-                                                            </>
-                                                        }
-                                                    />
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <ListItemText
-                                                        style={ { textAlign: 'right' } }
-                                                        disableTypography
-                                                        className={ classes.right }
+                                                                            </>
+                                                                        }
+                                                                    </Card>
+                                                                </>
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <ListItemText
+                                                            style={ { textAlign: 'right' } }
+                                                            disableTypography
+                                                            className={ classes.right }
                                                             primary={ <SubTitle2 title={ 'Asked : ' + formatDate(item.question_date) } /> }
-                                                    />
+                                                        />
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
                                             </ListItem>
-                                    </>
-                                }
+                                        </>
+                                    }
                                 </>
                             ))
                         }
 
                         { qnaData?.message ? '' :
                             <AlignRight>
-                                    <Button
-                                        variant="contained"
-                                        size="large"
-                                        type="button"
-                                        color="primary"
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    type="button"
+                                    color="primary"
                                     onClick={ (e) => handleSend(e, ans1) }
                                     // onClick={ (e) => handleSend(e, ans1, ans2, ans3, ans4, ans5) }
-                                    >
-                                        { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
-                                    </Button>
+                                >
+                                    { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
+                                </Button>
                             </AlignRight>
                         }
                     </>
                 }
             </List>
         </>
-    )
-}
+    );
+};
 
-export default ListView2
+export default ListView2;

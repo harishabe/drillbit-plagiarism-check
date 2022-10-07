@@ -1,8 +1,8 @@
 import React from 'react';
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
-import BeatLoader from "react-spinners/BeatLoader";
+import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
 import { Grid, InputLabel, TextField, Button, Autocomplete } from '@mui/material';
 import { EllipsisText } from '..';
@@ -30,19 +30,19 @@ const useStyles = makeStyles((theme) => ({
 
 const repoType = [
     {
-        "label": "Global"
+        'label': 'Global'
     },
     {
-        "label": "Institution"
+        'label': 'Institution'
     }
 ];
 
 const languageType = [
     {
-        "label": "English"
+        'label': 'English'
     },
     {
-        "label": "Non-English"
+        'label': 'Non-English'
     }
 ];
 
@@ -56,7 +56,7 @@ const RepositoryFileForm = ({
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         handleSubmitRepository(data);
-    }
+    };
 
     return (
         <div style={ { marginTop: '10px' } }>
@@ -79,11 +79,11 @@ const RepositoryFileForm = ({
                                     sx={ { marginTop: '0px' } }
                                     fullWidth
                                     margin="normal"
-                                    name={ "authorName" + index }
+                                    name={ 'authorName' + index }
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    { ...register("authorName" + index, { required: true }) }
+                                    { ...register('authorName' + index, { required: true }) }
                                     helperText={ errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME }
                                     FormHelperTextProps={ {
                                         className: classes.helperText
@@ -100,11 +100,11 @@ const RepositoryFileForm = ({
                                     sx={ { marginTop: '0px' } }
                                     fullWidth
                                     margin="normal"
-                                    name={ "title" + index }
+                                    name={ 'title' + index }
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    { ...register("title" + index, { required: true }) }
+                                    { ...register('title' + index, { required: true }) }
                                     helperText={ errors['title' + index] && UPLOAD_FILE_PAPER_TITLE }
                                     FormHelperTextProps={ {
                                         className: classes.helperText
@@ -121,11 +121,11 @@ const RepositoryFileForm = ({
                                     sx={ { marginTop: '0px' } }
                                     fullWidth
                                     margin="normal"
-                                    name={ "year" + index }
+                                    name={ 'year' + index }
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    { ...register("year" + index, { required: true }) }
+                                    { ...register('year' + index, { required: true }) }
                                     helperText={ errors['year' + index] && UPLOAD_FILE_YEAR }
                                     FormHelperTextProps={ {
                                         className: classes.helperText
@@ -140,14 +140,14 @@ const RepositoryFileForm = ({
                                 </LabelContainer>
                                 <Autocomplete
                                     disablePortal
-                                    id={ "repository" + index }
-                                    name={ "repository" + index }
+                                    id={ 'repository' + index }
+                                    name={ 'repository' + index }
                                     options={ repoType }
                                     size="small"
                                     renderInput={
                                         (params) =>
                                             <TextField
-                                                { ...register("repository" + index, { required: true }) } { ...params }
+                                                { ...register('repository' + index, { required: true }) } { ...params }
                                                 helperText={ errors['repository' + index] && UPLOAD_FILE_REPOSITORY_TYPE }
                                                 FormHelperTextProps={ {
                                                     className: classes.helperText
@@ -164,14 +164,14 @@ const RepositoryFileForm = ({
                                 </LabelContainer>
                                 <Autocomplete
                                     disablePortal
-                                    id={ "language" + index }
-                                    name={ "language" + index }
+                                    id={ 'language' + index }
+                                    name={ 'language' + index }
                                     options={ languageType }
                                     size="small"
                                     renderInput={
                                         (params) =>
                                             <TextField
-                                                { ...register("language" + index, { required: true }) } { ...params }
+                                                { ...register('language' + index, { required: true }) } { ...params }
                                                 helperText={ errors['language' + index] && UPLOAD_FILE_LANGUAGE }
                                                 FormHelperTextProps={ {
                                                     className: classes.helperText
@@ -181,7 +181,7 @@ const RepositoryFileForm = ({
                                 />
                             </Grid>
                         </Grid>
-                    )
+                    );
                 }) }
                 <div style={ { textAlign: 'center', marginTop: '10px' } }>
                     <Button type="submit" variant="contained" size="large">
@@ -190,7 +190,7 @@ const RepositoryFileForm = ({
                 </div>
             </form>
         </div>
-    )
+    );
 };
 
 RepositoryFileForm.propTypes = {
@@ -198,6 +198,6 @@ RepositoryFileForm.propTypes = {
     btnTitle: propTypes.string,
     handleSubmitRepository: propTypes.func,
     isLoading: propTypes.bool
-}
+};
 
 export default RepositoryFileForm;

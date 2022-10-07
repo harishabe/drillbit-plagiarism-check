@@ -71,10 +71,10 @@ const columns = [
     { id: 'department', label: 'Department' },
     { id: 'section', label: 'Section' },
     { id: 'action', label: 'Actions' },
-]
+];
 
 function createData(id, student_id, name, username, department, section, action) {
-    return { id, student_id, name, username, department, section, action }
+    return { id, student_id, name, username, department, section, action };
 }
 
 const Students = ({
@@ -130,7 +130,7 @@ const Students = ({
                     ]
                 );
             row['isSelected'] = false;
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [studentData]);
@@ -144,7 +144,7 @@ const Students = ({
             setDeleteRowData(rowData?.id);
             setShowDeleteWarning(true);
         }
-    }
+    };
 
     const handleYesWarning = () => {
         DeleteStudent(classId, deleteRowData);
@@ -161,14 +161,14 @@ const Students = ({
     const handleTableSort = (e, column, sortToggle) => {
         e.preventDefault();
         if (sortToggle) {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
-    }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     const handleCheckboxSelect = (e, value) => {
         e.preventDefault();
@@ -185,7 +185,7 @@ const Students = ({
             });
             setRows(rowData);
         }
-    }
+    };
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
@@ -195,7 +195,7 @@ const Students = ({
             return rowItem;
         });
         setRows(rowData);
-    }
+    };
 
     const deleteAllStudent = () => {
         let rowsId = '';
@@ -208,20 +208,20 @@ const Students = ({
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
-    }
+    };
 
     const handleShow = (e, info) => {
         if (info?.title === 'Add From List') {
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Student') {
             UploadFileDataClear();
-            router.push({ pathname: '/extream/instructor/addBulkStudent', query: { classId: classId, className: className } })
+            router.push({ pathname: '/extream/instructor/addBulkStudent', query: { classId: classId, className: className } });
         }
-    }
+    };
 
     const handleCloseDialog = () => {
         setShowDialogModal(false);
-    }
+    };
 
     const handlePagination = (event, value) => {
         event.preventDefault();
@@ -236,7 +236,7 @@ const Students = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    }
+    };
 
     const searchStudents = useMemo(() => {
         return debouce(handleSearchStudent, 300);
@@ -250,18 +250,18 @@ const Students = ({
 
     const handleCloseDrawer = (drawerClose) => {
         setEditStudent(drawerClose);
-    }
+    };
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/studentTemplate`, DOWNLOAD_CSV.STUDENTS_LISTS)
-    }
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/studentTemplate`, DOWNLOAD_CSV.STUDENTS_LISTS);
+    };
 
     return (
         <React.Fragment>
             {showDialogModal &&
                 <>
                     <DialogModal
-                        headingTitle={"Institute Students List"}
+                        headingTitle={'Institute Students List'}
                         isOpen={true}
                         fullWidth="lg"
                         maxWidth="lg"
@@ -355,11 +355,11 @@ const Students = ({
             </Box>
             <CardView>
                 <>
-                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+                    {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ textAlign: 'right' }}>
                         <Tooltip title='Delete' arrow>
-                        <IconButton onClick={deleteAllStudent}>
-                            <DeleteIcon />
-                        </IconButton>
+                            <IconButton onClick={deleteAllStudent}>
+                                <DeleteIcon />
+                            </IconButton>
                         </Tooltip>
                     </div>}
                     <CommonTable
@@ -387,8 +387,8 @@ const Students = ({
                 </>
             </CardView>
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoadingDownload: state?.submission?.isLoadingDownload,

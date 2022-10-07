@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { useForm } from 'react-hook-form';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { FormComponent } from '../../../../components';
 import FormJson from '../../../../constant/form/student-submission-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
@@ -26,9 +26,9 @@ const SubmissionForm = ({
         bodyFormData.append('authorName', getItemLocalStorage('name'));
         bodyFormData.append('title', assignmentName);
         bodyFormData.append('file', data.file[0]);
-        NewSubmission(bodyFormData, router.query.clasId, router.query.assId)
+        NewSubmission(bodyFormData, router.query.clasId, router.query.assId);
 
-    }
+    };
 
     const modifyFormField = () => {
         let formField = formJsonField?.map((field) => {
@@ -38,7 +38,7 @@ const SubmissionForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         let a = {
@@ -73,8 +73,8 @@ const SubmissionForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoadingNewSubmission: state?.studentClasses?.isLoadingNewSubmission,

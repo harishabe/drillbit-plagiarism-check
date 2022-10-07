@@ -38,7 +38,7 @@ const WidgetCard = ({
                 </Grid>
             </Grid>
         </CardView>
-    )
-}
+    );
+};
 
-export default WidgetCard
+export default WidgetCard;

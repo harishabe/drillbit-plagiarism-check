@@ -1,6 +1,6 @@
-import React from 'react'
-import Grid from '@mui/material/Grid'
-import { CardInfoView } from '../../components'
+import React from 'react';
+import Grid from '@mui/material/Grid';
+import { CardInfoView } from '../../components';
 
 const classes = [
     {
@@ -9,7 +9,7 @@ const classes = [
         validity: '2 days left',
         color: '#38BE62',
     },
-]
+];
 
 function Archives() {
     return (
@@ -27,7 +27,7 @@ function Archives() {
                 ))}
             </Grid>
         </React.Fragment>
-    )
+    );
 }
 
-export default Archives
+export default Archives;

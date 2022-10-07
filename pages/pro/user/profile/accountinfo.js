@@ -16,7 +16,7 @@ const columns = [
 ];
 
 function createData(name, details) {
-    return { name, details }
+    return { name, details };
 };
 
 const Input = styled('input')({
@@ -53,21 +53,21 @@ const AccountInfo = ({
     useEffect(() => {
         if (role === Role.proUser) {
             let row = [
-                createData("Institution Name", accountInfo?.institution_name ? accountInfo?.institution_name : '-'),
-                createData("Username", accountInfo?.name ? accountInfo?.name : '-'),
-                createData("User ID", accountInfo?.account_id ? accountInfo?.account_id : '-'),
-                createData("User Email Address", accountInfo?.email ? accountInfo?.email : '-'),
-                createData("Creation Date", accountInfo?.created_date ? accountInfo?.created_date : '-'),
+                createData('Institution Name', accountInfo?.institution_name ? accountInfo?.institution_name : '-'),
+                createData('Username', accountInfo?.name ? accountInfo?.name : '-'),
+                createData('User ID', accountInfo?.account_id ? accountInfo?.account_id : '-'),
+                createData('User Email Address', accountInfo?.email ? accountInfo?.email : '-'),
+                createData('Creation Date', accountInfo?.created_date ? accountInfo?.created_date : '-'),
                 // createData("Last Login", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
-                createData("Total Documents Alloted", accountInfo?.total_documents_alloted ? accountInfo?.total_documents_alloted : '-'),
-                createData("Total Documents Submitted", accountInfo?.total_documents_submitted ? accountInfo?.total_documents_submitted : '-'),
-                createData("Files Saved to Repository", accountInfo?.total_documents_added_to_Repository ? accountInfo?.total_documents_added_to_Repository : '-'),
-                createData("Account Expires on", accountInfo?.expiry_date ? accountInfo?.expiry_date : '-'),
-                createData("Account Type", accountInfo?.product_name ? accountInfo?.product_name : '-'),
-                createData("Admin Account", accountInfo?.admin_email ? accountInfo?.admin_email : '-'),
-                createData("Time Zone", accountInfo?.timezone ? accountInfo?.timezone : '-'),
+                createData('Total Documents Alloted', accountInfo?.total_documents_alloted ? accountInfo?.total_documents_alloted : '-'),
+                createData('Total Documents Submitted', accountInfo?.total_documents_submitted ? accountInfo?.total_documents_submitted : '-'),
+                createData('Files Saved to Repository', accountInfo?.total_documents_added_to_Repository ? accountInfo?.total_documents_added_to_Repository : '-'),
+                createData('Account Expires on', accountInfo?.expiry_date ? accountInfo?.expiry_date : '-'),
+                createData('Account Type', accountInfo?.product_name ? accountInfo?.product_name : '-'),
+                createData('Admin Account', accountInfo?.admin_email ? accountInfo?.admin_email : '-'),
+                createData('Time Zone', accountInfo?.timezone ? accountInfo?.timezone : '-'),
             ];
-            setRows([...row])
+            setRows([...row]);
         }
     }, [accountInfo]);
 
@@ -75,7 +75,7 @@ const AccountInfo = ({
         let bodyFormData = new FormData();
         bodyFormData.append('file', data.target.files[0]);
         ProfileLogo(localStorage.getItem('role'), bodyFormData);
-    }
+    };
 
 
     return (
@@ -132,8 +132,8 @@ const AccountInfo = ({
 
             </CardView>
         </React.Fragment >
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     accountInfo: state?.profile?.profileData,
@@ -147,6 +147,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-AccountInfo.layout = Instructor
+AccountInfo.layout = Instructor;
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo);

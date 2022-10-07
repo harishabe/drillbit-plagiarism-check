@@ -2,25 +2,21 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Skeleton } from '@mui/material';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
-import Divider from '@mui/material/Divider'
+import { useRouter } from 'next/router';
 import IconButton from '@mui/material/IconButton';
-import { Grid, Tooltip } from '@mui/material'
-import Student from '../../../layouts/Student'
+import { Grid, Tooltip } from '@mui/material';
+import Student from '../../../layouts/Student';
 import {
     BreadCrumb,
     CardView,
-    SubTitle1,
-    SubTitle,
     TabMenu,
     StatusDot,
-    WidgetCard,
     EllipsisText,
     WarningDialog,
     Heading,
     DialogModal
-} from '../../../components'
-import { DownloadIcon, NoOfClassIcon, NoOfAssignmntIcon } from '../../../assets/icon'
+} from '../../../components';
+import { DownloadIcon } from '../../../assets/icon';
 import {
     GetSubmissionData,
     GetQna,
@@ -32,9 +28,9 @@ import {
 import { DownloadOriginalFile } from '../../../redux/action/common/Submission/SubmissionAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 
-import SubmissionHistory from './submission-history'
-import QA from './q&a'
-import Feedback from './feedback'
+import SubmissionHistory from './submission-history';
+import QA from './q&a';
+import Feedback from './feedback';
 import { formatDate } from '../../../utils/RegExp';
 
 const tabMenu = [
@@ -44,7 +40,7 @@ const tabMenu = [
     {
         label: 'Q&A',
     }
-]
+];
 
 const MyAssignmentDetails = ({
     GetSubmissionData,
@@ -122,16 +118,16 @@ const MyAssignmentDetails = ({
 
     const handleDownload = () => {
         let url = `/${router.query.clasId}/assignments/${router.query.assId}/downloadHistory`;
-        DownloadStudentCsv(url)
-    }
+        DownloadStudentCsv(url);
+    };
 
     const handleSend = (e, ans1) => {
         const data = {
             'a1': ans1,
-        }
+        };
         SendData(data, router.query.clasId, router.query.assId);
         console.log(data, router.query.clasId, router.query.assId);
-    }
+    };
     // const handleSend = (e, ans1, ans2, ans3, ans4, ans5) => {
     //     const data = {
     //         'a1': qnaData[0].answer === null ? ans1 : qnaData[0].answer,
@@ -152,7 +148,7 @@ const MyAssignmentDetails = ({
     const handleOriginalFileDownload = (e, data) => {
         e.preventDefault();
         setShowRenewWarning(true);
-        setData(data)
+        setData(data);
     };
 
     const handleCloseWarning = () => {
@@ -167,8 +163,8 @@ const MyAssignmentDetails = ({
             paperId: data?.paper_id,
             name: data?.name?.props?.value,
             path: 'studentSubmission'
-        }
-        DownloadOriginalFile(detailedData)
+        };
+        DownloadOriginalFile(detailedData);
         setShowRenewWarning(false);
         setTimeout(() => {
             setShowRenewWarning(false);
@@ -177,7 +173,7 @@ const MyAssignmentDetails = ({
 
     const handleAPI = (value) => {
         setActiveTab(value);
-    }
+    };
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
@@ -187,23 +183,23 @@ const MyAssignmentDetails = ({
             paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
-    }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'feedback') {
-            setFeedbackId(rowData?.paper_id)
+            setFeedbackId(rowData?.paper_id);
             setShowDialogModal(true);
         }
-    }
+    };
 
     const handleCloseDialog = () => {
         setShowDialogModal(false);
-    }
+    };
 
     const handleRefresh = () => {
         GetSubmissionData(router.query.clasId, router.query.assId, paginationPayload);
-    }
+    };
 
     const SubmissionComponent = activeTab === 0 && <SubmissionHistory
         submissionData={ submissionData }
@@ -215,14 +211,14 @@ const MyAssignmentDetails = ({
         handleOriginalFileDownload={ handleOriginalFileDownload }
         handleTableSort={ handleTableSort }
 
-    />
+    />;
     const QnaComponent = activeTab === 1 && <QA
         GetQna={ GetQna }
         qnaData={ qnaData }
         isLoadingQa={ isLoadingQa }
         isLoadingAns={ isLoadingAns }
         handleSend={ handleSend }
-    />
+    />;
 
     const componentList = [
         SubmissionComponent,
@@ -313,17 +309,17 @@ const MyAssignmentDetails = ({
 
                     >
                         <Feedback
-                        GetFeedback={ GetFeedback }
-                        feedbackData={ feedbackData }
-                        feedbackId={ feedbackId }
-                        isLoadingFeedback={ isLoadingFeedback }
+                            GetFeedback={ GetFeedback }
+                            feedbackData={ feedbackData }
+                            feedbackId={ feedbackId }
+                            isLoadingFeedback={ isLoadingFeedback }
                         />
                     </DialogModal>
                 </>
             }
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     submissionData: state?.studentClasses?.submissionData?._embedded?.submissionsResponseList,
@@ -351,6 +347,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-MyAssignmentDetails.layout = Student
+MyAssignmentDetails.layout = Student;
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAssignmentDetails);

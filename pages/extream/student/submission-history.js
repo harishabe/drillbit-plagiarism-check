@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Skeleton, Pagination } from '@mui/material';
+import { Pagination } from '@mui/material';
 import { Tooltip } from '@mui/material';
 import { IconButton } from '@mui/material';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
@@ -11,7 +11,6 @@ import {
     SimilarityStatus
 } from '../../../components';
 import { MessageExclamatoryIcon } from '../../../assets/icon';
-import { formatDate } from '../../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
 import { BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
 
@@ -33,7 +32,7 @@ const DownloadButton = styled.div`
 `;
 
 function createData(name, paper_id, date_up, percent, grammar, score, status, action) {
-    return { name, paper_id, date_up, percent, grammar, score, status, action }
+    return { name, paper_id, date_up, percent, grammar, score, status, action };
 }
 
 const SubmissionHistory = ({
@@ -76,7 +75,7 @@ const SubmissionHistory = ({
                         { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },
                     ]
                 );
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [submissionData]);
@@ -85,7 +84,7 @@ const SubmissionHistory = ({
         let token = localStorage.getItem('token');
         let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
         window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
-    }
+    };
 
     return (
         <>
@@ -133,7 +132,7 @@ const SubmissionHistory = ({
                 </CreateDrawer>
             </AddButtonBottom>
         </>
-    )
-}
+    );
+};
 
 export default SubmissionHistory;

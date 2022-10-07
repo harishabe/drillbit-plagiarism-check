@@ -1,15 +1,13 @@
-import * as React from 'react'
-import Avatar from '@mui/material/Avatar'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableRow from '@mui/material/TableRow'
-import Button from '@mui/material/Button'
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
+import Button from '@mui/material/Button';
 import { SubTitle, SubTitle1, SimilarityStatus } from '../index';
-import { NO_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2 } from '../../constant/data/Constant';
 import { StatusDot } from '../../components';
-import { StatusColor } from '../../pages/style/index';
 
 const Colors = ['#7B68C8', '#68C886', '#34C2FF', '#3491FF', '#8D34FF', '#7B68C8'];
 
@@ -57,7 +55,7 @@ const RecentSubmissionTable = ({
                 </TableBody>
             </Table>
         </TableContainer>
-    )
-}
+    );
+};
 
-export default RecentSubmissionTable
+export default RecentSubmissionTable;

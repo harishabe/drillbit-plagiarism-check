@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import SuperAdmin from './../../layouts/SuperAdmin'
+import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../../assets/icon';
 import {
     GetExtremeRefData,
-} from '../../redux/action/super/SuperAdminAction'
+} from '../../redux/action/super/SuperAdminAction';
 import RefForm from './form/RefForm';
 import { PaginationContainer } from '../style/index';
 import Pagination from '@mui/material/Pagination';
@@ -32,7 +32,7 @@ const RefBreadCrumb = [
         link: '',
         active: true,
     },
-]
+];
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -49,14 +49,14 @@ const columns = [
     { id: 'instructors', label: 'Users' },
     { id: 'documents', label: 'Documents' },
     { id: 'action', label: 'Action' }
-]
+];
 
 function createData(lid, name, email, college_name, country, instructors, documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone
 ) {
     return {
         lid, name, email, college_name, country, instructors, documents, action, state
         , address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone
-    }
+    };
 }
 
 const RefProduct = ({
@@ -106,25 +106,25 @@ const RefProduct = ({
                     data.product_type,
                     data.timeZone,
                 );
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [refData]);
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
-    }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     const handleChange = (event, value) => {
         event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
     const handleAction = (event, icon, rowData) => {
@@ -132,11 +132,11 @@ const RefProduct = ({
             setEditUser(true);
             setEditUserData(rowData);
         }
-    }
+    };
 
     const handleCloseDrawer = (drawerClose) => {
         setEditUser(drawerClose);
-    }
+    };
 
     return (
         <>
@@ -190,7 +190,7 @@ const RefProduct = ({
                 />
             </PaginationContainer>
         </>
-    )
+    );
 };
 
 const mapStateToProps = (state) => ({
@@ -205,6 +205,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-RefProduct.layout = SuperAdmin
+RefProduct.layout = SuperAdmin;
 
-export default connect(mapStateToProps, mapDispatchToProps)(RefProduct)
+export default connect(mapStateToProps, mapDispatchToProps)(RefProduct);

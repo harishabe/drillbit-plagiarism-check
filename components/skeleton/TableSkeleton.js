@@ -31,7 +31,7 @@ const TableSkeleton = () => {
                 <Skeleton />
             </TableCell>
         </TableRow>
-    )
-}
+    );
+};
 
 export default TableSkeleton;

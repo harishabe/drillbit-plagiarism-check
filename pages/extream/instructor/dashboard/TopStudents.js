@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 import { ListView } from '../../../../components';
 
@@ -16,7 +16,7 @@ const TopStudents = ({
 
     return (
         <ListView listData={ topStudentData } />
-    )
-}
+    );
+};
 
-export default TopStudents
+export default TopStudents;

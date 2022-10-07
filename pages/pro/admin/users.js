@@ -1,15 +1,15 @@
 
 import React, { useEffect, useState, useMemo } from 'react';
 import _ from 'lodash';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import debouce from "lodash.debounce";
+import debouce from 'lodash.debounce';
 import { Grid, Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
 import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
-import { TextField, Pagination, IconButton, Button } from '@mui/material';
+import { TextField, Pagination, IconButton } from '@mui/material';
 import ProAdmin from './../../../layouts/ProAdmin';
 import {
     CardView,
@@ -51,10 +51,10 @@ const columns = [
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
     { id: 'action', label: 'Actions' }
-]
+];
 
 function createData(user_id, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date) {
-    return { user_id, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date }
+    return { user_id, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date };
 };
 
 const AddButtonBottom = styled.div`
@@ -125,7 +125,7 @@ const Users = ({
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     instructor.role === Role.proAdmin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                            { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                             {
                                 'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
@@ -135,7 +135,7 @@ const Users = ({
                     instructor.expiry_date,
                 );
             row['isSelected'] = false;
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [instructorData]);
@@ -173,7 +173,7 @@ const Users = ({
     };
 
     const handleAction = (event, icon, rowData) => {
-        console.log("rowData", rowData)
+        console.log('rowData', rowData);
         if (icon === 'edit') {
             setEditInstructor(true);
             setEditInstructorData(rowData);
@@ -184,7 +184,7 @@ const Users = ({
             let activateDeactive = {
                 'id': rowData?.user_id,
                 'status': 'INACTIVE'
-            }
+            };
             setStatusRowData(activateDeactive);
             setStatusWarning(true);
             setStatusMessage('inactive');
@@ -200,11 +200,11 @@ const Users = ({
             setUserId(rowData?.user_id);
             setShowDialogModal(true);
         }
-    }
+    };
 
     const handleCloseDialog = () => {
         setShowDialogModal(false);
-    }
+    };
 
     /** search implementation using debounce concepts */
 
@@ -216,7 +216,7 @@ const Users = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    }
+    };
 
     const debouncedResults = useMemo(() => {
         return debouce(handleSearch, 300);
@@ -232,14 +232,14 @@ const Users = ({
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
-    }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     const handleCheckboxSelect = (e, value) => {
         e.preventDefault();
@@ -256,7 +256,7 @@ const Users = ({
             });
             setRows(rowData);
         }
-    }
+    };
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
@@ -266,7 +266,7 @@ const Users = ({
             return rowItem;
         });
         setRows(rowData);
-    }
+    };
 
     const deleteAllInstructor = () => {
         let rowsId = '';
@@ -279,20 +279,20 @@ const Users = ({
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
-    }
+    };
 
     const handleShow = (e, info) => {
         if (info?.title === 'Add User') {
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Users') {
             UploadFileDataClear();
-            router.push({ pathname: '/pro/admin/addBulkUser' })
+            router.push({ pathname: '/pro/admin/addBulkUser' });
         }
-    }
+    };
 
     const handleCloseDrawer = (drawerClose) => {
         setEditInstructor(drawerClose);
-    }
+    };
 
     return (
         <React.Fragment>
@@ -311,7 +311,7 @@ const Users = ({
                 showStatusWarning &&
                 <WarningDialog
                     warningIcon={ <DeleteWarningIcon /> }
-                    message={ "Are you sure, you want to " + statusMessage + "?" }
+                    message={ 'Are you sure, you want to ' + statusMessage + '?' }
                     handleYes={ handleStatusWarning }
                     handleNo={ handleStatusCloseWarning }
                     isOpen={ true }
@@ -327,7 +327,7 @@ const Users = ({
                     maxWidth="lg"
                     handleClose={ handleCloseDialog }
                 >
-                        <UserStats userId={ userId } />
+                    <UserStats userId={ userId } />
                 </DialogModal>
             }
 
@@ -359,9 +359,9 @@ const Users = ({
                     title="Edit Instructor"
                     isShowAddIcon={ false }
                     showDrawer={ editInstructor }
-                        handleDrawerClose={ handleCloseDrawer }
+                    handleDrawerClose={ handleCloseDrawer }
                 >
-                        <UserForm
+                    <UserForm
                         editData={ editInstructorData }
                     />
                 </CreateDrawer>
@@ -399,7 +399,7 @@ const Users = ({
 
             <CardView>
                 <>
-                    { _.find(rows, function (o) { return o.isSelected === true }) && <div style={ { marginLeft: '10px' } }>
+                    { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
                         <Tooltip title='Delete' arrow>
                             <IconButton onClick={ deleteAllInstructor }>
                                 <DeleteIcon />
@@ -432,8 +432,8 @@ const Users = ({
                 </>
             </CardView>
         </React.Fragment>
-    )
-}
+    );
+};
 
 
 const mapStateToProps = (state) => ({

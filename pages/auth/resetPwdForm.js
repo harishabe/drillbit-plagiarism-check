@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../components';
@@ -24,18 +24,18 @@ const ResetPwdForm = ({
             'token': router.query.token,
             'password': data.newPassword,
             'confirm_password': data.confirmPassword
-        }
+        };
         ResetPassword(obj);
     };
 
     const confirmPassword = useWatch({
         control,
-        name: "confirmPassword",
+        name: 'confirmPassword',
     });
 
     const newPassword = useWatch({
         control,
-        name: "newPassword",
+        name: 'newPassword',
     });
 
     useEffect(() => {
@@ -81,8 +81,8 @@ const ResetPwdForm = ({
                 }
             </form>
         </>
-    )
-}
+    );
+};
 
 
 const mapStateToProps = (state) => ({
@@ -93,7 +93,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         ResetPassword: (values) => dispatch(ResetPassword(values))
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResetPwdForm);

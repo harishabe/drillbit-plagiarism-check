@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { makeStyles } from '@mui/styles'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import Avatar from '@mui/material/Avatar'
-import { Title, SubTitle, SubTitle1 } from '../index'
-import { Divider } from '@mui/material'
-import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
+import * as React from 'react';
+import { makeStyles } from '@mui/styles';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import { Title, SubTitle, SubTitle1 } from '../index';
+import { Divider } from '@mui/material';
+import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant';
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
     right: {
         textAlign: 'right'
     }
-}))
+}));
 
 const ListView = ({
     listData
 }) => {
-    const classes = useStyles()
+    const classes = useStyles();
     return (
         <List style={{height:'273px'}}>
             {listData?.map((item) => (
@@ -53,7 +53,7 @@ const ListView = ({
                 </div>
             ))}
         </List>
-    )
-}
+    );
+};
 
-export default ListView
+export default ListView;

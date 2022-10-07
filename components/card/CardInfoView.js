@@ -23,8 +23,7 @@ import {
     InstructorPersonIcon,
     ThreeDotIcon,
     EditIcon,
-    DeleteIcon,
-    ArchieveIcon
+    DeleteIcon
 } from '../../assets/icon';
 import SubTitle1 from '../typography/SubTitle1';
 import Switch from '@mui/material/Switch';
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
         width: '25%',
         marginBottom: '10px'
     }
-}))
+}));
 
 const AlignRight = styled.div`
     text-align:right;
@@ -89,15 +88,15 @@ const CardInfoView = ({
 
     const Validity = (validity) => {
         if (validity < '0') {
-            return 'Expired'
+            return 'Expired';
         } else if (validity === '0') {
-            return 'Expires today'
+            return 'Expires today';
         } else if (validity === '1') {
-            return `${validity} day left`
+            return `${validity} day left`;
         } else {
-            return `${validity} days left`
+            return `${validity} days left`;
         }
-    }
+    };
 
     return (
         <React.Fragment>
@@ -111,11 +110,11 @@ const CardInfoView = ({
                                 :
 
                                 <AlignRight>
-                                <Tooltip title={ 'Assignment Instructions' } arrow>
-                                    <IconButton onClick={ (e) => handleDownload(e, item) }>
-                                        <DownloadFileIcon />
-                                    </IconButton>
-                                </Tooltip>
+                                    <Tooltip title={ 'Assignment Instructions' } arrow>
+                                        <IconButton onClick={ (e) => handleDownload(e, item) }>
+                                            <DownloadFileIcon />
+                                        </IconButton>
+                                    </Tooltip>
                                 </AlignRight>
                             }
                         </>
@@ -135,18 +134,18 @@ const CardInfoView = ({
                             { isAction &&
                                 <>
                                     <AlignRight>
-                                    <Tooltip title={ CARD_FOLDER_ACTIONS } arrow>
-                                        <IconButton onClick={ handleMenuClick }>
-                                            <ThreeDotIcon />
-                                        </IconButton>
-                                    </Tooltip>
+                                        <Tooltip title={ CARD_FOLDER_ACTIONS } arrow>
+                                            <IconButton onClick={ handleMenuClick }>
+                                                <ThreeDotIcon />
+                                            </IconButton>
+                                        </Tooltip>
                                     </AlignRight>
                                     <Menu
                                         id="action-menu"
-                                    anchorEl={ anchorEl }
-                                    open={ open }
-                                    onClose={ handleClose }
-                                    PaperProps={ {
+                                        anchorEl={ anchorEl }
+                                        open={ open }
+                                        onClose={ handleClose }
+                                        PaperProps={ {
                                             elevation: 0,
                                             sx: {
                                                 overflow: 'visible',
@@ -171,22 +170,22 @@ const CardInfoView = ({
                                                     zIndex: 0,
                                                 },
                                             },
-                                    } }
-                                    transformOrigin={ { horizontal: 'right', vertical: 'top' } }
-                                    anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
+                                        } }
+                                        transformOrigin={ { horizontal: 'right', vertical: 'top' } }
+                                        anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
                                     >
-                                    <MenuItem onClick={ (e) => {
+                                        <MenuItem onClick={ (e) => {
                                             setAnchorEl(null);
                                             handleClick(e, item);
-                                    } }>
+                                        } }>
                                             <ListItemText>Edit</ListItemText>
                                             <EditIcon />
                                         </MenuItem>
                                         <Divider />
-                                    <MenuItem onClick={ (e) => {
+                                        <MenuItem onClick={ (e) => {
                                             setAnchorEl(null);
                                             handleDelete(e, item);
-                                    } }>
+                                        } }>
                                             <ListItemText>Delete</ListItemText>
                                             <DeleteIcon />
                                         </MenuItem>
@@ -241,8 +240,8 @@ const CardInfoView = ({
                                     <div onClick={ (e) => router.push({ 'pathname': item?.path, query: { integration: item.type } }) }>
                                         { item?.lmsconfigured &&
                                             <SubTitle1 textColor="primary" title="Know More" />
-                                    }
-                                </div>
+                                        }
+                                    </div>
                                 </>
                             }
                         </Grid>
@@ -259,11 +258,11 @@ const CardInfoView = ({
                                 : '' }
                             { isConfig &&
                                 <Switch
-                                disabled={ item?.lmsconfigured === true }
-                                checked={ item?.lmsconfigured }
-                                onChange={ handleConfig }
-                                inputProps={ { 'aria-label': 'controlled' } }
-                                name={ item?.lms }
+                                    disabled={ item?.lmsconfigured === true }
+                                    checked={ item?.lmsconfigured }
+                                    onChange={ handleConfig }
+                                    inputProps={ { 'aria-label': 'controlled' } }
+                                    name={ item?.lms }
                                 />
                             }
                             { isNextPath &&
@@ -278,7 +277,7 @@ const CardInfoView = ({
                 </CardActions>
             </Card>
         </React.Fragment>
-    )
-}
+    );
+};
 
 export default CardInfoView;

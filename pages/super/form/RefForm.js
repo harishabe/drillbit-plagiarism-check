@@ -27,7 +27,7 @@ const RefForm = ({
 
     useEffect(() => {
         DropdownList();
-    }, [])
+    }, []);
 
     useEffect(() => {
         console.log('1111');
@@ -36,13 +36,13 @@ const RefForm = ({
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
-                    InstitutionTypes.push({ 'name': item })
+                    InstitutionTypes.push({ 'name': item });
                 });
                 formItem['options'] = InstitutionTypes;
             }
             if (formItem.name === 'timeZone') {
                 dpList?.timeZoneList?.map((item) => {
-                    timeZoneLists.push({ 'name': item?.zone })
+                    timeZoneLists.push({ 'name': item?.zone });
                 });
                 formItem['options'] = timeZoneLists;
             }
@@ -58,7 +58,7 @@ const RefForm = ({
             data['endDate'] = convertDate(data.endDate);
             EditAccount(END_POINTS.SUPER_ADMIN_REF + '/license/' + editData?.lid, data);
         } else {
-            let DetailedData = { ...data, "endDate": convertDate(data.endDate), "startDate": convertDate(data.startDate) }
+            let DetailedData = { ...data, 'endDate': convertDate(data.endDate), 'startDate': convertDate(data.startDate) };
             CreateAccount(END_POINTS.SUPER_ADMIN_REF, DetailedData);
         }
     };
@@ -71,7 +71,7 @@ const RefForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         console.log('2222');
@@ -117,7 +117,7 @@ const RefForm = ({
                 'licenseType',
                 'timeZone',
             ];
-            fields.forEach(field => { setValue(field, a[field]) });
+            fields.forEach(field => { setValue(field, a[field]); });
             modifyFormField('Edit User');
             setEditOperation(true);
         }
@@ -144,8 +144,8 @@ const RefForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoadingCreate: state?.superAdmin?.isLoadingCreate,

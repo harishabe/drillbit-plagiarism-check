@@ -22,16 +22,16 @@ const ChangePassword = ({
     const onSubmit = (data) => {
         delete data['confirmPassword'];
         ProfileChangePassword(data);
-    }
+    };
 
     const confirmPassword = useWatch({
         control,
-        name: "confirmPassword",
+        name: 'confirmPassword',
     });
 
     const newPassword = useWatch({
         control,
-        name: "newPassword",
+        name: 'newPassword',
     });
 
     useEffect(() => {
@@ -52,7 +52,7 @@ const ChangePassword = ({
             });
             setField(fields);
         }
-    }, [newPassword, confirmPassword])
+    }, [newPassword, confirmPassword]);
 
     return (
         <>
@@ -86,8 +86,8 @@ const ChangePassword = ({
                 </form>
             </CardView>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoading: state?.profile?.isLoading,
@@ -100,6 +100,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-ChangePassword.layout = Instructor
+ChangePassword.layout = Instructor;
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);

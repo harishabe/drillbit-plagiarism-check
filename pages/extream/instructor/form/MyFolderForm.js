@@ -52,7 +52,7 @@ const MyFoldersForm = ({
                 'db_publications': data.db_publications,
                 'db_internet': data.db_internet,
                 'institution_repository': data.institution_repository,
-            }
+            };
             CreateFolder(BASE_URL_EXTREM + END_POINTS.CREATE_FOLDER, Detaileddata);
         }
     };
@@ -68,7 +68,7 @@ const MyFoldersForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         if (editData) {
@@ -86,15 +86,15 @@ const MyFoldersForm = ({
             };
             const fields = [
                 'assignment_name',
-                "exclude_reference",
-                "exclude_quotes",
-                "exclude_small_sources",
-                "grammar_check",
-                "exclude_phrases",
-                "db_studentpaper",
-                "db_publications",
-                "db_internet",
-                "institution_repository",
+                'exclude_reference',
+                'exclude_quotes',
+                'exclude_small_sources',
+                'grammar_check',
+                'exclude_phrases',
+                'db_studentpaper',
+                'db_publications',
+                'db_internet',
+                'institution_repository',
             ];
             fields.forEach(field => setValue(field, a[field]));
             modifyFormField('Edit Folder');
@@ -106,22 +106,22 @@ const MyFoldersForm = ({
 
     const db_studentpaper = useWatch({
         control,
-        name: "db_studentpaper",
+        name: 'db_studentpaper',
     });
 
     const db_publications = useWatch({
         control,
-        name: "db_publications",
+        name: 'db_publications',
     });
 
     const db_internet = useWatch({
         control,
-        name: "db_internet",
+        name: 'db_internet',
     });
 
     const institution_repository = useWatch({
         control,
-        name: "institution_repository",
+        name: 'institution_repository',
     });
 
     useEffect(() => {
@@ -173,15 +173,15 @@ const MyFoldersForm = ({
                 'institution_repository': 'YES',
             };
             const fields = [
-                "exclude_reference",
-                "exclude_quotes",
-                "exclude_small_sources",
-                "grammar_check",
-                "exclude_phrases",
-                "db_studentpaper",
-                "db_publications",
-                "db_internet",
-                "institution_repository",
+                'exclude_reference',
+                'exclude_quotes',
+                'exclude_small_sources',
+                'grammar_check',
+                'exclude_phrases',
+                'db_studentpaper',
+                'db_publications',
+                'db_internet',
+                'institution_repository',
             ];
             fields.forEach(field => setValue(field, a[field]));
         }
@@ -212,8 +212,8 @@ const MyFoldersForm = ({
                 {errorMsgDBCheck !== '' ? <ErrorMessageContainer>{errorMsgDBCheck}</ErrorMessageContainer> : ''}
             </div>
         </>
-    )
-}
+    );
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {

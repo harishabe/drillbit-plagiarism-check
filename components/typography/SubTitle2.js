@@ -1,6 +1,6 @@
-import React from 'react'
-import Typography from '@mui/material/Typography'
-import PropTypes from 'prop-types'
+import React from 'react';
+import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
 
 const SubTitle2 = ({
     title,
@@ -10,11 +10,11 @@ const SubTitle2 = ({
         <Typography variant="body2" style={{ marginLeft: ml }} component="div" gutterBottom>
             {title}
         </Typography>
-    )
-}
+    );
+};
 
 SubTitle2.propTypes = {
     title: PropTypes.string
-}
+};
 
-export default SubTitle2
+export default SubTitle2;

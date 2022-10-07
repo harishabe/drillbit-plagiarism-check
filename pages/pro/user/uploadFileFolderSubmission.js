@@ -11,14 +11,14 @@ import {
 import {
     UploadFileIcon,
 } from '../../../assets/icon';
-import Router, { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import { UPLOAD_TITLE_CONSTANT } from '../../../constant/data/Constant';
 
 const UploadFileFolderSubmission = () => {
     const router = useRouter();
     const handleAPI = () => {
-    }
+    };
 
     const UserBreadCrumb = [
         {
@@ -94,12 +94,12 @@ const UploadFileFolderSubmission = () => {
                 </Grid>
             </Box >
         </React.Fragment >
-    )
+    );
 };
 
 UploadFileFolderSubmission.propTypes = {
 
-}
+};
 
 UploadFileFolderSubmission.layout = ProUser;
 

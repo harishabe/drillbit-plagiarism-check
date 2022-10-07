@@ -9,10 +9,9 @@ import {
     ZipFileUpload
 } from '../../../components';
 import {
-    UploadFileIcon,
-    GoogleDriveIcon
+    UploadFileIcon
 } from '../../../assets/icon';
-import Router, { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { UPLOAD_TITLE_CONSTANT } from '../../../constant/data/Constant';
@@ -23,7 +22,7 @@ const UploadFileFolderSubmission = () => {
 
     const handleAPI = (value) => {
         setActiveTab(value);
-    }
+    };
     const InstructorBreadCrumb = [
         {
             name: 'Dashboard',
@@ -98,12 +97,12 @@ const UploadFileFolderSubmission = () => {
                 </Grid>
             </Box >
         </React.Fragment >
-    )
+    );
 };
 
 UploadFileFolderSubmission.propTypes = {
 
-}
+};
 
 UploadFileFolderSubmission.layout = Instructor;
 

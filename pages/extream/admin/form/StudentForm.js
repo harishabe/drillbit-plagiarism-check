@@ -28,7 +28,7 @@ const StudentForm = ({
         }
     };
 
-    console.log("editData", editData)
+    console.log('editData', editData);
     useEffect(() => {
         if (editData) {
             let a = {
@@ -70,8 +70,8 @@ const StudentForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoading: state?.adminCrud?.isLoading,

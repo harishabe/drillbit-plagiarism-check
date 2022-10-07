@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Instructor from '../../../layouts/Instructor';
@@ -43,23 +43,23 @@ const MyClassesTables = ({
             link: '/extream/instructor/my-assignment',
             active: true,
         },
-    ]
+    ];
 
     const handleAPI = (value) => {
         setActiveTab(value);
-    }
+    };
 
     const AssignmentComponent = activeTab === 0 && <Assignments
         pageDetailsAssignment={pageDetailsAssignment}
         assignmentData={assignmentData}
         isLoadingAssignment={isLoadingAssignment}
-    />
+    />;
 
     const StudentComponent = activeTab === 1 && <Students
         pageDetailsStudent={pageDetailsStudent}
         studentData={studentData}
         isLoadingStudent={isLoadingStudent}
-    />
+    />;
 
     const componentList = [
         AssignmentComponent,
@@ -91,8 +91,8 @@ const MyClassesTables = ({
                 handleAPI={handleAPI}
             />
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     pageDetailsStudent: state?.instructorClasses?.studentData?.page,

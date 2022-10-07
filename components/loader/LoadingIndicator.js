@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const LoaderContainer = styled.div`
     display: flex;
@@ -14,14 +14,14 @@ const LoaderContainer = styled.div`
     bottom: 0;
     z-index: 9999;
     background: rgba(0, 0, 0, 0.5);
-`
+`;
 
 const LoaderWrapper = styled.div`
     background:white;
     padding:20px 20px;
     border-radius:10px;
     z-index:999;
-`
+`;
 
 const LoadingIndicator = () => {
     return (
@@ -35,7 +35,7 @@ const LoadingIndicator = () => {
                 <p>Please wait , data is loading...</p>
             </LoaderWrapper>
         </LoaderContainer>
-    )
-}
+    );
+};
 
-export default LoadingIndicator
+export default LoadingIndicator;

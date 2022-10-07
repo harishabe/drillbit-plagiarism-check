@@ -51,7 +51,7 @@ const UsageChart = ({
                 <ApexCharts options={chartData.options} series={chartData.series} type="bar" height={350} />
             </div>
         </>
-    )
-}
+    );
+};
 
 export default UsageChart;

@@ -12,7 +12,7 @@ const CardView = ({
                 {children}
             </CardContent>
         </Card>
-    )
-}
+    );
+};
 
-export default CardView
+export default CardView;

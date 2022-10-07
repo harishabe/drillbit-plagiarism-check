@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../components';
 import FormJson from '../../constant/form/forgot-password.json';
@@ -32,8 +32,8 @@ const ForgotPwdForm = ({
                 }
             </form>
         </>
-    )
-}
+    );
+};
 
 
 const mapStateToProps = (state) => ({
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         ForgetPassword: (values) => dispatch(ForgetPassword(values))
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPwdForm);

@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import { styled } from "@mui/material/styles";
+import { styled } from '@mui/material/styles';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import MuiToggleButton from '@mui/material/ToggleButton';
@@ -9,8 +9,8 @@ import InputLabel from '@mui/material/InputLabel';
 
 
 const ToggleButton = styled(MuiToggleButton)({
-    "&.Mui-selected, &.Mui-selected:hover": {
-        color: "white",
+    '&.Mui-selected, &.Mui-selected:hover': {
+        color: 'white',
         backgroundColor: '#3672FF'
     }
 });
@@ -56,14 +56,14 @@ const InputToggleButton = ({
                 )}
             />
         </>
-    )
-}
+    );
+};
 
 InputToggleButton.propTypes = {
     control: PropTypes.any,
     field: PropTypes.any,
-}
+};
 
-export default InputToggleButton
+export default InputToggleButton;
 
 

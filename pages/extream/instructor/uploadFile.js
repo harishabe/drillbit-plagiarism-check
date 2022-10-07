@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Box } from '@mui/material';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
@@ -71,7 +71,7 @@ const UploadFile = () => {
 
     const handleAPI = () => {
 
-    }
+    };
 
     const componentList = [
         <UploadFiles
@@ -114,12 +114,12 @@ const UploadFile = () => {
                 </Grid>
             </Box >
         </React.Fragment >
-    )
+    );
 };
 
 UploadFile.propTypes = {
 
-}
+};
 
 UploadFile.layout = Instructor;
 

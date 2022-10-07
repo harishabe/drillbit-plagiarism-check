@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import dynamic from 'next/dynamic'
-const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false })
+import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const ColumnChart = ({
     color,
@@ -43,7 +43,7 @@ const ColumnChart = ({
                 offsetY: -20,
                 style: {
                     fontSize: '12px',
-                    colors: ["#304758"]
+                    colors: ['#304758']
                 }
             },
             stroke: {
@@ -67,12 +67,12 @@ const ColumnChart = ({
                 enabled: true,
                 y: {
                     formatter: function (val) {
-                        return val
+                        return val;
                     }
                 }
             }
         },
-    })
+    });
 
     return (
         <>
@@ -80,7 +80,7 @@ const ColumnChart = ({
                 <ApexCharts options={chartData.options} series={chartData.series} type={type} height={height} />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default ColumnChart
+export default ColumnChart;

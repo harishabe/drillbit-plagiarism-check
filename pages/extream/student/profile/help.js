@@ -25,7 +25,7 @@ const Help = () => {
             }
             return item;
         });
-        setData(d)
+        setData(d);
     }, []);
 
     return (
@@ -58,8 +58,8 @@ const Help = () => {
                 </Grid>
             </Box>
         </React.Fragment>
-    )
-}
+    );
+};
 
 Help.layout = Student;
 

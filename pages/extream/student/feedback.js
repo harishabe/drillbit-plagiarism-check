@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Skeleton } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import styled from 'styled-components';
@@ -23,7 +23,7 @@ const Feedback = ({
     isLoadingFeedback
 }) => {
     const router = useRouter();
-    const [data, setData] = useState({})
+    const [data, setData] = useState({});
 
     useEffect(() => {
         feedbackData?.map((item) => {
@@ -32,10 +32,10 @@ const Feedback = ({
                     'obtained_marks': item?.obtained_marks,
                     'max_marks': item?.max_marks,
                     'feedback': item?.feedback,
-                }
-                setData(a)
+                };
+                setData(a);
             }
-        })
+        });
     }, [feedbackData, feedbackId]);
 
 
@@ -53,7 +53,7 @@ const Feedback = ({
             </ListItem>
             <Grid display={ 'flex' } sx={ { ml: 2 } }>
                 <SubTitle2 title='Your Score : &nbsp;' />
-                { isLoadingFeedback ? <Skeleton width={ "70px" } /> :
+                { isLoadingFeedback ? <Skeleton width={ '70px' } /> :
                     <Title1 title={ `${data?.obtained_marks === undefined ? NO_DATA_PLACEHOLDER : data?.obtained_marks} / ${data?.max_marks === undefined ? NO_DATA_PLACEHOLDER : data?.max_marks}` } />
                 }
             </Grid>
@@ -69,13 +69,13 @@ const Feedback = ({
                         backgroundColor: '#E7E7E7',
                         padding: '12px'
                     } }>
-                    { isLoadingFeedback ? <Skeleton width={ "300px" } height={ "2px" } /> :
+                    { isLoadingFeedback ? <Skeleton width={ '300px' } height={ '2px' } /> :
                         <SubTitle2 title={ data?.feedback === undefined ? feedbackData?.message : data?.feedback } />
                     }
                 </Box>
             </Title>
         </>
-    )
-}
+    );
+};
 
-export default Feedback
+export default Feedback;

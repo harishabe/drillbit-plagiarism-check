@@ -2,11 +2,11 @@ import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
-import debouce from "lodash.debounce";
+import { useRouter } from 'next/router';
+import debouce from 'lodash.debounce';
 import { Grid, Tooltip } from '@mui/material';
 import { Skeleton } from '@mui/material';
-import Box from '@mui/material/Box'
+import Box from '@mui/material/Box';
 import { Pagination, IconButton } from '@mui/material';
 import { TextField } from '@mui/material';
 import Instructor from '../../../layouts/Instructor';
@@ -53,7 +53,7 @@ const columns = [
 function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action) {
     return {
         id, name, title, original_fn, grammar, percent, paper_id, date_up, action
-    }
+    };
 }
 
 const AddButtonBottom = styled.div`
@@ -114,7 +114,7 @@ const folderSubmission = ({
             link: '',
             active: true,
         },
-    ]
+    ];
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -146,7 +146,7 @@ const folderSubmission = ({
                     ]
                 );
             row['isSelected'] = false;
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [folderSubmissionData]);
@@ -156,7 +156,7 @@ const folderSubmission = ({
             setDeleteRowData(rowData?.paper_id);
             setShowDeleteWarning(true);
         }
-    }
+    };
 
     const handleChange = (event, value) => {
         event.preventDefault();
@@ -187,7 +187,7 @@ const folderSubmission = ({
         } else {
             setPaginationPayload({ ...paginationPayload, 'field': column.id, 'orderBy': 'desc' });
         }
-    }
+    };
 
     const handleSearch = (event) => {
         if (event.target.value !== '') {
@@ -197,7 +197,7 @@ const folderSubmission = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    }
+    };
 
     const debouncedResults = useMemo(() => {
         return debouce(handleSearch, 300);
@@ -224,7 +224,7 @@ const folderSubmission = ({
             });
             setRows(rowData);
         }
-    }
+    };
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
@@ -234,7 +234,7 @@ const folderSubmission = ({
             return rowItem;
         });
         setRows(rowData);
-    }
+    };
 
     /**
      * delete all submission
@@ -250,16 +250,16 @@ const folderSubmission = ({
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
-    }
+    };
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`, DOWNLOAD_CSV.SUBMISSION_REPORT)
-    }
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`, DOWNLOAD_CSV.SUBMISSION_REPORT);
+    };
 
     const handleOriginalFileDownload = (e, data) => {
         e.preventDefault();
         setShowDownloadWarning(true);
-        setData(data)
+        setData(data);
     };
 
     const handleFileDownloadCloseWarning = () => {
@@ -272,8 +272,8 @@ const folderSubmission = ({
             paperId: data?.paper_id,
             name: data?.original_fn,
             path: 'folderSubmission'
-        }
-        DownloadOriginalFile(detailedData)
+        };
+        DownloadOriginalFile(detailedData);
         setShowDownloadWarning(false);
         setTimeout(() => {
             setShowDownloadWarning(false);
@@ -290,8 +290,8 @@ const folderSubmission = ({
         if (uploadData) {
             UploadZipFileDataClear();
         }
-        router.push({ pathname: '/extream/instructor/uploadFileFolderSubmission', query: router.query })
-    }
+        router.push({ pathname: '/extream/instructor/uploadFileFolderSubmission', query: router.query });
+    };
 
     return (
         <React.Fragment>
@@ -305,8 +305,8 @@ const folderSubmission = ({
                         <DownloadField>
                             {folderSubmissionData?.length > 0 &&
                                 isLoadingDownload ? <SkeletonContainer>
-                                <Skeleton width={50} />
-                            </SkeletonContainer> :
+                                    <Skeleton width={50} />
+                                </SkeletonContainer> :
                                 <Tooltip title="Download csv" arrow>
                                     <IconButton
                                         color="primary"
@@ -333,11 +333,11 @@ const folderSubmission = ({
             </Box>
             <CardView>
 
-                {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ textAlign: 'right' }}>
+                {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ textAlign: 'right' }}>
                     <Tooltip title='Delete' arrow>
-                    <IconButton onClick={deleteAllSubmission}>
-                        <DeleteIcon />
-                    </IconButton>
+                        <IconButton onClick={deleteAllSubmission}>
+                            <DeleteIcon />
+                        </IconButton>
                     </Tooltip>
                 </div>}
 
@@ -396,8 +396,8 @@ const folderSubmission = ({
                 </PaginationContainer>
             </CardView>
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.submission?.folderSubmissionData?.page,
@@ -420,6 +420,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-folderSubmission.layout = Instructor
+folderSubmission.layout = Instructor;
 
 export default connect(mapStateToProps, mapDispatchToProps)(folderSubmission);

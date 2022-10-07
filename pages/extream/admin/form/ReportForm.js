@@ -43,11 +43,11 @@ const ReportForm = ({
 
     const handleCloseDialog = () => {
         setShowDialogModal(false);
-    }
+    };
 
     const closeSendDialog = () => {
         setOpen(false);
-    }
+    };
 
     const handleChange = (event, value) => {
         event.preventDefault();
@@ -72,22 +72,22 @@ const ReportForm = ({
         let toDate = convertDate(reportDownloadData?.toDate);
         let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
         DownloadInstructorStudentData(url, reportDownloadData?.report?.name);
-    }
+    };
 
     const onSend = (data) => {
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
         let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.username + '&from=' + fromDate + '&to=' + toDate;
         ViewDownloadSubmissiondData(url);
-    }
+    };
 
     useEffect(() => {
         if (reportViewSubmissionResponse === 200) {
             setOpen(false);
         }
-    }, [reportViewSubmissionResponse])
+    }, [reportViewSubmissionResponse]);
 
-    const reportName = reportDownloadData?.report?.name
+    const reportName = reportDownloadData?.report?.name;
 
     useEffect(() => {
         ReportsData(BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS);
@@ -98,7 +98,7 @@ const ReportForm = ({
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'report') {
                 reportData?.reportTypes?.map((item) => {
-                    reportType.push({ 'name': item })
+                    reportType.push({ 'name': item });
                 });
                 formItem['options'] = reportType;
             }
@@ -109,18 +109,18 @@ const ReportForm = ({
             return formItem;
         });
         setFormData(formList);
-    }, [reportData])
+    }, [reportData]);
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
-    }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     return (
         <>
@@ -133,22 +133,22 @@ const ReportForm = ({
                         maxWidth="xl"
                         handleClose={handleCloseDialog}
                     >
-                    <ReportView
-                        reportName={ reportName }
-                        assignmentViewDownloadData={ assignmentViewDownloadData }
-                        classesViewDownloadData={ classesViewDownloadData }
-                        submissionsViewDownloadData={ submissionsViewDownloadData }
-                        handleDownload={ handleDownload }
-                        open={ open }
-                        setOpen={ setOpen }
-                        closeSendDialog={ closeSendDialog }
-                        onSend={ onSend }
-                        handleChange={ handleChange }
-                        handleTableSort={ handleTableSort }
-                        pageDetails={ pageDetails }
-                        isLoadingViewReport={ isLoadingViewReport }
-                        isLoadingSubmission={ isLoadingSubmission }
-                        isLoadingDownload={ isLoadingDownload }
+                        <ReportView
+                            reportName={ reportName }
+                            assignmentViewDownloadData={ assignmentViewDownloadData }
+                            classesViewDownloadData={ classesViewDownloadData }
+                            submissionsViewDownloadData={ submissionsViewDownloadData }
+                            handleDownload={ handleDownload }
+                            open={ open }
+                            setOpen={ setOpen }
+                            closeSendDialog={ closeSendDialog }
+                            onSend={ onSend }
+                            handleChange={ handleChange }
+                            handleTableSort={ handleTableSort }
+                            pageDetails={ pageDetails }
+                            isLoadingViewReport={ isLoadingViewReport }
+                            isLoadingSubmission={ isLoadingSubmission }
+                            isLoadingDownload={ isLoadingDownload }
                         />
                     </DialogModal>
                 </>

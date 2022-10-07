@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { RecentSubmissionTable } from '../../../../components'
+import { RecentSubmissionTable } from '../../../../components';
 
 const RecentSubmissions = ({
     recentSubmission,
@@ -12,7 +12,7 @@ const RecentSubmissions = ({
             tableData={ recentSubmission }
             handlePage={ handlePage }
         />
-    )
-}
+    );
+};
 
-export default RecentSubmissions
+export default RecentSubmissions;

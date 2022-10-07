@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import InputLabel from '@mui/material/InputLabel';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const LinkField = ({
     field
@@ -14,11 +14,11 @@ const LinkField = ({
                 </Link>
             </InputLabel>
         </div>
-    )
+    );
 };
 
 LinkField.propTypes = {
     field: PropTypes.any
-}
+};
 
 export default LinkField;

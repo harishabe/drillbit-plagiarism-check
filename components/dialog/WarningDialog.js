@@ -54,6 +54,6 @@ const WarningDialog = ({
             </Dialog>
         </div>
     );
-}
+};
 
 export default WarningDialog;

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 0,
         color: '#ff0000'
     }
-}))
+}));
 
 const InputAutoComplete = ({
     field, control, renderOption, options
@@ -77,15 +77,15 @@ const InputAutoComplete = ({
                 onChange={([, data]) => data}
             />
         </>
-    )
-}
+    );
+};
 
 InputAutoComplete.propTypes = {
     name: PropTypes.any,
     control: PropTypes.any,
     label: PropTypes.any,
-}
+};
 
-export default InputAutoComplete
+export default InputAutoComplete;
 
 

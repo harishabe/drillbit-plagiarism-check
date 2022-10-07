@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { FormComponent } from '../../../../components';
 import { AddImageIcon } from '../../../../assets/icon';
 import { CreateAssignment, EditAssignment } from '../../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../../constant/form/instructor-assignment-form.json';
-import { convertDate } from '../../../../utils/RegExp'
+import { convertDate } from '../../../../utils/RegExp';
 
 const AssignmentForm = ({
     CreateAssignment,
@@ -33,13 +33,13 @@ const AssignmentForm = ({
             if (value?.assignment_setting === 'yes') {
                 let arr = formField;
                 arr.splice(formField.length - 1, 0, {
-                    "field_type": "toggle",
-                    "id": "exclude_quotes",
-                    "name": "exclude_quotes",
-                    "label": "Exclude Quotes",
-                    "options": [
-                        "yes",
-                        "no"
+                    'field_type': 'toggle',
+                    'id': 'exclude_quotes',
+                    'name': 'exclude_quotes',
+                    'label': 'Exclude Quotes',
+                    'options': [
+                        'yes',
+                        'no'
                     ]
                 });
                 setFormField(arr);
@@ -88,7 +88,7 @@ const AssignmentForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         if (editData) {
@@ -168,8 +168,8 @@ const AssignmentForm = ({
                 </Grid>
             </form>
         </div>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoading: state?.instructorClasses?.isLoading,

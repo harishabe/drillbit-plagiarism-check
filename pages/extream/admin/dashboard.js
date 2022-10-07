@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
-import Typography from '@mui/material/Typography'
-import { makeStyles } from '@mui/styles'
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Admin from '../../../layouts/Admin';
@@ -17,11 +17,9 @@ import {
     WidgetCard,
     ColumnChart,
     PieChart,
-    UsageChart,
     RadialBarChart,
     CardView,
     Heading,
-    SubTitle,
     ListSkeleton,
     LineChart,
     CurveChart,
@@ -44,13 +42,11 @@ import {
     COLUMN_ADMIN_CHART_GRADIENT,
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
     PIE_CHART_COLOR,
-    PIE_CHART_WIDTH,
     PIE_CHART_LABEL,
     RADIAL_CHART_TYPE,
     RADIAL_CHART_COLOR,
     RADIAL_CHART_LABEL,
     RADIAL_CHART_HEIGHT,
-    USAGE_CHART_DATA,
 } from './../../../constant/data/ChartData';
 import {
     DOCUMENT_PROCESSED_NOT_FOUND,
@@ -75,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     BorderColor: {
         borderBottom: '2px solid #5a9de9',
     },
-}))
+}));
 
 const Dashboard = ({
     isLoadingTopStudent,
@@ -89,7 +85,7 @@ const Dashboard = ({
     RenewValidity
 }) => {
 
-    const classes = useStyles()
+    const classes = useStyles();
     const [recentSubmission, setRecentSubmission] = useState([]);
     const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
     const [showRenewWarning, setShowRenewWarning] = useState(false);
@@ -98,7 +94,7 @@ const Dashboard = ({
         GetWidgetCount(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_WIDGET);
         GetTopStudent();
         GetTrendAnalysis(BASE_URL_EXTREM + END_POINTS.ADMIN_TREND_ANALYSIS);
-        trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork)
+        trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork);
         setTrendAnalysisSeries([...trendAnalysisSeries]);
     }, []);
 
@@ -133,7 +129,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Instructors'
                             isLoading={isLoadingDashboard}
-                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.instructorAccountUsage?.usedAccounts) + " / " + (adminDashboardData?.data?.instructorAccountUsage)?.totalAccounts}
+                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.instructorAccountUsage?.usedAccounts) + ' / ' + (adminDashboardData?.data?.instructorAccountUsage)?.totalAccounts}
                             icon={<NoOfClassIcon />}
                         />
                     </Grid>
@@ -141,7 +137,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Students'
                             isLoading={isLoadingDashboard}
-                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.studentAccountUsage?.usedAccounts) + " / " + (adminDashboardData?.data?.studentAccountUsage)?.totalAccounts}
+                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.studentAccountUsage?.usedAccounts) + ' / ' + (adminDashboardData?.data?.studentAccountUsage)?.totalAccounts}
                             icon={<NoStudentIcon />}
                         />
                     </Grid>
@@ -149,7 +145,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Submissions'
                             isLoading={isLoadingDashboard}
-                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + " / " + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions)}
+                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + ' / ' + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions)}
                             icon={<NoOfSubmission />}
                         />
                     </Grid>

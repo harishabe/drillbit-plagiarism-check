@@ -64,6 +64,6 @@ const DialogModal = ({
             </Dialog>
         </div>
     );
-}
+};
 
 export default DialogModal;

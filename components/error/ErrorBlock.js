@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SubTitle from '../typography/SubTitle1';
 import { makeStyles } from '@mui/styles';
@@ -27,7 +26,7 @@ const ErrorBlock = ({
             <InfoOutlinedIcon className={classes.color} /> 
             <SubTitle title={message} textColor="gray" />
         </div>
-    )
+    );
 };
 
 ErrorBlock.propTypes = {

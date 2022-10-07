@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import InputLabel from '@mui/material/InputLabel';
 import PropTypes from 'prop-types';
 
 
@@ -15,11 +14,11 @@ const LabelCaption = ({
         <LabelContainer>
             <b>{field.label}</b>
         </LabelContainer>
-    )
+    );
 };
 
 LabelCaption.propTypes = {
     field: PropTypes.any
-}
+};
 
 export default LabelCaption;

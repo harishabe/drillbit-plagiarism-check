@@ -21,7 +21,7 @@ const StatusDot = ({
         <InlineAlign>
             <StatusDotIcon color={color} /> <SubTitleStyle><SubTitle title={title} /></SubTitleStyle>
         </InlineAlign>
-    )
-}
+    );
+};
 
-export default StatusDot
+export default StatusDot;

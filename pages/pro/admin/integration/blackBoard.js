@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { Grid, Box, Skeleton } from '@mui/material';
 import ProAdmin from './../../../../layouts/ProAdmin';
 import {
@@ -47,12 +47,12 @@ const BlackBoard = ({
     }, []);
 
     const handleConfig = () => {
-        setForm(true)
-    }
+        setForm(true);
+    };
 
     const handleCloseDrawer = (drawerClose) => {
         setForm(drawerClose);
-    }
+    };
 
     return (
         <React.Fragment>
@@ -97,7 +97,7 @@ const BlackBoard = ({
                 }
             </Box>
         </React.Fragment>
-    )
+    );
 };
 
 const mapStateToProps = (state) => ({

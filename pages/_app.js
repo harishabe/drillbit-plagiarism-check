@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import '../styles/globals.css';
@@ -8,29 +8,29 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import { ThemeProvider } from "@mui/styles";
 import PageChange from '../components/loader/PageChange';
-import Router, { useRouter } from "next/router";
+import Router, { useRouter } from 'next/router';
 
 import theme from '../src/theme';
 
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 
-Router.events.on("routeChangeStart", (url) => {
-    document.body.classList.add("body-page-transition");
+Router.events.on('routeChangeStart', (url) => {
+    document.body.classList.add('body-page-transition');
     ReactDOM.render(
         <PageChange path={url} />,
-        document.getElementById("page-transition")
+        document.getElementById('page-transition')
     );
 });
 
-Router.events.on("routeChangeComplete", () => {
-    ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
-    document.body.classList.remove("body-page-transition");
+Router.events.on('routeChangeComplete', () => {
+    ReactDOM.unmountComponentAtNode(document.getElementById('page-transition'));
+    document.body.classList.remove('body-page-transition');
 });
 
-Router.events.on("routeChangeError", () => {
-    ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
-    document.body.classList.remove("body-page-transition");
+Router.events.on('routeChangeError', () => {
+    ReactDOM.unmountComponentAtNode(document.getElementById('page-transition'));
+    document.body.classList.remove('body-page-transition');
 });
 
 export default function MyApp(props) {
@@ -47,7 +47,7 @@ export default function MyApp(props) {
         return () => {
             router.events.off('routeChangeStart', hideContent);
             router.events.off('routeChangeComplete', authCheck);
-        }
+        };
     }, []);
 
     const Layout = Component.layout || (({ children }) => <>{children}</>);
@@ -82,10 +82,10 @@ export default function MyApp(props) {
                 </Provider>
             </ThemeProvider>
         </React.Fragment>
-    )
+    );
 }
 
 MyApp.propTypes = {
     Component: PropTypes.elementType.isRequired,
     pageProps: PropTypes.object.isRequired,
-}
+};

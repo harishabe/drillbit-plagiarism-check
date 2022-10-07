@@ -1,6 +1,5 @@
-import React from "react";
-import SquareLoader from "react-spinners/SquareLoader";
-import {SubTitle1} from '../../components';
+import React from 'react';
+import SquareLoader from 'react-spinners/SquareLoader';
 
 export default function PageChange(props) {
     return (

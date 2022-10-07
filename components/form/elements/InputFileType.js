@@ -29,7 +29,7 @@ const InputFileType = ({
                         margin="normal"
                         type="file"
                         onChange={e => {
-                            field.onChange(e.target.files)
+                            field.onChange(e.target.files);
                         }}
                         fullWidth
                         name={field.name}
@@ -48,7 +48,7 @@ const InputFileType = ({
             />
             {field.info && <InfoContainer>{field.info}</InfoContainer>}
         </>
-    )
+    );
 };
 
 InputFileType.propTypes = {

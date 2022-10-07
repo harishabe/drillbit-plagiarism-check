@@ -1,8 +1,8 @@
 import React from 'react';
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
-import BeatLoader from "react-spinners/BeatLoader";
+import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
 import { Grid, InputLabel, TextField, Button, Autocomplete } from '@mui/material';
 import { EllipsisText } from '../../components';
@@ -28,49 +28,49 @@ const useStyles = makeStyles((theme) => ({
 
 const fileType = [
     {
-        "label": "Thesis"
+        'label': 'Thesis'
     },
     {
-        "label": "Dissertation"
+        'label': 'Dissertation'
     },
     {
-        "label": "Article"
+        'label': 'Article'
     },
     {
-        "label": "e-Book"
+        'label': 'e-Book'
     },
     {
-        "label": "Synopsis"
+        'label': 'Synopsis'
     },
     {
-        "label": "Assignment"
+        'label': 'Assignment'
     },
     {
-        "label": "Project Work"
+        'label': 'Project Work'
     },
     {
-        "label": "Research Paper"
+        'label': 'Research Paper'
     },
     {
-        "label": "Technical Report"
+        'label': 'Technical Report'
     },
     {
-        "label": "White Paper"
+        'label': 'White Paper'
     },
     {
-        "label": "Chapter In Books"
+        'label': 'Chapter In Books'
     },
     {
-        "label": "Analytical/Business Report"
+        'label': 'Analytical/Business Report'
     },
     {
-        "label": "Blogs"
+        'label': 'Blogs'
     },
     {
-        "label": "Web Page"
+        'label': 'Web Page'
     },
     {
-        "label": "Others"
+        'label': 'Others'
     }
 ];
 
@@ -84,7 +84,7 @@ const FileForm = ({
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         handleSubmitFile(data);
-    }
+    };
 
     return (
         console.log('1111',files),
@@ -108,11 +108,11 @@ const FileForm = ({
                                     sx={{ marginTop: '0px' }}
                                     fullWidth
                                     margin="normal"
-                                    name={"authorName" + index}
+                                    name={'authorName' + index}
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    {...register("authorName" + index, { required: true })}
+                                    {...register('authorName' + index, { required: true })}
                                     helperText={errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME}
                                     FormHelperTextProps={{
                                         className: classes.helperText
@@ -129,11 +129,11 @@ const FileForm = ({
                                     sx={{ marginTop: '0px' }}
                                     fullWidth
                                     margin="normal"
-                                    name={"title" + index}
+                                    name={'title' + index}
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    {...register("title" + index, { required: true })}
+                                    {...register('title' + index, { required: true })}
                                     helperText={errors['title' + index] && UPLOAD_FILE_AUTHOR_TITLE}
                                     FormHelperTextProps={{
                                         className: classes.helperText
@@ -148,14 +148,14 @@ const FileForm = ({
                                 </LabelContainer>
                                 <Autocomplete
                                     disablePortal
-                                    id={"documentType" + index}
-                                    name={"documentType" + index}
+                                    id={'documentType' + index}
+                                    name={'documentType' + index}
                                     options={fileType}
                                     size="small"
                                     renderInput={
                                         (params) =>
                                             <TextField
-                                                {...register("documentType" + index, { required: true })} {...params}
+                                                {...register('documentType' + index, { required: true })} {...params}
                                                 helperText={errors['documentType' + index] && UPLOAD_FILE_TYPE}
                                                 FormHelperTextProps={{
                                                     className: classes.helperText
@@ -165,7 +165,7 @@ const FileForm = ({
                                 />
                             </Grid>
                         </Grid>
-                    )
+                    );
                 })}
                 <div style={{ textAlign: 'center', marginTop: '10px' }}>
                     <Button type="submit" variant="contained" size="large">
@@ -174,7 +174,7 @@ const FileForm = ({
                 </div>
             </form>
         </div>
-    )
+    );
 };
 
 FileForm.propTypes = {
@@ -182,6 +182,6 @@ FileForm.propTypes = {
     btnTitle: propTypes.string,
     handleSubmitFile: propTypes.func,
     isLoading:propTypes.bool
-}
+};
 
 export default FileForm;

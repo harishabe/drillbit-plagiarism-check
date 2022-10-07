@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import _ from 'lodash';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import debouce from "lodash.debounce";
-import { Grid, Tooltip, Skeleton } from '@mui/material';
+import debouce from 'lodash.debounce';
+import { Grid, Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
 import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
-import { TextField, Pagination, IconButton, Button } from '@mui/material';
+import { TextField, Pagination, IconButton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
 import {
     CardView,
@@ -16,12 +16,9 @@ import {
     MainHeading,
     StatusDot,
     BreadCrumb,
-    ErrorBlock,
-    AvatarName,
     CreateDrawer,
     WarningDialog,
-    DialogModal,
-    SubTitle
+    DialogModal
 } from '../../../components';
 import {
     EditIcon,
@@ -40,7 +37,7 @@ import {
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
 import InstructorStats from './instructor/InstructorStats';
-import { removeCommaWordEnd, convertDate } from '../../../utils/RegExp';
+import { removeCommaWordEnd } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
@@ -53,10 +50,10 @@ const columns = [
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
     { id: 'action', label: 'Actions' }
-]
+];
 
 function createData(user_id, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date) {
-    return { user_id, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date }
+    return { user_id, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date };
 };
 
 const AddButtonBottom = styled.div`
@@ -128,17 +125,17 @@ const Instructor = ({
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        {
-                            'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                            'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                            'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
-                        }
+                            { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                            {
+                                'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                                'type': instructor.status === 'active' ? 'lock' : 'unlock',
+                                'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
+                            }
                         ]),
                     instructor.expiry_date,
                 );
             row['isSelected'] = false;
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [instructorData]);
@@ -182,7 +179,7 @@ const Instructor = ({
             let activateDeactive = {
                 'id': rowData?.user_id,
                 'status': 'INACTIVE'
-            }
+            };
             setStatusRowData(activateDeactive);
             setStatusWarning(true);
             setStatusMessage('inactive');
@@ -198,11 +195,11 @@ const Instructor = ({
             setInstructorId(rowData?.user_id);
             setShowDialogModal(true);
         }
-    }
+    };
 
     const handleCloseDialog = () => {
         setShowDialogModal(false);
-    }
+    };
 
     /** search implementation using debounce concepts */
 
@@ -214,7 +211,7 @@ const Instructor = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    }
+    };
 
     const debouncedResults = useMemo(() => {
         return debouce(handleSearch, 300);
@@ -230,14 +227,14 @@ const Instructor = ({
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
-    }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
@@ -247,7 +244,7 @@ const Instructor = ({
             return rowItem;
         });
         setRows(rowData);
-    }
+    };
 
     const handleCheckboxSelect = (e, value) => {
         e.preventDefault();
@@ -264,7 +261,7 @@ const Instructor = ({
             });
             setRows(rowData);
         }
-    }
+    };
 
     const deleteAllInstructor = () => {
         let rowsId = '';
@@ -277,20 +274,20 @@ const Instructor = ({
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
-    }
+    };
 
     const handleShow = (e, info) => {
         if (info?.title === 'Add Instructor') {
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Instructors') {
             UploadFileDataClear();
-            router.push({ pathname: '/extream/admin/addBulkInstructor' })
+            router.push({ pathname: '/extream/admin/addBulkInstructor' });
         }
-    }
+    };
 
     const handleCloseDrawer = (drawerClose) => {
         setEditInstructor(drawerClose);
-    }
+    };
 
     return (
         <React.Fragment>
@@ -309,7 +306,7 @@ const Instructor = ({
                 showStatusWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
-                    message={"Are you sure, you want to " + statusMessage + "?"}
+                    message={'Are you sure, you want to ' + statusMessage + '?'}
                     handleYes={handleStatusWarning}
                     handleNo={handleStatusCloseWarning}
                     isOpen={true}
@@ -398,7 +395,7 @@ const Instructor = ({
 
             <CardView>
                 <>
-                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ marginLeft: '10px' }}>
+                    {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ marginLeft: '10px' }}>
                         <Tooltip title='Delete' arrow>
                             <IconButton onClick={deleteAllInstructor}>
                                 <DeleteIcon />
@@ -432,8 +429,8 @@ const Instructor = ({
             </CardView>
 
         </React.Fragment>
-    )
-}
+    );
+};
 
 
 const mapStateToProps = (state) => ({
@@ -452,6 +449,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-Instructor.layout = Admin
+Instructor.layout = Admin;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Instructor);

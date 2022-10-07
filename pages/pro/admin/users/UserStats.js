@@ -133,7 +133,7 @@ const UserStats = ({
                 </Grid>
             </Grid >
         </>
-    )
+    );
 };
 
 const mapStateToProps = (state) => ({

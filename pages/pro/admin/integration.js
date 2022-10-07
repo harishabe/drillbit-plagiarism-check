@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Skeleton, TextField } from '@mui/material';
+import { Skeleton } from '@mui/material';
 import ProAdmin from './../../../layouts/ProAdmin';
 import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer } from './../../../components';
 import { GetIntegrationList } from '../../../redux/action/admin/AdminAction';
@@ -24,8 +24,8 @@ import {
     PRO_ADMIN_INTEGRATION_MOODLE_PATH,
     PRO_ADMIN_INTEGRATION_CANVAS_PATH,
     PRO_ADMIN_INTEGRATION_BLACKBOARD_PATH,
-} from '../../../constant/data/Integration'
-import { BASE_URL_PRO } from '../../../utils/BaseUrl'
+} from '../../../constant/data/Integration';
+import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 
 const IntegrationBreadCrumb = [
     {
@@ -79,10 +79,10 @@ const Integration = ({
                 item['img'] = ADMIN_INTEGRATION_BLACKBOARD_IMG;
                 item['description'] = ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION;
                 item['path'] = PRO_ADMIN_INTEGRATION_BLACKBOARD_PATH;
-                item['type'] = 'Blackboard'
+                item['type'] = 'Blackboard';
             }
             return item;
-        })
+        });
         setLmsData(lmsData);
     }, [integrationData]);
 
@@ -90,21 +90,21 @@ const Integration = ({
         setChecked({
             ...checked,
             [event.target.name]: event.target.checked,
-        })
+        });
         if (event.target.name === 'MOODLE') {
-            setShowMoodle(true)
+            setShowMoodle(true);
         } else if (event.target.name === 'CANVAS') {
-            setShowCanvas(true)
+            setShowCanvas(true);
         } else if (event.target.name === 'BLACKBOARD') {
-            setShowBlackboard(true)
+            setShowBlackboard(true);
         }
-    }
+    };
 
     const handleCloseDrawer = (drawerClose) => {
         setShowMoodle(drawerClose);
         setShowCanvas(drawerClose);
         setShowBlackboard(drawerClose);
-    }
+    };
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -171,8 +171,8 @@ const Integration = ({
                 </CreateDrawer>
             }
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     integrationData: state?.adminIntegrationData?.integrationData,

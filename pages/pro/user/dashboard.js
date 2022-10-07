@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import styled from 'styled-components';
@@ -14,10 +14,8 @@ import {
     PieChart,
     CardView,
     Heading,
-    SubTitle,
     ListSkeleton,
     ErrorBlock,
-    CurveChart,
     EllipsisText
 } from '../../../components';
 import {
@@ -33,9 +31,7 @@ import {
     COLUMN_ADMIN_CHART_HEIGHT,
     COLUMN_ADMIN_CHART_GRADIENT,
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
-    PIE_CHART_TYPE,
     PIE_CHART_COLOR,
-    PIE_CHART_SERIES,
     PIE_CHART_WIDTH,
     PIE_CHART_LABEL,
 } from './../../../constant/data/ChartData';
@@ -75,8 +71,8 @@ const Dashboard = ({
     }, [instructorDashboardData]);
 
     const handlePage = (e, item) => {
-        router.push({ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: item?.class_id, assId: item?.ass_id } })
-    }
+        router.push({ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: item?.class_id, assId: item?.ass_id } });
+    };
 
     return (
         <React.Fragment>
@@ -183,18 +179,18 @@ const Dashboard = ({
                                 />
                                 : <>
                                     { instructorDashboardData?.data?.trendAnalysis?.documentsProcessed ?
-                                            <PieChart
-                                                type="donut"
+                                        <PieChart
+                                            type="donut"
                                             height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '317px' }
-                                                color={ PIE_CHART_COLOR }
-                                                width={ PIE_CHART_WIDTH }
-                                                label={ PIE_CHART_LABEL }
-                                                series={
-                                                    [
-                                                        instructorDashboardData?.data?.trendAnalysis?.similarWork,
-                                                        instructorDashboardData?.data?.trendAnalysis?.ownWork
-                                                    ]
-                                                }
+                                            color={ PIE_CHART_COLOR }
+                                            width={ PIE_CHART_WIDTH }
+                                            label={ PIE_CHART_LABEL }
+                                            series={
+                                                [
+                                                    instructorDashboardData?.data?.trendAnalysis?.similarWork,
+                                                    instructorDashboardData?.data?.trendAnalysis?.ownWork
+                                                ]
+                                            }
                                         />
                                         : <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
                                     }

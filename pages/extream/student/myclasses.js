@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import debouce from "lodash.debounce";
+import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
 import { GetClassesData } from '../../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -23,7 +23,7 @@ const StudentBreadCrumb = [
         link: '',
         active: true,
     },
-]
+];
 
 const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
 
@@ -63,8 +63,8 @@ const MyClasses = ({
                     status: 'status',
                     color: 'color',
                     validity: 'validity'
-                })
-            arr.push(row)
+                });
+            arr.push(row);
         });
         setItem([...arr]);
     }, [classesData]);
@@ -84,7 +84,7 @@ const MyClasses = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    }
+    };
 
     const debouncedResults = useMemo(() => {
         return debouce(handleSearch, 300);
@@ -139,24 +139,24 @@ const MyClasses = ({
                 <>
                     {classesData?.length > 0 ?
                         <>
-                        <Grid container spacing={2}>
-                            {item?.map((item, index) => (
-                                <Grid item md={4} xs={12}>
-                                    <CardInfoView
-                                        key={index}
-                                        isNextPath={true}
-                                        isAction={false}
-                                        item={item}
-                                        isAvatar={true}
-                                        isHeading={true}
-                                        isInstructorName={true}
-                                        isTimer={true}
-                                        statusColor={expiryDateBgColor(item.validity)}
-                                        path={ { pathname: '/extream/student/myassignments', query: { clasId: item.id, clasName: item.name } } }
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
+                            <Grid container spacing={2}>
+                                {item?.map((item, index) => (
+                                    <Grid item md={4} xs={12}>
+                                        <CardInfoView
+                                            key={index}
+                                            isNextPath={true}
+                                            isAction={false}
+                                            item={item}
+                                            isAvatar={true}
+                                            isHeading={true}
+                                            isInstructorName={true}
+                                            isTimer={true}
+                                            statusColor={expiryDateBgColor(item.validity)}
+                                            path={ { pathname: '/extream/student/myassignments', query: { clasId: item.id, clasName: item.name } } }
+                                        />
+                                    </Grid>
+                                ))}
+                            </Grid>
                             <div style={ { marginLeft: '45%', marginTop: '25px' } }>
                                 <Pagination
                                     count={ pageDetails?.totalPages }
@@ -172,8 +172,8 @@ const MyClasses = ({
                 </>
             }
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.studentClasses?.classesData?.page,
@@ -187,6 +187,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-MyClasses.layout = Student
+MyClasses.layout = Student;
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyClasses);

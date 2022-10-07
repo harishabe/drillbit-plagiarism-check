@@ -84,7 +84,7 @@ const CurveChart = ({
                 enabled: true,
             }
         },
-    })
+    });
 
     return (
         <>
@@ -92,7 +92,7 @@ const CurveChart = ({
                 <ApexCharts options={chartData.options} series={chartData.series} width={chartWidth} height={chartHeight} type={chartType} />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default CurveChart
+export default CurveChart;

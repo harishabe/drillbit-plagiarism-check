@@ -10,16 +10,15 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TableRow from '@mui/material/TableRow';
-import { IconButton, Skeleton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import BeatLoader from "react-spinners/BeatLoader";
+import BeatLoader from 'react-spinners/BeatLoader';
 import { SubTitle, TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
 import {
     TABLE_HEADER_SORT_DISABLE,
     TABLE_BODY_ALLOW_ICON,
-    TABLE_SORTING_ARROW_HANDLE,
     NO_DATA_PLACEHOLDER,
     TABLE_NEXT_PAGE
 } from '../../constant/data/Constant';
@@ -34,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     customArrowContainer: {
         marginTop: '14px'
     }
-}))
+}));
 
 const CommonTable = ({
     tableHeader,
@@ -59,14 +58,14 @@ const CommonTable = ({
     const [allSelected, setAllSelected] = React.useState(false);
 
     const sortHandle = (e, column) => {
-        let a = !toggle
+        let a = !toggle;
         setToggle(a);
         setSortArrow(column.id);
         handleTableSort(e, column, toggle);
-    }
+    };
 
     React.useEffect(() => {
-        let selected = _.find(tableData, function (o) { return o.isSelected === true });
+        let selected = _.find(tableData, function (o) { return o.isSelected === true; });
         console.log('selected', selected);
         setAllSelected(selected?.isSelected ? true : false);
     }, [tableData]);
@@ -169,7 +168,7 @@ const CommonTable = ({
 
                                             }
                                         </>
-                                    )
+                                    );
                                 })}
                                 {isNextPath &&
                                     <Tooltip title={TABLE_NEXT_PAGE} arrow>
@@ -177,9 +176,9 @@ const CommonTable = ({
                                             onClick={(e) => {
                                                 if (path && path?.query?.isAssignment) {
                                                     console.log('rowrow',row);
-                                                    path.query['assId'] = row?.id
+                                                    path.query['assId'] = row?.id;
                                                     path.query['assName'] = row?.assignment_name,
-                                                    path.query['grammar'] = row?.assignmentData?.grammar
+                                                    path.query['grammar'] = row?.assignmentData?.grammar;
                                                     router.push(path);
                                                 } else {
                                                     router.push(path);
@@ -199,7 +198,7 @@ const CommonTable = ({
                 {(tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" />}
             </>
         </TableContainer>
-    )
-}
+    );
+};
 
-export default CommonTable
+export default CommonTable;

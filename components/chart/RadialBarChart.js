@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -105,12 +104,12 @@ const RadialBarChart = ({
             },
             labels: label
         }
-    })
+    });
     return (
         <div id="radialBar">
             <ApexCharts options={chartData.options} series={chartData.series} type={type} height={height} />
         </div>
-    )
-}
+    );
+};
 
-export default RadialBarChart
+export default RadialBarChart;

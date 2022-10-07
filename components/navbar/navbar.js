@@ -28,9 +28,9 @@ import { getItemLocalStorage, setItemLocalStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
 import EllipsisText from '../ellipsis/EllipsisText';
 import SubTitle1 from '../typography/SubTitle1';
-import { PRO_ADMIN, PRO_USER } from '../../constant/data/Constant'
+import { PRO_ADMIN, PRO_USER } from '../../constant/data/Constant';
 
-const drawerWidth = 200
+const drawerWidth = 200;
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -55,7 +55,7 @@ const AppBar = styled(MuiAppBar, {
             duration: theme.transitions.duration.enteringScreen,
         }),
     }),
-}))
+}));
 
 const NavBar = ({
     open,
@@ -72,17 +72,17 @@ const NavBar = ({
 
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget);
-    }
+    };
 
     const handleClose = () => {
         setAnchorEl(null);
-    }
+    };
 
     const handleLogout = (event) => {
         event.preventDefault();
         localStorage.clear();
         window.location.href = '/auth/login';
-    }
+    };
 
     const switchToUser = (e, role) => {
         e.preventDefault();
@@ -92,10 +92,10 @@ const NavBar = ({
             router.push('/extream/instructor/dashboard');
         } else {
             setSwitchRole('admin');
-            setItemLocalStorage('switchRole', 'admin')
+            setItemLocalStorage('switchRole', 'admin');
             router.push('/extream/admin/dashboard');
         }
-    }
+    };
 
     React.useEffect(() => {
         let userName = getItemLocalStorage('name');
@@ -268,8 +268,8 @@ const NavBar = ({
                 </Paper>
             </Menu>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     dashboardData: state?.adminDashboard?.data?.userProfileLite,

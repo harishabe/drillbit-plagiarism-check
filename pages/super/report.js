@@ -1,10 +1,10 @@
 import React from 'react';
-import SuperAdmin from './../../layouts/SuperAdmin'
+import SuperAdmin from './../../layouts/SuperAdmin';
 
 const Report = () => {
     return (
         <div>Report</div>
-    )
+    );
 };
 
 Report.layout = SuperAdmin;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     helperTextLeft: {
         marginLeft: '0 !important'
     }
-}))
+}));
 
 const StyledInputField = styled(TextField)(() => ({
     ':hover': {
@@ -82,15 +82,15 @@ const InputNumberField = ({
             {field.errorMsg !== '' &&
                 <ErrorMessage>{field.errorMsg}</ErrorMessage>}
         </>
-    )
-}
+    );
+};
 
 InputNumberField.propTypes = {
     name: PropTypes.any,
     control: PropTypes.any,
     label: PropTypes.any,
-}
+};
 
-export default InputNumberField
+export default InputNumberField;
 
 

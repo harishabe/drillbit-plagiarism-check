@@ -9,8 +9,7 @@ import {
     ZipFileUpload
 } from '../../../components';
 import {
-    UploadFileIcon,
-    GoogleDriveIcon
+    UploadFileIcon
 } from '../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
@@ -21,7 +20,7 @@ const uploadFileRepository = () => {
 
     const handleAPI = (value) => {
         setActiveTab(value);
-    }
+    };
 
     const AdminBreadCrumb = [
         {
@@ -92,12 +91,12 @@ const uploadFileRepository = () => {
                 </Grid>
             </Box >
         </React.Fragment >
-    )
+    );
 };
 
 uploadFileRepository.propTypes = {
 
-}
+};
 
 uploadFileRepository.layout = Admin;
 

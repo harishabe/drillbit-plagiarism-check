@@ -2,17 +2,15 @@ import React, { useEffect, useState, useMemo } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import Box from '@mui/material/Box';
-import debouce from "lodash.debounce";
-import { Grid, Tooltip, Skeleton, TextField, Pagination, IconButton } from '@mui/material';
+import debouce from 'lodash.debounce';
+import { Grid, Tooltip, TextField, Pagination, IconButton } from '@mui/material';
 import {
     CardView,
     CommonTable,
     MainHeading,
     WarningDialog,
-    AvatarName,
     DialogModal,
     CreateDrawer,
-    ErrorBlock,
     BreadCrumb
 } from '../../../components';
 import Admin from '../../../layouts/Admin';
@@ -35,10 +33,10 @@ const columns = [
     { id: 'section', label: 'Section' },
     { id: 'stats', label: 'Statistics' },
     { id: 'action', label: 'Actions' },
-]
+];
 
 function createData(id, name, user_id, email, department, section, stats, action) {
-    return { id, name, user_id, email, department, section, stats, action }
+    return { id, name, user_id, email, department, section, stats, action };
 }
 
 const IntegrationBreadCrumb = [
@@ -52,7 +50,7 @@ const IntegrationBreadCrumb = [
         link: '',
         active: true,
     },
-]
+];
 
 const Students = ({
     GetStudnetData,
@@ -97,14 +95,14 @@ const Students = ({
                     [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }, { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [studentData]);
 
     const handleChange = (event, value) => {
         event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
     const handleCloseWarning = () => {
@@ -136,11 +134,11 @@ const Students = ({
             setStudentId(rowData.id);
             setShowDialogModal(true);
         }
-    }
+    };
 
     const handleCloseDialog = () => {
         setShowDialogModal(false);
-    }
+    };
 
 
     const handleSearch = (event) => {
@@ -167,14 +165,14 @@ const Students = ({
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
-    }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     const handleCheckboxSelect = (e,value) => {
         e.preventDefault();
@@ -191,7 +189,7 @@ const Students = ({
             });
             setRows(rowData);
         }
-    }
+    };
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
@@ -201,7 +199,7 @@ const Students = ({
             return rowItem;
         });
         setRows(rowData);
-    }
+    };
 
     const deleteAllInstructor = () => {
         let rowsId = '';
@@ -214,11 +212,11 @@ const Students = ({
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
-    }
+    };
 
     const handleCloseDrawer = (value) => {
         setEditStudent(value);
-    }
+    };
 
     return (
         <React.Fragment>
@@ -297,11 +295,11 @@ const Students = ({
 
             <CardView>
                 <>
-                    {_.find(rows, function (o) { return o.isSelected === true }) && <div style={{ marginLeft: '10px' }}>
+                    {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ marginLeft: '10px' }}>
                         <Tooltip title='Delete' arrow>
-                        <IconButton onClick={deleteAllInstructor}>
-                            <DeleteIcon />
-                        </IconButton>
+                            <IconButton onClick={deleteAllInstructor}>
+                                <DeleteIcon />
+                            </IconButton>
                         </Tooltip>
                     </div>}
 
@@ -321,19 +319,19 @@ const Students = ({
 
 
                     <div style={ { marginLeft: '45%', marginTop: '25px' } }>
-                            <Pagination
-                                count={pageDetails?.totalPages}
-                                onChange={handleChange}
-                                color="primary"
-                                variant="outlined"
-                                shape="rounded"
-                            />
+                        <Pagination
+                            count={pageDetails?.totalPages}
+                            onChange={handleChange}
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
                     </div>
                 </>
             </CardView>
         </React.Fragment>
-    )
-}
+    );
+};
 
 
 const mapStateToProps = (state) => ({

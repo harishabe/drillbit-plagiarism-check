@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import debouce from "lodash.debounce";
+import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import { TextField } from '@mui/material'
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
 import { Pagination } from '@mui/material';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     BreadCrumb,
@@ -23,7 +23,6 @@ import {
     UploadFileDataClear,
     UploadZipFileDataClear,
 } from '../../../redux/action/instructor/InstructorAction';
-import { formatDate } from '../../../utils/RegExp';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 
@@ -38,13 +37,13 @@ const AdminBreadCrumb = [
         link: '',
         active: true,
     },
-]
+];
 
 const AddButtonBottom = styled.div`
     position: fixed;
     bottom: 30px;
     right: 30px;
-`
+`;
 
 const columns = [
     { id: 'paper_id', label: 'Paper ID' },
@@ -54,12 +53,12 @@ const columns = [
     { id: 'repository_type', label: 'Type' },
     { id: 'date_up', label: 'Added Date' },
     { id: 'action', label: 'Action' },
-]
+];
 
 function createData(paper_id, name, mail_id, title, repository_type, date_up, action) {
     return {
         paper_id, name, mail_id, title, repository_type, date_up, action
-    }
+    };
 }
 
 const Repository = ({
@@ -104,7 +103,7 @@ const Repository = ({
                     [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [repoData]);
@@ -114,7 +113,7 @@ const Repository = ({
             setDeleteRowData(rowData?.id);
             setShowDeleteWarning(true);
         }
-    }
+    };
 
     const handleCloseWarning = () => {
         setShowDeleteWarning(false);
@@ -142,7 +141,7 @@ const Repository = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    }
+    };
 
     const debouncedResults = useMemo(() => {
         return debouce(handleSearch, 300);
@@ -166,19 +165,19 @@ const Repository = ({
         if (uploadData) {
             UploadZipFileDataClear();
         }
-        router.push({ pathname: '/pro/admin/uploadFileRepository' })
-    }
+        router.push({ pathname: '/pro/admin/uploadFileRepository' });
+    };
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
-    }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     return (
         <React.Fragment>
@@ -255,8 +254,8 @@ const Repository = ({
                 </>
             </CardView>
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     repoData: state?.detailsData?.repoData?._embedded?.directRepositoryInboxList,
@@ -275,6 +274,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-Repository.layout = ProAdmin
+Repository.layout = ProAdmin;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Repository);

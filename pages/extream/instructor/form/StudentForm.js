@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateStudent, EditStudent } from '../../../../redux/action/instructor/InstructorAction';
@@ -43,7 +43,7 @@ const StudentForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         if (editData) {
@@ -89,8 +89,8 @@ const StudentForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoadingCreate: state?.instructorClasses?.isLoading,

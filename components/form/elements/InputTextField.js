@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     helperTextLeft: {
         marginLeft: '0 !important'
     }
-}))
+}));
 
 const StyledInputField = styled(TextField)(() => ({
     ':hover': {
@@ -32,9 +32,9 @@ const InputTextField = ({
     field
 }) => {
 
-    const classes = useStyles()
+    const classes = useStyles();
 
-    const [regex, setRegex] = useState()
+    const [regex, setRegex] = useState();
 
     useEffect(() => {
         // if (field.type === 'email') {
@@ -50,7 +50,7 @@ const InputTextField = ({
         if (field.name === 'confirmPassword') {
             setRegex(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g);
         }
-    }, [field])
+    }, [field]);
 
     return (
         <>
@@ -93,15 +93,15 @@ const InputTextField = ({
                 }}
             />
         </>
-    )
-}
+    );
+};
 
 InputTextField.propTypes = {
     name: PropTypes.any,
     control: PropTypes.any,
     label: PropTypes.any,
-}
+};
 
-export default InputTextField
+export default InputTextField;
 
 

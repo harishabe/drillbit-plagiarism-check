@@ -1,6 +1,6 @@
-import React from 'react'
-import { makeStyles } from '@mui/styles'
-import Avatar from '@mui/material/Avatar'
+import React from 'react';
+import { makeStyles } from '@mui/styles';
+import Avatar from '@mui/material/Avatar';
 
 const useStyles = makeStyles((theme) => ({
     inline: {
@@ -10,14 +10,14 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: '9px',
         paddingLeft: '10px'
     }
-}))
+}));
 
 const AvatarName = ({
     title,
     avatarText,
     color
 }) => {
-    const classes = useStyles()
+    const classes = useStyles();
     return (
         <div style={{ display: 'inline-flex' }}>
             <Avatar
@@ -27,7 +27,7 @@ const AvatarName = ({
             </Avatar>
             <span style={{ paddingTop: '9px', paddingLeft: '10px' }}>{title}</span>
         </div>
-    )
-}
+    );
+};
 
-export default AvatarName
+export default AvatarName;

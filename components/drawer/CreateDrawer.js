@@ -14,16 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { IconButton } from '@mui/material';
 import { CloseIcon } from './../../assets/icon';
 import styled from 'styled-components';
-import {
-    ToggleBarIcon,
-    MessageIcon,
-    BellIcon,
-    DownArrowIcon,
-    ChangePwdIcon,
-    SwitchAccountIcon,
-    AccountIcon,
-    HelpIcon
-} from '../../assets/icon';
+
+
 
 const CloseButtonCenter = styled.div`
     text-align:right
@@ -166,6 +158,6 @@ const CreateDrawer = ({
             ))}
         </div>
     );
-}
+};
 
 export default CreateDrawer;

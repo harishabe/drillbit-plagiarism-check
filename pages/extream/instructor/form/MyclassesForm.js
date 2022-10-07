@@ -26,7 +26,7 @@ const MyClassesForm = ({
 
     const expiryDate = useWatch({
         control,
-        name: "expiry_date",
+        name: 'expiry_date',
     });
 
     useEffect(() => {
@@ -75,7 +75,7 @@ const MyClassesForm = ({
             });
             setFormJsonField(fields);
         }
-    }, [expiryDate])
+    }, [expiryDate]);
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -83,7 +83,7 @@ const MyClassesForm = ({
             delete data.expiry_date;
             EditClass(editData?.id, data);
         } else {
-            let DetailedData = { ...data, "end_date": convertDate(data.expiry_date) }
+            let DetailedData = { ...data, 'end_date': convertDate(data.expiry_date) };
             delete DetailedData.expiry_date;
             CreateClass(DetailedData);
         }
@@ -145,8 +145,8 @@ const MyClassesForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoading: state?.instructorCrud?.isLoading,

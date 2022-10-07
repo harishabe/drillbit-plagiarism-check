@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import styled from 'styled-components';
 import { SubTitle, SubTitle1, SubTitle2, EllipsisText, SimilarityStatus } from '../index';
 import { StatusDot } from '../index';
-import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant'
+import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant';
 
 const MarginTop = styled.div`
     marginTop:'7px';
@@ -83,7 +83,7 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                 </TableBody>
             </Table>
         </TableContainer>
-    )
-}
+    );
+};
 
-export default MyRecentSubmissionTable
+export default MyRecentSubmissionTable;

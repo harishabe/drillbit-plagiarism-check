@@ -24,7 +24,7 @@ const FeedbackForm = ({
         let DetailedData = {
             'feedback': data.feedback,
             'marks': data.marks,
-        }
+        };
         InstructorFeedback(clasId, assId, feedbackData, DetailedData);
     };
 
@@ -42,7 +42,7 @@ const FeedbackForm = ({
                     ];
                     fields.forEach(field => setValue(field, a[field]));
                 }
-            })
+            });
         }
     }, [gradingData]);
 
@@ -66,8 +66,8 @@ const FeedbackForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoading: state?.instructorSubmissionGrading?.isLoadingFeedback,

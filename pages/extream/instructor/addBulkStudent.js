@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-import { useRouter } from "next/router";
-import BeatLoader from "react-spinners/BeatLoader";
+import { useRouter } from 'next/router';
+import BeatLoader from 'react-spinners/BeatLoader';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
@@ -98,7 +98,7 @@ const AddBulkStudent = ({
 
     const handleDownload = () => {
         DownloadTemplate(router?.query?.classId);
-    }
+    };
 
     const handleSubmit = () => {
         if (fileData !== '') {
@@ -109,18 +109,18 @@ const AddBulkStudent = ({
         } else {
             setShowError(true);
         }
-    }
+    };
 
     const handleUpload = (e) => {
         e.preventDefault();
         setFileData(e.target.files[0]);
         setShowError(false);
-    }
+    };
 
     const handleBack = (e) => {
         e.preventDefault();
         router.push('/extream/instructor/my-assignment?clasId=' + classId + '&className=' + myclass);
-    }
+    };
 
     useEffect(() => {
         if (fileUploadData?.status === 200) {
@@ -170,7 +170,7 @@ const AddBulkStudent = ({
                                                 <div className={classes.padding30}>
                                                     <Title1 title='Drag and drop, or ' />
                                                     <Link style={{ marginLeft: '5px' }}>
-                                                        <label for="file-upload" className={classes.customFileUpload}>
+                                                        <label htmlFor="file-upload" className={classes.customFileUpload}>
                                                             browse your file here
                                                         </label>
                                                     </Link>
@@ -199,7 +199,7 @@ const AddBulkStudent = ({
                 </Grid>
             </Box>
         </React.Fragment>
-    )
+    );
 };
 
 
@@ -228,6 +228,6 @@ AddBulkStudent.propTypes = {
     pageDetails: propTypes.object,
     isLoadingTemplate: propTypes.bool,
     isLoadingStudentFileUpload: propTypes.bool,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddBulkStudent);

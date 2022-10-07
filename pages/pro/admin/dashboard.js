@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
-import Typography from '@mui/material/Typography'
-import { makeStyles } from '@mui/styles'
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import ProAdmin from './../../../layouts/ProAdmin';
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     BorderColor: {
         borderBottom: '2px solid #5a9de9',
     },
-}))
+}));
 
 const Dashboard = ({
     isLoadingDashboard,
@@ -71,7 +71,7 @@ const Dashboard = ({
     RenewValidity
 }) => {
 
-    const classes = useStyles()
+    const classes = useStyles();
     const [recentSubmission, setRecentSubmission] = useState([]);
     const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
     const [showRenewWarning, setShowRenewWarning] = useState(false);
@@ -79,7 +79,7 @@ const Dashboard = ({
     useEffect(() => {
         GetWidgetCount(BASE_URL_PRO + END_POINTS_PRO.ADMIN_DASHBOARD_WIDGET);
         GetTrendAnalysis(BASE_URL_PRO + END_POINTS_PRO.ADMIN_TREND_ANALYSIS);
-        trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork)
+        trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork);
         setTrendAnalysisSeries([...trendAnalysisSeries]);
     }, []);
 
@@ -114,7 +114,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Users'
                             isLoading={ isLoadingDashboard }
-                            count={ isLoadingDashboard ? '' : (adminDashboardData?.data?.userAccountUsage?.usedAccounts) + " / " + (adminDashboardData?.data?.userAccountUsage)?.totalAccounts }
+                            count={ isLoadingDashboard ? '' : (adminDashboardData?.data?.userAccountUsage?.usedAccounts) + ' / ' + (adminDashboardData?.data?.userAccountUsage)?.totalAccounts }
                             icon={ <NoStudentIcon /> }
                         />
                     </Grid>
@@ -122,7 +122,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Submissions'
                             isLoading={ isLoadingDashboard }
-                            count={ isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + " / " + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions) }
+                            count={ isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + ' / ' + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions) }
                             icon={ <NoOfSubmission /> }
                         />
                     </Grid>

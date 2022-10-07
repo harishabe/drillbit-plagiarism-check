@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import debouce from "lodash.debounce";
-import { useRouter } from "next/router";
+import debouce from 'lodash.debounce';
+import { useRouter } from 'next/router';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { connect } from 'react-redux';
@@ -52,7 +52,7 @@ const MyAssignments = ({
             link: '',
             active: true,
         },
-    ]
+    ];
 
     const [item, setItem] = useState([]);
 
@@ -80,8 +80,8 @@ const MyAssignments = ({
                     color: 'color',
                     creation_date: 'creation_date',
                     end_date: 'end_date'
-                })
-            arr.push(row)
+                });
+            arr.push(row);
         });
         setItem([...arr]);
     }, [assignmentData]);
@@ -101,7 +101,7 @@ const MyAssignments = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    }
+    };
 
     const debouncedResults = useMemo(() => {
         return debouce(handleSearch, 300);
@@ -116,8 +116,8 @@ const MyAssignments = ({
     /** end debounce concepts */
 
     const handleDownload = (e, item) => {
-        DownloadAssignmentInstruction(router.query.clasId, item.id)
-    }
+        DownloadAssignmentInstruction(router.query.clasId, item.id);
+    };
 
     return (
         <React.Fragment>
@@ -159,25 +159,25 @@ const MyAssignments = ({
                 <>
                     {assignmentData?.length > 0 ?
                         <>
-                        <Grid container spacing={2}>
-                            {item?.map((item, index) => (
-                                <Grid item md={4} xs={12}>
-                                    <CardInfoView
-                                        key={index}
-                                        item={item}
-                                        isLoading={ isLoadingInstructions }
-                                        isAvatar={true}
-                                        isHeading={true}
-                                        isTimer={true}
-                                        isSubmit={true}
-                                        isDownload={true}
-                                        handleDownload={ handleDownload }
-                                        statusColor={expiryDateBgColor(item.validity)}
-                                        submitPath={ { pathname: '/extream/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId, clasName: router.query.clasName, assName: item.name } } }
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
+                            <Grid container spacing={2}>
+                                {item?.map((item, index) => (
+                                    <Grid item md={4} xs={12}>
+                                        <CardInfoView
+                                            key={index}
+                                            item={item}
+                                            isLoading={ isLoadingInstructions }
+                                            isAvatar={true}
+                                            isHeading={true}
+                                            isTimer={true}
+                                            isSubmit={true}
+                                            isDownload={true}
+                                            handleDownload={ handleDownload }
+                                            statusColor={expiryDateBgColor(item.validity)}
+                                            submitPath={ { pathname: '/extream/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId, clasName: router.query.clasName, assName: item.name } } }
+                                        />
+                                    </Grid>
+                                ))}
+                            </Grid>
                             <div style={ { marginLeft: '45%', marginTop: '25px' } }>
                                 <Pagination
                                     count={ pageDetails?.totalPages }
@@ -194,8 +194,8 @@ const MyAssignments = ({
                 </>
             }
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.studentClasses?.assignmentData?.page,
@@ -211,6 +211,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-MyAssignments.layout = Student
+MyAssignments.layout = Student;
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAssignments);

@@ -7,7 +7,7 @@ import { LmsIntegration, ChangeConfig } from '../../../../redux/action/admin/Adm
 import FormJson from '../../../../constant/form/admin-canvas-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
-import { BASE_URL_PRO } from '../../../../utils/BaseUrl'
+import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 
 const CanvasForm = ({
     LmsIntegration,
@@ -27,13 +27,13 @@ const CanvasForm = ({
         if (editOperation) {
             let detailedData = {
                 ...data, 'method': data.method.name
-            }
+            };
             ChangeConfig(BASE_URL_PRO + END_POINTS_PRO.ADMIN_CANVAS_INTEGRATION, detailedData);
         } else {
             let detailedData = {
                 ...data, 'method': data.method.name
-            }
-            LmsIntegration(BASE_URL_PRO + END_POINTS_PRO.ADMIN_CANVAS_INTEGRATION, detailedData)
+            };
+            LmsIntegration(BASE_URL_PRO + END_POINTS_PRO.ADMIN_CANVAS_INTEGRATION, detailedData);
         }
     };
 
@@ -45,7 +45,7 @@ const CanvasForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         if (editData) {
@@ -93,8 +93,8 @@ const CanvasForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoadingUpload: state?.adminIntegrationData?.isLoadingUpload,

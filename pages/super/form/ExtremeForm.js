@@ -21,8 +21,8 @@ const ExtremeForm = ({
     });
 
     useEffect(() => {
-        DropdownList()
-    }, [])
+        DropdownList();
+    }, []);
 
     useEffect(() => {
         let InstitutionTypes = [];
@@ -30,23 +30,23 @@ const ExtremeForm = ({
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
-                    InstitutionTypes.push({ 'name': item })
+                    InstitutionTypes.push({ 'name': item });
                 });
                 formItem['options'] = InstitutionTypes;
             }
             if (formItem.name === 'timeZone') {
                 dpList?.timeZoneList?.map((item) => {
-                    timeZoneLists.push({ 'name': item?.zone })
+                    timeZoneLists.push({ 'name': item?.zone });
                 });
                 formItem['options'] = timeZoneLists;
             }
             return formItem;
         });
         setFormData(formList);
-    }, [dpList])
+    }, [dpList]);
 
     const onSubmit = (data) => {
-        let DetailedData = { ...data, "endDate": convertDate(data.endDate), "startDate": convertDate(data.startDate) }
+        let DetailedData = { ...data, 'endDate': convertDate(data.endDate), 'startDate': convertDate(data.startDate) };
         CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, DetailedData);
     };
 
@@ -70,8 +70,8 @@ const ExtremeForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoadingCreate: state?.superAdmin?.isLoadingCreate,

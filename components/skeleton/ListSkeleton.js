@@ -2,10 +2,7 @@ import * as React from 'react';
 import { makeStyles } from '@mui/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import { Title, SubTitle, SubTitle1 } from '../index';
 import { Divider } from '@mui/material';
 import { Skeleton } from '@mui/material';
 
@@ -19,12 +16,12 @@ const useStyles = makeStyles((theme) => ({
     right: {
         textAlign: 'right'
     }
-}))
+}));
 
 const ListSkeleton = ({
     listData
 }) => {
-    const classes = useStyles()
+    const classes = useStyles();
     return (
         <List>
             <ListItem className={classes.item}>
@@ -35,7 +32,7 @@ const ListSkeleton = ({
             </ListItem>
             <Divider />
         </List>
-    )
-}
+    );
+};
 
-export default ListSkeleton
+export default ListSkeleton;

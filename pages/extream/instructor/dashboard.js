@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
-import Link from 'next/link';
 import Instructor from '../../../layouts/Instructor';
 import { GetWidgetCount } from '../../../redux/action/instructor/InstructorAction';
 import {
@@ -14,7 +13,6 @@ import {
     PieChart,
     CardView,
     Heading,
-    SubTitle,
     ListSkeleton,
     ErrorBlock,
     CurveChart,
@@ -33,12 +31,9 @@ import {
     COLUMN_ADMIN_CHART_COLOR,
     COLUMN_ADMIN_XAXIS_DATA,
     COLUMN_ADMIN_WIDTH,
-    COLUMN_ADMIN_CHART_HEIGHT,
     COLUMN_ADMIN_CHART_GRADIENT,
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
-    PIE_CHART_TYPE,
     PIE_CHART_COLOR,
-    PIE_CHART_SERIES,
     PIE_CHART_WIDTH,
     PIE_CHART_LABEL,
 } from './../../../constant/data/ChartData';
@@ -85,8 +80,8 @@ const Dashboard = ({
     }, [instructorDashboardData]);
 
     const handlePage = (e, item) => {
-        router.push({ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: item?.class_id, assId: item?.ass_id } })
-    }
+        router.push({ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: item?.class_id, assId: item?.ass_id } });
+    };
 
     return (
         <React.Fragment>

@@ -48,7 +48,7 @@ const PieChart = ({
                 }
             }]
         },
-    })
+    });
 
     return (
         <>
@@ -56,7 +56,7 @@ const PieChart = ({
                 <ApexCharts options={chartData.options} series={chartData.series} height={height} type="donut" />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default PieChart
+export default PieChart;

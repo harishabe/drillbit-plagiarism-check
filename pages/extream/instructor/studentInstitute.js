@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@mui/material';
 import { Pagination } from '@mui/material';
 import Instructor from '../../../layouts/Instructor';
 import { CommonTable } from '../../../components';
-import BeatLoader from "react-spinners/BeatLoader";
+import BeatLoader from 'react-spinners/BeatLoader';
 import AddIcon from '@mui/icons-material/Add';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -21,10 +21,10 @@ const columns = [
     { id: 'department', label: 'Department' },
     { id: 'section', label: 'Section' },
     { id: 'action', label: 'Action' },
-]
+];
 
 function createData(id, student_id, name, username, department, section, action) {
-    return { id, student_id, name, username, department, section, action }
+    return { id, student_id, name, username, department, section, action };
 }
 
 function StudentInstitute({
@@ -45,7 +45,7 @@ function StudentInstitute({
     });
 
     useEffect(() => {
-        GetStudentList(paginationPayload)
+        GetStudentList(paginationPayload);
     }, [paginationPayload]);
 
     useEffect(() => {
@@ -63,7 +63,7 @@ function StudentInstitute({
                     [{ 'component': <AddIcon color="primary" />, 'type': 'add' }]
                 );
             row['isSelected'] = false;
-            arr.push(row)
+            arr.push(row);
         });
         setData([...arr]);
     }, [studentInstituteData]);
@@ -72,18 +72,18 @@ function StudentInstitute({
         if (icon === 'add') {
             EnrollStudent(classId, rowData?.id);
         }
-    }
+    };
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id
+            paginationPayload['field'] = column.id;
             paginationPayload['orderBy'] = 'desc';
         }
-        setPaginationPayload({ ...paginationPayload, paginationPayload })
-    }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     const handleCheckboxSelect = (e, value) => {
         e.preventDefault();
@@ -100,7 +100,7 @@ function StudentInstitute({
             });
             setData(rowData);
         }
-    }
+    };
 
     const handleSingleSelect = (e, row) => {
         let rowData = data?.map((rowItem) => {
@@ -110,7 +110,7 @@ function StudentInstitute({
             return rowItem;
         });
         setData(rowData);
-    }
+    };
 
     const addAllStudent = () => {
         let rowsId = '';
@@ -122,7 +122,7 @@ function StudentInstitute({
             rowsId += rowItem?.id + ',';
         });
         EnrollStudent(classId, removeCommaWordEnd(rowsId));
-    }
+    };
 
     const handlePagination = (event, value) => {
         event.preventDefault();
@@ -131,9 +131,9 @@ function StudentInstitute({
 
     return (
         <>
-            { _.find(data, function (o) { return o.isSelected === true }) && <div style={ { textAlign: 'left' } }>
+            { _.find(data, function (o) { return o.isSelected === true; }) && <div style={ { textAlign: 'left' } }>
                 <Button variant="contained" onClick={ addAllStudent } >
-                    { isLoadingEnroll ? <BeatLoader color="#fff" /> : `Add Students` }
+                    { isLoadingEnroll ? <BeatLoader color="#fff" /> : 'Add Students' }
                 </Button>
             </div> }
 
@@ -161,7 +161,7 @@ function StudentInstitute({
                 />
             </PaginationContainer>
         </>
-    )
+    );
 }
 
 const mapStateToProps = (state) => ({
@@ -178,6 +178,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-StudentInstitute.layout = Instructor
+StudentInstitute.layout = Instructor;
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentInstitute);

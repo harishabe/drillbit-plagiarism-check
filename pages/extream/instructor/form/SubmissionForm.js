@@ -25,7 +25,7 @@ const SubmissionForm = ({
         bodyFormData.append('documentType', data.documentType.name);
         bodyFormData.append('plagiarismCheck', data.plagiarismCheck);
         bodyFormData.append('grammarCheck', data.grammarCheck);
-        bodyFormData.append('language', "English");
+        bodyFormData.append('language', 'English');
         bodyFormData.append('file', data.file[0]);
         if (clasId) {
             SubmissionListUpload(`classes/${clasId}/assignments/${folderId}/singleFile`, bodyFormData);
@@ -56,8 +56,8 @@ const SubmissionForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {

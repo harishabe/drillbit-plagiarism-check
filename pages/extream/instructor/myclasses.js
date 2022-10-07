@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Grid, Tooltip } from '@mui/material';
 import styled from 'styled-components';
-import debouce from "lodash.debounce";
+import debouce from 'lodash.debounce';
 import { Skeleton } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { TextField } from '@mui/material';
@@ -77,7 +77,7 @@ const MyClasses = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    }
+    };
 
     const debouncedResults = useMemo(() => {
         return debouce(handleSearch, 300);
@@ -92,8 +92,8 @@ const MyClasses = ({
     /** end debounce concepts */
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_CSV_FILES, DOWNLOAD_CSV.CLASSROOM_REPORTS)
-    }
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_CSV_FILES, DOWNLOAD_CSV.CLASSROOM_REPORTS);
+    };
 
     return (
         <React.Fragment>
@@ -112,16 +112,16 @@ const MyClasses = ({
                     <DownloadButton>
                         {classesData?.length > 0 &&
                             isLoadingDownload ? <SkeletonContainer>
-                            <Skeleton width={50} />
-                        </SkeletonContainer> : <Tooltip title="Download csv" arrow>
-                            <IconButton
-                                color="primary"
-                                aria-label="download-file"
-                                size="large"
-                                onClick={handleDownload}>
-                                <DownloadIcon />
-                            </IconButton>
-                        </Tooltip>
+                                <Skeleton width={50} />
+                            </SkeletonContainer> : <Tooltip title="Download csv" arrow>
+                                <IconButton
+                                    color="primary"
+                                    aria-label="download-file"
+                                    size="large"
+                                    onClick={handleDownload}>
+                                    <DownloadIcon />
+                                </IconButton>
+                            </Tooltip>
                         }
                     </DownloadButton>
                     <TextField
@@ -151,8 +151,8 @@ const MyClasses = ({
                 />
             }
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.instructorClasses?.classesData?.page,
@@ -168,7 +168,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-MyClasses.layout = Instructor
+MyClasses.layout = Instructor;
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyClasses);
 

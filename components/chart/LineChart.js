@@ -47,7 +47,7 @@ const LineChart = ({
                 enabled: true,
             }
         },
-    })
+    });
 
     return (
         <>
@@ -55,7 +55,7 @@ const LineChart = ({
                 <ApexCharts options={chartData.options} series={chartData.series} width={chartWidth} height={chartHeight} type={chartType} />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default LineChart
+export default LineChart;

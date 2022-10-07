@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import FormJson from '../../../../constant/form/instructor-repositary-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
-import { RepoUpload, SubmissionListUpload } from '../../../../redux/action/instructor/InstructorAction';
+import { SubmissionListUpload } from '../../../../redux/action/instructor/InstructorAction';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 
@@ -30,8 +30,8 @@ const RepositaryForm = ({
         bodyFormData.append('language', data.language.name);
         bodyFormData.append('file', data.file[0]);
         // RepoUpload(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD, bodyFormData)
-        SubmissionListUpload(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD, bodyFormData)
-    }
+        SubmissionListUpload(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD, bodyFormData);
+    };
 
     return (
         <>
@@ -53,8 +53,8 @@ const RepositaryForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 // const mapStateToProps = (state) => ({
 //     isLoadingUpload: state?.instructorClasses?.isLoadingUpload,

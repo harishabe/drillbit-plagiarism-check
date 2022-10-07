@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
-import debouce from "lodash.debounce";
+import debouce from 'lodash.debounce';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
@@ -69,12 +69,12 @@ const MyFolder = ({
 
     const handleChange = (event, value) => {
         event.preventDefault();
-        setPaginationPayload({ ...paginationPayload, 'page': value - 1 })
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
     const handleFolderEdit = (e, rowData) => {
         e.preventDefault();
-        setEditFolder(true)
+        setEditFolder(true);
         setEditFolderData(rowData);
     };
 
@@ -105,7 +105,7 @@ const MyFolder = ({
             delete paginationPayload['search'];
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
-    }
+    };
 
     const debouncedResults = useMemo(() => {
         return debouce(handleSearch, 300);
@@ -121,7 +121,7 @@ const MyFolder = ({
 
     const handleCloseDrawer = (drawerClose) => {
         setEditFolder(drawerClose);
-    }
+    };
 
     return (
         <React.Fragment>
@@ -203,7 +203,7 @@ const MyFolder = ({
                     title="Edit Folder"
                     isShowAddIcon={ false }
                     showDrawer={ editFolder }
-                        handleDrawerClose={ handleCloseDrawer }
+                    handleDrawerClose={ handleCloseDrawer }
                 >
                     <MyFoldersForm
                         editData={ editFolderData }

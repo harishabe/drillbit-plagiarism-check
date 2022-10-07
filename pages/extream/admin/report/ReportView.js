@@ -32,7 +32,7 @@ const assignmentsColumns = [
     { id: 'class_id', label: 'Class ID', minWidth: 170 },
     { id: 'class_name', label: 'Class Name', minWidth: 170 },
     { id: 'count', label: 'Submission count', minWidth: 170 },
-]
+];
 
 const classesColumns = [
     { id: 'cls_id', label: 'Class ID', minWidth: 170 },
@@ -42,7 +42,7 @@ const classesColumns = [
     { id: 'students_count', label: 'Students Count', minWidth: 170 },
     { id: 'submissions_count', label: 'Submissions Count', minWidth: 170 },
     { id: 'validity', label: 'Validity', minWidth: 170 },
-]
+];
 
 const submissionsColumns = [
     { id: 'assignment_name', label: 'Assignment Name', minWidth: 110 },
@@ -56,18 +56,18 @@ const submissionsColumns = [
     { id: 'similarity', label: 'Similarity', minWidth: 110 },
     { id: 'submission_date', label: 'Submission Date', minWidth: 110 },
     { id: 'title', label: 'Title', minWidth: 110 },
-]
+];
 
 function submissionData(assignment_name, assignmet_id, author, clas_id, clas_name, email, no_of_page, paper_id, similarity, submission_date, title) {
-    return { assignment_name, assignmet_id, author, clas_id, clas_name, email, no_of_page, paper_id, similarity, submission_date, title }
+    return { assignment_name, assignmet_id, author, clas_id, clas_name, email, no_of_page, paper_id, similarity, submission_date, title };
 }
 
 function assignmentData(ass_id, ass_name, email, created, endDate, class_id, class_name, count) {
-    return { ass_id, ass_name, email, created, endDate, class_id, class_name, count }
+    return { ass_id, ass_name, email, created, endDate, class_id, class_name, count };
 }
 
 function classesData(cls_id, cls_name, created, email, students_count, submissions_count, validity) {
-    return { cls_id, cls_name, created, email, students_count, submissions_count, validity }
+    return { cls_id, cls_name, created, email, students_count, submissions_count, validity };
 }
 
 const ReportView = ({
@@ -108,7 +108,7 @@ const ReportView = ({
                     data.class_name,
                     data.submissions_count,
                 );
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [assignmentViewDownloadData]);
@@ -127,7 +127,7 @@ const ReportView = ({
                     data.submissions_count,
                     data.validity,
                 );
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [classesViewDownloadData]);
@@ -150,7 +150,7 @@ const ReportView = ({
                     formatDate(data.submission_date),
                     data.title,
                 );
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [submissionsViewDownloadData]);
@@ -177,7 +177,7 @@ const ReportView = ({
                                             top: '9px',
                                             right: '74px'
                                         }}
-                                            onClick={handleDownload}>
+                                        onClick={handleDownload}>
                                             <DownloadButton >
                                                 <DownloadIcon />
                                             </DownloadButton>
@@ -207,7 +207,7 @@ const ReportView = ({
                                             top: '9px',
                                             right: '74px'
                                         }}
-                                            onClick={handleDownload}>
+                                        onClick={handleDownload}>
                                             <DownloadButton >
                                                 <DownloadIcon />
                                             </DownloadButton>
@@ -236,7 +236,7 @@ const ReportView = ({
                                         top: '9px',
                                         right: '74px'
                                     }}
-                                        onClick={setOpen}>
+                                    onClick={setOpen}>
                                         <DownloadButton >
                                             <DownloadIcon />
                                         </DownloadButton>
@@ -295,7 +295,7 @@ const ReportView = ({
                 </PaginationContainer>
             </>
         </CardView>
-    )
-}
+    );
+};
 
 export default ReportView;

@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { Typography, Tooltip } from '@mui/material'
+import React, { Component } from 'react';
+import { Typography, Tooltip } from '@mui/material';
 
 class EllipsisText extends Component {
     constructor(props) {
-        super(props)
-        this.textElement = React.createRef()
+        super(props);
+        this.textElement = React.createRef();
     }
 
     state = {
@@ -27,12 +27,12 @@ class EllipsisText extends Component {
                 </Tooltip>
 
             </div>
-        )
+        );
     }
 }
 
 const useStyles = ((theme) => ({
 
-}))
+}));
 
-export default EllipsisText
+export default EllipsisText;

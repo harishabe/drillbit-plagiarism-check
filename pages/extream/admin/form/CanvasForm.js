@@ -27,13 +27,13 @@ const CanvasForm = ({
         if (editOperation) {
             let detailedData = {
                 ...data, 'method': data.method.name
-            }
+            };
             ChangeConfig(BASE_URL_EXTREM + END_POINTS.ADMIN_CANVAS_INTEGRATION, detailedData);
         } else {
             let detailedData = {
                 ...data, 'method': data.method.name
-            }
-            LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_CANVAS_INTEGRATION, detailedData)
+            };
+            LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_CANVAS_INTEGRATION, detailedData);
         }
     };
 
@@ -48,7 +48,7 @@ const CanvasForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         if (editData) {
@@ -96,8 +96,8 @@ const CanvasForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoadingUpload: state?.adminIntegrationData?.isLoadingUpload,

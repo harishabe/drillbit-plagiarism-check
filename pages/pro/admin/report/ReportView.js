@@ -30,7 +30,7 @@ const foldersColumn = [
     { id: 'created', label: 'Created Date', minWidth: 170 },
     { id: 'endDate', label: 'End Date', minWidth: 170 },
     { id: 'count', label: 'Submissions', minWidth: 170 },
-]
+];
 
 const submissionsColumns = [
     { id: 'name', label: 'Author Name', minWidth: 110 },
@@ -39,14 +39,14 @@ const submissionsColumns = [
     { id: 'username', label: 'Email', minWidth: 110 },
     { id: 'paper_id', label: 'Paper ID', minWidth: 110 },
     { id: 'percent', label: 'Similarity', minWidth: 110 },
-]
+];
 
 function submissionData(name, title, date_up, username, paper_id, percent) {
-    return { name, title, date_up, username, paper_id, percent }
+    return { name, title, date_up, username, paper_id, percent };
 }
 
 function folderData(name, id, username, created, endDate, count) {
-    return { name, id, username, created, endDate, count }
+    return { name, id, username, created, endDate, count };
 }
 
 const ReportView = ({
@@ -84,7 +84,7 @@ const ReportView = ({
                     data.end_date,
                     data.no_of_submissions,
                 );
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [folderViewDownloadData]);
@@ -102,7 +102,7 @@ const ReportView = ({
                     data.paper_id,
                     <SimilarityStatus percent={ data.percent } />,
                 );
-            arr.push(row)
+            arr.push(row);
         });
         setRows([...arr]);
     }, [submissionsViewDownloadData]);
@@ -129,7 +129,7 @@ const ReportView = ({
                                             top: '9px',
                                             right: '74px'
                                         } }
-                                            onClick={ handleDownload }>
+                                        onClick={ handleDownload }>
                                             <DownloadButton >
                                                 <DownloadIcon />
                                             </DownloadButton>
@@ -158,7 +158,7 @@ const ReportView = ({
                                         top: '9px',
                                         right: '74px'
                                     } }
-                                        onClick={ setOpen }>
+                                    onClick={ setOpen }>
                                         <DownloadButton >
                                             <DownloadIcon />
                                         </DownloadButton>
@@ -217,7 +217,7 @@ const ReportView = ({
                 </PaginationContainer>
             </>
         </CardView>
-    )
-}
+    );
+};
 
 export default ReportView;

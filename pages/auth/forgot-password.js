@@ -10,13 +10,10 @@ import {
     ImgContainer
 } from './login-style';
 import ForgotPwdForm from './forgotPwdForm';
-import { Heading, SubTitle, MainHeading } from '../../components';
-import { DrillBitLogo, DrillBitLogoIcon } from '../../assets/icon';
+import { MainHeading } from '../../components';
+import { DrillBitLogo } from '../../assets/icon';
 import {
-    LOGIN_IMG_BANNER,
-    LOGIN_WELCOME_DRILLBIT,
-    LOGIN_NEW_DRILLBIT,
-    LOGIN_CREATE_ACCOUNT
+    LOGIN_IMG_BANNER
 } from '../../constant/data/content';
 
 const ForgotPwd = () => {
@@ -51,7 +48,7 @@ const ForgotPwd = () => {
                 </Grid>
             </Box>
         </>
-    )
-}
+    );
+};
 
 export default ForgotPwd;

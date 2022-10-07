@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
 import { TextField } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import InputLabel from '@mui/material/InputLabel'
+import InputLabel from '@mui/material/InputLabel';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import Stack from '@mui/material/Stack';
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 0,
         color:'#ff0000'
     }
-}))
+}));
 
 const InputDatePicker = ({
     control,
@@ -78,15 +78,15 @@ const InputDatePicker = ({
                 }}
             />
         </>
-    )
-}
+    );
+};
 
 InputDatePicker.propTypes = {
     name: PropTypes.any,
     control: PropTypes.any,
     label: PropTypes.any,
-}
+};
 
-export default InputDatePicker
+export default InputDatePicker;
 
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { SubTitle } from '../../components';
 import { StatusColor } from '../../pages/style/index';
 import { SIMILARITY_COLOR_STANDARD, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2, COLORS } from '../../constant/data/Constant';
 import { useEffect } from 'react';
@@ -29,16 +28,16 @@ const SimilarityStatus = ({
             setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_UNACCEPTABLE);
             setTextColor(COLORS.black);
         } else if (percent === NO_DATA_PLACEHOLDER || percent === NA_DATA_PLACEHOLDER) {
-            setColor(COLORS.white)
+            setColor(COLORS.white);
             setTextColor(COLORS.black);
         }
-    }, [percent])
+    }, [percent]);
 
     return (
         <StatusColor color={color} textColor={txtColor} width={width}>
             { percent !== NO_DATA_PLACEHOLDER && ((percent !== DOC_ERROR_PLACEHOLDER_1) && ((percent !== NA_DATA_PLACEHOLDER)) && (percent !== DOC_ERROR_PLACEHOLDER_2)) ? percent + '%' : percent }
         </StatusColor>
-    )
-}
+    );
+};
 
 export default SimilarityStatus;

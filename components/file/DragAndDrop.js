@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
 import { Grid, Link, Button } from '@mui/material';
-import useDrivePicker from "react-google-drive-picker";
-import BeatLoader from "react-spinners/BeatLoader";
-import styled from 'styled-components';
-import {
-    UploadFileIcon
-} from '../../assets/icon';
+import useDrivePicker from 'react-google-drive-picker';
+import BeatLoader from 'react-spinners/BeatLoader';
+
+
 import {
     Title,
     Title1,
@@ -66,7 +64,7 @@ const DragAndDrop = ({
             }
         });
         setFileData(a);
-    }
+    };
 
     const handleUpload = (e) => {
         e.preventDefault();
@@ -84,7 +82,7 @@ const DragAndDrop = ({
         } else {
             multiFileUpload(fileData, data);
         }
-    }
+    };
 
     const singleFileUpload = (files, data) => {
         let bodyFormData = new FormData();
@@ -96,7 +94,7 @@ const DragAndDrop = ({
         bodyFormData.append('language', 'English');
         bodyFormData.append('file', files[0][1]);
         SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`, bodyFormData);
-    }
+    };
 
     const multiFileUpload = (files, data) => {
         let authorNameArr = [], titleArr = [], documentTypeArr = [], filesArr = [];
@@ -114,20 +112,20 @@ const DragAndDrop = ({
         bodyFormData.append('documentType', documentTypeArr);
         bodyFormData.append('file', filesArr);
         SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`, bodyFormData);
-    }
+    };
 
     const handleUploadZipFile = (e) => {
         e.preventDefault();
         let bodyFormData = new FormData();
         bodyFormData.append('file', fileData[0][1]);
         SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`, bodyFormData);
-    }
+    };
 
     const handleOpenPicker = () => {
         openPicker({
-            clientId: "32303602935-bbvsv5k7sksm71pipiru8jur6puhtm66.apps.googleusercontent.com",
-            developerKey: "AIzaSyAJq_NcYAf92IKUBf53Wj5ywQYlPt7-Now",
-            viewId: "DOCS",
+            clientId: '32303602935-bbvsv5k7sksm71pipiru8jur6puhtm66.apps.googleusercontent.com',
+            developerKey: 'AIzaSyAJq_NcYAf92IKUBf53Wj5ywQYlPt7-Now',
+            viewId: 'DOCS',
             showUploadView: true,
             showUploadFolders: true,
             supportDrives: true,
@@ -138,12 +136,12 @@ const DragAndDrop = ({
                     console.log('datadatadatadata',data);
                     setDriveFile(data && data?.docs[0].name);
                     setDriveFilePayload({
-                        "fileId": data.docs[0].id,
-                        "fileName": data.docs[0].name,
-                        "url": data.docs[0].url,
-                        "mimetype": data.docs[0].mimeType,
-                        "token": driveAuthToken,
-                        "fileSize": data.docs[0].sizeBytes
+                        'fileId': data.docs[0].id,
+                        'fileName': data.docs[0].name,
+                        'url': data.docs[0].url,
+                        'mimetype': data.docs[0].mimeType,
+                        'token': driveAuthToken,
+                        'fileSize': data.docs[0].sizeBytes
                     });
                 }
             },
@@ -152,14 +150,14 @@ const DragAndDrop = ({
 
     useEffect(() => {
         console.log('accesstoken',data);
-        setDriveAuthToken(data?.access_token)
+        setDriveAuthToken(data?.access_token);
     }, [data]);
 
     const handleGoogleDriveFile = (e) => {
         e.preventDefault();
         console.log('driverFile', driveFilePayload);
         //SubmissionListUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`, driveFilePayload);
-    }
+    };
 
     const handleProcessZipFile = (data) => {
         let authorNameArr = [], titleArr = [], documentTypeArr = [];
@@ -172,7 +170,7 @@ const DragAndDrop = ({
         uploadData['title'] = titleArr;
         uploadData['documentType'] = documentTypeArr;
         SubmissionListExtractedFileUpload(`classes/${router.query.clasId}/assignments/${router.query.assId}/confirmZipFile`, uploadData);
-    }
+    };
 
     useEffect(() => {
         if (extractedFileData) {
@@ -285,7 +283,7 @@ const DragAndDrop = ({
                 </Grid>
             </DragAreaPadding>
         </CardView >
-    )
+    );
 };
 
 const mapStateToProps = (state) => ({

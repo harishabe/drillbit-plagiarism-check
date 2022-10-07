@@ -11,7 +11,6 @@ import {
     ErrorBlock
 } from '../../../components';
 import { DeleteWarningIcon } from '../../../assets/icon';
-import { Skeleton } from '@mui/material';
 import MyClassesForm from './form/MyclassesForm';
 import {
     renameKeys,
@@ -58,8 +57,8 @@ const MyClassFiles = ({
                     status: 'status',
                     color: 'color',
                     validity: 'validity'
-                })
-            arr.push(row)
+                });
+            arr.push(row);
         });
         setItem([...arr]);
     }, [classesData]);
@@ -75,7 +74,7 @@ const MyClassFiles = ({
         e.preventDefault();
         setSelectedClass(data);
         setShowDeleteWarning(true);
-    }
+    };
 
     const handleYesWarning = () => {
         DeleteClass(selectedClass.id);
@@ -90,7 +89,7 @@ const MyClassFiles = ({
 
     const handleCloseDrawer = (drawerClose) => {
         setEditClasses(drawerClose);
-    }
+    };
 
     return (
         <React.Fragment>
@@ -146,7 +145,7 @@ const MyClassFiles = ({
                     title="Edit Class"
                     isShowAddIcon={ false }
                     showDrawer={ editClasses }
-                        handleDrawerClose={ handleCloseDrawer }
+                    handleDrawerClose={ handleCloseDrawer }
                 >
                     <MyClassesForm
                         editData={ editClassesData }

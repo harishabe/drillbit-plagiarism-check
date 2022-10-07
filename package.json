@@ -10,7 +10,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepare": "husky install",
-    "pre-commit": "npm lint -- --fix && git add -A ."
+    "pre-commit": "npm run lint -- --fix && git add -A ."
   },
   "dependencies": {
     "@emotion/cache": "latest",

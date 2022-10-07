@@ -27,7 +27,7 @@ const MoodleForm = ({
         if (editOperation) {
             ChangeConfig(BASE_URL_EXTREM + END_POINTS.ADMIN_MOODLE_INTEGRATION, data);
         } else {
-            LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_MOODLE_INTEGRATION, data)
+            LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_MOODLE_INTEGRATION, data);
         }
     };
 
@@ -39,7 +39,7 @@ const MoodleForm = ({
             return field;
         });
         setFormJsonField(formField);
-    }
+    };
 
     useEffect(() => {
         if (editData) {
@@ -83,8 +83,8 @@ const MoodleForm = ({
                 </Grid>
             </form>
         </>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoadingUpload: state?.adminIntegrationData?.isLoadingUpload,

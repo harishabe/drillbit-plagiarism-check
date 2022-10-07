@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Student from '../../../layouts/Student'
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Student from '../../../layouts/Student';
 import {
     WidgetCard,
     ColumnChart,
     PieChart,
     CardView,
     Heading,
-    SubTitle,
     ErrorBlock,
     EllipsisText
-} from '../../../components'
+} from '../../../components';
 import {
     GetDashboardData
 } from '../../../redux/action/student/StudentAction';
@@ -23,21 +22,19 @@ import {
     COLUMN_ADMIN_CHART_COLOR,
     COLUMN_ADMIN_XAXIS_DATA,
     COLUMN_ADMIN_WIDTH,
-    COLUMN_ADMIN_CHART_HEIGHT,
     COLUMN_ADMIN_CHART_GRADIENT,
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
     PIE_CHART_TYPE,
     PIE_CHART_COLOR,
-    PIE_CHART_SERIES,
     PIE_CHART_WIDTH,
     PIE_CHART_LABEL,
-} from './../../../constant/data/ChartData'
+} from './../../../constant/data/ChartData';
 import {
     NoOfClassIcon,
     NoOfSubmission,
     NoOfAssignmntIcon,
-} from '../../../assets/icon'
-import MyRecentSubmissionTable from '../../../components/table/MyRecentSubmissionTable'
+} from '../../../assets/icon';
+import MyRecentSubmissionTable from '../../../components/table/MyRecentSubmissionTable';
 import {
     DASHBOARD_RECENT_SUBMISSION_NOT_FOUND,
     DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND,
@@ -77,7 +74,7 @@ const data = [
         feedback: 'Good',
         status: 'Pending',
     },
-]
+];
 
 
 const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
@@ -223,8 +220,8 @@ const Dashboard = ({
                 </Grid>
             </Box>
         </React.Fragment>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     isLoadingDashboard: state?.studentClasses?.isLoading,
@@ -237,6 +234,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-Dashboard.layout = Student
+Dashboard.layout = Student;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

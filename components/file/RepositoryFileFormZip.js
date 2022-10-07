@@ -1,8 +1,8 @@
 import React from 'react';
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
-import BeatLoader from "react-spinners/BeatLoader";
+import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
 import { Grid, InputLabel, TextField, Button, Autocomplete } from '@mui/material';
 import { EllipsisText } from '..';
@@ -27,19 +27,19 @@ const useStyles = makeStyles((theme) => ({
 
 const repoType = [
     {
-        "label": "Global"
+        'label': 'Global'
     },
     {
-        "label": "Institution"
+        'label': 'Institution'
     }
 ];
 
 const languageType = [
     {
-        "label": "English"
+        'label': 'English'
     },
     {
-        "label": "Non-English"
+        'label': 'Non-English'
     }
 ];
 
@@ -53,7 +53,7 @@ const RepositoryFileFormZip = ({
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         handleSubmitRepositoryZip(data);
-    }
+    };
 
     return (
         <div style={{ marginTop: '10px' }}>
@@ -73,14 +73,14 @@ const RepositoryFileFormZip = ({
                             </LabelContainer>
                             <Autocomplete
                                 disablePortal
-                                id={"repository"}
-                                name={"repository"}
+                                id={'repository'}
+                                name={'repository'}
                                 options={repoType}
                                 size="small"
                                 renderInput={
                                     (params) =>
                                         <TextField
-                                            {...register("repository", { required: true })} {...params}
+                                            {...register('repository', { required: true })} {...params}
                                             helperText={errors['repository'] && UPLOAD_FILE_REPOSITORY_TYPE}
                                             FormHelperTextProps={{
                                                 className: classes.helperText
@@ -97,14 +97,14 @@ const RepositoryFileFormZip = ({
                             </LabelContainer>
                             <Autocomplete
                                 disablePortal
-                                id={"language"}
-                                name={"language"}
+                                id={'language'}
+                                name={'language'}
                                 options={languageType}
                                 size="small"
                                 renderInput={
                                     (params) =>
                                         <TextField
-                                            {...register("language", { required: true })} {...params}
+                                            {...register('language', { required: true })} {...params}
                                             helperText={errors['language'] && UPLOAD_FILE_LANGUAGE}
                                             FormHelperTextProps={{
                                                 className: classes.helperText
@@ -123,7 +123,7 @@ const RepositoryFileFormZip = ({
                 </div>
             </form>
         </div>
-    )
+    );
 };
 
 RepositoryFileFormZip.propTypes = {
@@ -131,6 +131,6 @@ RepositoryFileFormZip.propTypes = {
     // btnTitle: propTypes.string,
     handleSubmitRepository: propTypes.func,
     // isLoading: propTypes.bool
-}
+};
 
 export default RepositoryFileFormZip;
