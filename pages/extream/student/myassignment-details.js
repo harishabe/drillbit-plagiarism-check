@@ -299,10 +299,11 @@ const MyAssignmentDetails = ({
             {showDialogModal &&
                 <>
                     <DialogModal
-                        isOpen={true}
-                        fullWidth="md"
-                        maxWidth="md"
-                        handleClose={handleCloseDialog}
+                        isOpen={ true }
+                        fullWidth="sm"
+                        maxWidth="sm"
+                        handleClose={ handleCloseDialog }
+
                     >
                         <Feedback
                             GetFeedback={GetFeedback}

@@ -47,18 +47,18 @@ const AddButtonBottom = styled.div`
 `
 
 const columns = [
-    { id: 'id', label: 'Paper ID' },
+    { id: 'paper_id', label: 'Paper ID' },
     { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email ID' },
+    { id: 'mail_id', label: 'Email ID' },
     { id: 'title', label: 'Title' },
-    { id: 'type', label: 'Type' },
-    { id: 'date', label: 'Added Date' },
+    { id: 'repository_type', label: 'Type' },
+    { id: 'date_up', label: 'Added Date' },
     { id: 'action', label: 'Action' },
 ]
 
-function createData(id, name, email, title, type, date, action) {
+function createData(paper_id, name, mail_id, title, repository_type, date_up, action) {
     return {
-        id, name, email, title, type, date, action
+        paper_id, name, mail_id, title, repository_type, date_up, action
     }
 }
 
@@ -100,7 +100,7 @@ const Repository = ({
                     repo.mail_id,
                     repo.title,
                     repo.repository_type,
-                    formatDate(repo.date_up),
+                    repo.date_up,
                     [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
@@ -169,6 +169,17 @@ const Repository = ({
         router.push({ pathname: '/pro/admin/uploadFileRepository' })
     }
 
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload })
+    }
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -227,6 +238,7 @@ const Repository = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
                         charLength={ 10 }
                         isLoading={ isLoadingRepo }
                     />
