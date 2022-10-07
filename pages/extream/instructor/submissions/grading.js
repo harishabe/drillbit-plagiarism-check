@@ -88,6 +88,7 @@ const Grading = ({
               clasId={ clasId }
               assId={ assId }
               feedbackData={ feedbackData }
+              gradingData={ gradingData }
             />
         </CreateDrawer>
       }

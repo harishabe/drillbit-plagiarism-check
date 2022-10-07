@@ -36,7 +36,6 @@ const UploadFileReducer = (state = {}, action) => {
                 isLoadingFileDrive: false,
                 uploadFileDriveError: action.payload,
             };
-
         case types.FETCH_UPLOAD_FILE_NON_ENGLISH_START:
             return {
                 ...state,
@@ -53,6 +52,23 @@ const UploadFileReducer = (state = {}, action) => {
                 ...state,
                 isLoadingNonEng: false,
                 uploadFileNonEng: action.payload,
+            };
+        case types.FETCH_REPO_UPLOAD_FILE_DRIVE_AND_ZIP_START:
+            return {
+                ...state,
+                isLoadingRepoUpload: true,
+            };
+        case types.FETCH_REPO_UPLOAD_FILE_DRIVE_AND_ZIP_SUCCESS:
+            return {
+                ...state,
+                isLoadingRepoUpload: false,
+                uploadFileRepo: action.payload,
+            };
+        case types.FETCH_REPO_UPLOAD_FILE_DRIVE_AND_ZIP_FAIL:
+            return {
+                ...state,
+                isLoadingRepoUpload: false,
+                uploadFileRepo: action.payload,
             };
         default:
             return state;

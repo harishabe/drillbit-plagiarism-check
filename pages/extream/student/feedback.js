@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/router";
 import { Skeleton } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -19,9 +19,25 @@ const Title = styled.div`
 const Feedback = ({
     GetFeedback,
     feedbackData,
+    feedbackId,
     isLoadingFeedback
 }) => {
     const router = useRouter();
+    const [data, setData] = useState({})
+
+    useEffect(() => {
+        feedbackData?.map((item) => {
+            if (item?.paper_id === feedbackId) {
+                let a = {
+                    'obtained_marks': item?.obtained_marks,
+                    'max_marks': item?.max_marks,
+                    'feedback': item?.feedback,
+                }
+                setData(a)
+            }
+        })
+    }, [feedbackData, feedbackId]);
+
 
     useEffect(() => {
         GetFeedback(router.query.clasId, router.query.assId);
@@ -38,7 +54,7 @@ const Feedback = ({
             <Grid display={ 'flex' } sx={ { ml: 2 } }>
                 <SubTitle2 title='Your Score : &nbsp;' />
                 { isLoadingFeedback ? <Skeleton width={ "70px" } /> :
-                    <Title1 title={ `${feedbackData?.obtained_marks === undefined ? NO_DATA_PLACEHOLDER : feedbackData[0]?.obtained_marks} / ${feedbackData?.max_marks === undefined ? NO_DATA_PLACEHOLDER : feedbackData[0]?.max_marks}` } />
+                    <Title1 title={ `${data?.obtained_marks === undefined ? NO_DATA_PLACEHOLDER : data?.obtained_marks} / ${data?.max_marks === undefined ? NO_DATA_PLACEHOLDER : data?.max_marks}` } />
                 }
             </Grid>
             <Title>
@@ -54,12 +70,11 @@ const Feedback = ({
                         padding: '12px'
                     } }>
                     { isLoadingFeedback ? <Skeleton width={ "300px" } height={ "2px" } /> :
-                        <SubTitle2 title={ feedbackData?.feedback === undefined ? feedbackData?.message : feedbackData[0]?.feedback } />
+                        <SubTitle2 title={ data?.feedback === undefined ? feedbackData?.message : data?.feedback } />
                     }
                 </Box>
             </Title>
         </>
-        // <p></p>
     )
 }
 

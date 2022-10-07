@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Skeleton, Pagination } from '@mui/material';
+import { Tooltip } from '@mui/material';
+import { IconButton } from '@mui/material';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import {
     CommonTable,
     CreateDrawer,
@@ -12,10 +15,21 @@ import { formatDate } from '../../../utils/RegExp';
 import SubmissionForm from './form/SubmissionForm';
 import { BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
 
+
 const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
     right:30px;
+`;
+
+const DownloadField = styled.div`
+    position:absolute;
+    top: 260px;
+    right:20px;
+`;
+
+const DownloadButton = styled.div`
+    margin-top:-5px;
 `;
 
 function createData(name, paper_id, date_up, percent, grammar, score, status, action) {
@@ -29,7 +43,8 @@ const SubmissionHistory = ({
     handleChange,
     handleOriginalFileDownload,
     handleTableSort,
-    handleAction
+    handleAction,
+    handleRefresh
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -74,6 +89,19 @@ const SubmissionHistory = ({
 
     return (
         <>
+            <DownloadField>
+                <DownloadButton>
+                    <Tooltip title="Refresh" arrow>
+                        <IconButton
+                            aria-label="download-file"
+                            size="large"
+                            onClick={ handleRefresh }
+                        >
+                            <RefreshOutlinedIcon />
+                        </IconButton>
+                    </Tooltip>
+                </DownloadButton>
+            </DownloadField>
             <CommonTable
                 isCheckbox={false}
                 isSorting={true}

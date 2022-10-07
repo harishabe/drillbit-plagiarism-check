@@ -10,7 +10,8 @@ import {
 import {
     LanguageListData,
     UploadFileDriveData,
-    UploadFileNonEnglish
+    UploadFileNonEnglish,
+    RepositoryUploadData
 } from './common/UploadFile/DetailUploadFile';
 import { InsDashboardWidget } from './instructor/Dashboard';
 import {
@@ -173,6 +174,7 @@ const saga = [
     fork(LanguageListData),
     fork(UploadFileDriveData),
     fork(UploadFileNonEnglish),
+    fork(RepositoryUploadData),
     fork(GetStudentData),
     fork(GetAdminRepoData),
     fork(RepoAdminUploadData),
