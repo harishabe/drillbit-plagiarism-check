@@ -25,6 +25,7 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
+import { formatDate } from '../../../utils/RegExp';
 
 const AdminBreadCrumb = [
     {
@@ -98,7 +99,7 @@ const Repository = ({
                     repo.mail_id,
                     repo.title,
                     repo.repository_type,
-                    repo.date_up,
+                    formatDate(repo.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;

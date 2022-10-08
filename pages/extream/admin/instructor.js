@@ -37,7 +37,7 @@ import {
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import InstructorForm from './form/InstructorForm';
 import InstructorStats from './instructor/InstructorStats';
-import { removeCommaWordEnd } from '../../../utils/RegExp';
+import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
@@ -118,7 +118,7 @@ const Instructor = ({
                     instructor.id,
                     instructor.name,
                     instructor.username,
-                    instructor.creation_date,
+                    formatDate(instructor.creation_date),
                     instructor.plagairism,
                     instructor.grammar,
                     <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
