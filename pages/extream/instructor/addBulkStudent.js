@@ -85,7 +85,7 @@ const AddBulkStudent = ({
         },
         {
             name: 'My assignments',
-            link: '/extream/instructor/my-assignment?clasId=' + classId + '&className=' + myclass,
+            link: '/extream/instructor/my-assignment?clasId=' + classId + '&clasName=' + myclass,
             // link: '/extream/instructor/my-assignment' + router?.asPath?.slice(router?.pathname?.length),
             active: false,
         },
