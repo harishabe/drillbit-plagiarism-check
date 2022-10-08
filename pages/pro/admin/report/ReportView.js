@@ -24,29 +24,29 @@ const DownloadButton = styled.div`
 `;
 
 const foldersColumn = [
-    { id: 'name', label: 'Folder Name', minWidth: 170 },
-    { id: 'id', label: 'Folder ID', minWidth: 170 },
-    { id: 'username', label: 'Email', minWidth: 170 },
-    { id: 'created', label: 'Created Date', minWidth: 170 },
-    { id: 'endDate', label: 'End Date', minWidth: 170 },
-    { id: 'count', label: 'Submissions', minWidth: 170 },
+    { id: 'reportname', label: 'Folder Name', minWidth: 170 },
+    { id: 'reportid', label: 'Folder ID', minWidth: 170 },
+    { id: 'reportusername', label: 'Email', minWidth: 170 },
+    { id: 'reportcreated', label: 'Created Date', minWidth: 170 },
+    { id: 'reportendDate', label: 'End Date', minWidth: 170 },
+    { id: 'reportcount', label: 'Submissions', minWidth: 170 },
 ];
 
 const submissionsColumns = [
-    { id: 'name', label: 'Author Name', minWidth: 110 },
-    { id: 'title', label: 'Title', minWidth: 110 },
-    { id: 'date_up', label: 'Submission Date', minWidth: 110 },
-    { id: 'username', label: 'Email', minWidth: 110 },
-    { id: 'paper_id', label: 'Paper ID', minWidth: 110 },
-    { id: 'percent', label: 'Similarity', minWidth: 110 },
+    { id: 'reportname', label: 'Author Name', minWidth: 110 },
+    { id: 'reporttitle', label: 'Title', minWidth: 110 },
+    { id: 'reportdate_up', label: 'Submission Date', minWidth: 110 },
+    { id: 'reportusername', label: 'Email', minWidth: 110 },
+    { id: 'reportpaper_id', label: 'Paper ID', minWidth: 110 },
+    { id: 'reportpercent', label: 'Similarity', minWidth: 110 },
 ];
 
-function submissionData(name, title, date_up, username, paper_id, percent) {
-    return { name, title, date_up, username, paper_id, percent };
+function submissionData(reportname, reporttitle, reportdate_up, reportusername, reportpaper_id, reportpercent) {
+    return { reportname, reporttitle, reportdate_up, reportusername, reportpaper_id, reportpercent };
 }
 
-function folderData(name, id, username, created, endDate, count) {
-    return { name, id, username, created, endDate, count };
+function folderData(reportname, reportid, reportusername, reportcreated, reportendDate, reportcount) {
+    return { reportname, reportid, reportusername, reportcreated, reportendDate, reportcount };
 }
 
 const ReportView = ({
@@ -63,7 +63,6 @@ const ReportView = ({
     closeSendDialog,
     handleChange,
     pageDetails,
-    handleTableSort
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -140,7 +139,6 @@ const ReportView = ({
                                     isCheckbox={ false }
                                     isSorting={ true }
                                     tableHeader={ foldersColumn }
-                                    handleTableSort={ handleTableSort }
                                     tableData={ rows }
                                     charLength={ 10 }
                                     path=''
@@ -168,7 +166,6 @@ const ReportView = ({
                                     isCheckbox={ false }
                                     isSorting={ true }
                                     tableHeader={ submissionsColumns }
-                                    handleTableSort={ handleTableSort }
                                     tableData={ rows }
                                     charLength={ 10 }
                                     path=''

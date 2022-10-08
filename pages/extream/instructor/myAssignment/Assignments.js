@@ -38,6 +38,7 @@ import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
+import { formatDate } from '../../../../utils/RegExp';
 
 const AddButtonBottom = styled.div`
     position: fixed;
@@ -121,8 +122,8 @@ const Assignments = ({
                     }
                     title={assignment.status}
                 />,
-                assignment.start_date,
-                assignment.end_date,
+                formatDate(assignment.start_date),
+                formatDate(assignment.end_date),
                 [
                     { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                     { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
