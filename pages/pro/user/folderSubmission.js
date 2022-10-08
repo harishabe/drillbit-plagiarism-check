@@ -301,7 +301,7 @@ const folderSubmission = ({
         if (uploadData) {
             UploadZipFileDataClear();
         }
-        router.push({ pathname: '/pro/user/uploadFileFolderSubmission', query: router.query });
+        router.push({ pathname: '/pro/user/uploadFileSubmission', query: router.query });
     };
 
     return (

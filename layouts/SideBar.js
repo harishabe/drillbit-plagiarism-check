@@ -136,6 +136,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/pro/user/folderSubmission' && name === 'My Folders') {
             return true;
+        } else if (router.pathname === '/pro/user/uploadFileSubmission' && name === 'My Folders') {
+            return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }

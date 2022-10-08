@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 import { BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import { UPLOAD_TITLE_CONSTANT } from '../../../constant/data/Constant';
 
-const UploadFileFolderSubmission = () => {
+const UploadFileSubmission = () => {
     const router = useRouter();
     const handleAPI = () => {
     };
@@ -97,10 +97,10 @@ const UploadFileFolderSubmission = () => {
     );
 };
 
-UploadFileFolderSubmission.propTypes = {
+UploadFileSubmission.propTypes = {
 
 };
 
-UploadFileFolderSubmission.layout = ProUser;
+UploadFileSubmission.layout = ProUser;
 
-export default UploadFileFolderSubmission;
+export default UploadFileSubmission;
