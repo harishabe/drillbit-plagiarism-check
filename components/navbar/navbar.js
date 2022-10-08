@@ -222,8 +222,8 @@ const NavBar = ({
                             />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        {role === Role?.admin &&
-                            <>
+                        {role === Role?.admin ?
+                            <>aaa {role}
                                 <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToUser(e, role)}>
                                     <ListItemIcon>
                                         <SwitchAccountIcon />
@@ -232,6 +232,19 @@ const NavBar = ({
                                         style={{ padding: '5px 15px' }}
                                         primary="Switch account"
                                         secondary={`Switch to ${switchRole === Role?.admin ? 'instructor' : 'admin'}`}
+                                    />
+                                </MenuItem>
+                                <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
+                            </> :
+                            <>bbb {role}
+                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToUser(e, role)}>
+                                    <ListItemIcon>
+                                        <SwitchAccountIcon />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        style={{ padding: '5px 15px' }}
+                                        primary="Switch account"
+                                        secondary={`Switch to ${switchRole === Role?.proAdmin ? 'user' : 'admin'}`}
                                     />
                                 </MenuItem>
                                 <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />

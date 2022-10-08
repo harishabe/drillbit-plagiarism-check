@@ -5,7 +5,6 @@ import {
     BreadCrumb,
     TabMenu,
     UploadFiles,
-    RegionalFiles,
     GDriveFileUpload,
     ZipFileUpload
 } from '../../../components';

@@ -115,7 +115,7 @@ const AddBulkInstructor = ({
             setFileData('');
             router.push('/extream/admin/instructor');
         }
-    }, [fileUploadData && fileUploadData !== '']);
+    }, [router, fileUploadData?.status]);
 
     return (
         <React.Fragment>
@@ -132,11 +132,11 @@ const AddBulkInstructor = ({
                     <Grid item md={12} xs={12}>
                         <CardView>
                             <Tooltip title="Back" arrow>
-                                <IconButton onClick={ handleBack } size="large">
+                                <IconButton onClick={handleBack} size="large">
                                     <ArrowBackOutlinedIcon />
                                 </IconButton>
                             </Tooltip>
-                            <div style={ { padding: '0px 150px' } }> 
+                            <div style={{ padding: '0px 150px' }}>
                                 <Grid container spacing={1}>
                                     <Grid item md={6} xs={6}>
                                         <MainHeading title='Add Multiple Instructors' />
@@ -147,7 +147,7 @@ const AddBulkInstructor = ({
                                             variant="contained"
                                             size="large"
                                             startIcon={!isLoadingTemplate && <DownBorderArrowIcon />}>
-                                            { isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template' }
+                                            {isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template'}
                                         </Button>
                                     </Grid>
 
@@ -175,7 +175,7 @@ const AddBulkInstructor = ({
                                         <Grid item md={4} xs={4}></Grid>
                                         <Grid item md={4} xs={4} style={{ marginTop: '15px', textAlign: 'center' }}>
                                             <Button onClick={handleSubmit} variant="contained" size="large">
-                                                { isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit' }
+                                                {isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit'}
                                             </Button>
                                         </Grid>
                                         <Grid item md={4} xs={4}></Grid>

@@ -61,7 +61,7 @@ const LoginForm = ({
             localStorage.setItem('name', loginState?.name);
             router.push('/pro/user/dashboard');
         }
-    }, [loginState]);
+    }, [router,loginState]);
 
     return (
         <>

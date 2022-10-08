@@ -107,65 +107,65 @@ const Integration = ({
     };
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
-                        <BreadCrumb item={ IntegrationBreadCrumb } />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
+                        <BreadCrumb item={IntegrationBreadCrumb} />
                     </Grid>
-                    <Grid item md={ 2 } xs={ 2 }>
+                    <Grid item md={2} xs={2}>
                     </Grid>
                 </Grid>
             </Box>
 
-            <MainHeading title={ `Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})` } />
+            <MainHeading title={`Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})`} />
 
-            { isLoading ? <Grid container spacing={ 2 }>
-                <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+            {isLoading ? <Grid container spacing={2}>
+                <Grid item md={4} xs={12}><Skeleton /></Grid>
+                <Grid item md={4} xs={12}><Skeleton /></Grid>
+                <Grid item md={4} xs={12}><Skeleton /></Grid>
             </Grid> :
-                <Grid container spacing={ 2 }>
-                    { lmsData?.map((item, index) => (
-                        <Grid key={ index } item md={ 4 } xs={ 12 }>
+                <Grid container spacing={2}>
+                    {lmsData?.map((item, index) => (
+                        <Grid key={index} item md={4} xs={12}>
                             <CardInfoView
-                                item={ item }
-                                handleConfig={ handleConfig }
-                                checked={ checked }
-                                isTimer={ false }
-                                isKnowMore={ true }
-                                isConfig={ true }
-                                isAvatar={ false }
-                                isImage={ true }
+                                item={item}
+                                handleConfig={handleConfig}
+                                checked={checked}
+                                isTimer={false}
+                                isKnowMore={true}
+                                isConfig={true}
+                                isAvatar={false}
+                                isImage={true}
                                 path=''
                             />
                         </Grid>
-                    )) }
+                    ))}
                 </Grid>
             }
 
-            { showMoodle &&
+            {showMoodle &&
                 <CreateDrawer
-                    isShowAddIcon={ false }
-                    showDrawer={ showMoodle }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={showMoodle}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <MoodleForm />
                 </CreateDrawer>
             }
-            { showCanvas &&
+            {showCanvas &&
                 <CreateDrawer
-                    isShowAddIcon={ false }
-                    showDrawer={ showCanvas }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={showCanvas}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <CanvasForm />
                 </CreateDrawer>
             }
-            { showBlackboard &&
+            {showBlackboard &&
                 <CreateDrawer
-                    isShowAddIcon={ false }
-                    showDrawer={ showBlackboard }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={showBlackboard}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <BlackboardForm />
                 </CreateDrawer>

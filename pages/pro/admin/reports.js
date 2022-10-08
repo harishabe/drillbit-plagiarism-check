@@ -41,23 +41,23 @@ const Reports = ({
 
     return (
         <React.Fragment>
-            <BreadCrumb item={ IntegrationBreadCrumb } />
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 6 } xs={ 12 }>
+            <BreadCrumb item={IntegrationBreadCrumb} />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={6} xs={12}>
                         <WidgetCard
-                            isClickAble={ true }
-                            title={ `Users list (${(reportsData?.no_of_users !== undefined ? reportsData?.no_of_users : 0)})` }
+                            isClickAble={true}
+                            title={`Users list (${(reportsData?.no_of_users !== undefined ? reportsData?.no_of_users : 0)})`}
                             toolTipTxt='Download Users'
-                            handleDownload={ handDownload }
-                            isLoading={ isLoading }
-                            isLoadingIcon={ usersType === 'users' ? isLoadingDownload : false }
-                            icon={ <DownloadIcon /> }
+                            handleDownload={handDownload}
+                            isLoading={isLoading}
+                            isLoadingIcon={usersType === 'users' ? isLoadingDownload : false}
+                            icon={<DownloadIcon />}
                         />
                     </Grid>
                 </Grid>
             </Box>
-            <Box sx={ { mt: 3, flexGrow: 1 } }>
+            <Box sx={{ mt: 3, flexGrow: 1 }}>
                 <CardView>
                     <Heading title='Reports' />
                     <ReportForm />

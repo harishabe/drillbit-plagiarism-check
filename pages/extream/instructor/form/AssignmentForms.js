@@ -39,9 +39,7 @@ const ToggleButton = styled(MuiToggleButton)({
     }
 });
 
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     helperText: {
         marginLeft: 0
     }
@@ -53,16 +51,13 @@ const AssignmentForms = ({
     editData,
     isLoading,
 }) => {
-    const classes = useStyles();
     const router = useRouter();
 
-    const [endDate, setEndDate] = React.useState(null);
     const [showSetting, setShowSetting] = React.useState(false);
     const [allowAssGrade, setAllowAssGrade] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [excludeRefBib, setExcludeRefBib] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [excludeQuote, setExcludeQuote] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [excludeSmallSource, setExcludeSmallSource] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
-    const [excludeIncludeSource, setExcludeIncludeSource] = React.useState(false);
     const [saveToRepo, setSaveToRepo] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [allowSubmission, setAllowSubmission] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [allowSubmissionDueDate, setAllowSubmissionDueDate] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
@@ -75,8 +70,6 @@ const AssignmentForms = ({
     const [publication, setPublication] = React.useState(ASSIGNMENT_SETTING_VALUE_YES);
     const [internet, setInternet] = React.useState(ASSIGNMENT_SETTING_VALUE_YES);
     const [repository, setRepository] = React.useState(ASSIGNMENT_SETTING_VALUE_YES);
-    const [phrasesData, setPhrasesData] = React.useState('');
-    const [questionData, setQuestionData] = React.useState('');
 
     const [questionList, setQuestionList] = React.useState([{
         'q': ''
@@ -93,7 +86,7 @@ const AssignmentForms = ({
     const [editOperation, setEditOperation] = useState(false);
 
 
-    const { register, control, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { control, handleSubmit, setValue } = useForm();
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -310,7 +303,7 @@ const AssignmentForms = ({
 
         if (editData.assignmentData.ex_phrases === ASSIGNMENT_SETTING_VALUE_YES) {
             //setExcludePhrases(ASSIGNMENT_SETTING_VALUE_YES);
-            let phraesObj = {};            
+            let phraesObj = {};
             phrasesList?.map((item, index) => {
                 phraesObj['p' + (index + 1)] = item.p;
             });
@@ -436,7 +429,7 @@ const AssignmentForms = ({
             let editQus = [];
             delete editData.assignmentData.questionsList.date;
             delete editData.assignmentData.questionsList.qId;
-            Object.entries(editData?.assignmentData?.questionsList).map((item, index) => {
+            Object.entries(editData?.assignmentData?.questionsList).map((item) => {
                 let obj = {};
                 if (item[1] !== null) {
                     obj['q'] = item[1];
@@ -444,10 +437,9 @@ const AssignmentForms = ({
                 }
             });
             setQuestionList(editQus);
-
             let editPhrases = [];
             delete editData.assignmentData.phrases.pId;
-            Object.entries(editData?.assignmentData?.phrases).map((item, index) => {
+            Object.entries(editData?.assignmentData?.phrases).map((item) => {
                 let phrasesObj = {};
                 if (item[1] !== null) {
                     phrasesObj['p'] = item[1];
@@ -455,10 +447,8 @@ const AssignmentForms = ({
                 }
             });
             setPhrasesList(editPhrases);
-
             setBtnLabel('Assignment Edit');
             setEditOperation(true);
-
         }
     }, [editData]);
 
@@ -964,17 +954,15 @@ const AssignmentForms = ({
                                     {questionList.map((item, i) => {
                                         return (
                                             <>
-                                                <Grid container spacing={2} sx={{ marginBottom: '15px' }}>
+                                                <Grid key={i} container spacing={2} sx={{ marginBottom: '15px' }}>
                                                     <Grid item md={9}>
                                                         <TextField
                                                             id={i}
                                                             size="small"
                                                             label={'Enter question ' + (i + 1)}
-                                                            //name={"q" + index + 1}
                                                             name={item}
                                                             value={item['q']}
                                                             onChange={handleChange}
-                                                        //onChange={(e) => setQuestionData(e.target.value)}
                                                         />
                                                     </Grid>
                                                     <Grid item md={2}>
@@ -1025,7 +1013,7 @@ const AssignmentForms = ({
                                     {phrasesList.map((item, i) => {
                                         return (
                                             <>
-                                                <Grid container spacing={2} sx={{ marginBottom: '15px' }}>
+                                                <Grid key={i} container spacing={2} sx={{ marginBottom: '15px' }}>
                                                     <Grid item md={9}>
                                                         <TextField
                                                             id={i}
@@ -1180,7 +1168,7 @@ const AssignmentForms = ({
                     'label': btnLabel,
                     'isDisabled': disabledButton
                 }}
-                isLoading={isLoading}
+                    isLoading={isLoading}
                 />
             </form>
         </div>

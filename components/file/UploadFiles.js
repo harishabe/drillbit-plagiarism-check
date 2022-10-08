@@ -302,13 +302,13 @@ const UploadFiles = ({
                                                         'label': 'English',
                                                     }, {
                                                         'label': 'Non English',
-                                                        }] }
+                                                    }] }
                                                     size="small"
-                                                        onChange={ (event, newValue) => {
+                                                    onChange={ (event, newValue) => {
                                                         setValue(newValue);
-                                                        } }
-                                                        inputValue={ language }
-                                                        onInputChange={ (event, newInputValue) => {
+                                                    } }
+                                                    inputValue={ language }
+                                                    onInputChange={ (event, newInputValue) => {
                                                         setLanguage(newInputValue);
                                                     } }
                                                     renderInput={ (params) => <TextField { ...params } label="Select Language" /> }
@@ -323,16 +323,16 @@ const UploadFiles = ({
                                                             <Autocomplete
                                                                 disablePortal
                                                                 id="language"
-                                                            options={ nonEnglishLang?.non_english_languages }
+                                                                options={ nonEnglishLang?.non_english_languages }
                                                                 size="small"
-                                                            onChange={ (event, newValue) => {
+                                                                onChange={ (event, newValue) => {
                                                                     setNonEnglishLangValue(newValue);
-                                                            } }
-                                                            inputValue={ nonEnglishLanguage }
-                                                            onInputChange={ (event, newInputValue) => {
+                                                                } }
+                                                                inputValue={ nonEnglishLanguage }
+                                                                onInputChange={ (event, newInputValue) => {
                                                                     setNonEnglishLanguage(newInputValue);
-                                                            } }
-                                                            renderInput={ (params) => <TextField { ...params } label="Select non english lang" /> }
+                                                                } }
+                                                                renderInput={ (params) => <TextField { ...params } label="Select non english lang" /> }
                                                             />
                                                         }
                                                     </Grid>
@@ -366,19 +366,19 @@ const UploadFiles = ({
 
                             { fileData?.length > 0 && isRepository &&
                                 <RepositoryFileForm
-                                handleSubmitRepository={ handleSubmitRepository }
-                                files={ fileData }
+                                    handleSubmitRepository={ handleSubmitRepository }
+                                    files={ fileData }
                                     btnTitle='Submit'
-                                isLoading={ isLoadingUpload }
+                                    isLoading={ isLoadingUpload }
                                 />
 
                             }
                             { fileData?.length > 0 && !isRepository &&
                                 <FileForm
-                                handleSubmitFile={ handleSubmit }
-                                files={ fileData }
+                                    handleSubmitFile={ handleSubmit }
+                                    files={ fileData }
                                     btnTitle='Submit'
-                                isLoading={ isLoadingUpload || isLoadingNonEng }
+                                    isLoading={ isLoadingUpload || isLoadingNonEng }
                                 />
                             }
                         </Grid>

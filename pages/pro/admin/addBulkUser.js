@@ -119,66 +119,66 @@ const addBulkUser = ({
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
-                        <BreadCrumb item={ UserBreadCrumb } />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
+                        <BreadCrumb item={UserBreadCrumb} />
                     </Grid>
-                    <Grid item md={ 2 } xs={ 2 }>
+                    <Grid item md={2} xs={2}>
 
                     </Grid>
                 </Grid>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 12 } xs={ 12 }>
+                <Grid container spacing={1}>
+                    <Grid item md={12} xs={12}>
                         <CardView>
                             <Tooltip title="Back" arrow>
-                                <IconButton onClick={ handleBack } size="large">
+                                <IconButton onClick={handleBack} size="large">
                                     <ArrowBackOutlinedIcon />
                                 </IconButton>
                             </Tooltip>
-                            <div style={ { padding: '0px 150px' } }>
-                                <Grid container spacing={ 1 }>
-                                    <Grid item md={ 6 } xs={ 6 }>
+                            <div style={{ padding: '0px 150px' }}>
+                                <Grid container spacing={1}>
+                                    <Grid item md={6} xs={6}>
                                         <MainHeading title='Add Multiple Users' />
                                     </Grid>
-                                    <Grid item md={ 6 } xs={ 6 } align="right">
+                                    <Grid item md={6} xs={6} align="right">
                                         <Button
-                                            onClick={ handleDownload }
+                                            onClick={handleDownload}
                                             variant="contained"
                                             size="large"
-                                            startIcon={ !isLoadingTemplate && <DownBorderArrowIcon /> }>
-                                            { isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template' }
+                                            startIcon={!isLoadingTemplate && <DownBorderArrowIcon />}>
+                                            {isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template'}
                                         </Button>
                                     </Grid>
 
-                                    <Grid container spacing={ 1 }>
-                                        <Grid item md={ 12 } xs={ 12 }>
-                                            <div className={ classes.dragAndDropArea }>
+                                    <Grid container spacing={1}>
+                                        <Grid item md={12} xs={12}>
+                                            <div className={classes.dragAndDropArea}>
                                                 <UploadFileIcon />
-                                                <div className={ classes.padding30 }>
+                                                <div className={classes.padding30}>
                                                     <Title1 title='Drag and drop, or ' />
-                                                    <Link style={ { marginLeft: '5px' } }>
-                                                        <label htmlFor="file-upload" className={ classes.customFileUpload }>
+                                                    <Link style={{ marginLeft: '5px' }}>
+                                                        <label htmlFor="file-upload" className={classes.customFileUpload}>
                                                             browse your file here
                                                         </label>
                                                     </Link>
-                                                    <Input onChange={ handleUpload } id="file-upload" type="file" />
-                                                    <EllipsisText value={ fileData !== '' ? fileData?.name : '' } charLength={ 80 } />
-                                                    { showError ? <div style={ { color: 'red' } }>Please select your file to upload </div> : '' }
+                                                    <Input onChange={handleUpload} id="file-upload" type="file" />
+                                                    <EllipsisText value={fileData !== '' ? fileData?.name : ''} charLength={80} />
+                                                    {showError ? <div style={{ color: 'red' }}>Please select your file to upload </div> : ''}
                                                 </div>
                                             </div>
                                         </Grid>
 
                                     </Grid>
 
-                                    <Grid container spacing={ 1 }>
-                                        <Grid item md={ 4 } xs={ 4 }></Grid>
-                                        <Grid item md={ 4 } xs={ 4 } style={ { marginTop: '15px', textAlign: 'center' } }>
-                                            <Button onClick={ handleSubmit } variant="contained" size="large">
-                                                { isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit' }
+                                    <Grid container spacing={1}>
+                                        <Grid item md={4} xs={4}></Grid>
+                                        <Grid item md={4} xs={4} style={{ marginTop: '15px', textAlign: 'center' }}>
+                                            <Button onClick={handleSubmit} variant="contained" size="large">
+                                                {isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit'}
                                             </Button>
                                         </Grid>
-                                        <Grid item md={ 4 } xs={ 4 }></Grid>
+                                        <Grid item md={4} xs={4}></Grid>
                                     </Grid>
                                 </Grid>
                             </div>
