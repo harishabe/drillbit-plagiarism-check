@@ -177,9 +177,9 @@ const ZipFileUpload = ({
                             />}
 
                         <div style={{ textAlign: 'center', marginTop: '10px' }}>
-                            {(fileData?.length > 0 && uploadData === undefined)
+                            {(fileData?.length > 0 && uploadData === "")
                                 &&
-                                <Button type="submit" disabled={isLoadingUpload} onClick={handleUploadZipFile} variant="contained" size="large">
+                                <Button color="primary" type="submit" disabled={isLoadingUpload} onClick={handleUploadZipFile} variant="contained" size="large">
                                     {isLoadingUpload ? <BeatLoader color="#fff" /> : 'Upload Zip File'}
                                 </Button>
                             }

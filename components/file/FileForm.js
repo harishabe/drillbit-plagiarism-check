@@ -87,12 +87,12 @@ const FileForm = ({
     };
 
     return (
-        console.log('1111',files),
+        console.log('1111', files),
         <div style={{ marginTop: '10px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {files && files?.map((item, index) => {
                     return (
-                        <Grid container spacing={1} key={item[1]?.name || item.name }>
+                        <Grid container spacing={1} key={item[1]?.name || item.name}>
                             <Grid item md={3} xs={12}>
                                 <div style={{ marginTop: '25px' }}>
                                     <EllipsisText value={item[1]?.name || item.name || item} charLength={22} />
@@ -168,7 +168,7 @@ const FileForm = ({
                     );
                 })}
                 <div style={{ textAlign: 'center', marginTop: '10px' }}>
-                    <Button type="submit" variant="contained" size="large">
+                    <Button color='primary' disabled={isLoading} type="submit" variant="contained" size="large">
                         {isLoading ? <BeatLoader color="#fff" /> : btnTitle}
                     </Button>
                 </div>
@@ -181,7 +181,7 @@ FileForm.propTypes = {
     fileData: propTypes.object,
     btnTitle: propTypes.string,
     handleSubmitFile: propTypes.func,
-    isLoading:propTypes.bool
+    isLoading: propTypes.bool
 };
 
 export default FileForm;
