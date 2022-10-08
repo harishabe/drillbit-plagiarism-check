@@ -67,8 +67,8 @@ const AddBulkStudent = ({
 
     useEffect(() => {
         if (router.isReady) {
-            setMyClass(router?.query?.className);
-            setClassId(router.query.classId);
+            setMyClass(router?.query?.clasName);
+            setClassId(router.query.clasId);
         }
     }, [router.isReady]);;
 
@@ -97,7 +97,7 @@ const AddBulkStudent = ({
     ];
 
     const handleDownload = () => {
-        DownloadTemplate(router?.query?.classId);
+        DownloadTemplate(classId);
     };
 
     const handleSubmit = () => {
@@ -105,7 +105,7 @@ const AddBulkStudent = ({
             setShowError(false);
             let bodyFormData = new FormData();
             bodyFormData.append('file', fileData);
-            UploadFile(router?.query?.classId, bodyFormData);
+            UploadFile(classId, bodyFormData);
         } else {
             setShowError(true);
         }
@@ -119,13 +119,13 @@ const AddBulkStudent = ({
 
     const handleBack = (e) => {
         e.preventDefault();
-        router.push('/extream/instructor/my-assignment?clasId=' + classId + '&className=' + myclass);
+        router.push('/extream/instructor/my-assignment?clasId=' + classId + '&clasName=' + myclass);
     };
 
     useEffect(() => {
         if (fileUploadData?.status === 200) {
             setFileData('');
-            router.push('/extream/instructor/my-assignment?clasId=' + classId + '&className=' + myclass);
+            router.push('/extream/instructor/my-assignment?clasId=' + classId + '&clasName=' + myclass);
         }
     }, [fileUploadData && fileUploadData !== '']);
 

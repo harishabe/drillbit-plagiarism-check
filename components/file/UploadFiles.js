@@ -44,6 +44,7 @@ const SkeletonStyle = styled.div`
 const UploadFiles = ({
     fileIcon,
     choseFileTitle,
+    allowedFormat,
     isLoadingUpload,
     SubmissionListUpload,
     UploadFileDataClear,
@@ -57,7 +58,8 @@ const UploadFiles = ({
     nonEnglishLang,
     isLoadingLang,
     UploadNonEnglish,
-    isLoadingNonEng
+    isLoadingNonEng,
+    isRegionalFile
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -67,6 +69,7 @@ const UploadFiles = ({
     const [language, setLanguage] = useState('English');
     const [nonEnglishLanguage, setNonEnglishLanguage] = useState('');
     const [nonEnglishLangValue, setNonEnglishLangValue] = useState('');
+    const [regionalLang, setRegionalLang] = useState('');
 
     useEffect(() => {
         if (router.isReady) {
@@ -74,6 +77,7 @@ const UploadFiles = ({
                 ...grammarPlagiarismCheck,
                 'grammarCheck': router.query.grammar === 'YES' ? true : false,
             });
+
         }
     }, [router.isReady]);
 
@@ -104,10 +108,12 @@ const UploadFiles = ({
     };
 
     const handleSubmit = (data) => {
-        if (fileData.length === 1 && language === 'English') {
+        if (fileData.length === 1 && language === 'English' && !isRegionalFile) {
             singleFileUpload(fileData, data);
-        } else if (fileData.length === 1 && language === 'Non English') {
+        } else if (fileData.length === 1 && language === 'Non English' && !isRegionalFile) {
             singleFileUploadNonEnglish(fileData, data);
+        } else if (fileData.length === 1 && isRegionalFile) {
+            regionalFileUpload(fileData, data);
         } else {
             multiFileUpload(fileData, data);
         }
@@ -196,6 +202,16 @@ const UploadFiles = ({
         SubmissionListUpload(multiFileUploadAPI, bodyFormData);
     };
 
+    const regionalFileUpload = (files, data) => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('authorName', data.authorName0);
+        bodyFormData.append('title', data.title0);
+        bodyFormData.append('documentType', data.documentType0);
+        bodyFormData.append('language', regionalLang);
+        bodyFormData.append('file', files[0][1]);
+        SubmissionListUpload(singleFileUploadAPI, bodyFormData);
+    };
+
     useEffect(() => {
         if (uploadData) {
             UploadFileDataClear();
@@ -211,10 +227,10 @@ const UploadFiles = ({
     };
 
     useEffect(() => {
-        if (language === 'Non English') {
+        if (language === 'Non English' || isRegionalFile) {
             LanguageList();
         }
-    }, [language === 'Non English']);
+    }, [language === 'Non English' || isRegionalFile]);
 
     return (
         <>
@@ -222,131 +238,147 @@ const UploadFiles = ({
                 <ContentCenter>
                     <Title
                         color='#020B50'
-                        title={title}
+                        title={ title }
                     />
                 </ContentCenter>
                 <DragAreaPadding>
-                    <Grid container spacing={1}>
-                        <Grid item md={12} xs={12}>
+                    <Grid container spacing={ 1 }>
+                        <Grid item md={ 12 } xs={ 12 }>
                             <DragDropArea>
-                                {fileIcon}
-                                <SubTitle1 title='Multiple file formats support: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx ' />
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Link style={{ marginLeft: '5px' }}>
+                                { fileIcon }
+                                <SubTitle1 title={ allowedFormat } />
+                                <div style={ { display: 'flex', justifyContent: 'center' } }>
+                                    <Link style={ { marginLeft: '5px' } }>
                                         <ChooseLabel for="file-upload">
-                                            {choseFileTitle}
+                                            { choseFileTitle }
                                         </ChooseLabel>
                                     </Link>
                                     <Input
                                         multiple
-                                        onChange={handleUpload}
+                                        onChange={ handleUpload }
                                         id="file-upload"
                                         type="file"
                                     />
                                 </div>
-                                {(fileData?.length > 0) && fileData?.map((item) => (
+                                { (fileData?.length > 0) && fileData?.map((item) => (
                                     <ChipContainer>
                                         <Chip
-                                            label={item[1]?.name}
-                                            onDelete={(e) => handleDelete(e, item)}
+                                            label={ item[1]?.name }
+                                            onDelete={ (e) => handleDelete(e, item) }
                                         />
                                     </ChipContainer>
-                                ))}
-                                {fileWarning && <div style={{ color: 'red' }}>{UPLOAD_FILE_MAX_LIMIT}</div>}
+                                )) }
+                                { fileWarning && <div style={ { color: 'red' } }>{ UPLOAD_FILE_MAX_LIMIT }</div> }
 
                             </DragDropArea>
 
-                            {(fileData?.length === 1 && !isRepository) &&
-                                <Grid container spacing={1}>
-                                    <Grid item md={5} xs={5}>
-                                        <div style={{ marginTop: '15px', marginBottom: '15px' }}>
+                            { (fileData?.length === 1 && !isRepository) &&
+                                <Grid container spacing={ 1 }>
+                                    <Grid item md={ 5 } xs={ 5 }>
+                                        <div style={ { marginTop: '15px', marginBottom: '15px' } }>
                                             <SubTitle1 title="Document Language" />
                                         </div>
-                                        <Grid container spacing={3} style={{ display: 'flex', justifyContent: 'center' }}>
-                                            <Grid item md={6}>
-                                                <Autocomplete
+                                        <Grid container spacing={ 3 } style={ { display: 'flex', justifyContent: 'center' } }>
+                                            <Grid item md={ isRegionalFile ? 10 : 6 }>
+                                                { isRegionalFile ? <Autocomplete
                                                     disablePortal
-                                                    value={language}
+                                                    value={ regionalLang }
                                                     id="language"
-                                                    options={[{
+                                                    options={ nonEnglishLang?.regional_languages }
+                                                    size="small"
+                                                    onChange={ (event, newValue) => {
+                                                        setRegionalLang(newValue);
+                                                    } }
+                                                    inputValue={ regionalLang }
+                                                    onInputChange={ (event, newInputValue) => {
+                                                        setRegionalLang(newInputValue);
+                                                    } }
+                                                    renderInput={ (params) => <TextField { ...params } label="Select Language" /> }
+                                                /> : <Autocomplete
+                                                    disablePortal
+                                                    value={ language }
+                                                    id="language"
+                                                    options={ [{
                                                         'label': 'English',
                                                     }, {
                                                         'label': 'Non English',
-                                                    }]}
+                                                        }] }
                                                     size="small"
-                                                    onChange={(event, newValue) => {
+                                                        onChange={ (event, newValue) => {
                                                         setValue(newValue);
-                                                    }}
-                                                    inputValue={language}
-                                                    onInputChange={(event, newInputValue) => {
+                                                        } }
+                                                        inputValue={ language }
+                                                        onInputChange={ (event, newInputValue) => {
                                                         setLanguage(newInputValue);
-                                                    }}
-                                                    renderInput={(params) => <TextField {...params} label="Select Language" />}
-                                                />
+                                                    } }
+                                                    renderInput={ (params) => <TextField { ...params } label="Select Language" /> }
+                                                /> }
                                             </Grid>
-                                            {isLoadingLang ?
+                                            { isLoadingLang ?
                                                 <SkeletonStyle>
-                                                    <Skeleton width={200} height={40} />
+                                                    <Skeleton width={ 200 } height={ 40 } />
                                                 </SkeletonStyle> : <>
-                                                    <Grid item md={6}>
-                                                        {language === 'Non English' &&
+                                                    <Grid item md={ 6 }>
+                                                        { language === 'Non English' &&
                                                             <Autocomplete
                                                                 disablePortal
                                                                 id="language"
-                                                                options={nonEnglishLang?.non_english_languages}
+                                                            options={ nonEnglishLang?.non_english_languages }
                                                                 size="small"
-                                                                onChange={(event, newValue) => {
+                                                            onChange={ (event, newValue) => {
                                                                     setNonEnglishLangValue(newValue);
-                                                                }}
-                                                                inputValue={nonEnglishLanguage}
-                                                                onInputChange={(event, newInputValue) => {
+                                                            } }
+                                                            inputValue={ nonEnglishLanguage }
+                                                            onInputChange={ (event, newInputValue) => {
                                                                     setNonEnglishLanguage(newInputValue);
-                                                                }}
-                                                                renderInput={(params) => <TextField {...params} label="Select non english lang" />}
+                                                            } }
+                                                            renderInput={ (params) => <TextField { ...params } label="Select non english lang" /> }
                                                             />
                                                         }
                                                     </Grid>
-                                                </>}
+                                                </> }
                                         </Grid>
                                     </Grid>
-                                    <Grid item md={2} xs={2}></Grid>
-                                    <Grid item md={5} xs={5}>
-                                        <div style={{ marginTop: '15px', marginBottom: '5px' }}>
-                                            <SubTitle title="Would you like to check grammar/plagiarism" />
-                                        </div>
-                                        <div>
-                                            <FormControlLabel
-                                                control={
-                                                    <Checkbox disabled={router.query.grammar === 'NO'} checked={grammarCheck} onChange={handleGrammarPlagiarismChange} name="grammarCheck" />
-                                                }
-                                                label="Grammar Check"
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                    <Checkbox checked={plagiarismCheck} onChange={handleGrammarPlagiarismChange} name="plagiarismCheck" />
-                                                }
-                                                label="Plagiarism Check"
-                                            />
-                                        </div>
-                                    </Grid>
-                                </Grid>}
+                                    <Grid item md={ 2 } xs={ 2 }></Grid>
+                                    { !isRegionalFile &&
+                                        <Grid item md={ 5 } xs={ 5 }>
+                                            <div style={ { marginTop: '15px', marginBottom: '5px' } }>
+                                                <SubTitle title="Would you like to check grammar/plagiarism" />
+                                            </div>
+                                            <div>
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox disabled={ router.query.grammar === 'NO' } checked={ grammarCheck } onChange={ handleGrammarPlagiarismChange } name="grammarCheck" />
+                                                    }
+                                                    label="Grammar Check"
+                                                />
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox checked={ plagiarismCheck } onChange={ handleGrammarPlagiarismChange } name="plagiarismCheck" />
+                                                    }
+                                                    label="Plagiarism Check"
+                                                />
+                                            </div>
+                                        </Grid>
+                                    }
+                                </Grid> }
 
 
-                            {fileData?.length > 0 && isRepository &&
+                            { fileData?.length > 0 && isRepository &&
                                 <RepositoryFileForm
-                                    handleSubmitRepository={handleSubmitRepository}
-                                    files={fileData}
+                                handleSubmitRepository={ handleSubmitRepository }
+                                files={ fileData }
                                     btnTitle='Submit'
-                                    isLoading={isLoadingUpload}
+                                isLoading={ isLoadingUpload }
                                 />
 
                             }
-                            {fileData?.length > 0 && !isRepository &&
+                            { fileData?.length > 0 && !isRepository &&
                                 <FileForm
-                                    handleSubmitFile={handleSubmit}
-                                    files={fileData}
+                                handleSubmitFile={ handleSubmit }
+                                files={ fileData }
                                     btnTitle='Submit'
-                                    isLoading={isLoadingUpload || isLoadingNonEng}
+                                isLoading={ isLoadingUpload || isLoadingNonEng }
                                 />
                             }
                         </Grid>

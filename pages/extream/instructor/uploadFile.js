@@ -15,6 +15,7 @@ import {
 import { BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { UPLOAD_TITLE_CONSTANT } from '../../../constant/data/Constant';
+import { UPLOAD_SUPPORTED_FILES } from '../../../constant/data/Constant';
 
 const tabMenu = [
     {
@@ -77,6 +78,7 @@ const UploadFile = () => {
         <UploadFiles
             choseFileTitle='browse your file here'
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
             fileIcon={<UploadFileIcon />}
             singleFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`}
             multiFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`}
@@ -85,9 +87,14 @@ const UploadFile = () => {
                 query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName }
             }}
         />,
-        <GDriveFileUpload title={UPLOAD_TITLE_CONSTANT.SUBMISSION} />,
+        <GDriveFileUpload
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
+            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+        />,
         <ZipFileUpload
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
+            notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
             zipFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`}
             confirmZipFileAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/confirmZipFile`}
             routerObj={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName } }}
