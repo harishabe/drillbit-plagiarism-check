@@ -5,6 +5,7 @@ import Chip from '@mui/material/Chip';
 import { Grid, Link } from '@mui/material';
 import useDrivePicker from 'react-google-drive-picker';
 import FileForm from './FileForm';
+import RepositoryFileForm from './RepositoryFileForm';
 import {
     Title,
     CardView,
@@ -29,7 +30,9 @@ const GDriveFileUpload = ({
     allowedFormat,
     routerObj,
     uploadFileSuccess,
-    UploadGdriveFileDataClear
+    UploadGdriveFileDataClear,
+    fileUploadAPI,
+    isRepository
 }) => {
     const router = useRouter();
     const [driveFile, setDriveFile] = useState('');
@@ -71,18 +74,32 @@ const GDriveFileUpload = ({
     };
 
     const handleSubmit = (data) => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('authorName', data.authorName0);
-        bodyFormData.append('title', data.title0);
-        bodyFormData.append('documentType', data.documentType0);
-        bodyFormData.append('plagiarismCheck', 'YES');
-        bodyFormData.append('grammarCheck', 'YES');
-        bodyFormData.append('language', 'English');
-        bodyFormData.append('fileId', driveFilePayload?.fileId);
-        bodyFormData.append('fileName', driveFilePayload?.fileName);
-        bodyFormData.append('token', driveAuthToken);
-        bodyFormData.append('fileSize', driveFilePayload?.fileSize);
-        UploadFileDrive(router.query.clasId, router.query.assId, bodyFormData);
+        if (!isRepository) {
+            let bodyFormData = new FormData();
+            bodyFormData.append('authorName', data.authorName0);
+            bodyFormData.append('title', data.title0);
+            bodyFormData.append('documentType', data.documentType0);
+            bodyFormData.append('plagiarismCheck', 'YES');
+            bodyFormData.append('grammarCheck', 'NO');
+            bodyFormData.append('language', 'English');
+            bodyFormData.append('fileId', driveFilePayload?.fileId);
+            bodyFormData.append('fileName', driveFilePayload?.fileName);
+            bodyFormData.append('token', driveAuthToken);
+            bodyFormData.append('fileSize', driveFilePayload?.fileSize);
+            UploadFileDrive(fileUploadAPI, bodyFormData);
+        } else {
+            let bodyFormData = new FormData();
+            bodyFormData.append('name', data.authorName0);
+            bodyFormData.append('title', data.title0);
+            bodyFormData.append('year', data.year0);
+            bodyFormData.append('repository', (data.repository0 === 'Global') ? 'GLOBAL' : 'LOCAL');
+            bodyFormData.append('language', data.language0);
+            bodyFormData.append('fileId', driveFilePayload?.fileId);
+            bodyFormData.append('fileName', driveFilePayload?.fileName);
+            bodyFormData.append('token', driveAuthToken);
+            bodyFormData.append('fileSize', driveFilePayload?.fileSize);
+            UploadFileDrive(fileUploadAPI, bodyFormData);
+        }
     };
 
     useEffect(() => {
@@ -122,13 +139,22 @@ const GDriveFileUpload = ({
                                         </ChipContainer>}
                                 </div>
                             </DragDropArea>
-                            {driveFile && driveFile?.length > 0 &&
-                                <FileForm
-                                    handleSubmitFile={handleSubmit}
-                                    files={documnet}
-                                    btnTitle='Submit'
-                                    isLoading={isLoadingFileDrive}
-                                />
+                            { driveFile && driveFile?.length > 0 &&
+                                <>
+                                    { !isRepository ? <FileForm
+                                        handleSubmitFile={ handleSubmit }
+                                        files={ documnet }
+                                        btnTitle='Submit'
+                                    isLoading={ isLoadingFileDrive }
+                                /> :
+                                    <RepositoryFileForm
+                                        handleSubmitRepository={ handleSubmit }
+                                        files={ documnet }
+                                        btnTitle='Submit'
+                                        isLoading={ isLoadingFileDrive }
+                                    /> 
+                                }
+                            </>
                             }
 
                             {/* {driveFile && driveFile?.length > 0 &&
@@ -158,7 +184,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        UploadFileDrive: (clasId, assId, data) => dispatch(UploadFileDrive(clasId, assId, data)),
+        UploadFileDrive: (url, data) => dispatch(UploadFileDrive(url, data)),
         UploadGdriveFileDataClear: () => dispatch(UploadGdriveFileDataClear()),
     };
 };

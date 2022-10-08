@@ -12,9 +12,9 @@ export const LanguageList = () => {
 /**
  * Upload google drive
  */
-export const UploadFileDrive = (classId, assId, data) => {
+export const UploadFileDrive = (url, data) => {
     return {
-        type: types.FETCH_UPLOAD_GOOGLE_DRIVE_START, classId: classId, assId: assId, query: data
+        type: types.FETCH_UPLOAD_GOOGLE_DRIVE_START, url: url, query: data
     };
 };
 

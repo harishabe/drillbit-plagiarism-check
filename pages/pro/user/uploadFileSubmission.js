@@ -89,6 +89,11 @@ const UploadFileSubmission = () => {
         <GDriveFileUpload
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            fileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/drive` }
+            routerObj={ {
+                pathname: '/pro/user/folderSubmission',
+                query: { name: router.query.name, folderId: router.query.folderId }
+            } }
         />,
         <ZipFileUpload
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
