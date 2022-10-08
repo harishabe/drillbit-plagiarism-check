@@ -14,6 +14,7 @@ import {
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { UPLOAD_TITLE_CONSTANT } from '../../../constant/data/Constant';
+import { UPLOAD_SUPPORTED_FILES } from '../../../constant/data/Constant';
 
 const uploadFileRepository = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -56,15 +57,21 @@ const uploadFileRepository = () => {
         <UploadFiles
             isRepository={ true }
             choseFileTitle='browse your file here'
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             fileIcon={ < UploadFileIcon /> }
             singleFileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD_SINGLE_FILE }
             multiFileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD_MULTIPLE_FILE }
             routerObj={ { pathname: '/pro/admin/repository' } }
         />,
-        <GDriveFileUpload title={ UPLOAD_TITLE_CONSTANT.REPOSITORY } />,
+        <GDriveFileUpload
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
+            title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
+        />,
         <ZipFileUpload
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
+            notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
             zipFileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD_ZIP }
             routerObj={ { pathname: '/pro/admin/repository' } }
         />

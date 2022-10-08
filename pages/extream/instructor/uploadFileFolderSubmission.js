@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Box } from '@mui/material';
 import Instructor from '../../../layouts/Instructor';
 import {
@@ -15,9 +15,17 @@ import { useRouter } from 'next/router';
 import { BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { UPLOAD_TITLE_CONSTANT } from '../../../constant/data/Constant';
+import { UPLOAD_SUPPORTED_FILES } from '../../../constant/data/Constant';
 
 const UploadFileFolderSubmission = () => {
     const router = useRouter();
+    const [myFolder, setMyfolder] = useState('');
+
+    useEffect(() => {
+        if (router.isReady) {
+            setMyfolder(router.query.name);
+        }
+    }, [router.isReady]);
     const [activeTab, setActiveTab] = useState(0);
 
     const handleAPI = (value) => {
@@ -35,7 +43,7 @@ const UploadFileFolderSubmission = () => {
             active: false,
         },
         {
-            name: router.query.name,
+            name: myFolder,
             link: '/extream/instructor/folderSubmission' + router?.asPath?.slice(router?.pathname?.length),
             active: false,
         },
@@ -61,24 +69,28 @@ const UploadFileFolderSubmission = () => {
     const componentList = [
         <UploadFiles
             choseFileTitle='browse your file here'
-            title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
-            fileIcon={< UploadFileIcon />}
-            singleFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/singleFile`}
-            multiFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/multipleFiles`}
-            routerObj={{ pathname: '/extream/instructor/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } }}
+            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
+            fileIcon={ < UploadFileIcon /> } 
+            singleFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/singleFile` }
+            multiFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/multipleFiles` }
+            routerObj={ { pathname: '/extream/instructor/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />,
         <GDriveFileUpload
-            title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
+            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             routerObj={{
                 pathname: '/extream/instructor/folderSubmission',
                 query: { name: router.query.name, folderId: router.query.folderId }
             }}
         />,
         <ZipFileUpload
-            title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
-            zipFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/zipFile`}
-            confirmZipFileAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/confirmZipFile`}
-            routerObj={{ pathname: '/extream/instructor/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } }}
+            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
+            notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
+            zipFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/zipFile` }
+            confirmZipFileAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/confirmZipFile` }
+            routerObj={ { pathname: '/extream/instructor/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />
     ];
 

@@ -91,4 +91,15 @@ export const USER_TEMPLATE_TITLE = 'Multiple_User_Upload_Template';
 export const UPLOAD_TITLE_CONSTANT = {
     'REPOSITORY': 'Upload files to the repository',
     'SUBMISSION': 'Upload files for plagiarism check',
+    'REGIONAL': 'Upload regional file for plagiarism check',
+}
+
+export const UPLOAD_SUPPORTED_FILES = {
+    'SINGLE': 'Multiple file formats support: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx',
+    'MULTIPLE': 'Supported file formats: pdf, doc, docx',
+    'ZIP': 'Supported Compressed file format: zip',
+    'NON_ZIP': 'Non-Supported Compressed file format : rar,tar,7z',
+    'GDRIVE': 'Supported file formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt',
+    'NON_ENGLISH': 'Supported file format: docx, doc, pdf, txt',
+    'REGIONAL': 'Supported file format: docx',
 }

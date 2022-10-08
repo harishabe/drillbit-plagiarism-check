@@ -7,7 +7,8 @@ import useDrivePicker from 'react-google-drive-picker';
 import FileForm from './FileForm';
 import {
     Title,
-    CardView
+    CardView,
+    SubTitle1
 } from '../../components';
 import {
     DragAreaPadding,
@@ -25,6 +26,7 @@ const GDriveFileUpload = ({
     isLoadingFileDrive,
     title,
     UploadFileDrive,
+    allowedFormat
     routerObj,
     uploadFileSuccess,
     UploadGdriveFileDataClear
@@ -105,6 +107,7 @@ const GDriveFileUpload = ({
                                 <div>
                                     <GoogleDriveIcon />
                                 </div>
+                                <SubTitle1 title={ allowedFormat } />
                                 <Link style={{ marginLeft: '5px' }}>
                                     <ChooseLabel onClick={() => handleOpenPicker()}>
                                         Browse your file from google drive

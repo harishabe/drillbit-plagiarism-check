@@ -9,7 +9,8 @@ import {
 } from '../../assets/icon';
 import {
     Title,
-    CardView
+    CardView,
+    SubTitle1
 } from '../../components';
 import FileForm from './FileForm';
 import RepositoryFileFormZip from './RepositoryFileFormZip';
@@ -44,7 +45,9 @@ const ZipFileUpload = ({
     isLoadingExtractedFile,
     UploadZipFileDataClear,
     isRepository,
-    title
+    title,
+    allowedFormat,
+    notAllowedFormat
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -127,6 +130,8 @@ const ZipFileUpload = ({
                     <Grid item md={12} xs={12}>
                         <DragDropArea>
                             <UploadFileIcon />
+                            <SubTitle1 title={ allowedFormat } />
+                            <SubTitle1 title={ notAllowedFormat } />
                             {/* <Title1 title='Drag and drop, or ' /> */}
                             <Link style={{ marginLeft: '5px', display: 'block' }}>
                                 <ChooseLabel for="file-upload">
