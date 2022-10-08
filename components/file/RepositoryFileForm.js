@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
 import { Grid, InputLabel, TextField, Button, Autocomplete } from '@mui/material';
-import { EllipsisText } from '..';
+import { EllipsisText, SubTitle } from '..';
 import {
     UPLOAD_FILE_AUTHOR_NAME,
     UPLOAD_FILE_PAPER_TITLE,
@@ -66,7 +66,7 @@ const RepositoryFileForm = ({
                         <Grid container spacing={ 1 } key={ item[1]?.name }>
                             <Grid item md={ 2 } xs={ 12 }>
                                 <div style={ { marginTop: '25px' } }>
-                                    <EllipsisText value={ item[1]?.name || item } charLength={ 10 } />
+                                    <EllipsisText value={ item[1]?.name || item.name || item } charLength={ 10 } />
                                 </div>
                             </Grid>
                             <Grid item md={ 2 } xs={ 12 }>
@@ -184,7 +184,7 @@ const RepositoryFileForm = ({
                     );
                 }) }
                 <div style={ { textAlign: 'center', marginTop: '10px' } }>
-                    <Button type="submit" variant="contained" size="large">
+                    <Button color='primary' disabled={ isLoading } type="submit" variant="contained" size="large">
                         { isLoading ? <BeatLoader color="#fff" /> : btnTitle }
                     </Button>
                 </div>

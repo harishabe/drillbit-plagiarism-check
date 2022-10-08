@@ -79,6 +79,7 @@ const UploadFileFolderSubmission = () => {
         <GDriveFileUpload
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            fileUploadAPI={ BASE_URL_UPLOAD + `/files/myFolder/${router.query.folderId}/drive` }
             routerObj={{
                 pathname: '/extream/instructor/folderSubmission',
                 query: { name: router.query.name, folderId: router.query.folderId }

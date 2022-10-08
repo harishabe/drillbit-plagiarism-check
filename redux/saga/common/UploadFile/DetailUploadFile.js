@@ -40,7 +40,7 @@ export function* LanguageListData() {
  */
 
 export function* onLoadUploadFileDrive(action) {
-    const { response, error } = yield call(UploadFileDriveDetail, action.classId, action.assId, action.query);
+    const { response, error } = yield call(UploadFileDriveDetail, action.url, action.query);
     if (response) {
         yield put({
             type: types.FETCH_UPLOAD_GOOGLE_DRIVE_SUCCESS,
