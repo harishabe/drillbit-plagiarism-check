@@ -15,8 +15,7 @@ export const LanguageListDetail = async () => {
  * API CALL UPLOAD GOOGLE DRIVE
  */
 
-export const UploadFileDriveDetail = async (classId, assId, data) => {
-    let url = BASE_URL_UPLOAD + `/files/classes/${classId}/assignments/${assId}/drive`
+export const UploadFileDriveDetail = async (url, data) => {
     return PostMethodEN(url, data);
 };
 

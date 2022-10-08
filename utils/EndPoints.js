@@ -43,6 +43,7 @@ const END_POINTS = {
     INSTRUCTOR_REPOSITARY_UPLOAD_SINGLE_FILE: '/extreme/privateRepository/single',
     INSTRUCTOR_REPOSITARY_UPLOAD_ZIP: '/extreme/privateRepository/zip',
     INSTRUCTOR_REPOSITARY_UPLOAD_MULTIPLE_FILE: '/extreme/privateRepository/multiple',
+    INSTRUCTOR_REPOSITARY_UPLOAD_DRIVE: '/extreme/privateRepository/drive',
     INSTRUCTOR_REPOSITARY_REMOVE: '/extreme/removePrivateRepository/',
     STUDENT_DASHBOARD_WIDGET: '/extreme/student/dashboard',
     STUDENT_MY_CLASSES: '/extreme/student/classes',

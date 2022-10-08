@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import debouce from 'lodash.debounce';
@@ -68,6 +69,12 @@ const SkeletonContainer = styled.div`
 `;
 
 const DownloadField = styled.div`
+    position:absolute;
+    top: 125px;
+    right:225px;
+`;
+
+const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
@@ -293,6 +300,10 @@ const folderSubmission = ({
         router.push({ pathname: '/extream/instructor/uploadFileFolderSubmission', query: router.query });
     };
 
+    const handleRefresh = () => {
+        folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -303,6 +314,32 @@ const folderSubmission = ({
                     </Grid>
                     <Grid item md={4} xs={12} container direction='row' justifyContent={'right'}>
                         <DownloadField>
+                            <DownloadButton>
+                                <Tooltip title="Refresh" arrow>
+                                    <IconButton
+                                        aria-label="download-file"
+                                        size="large"
+                                        onClick={ handleRefresh }
+                                    >
+                                        <RefreshOutlinedIcon />
+                                    </IconButton>
+                                </Tooltip>
+                                { folderSubmissionData?.length > 0 &&
+                                    isLoadingDownload ?
+                                    <Skeleton width={ 40 } />
+                                    :
+                                    <Tooltip title="Download csv" arrow>
+                                        <IconButton
+                                            aria-label="download-file"
+                                            size="large"
+                                            onClick={ handleDownload }>
+                                            <DownloadIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                }
+                            </DownloadButton>
+                        </DownloadField>
+                        {/* <DownloadField>
                             {folderSubmissionData?.length > 0 &&
                                 isLoadingDownload ? <SkeletonContainer>
                                     <Skeleton width={50} />
@@ -317,7 +354,7 @@ const folderSubmission = ({
                                     </IconButton>
                                 </Tooltip>
                             }
-                        </DownloadField>
+                        </DownloadField> */}
                         <TextField
                             placeholder='Search'
                             onChange={debouncedResults}
