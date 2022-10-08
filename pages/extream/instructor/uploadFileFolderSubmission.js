@@ -67,7 +67,7 @@ const UploadFileFolderSubmission = () => {
     ];
 
     const componentList = [
-        <UploadFiles 
+        <UploadFiles
             choseFileTitle='browse your file here'
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
@@ -79,6 +79,10 @@ const UploadFileFolderSubmission = () => {
         <GDriveFileUpload
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            routerObj={{
+                pathname: '/extream/instructor/folderSubmission',
+                query: { name: router.query.name, folderId: router.query.folderId }
+            }}
         />,
         <ZipFileUpload
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
@@ -92,20 +96,20 @@ const UploadFileFolderSubmission = () => {
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
                         <BreadCrumb
-                            item={ InstructorBreadCrumb }
+                            item={InstructorBreadCrumb}
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 12 } xs={ 12 }>
+                <Grid container spacing={1}>
+                    <Grid item md={12} xs={12}>
                         <TabMenu
-                            menuButton={ tabMenu }
-                            components={ componentList }
-                            handleAPI={ handleAPI }
+                            menuButton={tabMenu}
+                            components={componentList}
+                            handleAPI={handleAPI}
                         />
                     </Grid>
                 </Grid>

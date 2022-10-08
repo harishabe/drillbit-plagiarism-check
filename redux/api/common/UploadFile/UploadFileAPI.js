@@ -1,6 +1,6 @@
 import END_POINTS from '../../../../utils/EndPoints';
 import { BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
-import { GetMethod, PostMethod } from '../../ApiMethod';
+import { GetMethod, PostMethod, PostMethodEN } from '../../ApiMethod';
 
 /**
  * API CALL LANGUAGE LIST
@@ -17,7 +17,7 @@ export const LanguageListDetail = async () => {
 
 export const UploadFileDriveDetail = async (classId, assId, data) => {
     let url = BASE_URL_UPLOAD + `/files/classes/${classId}/assignments/${assId}/drive`
-    return PostMethod(url, data);
+    return PostMethodEN(url, data);
 };
 
 /**

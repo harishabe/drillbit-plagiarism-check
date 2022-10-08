@@ -90,6 +90,10 @@ const UploadFile = () => {
         <GDriveFileUpload
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            routerObj={{
+                pathname: '/extream/instructor/mysubmissions',
+                query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName }
+            }}
         />,
         <ZipFileUpload
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}

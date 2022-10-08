@@ -55,7 +55,7 @@ const uploadFileRepository = () => {
 
     const componentList = [
         <UploadFiles
-            isRepository={ true }
+            isRepository={true}
             choseFileTitle='browse your file here'
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
@@ -67,6 +67,7 @@ const uploadFileRepository = () => {
         <GDriveFileUpload
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
+            routerObj={{ pathname: '/extream/instructor/repository' }}
         />,
         <ZipFileUpload
             isRepository={ true }
@@ -80,20 +81,20 @@ const uploadFileRepository = () => {
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
                         <BreadCrumb
-                            item={ InstructorBreadCrumb }
+                            item={InstructorBreadCrumb}
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 12 } xs={ 12 }>
+                <Grid container spacing={1}>
+                    <Grid item md={12} xs={12}>
                         <TabMenu
-                            menuButton={ tabMenu }
-                            components={ componentList }
-                            handleAPI={ handleAPI }
+                            menuButton={tabMenu}
+                            components={componentList}
+                            handleAPI={handleAPI}
                         />
                     </Grid>
                 </Grid>

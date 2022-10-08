@@ -20,13 +20,16 @@ import {
 import {
     GoogleDriveIcon
 } from '../../assets/icon';
-import { UploadFileDrive } from '../../redux/action/common/UploadFile/UploadFileAction';
+import { UploadFileDrive, UploadGdriveFileDataClear } from '../../redux/action/common/UploadFile/UploadFileAction';
 
 const GDriveFileUpload = ({
-    isLoadingUpload,
+    isLoadingFileDrive,
     title,
     UploadFileDrive,
     allowedFormat
+    routerObj,
+    uploadFileSuccess,
+    UploadGdriveFileDataClear
 }) => {
     const router = useRouter();
     const [driveFile, setDriveFile] = useState('');
@@ -34,7 +37,7 @@ const GDriveFileUpload = ({
     const [documnet, setDocument] = useState('');
     const [driveAuthToken, setDriveAuthToken] = useState('');
     const [openPicker, tokenData] = useDrivePicker();
-
+    console.log('routerObjrouterObj', routerObj);
 
     useEffect(() => {
         setDriveAuthToken(tokenData?.access_token);
@@ -67,18 +70,28 @@ const GDriveFileUpload = ({
         });
     };
 
-    const handleSubmit = (e) => {
-        console.log('doc',documnet);
+    const handleSubmit = (data) => {
         let bodyFormData = new FormData();
-        bodyFormData.append('authorName', 'AAAAA');
-        bodyFormData.append('title', 'AAAA');
-        bodyFormData.append('documentType', 'Thesis');
+        bodyFormData.append('authorName', data.authorName0);
+        bodyFormData.append('title', data.title0);
+        bodyFormData.append('documentType', data.documentType0);
         bodyFormData.append('plagiarismCheck', 'YES');
         bodyFormData.append('grammarCheck', 'YES');
         bodyFormData.append('language', 'English');
-        bodyFormData.append('file', document);
+        bodyFormData.append('fileId', driveFilePayload?.fileId);
+        bodyFormData.append('fileName', driveFilePayload?.fileName);
+        bodyFormData.append('token', driveAuthToken);
+        bodyFormData.append('fileSize', driveFilePayload?.fileSize);
         UploadFileDrive(router.query.clasId, router.query.assId, bodyFormData);
     };
+
+    useEffect(() => {
+        if (uploadFileSuccess) {
+            console.log('routerObjrouterObj', routerObj);
+            router.push(routerObj);
+            UploadGdriveFileDataClear();
+        }
+    }, [uploadFileSuccess?.status === 200]);
 
     return (
         <CardView>
@@ -114,7 +127,7 @@ const GDriveFileUpload = ({
                                     handleSubmitFile={handleSubmit}
                                     files={documnet}
                                     btnTitle='Submit'
-                                    isLoading={isLoadingUpload}
+                                    isLoading={isLoadingFileDrive}
                                 />
                             }
 
@@ -139,11 +152,14 @@ const mapStateToProps = (state) => ({
     isLoadingUploadFile: state?.instructorMyFolders?.isLoadingSubmission,
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
     isLoadingExtractedFile: state?.instructorMyFolders?.isLoadingExtractedFile,
+    uploadFileSuccess: state?.uploadFile?.uploadFileDrive,
+    isLoadingFileDrive: state?.uploadFile?.isLoadingFileDrive
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         UploadFileDrive: (clasId, assId, data) => dispatch(UploadFileDrive(clasId, assId, data)),
+        UploadGdriveFileDataClear: () => dispatch(UploadGdriveFileDataClear()),
     };
 };
 
