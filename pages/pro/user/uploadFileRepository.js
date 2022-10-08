@@ -64,6 +64,7 @@ const uploadFileRepository = () => {
         />,
         <GDriveFileUpload title={ UPLOAD_TITLE_CONSTANT.REPOSITORY } />,
         <ZipFileUpload
+            isRepository={ true }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             zipFileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.USER_REPOSITARY_UPLOAD_ZIP }
             routerObj={ { pathname: '/pro/user/repository' } }
