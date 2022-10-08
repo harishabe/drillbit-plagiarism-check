@@ -54,39 +54,41 @@ const uploadFileRepository = () => {
 
     const componentList = [
         <UploadFiles
-            isRepository={ true }
+            isRepository={true}
             choseFileTitle='browse your file here'
-            title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
-            fileIcon={ < UploadFileIcon /> }
-            singleFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_SINGLE_FILE }
-            multiFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_MULTIPLE_FILE }
-            routerObj={ { pathname: '/extream/instructor/repository' } }
+            title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
+            fileIcon={< UploadFileIcon />}
+            singleFileUploadAPI={BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_SINGLE_FILE}
+            multiFileUploadAPI={BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_MULTIPLE_FILE}
+            routerObj={{ pathname: '/extream/instructor/repository' }}
         />,
-        <GDriveFileUpload title={ UPLOAD_TITLE_CONSTANT.REPOSITORY } />,
+        <GDriveFileUpload title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
+            routerObj={{ pathname: '/extream/instructor/repository' }}
+        />,
         <ZipFileUpload
-            isRepository={ true }
-            title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
-            zipFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_ZIP }
-            routerObj={ { pathname: '/extream/instructor/repository' } }
+            isRepository={true}
+            title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
+            zipFileUploadAPI={BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_ZIP}
+            routerObj={{ pathname: '/extream/instructor/repository' }}
         />
     ];
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
                         <BreadCrumb
-                            item={ InstructorBreadCrumb }
+                            item={InstructorBreadCrumb}
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 12 } xs={ 12 }>
+                <Grid container spacing={1}>
+                    <Grid item md={12} xs={12}>
                         <TabMenu
-                            menuButton={ tabMenu }
-                            components={ componentList }
-                            handleAPI={ handleAPI }
+                            menuButton={tabMenu}
+                            components={componentList}
+                            handleAPI={handleAPI}
                         />
                     </Grid>
                 </Grid>

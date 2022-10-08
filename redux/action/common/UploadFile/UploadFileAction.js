@@ -36,4 +36,11 @@ export const RepositoryUpload = (url, data) => {
     };
 };
 
-
+/**
+ * Gdrive file clear uploaded data
+ */
+ export const UploadGdriveFileDataClear = () => {
+    return {
+        type: types.FETCH_GDRIVE_UPLOAD_DATA_CLEAR
+    };
+};

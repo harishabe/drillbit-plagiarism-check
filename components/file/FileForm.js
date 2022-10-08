@@ -87,7 +87,6 @@ const FileForm = ({
     };
 
     return (
-        console.log('1111', files),
         <div style={{ marginTop: '10px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {files && files?.map((item, index) => {

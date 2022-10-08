@@ -85,7 +85,13 @@ const UploadFile = () => {
                 query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName }
             }}
         />,
-        <GDriveFileUpload title={UPLOAD_TITLE_CONSTANT.SUBMISSION} />,
+        <GDriveFileUpload
+            title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
+            routerObj={{
+                pathname: '/extream/instructor/mysubmissions',
+                query: { isAssignment: true, clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName }
+            }}
+        />,
         <ZipFileUpload
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             zipFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`}

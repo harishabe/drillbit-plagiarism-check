@@ -34,7 +34,7 @@ const UploadFileReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingFileDrive: false,
-                uploadFileDriveError: action.payload,
+                uploadFileDrive: action.payload,
             };
         case types.FETCH_UPLOAD_FILE_NON_ENGLISH_START:
             return {
@@ -69,6 +69,11 @@ const UploadFileReducer = (state = {}, action) => {
                 ...state,
                 isLoadingRepoUpload: false,
                 uploadFileRepo: action.payload,
+            };
+        case types.FETCH_GDRIVE_UPLOAD_DATA_CLEAR:
+            return {
+                ...state,
+                uploadFileDrive: '',
             };
         default:
             return state;
