@@ -68,7 +68,7 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                 <SubTitle title={item.paper_id} />
                             </TableCell>
                             <TableCell>
-                                <EllipsisText value={item.feedback !== null ? item.feedback : NO_DATA_PLACEHOLDER} charLength={10} />
+                                <SubTitle title={ item.feedback !== null ? item.feedback?.marks : NO_DATA_PLACEHOLDER } />
                             </TableCell>
                             <TableCell>
                                 <SimilarityStatus percent={item.percent} />
