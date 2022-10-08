@@ -26,7 +26,7 @@ const GDriveFileUpload = ({
     isLoadingFileDrive,
     title,
     UploadFileDrive,
-    allowedFormat
+    allowedFormat,
     routerObj,
     uploadFileSuccess,
     UploadGdriveFileDataClear
