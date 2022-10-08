@@ -108,7 +108,6 @@ const ZipFileUpload = ({
     };
 
     useEffect(() => {
-        console.log("123456")
         if (extractedFileData?.status === 200) {            
             router.push(routerObj);
             UploadZipFileDataClear();

@@ -23,7 +23,7 @@ const END_POINTS_PRO = {
     ADMIN_REPOSITARY_UPLOAD_ZIP: '/admin/directRepository/zip',
     USER_REPOSITARY_UPLOAD_SINGLE_FILE: '/privateRepository/single',
     USER_REPOSITARY_UPLOAD_MULTIPLE_FILE: '/privateRepository/multiple',
-    USER_REPOSITARY_UPLOAD_ZIP: '/privateRepository/drive',
+    USER_REPOSITARY_UPLOAD_ZIP: '/privateRepository/zip',
     ADMIN_REPOSITARY_REMOVE: '/admin/removeRepository/',
     ADMIN_INTEGRATION_DATA: '/integrations/home',
     ADMIN_MOODLE_INTEGRATION: '/integrations/moodle',
