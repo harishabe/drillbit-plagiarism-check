@@ -65,8 +65,11 @@ const uploadFileRepository = () => {
             routerObj={ { pathname: '/pro/user/repository' } }
         />,
         <GDriveFileUpload
+            isRepository={ true }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
+            fileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD_DRIVE }
+            routerObj={ { pathname: '/pro/user/repository' } }
         />,
         <ZipFileUpload
             isRepository={ true }

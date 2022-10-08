@@ -53,14 +53,14 @@ const columns = [
     { id: 'name', label: 'Name' },
     { id: 'username', label: 'Email ID' },
     { id: 'title', label: 'Title' },
-    { id: 'type', label: 'Type' },
+    { id: 'repository_type', label: 'Type' },
     { id: 'date_up', label: 'Added Date' },
     { id: 'action', label: 'Action' },
 ];
 
-function createData(paper_id, name, username, title, type, date_up, action) {
+function createData(paper_id, name, username, title, repository_type, date_up, action) {
     return {
-        paper_id, name, username, title, type, date_up, action
+        paper_id, name, username, title, repository_type, date_up, action
     };
 }
 
