@@ -110,7 +110,7 @@ const Repository = ({
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
-            setDeleteRowData(rowData?.id);
+            setDeleteRowData(rowData?.paper_id);
             setShowDeleteWarning(true);
         }
     };

@@ -65,10 +65,14 @@ const uploadFileRepository = () => {
             routerObj={ { pathname: '/extream/admin/repository' } }
         />,
         <GDriveFileUpload
+            isRepository={ true }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
+            fileUploadAPI={ BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD_DRIVE }
+            routerObj={ { pathname: '/extream/admin/repository' } }
         />,
         <ZipFileUpload
+            isRepository={ true }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
