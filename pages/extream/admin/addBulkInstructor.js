@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
+import Chip from '@mui/material/Chip';
 import { useRouter } from 'next/router';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { connect } from 'react-redux';
@@ -14,10 +15,9 @@ import {
     CardView,
     EllipsisText,
     MainHeading,
-    Title1
+    SubTitle1
 } from '../../../components';
 import {
-    DownBorderArrowIcon,
     UploadFileIcon
 } from '../../../assets/icon';
 import {
@@ -46,8 +46,14 @@ const useStyles = makeStyles({
         textAlign: 'center'
     },
     padding30: {
-        padding: '30px'
+        padding: '10px'
     }
+});
+
+const ChipContainer = styled('div')({
+    display: 'inline-flex',
+    marginTop: '10px',
+    marginLeft: '10px'
 });
 
 const Input = styled('input')({
@@ -145,8 +151,7 @@ const AddBulkInstructor = ({
                                         <Button
                                             onClick={handleDownload}
                                             variant="contained"
-                                            size="large"
-                                            startIcon={!isLoadingTemplate && <DownBorderArrowIcon />}>
+                                            size="large">
                                             {isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template'}
                                         </Button>
                                     </Grid>
@@ -155,15 +160,22 @@ const AddBulkInstructor = ({
                                         <Grid item md={12} xs={12}>
                                             <div className={classes.dragAndDropArea}>
                                                 <UploadFileIcon />
+                                                <SubTitle1 title="File Format : CSV " />
                                                 <div className={classes.padding30}>
-                                                    <Title1 title='Drag and drop, or ' />
                                                     <Link style={{ marginLeft: '5px' }}>
                                                         <label htmlFor="file-upload" className={classes.customFileUpload}>
                                                             browse your file here
                                                         </label>
                                                     </Link>
                                                     <Input onChange={handleUpload} id="file-upload" type="file" />
-                                                    <EllipsisText value={fileData !== '' ? fileData?.name : ''} charLength={80} />
+                                                    <div>
+                                                        {fileData !== '' &&
+                                                            <ChipContainer>
+                                                                <Chip
+                                                                    label={fileData?.name}
+                                                                />
+                                                            </ChipContainer>}
+                                                    </div>
                                                     {showError ? <div style={{ color: 'red' }}>Please select your file to upload </div> : ''}
                                                 </div>
                                             </div>

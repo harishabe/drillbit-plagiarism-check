@@ -5,7 +5,7 @@ export const Input = styled('input')({
 });
 
 export const DragAreaPadding = styled('div')({
-    padding: '1px 150px'
+    padding: '1px 10px'
 });
 
 export const DragDropArea = styled('div')({

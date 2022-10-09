@@ -35,7 +35,6 @@ Router.events.on('routeChangeError', () => {
 
 export default function MyApp(props) {
     const router = useRouter();
-    const [user, setUser] = React.useState(null);
     const { Component, pageProps } = props;
     const [authorized, setAuthorized] = React.useState(false);
 
@@ -53,14 +52,12 @@ export default function MyApp(props) {
     const Layout = Component.layout || (({ children }) => <>{children}</>);
 
     function authCheck(url) {
-        setUser(localStorage.getItem('token'));
         const publicPaths = ['/auth/login', '/auth/forgot-password', '/auth/reset-password'];
         const path = url.split('?')[0];
         if (!localStorage.getItem('token') && !publicPaths.includes(path)) {
             setAuthorized(false);
             router.push({
-                pathname: '/auth/login',
-                //query: { returnUrl: router.asPath }
+                pathname: '/auth/login'
             });
         } else {
             setAuthorized(true);
