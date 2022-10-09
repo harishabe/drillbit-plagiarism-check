@@ -117,7 +117,7 @@ const RepositoryFileFormZip = ({
 
                 }
                 <div style={ { textAlign: 'center', marginTop: '10px' } }>
-                    <Button type="submit" variant="contained" size="large">
+                    <Button color='primary' disabled={ isLoading } type="submit" variant="contained" size="large">
                         { isLoading ? <BeatLoader color="#fff" /> : btnTitle }
                     </Button>
                 </div>
