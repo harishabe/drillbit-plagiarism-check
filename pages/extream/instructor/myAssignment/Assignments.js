@@ -105,8 +105,10 @@ const Assignments = ({
     });
 
     useEffect(() => {
-        GetAssignment(router.query.clasId, paginationPayload);
-    }, [router.query.clasId, paginationPayload]);
+        if (router.isReady) {
+            GetAssignment(router.query.clasId, paginationPayload);
+        }
+    }, [router.isReady, router.query.clasId, paginationPayload]);
 
     useEffect(() => {
         let row = '';

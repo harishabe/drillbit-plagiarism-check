@@ -131,7 +131,9 @@ const folderSubmission = ({
     });
 
     useEffect(() => {
+        if (router.isReady) {
         folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
+        }
     }, [folderId, paginationPayload]);
 
     const handleRefresh = () => {

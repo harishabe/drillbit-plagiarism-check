@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Tooltip, IconButton, Skeleton } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
 import { CardView, CommonTable, SimilarityStatus, CreateDrawer } from '../../../../components';
-import { MessageExclamatoryIcon } from '../../../../assets/icon';
+import { MessageExclamatoryIcon, DownloadIcon } from '../../../../assets/icon';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
 import { useRouter } from 'next/router';
 import FeedbackForm from '../form/FeedbackForm';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
+import {
+    DownloadCsv,
+} from '../../../../redux/action/common/Submission/SubmissionAction';
 
 const columns = [
     { id: 'STname', label: 'Student Name', minWidth: 200 },
@@ -21,10 +28,27 @@ function createData(STname, paper_id, marks, similarity, action) {
     };
 }
 
+const SkeletonContainer = styled.div`
+    margin-top: 16px;
+    margin-right: 5px;
+`;
+
+const DownloadField = styled.div`
+    position:fixed;
+    top: 125px;
+    right:25px;
+`;
+
+const DownloadButton = styled.div`
+    margin-top:-5px;
+`;
+
 const Grading = ({
     GetSubmissionList,
+    DownloadCsv,
     gradingData,
-    isLoading
+    isLoading,
+    isLoadingDownload
 }) => {
 
     const router = useRouter();
@@ -63,14 +87,21 @@ const Grading = ({
     }, [gradingData]);
 
     const handleAction = (event, icon, rowData) => {
-        if (icon === 'feedback') {
+        if (rowData?.paper_id !== 0) {
             setShowFeedbackForm(true);
             setFeedbackData(rowData?.paper_id);
+        } else {
+            setShowFeedbackForm(false);
         }
+
     };
 
     const handleCloseDrawer = (drawerClose) => {
         setShowFeedbackForm(drawerClose);
+    };
+
+    const handleDownload = () => {
+        DownloadCsv(BASE_URL_EXTREM + `/extreme/classes/${clasId}/assignments/${assId}/qa/download`, DOWNLOAD_CSV.GRADING_LISTS);
     };
 
     return (
@@ -91,7 +122,25 @@ const Grading = ({
             />
         </CreateDrawer>
             }
-
+            <DownloadField>
+                <DownloadButton>
+                    { gradingData?.length > 0 &&
+                        isLoadingDownload ?
+                        <SkeletonContainer>
+                            <Skeleton width={ 40 } />
+                        </SkeletonContainer>
+                        :
+                        <Tooltip title="Download csv" arrow>
+                            <IconButton
+                                aria-label="download-file"
+                                size="large"
+                                onClick={ handleDownload }>
+                                <DownloadIcon />
+                            </IconButton>
+                        </Tooltip>
+                    }
+                </DownloadButton>
+            </DownloadField>
             <CardView>
                 <CommonTable
                     isCheckbox={false}
@@ -108,12 +157,14 @@ const Grading = ({
 
 const mapStateToProps = (state) => ({
     isLoading: state?.instructorMyFolders?.isLoadingSubmission,
+    isLoadingDownload: state?.submission?.isLoadingDownload,
     gradingData: state?.instructorMyFolders?.submissionData?._embedded?.gradingDTOList,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+        DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
     };
 };
 
