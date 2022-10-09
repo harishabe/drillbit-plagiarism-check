@@ -96,20 +96,11 @@ const folderSubmission = ({
 
     const router = useRouter();
     const [rows, setRows] = useState([]);
-    // const [folderId, setFolderId] = useState('');
-    // const [folderName, setFolderName] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [showDownloadWarning, setShowDownloadWarning] = useState(false);
     const [data, setData] = useState();
-
-    // useEffect(() => {
-    //     if (router.isReady) {
-    //         setFolderId(router.query.folderId);
-    //         setFolderName(router.query.name);
-    //     }
-    // }, [router.isReady]);
 
     const folderId = router.query.folderId;
     const folderName = router.query.name;

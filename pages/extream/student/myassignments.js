@@ -67,7 +67,7 @@ const MyAssignments = ({
         if (router.isReady) {
             GetAssignmentData(router.query.clasId, paginationPayload);
         }
-    }, [router.isReady, router.query.clasId, paginationPayload]);
+    }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
         let row = '';
