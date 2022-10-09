@@ -89,7 +89,7 @@ const CommonTable = ({
                                         style={{ minWidth: column.minWidth }}
                                     >
                                         {TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
-                                            <EllipsisText value={column.label} charLength={charLength} variant='body2_1' />
+                                        <EllipsisText value={column.label} charLength={charLength} variant='body2_2' />
                                             : <TableSortLabel
                                                 onClick={((e) => sortHandle(e, column))}
                                                 IconComponent={
@@ -103,7 +103,7 @@ const CommonTable = ({
                                                         </div>
                                                 }
                                             >
-                                                <EllipsisText value={column.label} charLength={charLength} variant='body2_1' />
+                                                <EllipsisText value={column.label} charLength={charLength} variant='body2_2' />
                                             </TableSortLabel>}
 
                                     </TableCell>
