@@ -67,8 +67,10 @@ const NavBar = ({
     const [name, setName] = React.useState('');
     const [role, setRole] = React.useState('');
     const [switchRole, setSwitchRole] = React.useState('');
+    const [switchProRole, setSwitchProRole] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [path, setPath] = React.useState('');
+    const [placeholderRole, setPlaceholderRole] = React.useState('');
 
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -97,6 +99,19 @@ const NavBar = ({
         }
     };
 
+    const switchToProUser = (e, role) => {
+        e.preventDefault();
+        if (switchProRole === role) {
+            setSwitchProRole('user');
+            setItemLocalStorage('switchProRole', 'user');
+            router.push('/pro/user/dashboard');
+        } else {
+            setSwitchRole('admin');
+            setItemLocalStorage('switchProRole', 'admin');
+            router.push('/pro/admin/dashboard');
+        }
+    };
+
     React.useEffect(() => {
         let userName = getItemLocalStorage('name');
         let userRole = getItemLocalStorage('role');
@@ -105,12 +120,14 @@ const NavBar = ({
         setName(userName);
         setRole(userRole);
         setEmail(email);
+        setPlaceholderRole(userRole);
         setSwitchRole(switchRoles);
+        setSwitchProRole(getItemLocalStorage('role') === Role.proAdmin && getItemLocalStorage('switchProRole') === null ? 'lim-admin' : 'lim-instructor');
         if (userRole === Role?.proAdmin) {
-            setRole(PRO_ADMIN);
+            setPlaceholderRole(PRO_ADMIN);
             setPath('/pro/admin');
         } else if (userRole === Role?.proUser) {
-            setRole(PRO_USER);
+            setPlaceholderRole(PRO_USER);
             setPath('/pro/user');
         } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (switchRole === null)) {
             setPath('/extream/' + userRole);
@@ -152,7 +169,7 @@ const NavBar = ({
                                             {name !== undefined ? <EllipsisText value={name} charLength={12} /> : <Skeleton />}
                                         </div>
                                         <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right' }}>
-                                            {switchRole !== null ? switchRole?.charAt(0)?.toUpperCase() + switchRole?.slice(1) : role?.charAt(0)?.toUpperCase() + role?.slice(1)}
+                                            {switchRole !== null ? switchRole?.charAt(0)?.toUpperCase() + switchRole?.slice(1) : placeholderRole?.charAt(0)?.toUpperCase() + placeholderRole?.slice(1)}
                                         </div>
                                     </div>
 
@@ -223,7 +240,7 @@ const NavBar = ({
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                         {role === Role?.admin ?
-                            <>aaa {role}
+                            <>
                                 <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToUser(e, role)}>
                                     <ListItemIcon>
                                         <SwitchAccountIcon />
@@ -236,15 +253,15 @@ const NavBar = ({
                                 </MenuItem>
                                 <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                             </> :
-                            <>bbb {role}
-                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToUser(e, role)}>
+                            <>
+                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToProUser(e, role)}>
                                     <ListItemIcon>
                                         <SwitchAccountIcon />
                                     </ListItemIcon>
                                     <ListItemText
                                         style={{ padding: '5px 15px' }}
                                         primary="Switch account"
-                                        secondary={`Switch to ${switchRole === Role?.proAdmin ? 'user' : 'admin'}`}
+                                        secondary={`Switch to ${switchProRole === Role?.proAdmin ? 'user' : 'admin'}`}
                                     />
                                 </MenuItem>
                                 <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
