@@ -71,7 +71,7 @@ const Dashboard = ({
     }, [instructorDashboardData]);
 
     const handlePage = (e, item) => {
-        router.push({ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: item?.class_id, assId: item?.ass_id } });
+        router.push({ pathname: '/pro/user/folderSubmission', query: { name: item?.folder_name, folderId: item?.folder_id } });
     };
 
     return (

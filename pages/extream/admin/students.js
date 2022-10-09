@@ -313,7 +313,7 @@ const Students = ({
                         handleCheckboxSelect={handleCheckboxSelect}
                         handleSingleSelect={handleSingleSelect}
                         isLoading={isLoading}
-                        charLength={ 14 }
+                        charLength={ 10 }
                         path=''
                     />
 

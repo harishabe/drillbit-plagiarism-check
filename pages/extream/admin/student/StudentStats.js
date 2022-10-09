@@ -115,19 +115,23 @@ const StudentStats = ({
                                 style={ { margin: '8px auto' } }
                                 height={ 250 }
                                 width={ 250 }
-                            /> :
-                            <PieChart
-                                type="donut"
-                                color={ PIE_CHART_COLOR }
-                                width={ PIE_CHART_WIDTH }
-                                label={ PIE_CHART_LABEL }
-                                series={
-                                    [
-                                        studentStats?.trendAnalysis?.similarWork,
-                                        studentStats?.trendAnalysis?.ownWork
-                                    ]
+                            /> : 
+                            <>
+                                { studentStats?.trendAnalysis && 
+                                    <PieChart
+                                        type="donut"
+                                        color={ PIE_CHART_COLOR }
+                                        width={ PIE_CHART_WIDTH }
+                                        label={ PIE_CHART_LABEL }
+                                        series={
+                                            [
+                                                studentStats?.trendAnalysis?.similarWork,
+                                                studentStats?.trendAnalysis?.ownWork
+                                            ]
+                                        }
+                                    />
                                 }
-                            />
+                            </>
                         }
                     </Grid>
                 </Grid>

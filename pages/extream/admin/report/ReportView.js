@@ -24,50 +24,50 @@ const DownloadButton = styled.div`
 `;
 
 const assignmentsColumns = [
-    { id: 'ass_id', label: 'Assignment ID', minWidth: 170 },
-    { id: 'ass_name', label: 'Assignment Name', minWidth: 170 },
-    { id: 'email', label: 'Email', minWidth: 170 },
-    { id: 'created', label: 'Created Date', minWidth: 170 },
-    { id: 'endDate', label: 'End Date', minWidth: 170 },
-    { id: 'class_id', label: 'Class ID', minWidth: 170 },
-    { id: 'class_name', label: 'Class Name', minWidth: 170 },
-    { id: 'count', label: 'Submission count', minWidth: 170 },
+    { id: 'reportass_id', label: 'Assignment ID', minWidth: 170 },
+    { id: 'reportass_name', label: 'Assignment Name', minWidth: 170 },
+    { id: 'reportemail', label: 'Email', minWidth: 170 },
+    { id: 'reportcreated', label: 'Created Date', minWidth: 170 },
+    { id: 'reportendDate', label: 'End Date', minWidth: 170 },
+    { id: 'reportclass_id', label: 'Class ID', minWidth: 170 },
+    { id: 'reportclass_name', label: 'Class Name', minWidth: 170 },
+    { id: 'reportcount', label: 'Submission count', minWidth: 170 },
 ];
 
 const classesColumns = [
-    { id: 'cls_id', label: 'Class ID', minWidth: 170 },
-    { id: 'cls_name', label: 'Class Name', minWidth: 170 },
-    { id: 'created', label: 'Creation Date', minWidth: 170 },
-    { id: 'email', label: 'Email', minWidth: 170 },
-    { id: 'students_count', label: 'Students Count', minWidth: 170 },
-    { id: 'submissions_count', label: 'Submissions Count', minWidth: 170 },
-    { id: 'validity', label: 'Validity', minWidth: 170 },
+    { id: 'reportcls_id', label: 'Class ID', minWidth: 170 },
+    { id: 'reportcls_name', label: 'Class Name', minWidth: 170 },
+    { id: 'reportcreated', label: 'Creation Date', minWidth: 170 },
+    { id: 'reportemail', label: 'Email', minWidth: 170 },
+    { id: 'reportstudents_count', label: 'Students Count', minWidth: 170 },
+    { id: 'reportsubmissions_count', label: 'Submissions Count', minWidth: 170 },
+    { id: 'reportvalidity', label: 'Validity', minWidth: 170 },
 ];
 
 const submissionsColumns = [
-    { id: 'assignment_name', label: 'Assignment Name', minWidth: 110 },
-    { id: 'assignmet_id', label: 'Assignment ID', minWidth: 110 },
-    { id: 'author', label: 'Author Name', minWidth: 110 },
-    { id: 'clas_id', label: 'Class ID', minWidth: 90 },
-    { id: 'clas_name', label: 'Class Name', minWidth: 110 },
-    { id: 'email', label: 'Email', minWidth: 110 },
-    { id: 'no_of_page', label: 'Number Of Pages', minWidth: 110 },
-    { id: 'paper_id', label: 'Paper ID', minWidth: 110 },
-    { id: 'similarity', label: 'Similarity', minWidth: 110 },
-    { id: 'submission_date', label: 'Submission Date', minWidth: 110 },
-    { id: 'title', label: 'Title', minWidth: 110 },
+    { id: 'reportassignment_name', label: 'Assignment Name', minWidth: 110 },
+    { id: 'reportassignmet_id', label: 'Assignment ID', minWidth: 110 },
+    { id: 'reportauthor', label: 'Author Name', minWidth: 110 },
+    { id: 'reportclas_id', label: 'Class ID', minWidth: 90 },
+    { id: 'reportclas_name', label: 'Class Name', minWidth: 110 },
+    { id: 'reportemail', label: 'Email', minWidth: 110 },
+    { id: 'reportno_of_page', label: 'Number Of Pages', minWidth: 110 },
+    { id: 'reportpaper_id', label: 'Paper ID', minWidth: 110 },
+    { id: 'reportsimilarity', label: 'Similarity', minWidth: 110 },
+    { id: 'reportsubmission_date', label: 'Submission Date', minWidth: 110 },
+    { id: 'reporttitle', label: 'Title', minWidth: 110 },
 ];
 
-function submissionData(assignment_name, assignmet_id, author, clas_id, clas_name, email, no_of_page, paper_id, similarity, submission_date, title) {
-    return { assignment_name, assignmet_id, author, clas_id, clas_name, email, no_of_page, paper_id, similarity, submission_date, title };
+function submissionData(reportassignment_name, reportassignmet_id, reportauthor, reportclas_id, reportclas_name, reportemail, reportno_of_page, reportpaper_id, reportsimilarity, reportsubmission_date, reporttitle) {
+    return { reportassignment_name, reportassignmet_id, reportauthor, reportclas_id, reportclas_name, reportemail, reportno_of_page, reportpaper_id, reportsimilarity, reportsubmission_date, reporttitle };
 }
 
-function assignmentData(ass_id, ass_name, email, created, endDate, class_id, class_name, count) {
-    return { ass_id, ass_name, email, created, endDate, class_id, class_name, count };
+function assignmentData(reportass_id, reportass_name, reportemail, reportcreated, reportendDate, reportclass_id, reportclass_name, reportcount) {
+    return { reportass_id, reportass_name, reportemail, reportcreated, reportendDate, reportclass_id, reportclass_name, reportcount };
 }
 
-function classesData(cls_id, cls_name, created, email, students_count, submissions_count, validity) {
-    return { cls_id, cls_name, created, email, students_count, submissions_count, validity };
+function classesData(reportcls_id, reportcls_name, reportcreated, reportemail, reportstudents_count, reportsubmissions_count, reportvalidity) {
+    return { reportcls_id, reportcls_name, reportcreated, reportemail, reportstudents_count, reportsubmissions_count, reportvalidity };
 }
 
 const ReportView = ({
@@ -84,7 +84,6 @@ const ReportView = ({
     onSend,
     closeSendDialog,
     handleChange,
-    handleTableSort,
     pageDetails
 }) => {
     const [rows, setRows] = useState([]);
@@ -187,8 +186,7 @@ const ReportView = ({
                                 <CommonTable
                                     isCheckbox={false}
                                     isSorting={ true }
-                                    tableHeader={assignmentsColumns}
-                                    handleTableSort={ handleTableSort }
+                                    tableHeader={ assignmentsColumns }
                                     tableData={rows}
                                     charLength={10}
                                     path=''
@@ -217,8 +215,7 @@ const ReportView = ({
                                 <CommonTable
                                     isCheckbox={false}
                                     isSorting={ true }
-                                    tableHeader={classesColumns}
-                                    handleTableSort={ handleTableSort }
+                                    tableHeader={ classesColumns }
                                     tableData={rows}
                                     charLength={10}
                                     path=''
@@ -245,8 +242,7 @@ const ReportView = ({
                                 <CommonTable
                                     isCheckbox={false}
                                     isSorting={ true }
-                                    tableHeader={submissionsColumns}
-                                    handleTableSort={ handleTableSort }
+                                    tableHeader={ submissionsColumns }
                                     tableData={rows}
                                     charLength={10}
                                     path=''

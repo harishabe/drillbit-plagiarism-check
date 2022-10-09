@@ -73,15 +73,15 @@ const MyFoldersForm = ({
         if (editData) {
             let a = {
                 'folder_name': editData.folder_name,
-                'exclude_reference': editData?.excludeReferences?.toUpperCase(),
-                'exclude_quotes': editData?.excludeQuotes?.toUpperCase(),
-                'exclude_small_sources': editData?.excludeSmallSources?.toUpperCase(),
-                'grammar_check': editData?.grammarCheck?.toUpperCase(),
-                'exclude_phrases': editData?.excludePhrases?.toUpperCase(),
-                'db_studentpaper': editData?.db_studentpaper?.toUpperCase(),
-                'db_publications': editData?.db_publications?.toUpperCase(),
-                'db_internet': editData?.db_internet?.toUpperCase(),
-                'institution_repository': editData?.institution_repository?.toUpperCase(),
+                'exclude_reference': editData?.ex_references,
+                'exclude_quotes': editData?.ex_quotes,
+                'exclude_small_sources': editData?.small_sources,
+                'grammar_check': editData?.grammar,
+                'exclude_phrases': editData?.ex_phrases,
+                'db_studentpaper': editData?.db_studentpaper,
+                'db_publications': editData?.db_publications,
+                'db_internet': editData?.db_internet,
+                'institution_repository': editData?.institution_repository,
             };
             const fields = [
                 'folder_name',
