@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 import Checkbox from '@mui/material/Checkbox';
 import Table from '@mui/material/Table';
+import Paper from '@mui/material/Paper';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -71,8 +72,8 @@ const CommonTable = ({
     }, [tableData]);
 
     return (
-        <TableContainer classes={{ root: classes.customTableContainer }}>
-            <Table stickyHeader>
+        <TableContainer component={Paper} classes={{ root: classes.customTableContainer }}>
+            <Table stickyHeader  size="small">
                 <TableHead>
                     <TableRow>
                         {isCheckbox &&
@@ -175,10 +176,10 @@ const CommonTable = ({
                                         <IconButton className={classes.customArrowContainer}
                                             onClick={(e) => {
                                                 if (path && path?.query?.isAssignment) {
-                                                    console.log('rowrow',row);
+                                                    console.log('rowrow', row);
                                                     path.query['assId'] = row?.id;
                                                     path.query['assName'] = row?.assignment_name,
-                                                    path.query['grammar'] = row?.assignmentData?.grammar;
+                                                        path.query['grammar'] = row?.assignmentData?.grammar;
                                                     router.push(path);
                                                 } else {
                                                     router.push(path);

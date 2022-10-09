@@ -40,7 +40,6 @@ const GDriveFileUpload = ({
     const [documnet, setDocument] = useState('');
     const [driveAuthToken, setDriveAuthToken] = useState('');
     const [openPicker, tokenData] = useDrivePicker();
-    console.log('routerObjrouterObj', routerObj);
 
     useEffect(() => {
         setDriveAuthToken(tokenData?.access_token);

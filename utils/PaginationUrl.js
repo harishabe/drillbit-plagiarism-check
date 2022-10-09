@@ -8,33 +8,33 @@ export const PaginationUrl = (paginationPayload) => {
 
 export const PaginationValue = {
     'page': 0,
-    'size': 6,
+    'size': 25,
     'field': 'user_id',
     'orderBy': 'desc'
 };
 
 export const InstructorPaginationValue = {
     'page': 0,
-    'size': 6,
+    'size': 25,
     'field': 'class_id',
     'orderBy': 'desc'
 }
 
 export const InstructorFolderPaginationValue = {
     'page': 0,
-    'size': 6,
+    'size': 25,
     'field': 'ass_id',
     'orderBy': 'desc'
 }
 export const StudentSubmissionsPaginationValue = {
     'page': 0,
-    'size': 6,
+    'size': 25,
     'field': 'paper_id',
     'orderBy': 'desc'
 }
 export const FolderSubmissionsPaginationValue = {
     'page': 0,
-    'size': 6,
+    'size': 25,
     'field': 'name',
     'orderBy': 'desc'
 }
