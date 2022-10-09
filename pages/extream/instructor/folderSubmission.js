@@ -126,7 +126,7 @@ const folderSubmission = ({
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
-        field: 'name',
+        field: 'paper_id',
         orderBy: PaginationValue?.orderBy,
     });
 
