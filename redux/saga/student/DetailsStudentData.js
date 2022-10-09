@@ -268,21 +268,19 @@ export function* GetStudentFeedback() {
  */
 
 export function* onLoadDownloadInstructionsFile(action) {
-    const { response, error } = yield call(DownloadAssignmentInstructions, action.class_id, action.folder_id);
+    const { response, error } = yield call(DownloadAssignmentInstructions, action.attachment, action.class_id, action.folder_id);
     if (response) {
         yield put({
             type: types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_SUCCESS,
             payload: response?.data,
         });
         toastrValidation(response);
-        console.log("response", response?.response?.data?.message)
     } else {
         yield put({
             type: types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_FAIL,
             payload: error,
         });
         toastrValidation(error);
-        console.log("error", error)
     }
 }
 

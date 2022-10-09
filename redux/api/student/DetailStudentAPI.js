@@ -95,7 +95,7 @@ export const SendSubmissionData = async (query, class_id, folder_id) => {
  * API CALL FOR DOWNLOAD ORIGINAL FILE
  */
 
-export const DownloadAssignmentInstructions = async (class_id, folder_id) => {
+export const DownloadAssignmentInstructions = async (attachment, class_id, folder_id) => {
     const url = BASE_URL_EXTREM + END_POINTS.STUDENT_MY_CLASSES + '/' + class_id + '/assignments/' + folder_id + '/instructions';
-    return GetMethodDownloadPdf(url, FILE_TYPE.value);
+    return GetMethodDownloadPdf(url, attachment);
 };

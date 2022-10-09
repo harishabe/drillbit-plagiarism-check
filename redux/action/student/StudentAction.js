@@ -68,7 +68,7 @@ export const GetQna = (class_id, folder_id) => {
  */
 export const GetFeedback = (class_id, folder_id) => {
     return {
-        type: types.FETCH_STUDENTS_FEEDBACK_DETAILS_START, class_id: class_id, folder_id: folder_id, 
+        type: types.FETCH_STUDENTS_FEEDBACK_DETAILS_START, class_id: class_id, folder_id: folder_id,
     };
 };
 
@@ -93,8 +93,8 @@ export const NewSubmission = (data, class_id, folder_id) => {
 /**
  * Students assignment instruction data download
  */
-export const DownloadAssignmentInstruction = (class_id, folder_id) => {
+export const DownloadAssignmentInstruction = (attachment, class_id, folder_id) => {
     return {
-        type: types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_START, class_id: class_id, folder_id: folder_id
+        type: types.FETCH_STUDENTS_ASSIGNMENT_INSTRUCTIONS_DOWNLOAD_START, attachment: attachment, class_id: class_id, folder_id: folder_id
     };
 };

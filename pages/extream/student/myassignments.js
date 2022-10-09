@@ -117,8 +117,8 @@ const MyAssignments = ({
 
     /** end debounce concepts */
 
-    const handleDownload = (e, item) => {
-        DownloadAssignmentInstruction(router.query.clasId, item.id);
+    const handleDownload = (item) => {
+        DownloadAssignmentInstruction(item.attachment, router.query.clasId, item.id);
     };
 
     return (
@@ -127,8 +127,8 @@ const MyAssignments = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={8}>
-                        <MainHeading 
-                            title={`My Assignments(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} 
+                        <MainHeading
+                            title={`My Assignments(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`}
                         />
                     </Grid>
                     <Grid
@@ -165,32 +165,32 @@ const MyAssignments = ({
                                 {item?.map((item, index) => (
                                     <Grid item md={4} xs={12}>
                                         <CardInfoView
-                                            key={index}
+                                            key={item.id}
                                             item={item}
-                                            isLoading={ isLoadingInstructions }
+                                            isLoading={isLoadingInstructions}
                                             isAvatar={true}
                                             isHeading={true}
                                             isTimer={true}
                                             isSubmit={true}
                                             isDownload={true}
-                                            handleDownload={ handleDownload }
+                                            handleDownload={handleDownload}
                                             statusColor={expiryDateBgColor(item.validity)}
-                                            submitPath={ { pathname: '/extream/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId, clasName: router.query.clasName, assName: item.name } } }
+                                            submitPath={{ pathname: '/extream/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId, clasName: router.query.clasName, assName: item.name } }}
                                         />
                                     </Grid>
                                 ))}
                             </Grid>
-                            <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                            <div style={{ marginLeft: '45%', marginTop: '25px' }}>
                                 <Pagination
-                                    count={ pageDetails?.totalPages }
-                                    onChange={ handleChange }
+                                    count={pageDetails?.totalPages}
+                                    onChange={handleChange}
                                     color="primary"
                                     variant="outlined"
                                     shape="rounded"
                                 />
                             </div>
                         </>
-                        : <ErrorBlock message={ ASSIGNMENT_NOT_FOUND } />
+                        : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
                     }
 
                 </>
@@ -209,7 +209,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetAssignmentData: (id, PaginationValue) => dispatch(GetAssignmentData(id, PaginationValue)),
-        DownloadAssignmentInstruction: (class_id, folder_id) => dispatch(DownloadAssignmentInstruction(class_id, folder_id)),
+        DownloadAssignmentInstruction: (attachment, class_id, folder_id) => dispatch(DownloadAssignmentInstruction(attachment, class_id, folder_id)),
     };
 };
 
