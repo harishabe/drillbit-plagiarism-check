@@ -131,8 +131,10 @@ const folderSubmission = ({
     });
 
     useEffect(() => {
-        folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
-    }, [folderId, paginationPayload]);
+        if (router.isReady) {
+            folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
+        }
+    }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
         let row = '';

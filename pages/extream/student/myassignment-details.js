@@ -110,15 +110,15 @@ const MyAssignmentDetails = ({
 
     useEffect(() => {
         if (router.isReady) {
-            GetSubmissionData(router.query.clasId, router.query.assId, paginationPayload);
+          GetSubmissionData(router.query.clasId, router.query.assId, paginationPayload);
         }
-    }, [router.isReady, router.query.clasId, router.query.assId, paginationPayload]);
+    }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
         if (router.isReady) {
-            GetSubmissionHeaderData(router.query.clasId, router.query.assId);
+          GetSubmissionHeaderData(router.query.clasId, router.query.assId);
         }
-    }, [router.isReady, router.query.clasId, router.query.assId]);
+    }, [router.isReady]);
 
     const handleDownload = () => {
         let url = `/${router.query.clasId}/assignments/${router.query.assId}/downloadHistory`;

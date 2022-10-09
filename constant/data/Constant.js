@@ -111,6 +111,8 @@ export const DOWNLOAD_CSV = {
     'CLASSROOM_REPORTS': 'Classroom Reports',
     'ASSIGNMENTS_LISTS': 'Assignments Lists',
     'STUDENTS_LISTS': 'Students Lists',
+    'QNA_LISTS': 'Q&A Lists',
+    'GRADING_LISTS': 'Grading Lists',
 }
 
 export const INSTRUCTOR_TEMPLATE_TITLE = 'Multiple_Instructor_Upload_Template';

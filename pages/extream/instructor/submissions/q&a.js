@@ -1,15 +1,40 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Tooltip, IconButton, Skeleton } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
 import { CardView, CommonTable } from '../../../../components';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
+import { DownloadIcon } from '../../../../assets/icon';
 import { useRouter } from 'next/router';
+import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
+import {
+    DownloadCsv,
+} from '../../../../redux/action/common/Submission/SubmissionAction';
+
+const SkeletonContainer = styled.div`
+    margin-top: 16px;
+    margin-right: 5px;
+`;
+
+const DownloadField = styled.div`
+    position:fixed;
+    top: 125px;
+    right:25px;
+`;
+
+const DownloadButton = styled.div`
+    margin-top:-5px;
+`;
 
 const QNA = ({
     GetSubmissionList,
+    DownloadCsv,
     ansData,
     queData,
-    isLoading
+    isLoading,
+    isLoadingDownload
 }) => {
 
     const router = useRouter();
@@ -58,8 +83,31 @@ const QNA = ({
         setRows([...arr]);
     }, [ansData]);
 
+    const handleDownload = () => {
+        DownloadCsv(BASE_URL_EXTREM + `/extreme/classes/${clasId}/assignments/${assId}/qa/download`, DOWNLOAD_CSV.QNA_LISTS);
+    };
+
     return (
         <React.Fragment>
+            <DownloadField>
+                <DownloadButton>
+                    { ansData?.length > 0 &&
+                        isLoadingDownload ?
+                        <SkeletonContainer>
+                            <Skeleton width={ 40 } />
+                        </SkeletonContainer>
+                        :
+                        <Tooltip title="Download csv" arrow>
+                            <IconButton
+                                aria-label="download-file"
+                                size="large"
+                                onClick={ handleDownload }>
+                                <DownloadIcon />
+                            </IconButton>
+                        </Tooltip>
+                    }
+                </DownloadButton>
+            </DownloadField>
             <CardView>
                 <CommonTable
                     isCheckbox={ false }
@@ -75,6 +123,7 @@ const QNA = ({
 
 const mapStateToProps = (state) => ({
     isLoading: state?.instructorMyFolders?.isLoadingSubmission,
+    isLoadingDownload: state?.submission?.isLoadingDownload,
     ansData: state?.instructorMyFolders?.submissionData?.answersDTO?.content,
     queData: state?.instructorMyFolders?.submissionData?.questions,
 });
@@ -82,6 +131,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+        DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
     };
 };
 
