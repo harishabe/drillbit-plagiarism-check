@@ -21,7 +21,7 @@ const END_POINTS_PRO = {
     ADMIN_REPOSITARY_UPLOAD_SINGLE_FILE: '/admin/directRepository/single',
     ADMIN_REPOSITARY_UPLOAD_MULTIPLE_FILE: '/admin/directRepository/multiple',
     ADMIN_REPOSITARY_UPLOAD_ZIP: '/admin/directRepository/zip',
-    ADMIN_REPOSITARY_UPLOAD_DRIVE: '/privateRepository/drive',
+    ADMIN_REPOSITARY_UPLOAD_DRIVE: '/admin/directRepository/drive',
     USER_REPOSITARY_UPLOAD_SINGLE_FILE: '/privateRepository/single',
     USER_REPOSITARY_UPLOAD_MULTIPLE_FILE: '/privateRepository/multiple',
     USER_REPOSITARY_UPLOAD_ZIP: '/privateRepository/zip',

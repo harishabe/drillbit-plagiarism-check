@@ -18,6 +18,7 @@ const END_POINTS = {
     ADMIN_REPOSITARY_DATA: '/extreme/admin/directRepositoryInbox',
     ADMIN_REPOSITARY_UPLOAD_SINGLE_FILE: '/extreme/admin/directRepository/single',
     ADMIN_REPOSITARY_UPLOAD_ZIP: '/extreme/admin/directRepository/zip',
+    ADMIN_REPOSITARY_UPLOAD_DRIVE: '/extreme/admin/directRepository/drive',
     ADMIN_REPOSITARY_UPLOAD_MULTIPLE_FILE: '/extreme/admin/directRepository/multiple',
     ADMIN_REPOSITARY_REMOVE: '/extreme/admin/removeRepository/',
     ADMIN_INTEGRATION_DATA: '/extreme/integrations/home',
