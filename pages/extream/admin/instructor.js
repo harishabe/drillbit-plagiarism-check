@@ -125,12 +125,12 @@ const Instructor = ({
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                            { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                            {
-                                'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                                'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                                'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
-                            }
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                        {
+                            'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                            'type': instructor.status === 'active' ? 'lock' : 'unlock',
+                            'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
+                        }
                         ]),
                     instructor.expiry_date,
                 );
@@ -393,40 +393,38 @@ const Instructor = ({
                 <InfoIcon /> */}
             </Box>
 
-            <CardView>
-                <>
-                    {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ marginLeft: '10px' }}>
-                        <Tooltip title='Delete' arrow>
-                            <IconButton onClick={deleteAllInstructor}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </div>}
-                    <CommonTable
-                        isCheckbox={true}
-                        isSorting={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        handleAction={handleAction}
-                        handleTableSort={handleTableSort}
-                        handleCheckboxSelect={handleCheckboxSelect}
-                        handleSingleSelect={handleSingleSelect}
-                        isLoading={isLoading}
-                        charLength={17}
-                        path=''
-                    />
+            <>
+                {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ marginLeft: '10px' }}>
+                    <Tooltip title='Delete' arrow>
+                        <IconButton onClick={deleteAllInstructor}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                </div>}
+                <CommonTable
+                    isCheckbox={true}
+                    isSorting={true}
+                    tableHeader={columns}
+                    tableData={rows}
+                    handleAction={handleAction}
+                    handleTableSort={handleTableSort}
+                    handleCheckboxSelect={handleCheckboxSelect}
+                    handleSingleSelect={handleSingleSelect}
+                    isLoading={isLoading}
+                    charLength={17}
+                    path=''
+                />
 
-                    <div style={{ marginLeft: '45%', marginTop: '25px' }}>
-                        <Pagination
-                            count={pageDetails?.totalPages}
-                            onChange={handleChange}
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </div>
-                </>
-            </CardView>
+                <div style={{ marginLeft: '45%', marginTop: '25px' }}>
+                    <Pagination
+                        count={pageDetails?.totalPages}
+                        onChange={handleChange}
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div>
+            </>
 
         </React.Fragment>
     );

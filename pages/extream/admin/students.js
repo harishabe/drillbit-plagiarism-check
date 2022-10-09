@@ -174,7 +174,7 @@ const Students = ({
         setPaginationPayload({ ...paginationPayload, paginationPayload });
     };
 
-    const handleCheckboxSelect = (e,value) => {
+    const handleCheckboxSelect = (e, value) => {
         e.preventDefault();
         if (value) {
             let rowData = rows?.map((rowItem) => {
@@ -293,42 +293,40 @@ const Students = ({
                 </Grid>
             </Box>
 
-            <CardView>
-                <>
-                    {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ marginLeft: '10px' }}>
-                        <Tooltip title='Delete' arrow>
-                            <IconButton onClick={deleteAllInstructor}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </div>}
+            <>
+                {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ marginLeft: '10px' }}>
+                    <Tooltip title='Delete' arrow>
+                        <IconButton onClick={deleteAllInstructor}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                </div>}
 
-                    <CommonTable
-                        isCheckbox={true}
-                        isSorting={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        handleAction={handleAction}
-                        handleTableSort={handleTableSort}
-                        handleCheckboxSelect={handleCheckboxSelect}
-                        handleSingleSelect={handleSingleSelect}
-                        isLoading={isLoading}
-                        charLength={ 10 }
-                        path=''
+                <CommonTable
+                    isCheckbox={true}
+                    isSorting={true}
+                    tableHeader={columns}
+                    tableData={rows}
+                    handleAction={handleAction}
+                    handleTableSort={handleTableSort}
+                    handleCheckboxSelect={handleCheckboxSelect}
+                    handleSingleSelect={handleSingleSelect}
+                    isLoading={isLoading}
+                    charLength={10}
+                    path=''
+                />
+
+
+                <div style={{ marginLeft: '45%', marginTop: '25px' }}>
+                    <Pagination
+                        count={pageDetails?.totalPages}
+                        onChange={handleChange}
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
                     />
-
-
-                    <div style={ { marginLeft: '45%', marginTop: '25px' } }>
-                        <Pagination
-                            count={pageDetails?.totalPages}
-                            onChange={handleChange}
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </div>
-                </>
-            </CardView>
+                </div>
+            </>
         </React.Fragment>
     );
 };

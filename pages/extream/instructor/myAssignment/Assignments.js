@@ -253,7 +253,7 @@ const Assignments = ({
                         <DownloadField>
                             <DownloadButton>
                                 {assignmentData?.length > 0 &&
-                  isLoadingDownload ?
+                                    isLoadingDownload ?
                                     <SkeletonContainer>
                                         <Skeleton style={{ marginTop: '10px' }} width={50} />
                                     </SkeletonContainer>
@@ -294,28 +294,28 @@ const Assignments = ({
             </AddButtonBottom>
             {
                 showDeleteWarning &&
-        <WarningDialog
-            warningIcon={<DeleteWarningIcon />}
-            message="Are you sure you want to delete ?"
-            handleYes={handleYesWarning}
-            handleNo={handleCloseWarning}
-            isOpen={true}
-        />
+                <WarningDialog
+                    warningIcon={<DeleteWarningIcon />}
+                    message="Are you sure you want to delete ?"
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
+                />
             }
             {
                 editAssignment &&
-        <CreateDrawer
-            title="Edit Student"
-            isShowAddIcon={false}
-            showDrawer={editAssignment}
-            handleDrawerClose={handleCloseDrawer}
-        >
-            <AssignmentForms
-                editData={editAssignmentData}
-            />
-        </CreateDrawer>
+                <CreateDrawer
+                    title="Edit Student"
+                    isShowAddIcon={false}
+                    showDrawer={editAssignment}
+                    handleDrawerClose={handleCloseDrawer}
+                >
+                    <AssignmentForms
+                        editData={editAssignmentData}
+                    />
+                </CreateDrawer>
             }
-            <CardView>
+            <>
                 <AddButtonBottom>
                     <CreateDrawer
                         isShowAddIcon={true}
@@ -342,7 +342,7 @@ const Assignments = ({
                     handleCheckboxSelect={handleCheckboxSelect}
                     handleSingleSelect={handleSingleSelect}
                     isLoading={isLoadingAssignment}
-                    path={ { pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, clasName: router.query.clasName, assId: assId } } }
+                    path={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, clasName: router.query.clasName, assId: assId } }}
                     charLength={9}
                 />
                 <PaginationContainer>
@@ -354,7 +354,7 @@ const Assignments = ({
                         shape='rounded'
                     />
                 </PaginationContainer>
-            </CardView>
+            </>
         </React.Fragment>
     );
 };

@@ -181,29 +181,29 @@ const Repository = ({
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
-                        <BreadCrumb item={ AdminBreadCrumb } />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
+                        <BreadCrumb item={AdminBreadCrumb} />
                     </Grid>
                 </Grid>
             </Box>
-            <Grid container spacing={ 2 }>
-                <Grid item md={ 8 } xs={ 12 }>
+            <Grid container spacing={2}>
+                <Grid item md={8} xs={12}>
                     <MainHeading
-                        title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
+                        title={`Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`}
                     />
                 </Grid>
-                <Grid item md={ 4 } xs={ 12 } align="right">
+                <Grid item md={4} xs={12} align="right">
                     <TextField
                         placeholder='Search'
-                        onChange={ debouncedResults }
-                        inputProps={ {
+                        onChange={debouncedResults}
+                        inputProps={{
                             style: {
                                 padding: 5,
                                 display: 'inline-flex',
                             },
-                        } }
+                        }}
                     />
                 </Grid>
             </Grid>
@@ -211,48 +211,46 @@ const Repository = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
+                    warningIcon={<DeleteWarningIcon />}
                     message="Are you sure you want to delete ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
 
             <AddButtonBottom>
                 <CreateDrawer
                     title="Upload File"
-                    isShowAddIcon={ true }
-                    navigateToMultiFile={ true }
-                    handleNavigateMultiFile={ handleUploadFile }
+                    isShowAddIcon={true}
+                    navigateToMultiFile={true}
+                    handleNavigateMultiFile={handleUploadFile}
                 >
                 </CreateDrawer>
             </AddButtonBottom>
 
-            <CardView>
-                <>
-                    <CommonTable
-                        isCheckbox={ false }
-                        isSorting={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        handleAction={ handleAction }
-                        handleTableSort={ handleTableSort }
-                        charLength={ 10 }
-                        isLoading={ isLoadingRepo }
-                    />
+            <>
+                <CommonTable
+                    isCheckbox={false}
+                    isSorting={true}
+                    tableHeader={columns}
+                    tableData={rows}
+                    handleAction={handleAction}
+                    handleTableSort={handleTableSort}
+                    charLength={10}
+                    isLoading={isLoadingRepo}
+                />
 
-                    <div style={ { marginLeft: '40%', marginTop: '25px' } }>
-                        <Pagination
-                            count={ pageDetails?.totalPages }
-                            onChange={ handlePagination }
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </div>
-                </>
-            </CardView>
+                <div style={{ marginLeft: '40%', marginTop: '25px' }}>
+                    <Pagination
+                        count={pageDetails?.totalPages}
+                        onChange={handlePagination}
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </div>
+            </>
         </React.Fragment>
     );
 };

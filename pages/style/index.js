@@ -19,6 +19,7 @@ export const StatusColor = styled.div`
     padding: 5px 20px;
     text-align: center;
     border-radius: 5px;
+    font-weight:600;
 `;
 
 export const CardStatusColor = styled.div`

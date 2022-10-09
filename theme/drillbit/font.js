@@ -82,6 +82,10 @@ const font = {
         fontSize: '14px',
         lineHeight: '20px',
         color: '#666666'
+    },
+    body2_3: {
+        fontFamily: fontName,
+        fontSize: '14px',
     }
 };
 

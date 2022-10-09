@@ -364,7 +364,7 @@ const folderSubmission = ({
                     </Grid>
                 </Grid>
             </Box>
-            <CardView>
+            <>
 
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { textAlign: 'right' } }>
                     <Tooltip title='Delete' arrow>
@@ -428,7 +428,7 @@ const folderSubmission = ({
                         shape="rounded"
                     />
                 </PaginationContainer>
-            </CardView>
+            </>
         </React.Fragment>
     );
 };

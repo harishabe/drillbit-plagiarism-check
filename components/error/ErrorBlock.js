@@ -8,9 +8,9 @@ const useStyles = makeStyles((theme) => ({
     errorContainer: {
         textAlign: 'center',
         border: '1px solid gray',
-        padding: '15px',
         borderRadius: '10px',
-        marginTop: '20px',
+        padding:'15px',
+        margin:'20px'
     },
     color: {
         color: 'gray'

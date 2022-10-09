@@ -145,7 +145,7 @@ const ReportView = ({
                     data.email_id,
                     data.number_of_pages,
                     data.paper_id,
-                    <SimilarityStatus percent={ data.similarity } />,
+                    <SimilarityStatus percent={data.similarity} />,
                     formatDate(data.submission_date),
                     data.title,
                 );
@@ -155,142 +155,140 @@ const ReportView = ({
     }, [submissionsViewDownloadData]);
 
     return (
-        <CardView>
-            <>
-                {isLoadingViewReport ?
-                    <>
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                    </>
-                    :
-                    <>
-                        {
-                            reportName === 'assignments' &&
-                            <>
-                                {isLoadingDownload ? <Skeleton /> :
-                                    <Tooltip title="Download Assignments" arrow>
-                                        <IconButton sx={{
-                                            position: 'fixed',
-                                            padding: '20px',
-                                            top: '9px',
-                                            right: '74px'
-                                        }}
-                                        onClick={handleDownload}>
-                                            <DownloadButton >
-                                                <DownloadIcon />
-                                            </DownloadButton>
-                                        </IconButton>
-                                    </Tooltip>
-                                }
-                                <CommonTable
-                                    isCheckbox={false}
-                                    isSorting={ true }
-                                    tableHeader={ assignmentsColumns }
-                                    tableData={rows}
-                                    charLength={10}
-                                    path=''
-                                />
-                            </>
-                        }
-
-                        {
-                            reportName === 'classes' &&
-                            <>
-                                {isLoadingDownload ? <Skeleton /> :
-                                    <Tooltip title="Download classes" arrow>
-                                        <IconButton sx={{
-                                            position: 'fixed',
-                                            padding: '20px',
-                                            top: '9px',
-                                            right: '74px'
-                                        }}
-                                        onClick={handleDownload}>
-                                            <DownloadButton >
-                                                <DownloadIcon />
-                                            </DownloadButton>
-                                        </IconButton>
-                                    </Tooltip>
-                                }
-                                <CommonTable
-                                    isCheckbox={false}
-                                    isSorting={ true }
-                                    tableHeader={ classesColumns }
-                                    tableData={rows}
-                                    charLength={10}
-                                    path=''
-                                />
-                            </>
-                        }
-
-                        {
-                            reportName === 'submissions' &&
-                            <>
-                                <Tooltip title="Download submissions" arrow>
+        <>
+            {isLoadingViewReport ?
+                <>
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                </>
+                :
+                <>
+                    {
+                        reportName === 'assignments' &&
+                        <>
+                            {isLoadingDownload ? <Skeleton /> :
+                                <Tooltip title="Download Assignments" arrow>
                                     <IconButton sx={{
                                         position: 'fixed',
                                         padding: '20px',
                                         top: '9px',
                                         right: '74px'
                                     }}
-                                    onClick={setOpen}>
+                                        onClick={handleDownload}>
                                         <DownloadButton >
                                             <DownloadIcon />
                                         </DownloadButton>
                                     </IconButton>
                                 </Tooltip>
-                                <CommonTable
-                                    isCheckbox={false}
-                                    isSorting={ true }
-                                    tableHeader={ submissionsColumns }
-                                    tableData={rows}
-                                    charLength={10}
-                                    path=''
-                                />
-                            </>
+                            }
+                            <CommonTable
+                                isCheckbox={false}
+                                isSorting={true}
+                                tableHeader={assignmentsColumns}
+                                tableData={rows}
+                                charLength={10}
+                                path=''
+                            />
+                        </>
+                    }
 
-                        }
+                    {
+                        reportName === 'classes' &&
+                        <>
+                            {isLoadingDownload ? <Skeleton /> :
+                                <Tooltip title="Download classes" arrow>
+                                    <IconButton sx={{
+                                        position: 'fixed',
+                                        padding: '20px',
+                                        top: '9px',
+                                        right: '74px'
+                                    }}
+                                        onClick={handleDownload}>
+                                        <DownloadButton >
+                                            <DownloadIcon />
+                                        </DownloadButton>
+                                    </IconButton>
+                                </Tooltip>
+                            }
+                            <CommonTable
+                                isCheckbox={false}
+                                isSorting={true}
+                                tableHeader={classesColumns}
+                                tableData={rows}
+                                charLength={10}
+                                path=''
+                            />
+                        </>
+                    }
 
-                        {open &&
-                            <>
-                                <DialogModal
-                                    headingTitle="Mail"
-                                    isOpen={true}
-                                    fullWidth="sm"
-                                    maxWidth="sm"
-                                    handleClose={closeSendDialog}
-                                >
-                                    <form onSubmit={handleSubmit(onSend)}>
-                                        <Grid container>
-                                            {FormJson?.map((field, i) => (
-                                                <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
-                                                    <FormComponent
-                                                        key={i}
-                                                        field={field}
-                                                        control={control}
-                                                        isLoading={isLoadingSubmission}
-                                                    />
-                                                </Grid>
-                                            ))}
-                                        </Grid>
-                                    </form>
-                                </DialogModal>
-                            </>
-                        }
-                    </>
-                }
+                    {
+                        reportName === 'submissions' &&
+                        <>
+                            <Tooltip title="Download submissions" arrow>
+                                <IconButton sx={{
+                                    position: 'fixed',
+                                    padding: '20px',
+                                    top: '9px',
+                                    right: '74px'
+                                }}
+                                    onClick={setOpen}>
+                                    <DownloadButton >
+                                        <DownloadIcon />
+                                    </DownloadButton>
+                                </IconButton>
+                            </Tooltip>
+                            <CommonTable
+                                isCheckbox={false}
+                                isSorting={true}
+                                tableHeader={submissionsColumns}
+                                tableData={rows}
+                                charLength={10}
+                                path=''
+                            />
+                        </>
 
-                <PaginationContainer>
-                    <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handleChange }
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </PaginationContainer>
-            </>
-        </CardView>
+                    }
+
+                    {open &&
+                        <>
+                            <DialogModal
+                                headingTitle="Mail"
+                                isOpen={true}
+                                fullWidth="sm"
+                                maxWidth="sm"
+                                handleClose={closeSendDialog}
+                            >
+                                <form onSubmit={handleSubmit(onSend)}>
+                                    <Grid container>
+                                        {FormJson?.map((field, i) => (
+                                            <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
+                                                <FormComponent
+                                                    key={i}
+                                                    field={field}
+                                                    control={control}
+                                                    isLoading={isLoadingSubmission}
+                                                />
+                                            </Grid>
+                                        ))}
+                                    </Grid>
+                                </form>
+                            </DialogModal>
+                        </>
+                    }
+                </>
+            }
+
+            <PaginationContainer>
+                <Pagination
+                    count={pageDetails?.totalPages}
+                    onChange={handleChange}
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </PaginationContainer>
+        </>
     );
 };
 
