@@ -31,8 +31,8 @@ const toastrValidation = (response) => {
         success(response?.data?.message);
     } else if (response?.status === 202) {
         success(response?.data?.message);
-    } else if (response?.response?.status === 401) {        
-        error(response?.response?.data?.error);
+    } else if (response?.response?.status === 401) {
+        error(response?.response?.data?.error || response?.response?.data?.message);
     } else if (response?.response?.status === 400) {
         error(response?.response?.data?.message);
     } else if (response?.response?.data?.status === 409) {

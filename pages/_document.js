@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
                 <body>
                     <div id="page-transition"></div>
                     <Main />
-                    <NextScript />
+                    <NextScript />                    
                 </body>
             </Html>
         );
