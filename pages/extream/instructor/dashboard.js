@@ -80,7 +80,7 @@ const Dashboard = ({
     }, [instructorDashboardData]);
 
     const handlePage = (e, item) => {
-        router.push({ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: item?.class_id, assId: item?.ass_id } });
+        router.push({ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: item?.class_id, assId: item?.ass_id, clasName: item?.class_name, assName: item?.assignment_name } });
     };
 
     return (
