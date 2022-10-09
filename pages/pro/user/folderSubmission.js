@@ -36,7 +36,7 @@ import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/ico
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
-import { BASE_URL_PRO } from '../../../utils/BaseUrl';
+import { BASE_URL_PRO, BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
 
@@ -51,9 +51,9 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action) {
+function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key) {
     return {
-        id, name, title, original_fn, grammar, percent, paper_id, date_up, action
+        id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key
     };
 }
 
@@ -154,7 +154,8 @@ const folderSubmission = ({
                     formatDate(submission.date_up),
                     [
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }
-                    ]
+                    ],
+                    submission.d_key
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -304,6 +305,15 @@ const folderSubmission = ({
         router.push({ pathname: '/pro/user/uploadFileSubmission', query: router.query });
     };
 
+    /**
+  * show analysis page
+  */
+    const handleShowAnalysisPage = (e, row) => {
+        let token = localStorage.getItem('token');
+        let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
+        window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+    };
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -372,6 +382,7 @@ const folderSubmission = ({
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
                     downloadSubmissionFile={ handleOriginalFileDownload }
+                    showAnalysisPage={ handleShowAnalysisPage }
                     isLoading={ isLoadingSubmission }
                     charLength={ 10 }
                     path=''

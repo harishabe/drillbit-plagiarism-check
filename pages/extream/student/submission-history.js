@@ -31,8 +31,8 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
-function createData(name, paper_id, date_up, percent, grammar, score, status, action) {
-    return { name, paper_id, date_up, percent, grammar, score, status, action };
+function createData(name, paper_id, date_up, percent, grammar, score, status, action, d_key) {
+    return { name, paper_id, date_up, percent, grammar, score, status, action, d_key };
 }
 
 const SubmissionHistory = ({
@@ -73,7 +73,8 @@ const SubmissionHistory = ({
                     submission.status,
                     [
                         { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },
-                    ]
+                    ],
+                    submission.d_key
                 );
             arr.push(row);
         });
