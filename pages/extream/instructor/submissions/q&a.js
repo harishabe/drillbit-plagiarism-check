@@ -91,32 +91,30 @@ const QNA = ({
         <React.Fragment>
             <DownloadField>
                 <DownloadButton>
-                    { ansData?.length > 0 &&
+                    {ansData?.length > 0 &&
                         isLoadingDownload ?
                         <SkeletonContainer>
-                            <Skeleton width={ 40 } />
+                            <Skeleton width={40} />
                         </SkeletonContainer>
                         :
                         <Tooltip title="Download csv" arrow>
                             <IconButton
                                 aria-label="download-file"
                                 size="large"
-                                onClick={ handleDownload }>
+                                onClick={handleDownload}>
                                 <DownloadIcon />
                             </IconButton>
                         </Tooltip>
                     }
                 </DownloadButton>
             </DownloadField>
-            <CardView>
-                <CommonTable
-                    isCheckbox={ false }
-                    isSorting={ true }
-                    tableHeader={ columns }
-                    tableData={ rows }
-                    isLoading={ isLoading }
-                />
-            </CardView>
+            <CommonTable
+                isCheckbox={false}
+                isSorting={true}
+                tableHeader={columns}
+                tableData={rows}
+                isLoading={isLoading}
+            />
         </React.Fragment>
     );
 };

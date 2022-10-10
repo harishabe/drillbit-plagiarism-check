@@ -108,49 +108,47 @@ const Grading = ({
         <React.Fragment>
             {
                 showFeedbackForm &&
-        <CreateDrawer
-            title=""
-            isShowAddIcon={ false }
-            showDrawer={ showFeedbackForm }
-            handleDrawerClose={ handleCloseDrawer }
-        >
-            <FeedbackForm
-                clasId={ clasId }
-                assId={ assId }
-                feedbackData={ feedbackData }
-                gradingData={ gradingData }
-            />
-        </CreateDrawer>
+                <CreateDrawer
+                    title=""
+                    isShowAddIcon={false}
+                    showDrawer={showFeedbackForm}
+                    handleDrawerClose={handleCloseDrawer}
+                >
+                    <FeedbackForm
+                        clasId={clasId}
+                        assId={assId}
+                        feedbackData={feedbackData}
+                        gradingData={gradingData}
+                    />
+                </CreateDrawer>
             }
             <DownloadField>
                 <DownloadButton>
-                    { gradingData?.length > 0 &&
+                    {gradingData?.length > 0 &&
                         isLoadingDownload ?
                         <SkeletonContainer>
-                            <Skeleton width={ 40 } />
+                            <Skeleton width={40} />
                         </SkeletonContainer>
                         :
                         <Tooltip title="Download csv" arrow>
                             <IconButton
                                 aria-label="download-file"
                                 size="large"
-                                onClick={ handleDownload }>
+                                onClick={handleDownload}>
                                 <DownloadIcon />
                             </IconButton>
                         </Tooltip>
                     }
                 </DownloadButton>
             </DownloadField>
-            <CardView>
-                <CommonTable
-                    isCheckbox={false}
-                    isSorting={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    isLoading={isLoading}
-                    handleAction={ handleAction }
-                />
-            </CardView>
+            <CommonTable
+                isCheckbox={false}
+                isSorting={true}
+                tableHeader={columns}
+                tableData={rows}
+                isLoading={isLoading}
+                handleAction={handleAction}
+            />
         </React.Fragment>
     );
 };

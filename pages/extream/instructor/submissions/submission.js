@@ -137,7 +137,7 @@ const Submission = ({
                 submission.title,
                 submission.original_fn,
                 submission.grammar,
-                <SimilarityStatus percent={ submission.percent } />,
+                <SimilarityStatus percent={submission.percent} />,
                 submission.paper_id,
                 formatDate(submission.date_up),
                 [
@@ -325,29 +325,29 @@ const Submission = ({
 
     return (
         <React.Fragment>
-            <Grid item container direction='row' justifyContent={ 'right' }>
+            <Grid item container direction='row' justifyContent={'right'}>
                 <DownloadField>
                     <DownloadButton>
                         <Tooltip title="Refresh" arrow>
                             <IconButton
                                 aria-label="download-file"
                                 size="large"
-                                onClick={ handleRefresh }
+                                onClick={handleRefresh}
                             >
                                 <RefreshOutlinedIcon />
                             </IconButton>
                         </Tooltip>
-                        { submissionData?.length > 0 &&
+                        {submissionData?.length > 0 &&
                             isLoadingDownload ?
                             <SkeletonContainer>
-                                <Skeleton width={ 40 } />
+                                <Skeleton width={40} />
                             </SkeletonContainer>
                             :
                             <Tooltip title="Download csv" arrow>
                                 <IconButton
                                     aria-label="download-file"
                                     size="large"
-                                    onClick={ handleDownload }>
+                                    onClick={handleDownload}>
                                     <DownloadIcon />
                                 </IconButton>
                             </Tooltip>
@@ -357,27 +357,27 @@ const Submission = ({
                 <SearchField>
                     <TextField
                         placeholder='Search'
-                        onChange={ debouncedResults }
-                        inputProps={ {
+                        onChange={debouncedResults}
+                        inputProps={{
                             style: {
                                 padding: 5,
                                 display: 'inline-flex',
                             },
-                        } }
+                        }}
                     />
                 </SearchField>
             </Grid>
             <AddButtonBottom>
                 <CreateDrawer
                     title="Upload File"
-                    isShowAddIcon={ true }
-                    navigateToMultiFile={ true }
-                    handleNavigateMultiFile={ handleUploadFile }
+                    isShowAddIcon={true}
+                    navigateToMultiFile={true}
+                    handleNavigateMultiFile={handleUploadFile}
                 >
                     <SubmissionForm
-                        clasId={ clasId }
-                        folderId={ assId }
-                        isLoadingUpload={ isLoadingUpload }
+                        clasId={clasId}
+                        folderId={assId}
+                        isLoadingUpload={isLoadingUpload}
                     />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -385,11 +385,11 @@ const Submission = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
+                    warningIcon={<DeleteWarningIcon />}
                     message="Are you sure you want to delete ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
 
@@ -397,60 +397,57 @@ const Submission = ({
                 editAssignment &&
                 <CreateDrawer
                     title="Edit Student"
-                        isShowAddIcon={ false }
-                        showDrawer={ editAssignment }
-                    >
-                        <AssignmentForm
-                            editData={ editAssignmentData }
-                        />
-                    </CreateDrawer>
+                    isShowAddIcon={false}
+                    showDrawer={editAssignment}
+                >
+                    <AssignmentForm
+                        editData={editAssignmentData}
+                    />
+                </CreateDrawer>
             }
 
-            <CardView>
-                { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { textAlign: 'right' } }>
-                    <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllAssignment }>
-                            <DeleteIcon />
-                        </IconButton>
-                    </Tooltip>
-                </div> }
+            {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ textAlign: 'right' }}>
+                <Tooltip title='Delete' arrow>
+                    <IconButton onClick={deleteAllAssignment}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Tooltip>
+            </div>}
 
-                <CommonTable
-                    isCheckbox={ true }
-                    isSorting={ true }
-                    tableHeader={ columns }
-                    tableData={ rows }
-                    handleAction={ handleAction }
-                    handleCheckboxSelect={ handleCheckboxSelect }
-                    handleSingleSelect={ handleSingleSelect }
-                    handleTableSort={ handleTableSort }
-                    downloadSubmissionFile={ handleOriginalFileDownload }
-                    showAnalysisPage={ handleShowAnalysisPage }
-                    isLoading={ isLoading }
-                    charLength={ 10 }
+            <CommonTable
+                isCheckbox={true}
+                isSorting={true}
+                tableHeader={columns}
+                tableData={rows}
+                handleAction={handleAction}
+                handleCheckboxSelect={handleCheckboxSelect}
+                handleSingleSelect={handleSingleSelect}
+                handleTableSort={handleTableSort}
+                downloadSubmissionFile={handleOriginalFileDownload}
+                showAnalysisPage={handleShowAnalysisPage}
+                isLoading={isLoading}
+                charLength={10}
+            />
+
+            {
+                showDownloadWarning &&
+                <WarningDialog
+                    message="Are you sure you want to download ?"
+                    handleYes={handleFileDownloadYesWarning}
+                    handleNo={handleFileDownloadCloseWarning}
+                    isOpen={true}
                 />
+            }
 
-                {
-                    showDownloadWarning &&
-                    <WarningDialog
-                        message="Are you sure you want to download ?"
-                        handleYes={ handleFileDownloadYesWarning }
-                        handleNo={ handleFileDownloadCloseWarning }
-                        isOpen={ true }
-                    />
-                }
-
-                <PaginationContainer>
-                    <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handlePagination }
-                        color='primary'
-                        variant='outlined'
-                        shape='rounded'
-                    />
-                </PaginationContainer>
-
-            </CardView>
+            <PaginationContainer>
+                <Pagination
+                    count={pageDetails?.totalPages}
+                    onChange={handlePagination}
+                    color='primary'
+                    variant='outlined'
+                    shape='rounded'
+                />
+            </PaginationContainer>
         </React.Fragment>
     );
 };

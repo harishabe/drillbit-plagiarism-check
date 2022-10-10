@@ -153,7 +153,7 @@ const CommonTable = ({
                                                                             {column.id === 'percent' ?
                                                                                 <TableCell key={column.id} align={column.align}>
                                                                                     {value?.props?.percent === '--' ?
-                                                                                        <div style={{ textAlign: 'center' }}><BeatLoader size="small" color="#3672FF" /></div> :
+                                                                                        <div style={{ textAlign: 'center' }}><BeatLoader size={10} color="#3672FF" /></div> :
                                                                                         <Tooltip title={'Similarity Report'} arrow>
                                                                                             <a style={{fontWeight:'600'}} href='#' onClick={(e) => showAnalysisPage(e, row)}>
                                                                                                 {value}
