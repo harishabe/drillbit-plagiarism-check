@@ -116,6 +116,7 @@ const Dashboard = ({
                                 <>
                                     { instructorDashboardData?.data?.recent_submissions?.length > 0 ?
                                         <RecentSubmissions
+                                            isUser={ true }
                                             recentSubmission={ instructorDashboardData?.data?.recent_submissions }
                                             handlePage={ handlePage }
                                         />

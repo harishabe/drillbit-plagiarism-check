@@ -107,7 +107,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Students'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_sudents }
+                            count={ isLoading ? '' : instructorDashboardData?.data?.studentAccountUsage?.usedAccounts + '/' + instructorDashboardData?.data?.studentAccountUsage?.totalAccounts }
                             icon={ <NoStudentIcon /> }
                         />
                     </Grid>

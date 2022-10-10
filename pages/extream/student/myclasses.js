@@ -141,7 +141,7 @@ const MyClasses = ({
                         <>
                             <Grid container spacing={2}>
                                 {item?.map((item, index) => (
-                                    <Grid item md={4} xs={12}>
+                                    <Grid key={ index } item md={ 4 } xs={ 12 }>
                                         <CardInfoView
                                             key={index}
                                             isNextPath={true}
