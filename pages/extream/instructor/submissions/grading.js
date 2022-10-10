@@ -9,7 +9,7 @@ import { GetSubmissionList } from '../../../../redux/action/instructor/Instructo
 import { useRouter } from 'next/router';
 import FeedbackForm from '../form/FeedbackForm';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
-import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, BACKEND_NO_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
 import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
@@ -75,7 +75,7 @@ const Grading = ({
             row = createData(
                 grading.stduentName,
                 grading.paper_id,
-                grading.obtained_marks === '--' ? grading.obtained_marks : grading.obtained_marks + '/' + grading.max_marks,
+                grading.obtained_marks === BACKEND_NO_DATA_PLACEHOLDER ? grading.obtained_marks : grading.obtained_marks + '/' + grading.max_marks,
                 <SimilarityStatus percent={grading.similarity} />,
                 [
                     { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },

@@ -65,6 +65,7 @@ export const TABLE_NEXT_PAGE = "Next";
  * displaying -- as a placeholder if no data found.
  */
 export const NO_DATA_PLACEHOLDER = '--';
+export const BACKEND_NO_DATA_PLACEHOLDER = '--';
 export const NA_DATA_PLACEHOLDER = 'NA';
 
 /**
