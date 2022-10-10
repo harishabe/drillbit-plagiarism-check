@@ -52,8 +52,8 @@ const columns = [
     { id: 'action', label: 'Actions' }
 ];
 
-function createData(user_id, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date) {
-    return { user_id, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date };
+function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date) {
+    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date };
 };
 
 const AddButtonBottom = styled.div`
@@ -115,6 +115,7 @@ const Users = ({
             row =
                 createData(
                     instructor.id,
+                    instructor.role,
                     instructor.name,
                     instructor.username,
                     formatDate(instructor.created_date),

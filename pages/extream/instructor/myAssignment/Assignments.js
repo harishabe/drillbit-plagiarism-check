@@ -323,7 +323,7 @@ const Assignments = ({
                         <AssignmentForms />
                     </CreateDrawer>
                 </AddButtonBottom>
-                {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ textAlign: 'right' }}>
+                { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={deleteAllAssignment}>
                             <DeleteIcon />

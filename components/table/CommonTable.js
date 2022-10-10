@@ -19,6 +19,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
+import { Role } from '../../constant/data';
 import {
     TABLE_HEADER_SORT_DISABLE,
     TABLE_BODY_ALLOW_ICON,
@@ -123,7 +124,7 @@ const CommonTable = ({
                                     <TableRow hover key={row.id}>
                                         {isCheckbox &&
                                             <TableCell padding="checkbox" className={classes.padding}>
-                                                <Checkbox onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
+                                                <Checkbox disabled={ (row.role === Role.admin) || (row.role === Role.proAdmin) } onChange={ (e) => handleSingleSelect(e, row) } checked={ row.isSelected } />
                                             </TableCell>}
                                         {tableHeader.map((column,index) => {
                                             const value = row[column.id];
