@@ -18,7 +18,7 @@ import {
 } from '../../../components';
 import { GetAllFolders, DeleteFolder } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
-import MyFoldersForm from './form/MyFolderForm';
+import MyFoldersForms from './form/MyFolderForms';
 import { FOLDERS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 import { PaginationContainer } from '../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
@@ -191,7 +191,7 @@ const MyFolder = ({
                 <CreateDrawer
                     title="Create Folder"
                     isShowAddIcon={ true }>
-                    <MyFoldersForm
+                    <MyFoldersForms
                         isLoadingFolder={ isLoadingFolder }
                     />
                 </CreateDrawer>
@@ -205,7 +205,7 @@ const MyFolder = ({
                     showDrawer={ editFolder }
                     handleDrawerClose={ handleCloseDrawer }
                 >
-                    <MyFoldersForm
+                        <MyFoldersForms
                         editData={ editFolderData }
                     />
                 </CreateDrawer>

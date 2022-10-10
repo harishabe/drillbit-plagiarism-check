@@ -98,7 +98,7 @@ const ListView2 = ({
                                                             </Avatar>
                                                         </ListItemAvatar>
                                                     </Grid>
-                                                    <Grid item xs={9}>
+                                                    <Grid item xs={ 8 }>
                                                         <ListItemText
                                                             disableTypography
                                                             className={classes.itemText}
@@ -121,9 +121,8 @@ const ListView2 = ({
                                                             }
                                                         />
                                                     </Grid>
-                                                    <Grid item xs>
+                                                    <Grid item xs={ 3 }>
                                                         <ListItemText
-                                                            style={{ textAlign: 'right' }}
                                                             disableTypography
                                                             className={classes.right}
                                                             primary={<SubTitle2 title={'Asked : ' + formatDate(item.question_date)} />}
