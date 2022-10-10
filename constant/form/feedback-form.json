@@ -1,6 +1,6 @@
 [
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
         "type": "number",
         "id": "marks",
         "name": "marks",

@@ -9,6 +9,7 @@ import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
+import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
 const UserForm = ({
     CreateInstructorData,
@@ -48,7 +49,7 @@ const UserForm = ({
             if (allocationDocs > remainingDocuments) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
-                        item['errorMsg'] = 'The entered documents should not be more than available documents';
+                        item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
                     }
                     if (item?.field_type === 'button') {
                         item['isDisabled'] = true;
@@ -71,7 +72,7 @@ const UserForm = ({
             if (grammarDocs > remainingGrammar) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['errorMsg'] = 'The entered documents should not be more than available documents';
+                        item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
                     }
                     if (item?.field_type === 'button') {
                         item['isDisabled'] = true;
@@ -93,7 +94,7 @@ const UserForm = ({
         if ((new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
-                    item['info'] = 'The entered date should not be greater than the expiry date.';
+                    item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
                 }
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = true;
@@ -104,7 +105,7 @@ const UserForm = ({
         } else if ((new Date().getTime() > new Date(expiryDate).getTime()) && !(new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
-                    item['info'] = 'The entered date should not less than the current date.';
+                    item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
                 }
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = true;
