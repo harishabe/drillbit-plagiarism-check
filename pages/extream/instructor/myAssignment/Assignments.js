@@ -70,7 +70,7 @@ const columns = [
     { id: 'id', label: 'Assignment ID' },
     { id: 'assignment_name', label: 'Assignment Name' },
     { id: 'status', label: 'Status' },
-    { id: 'start_date', label: 'Creation Date' },
+    { id: 'start_date', label: 'Start Date' },
     { id: 'end_date', label: 'End Date' },
     { id: 'action', label: 'Actions' },
 ];
