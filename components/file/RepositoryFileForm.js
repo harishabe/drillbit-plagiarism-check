@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
 import { Grid, InputLabel, TextField, Button, Autocomplete } from '@mui/material';
-import { EllipsisText, SubTitle } from '..';
+import { EllipsisText } from '..';
 import {
     UPLOAD_FILE_AUTHOR_NAME,
     UPLOAD_FILE_PAPER_TITLE,

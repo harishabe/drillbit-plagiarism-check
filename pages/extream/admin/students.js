@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, TextField, Pagination, IconButton } from '@mui/material';
 import {
-    CardView,
     CommonTable,
     MainHeading,
     WarningDialog,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, Box } from '@mui/material';
 import Admin from '../../../layouts/Admin';
 import {
@@ -17,11 +17,8 @@ import { UPLOAD_TITLE_CONSTANT } from '../../../constant/data/Constant';
 import { UPLOAD_SUPPORTED_FILES } from '../../../constant/data/Constant';
 
 const uploadFileRepository = () => {
-    const [activeTab, setActiveTab] = useState(0);
 
-    const handleAPI = (value) => {
-        setActiveTab(value);
-    };
+    const handleAPI = () => {};
 
     const AdminBreadCrumb = [
         {

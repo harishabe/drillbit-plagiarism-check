@@ -497,7 +497,7 @@ const MyFoldersForms = ({
                     'label': btnLabel,
                     'isDisabled': disabledButton
                 } }
-                    isLoading={ isLoadingFolder }
+                isLoading={ isLoadingFolder }
                 />
             </form>
         </>

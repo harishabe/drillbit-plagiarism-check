@@ -12,7 +12,6 @@ import { Pagination, IconButton } from '@mui/material';
 import { TextField } from '@mui/material';
 import Instructor from '../../../layouts/Instructor';
 import {
-    CardView,
     CommonTable,
     BreadCrumb,
     MainHeading,
@@ -351,22 +350,6 @@ const folderSubmission = ({
                                 }
                             </DownloadButton>
                         </DownloadField>
-                        {/* <DownloadField>
-                            {folderSubmissionData?.length > 0 &&
-                                isLoadingDownload ? <SkeletonContainer>
-                                    <Skeleton width={50} />
-                                </SkeletonContainer> :
-                                <Tooltip title="Download csv" arrow>
-                                    <IconButton
-                                        color="primary"
-                                        aria-label="download-file"
-                                        size="large"
-                                        onClick={handleDownload}>
-                                        <DownloadIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            }
-                        </DownloadField> */}
                         <TextField
                             placeholder='Search'
                             onChange={debouncedResults}

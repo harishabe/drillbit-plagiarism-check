@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import { useForm } from 'react-hook-form';
 import { Grid, Tooltip } from '@mui/material';
 import {
-    CardView,
     CommonTable,
     FormComponent,
     DialogModal,
@@ -175,7 +174,7 @@ const ReportView = ({
                                         top: '9px',
                                         right: '74px'
                                     }}
-                                        onClick={handleDownload}>
+                                    onClick={handleDownload}>
                                         <DownloadButton >
                                             <DownloadIcon />
                                         </DownloadButton>
@@ -204,7 +203,7 @@ const ReportView = ({
                                         top: '9px',
                                         right: '74px'
                                     }}
-                                        onClick={handleDownload}>
+                                    onClick={handleDownload}>
                                         <DownloadButton >
                                             <DownloadIcon />
                                         </DownloadButton>
@@ -232,7 +231,7 @@ const ReportView = ({
                                     top: '9px',
                                     right: '74px'
                                 }}
-                                    onClick={setOpen}>
+                                onClick={setOpen}>
                                     <DownloadButton >
                                         <DownloadIcon />
                                     </DownloadButton>

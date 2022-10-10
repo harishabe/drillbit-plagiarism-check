@@ -12,7 +12,6 @@ import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
 import Instructor from '../../../../layouts/Instructor';
 import {
-    CardView,
     CommonTable,
     StatusDot,
     CreateDrawer,

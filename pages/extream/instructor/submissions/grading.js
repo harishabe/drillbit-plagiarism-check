@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Tooltip, IconButton, Skeleton } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
-import { CardView, CommonTable, SimilarityStatus, CreateDrawer } from '../../../../components';
+import { CommonTable, SimilarityStatus, CreateDrawer } from '../../../../components';
 import { MessageExclamatoryIcon, DownloadIcon } from '../../../../assets/icon';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';

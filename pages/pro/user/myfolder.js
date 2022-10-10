@@ -205,7 +205,7 @@ const MyFolder = ({
                     showDrawer={ editFolder }
                     handleDrawerClose={ handleCloseDrawer }
                 >
-                        <MyFoldersForms
+                    <MyFoldersForms
                         editData={ editFolderData }
                     />
                 </CreateDrawer>

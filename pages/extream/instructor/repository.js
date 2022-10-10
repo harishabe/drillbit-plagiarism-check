@@ -11,7 +11,6 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     BreadCrumb,
     MainHeading,
-    CardView,
     CommonTable,
     CreateDrawer,
     WarningDialog

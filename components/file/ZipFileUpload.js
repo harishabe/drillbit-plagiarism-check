@@ -111,7 +111,7 @@ const ZipFileUpload = ({
     };
 
     useEffect(() => {
-        if (extractedFileData?.status === 200) {            
+        if (extractedFileData?.status === 200) {
             router.push(routerObj);
             UploadZipFileDataClear();
         }
@@ -130,9 +130,8 @@ const ZipFileUpload = ({
                     <Grid item md={12} xs={12}>
                         <DragDropArea>
                             <UploadFileIcon />
-                            <SubTitle1 title={ allowedFormat } />
-                            <SubTitle1 title={ notAllowedFormat } />
-                            {/* <Title1 title='Drag and drop, or ' /> */}
+                            <SubTitle1 title={allowedFormat} />
+                            <SubTitle1 title={notAllowedFormat} />
                             <Link style={{ marginLeft: '5px', display: 'block' }}>
                                 <ChooseLabel for="file-upload">
                                     browse your zip here
@@ -145,8 +144,8 @@ const ZipFileUpload = ({
                                 type="file"
                             />
                             <div>
-                                {(fileData?.length > 0) && fileData?.map((item) => (
-                                    <ChipContainer>
+                                {(fileData?.length > 0) && fileData?.map((item, index) => (
+                                    <ChipContainer key={index}>
                                         <Chip
                                             label={item[1]?.name}
                                             onDelete={(e) => handleDelete(e, item)}
@@ -155,8 +154,8 @@ const ZipFileUpload = ({
                                 ))}
                             </div>
                             <div style={{ marginTop: '10px' }}>
-                                {uploadData?.fileNames?.map((files) => (
-                                    <ChipContainer key={files}>
+                                {uploadData?.fileNames?.map((files,index) => (
+                                    <ChipContainer key={index}>
                                         <Chip
                                             label={files}
                                         />
@@ -182,28 +181,13 @@ const ZipFileUpload = ({
                             />}
 
                         <div style={{ textAlign: 'center', marginTop: '10px' }}>
-                            { (fileData?.length > 0 && (uploadData === '' || uploadData === undefined) && !isRepository)
+                            {(fileData?.length > 0 && (uploadData === '' || uploadData === undefined) && !isRepository)
                                 &&
                                 <Button color="primary" type="submit" disabled={isLoadingUpload} onClick={handleUploadZipFile} variant="contained" size="large">
                                     {isLoadingUpload ? <BeatLoader color="#fff" /> : 'Upload Zip File'}
                                 </Button>
                             }
                         </div>
-                        {/* { (uploadData?.fileNames?.length > 0 && isRepository) ?
-                            <RepositoryFileFormZip
-                                handleSubmitRepositoryZip={ handleProcessZipFileRepo }
-                                files={ uploadData?.fileNames }
-                                // btnTitle='Process the file'
-                                isLoading={ isLoadingExtractedFile }
-                            />
-                            :
-                            <FileForm
-                                handleSubmitFile={ handleProcessZipFile }
-                                files={ uploadData?.fileNames }
-                                // btnTitle='Process the file'
-                                isLoading={ isLoadingExtractedFile }
-                            />
-                        } */}
                     </Grid>
                 </Grid>
             </DragAreaPadding>

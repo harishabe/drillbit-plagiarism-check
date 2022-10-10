@@ -13,7 +13,6 @@ import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
     CardView,
-    EllipsisText,
     MainHeading,
     SubTitle1
 } from '../../../components';

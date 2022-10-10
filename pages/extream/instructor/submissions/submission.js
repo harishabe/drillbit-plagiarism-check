@@ -3,7 +3,6 @@ import _ from 'lodash';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import {
-    CardView,
     CommonTable,
     CreateDrawer,
     WarningDialog,

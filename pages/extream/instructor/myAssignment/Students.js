@@ -10,7 +10,6 @@ import { Pagination } from '@mui/material';
 import { IconButton } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
 import {
-    CardView,
     CommonTable,
     CreateDrawer,
     WarningDialog,
@@ -356,36 +355,36 @@ const Students = ({
                     </Grid>
                 </Grid>
             </Box>
-                <>
-                    {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ textAlign: 'right' }}>
-                        <Tooltip title='Delete' arrow>
-                            <IconButton onClick={deleteAllStudent}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </div>}
-                    <CommonTable
-                        isCheckbox={true}
-                        isSorting={true}
-                        tableHeader={columns}
-                        tableData={rows}
-                        handleAction={handleAction}
-                        handleTableSort={handleTableSort}
-                        handleCheckboxSelect={handleCheckboxSelect}
-                        handleSingleSelect={handleSingleSelect}
-                        isLoading={isLoadingStudent}
-                        charLength={17}
-                        path=''
+            <>
+                {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ textAlign: 'right' }}>
+                    <Tooltip title='Delete' arrow>
+                        <IconButton onClick={deleteAllStudent}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                </div>}
+                <CommonTable
+                    isCheckbox={true}
+                    isSorting={true}
+                    tableHeader={columns}
+                    tableData={rows}
+                    handleAction={handleAction}
+                    handleTableSort={handleTableSort}
+                    handleCheckboxSelect={handleCheckboxSelect}
+                    handleSingleSelect={handleSingleSelect}
+                    isLoading={isLoadingStudent}
+                    charLength={17}
+                    path=''
+                />
+                <PaginationContainer>
+                    <Pagination
+                        count={pageDetailsStudent?.totalPages}
+                        onChange={handlePagination}
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
                     />
-                    <PaginationContainer>
-                        <Pagination
-                            count={pageDetailsStudent?.totalPages}
-                            onChange={handlePagination}
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </PaginationContainer>
+                </PaginationContainer>
             </>
         </React.Fragment>
     );

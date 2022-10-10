@@ -55,7 +55,7 @@ const FeedbackForm = ({
                 setFormJsonField(fields);
             }
         }
-    }, [marksData, gradingData])
+    }, [marksData, gradingData]);
 
     const modifyFormField = () => {
         let formField = formJsonField?.map((field) => {
@@ -88,7 +88,7 @@ const FeedbackForm = ({
                         'feedback',
                     ];
                     fields.forEach(field => setValue(field, a[field]));
-                    modifyFormField()
+                    modifyFormField();
                 }
             });
         }

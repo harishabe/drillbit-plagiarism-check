@@ -11,7 +11,6 @@ import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import { TextField, Pagination, IconButton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
 import {
-    CardView,
     CommonTable,
     MainHeading,
     StatusDot,
@@ -125,12 +124,12 @@ const Instructor = ({
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        {
-                            'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
-                            'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                            'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
-                        }
+                            { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                            {
+                                'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                                'type': instructor.status === 'active' ? 'lock' : 'unlock',
+                                'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
+                            }
                         ]),
                     instructor.expiry_date,
                 );

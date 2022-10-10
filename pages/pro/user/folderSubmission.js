@@ -12,7 +12,6 @@ import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import { TextField } from '@mui/material';
 import ProUser from '../../../layouts/ProUser';
 import {
-    CardView,
     CommonTable,
     BreadCrumb,
     MainHeading,
@@ -132,7 +131,7 @@ const folderSubmission = ({
 
     useEffect(() => {
         if (router.isReady) {
-        folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
+            folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
         }
     }, [router.isReady, paginationPayload]);
 

@@ -9,7 +9,6 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { Title1, SubTitle2 } from '../index';
-import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { ErrorBlock } from '../index';
@@ -55,7 +54,7 @@ const ListView2 = ({
 
     const handleAnswer = (e) => {
         setAnswer({ ...answer, [e.target.name]: e.target.value });
-    }
+    };
 
     return (
         <>

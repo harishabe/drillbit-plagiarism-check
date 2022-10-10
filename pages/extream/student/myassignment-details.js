@@ -110,13 +110,13 @@ const MyAssignmentDetails = ({
 
     useEffect(() => {
         if (router.isReady) {
-          GetSubmissionData(router.query.clasId, router.query.assId, paginationPayload);
+            GetSubmissionData(router.query.clasId, router.query.assId, paginationPayload);
         }
     }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
         if (router.isReady) {
-          GetSubmissionHeaderData(router.query.clasId, router.query.assId);
+            GetSubmissionHeaderData(router.query.clasId, router.query.assId);
         }
     }, [router.isReady]);
 

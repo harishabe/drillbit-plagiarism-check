@@ -18,7 +18,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import BeatLoader from 'react-spinners/BeatLoader';
-import { SubTitle, TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
+import { TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
 import {
     TABLE_HEADER_SORT_DISABLE,
     TABLE_BODY_ALLOW_ICON,
@@ -125,15 +125,15 @@ const CommonTable = ({
                                             <TableCell padding="checkbox" className={classes.padding}>
                                                 <Checkbox onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
                                             </TableCell>}
-                                        {tableHeader.map((column) => {
+                                        {tableHeader.map((column,index) => {
                                             const value = row[column.id];
                                             return (
-                                                <>
+                                                <div key={index}>
                                                     {
                                                         TABLE_BODY_ALLOW_ICON.includes(column.id) ?
                                                             <TableCell>
-                                                                {value.map((icon) => (
-                                                                    <Tooltip title={icon.title} arrow>
+                                                                {value.map((icon,index) => (
+                                                                    <Tooltip key={index} title={icon.title} arrow>
                                                                         <IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}
                                                                         </IconButton>
                                                                     </Tooltip>))}
@@ -172,7 +172,7 @@ const CommonTable = ({
                                                             </>
 
                                                     }
-                                                </>
+                                                </div>
                                             );
                                         })}
                                         {isNextPath &&
@@ -183,7 +183,7 @@ const CommonTable = ({
                                                             console.log('rowrow', row);
                                                             path.query['assId'] = row?.id;
                                                             path.query['assName'] = row?.assignment_name,
-                                                                path.query['grammar'] = row?.assignmentData?.grammar;
+                                                            path.query['grammar'] = row?.assignmentData?.grammar;
                                                             router.push(path);
                                                         } else {
                                                             router.push(path);

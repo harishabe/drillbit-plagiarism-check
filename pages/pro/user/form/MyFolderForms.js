@@ -142,7 +142,7 @@ const MyFoldersForms = ({
     }, []);
 
     useEffect(() => {
-        console.log("editDataeditData", editData)
+        console.log('editDataeditData', editData);
         if (editData !== undefined) {
             let a = {
                 'folder_name': editData.folder_name
@@ -498,7 +498,7 @@ const MyFoldersForms = ({
                     'label': btnLabel,
                     'isDisabled': disabledButton
                 } }
-                    isLoading={ isLoadingFolder }
+                isLoading={ isLoadingFolder }
                 />
             </form>
         </>

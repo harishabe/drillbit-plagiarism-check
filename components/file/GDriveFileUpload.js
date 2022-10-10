@@ -144,16 +144,16 @@ const GDriveFileUpload = ({
                                         handleSubmitFile={ handleSubmit }
                                         files={ documnet }
                                         btnTitle='Submit'
-                                    isLoading={ isLoadingFileDrive }
-                                /> :
-                                    <RepositoryFileForm
-                                        handleSubmitRepository={ handleSubmit }
-                                        files={ documnet }
-                                        btnTitle='Submit'
                                         isLoading={ isLoadingFileDrive }
-                                    /> 
-                                }
-                            </>
+                                    /> :
+                                        <RepositoryFileForm
+                                            handleSubmitRepository={ handleSubmit }
+                                            files={ documnet }
+                                            btnTitle='Submit'
+                                            isLoading={ isLoadingFileDrive }
+                                        /> 
+                                    }
+                                </>
                             }
 
                             {/* {driveFile && driveFile?.length > 0 &&

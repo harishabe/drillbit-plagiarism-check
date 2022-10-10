@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
 const TabMenu = ({
     menuButton,
     components,
-    isTabMenu,
     handleAPI
 }) => {
 
