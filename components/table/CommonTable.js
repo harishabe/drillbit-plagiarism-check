@@ -77,7 +77,7 @@ const CommonTable = ({
         <Card>
             <CardContent style={{ padding: '15px 0px' }}>
                 <TableContainer component={Paper} classes={{ root: classes.customTableContainer }}>
-                    <Table stickyHeader size="small">
+                    <Table stickyHeader>
                         <TableHead>
                             <TableRow>
                                 {isCheckbox &&

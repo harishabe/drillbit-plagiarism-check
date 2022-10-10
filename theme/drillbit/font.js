@@ -79,13 +79,13 @@ const font = {
     body2_2: {
         fontFamily: fontName,
         fontWeight: 600,
-        fontSize: '14px',
+        fontSize: '15px',
         lineHeight: '20px',
         color: '#666666'
     },
     body2_3: {
         fontFamily: fontName,
-        fontSize: '14px',
+        fontSize: '15px',
     }
 };
 
