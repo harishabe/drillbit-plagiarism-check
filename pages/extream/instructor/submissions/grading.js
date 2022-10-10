@@ -14,19 +14,7 @@ import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 
-const columns = [
-    { id: 'STname', label: 'Student Name', minWidth: 200 },
-    { id: 'paper_id', label: 'Paper ID', minWidth: 150 },
-    { id: 'similarity', label: 'Similarity' },
-    { id: 'marks', label: 'Assignment Marks', minWidth: 200 },
-    { id: 'action', label: 'Feedback', minWidth: 150 },
-];
 
-function createData(STname, paper_id, marks, similarity, action) {
-    return {
-        STname, paper_id, marks, similarity, action
-    };
-}
 
 const SkeletonContainer = styled.div`
     margin-top: 16px;
@@ -48,7 +36,7 @@ const Grading = ({
     DownloadCsv,
     gradingData,
     isLoading,
-    isLoadingDownload
+    isLoadingDownload,
 }) => {
 
     const router = useRouter();
@@ -66,6 +54,19 @@ const Grading = ({
         GetSubmissionList(url);
     }, [clasId, assId]);
 
+    const columns = [
+        { id: 'STname', label: 'Student Name', minWidth: 200 },
+        { id: 'paper_id', label: 'Paper ID', minWidth: 150 },
+        { id: 'similarity', label: 'Similarity' },
+        { id: 'marks', label: 'Assignment Marks', minWidth: 200 },
+        { id: 'action', label: 'Feedback', minWidth: 150 },
+    ];
+
+    function createData(STname, paper_id, marks, similarity, action) {
+        return {
+            STname, paper_id, marks, similarity, action
+        };
+    }
 
     useEffect(() => {
         let row = '';
@@ -74,7 +75,7 @@ const Grading = ({
             row = createData(
                 grading.stduentName,
                 grading.paper_id,
-                grading.obtained_marks,
+                grading.obtained_marks === '--' ? grading.obtained_marks : grading.obtained_marks + '/' + grading.max_marks,
                 <SimilarityStatus percent={grading.similarity} />,
                 [
                     { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },

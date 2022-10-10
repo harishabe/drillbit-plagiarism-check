@@ -125,11 +125,18 @@ export const UPLOAD_TITLE_CONSTANT = {
 }
 
 export const UPLOAD_SUPPORTED_FILES = {
-    'SINGLE': 'Multiple file formats support: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx',
-    'MULTIPLE': 'Supported file formats: pdf, doc, docx',
+    'SINGLE': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx',
     'ZIP': 'Supported Compressed file format: zip',
     'NON_ZIP': 'Non-Supported Compressed file format : rar,tar,7z',
-    'GDRIVE': 'Supported file formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt',
+    'GDRIVE': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt',
     'NON_ENGLISH': 'Supported file format: docx, doc, pdf, txt',
     'REGIONAL': 'Supported file format: docx',
+}
+
+export const FORM_VALIDATION = {
+    'GRADES': 'The entered marks should not be more than maximum marks',
+    'REMAINING_DOCUMENTS': 'The entered documents should not be more than available documents',
+    'REMAINING_GRAMMAR': 'The entered documents should not be more than available documents',
+    'EXPIRY_DATE_GREATER': 'The entered date should not be greater than the expiry date.',
+    'EXPIRY_DATE_LESSER': 'The entered date should not less than the current date.',
 }
