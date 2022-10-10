@@ -55,29 +55,32 @@ const uploadFileRepository = () => {
 
     const componentList = [
         <UploadFiles
+            key={0}
             isRepository={true}
             choseFileTitle='browse your file here'
-            title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
-            fileIcon={ < UploadFileIcon /> }
-            singleFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_SINGLE_FILE }
-            multiFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_MULTIPLE_FILE }
-            routerObj={ { pathname: '/extream/instructor/repository' } }
+            title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
+            allowedFormat={UPLOAD_SUPPORTED_FILES.SINGLE}
+            fileIcon={< UploadFileIcon />}
+            singleFileUploadAPI={BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_SINGLE_FILE}
+            multiFileUploadAPI={BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_MULTIPLE_FILE}
+            routerObj={{ pathname: '/extream/instructor/repository' }}
         />,
         <GDriveFileUpload
-            isRepository={ true }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
-            title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
-            fileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_DRIVE }
+            key={1}
+            isRepository={true}
+            allowedFormat={UPLOAD_SUPPORTED_FILES.GDRIVE}
+            title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
+            fileUploadAPI={BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_DRIVE}
             routerObj={{ pathname: '/extream/instructor/repository' }}
         />,
         <ZipFileUpload
-            isRepository={ true }
-            title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
-            notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
-            zipFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_ZIP }
-            routerObj={ { pathname: '/extream/instructor/repository' } }
+            key={2}
+            isRepository={true}
+            title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
+            allowedFormat={UPLOAD_SUPPORTED_FILES.ZIP}
+            notAllowedFormat={UPLOAD_SUPPORTED_FILES.NON_ZIP}
+            zipFileUploadAPI={BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_ZIP}
+            routerObj={{ pathname: '/extream/instructor/repository' }}
         />
     ];
 

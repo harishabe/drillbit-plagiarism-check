@@ -69,58 +69,62 @@ const UploadFileSubmission = () => {
 
     const componentList = [
         <UploadFiles
+            key={0}
             choseFileTitle='browse your file here'
-            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
-            fileIcon={ < UploadFileIcon /> }
-            singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/singleFile` }
-            multiFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/multipleFiles` }
-            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
+            title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
+            allowedFormat={UPLOAD_SUPPORTED_FILES.SINGLE}
+            fileIcon={< UploadFileIcon />}
+            singleFileUploadAPI={BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/singleFile`}
+            multiFileUploadAPI={BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/multipleFiles`}
+            routerObj={{ pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } }}
         />,
         <UploadFiles
-            isRegionalFile={ true }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.REGIONAL }
+            key={1}
+            isRegionalFile={true}
+            allowedFormat={UPLOAD_SUPPORTED_FILES.REGIONAL}
             choseFileTitle='browse your regional file here'
-            title={ UPLOAD_TITLE_CONSTANT.REGIONAL }
-            fileIcon={ < UploadFileIcon /> }
-            singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/regionalFile` }
-            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
+            title={UPLOAD_TITLE_CONSTANT.REGIONAL}
+            fileIcon={< UploadFileIcon />}
+            singleFileUploadAPI={BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/regionalFile`}
+            routerObj={{ pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } }}
         />,
         <GDriveFileUpload
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
-            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
-            fileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/drive` }
-            routerObj={ {
+            key={2}
+            allowedFormat={UPLOAD_SUPPORTED_FILES.GDRIVE}
+            title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
+            fileUploadAPI={BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/drive`}
+            routerObj={{
                 pathname: '/pro/user/folderSubmission',
                 query: { name: router.query.name, folderId: router.query.folderId }
-            } }
+            }}
         />,
         <ZipFileUpload
-            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
-            notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
-            zipFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/zipFile` }
-            confirmZipFileAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/confirmZipFile` }
-            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
+            key={3}
+            title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
+            allowedFormat={UPLOAD_SUPPORTED_FILES.ZIP}
+            notAllowedFormat={UPLOAD_SUPPORTED_FILES.NON_ZIP}
+            zipFileUploadAPI={BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/zipFile`}
+            confirmZipFileAPI={BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/confirmZipFile`}
+            routerObj={{ pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } }}
         />
     ];
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
                         <BreadCrumb
-                            item={ UserBreadCrumb }
+                            item={UserBreadCrumb}
                         />
                     </Grid>
                 </Grid>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 12 } xs={ 12 }>
+                <Grid container spacing={1}>
+                    <Grid item md={12} xs={12}>
                         <TabMenu
-                            menuButton={ tabMenu }
-                            components={ componentList }
-                            handleAPI={ handleAPI }
+                            menuButton={tabMenu}
+                            components={componentList}
+                            handleAPI={handleAPI}
                         />
                     </Grid>
                 </Grid>

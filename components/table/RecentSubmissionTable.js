@@ -73,33 +73,33 @@ const RecentSubmissionTable = ({
                                 <TableRow key={ index }>
                                     <TableCell style={ { width: '45px' } }>
                                         <Avatar
-                                                alt={ item.name }
-                                                sx={ { width: 50, height: 50, background: item.color, color: '#fff' } }
-                                            >{ item.name.charAt(0).toUpperCase() }
-                                            </Avatar>
-                                        </TableCell>
-                                        <TableCell align='left'>
-                                            <SubTitle1
-                                                title={ item.name } />
-                                            <SubTitle
-                                                title={ item.class_name } />
-                                        </TableCell>
-                                        <TableCell>
-                                            <SimilarityStatus
-                                                percent={ item.percent }
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <StatusDot color="#69C886" title={ item.status } />
-                                        </TableCell>
-                                        <TableCell align='right'>
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={ (e) => handlePage(e, item) }
-                                            >Review</Button>
-                                        </TableCell>
-                                    </TableRow>
+                                            alt={ item.name }
+                                            sx={ { width: 50, height: 50, background: item.color, color: '#fff' } }
+                                        >{ item.name.charAt(0).toUpperCase() }
+                                        </Avatar>
+                                    </TableCell>
+                                    <TableCell align='left'>
+                                        <SubTitle1
+                                            title={ item.name } />
+                                        <SubTitle
+                                            title={ item.class_name } />
+                                    </TableCell>
+                                    <TableCell>
+                                        <SimilarityStatus
+                                            percent={ item.percent }
+                                        />
+                                    </TableCell>
+                                    <TableCell>
+                                        <StatusDot color="#69C886" title={ item.status } />
+                                    </TableCell>
+                                    <TableCell align='right'>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={ (e) => handlePage(e, item) }
+                                        >Review</Button>
+                                    </TableCell>
+                                </TableRow>
                             )) }
                         </TableBody>
                     </Table>
