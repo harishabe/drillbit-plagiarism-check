@@ -260,8 +260,8 @@ const UploadFiles = ({
                                         type="file"
                                     />
                                 </div>
-                                { (fileData?.length > 0) && fileData?.map((item) => (
-                                    <ChipContainer key={ item?.name }>
+                                { (fileData?.length > 0) && fileData?.map((item, index) => (
+                                    <ChipContainer key={ index }>
                                         <Chip
                                             label={ item[1]?.name }
                                             onDelete={ (e) => handleDelete(e, item) }
