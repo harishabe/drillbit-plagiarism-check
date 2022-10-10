@@ -69,6 +69,7 @@ const UploadFileSubmission = () => {
 
     const componentList = [
         <UploadFiles
+            key={ index }
             choseFileTitle='browse your file here'
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
@@ -78,6 +79,7 @@ const UploadFileSubmission = () => {
             routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />,
         <UploadFiles
+            key={ index }
             isRegionalFile={ true }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.REGIONAL }
             choseFileTitle='browse your regional file here'
@@ -87,6 +89,7 @@ const UploadFileSubmission = () => {
             routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />,
         <GDriveFileUpload
+            key={ index }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             fileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/drive` }
@@ -96,6 +99,7 @@ const UploadFileSubmission = () => {
             } }
         />,
         <ZipFileUpload
+            key={ index }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }

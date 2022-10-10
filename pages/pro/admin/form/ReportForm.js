@@ -143,7 +143,7 @@ const ReportForm = ({
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
                     { formData?.map((field, i) => (
-                        <Grid md={ 5.8 } xs={ 12 } style={ { marginLeft: '8px' } }>
+                        <Grid key={ index } md={ 5.8 } xs={ 12 } style={ { marginLeft: '8px' } }>
                             { isLoading ? (
                                 <Skeleton />
                             ) : (

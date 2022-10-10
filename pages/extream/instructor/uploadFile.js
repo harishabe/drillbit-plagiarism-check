@@ -76,6 +76,7 @@ const UploadFile = () => {
 
     const componentList = [
         <UploadFiles
+            key={ index }
             choseFileTitle='browse your file here'
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
@@ -88,6 +89,7 @@ const UploadFile = () => {
             }}
         />,
         <GDriveFileUpload
+            key={ index }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             fileUploadAPI={ BASE_URL_UPLOAD + `/files/classes/${router.query.clasId}/assignments/${router.query.assId}/drive` }
@@ -97,6 +99,7 @@ const UploadFile = () => {
             }}
         />,
         <ZipFileUpload
+            key={ index }
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }

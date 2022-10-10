@@ -68,6 +68,7 @@ const UploadFileFolderSubmission = () => {
 
     const componentList = [
         <UploadFiles
+            key={ index }
             choseFileTitle='browse your file here'
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
@@ -77,6 +78,7 @@ const UploadFileFolderSubmission = () => {
             routerObj={ { pathname: '/extream/instructor/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
         />,
         <GDriveFileUpload
+            key={ index }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             fileUploadAPI={ BASE_URL_UPLOAD + `/files/myFolder/${router.query.folderId}/drive` }
@@ -86,6 +88,7 @@ const UploadFileFolderSubmission = () => {
             }}
         />,
         <ZipFileUpload
+            key={ index }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }

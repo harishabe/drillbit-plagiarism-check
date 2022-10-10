@@ -133,7 +133,7 @@ const MyClassesForm = ({
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
                     {formJsonField?.map((field, i) => (
-                        <Grid item md={12} style={{ marginLeft: '8px' }}>
+                        <Grid key={ field?.name } item md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
                                 key={i}
                                 field={field}

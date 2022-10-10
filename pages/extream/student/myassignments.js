@@ -163,7 +163,7 @@ const MyAssignments = ({
                         <>
                             <Grid container spacing={2}>
                                 {item?.map((item, index) => (
-                                    <Grid item md={4} xs={12}>
+                                    <Grid key={ index } item md={ 4 } xs={ 12 }>
                                         <CardInfoView
                                             key={item.id}
                                             item={item}

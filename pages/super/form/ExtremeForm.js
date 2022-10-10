@@ -58,7 +58,7 @@ const ExtremeForm = ({
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
                     { FormJson?.map((field, i) => (
-                        <Grid md={ 12 } style={ { marginLeft: '8px' } }>
+                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
                                 key={ i }
                                 field={ field }

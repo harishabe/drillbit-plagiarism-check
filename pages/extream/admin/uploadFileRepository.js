@@ -52,6 +52,7 @@ const uploadFileRepository = () => {
 
     const componentList = [
         <UploadFiles
+            key={ index }
             isRepository={ true }
             choseFileTitle='browse your file here'
             allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
@@ -62,6 +63,7 @@ const uploadFileRepository = () => {
             routerObj={ { pathname: '/extream/admin/repository' } }
         />,
         <GDriveFileUpload
+            key={ index }
             isRepository={ true }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
@@ -69,6 +71,7 @@ const uploadFileRepository = () => {
             routerObj={ { pathname: '/extream/admin/repository' } }
         />,
         <ZipFileUpload
+            key={ index }
             isRepository={ true }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
