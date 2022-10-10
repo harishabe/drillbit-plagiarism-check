@@ -128,7 +128,7 @@ const CommonTable = ({
                                         {tableHeader.map((column,index) => {
                                             const value = row[column.id];
                                             return (
-                                                <div key={index}>
+                                                <>
                                                     {
                                                         TABLE_BODY_ALLOW_ICON.includes(column.id) ?
                                                             <TableCell>
@@ -172,7 +172,7 @@ const CommonTable = ({
                                                             </>
 
                                                     }
-                                                </div>
+                                                </>
                                             );
                                         })}
                                         {isNextPath &&
