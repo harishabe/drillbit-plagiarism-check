@@ -205,7 +205,7 @@ const Dashboard = ({
                                             <Skeleton /> :
                                             <TextAlignRight>
                                                 <SubTitle
-                                                    title={adminDashboardData?.data?.accountValidityDays + '(' + 'Total days' + ')'}
+                                                    title={ adminDashboardData?.data?.accountTotalDays + '(' + 'Total days' + ')' }
                                                 />
                                             </TextAlignRight>
                                     }
