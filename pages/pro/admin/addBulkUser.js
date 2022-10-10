@@ -156,7 +156,7 @@ const addBulkUser = ({
                                             <div className={classes.dragAndDropArea}>
                                                 <UploadFileIcon />
                                                 <div className={classes.padding30}>
-                                                    <Title1 title='Drag and drop, or ' />
+                                                    <Title1 title='File format : CSV' />
                                                     <Link style={{ marginLeft: '5px' }}>
                                                         <label htmlFor="file-upload" className={classes.customFileUpload}>
                                                             browse your file here
