@@ -6,7 +6,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { Divider } from '@mui/material';
 import { Skeleton } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     item: {
         paddingLeft: '0px', paddingRight: '0px'
     },
@@ -18,9 +18,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ListSkeleton = ({
-    listData
-}) => {
+const ListSkeleton = () => {
     const classes = useStyles();
     return (
         <List>

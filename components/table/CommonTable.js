@@ -27,7 +27,7 @@ import {
     TABLE_NEXT_PAGE
 } from '../../constant/data/Constant';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     padding: {
         padding: '0 0 4px 4px'
     },
@@ -179,12 +179,12 @@ const CommonTable = ({
                                         {isNextPath &&
                                             <Tooltip title={TABLE_NEXT_PAGE} arrow>
                                                 <IconButton className={classes.customArrowContainer}
-                                                    onClick={(e) => {
+                                                    onClick={() => {
                                                         if (path && path?.query?.isAssignment) {
                                                             console.log('rowrow', row);
                                                             path.query['assId'] = row?.id;
                                                             path.query['assName'] = row?.assignment_name,
-                                                                path.query['grammar'] = row?.assignmentData?.grammar;
+                                                            path.query['grammar'] = row?.assignmentData?.grammar;
                                                             router.push(path);
                                                         } else {
                                                             router.push(path);

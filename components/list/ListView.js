@@ -9,7 +9,7 @@ import { Title, SubTitle, SubTitle1 } from '../index';
 import { Divider } from '@mui/material';
 import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     item: {
         paddingLeft: 0,
         paddingRight: 0,

@@ -15,6 +15,7 @@ export default function Nav() {
 
     return (
         <nav>
+            {t}
             <select
                 onChange={changeLanguage}
                 defaultValue={locale}

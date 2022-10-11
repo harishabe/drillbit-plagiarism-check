@@ -20,8 +20,7 @@ const InputMultiAutoComplete = ({
                 control={control}
                 render={({
                     field: { onChange, value },
-                    fieldState: { error },
-                    formState, ...props
+                    ...props
                 }) => (
                     <Autocomplete
                         multiple
