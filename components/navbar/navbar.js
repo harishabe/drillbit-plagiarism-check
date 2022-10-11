@@ -28,7 +28,6 @@ import { getItemLocalStorage, setItemLocalStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
 import EllipsisText from '../ellipsis/EllipsisText';
 import SubTitle1 from '../typography/SubTitle1';
-import { PRO_ADMIN, PRO_USER } from '../../constant/data/Constant';
 
 const drawerWidth = 200;
 
