@@ -66,6 +66,10 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
+const DeleteAllButton = styled.div`
+    marginLeft: 10px;
+`;
+
 const columns = [
     { id: 'id', label: 'Assignment ID' },
     { id: 'assignment_name', label: 'Assignment Name' },
@@ -323,13 +327,13 @@ const Assignments = ({
                         <AssignmentForms />
                     </CreateDrawer>
                 </AddButtonBottom>
-                {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ textAlign: 'right' }}>
+                { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={deleteAllAssignment}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
-                </div>}
+                </DeleteAllButton> }
                 <CommonTable
                     isCheckbox={true}
                     isNextPath={true}

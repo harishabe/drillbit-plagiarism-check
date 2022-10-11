@@ -63,6 +63,10 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
+const DeleteAllButton = styled.div`
+    marginLeft: 10px;
+`;
+
 const columns = [
     { id: 'student_id', label: 'Student ID' },
     { id: 'name', label: 'Student Name' },
@@ -356,13 +360,13 @@ const Students = ({
                 </Grid>
             </Box>
             <>
-                {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ textAlign: 'right' }}>
+                { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={deleteAllStudent}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
-                </div>}
+                </DeleteAllButton> }
                 <CommonTable
                     isCheckbox={true}
                     isSorting={true}
