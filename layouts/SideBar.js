@@ -15,7 +15,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 import { DrillBitLogo, DrillBitSymbolLogo } from '../assets/icon';
-
+import { Role } from '../constant/data';
 import {
     SidebarAdmin,
     SidebarInstructor,
@@ -120,7 +120,7 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/extream/instructor/addBulkStudent' && name === 'My Classes') {
             return true;
-        }else if (router.pathname === '/extream/admin/addBulkInstructor' && name === 'Instructors') {
+        } else if (router.pathname === '/extream/admin/addBulkInstructor' && name === 'Instructors') {
             return true;
         } else if (router.pathname === '/extream/instructor/mysubmissions' && name === 'My Classes') {
             return true;
@@ -147,23 +147,23 @@ const SideBar = ({ open }) => {
 
     React.useEffect(() => {
         let role = localStorage.getItem('role');
-        let switchRole = localStorage.getItem('switchRole');
-        
-        if (role === 'admin' && switchRole === 'admin') {
+        if (role === 'admin' && router.pathname.split('/')[1] === 'extream' && router.pathname.split('/')[2] === Role?.admin) {
             setSidebarItem(SidebarAdmin);
-        } else if (role === 'admin' && switchRole === 'instructor') {
+        } else if (role === 'admin' && router.pathname.split('/')[1] === 'extream' && router.pathname.split('/')[2] === Role?.instructor) {
             setSidebarItem(SidebarInstructor);
-        } else if (role === 'admin' && switchRole === null) {
+        } else if (role === 'admin') {
             setSidebarItem(SidebarAdmin);
-        } else if (role === 'instructor' && switchRole === null) {
+        } else if (role === 'instructor') {
             setSidebarItem(SidebarInstructor);
         } else if (role === 'student') {
             setSidebarItem(SidebarStudent);
         } else if (role === 'drillbit') {
             setSidebarItem(SidebarSuperAdmin);
-        } else if (role === 'lim-admin') {
+        } else if (role === 'lim-admin' && router.pathname.split('/')[1] === 'pro' && router.pathname.split('/')[2] === 'admin') {
             setSidebarItem(SidebarProAdmin);
-        } else if (role === 'lim-instructor') {
+        } else if (role === 'lim-admin' && router.pathname.split('/')[1] === 'pro' && router.pathname.split('/')[2] === 'user') {
+            setSidebarItem(SidebarProUser);
+        } else if (role === 'lim-instructor' && router.pathname.split('/')[1] === 'pro' && router.pathname.split('/')[2] === 'user') {
             setSidebarItem(SidebarProUser);
         }
     }, []);
