@@ -71,7 +71,7 @@ const NavBar = ({
     const [email, setEmail] = React.useState('');
     const [path, setPath] = React.useState('');
     const [placeholderRole, setPlaceholderRole] = React.useState('');
-
+console.log('routerrouterrouterrouter',router);
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -239,7 +239,7 @@ const NavBar = ({
                             />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        {role === Role?.admin ?
+                        {router.pathname.split('/')[2] === Role?.admin ?
                             <>
                                 <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToUser(e, role)}>
                                     <ListItemIcon>

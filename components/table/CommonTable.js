@@ -125,14 +125,14 @@ const CommonTable = ({
                                             <TableCell padding="checkbox" className={classes.padding}>
                                                 <Checkbox onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
                                             </TableCell>}
-                                        {tableHeader.map((column,index) => {
+                                        {tableHeader.map((column, index) => {
                                             const value = row[column.id];
                                             return (
                                                 <>
                                                     {
                                                         TABLE_BODY_ALLOW_ICON.includes(column.id) ?
-                                                            <TableCell>
-                                                                {value.map((icon,index) => (
+                                                            <TableCell key={index}>
+                                                                {value.map((icon, index) => (
                                                                     <Tooltip key={index} title={icon.title} arrow>
                                                                         <IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}
                                                                         </IconButton>
@@ -155,7 +155,7 @@ const CommonTable = ({
                                                                                     {value?.props?.percent === '--' ?
                                                                                         <div style={{ textAlign: 'center' }}><BeatLoader size={10} color="#3672FF" /></div> :
                                                                                         <Tooltip title={'Similarity Report'} arrow>
-                                                                                            <a style={{fontWeight:'600'}} href='#' onClick={(e) => showAnalysisPage(e, row)}>
+                                                                                            <a style={{ fontWeight: '600' }} href='#' onClick={(e) => showAnalysisPage(e, row)}>
                                                                                                 {value}
                                                                                             </a>
                                                                                         </Tooltip>}
@@ -183,7 +183,7 @@ const CommonTable = ({
                                                             console.log('rowrow', row);
                                                             path.query['assId'] = row?.id;
                                                             path.query['assName'] = row?.assignment_name,
-                                                            path.query['grammar'] = row?.assignmentData?.grammar;
+                                                                path.query['grammar'] = row?.assignmentData?.grammar;
                                                             router.push(path);
                                                         } else {
                                                             router.push(path);
