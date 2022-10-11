@@ -77,6 +77,10 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
+const DeleteAllButton = styled.div`
+    marginLeft: 10px;
+`;
+
 const folderSubmission = ({
     folderSubmissionsFileData,
     DownloadCsv,
@@ -365,13 +369,13 @@ const folderSubmission = ({
             </Box>
             <>
 
-                { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
+                { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={ deleteAllSubmission }>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
-                </div> }
+                </DeleteAllButton> }
 
                 <CommonTable
                     isCheckbox={ true }
