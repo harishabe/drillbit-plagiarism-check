@@ -71,8 +71,8 @@ const END_POINTS = {
     SUPER_ADMIN_EXTREME: '/extreme',
     SUPER_ADMIN_REF: '/pro',
     SUPER_ADMIN_DROPDOWN_LIST: '/drillbit/dplist',
-    SUBMISSION_INPUTS: '/files/sumissionInputs',
-    GRAMMAR_REPORT:'/files/grammar/download/'
+    GRAMMAR_REPORT:'/files/grammar/download/',
+    SUBMISSION_INPUTS: '/files/submissionInputs',
 };
 
 export default END_POINTS;

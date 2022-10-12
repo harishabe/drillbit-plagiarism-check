@@ -40,6 +40,7 @@ import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
+import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 
 const columns = [
     // { id: 'user_id', label: 'ID', minWidth: 100 },
@@ -295,7 +296,7 @@ const Instructor = ({
                 showDeleteWarning &&
                 <WarningDialog
                     warningIcon={ <DeleteWarningIcon /> }
-                    message="Are you sure you want to delete ?"
+                    message={ WARNING_MESSAGES.DELETE }
                     handleYes={ handleYesWarning }
                     handleNo={ handleCloseWarning }
                     isOpen={ true }

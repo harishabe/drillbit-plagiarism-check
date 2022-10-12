@@ -86,6 +86,23 @@ const SubmissionReducer = (state = {}, action) => {
                 ...state,
                 isLoadingGrammarReport: false,
                 grammarReportData: action.payload,
+            }
+        case types.FETCH_SAVE_TO_REPOSITORY_START:
+            return {
+                ...state,
+                isLoadingSaveRepo: true,
+            };
+        case types.FETCH_SAVE_TO_REPOSITORY_SUCCESS:
+            return {
+                ...state,
+                isLoadingSaveRepo: false,
+                saveRepoData: action.payload,
+            };
+        case types.FETCH_SAVE_TO_REPOSITORY_FAIL:
+            return {
+                ...state,
+                isLoadingSaveRepo: false,
+                saveRepoData: action.payload,
             };
         default:
             return state;

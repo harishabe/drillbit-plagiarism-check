@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import debouce from 'lodash.debounce';
@@ -25,6 +26,7 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import {
     DownloadCsv,
+    SaveToRepoBulk
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import {
     folderSubmissionsFileData,
@@ -37,7 +39,7 @@ import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
 import { BASE_URL_EXTREM, BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
-import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
+import { DOWNLOAD_CSV, WARNING_MESSAGES } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -50,9 +52,9 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key) {
+function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key, alert_msg, repository_status) {
     return {
-        id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key
+        id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key, alert_msg, repository_status
     };
 }
 
@@ -69,7 +71,7 @@ const SkeletonContainer = styled.div`
 
 const DownloadField = styled.div`
     position:absolute;
-    top: 125px;
+    top: 118px;
     right:225px;
 `;
 
@@ -79,11 +81,13 @@ const DownloadButton = styled.div`
 
 const DeleteAllButton = styled.div`
     marginLeft: 10px;
+    display: flex
 `;
 
 const folderSubmission = ({
     folderSubmissionsFileData,
     DownloadCsv,
+    SaveToRepoBulk,
     DownloadOriginalFile,
     DeletefolderSubmissionData,
     folderSubmissionData,
@@ -101,6 +105,8 @@ const folderSubmission = ({
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
+    const [saveRowData, setSaveRowData] = useState('');
+    const [showSaveIcon, setShowSaveIcon] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [showDownloadWarning, setShowDownloadWarning] = useState(false);
     const [data, setData] = useState();
@@ -156,7 +162,9 @@ const folderSubmission = ({
                     [
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }
                     ],
-                    submission.d_key
+                    submission.d_key,
+                    submission.alert_msg,
+                    submission.rep_status
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -180,11 +188,27 @@ const folderSubmission = ({
         setShowDeleteWarning(false);
     };
 
+    const handleCloseSaveWarning = () => {
+        setShowSaveIcon(false);
+    };
+
+    const handleFileDownloadCloseWarning = () => {
+        setShowDownloadWarning(false);
+    };
+
     const handleYesWarning = () => {
         DeletefolderSubmissionData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/submissions?paperId=${deleteRowData}`);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    const handleYesSaveWarning = () => {
+        SaveToRepoBulk(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/repository?paperId=${saveRowData}`);
+        setShowDeleteAllIcon(false);
+        setTimeout(() => {
+            setShowSaveIcon(false);
         }, [100]);
     };
 
@@ -265,6 +289,22 @@ const folderSubmission = ({
         setShowDeleteWarning(true);
     };
 
+    /**
+     * save all submission
+     */
+    const saveAllSubmission = () => {
+        let rowsId = '';
+        _.filter(rows, function (o) {
+            if (o.isSelected === true) {
+                return rows;
+            }
+        }).map((rowItem) => {
+            rowsId += rowItem?.paper_id + ',';
+        });
+        setSaveRowData(removeCommaWordEnd(rowsId));
+        setShowSaveIcon(true);
+    };
+
     const handleDownload = () => {
         DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${folderId}/downloadSubmissions`, DOWNLOAD_CSV.SUBMISSION_REPORT);
     };
@@ -273,10 +313,6 @@ const folderSubmission = ({
         e.preventDefault();
         setShowDownloadWarning(true);
         setData(data);
-    };
-
-    const handleFileDownloadCloseWarning = () => {
-        setShowDownloadWarning(false);
     };
 
     const handleFileDownloadYesWarning = () => {
@@ -370,10 +406,15 @@ const folderSubmission = ({
             <>
 
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
-                    <Tooltip title='Delete' arrow>
-                        <IconButton onClick={deleteAllSubmission}>
-                            <DeleteIcon />
-                        </IconButton>
+                        <Tooltip title='Delete' arrow>
+                            <IconButton onClick={ deleteAllSubmission }>
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title='Save to repositary' arrow>
+                            <IconButton onClick={ saveAllSubmission }>
+                                <SaveOutlinedIcon />
+                            </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }
 
@@ -406,7 +447,7 @@ const folderSubmission = ({
                     showDeleteWarning &&
                     <WarningDialog
                         warningIcon={<DeleteWarningIcon />}
-                        message="Are you sure you want to delete ?"
+                        message={ WARNING_MESSAGES.DELETE }
                         handleYes={handleYesWarning}
                         handleNo={handleCloseWarning}
                         isOpen={true}
@@ -414,9 +455,20 @@ const folderSubmission = ({
                 }
 
                 {
+                    showSaveIcon &&
+                    <WarningDialog
+                        warningIcon={ <DeleteWarningIcon /> }
+                        message={ WARNING_MESSAGES.REPOSITORY }
+                        handleYes={ handleYesSaveWarning }
+                        handleNo={ handleCloseSaveWarning }
+                        isOpen={ true }
+                    />
+                }
+
+                {
                     showDownloadWarning &&
                     <WarningDialog
-                        message="Are you sure you want to download ?"
+                        message={ WARNING_MESSAGES.DOWNLOAD }
                         handleYes={handleFileDownloadYesWarning}
                         handleNo={handleFileDownloadCloseWarning}
                         isOpen={true}
@@ -452,6 +504,7 @@ const mapDispatchToProps = (dispatch) => {
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeletefolderSubmissionData: (url) => dispatch(DeletefolderSubmissionData(url)),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
+        SaveToRepoBulk: (url) => dispatch(SaveToRepoBulk(url)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
     };

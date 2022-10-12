@@ -1,7 +1,11 @@
 import END_POINTS from '../../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../../utils/BaseUrl';
+<<<<<<< HEAD
 import { GetMethodDownloadPdf, GetMethod, DeleteMethod, GetMethodDownload, GetDownloadPdfNewWindow } from '../../ApiMethod';
+=======
+import { GetMethodDownloadPdf, GetMethod, DeleteMethod, GetMethodDownload, PostMethod } from '../../ApiMethod';
+>>>>>>> 4029c12e7ea6c941679928d1dde8a80602922d8a
 import { PaginationUrl } from '../../../../utils/PaginationUrl';
 
 /**
@@ -55,4 +59,11 @@ export const DownloadSubmissionData = async (url, title) => {
 
 export const DownloadGrammarReportData = async (url) => {
     return GetDownloadPdfNewWindow(url);
+}
+
+/**
+ * SAVE TO REPOSITORY
+ */
+export const SaveToRepoBulkData = async (url) => {
+    return PostMethod(url);
 };

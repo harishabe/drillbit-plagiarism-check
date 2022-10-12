@@ -39,8 +39,17 @@ export const DeletefolderSubmissionData = (url) => {
 /**
  * Get myfolder > submissionList > grammar download
  */
- export const GetGrammarReport = (url) => {
+export const GetGrammarReport = (url) => {
     return {
         type: types.FETCH_GRAMMAR_REPORT_START, url: url
+    }
+}
+
+/**
+ * submission > savetorepo 
+ */
+export const SaveToRepoBulk = (url) => {
+    return {
+        type: types.FETCH_SAVE_TO_REPOSITORY_START, url: url
     };
 };

@@ -23,6 +23,7 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import StudentForm from './form/StudentForm';
 import StudentStats from './student/StudentStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
+import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -223,7 +224,7 @@ const Students = ({
             {showDeleteWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
-                    message="Are you sure you want to delete ?"
+                message={ WARNING_MESSAGES.DELETE }
                     handleYes={handleYesWarning}
                     handleNo={handleCloseWarning}
                     isOpen={true}

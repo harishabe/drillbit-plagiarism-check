@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import {
     CommonTable,
@@ -18,6 +19,7 @@ import {
 } from '../../../../redux/action/instructor/InstructorAction';
 import {
     DownloadCsv,
+    SaveToRepoBulk
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { DownloadOriginalFile, GetGrammarReport } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { useRouter } from 'next/router';
@@ -34,7 +36,7 @@ import { removeCommaWordEnd, formatDate } from '../../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_ANALYSIS, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV, FILE_LANGUAGE } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES } from '../../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -47,9 +49,9 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(id, d_key, name, title, original_fn, grammar, grammar_url, lang, percent, paper_id, date_up, action) {
+function createData(id, d_key, name, title, original_fn, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status) {
     return {
-        id, d_key, name, title, original_fn, grammar, grammar_url, lang, percent, paper_id, date_up, action
+        id, d_key, name, title, original_fn, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status
     };
 }
 
@@ -83,6 +85,7 @@ const DownloadButton = styled.div`
 
 const DeleteAllButton = styled.div`
     marginLeft: 10px;
+    display: flex;
 `;
 
 const Submission = ({
@@ -90,6 +93,7 @@ const Submission = ({
     DownloadCsv,
     DownloadOriginalFile,
     DeleteSubmission,
+    SaveToRepoBulk,
     submissionData,
     isLoading,
     isLoadingUpload,
@@ -116,6 +120,8 @@ const Submission = ({
     const [editAssignment, setEditAssignment] = useState(false);
     const [editAssignmentData, setEditAssignmentData] = useState('');
     const [deleteRowData, setDeleteRowData] = useState('');
+    const [saveRowData, setSaveRowData] = useState('');
+    const [showSaveIcon, setShowSaveIcon] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [showDownloadWarning, setShowDownloadWarning] = useState(false);
     const [data, setData] = useState();
@@ -148,7 +154,9 @@ const Submission = ({
                 formatDate(submission.date_up),
                 [
                     { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                ]
+                ],
+                submission.alert_msg,
+                submission.rep_status
             );
             row['isSelected'] = false;
             arr.push(row);
@@ -229,9 +237,9 @@ const Submission = ({
     };
 
     /**
-   * delete all assignments
+   * delete all submission
    */
-    const deleteAllAssignment = () => {
+    const deleteAllSubmission = () => {
         let rowsId = '';
         _.filter(rows, function (o) {
             if (o.isSelected === true) {
@@ -242,6 +250,22 @@ const Submission = ({
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
+    };
+
+    /**
+    * save all submission
+    */
+    const saveAllSubmission = () => {
+        let rowsId = '';
+        _.filter(rows, function (o) {
+            if (o.isSelected === true) {
+                return rows;
+            }
+        }).map((rowItem) => {
+            rowsId += rowItem?.paper_id + ',';
+        });
+        setSaveRowData(removeCommaWordEnd(rowsId));
+        setShowSaveIcon(true);
     };
 
     /**
@@ -288,11 +312,23 @@ const Submission = ({
         setShowDeleteWarning(false);
     };
 
+    const handleCloseSaveWarning = () => {
+        setShowSaveIcon(false);
+    };
+
     const handleYesWarning = () => {
         DeleteSubmission(`classes/${clasId}/assignments/${assId}/submissions?paperId=${deleteRowData}`);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    const handleYesSaveWarning = () => {
+        SaveToRepoBulk(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/repository?paperId=${saveRowData}`);
+        setShowDeleteAllIcon(false);
+        setTimeout(() => {
+            setShowSaveIcon(false);
         }, [100]);
     };
 
@@ -402,7 +438,7 @@ const Submission = ({
                 showDeleteWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
-                    message="Are you sure you want to delete ?"
+                    message={WARNING_MESSAGES.DELETE}
                     handleYes={handleYesWarning}
                     handleNo={handleCloseWarning}
                     isOpen={true}
@@ -424,8 +460,13 @@ const Submission = ({
 
             {_.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                 <Tooltip title='Delete' arrow>
-                    <IconButton onClick={deleteAllAssignment}>
+                    <IconButton onClick={deleteAllSubmission}>
                         <DeleteIcon />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title='Save to repositary' arrow>
+                    <IconButton onClick={saveAllSubmission}>
+                        <SaveOutlinedIcon />
                     </IconButton>
                 </Tooltip>
             </DeleteAllButton>}
@@ -450,9 +491,20 @@ const Submission = ({
             {
                 showDownloadWarning &&
                 <WarningDialog
-                    message="Are you sure you want to download ?"
+                    message={WARNING_MESSAGES.DOWNLOAD}
                     handleYes={handleFileDownloadYesWarning}
                     handleNo={handleFileDownloadCloseWarning}
+                    isOpen={true}
+                />
+            }
+
+            {
+                showSaveIcon &&
+                <WarningDialog
+                    warningIcon={<DeleteWarningIcon />}
+                    message={WARNING_MESSAGES.REPOSITORY}
+                    handleYes={handleYesSaveWarning}
+                    handleNo={handleCloseSaveWarning}
                     isOpen={true}
                 />
             }
@@ -467,24 +519,25 @@ const Submission = ({
                 />
             </PaginationContainer>
         </React.Fragment>
-    );
+        );
 };
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.instructorMyFolders?.submissionData?.page,
-    isLoading: state?.instructorMyFolders?.isLoadingSubmission,
-    isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
-    submissionData: state?.instructorMyFolders?.submissionData?._embedded?.submissionsList,
-    extractedFileData: state?.instructorMyFolders?.extractedFileData,
-    uploadData: state?.instructorMyFolders?.uploadData,
-    isLoadingDownload: state?.submission?.isLoadingDownload,
-    isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport
+            pageDetails: state?.instructorMyFolders?.submissionData?.page,
+        isLoading: state?.instructorMyFolders?.isLoadingSubmission,
+        isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
+        submissionData: state?.instructorMyFolders?.submissionData?._embedded?.submissionsList,
+        extractedFileData: state?.instructorMyFolders?.extractedFileData,
+        uploadData: state?.instructorMyFolders?.uploadData,
+        isLoadingDownload: state?.submission?.isLoadingDownload,
+        isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+            GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
         DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
+        SaveToRepoBulk: (url) => dispatch(SaveToRepoBulk(url)),
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
@@ -493,6 +546,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-Submission.layout = Instructor;
+        Submission.layout = Instructor;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Submission);
+        export default connect(mapStateToProps, mapDispatchToProps)(Submission);

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import _ from 'lodash';
 import { makeStyles } from '@mui/styles';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { useRouter } from 'next/router';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
@@ -76,7 +75,6 @@ const CommonTable = ({
 
     const handleGrammarReport = (e, rowData) => {
         e.preventDefault();
-        console.log('rowDatarowDatarowData', rowData);
         setGrammarPaperId(rowData?.paper_id);
         showGrammarReport(rowData?.grammar);
     }
@@ -88,49 +86,49 @@ const CommonTable = ({
 
     return (
         <Card>
-            <CardContent style={{ padding: '15px 0px' }}>
-                <TableContainer component={Paper} classes={{ root: classes.customTableContainer }}>
+            <CardContent style={ { padding: '15px 0px' } }>
+                <TableContainer component={ Paper } classes={ { root: classes.customTableContainer } }>
                     <Table stickyHeader>
                         <TableHead>
                             <TableRow>
-                                {isCheckbox &&
-                                    <TableCell padding="checkbox" className={classes.padding}>
-                                        <Checkbox checked={allSelected} onChange={(e) => handleCheckboxSelect(e, allSelected)} />
-                                    </TableCell>}
-                                {tableHeader?.map((column) => (
+                                { isCheckbox &&
+                                    <TableCell padding="checkbox" className={ classes.padding }>
+                                        <Checkbox checked={ allSelected } onChange={ (e) => handleCheckboxSelect(e, allSelected) } />
+                                    </TableCell> }
+                                { tableHeader?.map((column) => (
                                     <>
-                                        {(isSorting) &&
+                                        { (isSorting) &&
                                             <TableCell
-                                                key={column.id}
-                                                align={column.align}
-                                                style={{ minWidth: column.minWidth }}
+                                                key={ column.id }
+                                                align={ column.align }
+                                                style={ { minWidth: column.minWidth } }
                                             >
-                                                {TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
-                                                    <EllipsisText value={column.label} charLength={charLength} variant='body2_2' />
+                                                { TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
+                                                    <EllipsisText value={ column.label } charLength={ charLength } variant='body2_2' />
                                                     : <TableSortLabel
-                                                        onClick={((e) => sortHandle(e, column))}
+                                                        onClick={ ((e) => sortHandle(e, column)) }
                                                         IconComponent={
                                                             () =>
-                                                                <div style={{ marginTop: '2px' }}>
+                                                                <div style={ { marginTop: '2px' } }>
                                                                     {
                                                                         (toggle && sortArrow === column.id) ?
-                                                                            <ArrowDownwardIcon style={{ fontSize: '18px' }} /> :
-                                                                            <ArrowUpwardIcon style={{ fontSize: '18px' }} />
+                                                                            <ArrowDownwardIcon style={ { fontSize: '18px' } } /> :
+                                                                            <ArrowUpwardIcon style={ { fontSize: '18px' } } />
                                                                     }
                                                                 </div>
                                                         }
                                                     >
-                                                        <EllipsisText value={column.label} charLength={charLength} variant='body2_2' />
-                                                    </TableSortLabel>}
+                                                        <EllipsisText value={ column.label } charLength={ charLength } variant='body2_2' />
+                                                    </TableSortLabel> }
 
                                             </TableCell>
                                         }
                                     </>
-                                ))}
+                                )) }
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {isLoading ?
+                            { isLoading ?
                                 <TableSkeleton />
                                 : tableData?.map((row) => (
                                     <TableRow hover key={row.id}>
@@ -149,16 +147,16 @@ const CommonTable = ({
                                                                     <Tooltip key={index} title={icon.title} arrow>
                                                                         <IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}
                                                                         </IconButton>
-                                                                    </Tooltip>))}
+                                                                    </Tooltip>)) }
                                                             </TableCell> :
                                                             <>
                                                                 {
                                                                     column.isDownload ?
-                                                                        <TableCell key={column.id} align={column.align}>
-                                                                            <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={(e) => downloadSubmissionFile(e, row)}>
-                                                                                {typeof (value) === 'string' ?
-                                                                                    <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} variant='body2_3' /> :
-                                                                                    <Typography variant='body2_3' component="div">{value !== null ? value : NO_DATA_PLACEHOLDER}</Typography>}
+                                                                        <TableCell key={ column.id } align={ column.align }>
+                                                                            <a href='#' style={ { textDecoration: 'underline', color: '#3672FF' } } onClick={ (e) => downloadSubmissionFile(e, row) }>
+                                                                                { typeof (value) === 'string' ?
+                                                                                    <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } variant='body2_3' /> :
+                                                                                    <Typography variant='body2_3' component="div">{ value !== null ? value : NO_DATA_PLACEHOLDER }</Typography> }
                                                                             </a>
                                                                         </TableCell>
                                                                         :
@@ -171,7 +169,7 @@ const CommonTable = ({
                                                                                             <a style={{ fontWeight: '600' }} href='#' onClick={(e) => showAnalysisPage(e, row)}>
                                                                                                 {value}
                                                                                             </a>
-                                                                                        </Tooltip>}
+                                                                                        </Tooltip> }
                                                                                 </TableCell>
                                                                             }
                                                                             {column.id === 'grammar_url' &&
@@ -218,19 +216,19 @@ const CommonTable = ({
                                                         } else {
                                                             router.push(path);
                                                         }
-                                                    }}
+                                                    } }
                                                 >
                                                     <ArrowForwardOutlinedIcon />
                                                 </IconButton>
                                             </Tooltip>
                                         }
                                     </TableRow>
-                                ))}
+                                )) }
                         </TableBody>
                     </Table>
 
                     <>
-                        {(tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" />}
+                        { (tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" /> }
                     </>
                 </TableContainer>
             </CardContent>
