@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import debouce from 'lodash.debounce';
-import { Grid, Tooltip } from '@mui/material';
+import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
 import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
@@ -128,9 +128,9 @@ const Users = ({
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                             { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                             {
-                                'component': instructor.status === 'active' ? <VpnKeyOutlinedIcon /> : <VpnKeyOffOutlinedIcon />,
+                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                                'title': instructor.status === 'active' ? 'De-activate' : 'Activate'
+                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
                             }
                         ]),
                     instructor.expiry_date,

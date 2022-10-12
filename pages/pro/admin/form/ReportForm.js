@@ -142,13 +142,13 @@ const ReportForm = ({
             }
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    { formData?.map((field, i) => (
+                    { formData?.map((field, index) => (
                         <Grid key={ index } md={ 5.8 } xs={ 12 } style={ { marginLeft: '8px' } }>
                             { isLoading ? (
                                 <Skeleton />
                             ) : (
                                 <FormComponent
-                                    key={ i }
+                                        key={ index }
                                     field={ field }
                                     control={ control }
                                 />

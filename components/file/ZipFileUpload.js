@@ -103,7 +103,7 @@ const ZipFileUpload = ({
 
     const handleProcessZipFileRepo = (data) => {
         let bodyFormData = new FormData();
-        bodyFormData.append('repository', data?.repository?.toUpperCase());
+        bodyFormData.append('repository', data?.repository?.toUpperCase() === 'INSTITUTION' ? 'LOCAL' : 'GLOBAL');
         bodyFormData.append('language', data?.language);
         bodyFormData.append('file', fileData[0][1]);
         SubmissionListExtractedFileUpload(zipFileUploadAPI, bodyFormData);
