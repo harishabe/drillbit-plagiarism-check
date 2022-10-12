@@ -14,7 +14,7 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { ErrorBlock } from '../index';
 import { formatDate } from '../../utils/RegExp';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     item: {
         paddingLeft: 0,
         paddingRight: 0,

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     BorderColor: {
         borderBottom: '2px solid #5a9de9',
     },

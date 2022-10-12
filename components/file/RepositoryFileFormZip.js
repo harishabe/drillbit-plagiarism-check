@@ -19,7 +19,7 @@ export const LabelContainer = styled.div`
     color:#000
 `;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     helperText: {
         marginLeft: 0
     }

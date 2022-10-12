@@ -318,12 +318,12 @@ const Instructor = ({
                 showDialogModal &&
                 <DialogModal
                     headingTitle="Instructor Statistics"
-                        isOpen={ true }
+                    isOpen={ true }
                     fullWidth="lg"
                     maxWidth="lg"
-                        handleClose={ handleCloseDialog }
+                    handleClose={ handleCloseDialog }
                 >
-                        <InstructorStats instructorId={ instructorId } />
+                    <InstructorStats instructorId={ instructorId } />
                 </DialogModal>
             }
 
@@ -354,12 +354,12 @@ const Instructor = ({
                 editInstructor &&
                 <CreateDrawer
                     title="Edit Instructor"
-                        isShowAddIcon={ false }
-                        showDrawer={ editInstructor }
-                        handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={ false }
+                    showDrawer={ editInstructor }
+                    handleDrawerClose={ handleCloseDrawer }
                 >
                     <InstructorForm
-                            editData={ editInstructorData }
+                        editData={ editInstructorData }
                     />
                 </CreateDrawer>
             }

@@ -38,7 +38,7 @@ function a11yProps(index) {
     };
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     selected: {
         background: '#3672FF',
         color: '#fff !important',

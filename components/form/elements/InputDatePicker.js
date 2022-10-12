@@ -25,7 +25,7 @@ const StyledDatePickerTextField = styled(TextField)(() => ({
     },
 }));
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     helperText: {
         marginLeft: 0,
         color:'#ff0000'

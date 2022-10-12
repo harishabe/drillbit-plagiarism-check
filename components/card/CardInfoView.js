@@ -31,7 +31,7 @@ import { NO_DATA_PLACEHOLDER, CARD_NEXT_PAGE, CARD_FOLDER_ACTIONS } from '../../
 import { CardStatusColor } from '../../pages/style/index';
 import { useState } from 'react';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     inline: {
         display: 'inherit'
     },
@@ -253,7 +253,7 @@ const CardInfoView = ({
 
                             {isKnowMore &&
                                 <>
-                                    <div onClick={(e) => router.push({ 'pathname': item?.path, query: { integration: item.type } })}>
+                                    <div onClick={() => router.push({ 'pathname': item?.path, query: { integration: item.type } })}>
                                         {item?.lmsconfigured &&
                                             <SubTitle1 textColor="primary" title="Know More" />
                                         }
@@ -283,7 +283,7 @@ const CardInfoView = ({
                             }
                             {isNextPath &&
                                 <Tooltip title={CARD_NEXT_PAGE} arrow>
-                                    <IconButton onClick={(e) => router.push(path)}>
+                                    <IconButton onClick={() => router.push(path)}>
                                         <ArrowForwardOutlinedIcon />
                                     </IconButton>
                                 </Tooltip>

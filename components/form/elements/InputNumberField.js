@@ -20,7 +20,7 @@ export const ErrorMessage = styled.span`
     font-weight:400;
 `;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     helperTextLeft: {
         marginLeft: '0 !important'
     }
