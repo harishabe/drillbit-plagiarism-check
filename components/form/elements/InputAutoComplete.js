@@ -23,7 +23,7 @@ const StyledAutocompleteField = styled(Autocomplete)(() => ({
     },
 }));
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     helperText: {
         marginLeft: 0,
         color: '#ff0000'
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InputAutoComplete = ({
-    field, control, renderOption, options
+    field, control, renderOption
 }) => {
     const classes = useStyles();
     return (

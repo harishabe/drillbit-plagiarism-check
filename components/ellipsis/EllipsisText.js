@@ -31,8 +31,4 @@ class EllipsisText extends Component {
     }
 }
 
-const useStyles = ((theme) => ({
-
-}));
-
 export default EllipsisText;

@@ -28,7 +28,6 @@ import { getItemLocalStorage, setItemLocalStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
 import EllipsisText from '../ellipsis/EllipsisText';
 import SubTitle1 from '../typography/SubTitle1';
-import { PRO_ADMIN, PRO_USER } from '../../constant/data/Constant';
 
 const drawerWidth = 200;
 
@@ -67,11 +66,8 @@ const NavBar = ({
     const [name, setName] = React.useState('');
     const [role, setRole] = React.useState('');
     const [switchRole, setSwitchRole] = React.useState('');
-    const [switchProRole, setSwitchProRole] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [path, setPath] = React.useState('');
-    const [placeholderRole, setPlaceholderRole] = React.useState('');
-
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -86,9 +82,9 @@ const NavBar = ({
         window.location.href = '/auth/login';
     };
 
-    const switchToUser = (e, role) => {
+    const switchToUser = (e, switchRole) => {
         e.preventDefault();
-        if (switchRole === role) {
+        if (switchRole === Role.instructor) {
             setSwitchRole('instructor');
             setItemLocalStorage('switchRole', 'instructor');
             router.push('/extream/instructor/dashboard');
@@ -99,10 +95,10 @@ const NavBar = ({
         }
     };
 
-    const switchToProUser = (e, role) => {
+    const switchToProUser = (e, switchProRole) => {
         e.preventDefault();
-        if (switchProRole === role) {
-            setSwitchProRole('user');
+        if (switchProRole === 'lim-instructor') {
+            setSwitchRole('user');
             setItemLocalStorage('switchProRole', 'user');
             router.push('/pro/user/dashboard');
         } else {
@@ -112,31 +108,26 @@ const NavBar = ({
         }
     };
 
+
     React.useEffect(() => {
         let userName = getItemLocalStorage('name');
         let userRole = getItemLocalStorage('role');
         let email = getItemLocalStorage('email');
-        let switchRoles = getItemLocalStorage('role') !== Role.instructor && getItemLocalStorage('switchRole') === null && getItemLocalStorage('role') !== Role.student ? 'admin' : getItemLocalStorage('switchRole');
         setName(userName);
         setRole(userRole);
         setEmail(email);
-        setPlaceholderRole(userRole);
-        setSwitchRole(switchRoles);
-        setSwitchProRole(getItemLocalStorage('role') === Role.proAdmin && getItemLocalStorage('switchProRole') === null ? 'lim-admin' : 'lim-instructor');
         if (userRole === Role?.proAdmin) {
-            setPlaceholderRole(PRO_ADMIN);
             setPath('/pro/admin');
         } else if (userRole === Role?.proUser) {
-            setPlaceholderRole(PRO_USER);
             setPath('/pro/user');
-        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (switchRole === null)) {
+        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student)) {
             setPath('/extream/' + userRole);
-        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (switchRole === 'admin')) {
+        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (router.pathname.split('/')[2] === 'admin')) {
             setPath('/extream/admin');
-        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (switchRole === 'instructor')) {
+        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (router.pathname.split('/')[2] === 'instructor')) {
             setPath('/extream/instructor');
         }
-    }, [, switchRole]);
+    }, [, router,switchRole]);
 
     return (
         <>
@@ -168,8 +159,8 @@ const NavBar = ({
                                         <div style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}>
                                             {name !== undefined ? <EllipsisText value={name} charLength={12} /> : <Skeleton />}
                                         </div>
-                                        <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right' }}>
-                                            {switchRole !== null ? switchRole?.charAt(0)?.toUpperCase() + switchRole?.slice(1) : placeholderRole?.charAt(0)?.toUpperCase() + placeholderRole?.slice(1)}
+                                        <div style={{ fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right', textTransform: 'capitalize' }}>
+                                            {router.pathname.split('/')[2]}
                                         </div>
                                     </div>
 
@@ -239,49 +230,52 @@ const NavBar = ({
                             />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        {role === Role?.admin ?
+                        {(router.pathname.split('/')[1] === 'extream' && role === Role?.admin && ((getItemLocalStorage('switchRole') === null || getItemLocalStorage('switchRole') === 'admin') || (getItemLocalStorage('switchRole') === null || getItemLocalStorage('switchRole') === 'instructor'))) &&
                             <>
-                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToUser(e, role)}>
+                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToUser(e, router.pathname.split('/')[2] === Role?.admin ? 'instructor' : 'admin')}>
                                     <ListItemIcon>
                                         <SwitchAccountIcon />
                                     </ListItemIcon>
                                     <ListItemText
                                         style={{ padding: '5px 15px' }}
                                         primary="Switch account"
-                                        secondary={`Switch to ${switchRole === Role?.admin ? 'instructor' : 'admin'}`}
-                                    />
-                                </MenuItem>
-                                <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                            </> :
-                            <>
-                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToProUser(e, role)}>
-                                    <ListItemIcon>
-                                        <SwitchAccountIcon />
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        style={{ padding: '5px 15px' }}
-                                        primary="Switch account"
-                                        secondary={`Switch to ${switchProRole === Role?.proAdmin ? 'user' : 'admin'}`}
+                                        secondary={`Switch to ${router.pathname.split('/')[2] === Role?.admin ? 'instructor' : 'admin'}`}
                                     />
                                 </MenuItem>
                                 <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
                             </>
                         }
-                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push(`${path}/profile/accountinfo`)}>
+                        {(router.pathname.split('/')[1] === 'pro' && role === Role?.proAdmin &&
+                            ((getItemLocalStorage('switchRole') === null || getItemLocalStorage('switchRole') === 'lim-admin') || (getItemLocalStorage('switchRole') === null || getItemLocalStorage('switchRole') === 'lim-instructor'))) &&
+                            <>
+                                <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => switchToProUser(e, router.pathname.split('/')[2] === Role?.admin ? 'lim-instructor' : 'lim-admin')}>
+                                    <ListItemIcon>
+                                        <SwitchAccountIcon />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        style={{ padding: '5px 15px' }}
+                                        primary="Switch account"
+                                        secondary={`Switch to ${router.pathname.split('/')[2] === Role?.admin ? 'user' : 'admin'}`}
+                                    />
+                                </MenuItem>
+                                <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
+                            </>
+                        }
+                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={() => router.push(`${path}/profile/accountinfo`)}>
                             <ListItemIcon>
                                 <AccountIcon />
                             </ListItemIcon>
                             <ListItemText style={{ padding: '5px 15px' }} primary="Account info" secondary="Account details" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push(`${path}/profile/help`)}>
+                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={() => router.push(`${path}/profile/help`)}>
                             <ListItemIcon>
                                 <HelpIcon />
                             </ListItemIcon>
                             <ListItemText style={{ padding: '5px 15px' }} primary="Help" secondary="PDF / Video" />
                         </MenuItem>
                         <Divider style={{ marginLeft: '10px', marginRight: '10px' }} />
-                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={(e) => router.push(`${path}/profile/changepassword`)}>
+                        <MenuItem style={{ paddingTop: '0px', paddingBottom: '0px' }} onClick={() => router.push(`${path}/profile/changepassword`)}>
                             <ListItemIcon>
                                 <ChangePwdIcon />
                             </ListItemIcon>

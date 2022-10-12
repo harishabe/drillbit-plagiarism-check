@@ -51,7 +51,6 @@ const ZipFileUpload = ({
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
-    const [data, setData] = useState([]);
     const [fileWarning, setFileWarning] = useState(false);
 
     const handleDelete = (e, item) => {

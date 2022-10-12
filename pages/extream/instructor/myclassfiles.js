@@ -40,11 +40,11 @@ const MyClassFiles = ({
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [selectedClass, setSelectedClass] = useState('');
 
-    const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
 
     useEffect(() => {
         let row = '';
         let arr = [];
+        const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
         classesData?.map((item, index) => {
             item['color'] = Colors[index];
             item['validity'] = findByExpiryDate(item.expiry_date);
@@ -93,28 +93,28 @@ const MyClassFiles = ({
 
     return (
         <React.Fragment>
-            <Grid container spacing={ 2 }>
-                { item?.length > 0 ? item?.map((item, index) => (
-                    <Grid key={ index } item md={ 4 } xs={ 12 }>
+            <Grid container spacing={2}>
+                {item?.length > 0 ? item?.map((item, index) => (
+                    <Grid key={index} item md={4} xs={12}>
                         <CardInfoView
-                            key={ index }
-                            item={ item }
-                            isAvatar={ true }
-                            isHeading={ true }
-                            isTimer={ true }
-                            isAction={ true }
-                            isNextPath={ true }
-                            isDescription={ true }
-                            handleClick={ handleClassEdit }
-                            handleDelete={ handleClassDelete }
-                            statusColor={ expiryDateBgColor(item.validity) }
-                            path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
-                            //path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id } } }
+                            key={index}
+                            item={item}
+                            isAvatar={true}
+                            isHeading={true}
+                            isTimer={true}
+                            isAction={true}
+                            isNextPath={true}
+                            isDescription={true}
+                            handleClick={handleClassEdit}
+                            handleDelete={handleClassDelete}
+                            statusColor={expiryDateBgColor(item.validity)}
+                            path={{ pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } }}
+                        //path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id } } }
                         />
                     </Grid>
                 )) :
-                    <Grid item md={ 12 } xs={ 12 }>
-                        <ErrorBlock message={ CLASS_NOT_FOUND } />
+                    <Grid item md={12} xs={12}>
+                        <ErrorBlock message={CLASS_NOT_FOUND} />
                     </Grid>
                 }
             </Grid>
@@ -122,11 +122,11 @@ const MyClassFiles = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
+                    warningIcon={<DeleteWarningIcon />}
                     message="Are you sure you want to delete ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
 
@@ -134,7 +134,7 @@ const MyClassFiles = ({
             <AddButtonBottom>
                 <CreateDrawer
                     title="Create Class"
-                    isShowAddIcon={ true }>
+                    isShowAddIcon={true}>
                     <MyClassesForm />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -143,12 +143,12 @@ const MyClassFiles = ({
                 editClasses &&
                 <CreateDrawer
                     title="Edit Class"
-                    isShowAddIcon={ false }
-                    showDrawer={ editClasses }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={editClasses}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <MyClassesForm
-                        editData={ editClassesData }
+                        editData={editClassesData}
                     />
                 </CreateDrawer>
             }
@@ -156,9 +156,9 @@ const MyClassFiles = ({
 
             <PaginationContainer>
                 <Pagination
-                    count={ pageDetails?.totalPages }
-                    page={ pageDetails?.number + 1 }
-                    onChange={ handlePagination }
+                    count={pageDetails?.totalPages}
+                    page={pageDetails?.number + 1}
+                    onChange={handlePagination}
                     color="primary"
                     variant="outlined"
                     shape="rounded"

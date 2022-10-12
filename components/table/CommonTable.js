@@ -29,7 +29,7 @@ import {
     TABLE_NEXT_PAGE
 } from '../../constant/data/Constant';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     padding: {
         padding: '0 0 4px 4px'
     },
@@ -126,18 +126,17 @@ const CommonTable = ({
                                         { isCheckbox &&
                                             <TableCell padding="checkbox" className={ classes.padding }>
                                                 <Checkbox disabled={ (row.role === Role.admin) || (row.role === Role.proAdmin) } onChange={ (e) => handleSingleSelect(e, row) } checked={ row.isSelected } />
-                                            </TableCell> }
-                                        { tableHeader.map((column, index) => {
+                                            </TableCell>}
+                                        {tableHeader.map((column, index) => {
                                             const value = row[column.id];
                                             return (
                                                 <>
                                                     {
                                                         TABLE_BODY_ALLOW_ICON.includes(column.id) ?
-                                                            <TableCell>
-                                                                { value.map((icon, index) => (
-
-                                                                    <Tooltip key={ index } title={ icon.title } arrow>
-                                                                        <IconButton onClick={ (e) => handleAction(e, icon.type, row) }>{ icon.component }
+                                                            <TableCell key={index}>
+                                                                {value.map((icon, index) => (
+                                                                    <Tooltip key={index} title={icon.title} arrow>
+                                                                        <IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}
                                                                         </IconButton>
                                                                     </Tooltip>)) }
                                                             </TableCell> :
@@ -153,6 +152,7 @@ const CommonTable = ({
                                                                         </TableCell>
                                                                         :
                                                                         <>
+
                                                                             { column.id === 'percent' ?
                                                                                 <TableCell key={ column.id } align={ column.align } style={ { display: 'flex', marginTop: '5px' } }>
                                                                                     { row?.alert_msg != null &&
@@ -187,11 +187,11 @@ const CommonTable = ({
                                                     }
                                                 </>
                                             );
-                                        }) }
-                                        { isNextPath &&
-                                            <Tooltip title={ TABLE_NEXT_PAGE } arrow>
-                                                <IconButton className={ classes.customArrowContainer }
-                                                    onClick={ (e) => {
+                                        })}
+                                        {isNextPath &&
+                                            <Tooltip title={TABLE_NEXT_PAGE} arrow>
+                                                <IconButton className={classes.customArrowContainer}
+                                                    onClick={() => {
                                                         if (path && path?.query?.isAssignment) {
                                                             path.query['assId'] = row?.id;
                                                             path.query['assName'] = row?.assignment_name,

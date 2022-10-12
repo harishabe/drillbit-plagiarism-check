@@ -1,23 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from 'next/link';
 import { ArrowNextIcon } from '../../assets/icon';
 
-const useStyles = makeStyles({
-    name: {
-        color: '#282828',
-        fontWeight: '600'
-    }
-});
-
 const BreadCrumb = ({
     item
 }) => {
-    
-    const classes = useStyles();
-
     return (
         <div role="presentation">
             <Breadcrumbs separator={<ArrowNextIcon />} aria-label="breadcrumb" mb="15px">

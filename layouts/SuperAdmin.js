@@ -16,7 +16,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const SuperAdmin = ({ children }) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(!open);
