@@ -26,18 +26,17 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import {
     DownloadCsv,
-    SaveToRepoBulk
-} from '../../../redux/action/common/Submission/SubmissionAction';
-import {
-    folderSubmissionsFileData,
+    SaveToRepoBulk,
+    DownloadOriginalFile,
+    GetGrammarReport,
     DeletefolderSubmissionData,
-    DownloadOriginalFile
+    folderSubmissionsFileData,
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
-import { BASE_URL_PRO, BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
+import { BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { DOWNLOAD_CSV, WARNING_MESSAGES } from '../../../constant/data/Constant';
 
@@ -45,16 +44,16 @@ const columns = [
     { id: 'name', label: 'Author Name' },
     { id: 'title', label: 'Paper Title' },
     { id: 'original_fn', label: 'Original File', isDownload: true },
-    { id: 'grammar', label: 'Grammar' },
+    { id: 'grammar_url', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
     { id: 'paper_id', label: 'Paper ID' },
     { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action' },
 ];
 
-function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key, alert_msg, repository_status) {
+function createData(id, name, title, original_fn, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status) {
     return {
-        id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key, alert_msg, repository_status
+        id, name, title, original_fn, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status
     };
 }
 
@@ -98,7 +97,9 @@ const folderSubmission = ({
     UploadFileDataClear,
     extractedFileData,
     uploadData,
-    UploadZipFileDataClear
+    UploadZipFileDataClear,
+    isLoadingGrammarReport,
+    GetGrammarReport
 }) => {
 
     const router = useRouter();
@@ -160,6 +161,7 @@ const folderSubmission = ({
                     submission.title,
                     submission.original_file_name,
                     submission.grammar,
+                    submission.grammar_url,
                     <SimilarityStatus percent={ submission.percent } />,
                     submission.paper_id,
                     formatDate(submission.date_up),
@@ -355,6 +357,11 @@ const folderSubmission = ({
         window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
     };
 
+    const handlGrammarReport = (grammar) => {
+        console.log('grammar', grammar);
+        GetGrammarReport(BASE_URL_UPLOAD + END_POINTS_PRO.GRAMMAR_REPORT + grammar);
+    }
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -429,7 +436,9 @@ const folderSubmission = ({
                     handleSingleSelect={ handleSingleSelect }
                     downloadSubmissionFile={ handleOriginalFileDownload }
                     showAnalysisPage={ handleShowAnalysisPage }
+                    showGrammarReport={ handlGrammarReport }
                     isLoading={ isLoadingSubmission }
+                    isLoadingGrammarReport={ isLoadingGrammarReport }
                     charLength={ 10 }
                     path=''
                 />
@@ -496,6 +505,7 @@ const mapStateToProps = (state) => ({
     isLoadingDownload: state?.submission?.isLoadingDownload,
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
     uploadData: state?.instructorMyFolders?.uploadData,
+    isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -506,7 +516,8 @@ const mapDispatchToProps = (dispatch) => {
         SaveToRepoBulk: (url) => dispatch(SaveToRepoBulk(url)),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
-        UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())
+        UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
+        GetGrammarReport: (url) => dispatch(GetGrammarReport(url)),
     };
 };
 

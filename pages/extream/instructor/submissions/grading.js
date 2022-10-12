@@ -102,7 +102,7 @@ const Grading = ({
     };
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + `/extreme/classes/${clasId}/assignments/${assId}/qa/download`, DOWNLOAD_CSV.GRADING_LISTS);
+        DownloadCsv(BASE_URL_EXTREM + `/extreme/classes/${clasId}/assignments/${assId}/grading/download`, DOWNLOAD_CSV.GRADING_LISTS);
     };
 
     return (

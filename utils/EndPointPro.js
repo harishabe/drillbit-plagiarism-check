@@ -40,6 +40,7 @@ const END_POINTS_PRO = {
     USER_REPOSITARY_DATA: '/privateRepositoryInbox',
     USER_REPOSITARY_REMOVE: '/removePrivateRepository/',
     USER_REPOSITARY_UPLOAD: '/privateRepository',
+    GRAMMAR_REPORT: '/files/grammar/download/',
 }
 
 export default END_POINTS_PRO;
