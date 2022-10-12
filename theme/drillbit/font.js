@@ -77,15 +77,21 @@ const font = {
         color: '#666666'
     },
     body2_2: {
+        // fontFamily: fontName,
+        // fontWeight: 600,
+        // fontSize: '15px',
+        // lineHeight: '20px',
+        // color: '#666666'
         fontFamily: fontName,
         fontWeight: 600,
-        fontSize: '15px',
+        fontSize: '16px',
         lineHeight: '20px',
         color: '#666666'
     },
     body2_3: {
         fontFamily: fontName,
-        fontSize: '15px',
+        fontSize: '16px',
+        //fontSize: '15px',
     }
 };
 
