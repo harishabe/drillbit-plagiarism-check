@@ -85,7 +85,7 @@ const UploadFileSubmission = () => {
             choseFileTitle='browse your regional file here'
             title={UPLOAD_TITLE_CONSTANT.REGIONAL}
             fileIcon={< UploadFileIcon />}
-            singleFileUploadAPI={BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/regionalFile`}
+            singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/regional/folder/${router.query.folderId}/upload` }
             routerObj={{ pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } }}
         />,
         <GDriveFileUpload

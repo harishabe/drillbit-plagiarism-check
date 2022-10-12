@@ -35,3 +35,12 @@ export const DeletefolderSubmissionData = (url) => {
         type: types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_START, url: url
     };
 };
+
+/**
+ * Save to repository
+ */
+export const SaveToRepoBulk = (url) => {
+    return {
+        type: types.FETCH_SAVE_TO_REPOSITORY_START, url: url
+    };
+};

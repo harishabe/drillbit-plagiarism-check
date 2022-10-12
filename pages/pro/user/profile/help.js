@@ -9,11 +9,11 @@ const Help = () => {
 
     const [data, setData] = useState([
         {
-            'role': 'instructor',
+            'role': 'User',
             'isShow': false,
-            'pdfLinkTitle': 'Instructor tutorial PDF download',
+            'pdfLinkTitle': 'User tutorial PDF download',
             'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf',
-            'videoTitle': 'Instructor video tutorial',
+            'videoTitle': 'User video tutorial',
             'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf'
         }
     ]);

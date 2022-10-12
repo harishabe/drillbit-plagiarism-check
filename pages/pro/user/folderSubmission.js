@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip } from '@mui/material';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { Pagination, IconButton } from '@mui/material';
@@ -25,6 +26,7 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import {
     DownloadCsv,
+    SaveToRepoBulk
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import {
     folderSubmissionsFileData,
@@ -37,7 +39,7 @@ import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
 import { BASE_URL_PRO, BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
-import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
+import { DOWNLOAD_CSV, WARNING_MESSAGES } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -50,9 +52,9 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key) {
+function createData(id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key, alert_msg, repository_status) {
     return {
-        id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key
+        id, name, title, original_fn, grammar, percent, paper_id, date_up, action, d_key, alert_msg, repository_status
     };
 }
 
@@ -79,6 +81,7 @@ const DownloadButton = styled.div`
 
 const DeleteAllButton = styled.div`
     marginLeft: 10px;
+    display: flex;
 `;
 
 const folderSubmission = ({
@@ -86,6 +89,7 @@ const folderSubmission = ({
     DownloadCsv,
     DownloadOriginalFile,
     DeletefolderSubmissionData,
+    SaveToRepoBulk,
     folderSubmissionData,
     isLoadingSubmission,
     isLoadingUpload,
@@ -101,6 +105,8 @@ const folderSubmission = ({
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
+    const [saveRowData, setSaveRowData] = useState('');
+    const [showSaveIcon, setShowSaveIcon] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [showDownloadWarning, setShowDownloadWarning] = useState(false);
     const [data, setData] = useState();
@@ -129,7 +135,7 @@ const folderSubmission = ({
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
-        field: 'name',
+        field: 'paper_id',
         orderBy: PaginationValue?.orderBy,
     });
 
@@ -149,18 +155,20 @@ const folderSubmission = ({
         folderSubmissionData?.map((submission) => {
             row =
                 createData(
-                    submission.ass_id,
+                    submission.folder_id,
                     submission.name,
                     submission.title,
                     submission.original_file_name,
                     submission.grammar,
-                    < SimilarityStatus percent={ submission.percent } />,
+                    <SimilarityStatus percent={ submission.percent } />,
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }
                     ],
-                    submission.d_key
+                    submission.d_key,
+                    submission.alert_msg,
+                    submission.repository_status
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -184,11 +192,23 @@ const folderSubmission = ({
         setShowDeleteWarning(false);
     };
 
+    const handleCloseSaveWarning = () => {
+        setShowSaveIcon(false);
+    };
+
     const handleYesWarning = () => {
         DeletefolderSubmissionData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + `${folderId}/submissions?paperId=${deleteRowData}`);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    const handleYesSaveWarning = () => {
+        SaveToRepoBulk(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + `${folderId}/submissions/repository?paperId=${saveRowData}`);
+        setShowDeleteAllIcon(false);
+        setTimeout(() => {
+            setShowSaveIcon(false);
         }, [100]);
     };
 
@@ -267,6 +287,22 @@ const folderSubmission = ({
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
+    };
+
+    /**
+     * save all submission
+     */
+    const saveAllSubmission = () => {
+        let rowsId = '';
+        _.filter(rows, function (o) {
+            if (o.isSelected === true) {
+                return rows;
+            }
+        }).map((rowItem) => {
+            rowsId += rowItem?.paper_id + ',';
+        });
+        setSaveRowData(removeCommaWordEnd(rowsId));
+        setShowSaveIcon(true);
     };
 
     const handleDownload = () => {
@@ -370,10 +406,15 @@ const folderSubmission = ({
             <>
 
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
-                    <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllSubmission }>
-                            <DeleteIcon />
-                        </IconButton>
+                        <Tooltip title='Delete' arrow>
+                            <IconButton onClick={ deleteAllSubmission }>
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title='Save to repositary' arrow>
+                            <IconButton onClick={ saveAllSubmission }>
+                                <SaveOutlinedIcon />
+                            </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }
 
@@ -406,7 +447,7 @@ const folderSubmission = ({
                     showDeleteWarning &&
                     <WarningDialog
                         warningIcon={ <DeleteWarningIcon /> }
-                        message="Are you sure you want to delete ?"
+                        message={ WARNING_MESSAGES.DELETE }
                         handleYes={ handleYesWarning }
                         handleNo={ handleCloseWarning }
                         isOpen={ true }
@@ -414,9 +455,20 @@ const folderSubmission = ({
                 }
 
                 {
+                    showSaveIcon &&
+                    <WarningDialog
+                        warningIcon={ <DeleteWarningIcon /> }
+                        message={ WARNING_MESSAGES.REPOSITORY }
+                        handleYes={ handleYesSaveWarning }
+                        handleNo={ handleCloseSaveWarning }
+                        isOpen={ true }
+                    />
+                }
+
+                {
                     showDownloadWarning &&
                     <WarningDialog
-                        message="Are you sure you want to download ?"
+                        message={ WARNING_MESSAGES.DOWNLOAD }
                         handleYes={ handleFileDownloadYesWarning }
                         handleNo={ handleFileDownloadCloseWarning }
                         isOpen={ true }
@@ -451,6 +503,7 @@ const mapDispatchToProps = (dispatch) => {
         folderSubmissionsFileData: (url, PaginationValue) => dispatch(folderSubmissionsFileData(url, PaginationValue)),
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         DeletefolderSubmissionData: (url) => dispatch(DeletefolderSubmissionData(url)),
+        SaveToRepoBulk: (url) => dispatch(SaveToRepoBulk(url)),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear())

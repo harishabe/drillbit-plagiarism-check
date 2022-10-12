@@ -31,7 +31,7 @@ const FeedbackForm = ({
 
     useEffect(() => {
         if (marksData !== undefined) {
-            if (marksData > maxMarks) {
+            if (marksData > parseInt(maxMarks)) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'marks') {
                         item['errorMsg'] = FORM_VALIDATION.GRADES;

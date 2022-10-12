@@ -250,7 +250,6 @@ export function* GetReportDataDownload() {
  */
 
 export function* onLoadEdit(action) {
-    // console.log("action", action)
     const { response, error } = yield call(EditRow, action.url, action.data, action.API_END_POINT);
     if (response) {
         yield put({

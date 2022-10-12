@@ -39,7 +39,7 @@ import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, WARNING_MESSAGES } from '../../../../constant/data/Constant';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -283,7 +283,7 @@ const Students = ({
                 showDeleteWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
-                    message="Are you sure you want to delete ?"
+                    message={ WARNING_MESSAGES.DELETE }
                     handleYes={handleYesWarning}
                     handleNo={handleCloseWarning}
                     isOpen={true}
