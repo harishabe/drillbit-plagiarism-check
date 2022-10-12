@@ -1,10 +1,11 @@
 import * as React from 'react';
 import _ from 'lodash';
 import { makeStyles } from '@mui/styles';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { useRouter } from 'next/router';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
-import { Card, CardContent } from '@mui/material';
+import { Card, CardContent, Skeleton } from '@mui/material';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import TableHead from '@mui/material/TableHead';
@@ -17,6 +18,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
 import { Role } from '../../constant/data';
@@ -53,13 +55,17 @@ const CommonTable = ({
     isLoading,
     isSorting,
     downloadSubmissionFile,
-    showAnalysisPage
+    showAnalysisPage,
+    showGrammarReport,
+    isLoadingGrammarReport
 }) => {
     const router = useRouter();
     const classes = useStyles();
     const [toggle, setToggle] = React.useState(false);
     const [sortArrow, setSortArrow] = React.useState('');
     const [allSelected, setAllSelected] = React.useState(false);
+    const [grammarPaperId, setGrammarPaperId] = React.useState('');
+
 
     const sortHandle = (e, column) => {
         let a = !toggle;
@@ -68,9 +74,15 @@ const CommonTable = ({
         handleTableSort(e, column, toggle);
     };
 
+    const handleGrammarReport = (e, rowData) => {
+        e.preventDefault();
+        console.log('rowDatarowDatarowData', rowData);
+        setGrammarPaperId(rowData?.paper_id);
+        showGrammarReport(rowData?.grammar);
+    }
+
     React.useEffect(() => {
         let selected = _.find(tableData, function (o) { return o.isSelected === true; });
-        console.log('selected', selected);
         setAllSelected(selected?.isSelected ? true : false);
     }, [tableData]);
 
@@ -124,7 +136,7 @@ const CommonTable = ({
                                     <TableRow hover key={row.id}>
                                         {isCheckbox &&
                                             <TableCell padding="checkbox" className={classes.padding}>
-                                                <Checkbox disabled={ (row.role === Role.admin) || (row.role === Role.proAdmin) } onChange={ (e) => handleSingleSelect(e, row) } checked={ row.isSelected } />
+                                                <Checkbox disabled={(row.role === Role.admin) || (row.role === Role.proAdmin)} onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
                                             </TableCell>}
                                         {tableHeader.map((column, index) => {
                                             const value = row[column.id];
@@ -151,17 +163,34 @@ const CommonTable = ({
                                                                         </TableCell>
                                                                         :
                                                                         <>
-                                                                            {column.id === 'percent' ?
+                                                                            {column.id === 'percent' &&
                                                                                 <TableCell key={column.id} align={column.align}>
                                                                                     {value?.props?.percent === '--' ?
-                                                                                        <div style={{ textAlign: 'center' }}><BeatLoader size={10} color="#3672FF" /></div> :
+                                                                                        <BeatLoader size={10} color="#3672FF" /> :
                                                                                         <Tooltip title={'Similarity Report'} arrow>
                                                                                             <a style={{ fontWeight: '600' }} href='#' onClick={(e) => showAnalysisPage(e, row)}>
                                                                                                 {value}
                                                                                             </a>
                                                                                         </Tooltip>}
                                                                                 </TableCell>
-                                                                                :
+                                                                            }
+                                                                            {column.id === 'grammar_url' &&
+                                                                                <TableCell key={column.id} align={column.align}>
+                                                                                    {value === '--' && <BeatLoader size={10} color="#3672FF" />}
+                                                                                    {(value !== '--' && value !== 'NA') &&
+                                                                                        <>
+                                                                                            {isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> : <Tooltip key={index} title='Grammar Report' arrow>
+                                                                                                <IconButton onClick={(e) => handleGrammarReport(e, row)}>
+                                                                                                    <OpenInNewOutlinedIcon />
+                                                                                                </IconButton>
+                                                                                            </Tooltip> }
+                                                                                        </>
+
+                                                                                    }
+                                                                                    {(value === 'NA') && value}
+                                                                                </TableCell>
+                                                                            }
+                                                                            {(column.id !== 'percent' && column.id !== 'grammar_url') &&
                                                                                 <TableCell key={column.id} align={column.align}>
                                                                                     {typeof (value) === 'string' ?
                                                                                         <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} variant='body2_3' /> :
@@ -184,7 +213,7 @@ const CommonTable = ({
                                                             console.log('rowrow', row);
                                                             path.query['assId'] = row?.id;
                                                             path.query['assName'] = row?.assignment_name,
-                                                            path.query['grammar'] = row?.assignmentData?.grammar;
+                                                                path.query['grammar'] = row?.assignmentData?.grammar;
                                                             router.push(path);
                                                         } else {
                                                             router.push(path);

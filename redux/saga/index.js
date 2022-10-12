@@ -6,6 +6,7 @@ import {
     GetFolderSubmissionData,
     DeleteFolderSubmissionFile,
     DownloadSubmissionDetail,
+    GrammarReportSubmission
 } from './common/Submission/DetailSubmissionData';
 import {
     LanguageListData,
@@ -192,6 +193,7 @@ const saga = [
     fork(EditExtremeRef),
     fork(SuperDropdownList),
     fork(GetExtremeRef),
+    fork(GrammarReportSubmission)
 ];
 
 export default function* rootSaga() {

@@ -1,7 +1,7 @@
 import END_POINTS from '../../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../../utils/BaseUrl';
-import { GetMethodDownloadPdf, GetMethod, DeleteMethod, GetMethodDownload } from '../../ApiMethod';
+import { GetMethodDownloadPdf, GetMethod, DeleteMethod, GetMethodDownload, GetDownloadPdfNewWindow } from '../../ApiMethod';
 import { PaginationUrl } from '../../../../utils/PaginationUrl';
 
 /**
@@ -46,4 +46,13 @@ export const DeletefolderSubmission = async (url) => {
 
 export const DownloadSubmissionData = async (url, title) => {
     return GetMethodDownload(url, title + '.csv');
+};
+
+
+/**
+ * API CALL FOR GRAMMAR REPORT
+ */
+
+export const DownloadGrammarReportData = async (url) => {
+    return GetDownloadPdfNewWindow(url);
 };

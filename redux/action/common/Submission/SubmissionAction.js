@@ -35,3 +35,12 @@ export const DeletefolderSubmissionData = (url) => {
         type: types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_START, url: url
     };
 };
+
+/**
+ * Get myfolder > submissionList > grammar download
+ */
+ export const GetGrammarReport = (url) => {
+    return {
+        type: types.FETCH_GRAMMAR_REPORT_START, url: url
+    };
+};

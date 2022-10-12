@@ -19,7 +19,7 @@ import {
 import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
-import { DownloadOriginalFile } from '../../../../redux/action/common/Submission/SubmissionAction';
+import { DownloadOriginalFile, GetGrammarReport } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { useRouter } from 'next/router';
 import { TextField, Pagination } from '@mui/material';
 import { Grid, Tooltip } from '@mui/material';
@@ -32,25 +32,24 @@ import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
 import { removeCommaWordEnd, formatDate } from '../../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
-import { BASE_URL_ANALYSIS } from '../../../../utils/BaseUrl';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import { BASE_URL_ANALYSIS, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, FILE_LANGUAGE } from '../../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
     { id: 'title', label: 'Paper Title' },
     { id: 'original_fn', label: 'Original File', isDownload: true },
-    { id: 'grammar', label: 'Grammar' },
+    { id: 'grammar_url', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
     { id: 'paper_id', label: 'Paper ID' },
     { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action' },
 ];
 
-function createData(id, d_key, name, title, original_fn, grammar, percent, paper_id, date_up, action) {
+function createData(id, d_key, name, title, original_fn, grammar, grammar_url, lang, percent, paper_id, date_up, action) {
     return {
-        id, d_key, name, title, original_fn, grammar, percent, paper_id, date_up, action
+        id, d_key, name, title, original_fn, grammar, grammar_url, lang, percent, paper_id, date_up, action
     };
 }
 
@@ -99,7 +98,9 @@ const Submission = ({
     UploadFileDataClear,
     extractedFileData,
     uploadData,
-    UploadZipFileDataClear
+    UploadZipFileDataClear,
+    isLoadingGrammarReport,
+    GetGrammarReport
 }) => {
     const router = useRouter();
     const clasId = router.query.clasId;
@@ -140,6 +141,8 @@ const Submission = ({
                 submission.title,
                 submission.original_fn,
                 submission.grammar,
+                submission.grammar_url,
+                submission.lang,
                 <SimilarityStatus percent={submission.percent} />,
                 submission.paper_id,
                 formatDate(submission.date_up),
@@ -312,9 +315,14 @@ const Submission = ({
    * show analysis page
    */
     const handleShowAnalysisPage = (e, row) => {
-        let token = localStorage.getItem('token');
-        let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
-        window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+        console.log('rowrowrow', row);
+        if (row?.lang === FILE_LANGUAGE.REGIONAL) {
+            alert('regional');
+        } else {
+            let token = localStorage.getItem('token');
+            let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
+            window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+        }
     };
 
     const handleDownload = () => {
@@ -325,6 +333,11 @@ const Submission = ({
         let url = `classes/${clasId}/assignments/${assId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=${paginationPayload?.field}&orderBy=${paginationPayload?.orderBy}`;
         GetSubmissionList(url);
     };
+
+    const handlGrammarReport = (grammar) => {
+        console.log('grammar');
+        GetGrammarReport(BASE_URL_UPLOAD + END_POINTS.GRAMMAR_REPORT + grammar);
+    }
 
     return (
         <React.Fragment>
@@ -409,13 +422,13 @@ const Submission = ({
                 </CreateDrawer>
             }
 
-            { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
+            {_.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                 <Tooltip title='Delete' arrow>
                     <IconButton onClick={deleteAllAssignment}>
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>
-            </DeleteAllButton> }
+            </DeleteAllButton>}
 
             <CommonTable
                 isCheckbox={true}
@@ -428,7 +441,9 @@ const Submission = ({
                 handleTableSort={handleTableSort}
                 downloadSubmissionFile={handleOriginalFileDownload}
                 showAnalysisPage={handleShowAnalysisPage}
+                showGrammarReport={handlGrammarReport}
                 isLoading={isLoading}
+                isLoadingGrammarReport={isLoadingGrammarReport}
                 charLength={10}
             />
 
@@ -463,6 +478,7 @@ const mapStateToProps = (state) => ({
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
     uploadData: state?.instructorMyFolders?.uploadData,
     isLoadingDownload: state?.submission?.isLoadingDownload,
+    isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -473,6 +489,7 @@ const mapDispatchToProps = (dispatch) => {
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
+        GetGrammarReport: (url) => dispatch(GetGrammarReport(url)),
     };
 };
 

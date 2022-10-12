@@ -63,7 +63,7 @@ export const PostMethod = async (url, query) => {
  * @param {*} url
  */
 
- export const PostMethodEN = async (url, query) => {
+export const PostMethodEN = async (url, query) => {
     return await axois.post(url, query, {
         headers: headerEN()
     })
@@ -136,6 +136,27 @@ export const GetMethodDownloadPdf = async (url, fileName) => {
             link.setAttribute('download', fileName);
             document.body.appendChild(link);
             link.click();
+            return true;
+        })
+        .catch(error => ({ error }))
+};
+
+
+/**
+ * API METHOD - GET PDF TO NEW WINDOW
+ * @param {*} url
+ */
+
+export const GetDownloadPdfNewWindow = async (url) => {
+    return await axois.get(url, {
+        responseType: 'blob',
+        headers: header()
+    })
+        .then((response) => {
+            const file = new Blob([response.data], { type: "application/pdf" });
+            const fileURL = URL.createObjectURL(file);
+            const pdfWindow = window.open();
+            pdfWindow.location.href = fileURL;
             return true;
         })
         .catch(error => ({ error }))

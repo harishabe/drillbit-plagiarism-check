@@ -4,7 +4,8 @@ import {
     DownloadOriginalFileData,
     GetFolderSubmission,
     DeletefolderSubmission,
-    DownloadSubmissionData
+    DownloadSubmissionData,
+    DownloadGrammarReportData
 } from '../../../api/common/Submission/SubmissionAPI';
 import toastrValidation from '../../../../utils/ToastrValidation';
 import { FolderSubmissionsPaginationValue } from '../../../../utils/PaginationUrl';
@@ -99,7 +100,6 @@ export function* DeleteFolderSubmissionFile() {
  * @param {*} action
  */
 
-
 export function* onLoadDownload(action) {
     const { response, error } = yield call(DownloadSubmissionData, action.url, action.title);
     if (response) {
@@ -117,4 +117,30 @@ export function* onLoadDownload(action) {
 
 export function* DownloadSubmissionDetail() {
     yield takeLatest(types.FETCH_DOWNLOAD_CSV_START, onLoadDownload);
+}
+
+
+/**
+ * Grammar report
+ * @param {*} action
+ */
+
+
+ export function* onLoadGrammarReport(action) {
+    const { response, error } = yield call(DownloadGrammarReportData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_GRAMMAR_REPORT_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_GRAMMAR_REPORT_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GrammarReportSubmission() {
+    yield takeLatest(types.FETCH_GRAMMAR_REPORT_START, onLoadGrammarReport);
 }

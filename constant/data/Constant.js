@@ -5,6 +5,10 @@ export const FILE_TYPE = {
     value: 'Assignment Instructor.pdf'
 };
 
+export const FILE_LANGUAGE = {
+    'REGIONAL':'regional'
+};
+
 /**
  * common table constants
  */

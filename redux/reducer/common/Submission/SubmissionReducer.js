@@ -70,6 +70,23 @@ const SubmissionReducer = (state = {}, action) => {
                 isLoadingDelete: false,
                 deleteDataError: action.payload,
             };
+        case types.FETCH_GRAMMAR_REPORT_START:
+            return {
+                ...state,
+                isLoadingGrammarReport: true,
+            };
+        case types.FETCH_GRAMMAR_REPORT_SUCCESS:
+            return {
+                ...state,
+                isLoadingGrammarReport: false,
+                grammarReportData: action.payload,
+            };
+        case types.FETCH_GRAMMAR_REPORT_FAIL:
+            return {
+                ...state,
+                isLoadingGrammarReport: false,
+                grammarReportData: action.payload,
+            };
         default:
             return state;
     }
