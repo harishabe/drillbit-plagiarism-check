@@ -6,6 +6,7 @@ import {
     GetFolderSubmissionData,
     DeleteFolderSubmissionFile,
     DownloadSubmissionDetail,
+    SaveToRepoBulkDetail
 } from './common/Submission/DetailSubmissionData';
 import {
     LanguageListData,
@@ -171,6 +172,7 @@ const saga = [
     fork(UploadExtractedFile),
     fork(DeleteSubmissionFile),
     fork(DownloadSubmissionDetail),
+    fork(SaveToRepoBulkDetail),
     fork(LanguageListData),
     fork(UploadFileDriveData),
     fork(UploadFileNonEnglish),

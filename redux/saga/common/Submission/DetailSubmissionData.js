@@ -1,10 +1,12 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as types from '../../../action/CommonActionType';
+import * as actionTypes from '../../../action/ActionType';
 import {
     DownloadOriginalFileData,
     GetFolderSubmission,
     DeletefolderSubmission,
-    DownloadSubmissionData
+    DownloadSubmissionData,
+    SaveToRepoBulkData
 } from '../../../api/common/Submission/SubmissionAPI';
 import toastrValidation from '../../../../utils/ToastrValidation';
 import { FolderSubmissionsPaginationValue } from '../../../../utils/PaginationUrl';
@@ -69,7 +71,6 @@ export function* GetFolderSubmissionData() {
  */
 
 export function* onLoadDeleteFile(action) {
-    console.log("action", action.url.split('/'))
     const { response, error } = yield call(DeletefolderSubmission, action.url);
     if (response) {
         yield put({ type: types.FETCH_FOLDER_SUBMISSION_LIST_DELETE_SUCCESS, payload: response?.data });
@@ -98,8 +99,6 @@ export function* DeleteFolderSubmissionFile() {
  * Download CSV
  * @param {*} action
  */
-
-
 export function* onLoadDownload(action) {
     const { response, error } = yield call(DownloadSubmissionData, action.url, action.title);
     if (response) {
@@ -117,4 +116,47 @@ export function* onLoadDownload(action) {
 
 export function* DownloadSubmissionDetail() {
     yield takeLatest(types.FETCH_DOWNLOAD_CSV_START, onLoadDownload);
+}
+
+/**
+ * Save to repository
+ * @param {*} action
+ */
+export function* onLoadSaveToRepo(action) {
+    const { response, error } = yield call(SaveToRepoBulkData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_SAVE_TO_REPOSITORY_SUCCESS,
+            payload: response?.data,
+        });
+        if (action.url.split('/')[4] === 'classes') {
+            yield put({
+                type: actionTypes.FETCH_INSTRUCTOR_SUBMISSION_LIST_START,
+                url: `classes/${action.url.split('/')[5]}/assignments/${action.url.split('/')[7]}/submissions?page=0&size=25&field=name&orderBy=desc`,
+            });
+        } else if (action.url.split('/')[4] === 'myFolder') {
+            yield put({
+                type: types.FETCH_FOLDER_SUBMISSION_LIST_START,
+                url: BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + `myFolder/${action.url.split('/')[5]}/submissions`,
+                paginationPayload: FolderSubmissionsPaginationValue
+            });
+        } else {
+            yield put({
+                type: types.FETCH_FOLDER_SUBMISSION_LIST_START,
+                url: BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + `${action.url.split('/')[5]}/submissions`,
+                paginationPayload: FolderSubmissionsPaginationValue
+            });
+        }
+        toastrValidation(response);
+    } else {
+        yield put({
+            type: types.FETCH_SAVE_TO_REPOSITORY_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* SaveToRepoBulkDetail() {
+    yield takeLatest(types.FETCH_SAVE_TO_REPOSITORY_START, onLoadSaveToRepo);
 }

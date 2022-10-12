@@ -35,6 +35,6 @@ export const StudentSubmissionsPaginationValue = {
 export const FolderSubmissionsPaginationValue = {
     'page': 0,
     'size': 25,
-    'field': 'name',
+    'field': 'paper_id',
     'orderBy': 'desc'
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import {
     CommonTable,
@@ -18,6 +19,7 @@ import {
 } from '../../../../redux/action/instructor/InstructorAction';
 import {
     DownloadCsv,
+    SaveToRepoBulk
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { DownloadOriginalFile } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { useRouter } from 'next/router';
@@ -48,9 +50,9 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(id, d_key, name, title, original_fn, grammar, percent, paper_id, date_up, action) {
+function createData(id, d_key, name, title, original_fn, grammar, percent, paper_id, date_up, action, alert_msg, repository_status) {
     return {
-        id, d_key, name, title, original_fn, grammar, percent, paper_id, date_up, action
+        id, d_key, name, title, original_fn, grammar, percent, paper_id, date_up, action, alert_msg, repository_status
     };
 }
 
@@ -91,6 +93,7 @@ const Submission = ({
     DownloadCsv,
     DownloadOriginalFile,
     DeleteSubmission,
+    SaveToRepoBulk,
     submissionData,
     isLoading,
     isLoadingUpload,
@@ -115,6 +118,8 @@ const Submission = ({
     const [editAssignment, setEditAssignment] = useState(false);
     const [editAssignmentData, setEditAssignmentData] = useState('');
     const [deleteRowData, setDeleteRowData] = useState('');
+    const [saveRowData, setSaveRowData] = useState('');
+    const [showSaveIcon, setShowSaveIcon] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [showDownloadWarning, setShowDownloadWarning] = useState(false);
     const [data, setData] = useState();
@@ -145,7 +150,9 @@ const Submission = ({
                 formatDate(submission.date_up),
                 [
                     { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                ]
+                ],
+                submission.alert_msg,
+                submission.rep_status
             );
             row['isSelected'] = false;
             arr.push(row);
@@ -226,9 +233,9 @@ const Submission = ({
     };
 
     /**
-   * delete all assignments
+   * delete all submission
    */
-    const deleteAllAssignment = () => {
+    const deleteAllSubmission = () => {
         let rowsId = '';
         _.filter(rows, function (o) {
             if (o.isSelected === true) {
@@ -239,6 +246,22 @@ const Submission = ({
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
+    };
+
+    /**
+    * save all submission
+    */
+    const saveAllSubmission = () => {
+        let rowsId = '';
+        _.filter(rows, function (o) {
+            if (o.isSelected === true) {
+                return rows;
+            }
+        }).map((rowItem) => {
+            rowsId += rowItem?.paper_id + ',';
+        });
+        setSaveRowData(removeCommaWordEnd(rowsId));
+        setShowSaveIcon(true);
     };
 
     /**
@@ -285,11 +308,23 @@ const Submission = ({
         setShowDeleteWarning(false);
     };
 
+    const handleCloseSaveWarning = () => {
+        setShowSaveIcon(false);
+    };
+
     const handleYesWarning = () => {
         DeleteSubmission(`classes/${clasId}/assignments/${assId}/submissions?paperId=${deleteRowData}`);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
+        }, [100]);
+    };
+
+    const handleYesSaveWarning = () => {
+        SaveToRepoBulk(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${clasId}/assignments/${assId}/repository?paperId=${saveRowData}`);
+        setShowDeleteAllIcon(false);
+        setTimeout(() => {
+            setShowSaveIcon(false);
         }, [100]);
     };
 
@@ -410,11 +445,18 @@ const Submission = ({
             }
 
             { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
-                <Tooltip title='Delete' arrow>
-                    <IconButton onClick={deleteAllAssignment}>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
+                <div style={ { display: 'flex' } }>
+                    <Tooltip title='Delete' arrow>
+                        <IconButton onClick={ deleteAllSubmission }>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title='Save to repositary' arrow>
+                        <IconButton onClick={ saveAllSubmission }>
+                            <SaveOutlinedIcon />
+                        </IconButton>
+                    </Tooltip>
+                </div>
             </DeleteAllButton> }
 
             <CommonTable
@@ -439,6 +481,17 @@ const Submission = ({
                     handleYes={handleFileDownloadYesWarning}
                     handleNo={handleFileDownloadCloseWarning}
                     isOpen={true}
+                />
+            }
+
+            {
+                showSaveIcon &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message="Are you sure you want to save this to repository ?"
+                    handleYes={ handleYesSaveWarning }
+                    handleNo={ handleCloseSaveWarning }
+                    isOpen={ true }
                 />
             }
 
@@ -469,6 +522,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
         DeleteSubmission: (url) => dispatch(DeleteSubmission(url)),
+        SaveToRepoBulk: (url) => dispatch(SaveToRepoBulk(url)),
         DownloadOriginalFile: (data) => dispatch(DownloadOriginalFile(data)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
