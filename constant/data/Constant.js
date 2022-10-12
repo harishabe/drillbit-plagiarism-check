@@ -141,3 +141,9 @@ export const FORM_VALIDATION = {
     'EXPIRY_DATE_GREATER': 'The entered date should not be greater than the expiry date.',
     'EXPIRY_DATE_LESSER': 'The entered date should not less than the current date.',
 }
+
+export const WARNING_MESSAGES = {
+    'REPOSITORY': 'Are you sure you want to save this to repository ?',
+    'DOWNLOAD': 'Are you sure you want to download ?',
+    'DELETE': 'Are you sure you want to delete ?',
+}

@@ -42,6 +42,7 @@ import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import { PaginationContainer } from '../../style/index';
 import { Role } from '../../../constant/data';
+import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -300,7 +301,7 @@ const Users = ({
                 showDeleteWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
-                    message="Are you sure you want to delete ?"
+                    message={ WARNING_MESSAGES.DELETE }
                     handleYes={handleYesWarning}
                     handleNo={handleCloseWarning}
                     isOpen={true}

@@ -37,7 +37,7 @@ import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_ANALYSIS } from '../../../../utils/BaseUrl';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, WARNING_MESSAGES } from '../../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -86,6 +86,7 @@ const DownloadButton = styled.div`
 
 const DeleteAllButton = styled.div`
     marginLeft: 10px;
+    display: flex;
 `;
 
 const Submission = ({
@@ -424,7 +425,7 @@ const Submission = ({
                 showDeleteWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
-                    message="Are you sure you want to delete ?"
+                    message={ WARNING_MESSAGES.DELETE }
                     handleYes={handleYesWarning}
                     handleNo={handleCloseWarning}
                     isOpen={true}
@@ -445,7 +446,6 @@ const Submission = ({
             }
 
             { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
-                <div style={ { display: 'flex' } }>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={ deleteAllSubmission }>
                             <DeleteIcon />
@@ -455,8 +455,7 @@ const Submission = ({
                         <IconButton onClick={ saveAllSubmission }>
                             <SaveOutlinedIcon />
                         </IconButton>
-                    </Tooltip>
-                </div>
+                </Tooltip>
             </DeleteAllButton> }
 
             <CommonTable
@@ -477,7 +476,7 @@ const Submission = ({
             {
                 showDownloadWarning &&
                 <WarningDialog
-                    message="Are you sure you want to download ?"
+                    message={ WARNING_MESSAGES.DOWNLOAD }
                     handleYes={handleFileDownloadYesWarning}
                     handleNo={handleFileDownloadCloseWarning}
                     isOpen={true}
@@ -488,7 +487,7 @@ const Submission = ({
                 showSaveIcon &&
                 <WarningDialog
                     warningIcon={ <DeleteWarningIcon /> }
-                    message="Are you sure you want to save this to repository ?"
+                    message={ WARNING_MESSAGES.REPOSITORY }
                     handleYes={ handleYesSaveWarning }
                     handleNo={ handleCloseSaveWarning }
                     isOpen={ true }

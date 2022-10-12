@@ -1,7 +1,5 @@
 import * as React from 'react';
 import _ from 'lodash';
-import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 import Checkbox from '@mui/material/Checkbox';
@@ -72,6 +70,7 @@ const CommonTable = ({
 
     React.useEffect(() => {
         let selected = _.find(tableData, function (o) { return o.isSelected === true; });
+        console.log('selected', selected);
         setAllSelected(selected?.isSelected ? true : false);
     }, [tableData]);
 
@@ -135,7 +134,6 @@ const CommonTable = ({
                                                         TABLE_BODY_ALLOW_ICON.includes(column.id) ?
                                                             <TableCell>
                                                                 { value.map((icon, index) => (
-
                                                                     <Tooltip key={ index } title={ icon.title } arrow>
                                                                         <IconButton onClick={ (e) => handleAction(e, icon.type, row) }>{ icon.component }
                                                                         </IconButton>
@@ -154,25 +152,15 @@ const CommonTable = ({
                                                                         :
                                                                         <>
                                                                             { column.id === 'percent' ?
-                                                                                <TableCell key={ column.id } align={ column.align } style={ { display: 'flex', marginTop: '5px' } }>
-                                                                                    { row?.alert_msg != null &&
-                                                                                        <Tooltip title={ row.alert_msg } arrow>
-                                                                                            <ErrorOutlineOutlinedIcon fontSize='small' />
-                                                                                        </Tooltip> }
+                                                                                <TableCell key={ column.id } align={ column.align }>
                                                                                     { value?.props?.percent === '--' ?
-                                                                                        <div style={ { textAlign: 'center', marginTop: '9px' } }><BeatLoader size={ 10 } color="#3672FF" /></div> :
+                                                                                        <div style={ { textAlign: 'center' } }><BeatLoader size={ 10 } color="#3672FF" /></div> :
                                                                                         <Tooltip title={ 'Similarity Report' } arrow>
                                                                                             <a style={ { fontWeight: '600' } } href='#' onClick={ (e) => showAnalysisPage(e, row) }>
                                                                                                 { value }
                                                                                             </a>
-                                                                                        </Tooltip>
-                                                                                    }
-                                                                                    { row?.repository_status === "1" &&
-                                                                                        <Tooltip title='Saved in repository' arrow>
-                                                                                            <SaveOutlinedIcon fontSize='small' />
-                                                                                        </Tooltip>
-                                                                                    }
-                                                                                </TableCell> 
+                                                                                        </Tooltip> }
+                                                                                </TableCell>
                                                                                 :
                                                                                 <TableCell key={ column.id } align={ column.align }>
                                                                                     { typeof (value) === 'string' ?
@@ -193,6 +181,7 @@ const CommonTable = ({
                                                 <IconButton className={ classes.customArrowContainer }
                                                     onClick={ (e) => {
                                                         if (path && path?.query?.isAssignment) {
+                                                            console.log('rowrow', row);
                                                             path.query['assId'] = row?.id;
                                                             path.query['assName'] = row?.assignment_name,
                                                                 path.query['grammar'] = row?.assignmentData?.grammar;

@@ -88,7 +88,7 @@ const Grading = ({
     }, [gradingData]);
 
     const handleAction = (event, icon, rowData) => {
-        if ((rowData?.paper_id === '--') || (rowData?.paper_id === 0)) {
+        if (rowData?.paper_id === '--') {
             setShowFeedbackForm(false);
         } else {
             setShowFeedbackForm(true);
