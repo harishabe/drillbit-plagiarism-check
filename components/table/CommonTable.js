@@ -131,23 +131,33 @@ const CommonTable = ({
                             { isLoading ?
                                 <TableSkeleton />
                                 : tableData?.map((row) => (
-                                    <TableRow hover key={row.id}>
-                                        {isCheckbox &&
-                                            <TableCell padding="checkbox" className={classes.padding}>
-                                                <Checkbox disabled={(row.role === Role.admin) || (row.role === Role.proAdmin)} onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
-                                            </TableCell>}
-                                        {tableHeader.map((column, index) => {
+                                    <TableRow hover key={ row.id }>
+                                        { isCheckbox &&
+                                            <TableCell padding="checkbox" className={ classes.padding }>
+                                                <Checkbox disabled={ (row.role === Role.admin) || (row.role === Role.proAdmin) } onChange={ (e) => handleSingleSelect(e, row) } checked={ row.isSelected } />
+                                            </TableCell> }
+                                        { tableHeader.map((column, index) => {
                                             const value = row[column.id];
                                             return (
                                                 <>
                                                     {
                                                         TABLE_BODY_ALLOW_ICON.includes(column.id) ?
-                                                            <TableCell key={index}>
-                                                                {value.map((icon, index) => (
-                                                                    <Tooltip key={index} title={icon.title} arrow>
-                                                                        <IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}
-                                                                        </IconButton>
-                                                                    </Tooltip>)) }
+                                                            <TableCell key={ index }>
+                                                                { value.map((icon, index) => (
+                                                                    <>
+                                                                        {
+                                                                            (icon.type === 'lock' || icon.type === 'unlock') ?
+                                                                                <Tooltip key={ index } title={ icon.title } arrow>
+                                                                                    <span onClick={ (e) => handleAction(e, icon.type, row) } >{ icon.component }</span>
+                                                                                </Tooltip> :
+                                                                                <>
+                                                                                    <Tooltip key={ index } title={ icon.title } arrow>
+                                                                                        <IconButton onClick={ (e) => handleAction(e, icon.type, row) }>{ icon.component }
+                                                                                        </IconButton>
+                                                                                    </Tooltip>
+                                                                                </>
+                                                                        }</>
+                                                                )) }
                                                             </TableCell> :
                                                             <>
                                                                 {
@@ -161,38 +171,38 @@ const CommonTable = ({
                                                                         </TableCell>
                                                                         :
                                                                         <>
-                                                                            {column.id === 'percent' &&
-                                                                                <TableCell key={column.id} align={column.align}>
-                                                                                    {value?.props?.percent === '--' ?
-                                                                                        <BeatLoader size={10} color="#3672FF" /> :
-                                                                                        <Tooltip title={'Similarity Report'} arrow>
-                                                                                            <a style={{ fontWeight: '600' }} href='#' onClick={(e) => showAnalysisPage(e, row)}>
-                                                                                                {value}
+                                                                            { column.id === 'percent' &&
+                                                                                <TableCell key={ column.id } align={ column.align }>
+                                                                                    { value?.props?.percent === '--' ?
+                                                                                        <BeatLoader size={ 10 } color="#3672FF" /> :
+                                                                                        <Tooltip title={ 'Similarity Report' } arrow>
+                                                                                            <a style={ { fontWeight: '600' } } href='#' onClick={ (e) => showAnalysisPage(e, row) }>
+                                                                                                { value }
                                                                                             </a>
                                                                                         </Tooltip> }
                                                                                 </TableCell>
                                                                             }
-                                                                            {column.id === 'grammar_url' &&
-                                                                                <TableCell key={column.id} align={column.align}>
-                                                                                    {value === '--' && <BeatLoader size={10} color="#3672FF" />}
-                                                                                    {(value !== '--' && value !== 'NA') &&
+                                                                            { column.id === 'grammar_url' &&
+                                                                                <TableCell key={ column.id } align={ column.align }>
+                                                                                    { value === '--' && <BeatLoader size={ 10 } color="#3672FF" /> }
+                                                                                    { (value !== '--' && value !== 'NA') &&
                                                                                         <>
-                                                                                            {isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> : <Tooltip key={index} title='Grammar Report' arrow>
-                                                                                                <IconButton onClick={(e) => handleGrammarReport(e, row)}>
+                                                                                        { isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> : <Tooltip key={ index } title='Grammar Report' arrow>
+                                                                                            <IconButton onClick={ (e) => handleGrammarReport(e, row) }>
                                                                                                     <OpenInNewOutlinedIcon />
                                                                                                 </IconButton>
                                                                                             </Tooltip> }
                                                                                         </>
 
                                                                                     }
-                                                                                    {(value === 'NA') && value}
+                                                                                    { (value === 'NA') && value }
                                                                                 </TableCell>
                                                                             }
-                                                                            {(column.id !== 'percent' && column.id !== 'grammar_url') &&
-                                                                                <TableCell key={column.id} align={column.align}>
-                                                                                    {typeof (value) === 'string' ?
-                                                                                        <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} variant='body2_3' /> :
-                                                                                        <Typography variant='body2_3' component="div">{value !== null ? value : NO_DATA_PLACEHOLDER}</Typography>}
+                                                                            { (column.id !== 'percent' && column.id !== 'grammar_url') &&
+                                                                                <TableCell key={ column.id } align={ column.align }>
+                                                                                    { typeof (value) === 'string' ?
+                                                                                        <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } variant='body2_3' /> :
+                                                                                        <Typography variant='body2_3' component="div">{ value !== null ? value : NO_DATA_PLACEHOLDER }</Typography> }
                                                                                 </TableCell>
                                                                             }
                                                                         </>
@@ -202,11 +212,11 @@ const CommonTable = ({
                                                     }
                                                 </>
                                             );
-                                        })}
-                                        {isNextPath &&
-                                            <Tooltip title={TABLE_NEXT_PAGE} arrow>
-                                                <IconButton className={classes.customArrowContainer}
-                                                    onClick={() => {
+                                        }) }
+                                        { isNextPath &&
+                                            <Tooltip title={ TABLE_NEXT_PAGE } arrow>
+                                                <IconButton className={ classes.customArrowContainer }
+                                                    onClick={ () => {
                                                         if (path && path?.query?.isAssignment) {
                                                             console.log('rowrow', row);
                                                             path.query['assId'] = row?.id;
