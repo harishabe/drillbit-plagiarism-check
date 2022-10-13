@@ -126,20 +126,14 @@ const MyAssignments = ({
             <BreadCrumb item={StudentBreadCrumb} />
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
-                    <Grid item md={8}>
+                    <Grid item md={ 5 } xs={ 5 }>
                         <MainHeading
                             title={`My Assignments(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`}
                         />
                     </Grid>
-                    <Grid
-                        item
-                        md={4}
-                        xs={12}
-                        container
-                        direction='row'
-                        justifyContent={'right'}
-                    >
+                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <TextField
+                            sx={ { width: '40%', marginTop: '8px' } }
                             placeholder='Search'
                             onChange={debouncedResults}
                             inputProps={{

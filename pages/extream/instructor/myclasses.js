@@ -105,15 +105,14 @@ const MyClasses = ({
                 </Grid>
             </Box>
             <Grid container spacing={1}>
-                <Grid item md={8} xs={7}>
+                <Grid item md={ 5 } xs={ 5 }>
                     <MainHeading title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                 </Grid>
-                <Grid item md={4} xs={12} container direction='row' justifyContent={'right'}>
-                    <DownloadButton>
+                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         {classesData?.length > 0 &&
-                            isLoadingDownload ? <SkeletonContainer>
-                                <Skeleton width={50} />
-                            </SkeletonContainer> : <Tooltip title="Download csv" arrow>
+                        isLoadingDownload ?
+                        <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px', marginTop: '12px' } } />
+                        : <Tooltip title="Download csv" arrow>
                                 <IconButton
                                     color="primary"
                                     aria-label="download-file"
@@ -122,9 +121,9 @@ const MyClasses = ({
                                     <DownloadIcon />
                                 </IconButton>
                             </Tooltip>
-                        }
-                    </DownloadButton>
+                    }
                     <TextField
+                        sx={ { width: '40%', marginTop: '8px' } }
                         placeholder='Search'
                         onChange={debouncedResults}
                         inputProps={{

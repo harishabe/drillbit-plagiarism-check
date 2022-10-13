@@ -16,7 +16,7 @@ const drillBitTheme = {
         MuiTypography: {
             styleOverrides: {
                 root: {
-                    textTransform: 'capitalize'
+                    //textTransform: 'capitalize'
                 }
             }
         }
