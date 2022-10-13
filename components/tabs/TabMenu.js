@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { getItemLocalStorage, setItemLocalStorage } from '../../utils/RegExp';
+import { getItemLocalStorage } from '../../utils/RegExp';
 import { useEffect } from 'react';
 
 function TabPanel(props) {
