@@ -45,13 +45,11 @@ const CommonTable = ({
     tableHeader,
     tableData,
     isCheckbox,
-    path,
     charLength,
     handleAction,
     handleTableSort,
     handleCheckboxSelect,
     handleSingleSelect,
-    isNextPath,
     isLoading,
     isSorting,
     downloadSubmissionFile,
@@ -215,30 +213,10 @@ const CommonTable = ({
                                                 </>
                                             );
                                         })}
-                                        {isNextPath &&
-                                            <Tooltip title={TABLE_NEXT_PAGE} arrow>
-                                                <IconButton className={classes.customArrowContainer}
-                                                    onClick={() => {
-                                                        if (path && path?.query?.isAssignment) {
-                                                            console.log('rowrow', row);
-                                                            path.query['assId'] = row?.id;
-                                                            path.query['assName'] = row?.assignment_name,
-                                                                path.query['grammar'] = row?.assignmentData?.grammar;
-                                                            router.push(path);
-                                                        } else {
-                                                            router.push(path);
-                                                        }
-                                                    }}
-                                                >
-                                                    <ArrowForwardOutlinedIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                        }
                                     </TableRow>
                                 ))}
                         </TableBody>
                     </Table>
-
                     <>
                         {(tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" />}
                     </>

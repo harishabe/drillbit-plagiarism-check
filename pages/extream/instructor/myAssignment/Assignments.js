@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { TextField } from '@mui/material';
 import debouce from 'lodash.debounce';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import Box from '@mui/material/Box';
 import { Grid, Tooltip } from '@mui/material';
 import { Skeleton } from '@mui/material';
@@ -132,6 +133,7 @@ const Assignments = ({
                 [
                     { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                     { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                    { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
                 ]
             );
             row['isSelected'] = false;
@@ -153,6 +155,14 @@ const Assignments = ({
         } else if (icon === 'delete') {
             setDeleteRowData(rowData?.id);
             setShowDeleteWarning(true);
+        } else if (icon === 'nextPath') {
+            router.push({
+                pathname: '/extream/instructor/mysubmissions',
+                query: {
+                    clasId: router.query.clasId, clasName: router.query.clasName,
+                    assId: rowData?.assignmentData?.ass_id, assName: rowData?.assignmentData?.assignment_name, grammar: rowData?.assignmentData?.grammar
+                }
+            });
         }
     };
 
@@ -299,7 +309,7 @@ const Assignments = ({
                 showDeleteWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
-                    message={ WARNING_MESSAGES.DELETE }
+                    message={WARNING_MESSAGES.DELETE}
                     handleYes={handleYesWarning}
                     handleNo={handleCloseWarning}
                     isOpen={true}
@@ -327,16 +337,15 @@ const Assignments = ({
                         <AssignmentForms />
                     </CreateDrawer>
                 </AddButtonBottom>
-                { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
+                {_.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={deleteAllAssignment}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
-                </DeleteAllButton> }
+                </DeleteAllButton>}
                 <CommonTable
                     isCheckbox={true}
-                    isNextPath={true}
                     isSorting={true}
                     tableHeader={columns}
                     tableData={rows}
@@ -345,14 +354,13 @@ const Assignments = ({
                     handleCheckboxSelect={handleCheckboxSelect}
                     handleSingleSelect={handleSingleSelect}
                     isLoading={isLoadingAssignment}
-                    path={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, clasName: router.query.clasName, assId: assId } }}
                     charLength={9}
                 />
-                { !isLoadingAssignment && 
+                {!isLoadingAssignment &&
                     <PaginationContainer>
                         <Pagination
-                            count={ pageDetailsAssignment?.totalPages }
-                            onChange={ handlePagination }
+                            count={pageDetailsAssignment?.totalPages}
+                            onChange={handlePagination}
                             color='primary'
                             variant='outlined'
                             shape='rounded'
