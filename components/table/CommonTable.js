@@ -175,7 +175,7 @@ const CommonTable = ({
                                                                             {column.id === 'percent' &&
                                                                                 <TableCell key={column.id} align={column.align}>
                                                                                     {value?.props?.percent === '--' ?
-                                                                                        <StatusColor color='#ffe5e5'><BeatLoader size={10} color="#3672FF" /> </StatusColor>
+                                                                                        <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /> </StatusColor>
                                                                                         :
                                                                                         <Tooltip title={'Similarity Report'} arrow>
                                                                                             <a style={{ fontWeight: '600' }} href='#' onClick={(e) => showAnalysisPage(e, row)}>
@@ -186,7 +186,7 @@ const CommonTable = ({
                                                                             }
                                                                             {column.id === 'grammar_url' &&
                                                                                 <TableCell key={column.id} align={column.align}>
-                                                                                    {value === '--' && <BeatLoader size={10} color="#3672FF" />}
+                                                                                    {value === '--' && <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /></StatusColor>}
                                                                                     {(value !== '--' && value !== 'NA') &&
                                                                                         <>
                                                                                             {isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> : <Tooltip key={index} title='Grammar Report' arrow>
