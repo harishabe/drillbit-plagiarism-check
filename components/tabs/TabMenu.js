@@ -5,7 +5,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { getItemLocalStorage } from '../../utils/RegExp';
-import { useEffect } from 'react';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
