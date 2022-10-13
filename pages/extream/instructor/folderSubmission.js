@@ -63,19 +63,21 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-const SkeletonContainer = styled.div`
-    margin-top: 10px;
-    margin-right: 5px;
-`;
-
 const DownloadField = styled.div`
     position:absolute;
-    top: 118px;
+    top: 115px;
     right:225px;
 `;
 
-const DownloadButton = styled.div`
-    margin-top:-5px;
+const RefreshButton = styled.div`
+    position:absolute;
+    top: 115px;
+    right:265px;
+`;
+
+const SkeletonContainer = styled.div`
+    margin-top: 16px;
+    margin-right: 5px;
 `;
 
 const DeleteAllButton = styled.div`
@@ -364,48 +366,48 @@ const folderSubmission = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <BreadCrumb item={InstructorBreadCrumb} />
-                <Grid container spacing={1}>
-                    <Grid item md={8} xs={7}>
-                        <MainHeading title={`Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+            <Box sx={ { flexGrow: 1 } }>
+                <BreadCrumb item={ InstructorBreadCrumb } />
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 5 } xs={ 5 }>
+                        <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={4} xs={12} container direction='row' justifyContent={'right'}>
-                        <DownloadField>
-                            <DownloadButton>
-                                <Tooltip title="Refresh" arrow>
-                                    <IconButton
-                                        aria-label="download-file"
-                                        size="large"
-                                        onClick={ handleRefresh }
-                                    >
-                                        <RefreshOutlinedIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                { folderSubmissionData?.length > 0 &&
-                                    isLoadingDownload ?
-                                    <Skeleton width={ 40 } />
-                                    :
-                                    <Tooltip title="Download csv" arrow>
-                                        <IconButton
-                                            aria-label="download-file"
-                                            size="large"
-                                            onClick={ handleDownload }>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                }
-                            </DownloadButton>
-                        </DownloadField>
+                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+
+                        <Tooltip title="Refresh" arrow>
+                            <IconButton
+                                aria-label="download-file"
+                                size="large"
+                                onClick={ handleRefresh }
+                            >
+                                <RefreshOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
+
+                        { folderSubmissionData?.length > 0 &&
+                            isLoadingDownload ?
+                            <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px' } } />
+                            :
+                            <Tooltip title="Submission report download" arrow>
+                                <IconButton
+                                    aria-label="download-file"
+                                    size="large"
+                                    onClick={ handleDownload }>
+                                    <DownloadIcon />
+                                </IconButton>
+                            </Tooltip>
+                        }
+
                         <TextField
+                            sx={ { width: '40%', marginTop: '8px' } }
                             placeholder='Search'
-                            onChange={debouncedResults}
-                            inputProps={{
+                            onChange={ debouncedResults }
+                            inputProps={ {
                                 style: {
                                     padding: 5,
                                     display: 'inline-flex',
                                 },
-                            }}
+                            } }
                         />
                     </Grid>
                 </Grid>
@@ -413,53 +415,53 @@ const folderSubmission = ({
             <>
 
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
-                        <Tooltip title='Delete' arrow>
-                            <IconButton onClick={ deleteAllSubmission }>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title='Save to repositary' arrow>
-                            <IconButton onClick={ saveAllSubmission }>
-                                <SaveOutlinedIcon />
-                            </IconButton>
+                    <Tooltip title='Delete' arrow>
+                        <IconButton onClick={ deleteAllSubmission }>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title='Save to repositary' arrow>
+                        <IconButton onClick={ saveAllSubmission }>
+                            <SaveOutlinedIcon />
+                        </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }
 
                 <CommonTable
-                    isCheckbox={true}
-                    isSorting={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    handleAction={handleAction}
-                    handleTableSort={handleTableSort}
-                    handleCheckboxSelect={handleCheckboxSelect}
-                    handleSingleSelect={handleSingleSelect}
-                    downloadSubmissionFile={handleOriginalFileDownload}
+                    isCheckbox={ true }
+                    isSorting={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    handleCheckboxSelect={ handleCheckboxSelect }
+                    handleSingleSelect={ handleSingleSelect }
+                    downloadSubmissionFile={ handleOriginalFileDownload }
                     showAnalysisPage={ handleShowAnalysisPage }
                     showGrammarReport={ handlGrammarReport }
-                    isLoading={isLoadingSubmission}
+                    isLoading={ isLoadingSubmission }
                     isLoadingGrammarReport={ isLoadingGrammarReport }
-                    charLength={10}
+                    charLength={ 10 }
                     path=''
                 />
 
                 <AddButtonBottom>
                     <CreateDrawer
                         title="Upload File"
-                        isShowAddIcon={true}
-                        navigateToMultiFile={true}
-                        handleNavigateMultiFile={handleUploadFile}
+                        isShowAddIcon={ true }
+                        navigateToMultiFile={ true }
+                        handleNavigateMultiFile={ handleUploadFile }
                     />
                 </AddButtonBottom>
 
                 {
                     showDeleteWarning &&
                     <WarningDialog
-                        warningIcon={<DeleteWarningIcon />}
+                        warningIcon={ <DeleteWarningIcon /> }
                         message={ WARNING_MESSAGES.DELETE }
-                        handleYes={handleYesWarning}
-                        handleNo={handleCloseWarning}
-                        isOpen={true}
+                        handleYes={ handleYesWarning }
+                        handleNo={ handleCloseWarning }
+                        isOpen={ true }
                     />
                 }
 
@@ -478,13 +480,13 @@ const folderSubmission = ({
                     showDownloadWarning &&
                     <WarningDialog
                         message={ WARNING_MESSAGES.DOWNLOAD }
-                        handleYes={handleFileDownloadYesWarning}
-                        handleNo={handleFileDownloadCloseWarning}
-                        isOpen={true}
+                        handleYes={ handleFileDownloadYesWarning }
+                        handleNo={ handleFileDownloadCloseWarning }
+                        isOpen={ true }
                     />
                 }
 
-                { !isLoadingSubmission && 
+                { !isLoadingSubmission &&
                     <PaginationContainer>
                         <Pagination
                             count={ pageDetails?.totalPages }

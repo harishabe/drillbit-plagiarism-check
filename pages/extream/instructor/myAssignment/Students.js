@@ -59,6 +59,11 @@ const DownloadField = styled.div`
     right:225px;
 `;
 
+const SkeletonContainer = styled.div`
+    marginTop: 10px;
+    margin-right: 5px;
+`;
+
 const DownloadButton = styled.div`
     margin-top:-5px;
 `;
@@ -259,7 +264,7 @@ const Students = ({
     };
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/studentTemplate`, DOWNLOAD_CSV.STUDENTS_LISTS);
+        DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/students/download`, DOWNLOAD_CSV.STUDENTS_LISTS);
     };
 
     return (
@@ -332,13 +337,17 @@ const Students = ({
                         <DownloadField>
                             <DownloadButton>
                                 { studentData?.length > 0 &&
-                                    <Tooltip title="Download csv" arrow>
+                                    isLoadingDownload ?
+                                    <SkeletonContainer>
+                                        <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
+                                    </SkeletonContainer>
+                                    : <Tooltip title="Download csv" arrow>
                                         <IconButton
                                             color="primary"
                                             aria-label="download-file"
                                             size="large"
                                             onClick={ handleDownload }>
-                                            { isLoadingDownload ? <Skeleton width={ 30 } /> : <DownloadIcon /> }
+                                            <DownloadIcon />
                                         </IconButton>
                                     </Tooltip>
                                 }

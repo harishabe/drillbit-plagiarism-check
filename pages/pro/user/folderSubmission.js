@@ -63,20 +63,22 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-const SkeletonContainer = styled.div`
-    margin-top: 10px;
-    margin-right: 5px;
-`;
+// const DownloadField = styled.div`
+//     position:absolute;
+//     top: 115px;
+//     right:295px;
+// `;
 
-const DownloadField = styled.div`
-    position:absolute;
-    top: 118px;
-    right:225px;
-`;
+// const RefreshButton = styled.div`
+//     position:absolute;
+//     top: 115px;
+//     right:335px;
+// `;
 
-const DownloadButton = styled.div`
-    margin-top:-5px;
-`;
+// const SkeletonContainer = styled.div`
+//     margin-top: 16px;
+//     margin-right: 5px;
+// `;
 
 const DeleteAllButton = styled.div`
     marginLeft: 10px;
@@ -367,37 +369,35 @@ const folderSubmission = ({
             <Box sx={ { flexGrow: 1 } }>
                 <BreadCrumb item={ UserBreadCrumb } />
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 8 } xs={ 7 }>
+                    <Grid item md={ 5 } xs={ 5 }>
                         <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={ 4 } xs={ 12 } container direction='row' justifyContent={ 'right' }>
-                        <DownloadField>
-                            <DownloadButton>
-                                <Tooltip title="Refresh" arrow>
-                                    <IconButton
-                                        aria-label="download-file"
-                                        size="large"
-                                        onClick={ handleRefresh }
-                                    >
-                                        <RefreshOutlinedIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                { folderSubmissionData?.length > 0 &&
-                                    isLoadingDownload ?
-                                    <Skeleton width={ 40 } />
-                                    :
-                                    <Tooltip title="Download csv" arrow>
-                                        <IconButton
-                                            aria-label="download-file"
-                                            size="large"
-                                            onClick={ handleDownload }>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                }
-                            </DownloadButton>
-                        </DownloadField>
+                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                        <Tooltip title="Refresh" arrow>
+                            <IconButton
+                                aria-label="download-file"
+                                size="large"
+                                onClick={ handleRefresh }
+                            >
+                                <RefreshOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
+
+                        { folderSubmissionData?.length > 0 &&
+                            isLoadingDownload ?
+                            <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px' } } />
+                            :
+                            <Tooltip title="Submission report download" arrow>
+                                <IconButton
+                                    aria-label="download-file"
+                                    size="large"
+                                    onClick={ handleDownload }>
+                                    <DownloadIcon />
+                                </IconButton>
+                            </Tooltip>
+                        }
                         <TextField
+                            sx={ { width: '40%', marginTop: '8px' } }
                             placeholder='Search'
                             onChange={ debouncedResults }
                             inputProps={ {
