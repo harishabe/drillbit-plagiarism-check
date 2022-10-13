@@ -187,7 +187,12 @@ const UploadFiles = ({
             authorNameArr.push(data['authorName' + i]);
             titleArr.push(data['title' + i]);
             yearArr.push(data['year' + i]);
-            repositoryArr.push(data['repository' + i]);
+            if (data['repository' + i] === 'Institution') {
+                let local = 'LOCAL';
+                repositoryArr.push(local);
+            } else {
+                repositoryArr.push(data['repository' + i].toUpperCase());
+            }
             languageArr.push(data['language' + i]);
         });
 

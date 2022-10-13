@@ -190,13 +190,14 @@ const Repository = ({
                 </Grid>
             </Box>
             <Grid container spacing={2}>
-                <Grid item md={8} xs={12}>
+                <Grid item md={ 5 } xs={ 5 }>
                     <MainHeading
                         title={`Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`}
                     />
                 </Grid>
-                <Grid item md={4} xs={12} align="right">
+                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
+                        sx={ { width: '40%', marginTop: '8px' } }
                         placeholder='Search'
                         onChange={debouncedResults}
                         inputProps={{
