@@ -10,7 +10,6 @@ const SimilarityStatus = ({
 }) => {
     const [color, setColor] = useState('');
     const [txtColor, setTextColor] = useState(COLORS.black);
-    console.log('widthwidthwidth',width);
     useEffect(() => {
         if (percent >= 0 && percent <= 10) {
             setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_SATISFACTORY);
