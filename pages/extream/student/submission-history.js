@@ -13,7 +13,7 @@ import {
 import { MessageExclamatoryIcon } from '../../../assets/icon';
 import SubmissionForm from './form/SubmissionForm';
 import { BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
-
+import { PaginationContainer } from '../../style/index';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -114,15 +114,17 @@ const SubmissionHistory = ({
                 showAnalysisPage={handleShowAnalysisPage}
             />
 
-            <div style={{ marginLeft: '45%', marginTop: '25px' }}>
-                <Pagination
-                    count={pageDetails?.totalPages}
-                    onChange={handleChange}
-                    color="primary"
-                    variant="outlined"
-                    shape="rounded"
-                />
-            </div>
+            { !isLoadingSubmission &&
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </PaginationContainer>
+            }
 
             <AddButtonBottom>
                 <CreateDrawer

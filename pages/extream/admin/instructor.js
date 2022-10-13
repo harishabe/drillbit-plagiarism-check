@@ -41,6 +41,7 @@ import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
+import { PaginationContainer } from '../../style/index';
 
 const columns = [
     // { id: 'user_id', label: 'ID', minWidth: 100 },
@@ -416,15 +417,17 @@ const Instructor = ({
                     path=''
                 />
 
-                <div style={ { marginLeft: '45%', marginTop: '25px' } }>
-                    <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handleChange }
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
+                { !isLoading &&
+                    <PaginationContainer>
+                        <Pagination
+                            count={ pageDetails?.totalPages }
+                            onChange={ handleChange }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </PaginationContainer>
+                }
             </>
 
         </React.Fragment>

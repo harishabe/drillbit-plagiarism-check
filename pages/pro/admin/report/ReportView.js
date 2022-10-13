@@ -201,15 +201,17 @@ const ReportView = ({
                 </>
             }
 
-            <PaginationContainer>
-                <Pagination
-                    count={pageDetails?.totalPages}
-                    onChange={handleChange}
-                    color="primary"
-                    variant="outlined"
-                    shape="rounded"
-                />
-            </PaginationContainer>
+            { !isLoadingViewReport && 
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </PaginationContainer>
+            }
         </>
     );
 };

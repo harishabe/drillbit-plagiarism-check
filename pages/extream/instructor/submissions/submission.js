@@ -510,15 +510,17 @@ const Submission = ({
                 />
             }
 
-            <PaginationContainer>
-                <Pagination
-                    count={pageDetails?.totalPages}
-                    onChange={handlePagination}
-                    color='primary'
-                    variant='outlined'
-                    shape='rounded'
-                />
-            </PaginationContainer>
+            { !isLoading && 
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handlePagination }
+                        color='primary'
+                        variant='outlined'
+                        shape='rounded'
+                    />
+                </PaginationContainer>
+            }
         </React.Fragment>
         );
 };

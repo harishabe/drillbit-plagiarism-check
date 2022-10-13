@@ -348,15 +348,17 @@ const Assignments = ({
                     path={{ pathname: '/extream/instructor/mysubmissions', query: { isAssignment: true, clasId: router.query.clasId, clasName: router.query.clasName, assId: assId } }}
                     charLength={9}
                 />
-                <PaginationContainer>
-                    <Pagination
-                        count={pageDetailsAssignment?.totalPages}
-                        onChange={handlePagination}
-                        color='primary'
-                        variant='outlined'
-                        shape='rounded'
-                    />
-                </PaginationContainer>
+                { !isLoadingAssignment && 
+                    <PaginationContainer>
+                        <Pagination
+                            count={ pageDetailsAssignment?.totalPages }
+                            onChange={ handlePagination }
+                            color='primary'
+                            variant='outlined'
+                            shape='rounded'
+                        />
+                    </PaginationContainer>
+                }
             </>
         </React.Fragment>
     );

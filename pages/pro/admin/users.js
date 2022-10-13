@@ -420,15 +420,17 @@ const Users = ({
                     path=''
                 />
 
-                <PaginationContainer>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </PaginationContainer>
+                { !isLoading &&
+                    <PaginationContainer>
+                        <Pagination
+                            count={ pageDetails?.totalPages }
+                            onChange={ handleChange }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </PaginationContainer>
+                }
             </>
         </React.Fragment>
     );
