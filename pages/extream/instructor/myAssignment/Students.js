@@ -380,15 +380,17 @@ const Students = ({
                     charLength={17}
                     path=''
                 />
-                <PaginationContainer>
-                    <Pagination
-                        count={pageDetailsStudent?.totalPages}
-                        onChange={handlePagination}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </PaginationContainer>
+                { !isLoadingStudent && 
+                    <PaginationContainer>
+                        <Pagination
+                            count={ pageDetailsStudent?.totalPages }
+                            onChange={ handlePagination }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </PaginationContainer>
+                }
             </>
         </React.Fragment>
     );

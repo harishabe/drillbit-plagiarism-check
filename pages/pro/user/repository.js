@@ -239,15 +239,17 @@ const Repository = ({
                 path=''
             />
 
-            <PaginationContainer>
-                <Pagination
-                    count={pageDetails?.totalPages}
-                    onChange={handlePagination}
-                    color="primary"
-                    variant="outlined"
-                    shape="rounded"
-                />
-            </PaginationContainer>
+            { !isLoadingRepo && 
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handlePagination }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </PaginationContainer>
+            }
         </React.Fragment>
     );
 };

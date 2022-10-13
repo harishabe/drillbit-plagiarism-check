@@ -25,6 +25,7 @@ import {
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { formatDate } from '../../../utils/RegExp';
+import { PaginationContainer } from '../../style/index';
 
 const AdminBreadCrumb = [
     {
@@ -240,15 +241,17 @@ const Repository = ({
                     isLoading={isLoadingRepo}
                 />
 
-                <div style={{ marginLeft: '40%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handlePagination}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
+                { !isLoadingRepo &&
+                    <PaginationContainer>
+                        <Pagination
+                            count={ pageDetails?.totalPages }
+                            onChange={ handlePagination }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </PaginationContainer>
+                }
             </>
         </React.Fragment>
     );

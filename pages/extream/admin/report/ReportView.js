@@ -144,7 +144,7 @@ const ReportView = ({
                     data.email_id,
                     data.number_of_pages,
                     data.paper_id,
-                    <SimilarityStatus percent={data.similarity} />,
+                    <SimilarityStatus percent={ data.similarity } />,
                     formatDate(data.submission_date),
                     data.title,
                 );
@@ -155,7 +155,7 @@ const ReportView = ({
 
     return (
         <>
-            {isLoadingViewReport ?
+            { isLoadingViewReport ?
                 <>
                     <Skeleton />
                     <Skeleton />
@@ -166,15 +166,15 @@ const ReportView = ({
                     {
                         reportName === 'assignments' &&
                         <>
-                            {isLoadingDownload ? <Skeleton /> :
+                            { isLoadingDownload ? <Skeleton /> :
                                 <Tooltip title="Download Assignments" arrow>
-                                    <IconButton sx={{
+                                    <IconButton sx={ {
                                         position: 'fixed',
                                         padding: '20px',
                                         top: '9px',
                                         right: '74px'
-                                    }}
-                                    onClick={handleDownload}>
+                                    } }
+                                        onClick={ handleDownload }>
                                         <DownloadButton >
                                             <DownloadIcon />
                                         </DownloadButton>
@@ -182,11 +182,11 @@ const ReportView = ({
                                 </Tooltip>
                             }
                             <CommonTable
-                                isCheckbox={false}
-                                isSorting={true}
-                                tableHeader={assignmentsColumns}
-                                tableData={rows}
-                                charLength={10}
+                                isCheckbox={ false }
+                                isSorting={ true }
+                                tableHeader={ assignmentsColumns }
+                                tableData={ rows }
+                                charLength={ 10 }
                                 path=''
                             />
                         </>
@@ -195,15 +195,15 @@ const ReportView = ({
                     {
                         reportName === 'classes' &&
                         <>
-                            {isLoadingDownload ? <Skeleton /> :
+                            { isLoadingDownload ? <Skeleton /> :
                                 <Tooltip title="Download classes" arrow>
-                                    <IconButton sx={{
+                                    <IconButton sx={ {
                                         position: 'fixed',
                                         padding: '20px',
                                         top: '9px',
                                         right: '74px'
-                                    }}
-                                    onClick={handleDownload}>
+                                    } }
+                                        onClick={ handleDownload }>
                                         <DownloadButton >
                                             <DownloadIcon />
                                         </DownloadButton>
@@ -211,11 +211,11 @@ const ReportView = ({
                                 </Tooltip>
                             }
                             <CommonTable
-                                isCheckbox={false}
-                                isSorting={true}
-                                tableHeader={classesColumns}
-                                tableData={rows}
-                                charLength={10}
+                                isCheckbox={ false }
+                                isSorting={ true }
+                                tableHeader={ classesColumns }
+                                tableData={ rows }
+                                charLength={ 10 }
                                 path=''
                             />
                         </>
@@ -225,51 +225,51 @@ const ReportView = ({
                         reportName === 'submissions' &&
                         <>
                             <Tooltip title="Download submissions" arrow>
-                                <IconButton sx={{
+                                <IconButton sx={ {
                                     position: 'fixed',
                                     padding: '20px',
                                     top: '9px',
                                     right: '74px'
-                                }}
-                                onClick={setOpen}>
+                                } }
+                                    onClick={ setOpen }>
                                     <DownloadButton >
                                         <DownloadIcon />
                                     </DownloadButton>
                                 </IconButton>
                             </Tooltip>
                             <CommonTable
-                                isCheckbox={false}
-                                isSorting={true}
-                                tableHeader={submissionsColumns}
-                                tableData={rows}
-                                charLength={10}
+                                isCheckbox={ false }
+                                isSorting={ true }
+                                tableHeader={ submissionsColumns }
+                                tableData={ rows }
+                                charLength={ 10 }
                                 path=''
                             />
                         </>
 
                     }
 
-                    {open &&
+                    { open &&
                         <>
                             <DialogModal
                                 headingTitle="Mail"
-                                isOpen={true}
+                            isOpen={ true }
                                 fullWidth="sm"
                                 maxWidth="sm"
-                                handleClose={closeSendDialog}
+                            handleClose={ closeSendDialog }
                             >
-                                <form onSubmit={handleSubmit(onSend)}>
+                            <form onSubmit={ handleSubmit(onSend) }>
                                     <Grid container>
-                                        {FormJson?.map((field, i) => (
-                                            <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
+                                    { FormJson?.map((field, i) => (
+                                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
                                                 <FormComponent
-                                                    key={i}
-                                                    field={field}
-                                                    control={control}
-                                                    isLoading={isLoadingSubmission}
+                                                key={ i }
+                                                field={ field }
+                                                control={ control }
+                                                isLoading={ isLoadingSubmission }
                                                 />
                                             </Grid>
-                                        ))}
+                                    )) }
                                     </Grid>
                                 </form>
                             </DialogModal>
@@ -278,15 +278,17 @@ const ReportView = ({
                 </>
             }
 
-            <PaginationContainer>
-                <Pagination
-                    count={pageDetails?.totalPages}
-                    onChange={handleChange}
-                    color="primary"
-                    variant="outlined"
-                    shape="rounded"
-                />
-            </PaginationContainer>
+            { !isLoadingViewReport &&
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </PaginationContainer>
+            }
         </>
     );
 };

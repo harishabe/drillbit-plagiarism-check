@@ -24,6 +24,7 @@ import StudentForm from './form/StudentForm';
 import StudentStats from './student/StudentStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
+import { PaginationContainer } from '../../style/index';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -317,15 +318,17 @@ const Students = ({
                 />
 
 
-                <div style={{ marginLeft: '45%', marginTop: '25px' }}>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </div>
+                { !isLoading &&
+                    <PaginationContainer>
+                        <Pagination
+                            count={ pageDetails?.totalPages }
+                            onChange={ handleChange }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </PaginationContainer>
+                }
             </>
         </React.Fragment>
     );
