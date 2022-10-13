@@ -50,15 +50,17 @@ const MyClassesTables = ({
     };
 
     const AssignmentComponent = activeTab === 0 && <Assignments
-        pageDetailsAssignment={pageDetailsAssignment}
-        assignmentData={assignmentData}
-        isLoadingAssignment={isLoadingAssignment}
+        pageDetailsAssignment={ pageDetailsAssignment }
+        assignmentData={ assignmentData }
+        isLoadingAssignment={ isLoadingAssignment }
+        activeTab={ activeTab }
     />;
 
     const StudentComponent = activeTab === 1 && <Students
-        pageDetailsStudent={pageDetailsStudent}
-        studentData={studentData}
-        isLoadingStudent={isLoadingStudent}
+        pageDetailsStudent={ pageDetailsStudent }
+        studentData={ studentData }
+        isLoadingStudent={ isLoadingStudent }
+        activeTab={ activeTab }
     />;
 
     const componentList = [
@@ -77,18 +79,18 @@ const MyClassesTables = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={12}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 12 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
 
             <TabMenu
-                menuButton={tabMenu}
-                components={componentList}
-                handleAPI={handleAPI}
+                menuButton={ tabMenu }
+                components={ componentList }
+                handleAPI={ handleAPI }
             />
         </React.Fragment>
     );

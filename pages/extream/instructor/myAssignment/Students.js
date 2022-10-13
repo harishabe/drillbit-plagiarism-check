@@ -34,7 +34,7 @@ import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import StudentInstitute from '../studentInstitute';
-import { removeCommaWordEnd } from '../../../../utils/RegExp';
+import { removeCommaWordEnd, setItemLocalStorage } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
@@ -94,7 +94,8 @@ const Students = ({
     setPaginationStudent,
     UploadFileDataClear,
     DownloadCsv,
-    isLoadingDownload
+    isLoadingDownload,
+    activeTab
 }) => {
 
     const router = useRouter();
@@ -117,6 +118,7 @@ const Students = ({
 
     useEffect(() => {
         GetStudent(router.query.clasId, paginationPayload);
+        setItemLocalStorage('tab', activeTab)
     }, [, paginationPayload]);
 
     useEffect(() => {
@@ -158,7 +160,7 @@ const Students = ({
     };
 
     const handleYesWarning = () => {
-        DeleteStudent(classId, deleteRowData);
+        DeleteStudent(clasId, deleteRowData);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
