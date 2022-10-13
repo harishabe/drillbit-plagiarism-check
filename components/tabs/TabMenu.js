@@ -4,6 +4,8 @@ import { makeStyles } from '@mui/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { getItemLocalStorage, setItemLocalStorage } from '../../utils/RegExp';
+import { useEffect } from 'react';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -11,16 +13,16 @@ function TabPanel(props) {
     return (
         <div
             role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
+            hidden={ value !== index }
+            id={ `simple-tabpanel-${index}` }
+            aria-labelledby={ `simple-tab-${index}` }
+            { ...other }
         >
-            {value === index && (
+            { value === index && (
                 <Box>
-                    {children}
+                    { children }
                 </Box>
-            )}
+            ) }
         </div>
     );
 }
@@ -64,37 +66,44 @@ const TabMenu = ({
 
     const classes = useStyles();
 
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(getItemLocalStorage('tab') !== null ? parseInt(getItemLocalStorage('tab')) : 0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
         handleAPI(newValue);
     };
 
+    useEffect(() => {
+        if (getItemLocalStorage('tab')) {
+            setValue(parseInt(getItemLocalStorage('tab')));
+            handleAPI(parseInt(getItemLocalStorage('tab')));
+        }
+    }, [getItemLocalStorage])
+
     return (
-        <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box sx={ { width: '100%' } }>
+            <Box sx={ { borderBottom: 1, borderColor: 'divider' } }>
                 <Tabs
-                    value={value}
-                    onChange={handleChange}
+                    value={ value }
+                    onChange={ handleChange }
                     indicatorColor='primary'
                 >
-                    {menuButton.map((item, index) => (
-                        <Tab key={index}
-                            classes={{
+                    { menuButton.map((item, index) => (
+                        <Tab key={ index }
+                            classes={ {
                                 selected: classes.selected,
-                            }}
-                            label={item.label}
-                            {...a11yProps(index)}
+                            } }
+                            label={ item.label }
+                            { ...a11yProps(index) }
                         />
-                    ))}
+                    )) }
                 </Tabs>
             </Box>
-            {components.map((component, index) => (
-                <TabPanel key={index} value={value} index={index}>
-                    {component}
+            { components.map((component, index) => (
+                <TabPanel key={ index } value={ value } index={ index }>
+                    { component }
                 </TabPanel>
-            ))}
+            )) }
         </Box>
     );
 };

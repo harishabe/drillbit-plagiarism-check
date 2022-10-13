@@ -32,7 +32,7 @@ import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import AssignmentForms from './../form/AssignmentForms';
-import { removeCommaWordEnd } from '../../../../utils/RegExp';
+import { removeCommaWordEnd, setItemLocalStorage } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
@@ -91,7 +91,8 @@ const Assignments = ({
     assignmentData,
     pageDetailsAssignment,
     isLoadingAssignment,
-    isLoadingDownload
+    isLoadingDownload,
+    activeTab
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
@@ -111,6 +112,7 @@ const Assignments = ({
     useEffect(() => {
         if (router.isReady) {
             GetAssignment(router.query.clasId, paginationPayload);
+            setItemLocalStorage('tab', activeTab)
         }
     }, [router.isReady, paginationPayload]);
 
