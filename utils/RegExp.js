@@ -10,6 +10,8 @@ export const renameKeys = (obj, newKeys) => {
     return Object.assign({}, ...keyValues);
 };
 
+export const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+
 export const findByExpiryDate = (date) => {
     let presentDate = new Date();
     let expiryDate = new Date(date);

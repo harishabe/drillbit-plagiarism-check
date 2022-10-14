@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Tooltip, IconButton, Skeleton } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
-import { CommonTable } from '../../../../components';
+import { CommonTable, EllipsisText } from '../../../../components';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
 import { DownloadIcon } from '../../../../assets/icon';
@@ -71,11 +71,16 @@ const QNA = ({
         ansData?.map((qna) => {
             row = createData(
                 qna.studentName,
-                qna?.a1 === null ? ('--') : qna.a1,
-                qna?.a2 === null ? ('--') : qna.a2,
-                qna?.a3 === null ? ('--') : qna.a3,
-                qna?.a4 === null ? ('--') : qna.a4,
-                qna?.a5 === null ? ('--') : qna.a5,
+                <EllipsisText value={ qna?.a1 === null ? NO_DATA_PLACEHOLDER : qna?.a1 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
+                <EllipsisText value={ qna?.a2 === null ? NO_DATA_PLACEHOLDER : qna?.a2 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
+                <EllipsisText value={ qna?.a3 === null ? NO_DATA_PLACEHOLDER : qna?.a3 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
+                <EllipsisText value={ qna?.a4 === null ? NO_DATA_PLACEHOLDER : qna?.a4 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
+                <EllipsisText value={ qna?.a5 === null ? NO_DATA_PLACEHOLDER : qna?.a5 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
             );
             row['isSelected'] = false;
             arr.push(row);
@@ -91,17 +96,17 @@ const QNA = ({
         <React.Fragment>
             <DownloadField>
                 <DownloadButton>
-                    {ansData?.length > 0 &&
+                    { ansData?.length > 0 &&
                         isLoadingDownload ?
                         <SkeletonContainer>
-                            <Skeleton width={40} />
+                            <Skeleton width={ 40 } />
                         </SkeletonContainer>
                         :
                         <Tooltip title="Download csv" arrow>
                             <IconButton
                                 aria-label="download-file"
                                 size="large"
-                                onClick={handleDownload}>
+                                onClick={ handleDownload }>
                                 <DownloadIcon />
                             </IconButton>
                         </Tooltip>
@@ -109,11 +114,11 @@ const QNA = ({
                 </DownloadButton>
             </DownloadField>
             <CommonTable
-                isCheckbox={false}
-                isSorting={true}
-                tableHeader={columns}
-                tableData={rows}
-                isLoading={isLoading}
+                isCheckbox={ false }
+                isSorting={ true }
+                tableHeader={ columns }
+                tableData={ rows }
+                isLoading={ isLoading }
             />
         </React.Fragment>
     );

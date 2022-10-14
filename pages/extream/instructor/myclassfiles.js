@@ -44,9 +44,9 @@ const MyClassFiles = ({
     useEffect(() => {
         let row = '';
         let arr = [];
-        const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
         classesData?.map((item, index) => {
-            item['color'] = Colors[index];
+            const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+            item['color'] = "#" + randomColor;
             item['validity'] = findByExpiryDate(item.expiry_date);
             row = renameKeys(item,
                 {

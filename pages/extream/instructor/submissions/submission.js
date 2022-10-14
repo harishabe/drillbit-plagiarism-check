@@ -468,7 +468,7 @@ const Submission = ({
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title='Save to repositary' arrow>
+                <Tooltip title='Save to repository' arrow>
                     <IconButton onClick={ saveAllSubmission }>
                         <SaveOutlinedIcon />
                     </IconButton>
