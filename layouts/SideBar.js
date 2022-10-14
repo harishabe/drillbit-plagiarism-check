@@ -136,7 +136,11 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/pro/user/folderSubmission' && name === 'My Folders') {
             return true;
-        } else if (router.pathname === '/pro/user/uploadFileSubmission' && name === 'My Folders') {
+        } else if (router.pathname === '/pro/user/uploadFile/englishFile' && name === 'My Folders') {
+            return true;
+        } else if (router.pathname === '/pro/user/uploadFile/regionalFile' && name === 'My Folders') {
+            return true;
+        } else if (router.pathname === '/pro/user/uploadFile/nonEnglishFile' && name === 'My Folders') {
             return true;
         } else if (router.pathname === '/pro/user/uploadFileRepository' && name === 'Repository') {
             return true;
@@ -174,49 +178,49 @@ const SideBar = ({ open }) => {
     }, []);
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={ { display: 'flex' } }>
             <CssBaseline />
-            <Box className={classes.shadow}>
+            <Box className={ classes.shadow }>
                 <Hidden mdDown implementation="css">
-                    <Drawer variant="permanent" open={open}>
+                    <Drawer variant="permanent" open={ open }>
                         <DrawerHeader>
-                            {open ? <DrillBitLogo /> : <div className={classes.logoSymbol}><DrillBitSymbolLogo /></div>}
+                            { open ? <DrillBitLogo /> : <div className={ classes.logoSymbol }><DrillBitSymbolLogo /></div> }
                         </DrawerHeader>
                         <List>
-                            {sidebarItem?.map((text, key) => {
+                            { sidebarItem?.map((text, key) => {
                                 let active = activeRoute(text.layout + text.path, text.name);
                                 const whiteFontClasses = classNames({
                                     [" " + classes.activeClass]:
                                         activeRoute(text.layout + text.path, text.name)
                                 });
                                 return (
-                                    <Tooltip title={!open ? text.name : ''} arrow>
+                                    <Tooltip title={ !open ? text.name : '' } arrow>
                                         <StyledList>
-                                            <Link href={text.layout + text.path} key={text.name}>
-                                                <a className={classes.link} >
+                                            <Link href={ text.layout + text.path } key={ text.name }>
+                                                <a className={ classes.link } >
                                                     <ListItemButton
-                                                        style={{ margin: '10px 15px 0', borderRadius: '4px' }}
-                                                        className={whiteFontClasses}
-                                                        sx={{
+                                                        style={ { margin: '10px 15px 0', borderRadius: '4px' } }
+                                                        className={ whiteFontClasses }
+                                                        sx={ {
                                                             minHeight: 58,
                                                             justifyContent: open ? 'initial' : 'center',
                                                             px: 2.5
-                                                        }}
+                                                        } }
                                                     >
                                                         <ListItemIcon
-                                                            className={whiteFontClasses}
-                                                            sx={{
+                                                            className={ whiteFontClasses }
+                                                            sx={ {
                                                                 minWidth: 0,
                                                                 mr: open ? 3 : 'auto',
                                                                 justifyContent: 'center',
-                                                            }}
+                                                            } }
                                                         >
-                                                            {active ? text.activeIcon : text.icon}
+                                                            { active ? text.activeIcon : text.icon }
                                                         </ListItemIcon>
                                                         <ListItemText
-                                                            primary={text.name}
-                                                            className={classNames(classes.menuClass, whiteFontClasses)}
-                                                            sx={{ opacity: open ? 1 : 0 }}
+                                                            primary={ text.name }
+                                                            className={ classNames(classes.menuClass, whiteFontClasses) }
+                                                            sx={ { opacity: open ? 1 : 0 } }
                                                         />
                                                     </ListItemButton>
                                                 </a>
@@ -224,7 +228,7 @@ const SideBar = ({ open }) => {
                                         </StyledList>
                                     </Tooltip>
                                 );
-                            })}
+                            }) }
                         </List>
                     </Drawer>
                 </Hidden>

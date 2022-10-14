@@ -159,7 +159,7 @@ const UploadFiles = ({
         bodyFormData.append('grammarCheck', grammarCheck ? 'YES' : 'NO');
         bodyFormData.append('language', data.nonEnglishLang);
         bodyFormData.append('file', files[0][1]);
-        UploadNonEnglish(router.query.clasId, router.query.assId, bodyFormData);
+        UploadNonEnglish(singleFileUploadAPI, bodyFormData);
     };
 
     const singleFileUploadRepository = (files, data) => {
@@ -223,7 +223,7 @@ const UploadFiles = ({
         bodyFormData.append('authorName', data.authorName0);
         bodyFormData.append('title', data.title0);
         bodyFormData.append('documentType', data.documentType0);
-        bodyFormData.append('language', regionalLang);
+        bodyFormData.append('language', data.regionalLanguage);
         bodyFormData.append('file', files[0][1]);
         SubmissionListUpload(singleFileUploadAPI, bodyFormData);
     };
@@ -261,87 +261,97 @@ const UploadFiles = ({
                 <ContentCenter>
                     <Title
                         color='#020B50'
-                        title={title}
+                        title={ title }
                     />
                 </ContentCenter>
                 <DragAreaPadding>
-                    <Grid container spacing={1}>
-                        <Grid item md={12} xs={12}>
+                    <Grid container spacing={ 1 }>
+                        <Grid item md={ 12 } xs={ 12 }>
                             <DragDropArea>
-                                {fileIcon}
-                                <SubTitle1 title={allowedFormat} />
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Link style={{ marginLeft: '5px' }}>
+                                { fileIcon }
+                                <SubTitle1 title={ allowedFormat } />
+                                <div style={ { display: 'flex', justifyContent: 'center' } }>
+                                    <Link style={ { marginLeft: '5px' } }>
                                         <ChooseLabel for="file-upload">
-                                            {choseFileTitle}
+                                            { choseFileTitle }
                                         </ChooseLabel>
                                     </Link>
                                     <Input
                                         multiple
-                                        onChange={handleUpload}
+                                        onChange={ handleUpload }
                                         id="file-upload"
                                         type="file"
                                     />
                                 </div>
-                                {(fileData?.length > 0) && fileData?.map((item, index) => (
-                                    <ChipContainer key={index}>
+                                { (fileData?.length > 0) && fileData?.map((item, index) => (
+                                    <ChipContainer key={ index }>
                                         <Chip
-                                            label={item[1]?.name}
-                                            onDelete={(e) => handleDelete(e, item)}
+                                            label={ item[1]?.name }
+                                            onDelete={ (e) => handleDelete(e, item) }
                                         />
                                     </ChipContainer>
-                                ))}
-                                {(fileData?.length > 1 && !isRepository && langType === 'Non English') && <ErrorMessageContainer>{UPLOAD_NON_ENGLISH_FILE_MULTIFILE}</ErrorMessageContainer>}
-                                {fileWarning && <ErrorMessageContainer>{UPLOAD_FILE_MAX_LIMIT}</ErrorMessageContainer>}
+                                )) }
+                                { (fileData?.length > 1 && !isRepository && langType === 'Non English') && <ErrorMessageContainer>{ UPLOAD_NON_ENGLISH_FILE_MULTIFILE }</ErrorMessageContainer> }
+                                { fileWarning && <ErrorMessageContainer>{ UPLOAD_FILE_MAX_LIMIT }</ErrorMessageContainer> }
 
                             </DragDropArea>
 
-                            {(fileData?.length === 1 && !isRepository) &&
-                                <Grid container style={{ justifyContent: 'center' }}>
-                                    {!isRegionalFile &&
+                            { (fileData?.length === 1 && !isRepository && langType === 'English') &&
+                                <Grid container style={ { justifyContent: 'center' } }>
+                                    { !isRegionalFile &&
                                         <div>
                                             <FormControlLabel
                                                 control={
-                                                    <Checkbox disabled={router.query.grammar === 'NO'} checked={grammarCheck} onChange={handleGrammarPlagiarismChange} name="grammarCheck" />
+                                                    <Checkbox disabled={ router.query.grammar === 'NO' } checked={ grammarCheck } onChange={ handleGrammarPlagiarismChange } name="grammarCheck" />
                                                 }
                                                 label="Grammar Check"
                                             />
                                             <FormControlLabel
                                                 control={
-                                                    <Checkbox checked={plagiarismCheck} onChange={handleGrammarPlagiarismChange} name="plagiarismCheck" />
+                                                    <Checkbox checked={ plagiarismCheck } onChange={ handleGrammarPlagiarismChange } name="plagiarismCheck" />
                                                 }
                                                 label="Plagiarism Check"
                                             />
                                         </div>
                                     }
-                                </Grid>}
+                                </Grid> }
 
 
-                            {fileData?.length > 0 && isRepository &&
+                            { fileData?.length > 0 && isRepository &&
                                 <RepositoryFileForm
-                                    handleSubmitRepository={handleSubmitRepository}
-                                    files={fileData}
+                                handleSubmitRepository={ handleSubmitRepository }
+                                files={ fileData }
                                     btnTitle='Submit'
-                                    isLoading={isLoadingUpload}
+                                isLoading={ isLoadingUpload }
                                 />
 
                             }
-                            {(fileData?.length > 0 && !isRepository && langType === 'English') &&
+                            { (fileData?.length > 0 && !isRepository && langType === 'English') &&
                                 <FileForm
-                                    handleSubmitFile={handleSubmit}
-                                    files={fileData}
+                                handleSubmitFile={ handleSubmit }
+                                files={ fileData }
                                     btnTitle='Submit'
-                                    isLoading={isLoadingUpload || isLoadingNonEng}
-                                    langType={langType}
+                                isLoading={ isLoadingUpload || isLoadingNonEng }
+                                langType={ langType }
                                 />
                             }
-                            {(fileData?.length === 1 && !isRepository && langType === 'Non English') &&
+                            { (fileData?.length === 1 && !isRepository && langType === 'Non English') &&
                                 <FileForm
-                                    handleSubmitFile={handleSubmit}
-                                    files={fileData}
+                                handleSubmitFile={ handleSubmit }
+                                files={ fileData }
                                     btnTitle='Submit'
-                                    isLoading={isLoadingUpload || isLoadingNonEng}
-                                    langType={langType}
+                                    isLoading={ isLoadingUpload || isLoadingNonEng }
+                                    langType={ langType }
+                                />
+                            }
+                            { (fileData?.length === 1 && !isRepository && isRegionalFile) &&
+                                <FileForm
+                                    handleSubmitFile={ handleSubmit }
+                                    files={ fileData }
+                                    isRegionalFile={ isRegionalFile }
+                                    btnTitle='Submit'
+                                    isLoading={ isLoadingUpload || isLoadingNonEng }
+                                    langType={ langType }
                                 />
                             }
                         </Grid>
@@ -366,9 +376,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         SubmissionListUpload: (apiUrl, data) => dispatch(SubmissionListUpload(apiUrl, data)),
-        UploadNonEnglish: (clasId, assId, data) => dispatch(UploadNonEnglish(clasId, assId, data)),
+        UploadNonEnglish: (apiUrl, data) => dispatch(UploadNonEnglish(apiUrl, data)),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
-        UploadNonEnglishDataClear: () => dispatch(UploadNonEnglishDataClear()),        
+        UploadNonEnglishDataClear: () => dispatch(UploadNonEnglishDataClear()),
         LanguageList: () => dispatch(LanguageList())
     };
 };

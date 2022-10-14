@@ -66,7 +66,7 @@ export function* UploadFileDriveData() {
  */
 
  export function* onLoadUploadFileNonEnglish(action) {
-    const { response, error } = yield call(UploadNonEngFile, action.classId, action.assId, action.query);
+     const { response, error } = yield call(UploadNonEngFile, action.url, action.query);
     if (response) {
         yield put({
             type: types.FETCH_UPLOAD_FILE_NON_ENGLISH_SUCCESS,

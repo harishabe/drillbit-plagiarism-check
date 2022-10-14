@@ -20,7 +20,7 @@ export const DownloadOriginalFileData = async (data) => {
         const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_LIST_ORIGINAL_LIST_DOWNLOAD + 'classes/' + data?.clasId + '/assignments/' + data?.assId + '/downloadOriginalFile/' + data?.paperId;
         return GetMethodDownloadPdf(url, data?.name);
     } else if (data?.path === 'proFolderSubmission') {
-        const url = BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + data?.folderId + '/submissions/downloadOriginalFile/' + data?.paperId;
+        const url = BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + data?.folderId + '/downloadOriginalFile/' + data?.paperId;
         return GetMethodDownloadPdf(url, data?.name);
     }
 };

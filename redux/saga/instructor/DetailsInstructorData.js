@@ -542,11 +542,13 @@ export function* onLoadRepo(action) {
             type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_SUCCESS,
             payload: response?.data,
         });
+        toastrValidation(response);
     } else {
         yield put({
             type: types.FETCH_INSTRUCTOR_REPOSITARY_DETAILS_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 
