@@ -6,6 +6,7 @@ import { BreadCrumb, TabMenu } from '../../../components';
 import Submission from './submissions/submission';
 import Grading from './submissions/grading';
 import QNA from './submissions/q&a';
+import { removeItemLocalStorage } from '../../../utils/RegExp';
 
 const MySubmissions = () => {
 
@@ -19,6 +20,7 @@ const MySubmissions = () => {
             setMyclass(router.query.clasName);
             setMyassignment(router.query.assName);
         }
+        removeItemLocalStorage('subTab')
     }, [router.isReady]);
 
     const InstructorBreadCrumb = [

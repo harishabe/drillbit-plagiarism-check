@@ -22,6 +22,7 @@ import {
     GoogleDriveIcon
 } from '../../assets/icon';
 import { UploadFileDrive, UploadGdriveFileDataClear } from '../../redux/action/common/UploadFile/UploadFileAction';
+import { setItemLocalStorage } from '../../utils/RegExp';
 
 const GDriveFileUpload = ({
     isLoadingFileDrive,
@@ -32,7 +33,8 @@ const GDriveFileUpload = ({
     uploadFileSuccess,
     UploadGdriveFileDataClear,
     fileUploadAPI,
-    isRepository
+    isRepository,
+    activeTab
 }) => {
     const router = useRouter();
     const [driveFile, setDriveFile] = useState('');
@@ -43,6 +45,7 @@ const GDriveFileUpload = ({
 
     useEffect(() => {
         setDriveAuthToken(tokenData?.access_token);
+        setItemLocalStorage('subTab', activeTab)
     }, [tokenData]);
 
     const handleOpenPicker = () => {

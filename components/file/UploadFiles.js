@@ -35,6 +35,7 @@ import {
 import {
     UPLOAD_FILE_MAX_LIMIT
 } from '../../constant/data/ErrorMessage';
+import { setItemLocalStorage } from '../../utils/RegExp';
 
 const SkeletonStyle = styled.div`
     margin-top: 20px;
@@ -59,7 +60,8 @@ const UploadFiles = ({
     isLoadingLang,
     UploadNonEnglish,
     isLoadingNonEng,
-    isRegionalFile
+    isRegionalFile,
+    activeTab
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -77,7 +79,7 @@ const UploadFiles = ({
                 ...grammarPlagiarismCheck,
                 'grammarCheck': router.query.grammar === 'YES' ? true : false,
             });
-
+            setItemLocalStorage('subTab', activeTab)
         }
     }, [router.isReady]);
 

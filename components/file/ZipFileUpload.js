@@ -32,6 +32,7 @@ import {
     SubmissionListExtractedFileUpload,
     UploadZipFileDataClear
 } from '../../redux/action/instructor/InstructorAction';
+import { setItemLocalStorage } from '../../utils/RegExp';
 
 const ZipFileUpload = ({
     SubmissionListUpload,
@@ -47,11 +48,16 @@ const ZipFileUpload = ({
     isRepository,
     title,
     allowedFormat,
-    notAllowedFormat
+    notAllowedFormat,
+    activeTab
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
     const [fileWarning, setFileWarning] = useState(false);
+
+    useEffect(() => {
+        setItemLocalStorage('subTab', activeTab)
+    }, []);
 
     const handleDelete = (e, item) => {
         e.preventDefault();

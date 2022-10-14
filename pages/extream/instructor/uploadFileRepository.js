@@ -56,6 +56,7 @@ const uploadFileRepository = () => {
     const componentList = [
         <UploadFiles
             key={0}
+            activeTab={ activeTab }
             isRepository={true}
             choseFileTitle='browse your file here'
             title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
@@ -67,6 +68,7 @@ const uploadFileRepository = () => {
         />,
         <GDriveFileUpload
             key={1}
+            activeTab={ activeTab }
             isRepository={true}
             allowedFormat={UPLOAD_SUPPORTED_FILES.GDRIVE}
             title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
@@ -75,6 +77,7 @@ const uploadFileRepository = () => {
         />,
         <ZipFileUpload
             key={2}
+            activeTab={ activeTab }
             isRepository={true}
             title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
             allowedFormat={UPLOAD_SUPPORTED_FILES.ZIP}

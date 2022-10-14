@@ -16,8 +16,6 @@ import { BreadCrumb, CardInfoView, MainHeading, ErrorBlock } from '../../../comp
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
-const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
-
 const MyAssignments = ({
     GetAssignmentData,
     DownloadAssignmentInstruction,
@@ -73,7 +71,8 @@ const MyAssignments = ({
         let row = '';
         let arr = [];
         assignmentData?.map((item, index) => {
-            item['color'] = Colors[index];
+            const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+            item['color'] = "#" + randomColor;
             item['validity'] = findByExpiryDate(item.end_date);
             row = renameKeys(item,
                 {

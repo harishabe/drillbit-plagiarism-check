@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Tooltip, IconButton, Skeleton } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
-import { CommonTable } from '../../../../components';
+import { CommonTable, EllipsisText } from '../../../../components';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
 import { DownloadIcon } from '../../../../assets/icon';
@@ -12,6 +12,7 @@ import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
 import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
+import { NO_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
 
 const SkeletonContainer = styled.div`
     margin-top: 16px;
@@ -71,11 +72,16 @@ const QNA = ({
         ansData?.map((qna) => {
             row = createData(
                 qna.studentName,
-                qna?.a1 === null ? ('--') : qna.a1,
-                qna?.a2 === null ? ('--') : qna.a2,
-                qna?.a3 === null ? ('--') : qna.a3,
-                qna?.a4 === null ? ('--') : qna.a4,
-                qna?.a5 === null ? ('--') : qna.a5,
+                <EllipsisText value={ qna?.a1 === null ? NO_DATA_PLACEHOLDER : qna?.a1 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
+                <EllipsisText value={ qna?.a2 === null ? NO_DATA_PLACEHOLDER : qna?.a1 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
+                <EllipsisText value={ qna?.a3 === null ? NO_DATA_PLACEHOLDER : qna?.a1 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
+                <EllipsisText value={ qna?.a4 === null ? NO_DATA_PLACEHOLDER : qna?.a1 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
+                <EllipsisText value={ qna?.a5 === null ? NO_DATA_PLACEHOLDER : qna?.a1 }
+                    variant={ 'subtitle2' } charLength={ 30 } />,
             );
             row['isSelected'] = false;
             arr.push(row);

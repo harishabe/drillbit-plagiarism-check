@@ -33,6 +33,7 @@ const UploadFile = () => {
     const router = useRouter();
     const [className, setClassName] = useState('');
     const [assName, setAssName] = useState('');
+    const [activeTab, setActiveTab] = useState(0);
 
     useEffect(() => {
         if (router.isReady) {
@@ -70,13 +71,14 @@ const UploadFile = () => {
 
     ];
 
-    const handleAPI = () => {
-
+    const handleAPI = (value) => {
+        setActiveTab(value);
     };
 
     const componentList = [
         <UploadFiles
             key={0}
+            activeTab={ activeTab }
             choseFileTitle='browse your file here'
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
@@ -90,6 +92,7 @@ const UploadFile = () => {
         />,
         <GDriveFileUpload
             key={1}
+            activeTab={ activeTab }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             fileUploadAPI={ BASE_URL_UPLOAD + `/files/classes/${router.query.clasId}/assignments/${router.query.assId}/drive` }
@@ -100,6 +103,7 @@ const UploadFile = () => {
         />,
         <ZipFileUpload
             key={2}
+            activeTab={ activeTab }
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }

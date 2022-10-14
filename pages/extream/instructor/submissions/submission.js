@@ -106,7 +106,7 @@ const Submission = ({
     uploadData,
     UploadZipFileDataClear,
     isLoadingGrammarReport,
-    GetGrammarReport
+    GetGrammarReport,
 }) => {
     const router = useRouter();
     const clasId = router.query.clasId;
@@ -468,7 +468,7 @@ const Submission = ({
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title='Save to repositary' arrow>
+                <Tooltip title='Save to repository' arrow>
                     <IconButton onClick={ saveAllSubmission }>
                         <SaveOutlinedIcon />
                     </IconButton>

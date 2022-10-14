@@ -8,6 +8,7 @@ import { BreadCrumb, TabMenu } from '../../../components';
 import Assignments from './myAssignment/Assignments';
 import Students from './myAssignment/Students';
 import { GetStudent, GetAssignment } from '../../../redux/action/instructor/InstructorAction';
+import { removeItemLocalStorage } from '../../../utils/RegExp';
 
 const MyClassesTables = ({
     pageDetailsStudent,
@@ -24,6 +25,7 @@ const MyClassesTables = ({
     useEffect(() => {
         if (router.isReady) {
             setMyclass(router.query.clasName);
+            removeItemLocalStorage('subTab')
         }
     }, [router.isReady]);
 

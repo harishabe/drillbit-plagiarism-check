@@ -71,3 +71,8 @@ export const getItemLocalStorage = (key) => {
     let a = localStorage.getItem(key);
     return a;
 };
+
+export const removeItemLocalStorage = (key) => {
+    let a = localStorage.removeItem(key);
+    return a;
+};

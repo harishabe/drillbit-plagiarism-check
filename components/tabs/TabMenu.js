@@ -65,7 +65,19 @@ const TabMenu = ({
 
     const classes = useStyles();
 
-    const [value, setValue] = React.useState(getItemLocalStorage('tab') !== null ? parseInt(getItemLocalStorage('tab')) : 0);
+    const [value, setValue] = React.useState(tabValue);
+
+    const tabValue = () => {
+        let Tab = getItemLocalStorage('tab') !== null ? parseInt(getItemLocalStorage('tab')) : 0
+        let SubTab = getItemLocalStorage('subTab') !== null ? parseInt(getItemLocalStorage('subTab')) : 0
+        if ((getItemLocalStorage('subTab') === null) || (getItemLocalStorage('subTab') === undefined)) {
+            setValue(Tab);
+            handleAPI(Tab);
+        } else {
+            setValue(SubTab);
+            handleAPI(SubTab);
+        }
+    }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -73,11 +85,10 @@ const TabMenu = ({
     };
 
     useEffect(() => {
-        if (getItemLocalStorage('tab')) {
-            setValue(parseInt(getItemLocalStorage('tab')));
-            handleAPI(parseInt(getItemLocalStorage('tab')));
-        }
-    }, [getItemLocalStorage])
+        setTimeout(() => {
+            tabValue();
+        }, [100]);
+    }, [])
 
     return (
         <Box sx={ { width: '100%' } }>
@@ -107,3 +118,4 @@ const TabMenu = ({
     );
 };
 export default TabMenu;
+

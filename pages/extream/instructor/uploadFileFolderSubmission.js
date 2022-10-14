@@ -69,6 +69,7 @@ const UploadFileFolderSubmission = () => {
     const componentList = [
         <UploadFiles
             key={0}
+            activeTab={ activeTab }
             choseFileTitle='browse your file here'
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             allowedFormat={UPLOAD_SUPPORTED_FILES.SINGLE}
@@ -79,6 +80,7 @@ const UploadFileFolderSubmission = () => {
         />,
         <GDriveFileUpload
             key={1}
+            activeTab={ activeTab }
             allowedFormat={UPLOAD_SUPPORTED_FILES.GDRIVE}
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             fileUploadAPI={BASE_URL_UPLOAD + `/files/myFolder/${router.query.folderId}/drive`}
@@ -89,6 +91,7 @@ const UploadFileFolderSubmission = () => {
         />,
         <ZipFileUpload
             key={2}
+            activeTab={ activeTab }
             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
             allowedFormat={UPLOAD_SUPPORTED_FILES.ZIP}
             notAllowedFormat={UPLOAD_SUPPORTED_FILES.NON_ZIP}
