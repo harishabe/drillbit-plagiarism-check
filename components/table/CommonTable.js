@@ -30,7 +30,7 @@ import {
     TABLE_HEADER_SORT_DISABLE,
     TABLE_BODY_ALLOW_ICON,
     NO_DATA_PLACEHOLDER,
-    TABLE_NEXT_PAGE
+    NOT_APPLICABLE
 } from '../../constant/data/Constant';
 
 const SavedRepository = styled.div`
@@ -221,7 +221,7 @@ const CommonTable = ({
                                                                             {column.id === 'grammar_url' &&
                                                                                 <TableCell key={column.id} align={column.align}>
                                                                                     {value === '--' && <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /></StatusColor>}
-                                                                                    {(value !== '--' && value !== 'NA') &&
+                                                                                    {(value !== '--' && value !== 'NA' && value !== null) &&
                                                                                         <>
                                                                                             {isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> :
                                                                                                 <StatusColor color='#E5E5E5'>
@@ -233,7 +233,7 @@ const CommonTable = ({
                                                                                                 </StatusColor>}
                                                                                         </>
                                                                                     }
-                                                                                    {(value === 'NA') && <StatusColor color='#E5E5E5'>{value}</StatusColor>}
+                                                                                    {(value === 'NA' || value === null) && <StatusColor color='#E5E5E5'>{NOT_APPLICABLE}</StatusColor>}
                                                                                 </TableCell>
                                                                             }
                                                                             {(column.id !== 'percent' && column.id !== 'grammar_url') &&

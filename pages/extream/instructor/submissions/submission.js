@@ -359,14 +359,9 @@ const Submission = ({
    * show analysis page
    */
     const handleShowAnalysisPage = (e, row) => {
-        console.log('rowrowrow', row);
-        if (row?.lang === FILE_LANGUAGE.REGIONAL) {
-            alert('regional');
-        } else {
-            let token = localStorage.getItem('token');
+        let token = localStorage.getItem('token');
             let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
             window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
-        }
     };
 
     const handleDownload = () => {
