@@ -36,8 +36,8 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
-function createData(name, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key) {
-    return { name, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key };
+function createData(name, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status) {
+    return { name, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status };
 }
 
 const SubmissionHistory = ({
@@ -82,7 +82,8 @@ const SubmissionHistory = ({
                     [
                         { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },
                     ],
-                    submission.d_key
+                    submission.d_key,
+                    submission.rep_status
                 );
             arr.push(row);
         });
@@ -125,7 +126,8 @@ const SubmissionHistory = ({
                 handleAction={handleAction}
                 showAnalysisPage={handleShowAnalysisPage}
                 showGrammarReport={handlGrammarReport}
-                isLoadingGrammarReport={ isLoadingGrammarReport }
+                isLoadingGrammarReport={isLoadingGrammarReport}
+                charLength={10}
             />
 
             {!isLoadingSubmission &&

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import _ from 'lodash';
 import { makeStyles } from '@mui/styles';
+import styled from 'styled-components';
 import { StatusColor } from '../../pages/style/index';
 import { useRouter } from 'next/router';
 import Checkbox from '@mui/material/Checkbox';
@@ -31,6 +32,10 @@ import {
     NO_DATA_PLACEHOLDER,
     TABLE_NEXT_PAGE
 } from '../../constant/data/Constant';
+
+const SavedRepository = styled.div`
+    color:#008000;
+`;
 
 const useStyles = makeStyles(() => ({
     padding: {
@@ -76,7 +81,7 @@ const CommonTable = ({
     };
 
     const handleGrammarReport = (e, rowData) => {
-        e.preventDefault();     
+        e.preventDefault();
         setGrammarPaperId(rowData?.paper_id);
         showGrammarReport(rowData?.grammar);
     }
@@ -167,15 +172,15 @@ const CommonTable = ({
                                                                         <TableCell key={column.id} align={column.align}>
                                                                             {typeof (value) === 'string' ?
                                                                                 <div style={{ display: 'flex' }}>
-                                                                                    <div style={{ width: '80%' }}>
-                                                                                        <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} />
-                                                                                    </div>
                                                                                     <div style={{ width: '20%' }}>
                                                                                         <Tooltip key={index} title='Download original file' arrow>
                                                                                             <a href='#' style={{ padding: '0px', color: '#8c8c8c' }} onClick={(e) => downloadSubmissionFile(e, row)}>
                                                                                                 <FileDownloadOutlinedIcon fontSize='small' />
                                                                                             </a>
                                                                                         </Tooltip>
+                                                                                    </div>
+                                                                                    <div style={{ width: '80%' }}>
+                                                                                        <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} />
                                                                                     </div>
                                                                                 </div> :
                                                                                 <Typography variant='body2_1' component="div">{value !== null ? value : NO_DATA_PLACEHOLDER}</Typography>}
@@ -204,7 +209,9 @@ const CommonTable = ({
                                                                                         <div style={{ width: '12%', marginTop: '5px' }}>
                                                                                             {row?.repository_status === "1" &&
                                                                                                 <Tooltip title='Saved in repository' arrow>
-                                                                                                    <SaveOutlinedIcon fontSize='small' />
+                                                                                                    <SavedRepository>
+                                                                                                        <SaveOutlinedIcon fontSize='small' />
+                                                                                                    </SavedRepository>
                                                                                                 </Tooltip>
                                                                                             }
                                                                                         </div>
