@@ -413,15 +413,15 @@ const folderSubmission = ({
             <>
 
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
-                        <Tooltip title='Delete' arrow>
-                            <IconButton onClick={ deleteAllSubmission }>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title='Save to repositary' arrow>
-                            <IconButton onClick={ saveAllSubmission }>
-                                <SaveOutlinedIcon />
-                            </IconButton>
+                    <Tooltip title='Delete' arrow>
+                        <IconButton onClick={ deleteAllSubmission }>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title='Save to repository' arrow>
+                        <IconButton onClick={ saveAllSubmission }>
+                            <SaveOutlinedIcon />
+                        </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }
 
@@ -484,7 +484,7 @@ const folderSubmission = ({
                     />
                 }
 
-                { !isLoadingSubmission && 
+                { !isLoadingSubmission &&
                     <PaginationContainer>
                         <Pagination
                             count={ pageDetails?.totalPages }

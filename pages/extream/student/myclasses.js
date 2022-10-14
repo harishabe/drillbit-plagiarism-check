@@ -25,8 +25,6 @@ const StudentBreadCrumb = [
     },
 ];
 
-const Colors = ['#7B68C8', '#68C886', '#68C886', '#34C2FF', '#3491FF', '#8D34FF'];
-
 const MyClasses = ({
     GetClassesData,
     classesData,
@@ -50,7 +48,8 @@ const MyClasses = ({
         let row = '';
         let arr = [];
         classesData?.map((item, index) => {
-            item['color'] = Colors[index];
+            const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+            item['color'] = '#' + randomColor;
             item['validity'] = findByExpiryDate(item.end_date);
             row = renameKeys(item,
                 {
