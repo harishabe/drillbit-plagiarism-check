@@ -44,3 +44,14 @@ export const RepositoryUpload = (url, data) => {
         type: types.FETCH_GDRIVE_UPLOAD_DATA_CLEAR
     };
 };
+
+/**
+ * Non english data clear uploaded file
+ */
+ export const UploadNonEnglishDataClear = () => {
+    return {
+        type: types.FETCH_UPLOAD_FILE_NON_ENGLISH_DATA_CLEAR
+    };
+};
+
+

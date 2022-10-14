@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
-import { Grid, InputLabel, TextField, Button, Autocomplete } from '@mui/material';
+import { Grid, InputLabel, TextField, Button, Autocomplete, Skeleton } from '@mui/material';
 import { EllipsisText } from '../../components';
 import {
     UPLOAD_FILE_AUTHOR_NAME,
     UPLOAD_FILE_AUTHOR_TITLE,
-    UPLOAD_FILE_TYPE
+    UPLOAD_FILE_TYPE,
+    UPLOAD_FILE_LANGUAGE
 } from '../../constant/data/ErrorMessage';
+import {
+    LanguageList
+} from '../../redux/action/common/UploadFile/UploadFileAction';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -20,83 +25,46 @@ export const LabelContainer = styled.div`
     color:#000
 `;
 
+const SkeletonContainer = styled.div`
+    margin-top:20px;
+`;
+
 const useStyles = makeStyles(() => ({
     helperText: {
         marginLeft: 0
     }
 }));
 
-const fileType = [
-    {
-        'label': 'Thesis'
-    },
-    {
-        'label': 'Dissertation'
-    },
-    {
-        'label': 'Article'
-    },
-    {
-        'label': 'e-Book'
-    },
-    {
-        'label': 'Synopsis'
-    },
-    {
-        'label': 'Assignment'
-    },
-    {
-        'label': 'Project Work'
-    },
-    {
-        'label': 'Research Paper'
-    },
-    {
-        'label': 'Technical Report'
-    },
-    {
-        'label': 'White Paper'
-    },
-    {
-        'label': 'Chapter In Books'
-    },
-    {
-        'label': 'Analytical/Business Report'
-    },
-    {
-        'label': 'Blogs'
-    },
-    {
-        'label': 'Web Page'
-    },
-    {
-        'label': 'Others'
-    }
-];
-
 const FileForm = ({
     files,
     handleSubmitFile,
     btnTitle,
-    isLoading
+    nonEnglishLang,
+    isLoading,
+    isLoadingLang,
+    document_type,
+    LanguageList,
+    langType
 }) => {
     const classes = useStyles();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
+        console.log('adfadfadfs',data);
         handleSubmitFile(data);
     };
 
+    useEffect(() => {
+        LanguageList();
+    }, []);
+
     return (
+        console.log('errorserrorserrorserrorserrors',errors),
         <div style={{ marginTop: '10px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {files && files?.map((item, index) => {
                     return (
                         <Grid container spacing={1} key={item[1]?.name || item.name}>
-                            <Grid item md={3} xs={12}>
-                                <div style={{ marginTop: '25px' }}>
-                                    <EllipsisText value={item[1]?.name || item.name || item} charLength={22} />
-                                </div>
-                            </Grid>
+                            {langType === 'English' && <Grid item md={2}></Grid>}
                             <Grid item md={3} xs={12}>
                                 <LabelContainer>
                                     <InputLabel>
@@ -140,29 +108,67 @@ const FileForm = ({
                                 />
                             </Grid>
                             <Grid item md={3} xs={12}>
-                                <LabelContainer>
-                                    <InputLabel>
-                                        File type *
-                                    </InputLabel>
-                                </LabelContainer>
-                                <Autocomplete
-                                    disablePortal
-                                    id={'documentType' + index}
-                                    name={'documentType' + index}
-                                    options={fileType}
-                                    size="small"
-                                    renderInput={
-                                        (params) =>
-                                            <TextField
-                                                {...register('documentType' + index, { required: true })} {...params}
-                                                helperText={errors['documentType' + index] && UPLOAD_FILE_TYPE}
-                                                FormHelperTextProps={{
-                                                    className: classes.helperText
-                                                }}
-                                            />
-                                    }
-                                />
+                                {isLoadingLang ?
+                                    <SkeletonContainer>
+                                        <Skeleton />    
+                                    </SkeletonContainer> :
+                                    <>
+                                        <LabelContainer>
+                                            <InputLabel>
+                                                File type *
+                                            </InputLabel>
+                                        </LabelContainer>
+                                        <Autocomplete
+                                            disablePortal
+                                            id={'documentType' + index}
+                                            name={'documentType' + index}
+                                            options={document_type}
+                                            size="small"
+                                            renderInput={
+                                                (params) =>
+                                                    <TextField
+                                                        {...register('documentType' + index, { required: true })} {...params}
+                                                        helperText={errors['documentType' + index] && UPLOAD_FILE_TYPE}
+                                                        FormHelperTextProps={{
+                                                            className: classes.helperText
+                                                        }}
+                                                    />
+                                            }
+                                        />
+                                    </>}
                             </Grid>
+
+                            {langType === 'Non English' &&
+                                <Grid item md={3} xs={12}>
+                                    {
+                                        isLoadingLang ? <SkeletonContainer><Skeleton /></SkeletonContainer> :
+                                            <>
+                                                <LabelContainer>
+                                                    <InputLabel>
+                                                        Select Language *
+                                                    </InputLabel>
+                                                </LabelContainer>
+                                                <Autocomplete
+                                                    disablePortal
+                                                    id='Language'
+                                                    name='nonEnglishLang'
+                                                    options={nonEnglishLang}
+                                                    size="small"
+                                                    renderInput={
+                                                        (params) =>
+                                                            <TextField
+                                                                {...register('nonEnglishLang', { required: true })} {...params}
+                                                                helperText={errors['nonEnglishLang'] && UPLOAD_FILE_LANGUAGE}
+                                                                FormHelperTextProps={{
+                                                                    className: classes.helperText
+                                                                }}
+                                                            />
+                                                    }
+                                                />
+                                            </>
+                                    }
+                                </Grid>}
+
                         </Grid>
                     );
                 })}
@@ -183,4 +189,16 @@ FileForm.propTypes = {
     isLoading: propTypes.bool
 };
 
-export default FileForm;
+const mapStateToProps = (state) => ({
+    nonEnglishLang: state?.uploadFile?.nonEnglishLang?.non_english_languages,
+    document_type: state?.uploadFile?.nonEnglishLang?.document_type,
+    isLoadingLang: state?.uploadFile?.isLoadingLang,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        LanguageList: () => dispatch(LanguageList())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileForm);

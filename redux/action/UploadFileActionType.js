@@ -30,3 +30,10 @@ export const FETCH_REPO_UPLOAD_FILE_DRIVE_AND_ZIP_FAIL = 'FETCH_REPO_UPLOAD_FILE
  * Drive data clear after api response redirect back to submission page
  */
  export const FETCH_GDRIVE_UPLOAD_DATA_CLEAR = 'FETCH_GDRIVE_UPLOAD_DATA_CLEAR';
+
+/**
+ * Non english data clear after api response redirect back to submission page
+ */
+ export const FETCH_UPLOAD_FILE_NON_ENGLISH_DATA_CLEAR = 'FETCH_UPLOAD_FILE_NON_ENGLISH_DATA_CLEAR';
+
+ 

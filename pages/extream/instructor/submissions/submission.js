@@ -9,7 +9,14 @@ import {
     WarningDialog,
     SimilarityStatus
 } from '../../../../components';
-import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../../assets/icon';
+import {
+    DeleteIcon,
+    DeleteWarningIcon,
+    DownloadIcon,
+    AddMultipleIcon,
+    AddPersonIcon,
+    AddFromListIcon,
+} from '../../../../assets/icon';
 import { connect } from 'react-redux';
 import {
     GetSubmissionList,
@@ -62,6 +69,12 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
+
+const SkeletonContainer = styled.div`
+    margin-top: 16px;
+    margin-right: 5px;
+`;
+
 const SearchField = styled.div`
     position:absolute;
     top: 125px;
@@ -70,19 +83,12 @@ const SearchField = styled.div`
 
 const DownloadField = styled.div`
     position:absolute;
-    top: 121px;
+    top: 125px;
     right:225px;
 `;
 
-const RefreshButton = styled.div`
-    position:absolute;
-    top: 121px;
-    right:265px;
-`;
-
-const SkeletonContainer = styled.div`
-    margin-top: 16px;
-    margin-right: 5px;
+const DownloadButton = styled.div`
+    margin-top:-5px;
 `;
 
 const DeleteAllButton = styled.div`
@@ -151,7 +157,7 @@ const Submission = ({
                 submission.grammar,
                 submission.grammar_url,
                 submission.lang,
-                <SimilarityStatus percent={ submission.percent } />,
+                <SimilarityStatus percent={submission.percent} />,
                 submission.paper_id,
                 formatDate(submission.date_up),
                 [
@@ -373,67 +379,84 @@ const Submission = ({
     };
 
     const handlGrammarReport = (grammar) => {
-        console.log('grammar');
         GetGrammarReport(BASE_URL_UPLOAD + END_POINTS.GRAMMAR_REPORT + grammar);
     }
 
+    const handleShow = (e, info) => {
+        if (info?.title === 'English') {
+            router.push({ pathname: '/extream/instructor/uploadFile/englishFile', query: router.query });
+        } else if (info?.title === 'Non English') {
+            router.push({ pathname: '/extream/instructor/uploadFile/nonEnglishFile', query: router.query });
+        }
+    };
+
     return (
         <React.Fragment>
-            <Grid item container direction='row' justifyContent={ 'right' }>
-                <RefreshButton>
-                    <Tooltip title="Refresh" arrow>
-                        <IconButton
-                            aria-label="download-file"
-                            size="large"
-                            onClick={ handleRefresh }
-                        >
-                            <RefreshOutlinedIcon />
-                        </IconButton>
-                    </Tooltip>
-                </RefreshButton>
-
+            <Grid item container direction='row' justifyContent={'right'}>
                 <DownloadField>
-                    { submissionData?.length > 0 &&
-                        isLoadingDownload ?
-                        <SkeletonContainer>
-                            <Skeleton width={ 40 } />
-                        </SkeletonContainer>
-                        :
-                        <Tooltip title="Download csv" arrow>
+                    <DownloadButton>
+                        <Tooltip title="Refresh" arrow>
                             <IconButton
                                 aria-label="download-file"
                                 size="large"
-                                onClick={ handleDownload }>
-                                <DownloadIcon />
+                                onClick={handleRefresh}
+                            >
+                                <RefreshOutlinedIcon />
                             </IconButton>
                         </Tooltip>
-                    }
+                        {submissionData?.length > 0 &&
+                            isLoadingDownload ?
+                            <SkeletonContainer>
+                                <Skeleton width={40} />
+                            </SkeletonContainer>
+                            :
+                            <Tooltip title="Download csv" arrow>
+                                <IconButton
+                                    aria-label="download-file"
+                                    size="large"
+                                    onClick={handleDownload}>
+                                    <DownloadIcon />
+                                </IconButton>
+                            </Tooltip>
+                        }
+                    </DownloadButton>
                 </DownloadField>
-
                 <SearchField>
                     <TextField
                         placeholder='Search'
-                        onChange={ debouncedResults }
-                        inputProps={ {
+                        onChange={debouncedResults}
+                        inputProps={{
                             style: {
                                 padding: 5,
                                 display: 'inline-flex',
                             },
-                        } }
+                        }}
                     />
                 </SearchField>
             </Grid>
             <AddButtonBottom>
                 <CreateDrawer
+                    options={[
+                        {
+                            icon: <AddMultipleIcon />,
+                            title: 'Non English',
+                            handleFromCreateDrawer: true
+                        },
+                        {
+                            icon: <AddFromListIcon />,
+                            title: 'English',
+                            handleFromCreateDrawer: true
+                        }]}
+                    handleMultiData={handleShow}
+                    isShowAddIcon={true}
                     title="Upload File"
-                    isShowAddIcon={ true }
-                    navigateToMultiFile={ true }
-                    handleNavigateMultiFile={ handleUploadFile }
+                    navigateToMultiFile={true}
+                //handleNavigateMultiFile={handleUploadFile}
                 >
                     <SubmissionForm
-                        clasId={ clasId }
-                        folderId={ assId }
-                        isLoadingUpload={ isLoadingUpload }
+                        clasId={clasId}
+                        folderId={assId}
+                        isLoadingUpload={isLoadingUpload}
                     />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -441,11 +464,11 @@ const Submission = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
-                    message={ WARNING_MESSAGES.DELETE }
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    warningIcon={<DeleteWarningIcon />}
+                    message={WARNING_MESSAGES.DELETE}
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
 
@@ -453,77 +476,75 @@ const Submission = ({
                 editAssignment &&
                 <CreateDrawer
                     title="Edit Student"
-                        isShowAddIcon={ false }
-                        showDrawer={ editAssignment }
+                    isShowAddIcon={false}
+                    showDrawer={editAssignment}
                 >
                     <AssignmentForm
-                            editData={ editAssignmentData }
+                        editData={editAssignmentData}
                     />
                 </CreateDrawer>
             }
 
-            { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
+            {_.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                 <Tooltip title='Delete' arrow>
-                    <IconButton onClick={ deleteAllSubmission }>
+                    <IconButton onClick={deleteAllSubmission}>
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title='Save to repository' arrow>
-                    <IconButton onClick={ saveAllSubmission }>
+                <Tooltip title='Save to repositary' arrow>
+                    <IconButton onClick={saveAllSubmission}>
                         <SaveOutlinedIcon />
                     </IconButton>
                 </Tooltip>
-            </DeleteAllButton> }
+            </DeleteAllButton>}
 
             <CommonTable
-                isCheckbox={ true }
-                isSorting={ true }
-                tableHeader={ columns }
-                tableData={ rows }
-                handleAction={ handleAction }
-                handleCheckboxSelect={ handleCheckboxSelect }
-                handleSingleSelect={ handleSingleSelect }
-                handleTableSort={ handleTableSort }
-                downloadSubmissionFile={ handleOriginalFileDownload }
-                showAnalysisPage={ handleShowAnalysisPage }
-                showGrammarReport={ handlGrammarReport }
-                isLoading={ isLoading }
-                isLoadingGrammarReport={ isLoadingGrammarReport }
-                charLength={ 10 }
+                isCheckbox={true}
+                isSorting={true}
+                tableHeader={columns}
+                tableData={rows}
+                handleAction={handleAction}
+                handleCheckboxSelect={handleCheckboxSelect}
+                handleSingleSelect={handleSingleSelect}
+                handleTableSort={handleTableSort}
+                downloadSubmissionFile={handleOriginalFileDownload}
+                showAnalysisPage={handleShowAnalysisPage}
+                showGrammarReport={handlGrammarReport}
+                isLoading={isLoading}
+                isLoadingGrammarReport={isLoadingGrammarReport}
+                charLength={10}
             />
 
             {
                 showDownloadWarning &&
                 <WarningDialog
-                    message={ WARNING_MESSAGES.DOWNLOAD }
-                    handleYes={ handleFileDownloadYesWarning }
-                    handleNo={ handleFileDownloadCloseWarning }
-                    isOpen={ true }
+                    message={WARNING_MESSAGES.DOWNLOAD}
+                    handleYes={handleFileDownloadYesWarning}
+                    handleNo={handleFileDownloadCloseWarning}
+                    isOpen={true}
                 />
             }
 
             {
                 showSaveIcon &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
-                    message={ WARNING_MESSAGES.REPOSITORY }
-                    handleYes={ handleYesSaveWarning }
-                    handleNo={ handleCloseSaveWarning }
-                    isOpen={ true }
+                    warningIcon={<DeleteWarningIcon />}
+                    message={WARNING_MESSAGES.REPOSITORY}
+                    handleYes={handleYesSaveWarning}
+                    handleNo={handleCloseSaveWarning}
+                    isOpen={true}
                 />
             }
 
-            { !isLoading &&
-                <PaginationContainer>
-                    <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handlePagination }
-                        color='primary'
-                        variant='outlined'
-                        shape='rounded'
-                    />
-                </PaginationContainer>
-            }
+            <PaginationContainer>
+                <Pagination
+                    count={pageDetails?.totalPages}
+                    onChange={handlePagination}
+                    color='primary'
+                    variant='outlined'
+                    shape='rounded'
+                />
+            </PaginationContainer>
         </React.Fragment>
     );
 };

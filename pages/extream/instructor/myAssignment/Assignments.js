@@ -146,7 +146,7 @@ const Assignments = ({
 
     const handlePagination = (event, value) => {
         event.preventDefault();
-        setPaginationAssignment({ ...paginationAssignment, page: value - 1 });
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
     const handleAction = (e, icon, rowData) => {

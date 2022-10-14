@@ -17,10 +17,13 @@ import TableRow from '@mui/material/TableRow';
 import { IconButton, Tooltip } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
+import { DownloadIcon } from '../../assets/icon';
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Role } from '../../constant/data';
 import {
     TABLE_HEADER_SORT_DISABLE,
@@ -162,24 +165,50 @@ const CommonTable = ({
                                                                 {
                                                                     column.isDownload ?
                                                                         <TableCell key={column.id} align={column.align}>
-                                                                            <a href='#' style={{ textDecoration: 'underline', color: '#3672FF' }} onClick={(e) => downloadSubmissionFile(e, row)}>
-                                                                                {typeof (value) === 'string' ?
-                                                                                    <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} variant='body2_3' /> :
-                                                                                    <Typography variant='body2_3' component="div">{value !== null ? value : NO_DATA_PLACEHOLDER}</Typography>}
-                                                                            </a>
+                                                                            {typeof (value) === 'string' ?
+                                                                                <div style={{ display: 'flex' }}>
+                                                                                    <div style={{ width: '80%' }}>
+                                                                                        <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} />
+                                                                                    </div>
+                                                                                    <div style={{ width: '20%' }}>
+                                                                                        <Tooltip key={index} title='Download original file' arrow>
+                                                                                            <a href='#' style={{ padding: '0px', color: '#8c8c8c' }} onClick={(e) => downloadSubmissionFile(e, row)}>
+                                                                                                <FileDownloadOutlinedIcon fontSize='small' />
+                                                                                            </a>
+                                                                                        </Tooltip>
+                                                                                    </div>
+                                                                                </div> :
+                                                                                <Typography variant='body2_1' component="div">{value !== null ? value : NO_DATA_PLACEHOLDER}</Typography>}
                                                                         </TableCell>
                                                                         :
                                                                         <>
                                                                             {column.id === 'percent' &&
                                                                                 <TableCell key={column.id} align={column.align}>
-                                                                                    {value?.props?.percent === '--' ?
-                                                                                        <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /> </StatusColor>
-                                                                                        :
-                                                                                        <Tooltip title={'Similarity Report'} arrow>
-                                                                                            <a style={{ fontWeight: '600' }} href='#' onClick={(e) => showAnalysisPage(e, row)}>
-                                                                                                {value}
-                                                                                            </a>
-                                                                                        </Tooltip>}
+                                                                                    <div style={{ display: 'flex' }}>
+                                                                                        <div style={{ width: '12%', marginTop: '5px' }}>
+                                                                                            {row?.alert_msg != null &&
+                                                                                                <Tooltip title={row.alert_msg} arrow>
+                                                                                                    <ErrorOutlineOutlinedIcon fontSize='small' />
+                                                                                                </Tooltip>}
+                                                                                        </div>
+                                                                                        <div style={{ width: '86%' }}>
+                                                                                            {value?.props?.percent === '--' ?
+                                                                                                <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /> </StatusColor>
+                                                                                                :
+                                                                                                <Tooltip title={'Similarity Report'} arrow>
+                                                                                                    <a style={{ fontWeight: '600' }} href='#' onClick={(e) => showAnalysisPage(e, row)}>
+                                                                                                        {value}
+                                                                                                    </a>
+                                                                                                </Tooltip>}
+                                                                                        </div>
+                                                                                        <div style={{ width: '12%', marginTop: '5px' }}>
+                                                                                            {row?.repository_status === "1" &&
+                                                                                                <Tooltip title='Saved in repository' arrow>
+                                                                                                    <SaveOutlinedIcon fontSize='small' />
+                                                                                                </Tooltip>
+                                                                                            }
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </TableCell>
                                                                             }
                                                                             {column.id === 'grammar_url' &&
@@ -187,15 +216,17 @@ const CommonTable = ({
                                                                                     {value === '--' && <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /></StatusColor>}
                                                                                     {(value !== '--' && value !== 'NA') &&
                                                                                         <>
-                                                                                            {isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> : <Tooltip key={index} title='Grammar Report' arrow>
-                                                                                                <IconButton onClick={(e) => handleGrammarReport(e, row)}>
-                                                                                                    <OpenInNewOutlinedIcon />
-                                                                                                </IconButton>
-                                                                                            </Tooltip>}
+                                                                                            {isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> :
+                                                                                                <StatusColor color='#E5E5E5'>
+                                                                                                    <Tooltip key={index} title='Grammar Report' arrow>
+                                                                                                        <div onClick={(e) => handleGrammarReport(e, row)}>
+                                                                                                            <OpenInNewOutlinedIcon fontSize='small' />
+                                                                                                        </div>
+                                                                                                    </Tooltip>
+                                                                                                </StatusColor>}
                                                                                         </>
-
                                                                                     }
-                                                                                    {(value === 'NA') && value}
+                                                                                    {(value === 'NA') && <StatusColor color='#E5E5E5'>{value}</StatusColor>}
                                                                                 </TableCell>
                                                                             }
                                                                             {(column.id !== 'percent' && column.id !== 'grammar_url') &&
