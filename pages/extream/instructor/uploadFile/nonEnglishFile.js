@@ -73,7 +73,7 @@ const NonEnglishFile = () => {
                             title={UPLOAD_TITLE_CONSTANT.SUBMISSION}
                             allowedFormat={UPLOAD_SUPPORTED_FILES.SINGLE}
                             fileIcon={<UploadFileIcon />}
-                            singleFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/singleFile`}
+                            singleFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/nonEnglishFile` }
                             multiFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`}
                             routerObj={{
                                 pathname: '/extream/instructor/mysubmissions',

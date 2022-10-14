@@ -32,7 +32,7 @@ import {
     DeletefolderSubmissionData,
     folderSubmissionsFileData,
 } from '../../../redux/action/common/Submission/SubmissionAction';
-import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/icon';
+import { DeleteIcon, DeleteWarningIcon, DownloadIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
@@ -364,6 +364,16 @@ const folderSubmission = ({
         GetGrammarReport(BASE_URL_UPLOAD + END_POINTS_PRO.GRAMMAR_REPORT + grammar);
     }
 
+    const handleShow = (e, info) => {
+        if (info?.title === 'English') {
+            router.push({ pathname: '/pro/user/uploadFile/englishFile', query: router.query });
+        } else if (info?.title === 'Non English') {
+            router.push({ pathname: '/pro/user/uploadFile/nonEnglishFile', query: router.query });
+        } else if (info?.title === 'Regional') {
+            router.push({ pathname: '/pro/user/uploadFile/regionalFile', query: router.query });
+        }
+    };
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -445,11 +455,29 @@ const folderSubmission = ({
 
                 <AddButtonBottom>
                     <CreateDrawer
-                        title="Upload File"
+                        options={ [
+                            {
+                                icon: <AddMultipleIcon />,
+                                title: 'Regional',
+                                handleFromCreateDrawer: true
+                            },
+                            {
+                                icon: <AddMultipleIcon />,
+                                title: 'Non English',
+                                handleFromCreateDrawer: true
+                            },
+                            {
+                                icon: <AddFromListIcon />,
+                                title: 'English',
+                                handleFromCreateDrawer: true
+                            }] }
+                        handleMultiData={ handleShow }
                         isShowAddIcon={ true }
+                        title="Upload File"
                         navigateToMultiFile={ true }
-                        handleNavigateMultiFile={ handleUploadFile }
-                    />
+                    //handleNavigateMultiFile={handleUploadFile}
+                    >
+                    </CreateDrawer>
                 </AddButtonBottom>
 
                 {

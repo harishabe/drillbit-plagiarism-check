@@ -44,7 +44,9 @@ const FileForm = ({
     isLoadingLang,
     document_type,
     LanguageList,
-    langType
+    langType,
+    isRegionalFile,
+    regional_languages
 }) => {
     const classes = useStyles();
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -169,6 +171,37 @@ const FileForm = ({
                                     }
                                 </Grid>}
 
+                            { isRegionalFile &&
+                                <Grid item md={ 3 } xs={ 12 }>
+                                    {
+                                        isLoadingLang ? <SkeletonContainer><Skeleton /></SkeletonContainer> :
+                                            <>
+                                                <LabelContainer>
+                                                    <InputLabel>
+                                                        Select Language *
+                                                    </InputLabel>
+                                                </LabelContainer>
+                                                <Autocomplete
+                                                    disablePortal
+                                                    id='Language'
+                                                    name='regionalLanguage'
+                                                    options={ regional_languages }
+                                                    size="small"
+                                                    renderInput={
+                                                        (params) =>
+                                                            <TextField
+                                                                { ...register('regionalLanguage', { required: true }) } { ...params }
+                                                                helperText={ errors['regionalLanguage'] && UPLOAD_FILE_LANGUAGE }
+                                                                FormHelperTextProps={ {
+                                                                    className: classes.helperText
+                                                                } }
+                                                            />
+                                                    }
+                                                />
+                                            </>
+                                    }
+                                </Grid> }
+
                         </Grid>
                     );
                 })}
@@ -192,6 +225,7 @@ FileForm.propTypes = {
 const mapStateToProps = (state) => ({
     nonEnglishLang: state?.uploadFile?.nonEnglishLang?.non_english_languages,
     document_type: state?.uploadFile?.nonEnglishLang?.document_type,
+    regional_languages: state?.uploadFile?.nonEnglishLang?.regional_languages,
     isLoadingLang: state?.uploadFile?.isLoadingLang,
 });
 

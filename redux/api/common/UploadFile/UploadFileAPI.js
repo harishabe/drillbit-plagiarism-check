@@ -23,8 +23,7 @@ export const UploadFileDriveDetail = async (url, data) => {
  * API CALL UPLOAD NON ENGLISH FILE
  */
 
- export const UploadNonEngFile = async (classId, assId, data) => {
-    let url = BASE_URL_UPLOAD + `/files/classes/${classId}/assignments/${assId}/nonEnglishFile`
+export const UploadNonEngFile = async (url, data) => {
     return PostMethodEN(url, data);
 };
 

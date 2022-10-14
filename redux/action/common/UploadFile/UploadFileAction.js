@@ -21,9 +21,9 @@ export const UploadFileDrive = (url, data) => {
 /**
  * Upload Non English
  */
- export const UploadNonEnglish = (classId, assId, data) => {
+export const UploadNonEnglish = (url, data) => {
     return {
-        type: types.FETCH_UPLOAD_FILE_NON_ENGLISH_START, classId: classId, assId: assId, query: data
+        type: types.FETCH_UPLOAD_FILE_NON_ENGLISH_START, url: url, query: data
     };
 };
 

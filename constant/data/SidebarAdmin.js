@@ -53,7 +53,7 @@ const SidebarAdmin = [
     {
         "icon": <IntegrationIcon />,
         "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Integration",
+        "name": "Integrations",
         "path": "/integration",
         "layout": "/extream/admin",
     }
