@@ -25,7 +25,7 @@ export const UploadFileDriveDetail = async (url, data) => {
 
  export const UploadNonEngFile = async (classId, assId, data) => {
     let url = BASE_URL_UPLOAD + `/files/classes/${classId}/assignments/${assId}/nonEnglishFile`
-    return PostMethod(url, data);
+    return PostMethodEN(url, data);
 };
 
 /**

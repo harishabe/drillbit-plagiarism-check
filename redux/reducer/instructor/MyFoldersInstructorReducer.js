@@ -102,7 +102,7 @@ const MyFoldersInstructorReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingUpload: false,
-                uploadDataError: action.payload,
+                uploadData: action.payload,
             };
         case types.FETCH_INSTRUCTOR_ZIP_EXTRACTED_UPLOAD_DATA_CLEAR:
             return {

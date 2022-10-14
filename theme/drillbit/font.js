@@ -91,6 +91,7 @@ const font = {
     body2_3: {
         fontFamily: fontName,
         fontSize: '16px',
+        color: '#666666'
         //fontSize: '15px',
     }
 };

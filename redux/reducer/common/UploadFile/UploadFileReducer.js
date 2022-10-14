@@ -53,6 +53,11 @@ const UploadFileReducer = (state = {}, action) => {
                 isLoadingNonEng: false,
                 uploadFileNonEng: action.payload,
             };
+        case types.FETCH_UPLOAD_FILE_NON_ENGLISH_DATA_CLEAR:
+            return {
+                ...state,
+                uploadFileNonEng: '',
+            };
         case types.FETCH_REPO_UPLOAD_FILE_DRIVE_AND_ZIP_START:
             return {
                 ...state,
