@@ -60,7 +60,7 @@ function StudentInstitute({
                     student.username,
                     student.department,
                     student.section,
-                    [{ 'component': <AddIcon color="primary" />, 'type': 'add' }]
+                    [{ 'component': <AddIcon color="primary" />, 'type': 'add', 'title': 'Add student' }]
                 );
             row['isSelected'] = false;
             arr.push(row);
