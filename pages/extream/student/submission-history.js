@@ -31,8 +31,8 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
-function createData(name, paper_id, date_up, percent, grammar, score, status, action, d_key) {
-    return { name, paper_id, date_up, percent, grammar, score, status, action, d_key };
+function createData(name, paper_id, date_up, grammar, percent, score, status, action, d_key) {
+    return { name, paper_id, date_up, grammar, percent, score, status, action, d_key };
 }
 
 const SubmissionHistory = ({
@@ -51,8 +51,8 @@ const SubmissionHistory = ({
         { id: 'name', label: 'Filename', isDownload: true, minWidth: 140 },
         { id: 'paper_id', label: 'Paper ID', minWidth: 140 },
         { id: 'date_up', label: 'Date', minWidth: 140 },
-        { id: 'percent', label: 'Similarity', minWidth: 80 },
         { id: 'grammar', label: 'Grammar', minWidth: 80 },
+        { id: 'percent', label: 'Similarity', minWidth: 80 },
         { id: 'score', label: 'Marks', minWidth: 80 },
         { id: 'status', label: 'Status', minWidth: 100 },
         { id: 'action', label: 'Feedback', minWidth: 80 },
@@ -66,9 +66,9 @@ const SubmissionHistory = ({
                 createData(
                     <EllipsisText value={submission.original_fn} charLength={12} />,
                     submission.paper_id,
-                    submission.date_up,
-                    <SimilarityStatus percent={ submission.percent } width={ 100 } />,
+                    submission.date_up,                    
                     submission.grammar,
+                    <SimilarityStatus percent={submission.percent} width={100} />,
                     submission.feedback?.marks,
                     submission.status,
                     [
@@ -95,7 +95,7 @@ const SubmissionHistory = ({
                         <IconButton
                             aria-label="download-file"
                             size="large"
-                            onClick={ handleRefresh }
+                            onClick={handleRefresh}
                         >
                             <RefreshOutlinedIcon />
                         </IconButton>
@@ -110,15 +110,15 @@ const SubmissionHistory = ({
                 downloadSubmissionFile={handleOriginalFileDownload}
                 handleTableSort={handleTableSort}
                 isLoading={isLoadingSubmission}
-                handleAction={ handleAction }
+                handleAction={handleAction}
                 showAnalysisPage={handleShowAnalysisPage}
             />
 
-            { !isLoadingSubmission &&
+            {!isLoadingSubmission &&
                 <PaginationContainer>
                     <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handleChange }
+                        count={pageDetails?.totalPages}
+                        onChange={handleChange}
                         color="primary"
                         variant="outlined"
                         shape="rounded"

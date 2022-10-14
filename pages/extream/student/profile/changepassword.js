@@ -75,13 +75,13 @@ const ChangePassword = ({
                                 />
                             )
                         }
-                        {
+                        {/* {
                             (
                                 (confirmPassword !== '' && newPassword !== '') &&
                                 (confirmPassword !== newPassword)
                             ) ?
                                 <ErrorMessageContainer>{ CONFIRM_PASSWORD_NOT_VALID }</ErrorMessageContainer> : ''
-                        }
+                        } */}
                     </Container>
                 </form>
             </CardView>

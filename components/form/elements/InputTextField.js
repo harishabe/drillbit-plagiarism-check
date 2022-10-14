@@ -45,10 +45,10 @@ const InputTextField = ({
         // }
 
         if (field.name === 'newPassword') {
-            setRegex(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g);
+            setRegex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
         }
         if (field.name === 'confirmPassword') {
-            setRegex(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g);
+            setRegex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
         }
     }, [field]);
 
