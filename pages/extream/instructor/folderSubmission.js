@@ -360,7 +360,6 @@ const folderSubmission = ({
     };
 
     const handlGrammarReport = (grammar) => {
-        console.log('grammar');
         GetGrammarReport(BASE_URL_UPLOAD + END_POINTS.GRAMMAR_REPORT + grammar);
     }
 

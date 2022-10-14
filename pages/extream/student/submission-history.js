@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { Pagination } from '@mui/material';
 import { Tooltip } from '@mui/material';
 import { IconButton } from '@mui/material';
@@ -11,8 +12,12 @@ import {
     SimilarityStatus
 } from '../../../components';
 import { MessageExclamatoryIcon } from '../../../assets/icon';
+import {
+    GetGrammarReport
+} from '../../../redux/action/common/Submission/SubmissionAction';
 import SubmissionForm from './form/SubmissionForm';
-import { BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
+import { BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
 import { PaginationContainer } from '../../style/index';
 
 const AddButtonBottom = styled.div`
@@ -31,8 +36,8 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
-function createData(name, paper_id, date_up, grammar, percent, score, status, action, d_key) {
-    return { name, paper_id, date_up, grammar, percent, score, status, action, d_key };
+function createData(name, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key) {
+    return { name, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key };
 }
 
 const SubmissionHistory = ({
@@ -43,7 +48,9 @@ const SubmissionHistory = ({
     handleOriginalFileDownload,
     handleTableSort,
     handleAction,
-    handleRefresh
+    handleRefresh,
+    GetGrammarReport,
+    isLoadingGrammarReport
 }) => {
     const [rows, setRows] = useState([]);
 
@@ -51,7 +58,7 @@ const SubmissionHistory = ({
         { id: 'name', label: 'Filename', isDownload: true, minWidth: 140 },
         { id: 'paper_id', label: 'Paper ID', minWidth: 140 },
         { id: 'date_up', label: 'Date', minWidth: 140 },
-        { id: 'grammar', label: 'Grammar', minWidth: 80 },
+        { id: 'grammar_url', label: 'Grammar', minWidth: 80 },
         { id: 'percent', label: 'Similarity', minWidth: 80 },
         { id: 'score', label: 'Marks', minWidth: 80 },
         { id: 'status', label: 'Status', minWidth: 100 },
@@ -64,10 +71,11 @@ const SubmissionHistory = ({
         submissionData?.map((submission) => {
             row =
                 createData(
-                    <EllipsisText value={submission.original_fn} charLength={12} />,
+                    submission.original_fn,
                     submission.paper_id,
-                    submission.date_up,                    
+                    submission.date_up,
                     submission.grammar,
+                    submission.grammar_url,
                     <SimilarityStatus percent={submission.percent} width={100} />,
                     submission.feedback?.marks,
                     submission.status,
@@ -86,6 +94,10 @@ const SubmissionHistory = ({
         let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
         window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
     };
+
+    const handlGrammarReport = (grammar) => {
+        GetGrammarReport(BASE_URL_UPLOAD + END_POINTS.GRAMMAR_REPORT + grammar);
+    }
 
     return (
         <>
@@ -112,6 +124,8 @@ const SubmissionHistory = ({
                 isLoading={isLoadingSubmission}
                 handleAction={handleAction}
                 showAnalysisPage={handleShowAnalysisPage}
+                showGrammarReport={handlGrammarReport}
+                isLoadingGrammarReport={ isLoadingGrammarReport }
             />
 
             {!isLoadingSubmission &&
@@ -138,4 +152,14 @@ const SubmissionHistory = ({
     );
 };
 
-export default SubmissionHistory;
+const mapStateToProps = (state) => ({
+    isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        GetGrammarReport: (url) => dispatch(GetGrammarReport(url)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmissionHistory);

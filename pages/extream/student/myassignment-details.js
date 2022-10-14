@@ -125,10 +125,10 @@ const MyAssignmentDetails = ({
         DownloadStudentCsv(url);
     };
 
-    const handleSend = (e, ans1,qnaData) => {
-        qnaData?.map((item)=>{
-            if(item?.answer !== null){
-                ans1[item.question.replace('Q','A').toLowerCase()] = item?.answer;
+    const handleSend = (e, ans1, qnaData) => {
+        qnaData?.map((item) => {
+            if (item?.answer !== null) {
+                ans1[item.question.replace('Q', 'A').toLowerCase()] = item?.answer;
             }
         });
         ans1['studentName'] = getItemLocalStorage('name');
@@ -151,12 +151,11 @@ const MyAssignmentDetails = ({
     };
 
     const handleYesWarning = () => {
-        console.log('datadatadata', data);
         let detailedData = {
             clasId: router.query.clasId,
             assId: router.query.assId,
             paperId: data?.paper_id,
-            name: data?.name?.props?.value,
+            name: data?.name,
             path: 'studentSubmission'
         };
         DownloadOriginalFile(detailedData);

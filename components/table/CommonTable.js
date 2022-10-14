@@ -76,7 +76,7 @@ const CommonTable = ({
     };
 
     const handleGrammarReport = (e, rowData) => {
-        e.preventDefault();
+        e.preventDefault();     
         setGrammarPaperId(rowData?.paper_id);
         showGrammarReport(rowData?.grammar);
     }
@@ -219,7 +219,7 @@ const CommonTable = ({
                                                                                             {isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> :
                                                                                                 <StatusColor color='#E5E5E5'>
                                                                                                     <Tooltip key={index} title='Grammar Report' arrow>
-                                                                                                        <div onClick={(e) => handleGrammarReport(e, row)}>
+                                                                                                        <div style={{ cursor: 'pointer' }} onClick={(e) => handleGrammarReport(e, row)}>
                                                                                                             <OpenInNewOutlinedIcon fontSize='small' />
                                                                                                         </div>
                                                                                                     </Tooltip>
