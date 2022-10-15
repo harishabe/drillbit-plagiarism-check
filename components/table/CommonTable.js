@@ -107,11 +107,11 @@ const CommonTable = ({
                                     <TableCell padding="checkbox" className={classes.padding}>
                                         <Checkbox checked={allSelected} onChange={(e) => handleCheckboxSelect(e, allSelected)} />
                                     </TableCell>}
-                                {tableHeader?.map((column) => (
+                                {tableHeader?.map((column,index) => (
                                     <>
                                         {(isSorting) &&
                                             <TableCell
-                                                key={column.id}
+                                                key={index}
                                                 align={column.align}
                                                 style={{ minWidth: column.minWidth }}
                                             >
@@ -142,8 +142,8 @@ const CommonTable = ({
                         <TableBody>
                             {isLoading ?
                                 <TableSkeleton />
-                                : tableData?.map((row) => (
-                                    <TableRow hover key={row.id}>
+                                : tableData?.map((row,index) => (
+                                    <TableRow hover key={index}>
                                         {isCheckbox &&
                                             <TableCell padding="checkbox" className={classes.padding}>
                                                 <Checkbox disabled={(row.role === Role.admin) || (row.role === Role.proAdmin)} onChange={(e) => handleSingleSelect(e, row)} checked={row.isSelected} />
@@ -154,16 +154,16 @@ const CommonTable = ({
                                                 <>
                                                     {
                                                         TABLE_BODY_ALLOW_ICON.includes(column.id) ?
-                                                            <TableCell key={index}>
+                                                            <TableCell>
                                                                 {value.map((icon, index) => (
                                                                     <>
                                                                         {
                                                                             (icon.type === 'lock' || icon.type === 'unlock') ?
-                                                                                <Tooltip key={index} title={icon.title} arrow>
+                                                                                <Tooltip title={icon.title} arrow>
                                                                                     <span onClick={(e) => handleAction(e, icon.type, row)} >{icon.component}</span>
                                                                                 </Tooltip> :
                                                                                 <>
-                                                                                    <Tooltip key={index} title={icon.title} arrow>
+                                                                                    <Tooltip title={icon.title} arrow>
                                                                                         <IconButton onClick={(e) => handleAction(e, icon.type, row)}>{icon.component}
                                                                                         </IconButton>
                                                                                     </Tooltip>
@@ -174,11 +174,11 @@ const CommonTable = ({
                                                             <>
                                                                 {
                                                                     column.isDownload ?
-                                                                        <TableCell key={column.id} align={column.align}>
+                                                                        <TableCell align={column.align}>
                                                                             {typeof (value) === 'string' ?
                                                                                 <div style={{ display: 'flex' }}>
                                                                                     <div style={{ width: '20%' }}>
-                                                                                        <Tooltip key={index} title='Download original file' arrow>
+                                                                                        <Tooltip title='Download original file' arrow>
                                                                                             <a href='#' style={{ padding: '0px', color: '#8c8c8c' }} onClick={(e) => downloadSubmissionFile(e, row)}>
                                                                                                 <FileDownloadOutlinedIcon fontSize='small' />
                                                                                             </a>
@@ -193,9 +193,9 @@ const CommonTable = ({
                                                                         :
                                                                         <>
                                                                             {column.id === 'percent' &&
-                                                                                <TableCell key={column.id} align={column.align}>
+                                                                                <TableCell align={column.align}>
                                                                                     <div style={{ display: 'flex' }}>
-                                                                                        <div style={((row?.alert_msg !== null) && (row?.alert_msg !== "")) ? { width: '14%', marginTop: '5px' } : { marginTop: '5px' }}>
+                                                                                        <div style={((row?.alert_msg !== null)) ? { width: '17%', marginTop: '5px' } : { marginTop: '5px' }}>
                                                                                             {((row?.alert_msg != null) && (row?.alert_msg !== "")) &&
                                                                                                 <Tooltip title={row.alert_msg} arrow>
                                                                                                     <AlertMessage>
@@ -203,7 +203,7 @@ const CommonTable = ({
                                                                                                     </AlertMessage>
                                                                                                 </Tooltip>}
                                                                                         </div>
-                                                                                        <div style={(row?.alert_msg === null && row?.alert_msg === "" && row?.repository_status === "0") ? { width: '100%' } : { width: '86%' }}>
+                                                                                        <div style={(row?.alert_msg === null && row?.repository_status === "0") ? { width: '100%' } : { width: '66%' }}>
                                                                                             {value?.props?.percent === '--' ?
                                                                                                 <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /> </StatusColor>
                                                                                                 :
@@ -213,7 +213,7 @@ const CommonTable = ({
                                                                                                     </a>
                                                                                                 </Tooltip>}
                                                                                         </div>
-                                                                                        <div style={row?.repository_status === "1" ? { width: '14%', marginTop: '5px' } : { marginTop: '5px' }}>
+                                                                                        <div style={row?.repository_status === "1" ? { width: '17%', marginTop: '5px' } : { marginTop: '5px' }}>
                                                                                             {row?.repository_status === "1" &&
                                                                                                 <Tooltip title='Saved in repository' arrow>
                                                                                                     <SavedRepository>
@@ -226,13 +226,13 @@ const CommonTable = ({
                                                                                 </TableCell>
                                                                             }
                                                                             {column.id === 'grammar_url' &&
-                                                                                <TableCell key={column.id} align={column.align}>
+                                                                                <TableCell align={column.align}>
                                                                                     {value === '--' && <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /></StatusColor>}
                                                                                     {(value !== '--' && value !== 'NA' && value !== null) &&
                                                                                         <>
                                                                                             {isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> :
                                                                                                 <StatusColor color='#E5E5E5'>
-                                                                                                    <Tooltip key={index} title='Grammar Report' arrow>
+                                                                                                    <Tooltip title='Grammar Report' arrow>
                                                                                                         <div style={{ cursor: 'pointer' }} onClick={(e) => handleGrammarReport(e, row)}>
                                                                                                             <OpenInNewOutlinedIcon fontSize='small' />
                                                                                                         </div>
@@ -244,7 +244,7 @@ const CommonTable = ({
                                                                                 </TableCell>
                                                                             }
                                                                             {(column.id !== 'percent' && column.id !== 'grammar_url') &&
-                                                                                <TableCell key={column.id} align={column.align}>
+                                                                                <TableCell align={column.align}>
                                                                                     {typeof (value) === 'string' ?
                                                                                         <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} variant='body2_3' /> :
                                                                                         <Typography variant='body2_3' component="div">{value !== null ? value : NO_DATA_PLACEHOLDER}</Typography>}
