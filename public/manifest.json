@@ -1,6 +1,6 @@
 {
-    "name": "DrillBit PWA",
-    "short_name": "Next PWA",
+    "name": "DrillBit",
+    "short_name": "Plagiarism detection software",
     "icons": [
       {
         "src": "/icon.png",
