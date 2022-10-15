@@ -9,10 +9,13 @@ import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import {
     CommonTable,
     CreateDrawer,
-    EllipsisText,
     SimilarityStatus
 } from '../../../components';
-import { MessageExclamatoryIcon, AddMultipleIcon, AddFromListIcon} from '../../../assets/icon';
+import {
+    MessageExclamatoryIcon,
+    NonEnglishUploadIcon,
+    EnglishUploadIcon
+} from '../../../assets/icon';
 import {
     GetGrammarReport
 } from '../../../redux/action/common/Submission/SubmissionAction';
@@ -142,14 +145,14 @@ const SubmissionHistory = ({
                 charLength={10}
             />
 
-                <PaginationContainer>
-                    <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
+            <PaginationContainer>
+                <Pagination
+                    count={pageDetails?.totalPages}
+                    onChange={handleChange}
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
             </PaginationContainer>
 
             {/* <AddButtonBottom>
@@ -163,21 +166,21 @@ const SubmissionHistory = ({
 
             <AddButtonBottom>
                 <CreateDrawer
-                    options={ [
+                    options={[
                         {
-                            icon: <AddMultipleIcon />,
+                            icon: <NonEnglishUploadIcon />,
                             title: 'Non English',
                             handleFromCreateDrawer: true
                         },
                         {
-                            icon: <AddFromListIcon />,
+                            icon: <EnglishUploadIcon />,
                             title: 'English',
                             handleFromCreateDrawer: true
-                        }] }
-                    handleMultiData={ handleShow }
-                    isShowAddIcon={ true }
+                        }]}
+                    handleMultiData={handleShow}
+                    isShowAddIcon={true}
                     title="Upload File"
-                    navigateToMultiFile={ true }
+                    navigateToMultiFile={true}
                 >
                 </CreateDrawer>
             </AddButtonBottom>

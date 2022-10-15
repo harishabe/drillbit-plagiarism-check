@@ -13,9 +13,8 @@ import {
     DeleteIcon,
     DeleteWarningIcon,
     DownloadIcon,
-    AddMultipleIcon,
-    AddPersonIcon,
-    AddFromListIcon,
+    NonEnglishUploadIcon, 
+    EnglishUploadIcon
 } from '../../../../assets/icon';
 import { connect } from 'react-redux';
 import {
@@ -433,12 +432,12 @@ const Submission = ({
                 <CreateDrawer
                     options={[
                         {
-                            icon: <AddMultipleIcon />,
+                            icon: <NonEnglishUploadIcon />,
                             title: 'Non English',
                             handleFromCreateDrawer: true
                         },
                         {
-                            icon: <AddFromListIcon />,
+                            icon: <EnglishUploadIcon />,
                             title: 'English',
                             handleFromCreateDrawer: true
                         }]}

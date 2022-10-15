@@ -195,7 +195,7 @@ const CommonTable = ({
                                                                             {column.id === 'percent' &&
                                                                                 <TableCell align={column.align}>
                                                                                     <div style={{ display: 'flex' }}>
-                                                                                        <div style={((row?.alert_msg !== null)) ? { width: '17%', marginTop: '5px' } : { marginTop: '5px' }}>
+                                                                                        <div style={((row?.alert_msg !== null && row?.alert_msg !== "")) ? { width: '17%', marginTop: '5px' } : { marginTop: '5px' }}>
                                                                                             {((row?.alert_msg != null) && (row?.alert_msg !== "")) &&
                                                                                                 <Tooltip title={row.alert_msg} arrow>
                                                                                                     <AlertMessage>
@@ -203,7 +203,7 @@ const CommonTable = ({
                                                                                                     </AlertMessage>
                                                                                                 </Tooltip>}
                                                                                         </div>
-                                                                                        <div style={(row?.alert_msg === null && row?.repository_status === "0") ? { width: '100%' } : { width: '66%' }}>
+                                                                                        <div style={(row?.alert_msg === null && row?.alert_msg === "" && row?.repository_status === "0") ? { width: '66%' } : { width: '100%' }}>
                                                                                             {value?.props?.percent === '--' ?
                                                                                                 <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /> </StatusColor>
                                                                                                 :
