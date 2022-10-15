@@ -32,7 +32,7 @@ import {
     folderSubmissionsFileData,
     DeletefolderSubmissionData
 } from '../../../redux/action/common/Submission/SubmissionAction';
-import { DeleteIcon, DeleteWarningIcon, DownloadIcon } from '../../../assets/icon';
+import { DeleteIcon, DeleteWarningIcon, DownloadIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
@@ -333,18 +333,18 @@ const folderSubmission = ({
         }, [100]);
     };
 
-    /**
-   * file upload single, multiple and zip file
-   */
-    const handleUploadFile = () => {
-        if (extractedFileData) {
-            UploadFileDataClear();
-        }
-        if (uploadData) {
-            UploadZipFileDataClear();
-        }
-        router.push({ pathname: '/extream/instructor/uploadFileFolderSubmission', query: router.query });
-    };
+//     /**
+//    * file upload single, multiple and zip file
+//    */
+//     const handleUploadFile = () => {
+//         if (extractedFileData) {
+//             UploadFileDataClear();
+//         }
+//         if (uploadData) {
+//             UploadZipFileDataClear();
+//         }
+//         router.push({ pathname: '/extream/instructor/uploadFileFolderSubmission', query: router.query });
+//     };
 
     const handleRefresh = () => {
         folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
@@ -362,6 +362,14 @@ const folderSubmission = ({
     const handlGrammarReport = (grammar) => {
         GetGrammarReport(BASE_URL_UPLOAD + END_POINTS.GRAMMAR_REPORT + grammar);
     }
+
+    const handleShow = (e, info) => {
+        if (info?.title === 'English') {
+            router.push({ pathname: '/extream/instructor/uploadFileFolder/englishFile', query: router.query });
+        } else if (info?.title === 'Non English') {
+            router.push({ pathname: '/extream/instructor/uploadFileFolder/nonEnglishFile', query: router.query });
+        }
+    };
 
     return (
         <React.Fragment>
@@ -446,11 +454,23 @@ const folderSubmission = ({
 
                 <AddButtonBottom>
                     <CreateDrawer
-                        title="Upload File"
+                        options={ [
+                            {
+                                icon: <AddMultipleIcon />,
+                                title: 'Non English',
+                                handleFromCreateDrawer: true
+                            },
+                            {
+                                icon: <AddFromListIcon />,
+                                title: 'English',
+                                handleFromCreateDrawer: true
+                            }] }
+                        handleMultiData={ handleShow }
                         isShowAddIcon={ true }
+                        title="Upload File"
                         navigateToMultiFile={ true }
-                        handleNavigateMultiFile={ handleUploadFile }
-                    />
+                    >
+                    </CreateDrawer>
                 </AddButtonBottom>
 
                 {
