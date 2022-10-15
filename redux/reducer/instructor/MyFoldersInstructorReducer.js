@@ -39,18 +39,18 @@ const MyFoldersInstructorReducer = (state = {}, action) => {
         case types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingEdit: true,
             };
         case types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingEdit: false,
                 editFolder: action.payload,
             };
         case types.FETCH_INSTRUCTOR_EDIT_MY_FOLDERS_FAIL:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingEdit: false,
                 editFolder: action.payload,
             };
         case types.FETCH_INSTRUCTOR_DELETE_FOLDER_START:

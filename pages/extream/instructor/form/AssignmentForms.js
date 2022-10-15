@@ -383,6 +383,30 @@ const AssignmentForms = ({
     }, [internet, repository, publication, studentPaper]);
 
     useEffect(() => {
+        if ((excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) || (addQuestion === ASSIGNMENT_SETTING_VALUE_YES)) {
+            if (phrasesList.length > 0 && phrasesList[0].p === '') {
+                setDisabledButton(true);
+                setErrorMsgDBCheck('Enter minimum one phrase');
+            } else if (phrasesList.length === 0 && excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck('Enter minimum one phrase');
+            } else if (questionList.length > 0 && questionList[0].q === '') {
+                setDisabledButton(true);
+                setErrorMsgDBCheck('Enter minimum one question');
+            } else if (questionList.length === 0 && addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck('Enter minimum one question');
+            } else {
+                setDisabledButton(false);
+                setErrorMsgDBCheck('');
+            }
+        } else {
+            setDisabledButton(false);
+            setErrorMsgDBCheck('');
+        }
+    }, [excludePhrases, addQuestion, phrasesList, questionList]);
+
+    useEffect(() => {
         setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
         setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_NO);
         setExcludeQuote(ASSIGNMENT_SETTING_VALUE_NO);
@@ -1042,7 +1066,7 @@ const AssignmentForms = ({
                                                         <TextField
                                                             id={i}
                                                             size="small"
-                                                            label={'Enter pharses ' + (i + 1)}
+                                                            label={ 'Enter phrases ' + (i + 1) }
                                                             name={item}
                                                             value={item['p']}
                                                             onChange={handlePharsesChange}

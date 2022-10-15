@@ -37,6 +37,7 @@ const ToggleButton = styled(MuiToggleButton)({
 
 const MyFoldersForms = ({
     isLoadingFolder,
+    isLoadingEdit,
     CreateFolder,
     EditFolder,
     editData,
@@ -516,16 +517,12 @@ const MyFoldersForms = ({
                     'label': btnLabel,
                     'isDisabled': disabledButton
                 }}
-                    isLoading={isLoadingFolder}
+                    isLoading={ isLoadingFolder || isLoadingEdit }
                 />
             </form>
         </>
     );
 };
-
-const mapStateToProps = (state) => ({
-    isLoadingFolder: state?.instructorMyFolders?.isLoading,
-});
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -534,4 +531,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyFoldersForms);
+export default connect(null, mapDispatchToProps)(MyFoldersForms);
