@@ -17,6 +17,7 @@ import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/dat
 import { ErrorMessageContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
+import { Tooltip } from '@mui/material';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -316,9 +317,11 @@ const MyFoldersForms = ({
                 <div>
                     <Grid container>
                         <Grid item md={ 8 }>
-                            <InputLabel style={ { margin: '22px 0px' } }>
-                                Exclude small sources
-                            </InputLabel>
+                            <Tooltip title={ 'YES - 14 similarity words, NO - default settings' } arrow>
+                                <InputLabel style={ { margin: '22px 0px' } }>
+                                    Exclude small sources
+                                </InputLabel>
+                            </Tooltip>
                         </Grid>
                         <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                             <ToggleButtonGroup

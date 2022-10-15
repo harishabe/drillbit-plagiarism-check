@@ -418,7 +418,6 @@ const Instructor = ({
                     path=''
                 />
 
-                { !isLoading &&
                     <PaginationContainer>
                         <Pagination
                             count={ pageDetails?.totalPages }
@@ -427,8 +426,7 @@ const Instructor = ({
                             variant="outlined"
                             shape="rounded"
                         />
-                    </PaginationContainer>
-                }
+                </PaginationContainer>
             </>
 
         </React.Fragment>

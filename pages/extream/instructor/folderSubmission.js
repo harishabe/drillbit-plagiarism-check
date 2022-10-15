@@ -485,17 +485,15 @@ const folderSubmission = ({
                     />
                 }
 
-                { !isLoadingSubmission &&
-                    <PaginationContainer>
-                        <Pagination
-                            count={ pageDetails?.totalPages }
-                            onChange={ handleChange }
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </PaginationContainer>
-                }
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </PaginationContainer>
             </>
         </React.Fragment>
     );

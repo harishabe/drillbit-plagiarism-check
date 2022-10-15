@@ -122,7 +122,7 @@ const Users = ({
                     formatDate(instructor.created_date),
                     instructor.total_submissions,
                     instructor.total_grammar,
-                    <StatusDot color={instructor.status === 'active' ? '#38BE62' : '#E9596F'} title={instructor.status} />,
+                    <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     instructor.role === Role.proAdmin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
@@ -301,22 +301,22 @@ const Users = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={ <DeleteWarningIcon /> }
                     message={ WARNING_MESSAGES.DELETE }
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
             {
                 showStatusWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
-                    message={'Are you sure, you want to ' + statusMessage + '?'}
-                    handleYes={handleStatusWarning}
-                    handleNo={handleStatusCloseWarning}
-                    isOpen={true}
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message={ 'Are you sure, you want to ' + statusMessage + '?' }
+                    handleYes={ handleStatusWarning }
+                    handleNo={ handleStatusCloseWarning }
+                    isOpen={ true }
                 />
             }
 
@@ -324,18 +324,18 @@ const Users = ({
                 showDialogModal &&
                 <DialogModal
                     headingTitle="User Statistics"
-                    isOpen={true}
+                        isOpen={ true }
                     fullWidth="lg"
                     maxWidth="lg"
-                    handleClose={handleCloseDialog}
+                        handleClose={ handleCloseDialog }
                 >
-                    <UserStats userId={userId} />
+                        <UserStats userId={ userId } />
                 </DialogModal>
             }
 
             <AddButtonBottom>
                 <CreateDrawer
-                    options={[
+                    options={ [
                         {
                             icon: <AddPersonIcon />,
                             title: 'Add User',
@@ -345,12 +345,12 @@ const Users = ({
                             icon: <AddMultipleIcon />,
                             title: 'Add Multiple Users',
                             handleFromCreateDrawer: true
-                        }]}
+                        }] }
                     title="Add User"
-                    handleMultiData={handleShow}
-                    isShowAddIcon={true}>
+                    handleMultiData={ handleShow }
+                    isShowAddIcon={ true }>
                     <UserForm
-                        licenseExpiryDate={licenseExpiryDate}
+                        licenseExpiryDate={ licenseExpiryDate }
                     />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -359,40 +359,40 @@ const Users = ({
                 editInstructor &&
                 <CreateDrawer
                     title="Edit Instructor"
-                    isShowAddIcon={false}
-                    showDrawer={editInstructor}
-                    handleDrawerClose={handleCloseDrawer}
+                        isShowAddIcon={ false }
+                        showDrawer={ editInstructor }
+                        handleDrawerClose={ handleCloseDrawer }
                 >
                     <UserForm
-                        editData={editInstructorData}
+                            editData={ editInstructorData }
                     />
                 </CreateDrawer>
             }
 
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={UserBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ UserBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
 
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
                     <Grid item md={ 5 } xs={ 5 }>
-                        <MainHeading title={`Users(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+                        <MainHeading title={ `Users(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
                     <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <TextField
                             sx={ { width: '40%', marginTop: '8px' } }
                             placeholder='Search'
-                            onChange={debouncedResults}
-                            inputProps={{
+                            onChange={ debouncedResults }
+                            inputProps={ {
                                 style: {
                                     padding: 5,
                                     display: 'inline-flex'
                                 }
-                            }}
+                            } }
                         />
                     </Grid>
                 </Grid>
@@ -401,38 +401,36 @@ const Users = ({
             </Box>
 
             <>
-                {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ marginLeft: '10px' }}>
+                { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={deleteAllInstructor}>
+                        <IconButton onClick={ deleteAllInstructor }>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
-                </div>}
+                </div> }
                 <CommonTable
-                    isCheckbox={true}
-                    isSorting={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    handleAction={handleAction}
-                    handleTableSort={handleTableSort}
-                    handleCheckboxSelect={handleCheckboxSelect}
-                    handleSingleSelect={handleSingleSelect}
-                    isLoading={isLoading}
-                    charLength={15}
+                    isCheckbox={ true }
+                    isSorting={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    handleCheckboxSelect={ handleCheckboxSelect }
+                    handleSingleSelect={ handleSingleSelect }
+                    isLoading={ isLoading }
+                    charLength={ 15 }
                     path=''
                 />
 
-                { !isLoading &&
-                    <PaginationContainer>
-                        <Pagination
-                            count={ pageDetails?.totalPages }
-                            onChange={ handleChange }
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </PaginationContainer>
-                }
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </PaginationContainer>
             </>
         </React.Fragment>
     );

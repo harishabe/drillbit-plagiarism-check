@@ -142,7 +142,6 @@ const SubmissionHistory = ({
                 charLength={10}
             />
 
-            {!isLoadingSubmission &&
                 <PaginationContainer>
                     <Pagination
                         count={pageDetails?.totalPages}
@@ -151,8 +150,7 @@ const SubmissionHistory = ({
                         variant="outlined"
                         shape="rounded"
                     />
-                </PaginationContainer>
-            }
+            </PaginationContainer>
 
             {/* <AddButtonBottom>
                 <CreateDrawer

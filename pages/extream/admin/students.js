@@ -312,7 +312,6 @@ const Students = ({
                 />
 
 
-                { !isLoading &&
                     <PaginationContainer>
                         <Pagination
                             count={ pageDetails?.totalPages }
@@ -321,8 +320,7 @@ const Students = ({
                             variant="outlined"
                             shape="rounded"
                         />
-                    </PaginationContainer>
-                }
+                </PaginationContainer>
             </>
         </React.Fragment>
     );
