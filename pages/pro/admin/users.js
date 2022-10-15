@@ -142,6 +142,7 @@ const Users = ({
     }, [instructorData]);
 
     const handleChange = (event, value) => {
+        console.log("value", value)
         event.preventDefault();
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };

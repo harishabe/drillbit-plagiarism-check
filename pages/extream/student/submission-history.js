@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Pagination } from '@mui/material';
+import { useRouter } from 'next/router';
 import { Tooltip } from '@mui/material';
 import { IconButton } from '@mui/material';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
@@ -10,7 +11,7 @@ import {
     EllipsisText,
     SimilarityStatus
 } from '../../../components';
-import { MessageExclamatoryIcon } from '../../../assets/icon';
+import { MessageExclamatoryIcon, AddMultipleIcon, AddFromListIcon } from '../../../assets/icon';
 import SubmissionForm from './form/SubmissionForm';
 import { BASE_URL_ANALYSIS } from '../../../utils/BaseUrl';
 import { PaginationContainer } from '../../style/index';
@@ -45,6 +46,7 @@ const SubmissionHistory = ({
     handleAction,
     handleRefresh
 }) => {
+    const router = useRouter();
     const [rows, setRows] = useState([]);
 
     const columns = [
@@ -87,6 +89,14 @@ const SubmissionHistory = ({
         window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
     };
 
+    const handleShow = (e, info) => {
+        if (info?.title === 'English') {
+            router.push({ pathname: '/extream/student/uploadFile/englishFile', query: router.query });
+        } else if (info?.title === 'Non English') {
+            router.push({ pathname: '/extream/student/uploadFile/nonEnglishFile', query: router.query });
+        }
+    };
+
     return (
         <>
             <DownloadField>
@@ -126,12 +136,33 @@ const SubmissionHistory = ({
                 </PaginationContainer>
             }
 
-            <AddButtonBottom>
+            {/* <AddButtonBottom>
                 <CreateDrawer
                     title="New Submission"
                     isShowAddIcon={true}
                 >
                     <SubmissionForm />
+                </CreateDrawer>
+            </AddButtonBottom> */}
+
+            <AddButtonBottom>
+                <CreateDrawer
+                    options={ [
+                        {
+                            icon: <AddMultipleIcon />,
+                            title: 'Non English',
+                            handleFromCreateDrawer: true
+                        },
+                        {
+                            icon: <AddFromListIcon />,
+                            title: 'English',
+                            handleFromCreateDrawer: true
+                        }] }
+                    handleMultiData={ handleShow }
+                    isShowAddIcon={ true }
+                    title="Upload File"
+                    navigateToMultiFile={ true }
+                >
                 </CreateDrawer>
             </AddButtonBottom>
         </>
