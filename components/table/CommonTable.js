@@ -1,6 +1,7 @@
 import * as React from 'react';
 import _ from 'lodash';
 import { makeStyles } from '@mui/styles';
+import styled from 'styled-components';
 import { StatusColor } from '../../pages/style/index';
 import { useRouter } from 'next/router';
 import Checkbox from '@mui/material/Checkbox';
@@ -29,8 +30,12 @@ import {
     TABLE_HEADER_SORT_DISABLE,
     TABLE_BODY_ALLOW_ICON,
     NO_DATA_PLACEHOLDER,
-    TABLE_NEXT_PAGE
+    NOT_APPLICABLE
 } from '../../constant/data/Constant';
+
+const SavedRepository = styled.div`
+    color:#008000;
+`;
 
 const useStyles = makeStyles(() => ({
     padding: {
@@ -167,15 +172,15 @@ const CommonTable = ({
                                                                         <TableCell key={column.id} align={column.align}>
                                                                             {typeof (value) === 'string' ?
                                                                                 <div style={{ display: 'flex' }}>
-                                                                                    <div style={{ width: '80%' }}>
-                                                                                        <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} />
-                                                                                    </div>
                                                                                     <div style={{ width: '20%' }}>
                                                                                         <Tooltip key={index} title='Download original file' arrow>
                                                                                             <a href='#' style={{ padding: '0px', color: '#8c8c8c' }} onClick={(e) => downloadSubmissionFile(e, row)}>
                                                                                                 <FileDownloadOutlinedIcon fontSize='small' />
                                                                                             </a>
                                                                                         </Tooltip>
+                                                                                    </div>
+                                                                                    <div style={{ width: '80%' }}>
+                                                                                        <EllipsisText value={value !== null ? value : NO_DATA_PLACEHOLDER} charLength={charLength} />
                                                                                     </div>
                                                                                 </div> :
                                                                                 <Typography variant='body2_1' component="div">{value !== null ? value : NO_DATA_PLACEHOLDER}</Typography>}
@@ -185,13 +190,13 @@ const CommonTable = ({
                                                                             {column.id === 'percent' &&
                                                                                 <TableCell key={column.id} align={column.align}>
                                                                                     <div style={{ display: 'flex' }}>
-                                                                                        <div style={{ width: '12%', marginTop: '5px' }}>
+                                                                                        <div style={(row?.alert_msg !== null) ? { width: '14%', marginTop: '5px' } : { marginTop: '5px' }}>
                                                                                             {row?.alert_msg != null &&
                                                                                                 <Tooltip title={row.alert_msg} arrow>
                                                                                                     <ErrorOutlineOutlinedIcon fontSize='small' />
                                                                                                 </Tooltip>}
                                                                                         </div>
-                                                                                        <div style={{ width: '86%' }}>
+                                                                                        <div style={row?.alert_msg === null && row?.repository_status === "0" ? { width: '100%' } : { width: '86%' }}>
                                                                                             {value?.props?.percent === '--' ?
                                                                                                 <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /> </StatusColor>
                                                                                                 :
@@ -201,10 +206,12 @@ const CommonTable = ({
                                                                                                     </a>
                                                                                                 </Tooltip>}
                                                                                         </div>
-                                                                                        <div style={{ width: '12%', marginTop: '5px' }}>
+                                                                                        <div style={row?.repository_status === "1" ? { width: '14%', marginTop: '5px' } : { marginTop: '5px' }}>
                                                                                             {row?.repository_status === "1" &&
                                                                                                 <Tooltip title='Saved in repository' arrow>
-                                                                                                    <SaveOutlinedIcon fontSize='small' />
+                                                                                                    <SavedRepository>
+                                                                                                        <SaveOutlinedIcon fontSize='small' />
+                                                                                                    </SavedRepository>
                                                                                                 </Tooltip>
                                                                                             }
                                                                                         </div>
@@ -214,19 +221,19 @@ const CommonTable = ({
                                                                             {column.id === 'grammar_url' &&
                                                                                 <TableCell key={column.id} align={column.align}>
                                                                                     {value === '--' && <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /></StatusColor>}
-                                                                                    {(value !== '--' && value !== 'NA') &&
+                                                                                    {(value !== '--' && value !== 'NA' && value !== null) &&
                                                                                         <>
                                                                                             {isLoadingGrammarReport && (row.paper_id === grammarPaperId) ? <Skeleton /> :
                                                                                                 <StatusColor color='#E5E5E5'>
                                                                                                     <Tooltip key={index} title='Grammar Report' arrow>
-                                                                                                        <div onClick={(e) => handleGrammarReport(e, row)}>
+                                                                                                        <div style={{ cursor: 'pointer' }} onClick={(e) => handleGrammarReport(e, row)}>
                                                                                                             <OpenInNewOutlinedIcon fontSize='small' />
                                                                                                         </div>
                                                                                                     </Tooltip>
                                                                                                 </StatusColor>}
                                                                                         </>
                                                                                     }
-                                                                                    {(value === 'NA') && <StatusColor color='#E5E5E5'>{value}</StatusColor>}
+                                                                                    {(value === 'NA' || value === null) && <StatusColor color='#E5E5E5'>{NOT_APPLICABLE}</StatusColor>}
                                                                                 </TableCell>
                                                                             }
                                                                             {(column.id !== 'percent' && column.id !== 'grammar_url') &&

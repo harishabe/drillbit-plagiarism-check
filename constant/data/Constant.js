@@ -6,9 +6,9 @@ export const FILE_TYPE = {
 };
 
 export const FILE_LANGUAGE = {
-    'REGIONAL':'regional'
+    'REGIONAL':'Regional'
 };
-
+export const NOT_APPLICABLE = 'NA';
 /**
  * common table constants
  */

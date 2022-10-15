@@ -169,11 +169,11 @@ const AssignmentForms = ({
                 bodyFormData.append('repository_scope', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
                 bodyFormData.append('report_access', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
 
-                bodyFormData.append('db_studentpaper', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
-                bodyFormData.append('db_publications', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
-                bodyFormData.append('db_internet', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
-                bodyFormData.append('institution_repository', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
-                bodyFormData.append('daily_submissions_limit', 0);
+                bodyFormData.append('db_studentpaper', !showSetting ? ASSIGNMENT_SETTING_VALUE_YES : '');
+                bodyFormData.append('db_publications', !showSetting ? ASSIGNMENT_SETTING_VALUE_YES : '');
+                bodyFormData.append('db_internet', !showSetting ? ASSIGNMENT_SETTING_VALUE_YES : '');
+                bodyFormData.append('institution_repository', !showSetting ? ASSIGNMENT_SETTING_VALUE_YES : '');
+                bodyFormData.append('daily_submissions_limit', 1);
                 CreateAssignment(router.query.clasId, bodyFormData);
             }
         }
@@ -401,6 +401,7 @@ const AssignmentForms = ({
     }, []);
 
     useEffect(() => {
+        console.log('editDataeditDataeditData',editData);
         if (editData !== undefined) {
             setShowSetting(true);
             let a = {
@@ -440,7 +441,7 @@ const AssignmentForms = ({
             setChoiceEmailNotification(editData?.assignmentData?.choice_of_email);
             setAddQuestion(editData?.assignmentData?.questions);
             setExcludePhrases(editData?.assignmentData?.ex_phrases);
-            setReportAccess(editData?.assignmentData?.db_studentpaper);
+            setReportAccess(editData?.assignmentData?.report_access );
             setStudentPaper(editData?.assignmentData?.db_studentpaper);
             setPublication(editData?.assignmentData?.db_publications);
             setInternet(editData?.assignmentData?.db_internet);

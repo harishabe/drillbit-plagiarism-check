@@ -6,8 +6,6 @@ import Instructor from './../../../../layouts/Instructor';
 import { FormComponent, MainHeading, CardView } from '../../../../components';
 import FormJson from '../../../../constant/form/change-password-form.json';
 import { ProfileChangePassword } from '../../../../redux/action/profile/ProfileAction';
-import { ErrorMessageContainer } from '../../../style/index';
-import { CONFIRM_PASSWORD_NOT_VALID } from '../../../../constant/data/ErrorMessage';
 
 const ChangePassword = ({
     ProfileChangePassword,
@@ -74,13 +72,6 @@ const ChangePassword = ({
                                     isLoading={ isLoading }
                                 />
                             )
-                        }
-                        {
-                            (
-                                (confirmPassword !== '' && newPassword !== '') &&
-                                (confirmPassword !== newPassword)
-                            ) ?
-                                <ErrorMessageContainer>{ CONFIRM_PASSWORD_NOT_VALID }</ErrorMessageContainer> : ''
                         }
                     </Container>
                 </form>

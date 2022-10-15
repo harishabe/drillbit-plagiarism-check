@@ -12,6 +12,7 @@ import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
 import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
+import { NO_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
 
 const SkeletonContainer = styled.div`
     margin-top: 16px;
