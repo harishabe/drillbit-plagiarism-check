@@ -52,13 +52,14 @@ const columns = [
     { id: 'mail_id', label: 'Email ID' },
     { id: 'title', label: 'Title' },
     { id: 'repository_type', label: 'Type' },
+    { id: 'language', label: 'Language' },
     { id: 'date_up', label: 'Added Date' },
     { id: 'action', label: 'Action' },
 ];
 
-function createData(paper_id, name, mail_id, title, repository_type, date_up, action) {
+function createData(paper_id, name, mail_id, title, repository_type, language, date_up, action) {
     return {
-        paper_id, name, mail_id, title, repository_type, date_up, action
+        paper_id, name, mail_id, title, repository_type, language, date_up, action
     };
 }
 
@@ -100,6 +101,7 @@ const Repository = ({
                     repo.mail_id,
                     repo.title,
                     repo.repository_type,
+                    repo.language,
                     formatDate(repo.date_up),
                     [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
                 );
@@ -182,30 +184,30 @@ const Repository = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={AdminBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ AdminBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
-            <Grid container spacing={2}>
+            <Grid container spacing={ 2 }>
                 <Grid item md={ 5 } xs={ 5 }>
                     <MainHeading
-                        title={`Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`}
+                        title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
                 <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '40%', marginTop: '8px' } }
                         placeholder='Search'
-                        onChange={debouncedResults}
-                        inputProps={{
+                        onChange={ debouncedResults }
+                        inputProps={ {
                             style: {
                                 padding: 5,
                                 display: 'inline-flex',
                             },
-                        }}
+                        } }
                     />
                 </Grid>
             </Grid>
@@ -213,46 +215,44 @@ const Repository = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={ <DeleteWarningIcon /> }
                     message="Are you sure you want to delete ?"
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
             <AddButtonBottom>
                 <CreateDrawer
                     title="Upload File"
-                    isShowAddIcon={true}
-                    navigateToMultiFile={true}
-                    handleNavigateMultiFile={handleUploadFile}
+                    isShowAddIcon={ true }
+                    navigateToMultiFile={ true }
+                    handleNavigateMultiFile={ handleUploadFile }
                 >
                 </CreateDrawer>
             </AddButtonBottom>
             <>
                 <CommonTable
-                    isCheckbox={false}
-                    isSorting={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    handleAction={handleAction}
-                    handleTableSort={handleTableSort}
-                    charLength={10}
-                    isLoading={isLoadingRepo}
+                    isCheckbox={ false }
+                    isSorting={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    charLength={ 10 }
+                    isLoading={ isLoadingRepo }
                 />
 
-                { !isLoadingRepo &&
-                    <PaginationContainer>
-                        <Pagination
-                            count={ pageDetails?.totalPages }
-                            onChange={ handlePagination }
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </PaginationContainer>
-                }
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handlePagination }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
+                </PaginationContainer>
             </>
         </React.Fragment>
     );

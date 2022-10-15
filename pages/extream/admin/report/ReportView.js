@@ -278,7 +278,6 @@ const ReportView = ({
                 </>
             }
 
-            { !isLoadingViewReport &&
                 <PaginationContainer>
                     <Pagination
                         count={ pageDetails?.totalPages }
@@ -287,8 +286,7 @@ const ReportView = ({
                         variant="outlined"
                         shape="rounded"
                     />
-                </PaginationContainer>
-            }
+            </PaginationContainer>
         </>
     );
 };

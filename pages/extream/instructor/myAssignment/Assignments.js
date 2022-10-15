@@ -358,7 +358,6 @@ const Assignments = ({
                     isLoading={isLoadingAssignment}
                     charLength={9}
                 />
-                {!isLoadingAssignment &&
                     <PaginationContainer>
                         <Pagination
                             count={pageDetailsAssignment?.totalPages}
@@ -367,8 +366,7 @@ const Assignments = ({
                             variant='outlined'
                             shape='rounded'
                         />
-                    </PaginationContainer>
-                }
+                </PaginationContainer>
             </>
         </React.Fragment>
     );

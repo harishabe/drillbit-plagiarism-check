@@ -22,6 +22,7 @@ import { convertDate } from '../../../../utils/RegExp';
 import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
 import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/data/ErrorMessage';
 import { ErrorMessageContainer } from '../../../style/index';
+import { Tooltip } from '@mui/material';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -775,9 +776,11 @@ const AssignmentForms = ({
                         <div>
                             <Grid container>
                                 <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                                <Tooltip title={ 'YES - 14 similarity words, NO - default settings' } arrow>
+                                    <InputLabel style={ { margin: '22px 0px' } }>
                                         Exclude small sources
                                     </InputLabel>
+                                </Tooltip>
                                 </Grid>
                                 <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
                                     <ToggleButtonGroup

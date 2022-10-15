@@ -212,7 +212,6 @@ const MyFolder = ({
                 </CreateDrawer>
             }
 
-            { !isLoading && 
                 <PaginationContainer>
                     <Pagination
                         count={ pageDetails?.totalPages }
@@ -221,8 +220,7 @@ const MyFolder = ({
                         variant="outlined"
                         shape="rounded"
                     />
-                </PaginationContainer>
-            }
+            </PaginationContainer>
         </React.Fragment>
     );
 };
