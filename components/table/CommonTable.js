@@ -23,6 +23,7 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { TableSkeleton, EllipsisText, ErrorBlock } from '../../components';
 import { DownloadIcon } from '../../assets/icon';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
+import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Role } from '../../constant/data';
@@ -35,6 +36,10 @@ import {
 
 const SavedRepository = styled.div`
     color:#008000;
+`;
+
+const AlertMessage = styled.div`
+    color:#ff0000;
 `;
 
 const useStyles = makeStyles(() => ({
@@ -193,7 +198,9 @@ const CommonTable = ({
                                                                                         <div style={(row?.alert_msg !== null) ? { width: '14%', marginTop: '5px' } : { marginTop: '5px' }}>
                                                                                             {row?.alert_msg != null &&
                                                                                                 <Tooltip title={row.alert_msg} arrow>
-                                                                                                    <ErrorOutlineOutlinedIcon fontSize='small' />
+                                                                                                    <AlertMessage>
+                                                                                                        <ReportProblemOutlinedIcon fontSize='small' />
+                                                                                                    </AlertMessage>
                                                                                                 </Tooltip>}
                                                                                         </div>
                                                                                         <div style={row?.alert_msg === null && row?.repository_status === "0" ? { width: '100%' } : { width: '86%' }}>

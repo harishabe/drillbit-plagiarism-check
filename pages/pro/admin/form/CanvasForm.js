@@ -48,13 +48,13 @@ const CanvasForm = ({
     };
 
     useEffect(() => {
-        if (editData) {
+        if (editData !== undefined) {
             let a = {
                 'platform_url': editData?.platform_url,
                 'client_id': editData?.client_id,
                 'auth_end_point': editData?.auth_end_point,
                 'access_end_point': editData?.access_end_point,
-                'method': editData?.method?.name,
+                'method': editData?.method,
                 'keyset_end_point': editData?.keyset_end_point,
             };
             const fields = [
@@ -75,21 +75,21 @@ const CanvasForm = ({
 
     return (
         <>
-            <div style={ { textAlign: 'center' } }>
+            <div style={{ textAlign: 'center' }}>
                 <AddImageIcon />
             </div>
-            <form onSubmit={ handleSubmit(onSubmit) }>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
-                    { FormJson?.map((field, i) => (
-                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
+                    {FormJson?.map((field, i) => (
+                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
                             <FormComponent
-                                key={ i }
-                                field={ field }
-                                control={ control }
-                                isLoading={ isLoadingUpload }
+                                key={i}
+                                field={field}
+                                control={control}
+                                isLoading={isLoadingUpload}
                             />
                         </Grid>
-                    )) }
+                    ))}
                 </Grid>
             </form>
         </>
