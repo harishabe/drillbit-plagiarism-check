@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Pagination } from '@mui/material';
+import { useRouter } from 'next/router';
 import { Tooltip } from '@mui/material';
 import { IconButton } from '@mui/material';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
@@ -11,11 +12,11 @@ import {
     EllipsisText,
     SimilarityStatus
 } from '../../../components';
-import { MessageExclamatoryIcon } from '../../../assets/icon';
+import { MessageExclamatoryIcon, AddMultipleIcon, AddFromListIcon} from '../../../assets/icon';
 import {
     GetGrammarReport
 } from '../../../redux/action/common/Submission/SubmissionAction';
-import SubmissionForm from './form/SubmissionForm';
+import SubmissionForm from './form/SubmissionForm'
 import { BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { PaginationContainer } from '../../style/index';
@@ -52,6 +53,7 @@ const SubmissionHistory = ({
     GetGrammarReport,
     isLoadingGrammarReport
 }) => {
+    const router = useRouter();
     const [rows, setRows] = useState([]);
 
     const columns = [
@@ -96,9 +98,19 @@ const SubmissionHistory = ({
         window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
     };
 
+
+    const handleShow = (e, info) => {
+        if (info?.title === 'English') {
+            router.push({ pathname: '/extream/student/uploadFile/englishFile', query: router.query });
+        } else if (info?.title === 'Non English') {
+            router.push({ pathname: '/extream/student/uploadFile/nonEnglishFile', query: router.query });
+        }
+    };
+
     const handlGrammarReport = (grammar) => {
         GetGrammarReport(BASE_URL_UPLOAD + END_POINTS.GRAMMAR_REPORT + grammar);
     }
+
 
     return (
         <>
@@ -142,12 +154,33 @@ const SubmissionHistory = ({
                 </PaginationContainer>
             }
 
-            <AddButtonBottom>
+            {/* <AddButtonBottom>
                 <CreateDrawer
                     title="New Submission"
                     isShowAddIcon={true}
                 >
                     <SubmissionForm />
+                </CreateDrawer>
+            </AddButtonBottom> */}
+
+            <AddButtonBottom>
+                <CreateDrawer
+                    options={ [
+                        {
+                            icon: <AddMultipleIcon />,
+                            title: 'Non English',
+                            handleFromCreateDrawer: true
+                        },
+                        {
+                            icon: <AddFromListIcon />,
+                            title: 'English',
+                            handleFromCreateDrawer: true
+                        }] }
+                    handleMultiData={ handleShow }
+                    isShowAddIcon={ true }
+                    title="Upload File"
+                    navigateToMultiFile={ true }
+                >
                 </CreateDrawer>
             </AddButtonBottom>
         </>
