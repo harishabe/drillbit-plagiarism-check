@@ -101,79 +101,78 @@ const IntegrationTypeDetail = ({
     }, [integrationData]);
     return (
         <>
-            { isMoodleTrue &&
+            {isMoodleTrue &&
                 <>
-                    <MainHeading title={ 'Moodle Plugin Setup' } />
+                    <MainHeading title={'Moodle Plugin Setup'} />
                     <CardView>
-                        <SubHeading title={ 'Moodle Plug-in – Configured' } />
-                        <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
-                            <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
+                        <SubHeading title={'Moodle Plug-in – Configured'} />
+                        <Button onClick={handleConfig} className={classes.margin} variant="contained">
+                            <ConfigIcon /> <span className={classes.ml10}>Change Configuration</span>
                         </Button>
 
-                        <Divider className={ classes.mt10 } />
-                        <div className={ classes.margin }></div>
+                        <Divider className={classes.mt10} />
+                        <div className={classes.margin}></div>
 
                         <CommonTable
-                            isCheckbox={ false }
-                            tableHeader={ columns }
-                            tableData={ rows }
-                            charLength={ 50 }
+                            isCheckbox={false}
+                            tableHeader={columns}
+                            tableData={rows}
+                            charLength={50}
                             path=''
                         />
                     </CardView>
 
-                    <div className={ classes.margin }></div>
+                    <div className={classes.margin}></div>
                     <CardView>
-                        <div className={ classes.margin }></div>
+                        <div className={classes.margin}></div>
                         <SubTitle title="Technical Contact Details :" />
 
                         <CommonTable
-                            isCheckbox={ false }
-                            tableHeader={ columns }
-                            tableData={ technical }
-                            charLength={ 50 }
+                            isCheckbox={false}
+                            tableHeader={columns}
+                            tableData={technical}
+                            charLength={50}
                             path=''
                         />
                     </CardView>
                 </>
             }
-            { isCanvasTrue &&
+            {isCanvasTrue &&
                 <>
-                    <MainHeading title={ 'Canvas LTI Setup' } />
+                    <MainHeading title={'Canvas LTI Setup'} />
                     <CardView>
-                        <SubHeading title={ 'Canvas LTI – Configured' } />
-                        <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
-                            <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
+                        <SubHeading title={'Canvas LTI – Configured'} />
+                        <Button onClick={handleConfig} className={classes.margin} variant="contained">
+                            <ConfigIcon /> <span className={classes.ml10}>Change Configuration</span>
                         </Button>
-                        <Divider className={ classes.mt10 } />
-                        <div className={ classes.margin }></div>
+                        <Divider className={classes.mt10} />
+                        <div className={classes.margin}></div>
 
                         <CommonTable
-                            isCheckbox={ false }
-                            tableHeader={ columns }
-                            tableData={ rows }
-                            charLength={ 50 }
+                            isCheckbox={false}
+                            tableHeader={columns}
+                            tableData={rows}
+                            charLength={50}
                             path=''
                         />
                     </CardView>
                 </>
             }
-            { isBlackboardTrue &&
+            {isBlackboardTrue &&
                 <>
-                    <MainHeading title={ 'Blackboard LTI Setup' } />
+                    <MainHeading title={'Blackboard LTI Setup'} />
                     <CardView>
-                        <SubHeading title={ 'Blackboard LTI – Configured' } />
-                        <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
-                            <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
+                        <SubHeading title={'Blackboard LTI – Configured'} />
+                        <Button onClick={handleConfig} className={classes.margin} variant="contained">
+                            <ConfigIcon /> <span className={classes.ml10}>Change Configuration</span>
                         </Button>
-                        <Divider className={ classes.mt10 } />
-                        <div className={ classes.margin }></div>
-
+                        <Divider className={classes.mt10} />
+                        <div className={classes.margin}></div>
                         <CommonTable
-                            isCheckbox={ false }
-                            tableHeader={ columns }
-                            tableData={ rows }
-                            charLength={ 50 }
+                            isCheckbox={false}
+                            tableHeader={columns}
+                            tableData={rows}
+                            charLength={50}
                             path=''
                         />
                     </CardView>

@@ -94,6 +94,7 @@ const MyFoldersForms = ({
     };
 
     const editAssignments = (data) => {
+        console.log('editAssignmentseditAssignmentseditAssignments', data);
         let editFolderPayload = {
             ...data,
             'exclude_reference': excludeRefBib === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
@@ -112,8 +113,6 @@ const MyFoldersForms = ({
             phrasesList?.map((item, index) => {
                 phrasesObj['p' + (index + 1)] = item.p;
             });
-            editFolderPayload['phrases'] = phrasesObj;
-        } else {
             editFolderPayload['phrases'] = phrasesObj;
         }
         EditFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + editData?.folder_id, editFolderPayload);
