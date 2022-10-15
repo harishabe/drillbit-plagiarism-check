@@ -129,6 +129,24 @@ const MyFoldersForms = ({
     }, [internet, repository, publication, studentPaper]);
 
     useEffect(() => {
+        if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
+            if (phrasesList.length > 0 && phrasesList[0].p === '') {
+                setDisabledButton(true);
+                setErrorMsgDBCheck('Enter minimum one phrase');
+            } else if (phrasesList.length === 0 && excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck('Enter minimum one phrase');
+            } else {
+                setDisabledButton(false);
+                setErrorMsgDBCheck('');
+            }
+        } else {
+            setDisabledButton(false);
+            setErrorMsgDBCheck('');
+        }
+    }, [excludePhrases, phrasesList]);
+
+    useEffect(() => {
         setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_NO);
         setExcludeQuote(ASSIGNMENT_SETTING_VALUE_NO);
         setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_NO);
@@ -315,8 +333,8 @@ const MyFoldersForms = ({
                 <div>
                     <Grid container>
                         <Grid item md={8}>
-                            <Tooltip title={ 'YES - 14 similarity words, NO - default settings' } arrow>
-                                <InputLabel style={ { margin: '22px 0px' } }>
+                            <Tooltip title={'YES - 14 similarity words, NO - default settings'} arrow>
+                                <InputLabel style={{ margin: '22px 0px' }}>
                                     Exclude small sources
                                 </InputLabel>
                             </Tooltip>
@@ -385,7 +403,7 @@ const MyFoldersForms = ({
                                                 <TextField
                                                     id={i}
                                                     size="small"
-                                                    label={'Enter pharses ' + (i + 1)}
+                                                    label={'Enter phrases ' + (i + 1)}
                                                     name={item}
                                                     value={item['p']}
                                                     onChange={handlePharsesChange}
