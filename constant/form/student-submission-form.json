@@ -18,6 +18,22 @@
         "disabled":true
     },
     {
+        "field_type": "dropdown",
+        "id": "language",
+        "name": "language",
+        "label": "Language *",
+        "required": "Language",
+        "validationMsg": "Please choose language",
+        "options": [
+            {
+                "name": "English"
+            },
+            {
+                "name": "Non English"
+            }
+        ]
+    },
+    {
         "field_type": "file",
         "id": "file",
         "name": "file",

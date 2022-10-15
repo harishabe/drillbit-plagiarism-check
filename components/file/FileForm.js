@@ -16,6 +16,7 @@ import {
 import {
     LanguageList
 } from '../../redux/action/common/UploadFile/UploadFileAction';
+import { getItemLocalStorage } from '../../utils/RegExp';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -46,7 +47,9 @@ const FileForm = ({
     LanguageList,
     langType,
     isRegionalFile,
-    regional_languages
+    regional_languages,
+    isStudent,
+    assName
 }) => {
     const classes = useStyles();
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -75,20 +78,33 @@ const FileForm = ({
                                         Author Name *
                                     </InputLabel>
                                 </LabelContainer>
-                                <TextField
-                                    sx={{ marginTop: '0px' }}
-                                    fullWidth
-                                    margin="normal"
-                                    name={'authorName' + index}
-                                    type="text"
-                                    variant="outlined"
-                                    size="small"
-                                    {...register('authorName' + index, { required: true })}
-                                    helperText={errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME}
-                                    FormHelperTextProps={{
-                                        className: classes.helperText
-                                    }}
-                                />
+                                { isStudent ?
+                                    <TextField
+                                        sx={ { marginTop: '0px' } }
+                                        fullWidth
+                                        margin="normal"
+                                        name={ 'authorName' + index }
+                                        type="text"
+                                        variant="outlined"
+                                        size="small"
+                                        disabled
+                                        label={ getItemLocalStorage('name') }
+                                    /> :
+                                    <TextField
+                                        sx={ { marginTop: '0px' } }
+                                        fullWidth
+                                        margin="normal"
+                                        name={ 'authorName' + index }
+                                        type="text"
+                                        variant="outlined"
+                                        size="small"
+                                        { ...register('authorName' + index, { required: true }) }
+                                        helperText={ errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME }
+                                        FormHelperTextProps={ {
+                                            className: classes.helperText
+                                        } }
+                                    />
+                                }
                             </Grid>
                             <Grid item md={(langType === 'Non English' || isRegionalFile) ? 2.4 : 3} xs={12}>
                                 <LabelContainer>
@@ -96,51 +112,69 @@ const FileForm = ({
                                         Title *
                                     </InputLabel>
                                 </LabelContainer>
-                                <TextField
-                                    sx={{ marginTop: '0px' }}
-                                    fullWidth
-                                    margin="normal"
-                                    name={'title' + index}
-                                    type="text"
-                                    variant="outlined"
-                                    size="small"
-                                    {...register('title' + index, { required: true })}
-                                    helperText={errors['title' + index] && UPLOAD_FILE_AUTHOR_TITLE}
-                                    FormHelperTextProps={{
-                                        className: classes.helperText
-                                    }}
-                                />
+
+                                { isStudent ?
+                                    <TextField
+                                        sx={ { marginTop: '0px' } }
+                                        fullWidth
+                                        margin="normal"
+                                        name={ 'authorName' + index }
+                                        type="text"
+                                        variant="outlined"
+                                        size="small"
+                                        disabled
+                                        label={ assName }
+                                    /> :
+                                    <TextField
+                                        sx={ { marginTop: '0px' } }
+                                        fullWidth
+                                        margin="normal"
+                                        name={ 'title' + index }
+                                        type="text"
+                                        variant="outlined"
+                                        size="small"
+                                        { ...register('title' + index, { required: true }) }
+                                        helperText={ errors['title' + index] && UPLOAD_FILE_AUTHOR_TITLE }
+                                        FormHelperTextProps={ {
+                                            className: classes.helperText
+                                        } }
+                                    />
+                                }
                             </Grid>
-                            <Grid item md={(langType === 'Non English' || isRegionalFile) ? 2.4 : 3} xs={12}>
-                                {isLoadingLang ?
-                                    <SkeletonContainer>
-                                        <Skeleton />
-                                    </SkeletonContainer> :
-                                    <>
-                                        <LabelContainer>
-                                            <InputLabel>
-                                                File type *
-                                            </InputLabel>
-                                        </LabelContainer>
-                                        <Autocomplete
-                                            disablePortal
-                                            id={'documentType' + index}
-                                            name={'documentType' + index}
-                                            options={document_type}
-                                            size="small"
-                                            renderInput={
-                                                (params) =>
-                                                    <TextField
-                                                        {...register('documentType' + index, { required: true })} {...params}
-                                                        helperText={errors['documentType' + index] && UPLOAD_FILE_TYPE}
-                                                        FormHelperTextProps={{
-                                                            className: classes.helperText
-                                                        }}
-                                                    />
-                                            }
-                                        />
-                                    </>}
-                            </Grid>
+
+                            { !isStudent &&
+                                <Grid item md={ langType === 'Non English' || isRegionalFile ? 2.4 : 3 } xs={ 12 }>
+                                    { isLoadingLang ?
+                                        <SkeletonContainer>
+                                            <Skeleton />
+                                        </SkeletonContainer> :
+                                        <>
+                                            <LabelContainer>
+                                                <InputLabel>
+                                                    File type *
+                                                </InputLabel>
+                                            </LabelContainer>
+                                            <Autocomplete
+                                                disablePortal
+                                                id={ 'documentType' + index }
+                                                name={ 'documentType' + index }
+                                                options={ document_type }
+                                                size="small"
+                                                renderInput={
+                                                    (params) =>
+                                                        <TextField
+                                                            { ...register('documentType' + index, { required: true }) } { ...params }
+                                                            helperText={ errors['documentType' + index] && UPLOAD_FILE_TYPE }
+                                                            FormHelperTextProps={ {
+                                                                className: classes.helperText
+                                                            } }
+                                                        />
+                                                }
+                                            />
+                                        </> }
+                                </Grid>
+                            }
+
 
                             {(langType === 'Non English') &&
                                 <Grid item md={2.4} xs={12}>
@@ -202,8 +236,7 @@ const FileForm = ({
                                                 />
                                             </>
                                     }
-                                </Grid>}
-
+                                </Grid> }
                         </Grid>
                     );
                 })}

@@ -38,6 +38,7 @@ import {
     UPLOAD_FILE_MAX_LIMIT,
     UPLOAD_NON_ENGLISH_FILE_MULTIFILE
 } from '../../constant/data/ErrorMessage';
+import { getItemLocalStorage } from '../../utils/RegExp';
 
 const SkeletonStyle = styled.div`
     margin-top: 20px;
@@ -70,7 +71,8 @@ const UploadFiles = ({
     isLoadingNonEng,
     isRegionalFile,
     uploadFileNonEng,
-    langType
+    langType,
+    isStudent
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -119,10 +121,14 @@ const UploadFiles = ({
     };
 
     const handleSubmit = (data) => {
-        if (fileData.length === 1 && langType === 'English' && !isRegionalFile) {
+        if (fileData.length === 1 && langType === 'English' && !isRegionalFile && !isStudent) {
             singleFileUpload(fileData, data);
-        } else if (fileData.length === 1 && langType === 'Non English' && !isRegionalFile) {
+        } else if (fileData.length === 1 && langType === 'English' && !isRegionalFile && isStudent) {
+            singleFileUploadStudent(fileData, data);
+        } else if (fileData.length === 1 && langType === 'Non English' && !isRegionalFile && !isStudent) {
             singleFileUploadNonEnglish(fileData, data);
+        } else if (fileData.length === 1 && langType === 'Non English' && !isRegionalFile && isStudent) {
+            singleFileUploadNonEnglishStudent(fileData, data);
         } else if (fileData.length === 1 && isRegionalFile) {
             regionalFileUpload(fileData, data);
         } else if (fileData.length > 1 && langType === 'English' && !isRegionalFile) {
@@ -150,6 +156,15 @@ const UploadFiles = ({
         SubmissionListUpload(singleFileUploadAPI, bodyFormData);
     };
 
+    const singleFileUploadStudent = (files, data) => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('authorName', getItemLocalStorage('name'));
+        bodyFormData.append('title', router.query.assName);
+        bodyFormData.append('language', langType);
+        bodyFormData.append('file', files[0][1]);
+        SubmissionListUpload(singleFileUploadAPI, bodyFormData);
+    };
+
     const singleFileUploadNonEnglish = (files, data) => {
         let bodyFormData = new FormData();
         bodyFormData.append('authorName', data.authorName0);
@@ -157,6 +172,15 @@ const UploadFiles = ({
         bodyFormData.append('documentType', data.documentType0);
         bodyFormData.append('plagiarismCheck', plagiarismCheck ? 'YES' : 'NO');
         bodyFormData.append('grammarCheck', grammarCheck ? 'YES' : 'NO');
+        bodyFormData.append('language', data.nonEnglishLang);
+        bodyFormData.append('file', files[0][1]);
+        UploadNonEnglish(singleFileUploadAPI, bodyFormData);
+    };
+
+    const singleFileUploadNonEnglishStudent = (files, data) => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('authorName', getItemLocalStorage('name'));
+        bodyFormData.append('title', router.query.assName);
         bodyFormData.append('language', data.nonEnglishLang);
         bodyFormData.append('file', files[0][1]);
         UploadNonEnglish(singleFileUploadAPI, bodyFormData);
@@ -297,7 +321,7 @@ const UploadFiles = ({
 
                             </DragDropArea>
 
-                            { (fileData?.length === 1 && !isRepository && langType === 'English') &&
+                            { (fileData?.length === 1 && !isRepository && !isStudent && langType === 'English') &&
                                 <Grid container style={ { justifyContent: 'center' } }>
                                     { !isRegionalFile &&
                                         <div>
@@ -327,7 +351,27 @@ const UploadFiles = ({
                                 />
 
                             }
-                            { (fileData?.length > 0 && !isRepository && langType === 'English') &&
+                            { (fileData?.length > 0 && !isRepository && !isStudent && langType === 'English') &&
+                                <FileForm
+                                    handleSubmitFile={ handleSubmit }
+                                    files={ fileData }
+                                    btnTitle='Submit'
+                                    isLoading={ isLoadingUpload || isLoadingNonEng }
+                                    langType={ langType }
+                                />
+                            }
+                            { (fileData?.length > 0 && !isRepository && isStudent && langType === 'English') &&
+                                <FileForm
+                                    handleSubmitFile={ handleSubmit }
+                                    files={ fileData }
+                                    btnTitle='Submit'
+                                    isStudent={ isStudent }
+                                    assName={ router.query.assName }
+                                    isLoading={ isLoadingUpload || isLoadingNonEng }
+                                    langType={ langType }
+                                />
+                            }
+                            { (fileData?.length === 1 && !isRepository && !isStudent && langType === 'Non English') &&
                                 <FileForm
                                 handleSubmitFile={ handleSubmit }
                                 files={ fileData }
@@ -336,11 +380,13 @@ const UploadFiles = ({
                                 langType={ langType }
                                 />
                             }
-                            { (fileData?.length === 1 && !isRepository && langType === 'Non English') &&
+                            { (fileData?.length === 1 && !isRepository && isStudent && langType === 'Non English') &&
                                 <FileForm
                                 handleSubmitFile={ handleSubmit }
                                 files={ fileData }
                                     btnTitle='Submit'
+                                isStudent={ isStudent }
+                                assName={ router.query.assName }
                                     isLoading={ isLoadingUpload || isLoadingNonEng }
                                     langType={ langType }
                                 />
