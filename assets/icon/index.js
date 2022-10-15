@@ -56,3 +56,6 @@ export { default as ConfigIcon } from './ConfigIcon';
 export { default as DownBorderArrowIcon } from './DownBorderArrowIcon';
 export { default as UploadFileIcon } from './UploadFileIcon';
 export { default as GoogleDriveIcon } from './GoogleDriveIcon';
+export { default as EnglishUploadIcon } from './EnglishUploadIcon';
+export { default as NonEnglishUploadIcon } from './NonEnglishUploadIcon';
+export { default as RegionalUploadIcon } from './RegionalUploadIcon';
