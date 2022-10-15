@@ -49,7 +49,8 @@ const MyFolder = ({
     myFolders,
     pageDetails,
     isLoading,
-    isLoadingFolder
+    isLoadingFolder,
+    isLoadingEdit
 }) => {
 
     const [editFolder, setEditFolder] = useState(false);
@@ -208,6 +209,7 @@ const MyFolder = ({
                 >
                     <MyFoldersForms
                         editData={ editFolderData }
+                            isLoadingEdit={ isLoadingEdit }
                     />
                 </CreateDrawer>
             }
@@ -230,6 +232,7 @@ const mapStateToProps = (state) => ({
     myFolders: state?.instructorMyFolders?.myFolders?._embedded?.foldersDTOList,
     isLoading: state?.instructorMyFolders?.isLoading,
     isLoadingFolder: state?.instructorMyFolders?.isLoadingFolder,
+    isLoadingEdit: state?.instructorMyFolders?.isLoadingEdit,
 });
 
 const mapDispatchToProps = (dispatch) => {
