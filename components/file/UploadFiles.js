@@ -292,6 +292,7 @@ const UploadFiles = ({
                                     </ChipContainer>
                                 )) }
                                 { (fileData?.length > 1 && !isRepository && langType === 'Non English') && <ErrorMessageContainer>{ UPLOAD_NON_ENGLISH_FILE_MULTIFILE }</ErrorMessageContainer> }
+                                { (fileData?.length > 1 && !isRepository && isRegionalFile) && <ErrorMessageContainer>{ UPLOAD_NON_ENGLISH_FILE_MULTIFILE }</ErrorMessageContainer> }
                                 { fileWarning && <ErrorMessageContainer>{ UPLOAD_FILE_MAX_LIMIT }</ErrorMessageContainer> }
 
                             </DragDropArea>

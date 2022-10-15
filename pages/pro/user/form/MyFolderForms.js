@@ -142,7 +142,6 @@ const MyFoldersForms = ({
     }, []);
 
     useEffect(() => {
-        console.log('editDataeditData', editData);
         if (editData !== undefined) {
             let a = {
                 'folder_name': editData.folder_name

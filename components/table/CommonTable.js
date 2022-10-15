@@ -190,13 +190,13 @@ const CommonTable = ({
                                                                             {column.id === 'percent' &&
                                                                                 <TableCell key={column.id} align={column.align}>
                                                                                     <div style={{ display: 'flex' }}>
-                                                                                        <div style={{ width: '12%', marginTop: '5px' }}>
+                                                                                        <div style={(row?.alert_msg !== null) ? { width: '14%', marginTop: '5px' } : { marginTop: '5px' }}>
                                                                                             {row?.alert_msg != null &&
                                                                                                 <Tooltip title={row.alert_msg} arrow>
                                                                                                     <ErrorOutlineOutlinedIcon fontSize='small' />
                                                                                                 </Tooltip>}
                                                                                         </div>
-                                                                                        <div style={{ width: '86%' }}>
+                                                                                        <div style={row?.alert_msg === null && row?.repository_status === "0" ? { width: '100%' } : { width: '86%' }}>
                                                                                             {value?.props?.percent === '--' ?
                                                                                                 <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /> </StatusColor>
                                                                                                 :
@@ -206,7 +206,7 @@ const CommonTable = ({
                                                                                                     </a>
                                                                                                 </Tooltip>}
                                                                                         </div>
-                                                                                        <div style={{ width: '12%', marginTop: '5px' }}>
+                                                                                        <div style={row?.repository_status === "1" ? { width: '14%', marginTop: '5px' } : { marginTop: '5px' }}>
                                                                                             {row?.repository_status === "1" &&
                                                                                                 <Tooltip title='Saved in repository' arrow>
                                                                                                     <SavedRepository>

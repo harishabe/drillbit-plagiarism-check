@@ -328,7 +328,7 @@ const folderSubmission = ({
         let detailedData = {
             folderId: folderId,
             paperId: data?.paper_id,
-            name: data?.original_file_name,
+            name: data?.original_fn,
             path: 'proFolderSubmission'
         };
         DownloadOriginalFile(detailedData);
@@ -342,10 +342,8 @@ const folderSubmission = ({
   * show analysis page
   */
     const handleShowAnalysisPage = (e, row) => {
-        console.log('rowrowrowrow', row);
         if (row?.language === FILE_LANGUAGE.REGIONAL) {
             let url = BASE_URL_REGIONAL_ANALYSIS + row.paper_id + '/' + row.d_key;
-            console.log('urlrurlurl', url);
             window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
         } else {
             let token = localStorage.getItem('token');
