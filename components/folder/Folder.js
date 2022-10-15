@@ -16,7 +16,7 @@ import { EllipsisText } from '../../components';
 import { CARD_FOLDER_ACTIONS } from '../../constant/data/Constant';
 
 const Container = styled.div`
-    position: relative;
+    position: relative;    
     background-image: url(${'/img/FolderPng.png'});
     background-repeat: no-repeat;
     color: white;
@@ -59,7 +59,7 @@ const Folder = ({
     };
 
     return (
-        <Container>
+        <Container submissionCount={item.no_of_submissions}>
             <Grid item xs={11.8}>
                 {isAction &&
                     <>

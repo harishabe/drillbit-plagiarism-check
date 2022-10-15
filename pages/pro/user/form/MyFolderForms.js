@@ -94,7 +94,6 @@ const MyFoldersForms = ({
     };
 
     const editAssignments = (data) => {
-        console.log('editAssignmentseditAssignmentseditAssignments', data);
         let editFolderPayload = {
             ...data,
             'exclude_reference': excludeRefBib === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
@@ -503,6 +502,10 @@ const MyFoldersForms = ({
     );
 };
 
+const mapStateToProps = (state) => ({
+    isLoadingFolder: state?.instructorMyFolders?.isLoading,
+});
+
 const mapDispatchToProps = (dispatch) => {
     return {
         CreateFolder: (url, data) => dispatch(CreateFolder(url, data)),
@@ -510,4 +513,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(MyFoldersForms);
+export default connect(mapStateToProps, mapDispatchToProps)(MyFoldersForms);

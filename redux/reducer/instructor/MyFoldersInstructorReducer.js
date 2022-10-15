@@ -51,7 +51,7 @@ const MyFoldersInstructorReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoading: false,
-                editFolderError: action.payload,
+                editFolder: action.payload,
             };
         case types.FETCH_INSTRUCTOR_DELETE_FOLDER_START:
             return {
