@@ -111,7 +111,9 @@ const ZipFileUpload = ({
 
     useEffect(() => {
         if (extractedFileData?.status === 200) {
-            router.push(routerObj);
+            setTimeout(() => {
+                router.push(routerObj);
+            }, 1000);
             UploadZipFileDataClear();
         }
     }, [extractedFileData?.status === 200]);
