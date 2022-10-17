@@ -17,7 +17,6 @@ import {
     SubTitle1
 } from '../../../components';
 import {
-    DownBorderArrowIcon,
     UploadFileIcon
 } from '../../../assets/icon';
 import {
@@ -165,7 +164,6 @@ const AddBulkStudent = ({
                                             variant="contained"
                                             size="large" 
                                             disabled={ isLoadingTemplate }
-                                            startIcon={ !isLoadingTemplate && <DownBorderArrowIcon /> }
                                         >
                                             {isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template'}
                                         </Button>
