@@ -146,7 +146,9 @@ const addBulkUser = ({
                                             onClick={handleDownload}
                                             variant="contained"
                                             size="large"
-                                            startIcon={!isLoadingTemplate && <DownBorderArrowIcon />}>
+                                            disabled={ isLoadingTemplate }
+                                            startIcon={ !isLoadingTemplate && <DownBorderArrowIcon /> }
+                                        >
                                             {isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template'}
                                         </Button>
                                     </Grid>
@@ -174,7 +176,12 @@ const addBulkUser = ({
                                     <Grid container spacing={1}>
                                         <Grid item md={4} xs={4}></Grid>
                                         <Grid item md={4} xs={4} style={{ marginTop: '15px', textAlign: 'center' }}>
-                                            <Button onClick={handleSubmit} variant="contained" size="large">
+                                            <Button
+                                                onClick={ handleSubmit }
+                                                variant="contained"
+                                                size="large"
+                                                disabled={ isLoadingInstructorFileUpload }
+                                            >
                                                 {isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit'}
                                             </Button>
                                         </Grid>

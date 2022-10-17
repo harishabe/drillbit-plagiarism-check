@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Skeleton, Button } from '@mui/material';
+import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 import List from '@mui/material/List';
@@ -104,7 +105,17 @@ const ListView2 = ({
                                                             primary={<Title1 title={item.question} />}
                                                             secondary={
                                                                 <>
-                                                                    {item.answer ? <SubTitle2 title={item.answer} /> :
+                                                                    {
+                                                                        item.answer ? <Box
+                                                                            sx={ {
+                                                                                width: 850,
+                                                                                height: 'auto',
+                                                                                borderRadius: '3px',
+                                                                                backgroundColor: '#E7E7E7',
+                                                                                padding: '12px'
+                                                                            } }>
+                                                                            <SubTitle2 title={ item.answer } />
+                                                                        </Box> : 
                                                                         <>
                                                                             <textarea
                                                                                 rows="5"
@@ -113,6 +124,7 @@ const ListView2 = ({
                                                                                 onChange={handleAnswer}
                                                                                 placeholder='Click to Answer here'
                                                                             >
+
                                                                             </textarea>
                                                                         </>
                                                                     }
