@@ -17,6 +17,7 @@ import {
     SubTitle1
 } from '../../../components';
 import {
+    DownBorderArrowIcon,
     UploadFileIcon
 } from '../../../assets/icon';
 import {
@@ -162,7 +163,9 @@ const AddBulkStudent = ({
                                         <Button
                                             onClick={handleDownload}
                                             variant="contained"
-                                            size="large"
+                                            size="large" 
+                                            disabled={ isLoadingTemplate }
+                                            startIcon={ !isLoadingTemplate && <DownBorderArrowIcon /> }
                                         >
                                             {isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template'}
                                         </Button>
@@ -197,7 +200,12 @@ const AddBulkStudent = ({
                                     <Grid container spacing={1}>
                                         <Grid item md={4} xs={4}></Grid>
                                         <Grid item md={4} xs={4} style={{ marginTop: '15px', textAlign: 'center' }}>
-                                            <Button onClick={handleSubmit} variant="contained" size="large">
+                                            <Button
+                                                onClick={ handleSubmit }
+                                                variant="contained"
+                                                size="large"
+                                                disabled={ isLoadingStudentFileUpload }
+                                            >
                                                 {isLoadingStudentFileUpload ? <BeatLoader color="#fff" /> : 'Submit'}
                                             </Button>
                                         </Grid>
