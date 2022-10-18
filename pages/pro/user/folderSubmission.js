@@ -44,6 +44,7 @@ const columns = [
     { id: 'name', label: 'Author Name' },
     { id: 'title', label: 'Paper Title' },
     { id: 'original_fn', label: 'Original File', isDownload: true },
+    { id: 'lang1', label: 'Language' },
     { id: 'grammar_url', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
     { id: 'paper_id', label: 'Paper ID' },
@@ -51,9 +52,9 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(id, name, title, original_fn, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, language) {
+function createData(id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, language) {
     return {
-        id, name, title, original_fn, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, language
+        id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, language
     };
 }
 
@@ -162,6 +163,7 @@ const folderSubmission = ({
                     submission.name,
                     submission.title,
                     submission.original_file_name,
+                    submission.language,
                     submission.grammar,
                     submission.grammar_url,
                     <SimilarityStatus percent={submission.percent} />,
