@@ -49,6 +49,7 @@ const columns = [
     { id: 'name', label: 'Author Name' },
     { id: 'title', label: 'Paper Title' },
     { id: 'original_fn', label: 'Original File', isDownload: true },
+    { id: 'lang1', label: 'Language' },
     { id: 'grammar_url', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
     { id: 'paper_id', label: 'Paper ID' },
@@ -56,9 +57,9 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(id, d_key, name, title, original_fn, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status) {
+function createData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status) {
     return {
-        id, d_key, name, title, original_fn, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status
+        id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status
     };
 }
 
@@ -153,6 +154,7 @@ const Submission = ({
                 submission.name,
                 submission.title,
                 submission.original_fn,
+                submission.lang1,
                 submission.grammar,
                 submission.grammar_url,
                 submission.lang,
