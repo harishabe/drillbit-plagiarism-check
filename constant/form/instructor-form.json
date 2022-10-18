@@ -24,6 +24,7 @@
         "name": "expiry_date",
         "label": "Select expiry date *",       
         "required": "Select expiry date",
+        "prevDate": true,
         "validationMsg": "Select expiry date"
     },
     

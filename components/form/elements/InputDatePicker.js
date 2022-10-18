@@ -60,7 +60,8 @@ const InputDatePicker = ({
                                 fullWidth
                                 value={value === undefined ? null : value}
                                 onChange={onChange}
-                                //minDate={field.minDate && new Date()}
+                                disableFuture={ field.nextDate }
+                                disablePast={ field.prevDate }
                                 renderInput={(params) => <StyledDatePickerTextField
                                     margin="normal"
                                     {...params}
