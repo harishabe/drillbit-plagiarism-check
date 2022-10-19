@@ -15,7 +15,7 @@ import {
     UploadFileNonEnglish,
     RepositoryUploadData
 } from './common/UploadFile/DetailUploadFile';
-import { InsDashboardWidget } from './instructor/Dashboard';
+import { InsDashboardWidget, InstructorTopStudent } from './instructor/Dashboard';
 import {
     GetInstructorData,
     CreateInstructor,
@@ -123,6 +123,7 @@ const saga = [
     fork(GetDownloadTemplate),
     fork(UploadMultipleInstructor),
     fork(InsDashboardWidget),
+    fork(InstructorTopStudent),
     fork(GetReportData),
     fork(GetReportDataDownload),
     fork(GetReportViewDownload),
