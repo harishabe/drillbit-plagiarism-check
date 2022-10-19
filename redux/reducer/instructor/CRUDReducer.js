@@ -70,6 +70,23 @@ const InstructorCRUDReducer = (state = {}, action) => {
                 isLoading: false,
                 error: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_DELETE_CLASS_START:
+            return {
+                ...state,
+                isLoadingClassDelete: true,
+            };
+        case types.FETCH_INSTRUCTOR_DELETE_CLASS_SUCCESS:
+            return {
+                ...state,
+                isLoadingClassDelete: false,
+                deleteClassData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_DELETE_CLASS_FAIL:
+            return {
+                ...state,
+                isLoadingClassDelete: false,
+                deleteClassData: action.payload,
+            };
         default:
             return state;
     }

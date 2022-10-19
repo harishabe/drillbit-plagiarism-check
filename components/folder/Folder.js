@@ -16,17 +16,28 @@ import { EllipsisText } from '../../components';
 import { CARD_FOLDER_ACTIONS } from '../../constant/data/Constant';
 
 const Container = styled.div`
-    position: relative;    
+    // position: relative;    
+    // background-image: url(${'/img/FolderPng.png'});
+    // background-repeat: no-repeat;
+    // color: white;
+    // width: 250px;
+    // height: 100%;
+    // cursor:pointer;
+
+    position: relative;
     background-image: url(${'/img/FolderPng.png'});
     background-repeat: no-repeat;
-    color: white;
-    width: 250px;
+    width: 100%;
     height: 100%;
-    cursor:pointer;
+    display: flex;
+    color: white;
+    flex-direction: column;
+    justify-content: flex-end;
+
 `;
 
 const Center = styled.div`
-    padding-top: 30%;
+    padding-top: 23%;
     padding-left: 10px;
 `;
 
@@ -36,7 +47,7 @@ const FileCountContainer = styled.div`
 
 const AlignRight = styled.div`
     padding-top: 10%;
-    text-align:right;
+    margin-left:66%;
 `;
 
 const Folder = ({

@@ -35,21 +35,11 @@ const InstructorBreadCrumb = [
     },
 ];
 
-const DownloadButton = styled.div`
-    margin-top:-5px;
-`;
-
-const SkeletonContainer = styled.div`
-    margin-top: 10px;
-    margin-right: 5px;
-`;
-
 const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
     right:30px;
 `;
-
 
 const MyClasses = ({
     GetClassesData,
@@ -57,6 +47,7 @@ const MyClasses = ({
     classesData,
     pageDetails,
     isLoading,
+    isLoadingClassDelete,
     isLoadingDownload
 }) => {
 
@@ -151,7 +142,7 @@ const MyClasses = ({
                     <MyClassesForm />
                 </CreateDrawer>
             </AddButtonBottom>
-            {isLoading ?
+            {isLoading || isLoadingClassDelete ?
                 <Grid container spacing={2}>
                     <Grid item md={4} xs={12}><CardInfoSkeleton /></Grid>
                     <Grid item md={4} xs={12}><CardInfoSkeleton /></Grid>
@@ -179,6 +170,7 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.instructorClasses?.classesData?.page,
     classesData: state?.instructorClasses?.classesData?._embedded?.classDTOList,
     isLoading: state?.instructorClasses?.isLoading,
+    isLoadingClassDelete: state?.instructorCrud?.isLoadingClassDelete,
     isLoadingDownload: state?.submission?.isLoadingDownload,
 });
 

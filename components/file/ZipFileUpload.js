@@ -110,13 +110,14 @@ const ZipFileUpload = ({
     };
 
     useEffect(() => {
-        if (extractedFileData) {            
+        if (extractedFileData) {
             UploadZipFileDataClear();
             setTimeout(() => {
                 router.push(routerObj);
             }, 1000);
         }
     }, [extractedFileData && extractedFileData !== '']);
+    console.log('uploadDatauploadDatauploadData', uploadData);
 
     return (
         <CardView>
@@ -176,7 +177,7 @@ const ZipFileUpload = ({
                         {(uploadData?.fileNames?.length > 0 && !isRepository) &&
                             <FileForm
                                 handleSubmitFile={handleProcessZipFile}
-                                files={uploadData?.fileNames}
+                                files={uploadData?.fileNames?.map((item) => ({ 'name': item }))}
                                 btnTitle='Submit'
                                 isLoading={isLoadingExtractedFile}
                             />}

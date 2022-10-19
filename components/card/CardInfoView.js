@@ -100,8 +100,7 @@ const CardInfoView = ({
             return `${validity} days left`;
         }
     };
-    console.log('itemitem', item);
-
+    
     return (
         <React.Fragment>
             {/* onClick={ (e) => router.push(path) } */}
