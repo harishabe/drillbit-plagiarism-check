@@ -50,7 +50,7 @@ export const convertDate = (str) => {
 };
 
 export const formatDate = (str) => {
-    var date = new Date(str);
+    var date = new Date(str.replace(" ", "T"));
     var dateStr = ("00" + date.getDate()).slice(-2) + "-" +
         ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
         date.getFullYear() + " " +
@@ -65,8 +65,8 @@ export const formatOnlyDate = (str) => {
     return [day, month, date.getFullYear()].join("/");
 };
 
-export const setItemLocalStorage = (key,value) => {
-    localStorage.setItem(key,value);
+export const setItemLocalStorage = (key, value) => {
+    localStorage.setItem(key, value);
 };
 
 export const getItemLocalStorage = (key) => {
