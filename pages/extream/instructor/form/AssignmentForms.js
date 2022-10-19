@@ -455,22 +455,22 @@ const AssignmentForms = ({
 
             setDailySubmissionLimit(editData?.assignmentData?.submissions_limit);
 
-            setAllowAssGrade(editData?.assignmentData?.assignment_grading);
-            setExcludeRefBib(editData?.assignmentData?.ex_references);
-            setExcludeQuote(editData?.assignmentData?.ex_quotes);
-            setExcludeSmallSource(editData?.assignmentData?.ex_smallSources);
-            setSaveToRepo(editData?.assignmentData?.save_to_repository);
-            setAllowSubmission(editData?.assignmentData?.allow_resubmission);
-            setAllowSubmissionDueDate(editData?.assignmentData?.allow_submission_after_due);
-            setGrammarCheck(editData?.assignmentData?.grammar);
-            setChoiceEmailNotification(editData?.assignmentData?.choice_of_email);
-            setAddQuestion(editData?.assignmentData?.questions);
-            setExcludePhrases(editData?.assignmentData?.ex_phrases);
-            setReportAccess(editData?.assignmentData?.report_access );
-            setStudentPaper(editData?.assignmentData?.db_studentpaper);
-            setPublication(editData?.assignmentData?.db_publications);
-            setInternet(editData?.assignmentData?.db_internet);
-            setRepository(editData?.assignmentData?.institution_repository);
+            setAllowAssGrade(editData?.assignmentData?.assignment_grading?.toUpperCase());
+            setExcludeRefBib(editData?.assignmentData?.ex_references?.toUpperCase());
+            setExcludeQuote(editData?.assignmentData?.ex_quotes?.toUpperCase());
+            setExcludeSmallSource(editData?.assignmentData?.ex_smallSources?.toUpperCase());
+            setSaveToRepo(editData?.assignmentData?.save_to_repository?.toUpperCase());
+            setAllowSubmission(editData?.assignmentData?.allow_resubmission?.toUpperCase());
+            setAllowSubmissionDueDate(editData?.assignmentData?.allow_submission_after_due?.toUpperCase());
+            setGrammarCheck(editData?.assignmentData?.grammar?.toUpperCase());
+            setChoiceEmailNotification(editData?.assignmentData?.choice_of_email?.toUpperCase());
+            setAddQuestion(editData?.assignmentData?.questions?.toUpperCase());
+            setExcludePhrases(editData?.assignmentData?.ex_phrases?.toUpperCase());
+            setReportAccess(editData?.assignmentData?.report_access?.toUpperCase());
+            setStudentPaper(editData?.assignmentData?.db_studentpaper?.toUpperCase());
+            setPublication(editData?.assignmentData?.db_publications?.toUpperCase());
+            setInternet(editData?.assignmentData?.db_internet?.toUpperCase());
+            setRepository(editData?.assignmentData?.institution_repository?.toUpperCase());
 
             let editQus = [];
             delete editData.assignmentData.questionsList.date;
