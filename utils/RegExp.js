@@ -14,7 +14,7 @@ export const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
 export const findByExpiryDate = (date) => {
     let presentDate = new Date();
-    let expiryDate = new Date(date);
+    let expiryDate = new Date(date.replace(" ", "T"));
     let differenceInTime = expiryDate.getTime() - presentDate.getTime();
     return `${Math.round(differenceInTime / (1000 * 3600 * 24))}`;
 };
@@ -39,7 +39,7 @@ const dateFormat = (str) => {
 };
 
 export const convertDate = (str) => {
-    var date = new Date(str);
+    var date = new Date(str.replace(" ", "T"));
     var dateStr = date.getFullYear() + "-" +
         ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
         ("00" + date.getDate()).slice(-2) + " " +

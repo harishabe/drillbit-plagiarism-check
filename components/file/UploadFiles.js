@@ -321,8 +321,9 @@ const UploadFiles = ({
                                         />
                                     </ChipContainer>
                                 ))}
-                                {(fileData?.length > 1 && !isRepository && langType === 'Non English') && <ErrorMessageContainer>{UPLOAD_NON_ENGLISH_FILE_MULTIFILE}</ErrorMessageContainer>}
+                                {(fileData?.length > 1 && !isRepository && langType === 'Non English' && !isStudent) && <ErrorMessageContainer>{UPLOAD_NON_ENGLISH_FILE_MULTIFILE}</ErrorMessageContainer>}
                                 {(fileData?.length > 1 && !isRepository && isRegionalFile) && <ErrorMessageContainer>{UPLOAD_NON_ENGLISH_FILE_MULTIFILE}</ErrorMessageContainer>}
+                                {(fileData?.length > 1 && !isRepository && isStudent) && <ErrorMessageContainer>{UPLOAD_NON_ENGLISH_FILE_MULTIFILE}</ErrorMessageContainer>}
                                 {fileWarning && <ErrorMessageContainer>{UPLOAD_FILE_MAX_LIMIT}</ErrorMessageContainer>}
 
                             </DragDropArea>
@@ -365,23 +366,23 @@ const UploadFiles = ({
                                     isLoading={isLoadingUpload || isLoadingNonEng}
                                     langType={langType}
                                 />
+                            }                           
+                            {(fileData?.length === 1 && !isRepository && !isStudent && langType === 'Non English') &&
+                                <FileForm
+                                    handleSubmitFile={handleSubmit}
+                                    files={fileData}
+                                    btnTitle='Submit'
+                                    isLoading={isLoadingUpload || isLoadingNonEng}
+                                    langType={langType}
+                                />
                             }
-                            {(fileData?.length > 0 && !isRepository && isStudent && langType === 'English') &&
+                            {(fileData?.length === 1 && !isRepository && isStudent && langType === 'English') &&
                                 <FileForm
                                     handleSubmitFile={handleSubmit}
                                     files={fileData}
                                     btnTitle='Submit'
                                     isStudent={isStudent}
                                     assName={router.query.assName}
-                                    isLoading={isLoadingUpload || isLoadingNonEng}
-                                    langType={langType}
-                                />
-                            }
-                            {(fileData?.length === 1 && !isRepository && !isStudent && langType === 'Non English') &&
-                                <FileForm
-                                    handleSubmitFile={handleSubmit}
-                                    files={fileData}
-                                    btnTitle='Submit'
                                     isLoading={isLoadingUpload || isLoadingNonEng}
                                     langType={langType}
                                 />
