@@ -8,7 +8,7 @@ import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import { Skeleton, TextField } from '@mui/material';
 import Student from '../../../layouts/Student';
-import { BreadCrumb, CardInfoView, MainHeading, ErrorBlock } from '../../../components';
+import { BreadCrumb, CardInfoView, MainHeading, CardInfoSkeleton, ErrorBlock, CardView } from '../../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { CLASS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
@@ -125,9 +125,9 @@ const MyClasses = ({
             </Box>
             {isLoading ?
                 <Grid container spacing={2}>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
                 </Grid> :
                 <>
                     {classesData?.length > 0 ?
@@ -160,7 +160,9 @@ const MyClasses = ({
                                 />
                             </div>
                         </>
-                        : <ErrorBlock message={ CLASS_NOT_FOUND } />
+                        : <CardView>
+                            <ErrorBlock message={ CLASS_NOT_FOUND } />
+                        </CardView>
                     }
                 </>
             }

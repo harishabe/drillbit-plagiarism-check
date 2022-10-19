@@ -10,9 +10,9 @@ import {
 } from '../../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import Pagination from '@mui/material/Pagination';
-import { Skeleton, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import Student from '../../../layouts/Student';
-import { BreadCrumb, CardInfoView, MainHeading, ErrorBlock } from '../../../components';
+import { BreadCrumb, CardInfoView, CardInfoSkeleton, CardView, MainHeading, ErrorBlock } from '../../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
@@ -147,9 +147,9 @@ const MyAssignments = ({
             </Box>
             {isLoading ?
                 <Grid container spacing={2}>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
                 </Grid> :
                 <>
                     {assignmentData?.length > 0 ?
@@ -183,7 +183,9 @@ const MyAssignments = ({
                                 />
                             </div>
                         </>
-                        : <ErrorBlock message={ASSIGNMENT_NOT_FOUND} />
+                        : <CardView>
+                            <ErrorBlock message={ ASSIGNMENT_NOT_FOUND } />
+                        </CardView>
                     }
 
                 </>
