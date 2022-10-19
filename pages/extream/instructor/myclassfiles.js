@@ -7,8 +7,7 @@ import Instructor from '../../../layouts/Instructor';
 import {
     CardInfoView,
     CreateDrawer,
-    WarningDialog,
-    ErrorBlock
+    WarningDialog
 } from '../../../components';
 import { DeleteWarningIcon } from '../../../assets/icon';
 import MyClassesForm from './form/MyclassesForm';
@@ -21,11 +20,6 @@ import { DeleteClass } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationContainer } from '../../style/index';
 import { CLASS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-`;
 
 const MyClassFiles = ({
     classesData,
@@ -44,7 +38,7 @@ const MyClassFiles = ({
     useEffect(() => {
         let row = '';
         let arr = [];
-        classesData?.map((item, index) => {
+        classesData?.map((item) => {
             const randomColor = Math.floor(Math.random() * 16777215).toString(16);
             item['color'] = "#" + randomColor;
             item['validity'] = findByExpiryDate(item.expiry_date);
@@ -94,7 +88,7 @@ const MyClassFiles = ({
     return (
         <React.Fragment>
             <Grid container spacing={2}>
-                {item?.length > 0 ? item?.map((item, index) => (
+                {item?.map((item, index) => (
                     <Grid key={index} item md={4} xs={12}>
                         <CardInfoView
                             key={index}
@@ -108,14 +102,10 @@ const MyClassFiles = ({
                             handleClick={handleClassEdit}
                             handleDelete={handleClassDelete}
                             statusColor={expiryDateBgColor(item.validity)}
-                            path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
+                            path={{ pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } }}
                         />
                     </Grid>
-                )) :
-                    <Grid item md={12} xs={12}>
-                        <ErrorBlock message={CLASS_NOT_FOUND} />
-                    </Grid>
-                }
+                ))}
             </Grid>
 
             {
@@ -128,15 +118,6 @@ const MyClassFiles = ({
                     isOpen={true}
                 />
             }
-
-
-            <AddButtonBottom>
-                <CreateDrawer
-                    title="Create Class"
-                    isShowAddIcon={true}>
-                    <MyClassesForm />
-                </CreateDrawer>
-            </AddButtonBottom>
 
             {
                 editClasses &&

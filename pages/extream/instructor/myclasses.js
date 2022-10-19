@@ -13,12 +13,14 @@ import {
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import Instructor from '../../../layouts/Instructor';
-import { BreadCrumb, MainHeading } from '../../../components';
+import { BreadCrumb, MainHeading, ErrorBlock, CardInfoSkeleton, CreateDrawer, CardView } from '../../../components';
+import MyClassesForm from './form/MyclassesForm';
 import MyClassFiles from './myclassfiles';
 import { DownloadIcon } from '../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
+import { CLASS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 const InstructorBreadCrumb = [
     {
@@ -41,6 +43,13 @@ const SkeletonContainer = styled.div`
     margin-top: 10px;
     margin-right: 5px;
 `;
+
+const AddButtonBottom = styled.div`
+    position:fixed;
+    bottom: 30px;
+    right:30px;
+`;
+
 
 const MyClasses = ({
     GetClassesData,
@@ -105,25 +114,25 @@ const MyClasses = ({
                 </Grid>
             </Box>
             <Grid container spacing={1}>
-                <Grid item md={ 5 } xs={ 5 }>
+                <Grid item md={5} xs={5}>
                     <MainHeading title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                 </Grid>
-                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
-                        {classesData?.length > 0 &&
+                <Grid item md={7} xs={7} style={{ textAlign: 'right' }}>
+                    {classesData?.length > 0 &&
                         isLoadingDownload ?
-                        <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px', marginTop: '12px' } } />
+                        <Skeleton width={50} style={{ display: 'inline-block', marginRight: '10px', marginTop: '12px' }} />
                         : <Tooltip title="Download csv" arrow>
-                                <IconButton
-                                    color="primary"
-                                    aria-label="download-file"
-                                    size="large"
-                                    onClick={handleDownload}>
-                                    <DownloadIcon />
-                                </IconButton>
-                            </Tooltip>
+                            <IconButton
+                                color="primary"
+                                aria-label="download-file"
+                                size="large"
+                                onClick={handleDownload}>
+                                <DownloadIcon />
+                            </IconButton>
+                        </Tooltip>
                     }
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={{ width: '40%', marginTop: '8px' }}
                         placeholder='Search'
                         onChange={debouncedResults}
                         inputProps={{
@@ -135,19 +144,32 @@ const MyClasses = ({
                     />
                 </Grid>
             </Grid>
-
+            <AddButtonBottom>
+                <CreateDrawer
+                    title="Create Class"
+                    isShowAddIcon={true}>
+                    <MyClassesForm />
+                </CreateDrawer>
+            </AddButtonBottom>
             {isLoading ?
                 <Grid container spacing={2}>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
-                    <Grid item md={4} xs={12}><Skeleton /></Grid>
+                    <Grid item md={4} xs={12}><CardInfoSkeleton /></Grid>
+                    <Grid item md={4} xs={12}><CardInfoSkeleton /></Grid>
+                    <Grid item md={4} xs={12}><CardInfoSkeleton /></Grid>
                 </Grid> :
-                <MyClassFiles
-                    pageDetails={pageDetails}
-                    classesData={classesData}
-                    isLoading={isLoading}
-                    handlePagination={handlePagination}
-                />
+                <>
+                    {classesData?.length > 0 ? <MyClassFiles
+                        pageDetails={pageDetails}
+                        classesData={classesData}
+                        isLoading={isLoading}
+                        handlePagination={handlePagination}
+                    /> :
+                        <CardView>
+                            <ErrorBlock message={CLASS_NOT_FOUND} />
+                        </CardView>}
+                </>
+
+
             }
         </React.Fragment>
     );

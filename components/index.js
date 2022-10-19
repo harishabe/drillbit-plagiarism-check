@@ -33,6 +33,7 @@ export { default as CreateDrawer } from './drawer/CreateDrawer';
 export { default as WarningDialog } from './dialog/WarningDialog';
 export { default as ListSkeleton } from './skeleton/ListSkeleton';
 export { default as TableSkeleton } from './skeleton/TableSkeleton';
+export { default as CardInfoSkeleton } from './skeleton/CardInfoSkeleton';
 export { default as DialogModal } from './dialog/DialogModal';
 export { default as ErrorBlock } from './error/ErrorBlock';
 export { default as UploadFiles } from './file/UploadFiles';

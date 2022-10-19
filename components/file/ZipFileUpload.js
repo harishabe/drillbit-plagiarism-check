@@ -110,13 +110,13 @@ const ZipFileUpload = ({
     };
 
     useEffect(() => {
-        if (extractedFileData?.status === 200) {
+        if (extractedFileData) {            
+            UploadZipFileDataClear();
             setTimeout(() => {
                 router.push(routerObj);
             }, 1000);
-            UploadZipFileDataClear();
         }
-    }, [extractedFileData?.status === 200]);
+    }, [extractedFileData && extractedFileData !== '']);
 
     return (
         <CardView>
@@ -155,7 +155,7 @@ const ZipFileUpload = ({
                                 ))}
                             </div>
                             <div style={{ marginTop: '10px' }}>
-                                {uploadData?.fileNames?.map((files,index) => (
+                                {uploadData?.fileNames?.map((files, index) => (
                                     <ChipContainer key={index}>
                                         <Chip
                                             label={files}
