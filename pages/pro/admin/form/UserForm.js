@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateInstructorData, EditData } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/instructor-form.json';
@@ -9,7 +9,7 @@ import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
-import { FORM_VALIDATION } from '../../../../constant/data/Constant';
+//import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
 const UserForm = ({
     CreateInstructorData,
@@ -29,119 +29,119 @@ const UserForm = ({
         mode: 'all',
     });
 
-    const expiryDate = useWatch({
-        control,
-        name: 'expiry_date',
-    });
+    // const expiryDate = useWatch({
+    //     control,
+    //     name: 'expiry_date',
+    // });
 
-    const allocationDocs = useWatch({
-        control,
-        name: 'plagiarism',
-    });
+    // const allocationDocs = useWatch({
+    //     control,
+    //     name: 'plagiarism',
+    // });
 
-    const grammarDocs = useWatch({
-        control,
-        name: 'grammar',
-    });
+    // const grammarDocs = useWatch({
+    //     control,
+    //     name: 'grammar',
+    // });
 
-    useEffect(() => {
-        if (allocationDocs !== undefined) {
-            if (allocationDocs > remainingDocuments) {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
-                        item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
-                    }
-                    if (item?.field_type === 'button') {
-                        item['isDisabled'] = true;
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
-                        item['errorMsg'] = '';
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            }
-        }
+    // useEffect(() => {
+    //     if (allocationDocs !== undefined) {
+    //         if (allocationDocs > remainingDocuments) {
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+    //                     item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
+    //                 }
+    //                 if (item?.field_type === 'button') {
+    //                     item['isDisabled'] = true;
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
+    //         } else {
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+    //                     item['errorMsg'] = '';
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
+    //         }
+    //     }
 
-        if (grammarDocs !== undefined) {
-            if (grammarDocs > remainingGrammar) {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
-                    }
-                    if (item?.field_type === 'button') {
-                        item['isDisabled'] = true;
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['errorMsg'] = '';
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            }
-        }
+    //     if (grammarDocs !== undefined) {
+    //         if (grammarDocs > remainingGrammar) {
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+    //                     item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
+    //                 }
+    //                 if (item?.field_type === 'button') {
+    //                     item['isDisabled'] = true;
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
+    //         } else {
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+    //                     item['errorMsg'] = '';
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
+    //         }
+    //     }
 
-        if ((new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'datepicker') {
-                    item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
-                }
-                if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
-                }
-                return item;
-            });
-            setFormJsonField(fields);
-        } else if ((new Date().getTime() > new Date(expiryDate).getTime()) && !(new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'datepicker') {
-                    item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
-                }
-                if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
-                }
-                return item;
-            });
-            setFormJsonField(fields);
-        } else {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'datepicker') {
-                    item['info'] = '';
-                }
-                return item;
-            });
-            setFormJsonField(fields);
-        }
+    //     if ((new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'datepicker') {
+    //                 item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
+    //             }
+    //             if (item?.field_type === 'button') {
+    //                 item['isDisabled'] = true;
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     } else if ((new Date().getTime() > new Date(expiryDate).getTime()) && !(new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'datepicker') {
+    //                 item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
+    //             }
+    //             if (item?.field_type === 'button') {
+    //                 item['isDisabled'] = true;
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     } else {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'datepicker') {
+    //                 item['info'] = '';
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     }
 
-        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar &&
-            new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'button') {
-                    item['isDisabled'] = new Date().getTime() > new Date(expiryDate).getTime() ? true : false;
-                }
-                return item;
-            });
-            setFormJsonField(fields);
-        } else if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date().getTime() < new Date(expiryDate).getTime())) {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'button') {
-                    item['isDisabled'] = new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime() ? true : false;
-                }
-                return item;
-            });
-            setFormJsonField(fields);
-        }
-    }, [allocationDocs, grammarDocs, expiryDate]);
+    //     if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar &&
+    //         new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'button') {
+    //                 item['isDisabled'] = new Date().getTime() > new Date(expiryDate).getTime() ? true : false;
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     } else if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date().getTime() < new Date(expiryDate).getTime())) {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'button') {
+    //                 item['isDisabled'] = new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime() ? true : false;
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     }
+    // }, [allocationDocs, grammarDocs, expiryDate]);
 
     const onSubmit = (data) => {
         if (editOperation) {
