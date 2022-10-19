@@ -78,6 +78,15 @@ export const UploadFileDataClear = () => {
 };
 
 /**
+ * Zip file clear uploaded data
+ */
+ export const UploadZipDataClear = () => {
+    return {
+        type: types.FETCH_INSTRUCTOR_ZIP_EXTRACTED_DATA_CLEAR
+    };
+};
+
+/**
  * Edit class
  */
 export const EditClass = (classId, requestPayload) => {

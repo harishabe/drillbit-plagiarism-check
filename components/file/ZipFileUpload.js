@@ -30,7 +30,8 @@ import {
 import {
     SubmissionListUpload,
     SubmissionListExtractedFileUpload,
-    UploadZipFileDataClear
+    UploadZipFileDataClear,
+    UploadZipDataClear
 } from '../../redux/action/instructor/InstructorAction';
 
 const ZipFileUpload = ({
@@ -44,6 +45,7 @@ const ZipFileUpload = ({
     extractedFileData,
     isLoadingExtractedFile,
     UploadZipFileDataClear,
+    UploadZipDataClear,
     isRepository,
     title,
     allowedFormat,
@@ -112,6 +114,7 @@ const ZipFileUpload = ({
     useEffect(() => {
         if (extractedFileData) {
             UploadZipFileDataClear();
+            UploadZipDataClear();
             setTimeout(() => {
                 router.push(routerObj);
             }, 1000);
@@ -210,6 +213,7 @@ const mapDispatchToProps = (dispatch) => {
         SubmissionListUpload: (apiUrl, data) => dispatch(SubmissionListUpload(apiUrl, data)),
         SubmissionListExtractedFileUpload: (apiUrl, data) => dispatch(SubmissionListExtractedFileUpload(apiUrl, data)),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
+        UploadZipDataClear: () => dispatch(UploadZipDataClear()),
     };
 };
 

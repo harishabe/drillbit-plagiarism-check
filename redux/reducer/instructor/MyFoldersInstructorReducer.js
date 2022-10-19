@@ -126,6 +126,11 @@ const MyFoldersInstructorReducer = (state = {}, action) => {
                 isLoadingExtractedFile: false,
                 extractedFileData: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_ZIP_EXTRACTED_DATA_CLEAR:
+            return {
+                ...state,
+                extractedFileData: '',
+            };
         case types.FETCH_ADMIN_MULTIPLE_STUDENT_UPLOAD_DATA_CLEAR:
             return {
                 ...state,
