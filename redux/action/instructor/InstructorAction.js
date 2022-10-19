@@ -7,6 +7,14 @@ export const GetWidgetCount = (url) => {
 };
 
 /**
+ * Get top students
+ */
+export const GetTopStudent = () => {
+    return {
+        type: types.FETCH_INSTRUCTOR_DASH_TOP_STUDENT_START,
+    };
+};
+/**
  * Get all classes data
  */
 export const GetClassesData = (paginationPayload) => {

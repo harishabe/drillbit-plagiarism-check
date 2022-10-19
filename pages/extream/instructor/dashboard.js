@@ -6,7 +6,10 @@ import Grid from '@mui/material/Grid';
 import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
 import Instructor from '../../../layouts/Instructor';
-import { GetWidgetCount } from '../../../redux/action/instructor/InstructorAction';
+import {
+    GetWidgetCount,
+    GetTopStudent
+} from '../../../redux/action/instructor/InstructorAction';
 import {
     WidgetCard,
     ColumnChart,
@@ -60,8 +63,10 @@ const CurveChartContainer = styled.div`
 
 const Dashboard = ({
     GetWidgetCount,
+    GetTopStudent,
     instructorDashboardData,
-    isLoading
+    isLoading,
+    isLoadingTopStudent
 }) => {
 
     const router = useRouter();
@@ -70,6 +75,7 @@ const Dashboard = ({
 
     useEffect(() => {
         GetWidgetCount(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DASHBOARD_WIDGET);
+        GetTopStudent();
     }, []);
 
     useEffect(() => {
@@ -126,16 +132,16 @@ const Dashboard = ({
                     <Grid item md={ 4 } xs={ 12 }>
                         <CardView height={ instructorDashboardData?.data?.top_students?.students?.length === 0 ? '' : '440px' }>
                             <Heading title='Top Students' />
-                            { isLoading ?
+                            { isLoadingTopStudent ?
                                 <>
                                     <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
                                 </> :
                                 <>
-                                    { instructorDashboardData?.data?.top_students?.students?.length > 0 ?
+                                    { instructorDashboardData?.topStudent?.students?.length > 0 ?
                                         <>
-                                            <TopStudents topStudentData={ instructorDashboardData?.data?.top_students?.students }
+                                            <TopStudents topStudentData={ instructorDashboardData?.topStudent?.students }
                                             />
                                             <CurveChartContainer>
                                                 <CurveChart
@@ -143,11 +149,11 @@ const Dashboard = ({
                                                     strokeCurve="smooth"
                                                     graphName="No. students"
                                                     graphData={ [
-                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.zeroTen,
-                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.elevenFourty,
-                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.fourtyOneSixty,
-                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.sixtyOneHundred,
-                                                        instructorDashboardData?.data?.top_students?.submissionsGraph?.docError,
+                                                        instructorDashboardData?.topStudent?.submissionsGraph?.zeroTen,
+                                                        instructorDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
+                                                        instructorDashboardData?.topStudent?.submissionsGraph?.fourtyOneSixty,
+                                                        instructorDashboardData?.topStudent?.submissionsGraph?.sixtyOneHundred,
+                                                        instructorDashboardData?.topStudent?.submissionsGraph?.docError,
                                                     ] }
                                                     xaxisLabelShow={ false }
                                                     yaxisLabelShow={ false }
@@ -277,11 +283,13 @@ const Dashboard = ({
 const mapStateToProps = (state) => ({
     instructorDashboardData: state?.instructorDashboard,
     isLoading: state?.instructorDashboard?.isLoading,
+    isLoadingTopStudent: state?.instructorDashboard?.isLoadingTopStudent,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetWidgetCount: (url) => dispatch(GetWidgetCount(url)),
+        GetTopStudent: () => dispatch(GetTopStudent()),
     };
 };
 
