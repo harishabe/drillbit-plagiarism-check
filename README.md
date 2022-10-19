@@ -16,7 +16,6 @@ USERNAME                    |     PASSWORD             |       ROLE
 yatheendra72@gmail.com      |     12345678             |       admin
 admin@xtream                |     123456               | 
 satheeshreddy45@gmail.com   |     12345678             | 
-
 ---------------------------------------------------------------------------------
 sanjay@gmail.com            |     123456               |       student
 drillbitsatish@gmail.com    |     12345678             |       
