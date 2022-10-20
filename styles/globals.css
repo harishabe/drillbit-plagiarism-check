@@ -417,3 +417,7 @@ a {
 .css-g19bii-MuiTooltip-tooltip{
   color: #fff;
 }
+
+.Toastify__toast{
+  font-family: 'Montserrat';
+}

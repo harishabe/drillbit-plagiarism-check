@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Grid, Link, Autocomplete, Checkbox, TextField, Skeleton } from '@mui/material';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import { Grid, Link, Autocomplete, Checkbox, TextField, Skeleton, IconButton, Tooltip } from '@mui/material';
 import {
     Title,
     SubTitle,
     SubTitle1,
-    CardView
+    CardView,
+    MainHeading
 } from './../../components';
 import FileForm from './FileForm';
 import RepositoryFileForm from './RepositoryFileForm';
@@ -267,8 +269,8 @@ const UploadFiles = ({
             UploadNonEnglishDataClear();
             setTimeout(() => {
                 router.push(routerObj);
-            },1000);
-           //router.push(routerObj);
+            }, 1000);
+            //router.push(routerObj);
         }
     }, [uploadFileNonEng && uploadFileNonEng !== '']);
 
@@ -285,16 +287,23 @@ const UploadFiles = ({
         }
     }, [language === 'Non English' || isRegionalFile]);
 
+    const handleBack = (e) => {
+        e.preventDefault();
+        router.push(routerObj);
+    }
+
     return (
         <>
             <CardView>
-                <ContentCenter>
-                    <Title
-                        color='#020B50'
-                        title={title}
-                    />
-                </ContentCenter>
                 <DragAreaPadding>
+                    <div style={{ display: 'flex' }}>
+                        <Tooltip title="Back" arrow style={{ marginTop: '-12px' }}>
+                            <IconButton size="large" onClick={handleBack}>
+                                <ArrowBackOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <MainHeading title='Upload files for plagiarism check' />
+                    </div>
                     <Grid container spacing={1}>
                         <Grid item md={12} xs={12}>
                             <DragDropArea>
@@ -348,7 +357,6 @@ const UploadFiles = ({
                                     }
                                 </Grid>}
 
-
                             {fileData?.length > 0 && isRepository &&
                                 <RepositoryFileForm
                                     handleSubmitRepository={handleSubmitRepository}
@@ -366,7 +374,7 @@ const UploadFiles = ({
                                     isLoading={isLoadingUpload || isLoadingNonEng}
                                     langType={langType}
                                 />
-                            }                           
+                            }
                             {(fileData?.length === 1 && !isRepository && !isStudent && langType === 'Non English') &&
                                 <FileForm
                                     handleSubmitFile={handleSubmit}

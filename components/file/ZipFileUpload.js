@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
-import { Grid, Link, Button } from '@mui/material';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import { Grid, Link, Button, Tooltip, IconButton } from '@mui/material';
 import BeatLoader from 'react-spinners/BeatLoader';
 import {
     UploadFileIcon
@@ -10,7 +11,8 @@ import {
 import {
     Title,
     CardView,
-    SubTitle1
+    SubTitle1,
+    MainHeading 
 } from '../../components';
 import FileForm from './FileForm';
 import RepositoryFileFormZip from './RepositoryFileFormZip';
@@ -120,17 +122,23 @@ const ZipFileUpload = ({
             }, 1000);
         }
     }, [extractedFileData && extractedFileData !== '']);
-    console.log('uploadDatauploadDatauploadData', uploadData);
+
+    const handleBack = (e) => {
+        e.preventDefault();
+        router.push(routerObj);
+    }
 
     return (
         <CardView>
-            <ContentCenter>
-                <Title
-                    color='#020B50'
-                    title={title}
-                />
-            </ContentCenter>
             <DragAreaPadding>
+                <div style={{ display: 'flex' }}>
+                    <Tooltip title="Back" arrow style={{ marginTop: '-12px' }}>
+                        <IconButton size="large" onClick={handleBack}>
+                            <ArrowBackOutlinedIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <MainHeading title='Upload files for plagiarism check' />
+                </div>
                 <Grid container spacing={1}>
                     <Grid item md={12} xs={12}>
                         <DragDropArea>
@@ -139,7 +147,7 @@ const ZipFileUpload = ({
                             <SubTitle1 title={notAllowedFormat} />
                             <Link style={{ marginLeft: '5px', display: 'block' }}>
                                 <ChooseLabel for="file-upload">
-                                    browse your zip here
+                                    Browse your zip here
                                 </ChooseLabel>
                             </Link>
                             <Input

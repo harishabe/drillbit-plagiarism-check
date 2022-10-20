@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
-import { Grid, Link } from '@mui/material';
+import { Grid, Link, Tooltip, IconButton } from '@mui/material';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import useDrivePicker from 'react-google-drive-picker';
 import FileForm from './FileForm';
 import RepositoryFileForm from './RepositoryFileForm';
 import {
     Title,
     CardView,
-    SubTitle1
+    SubTitle1,
+    MainHeading
 } from '../../components';
 import {
     DragAreaPadding,
@@ -48,8 +50,9 @@ const GDriveFileUpload = ({
     const handleOpenPicker = () => {
         openPicker({
             //clientId: '32303602935-bbvsv5k7sksm71pipiru8jur6puhtm66.apps.googleusercontent.com',
-            clientId:'322042705830-t41sd3gqi37845gdgc6khardvt9bq8gu.apps.googleusercontent.com',
-            developerKey: 'AIzaSyBdE0t7rV5mH4grsIzKgVtJmlDMqf7zMZI',
+
+            clientId: '32303602935-7bv10gd67fipvuvg4r3ffdu5a3hh79gs.apps.googleusercontent.com',
+            developerKey: 'AIzaSyBaI_bwyb-qSkgUlZkIMkbkul_gICLRBwc',
             viewId: 'DOCS',
             showUploadView: true,
             showUploadFolders: true,
@@ -104,27 +107,41 @@ const GDriveFileUpload = ({
 
     useEffect(() => {
         if (uploadFileSuccess) {
-            console.log('routerObjrouterObj', routerObj);
             router.push(routerObj);
             UploadGdriveFileDataClear();
         }
     }, [uploadFileSuccess?.status === 200]);
 
+
+    const handleBack = (e) => {
+        e.preventDefault();
+        router.push(routerObj);
+    };
+
     return (
         <CardView>
             <ContentCenter>
-                <Title
+                {/* <Title
                     color='#020B50'
                     title={title}
-                />
+                /> */}
+
                 <DragAreaPadding>
+                    <div style={{ display: 'flex' }}>
+                        <Tooltip title="Back" arrow style={{ marginTop: '-12px' }}>
+                            <IconButton size="large" onClick={handleBack}>
+                                <ArrowBackOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <MainHeading title='Upload files for plagiarism check' />
+                    </div>
                     <Grid container spacing={1}>
                         <Grid item md={12} xs={12}>
                             <DragDropArea>
                                 <div>
                                     <GoogleDriveIcon />
                                 </div>
-                                <SubTitle1 title={ allowedFormat } />
+                                <SubTitle1 title={allowedFormat} />
                                 <Link style={{ marginLeft: '5px' }}>
                                     <ChooseLabel onClick={() => handleOpenPicker()}>
                                         Browse your file from google drive
@@ -139,20 +156,20 @@ const GDriveFileUpload = ({
                                         </ChipContainer>}
                                 </div>
                             </DragDropArea>
-                            { driveFile && driveFile?.length > 0 &&
+                            {driveFile && driveFile?.length > 0 &&
                                 <>
-                                    { !isRepository ? <FileForm
-                                        handleSubmitFile={ handleSubmit }
-                                        files={ documnet }
+                                    {!isRepository ? <FileForm
+                                        handleSubmitFile={handleSubmit}
+                                        files={documnet}
                                         btnTitle='Submit'
-                                        isLoading={ isLoadingFileDrive }
+                                        isLoading={isLoadingFileDrive}
                                     /> :
                                         <RepositoryFileForm
-                                            handleSubmitRepository={ handleSubmit }
-                                            files={ documnet }
+                                            handleSubmitRepository={handleSubmit}
+                                            files={documnet}
                                             btnTitle='Submit'
-                                            isLoading={ isLoadingFileDrive }
-                                        /> 
+                                            isLoading={isLoadingFileDrive}
+                                        />
                                     }
                                 </>
                             }

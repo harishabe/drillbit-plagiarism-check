@@ -33,11 +33,10 @@ const Container = styled.div`
     color: white;
     flex-direction: column;
     justify-content: flex-end;
-
 `;
 
 const Center = styled.div`
-    padding-top: 23%;
+    padding-top: 32%;
     padding-left: 10px;
 `;
 
@@ -74,13 +73,11 @@ const Folder = ({
             <Grid item xs={11.8}>
                 {isAction &&
                     <>
-                        <AlignRight>
-                            <Tooltip title={CARD_FOLDER_ACTIONS} arrow>
-                                <IconButton onClick={handleMenuClick}>
-                                    <ThreeDotIcon />
-                                </IconButton>
-                            </Tooltip>
-                        </AlignRight>
+                        <Tooltip title={CARD_FOLDER_ACTIONS} arrow>
+                            <IconButton onClick={handleMenuClick}>
+                                <ThreeDotIcon />
+                            </IconButton>
+                        </Tooltip>
                         <Menu
                             id="action-menu"
                             anchorEl={anchorEl}

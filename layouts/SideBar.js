@@ -152,10 +152,16 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/extream/student/uploadFile/nonEnglishFile' && name === 'My Classes') {
             return true;
+        } else if (router.pathname === '/extream/instructor/uploadFileFolder' && name === 'My Classes') {
+            return true;
+        } else if (router.pathname === '/extream/instructor/uploadFileFolder/englishFile' && name === 'My Folders') {
+            return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }
-        
+
+
+
     }
 
     React.useEffect(() => {

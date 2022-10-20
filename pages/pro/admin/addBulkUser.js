@@ -136,7 +136,7 @@ const addBulkUser = ({
                                     <ArrowBackOutlinedIcon />
                                 </IconButton>
                             </Tooltip>
-                            <div style={{ padding: '0px 150px' }}>
+                            <div style={{ padding: '0px 50px' }}>
                                 <Grid container spacing={1}>
                                     <Grid item md={6} xs={6}>
                                         <MainHeading title='Add Multiple Users' />
