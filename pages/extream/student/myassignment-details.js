@@ -31,7 +31,7 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import SubmissionHistory from './submission-history';
 import QA from './q&a';
 import Feedback from './feedback';
-import { formatOnlyDate, getItemLocalStorage } from '../../../utils/RegExp';
+import { dateFormat, getItemLocalStorage } from '../../../utils/RegExp';
 
 const tabMenu = [
     {
@@ -273,7 +273,7 @@ const MyAssignmentDetails = ({
                     <Grid item md={3} xs={12}>
                         <CardView>
                             <Heading title={<EllipsisText value={'Date'} variant={'h2'} charLength={15} />} color="common.gray" />
-                            <Heading title={isLoadingHeader ? <Skeleton /> : <EllipsisText value={formatOnlyDate(headerData?.createdDate) + '-' + formatOnlyDate(headerData?.endDate)} charLength={23} />} />
+                            <Heading title={ isLoadingHeader ? <Skeleton /> : <EllipsisText value={ dateFormat(headerData?.createdDate) + '- ' + dateFormat(headerData?.endDate) } charLength={ 23 } /> } />
                         </CardView>
                     </Grid>
                 </Grid>

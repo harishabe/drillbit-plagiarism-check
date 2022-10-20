@@ -110,7 +110,7 @@ const MyClassesForm = ({
             let a = {
                 'class_name': editData.name,
                 'description': editData.description,
-                'expiry_date': convertDate(editData.expiry_date),
+                'expiry_date': editData.expiry_date,
             };
             const fields = [
                 'class_name',
