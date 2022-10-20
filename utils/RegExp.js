@@ -39,8 +39,7 @@ const dateFormat = (str) => {
 };
 
 export const convertDate = (str) => {
-    console.log('strstrstr',str);
-    var date = new Date(str.replace(" ", "T"));
+    var date = new Date(str);
     var dateStr = date.getFullYear() + "-" +
         ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
         ("00" + date.getDate()).slice(-2) + " " +
