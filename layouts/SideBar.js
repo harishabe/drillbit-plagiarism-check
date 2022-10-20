@@ -154,12 +154,16 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/extream/instructor/uploadFileFolder' && name === 'My Classes') {
             return true;
+        } else if (router.pathname === '/extream/instructor/uploadFileFolder/englishFile' && name === 'My Folders') {
+            return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }
 
+
+
     }
-    
+
     React.useEffect(() => {
         let role = localStorage.getItem('role');
         if (role === 'admin' && router.pathname.split('/')[1] === 'extream' && router.pathname.split('/')[2] === Role?.admin) {

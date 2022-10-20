@@ -5,7 +5,7 @@ export const Input = styled('input')({
 });
 
 export const DragAreaPadding = styled('div')({
-    padding: '1px 10px'
+    padding: '1px 50px'
 });
 
 export const DragDropArea = styled('div')({
@@ -14,7 +14,7 @@ export const DragDropArea = styled('div')({
     padding: '15px',
     background: '#F9FBFF',
     textAlign: 'center',
-    marginTop: '20px',
+    marginTop: '5px',
     padding: '50px'
 });
 
@@ -30,6 +30,6 @@ export const ChipContainer = styled('div')({
 });
 
 export const ContentCenter = styled('div')({
-    textAlign: 'center'
+    //textAlign: 'center'
 });
 
