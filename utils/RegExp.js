@@ -32,6 +32,12 @@ export const expiryDateBgColor = (validity) => {
     }
 };
 
+/**
+ * 
+ * @param {*} str
+ * Below function using only in student role -> submission page at header 
+ * @returns 
+ */
 export const dateFormat = (str) => {
     // let date = new Date(str),
     //     year = date.getFullYear(),
@@ -45,8 +51,14 @@ export const dateFormat = (str) => {
     return dateStr;
 };
 
+/**
+ * 
+ * @param {*} str 
+ * using below convertDate function only for post request to api
+ * @returns 
+ */
 export const convertDate = (str) => {
-    var date = new Date(str.replace(" ", "T"));
+    var date = new Date(str);
     var dateStr = date.getFullYear() + "-" +
         ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
         ("00" + date.getDate()).slice(-2) + " " +
