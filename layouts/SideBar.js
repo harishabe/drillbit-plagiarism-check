@@ -159,9 +159,6 @@ const SideBar = ({ open }) => {
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }
-
-
-
     }
 
     React.useEffect(() => {

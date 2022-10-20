@@ -40,8 +40,8 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
-function createData(name, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status) {
-    return { name, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status };
+function createData(name, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status) {
+    return { name, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status };
 }
 
 const SubmissionHistory = ({
@@ -61,6 +61,7 @@ const SubmissionHistory = ({
 
     const columns = [
         { id: 'name', label: 'Filename', isDownload: true, minWidth: 140 },
+        { id: 'lang1', label: 'Language' },
         { id: 'paper_id', label: 'Paper ID', minWidth: 140 },
         { id: 'date_up', label: 'Date', minWidth: 140 },
         { id: 'grammar_url', label: 'Grammar', minWidth: 80 },
@@ -77,6 +78,7 @@ const SubmissionHistory = ({
             row =
                 createData(
                     submission.original_fn,
+                    submission.lang1,
                     submission.paper_id,
                     submission.date_up,
                     submission.grammar,
