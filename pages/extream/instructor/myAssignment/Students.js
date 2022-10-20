@@ -34,12 +34,12 @@ import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import StudentInstitute from '../studentInstitute';
-import { removeCommaWordEnd, setItemLocalStorage } from '../../../../utils/RegExp';
+import { removeCommaWordEnd, setItemLocalStorage, platform } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV, WARNING_MESSAGES } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../../constant/data/Constant';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -56,7 +56,7 @@ const SearchField = styled.div`
 const DownloadField = styled.div`
     position:absolute;
     top: 125px;
-    right:225px;
+    right:${ platform === WINDOW_PLATFORM ? '245px' : '225px' };
 `;
 
 const SkeletonContainer = styled.div`

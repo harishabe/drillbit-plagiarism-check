@@ -11,6 +11,7 @@ export const renameKeys = (obj, newKeys) => {
 };
 
 export const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+export const platform = typeof window !== "undefined" && window.navigator.platform;
 
 export const findByExpiryDate = (date) => {
     let presentDate = new Date();
@@ -39,7 +40,8 @@ const dateFormat = (str) => {
 };
 
 export const convertDate = (str) => {
-    var date = new Date(str.replace(" ", "T"));
+    var date = new Date();
+    // var date = new Date(str.replace(" ", "T"));
     var dateStr = date.getFullYear() + "-" +
         ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
         ("00" + date.getDate()).slice(-2) + " " +

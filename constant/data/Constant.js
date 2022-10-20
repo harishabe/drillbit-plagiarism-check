@@ -5,6 +5,8 @@ export const FILE_TYPE = {
     value: 'Assignment Instructor.pdf'
 };
 
+export const WINDOW_PLATFORM = "MacIntel";
+
 export const FILE_LANGUAGE = {
     'REGIONAL':'Regional'
 };

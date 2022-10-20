@@ -47,7 +47,7 @@ const FileCountContainer = styled.div`
 
 const AlignRight = styled.div`
     padding-top: 10%;
-    margin-left:66%;
+    margin-left:85%;
 `;
 
 const Folder = ({
