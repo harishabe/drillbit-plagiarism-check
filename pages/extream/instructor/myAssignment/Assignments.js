@@ -37,8 +37,8 @@ import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV, WARNING_MESSAGES } from '../../../../constant/data/Constant';
-import { formatDate } from '../../../../utils/RegExp';
+import { DOWNLOAD_CSV, WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../../constant/data/Constant';
+import { formatDate, platform } from '../../../../utils/RegExp';
 
 const AddButtonBottom = styled.div`
     position: fixed;
@@ -60,7 +60,7 @@ const SearchField = styled.div`
 const DownloadField = styled.div`
     position:absolute;
     top: 125px;
-    right:225px;
+    right:${ platform === WINDOW_PLATFORM ? '245px' : '225px' };
 `;
 
 const DownloadButton = styled.div`
