@@ -88,7 +88,7 @@ const Moodle = ({
                         handleDrawerClose={handleCloseDrawer}
                     >
                         <MoodleForm
-                            editData={isLoadingTypeDetail}
+                            editData={integrationTypeData}
                             isLoadingUpload={isLoadingUpload}
                         />
                     </CreateDrawer>

@@ -51,25 +51,23 @@ const AccountInfo = ({
     }, []);
 
     useEffect(() => {
-        if (role === Role.proAdmin) {
-            let row = [
-                createData('Institution Name', accountInfo?.institution_name ? accountInfo?.institution_name : '-'),
-                createData('Username', accountInfo?.name ? accountInfo?.name : '-'),
-                createData('User ID', accountInfo?.account_id ? accountInfo?.account_id : '-'),
-                createData('User Email Address', accountInfo?.email ? accountInfo?.email : '-'),
-                createData('Creation Date', accountInfo?.created_date ? accountInfo?.created_date : '-'),
-                // createData("Last Login", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
-                createData('Total Documents Alloted', accountInfo?.total_documents_alloted ? accountInfo?.total_documents_alloted : '-'),
-                createData('Total Documents Submitted', accountInfo?.total_documents_submitted ? accountInfo?.total_documents_submitted : '-'),
-                createData('Files Saved to Repository', accountInfo?.total_documents_added_to_Repository ? accountInfo?.total_documents_added_to_Repository : '-'),
-                createData('Account Expires on', accountInfo?.expiry_date ? accountInfo?.expiry_date : '-'),
-                createData('Account Type', accountInfo?.license_type ? accountInfo?.license_type : '-'),
-                createData('Product Name', accountInfo?.product_name ? accountInfo?.product_name : '-'),
-                createData('Admin Account', accountInfo?.email ? accountInfo?.email : '-'),
-                createData('Time Zone', accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
-            ];
-            setRows([...row]);
-        }
+        let row = [
+            createData('Institution Name', accountInfo?.institution_name ? accountInfo?.institution_name : '-'),
+            createData('Username', accountInfo?.name ? accountInfo?.name : '-'),
+            createData('User ID', accountInfo?.account_id ? accountInfo?.account_id : '-'),
+            createData('User Email Address', accountInfo?.email ? accountInfo?.email : '-'),
+            createData('Creation Date', accountInfo?.created_date ? accountInfo?.created_date : '-'),
+            // createData("Last Login", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
+            createData('Total Documents Alloted', accountInfo?.total_documents_alloted ? accountInfo?.total_documents_alloted : '-'),
+            createData('Total Documents Submitted', accountInfo?.total_documents_submitted ? accountInfo?.total_documents_submitted : '-'),
+            createData('Files Saved to Repository', accountInfo?.total_documents_added_to_Repository ? accountInfo?.total_documents_added_to_Repository : '-'),
+            createData('Account Expires on', accountInfo?.expiry_date ? accountInfo?.expiry_date : '-'),
+            createData('Account Type', accountInfo?.license_type ? accountInfo?.license_type : '-'),
+            createData('Product Name', accountInfo?.product_name ? accountInfo?.product_name : '-'),
+            createData('Admin Account', accountInfo?.email ? accountInfo?.email : '-'),
+            createData('Time Zone', accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
+        ];
+        setRows([...row]);
     }, [accountInfo]);
 
     const handleChange = (data) => {
@@ -81,32 +79,30 @@ const AccountInfo = ({
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10}>
                         <MainHeading title='Account Information' />
-                        { role === Role.proAdmin &&
-                            <form>
-                                <label htmlFor="contained-button-file">
-                                    <Input accept="image/*" id="contained-button-file" onChange={ handleChange } multiple type="file" />
-                                    <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
-                                        <>
-                                            <UploadIcon />
-                                            <UploadButtonAlign>
-                                                <SubTitle textColor='#fff' title='Upload Logo' />
-                                            </UploadButtonAlign>
-                                        </>
-                                    </Button>
+                        <form>
+                            <label htmlFor="contained-button-file">
+                                <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
+                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
+                                    <>
+                                        <UploadIcon />
+                                        <UploadButtonAlign>
+                                            <SubTitle textColor='#fff' title='Upload Logo' />
+                                        </UploadButtonAlign>
+                                    </>
+                                </Button>
 
-                                    <SubTitle2 title='Supported formats : JPG,PNG' />
-                                </label>
-                            </form>
-                        }
+                                <SubTitle2 title='Supported formats : JPG,PNG' />
+                            </label>
+                        </form>
                     </Grid>
-                    <Grid item md={ 2 } style={ { textAlign: 'right' } }>
-                        { accountInfo &&
+                    <Grid item md={2} style={{ textAlign: 'right' }}>
+                        {accountInfo &&
                             <>
-                                <ImgLogo src={ `data:image/png;base64,${accountInfo.logo}` } />
+                                <ImgLogo src={`data:image/png;base64,${accountInfo.logo}`} />
                             </>
                         }
                     </Grid>
@@ -115,7 +111,7 @@ const AccountInfo = ({
 
 
             <CardView>
-                { isLoading ? (
+                {isLoading ? (
                     <>
                         <Skeleton />
                         <Skeleton />
@@ -123,13 +119,13 @@ const AccountInfo = ({
                     </>
                 ) : (
                     <CommonTable
-                        isCheckbox={ false }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        charLength={ 50 }
+                        isCheckbox={false}
+                        tableHeader={columns}
+                        tableData={rows}
+                        charLength={50}
                         path=''
                     />
-                ) }
+                )}
 
             </CardView>
         </React.Fragment >

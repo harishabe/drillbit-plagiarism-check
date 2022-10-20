@@ -113,6 +113,7 @@ const NavBar = ({
         let userName = getItemLocalStorage('name');
         let userRole = getItemLocalStorage('role');
         let email = getItemLocalStorage('email');
+        let switchRole = getItemLocalStorage('switchProRole');
         setName(userName);
         setRole(userRole);
         setEmail(email);
@@ -120,14 +121,14 @@ const NavBar = ({
             setPath('/pro/admin');
         } else if (userRole === Role?.proUser) {
             setPath('/pro/user');
-        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student)) {
+        } else if ((userRole === Role?.student)) {
             setPath('/extream/' + userRole);
-        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (router.pathname.split('/')[2] === 'admin')) {
+        } else if ((userRole === Role?.admin) && (router.pathname.split('/')[2] === 'admin')) {
             setPath('/extream/admin');
-        } else if ((userRole === Role?.admin || Role?.instructor || Role?.student) && (router.pathname.split('/')[2] === 'instructor')) {
+        } else if ((userRole === Role?.instructor || Role?.admin) && (switchRole === Role?.instructor || switchRole === null) && (router.pathname.split('/')[2] === 'instructor')) {
             setPath('/extream/instructor');
         }
-    }, [, router,switchRole]);
+    }, [, router, switchRole]);
 
     return (
         <>

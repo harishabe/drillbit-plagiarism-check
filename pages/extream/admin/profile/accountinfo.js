@@ -6,7 +6,6 @@ import Admin from './../../../../layouts/Admin';
 import { CardView, CommonTable, MainHeading, SubTitle2, SubTitle } from '../../../../components';
 import { UploadIcon } from '../../../../assets/icon';
 import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/ProfileAction';
-import { Role } from '../../../../constant/data';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 
@@ -43,13 +42,9 @@ const AccountInfo = ({
 }) => {
 
     const [rows, setRows] = useState([]);
-    const [role, setRole] = useState('');
 
     useEffect(() => {
-        console.log('123',localStorage.getItem('role'));
-        console.log('switchRole',localStorage.getItem('switchRole'));
         GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation');
-        setRole(localStorage.getItem('role'));
     }, []);
 
     useEffect(() => {
@@ -83,23 +78,21 @@ const AccountInfo = ({
                 <Grid container spacing={1}>
                     <Grid item md={10}>
                         <MainHeading title='Account Information' />
-                        {role === Role.admin &&
-                            <form>
-                                <label htmlFor="contained-button-file">
-                                    <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
-                                    <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
-                                        <>
-                                            <UploadIcon />
-                                            <UploadButtonAlign>
-                                                <SubTitle textColor='#fff' title='Upload Logo' />
-                                            </UploadButtonAlign>
-                                        </>
-                                    </Button>
+                        <form>
+                            <label htmlFor="contained-button-file">
+                                <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
+                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
+                                    <>
+                                        <UploadIcon />
+                                        <UploadButtonAlign>
+                                            <SubTitle textColor='#fff' title='Upload Logo' />
+                                        </UploadButtonAlign>
+                                    </>
+                                </Button>
 
-                                    <SubTitle2 title='Supported formats : JPG,PNG' />
-                                </label>
-                            </form>
-                        }
+                                <SubTitle2 title='Supported formats : JPG,PNG' />
+                            </label>
+                        </form>
                     </Grid>
                     <Grid item md={2} style={{ textAlign: 'right' }}>
                         {accountInfo &&
