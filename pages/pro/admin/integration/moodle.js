@@ -23,7 +23,6 @@ const Moodle = ({
 
     const router = useRouter();
     const [form, setForm] = useState(false);
-    const [moodleData, setMoodleData] = useState('');
 
     const InstructorBreadCrumb = [
         {
@@ -46,12 +45,6 @@ const Moodle = ({
     useEffect(() => {
         GetIntegrationDetailData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_MOODLE_INTEGRATION);
     }, []);
-
-    useEffect(() => {
-        console.log('integrationTypeDataintegrationTypeDataintegrationTypeData', integrationTypeData);
-
-        setMoodleData(integrationTypeData);
-    }, [integrationTypeData]);
 
     const handleConfig = () => {
         setForm(true);
@@ -95,7 +88,7 @@ const Moodle = ({
                         handleDrawerClose={handleCloseDrawer}
                     >
                         <MoodleForm
-                            editData={integrationData}
+                            editData={isLoadingTypeDetail}
                             isLoadingUpload={isLoadingUpload}
                         />
                     </CreateDrawer>
@@ -119,11 +112,11 @@ const mapDispatchToProps = (dispatch) => {
 
 Moodle.layout = ProAdmin;
 
-// Moodle.propTypes = {
-//     GetIntegrationDetailData: PropTypes.func.isRequired,
-//     integrationTypeData: PropTypes.object,
-//     isLoadingTypeDetail: PropTypes.bool,
-//     isLoadingUpload: PropTypes.bool
-// };
+Moodle.propTypes = {
+    GetIntegrationDetailData: PropTypes.func.isRequired,
+    integrationTypeData: PropTypes.object,
+    isLoadingTypeDetail: PropTypes.bool,
+    isLoadingUpload: PropTypes.bool
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Moodle);
