@@ -19,9 +19,9 @@ import {
 import {
     GetGrammarReport
 } from '../../../redux/action/common/Submission/SubmissionAction';
-import SubmissionForm from './form/SubmissionForm'
 import { BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+import { formatDate } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
 
 const AddButtonBottom = styled.div`
@@ -80,7 +80,7 @@ const SubmissionHistory = ({
                     submission.original_fn,
                     submission.lang1,
                     submission.paper_id,
-                    submission.date_up,
+                    formatDate(submission.date_up),
                     submission.grammar,
                     submission.grammar_url,
                     <SimilarityStatus percent={submission.percent} width={100} />,
