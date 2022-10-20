@@ -11,6 +11,7 @@ export const renameKeys = (obj, newKeys) => {
 };
 
 export const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+export const platform = typeof window !== "undefined" && window.navigator.platform;
 
 export const findByExpiryDate = (date) => {
     let presentDate = new Date();
