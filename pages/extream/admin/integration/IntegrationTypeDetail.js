@@ -58,45 +58,54 @@ const IntegrationTypeDetail = ({
 
     useEffect(() => {
         if (routerData?.integration === 'Moodle') {
-            let row = [
-                createData('API Key', integrationData?.api_key),
-                createData('College Name', integrationData?.college_name),
-                createData('Configured Date', formatDate(integrationData?.created_date)),
-                createData('Moodle URL', integrationData?.lms_url),
-            ];
-            let tech = [
-                createData('Name', integrationData?.name),
-                createData('Email Address', integrationData?.email),
-                createData('Phone Number', integrationData?.phone),
-            ];
-            setRows([...row]);
-            setTechnical([...tech]);
+            if (integrationData?.created_date !== undefined) {
+                let moodleDate = formatDate(integrationData?.created_date);
+                let row = [
+                    createData('API Key', integrationData?.api_key),
+                    createData('College Name', integrationData?.college_name),
+                    createData('Configured Date', moodleDate),
+                    createData('Moodle URL', integrationData?.lms_url),
+                ];
+                let tech = [
+                    createData('Name', integrationData?.name),
+                    createData('Email Address', integrationData?.email),
+                    createData('Phone Number', integrationData?.phone),
+                ];
+                setRows([...row]);
+                setTechnical([...tech]);
+            }
         } else if (routerData?.integration === 'Canvas') {
-            let row = [
-                createData('Access end point', integrationData?.access_end_point),
-                createData('Authentication end point', integrationData?.auth_end_point),
-                createData('Configured Date', formatDate(integrationData?.creation_time)),
-                createData('Client id', integrationData?.client_id),
-                createData('College Name', integrationData?.college_name),
-                createData('Keyset end point', integrationData?.keyset_end_point),
-                createData('Email Address', integrationData?.mail_id),
-                createData('Method', integrationData?.method),
-                createData('Platform url', integrationData?.platform_url),
-            ];
-            setRows([...row]);
+            if (integrationData?.creation_time !== undefined) {
+                let canvasDate = formatDate(integrationData?.creation_time);
+                let row = [
+                    createData('Access end point', integrationData?.access_end_point),
+                    createData('Authentication end point', integrationData?.auth_end_point),
+                    createData('Configured Date', canvasDate),
+                    createData('Client id', integrationData?.client_id),
+                    createData('College Name', integrationData?.college_name),
+                    createData('Keyset end point', integrationData?.keyset_end_point),
+                    createData('Email Address', integrationData?.mail_id),
+                    createData('Method', integrationData?.method),
+                    createData('Platform url', integrationData?.platform_url),
+                ];
+                setRows([...row]);
+            }
         } else if (routerData?.integration === 'Blackboard') {
-            let row = [
-                createData('Access end point', integrationData?.access_end_point),
-                createData('Authentication end point', integrationData?.auth_end_point),
-                createData('Configured Date', formatDate(integrationData?.creation_time)),
-                createData('Client id', integrationData?.client_id),
-                createData('College Name', integrationData?.college_name),
-                createData('Keyset end point', integrationData?.keyset_end_point),
-                createData('Email Address', integrationData?.mail_id),
-                createData('Method', integrationData?.method),
-                createData('Platform url', integrationData?.platform_url),
-            ];
-            setRows([...row]);
+            if (integrationData?.creation_time !== undefined) {
+                let blackBoardDate = integrationData?.creation_time;
+                let row = [
+                    createData('Access end point', integrationData?.access_end_point),
+                    createData('Authentication end point', integrationData?.auth_end_point),
+                    createData('Configured Date', blackBoardDate),
+                    createData('Client id', integrationData?.client_id),
+                    createData('College Name', integrationData?.college_name),
+                    createData('Keyset end point', integrationData?.keyset_end_point),
+                    createData('Email Address', integrationData?.mail_id),
+                    createData('Method', integrationData?.method),
+                    createData('Platform url', integrationData?.platform_url),
+                ];
+                setRows([...row]);
+            }
         }
     }, [integrationData]);
     return (
@@ -126,7 +135,6 @@ const IntegrationTypeDetail = ({
                     <CardView>
                         <div className={classes.margin}></div>
                         <SubTitle title="Technical Contact Details :" />
-
                         <CommonTable
                             isCheckbox={false}
                             tableHeader={columns}

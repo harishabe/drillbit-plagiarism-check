@@ -37,10 +37,13 @@ const CanvasForm = ({
         }
     };
 
-    const modifyFormField = (buttonLabel) => {
+    const modifyFormField = (buttonLabel,isClientIdDisable) => {
         let formField = formJsonField?.map((field) => {
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
+            }
+            if (field.name === 'client_id') {
+                field.disabled = isClientIdDisable;
             }
             return field;
         });

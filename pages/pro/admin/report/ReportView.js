@@ -78,8 +78,8 @@ const ReportView = ({
                     data.folder_name,
                     data.folder_id,
                     data.mail_id,
-                    data.created_date,
-                    data.end_date,
+                    formatDate(data.created_date),
+                    formatDate(data.end_date),
                     data.no_of_submissions,
                 );
             arr.push(row);

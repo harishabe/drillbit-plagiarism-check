@@ -22,19 +22,19 @@ const IntegrationReducer = (state = {}, action) => {
         case types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_START:
             return {
                 ...state,
-                isLoading: true,
+                isLoadingTypeDetail: true,
             };
         case types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isLoadingTypeDetail: false,
                 integrationTypeData: action.payload,
             };
         case types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_FAIL:
             return {
                 ...state,
-                isLoading: false,
-                integrationTypeDataError: action.payload,
+                isLoadingTypeDetail: false,
+                integrationTypeData: action.payload,
             };
         case types.FETCH_ADMIN_INTEGRATION_UPLOAD_DETAILS_START:
             return {

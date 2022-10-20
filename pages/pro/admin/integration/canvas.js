@@ -71,7 +71,6 @@ const Canvas = ({
                     </Grid> :
                         <Grid item md={ 12 } xs={ 12 }>
                             {
-                                integrationData &&
                                 <IntegrationTypeDetail
                                     routerData={ router?.query }
                                     integrationData={ integrationData }

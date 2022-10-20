@@ -120,9 +120,9 @@ const Integration = ({
             <MainHeading title={`Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})`} />
 
             {isLoading ? <Grid container spacing={2}>
-                <Grid item md={4} xs={12}><Skeleton /></Grid>
-                <Grid item md={4} xs={12}><Skeleton /></Grid>
-                <Grid item md={4} xs={12}><Skeleton /></Grid>
+                <Grid item md={4} xs={12}><Skeleton variant="rectangular" height={150} /></Grid>
+                <Grid item md={4} xs={12}><Skeleton variant="rectangular" height={150} /></Grid>
+                <Grid item md={4} xs={12}><Skeleton variant="rectangular" height={150} /></Grid>
             </Grid> :
                 <Grid container spacing={2}>
                     {lmsData?.map((item, index) => (

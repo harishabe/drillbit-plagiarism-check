@@ -37,10 +37,13 @@ const BlackboardForm = ({
         }
     };
 
-    const modifyFormField = (buttonLabel) => {
+    const modifyFormField = (buttonLabel, isClientIdDisable) => {
         let formField = formJsonField?.map((field) => {
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
+            }
+            if (field.name === 'client_id') {
+                field.disabled = isClientIdDisable;
             }
             return field;
         });
@@ -75,21 +78,21 @@ const BlackboardForm = ({
 
     return (
         <>
-            <div style={ { textAlign: 'center' } }>
+            <div style={{ textAlign: 'center' }}>
                 <AddImageIcon />
             </div>
-            <form onSubmit={ handleSubmit(onSubmit) }>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
-                    { FormJson?.map((field, i) => (
-                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
+                    {FormJson?.map((field, i) => (
+                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
                             <FormComponent
-                                key={ i }
-                                field={ field }
-                                control={ control }
-                                isLoading={ isLoadingUpload }
+                                key={i}
+                                field={field}
+                                control={control}
+                                isLoading={isLoadingUpload}
                             />
                         </Grid>
-                    )) }
+                    ))}
                 </Grid>
             </form>
         </>

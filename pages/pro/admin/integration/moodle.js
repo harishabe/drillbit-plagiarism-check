@@ -16,13 +16,14 @@ import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 
 const Moodle = ({
     GetIntegrationDetailData,
-    integrationData,
-    isLoading,
+    integrationTypeData,
+    isLoadingTypeDetail,
     isLoadingUpload
 }) => {
 
     const router = useRouter();
     const [form, setForm] = useState(false);
+    const [moodleData, setMoodleData] = useState('');
 
     const InstructorBreadCrumb = [
         {
@@ -46,6 +47,12 @@ const Moodle = ({
         GetIntegrationDetailData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_MOODLE_INTEGRATION);
     }, []);
 
+    useEffect(() => {
+        console.log('integrationTypeDataintegrationTypeDataintegrationTypeData', integrationTypeData);
+
+        setMoodleData(integrationTypeData);
+    }, [integrationTypeData]);
+
     const handleConfig = () => {
         setForm(true);
     };
@@ -56,41 +63,40 @@ const Moodle = ({
 
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
-                        <BreadCrumb item={ InstructorBreadCrumb } />
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={10} xs={10}>
+                        <BreadCrumb item={InstructorBreadCrumb} />
                     </Grid>
                 </Grid>
-                <Grid container spacing={ 1 }>
-                    { isLoading ? <Grid container spacing={ 2 }>
-                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
-                        <Grid item md={ 4 } xs={ 12 }><Skeleton /></Grid>
+                <Grid container spacing={1}>
+                    {isLoadingTypeDetail ? <Grid container spacing={2}>
+                        <Grid item md={4} xs={12}><Skeleton /></Grid>
+                        <Grid item md={4} xs={12}><Skeleton /></Grid>
+                        <Grid item md={4} xs={12}><Skeleton /></Grid>
                     </Grid> :
-                        <Grid item md={ 12 } xs={ 12 }>
-                            {
-                                integrationData && <IntegrationTypeDetail
-                                    routerData={ router?.query }
-                                    integrationData={ integrationData }
-                                    handleConfig={ handleConfig }
-                                    isMoodleTrue={ true }
-                                />
-                            }
+                        <Grid item md={12} xs={12}>
+                            {integrationTypeData &&
+                                <IntegrationTypeDetail
+                                    routerData={router?.query}
+                                    integrationData={integrationTypeData}
+                                    handleConfig={handleConfig}
+                                    isMoodleTrue={true}
+                                />}
                         </Grid>
                     }
                 </Grid>
 
-                { form &&
+                {form &&
                     <CreateDrawer
                         title="Moodle Configuration"
-                        isShowAddIcon={ false }
-                        showDrawer={ form }
-                        handleDrawerClose={ handleCloseDrawer }
+                        isShowAddIcon={false}
+                        showDrawer={form}
+                        handleDrawerClose={handleCloseDrawer}
                     >
                         <MoodleForm
-                            editData={ integrationData }
-                            isLoadingUpload={ isLoadingUpload }
+                            editData={integrationData}
+                            isLoadingUpload={isLoadingUpload}
                         />
                     </CreateDrawer>
                 }
@@ -100,8 +106,8 @@ const Moodle = ({
 };
 
 const mapStateToProps = (state) => ({
-    integrationData: state?.adminIntegrationData?.integrationTypeData,
-    isLoading: state?.adminIntegrationData?.isLoading,
+    integrationTypeData: state?.adminIntegrationData?.integrationTypeData,
+    isLoadingTypeDetail: state?.adminIntegrationData?.isLoadingTypeDetail,
     isLoadingUpload: state?.adminIntegrationData?.integrationTypeData?.isLoadingUpload,
 });
 
@@ -113,9 +119,11 @@ const mapDispatchToProps = (dispatch) => {
 
 Moodle.layout = ProAdmin;
 
-Moodle.propTypes = {
-    GetIntegrationDetailData: PropTypes.func.isRequired,
-    integrationData: PropTypes.object
-};
+// Moodle.propTypes = {
+//     GetIntegrationDetailData: PropTypes.func.isRequired,
+//     integrationTypeData: PropTypes.object,
+//     isLoadingTypeDetail: PropTypes.bool,
+//     isLoadingUpload: PropTypes.bool
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Moodle);
