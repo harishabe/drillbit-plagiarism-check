@@ -33,15 +33,14 @@ export const expiryDateBgColor = (validity) => {
 };
 
 const dateFormat = (str) => {
-    let date = new Date(str),
+    let date = new Date(str.replace(" ", "T")),
         month = (date.getMonth() + 1 < 10) ? "0" + (date.getMonth() + 1) : date.getMonth() + 1,
         day = (date.getDate() < 10) ? "0" + date.getDate().toString() : date.getDate();
     return [date, month, day];
 };
 
 export const convertDate = (str) => {
-    var date = new Date();
-    // var date = new Date(str.replace(" ", "T"));
+    var date = new Date(str);
     var dateStr = date.getFullYear() + "-" +
         ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
         ("00" + date.getDate()).slice(-2) + " " +

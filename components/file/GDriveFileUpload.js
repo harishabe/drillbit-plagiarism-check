@@ -48,8 +48,8 @@ const GDriveFileUpload = ({
     const handleOpenPicker = () => {
         openPicker({
             //clientId: '32303602935-bbvsv5k7sksm71pipiru8jur6puhtm66.apps.googleusercontent.com',
-            clientId:'32303602935-7bv10gd67fipvuvg4r3ffdu5a3hh79gs.apps.googleusercontent.com',
-            developerKey: 'AIzaSyAJq_NcYAf92IKUBf53Wj5ywQYlPt7-Now',
+            clientId:'322042705830-t41sd3gqi37845gdgc6khardvt9bq8gu.apps.googleusercontent.com',
+            developerKey: 'AIzaSyBdE0t7rV5mH4grsIzKgVtJmlDMqf7zMZI',
             viewId: 'DOCS',
             showUploadView: true,
             showUploadFolders: true,
