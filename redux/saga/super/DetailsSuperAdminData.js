@@ -8,7 +8,7 @@ import {
     DropdownListData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { FolderSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
+import { SuperAdminPaginationValue } from '../../../utils/PaginationUrl';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 
 /**
@@ -77,7 +77,7 @@ export function* onLoadCreateAccount(action) {
             type: types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_SUCCESS, payload: response?.data,
         });
         yield put({
-            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.url, paginationPayload: FolderSubmissionsPaginationValue,
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.url, paginationPayload: SuperAdminPaginationValue,
         });
         toastrValidation(response)
     } else {
@@ -105,7 +105,9 @@ export function* onLoadEditAccount(action) {
             type: types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_SUCCESS, payload: response?.data,
         });
         yield put({
-            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.url, paginationPayload: FolderSubmissionsPaginationValue,
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START,
+            url: `/${action.url.split('/')[1]}`,
+            paginationPayload: SuperAdminPaginationValue,
         });
         toastrValidation(response)
     } else {
