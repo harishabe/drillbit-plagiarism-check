@@ -38,3 +38,9 @@ export const FolderSubmissionsPaginationValue = {
     'field': 'paper_id',
     'orderBy': 'desc'
 }
+export const SuperAdminPaginationValue = {
+    'page': 0,
+    'size': 25,
+    'field': 'name',
+    'orderBy': 'desc'
+}

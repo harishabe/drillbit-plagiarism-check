@@ -30,7 +30,6 @@ const RefForm = ({
     }, []);
 
     useEffect(() => {
-        console.log('1111');
         let InstitutionTypes = [];
         let timeZoneLists = [];
         let formList = FormJson?.map((formItem) => {
@@ -48,7 +47,6 @@ const RefForm = ({
             }
             return formItem;
         });
-        console.log('formListformList',formList);
         setFormJsonField(formList);
     }, [dpList]);
 
@@ -56,17 +54,35 @@ const RefForm = ({
         if (editOperation) {
             data['startDate'] = convertDate(data.startDate);
             data['endDate'] = convertDate(data.endDate);
+            data['grammarAccess'] = data?.grammarAccess?.name;
+            data['institutionType'] = data?.institutionType?.name;
+            data['licenseType'] = data?.licenseType?.name;
+            data['timeZone'] = data?.timeZone?.name;
             EditAccount(END_POINTS.SUPER_ADMIN_REF + '/license/' + editData?.lid, data);
         } else {
-            let DetailedData = { ...data, 'endDate': convertDate(data.endDate), 'startDate': convertDate(data.startDate) };
+            let DetailedData = {
+                ...data,
+                'endDate': convertDate(data?.endDate),
+                'startDate': convertDate(data?.startDate),
+                'grammarAccess': data?.grammarAccess?.name,
+                'institutionType': data?.institutionType?.name,
+                'licenseType': data?.licenseType?.name,
+                'timeZone': data?.timeZone?.name,
+            };
             CreateAccount(END_POINTS.SUPER_ADMIN_REF, DetailedData);
         }
     };
 
-    const modifyFormField = (buttonLabel) => {
+    const modifyFormField = (buttonLabel, isNameDisabled) => {
         let formField = formJsonField?.map((field) => {
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
+            }
+            if (field.name === 'institutionName') {
+                field.disabled = isNameDisabled;
+            }
+            if (field.name === 'adminEmail') {
+                field.disabled = isNameDisabled;
             }
             return field;
         });
@@ -74,9 +90,7 @@ const RefForm = ({
     };
 
     useEffect(() => {
-        console.log('2222');
-        if (editData !== undefined) {
-            console.log('editDataeditDataeditData', editData);
+        if (editData) {
             let a = {
                 'institutionName': editData.college_name,
                 'state': editData.state,
@@ -91,11 +105,11 @@ const RefForm = ({
                 'instructors': editData.instructors,
                 'submissions': editData.documents,
                 'documentlength': editData.document_type,
-                'grammarAccess': editData.grammar,
+                'grammarAccess': editData.grammar.name,
                 'grammar': editData.grammar_documents,
-                'institutionType': editData.product_type,
-                'licenseType': editData.license_type,
-                'timeZone': editData.timeZone,
+                'institutionType': editData.product_type.name,
+                'licenseType': editData.license_type.name,
+                'timeZone': editData.timeZone.name,
             };
             const fields = [
                 'institutionName',
@@ -118,10 +132,11 @@ const RefForm = ({
                 'timeZone',
             ];
             fields.forEach(field => { setValue(field, a[field]); });
-            modifyFormField('Edit User');
+            modifyFormField('Edit Ref Account', true);
             setEditOperation(true);
+        } else {
+            modifyFormField('Create Ref Account', false);
         }
-        modifyFormField('Create User');
     }, [editData]);
 
     return (
@@ -137,7 +152,7 @@ const RefForm = ({
                                 key={i}
                                 field={field}
                                 control={control}
-                                isLoading={isLoadingCreate}
+                                isLoading={ isLoadingCreate || isLoadingEdit }
                             />
                         </Grid>
                     ))}

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { Grid, TextField, Box } from '@mui/material';
+import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
-import Box from '@mui/material/Box';
 import {
     BreadCrumb,
     CreateDrawer,
@@ -52,8 +53,9 @@ const columns = [
     { id: 'action', label: 'Action' }
 ];
 
-function createData(lid, name, email, college_name, country, instructors, students, documents, action) {
-    return { lid, name, email, college_name, country, instructors, students, documents, action };
+function createData(lid, name, email, college_name, country, instructors, students, documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone) {
+
+    return { lid, name, email, college_name, country, instructors, students, documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone };
 }
 
 const ExtremProduct = ({
@@ -70,6 +72,8 @@ const ExtremProduct = ({
         field: 'name',
         orderBy: PaginationValue?.orderBy,
     });
+    const [editUser, setEditUser] = useState(false);
+    const [editUserData, setEditUserData] = useState('');
 
     useEffect(() => {
         GetExtremeRefData(END_POINTS.SUPER_ADMIN_EXTREME, paginationPayload);
@@ -90,20 +94,94 @@ const ExtremProduct = ({
                     data.students,
                     data.documents,
                     [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }],
+                    data.state,
+                    data.address,
+                    data.designation,
+                    data.phone,
+                    data.created_date,
+                    data.expiry_date,
+                    data.document_type,
+                    data.grammar,
+                    data.grammar_documents,
+                    data.license_type,
+                    data.product_type,
+                    data.timeZone,
                 );
             arr.push(row);
         });
         setRows([...arr]);
     }, [extremeData]);
 
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
+
     const handleChange = (event, value) => {
         event.preventDefault();
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
+    const handleAction = (event, icon, rowData) => {
+        if (icon === 'edit') {
+            setEditUser(true);
+            setEditUserData(rowData);
+        }
+    };
+
+    const handleCloseDrawer = (drawerClose) => {
+        setEditUser(drawerClose);
+    };
+
+    /** search implementation using debounce concepts */
+
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    };
+
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
+    /** end debounce concepts */
     return (
         <>
-            <BreadCrumb item={ ExtremeBreadCrumb } />
+            <Grid container spacing={ 1 }>
+                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                    <BreadCrumb item={ ExtremeBreadCrumb } />
+                </Grid>
+                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                    <TextField
+                        sx={ { width: '40%' } }
+                        placeholder='Search'
+                        onChange={ debouncedResults }
+                        inputProps={ {
+                            style: {
+                                padding: 5,
+                                display: 'inline-flex',
+                            },
+                        } }
+                    />
+                </Grid>
+            </Grid>
 
             <Box sx={ { mt: 1, flexGrow: 1 } }>
                 <CardView>
@@ -114,9 +192,25 @@ const ExtremProduct = ({
                         tableData={ rows }
                         isLoading={ isLoading }
                         charLength={ 7 }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
                     />
                 </CardView>
             </Box>
+
+            {
+                editUser &&
+                <CreateDrawer
+                    title="Edit User"
+                    isShowAddIcon={ false }
+                    showDrawer={ editUser }
+                    handleDrawerClose={ handleCloseDrawer }
+                >
+                    <ExtremeForm
+                        editData={ editUserData }
+                    />
+                </CreateDrawer>
+            }
 
             <AddButtonBottom>
                 <CreateDrawer
