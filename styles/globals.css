@@ -419,5 +419,5 @@ a {
 }
 
 .Toastify__toast{
-  font-family: 'Montserrat';
+  font-family: 'Montserrat' !important;
 }
