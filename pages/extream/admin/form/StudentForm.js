@@ -27,8 +27,6 @@ const StudentForm = ({
             EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'students/' + editData?.id, data, 'students');
         }
     };
-
-    console.log('editData', editData);
     useEffect(() => {
         if (editData) {
             let a = {

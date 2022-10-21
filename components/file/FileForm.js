@@ -60,7 +60,6 @@ const FileForm = ({
     useEffect(() => {
         LanguageList();
     }, []);
-    console.log('121212', files);
     return (
         <div style={{ marginTop: '10px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>

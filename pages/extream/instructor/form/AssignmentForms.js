@@ -427,7 +427,6 @@ const AssignmentForms = ({
 
     useEffect(() => {
         if (editData !== undefined) {
-            console.log('editDataeditDataeditData',editData);
             setShowSetting(true);
             let a = {
                 'assignment_name': editData.assignment_name,

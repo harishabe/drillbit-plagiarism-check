@@ -25,8 +25,6 @@ const EnglishFile = () => {
         }
     }, [router.isReady]);
 
-    console.log("router", router?.asPath.split('?')[1])
-
     const StudentBreadCrumb = [
         {
             name: 'Dashboard',

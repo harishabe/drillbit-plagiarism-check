@@ -34,7 +34,6 @@ const SubmissionForm = ({
 
 
     useEffect(() => {
-        console.log('11111');
         if (Language?.name === "Non English") {
             formJsonField.splice(3, 0, {
                 "field_type": "dropdown",
@@ -52,7 +51,6 @@ const SubmissionForm = ({
 
 
     useEffect(() => {
-        console.log('22222');
         if (Language?.name === "English") {
             let formList = formJsonField.splice(3, 1);
             setFormJsonField(formList);
@@ -80,7 +78,6 @@ const SubmissionForm = ({
     }, [dpList]);
 
     const onSubmit = (data) => {
-        console.log('datadatadatadata', data);
         let bodyFormData = new FormData();
         if (data?.language?.name === "English") {
             bodyFormData.append('authorName', getItemLocalStorage('name'));
@@ -99,7 +96,6 @@ const SubmissionForm = ({
 
     const modifyFormField = () => {
         let formField = formJsonField?.map((field) => {
-            console.log("field", field)
             if (field.field_type === 'file') {
                 field['info'] = 'Supported files: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx';
             }
