@@ -19,6 +19,13 @@ const drillBitTheme = {
                     //textTransform: 'capitalize'
                 }
             }
+        },
+        MuiTooltip: {
+            styleOverrides: {
+                root: {
+                    color: '#fff'
+                }
+            }
         }
     },
 };

@@ -409,14 +409,14 @@ a {
   border: #f3f3f3 !important;
 }
 
-.css-5sb08z-MuiButtonBase-root-MuiToggleButton-root.Mui-selected{
+/* .css-5sb08z-MuiButtonBase-root-MuiToggleButton-root.Mui-selected{
   background: #3672FF !important;
   color:#fff !important;
-}
+} */
 
-.css-g19bii-MuiTooltip-tooltip{
+/* .css-g19bii-MuiTooltip-tooltip{
   color: #fff !important;
-}
+} */
 
 .Toastify__toast{
   font-family: 'Montserrat' !important;
