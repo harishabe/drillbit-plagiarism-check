@@ -12,7 +12,7 @@ import {
     Title,
     CardView,
     SubTitle1,
-    MainHeading 
+    MainHeading
 } from '../../components';
 import FileForm from './FileForm';
 import RepositoryFileFormZip from './RepositoryFileFormZip';
@@ -137,7 +137,9 @@ const ZipFileUpload = ({
                             <ArrowBackOutlinedIcon />
                         </IconButton>
                     </Tooltip>
-                    <MainHeading title='Upload files for plagiarism check' />
+                    {isRepository ?
+                        <MainHeading title='Upload files to repository' /> : 
+                        <MainHeading title='Upload files for plagiarism check' />}
                 </div>
                 <Grid container spacing={1}>
                     <Grid item md={12} xs={12}>

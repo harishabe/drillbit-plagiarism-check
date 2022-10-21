@@ -69,7 +69,7 @@ const Folder = ({
     };
 
     return (
-        <Container submissionCount={item.no_of_submissions}>
+        <Container submissionCount={item.no_of_submissions} style={{ cursor: 'pointer' }}>
             <Grid item xs={11.8}>
                 {isAction &&
                     <>

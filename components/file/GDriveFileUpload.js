@@ -133,7 +133,9 @@ const GDriveFileUpload = ({
                                 <ArrowBackOutlinedIcon />
                             </IconButton>
                         </Tooltip>
-                        <MainHeading title='Upload files for plagiarism check' />
+                        {isRepository ?
+                            <MainHeading title='Upload files to repository' /> :
+                            <MainHeading title='Upload files for plagiarism check' />}
                     </div>
                     <Grid container spacing={1}>
                         <Grid item md={12} xs={12}>
