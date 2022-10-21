@@ -1,8 +1,8 @@
+import '../styles/globals.css';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import '../styles/globals.css';
 import { ThemeProvider } from '@mui/material/styles';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
