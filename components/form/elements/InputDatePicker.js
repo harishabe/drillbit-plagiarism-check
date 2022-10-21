@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
 import { TextField } from '@mui/material';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+//import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import InputLabel from '@mui/material/InputLabel';
 //import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
