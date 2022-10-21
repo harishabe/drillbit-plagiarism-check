@@ -25,40 +25,40 @@ const LoginForm = ({
 
     useEffect(() => {
         if (loginState?.role === Role.admin) {
-            localStorage.setItem('role', Role.admin);
-            localStorage.setItem('token', loginState?.token);
-            localStorage.setItem('email', loginState?.username);
-            localStorage.setItem('name', loginState?.name);
+            sessionStorage.setItem('role', Role.admin);
+            sessionStorage.setItem('token', loginState?.token);
+            sessionStorage.setItem('email', loginState?.username);
+            sessionStorage.setItem('name', loginState?.name);
             router.push('/extream/admin/dashboard');
         } else if (loginState?.role === Role.instructor) {
-            localStorage.setItem('role', Role.instructor);
-            localStorage.setItem('token', loginState?.token);
-            localStorage.setItem('email', loginState?.username);
-            localStorage.setItem('name', loginState?.name);
+            sessionStorage.setItem('role', Role.instructor);
+            sessionStorage.setItem('token', loginState?.token);
+            sessionStorage.setItem('email', loginState?.username);
+            sessionStorage.setItem('name', loginState?.name);
             router.push('/extream/instructor/dashboard');
         } else if (loginState?.role === Role.student) {
-            localStorage.setItem('role', Role.student);
-            localStorage.setItem('token', loginState?.token);
-            localStorage.setItem('email', loginState?.username);
-            localStorage.setItem('name', loginState?.name);
+            sessionStorage.setItem('role', Role.student);
+            sessionStorage.setItem('token', loginState?.token);
+            sessionStorage.setItem('email', loginState?.username);
+            sessionStorage.setItem('name', loginState?.name);
             router.push('/extream/student/dashboard');
         } else if (loginState?.role === Role.super) {
-            localStorage.setItem('role', Role.super);
-            localStorage.setItem('token', loginState?.token);
-            localStorage.setItem('email', loginState?.username);
-            localStorage.setItem('name', loginState?.name);
+            sessionStorage.setItem('role', Role.super);
+            sessionStorage.setItem('token', loginState?.token);
+            sessionStorage.setItem('email', loginState?.username);
+            sessionStorage.setItem('name', loginState?.name);
             router.push('/super/dashboard');
         } else if (loginState?.role === Role.proAdmin) {
-            localStorage.setItem('role', Role.proAdmin);
-            localStorage.setItem('token', loginState?.token);
-            localStorage.setItem('email', loginState?.username);
-            localStorage.setItem('name', loginState?.name);
+            sessionStorage.setItem('role', Role.proAdmin);
+            sessionStorage.setItem('token', loginState?.token);
+            sessionStorage.setItem('email', loginState?.username);
+            sessionStorage.setItem('name', loginState?.name);
             router.push('/pro/admin/dashboard');
         } else if (loginState?.role === Role.proUser) {
-            localStorage.setItem('role', Role.proUser);
-            localStorage.setItem('token', loginState?.token);
-            localStorage.setItem('email', loginState?.username);
-            localStorage.setItem('name', loginState?.name);
+            sessionStorage.setItem('role', Role.proUser);
+            sessionStorage.setItem('token', loginState?.token);
+            sessionStorage.setItem('email', loginState?.username);
+            sessionStorage.setItem('name', loginState?.name);
             router.push('/pro/user/dashboard');
         }
     }, [router,loginState]);

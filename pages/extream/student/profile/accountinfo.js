@@ -46,8 +46,8 @@ const AccountInfo = ({
     const [role, setRole] = useState('');
 
     useEffect(() => {
-        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation');
-        setRole(localStorage.getItem('role'));
+        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + sessionStorage.getItem('role') + '/accountInformation');
+        setRole(sessionStorage.getItem('role'));
     }, []);
 
     useEffect(() => {
@@ -67,7 +67,7 @@ const AccountInfo = ({
     const handleChange = (data) => {
         let bodyFormData = new FormData();
         bodyFormData.append('file', data.target.files[0]);
-        ProfileLogo(localStorage.getItem('role'), bodyFormData);
+        ProfileLogo(sessionStorage.getItem('role'), bodyFormData);
     };
     
     return (

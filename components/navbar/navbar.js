@@ -78,7 +78,7 @@ const NavBar = ({
 
     const handleLogout = (event) => {
         event.preventDefault();
-        localStorage.clear();
+        sessionStorage.clear();
         window.location.href = '/auth/login';
     };
 

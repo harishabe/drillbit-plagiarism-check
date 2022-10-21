@@ -98,7 +98,7 @@ const SubmissionHistory = ({
     }, [submissionData]);
 
     const handleShowAnalysisPage = (e, row) => {
-        let token = localStorage.getItem('token');
+        let token = sessionStorage.getItem('token');
         let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
         window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
     };

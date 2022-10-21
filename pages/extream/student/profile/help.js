@@ -20,7 +20,7 @@ const Help = () => {
 
     useEffect(() => {
         let d = data?.map((item) => {
-            if (localStorage.getItem('role') === 'student') {
+            if (sessionStorage.getItem('role') === 'student') {
                 item['isShow'] = true;
             }
             return item;

@@ -47,7 +47,7 @@ const AccountInfo = ({
 
     useEffect(() => {
         GetProfile(BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_DATA);
-        setRole(localStorage.getItem('role'));
+        setRole(sessionStorage.getItem('role'));
     }, []);
 
     useEffect(() => {

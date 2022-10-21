@@ -57,7 +57,7 @@ const MobileMenu = () => {
     }
 
     React.useEffect(() => {
-        let role = localStorage.getItem('role');
+        let role = sessionStorage.getItem('role');
         if (role === 'admin') {
             setSidebarItem(SidebarAdmin);
         } else if (role === 'instructor') {

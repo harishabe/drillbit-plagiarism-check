@@ -42,7 +42,7 @@ export function* onLoadProfileLogo(action) {
         yield put({
             type: types.FETCH_PROFILE_DATA_START,
             url: action.url.split('/')[3] === 'extreme' ?
-                BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation' :
+                BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + sessionStorage.getItem('role') + '/accountInformation' :
                 BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_DATA,
         });
         toastrValidation(response);

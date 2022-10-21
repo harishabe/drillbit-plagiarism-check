@@ -4,7 +4,7 @@ const header = () => {
     return {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        'authorization': `Bearer ${localStorage.getItem('token')}`
+        'authorization': `Bearer ${sessionStorage.getItem('token')}`
     }
 };
 
@@ -19,7 +19,7 @@ const FormDataHeader = () => {
     return {
         "Accept-Language": "en",
         "Content-Type": "multipart/form-data",
-        'authorization': `Bearer ${localStorage.getItem('token')}`
+        'authorization': `Bearer ${sessionStorage.getItem('token')}`
     }
 };
 
@@ -27,7 +27,7 @@ const headerEN = () => {
     return {
         "Accept-Language": "en",
         "Content-Type": "application/json",
-        'authorization': `Bearer ${localStorage.getItem('token')}`
+        'authorization': `Bearer ${sessionStorage.getItem('token')}`
     }
 };
 
