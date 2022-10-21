@@ -41,7 +41,7 @@ import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 
 const columns = [
     // { id: 'user_id', label: 'ID', minWidth: 100 },

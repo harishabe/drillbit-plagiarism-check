@@ -12,7 +12,7 @@ import {
     GetStudentList,
     EnrollStudent,
 } from '../../../redux/action/instructor/InstructorAction';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 
 const columns = [
     { id: 'student_id', label: 'Student ID' },

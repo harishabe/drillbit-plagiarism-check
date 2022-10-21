@@ -25,7 +25,7 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 

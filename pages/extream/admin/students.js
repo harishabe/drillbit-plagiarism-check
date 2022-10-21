@@ -24,7 +24,7 @@ import StudentForm from './form/StudentForm';
 import StudentStats from './student/StudentStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 
 const columns = [
     { id: 'name', label: 'Name' },

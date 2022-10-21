@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusColor } from '../../pages/style/index';
+import { StatusColor } from '../../style/index';
 import { SIMILARITY_COLOR_STANDARD, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, DOC_ERROR_PLACEHOLDER_1, DOC_ERROR_PLACEHOLDER_2, COLORS } from '../../constant/data/Constant';
 import { useEffect } from 'react';
 import { useState } from 'react';

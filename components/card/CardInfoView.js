@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -28,8 +28,7 @@ import {
 import SubTitle1 from '../typography/SubTitle1';
 import Switch from '@mui/material/Switch';
 import { NO_DATA_PLACEHOLDER, CARD_NEXT_PAGE, CARD_FOLDER_ACTIONS } from '../../constant/data/Constant';
-import { CardStatusColor } from '../../pages/style/index';
-import { useState } from 'react';
+import { CardStatusColor } from '../../style/index';
 
 const useStyles = makeStyles(() => ({
     inline: {
@@ -100,7 +99,7 @@ const CardInfoView = ({
             return `${validity} days left`;
         }
     };
-    
+
     return (
         <React.Fragment>
             {/* onClick={ (e) => router.push(path) } */}

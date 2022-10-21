@@ -14,7 +14,7 @@ import InputButton from '../../../../components/form/elements/InputButton';
 import { CreateFolder, EditFolder } from '../../../../redux/action/instructor/InstructorAction';
 import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
 import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/data/ErrorMessage';
-import { ErrorMessageContainer } from '../../../style/index';
+import { ErrorMessageContainer } from '../../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { Tooltip } from '@mui/material';

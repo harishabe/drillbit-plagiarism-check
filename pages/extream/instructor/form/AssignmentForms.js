@@ -21,7 +21,7 @@ import { CreateAssignment, EditAssignment } from '../../../../redux/action/instr
 import { convertDate } from '../../../../utils/RegExp';
 import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
 import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/data/ErrorMessage';
-import { ErrorMessageContainer } from '../../../style/index';
+import { ErrorMessageContainer } from '../../../../style/index';
 import { Tooltip } from '@mui/material';
 
 export const LabelContainer = styled.div`

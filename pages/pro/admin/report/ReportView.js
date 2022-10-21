@@ -14,7 +14,7 @@ import {
 import { DownloadIcon } from '../../../../assets/icon';
 import FormJson from '../../../../constant/form/report-submission-form.json';
 import { formatDate } from '../../../../utils/RegExp';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer } from '../../../../style/index';
 
 const DownloadButton = styled.div`
     position:fixed;

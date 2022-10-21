@@ -34,7 +34,7 @@ import {
 import AssignmentForms from './../form/AssignmentForms';
 import { removeCommaWordEnd, setItemLocalStorage } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer } from '../../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../../constant/data/Constant';

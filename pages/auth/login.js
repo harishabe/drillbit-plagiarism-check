@@ -6,7 +6,7 @@ import {
     LoginContainer,
     BannerContainer,
     ImgContainer
-} from './login-style';
+} from '../../style/login-style';
 import LoginForm from './login-form';
 import { MainHeading } from '../../components';
 import { DrillBitLogo } from '../../assets/icon';

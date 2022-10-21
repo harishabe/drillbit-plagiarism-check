@@ -16,7 +16,7 @@ import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
 import ExtremeForm from './form/ExtremeForm';
-import { PaginationContainer } from '../style/index';
+import { PaginationContainer } from '../../style/index';
 import Pagination from '@mui/material/Pagination';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from '../../utils/EndPoints';

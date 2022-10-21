@@ -2,7 +2,7 @@ import * as React from 'react';
 import _ from 'lodash';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
-import { StatusColor } from '../../pages/style/index';
+import { StatusColor } from '../../style/index';
 import { useRouter } from 'next/router';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';

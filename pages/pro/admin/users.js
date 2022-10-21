@@ -40,7 +40,7 @@ import UserStats from './users/UserStats';
 import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 import { Role } from '../../../constant/data';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 

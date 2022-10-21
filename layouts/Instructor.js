@@ -3,9 +3,9 @@ import { styled } from '@mui/material/styles';
 import Hidden from '@mui/material/Hidden';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import NavBar from './../components/navbar/navbar';
+import NavBar from '../components/navbar/navbar';
 import SideBar from './SideBar';
-import MobileMenu from '../layouts/MobileMenu';
+import MobileMenu from './MobileMenu';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',

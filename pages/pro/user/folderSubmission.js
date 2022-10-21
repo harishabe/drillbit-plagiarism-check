@@ -35,7 +35,7 @@ import {
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon, RegionalUploadIcon, NonEnglishUploadIcon, EnglishUploadIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE } from '../../../constant/data/Constant';

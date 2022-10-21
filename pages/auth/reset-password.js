@@ -8,8 +8,8 @@ import {
     LoginContainer,
     BannerContainer,
     ImgContainer
-} from './login-style';
-import ResetPwdForm from './ResetPwdForm';
+} from './../../style/login-style';
+import ResetPwdForm from './resetPwdForm';
 import { MainHeading } from '../../components';
 import { DrillBitLogo } from '../../assets/icon';
 import {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Box } from '@mui/material';
-import Instructor from '../../../layouts/instructor';
+import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
     TabMenu,

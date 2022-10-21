@@ -17,7 +17,7 @@ import {
     expiryDateBgColor
 } from '../../../utils/RegExp';
 import { DeleteClass } from '../../../redux/action/instructor/InstructorAction';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 import { CLASS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 
 

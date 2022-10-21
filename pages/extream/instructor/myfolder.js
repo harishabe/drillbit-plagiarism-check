@@ -20,7 +20,7 @@ import { GetAllFolders, DeleteFolder } from '../../../redux/action/instructor/In
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import MyFoldersForms from './form/MyFolderForms';
 import { FOLDERS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 

@@ -22,7 +22,7 @@ import {
 import { BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { formatDate } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 
 const AddButtonBottom = styled.div`
     position:fixed;

@@ -25,7 +25,7 @@ import {
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import { formatDate } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer } from '../../../style/index';
 
 const AdminBreadCrumb = [
     {

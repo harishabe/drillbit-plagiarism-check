@@ -8,7 +8,7 @@ import {
     LoginContainer,
     BannerContainer,
     ImgContainer
-} from './login-style';
+} from './../../style/login-style';
 import ForgotPwdForm from './forgotPwdForm';
 import { MainHeading } from '../../components';
 import { DrillBitLogo } from '../../assets/icon';
