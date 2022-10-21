@@ -207,47 +207,65 @@ const MyFoldersForms = ({
 
     const handleExcludeRef = (e, value) => {
         e.preventDefault();
-        setExcludeRefBib(value);
+        if (value !== null) {
+            setExcludeRefBib(value);
+        }
     };
 
     const handleExcludeQuote = (e, value) => {
         e.preventDefault();
-        setExcludeQuote(value);
+        if (value !== null) {
+            setExcludeQuote(value);
+        }
     };
 
     const handleExcludeSmallSource = (e, value) => {
         e.preventDefault();
-        setExcludeSmallSource(value);
+        if (value !== null) {
+            setExcludeSmallSource(value);
+        }
     };
 
     const handleGrammarCheck = (e, value) => {
         e.preventDefault();
-        setGrammarCheck(value);
+        if (value !== null) {
+            setGrammarCheck(value);
+        }
     };
 
     const handleExcludePhrases = (e, value) => {
         e.preventDefault();
-        setExcludePhrases(value);
+        if (value !== null) {
+            setExcludePhrases(value);
+        }
     };
 
     const handleStudentPaper = (e, value) => {
         e.preventDefault();
-        setStudentPaper(value);
+        if (value !== null) {
+            setStudentPaper(value);
+        }
     };
 
     const handlePublications = (e, value) => {
         e.preventDefault();
-        setPublication(value);
+        if (value !== null) {
+            setPublication(value);
+        }
     };
 
     const handleInternet = (e, value) => {
         e.preventDefault();
-        setInternet(value);
+        if (value !== null) {
+            setInternet(value);
+        }
     };
 
     const handleRepository = (e, value) => {
         e.preventDefault();
-        setRepository(value);
+        if (value !== null) {
+            setRepository(value);
+        }
     };
 
     const addPhrasesInput = () => {
@@ -526,8 +544,8 @@ const MyFoldersForms = ({
                     'type': 'submit',
                     'label': btnLabel,
                     'isDisabled': disabledButton
-                } }
-                    isLoading={ isLoadingEdit || isLoadingFolder }
+                }}
+                    isLoading={isLoadingEdit || isLoadingFolder}
 
                 />
             </form>

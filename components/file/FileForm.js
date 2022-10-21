@@ -60,7 +60,7 @@ const FileForm = ({
     useEffect(() => {
         LanguageList();
     }, []);
-console.log('121212',files);
+    console.log('121212', files);
     return (
         <div style={{ marginTop: '10px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -69,7 +69,7 @@ console.log('121212',files);
                         <Grid container spacing={1} key={item[1]?.name || item.name}>
                             <Grid item md={(langType === 'Non English' || isRegionalFile) ? 2.4 : 3} xs={12}>
                                 <div style={{ marginTop: '25px' }}>
-                                    <EllipsisText value={ item[1]?.name || item.name } charLength={ 22 } />
+                                    <EllipsisText value={item[1]?.name || item.name} charLength={22} />
                                 </div>
                             </Grid>
                             <Grid item md={(langType === 'Non English' || isRegionalFile) ? 2.4 : 3} xs={12}>
@@ -78,31 +78,37 @@ console.log('121212',files);
                                         Author Name *
                                     </InputLabel>
                                 </LabelContainer>
-                                { isStudent ?
+                                {isStudent ?
                                     <TextField
-                                        sx={ { marginTop: '0px' } }
+                                        sx={{ marginTop: '0px' }}
                                         fullWidth
                                         margin="normal"
-                                        name={ 'authorName' + index }
+                                        name={'authorName' + index}
                                         type="text"
                                         variant="outlined"
                                         size="small"
                                         disabled
-                                        label={ getItemLocalStorage('name') }
+                                        label={getItemLocalStorage('name')}
+                                        inputProps={{
+                                            minLength: 3,
+                                        }}
                                     /> :
                                     <TextField
-                                        sx={ { marginTop: '0px' } }
+                                        sx={{ marginTop: '0px' }}
                                         fullWidth
                                         margin="normal"
-                                        name={ 'authorName' + index }
+                                        name={'authorName' + index}
                                         type="text"
                                         variant="outlined"
                                         size="small"
-                                        { ...register('authorName' + index, { required: true }) }
-                                        helperText={ errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME }
-                                        FormHelperTextProps={ {
+                                        {...register('authorName' + index, { required: true })}
+                                        helperText={errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME}
+                                        FormHelperTextProps={{
                                             className: classes.helperText
-                                        } }
+                                        }}
+                                        inputProps={{
+                                            minLength: 3,
+                                        }}
                                     />
                                 }
                             </Grid>
@@ -113,38 +119,44 @@ console.log('121212',files);
                                     </InputLabel>
                                 </LabelContainer>
 
-                                { isStudent ?
+                                {isStudent ?
                                     <TextField
-                                        sx={ { marginTop: '0px' } }
+                                        sx={{ marginTop: '0px' }}
                                         fullWidth
                                         margin="normal"
-                                        name={ 'authorName' + index }
+                                        name={'authorName' + index}
                                         type="text"
                                         variant="outlined"
                                         size="small"
                                         disabled
-                                        label={ assName }
+                                        label={assName}
+                                        inputProps={{
+                                            minLength: 3,
+                                        }}
                                     /> :
                                     <TextField
-                                        sx={ { marginTop: '0px' } }
+                                        sx={{ marginTop: '0px' }}
                                         fullWidth
                                         margin="normal"
-                                        name={ 'title' + index }
+                                        name={'title' + index}
                                         type="text"
                                         variant="outlined"
                                         size="small"
-                                        { ...register('title' + index, { required: true }) }
-                                        helperText={ errors['title' + index] && UPLOAD_FILE_AUTHOR_TITLE }
-                                        FormHelperTextProps={ {
+                                        {...register('title' + index, { required: true })}
+                                        helperText={errors['title' + index] && UPLOAD_FILE_AUTHOR_TITLE}
+                                        FormHelperTextProps={{
                                             className: classes.helperText
-                                        } }
+                                        }}
+                                        inputProps={{
+                                            minLength: 3,
+                                        }}
                                     />
                                 }
                             </Grid>
 
-                            { !isStudent &&
-                                <Grid item md={ langType === 'Non English' || isRegionalFile ? 2.4 : 3 } xs={ 12 }>
-                                    { isLoadingLang ?
+                            {!isStudent &&
+                                <Grid item md={langType === 'Non English' || isRegionalFile ? 2.4 : 3} xs={12}>
+                                    {isLoadingLang ?
                                         <SkeletonContainer>
                                             <Skeleton />
                                         </SkeletonContainer> :
@@ -156,22 +168,22 @@ console.log('121212',files);
                                             </LabelContainer>
                                             <Autocomplete
                                                 disablePortal
-                                                id={ 'documentType' + index }
-                                                name={ 'documentType' + index }
-                                                options={ document_type }
+                                                id={'documentType' + index}
+                                                name={'documentType' + index}
+                                                options={document_type}
                                                 size="small"
                                                 renderInput={
                                                     (params) =>
                                                         <TextField
-                                                            { ...register('documentType' + index, { required: true }) } { ...params }
-                                                            helperText={ errors['documentType' + index] && UPLOAD_FILE_TYPE }
-                                                            FormHelperTextProps={ {
+                                                            {...register('documentType' + index, { required: true })} {...params}
+                                                            helperText={errors['documentType' + index] && UPLOAD_FILE_TYPE}
+                                                            FormHelperTextProps={{
                                                                 className: classes.helperText
-                                                            } }
+                                                            }}
                                                         />
                                                 }
                                             />
-                                        </> }
+                                        </>}
                                 </Grid>
                             }
 
@@ -236,7 +248,7 @@ console.log('121212',files);
                                                 />
                                             </>
                                     }
-                                </Grid> }
+                                </Grid>}
                         </Grid>
                     );
                 })}

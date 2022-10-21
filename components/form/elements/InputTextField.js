@@ -82,6 +82,9 @@ const InputTextField = ({
                         variant="outlined"
                         helperText={error ? error.message : field.info}
                         FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
+                        inputProps={{
+                            minLength: 3,
+                        }}
                     />
                 )}
                 rules={{

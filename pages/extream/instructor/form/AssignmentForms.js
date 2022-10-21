@@ -426,8 +426,8 @@ const AssignmentForms = ({
     }, []);
 
     useEffect(() => {
-        console.log('editDataeditDataeditData',editData);
         if (editData !== undefined) {
+            console.log('editDataeditDataeditData',editData);
             setShowSetting(true);
             let a = {
                 'assignment_name': editData.assignment_name,
@@ -505,82 +505,114 @@ const AssignmentForms = ({
 
     const handleAllowAssgnmtGrade = (e, value) => {
         e.preventDefault();
-        setAllowAssGrade(value);
+        if (value !== null) {
+            setAllowAssGrade(value);
+        }
     };
 
     const handleExcludeRef = (e, value) => {
         e.preventDefault();
-        setExcludeRefBib(value);
+        if (value !== null) {
+            setExcludeRefBib(value);
+        }
     };
 
     const handleExcludeQuote = (e, value) => {
         e.preventDefault();
-        setExcludeQuote(value);
+        if (value !== null) {
+            setExcludeQuote(value);
+        }
     };
 
     const handleExcludeSmallSource = (e, value) => {
         e.preventDefault();
-        setExcludeSmallSource(value);
+        if (value !== null) {
+            setExcludeSmallSource(value);
+        }
     };
 
     const handleSaveToRepo = (e, value) => {
         e.preventDefault();
-        setSaveToRepo(value);
+        if (value !== null) {
+            setSaveToRepo(value);
+        }
     };
 
     const handleAllowSubmission = (e, value) => {
         e.preventDefault();
-        setAllowSubmission(value);
+        if (value !== null) {
+            setAllowSubmission(value);
+        }
     };
 
     const handleAllowSubmissionDueDate = (e, value) => {
         e.preventDefault();
-        setAllowSubmissionDueDate(value);
+        if (value !== null) {
+            setAllowSubmissionDueDate(value);
+        }
     };
 
     const handleGrammarCheck = (e, value) => {
         e.preventDefault();
-        setGrammarCheck(value);
+        if (value !== null) {
+            setGrammarCheck(value);
+        }
     };
 
     const handleChoiceEmailNotification = (e, value) => {
         e.preventDefault();
-        setChoiceEmailNotification(value);
+        if (value !== null) {
+            setChoiceEmailNotification(value);
+        }
     };
 
     const handleAddQuestion = (e, value) => {
         e.preventDefault();
-        setAddQuestion(value);
+        if (value !== null) {
+            setAddQuestion(value);
+        }
     };
 
     const handleExcludePhrases = (e, value) => {
         e.preventDefault();
-        setExcludePhrases(value);
+        if (value !== null) {
+            setExcludePhrases(value);
+        }
     };
 
     const handleStudentPaper = (e, value) => {
         e.preventDefault();
-        setStudentPaper(value);
+        if (value !== null) {
+            setStudentPaper(value);
+        }
     };
 
     const handlePublications = (e, value) => {
         e.preventDefault();
-        setPublication(value);
+        if (value !== null) {
+            setPublication(value);
+        }
     };
 
     const handleInternet = (e, value) => {
         e.preventDefault();
-        setInternet(value);
+        if (value !== null) {
+            setInternet(value);
+        }
     };
 
     const handleRepository = (e, value) => {
         e.preventDefault();
-        setRepository(value);
+        if (value !== null) {
+            setRepository(value);
+        }
     };
 
     const handleReportAccess = (e, value) => {
         e.preventDefault();
-        setReportAccess(value);
+        if (value !== null) {
+            setReportAccess(value);
+        }
     };
 
     const handleAddQuestionRemove = (e, index) => {
@@ -800,11 +832,11 @@ const AssignmentForms = ({
                         <div>
                             <Grid container>
                                 <Grid item md={8}>
-                                <Tooltip title={ 'YES - 14 similarity words, NO - default settings' } arrow>
-                                    <InputLabel style={ { margin: '22px 0px' } }>
-                                        Exclude small sources
-                                    </InputLabel>
-                                </Tooltip>
+                                    <Tooltip title={'YES - 14 similarity words, NO - default settings'} arrow>
+                                        <InputLabel style={{ margin: '22px 0px' }}>
+                                            Exclude small sources
+                                        </InputLabel>
+                                    </Tooltip>
                                 </Grid>
                                 <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
                                     <ToggleButtonGroup
@@ -1066,7 +1098,7 @@ const AssignmentForms = ({
                                                         <TextField
                                                             id={i}
                                                             size="small"
-                                                            label={ 'Enter phrases ' + (i + 1) }
+                                                            label={'Enter phrases ' + (i + 1)}
                                                             name={item}
                                                             value={item['p']}
                                                             onChange={handlePharsesChange}
