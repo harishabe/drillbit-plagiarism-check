@@ -30,6 +30,12 @@ const TableSkeleton = () => {
             <TableCell>
                 <Skeleton />
             </TableCell>
+            <TableCell>
+                <Skeleton />
+            </TableCell>
+            <TableCell>
+                <Skeleton />
+            </TableCell>
         </TableRow>
     );
 };
