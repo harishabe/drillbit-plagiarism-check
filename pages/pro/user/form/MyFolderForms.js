@@ -30,8 +30,8 @@ export const LabelContainer = styled.div`
 
 const ToggleButton = styled(MuiToggleButton)({
     '&.Mui-selected, &.Mui-selected:hover': {
-        color: 'white',
-        backgroundColor: '#3672FF'
+        color: '#fff !important',
+        backgroundColor: '#3672FF !important'
     }
 });
 

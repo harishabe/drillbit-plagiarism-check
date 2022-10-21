@@ -7,7 +7,6 @@ import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InputLabel from '@mui/material/InputLabel';
 
-
 const ToggleButton = styled(MuiToggleButton)({
     '&.Mui-selected, &.Mui-selected:hover': {
         color: '#fff',

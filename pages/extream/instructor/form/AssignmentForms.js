@@ -9,8 +9,8 @@ import { AddImageIcon } from '../../../../assets/icon';
 import InputLabel from '@mui/material/InputLabel';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
-import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import MuiToggleButton from '@mui/material/ToggleButton';
 import Button from '@mui/material/Button';
 import InputDatePicker from '../../../../components/form/elements/InputDatePicker';
 import InputTextField from '../../../../components/form/elements/InputTextField';
@@ -36,8 +36,8 @@ export const LabelContainer = styled.div`
 
 const ToggleButton = styled(MuiToggleButton)({
     '&.Mui-selected, &.Mui-selected:hover': {
-        color: 'white',
-        backgroundColor: '#3672FF'
+        color: '#fff !important',
+        backgroundColor: '#3672FF !important    '
     }
 });
 
