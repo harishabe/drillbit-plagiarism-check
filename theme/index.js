@@ -20,14 +20,10 @@ const drillBitTheme = {
                 }
             }
         },
-    },
-    overrides: {
         MuiTooltip: {
-            tooltip: {
-                backgroundColor: "#222",
-                color: "#fff",
-                "& .MuiLink-root": {
-                    color: "#fff"
+            styleOverrides: {
+                tooltip: {
+                    color: "#fff !important",
                 }
             }
         }
