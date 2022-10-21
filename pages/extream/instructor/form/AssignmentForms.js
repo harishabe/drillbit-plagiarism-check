@@ -14,6 +14,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Button from '@mui/material/Button';
 import InputDatePicker from '../../../../components/form/elements/InputDatePicker';
 import InputTextField from '../../../../components/form/elements/InputTextField';
+import InputNumberField from '../../../../components/form/elements/InputNumberField';
 import InputFileType from '../../../../components/form/elements/InputFileType';
 import InputAutoComplete from '../../../../components/form/elements/InputAutoComplete';
 import InputButton from '../../../../components/form/elements/InputButton';
@@ -772,10 +773,10 @@ const AssignmentForms = ({
                             </Grid>
 
                             {allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES &&
-                                <InputTextField
+                                <InputNumberField
                                     control={control}
                                     field={{
-                                        'field_type': 'input',
+                                        'field_type': 'inputNumber',
                                         'id': 'marks',
                                         'size': 'small',
                                         'name': 'marks',
@@ -915,10 +916,10 @@ const AssignmentForms = ({
                                 </Grid>
                             </Grid>
                             {allowSubmission === ASSIGNMENT_SETTING_VALUE_YES && <>
-                                <InputTextField
+                                <InputNumberField
                                     control={control}
                                     field={{
-                                        'field_type': 'input',
+                                        'field_type': 'inputNumber',
                                         'id': 'no_of_resubmission',
                                         'name': 'no_of_resubmission',
                                         'size': 'small',
@@ -950,10 +951,10 @@ const AssignmentForms = ({
                                 </Grid>
                             </Grid>
                             {allowSubmissionDueDate === ASSIGNMENT_SETTING_VALUE_YES && <>
-                                <InputTextField
+                                <InputNumberField
                                     control={control}
                                     field={{
-                                        'field_type': 'input',
+                                        'field_type': 'inputNumber',
                                         'id': 'extra_days',
                                         'size': 'small',
                                         'name': 'extra_days',
@@ -1156,6 +1157,7 @@ const AssignmentForms = ({
                                 <TextField
                                     id="outlined-name"
                                     fullWidth
+                                    type='number'
                                     name="daily_submissions_limit"
                                     size="small"
                                     value={dailySubmissionLimit}

@@ -405,8 +405,8 @@ a {
 }
 
 #radialBar .apexcharts-tooltip {
-  color: #f3f3f3;
-  border: #f3f3f3;
+  color: #f3f3f3 !important;
+  border: #f3f3f3 !important;
 }
 
 .css-5sb08z-MuiButtonBase-root-MuiToggleButton-root.Mui-selected{
@@ -415,7 +415,7 @@ a {
 }
 
 .css-g19bii-MuiTooltip-tooltip{
-  color: #fff;
+  color: #fff !important;
 }
 
 .Toastify__toast{
