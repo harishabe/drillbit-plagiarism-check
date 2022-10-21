@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Box, Skeleton, Button } from '@mui/material';
+import { Grid, Box, Skeleton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Instructor from './../../../../layouts/Instructor';
-import { CardView, CommonTable, MainHeading, SubTitle2, SubTitle } from '../../../../components';
-import { UploadIcon } from '../../../../assets/icon';
-import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/ProfileAction';
-import { Role } from '../../../../constant/data';
+import { CardView, CommonTable, MainHeading } from '../../../../components';
+import { GetProfile } from '../../../../redux/action/profile/ProfileAction';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 
@@ -19,15 +17,6 @@ function createData(name, details) {
     return { name, details };
 };
 
-const Input = styled('input')({
-    display: 'none',
-});
-
-const UploadButtonAlign = styled('div')({
-    marginBottom: '-5px',
-    marginLeft: '10px'
-});
-
 const ImgLogo = styled('img')({
     width: '100px',
     height: '100px',
@@ -37,17 +26,14 @@ const ImgLogo = styled('img')({
 
 const AccountInfo = ({
     GetProfile,
-    ProfileLogo,
     isLoading,
     accountInfo
 }) => {
 
     const [rows, setRows] = useState([]);
-    const [role, setRole] = useState('');
 
     useEffect(() => {
         GetProfile(BASE_URL_PRO + END_POINTS_PRO.USER_PROFILE_DATA);
-        setRole(localStorage.getItem('role'));
     }, []);
 
     useEffect(() => {
@@ -57,7 +43,6 @@ const AccountInfo = ({
             createData('User ID', accountInfo?.account_id ? accountInfo?.account_id : '-'),
             createData('User Email Address', accountInfo?.email ? accountInfo?.email : '-'),
             createData('Creation Date', accountInfo?.created_date ? accountInfo?.created_date : '-'),
-            // createData("Last Login", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
             createData('Total Documents Alloted', accountInfo?.total_documents_alloted ? accountInfo?.total_documents_alloted : '-'),
             createData('Total Documents Submitted', accountInfo?.total_documents_submitted ? accountInfo?.total_documents_submitted : '-'),
             createData('Files Saved to Repository', accountInfo?.total_documents_added_to_Repository ? accountInfo?.total_documents_added_to_Repository : '-'),
@@ -70,34 +55,12 @@ const AccountInfo = ({
         setRows([...row]);
     }, [accountInfo]);
 
-    const handleChange = (data) => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('file', data.target.files[0]);
-        ProfileLogo(localStorage.getItem('role'), bodyFormData);
-    };
-
-
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={10}>
                         <MainHeading title='Account Information' />
-                        <form>
-                            <label htmlFor="contained-button-file">
-                                <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
-                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
-                                    <>
-                                        <UploadIcon />
-                                        <UploadButtonAlign>
-                                            <SubTitle textColor='#fff' title='Upload Logo' />
-                                        </UploadButtonAlign>
-                                    </>
-                                </Button>
-
-                                <SubTitle2 title='Supported formats : JPG,PNG' />
-                            </label>
-                        </form>
                     </Grid>
                     <Grid item md={2} style={{ textAlign: 'right' }}>
                         {accountInfo &&
@@ -140,7 +103,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetProfile: (role) => dispatch(GetProfile(role)),
-        ProfileLogo: (role, data) => dispatch(ProfileLogo(role, data)),
     };
 };
 
