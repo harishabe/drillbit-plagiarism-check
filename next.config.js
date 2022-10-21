@@ -1,7 +1,12 @@
-/** @type {import('next').NextConfig} */
-const withPWA = require("next-pwa");
+const runtimeCaching = require("next-pwa/cache");
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  runtimeCaching
+});
 
-module.exports = withPWA({
+const nextConfig = withPWA({
   reactStrictMode: false,
   pwa: {
     dest: "public",
@@ -14,11 +19,10 @@ module.exports = withPWA({
     defaultLocale: 'en',
   },
   experimental: {
-    // Enables the styled-components SWC transform
     styledComponents: true
   },
   eslint: {
     ignoreDuringBuilds: true,
   }
 });
-
+module.exports = nextConfig;
