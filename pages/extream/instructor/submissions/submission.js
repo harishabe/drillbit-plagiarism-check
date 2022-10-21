@@ -39,11 +39,11 @@ import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
-import { removeCommaWordEnd, formatDate } from '../../../../utils/RegExp';
+import { removeCommaWordEnd, formatDate, platform } from '../../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_ANALYSIS, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -89,6 +89,7 @@ const DownloadField = styled.div`
 
 const DownloadButton = styled.div`
     margin-top:-5px;
+    margin-right:${ platform === WINDOW_PLATFORM ? '25px' : '0px' };
 `;
 
 const DeleteAllButton = styled.div`
