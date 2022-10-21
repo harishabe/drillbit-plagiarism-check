@@ -142,7 +142,6 @@ const Users = ({
     }, [instructorData]);
 
     const handleChange = (event, value) => {
-        console.log("value", value)
         event.preventDefault();
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
@@ -175,7 +174,6 @@ const Users = ({
     };
 
     const handleAction = (event, icon, rowData) => {
-        console.log('rowData', rowData);
         if (icon === 'edit') {
             setEditInstructor(true);
             setEditInstructorData(rowData);

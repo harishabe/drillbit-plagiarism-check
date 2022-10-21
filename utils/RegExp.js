@@ -80,7 +80,6 @@ export const formatDate = (str) => {
 };
 
 // export const formatOnlyDate = (str) => {
-//     console.log("strstrstrstrstrstr", str)
 //     const [date, month, day] = dateFormat(str);
 //     return [day, month, date.getFullYear()].join("/");
 // };
