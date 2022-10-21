@@ -41,7 +41,6 @@ export function* GetAdminIntegrationData() {
  */
 
  export function* onLoadIntegrationDetails(action) {
-    debugger;
     const { response, error } = yield call(GetIntegrationDetail,action.apiUrl);
     if (response) {
         yield put({
