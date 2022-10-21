@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
-import { CreateAccount, DropdownList } from '../../../redux/action/super/SuperAdminAction';
+import { CreateAccount, EditAccount, DropdownList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/extreme-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
@@ -12,11 +12,16 @@ import END_POINTS from '../../../utils/EndPoints';
 const ExtremeForm = ({
     CreateAccount,
     isLoadingCreate,
+    isLoadingEdit,
+    editData,
+    EditAccount,
     DropdownList,
     dpList
 }) => {
-    const [formData, setFormData] = useState();
-    const { handleSubmit, control } = useForm({
+    const [formJsonField, setFormJsonField] = useState(FormJson);
+    const [editOperation, setEditOperation] = useState(false);
+
+    const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
     });
 
@@ -42,13 +47,99 @@ const ExtremeForm = ({
             }
             return formItem;
         });
-        setFormData(formList);
+        setFormJsonField(formList);
     }, [dpList]);
 
     const onSubmit = (data) => {
-        let DetailedData = { ...data, 'endDate': convertDate(data.endDate), 'startDate': convertDate(data.startDate) };
-        CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, DetailedData);
+        if (editOperation) {
+            data['startDate'] = convertDate(data.startDate);
+            data['endDate'] = convertDate(data.endDate);
+            data['grammarAccess'] = data?.grammarAccess?.name;
+            data['institutionType'] = data?.institutionType?.name;
+            data['licenseType'] = data?.licenseType?.name;
+            data['timeZone'] = data?.timeZone?.name;
+            EditAccount(END_POINTS.SUPER_ADMIN_EXTREME + '/license/' + editData?.lid, data);
+        } else {
+            let DetailedData = {
+                ...data,
+                'endDate': convertDate(data?.endDate),
+                'startDate': convertDate(data?.startDate),
+                'grammarAccess': data?.grammarAccess?.name,
+                'institutionType': data?.institutionType?.name,
+                'licenseType': data?.licenseType?.name,
+                'timeZone': data?.timeZone?.name,
+            };
+            CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, DetailedData);
+        }
     };
+
+    const modifyFormField = (buttonLabel, isNameDisabled) => {
+        let formField = formJsonField?.map((field) => {
+            if (field.field_type === 'button') {
+                field.label = buttonLabel;
+            }
+            if (field.name === 'institutionName') {
+                field.disabled = isNameDisabled;
+            }
+            if (field.name === 'adminEmail') {
+                field.disabled = isNameDisabled;
+            }
+            return field;
+        });
+        setFormJsonField(formField);
+    };
+
+    useEffect(() => {
+        if (editData) {
+            let a = {
+                'institutionName': editData.college_name,
+                'state': editData.state,
+                'country': editData.country,
+                'address': editData.address,
+                'adminName': editData.name,
+                'adminEmail': editData.email,
+                'designation': editData.designation,
+                'phone': editData.phone,
+                'startDate': convertDate(editData.created_date),
+                'endDate': convertDate(editData.expiry_date),
+                'instructors': editData.instructors,
+                'students': editData.students,
+                'submissions': editData.documents,
+                'documentlength': editData.document_type,
+                'grammarAccess': editData.grammar.name,
+                'grammar': editData.grammar_documents,
+                'institutionType': editData.product_type.name,
+                'licenseType': editData.license_type.name,
+                'timeZone': editData.timeZone.name,
+            };
+            const fields = [
+                'institutionName',
+                'state',
+                'country',
+                'address',
+                'adminName',
+                'adminEmail',
+                'designation',
+                'phone',
+                'startDate',
+                'endDate',
+                'instructors',
+                'students',
+                'submissions',
+                'documentlength',
+                'grammarAccess',
+                'grammar',
+                'institutionType',
+                'licenseType',
+                'timeZone',
+            ];
+            fields.forEach(field => { setValue(field, a[field]); });
+            modifyFormField('Edit Extreme Account', true);
+            setEditOperation(true);
+        } else {
+            modifyFormField('Create Extreme Account', false);
+        }
+    }, [editData]);
 
     return (
         <>
@@ -57,13 +148,13 @@ const ExtremeForm = ({
             </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    { FormJson?.map((field, i) => (
+                    { formJsonField?.map((field, i) => (
                         <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
                                 key={ i }
                                 field={ field }
                                 control={ control }
-                                isLoading={ isLoadingCreate }
+                                isLoading={ isLoadingCreate || isLoadingEdit }
                             />
                         </Grid>
                     )) }
@@ -75,12 +166,14 @@ const ExtremeForm = ({
 
 const mapStateToProps = (state) => ({
     isLoadingCreate: state?.superAdmin?.isLoadingCreate,
+    isLoadingEdit: state?.superAdmin?.isLoadingEdit,
     dpList: state?.superAdmin?.ListSuccess,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         CreateAccount: (url, data) => dispatch(CreateAccount(url, data)),
+        EditAccount: (url, data) => dispatch(EditAccount(url, data)),
         DropdownList: () => dispatch(DropdownList()),
     };
 };

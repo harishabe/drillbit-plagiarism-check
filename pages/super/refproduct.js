@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { Grid, TextField, Box } from '@mui/material';
+import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
-import Box from '@mui/material/Box';
 import {
     BreadCrumb,
     CreateDrawer,
@@ -138,9 +139,50 @@ const RefProduct = ({
         setEditUser(drawerClose);
     };
 
+    /** search implementation using debounce concepts */
+
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    };
+
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
+    /** end debounce concepts */
+
     return (
         <>
-            <BreadCrumb item={ RefBreadCrumb } />
+            <Grid container spacing={ 1 }>
+                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                    <BreadCrumb item={ RefBreadCrumb } />
+                </Grid>
+                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                    <TextField
+                        sx={ { width: '40%' } }
+                        placeholder='Search'
+                        onChange={ debouncedResults }
+                        inputProps={ {
+                            style: {
+                                padding: 5,
+                                display: 'inline-flex',
+                            },
+                        } }
+                    />
+                </Grid>
+            </Grid>
 
             <Box sx={ { mt: 1, flexGrow: 1 } }>
                 <CardView>

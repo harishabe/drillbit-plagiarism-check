@@ -34,7 +34,7 @@ export const ExtremeRefAccount = async (endPoint, data) => {
  */
 export const EditExtremeRefAccount = async (apiUrl, data) => {
     const url = BASE_URL_SUPER + apiUrl;
-    return PostMethod(url, data);
+    return PutMethod(url, data);
 };
 
 /**
