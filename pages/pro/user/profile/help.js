@@ -22,6 +22,8 @@ const Help = () => {
         let d = data?.map((item) => {
             if (localStorage.getItem('role') === 'lim-instructor') {
                 item['isShow'] = true;
+            } else if (localStorage.getItem('switchProRole') === 'user') {
+                item['isShow'] = true;
             }
             return item;
         });

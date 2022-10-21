@@ -120,7 +120,7 @@ const NavBar = ({
         setEmail(email);
         if ((userRole === Role?.proAdmin) && (router.pathname.split('/')[1] === 'pro') && (router.pathname.split('/')[2] === 'admin')) {
             setPath('/pro/admin');
-        } else if (userRole === (Role?.proUser|| Role?.proAdmin) && (switchProRole === 'user' || switchProRole === null) && (router.pathname.split('/')[2] === 'user')) {
+        } else if ((userRole === Role?.proUser || Role?.proAdmin) && (switchProRole === 'user' || switchProRole === null) && (router.pathname.split('/')[2] === 'user')) {
             setPath('/pro/user');
         } else if ((userRole === Role?.student)) {
             setPath('/extream/' + userRole);
