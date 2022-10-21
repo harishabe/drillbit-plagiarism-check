@@ -348,7 +348,7 @@ const folderSubmission = ({
             let url = BASE_URL_REGIONAL_ANALYSIS + row.paper_id + '/' + row.d_key;
             window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
         } else {
-            let token = localStorage.getItem('token');
+            let token = sessionStorage.getItem('token');
             let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
             window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
         }

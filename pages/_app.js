@@ -54,7 +54,7 @@ export default function MyApp(props) {
     function authCheck(url) {
         const publicPaths = ['/auth/login', '/auth/forgot-password', '/auth/reset-password'];
         const path = url.split('?')[0];
-        if (!localStorage.getItem('token') && !publicPaths.includes(path)) {
+        if (!sessionStorage.getItem('token') && !publicPaths.includes(path)) {
             setAuthorized(false);
             router.push({
                 pathname: '/auth/login'

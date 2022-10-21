@@ -44,7 +44,7 @@ const AccountInfo = ({
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation');
+        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + sessionStorage.getItem('role') + '/accountInformation');
     }, []);
 
     useEffect(() => {

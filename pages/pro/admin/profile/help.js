@@ -28,7 +28,7 @@ const Help = () => {
 
     useEffect(() => {
         let d = data?.map((item) => {
-            if (localStorage.getItem('role') === 'lim-admin') {
+            if (sessionStorage.getItem('role') === 'lim-admin') {
                 item['isShow'] = true;
             }
             return item;

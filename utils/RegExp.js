@@ -86,10 +86,10 @@ export const formatDate = (str) => {
 // };
 
 export const setItemLocalStorage = (key, value) => {
-    localStorage.setItem(key, value);
+    sessionStorage.setItem(key, value);
 };
 
 export const getItemLocalStorage = (key) => {
-    let a = localStorage.getItem(key);
+    let a = sessionStorage.getItem(key);
     return a;
 };
