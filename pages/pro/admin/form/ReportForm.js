@@ -65,11 +65,10 @@ const ReportForm = ({
                 let toDate = convertDate(data?.toDate);
                 let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + data?.report + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&user=' + item?.username + '&from=' + fromDate + '&to=' + toDate;
                 ViewAndDownloadData(url);
+                setShowDialogModal(true);
+                setReportDownloadData(data);
             }
         })
-
-        setShowDialogModal(true);
-        setReportDownloadData(data);
     };
 
     const handleDownload = () => {
