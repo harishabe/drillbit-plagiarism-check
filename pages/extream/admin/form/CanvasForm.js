@@ -24,14 +24,15 @@ const CanvasForm = ({
     });
 
     const onSubmit = (data) => {
+        console.log("datadatadata", data)
         if (editOperation) {
             let detailedData = {
-                ...data, 'method': data.method.name
+                ...data, 'method': data.method
             };
             ChangeConfig(BASE_URL_EXTREM + END_POINTS.ADMIN_CANVAS_INTEGRATION, detailedData);
         } else {
             let detailedData = {
-                ...data, 'method': data.method.name
+                ...data, 'method': data.method
             };
             LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_CANVAS_INTEGRATION, detailedData);
         }

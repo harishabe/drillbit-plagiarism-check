@@ -24,14 +24,15 @@ const BlackboardForm = ({
     });
 
     const onSubmit = (data) => {
+        console.log("datadatadata", data)
         if (editOperation) {
             let detailedData = {
-                ...data, 'method': data.method.name
+                ...data, 'method': data.method
             };
             ChangeConfig(BASE_URL_EXTREM + END_POINTS.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
         } else {
             let detailedData = {
-                ...data, 'method': data.method.name
+                ...data, 'method': data.method
             };
             LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
         }
@@ -57,7 +58,7 @@ const BlackboardForm = ({
                 'client_id': editData?.client_id,
                 'auth_end_point': editData?.auth_end_point,
                 'access_end_point': editData?.access_end_point,
-                'method': editData?.method.name,
+                'method': editData?.method,
                 'keyset_end_point': editData?.keyset_end_point,
             };
             const fields = [

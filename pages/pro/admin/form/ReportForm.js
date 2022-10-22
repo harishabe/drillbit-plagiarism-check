@@ -28,6 +28,7 @@ const ReportForm = ({
     isLoadingSubmission
 }) => {
     const [formData, setFormData] = useState();
+    const [userName, setUserName] = useState();
     const [reportDownloadData, setReportDownloadData] = useState();
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [open, setOpen] = useState(false);
@@ -58,10 +59,15 @@ const ReportForm = ({
     };
 
     const onSubmit = (data) => {
-        let fromDate = convertDate(data?.fromDate);
-        let toDate = convertDate(data?.toDate);
-        let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + data?.report?.name + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&user=' + data?.user?.username + '&from=' + fromDate + '&to=' + toDate;
-        ViewAndDownloadData(url);
+        formData[1]?.options?.map((item) => {
+            if (item?.name === data?.user) {
+                let fromDate = convertDate(data?.fromDate);
+                let toDate = convertDate(data?.toDate);
+                let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + data?.report + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&user=' + item?.username + '&from=' + fromDate + '&to=' + toDate;
+                ViewAndDownloadData(url);
+            }
+        })
+
         setShowDialogModal(true);
         setReportDownloadData(data);
     };
@@ -96,19 +102,21 @@ const ReportForm = ({
         let reportType = [];
         let userName = [];
         let formList = FormJson?.map((formItem) => {
-            if (formItem.name === 'report') {
+            if (reportData && formItem.name === 'report') {
                 reportData?.reportTypes?.map((item) => {
                     reportType.push({ 'name': item });
                 });
                 formItem['options'] = reportType;
             }
-            if (formItem.name === 'user') {
+            if (reportData && formItem.name === 'user') {
                 reportData?.users.unshift({ 'name': 'All', 'username': 'all' });
                 formItem['options'] = reportData?.users;
+                // console.log("usersusersusers", reportData?.users)
             }
             return formItem;
         });
         setFormData(formList);
+        // console.log("FormDataFormDataFormData", formData[1]?.options)
     }, [reportData]);
 
     return (
