@@ -59,6 +59,9 @@ const ReportForm = ({
     };
 
     const onSubmit = (data) => {
+        debugger;
+        console.log('onsubmit',data);
+        console.log('formData[1]?.options',formData[1]);
         formData[1]?.options?.map((item) => {
             if (item?.name === data?.user) {
                 let fromDate = convertDate(data?.fromDate);

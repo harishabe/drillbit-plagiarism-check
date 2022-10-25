@@ -49,6 +49,7 @@ const InputAutoComplete = ({
                     fieldState: { error },
                     formState, ...props
                 }) => (
+                    console.log('valuevalue',value),
                     <StyledAutocompleteField
                         options={field.options}
                         getOptionLabel={(option) => (option.name)}

@@ -92,7 +92,7 @@ const AssignmentForms = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            editAssignments(data);
+            editAssignments(data, editOperation);
         } else {
             let bodyFormData = new FormData();
             if (showSetting) {
@@ -112,7 +112,7 @@ const AssignmentForms = ({
                 //bodyFormData.append('exclude_include_sources', excludeIncludeSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 bodyFormData.append('save_to_repository', saveToRepo === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
-                    bodyFormData.append('repository_scope', data?.repository_scope?.name.toUpperCase());
+                    bodyFormData.append('repository_scope', data?.repository_scope?.toUpperCase());
                 }
                 bodyFormData.append('allow_resubmissions', allowSubmission === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 if (allowSubmission === ASSIGNMENT_SETTING_VALUE_YES) {
@@ -182,11 +182,13 @@ const AssignmentForms = ({
 
     };
 
-    const editAssignments = (data) => {
+    const editAssignments = (data, editOperation) => {
         let bodyFormData = new FormData();
         bodyFormData.append('assignment_name', data.assignment_name);
         bodyFormData.append('start_date', convertDate(data.start_date));
         bodyFormData.append('end_date', convertDate(data.end_date));
+        console.log('editDataeditDataeditData', editData);
+        console.log('datadatadata', data);
 
         if (editData.assignmentData.attachment !== null) {
             bodyFormData.append('file', editData.assignmentData.attachment);
@@ -232,9 +234,9 @@ const AssignmentForms = ({
             bodyFormData.append('report_access', reportAccess);
         }
 
-
         if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
-            bodyFormData.append('repository_scope', editData?.assignmentData?.repository_scope || data?.repository_scope?.name.toUpperCase());
+            console.log('22222', data);
+            bodyFormData.append('repository_scope', data?.repository_scope?.toUpperCase());
         }
 
         if (editData.assignmentData.assignment_grading === ASSIGNMENT_SETTING_VALUE_YES) {

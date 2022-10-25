@@ -43,4 +43,4 @@ ganashree.s@drillbitplagiarism.com   Gana@123                      student
 
 Super admin app 
 ---------------------------------------------------------------------------------
-admin@xtream                         123456                        super
+admin@drillbit                        drillbit@123                        super
