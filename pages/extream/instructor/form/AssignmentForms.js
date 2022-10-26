@@ -112,7 +112,7 @@ const AssignmentForms = ({
                 //bodyFormData.append('exclude_include_sources', excludeIncludeSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 bodyFormData.append('save_to_repository', saveToRepo === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
-                    bodyFormData.append('repository_scope', data?.repository_scope?.name.toUpperCase());
+                    bodyFormData.append('repository_scope', data?.repository_scope?.toUpperCase());
                 }
                 bodyFormData.append('allow_resubmissions', allowSubmission === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 if (allowSubmission === ASSIGNMENT_SETTING_VALUE_YES) {
