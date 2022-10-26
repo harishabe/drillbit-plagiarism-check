@@ -54,20 +54,20 @@ const ExtremeForm = ({
         if (editOperation) {
             data['startDate'] = convertDate(data.startDate);
             data['endDate'] = convertDate(data.endDate);
-            data['grammarAccess'] = data?.grammarAccess?.name;
-            data['institutionType'] = data?.institutionType?.name;
-            data['licenseType'] = data?.licenseType?.name;
-            data['timeZone'] = data?.timeZone?.name;
+            data['grammarAccess'] = data?.grammarAccess;
+            data['institutionType'] = data?.institutionType;
+            data['licenseType'] = data?.licenseType;
+            data['timeZone'] = data?.timeZone;
             EditAccount(END_POINTS.SUPER_ADMIN_EXTREME + '/license/' + editData?.lid, data);
         } else {
             let DetailedData = {
                 ...data,
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
-                'grammarAccess': data?.grammarAccess?.name,
-                'institutionType': data?.institutionType?.name,
-                'licenseType': data?.licenseType?.name,
-                'timeZone': data?.timeZone?.name,
+                'grammarAccess': data?.grammarAccess,
+                'institutionType': data?.institutionType,
+                'licenseType': data?.licenseType,
+                'timeZone': data?.timeZone,
             };
             CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, DetailedData);
         }
@@ -106,11 +106,11 @@ const ExtremeForm = ({
                 'students': editData.students,
                 'submissions': editData.documents,
                 'documentlength': editData.document_type,
-                'grammarAccess': editData.grammar.name,
+                'grammarAccess': editData.grammar,
                 'grammar': editData.grammar_documents,
-                'institutionType': editData.product_type.name,
-                'licenseType': editData.license_type.name,
-                'timeZone': editData.timeZone.name,
+                'institutionType': editData.product_type,
+                'licenseType': editData.license_type,
+                'timeZone': editData.timeZone,
             };
             const fields = [
                 'institutionName',
