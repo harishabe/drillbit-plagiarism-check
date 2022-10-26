@@ -107,7 +107,7 @@ const CommonTable = ({
                                     <TableCell padding="checkbox" className={classes.padding}>
                                         <Checkbox checked={allSelected} onChange={(e) => handleCheckboxSelect(e, allSelected)} />
                                     </TableCell>}
-                                {tableHeader?.map((column,index) => (
+                                {tableHeader?.map((column, index) => (
                                     <>
                                         {(isSorting) &&
                                             <TableCell
@@ -142,7 +142,7 @@ const CommonTable = ({
                         <TableBody>
                             {isLoading ?
                                 <TableSkeleton />
-                                : tableData?.map((row,index) => (
+                                : tableData?.map((row, index) => (
                                     <TableRow hover key={index}>
                                         {isCheckbox &&
                                             <TableCell padding="checkbox" className={classes.padding}>
@@ -207,11 +207,14 @@ const CommonTable = ({
                                                                                             {value?.props?.percent === '--' ?
                                                                                                 <StatusColor color='#E5E5E5'><BeatLoader size={10} color="#3672FF" /> </StatusColor>
                                                                                                 :
-                                                                                                <Tooltip title={'Similarity Report'} arrow>
-                                                                                                    <a style={{ fontWeight: '600' }} href='#' onClick={(e) => showAnalysisPage(e, row)}>
-                                                                                                        {value}
-                                                                                                    </a>
-                                                                                                </Tooltip>}
+                                                                                                <>
+                                                                                                    {(value?.props?.percent === 'NA') ? <StatusColor color='#E5E5E5'>{NOT_APPLICABLE}</StatusColor> : <Tooltip title={'Similarity Report'} arrow>
+                                                                                                        <a style={{ fontWeight: '600' }} href='#' onClick={(e) => showAnalysisPage(e, row)}>
+                                                                                                            {value}
+                                                                                                        </a>
+                                                                                                    </Tooltip>}
+                                                                                                </>
+                                                                                            }
                                                                                         </div>
                                                                                         <div style={row?.repository_status === "1" ? { width: '17%', marginTop: '5px' } : { marginTop: '5px' }}>
                                                                                             {row?.repository_status === "1" &&

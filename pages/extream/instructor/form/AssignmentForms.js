@@ -234,7 +234,7 @@ const AssignmentForms = ({
 
 
         if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
-            bodyFormData.append('repository_scope', editData?.assignmentData?.repository_scope || data?.repository_scope?.name.toUpperCase());
+            bodyFormData.append('repository_scope', data?.repository_scope?.toUpperCase());
         }
 
         if (editData.assignmentData.assignment_grading === ASSIGNMENT_SETTING_VALUE_YES) {

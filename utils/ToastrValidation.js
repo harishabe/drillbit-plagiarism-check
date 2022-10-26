@@ -39,6 +39,8 @@ const toastrValidation = (response) => {
         error(response?.response?.data?.message);
     } else if (response?.response?.data?.status === 500) {
         error(response?.response?.data?.error);
+    } else if (response?.response?.data?.status === 422) {
+        error(response?.response?.data?.error);
     } else if (response?.code === "ECONNABORTED") {
         error('ERR_TIMED_OUT');
     } else if (response?.code === "ERR_NETWORK") {
