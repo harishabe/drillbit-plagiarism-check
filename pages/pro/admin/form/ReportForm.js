@@ -58,7 +58,6 @@ const ReportForm = ({
     };
 
     const onSubmit = (data) => {
-        console.log("datadatadata", data)
         let fromDate = convertDate(data?.fromDate);
         let toDate = convertDate(data?.toDate);
         let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + data?.report?.name + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&user=' + data?.user?.username + '&from=' + fromDate + '&to=' + toDate;

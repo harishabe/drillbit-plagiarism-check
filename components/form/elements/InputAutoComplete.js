@@ -51,7 +51,7 @@ const InputAutoComplete = ({
                 }) => (
                     <StyledAutocompleteField
                         options={field.options}
-                        getOptionLabel={(option) => (option.name)}
+                        getOptionLabel={ (option) => (option.username ? option.username : option.name) }
                         renderOption={renderOption}
                         size={field.size}
                         renderInput={(params) => <TextField
@@ -66,7 +66,8 @@ const InputAutoComplete = ({
                             }}
                         />}
                         onChange={ (e, data) => onChange(data) }
-                        value={ { name: value?.name === undefined ? '' : value?.name } }
+                        value={ { name: value?.username ? value?.username : (value?.name === undefined ? '' : value?.name) } }
+
                         //defaultValue={{ name: value }}
 
                         {...props}
