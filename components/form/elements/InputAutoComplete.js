@@ -65,8 +65,8 @@ const InputAutoComplete = ({
                                 className: classes.helperText
                             }}
                         />}
-                        onChange={(e, data) => onChange(data?.name)}
-                        value={{ name: value === undefined ? '' : value }}
+                        onChange={ (e, data) => onChange(data) }
+                        value={ { name: value?.name === undefined ? '' : value?.name } }
                         //defaultValue={{ name: value }}
 
                         {...props}
