@@ -70,7 +70,7 @@ const ReportForm = ({
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
         let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + reportDownloadData?.report?.name + 'Report?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&user=' + reportDownloadData?.user?.name + '&from=' + fromDate + '&to=' + toDate;
-        DownloadInstructorStudentData(url, reportDownloadData?.report);
+        DownloadInstructorStudentData(url, reportDownloadData?.report?.name);
     };
 
     const onSend = (data) => {
