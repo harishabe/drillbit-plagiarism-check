@@ -26,12 +26,12 @@ const BlackboardForm = ({
     const onSubmit = (data) => {
         if (editOperation) {
             let detailedData = {
-                ...data, 'method': data.method
+                ...data, 'method': data?.method?.name
             };
             ChangeConfig(BASE_URL_EXTREM + END_POINTS.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
         } else {
             let detailedData = {
-                ...data, 'method': data.method
+                ...data, 'method': data?.method?.name
             };
             LmsIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_BLACKBOARD_INTEGRATION, detailedData);
         }
@@ -57,7 +57,7 @@ const BlackboardForm = ({
                 'client_id': editData?.client_id,
                 'auth_end_point': editData?.auth_end_point,
                 'access_end_point': editData?.access_end_point,
-                'method': editData?.method,
+                'method': { 'name': editData?.method },
                 'keyset_end_point': editData?.keyset_end_point,
             };
             const fields = [
@@ -78,21 +78,21 @@ const BlackboardForm = ({
 
     return (
         <>
-            <div style={ { textAlign: 'center' } }>
+            <div style={{ textAlign: 'center' }}>
                 <AddImageIcon />
             </div>
-            <form onSubmit={ handleSubmit(onSubmit) }>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
-                    { FormJson?.map((field, i) => (
-                        <Grid key={field?.name} md={ 12 } style={ { marginLeft: '8px' } }>
+                    {FormJson?.map((field, i) => (
+                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
                             <FormComponent
-                                key={ i }
-                                field={ field }
-                                control={ control }
-                                isLoading={ isLoadingUpload }
+                                key={i}
+                                field={field}
+                                control={control}
+                                isLoading={isLoadingUpload}
                             />
                         </Grid>
-                    )) }
+                    ))}
                 </Grid>
             </form>
         </>

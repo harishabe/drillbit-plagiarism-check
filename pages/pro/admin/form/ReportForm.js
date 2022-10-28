@@ -74,9 +74,11 @@ const ReportForm = ({
     };
 
     const onSend = (data) => {
+        console.log('datadatadatadata-pro',data);
+        console.log('reportDownloadDatareportDownloadDatareportDownloadData-pro',reportDownloadData)
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
-        let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + reportDownloadData?.report?.name + 'Report?email=' + data.username + '&user=' + reportDownloadData?.user?.userName + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + reportDownloadData?.report?.name + 'Report?email=' + data.username + '&user=' + reportDownloadData?.user?.name + '&from=' + fromDate + '&to=' + toDate;
         ViewDownloadSubmissiondData(url);
     };
 

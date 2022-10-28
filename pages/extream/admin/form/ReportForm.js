@@ -54,14 +54,14 @@ const ReportForm = ({
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report + '?page=' + (value - 1) + '&size=' + PaginationValue?.size + '&instructor=' + reportDownloadData?.instructor + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + '?page=' + (value - 1) + '&size=' + PaginationValue?.size + '&instructor=' + reportDownloadData?.instructor?.name + '&from=' + fromDate + '&to=' + toDate;
         ViewAndDownloadData(url);
     };
 
     const onSubmit = (data) => {
         let fromDate = convertDate(data?.fromDate);
         let toDate = convertDate(data?.toDate);
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + data?.report + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&instructor=' + data?.instructor + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + data?.report?.name + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&instructor=' + data?.instructor?.name + '&from=' + fromDate + '&to=' + toDate;
         ViewAndDownloadData(url);
         setShowDialogModal(true);
         setReportDownloadData(data);
@@ -70,14 +70,14 @@ const ReportForm = ({
     const handleDownload = () => {
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report + 'Report?&instructor=' + reportDownloadData?.instructor + '&from=' + fromDate + '&to=' + toDate;
-        DownloadInstructorStudentData(url, reportDownloadData?.report);
+        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?&instructor=' + reportDownloadData?.instructor?.name + '&from=' + fromDate + '&to=' + toDate;
+        DownloadInstructorStudentData(url, reportDownloadData?.report?.name);
     };
 
     const onSend = (data) => {
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.name + '&from=' + fromDate + '&to=' + toDate;
         ViewDownloadSubmissiondData(url);
     };
 
@@ -87,7 +87,7 @@ const ReportForm = ({
         }
     }, [reportViewSubmissionResponse]);
 
-    const reportName = reportDownloadData?.report;
+    const reportName = reportDownloadData?.report?.name;
 
     useEffect(() => {
         ReportsData(BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS);
@@ -95,6 +95,7 @@ const ReportForm = ({
 
     useEffect(() => {
         let reportType = [];
+        let userList = [];
         if (reportData !== undefined) {
             let formList = FormJson?.map((formItem) => {
                 if (formItem.name === 'report') {
@@ -105,7 +106,10 @@ const ReportForm = ({
                 }
                 if (formItem.name === 'instructor') {
                     reportData?.instructorList.unshift({ 'name': 'all', 'username': 'all' });
-                    formItem['options'] = reportData?.instructorList;
+                    reportData?.instructorList?.map((item) => {
+                        userList.push({ 'name': item?.username, 'userName': item?.name });
+                    });
+                    formItem['options'] = userList;
                 }
                 return formItem;
             });

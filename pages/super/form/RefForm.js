@@ -54,20 +54,20 @@ const RefForm = ({
         if (editOperation) {
             data['startDate'] = convertDate(data.startDate);
             data['endDate'] = convertDate(data.endDate);
-            data['grammarAccess'] = data?.grammarAccess;
-            data['institutionType'] = data?.institutionType;
-            data['licenseType'] = data?.licenseType;
-            data['timeZone'] = data?.timeZone;
+            data['grammarAccess'] = data?.grammarAccess?.name;
+            data['institutionType'] = data?.institutionType?.name;
+            data['licenseType'] = data?.licenseType?.name;
+            data['timeZone'] = data?.timeZone?.name;
             EditAccount(END_POINTS.SUPER_ADMIN_REF + '/license/' + editData?.lid, data);
         } else {
             let DetailedData = {
                 ...data,
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
-                'grammarAccess': data?.grammarAccess,
-                'institutionType': data?.institutionType,
-                'licenseType': data?.licenseType,
-                'timeZone': data?.timeZone,
+                'grammarAccess': data?.grammarAccess?.name,
+                'institutionType': data?.institutionType?.name,
+                'licenseType': data?.licenseType?.name,
+                'timeZone': data?.timeZone?.name,
             };
             CreateAccount(END_POINTS.SUPER_ADMIN_REF, DetailedData);
         }
@@ -105,11 +105,11 @@ const RefForm = ({
                 'instructors': editData.instructors,
                 'submissions': editData.documents,
                 'documentlength': editData.document_type,
-                'grammarAccess': editData.grammar,
+                'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
-                'institutionType': editData.product_type,
-                'licenseType': editData.license_type,
-                'timeZone': editData.timeZone,
+                'institutionType': { 'name': editData.product_type },
+                'licenseType': { 'name': editData.license_type },
+                'timeZone': { 'name': editData.timeZone },
             };
             const fields = [
                 'institutionName',
@@ -147,12 +147,12 @@ const RefForm = ({
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
                     {formJsonField?.map((field, i) => (
-                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
+                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
                             <FormComponent
                                 key={i}
                                 field={field}
                                 control={control}
-                                isLoading={ isLoadingCreate || isLoadingEdit }
+                                isLoading={isLoadingCreate || isLoadingEdit}
                             />
                         </Grid>
                     ))}
