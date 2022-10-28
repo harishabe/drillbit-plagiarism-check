@@ -26,12 +26,12 @@ const CanvasForm = ({
     const onSubmit = (data) => {
         if (editOperation) {
             let detailedData = {
-                ...data, 'method': data.method
+                ...data, 'method': data.method?.name
             };
             ChangeConfig(BASE_URL_PRO + END_POINTS_PRO.ADMIN_CANVAS_INTEGRATION, detailedData);
         } else {
             let detailedData = {
-                ...data, 'method': data.method
+                ...data, 'method': data.method?.name
             };
             LmsIntegration(BASE_URL_PRO + END_POINTS_PRO.ADMIN_CANVAS_INTEGRATION, detailedData);
         }
@@ -57,7 +57,7 @@ const CanvasForm = ({
                 'client_id': editData?.client_id,
                 'auth_end_point': editData?.auth_end_point,
                 'access_end_point': editData?.access_end_point,
-                'method': editData?.method,
+                'method': { 'name': editData?.method },
                 'keyset_end_point': editData?.keyset_end_point,
             };
             const fields = [
