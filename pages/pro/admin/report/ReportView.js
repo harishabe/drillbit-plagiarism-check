@@ -84,12 +84,6 @@ const ReportView = ({
                 );
             arr.push(row);
         });
-        setRows([...arr]);
-    }, [folderViewDownloadData]);
-
-    useEffect(() => {
-        let row = '';
-        let arr = [];
         submissionsViewDownloadData?.map((data) => {
             row =
                 submissionData(
@@ -103,7 +97,7 @@ const ReportView = ({
             arr.push(row);
         });
         setRows([...arr]);
-    }, [submissionsViewDownloadData]);
+    }, [folderViewDownloadData, submissionsViewDownloadData]);
 
     return (
         <>
