@@ -118,7 +118,9 @@ const AddBulkInstructor = ({
     useEffect(() => {
         if (fileUploadData?.status === 200) {
             setFileData('');
-            router.push('/extream/admin/instructor');
+            setTimeout(() => {
+                router.push('/extream/admin/instructor');
+            }, 1000);
         }
     }, [router, fileUploadData?.status]);
 

@@ -108,12 +108,6 @@ const ReportView = ({
                 );
             arr.push(row);
         });
-        setRows([...arr]);
-    }, [assignmentViewDownloadData]);
-
-    useEffect(() => {
-        let row = '';
-        let arr = [];
         classesViewDownloadData?.map((data) => {
             row =
                 classesData(
@@ -127,12 +121,6 @@ const ReportView = ({
                 );
             arr.push(row);
         });
-        setRows([...arr]);
-    }, [classesViewDownloadData]);
-
-    useEffect(() => {
-        let row = '';
-        let arr = [];
         submissionsViewDownloadData?.map((data) => {
             row =
                 submissionData(
@@ -151,7 +139,7 @@ const ReportView = ({
             arr.push(row);
         });
         setRows([...arr]);
-    }, [submissionsViewDownloadData]);
+    }, [assignmentViewDownloadData, classesViewDownloadData, submissionsViewDownloadData]);
 
     return (
         <>
