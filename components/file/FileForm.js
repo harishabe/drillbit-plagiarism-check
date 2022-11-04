@@ -16,6 +16,7 @@ import {
 import {
     LanguageList
 } from '../../redux/action/common/UploadFile/UploadFileAction';
+import InputAutoComplete from '../form/elements/InputAutoComplete';
 import { getItemLocalStorage } from '../../utils/RegExp';
 
 export const LabelContainer = styled.div`
@@ -52,14 +53,15 @@ const FileForm = ({
     assName
 }) => {
     const classes = useStyles();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, control, formState: { errors } } = useForm();
     const onSubmit = (data) => {
+        console.log('datadata',data);
         handleSubmitFile(data);
     };
-
     useEffect(() => {
         LanguageList();
     }, []);
+
     return (
         <div style={{ marginTop: '10px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -165,8 +167,21 @@ const FileForm = ({
                                                     File type *
                                                 </InputLabel>
                                             </LabelContainer>
-                                            <Autocomplete
+                                            <InputAutoComplete
+                                                control={control}
+                                                field={{
+                                                    "field_type": "dropdown",
+                                                    "id": "documentType" + index,
+                                                    "name": "documentType" + index,
+                                                    "required": "Choose Users",
+                                                    "validationMsg": "Please select users",
+                                                    "size": "small",
+                                                    "options": document_type && document_type?.map((item) => ({ 'name': item }))
+                                                }}
+                                            />
+                                            {/* <Autocomplete
                                                 disablePortal
+                                                clearOnBlur={false}
                                                 id={'documentType' + index}
                                                 name={'documentType' + index}
                                                 options={document_type}
@@ -181,7 +196,7 @@ const FileForm = ({
                                                             }}
                                                         />
                                                 }
-                                            />
+                                            /> */}
                                         </>}
                                 </Grid>
                             }
