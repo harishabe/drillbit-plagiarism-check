@@ -121,7 +121,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Submissions'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_submissions }
+                            count={ isLoading ? '' : instructorDashboardData?.data?.submissionsUsage?.usedSubmissions + '/' + instructorDashboardData?.data?.submissionsUsage?.totalSubmissions }
                             icon={ <NoOfSubmission /> }
                         />
                     </Grid>
@@ -204,7 +204,7 @@ const Dashboard = ({
                         >
                             <Heading title='Submissions Overview' />
                             { isLoading ? <Skeleton /> :
-                                recentSubmission?.length && instructorDashboardData?.data?.no_of_submissions > 0 ? <ColumnChart
+                                recentSubmission?.length && instructorDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ? <ColumnChart
                                     type={ COLUMN_ADMIN_CHART_TYPE }
                                     color={ COLUMN_ADMIN_CHART_COLOR }
                                     xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
