@@ -55,7 +55,8 @@ const InputAutoComplete = ({
                         renderOption={renderOption}
                         size={field.size}
                         renderInput={(params) => <TextField
-                            {...params}
+                            {...params} 
+                            style={field.style }
                             name={field.name}
                             id={field.name}
                             margin="normal"
@@ -65,8 +66,8 @@ const InputAutoComplete = ({
                                 className: classes.helperText
                             }}
                         />}
-                        onChange={ (e, data) => onChange(data) }
-                        value={ { name: value?.name === undefined ? '' : value?.name } }
+                        onChange={(e, data) => onChange(data)}
+                        value={{ name: value?.name === undefined ? '' : value?.name }}
                         //defaultValue={{ name: value }}
 
                         {...props}

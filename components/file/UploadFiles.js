@@ -146,19 +146,6 @@ const UploadFiles = ({
         }
     };
 
-    const singleFileUpload = (files, data) => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('authorName', data.authorName0);
-        bodyFormData.append('title', data.title0);
-        bodyFormData.append('documentType', data.documentType0);
-        bodyFormData.append('plagiarismCheck', plagiarismCheck ? 'YES' : 'NO');
-        bodyFormData.append('grammarCheck', grammarCheck ? 'YES' : 'NO');
-        bodyFormData.append('language', langType);
-        bodyFormData.append('file', files[0][1]);
-
-        console.log("singleFileUpload", data)
-    };
-
     // const singleFileUpload = (files, data) => {
     //     let bodyFormData = new FormData();
     //     bodyFormData.append('authorName', data.authorName0);
@@ -168,8 +155,21 @@ const UploadFiles = ({
     //     bodyFormData.append('grammarCheck', grammarCheck ? 'YES' : 'NO');
     //     bodyFormData.append('language', langType);
     //     bodyFormData.append('file', files[0][1]);
-    //     SubmissionListUpload(singleFileUploadAPI, bodyFormData);
+
+    //     console.log("singleFileUpload", data)
     // };
+
+    const singleFileUpload = (files, data) => {
+        let bodyFormData = new FormData();
+        bodyFormData.append('authorName', data.authorName0);
+        bodyFormData.append('title', data.title0);
+        bodyFormData.append('documentType', data.documentType0);
+        bodyFormData.append('plagiarismCheck', plagiarismCheck ? 'YES' : 'NO');
+        bodyFormData.append('grammarCheck', grammarCheck ? 'YES' : 'NO');
+        bodyFormData.append('language', langType);
+        bodyFormData.append('file', files[0][1]);
+        SubmissionListUpload(singleFileUploadAPI, bodyFormData);
+    };
 
     const singleFileUploadStudent = (files, data) => {
         let bodyFormData = new FormData();
