@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
-import { Grid, InputLabel, TextField, Button, Autocomplete } from '@mui/material';
+import { Grid, InputLabel, TextField, Button } from '@mui/material';
 import { EllipsisText } from '..';
 import {
     UPLOAD_FILE_AUTHOR_NAME,
@@ -13,6 +13,7 @@ import {
     UPLOAD_FILE_REPOSITORY_TYPE,
     UPLOAD_FILE_LANGUAGE,
 } from '../../constant/data/ErrorMessage';
+import InputAutoComplete from '../form/elements/InputAutoComplete'
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -28,24 +29,6 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const repoType = [
-    {
-        'label': 'Global'
-    },
-    {
-        'label': 'Institution'
-    }
-];
-
-const languageType = [
-    {
-        'label': 'English'
-    },
-    {
-        'label': 'Non-English'
-    }
-];
-
 const RepositoryFileForm = ({
     files,
     handleSubmitRepository,
@@ -53,9 +36,17 @@ const RepositoryFileForm = ({
     isLoading
 }) => {
     const classes = useStyles();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, control, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        handleSubmitRepository(data);
+        let reqPayload = {};
+        Object.entries(data).map((key) => {
+            if (typeof (key[1]) === 'object') {
+                reqPayload[key[0]] = key[1].name;
+            } else {
+                reqPayload[key[0]] = key[1]
+            }
+        });
+        handleSubmitRepository(reqPayload);
     };
 
     return (
@@ -83,6 +74,7 @@ const RepositoryFileForm = ({
                                     type="text"
                                     variant="outlined"
                                     size="small"
+                                    error={ errors['authorName' + index] }
                                     { ...register('authorName' + index, { required: true }) }
                                     helperText={ errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME }
                                     FormHelperTextProps={ {
@@ -104,6 +96,7 @@ const RepositoryFileForm = ({
                                     type="text"
                                     variant="outlined"
                                     size="small"
+                                    error={ errors['title' + index] }
                                     { ...register('title' + index, { required: true }) }
                                     helperText={ errors['title' + index] && UPLOAD_FILE_PAPER_TITLE }
                                     FormHelperTextProps={ {
@@ -122,9 +115,10 @@ const RepositoryFileForm = ({
                                     fullWidth
                                     margin="normal"
                                     name={ 'year' + index }
-                                    type="text"
+                                    type="number"
                                     variant="outlined"
                                     size="small"
+                                    error={ errors['year' + index] }
                                     { ...register('year' + index, { required: true }) }
                                     helperText={ errors['year' + index] && UPLOAD_FILE_YEAR }
                                     FormHelperTextProps={ {
@@ -133,51 +127,44 @@ const RepositoryFileForm = ({
                                 />
                             </Grid>
                             <Grid item md={ 2 } xs={ 12 }>
-                                <LabelContainer>
-                                    <InputLabel>
-                                        Repository *
-                                    </InputLabel>
-                                </LabelContainer>
-                                <Autocomplete
-                                    disablePortal
-                                    id={ 'repository' + index }
-                                    name={ 'repository' + index }
-                                    options={ repoType }
-                                    size="small"
-                                    renderInput={
-                                        (params) =>
-                                            <TextField
-                                                { ...register('repository' + index, { required: true }) } { ...params }
-                                                helperText={ errors['repository' + index] && UPLOAD_FILE_REPOSITORY_TYPE }
-                                                FormHelperTextProps={ {
-                                                    className: classes.helperText
-                                                } }
-                                            />
-                                    }
+                                <InputAutoComplete
+                                    control={ control }
+                                    field={ {
+                                        'field_type': 'dropdown',
+                                        'style': { marginTop: '0px' },
+                                        'id': 'repository' + index,
+                                        'label': 'Repository *',
+                                        'name': 'repository' + index,
+                                        'required': UPLOAD_FILE_REPOSITORY_TYPE,
+                                        'validationMsg': UPLOAD_FILE_REPOSITORY_TYPE,
+                                        'size': 'small',
+                                        'options': [{
+                                            'name': 'Global'
+                                        }, {
+                                            'name': 'Institution'
+                                        }]
+                                    } }
                                 />
                             </Grid>
+
                             <Grid item md={ 2 } xs={ 12 }>
-                                <LabelContainer>
-                                    <InputLabel>
-                                        Language *
-                                    </InputLabel>
-                                </LabelContainer>
-                                <Autocomplete
-                                    disablePortal
-                                    id={ 'language' + index }
-                                    name={ 'language' + index }
-                                    options={ languageType }
-                                    size="small"
-                                    renderInput={
-                                        (params) =>
-                                            <TextField
-                                                { ...register('language' + index, { required: true }) } { ...params }
-                                                helperText={ errors['language' + index] && UPLOAD_FILE_LANGUAGE }
-                                                FormHelperTextProps={ {
-                                                    className: classes.helperText
-                                                } }
-                                            />
-                                    }
+                                <InputAutoComplete
+                                    control={ control }
+                                    field={ {
+                                        'field_type': 'dropdown',
+                                        'style': { marginTop: '0px' },
+                                        'id': 'language' + index,
+                                        'label': 'Language *',
+                                        'name': 'language' + index,
+                                        'required': UPLOAD_FILE_LANGUAGE,
+                                        'validationMsg': UPLOAD_FILE_LANGUAGE,
+                                        'size': 'small',
+                                        'options': [{
+                                            'name': 'English'
+                                        }, {
+                                            'name': 'Non-English'
+                                        }]
+                                    } }
                                 />
                             </Grid>
                         </Grid>

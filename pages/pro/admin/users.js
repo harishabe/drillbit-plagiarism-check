@@ -122,7 +122,7 @@ const Users = ({
                     formatDate(instructor.created_date),
                     instructor.total_submissions,
                     instructor.total_grammar,
-                    <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
+                    <StatusDot color={ (instructor.status === 'active') || (instructor.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     instructor.role === Role.proAdmin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },

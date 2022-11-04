@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
-import { Grid, InputLabel, TextField, Button, Autocomplete, Skeleton } from '@mui/material';
+import { Grid, InputLabel, TextField, Button, Skeleton } from '@mui/material';
 import { EllipsisText } from '../../components';
 import {
     UPLOAD_FILE_AUTHOR_NAME,
@@ -17,6 +17,7 @@ import {
     LanguageList
 } from '../../redux/action/common/UploadFile/UploadFileAction';
 import { getItemLocalStorage } from '../../utils/RegExp';
+import InputAutoComplete from '../form/elements/InputAutoComplete'
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -52,14 +53,24 @@ const FileForm = ({
     assName
 }) => {
     const classes = useStyles();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, control, handleSubmit, formState: { errors } } = useForm();
+
     const onSubmit = (data) => {
-        handleSubmitFile(data);
+        let reqPayload = {};
+        Object.entries(data).map((key) => {
+            if (typeof (key[1]) === 'object') {
+                reqPayload[key[0]] = key[1].name;
+            } else {
+                reqPayload[key[0]] = key[1]
+            }
+        });
+        handleSubmitFile(reqPayload);
     };
 
     useEffect(() => {
         LanguageList();
     }, []);
+
     return (
         <div style={{ marginTop: '10px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -101,6 +112,7 @@ const FileForm = ({
                                         variant="outlined"
                                         size="small"
                                         {...register('authorName' + index, { required: true })}
+                                        error={errors['authorName' + index]}
                                         helperText={errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME}
                                         FormHelperTextProps={{
                                             className: classes.helperText
@@ -143,6 +155,7 @@ const FileForm = ({
                                         size="small"
                                         {...register('title' + index, { required: true })}
                                         helperText={errors['title' + index] && UPLOAD_FILE_AUTHOR_TITLE}
+                                        error={errors['title' + index]}
                                         FormHelperTextProps={{
                                             className: classes.helperText
                                         }}
@@ -160,28 +173,21 @@ const FileForm = ({
                                             <Skeleton />
                                         </SkeletonContainer> :
                                         <>
-                                            <LabelContainer>
-                                                <InputLabel>
-                                                    File type *
-                                                </InputLabel>
-                                            </LabelContainer>
-                                            <Autocomplete
-                                                disablePortal
-                                                id={'documentType' + index}
-                                                name={'documentType' + index}
-                                                options={document_type}
-                                                size="small"
-                                                renderInput={
-                                                    (params) =>
-                                                        <TextField
-                                                            {...register('documentType' + index, { required: true })} {...params}
-                                                            helperText={errors['documentType' + index] && UPLOAD_FILE_TYPE}
-                                                            FormHelperTextProps={{
-                                                                className: classes.helperText
-                                                            }}
-                                                        />
-                                                }
+                                            <InputAutoComplete
+                                                control={control}
+                                                field={{
+                                                    'field_type': 'dropdown',
+                                                    'style': { marginTop: '0px' },
+                                                    'id': 'documentType' + index,
+                                                    'label': 'File type *',
+                                                    'name': 'documentType' + index,
+                                                    'required': UPLOAD_FILE_TYPE,
+                                                    'validationMsg': UPLOAD_FILE_TYPE,
+                                                    'size': 'small',
+                                                    'options': document_type !== undefined && document_type?.map((item) => ({ 'name': item }))
+                                                }}
                                             />
+
                                         </>}
                                 </Grid>
                             }
@@ -192,27 +198,19 @@ const FileForm = ({
                                     {
                                         isLoadingLang ? <SkeletonContainer><Skeleton /></SkeletonContainer> :
                                             <>
-                                                <LabelContainer>
-                                                    <InputLabel>
-                                                        Select Language *
-                                                    </InputLabel>
-                                                </LabelContainer>
-                                                <Autocomplete
-                                                    disablePortal
-                                                    id='Language'
-                                                    name='nonEnglishLang'
-                                                    options={nonEnglishLang}
-                                                    size="small"
-                                                    renderInput={
-                                                        (params) =>
-                                                            <TextField
-                                                                {...register('nonEnglishLang', { required: true })} {...params}
-                                                                helperText={errors['nonEnglishLang'] && UPLOAD_FILE_LANGUAGE}
-                                                                FormHelperTextProps={{
-                                                                    className: classes.helperText
-                                                                }}
-                                                            />
-                                                    }
+                                                <InputAutoComplete
+                                                    control={ control }
+                                                    field={ {
+                                                        'field_type': 'dropdown',
+                                                        'style': { marginTop: '0px' },
+                                                        'id': 'Language',
+                                                        'label': 'Select Language *',
+                                                        'name': 'nonEnglishLang',
+                                                        'required': UPLOAD_FILE_LANGUAGE,
+                                                        'validationMsg': UPLOAD_FILE_LANGUAGE,
+                                                        'size': 'small',
+                                                        'options': nonEnglishLang !== undefined && nonEnglishLang?.map((item) => ({ 'name': item }))
+                                                    } }
                                                 />
                                             </>
                                     }
@@ -223,28 +221,21 @@ const FileForm = ({
                                     {
                                         isLoadingLang ? <SkeletonContainer><Skeleton /></SkeletonContainer> :
                                             <>
-                                                <LabelContainer>
-                                                    <InputLabel>
-                                                        Select Language *
-                                                    </InputLabel>
-                                                </LabelContainer>
-                                                <Autocomplete
-                                                    disablePortal
-                                                    id='Language'
-                                                    name='regionalLanguage'
-                                                    options={regional_languages}
-                                                    size="small"
-                                                    renderInput={
-                                                        (params) =>
-                                                            <TextField
-                                                                {...register('regionalLanguage', { required: true })} {...params}
-                                                                helperText={errors['regionalLanguage'] && UPLOAD_FILE_LANGUAGE}
-                                                                FormHelperTextProps={{
-                                                                    className: classes.helperText
-                                                                }}
-                                                            />
-                                                    }
+                                                <InputAutoComplete
+                                                    control={ control }
+                                                    field={ {
+                                                        'field_type': 'dropdown',
+                                                        'style': { marginTop: '0px' },
+                                                        'id': 'Language',
+                                                        'label': 'Select Language *',
+                                                        'name': 'regionalLanguage',
+                                                        'required': UPLOAD_FILE_LANGUAGE,
+                                                        'validationMsg': UPLOAD_FILE_LANGUAGE,
+                                                        'size': 'small',
+                                                        'options': regional_languages !== undefined && regional_languages?.map((item) => ({ 'name': item }))
+                                                    } }
                                                 />
+
                                             </>
                                     }
                                 </Grid>}
