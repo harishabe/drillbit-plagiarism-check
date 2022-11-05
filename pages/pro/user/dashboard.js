@@ -82,7 +82,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Folders'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_folders }
+                            count={ instructorDashboardData?.data?.no_of_folders }
                             icon={ <NoOfSubmission /> }
                         />
                     </Grid>
@@ -90,7 +90,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Submissions'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.submissionsUsage?.usedSubmissions + '/' + instructorDashboardData?.data?.submissionsUsage?.totalSubmissions }
+                            count={ instructorDashboardData?.data?.submissionsUsage?.usedSubmissions + '/' + instructorDashboardData?.data?.submissionsUsage?.totalSubmissions }
                             icon={ <NoOfAssignmntIcon /> }
                         />
                     </Grid>

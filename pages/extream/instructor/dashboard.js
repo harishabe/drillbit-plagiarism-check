@@ -97,7 +97,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Classes'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_classes }
+                            count={ instructorDashboardData?.data?.no_of_classes }
                             icon={ <NoOfClassIcon /> }
                         />
                     </Grid>
@@ -105,7 +105,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Assignments'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.no_of_assignments }
+                            count={ instructorDashboardData?.data?.no_of_assignments }
                             icon={ <NoOfAssignmntIcon /> }
                         />
                     </Grid>
@@ -113,7 +113,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Students'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.studentAccountUsage?.usedAccounts + ' / ' + instructorDashboardData?.data?.studentAccountUsage?.totalAccounts }
+                            count={ instructorDashboardData?.data?.studentAccountUsage?.usedAccounts + ' / ' + instructorDashboardData?.data?.studentAccountUsage?.totalAccounts }
                             icon={ <NoStudentIcon /> }
                         />
                     </Grid>
@@ -121,7 +121,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Submissions'
                             isLoading={ isLoading }
-                            count={ isLoading ? '' : instructorDashboardData?.data?.submissionsUsage?.usedSubmissions + '/' + instructorDashboardData?.data?.submissionsUsage?.totalSubmissions }
+                            count={ instructorDashboardData?.data?.submissionsUsage?.usedSubmissions + '/' + instructorDashboardData?.data?.submissionsUsage?.totalSubmissions }
                             icon={ <NoOfSubmission /> }
                         />
                     </Grid>
