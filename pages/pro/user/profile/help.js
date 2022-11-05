@@ -12,9 +12,9 @@ const Help = () => {
             'role': 'User',
             'isShow': false,
             'pdfLinkTitle': 'User tutorial PDF download',
-            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf',
+            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Organization%20user%20guide%20-%202022.pdf',
             'videoTitle': 'User video tutorial',
-            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf'
+            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Organization%20user%20guide%20-%202022.pdf'
         }
     ]);
 
