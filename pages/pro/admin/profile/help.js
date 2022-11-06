@@ -12,17 +12,17 @@ const Help = () => {
             'role': 'admin',
             'isShow': false,
             'pdfLinkTitle': 'Admin tutorial PDF download',
-            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf',
+            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Organization%20admin%20user%20guide%20-%202022.pdf',
             'videoTitle': 'Admin video tutorial',
-            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Classroom%20Admin%20user%20guide%20-%202022.pdf'
+            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Organization%20admin%20user%20guide%20-%202022.pdf'
         },
         {
             'role': 'user',
             'isShow': false,
             'pdfLinkTitle': 'User tutorial PDF download',
-            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf',
+            'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Organization%20user%20guide%20-%202022.pdf',
             'videoTitle': 'User video tutorial',
-            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Instructor%20user%20guide%20-%202022.pdf'
+            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Organization%20user%20guide%20-%202022.pdf'
         }
     ]);
 
