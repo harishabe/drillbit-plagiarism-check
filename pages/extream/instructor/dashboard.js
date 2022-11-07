@@ -113,7 +113,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Students'
                             isLoading={ isLoading }
-                            count={ instructorDashboardData?.data?.studentAccountUsage?.usedAccounts + ' / ' + instructorDashboardData?.data?.studentAccountUsage?.totalAccounts }
+                            count={ instructorDashboardData?.data?.studentAccountUsage?.usedAccounts !== undefined && instructorDashboardData?.data?.studentAccountUsage?.usedAccounts + ' / ' + instructorDashboardData?.data?.studentAccountUsage?.totalAccounts }
                             icon={ <NoStudentIcon /> }
                         />
                     </Grid>
@@ -121,7 +121,7 @@ const Dashboard = ({
                         <WidgetCard
                             title='Submissions'
                             isLoading={ isLoading }
-                            count={ instructorDashboardData?.data?.submissionsUsage?.usedSubmissions + '/' + instructorDashboardData?.data?.submissionsUsage?.totalSubmissions }
+                            count={ instructorDashboardData?.data?.submissionsUsage?.usedSubmissions !== undefined && instructorDashboardData?.data?.submissionsUsage?.usedSubmissions + ' / ' + instructorDashboardData?.data?.submissionsUsage?.totalSubmissions }
                             icon={ <NoOfSubmission /> }
                         />
                     </Grid>
@@ -237,7 +237,7 @@ const Dashboard = ({
                                         isLoading ?
                                             <Skeleton /> :
                                             <TextAlignRight>
-                                                <EllipsisText value={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } charLength={ 10 } />
+                                                <EllipsisText value={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === undefined ? '0' : instructorDashboardData?.data?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } charLength={ 10 } />
                                             </TextAlignRight>
                                     }
                                 </Grid>
