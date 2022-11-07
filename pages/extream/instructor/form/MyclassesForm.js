@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateClass, EditClass } from '../../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../../constant/form/myclasses-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
-//import { EXPIRY_DATE_GREATER_THAN_CURRENT_DATE } from '../../../../constant/data/ErrorMessage';
+import { EXPIRY_DATE_GREATER_THAN_CURRENT_DATE } from '../../../../constant/data/ErrorMessage';
 
 const MyClassesForm = ({
     isLoading,
@@ -24,58 +24,58 @@ const MyClassesForm = ({
         mode: 'all',
     });
 
-    // const expiryDate = useWatch({
-    //     control,
-    //     name: 'expiry_date',
-    // });
+    const expiryDate = useWatch({
+        control,
+        name: 'expiry_date',
+    });
 
-    // useEffect(() => {
-    //     if (new Date(expiryDate).getDate() < new Date().getDate()) {
-    //         let fields = FormJson?.map((item) => {
-    //             if (item?.field_type === 'button') {
-    //                 item['isDisabled'] = true;
-    //             }
-    //             if (item?.field_type === 'datepicker') {
-    //                 item['info'] = EXPIRY_DATE_GREATER_THAN_CURRENT_DATE;
-    //             }
-    //             return item;
-    //         });
-    //         setFormJsonField(fields);
-    //     } else if (new Date(expiryDate).getDate() > new Date().getDate()) {
-    //         let fields = FormJson?.map((item) => {
-    //             if (item?.field_type === 'button') {
-    //                 item['isDisabled'] = false;
-    //             }
-    //             if (item?.field_type === 'datepicker') {
-    //                 item['info'] = '';
-    //             }
-    //             return item;
-    //         });
-    //         setFormJsonField(fields);
-    //     } else if (new Date(expiryDate).getDate() === new Date().getDate()) {
-    //         let fields = FormJson?.map((item) => {
-    //             if (item?.field_type === 'button') {
-    //                 item['isDisabled'] = false;
-    //             }
-    //             if (item?.field_type === 'datepicker') {
-    //                 item['info'] = '';
-    //             }
-    //             return item;
-    //         });
-    //         setFormJsonField(fields);
-    //     } else {
-    //         let fields = FormJson?.map((item) => {
-    //             if (item?.field_type === 'button') {
-    //                 item['isDisabled'] = false;
-    //             }
-    //             // if (item?.field_type === 'datepicker') {
-    //             //     item['info'] = expiryDate;
-    //             // } 
-    //             return item;
-    //         });
-    //         setFormJsonField(fields);
-    //     }
-    // }, [expiryDate]);
+    useEffect(() => {
+        if (new Date(expiryDate).getTime() < new Date().getTime()) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = true;
+                }
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = EXPIRY_DATE_GREATER_THAN_CURRENT_DATE;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if (new Date(expiryDate).getTime() > new Date().getTime()) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = false;
+                }
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = '';
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if (new Date(expiryDate).getTime() === new Date().getTime()) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = false;
+                }
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = '';
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = false;
+                }
+                // if (item?.field_type === 'datepicker') {
+                //     item['info'] = expiryDate;
+                // } 
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+    }, [expiryDate]);
 
     const onSubmit = (data) => {
         if (editOperation) {
