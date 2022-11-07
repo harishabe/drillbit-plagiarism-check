@@ -67,7 +67,7 @@ const NonEnglishFile = () => {
                             fileIcon={ <UploadFileIcon /> }
                             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/nonEnglishFile` }
                             routerObj={ {
-                                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId }
+                                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
                             } }
                         />
                     </Grid>

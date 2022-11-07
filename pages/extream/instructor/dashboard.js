@@ -200,7 +200,7 @@ const Dashboard = ({
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 8 } xs={ 12 }>
                         <CardView
-                        // height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }
+                            height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }
                         >
                             <Heading title='Submissions Overview' />
                             { isLoading ? <Skeleton /> :
@@ -225,7 +225,9 @@ const Dashboard = ({
                         </CardView>
                     </Grid>
                     <Grid item md={ 4 } xs={ 12 }>
-                        <CardView>
+                        <CardView
+                            height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }
+                        >
                             <Grid container>
                                 <Grid item md={ 6.6 } xs={ 12 }>
                                     <Heading title='Trend Analysis' />
