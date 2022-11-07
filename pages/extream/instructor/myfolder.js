@@ -170,7 +170,7 @@ const MyFolder = ({
                                         isAction={true}
                                         handleClick={handleFolderEdit}
                                         handleDelete={handleFolderDelete}
-                                        path={{ pathname: '/extream/instructor/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id } }}
+                                        path={ { pathname: '/extream/instructor/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id, grammar: item.grammarCheck } } }
                                     />
                                 </Grid>
                             ))}

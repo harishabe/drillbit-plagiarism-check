@@ -69,7 +69,7 @@ const NonEnglishFile = () => {
                             singleFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/nonEnglishFile` }
                             routerObj={ {
                                 pathname: '/extream/instructor/folderSubmission',
-                                query: { name: router.query.name, folderId: router.query.folderId }
+                                query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
                             } }
                         />
                     </Grid>

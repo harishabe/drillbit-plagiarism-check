@@ -76,7 +76,7 @@ const EnglishFile = () => {
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/singleFile` }
             multiFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/multipleFiles` }
             routerObj={ {
-                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId }
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
             } }
         />,
         <GDriveFileUpload
@@ -86,7 +86,7 @@ const EnglishFile = () => {
             fileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/drive` }
             routerObj={ {
                 pathname: '/pro/user/folderSubmission',
-                query: { name: router.query.name, folderId: router.query.folderId }
+                query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
             } }
         />,
         <ZipFileUpload
@@ -96,7 +96,7 @@ const EnglishFile = () => {
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
             zipFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/zipFile` }
             confirmZipFileAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/confirmZipFile` }
-            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId } } }
+            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar } } }
         />
     ];
     return (

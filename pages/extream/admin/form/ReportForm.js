@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
 import { FormComponent, DialogModal } from '../../../../components';
@@ -49,6 +49,16 @@ const ReportForm = ({
         setOpen(false);
     };
 
+    const fromDate = useWatch({
+        control,
+        name: 'fromDate',
+    });
+
+    const toDate = useWatch({
+        control,
+        name: 'toDate',
+    });
+
     const handleChange = (event, value) => {
         event.preventDefault();
         let fromDate = convertDate(reportDownloadData?.fromDate);
@@ -86,6 +96,28 @@ const ReportForm = ({
             setOpen(false);
         }
     }, [reportViewSubmissionResponse]);
+
+
+    useEffect(() => {
+        if (new Date(fromDate).getTime()) {
+            let fields = FormJson?.map((item) => {
+                if (item?.name === 'toDate') {
+                    item['minDate'] = fromDate;
+                }
+                return item;
+            });
+            setFormData(fields);
+        }
+        if (new Date(toDate).getTime()) {
+            let fields = FormJson?.map((item) => {
+                if (item?.name === 'fromDate') {
+                    item['maxDate'] = toDate;
+                }
+                return item;
+            });
+            setFormData(fields);
+        }
+    }, [fromDate, toDate]);
 
     const reportName = reportDownloadData?.report?.name;
 

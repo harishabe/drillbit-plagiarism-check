@@ -78,7 +78,7 @@ const EnglishFile = () => {
             multiFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/multipleFiles` }
             routerObj={ {
                 pathname: '/extream/instructor/folderSubmission',
-                query: { name: router.query.name, folderId: router.query.folderId }
+                query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
             } }
         />,
         <GDriveFileUpload
@@ -88,7 +88,7 @@ const EnglishFile = () => {
             fileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/drive` }
             routerObj={ {
                 pathname: '/extream/instructor/folderSubmission',
-                query: { name: router.query.name, folderId: router.query.folderId }
+                query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
             } }
         />,
         <ZipFileUpload
@@ -100,7 +100,7 @@ const EnglishFile = () => {
             confirmZipFileAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `myFolder/${router.query.folderId}/confirmZipFile` }
             routerObj={ {
                 pathname: '/extream/instructor/folderSubmission',
-                query: { name: router.query.name, folderId: router.query.folderId }
+                query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
             } }
         />
     ];

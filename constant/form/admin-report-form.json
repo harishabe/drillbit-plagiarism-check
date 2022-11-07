@@ -25,6 +25,7 @@
         "label": "Choose From Date *",
         "name": "fromDate",
         "required": "Select from date",
+        "nextDate":true,
         "validationMsg": "Please select from date"
     },
     {
@@ -32,6 +33,7 @@
         "id": "toDate",
         "label": "Choose To Date *",
         "name": "toDate",
+        "nextDate":true,
         "required": "Select to date",
         "validationMsg": "Please select to date"
     },

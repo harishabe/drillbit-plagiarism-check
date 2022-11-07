@@ -62,13 +62,16 @@ const InputDatePicker = ({
                                 inputFormat="dd/MM/yyyy"
                                 label={field.dateLabel}
                                 fullWidth
-                                value={value === undefined ? null : value}
+                                value={ value === undefined ? null : value }
                                 onChange={onChange}
                                 disableFuture={ field.nextDate }
                                 disablePast={ field.prevDate }
+                                minDate={ field.minDate }
+                                maxDate={ field.maxDate }
                                 renderInput={(params) => <StyledDatePickerTextField
                                     margin="normal"
                                     {...params}
+                                    error={ error ? error.message : field.info }
                                     helperText={error ? error.message : field.info} 
                                     FormHelperTextProps={{
                                         className: classes.helperText
