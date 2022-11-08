@@ -64,14 +64,14 @@ const ReportForm = ({
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + '?page=' + (value - 1) + '&size=' + PaginationValue?.size + '&instructor=' + reportDownloadData?.instructor?.name + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + '?page=' + (value - 1) + '&size=' + PaginationValue?.size + '&instructor=' + reportDownloadData?.instructor?.userId + '&from=' + fromDate + '&to=' + toDate;
         ViewAndDownloadData(url);
     };
 
     const onSubmit = (data) => {
         let fromDate = convertDate(data?.fromDate);
         let toDate = convertDate(data?.toDate);
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + data?.report?.name + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&instructor=' + data?.instructor?.name + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + data?.report?.name + '?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&instructor=' + data?.instructor?.userId + '&from=' + fromDate + '&to=' + toDate;
         ViewAndDownloadData(url);
         setShowDialogModal(true);
         setReportDownloadData(data);
@@ -80,14 +80,14 @@ const ReportForm = ({
     const handleDownload = () => {
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?&instructor=' + reportDownloadData?.instructor?.name + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?&instructor=' + reportDownloadData?.instructor?.userId + '&from=' + fromDate + '&to=' + toDate;
         DownloadInstructorStudentData(url, reportDownloadData?.report?.name);
     };
 
     const onSend = (data) => {
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
-        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.name + '&from=' + fromDate + '&to=' + toDate;
+        let url = BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + reportDownloadData?.report?.name + 'Report?email=' + data.username + '&instructor=' + reportDownloadData?.instructor?.userId + '&from=' + fromDate + '&to=' + toDate;
         ViewDownloadSubmissiondData(url);
     };
 
@@ -137,9 +137,9 @@ const ReportForm = ({
                     formItem['options'] = reportType;
                 }
                 if (formItem.name === 'instructor') {
-                    reportData?.instructorList.unshift({ 'name': 'all', 'username': 'all' });
+                    reportData?.instructorList.unshift({ 'name': 'all', 'username': 'all', 'id': 'all' });
                     reportData?.instructorList?.map((item) => {
-                        userList.push({ 'name': item?.username, 'userName': item?.name });
+                        userList.push({ 'name': item?.username, 'userName': item?.name, 'userId': item?.id });
                     });
                     formItem['options'] = userList;
                 }
