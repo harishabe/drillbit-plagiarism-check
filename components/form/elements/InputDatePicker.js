@@ -55,7 +55,6 @@ const InputDatePicker = ({
                 render={({
                     field: { onChange, value }, fieldState: { error }
                 }) => (
-                    console.log('errorerrorerrorerror',error),
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <Stack spacing={3}>
                             <DatePicker
@@ -72,7 +71,7 @@ const InputDatePicker = ({
                                 renderInput={(params) => <StyledDatePickerTextField
                                     margin="normal"
                                     {...params}
-                                    //error={ error ? error.message : field.info }
+                                    error={ !!error }
                                     helperText={error ? error.message : field.info} 
                                     FormHelperTextProps={{
                                         className: classes.helperText

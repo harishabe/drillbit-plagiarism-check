@@ -30,7 +30,7 @@ const MyClassesForm = ({
     });
 
     useEffect(() => {
-        if (new Date(expiryDate).getTime() < new Date().getTime()) {
+        if (new Date(expiryDate).getFullYear() < new Date().getFullYear()) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = true;
@@ -41,24 +41,24 @@ const MyClassesForm = ({
                 return item;
             });
             setFormJsonField(fields);
-        } else if (new Date(expiryDate).getTime() > new Date().getTime()) {
+        } else if ((new Date(expiryDate).getFullYear() === new Date().getFullYear()) && new Date(expiryDate).getMonth() < new Date().getMonth()) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = false;
+                    item['isDisabled'] = true;
                 }
                 if (item?.field_type === 'datepicker') {
-                    item['info'] = '';
+                    item['info'] = EXPIRY_DATE_GREATER_THAN_CURRENT_DATE;
                 }
                 return item;
             });
             setFormJsonField(fields);
-        } else if (new Date(expiryDate).getTime() === new Date().getTime()) {
+        } else if ((new Date(expiryDate).getFullYear() === new Date().getFullYear() && new Date(expiryDate).getMonth() === new Date().getMonth()) && new Date(expiryDate).getDate() < new Date().getDate()) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = false;
+                    item['isDisabled'] = true;
                 }
                 if (item?.field_type === 'datepicker') {
-                    item['info'] = '';
+                    item['info'] = EXPIRY_DATE_GREATER_THAN_CURRENT_DATE;
                 }
                 return item;
             });
@@ -68,9 +68,9 @@ const MyClassesForm = ({
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = false;
                 }
-                // if (item?.field_type === 'datepicker') {
-                //     item['info'] = expiryDate;
-                // } 
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = '';
+                } 
                 return item;
             });
             setFormJsonField(fields);

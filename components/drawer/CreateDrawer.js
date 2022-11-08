@@ -143,10 +143,13 @@ const CreateDrawer = ({
                         onClose={toggleDrawer(anchor, false)}
                     >
                         <CloseButtonCenter>
-                            <IconButton onClick={toggleDrawer(anchor, false)}>
-                                <CloseIcon />
-                            </IconButton>
+                            <Tooltip title={ 'close' } arrow>
+                                <IconButton onClick={ toggleDrawer(anchor, false) }>
+                                    <CloseIcon />
+                                </IconButton>
+                            </Tooltip>
                         </CloseButtonCenter>
+
                         <Box style={{ padding: '0px 25px' }}
                             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 500 }}
                             role="presentation"
