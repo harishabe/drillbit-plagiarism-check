@@ -21,7 +21,7 @@ import {
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
-import { formatDate } from '../../../utils/RegExp';
+import { formatDate, windowOpen } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 
 const AddButtonBottom = styled.div`
@@ -100,7 +100,7 @@ const SubmissionHistory = ({
     const handleShowAnalysisPage = (e, row) => {
         let token = localStorage.getItem('token');
         let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
-        window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+        windowOpen(url);
     };
 
 

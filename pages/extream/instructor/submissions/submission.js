@@ -13,7 +13,7 @@ import {
     DeleteIcon,
     DeleteWarningIcon,
     DownloadIcon,
-    NonEnglishUploadIcon, 
+    NonEnglishUploadIcon,
     EnglishUploadIcon
 } from '../../../../assets/icon';
 import { connect } from 'react-redux';
@@ -39,7 +39,7 @@ import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
-import { removeCommaWordEnd, formatDate, platform } from '../../../../utils/RegExp';
+import { removeCommaWordEnd, formatDate, platform, windowOpen } from '../../../../utils/RegExp';
 import { PaginationContainer } from '../../../../style/index';
 import { BASE_URL_ANALYSIS, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
@@ -90,7 +90,7 @@ const DownloadField = styled.div`
 
 const DownloadButton = styled.div`
     margin-top:-5px;
-    margin-right:${ platform === WINDOW_PLATFORM ? '25px' : '0px' };
+    margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
 `;
 
 const DeleteAllButton = styled.div`
@@ -361,10 +361,11 @@ const Submission = ({
     /**
    * show analysis page
    */
+
     const handleShowAnalysisPage = (e, row) => {
         let token = localStorage.getItem('token');
-            let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
-            window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+        let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
+        windowOpen(url);
     };
 
     const handleDownload = () => {

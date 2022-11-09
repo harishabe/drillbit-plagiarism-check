@@ -92,3 +92,15 @@ export const getItemLocalStorage = (key) => {
     let a = localStorage.getItem(key);
     return a;
 };
+
+export const windowOpen = (url) => {
+    let params = 'width=' + screen.width;
+    params += ', height=' + screen.height;
+    params += ', top=0, left=0';
+    params += ', fullscreen=yes';
+    let newwin = window.open(url, 'AnalysisWindow', params);
+    if (window.focus) {
+        newwin.focus()
+    }
+    return false;
+}

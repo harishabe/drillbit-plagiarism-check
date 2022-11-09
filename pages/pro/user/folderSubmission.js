@@ -34,7 +34,7 @@ import {
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon, RegionalUploadIcon, NonEnglishUploadIcon, EnglishUploadIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
-import { formatDate, removeCommaWordEnd } from '../../../utils/RegExp';
+import { formatDate, removeCommaWordEnd, windowOpen } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
@@ -341,16 +341,16 @@ const folderSubmission = ({
     };
 
     /**
-  * show analysis page
-  */
+    * show analysis page
+    */
     const handleShowAnalysisPage = (e, row) => {
         if (row?.language === FILE_LANGUAGE.REGIONAL) {
             let url = BASE_URL_REGIONAL_ANALYSIS + row.paper_id + '/' + row.d_key;
-            window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+            windowOpen(url);
         } else {
             let token = localStorage.getItem('token');
             let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
-            window.open(url, '_blank', 'location=yes,scrollbars=yes,status=yes');
+            windowOpen(url);
         }
     };
 
