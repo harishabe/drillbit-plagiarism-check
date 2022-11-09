@@ -130,10 +130,13 @@ const Dashboard = ({
             <Box mt={ 1 } sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 4 } xs={ 12 }>
-                        <CardView height={ instructorDashboardData?.data?.top_students?.students?.length === 0 ? '' : '440px' }>
+                        <CardView
+                            height={ instructorDashboardData?.topStudent?.students?.length > 0 && '440px' }
+                        >
                             <Heading title='Top Students' />
                             { isLoadingTopStudent ?
                                 <>
+                                    <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
                                     <ListSkeleton />
@@ -167,7 +170,9 @@ const Dashboard = ({
                         </CardView>
                     </Grid>
                     <Grid item md={ 8 } xs={ 12 }>
-                        <CardView height={ instructorDashboardData?.data?.recent_submissions?.length === 0 ? '' : '440px' }>
+                        <CardView
+                            height={ instructorDashboardData?.data?.recent_submissions?.length > 0 && '440px' }
+                        >
                             <Grid container spacing={ 1 }>
                                 <Grid item md={ 10 } xs={ 12 }>
                                     <Heading title='Recent Submissions' />
@@ -200,7 +205,7 @@ const Dashboard = ({
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 8 } xs={ 12 }>
                         <CardView
-                            height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }
+                            height={ instructorDashboardData?.data?.no_of_submissions > 0 && '443px' }
                         >
                             <Heading title='Submissions Overview' />
                             { isLoading ? <Skeleton /> :
@@ -226,7 +231,7 @@ const Dashboard = ({
                     </Grid>
                     <Grid item md={ 4 } xs={ 12 }>
                         <CardView
-                            height={ instructorDashboardData?.data?.no_of_submissions === 0 ? '' : '443px' }
+                            height={ instructorDashboardData?.data?.no_of_submissions > 0 && '443px' }
                         >
                             <Grid container>
                                 <Grid item md={ 6.6 } xs={ 12 }>
@@ -257,7 +262,7 @@ const Dashboard = ({
                                             </TextAlignRight> */}
                                             <PieChart
                                                 type="donut"
-                                                height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '349px' }
+                                                height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '347px' }
                                                 color={ PIE_CHART_COLOR }
                                                 width={ PIE_CHART_WIDTH }
                                                 label={ PIE_CHART_LABEL }
