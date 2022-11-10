@@ -25,7 +25,7 @@ const Container = styled.div`
     // cursor:pointer;
 
     position: relative;
-    background-image: url(${'/img/FolderPng.png'});
+    background-image: url(${'/img/Folder.svg'});
     background-repeat: no-repeat;
     width: 100%;
     height: 100%;

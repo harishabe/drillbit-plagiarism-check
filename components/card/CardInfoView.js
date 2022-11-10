@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image'
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -208,7 +209,7 @@ const CardInfoView = ({
                         </Grid>
                     </Grid>
 
-                    {isImage && <img style={{ marginBottom: '15px' }} src={item.img} alt={item.lms} />}
+                    {isImage && <Image style={{ marginBottom: '15px' }} width="100" height="100" src={item.img} alt={item.lms} />}
 
 
                     {isHeading && <EllipsisText value={item.name} charLength={30} />}
