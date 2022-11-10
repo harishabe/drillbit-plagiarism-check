@@ -9,7 +9,7 @@ import {
 } from '../../style/login-style';
 import LoginForm from './login-form';
 import { MainHeading } from '../../components';
-import { DrillBitLogo } from '../../assets/icon';
+import { DrillBitLogo, LoginBannerIcon } from '../../assets/icon';
 import {
     LOGIN_IMG_BANNER,
     LOGIN_WELCOME_DRILLBIT
@@ -24,12 +24,7 @@ const Login = () => {
                         <BannerContainer>
                             <DrillBitLogo />
                             <ImgContainer>
-                                <Image
-                                    src="/img/login-banner.svg"
-                                    alt={LOGIN_IMG_BANNER}
-                                    width={500}
-                                    height={500}
-                                />
+                                <LoginBannerIcon />
                             </ImgContainer>
                         </BannerContainer>
                     </Grid>
