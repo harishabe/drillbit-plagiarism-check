@@ -284,7 +284,8 @@ const Dashboard = ({
                                         type={RADIAL_CHART_TYPE}
                                         color={RADIAL_CHART_COLOR}
                                         height={RADIAL_CHART_HEIGHT}
-                                        label={[RADIAL_CHART_LABEL + adminDashboardData?.data?.accountValidityDays]}
+                                        label={ [RADIAL_CHART_LABEL] }
+                                        labelData={ [adminDashboardData?.data?.accountValidityDays] }
                                         series={[adminDashboardData?.data?.accountValidityPercentage.toFixed(2)]}
                                     />
                                     {isLoadingRenewAccount ? <Skeleton /> :

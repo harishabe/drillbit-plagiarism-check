@@ -7,6 +7,7 @@ const RadialBarChart = ({
     color,
     height,
     label,
+    labelData,
     series
 }) => {
     const [chartData, setChartData] = useState({
@@ -31,7 +32,7 @@ const RadialBarChart = ({
                 },
                 y: {
                     formatter: function () {
-                        return '';
+                        return labelData;
                     }
                 }
             },
@@ -90,13 +91,13 @@ const RadialBarChart = ({
                         },
                         value: {
                             show: true,
-                            fontSize: '25px',
+                            fontSize: '30px',
                             fontFamily: undefined,
                             fontWeight: 600,
-                            color: '#000000',
+                            color: 'rgba(0, 0, 0, 0.4)',
                             offsetY: 16,
-                            formatter: function (val) {
-                                return '';
+                            formatter: function () {
+                                return labelData;
                             }
                         },
                     },
