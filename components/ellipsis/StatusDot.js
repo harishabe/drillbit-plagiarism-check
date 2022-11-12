@@ -19,7 +19,7 @@ const StatusDot = ({
 }) => {
     return (
         <InlineAlign>
-            <StatusDotIcon color={color} /> <SubTitleStyle><SubTitle title={title} /></SubTitleStyle>
+            <StatusDotIcon color={ color } /> <SubTitleStyle><SubTitle title={ title?.charAt(0).toUpperCase() + title?.slice(1).substring(0, title?.length).toLowerCase() } /></SubTitleStyle>
         </InlineAlign>
     );
 };

@@ -163,7 +163,7 @@ const folderSubmission = ({
                     submission.name,
                     submission.title,
                     submission.original_file_name,
-                    submission.language,
+                    submission.language1,
                     submission.grammar,
                     submission.grammar_url,
                     <SimilarityStatus percent={submission.percent} />,

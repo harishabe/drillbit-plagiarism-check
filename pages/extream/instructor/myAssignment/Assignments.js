@@ -73,7 +73,7 @@ const DeleteAllButton = styled.div`
 `;
 
 const columns = [
-    { id: 'id', label: 'Assignment ID' },
+    { id: 'ass_id', label: 'Assignment ID' },
     { id: 'assignment_name', label: 'Assignment Name' },
     { id: 'status', label: 'Status' },
     { id: 'start_date', label: 'Start Date' },
@@ -81,8 +81,8 @@ const columns = [
     { id: 'action', label: 'Actions' },
 ];
 
-function createData(assignmentData, id, assignment_name, status, start_date, end_date, action) {
-    return { assignmentData, id, assignment_name, status, start_date, end_date, action };
+function createData(assignmentData, ass_id, assignment_name, status, start_date, end_date, action) {
+    return { assignmentData, ass_id, assignment_name, status, start_date, end_date, action };
 }
 
 const Assignments = ({
