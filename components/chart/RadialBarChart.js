@@ -86,15 +86,15 @@ const RadialBarChart = ({
                             fontSize: '18px',
                             fontFamily: undefined,
                             fontWeight: 600,
-                            color: 'rgba(0, 0, 0, 0.4)',
+                            color: '#999999',
                             offsetY: -10
                         },
                         value: {
                             show: true,
-                            fontSize: '30px',
+                            fontSize: '25px',
                             fontFamily: undefined,
                             fontWeight: 600,
-                            color: 'rgba(0, 0, 0, 0.4)',
+                            color: '#999999',
                             offsetY: 16,
                             formatter: function () {
                                 return labelData;
