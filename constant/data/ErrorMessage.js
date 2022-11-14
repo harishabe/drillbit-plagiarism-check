@@ -39,6 +39,11 @@ export const RESET_PASSWORD_NOT_VALID = "New password and Confirm password does 
  * Instructor > my classes
  */
 export const EXPIRY_DATE_GREATER_THAN_CURRENT_DATE = 'Expiry date always greater than or equal to current date.';
+/**
+ * Instructor > my classes > my assignment
+ */
+export const ASSIGNMENT_START_DATE_VALIDATION = 'Start date always greater than or equal to current date.';
+export const ASSIGNMENT_END_DATE_VALIDATION = 'End date always greater than or equal to Start date.';
 
 /**
  * Instructor > My folder > my folder form
