@@ -156,7 +156,7 @@ const Assignments = ({
             setEditAssignment(true);
             setEditAssignmentData(rowData);
         } else if (icon === 'delete') {
-            setDeleteRowData(rowData?.id);
+            setDeleteRowData(rowData?.ass_id);
             setShowDeleteWarning(true);
         } else if (icon === 'nextPath') {
             router.push({
@@ -212,7 +212,7 @@ const Assignments = ({
 
     const handleSingleSelect = (e, row) => {
         let rowData = rows?.map((rowItem) => {
-            if (rowItem?.id === row?.id) {
+            if (rowItem?.ass_id === row?.ass_id) {
                 rowItem['isSelected'] = !rowItem['isSelected'];
             }
             return rowItem;
@@ -227,7 +227,7 @@ const Assignments = ({
                 return rows;
             }
         }).map((rowItem) => {
-            rowsId += rowItem?.id + ',';
+            rowsId += rowItem?.ass_id + ',';
         });
         setDeleteRowData(removeCommaWordEnd(rowsId));
         setShowDeleteWarning(true);
