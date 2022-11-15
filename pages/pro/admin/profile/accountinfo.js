@@ -60,6 +60,7 @@ const AccountInfo = ({
             // createData("Last Login", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
             createData('Total Documents Alloted', accountInfo?.total_documents_alloted ? accountInfo?.total_documents_alloted : '-'),
             createData('Total Documents Submitted', accountInfo?.total_documents_submitted ? accountInfo?.total_documents_submitted : '-'),
+            createData('Total User Accounts', accountInfo?.user_account ? accountInfo?.user_account : '-'),
             createData('Files Saved to Repository', accountInfo?.total_documents_added_to_Repository ? accountInfo?.total_documents_added_to_Repository : '-'),
             createData('Account Expires on', accountInfo?.expiry_date ? accountInfo?.expiry_date : '-'),
             createData('Account Type', accountInfo?.license_type ? accountInfo?.license_type : '-'),

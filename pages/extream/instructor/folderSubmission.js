@@ -349,6 +349,15 @@ const folderSubmission = ({
     //         router.push({ pathname: '/extream/instructor/uploadFileFolderSubmission', query: router.query });
     //     };
 
+    useEffect(() => {
+        if (extractedFileData) {
+            UploadFileDataClear();
+        }
+        if (uploadData) {
+            UploadZipFileDataClear();
+        }
+    }, [uploadData, extractedFileData]);
+
     const handleRefresh = () => {
         folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
     };

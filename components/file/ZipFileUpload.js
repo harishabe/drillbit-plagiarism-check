@@ -65,6 +65,7 @@ const ZipFileUpload = ({
             }
         });
         setFileData(a);
+        UploadZipFileDataClear();
     };
 
     const handleUpload = (e) => {
