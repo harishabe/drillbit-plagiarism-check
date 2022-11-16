@@ -1078,6 +1078,9 @@ const AssignmentForms = ({
                                                             name={item}
                                                             value={item['q']}
                                                             onChange={handleChange}
+                                                            inputProps={ {
+                                                                minLength: 2,
+                                                            } }
                                                         />
                                                     </Grid>
                                                     <Grid item md={2}>
@@ -1137,6 +1140,9 @@ const AssignmentForms = ({
                                                             name={item}
                                                             value={item['p']}
                                                             onChange={handlePharsesChange}
+                                                            inputProps={ {
+                                                                minLength: 2,
+                                                            } }
                                                         />
                                                     </Grid>
                                                     <Grid item md={2}>

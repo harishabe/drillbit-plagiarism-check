@@ -420,12 +420,15 @@ const MyFoldersForms = ({
                                         <Grid key={i} container spacing={2} sx={{ marginBottom: '15px' }}>
                                             <Grid item md={9}>
                                                 <TextField
-                                                    id={i}
+                                                    id={ i }
                                                     size="small"
-                                                    label={'Enter phrases ' + (i + 1)}
-                                                    name={item}
-                                                    value={item['p']}
-                                                    onChange={handlePharsesChange}
+                                                    label={ 'Enter phrases ' + (i + 1) }
+                                                    name={ item }
+                                                    value={ item['p'] }
+                                                    onChange={ handlePharsesChange }
+                                                    inputProps={ {
+                                                        minLength: 2,
+                                                    } }
                                                 />
                                             </Grid>
                                             <Grid item md={2}>
