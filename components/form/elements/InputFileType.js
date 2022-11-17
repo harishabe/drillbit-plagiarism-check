@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { makeStyles } from '@mui/styles';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { TextField } from '@mui/material';
@@ -15,10 +16,17 @@ const StyledInputField = styled(TextField)(() => ({
     },
 }));
 
+const useStyles = makeStyles(() => ({
+    helperText: {
+        marginLeft: 0
+    }
+}));
+
 const InputFileType = ({
     control,
     field
 }) => {
+    const classes = useStyles();
     return (
         <>
             <Controller
@@ -37,6 +45,9 @@ const InputFileType = ({
                         helperText={
                             (value !== undefined) && (typeof value === 'string') && (value.length > 0) && `Last uploaded file: ${value}`
                         }
+                        FormHelperTextProps={ {
+                            className: classes.helperText
+                        } }
                     />
 
                 ) }
