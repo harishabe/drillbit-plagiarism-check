@@ -23,30 +23,31 @@ const InputFileType = ({
         <>
             <Controller
                 name="file"
-                control={control}
-                render={({ field, fieldState: { error } }) => (
+                control={ control }
+                render={ ({ field: { onChange, value }, fieldState: { error } }) => (
                     <StyledInputField
                         margin="normal"
                         type="file"
-                        onChange={e => {
-                            field.onChange(e.target.files);
-                        }}
+                        onChange={ e => { onChange(e.target.files) } }
                         fullWidth
-                        name={field.name}
-                        id={field.name}
+                        name={ field.name }
+                        id={ field.name }
                         variant="outlined"
-                        error={!!error}
-                        helperText={error && error.message}
+                        error={ !!error }
+                        helperText={
+                            (value !== undefined) && (typeof value === 'string') && (value.length > 0) && `Last uploaded file: ${value}`
+                        }
                     />
-                )}
-                rules={{
+
+                ) }
+                rules={ {
                     required: field.required,
                     pattern: {
                         message: field.validationMsg
                     }
-                }}
+                } }
             />
-            {field.info && <InfoContainer>{field.info}</InfoContainer>}
+            { field.info && <InfoContainer>{ field.info }</InfoContainer> }
         </>
     );
 };
