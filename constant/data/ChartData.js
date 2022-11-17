@@ -21,7 +21,7 @@ export const COLUMN_ADMIN_CHART_COLOR = ['#2B4CB0'];
 export const COLUMN_ADMIN_XAXIS_DATA = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const COLUMN_ADMIN_WIDTH = "50%";
 export const COLUMN_ADMIN_CHART_HEIGHT = 350;
-export const COLUMN_ADMIN_CHART_BORDER_RADIUS = 12;
+export const COLUMN_ADMIN_CHART_BORDER_RADIUS = 10;
 export const COLUMN_ADMIN_CHART_SERIES_DATA = [
     {
         name: 'Net Profit',
