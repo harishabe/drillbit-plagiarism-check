@@ -193,193 +193,382 @@ const AssignmentForms = ({
 
     const editAssignments = (data) => {
         let bodyFormData = new FormData();
-        bodyFormData.append('assignment_name', data.assignment_name);
-        bodyFormData.append('start_date', convertDate(data.start_date));
-        bodyFormData.append('end_date', convertDate(data.end_date));
+        if (typeof data.file === 'string') {
+            bodyFormData.append('assignment_name', data.assignment_name);
+            bodyFormData.append('start_date', convertDate(data.start_date));
+            bodyFormData.append('end_date', convertDate(data.end_date));
 
-        if (editData.assignmentData.attachment !== null) {
-            bodyFormData.append('file', editData.assignmentData.attachment);
-        }
+            if (editData.assignmentData.ex_references === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('exclude_references', excludeRefBib);
+            } else {
+                //setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('exclude_references', excludeRefBib);
+            }
 
-        if (editData.assignmentData.ex_references === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('exclude_references', excludeRefBib);
+            if (editData.assignmentData.ex_quotes === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setExcludeQuote(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('exclude_quotes', excludeQuote);
+            } else {
+                //setExcludeQuote(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('exclude_quotes', excludeQuote);
+            }
+
+            if (editData.assignmentData.ex_smallSources === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('exclude_small_sources', excludeSmallSource);
+            } else {
+                //setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('exclude_small_sources', excludeSmallSource);
+            }
+
+            if (editData.assignmentData.save_to_repository === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setSaveToRepo(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('save_to_repository', saveToRepo);
+            } else {
+                //setSaveToRepo(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('save_to_repository', saveToRepo);
+            }
+
+            if (editData.assignmentData.report_access === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setReportAccess(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('report_access', reportAccess);
+            } else {
+                //setReportAccess(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('report_access', reportAccess);
+            }
+
+
+            if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('repository_scope', data?.repository_scope?.name === 'Institution' ? 'LOCAL' : 'GLOBAL');
+            }
+
+            if (editData.assignmentData.assignment_grading === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('assignment_grading', allowAssGrade);
+            } else {
+                //setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('assignment_grading', allowAssGrade);
+            }
+
+            if (allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('marks', editData.assignmentData.marks === data.marks ? editData.assignmentData.marks : data.marks);
+            }
+
+            if (allowSubmissionDueDate === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('extra_days', editData.assignmentData.extra_days === data.extra_days ? editData.assignmentData.extra_days : data.extra_days);
+            }
+
+            if (editData.assignmentData.allow_resubmission === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setAllowSubmission(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('allow_resubmissions', allowSubmission);
+
+            } else {
+                //setAllowSubmission(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('allow_resubmissions', allowSubmission);
+            }
+
+            if (allowSubmission === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('resubmission_count', editData?.assignmentData?.no_of_resubmission || data?.no_of_resubmission);
+            }
+
+            if (editData.assignmentData.allow_submission_after_due === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate);
+
+            } else {
+                //setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate);
+            }
+
+
+            if (editData.assignmentData.grammar === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setGrammarCheck(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('grammar_check', grammarCheck);
+
+            } else {
+                //setGrammarCheck(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('grammar_check', grammarCheck);
+            }
+
+            if (editData.assignmentData.choice_of_email === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('choice_of_email_notifications', choiceEmailNotification);
+
+            } else {
+                //setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('choice_of_email_notifications', choiceEmailNotification);
+            }
+
+            if (editData.assignmentData.questions === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setAddQuestion(ASSIGNMENT_SETTING_VALUE_YES);
+                let questionObj = {};
+                questionList?.map((item, index) => {
+                    questionObj['q' + (index + 1)] = item.q;
+                });
+                bodyFormData.append('add_questions', addQuestion);
+                bodyFormData.append('questions', JSON.stringify(questionObj));
+            } else if (addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
+                let questionObj = {};
+                questionList?.map((item, index) => {
+                    questionObj['q' + (index + 1)] = item.q;
+                });
+                bodyFormData.append('add_questions', addQuestion);
+                bodyFormData.append('questions', JSON.stringify(questionObj));
+            } else {
+                //setAddQuestion(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('add_questions', addQuestion);
+            }
+
+            if (editData.assignmentData.ex_phrases === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setExcludePhrases(ASSIGNMENT_SETTING_VALUE_YES);
+                let phraesObj = {};
+                phrasesList?.map((item, index) => {
+                    phraesObj['p' + (index + 1)] = item.p;
+                });
+                bodyFormData.append('exclude_phrases', excludePhrases);
+                bodyFormData.append('phrases', JSON.stringify(phraesObj));
+            } else if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
+                let phraesObj = {};
+                phrasesList?.map((item, index) => {
+                    phraesObj['p' + (index + 1)] = item.p;
+                });
+                bodyFormData.append('exclude_phrases', excludePhrases);
+                bodyFormData.append('phrases', JSON.stringify(phraesObj));
+            } else {
+                //setExcludePhrases(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('exclude_phrases', excludePhrases);
+            }
+
+            bodyFormData.append('daily_submissions_limit', dailySubmissionLimit);
+
+
+            /** Databases */
+            if (editData.assignmentData.db_publications === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setPublication(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('db_publications', publication);
+            } else {
+                //setPublication(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('db_publications', publication);
+            }
+
+            if (editData.assignmentData.db_internet === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setInternet(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('db_internet', internet);
+            } else {
+                //setInternet(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('db_internet', internet);
+            }
+
+            if (editData.assignmentData.db_studentpaper === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setStudentPaper(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('db_studentpaper', studentPaper);
+            } else {
+                //setStudentPaper(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('db_studentpaper', studentPaper);
+            }
+
+            if (editData.assignmentData.institution_repository === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setRepository(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('institution_repository', repository);
+            } else {
+                //setRepository(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('institution_repository', repository);
+            }
+            /** End databases */
+            EditAssignment(router.query.clasId, editData.ass_id, bodyFormData);
         } else {
-            //setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('exclude_references', excludeRefBib);
+            bodyFormData.append('assignment_name', data.assignment_name);
+            bodyFormData.append('start_date', convertDate(data.start_date));
+            bodyFormData.append('end_date', convertDate(data.end_date));
+
+            // if (editData.assignmentData.attachment !== null) {
+            //     bodyFormData.append('file', editData.assignmentData.attachment);
+            // } 
+            if (data.file !== undefined) {
+                bodyFormData.append('file', data?.file[0]);
+            }
+
+            if (editData.assignmentData.ex_references === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('exclude_references', excludeRefBib);
+            } else {
+                //setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('exclude_references', excludeRefBib);
+            }
+
+            if (editData.assignmentData.ex_quotes === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setExcludeQuote(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('exclude_quotes', excludeQuote);
+            } else {
+                //setExcludeQuote(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('exclude_quotes', excludeQuote);
+            }
+
+            if (editData.assignmentData.ex_smallSources === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('exclude_small_sources', excludeSmallSource);
+            } else {
+                //setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('exclude_small_sources', excludeSmallSource);
+            }
+
+            if (editData.assignmentData.save_to_repository === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setSaveToRepo(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('save_to_repository', saveToRepo);
+            } else {
+                //setSaveToRepo(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('save_to_repository', saveToRepo);
+            }
+
+            if (editData.assignmentData.report_access === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setReportAccess(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('report_access', reportAccess);
+            } else {
+                //setReportAccess(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('report_access', reportAccess);
+            }
+
+
+            if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('repository_scope', data?.repository_scope?.name === 'Institution' ? 'LOCAL' : 'GLOBAL');
+            }
+
+            if (editData.assignmentData.assignment_grading === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('assignment_grading', allowAssGrade);
+            } else {
+                //setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('assignment_grading', allowAssGrade);
+            }
+
+            if (allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('marks', editData.assignmentData.marks === data.marks ? editData.assignmentData.marks : data.marks);
+            }
+
+            if (allowSubmissionDueDate === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('extra_days', editData.assignmentData.extra_days === data.extra_days ? editData.assignmentData.extra_days : data.extra_days);
+            }
+
+            if (editData.assignmentData.allow_resubmission === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setAllowSubmission(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('allow_resubmissions', allowSubmission);
+
+            } else {
+                //setAllowSubmission(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('allow_resubmissions', allowSubmission);
+            }
+
+            if (allowSubmission === ASSIGNMENT_SETTING_VALUE_YES) {
+                bodyFormData.append('resubmission_count', editData?.assignmentData?.no_of_resubmission || data?.no_of_resubmission);
+            }
+
+            if (editData.assignmentData.allow_submission_after_due === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate);
+
+            } else {
+                //setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate);
+            }
+
+
+            if (editData.assignmentData.grammar === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setGrammarCheck(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('grammar_check', grammarCheck);
+
+            } else {
+                //setGrammarCheck(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('grammar_check', grammarCheck);
+            }
+
+            if (editData.assignmentData.choice_of_email === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('choice_of_email_notifications', choiceEmailNotification);
+
+            } else {
+                //setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('choice_of_email_notifications', choiceEmailNotification);
+            }
+
+            if (editData.assignmentData.questions === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setAddQuestion(ASSIGNMENT_SETTING_VALUE_YES);
+                let questionObj = {};
+                questionList?.map((item, index) => {
+                    questionObj['q' + (index + 1)] = item.q;
+                });
+                bodyFormData.append('add_questions', addQuestion);
+                bodyFormData.append('questions', JSON.stringify(questionObj));
+            } else if (addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
+                let questionObj = {};
+                questionList?.map((item, index) => {
+                    questionObj['q' + (index + 1)] = item.q;
+                });
+                bodyFormData.append('add_questions', addQuestion);
+                bodyFormData.append('questions', JSON.stringify(questionObj));
+            } else {
+                //setAddQuestion(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('add_questions', addQuestion);
+            }
+
+            if (editData.assignmentData.ex_phrases === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setExcludePhrases(ASSIGNMENT_SETTING_VALUE_YES);
+                let phraesObj = {};
+                phrasesList?.map((item, index) => {
+                    phraesObj['p' + (index + 1)] = item.p;
+                });
+                bodyFormData.append('exclude_phrases', excludePhrases);
+                bodyFormData.append('phrases', JSON.stringify(phraesObj));
+            } else if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
+                let phraesObj = {};
+                phrasesList?.map((item, index) => {
+                    phraesObj['p' + (index + 1)] = item.p;
+                });
+                bodyFormData.append('exclude_phrases', excludePhrases);
+                bodyFormData.append('phrases', JSON.stringify(phraesObj));
+            } else {
+                //setExcludePhrases(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('exclude_phrases', excludePhrases);
+            }
+
+            bodyFormData.append('daily_submissions_limit', dailySubmissionLimit);
+
+
+            /** Databases */
+            if (editData.assignmentData.db_publications === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setPublication(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('db_publications', publication);
+            } else {
+                //setPublication(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('db_publications', publication);
+            }
+
+            if (editData.assignmentData.db_internet === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setInternet(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('db_internet', internet);
+            } else {
+                //setInternet(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('db_internet', internet);
+            }
+
+            if (editData.assignmentData.db_studentpaper === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setStudentPaper(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('db_studentpaper', studentPaper);
+            } else {
+                //setStudentPaper(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('db_studentpaper', studentPaper);
+            }
+
+            if (editData.assignmentData.institution_repository === ASSIGNMENT_SETTING_VALUE_YES) {
+                //setRepository(ASSIGNMENT_SETTING_VALUE_YES);
+                bodyFormData.append('institution_repository', repository);
+            } else {
+                //setRepository(ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('institution_repository', repository);
+            }
+            /** End databases */
+            EditAssignment(router.query.clasId, editData.ass_id, bodyFormData);
         }
-
-        if (editData.assignmentData.ex_quotes === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setExcludeQuote(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('exclude_quotes', excludeQuote);
-        } else {
-            //setExcludeQuote(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('exclude_quotes', excludeQuote);
-        }
-
-        if (editData.assignmentData.ex_smallSources === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('exclude_small_sources', excludeSmallSource);
-        } else {
-            //setExcludeSmallSource(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('exclude_small_sources', excludeSmallSource);
-        }
-
-        if (editData.assignmentData.save_to_repository === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setSaveToRepo(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('save_to_repository', saveToRepo);
-        } else {
-            //setSaveToRepo(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('save_to_repository', saveToRepo);
-        }
-
-        if (editData.assignmentData.report_access === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setReportAccess(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('report_access', reportAccess);
-        } else {
-            //setReportAccess(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('report_access', reportAccess);
-        }
-
-
-        if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
-            bodyFormData.append('repository_scope', data?.repository_scope?.name === 'Institution' ? 'LOCAL' : 'GLOBAL');
-        }
-
-        if (editData.assignmentData.assignment_grading === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('assignment_grading', allowAssGrade);
-        } else {
-            //setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('assignment_grading', allowAssGrade);
-        }
-
-        if (allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES) {
-            bodyFormData.append('marks', editData.assignmentData.marks === data.marks ? editData.assignmentData.marks : data.marks);
-        }
-
-        if (allowSubmissionDueDate === ASSIGNMENT_SETTING_VALUE_YES) {
-            bodyFormData.append('extra_days', editData.assignmentData.extra_days === data.extra_days ? editData.assignmentData.extra_days : data.extra_days);
-        }
-
-        if (editData.assignmentData.allow_resubmission === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setAllowSubmission(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('allow_resubmissions', allowSubmission);
-
-        } else {
-            //setAllowSubmission(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('allow_resubmissions', allowSubmission);
-        }
-
-        if (allowSubmission === ASSIGNMENT_SETTING_VALUE_YES) {
-            bodyFormData.append('resubmission_count', editData?.assignmentData?.no_of_resubmission || data?.no_of_resubmission);
-        }
-
-        if (editData.assignmentData.allow_submission_after_due === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate);
-
-        } else {
-            //setAllowSubmissionDueDate(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('allow_submissions_after_due_date', allowSubmissionDueDate);
-        }
-
-
-        if (editData.assignmentData.grammar === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setGrammarCheck(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('grammar_check', grammarCheck);
-
-        } else {
-            //setGrammarCheck(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('grammar_check', grammarCheck);
-        }
-
-        if (editData.assignmentData.choice_of_email === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('choice_of_email_notifications', choiceEmailNotification);
-
-        } else {
-            //setChoiceEmailNotification(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('choice_of_email_notifications', choiceEmailNotification);
-        }
-
-        if (editData.assignmentData.questions === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setAddQuestion(ASSIGNMENT_SETTING_VALUE_YES);
-            let questionObj = {};
-            questionList?.map((item, index) => {
-                questionObj['q' + (index + 1)] = item.q;
-            });
-            bodyFormData.append('add_questions', addQuestion);
-            bodyFormData.append('questions', JSON.stringify(questionObj));
-        } else if (addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
-            let questionObj = {};
-            questionList?.map((item, index) => {
-                questionObj['q' + (index + 1)] = item.q;
-            });
-            bodyFormData.append('add_questions', addQuestion);
-            bodyFormData.append('questions', JSON.stringify(questionObj));
-        } else {
-            //setAddQuestion(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('add_questions', addQuestion);
-        }
-
-        if (editData.assignmentData.ex_phrases === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setExcludePhrases(ASSIGNMENT_SETTING_VALUE_YES);
-            let phraesObj = {};
-            phrasesList?.map((item, index) => {
-                phraesObj['p' + (index + 1)] = item.p;
-            });
-            bodyFormData.append('exclude_phrases', excludePhrases);
-            bodyFormData.append('phrases', JSON.stringify(phraesObj));
-        } else if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
-            let phraesObj = {};
-            phrasesList?.map((item, index) => {
-                phraesObj['p' + (index + 1)] = item.p;
-            });
-            bodyFormData.append('exclude_phrases', excludePhrases);
-            bodyFormData.append('phrases', JSON.stringify(phraesObj));
-        } else {
-            //setExcludePhrases(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('exclude_phrases', excludePhrases);
-        }
-
-        bodyFormData.append('daily_submissions_limit', dailySubmissionLimit);
-
-
-        /** Databases */
-        if (editData.assignmentData.db_publications === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setPublication(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('db_publications', publication);
-        } else {
-            //setPublication(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('db_publications', publication);
-        }
-
-        if (editData.assignmentData.db_internet === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setInternet(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('db_internet', internet);
-        } else {
-            //setInternet(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('db_internet', internet);
-        }
-
-        if (editData.assignmentData.db_studentpaper === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setStudentPaper(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('db_studentpaper', studentPaper);
-        } else {
-            //setStudentPaper(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('db_studentpaper', studentPaper);
-        }
-
-        if (editData.assignmentData.institution_repository === ASSIGNMENT_SETTING_VALUE_YES) {
-            //setRepository(ASSIGNMENT_SETTING_VALUE_YES);
-            bodyFormData.append('institution_repository', repository);
-        } else {
-            //setRepository(ASSIGNMENT_SETTING_VALUE_NO);
-            bodyFormData.append('institution_repository', repository);
-        }
-        /** End databases */
-        EditAssignment(router.query.clasId, editData.ass_id, bodyFormData);
     };
 
     useEffect(() => {
@@ -472,7 +661,7 @@ const AssignmentForms = ({
                 'repository_scope': { 'name': (editData.assignmentData.repository_scope === null ? '' : editData.assignmentData.repository_scope === 'LOCAL' ? 'Institution' : 'Global') },
                 'no_of_resubmission': editData.assignmentData.resubmission_count,
                 'resubmission_count': editData.assignmentData.resubmission_count,
-                'file': editData.assignmentData.attachment
+                'file': editData.assignmentData.attachment === null ? '' : editData.assignmentData.attachment
             };
             const fields = [
                 'assignment_name',
