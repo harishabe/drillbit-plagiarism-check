@@ -427,7 +427,7 @@ const MyFoldersForms = ({
                                                     value={ item['p'] }
                                                     onChange={ handlePharsesChange }
                                                     inputProps={ {
-                                                        minLength: 2,
+                                                        minLength: 3,
                                                     } }
                                                 />
                                             </Grid>
