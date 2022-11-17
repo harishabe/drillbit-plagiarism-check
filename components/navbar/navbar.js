@@ -288,7 +288,7 @@ const NavBar = ({
                         </MenuItem>
 
                         <div style={{ textAlign: 'right', padding: '0px 15px' }}>
-                            <SubTitle1 title="v.2.0.0" />
+                            <SubTitle1 title="v.2.1.0" />
                         </div>
                     </MenuList>
                 </Paper>
