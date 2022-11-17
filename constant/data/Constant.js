@@ -133,6 +133,7 @@ export const UPLOAD_TITLE_CONSTANT = {
 
 export const UPLOAD_SUPPORTED_FILES = {
     'SINGLE': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx',
+    'REGIONAL_FORMAT': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt',
     'ZIP': 'Supported Compressed file format: zip',
     'NON_ZIP': 'Non-Supported Compressed file format : rar,tar,7z',
     'GDRIVE': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt',
