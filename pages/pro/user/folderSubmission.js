@@ -149,6 +149,15 @@ const folderSubmission = ({
         }
     }, [router.isReady, paginationPayload]);
 
+    useEffect(() => {
+        if (extractedFileData) {
+            UploadFileDataClear();
+        }
+        if (uploadData) {
+            UploadZipFileDataClear();
+        }
+    }, [uploadData, extractedFileData]);
+
     const handleRefresh = () => {
         folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
     };
