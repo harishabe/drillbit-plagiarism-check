@@ -77,7 +77,7 @@ const NonEnglishFile = () => {
                             multiFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`}
                             routerObj={{
                                 pathname: '/extream/instructor/mysubmissions',
-                                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName }
+                                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, grammar: router.query.grammar }
                             }}
                         />
                     </Grid>
