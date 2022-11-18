@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { makeStyles } from '@mui/styles';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@mui/styles';
 import { TextField } from '@mui/material';
 
 const InfoContainer = styled.div`
@@ -45,11 +46,8 @@ const InputFileType = ({
                         helperText={
                             (value !== undefined) && (typeof value === 'string') && (value.length > 0) && `Last uploaded file: ${value}`
                         }
-                        FormHelperTextProps={ {
-                            className: classes.helperText
-                        } }
+                        FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
                     />
-
                 ) }
                 rules={ {
                     required: field.required,

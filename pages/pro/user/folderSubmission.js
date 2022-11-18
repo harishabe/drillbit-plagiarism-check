@@ -353,9 +353,20 @@ const folderSubmission = ({
     * show analysis page
     */
     const handleShowAnalysisPage = (e, row) => {
-        let token = localStorage.getItem('token');
-        let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
-        windowOpen(url);
+        if (row?.language === FILE_LANGUAGE.REGIONAL) {
+            if (row?.paper_id > 657600) {
+                let token = localStorage.getItem('token');
+                let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
+                windowOpen(url);
+            } else {
+                let url = BASE_URL_REGIONAL_ANALYSIS + row.paper_id + '/' + row.d_key;
+                windowOpen(url);
+            }
+        } else {
+            let token = localStorage.getItem('token');
+            let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
+            windowOpen(url);
+        }
     };
 
     const handlGrammarReport = (grammar) => {
