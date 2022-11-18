@@ -345,7 +345,7 @@ const UploadFiles = ({
                                         <div>
                                             <FormControlLabel
                                                 control={
-                                                    <Checkbox disabled={ router.query.grammar.toUpperCase() === 'NO' } checked={ grammarCheck } onChange={ handleGrammarPlagiarismChange } name="grammarCheck" />
+                                                    <Checkbox disabled={ router?.query?.grammar?.toUpperCase() === 'NO' } checked={ grammarCheck } onChange={ handleGrammarPlagiarismChange } name="grammarCheck" />
                                                 }
                                                 label="Grammar Check"
                                             />
