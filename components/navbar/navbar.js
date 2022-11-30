@@ -124,6 +124,8 @@ const NavBar = ({
             setPath('/pro/user');
         } else if ((userRole === Role?.student)) {
             setPath('/extream/' + userRole);
+        } else if ((userRole === Role?.super)) {
+            setPath('/super/');
         } else if ((userRole === Role?.admin) && (router.pathname.split('/')[1] === 'extream') && (router.pathname.split('/')[2] === 'admin')) {
             setPath('/extream/admin');
         } else if ((userRole === Role?.instructor || Role?.admin) && (switchExtreamRole === Role?.instructor || switchExtreamRole === null) && (router.pathname.split('/')[2] === 'instructor')) {
