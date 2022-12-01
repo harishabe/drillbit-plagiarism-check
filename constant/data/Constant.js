@@ -18,6 +18,8 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'action',
     'stats',
     'feedback',
+    'grammar_url',
+    'score',
     'status',
     'STname',
     'similarity',

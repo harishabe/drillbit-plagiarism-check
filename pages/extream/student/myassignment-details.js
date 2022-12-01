@@ -128,7 +128,7 @@ const MyAssignmentDetails = ({
     const handleSend = (e, ans1, qnaData) => {
         qnaData?.map((item) => {
             if (item?.answer !== null) {
-                ans1[item.question.replace('Q', 'A').toLowerCase()] = item?.answer;
+                ans1[item.id.replace('Q', 'A').toLowerCase()] = item?.answer;
             }
         });
         ans1['studentName'] = getItemLocalStorage('name');
