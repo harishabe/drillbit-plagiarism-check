@@ -196,8 +196,6 @@ const CommonTable = ({
                                                                         <>
                                                                             { column.id === 'percent' &&
                                                                                 <TableCell align={ column.align }>
-
-
                                                                                     <div style={ { display: 'flex' } }>
                                                                                         {
                                                                                             ((role !== 'student') || (role === 'student' && router?.query?.rep?.toUpperCase() === 'YES')) ?
