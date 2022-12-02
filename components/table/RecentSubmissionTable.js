@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
-import { SubTitle, SubTitle1, SimilarityStatus, EllipsisText, SubTitle2 } from '../index';
+import { SubTitle, SubTitle1, SimilarityStatus, EllipsisText } from '../index';
 import { StatusDot } from '../../components';
 import { formatDate } from '../../utils/RegExp';
 
@@ -30,12 +30,12 @@ const RecentSubmissionTable = ({
                                         <Avatar
                                             alt={ item.name }
                                             sx={ { width: 50, height: 50, background: item.color, color: '#fff' } }
-                                        >{ item.name.charAt(0).toUpperCase() }
+                                            >{ item?.name?.charAt(0)?.toUpperCase() }
                                         </Avatar>
                                     </TableCell>
                                     <TableCell align='left'>
-                                        <EllipsisText value={ item.name } charLength={ 15 } />
-                                        <SubTitle2 title={ item.title } />
+                                            <EllipsisText value={ item?.name !== null ? item?.name : 'NA' } charLength={ 15 } />
+                                            <EllipsisText value={ item?.title !== null ? item?.title : 'NA' } variant={ 'body2' } charLength={ 15 } />
                                     </TableCell>
 
                                     <TableCell>
