@@ -3,7 +3,8 @@ import * as types from '../../action/ActionType';
 import {
     GetIntegrationDetail,
     LmsIntegrationDetail,
-    ChangeConfigDetail
+    ChangeConfigDetail,
+    GoogleClassroomDetail
 } from '../../api/admin/IntegrationAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
@@ -116,4 +117,28 @@ export function* onLoadChangeConfigDetail(action) {
 
 export function* ChangeConfiguration() {
     yield takeLatest(types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_START, onLoadChangeConfigDetail);
+}
+
+/**
+ * Get Google classroom
+ * @param {*} action
+ */
+
+export function* onLoadGoogleClassroom() {
+    const { response, error } = yield call(GoogleClassroomDetail);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetAdminGoogleClassroomData() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_START, onLoadGoogleClassroom);
 }

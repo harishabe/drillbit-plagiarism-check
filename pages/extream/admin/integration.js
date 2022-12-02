@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { Skeleton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
 import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer } from './../../../components';
-import { GetIntegrationList } from '../../../redux/action/admin/AdminAction';
+import { GetIntegrationList, GetGoogleLms } from '../../../redux/action/admin/AdminAction';
 import END_POINTS from '../../../utils/EndPoints';
 import MoodleForm from './form/MoodleForm';
 import CanvasForm from './form/CanvasForm';
@@ -15,15 +15,19 @@ import {
     ADMIN_INTEGRATION_MOODLE,
     ADMIN_INTEGRATION_CANVAS,
     ADMIN_INTEGRATION_BLACKBOARD,
+    ADMIN_INTEGRATION_GOOGLECLASSROOM,
     ADMIN_INTEGRATION_MOODLE_IMG,
     ADMIN_INTEGRATION_CANVAS_IMG,
     ADMIN_INTEGRATION_BLACKBOARD_IMG,
+    ADMIN_INTEGRATION_GOOGLECLASSROOM_IMG,
     ADMIN_INTEGRATION_MOODLE_DESCRIPTION,
     ADMIN_INTEGRATION_CANVAS_DESCRIPTION,
     ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION,
+    ADMIN_INTEGRATION_GOOGLECLASSROOM_DESCRIPTION,
     ADMIN_INTEGRATION_MOODLE_PATH,
     ADMIN_INTEGRATION_CANVAS_PATH,
     ADMIN_INTEGRATION_BLACKBOARD_PATH,
+    ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH,
 } from '../../../constant/data/Integration';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 
@@ -42,6 +46,8 @@ const IntegrationBreadCrumb = [
 
 const Integration = ({
     GetIntegrationList,
+    GetGoogleLms,
+    googleConfigData,
     integrationData,
     isLoading,
 }) => {
@@ -50,6 +56,7 @@ const Integration = ({
     const [showMoodle, setShowMoodle] = useState(false);
     const [showCanvas, setShowCanvas] = useState(false);
     const [showBlackboard, setShowBlackboard] = useState(false);
+    const [showGoogleClassroom, setShowGoogleClassroom] = useState(false);
     const [checked, setChecked] = useState({
         MOODLE: integrationData && integrationData[0]?.lmsconfigured,
         CANVAS: integrationData && integrationData[1]?.lmsconfigured,
@@ -60,6 +67,12 @@ const Integration = ({
     useEffect(() => {
         GetIntegrationList(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_DATA);
     }, []);
+
+    useEffect(() => {
+        if (showGoogleClassroom) {
+            GetGoogleLms()
+        }
+    }, [showGoogleClassroom]);
 
     useEffect(() => {
         let lmsData = integrationData && integrationData?.map((item) => {
@@ -81,6 +94,12 @@ const Integration = ({
                 item['path'] = ADMIN_INTEGRATION_BLACKBOARD_PATH;
                 item['type'] = 'Blackboard';
             }
+            if (item.lms === ADMIN_INTEGRATION_GOOGLECLASSROOM) {
+                item['img'] = ADMIN_INTEGRATION_GOOGLECLASSROOM_IMG;
+                item['description'] = ADMIN_INTEGRATION_GOOGLECLASSROOM_DESCRIPTION;
+                item['path'] = ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH;
+                item['type'] = 'Google Classroom';
+            }
             return item;
         });
         setLmsData(lmsData);
@@ -97,6 +116,8 @@ const Integration = ({
             setShowCanvas(true);
         } else if (event.target.name === 'BLACKBOARD') {
             setShowBlackboard(true);
+        } else if (event.target.name === 'GOOGLECLASSROOM') {
+            setShowGoogleClassroom(true);
         }
     };
 
@@ -106,6 +127,7 @@ const Integration = ({
         setShowBlackboard(drawerClose);
     };
 
+    console.log('googleConfigData', googleConfigData.split(' '))
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -177,12 +199,14 @@ const Integration = ({
 
 const mapStateToProps = (state) => ({
     integrationData: state?.adminIntegrationData?.integrationData,
+    googleConfigData: state?.adminIntegrationData?.googleConfigData,
     isLoading: state?.adminIntegrationData?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetIntegrationList: (apiUrl) => dispatch(GetIntegrationList(apiUrl)),
+        GetGoogleLms: () => dispatch(GetGoogleLms()),
     };
 };
 

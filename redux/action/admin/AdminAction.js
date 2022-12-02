@@ -232,3 +232,12 @@ export const ChangeConfig = (url, data) => {
         type: types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_START, url: url, query: data
     };
 };
+
+/**
+ * Get Google classroom
+ */
+export const GetGoogleLms = () => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_START
+    };
+};
