@@ -22,6 +22,7 @@ const END_POINTS = {
     ADMIN_REPOSITARY_UPLOAD_MULTIPLE_FILE: '/extreme/admin/directRepository/multiple',
     ADMIN_REPOSITARY_REMOVE: '/extreme/admin/removeRepository/',
     ADMIN_INTEGRATION_DATA: '/extreme/integrations/home',
+    ADMIN_INTEGRATION_GOOGLE_CLASSROOM: '/extreme/google/auth/oauth',
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_TOP_STUDENT: '/extreme/instructor/topStudents',
     INSTRUCTOR_MY_CLASSES: '/extreme/classes',

@@ -42,7 +42,8 @@ import {
     GetAdminIntegrationData,
     GetAdminIntegrationType,
     UploadAdminIntegration,
-    ChangeConfiguration
+    ChangeConfiguration,
+    GetAdminGoogleClassroomData
 } from './admin/IntegrationAdminData';
 import {
     GetClassesData,
@@ -191,6 +192,7 @@ const saga = [
     fork(GetAdminIntegrationType),    
     fork(UploadAdminIntegration),
     fork(ChangeConfiguration),    
+    fork(GetAdminGoogleClassroomData),    
     fork(SuperDashboardWidget),    
     fork(CreateExtremeRefAccount),
     fork(EditExtremeRef),

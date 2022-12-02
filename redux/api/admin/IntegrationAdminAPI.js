@@ -1,4 +1,6 @@
 import { GetMethod, PostMethod, PutMethod } from './../ApiMethod';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
 
 /**
  * API CALL FOR INTEGRATION DATA
@@ -22,4 +24,12 @@ export const LmsIntegrationDetail = async (url, data) => {
 
 export const ChangeConfigDetail = async (url, data) => {
     return PutMethod(url, data);
+};
+
+/**
+ * API CALL GOOGLE CLASSROOM CONFIGURATION
+ */
+
+export const GoogleClassroomDetail = async () => {
+    return GetMethod(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_CLASSROOM);
 };

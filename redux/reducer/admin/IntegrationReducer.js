@@ -70,6 +70,23 @@ const IntegrationReducer = (state = {}, action) => {
                 isLoadingUpload: false,
                 configDataError: action.payload,
             };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_START:
+            return {
+                ...state,
+                isLoadingGoogle: true,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_SUCCESS:
+            return {
+                ...state,
+                isLoadingGoogle: false,
+                googleConfigData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_FAIL:
+            return {
+                ...state,
+                isLoadingGoogle: false,
+                googleConfigData: action.payload,
+            };
         default:
             return state;
     }
