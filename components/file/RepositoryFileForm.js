@@ -36,6 +36,7 @@ const RepositoryFileForm = ({
     isLoading
 }) => {
     const classes = useStyles();
+    const d = new Date();
     const { register, control, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         let reqPayload = {};
@@ -119,7 +120,10 @@ const RepositoryFileForm = ({
                                     variant="outlined"
                                     size="small"
                                     error={ errors['year' + index] }
-                                    { ...register('year' + index, { required: true }) }
+                                    { ...register('year' + index, {
+                                        required: true, min: 2000,
+                                        max: d.getFullYear()
+                                    }) }
                                     helperText={ errors['year' + index] && UPLOAD_FILE_YEAR }
                                     FormHelperTextProps={ {
                                         className: classes.helperText
