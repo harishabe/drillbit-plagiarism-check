@@ -129,8 +129,6 @@ const Dashboard = ({
         }, [100]);
     };
 
-    console.log('documentTypeData', documentTypeData)
-    console.log('recentSubmission', recentSubmission)
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>

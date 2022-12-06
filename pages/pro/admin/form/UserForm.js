@@ -140,6 +140,28 @@ const UserForm = ({
                 setFormJsonField(fields);
             }
         }
+
+        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar &&
+            new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date)) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = new Date() > new Date(expiryDate) ? true : false;
+                    // item['isDisabled'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date() < new Date(expiryDate))) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = true;
+                    // item['isDisabled'] = new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) ? true : false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+
         if (phoneNumber !== undefined) {
             if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
                 let fields = FormJson?.map((item) => {

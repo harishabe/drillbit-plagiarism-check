@@ -145,6 +145,7 @@ const InstructorForm = ({
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = new Date() > new Date(expiryDate) ? true : false;
+                    // item['isDisabled'] = true;
                 }
                 return item;
             });
@@ -152,7 +153,8 @@ const InstructorForm = ({
         } else if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date() < new Date(expiryDate))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) ? true : false;
+                    item['isDisabled'] = true;
+                    // item['isDisabled'] = new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) ? true : false;
                 }
                 return item;
             });
