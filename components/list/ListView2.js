@@ -71,7 +71,7 @@ const ListView2 = ({
                             <ErrorBlock message={qnaData?.message} /> :
                             qnaData?.map((item, index) => (
                                 item['bgcolor'] = Colors[index],
-                                item['id'] = item.id,
+                                item['id'] = `Q${index + 1}`,
                                 <>
                                     {
                                         <>

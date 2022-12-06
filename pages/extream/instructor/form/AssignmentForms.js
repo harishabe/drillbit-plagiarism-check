@@ -418,15 +418,48 @@ const AssignmentForms = ({
         }
     }, [startDate, endDate]);
 
+    // useEffect(() => {
+    //     if ((excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) || (addQuestion === ASSIGNMENT_SETTING_VALUE_YES)) {
+    //         if (phrasesList.length > 0 && phrasesList[0].p === '') {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck('Enter minimum one phrase');
+    //         } else if (phrasesList.length === 0 && excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck('Enter minimum one phrase');
+    //         } else if (questionList.length > 0 && questionList[0].q === '') {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck('Enter minimum one question');
+    //         } else if (questionList.length === 0 && addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck('Enter minimum one question');
+    //         } else {
+    //             setDisabledButton(false);
+    //             setErrorMsgDBCheck('');
+    //         }
+    //     } else {
+    //         setDisabledButton(false);
+    //         setErrorMsgDBCheck('');
+    //     }
+    // }, [excludePhrases, phrasesList, addQuestion, questionList]);
+
     useEffect(() => {
-        if ((excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) || (addQuestion === ASSIGNMENT_SETTING_VALUE_YES)) {
+        if ((excludePhrases === ASSIGNMENT_SETTING_VALUE_YES)) {
             if (phrasesList.length > 0 && phrasesList[0].p === '') {
                 setDisabledButton(true);
                 setErrorMsgDBCheck('Enter minimum one phrase');
             } else if (phrasesList.length === 0 && excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
                 setDisabledButton(true);
                 setErrorMsgDBCheck('Enter minimum one phrase');
-            } else if (questionList.length > 0 && questionList[0].q === '') {
+            } else {
+                setDisabledButton(false);
+                setErrorMsgDBCheck('');
+            }
+        }
+    }, [excludePhrases, phrasesList]);
+
+    useEffect(() => {
+        if ((addQuestion === ASSIGNMENT_SETTING_VALUE_YES)) {
+            if (questionList.length > 0 && questionList[0].q === '') {
                 setDisabledButton(true);
                 setErrorMsgDBCheck('Enter minimum one question');
             } else if (questionList.length === 0 && addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
@@ -436,11 +469,12 @@ const AssignmentForms = ({
                 setDisabledButton(false);
                 setErrorMsgDBCheck('');
             }
-        } else {
+        }
+        else {
             setDisabledButton(false);
             setErrorMsgDBCheck('');
         }
-    }, [excludePhrases, addQuestion, phrasesList, questionList]);
+    }, [addQuestion, questionList]);
 
     useEffect(() => {
         setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
