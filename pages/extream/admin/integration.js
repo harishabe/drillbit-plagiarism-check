@@ -127,7 +127,6 @@ const Integration = ({
         setShowBlackboard(drawerClose);
     };
 
-    console.log('googleConfigData', googleConfigData.split(' '))
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
