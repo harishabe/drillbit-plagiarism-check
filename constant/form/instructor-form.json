@@ -17,6 +17,33 @@
         "required": "Enter email address",
         "validationMsg": "Invalid email address"
     },
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "department",
+        "name": "department",
+        "label": "Department *",
+        "required": "Enter department",
+        "validationMsg": "Invalid department"
+    },
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "designation",
+        "name": "designation",
+        "label": "Designation *",
+        "required": "Enter designation",
+        "validationMsg": "Invalid designation"
+    },
+    {
+        "field_type": "inputNumber",
+        "type": "number",
+        "id": "phone_number",
+        "name": "phone_number",
+        "label": "Phone number",
+        "required": "Enter phone number",
+        "validationMsg": "Enter phone number"
+    },
     
     {
         "field_type": "datepicker",

@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
-import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
-import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import { TextField, Pagination, IconButton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
 import {
@@ -53,8 +51,8 @@ const columns = [
     { id: 'action', label: 'Actions' }
 ];
 
-function createData(user_id, role, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date) {
-    return { user_id, role, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date };
+function createData(user_id, role, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date, department, designation, phone_number) {
+    return { user_id, role, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date, department, designation, phone_number };
 };
 
 const AddButtonBottom = styled.div`
@@ -81,7 +79,6 @@ const Instructor = ({
     GetInstructorData,
     UploadFileDataClear,
     instructorData,
-    licenseExpiryDate,
     DeleteData,
     DeactivateData,
     isLoading,
@@ -135,6 +132,9 @@ const Instructor = ({
                             }
                         ]),
                     instructor.expiry_date,
+                    instructor.department,
+                    instructor.designation,
+                    instructor.phone_number,
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -346,7 +346,6 @@ const Instructor = ({
                     isShowAddIcon={ true }
                 >
                     <InstructorForm
-                        licenseExpiryDate={ licenseExpiryDate }
                     />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -437,7 +436,6 @@ const Instructor = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.list?.page,
     instructorData: state?.detailsData?.instructorData?.list?.content,
-    licenseExpiryDate: state?.detailsData?.instructorData,
     isLoading: state?.detailsData?.isLoading,
 });
 

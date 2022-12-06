@@ -11,6 +11,9 @@ import {
     GetTopStudent
 } from '../../../redux/action/instructor/InstructorAction';
 import {
+    Documentchart
+} from '../../../redux/action/common/Dashboard/DashboardAction';
+import {
     WidgetCard,
     ColumnChart,
     PieChart,
@@ -33,6 +36,7 @@ import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
     COLUMN_ADMIN_XAXIS_DATA,
+    COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA,
     COLUMN_ADMIN_WIDTH,
     COLUMN_ADMIN_CHART_GRADIENT,
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
@@ -62,9 +66,11 @@ const CurveChartContainer = styled.div`
 `;
 
 const Dashboard = ({
+    Documentchart,
     GetWidgetCount,
     GetTopStudent,
     instructorDashboardData,
+    documentTypeData,
     isLoading,
     isLoadingTopStudent
 }) => {
@@ -75,6 +81,7 @@ const Dashboard = ({
 
     useEffect(() => {
         GetWidgetCount(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DASHBOARD_WIDGET);
+        Documentchart(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DASHBOARD_DOCUMENT_CHART);
         GetTopStudent();
     }, []);
 
@@ -283,12 +290,54 @@ const Dashboard = ({
                     </Grid>
                 </Grid>
             </Box>
+            <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 12 } xs={ 12 }>
+                        <CardView>
+                            <Heading title='Document Type' />
+                            { isLoading ? <Skeleton /> :
+                                documentTypeData ? <ColumnChart
+                                    type={ COLUMN_ADMIN_CHART_TYPE }
+                                    color={ COLUMN_ADMIN_CHART_COLOR }
+                                    xaxisData={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
+                                    columnWidth={ '30%' }
+                                    height={ 355 }
+                                    seriesData={ [
+                                        {
+                                            name: 'Document Processed',
+                                            data: [
+                                                documentTypeData?.article,
+                                                documentTypeData?.analytical_or_business_report,
+                                                documentTypeData?.assignment,
+                                                documentTypeData?.blogs,
+                                                documentTypeData?.chapter_in_books,
+                                                documentTypeData?.dissertation,
+                                                documentTypeData?.eBook,
+                                                documentTypeData?.others,
+                                                documentTypeData?.project_work,
+                                                documentTypeData?.research_paper,
+                                                documentTypeData?.synopsis,
+                                                documentTypeData?.thesis,
+                                                documentTypeData?.web_page,
+                                            ]
+                                        }
+                                    ] }
+                                    gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                                    borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                />
+                                    : <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
+                            }
+                        </CardView>
+                    </Grid>
+                </Grid>
+            </Box>
         </React.Fragment>
     );
 };
 
 const mapStateToProps = (state) => ({
     instructorDashboardData: state?.instructorDashboard,
+    documentTypeData: state?.documentChart?.DocumentTypeData,
     isLoading: state?.instructorDashboard?.isLoading,
     isLoadingTopStudent: state?.instructorDashboard?.isLoadingTopStudent,
 });
@@ -296,6 +345,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetWidgetCount: (url) => dispatch(GetWidgetCount(url)),
+        Documentchart: (url) => dispatch(Documentchart(url)),
         GetTopStudent: () => dispatch(GetTopStudent()),
     };
 };

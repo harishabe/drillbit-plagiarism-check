@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useMemo } from 'react';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
@@ -53,8 +52,8 @@ const columns = [
     { id: 'action', label: 'Actions' }
 ];
 
-function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date) {
-    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date };
+function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number) {
+    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number };
 };
 
 const AddButtonBottom = styled.div`
@@ -134,6 +133,9 @@ const Users = ({
                             }
                         ]),
                     instructor.expiry_date,
+                    instructor.department,
+                    instructor.designation,
+                    instructor.phone_number,
                 );
             row['isSelected'] = false;
             arr.push(row);

@@ -82,8 +82,8 @@ const columns = [
     { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, student_id, name, username, department, section, action) {
-    return { id, student_id, name, username, department, section, action };
+function createData(id, student_id, name, username, department, section, action, phone_number) {
+    return { id, student_id, name, username, department, section, action, phone_number };
 }
 
 const Students = ({
@@ -141,7 +141,8 @@ const Students = ({
                     student.section,
                     [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                    ]
+                    ],
+                    student.phone_number,
                 );
             row['isSelected'] = false;
             arr.push(row);
