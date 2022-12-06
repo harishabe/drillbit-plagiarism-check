@@ -77,7 +77,7 @@ const EnglishFile = () => {
                             // multiFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles` }
                             routerObj={ {
                                 pathname: '/extream/student/myassignment-details',
-                                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName }
+                                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, rep: router.query.rep }
                             } }
                         />
                     </Grid>
