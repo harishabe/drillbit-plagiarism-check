@@ -8,6 +8,7 @@ import Admin from './../../../layouts/Admin';
 import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer } from './../../../components';
 import { GetIntegrationList, GetGoogleLms } from '../../../redux/action/admin/AdminAction';
 import END_POINTS from '../../../utils/EndPoints';
+import { windowOpen } from '../../../utils/RegExp';
 import MoodleForm from './form/MoodleForm';
 import CanvasForm from './form/CanvasForm';
 import BlackboardForm from './form/BlackboardForm';
@@ -74,6 +75,13 @@ const Integration = ({
         }
     }, [showGoogleClassroom]);
 
+    
+    useEffect(() => {
+        windowOpen(googleConfigData);
+    }, [googleConfigData])
+
+    console.log('googleConfigData', googleConfigData)
+
     useEffect(() => {
         let lmsData = integrationData && integrationData?.map((item) => {
             if (item.lms === ADMIN_INTEGRATION_MOODLE) {
@@ -127,7 +135,6 @@ const Integration = ({
         setShowBlackboard(drawerClose);
     };
 
-    console.log('googleConfigData', googleConfigData.split(' '))
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -140,7 +147,7 @@ const Integration = ({
                 </Grid>
             </Box>
 
-            <MainHeading title={ `Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})` } />
+            <MainHeading title={`Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})`} />
 
             {isLoading ? <Grid container spacing={2}>
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
@@ -152,8 +159,8 @@ const Integration = ({
                         <Grid key={index} item md={4} xs={12}>
                             <CardInfoView
                                 item={item}
-                                handleConfig={ handleConfig }
-                                checked={ checked }
+                                handleConfig={handleConfig}
+                                checked={checked}
                                 isTimer={false}
                                 isKnowMore={true}
                                 isConfig={true}
@@ -166,29 +173,29 @@ const Integration = ({
                 </Grid>
             }
 
-            { showMoodle &&
+            {showMoodle &&
                 <CreateDrawer
-                    isShowAddIcon={ false }
-                    showDrawer={ showMoodle }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={showMoodle}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <MoodleForm />
                 </CreateDrawer>
             }
-            { showCanvas &&
+            {showCanvas &&
                 <CreateDrawer
-                    isShowAddIcon={ false }
-                    showDrawer={ showCanvas }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={showCanvas}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <CanvasForm />
                 </CreateDrawer>
             }
-            { showBlackboard &&
+            {showBlackboard &&
                 <CreateDrawer
-                    isShowAddIcon={ false }
-                    showDrawer={ showBlackboard }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={showBlackboard}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <BlackboardForm />
                 </CreateDrawer>
