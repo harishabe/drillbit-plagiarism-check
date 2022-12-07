@@ -104,6 +104,40 @@ const IntegrationReducer = (state = {}, action) => {
                 isLoadingLiveCourse: false,
                 googleLiveCourseData: action.payload,
             };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_START:
+            return {
+                ...state,
+                isLoadingImportCourse: true,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_SUCCESS:
+            return {
+                ...state,
+                isLoadingImportCourse: false,
+                googleImportCourseData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_FAIL:
+            return {
+                ...state,
+                isLoadingImportCourse: false,
+                googleImportCourseData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START:
+            return {
+                ...state,
+                isLoadingCourseHome: true,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_SUCCESS:
+            return {
+                ...state,
+                isLoadingCourseHome: false,
+                googleCourseHomeData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_FAIL:
+            return {
+                ...state,
+                isLoadingCourseHome: false,
+                googleCourseHomeData: action.payload,
+            };
         default:
             return state;
     }

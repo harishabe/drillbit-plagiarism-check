@@ -41,3 +41,19 @@ export const GoogleClassroomDetail = async () => {
 export const GoogleLiveCoursesDetail = async () => {
     return GetMethod(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_LIVECOURSE);
 };
+
+/**
+ * API CALL GOOGLE CLASSROOM IMPORT COURSE
+ */
+
+export const GoogleImportCoursesDetail = async (data) => {
+    return PostMethod(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_IMPORTCOURSES, data);
+};
+
+/**
+ * API CALL GOOGLE CLASSROOM COURSE HOME
+ */
+
+export const GoogleCourseHomeDetail = async () => {
+    return GetMethod(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_COURSEHOME);
+};

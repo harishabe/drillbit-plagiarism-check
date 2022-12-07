@@ -25,6 +25,8 @@ const END_POINTS = {
     ADMIN_INTEGRATION_DATA: '/extreme/integrations/home',
     ADMIN_INTEGRATION_GOOGLE_CLASSROOM: '/extreme/google/auth/oauth',
     ADMIN_INTEGRATION_GOOGLE_LIVECOURSE: '/extreme/google/courses/liveCourses',
+    ADMIN_INTEGRATION_GOOGLE_IMPORTCOURSES: '/extreme/google/courses/import',
+    ADMIN_INTEGRATION_GOOGLE_COURSEHOME: '/extreme/google/courses/home',
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_DASHBOARD_DOCUMENT_CHART: '/extreme/instructor/documentTypeChart',
     INSTRUCTOR_TOP_STUDENT: '/extreme/instructor/topStudents',
