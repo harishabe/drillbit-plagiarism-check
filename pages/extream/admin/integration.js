@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -8,6 +9,7 @@ import Admin from './../../../layouts/Admin';
 import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer } from './../../../components';
 import { GetIntegrationList, GetGoogleLms } from '../../../redux/action/admin/AdminAction';
 import END_POINTS from '../../../utils/EndPoints';
+import { windowOpen } from '../../../utils/RegExp';
 import MoodleForm from './form/MoodleForm';
 import CanvasForm from './form/CanvasForm';
 import BlackboardForm from './form/BlackboardForm';
@@ -51,7 +53,7 @@ const Integration = ({
     integrationData,
     isLoading,
 }) => {
-
+    const router = useRouter();
     const [lmsData, setLmsData] = useState([]);
     const [showMoodle, setShowMoodle] = useState(false);
     const [showCanvas, setShowCanvas] = useState(false);
@@ -70,7 +72,8 @@ const Integration = ({
 
     useEffect(() => {
         if (showGoogleClassroom) {
-            GetGoogleLms()
+            router.push({ pathname: '/extream/admin/integration/google/googleAuth' });
+            //GetGoogleLms()
         }
     }, [showGoogleClassroom]);
 
@@ -139,7 +142,7 @@ const Integration = ({
                 </Grid>
             </Box>
 
-            <MainHeading title={ `Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})` } />
+            <MainHeading title={`Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})`} />
 
             {isLoading ? <Grid container spacing={2}>
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
@@ -151,8 +154,8 @@ const Integration = ({
                         <Grid key={index} item md={4} xs={12}>
                             <CardInfoView
                                 item={item}
-                                handleConfig={ handleConfig }
-                                checked={ checked }
+                                handleConfig={handleConfig}
+                                checked={checked}
                                 isTimer={false}
                                 isKnowMore={true}
                                 isConfig={true}
@@ -165,33 +168,34 @@ const Integration = ({
                 </Grid>
             }
 
-            { showMoodle &&
+            {showMoodle &&
                 <CreateDrawer
-                    isShowAddIcon={ false }
-                    showDrawer={ showMoodle }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={showMoodle}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <MoodleForm />
                 </CreateDrawer>
             }
-            { showCanvas &&
+            {showCanvas &&
                 <CreateDrawer
-                    isShowAddIcon={ false }
-                    showDrawer={ showCanvas }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={showCanvas}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <CanvasForm />
                 </CreateDrawer>
             }
-            { showBlackboard &&
+            {showBlackboard &&
                 <CreateDrawer
-                    isShowAddIcon={ false }
-                    showDrawer={ showBlackboard }
-                    handleDrawerClose={ handleCloseDrawer }
+                    isShowAddIcon={false}
+                    showDrawer={showBlackboard}
+                    handleDrawerClose={handleCloseDrawer}
                 >
                     <BlackboardForm />
                 </CreateDrawer>
             }
+            {showGoogleClassroom && <a href={googleConfigData}>Google</a>}
         </React.Fragment>
     );
 };
