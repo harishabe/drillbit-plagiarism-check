@@ -78,7 +78,6 @@ const UserBreadCrumb = [
 const Users = ({
     pageDetails,
     GetInstructorData,
-    licenseExpiryDate,
     UploadFileDataClear,
     instructorData,
     DeleteData,
@@ -349,9 +348,7 @@ const Users = ({
                     title="Add User"
                     handleMultiData={ handleShow }
                     isShowAddIcon={ true }>
-                    <UserForm
-                        licenseExpiryDate={ licenseExpiryDate }
-                    />
+                    <UserForm />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -440,7 +437,6 @@ const Users = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.user?.page,
     instructorData: state?.detailsData?.instructorData?.user?._embedded?.userResponseList,
-    licenseExpiryDate: state?.detailsData?.instructorData,
     isLoading: state?.detailsData?.isLoading,
 });
 
