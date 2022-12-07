@@ -241,3 +241,12 @@ export const GetGoogleLms = () => {
         type: types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_START
     };
 };
+
+/**
+ * Get Google Live Courses
+ */
+export const GetGoogleLiveCourses = () => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_START
+    };
+};

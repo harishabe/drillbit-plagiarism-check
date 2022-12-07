@@ -87,6 +87,23 @@ const IntegrationReducer = (state = {}, action) => {
                 isLoadingGoogle: false,
                 googleConfigData: action.payload,
             };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_START:
+            return {
+                ...state,
+                isLoadingLiveCourse: true,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_SUCCESS:
+            return {
+                ...state,
+                isLoadingLiveCourse: false,
+                googleLiveCourseData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_FAIL:
+            return {
+                ...state,
+                isLoadingLiveCourse: false,
+                googleLiveCourseData: action.payload,
+            };
         default:
             return state;
     }

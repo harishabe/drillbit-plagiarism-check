@@ -24,6 +24,7 @@ const END_POINTS = {
     ADMIN_REPOSITARY_REMOVE: '/extreme/admin/removeRepository/',
     ADMIN_INTEGRATION_DATA: '/extreme/integrations/home',
     ADMIN_INTEGRATION_GOOGLE_CLASSROOM: '/extreme/google/auth/oauth',
+    ADMIN_INTEGRATION_GOOGLE_LIVECOURSE: '/extreme/google/courses/liveCourses',
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_DASHBOARD_DOCUMENT_CHART: '/extreme/instructor/documentTypeChart',
     INSTRUCTOR_TOP_STUDENT: '/extreme/instructor/topStudents',

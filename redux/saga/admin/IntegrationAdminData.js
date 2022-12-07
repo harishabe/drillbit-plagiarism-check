@@ -4,7 +4,8 @@ import {
     GetIntegrationDetail,
     LmsIntegrationDetail,
     ChangeConfigDetail,
-    GoogleClassroomDetail
+    GoogleClassroomDetail,
+    GoogleLiveCoursesDetail
 } from '../../api/admin/IntegrationAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
@@ -141,4 +142,28 @@ export function* onLoadGoogleClassroom() {
 
 export function* GetAdminGoogleClassroomData() {
     yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_START, onLoadGoogleClassroom);
+}
+
+/**
+ * Get Google Live course
+ * @param {*} action
+ */
+
+export function* onLoadGoogleLiveCourses() {
+    const { response, error } = yield call(GoogleLiveCoursesDetail);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetAdminGoogleLiveCoursesData() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_START, onLoadGoogleLiveCourses);
 }

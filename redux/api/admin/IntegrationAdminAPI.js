@@ -33,3 +33,11 @@ export const ChangeConfigDetail = async (url, data) => {
 export const GoogleClassroomDetail = async () => {
     return GetMethod(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_CLASSROOM);
 };
+
+/**
+ * API CALL GOOGLE CLASSROOM LIVE COURSES
+ */
+
+export const GoogleLiveCoursesDetail = async () => {
+    return GetMethod(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_LIVECOURSE);
+};
