@@ -13,6 +13,7 @@ import ReportsReducer from './admin/ReportsReducer';
 import IntegrationReducer from './admin/IntegrationReducer';
 import ProfileReducer from './profile/ProfileReducer';
 import SuperReducer from './super/SuperReducer';
+import DocumnentChartReducer from './common/Dashboard/DashboardReducer';
 import SubmissionReducer from './common/Submission/SubmissionReducer';
 import UploadFileReducer from './common/UploadFile/UploadFileReducer';
 
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     adminReport: ReportsReducer,
     studentClasses: DetailsStudentReducer,
     superAdmin: SuperReducer,
+    documentChart: DocumnentChartReducer,
     submission: SubmissionReducer,
     uploadFile: UploadFileReducer,
 });

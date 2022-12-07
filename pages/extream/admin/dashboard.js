@@ -14,6 +14,9 @@ import {
     RenewValidity
 } from '../../../redux/action/admin/AdminAction';
 import {
+    Documentchart
+} from '../../../redux/action/common/Dashboard/DashboardAction';
+import {
     WidgetCard,
     ColumnChart,
     PieChart,
@@ -37,6 +40,7 @@ import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
     COLUMN_ADMIN_XAXIS_DATA,
+    COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA,
     COLUMN_ADMIN_WIDTH,
     COLUMN_ADMIN_CHART_HEIGHT,
     COLUMN_ADMIN_CHART_GRADIENT,
@@ -79,7 +83,9 @@ const Dashboard = ({
     isLoadingTrendAnalysis,
     isLoadingRenewAccount,
     GetWidgetCount,
+    Documentchart,
     adminDashboardData,
+    documentTypeData,
     GetTopStudent,
     GetTrendAnalysis,
     RenewValidity
@@ -92,6 +98,7 @@ const Dashboard = ({
 
     useEffect(() => {
         GetWidgetCount(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_WIDGET);
+        Documentchart(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_DOCUMENT_CHART);
         GetTopStudent();
         GetTrendAnalysis(BASE_URL_EXTREM + END_POINTS.ADMIN_TREND_ANALYSIS);
         trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork);
@@ -121,6 +128,7 @@ const Dashboard = ({
             setShowRenewWarning(false);
         }, [100]);
     };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -343,6 +351,47 @@ const Dashboard = ({
                         </CardView>
                     </Grid>
                 </Grid>
+                <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+                    <Grid container spacing={ 1 }>
+                        <Grid item md={ 12 } xs={ 12 }>
+                            <CardView>
+                                <Heading title='Document Type' />
+                                { isLoadingDashboard ? <Skeleton /> :
+                                    documentTypeData ? <ColumnChart
+                                        type={ COLUMN_ADMIN_CHART_TYPE }
+                                        color={ COLUMN_ADMIN_CHART_COLOR }
+                                        xaxisData={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
+                                        columnWidth={ '30%' }
+                                        height={ 355 }
+                                        seriesData={ [
+                                            {
+                                                name: 'Document Processed',
+                                                data: [
+                                                    documentTypeData?.article,
+                                                    documentTypeData?.analytical_or_business_report,
+                                                    documentTypeData?.assignment,
+                                                    documentTypeData?.blogs,
+                                                    documentTypeData?.chapter_in_books,
+                                                    documentTypeData?.dissertation,
+                                                    documentTypeData?.eBook,
+                                                    documentTypeData?.others,
+                                                    documentTypeData?.project_work,
+                                                    documentTypeData?.research_paper,
+                                                    documentTypeData?.synopsis,
+                                                    documentTypeData?.thesis,
+                                                    documentTypeData?.web_page,
+                                                ]
+                                            }
+                                        ] }
+                                        gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                                        borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                    />
+                                        : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                }
+                            </CardView>
+                        </Grid>
+                    </Grid>
+                </Box>
             </Box>
         </React.Fragment>
     );
@@ -351,6 +400,7 @@ const Dashboard = ({
 const mapStateToProps = (state) => ({
     isLoadingTopStudent: state?.adminDashboard?.isLoadingTopStudent,
     adminDashboardData: state?.adminDashboard,
+    documentTypeData: state?.documentChart?.DocumentTypeData,
     isLoadingDashboard: state?.adminDashboard?.isLoadingDashboard,
     isLoadingTrendAnalysis: state?.adminDashboard?.isLoadingTrendAnalysis,
     isLoadingRenewAccount: state?.adminDashboard?.isLoadingRenewAccount,
@@ -359,6 +409,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetWidgetCount: (url) => dispatch(GetWidgetCount(url)),
+        Documentchart: (url) => dispatch(Documentchart(url)),
         GetTopStudent: () => dispatch(GetTopStudent()),
         GetTrendAnalysis: (url) => dispatch(GetTrendAnalysis(url)),
         RenewValidity: (url) => dispatch(RenewValidity(url)),

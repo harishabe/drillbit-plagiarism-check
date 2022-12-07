@@ -149,6 +149,7 @@ export const FORM_VALIDATION = {
     'REMAINING_GRAMMAR': 'The entered documents should not be more than available documents',
     'EXPIRY_DATE_GREATER': 'The entered date should not be greater than the expiry date.',
     'EXPIRY_DATE_LESSER': 'The entered date should not less than the current date.',
+    'PHONE_NUMBER': 'Size must be between 10 and 15',
 }
 
 export const WARNING_MESSAGES = {

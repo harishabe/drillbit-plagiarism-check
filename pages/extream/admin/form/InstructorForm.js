@@ -44,15 +44,28 @@ const InstructorForm = ({
         name: 'grammar',
     });
 
+    const phoneNumber = useWatch({
+        control,
+        name: 'phone_number',
+    });
+
     useEffect(() => {
+        if (licenseExpiryDate?.license_expiry_date !== undefined) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['minDate'] = new Date();
+                    item['maxDate'] = new Date(licenseExpiryDate?.license_expiry_date);
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+
         if (allocationDocs !== undefined) {
             if (allocationDocs > remainingDocuments) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                         item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
-                    }
-                    if (item?.field_type === 'button') {
-                        item['isDisabled'] = true;
                     }
                     return item;
                 });
@@ -74,9 +87,6 @@ const InstructorForm = ({
                     if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                         item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
                     }
-                    if (item?.field_type === 'button') {
-                        item['isDisabled'] = true;
-                    }
                     return item;
                 });
                 setFormJsonField(fields);
@@ -91,24 +101,38 @@ const InstructorForm = ({
             }
         }
 
-        if ((new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
+        if (phoneNumber !== undefined) {
+            if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                        item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                        item['errorMsg'] = '';
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+
+        if ((new Date(expiryDate) > new Date(licenseExpiryDate?.license_expiry_date))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
                 }
-                if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
-                }
                 return item;
             });
             setFormJsonField(fields);
-        } else if ((new Date().getTime() > new Date(expiryDate).getTime()) && !(new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
+        } else if ((new Date() > new Date(expiryDate)) && !(new Date(expiryDate) > new Date(licenseExpiryDate?.license_expiry_date))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
-                }
-                if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
                 }
                 return item;
             });
@@ -123,41 +147,43 @@ const InstructorForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar &&
-            new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
+        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && phoneNumber?.length >= 10 && phoneNumber?.length <= 15 && (new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) && (new Date() < new Date(expiryDate)))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = new Date().getTime() > new Date(expiryDate).getTime() ? true : false;
+                    item['isDisabled'] = false;
                 }
                 return item;
             });
             setFormJsonField(fields);
-        } else if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date().getTime() < new Date(expiryDate).getTime())) {
+        } else {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime() ? true : false;
+                    item['isDisabled'] = true;
                 }
                 return item;
             });
             setFormJsonField(fields);
         }
-    }, [allocationDocs, grammarDocs, expiryDate]);
+
+    }, [allocationDocs, grammarDocs, expiryDate, phoneNumber]);
 
     const onSubmit = (data) => {
         if (editOperation) {
-            data['expiry_date'] = convertDate(data.expiry_date);
-            EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, data, 'instructor');
+            let Detaileddata = {
+                ...data, 'expiry_date': convertDate(data.expiry_date),
+            };
+            EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, Detaileddata, 'instructor');
+
         } else {
-            let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
+            let Detaileddata = {
+                ...data, 'expiry_date': convertDate(data.expiry_date),
+            };
             CreateInstructorData(BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR, Detaileddata);
         }
     };
 
     const modifyFormField = (buttonLabel, isEmailDisabled) => {
         let formField = formJsonField?.map((field) => {
-            // if (field.name === 'expiry_date') {
-            //     field.minDate = false;
-            // }
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
             }
@@ -180,6 +206,9 @@ const InstructorForm = ({
             let a = {
                 'name': editData.name,
                 'email': editData.username,
+                'department': editData.department === '--' ? '' : editData.department,
+                'designation': editData?.designation === null ? '' : editData?.designation,
+                'phone_number': editData.phone_number,
                 'expiry_date': convertDate(editData.expiry_date),
                 'plagiarism': editData.plagairism,
                 'grammar': editData.grammar
@@ -187,13 +216,16 @@ const InstructorForm = ({
             const fields = [
                 'name',
                 'email',
+                'department',
+                'designation',
+                'phone_number',
                 'expiry_date',
                 'plagiarism',
                 'grammar'
             ];
             fields.forEach(field => setValue(field, a[field]));
             modifyFormField('Edit Instructor', true);
-            setEditOperation(true);           
+            setEditOperation(true);
         } else {
             let a = {
                 'expiry_date': convertDate(licenseExpiryDate?.license_expiry_date),
@@ -208,21 +240,21 @@ const InstructorForm = ({
 
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    {formJsonField?.map((field, i) => (
-                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
+                    { formJsonField?.map((field, i) => (
+                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
-                                key={i}
-                                field={field}
-                                control={control}
-                                isLoading={isLoading}
+                                key={ i }
+                                field={ field }
+                                control={ control }
+                                isLoading={ isLoading }
                             />
                         </Grid>
-                    ))}
+                    )) }
                 </Grid>
             </form>
         </>
@@ -233,6 +265,7 @@ const mapStateToProps = (state) => ({
     isLoading: state?.adminCrud?.isLoading,
     remainingDocuments: state?.detailsData?.instructorData?.remainingDocuments,
     remainingGrammar: state?.detailsData?.instructorData?.remainingGrammar,
+    licenseExpiryDate: state?.detailsData?.instructorData,
 });
 
 const mapDispatchToProps = (dispatch) => {

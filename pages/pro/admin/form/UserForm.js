@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateInstructorData, EditData } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/instructor-form.json';
@@ -9,7 +9,7 @@ import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
-//import { FORM_VALIDATION } from '../../../../constant/data/Constant';
+import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
 const UserForm = ({
     CreateInstructorData,
@@ -29,119 +29,143 @@ const UserForm = ({
         mode: 'all',
     });
 
-    // const expiryDate = useWatch({
-    //     control,
-    //     name: 'expiry_date',
-    // });
+    const expiryDate = useWatch({
+        control,
+        name: 'expiry_date',
+    });
 
-    // const allocationDocs = useWatch({
-    //     control,
-    //     name: 'plagiarism',
-    // });
+    const allocationDocs = useWatch({
+        control,
+        name: 'plagiarism',
+    });
 
-    // const grammarDocs = useWatch({
-    //     control,
-    //     name: 'grammar',
-    // });
+    const grammarDocs = useWatch({
+        control,
+        name: 'grammar',
+    });
 
-    // useEffect(() => {
-    //     if (allocationDocs !== undefined) {
-    //         if (allocationDocs > remainingDocuments) {
-    //             let fields = FormJson?.map((item) => {
-    //                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
-    //                     item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
-    //                 }
-    //                 if (item?.field_type === 'button') {
-    //                     item['isDisabled'] = true;
-    //                 }
-    //                 return item;
-    //             });
-    //             setFormJsonField(fields);
-    //         } else {
-    //             let fields = FormJson?.map((item) => {
-    //                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
-    //                     item['errorMsg'] = '';
-    //                 }
-    //                 return item;
-    //             });
-    //             setFormJsonField(fields);
-    //         }
-    //     }
+    const phoneNumber = useWatch({
+        control,
+        name: 'phone_number',
+    });
 
-    //     if (grammarDocs !== undefined) {
-    //         if (grammarDocs > remainingGrammar) {
-    //             let fields = FormJson?.map((item) => {
-    //                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-    //                     item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
-    //                 }
-    //                 if (item?.field_type === 'button') {
-    //                     item['isDisabled'] = true;
-    //                 }
-    //                 return item;
-    //             });
-    //             setFormJsonField(fields);
-    //         } else {
-    //             let fields = FormJson?.map((item) => {
-    //                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-    //                     item['errorMsg'] = '';
-    //                 }
-    //                 return item;
-    //             });
-    //             setFormJsonField(fields);
-    //         }
-    //     }
+    useEffect(() => {
+        if (licenseExpiryDate?.license_expiry_date !== undefined) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['minDate'] = new Date();
+                    item['maxDate'] = new Date(licenseExpiryDate?.license_expiry_date);
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
 
-    //     if ((new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
-    //         let fields = FormJson?.map((item) => {
-    //             if (item?.field_type === 'datepicker') {
-    //                 item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
-    //             }
-    //             if (item?.field_type === 'button') {
-    //                 item['isDisabled'] = true;
-    //             }
-    //             return item;
-    //         });
-    //         setFormJsonField(fields);
-    //     } else if ((new Date().getTime() > new Date(expiryDate).getTime()) && !(new Date(expiryDate).getTime() > new Date(licenseExpiryDate?.license_expiry_date).getTime())) {
-    //         let fields = FormJson?.map((item) => {
-    //             if (item?.field_type === 'datepicker') {
-    //                 item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
-    //             }
-    //             if (item?.field_type === 'button') {
-    //                 item['isDisabled'] = true;
-    //             }
-    //             return item;
-    //         });
-    //         setFormJsonField(fields);
-    //     } else {
-    //         let fields = FormJson?.map((item) => {
-    //             if (item?.field_type === 'datepicker') {
-    //                 item['info'] = '';
-    //             }
-    //             return item;
-    //         });
-    //         setFormJsonField(fields);
-    //     }
+        if (allocationDocs !== undefined) {
+            if (allocationDocs > remainingDocuments) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+                        item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+                        item['errorMsg'] = '';
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
 
-    //     if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar &&
-    //         new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime()) {
-    //         let fields = FormJson?.map((item) => {
-    //             if (item?.field_type === 'button') {
-    //                 item['isDisabled'] = new Date().getTime() > new Date(expiryDate).getTime() ? true : false;
-    //             }
-    //             return item;
-    //         });
-    //         setFormJsonField(fields);
-    //     } else if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date().getTime() < new Date(expiryDate).getTime())) {
-    //         let fields = FormJson?.map((item) => {
-    //             if (item?.field_type === 'button') {
-    //                 item['isDisabled'] = new Date(expiryDate).getTime() <= new Date(licenseExpiryDate?.license_expiry_date).getTime() ? true : false;
-    //             }
-    //             return item;
-    //         });
-    //         setFormJsonField(fields);
-    //     }
-    // }, [allocationDocs, grammarDocs, expiryDate]);
+        if (grammarDocs !== undefined) {
+            if (grammarDocs > remainingGrammar) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        item['errorMsg'] = '';
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+
+        if (phoneNumber !== undefined) {
+            if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                        item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                        item['errorMsg'] = '';
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+
+        if ((new Date(expiryDate) > new Date(licenseExpiryDate?.license_expiry_date))) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if ((new Date() > new Date(expiryDate)) && !(new Date(expiryDate) > new Date(licenseExpiryDate?.license_expiry_date))) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'datepicker') {
+                    item['info'] = '';
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+
+        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && phoneNumber?.length >= 10 && phoneNumber?.length <= 15 && (new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) && (new Date() < new Date(expiryDate)))) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+
+    }, [allocationDocs, grammarDocs, expiryDate, phoneNumber]);
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -155,9 +179,6 @@ const UserForm = ({
 
     const modifyFormField = (buttonLabel, isEmailDisabled) => {
         let formField = formJsonField?.map((field) => {
-            if (field.name === 'expiry_date') {
-                field.minDate = true;
-            }
             if (field.field_type === 'button') {
                 field.label = buttonLabel;
             }
@@ -180,6 +201,9 @@ const UserForm = ({
             let a = {
                 'name': editData.name,
                 'email': editData.username,
+                'department': editData.department === '--' ? '' : editData.department,
+                'designation': editData?.designation === null ? '' : editData?.designation,
+                'phone_number': editData.phone_number,
                 'expiry_date': convertDate(editData.expiry_date),
                 'plagiarism': editData.total_submissions,
                 'grammar': editData.total_grammar
@@ -187,6 +211,9 @@ const UserForm = ({
             const fields = [
                 'name',
                 'email',
+                'department',
+                'designation',
+                'phone_number',
                 'expiry_date',
                 'plagiarism',
                 'grammar'
@@ -233,6 +260,7 @@ const mapStateToProps = (state) => ({
     isLoading: state?.adminCrud?.isLoading,
     remainingDocuments: state?.detailsData?.instructorData?.remainingDocuments,
     remainingGrammar: state?.detailsData?.instructorData?.remainingGrammar,
+    licenseExpiryDate: state?.detailsData?.instructorData
 });
 
 const mapDispatchToProps = (dispatch) => {

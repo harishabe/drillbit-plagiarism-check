@@ -43,6 +43,15 @@
         "required": "Section"
     },
     {
+        "field_type": "inputNumber",
+        "type": "number",
+        "id": "phone_number",
+        "name": "phone_number",
+        "label": "Phone number",
+        "required": "Enter phone number",
+        "validationMsg": "Enter phone number"
+    },
+    {
         "field_type": "button",
         "type": "submit",
         "label": "Add Student"

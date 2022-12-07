@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateStudent, EditStudent } from '../../../../redux/action/instructor/InstructorAction';
 import { AddImageIcon } from '../../../../assets/icon';
 import FormJson from '../../../../constant/form/instructor-student-form.json';
+import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
 const StudentForm = ({
     CreateStudent,
@@ -16,6 +17,7 @@ const StudentForm = ({
 }) => {
 
     const router = useRouter();
+
     const [formJsonField, setFormJsonField] = useState(FormJson);
 
     const [editOperation, setEditOperation] = useState(false);
@@ -23,6 +25,40 @@ const StudentForm = ({
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
     });
+
+    const phoneNumber = useWatch({
+        control,
+        name: 'phone_number',
+    });
+
+    useEffect(() => {
+        if (phoneNumber !== undefined) {
+            if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                        item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                        item['errorMsg'] = '';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+
+    }, [phoneNumber]);
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -52,14 +88,16 @@ const StudentForm = ({
                 'email': editData.username,
                 'studentId': editData.id,
                 'department': editData.department,
-                'section': editData.section
+                'section': editData.section,
+                'phone_number': editData.phone_number
             };
             const fields = [
                 'name',
                 'email',
                 'studentId',
                 'department',
-                'section'
+                'section',
+                'phone_number'
             ];
             fields.forEach(field => setValue(field, a[field]));
             modifyFormField('Edit Student', true);
