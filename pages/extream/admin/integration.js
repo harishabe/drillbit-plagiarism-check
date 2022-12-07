@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -52,7 +53,7 @@ const Integration = ({
     integrationData,
     isLoading,
 }) => {
-
+    const router = useRouter();
     const [lmsData, setLmsData] = useState([]);
     const [showMoodle, setShowMoodle] = useState(false);
     const [showCanvas, setShowCanvas] = useState(false);
@@ -71,16 +72,10 @@ const Integration = ({
 
     useEffect(() => {
         if (showGoogleClassroom) {
-            GetGoogleLms()
+            router.push({ pathname: '/extream/admin/integration/google/googleAuth' });
+            //GetGoogleLms()
         }
     }, [showGoogleClassroom]);
-
-    
-    useEffect(() => {
-        windowOpen(googleConfigData);
-    }, [googleConfigData])
-
-    console.log('googleConfigData', googleConfigData)
 
     useEffect(() => {
         let lmsData = integrationData && integrationData?.map((item) => {
@@ -200,6 +195,7 @@ const Integration = ({
                     <BlackboardForm />
                 </CreateDrawer>
             }
+            {showGoogleClassroom && <a href={googleConfigData}>Google</a>}
         </React.Fragment>
     );
 };
