@@ -168,7 +168,7 @@ const MyAssignments = ({
                                             isDownload={true}
                                             handleDownload={handleDownload}
                                             statusColor={expiryDateBgColor(item.validity)}
-                                            submitPath={ { pathname: '/extream/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId, clasName: router.query.clasName, assName: item.name, rep: item.report_access } } }
+                                            submitPath={ { pathname: '/extream/student/myassignment-details', query: { assId: item.id, clasId: router.query.clasId, clasName: router.query.clasName, assName: item.name, repo: item.report_access } } }
                                         />
                                     </Grid>
                                 ))}
