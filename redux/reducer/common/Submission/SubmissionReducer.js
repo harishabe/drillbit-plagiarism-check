@@ -104,6 +104,23 @@ const SubmissionReducer = (state = {}, action) => {
                 isLoadingSaveRepo: false,
                 saveRepoData: action.payload,
             };
+        case types.FETCH_SUBMISSION_HISTORY_START:
+            return {
+                ...state,
+                isLoadingHistory: true,
+            };
+        case types.FETCH_SUBMISSION_HISTORY_SUCCESS:
+            return {
+                ...state,
+                isLoadingHistory: false,
+                historyData: action.payload,
+            };
+        case types.FETCH_SUBMISSION_HISTORY_FAIL:
+            return {
+                ...state,
+                isLoadingHistory: false,
+                historyData: action.payload,
+            };
         default:
             return state;
     }

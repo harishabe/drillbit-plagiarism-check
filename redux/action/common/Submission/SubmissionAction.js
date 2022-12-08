@@ -53,3 +53,12 @@ export const SaveToRepoBulk = (url) => {
         type: types.FETCH_SAVE_TO_REPOSITORY_START, url: url
     };
 };
+
+/**
+ * submission > submission history 
+ */
+export const SubmissionHistory = (url, paginationPayload) => {
+    return {
+        type: types.FETCH_SUBMISSION_HISTORY_START, url: url, paginationPayload: paginationPayload
+    };
+};
