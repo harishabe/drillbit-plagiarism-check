@@ -18,6 +18,7 @@ export { default as MyRecentSubmissionTable } from './table/MyRecentSubmissionTa
 export { default as CommonTable } from './table/CommonTable';
 export { default as FormComponent } from './form/FormComponent';
 export { default as PieChart } from './chart/PieChart';
+export { default as PieChartVariant } from './chart/PieChartVariant2';
 export { default as ColumnChart } from './chart/ColumnChart';
 export { default as RadialBarChart } from './chart/RadialBarChart';
 export { default as UsageChart } from './chart/UsageChart';
