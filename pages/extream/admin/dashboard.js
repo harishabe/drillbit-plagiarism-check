@@ -244,7 +244,7 @@ const Dashboard = ({
                                                 <CurveChart
                                                     chartType="area"
                                                     strokeCurve="smooth"
-                                                    graphName="No. of Submissions"
+                                                    graphName="No. of Students"
                                                     graphData={[
                                                         adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
                                                         adminDashboardData?.topStudent?.submissionsGraph?.elevenFourty,

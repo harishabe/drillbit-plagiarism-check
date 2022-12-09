@@ -74,10 +74,9 @@ const EnglishFile = () => {
                             langType="English"
                             isStudent={ true }
                             singleFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.STUDENT_NEW_SUBMISSION + `${router.query.clasId}/assignments/${router.query.assId}/studentFile` }
-                            // multiFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles` }
                             routerObj={ {
                                 pathname: '/extream/student/myassignment-details',
-                                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName }
+                                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, repo: router.query.repo }
                             } }
                         />
                     </Grid>

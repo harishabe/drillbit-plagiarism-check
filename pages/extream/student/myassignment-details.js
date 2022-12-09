@@ -155,7 +155,7 @@ const MyAssignmentDetails = ({
             clasId: router.query.clasId,
             assId: router.query.assId,
             paperId: data?.paper_id,
-            name: data?.name,
+            name: data?.original_fn,
             path: 'studentSubmission'
         };
         DownloadOriginalFile(detailedData);
