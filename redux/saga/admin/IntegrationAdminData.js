@@ -4,7 +4,10 @@ import {
     GetIntegrationDetail,
     LmsIntegrationDetail,
     ChangeConfigDetail,
-    GoogleClassroomDetail
+    GoogleClassroomDetail,
+    GoogleLiveCoursesDetail,
+    GoogleImportCoursesDetail,
+    GoogleCourseHomeDetail
 } from '../../api/admin/IntegrationAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
@@ -141,4 +144,82 @@ export function* onLoadGoogleClassroom() {
 
 export function* GetAdminGoogleClassroomData() {
     yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_START, onLoadGoogleClassroom);
+}
+
+/**
+ * Get Google Live course
+ * @param {*} action
+ */
+
+export function* onLoadGoogleLiveCourses() {
+    const { response, error } = yield call(GoogleLiveCoursesDetail);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* GetAdminGoogleLiveCoursesData() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_START, onLoadGoogleLiveCourses);
+}
+
+/**
+ * Get Google Import course
+ * @param {*} action
+ */
+
+export function* onLoadGoogleImportCourses(action) {
+    const { response, error } = yield call(GoogleImportCoursesDetail, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* GetAdminGoogleImportCoursesData() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_START, onLoadGoogleImportCourses);
+}
+
+/**
+ * Get Google Course home
+ * @param {*} action
+ */
+
+export function* onLoadGoogleCourseHome() {
+    const { response, error } = yield call(GoogleCourseHomeDetail);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* GetAdminGoogleCourseHomeData() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START, onLoadGoogleCourseHome);
 }

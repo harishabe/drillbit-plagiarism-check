@@ -241,3 +241,30 @@ export const GetGoogleLms = () => {
         type: types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_START
     };
 };
+
+/**
+ * Get Google Live Courses
+ */
+export const GetGoogleLiveCourses = () => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_LIVECOURSE_START
+    };
+};
+
+/**
+ * Get Google Live Courses
+ */
+export const GetGoogleImportCourses = (data) => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_START, query: data
+    };
+};
+
+/**
+ * Get Google Live Courses
+ */
+export const GetGoogleCourseHome = () => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START
+    };
+};
