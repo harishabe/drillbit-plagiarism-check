@@ -7,7 +7,8 @@ import {
     DeletefolderSubmission,
     DownloadSubmissionData,
     DownloadGrammarReportData,
-    SaveToRepoBulkData
+    SaveToRepoBulkData,
+    SubmissionHistoryData
 } from '../../../api/common/Submission/SubmissionAPI';
 import toastrValidation from '../../../../utils/ToastrValidation';
 import { FolderSubmissionsPaginationValue } from '../../../../utils/PaginationUrl';
@@ -188,4 +189,29 @@ export function* onLoadSaveToRepo(action) {
 
 export function* SaveToRepoBulkDetail() {
     yield takeLatest(types.FETCH_SAVE_TO_REPOSITORY_START, onLoadSaveToRepo);
+}
+
+/**
+ * Submission history
+ * @param {*} action
+ */
+
+export function* onLoadSubmissionHistory(action) {
+    const { response, error } = yield call(SubmissionHistoryData, action.url, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUBMISSION_HISTORY_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUBMISSION_HISTORY_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* GetSubmissionHistoryData() {
+    yield takeLatest(types.FETCH_SUBMISSION_HISTORY_START, onLoadSubmissionHistory);
 }

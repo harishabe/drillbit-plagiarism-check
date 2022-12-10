@@ -64,3 +64,11 @@ export const DownloadGrammarReportData = async (url) => {
 export const SaveToRepoBulkData = async (url) => {
     return PostMethod(url);
 };
+
+/**
+ * SUBMISSION HISTORY
+ */
+export const SubmissionHistoryData = async (apiUrl, paginationPayload) => {
+    const url = apiUrl + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};
