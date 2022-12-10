@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
-import { Grid, InputLabel, TextField, Button, Skeleton } from '@mui/material';
+import { Grid, Button, Skeleton } from '@mui/material';
 import { EllipsisText } from '../../components';
 import {
     UPLOAD_FILE_AUTHOR_NAME,
@@ -16,6 +16,7 @@ import {
     LanguageList
 } from '../../redux/action/common/UploadFile/UploadFileAction';
 import InputAutoComplete from '../form/elements/InputAutoComplete'
+import InputTextField from '../form/elements/InputTextField';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -30,8 +31,9 @@ const SkeletonContainer = styled.div`
 `;
 
 const useStyles = makeStyles(() => ({
-    helperText: {
-        marginLeft: 0
+    btn: {
+        textAlign: 'center',
+        marginTop: '10px'
     }
 }));
 
@@ -42,12 +44,10 @@ const ZipFileForm = ({
     isLoading,
     isLoadingLang,
     document_type,
-    LanguageList,
-    isStudent,
+    LanguageList
 }) => {
     const classes = useStyles();
-    const { control, handleSubmit, formState: { errors } } = useForm();
-
+    const { control, setValue, handleSubmit } = useForm();
     const onSubmit = (data) => {
         let reqPayload = {};
         Object.entries(data).map((key) => {
@@ -62,6 +62,18 @@ const ZipFileForm = ({
 
     useEffect(() => {
         LanguageList();
+        let a = {};
+        files?.map((item, index) => {
+            a['authorName' + index] = 'Zip file';
+            a['title' + index] = 'Zip file';
+            a['documentType' + index] = { 'name': 'Others' };
+            const fields = [
+                'authorName' + index,
+                'title' + index,
+                'documentType' + index,
+            ];
+            fields.forEach(field => setValue(field, a[field]));
+        });
     }, []);
 
     return (
@@ -76,84 +88,62 @@ const ZipFileForm = ({
                                 </div>
                             </Grid>
                             <Grid item md={3} xs={12}>
-                                <LabelContainer>
-                                    <InputLabel>
-                                        Author Name 
-                                    </InputLabel>
-                                </LabelContainer>                               
-                                    <TextField
-                                        sx={{ marginTop: '0px' }}
-                                        fullWidth
-                                        margin="normal"
-                                        name={'authorName' + index}
-                                        type="text"
-                                        variant="outlined"
-                                        size="small"
-                                        error={errors['authorName' + index]}
-                                        helperText={errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME}
-                                        FormHelperTextProps={{
-                                            className: classes.helperText
-                                        }}
-                                        inputProps={{
-                                            minLength: 3,
-                                        }}
-                                    />
-                                
+                                <InputTextField
+                                    control={control}
+                                    field={{
+                                        'field_type': 'input',
+                                        'style': { marginTop: '0px' },
+                                        'id': 'authorName' + index,
+                                        'label': 'Author name',
+                                        'name': 'authorName' + index,
+                                        'required': false,
+                                        'validationMsg': UPLOAD_FILE_AUTHOR_NAME,
+                                        'size': 'small'
+                                    }}
+                                />
                             </Grid>
                             <Grid item md={3} xs={12}>
-                                <LabelContainer>
-                                    <InputLabel>
-                                        Title 
-                                    </InputLabel>
-                                </LabelContainer>
-                                    <TextField
-                                        sx={{ marginTop: '0px' }}
-                                        fullWidth
-                                        margin="normal"
-                                        name={'title' + index}
-                                        type="text"
-                                        variant="outlined"
-                                        size="small"
-                                        helperText={errors['title' + index] && UPLOAD_FILE_AUTHOR_TITLE}
-                                        error={errors['title' + index]}
-                                        FormHelperTextProps={{
-                                            className: classes.helperText
-                                        }}
-                                        inputProps={{
-                                            minLength: 3,
-                                        }}
-                                    />                                
+                                <InputTextField
+                                    control={control}
+                                    field={{
+                                        'field_type': 'input',
+                                        'style': { marginTop: '0px' },
+                                        'id': 'title' + index,
+                                        'label': 'Title',
+                                        'name': 'title' + index,
+                                        'required': false,
+                                        'validationMsg': UPLOAD_FILE_AUTHOR_TITLE,
+                                        'size': 'small'
+                                    }}
+                                />
                             </Grid>
+                            <Grid item md={3} xs={12}>
+                                {isLoadingLang ?
+                                    <SkeletonContainer>
+                                        <Skeleton />
+                                    </SkeletonContainer> :
+                                    <>
+                                        <InputAutoComplete
+                                            control={control}
+                                            field={{
+                                                'field_type': 'dropdown',
+                                                'style': { marginTop: '10px' },
+                                                'id': 'documentType' + index,
+                                                'label': 'File type',
+                                                'name': 'documentType' + index,
+                                                'required': false,
+                                                'validationMsg': UPLOAD_FILE_TYPE,
+                                                'size': 'small',
+                                                'options': document_type !== undefined && document_type?.map((item) => ({ 'name': item }))
+                                            }}
+                                        />
 
-                            {!isStudent &&
-                                <Grid item md={3} xs={12}>
-                                    {isLoadingLang ?
-                                        <SkeletonContainer>
-                                            <Skeleton />
-                                        </SkeletonContainer> :
-                                        <>
-                                            <InputAutoComplete
-                                                control={control}
-                                                field={{
-                                                    'field_type': 'dropdown',
-                                                    'style': { marginTop: '0px' },
-                                                    'id': 'documentType' + index,
-                                                    'label': 'File type',
-                                                    'name': 'documentType' + index,
-                                                    'required': false,
-                                                    'validationMsg': UPLOAD_FILE_TYPE,
-                                                    'size': 'small',
-                                                    'options': document_type !== undefined && document_type?.map((item) => ({ 'name': item }))
-                                                }}
-                                            />
-
-                                        </>}
-                                </Grid>
-                            }
+                                    </>}
+                            </Grid>
                         </Grid>
                     );
                 })}
-                <div style={{ textAlign: 'center', marginTop: '10px' }}>
+                <div className={classes.btn}>
                     <Button color='primary' disabled={isLoading} type="submit" variant="contained" size="large">
                         {isLoading ? <BeatLoader color="#fff" /> : btnTitle}
                     </Button>
