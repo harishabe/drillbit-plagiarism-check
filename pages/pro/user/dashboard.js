@@ -210,7 +210,7 @@ const Dashboard = ({
             </Box>
             <Box mt={ 1 } sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 12 } xs={ 12 }>
+                    <Grid item md={ 8 } xs={ 12 }>
                         <CardView>
                             <Heading title='Document Type' />
                             { isLoading ? <Skeleton /> :
@@ -218,7 +218,7 @@ const Dashboard = ({
                                     type={ COLUMN_ADMIN_CHART_TYPE }
                                     color={ COLUMN_ADMIN_CHART_COLOR }
                                     xaxisData={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
-                                    columnWidth={ '30%' }
+                                    columnWidth={ COLUMN_ADMIN_WIDTH }
                                     height={ 355 }
                                     seriesData={ [
                                         {
