@@ -14,7 +14,7 @@ import {
     SubTitle1,
     MainHeading
 } from '../../components';
-import FileForm from './FileForm';
+import ZipFileForm from './ZipFileForm';
 import RepositoryFileFormZip from './RepositoryFileFormZip';
 import {
     UPLOAD_FILE_MAX_LIMIT
@@ -189,7 +189,7 @@ const ZipFileUpload = ({
                                 isLoading={isLoadingExtractedFile}
                             />}
                         {(uploadData?.fileNames?.length > 0 && !isRepository) &&
-                            <FileForm
+                            <ZipFileForm
                                 handleSubmitFile={handleProcessZipFile}
                                 files={uploadData?.fileNames?.map((item) => ({ 'name': item }))}
                                 btnTitle='Submit'
