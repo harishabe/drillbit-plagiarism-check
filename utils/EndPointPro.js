@@ -43,6 +43,7 @@ const END_POINTS_PRO = {
     USER_REPOSITARY_REMOVE: '/removePrivateRepository/',
     USER_REPOSITARY_UPLOAD: '/privateRepository',
     GRAMMAR_REPORT: '/files/grammar/download/',
+    SIMILARITY_REPORT_DOWNLOAD: '/zipDownload'
 }
 
 export default END_POINTS_PRO;

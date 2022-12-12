@@ -23,6 +23,14 @@ const FormDataHeader = () => {
     }
 };
 
+const FormDataHeaderZip = () => {
+    return {
+        'Content-Disposition': "attachment; filename=template.xlsx",
+        'Content-Type': "multipart/form-data",
+        'authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+};
+
 const headerEN = () => {
     return {
         "Accept-Language": "en",
@@ -185,5 +193,23 @@ export const DeleteMethod = async (url) => {
         headers: header()
     })
         .then(response => ({ response }))
+        .catch(error => ({ error }))
+};
+
+
+export const PostMethodDownloadPdf = async (url, requestPayload, fileName) => {
+    return await axois.post(url, requestPayload, {
+        headers: FormDataHeaderZip(),
+        responseType: 'arraybuffer',
+    })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'template.zip');
+            document.body.appendChild(link);
+            link.click();
+            return true;
+        })
         .catch(error => ({ error }))
 };

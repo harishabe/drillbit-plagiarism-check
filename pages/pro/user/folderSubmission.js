@@ -9,6 +9,7 @@ import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { Pagination, IconButton } from '@mui/material';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import { TextField } from '@mui/material';
 import ProUser from '../../../layouts/ProUser';
@@ -31,6 +32,7 @@ import {
     GetGrammarReport,
     DeletefolderSubmissionData,
     folderSubmissionsFileData,
+    SubmissionReportBulkDownload
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon, RegionalUploadIcon, NonEnglishUploadIcon, EnglishUploadIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -102,7 +104,8 @@ const folderSubmission = ({
     uploadData,
     UploadZipFileDataClear,
     isLoadingGrammarReport,
-    GetGrammarReport
+    GetGrammarReport,
+    SubmissionReportBulkDownload
 }) => {
 
     const router = useRouter();
@@ -383,6 +386,20 @@ const folderSubmission = ({
         }
     };
 
+    const submissionBulkDownload = () => {
+        let rowsId = '';
+        _.filter(rows, function (o) {
+            if (o.isSelected === true) {
+                return rows;
+            }
+        }).map((rowItem) => {
+            rowsId += rowItem?.paper_id + ',';
+        });
+        let requestPayload = {};
+        requestPayload['paperId'] = removeCommaWordEnd(rowsId);
+        SubmissionReportBulkDownload('https://s1.drillbitplagiarismcheck.com/pro/zipDownload', requestPayload);
+    }
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -440,6 +457,11 @@ const folderSubmission = ({
                     <Tooltip title='Save to repository' arrow>
                         <IconButton onClick={saveAllSubmission}>
                             <SaveOutlinedIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title='Submission report bulk download' arrow>
+                        <IconButton onClick={submissionBulkDownload}>
+                            <FileDownloadOutlinedIcon />
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton>}
@@ -555,6 +577,7 @@ const mapDispatchToProps = (dispatch) => {
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
         GetGrammarReport: (url) => dispatch(GetGrammarReport(url)),
+        SubmissionReportBulkDownload: (url, requestPayload) => dispatch(SubmissionReportBulkDownload(url, requestPayload)),
     };
 };
 

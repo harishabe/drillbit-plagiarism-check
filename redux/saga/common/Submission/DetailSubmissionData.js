@@ -8,7 +8,8 @@ import {
     DownloadSubmissionData,
     DownloadGrammarReportData,
     SaveToRepoBulkData,
-    SubmissionHistoryData
+    SubmissionHistoryData,
+    SubmissionBulkReportDownload,
 } from '../../../api/common/Submission/SubmissionAPI';
 import toastrValidation from '../../../../utils/ToastrValidation';
 import { FolderSubmissionsPaginationValue } from '../../../../utils/PaginationUrl';
@@ -214,4 +215,30 @@ export function* onLoadSubmissionHistory(action) {
 
 export function* GetSubmissionHistoryData() {
     yield takeLatest(types.FETCH_SUBMISSION_HISTORY_START, onLoadSubmissionHistory);
+}
+
+
+/**
+ * Submission report bulk download
+ * @param {*} action
+ */
+
+ export function* onLoadSubmissionBulkData(action) {
+    const { response, error } = yield call(SubmissionBulkReportDownload, action.url, action.requestPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUBMISSION_BULK_REPORT_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUBMISSION_BULK_REPORT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* GetSubmissionBulkReportDownload() {
+    yield takeLatest(types.FETCH_SUBMISSION_BULK_REPORT_START, onLoadSubmissionBulkData);
 }
