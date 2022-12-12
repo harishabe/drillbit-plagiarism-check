@@ -156,6 +156,7 @@ const Dashboard = ({
                                     ] }
                                     gradient={ COLUMN_ADMIN_CHART_GRADIENT }
                                     borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                    filename='Submissions Overview'
                                 />
                                     :
                                     <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
@@ -189,6 +190,7 @@ const Dashboard = ({
                                     { instructorDashboardData?.data?.trendAnalysis?.documentsProcessed ?
                                         <PieChart
                                             type="donut"
+                                            filename='Trend Analysis'
                                             height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '317px' }
                                             color={ PIE_CHART_COLOR }
                                             width={ PIE_CHART_WIDTH }
@@ -214,35 +216,14 @@ const Dashboard = ({
                         <CardView>
                             <Heading title='Document Type' />
                             { isLoading ? <Skeleton /> :
-                                documentTypeData ? <ColumnChart
-                                    type={ COLUMN_ADMIN_CHART_TYPE }
-                                    color={ COLUMN_ADMIN_CHART_COLOR }
-                                    xaxisData={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
-                                    columnWidth={ COLUMN_ADMIN_WIDTH }
-                                    height={ 355 }
-                                    seriesData={ [
-                                        {
-                                            name: 'Document Processed',
-                                            data: [
-                                                documentTypeData?.article,
-                                                documentTypeData?.analytical_or_business_report,
-                                                documentTypeData?.assignment,
-                                                documentTypeData?.blogs,
-                                                documentTypeData?.chapter_in_books,
-                                                documentTypeData?.dissertation,
-                                                documentTypeData?.eBook,
-                                                documentTypeData?.others,
-                                                documentTypeData?.project_work,
-                                                documentTypeData?.research_paper,
-                                                documentTypeData?.synopsis,
-                                                documentTypeData?.thesis,
-                                                documentTypeData?.web_page,
-                                            ]
-                                        }
-                                    ] }
-                                    gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                    borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
-                                />
+                                documentTypeData ?
+                                    <PieChart
+                                        type="pie"
+                                        height={ 325 }
+                                        label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
+                                        series={ Object.values(documentTypeData) }
+                                        filename='Document Type'
+                                    />
                                     : <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
                             }
                         </CardView>

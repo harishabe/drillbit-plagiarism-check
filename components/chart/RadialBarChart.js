@@ -8,7 +8,8 @@ const RadialBarChart = ({
     height,
     label,
     labelData,
-    series
+    series,
+    filename
 }) => {
     const [chartData, setChartData] = useState({
         series: series,
@@ -21,7 +22,18 @@ const RadialBarChart = ({
                     show: true,
                     tools: {
                         download: true
-                    }
+                    },
+                    export: {
+                        csv: {
+                            filename: filename
+                        },
+                        svg: {
+                            filename: filename
+                        },
+                        png: {
+                            filename: filename
+                        }
+                    },
                 }
             },
             tooltip: {

@@ -9,7 +9,8 @@ const ColumnChart = ({
     height,
     seriesData,
     type,
-    borderRadius
+    borderRadius,
+    filename
 }) => {
     const [chartData, setChartData] = useState({
         series: seriesData,
@@ -22,7 +23,18 @@ const ColumnChart = ({
                     show: true,
                     tools: {
                         download: true
-                    }
+                    },
+                    export: {
+                        csv: {
+                            filename: filename
+                        },
+                        svg: {
+                            filename: filename
+                        },
+                        png: {
+                            filename: filename
+                        }
+                    },
                 }
             },
             plotOptions: {

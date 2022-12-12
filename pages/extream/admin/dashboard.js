@@ -179,6 +179,7 @@ const Dashboard = ({
                                     ]}
                                     gradient={COLUMN_ADMIN_CHART_GRADIENT}
                                     borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
+                                    filename='Submissions Overview'
                                 />
                                     : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                             }
@@ -196,6 +197,7 @@ const Dashboard = ({
                                 <LineChart
                                     chartType="line"
                                     graphName="File Submission"
+                                    filename='Similarity Ranges'
                                     graphData={[
                                         adminDashboardData?.data?.submissionsGraph?.zeroTen,
                                         adminDashboardData?.data?.submissionsGraph?.elevenFourty,
@@ -245,6 +247,7 @@ const Dashboard = ({
                                                     chartType="area"
                                                     strokeCurve="smooth"
                                                     graphName="No. of Students"
+                                                    filename='Top Students' 
                                                     graphData={[
                                                         adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
                                                         adminDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
@@ -293,6 +296,7 @@ const Dashboard = ({
                                         color={RADIAL_CHART_COLOR}
                                         height={RADIAL_CHART_HEIGHT}
                                         label={ [RADIAL_CHART_LABEL] }
+                                        filename='Account Validity'
                                         labelData={ [adminDashboardData?.data?.accountValidityDays] }
                                         series={[adminDashboardData?.data?.accountValidityPercentage.toFixed(2)]}
                                     />
@@ -337,6 +341,7 @@ const Dashboard = ({
                                             color={PIE_CHART_COLOR}
                                             height={322}
                                             label={PIE_CHART_LABEL}
+                                            filename='Trend Analysis'
                                             series={
                                                 [
                                                     adminDashboardData?.trendAnalysis?.similarWork,
@@ -353,39 +358,18 @@ const Dashboard = ({
                 </Grid>
                 <Box mt={ 1 } sx={ { flexGrow: 1 } }>
                     <Grid container spacing={ 1 }>
-                        <Grid item md={ 12 } xs={ 12 }>
+                        <Grid item md={ 8 } xs={ 12 }>
                             <CardView>
                                 <Heading title='Document Type' />
                                 { isLoadingDashboard ? <Skeleton /> :
-                                    documentTypeData ? <ColumnChart
-                                        type={ COLUMN_ADMIN_CHART_TYPE }
-                                        color={ COLUMN_ADMIN_CHART_COLOR }
-                                        xaxisData={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
-                                        columnWidth={ '30%' }
-                                        height={ 355 }
-                                        seriesData={ [
-                                            {
-                                                name: 'Document Processed',
-                                                data: [
-                                                    documentTypeData?.article,
-                                                    documentTypeData?.analytical_or_business_report,
-                                                    documentTypeData?.assignment,
-                                                    documentTypeData?.blogs,
-                                                    documentTypeData?.chapter_in_books,
-                                                    documentTypeData?.dissertation,
-                                                    documentTypeData?.eBook,
-                                                    documentTypeData?.others,
-                                                    documentTypeData?.project_work,
-                                                    documentTypeData?.research_paper,
-                                                    documentTypeData?.synopsis,
-                                                    documentTypeData?.thesis,
-                                                    documentTypeData?.web_page,
-                                                ]
-                                            }
-                                        ] }
-                                        gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                        borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
-                                    />
+                                    documentTypeData ?
+                                        <PieChart
+                                            type="pie"
+                                            height={ 325 }
+                                            label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
+                                            series={ Object.values(documentTypeData) }
+                                            filename='Document Type'
+                                        />
                                         : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
                                 }
                             </CardView>

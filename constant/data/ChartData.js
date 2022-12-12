@@ -19,7 +19,21 @@ export const COLUMN_CHART_SERIES_DATA = [
 export const COLUMN_ADMIN_CHART_TYPE = "bar";
 export const COLUMN_ADMIN_CHART_COLOR = ['#2B4CB0'];
 export const COLUMN_ADMIN_XAXIS_DATA = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-export const COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA = ['Article', 'Analytical / Business report', 'Assignment', 'Blogs', 'Chapter in books', 'Dissertation', 'eBook', 'Others', 'Project work', 'Research paper', 'Synopsis', 'Thesis', 'Web page'];
+export const COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA = [
+    'Thesis',
+    'Dissertation',
+    'Article',
+    'eBook',
+    'Synopsis',
+    'Assignment',
+    'Project work',
+    'Research paper',
+    'Chapter in books',
+    'Analytical / Business report',
+    'Blogs',
+    'Web page',
+    'Others',
+];
 export const COLUMN_ADMIN_WIDTH = "50%";
 export const COLUMN_ADMIN_CHART_HEIGHT = 350;
 export const COLUMN_ADMIN_CHART_BORDER_RADIUS = 11;

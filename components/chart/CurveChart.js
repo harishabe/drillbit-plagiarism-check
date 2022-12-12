@@ -11,7 +11,8 @@ const CurveChart = ({
     xaxisLabelShow,
     yaxisLabelShow,
     graphData,
-    graphName
+    graphName,
+    filename
 }) => {
     const [chartData, setChartData] = useState({
         series: [{
@@ -30,7 +31,18 @@ const CurveChart = ({
                     show: true,
                     tools: {
                         download: true
-                    }
+                    },
+                    export: {
+                        csv: {
+                            filename: filename
+                        },
+                        svg: {
+                            filename: filename
+                        },
+                        png: {
+                            filename: filename
+                        }
+                    },
                 }
             },
             dataLabels: {
