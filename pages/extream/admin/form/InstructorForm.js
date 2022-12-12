@@ -44,11 +44,6 @@ const InstructorForm = ({
         name: 'grammar',
     });
 
-    const phoneNumber = useWatch({
-        control,
-        name: 'phone_number',
-    });
-
     useEffect(() => {
         if (licenseExpiryDate?.license_expiry_date !== undefined) {
             let fields = FormJson?.map((item) => {
@@ -101,26 +96,6 @@ const InstructorForm = ({
             }
         }
 
-        if (phoneNumber !== undefined) {
-            if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
-                        item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
-                        item['errorMsg'] = '';
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            }
-        }
-
         if ((new Date(expiryDate) > new Date(licenseExpiryDate?.license_expiry_date))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
@@ -147,7 +122,7 @@ const InstructorForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && phoneNumber?.length >= 10 && phoneNumber?.length <= 15 && (new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) && (new Date() < new Date(expiryDate)))) {
+        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) && (new Date() < new Date(expiryDate)))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = false;
@@ -165,7 +140,7 @@ const InstructorForm = ({
             setFormJsonField(fields);
         }
 
-    }, [allocationDocs, grammarDocs, expiryDate, phoneNumber]);
+    }, [allocationDocs, grammarDocs, expiryDate]);
 
     const onSubmit = (data) => {
         if (editOperation) {

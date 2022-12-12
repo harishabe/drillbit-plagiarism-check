@@ -22,8 +22,8 @@
         "type": "text",
         "id": "department",
         "name": "department",
-        "label": "Department *",
-        "required": "Enter department",
+        "label": "Department",
+        "required": false,
         "validationMsg": "Invalid department"
     },
     {
@@ -31,8 +31,8 @@
         "type": "text",
         "id": "designation",
         "name": "designation",
-        "label": "Designation *",
-        "required": "Enter designation",
+        "label": "Designation",
+        "required": false,
         "validationMsg": "Invalid designation"
     },
     {
@@ -41,7 +41,7 @@
         "id": "phone_number",
         "name": "phone_number",
         "label": "Phone number",
-        "required": "Enter phone number",
+        "required": false,
         "validationMsg": "Enter phone number"
     },
     

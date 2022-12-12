@@ -300,14 +300,14 @@ const Dashboard = ({
             </Box>
             <Box mt={ 1 } sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 7 } xs={ 12 }>
+                    <Grid item md={ 6 } xs={ 12 }>
                         <CardView>
                             <Heading title='Document Type' />
                             { isLoadingDashboard ? <Skeleton /> :
                                 documentTypeData ? 
                                     <PieChart
                                         type="pie"
-                                        height={ 325 }
+                                        height={ 323 }
                                         label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
                                         series={ Object.values(documentTypeData) }
                                         filename='Document Type'
