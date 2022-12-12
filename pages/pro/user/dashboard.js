@@ -156,6 +156,7 @@ const Dashboard = ({
                                     ] }
                                     gradient={ COLUMN_ADMIN_CHART_GRADIENT }
                                     borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                    filename='Submissions Overview'
                                 />
                                     :
                                     <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
@@ -189,6 +190,7 @@ const Dashboard = ({
                                     { instructorDashboardData?.data?.trendAnalysis?.documentsProcessed ?
                                         <PieChart
                                             type="donut"
+                                            filename='Trend Analysis'
                                             height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '317px' }
                                             color={ PIE_CHART_COLOR }
                                             width={ PIE_CHART_WIDTH }
@@ -220,6 +222,7 @@ const Dashboard = ({
                                         height={ 325 }
                                         label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
                                         series={ Object.values(documentTypeData) }
+                                        filename='Document Type'
                                     />
                                     : <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
                             }

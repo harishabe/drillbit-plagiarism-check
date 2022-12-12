@@ -155,6 +155,7 @@ const Dashboard = ({
                                     ]}
                                     gradient={COLUMN_ADMIN_CHART_GRADIENT}
                                     borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
+                                    filename='Submissions Overview'
                                 />
                                     : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                             }
@@ -172,6 +173,7 @@ const Dashboard = ({
                                 <LineChart
                                     chartType="line"
                                     graphName="File Submission"
+                                    filename='Similarity Ranges'
                                     graphData={[
                                         adminDashboardData?.data?.submissionsGraph?.zeroTen,
                                         adminDashboardData?.data?.submissionsGraph?.elevenFourty,
@@ -227,6 +229,7 @@ const Dashboard = ({
                                 /> :
                                 <>
                                     <RadialBarChart
+                                        filename='Account Validity'
                                         type={RADIAL_CHART_TYPE}
                                         color={RADIAL_CHART_COLOR}
                                         height={RADIAL_CHART_HEIGHT}
@@ -275,6 +278,7 @@ const Dashboard = ({
                                         <>
                                             <PieChart
                                                 type="donut"
+                                                filename='Trend Analysis'
                                                 color={PIE_CHART_COLOR}
                                                 height={320}
                                                 label={PIE_CHART_LABEL}
@@ -306,6 +310,7 @@ const Dashboard = ({
                                         height={ 325 }
                                         label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
                                         series={ Object.values(documentTypeData) }
+                                        filename='Document Type'
                                     />
                                     : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
                             }

@@ -158,6 +158,7 @@ const Dashboard = ({
                                                     chartType="area"
                                                     strokeCurve="smooth"
                                                     graphName="No. students"
+                                                    filename='Top Students'
                                                     graphData={ [
                                                         instructorDashboardData?.topStudent?.submissionsGraph?.zeroTen,
                                                         instructorDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
@@ -230,6 +231,7 @@ const Dashboard = ({
                                     ] }
                                     gradient={ COLUMN_ADMIN_CHART_GRADIENT }
                                     borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                    filename='Submission Overview'
                                 />
                                     :
                                     <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
@@ -269,6 +271,7 @@ const Dashboard = ({
                                             </TextAlignRight> */}
                                             <PieChart
                                                 type="donut"
+                                                filename='Trend Analysis'
                                                 height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed === 0 ? '' : '347px' }
                                                 color={ PIE_CHART_COLOR }
                                                 width={ PIE_CHART_WIDTH }
@@ -299,6 +302,7 @@ const Dashboard = ({
                                 documentTypeData ?
                                     <PieChart
                                         type="pie"
+                                        filename='Document Type'
                                         height={ 325 }
                                         label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
                                         series={ Object.values(documentTypeData) }

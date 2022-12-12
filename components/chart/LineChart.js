@@ -9,7 +9,8 @@ const LineChart = ({
     chartType,
     strokeCurve,
     graphData,
-    graphName
+    graphName,
+    filename
 }) => {
     const [chartData, setChartData] = useState({
         series: [{
@@ -28,7 +29,18 @@ const LineChart = ({
                     show: true,
                     tools: {
                         download: true
-                    }
+                    },
+                    export: {
+                        csv: {
+                            filename: filename
+                        },
+                        svg: {
+                            filename: filename
+                        },
+                        png: {
+                            filename: filename
+                        }
+                    },
                 }
             },
             stroke: {

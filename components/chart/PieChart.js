@@ -8,7 +8,8 @@ const PieChart = ({
     width,
     label,
     height,
-    series
+    series,
+    filename
 }) => {
     const donutChart = {
         series: series,
@@ -21,7 +22,18 @@ const PieChart = ({
                     show: true,
                     tools: {
                         download: true
-                    }
+                    },
+                    export: {
+                        csv: {
+                            filename: filename
+                        },
+                        svg: {
+                            filename: filename
+                        },
+                        png: {
+                            filename: filename
+                        }
+                    },
                 }
             },
             legend: {
@@ -56,6 +68,23 @@ const PieChart = ({
             chart: {
                 width: 380,
                 type: 'pie',
+                toolbar: {
+                    show: true,
+                    tools: {
+                        download: true
+                    },
+                    export: {
+                        csv: {
+                            filename: filename
+                        },
+                        svg: {
+                            filename: filename
+                        },
+                        png: {
+                            filename: filename
+                        }
+                    },
+                }
             },
             labels: label,
             responsive: [{
