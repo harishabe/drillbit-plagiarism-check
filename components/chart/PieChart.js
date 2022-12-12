@@ -10,7 +10,7 @@ const PieChart = ({
     height,
     series
 }) => {
-    const [chartData, setChartData] = useState({
+    const donutChart = {
         series: series,
         options: {
             colors: color,
@@ -28,8 +28,8 @@ const PieChart = ({
                 show: true,
                 position: 'bottom',
                 fontSize: '16px',
-                fontFamily:'Montserrat',
-                color:'#f5f5f5'
+                fontFamily: 'Montserrat',
+                color: '#f5f5f5'
             },
             tooltip: {
                 enabled: true,
@@ -48,12 +48,36 @@ const PieChart = ({
                 }
             }]
         },
-    });
+    }
+
+    const pieChart = {
+        series: series,
+        options: {
+            chart: {
+                width: 380,
+                type: 'pie',
+            },
+            labels: label,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        },
+    }
+
+    const [chartData, setChartData] = useState(type === 'donut' ? donutChart : pieChart)
 
     return (
         <>
             <div id="chart" style={{ padding: '40px 0px' }}>
-                <ApexCharts options={chartData.options} series={chartData.series} height={height} type="donut" />
+                <ApexCharts options={ chartData.options } series={ chartData.series } height={ height } type={ type } />
             </div>
         </>
     );

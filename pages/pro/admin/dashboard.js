@@ -301,35 +301,12 @@ const Dashboard = ({
                             <Heading title='Document Type' />
                             { isLoadingDashboard ? <Skeleton /> :
                                 documentTypeData ? 
-                                <ColumnChart
-                                    type={ COLUMN_ADMIN_CHART_TYPE }
-                                    color={ COLUMN_ADMIN_CHART_COLOR }
-                                    xaxisData={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
-                                    columnWidth={ COLUMN_ADMIN_WIDTH }
-                                    height={ 355 }
-                                    seriesData={ [
-                                        {
-                                            name: 'Document Processed',
-                                            data: [
-                                                documentTypeData?.article,
-                                                documentTypeData?.analytical_or_business_report,
-                                                documentTypeData?.assignment,
-                                                documentTypeData?.blogs,
-                                                documentTypeData?.chapter_in_books,
-                                                documentTypeData?.dissertation,
-                                                documentTypeData?.eBook,
-                                                documentTypeData?.others,
-                                                documentTypeData?.project_work,
-                                                documentTypeData?.research_paper,
-                                                documentTypeData?.synopsis,
-                                                documentTypeData?.thesis,
-                                                documentTypeData?.web_page,
-                                            ]
-                                        }
-                                    ] }
-                                    gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                    borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
-                                />
+                                    <PieChart
+                                        type="pie"
+                                        height={ 325 }
+                                        label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
+                                        series={ Object.values(documentTypeData) }
+                                    />
                                     : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
                             }
                         </CardView>

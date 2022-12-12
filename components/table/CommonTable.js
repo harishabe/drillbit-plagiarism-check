@@ -198,7 +198,7 @@ const CommonTable = ({
                                                                                 <TableCell align={ column.align }>
                                                                                     <div style={ { display: 'flex' } }>
                                                                                         {
-                                                                                            ((role !== 'student') || (role === 'student' && router?.query?.rep?.toUpperCase() === 'YES')) ?
+                                                                                            ((role !== 'student') || (role === 'student' && router?.query?.repo?.toUpperCase() === 'YES')) ?
                                                                                                 <>
                                                                                                     <div style={ ((row?.alert_msg !== null && row?.alert_msg !== "")) ? { width: '17%', marginTop: '5px' } : { marginTop: '5px' } }>
                                                                                                         { ((row?.alert_msg != null) && (row?.alert_msg !== "")) &&
