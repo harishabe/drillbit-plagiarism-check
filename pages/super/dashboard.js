@@ -27,6 +27,11 @@ import {
     COLUMN_ADMIN_XAXIS_DATA
 } from './../../constant/data/ChartData';
 
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+
+const options = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users'];
+
 const Dashboard = ({
     GetWidgetCount,
     superDashboardData,
@@ -35,6 +40,9 @@ const Dashboard = ({
 
     const [year, setYear] = useState([])
     const [submissions, setSubmissions] = useState([])
+    const [value, setValue] = useState(options[0]);
+    const [inputValue, setInputValue] = useState('');
+    const [chartData, setChartData] = useState({});
 
     useEffect(() => {
         GetWidgetCount();
@@ -66,6 +74,44 @@ const Dashboard = ({
     const STATE_WISE_USERS = superDashboardData && Object.keys(superDashboardData?.stateWiseUsers).map((value) => {
         return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseUsers)[f++] + ')'
     })
+
+    useEffect(() => {
+        if (superDashboardData) {
+            if (inputValue === 'Country wise institutions') {
+                setChartData({
+                    'label': COUNTRY_WISE_INSTITUTES,
+                    'series': Object.values(superDashboardData?.countryWiseInstituttes)
+                })
+            } else if (inputValue === 'Country wise submissions') {
+                setChartData({
+                    'label': COUNTRY_WISE_SUBMISSIONS,
+                    'series': Object.values(superDashboardData?.countryWiseSubmissions)
+                })
+            } else if (inputValue === 'Country wise users') {
+                setChartData({
+                    'label': COUNTRY_WISE_USERS,
+                    'series': Object.values(superDashboardData?.countryWiseUsers)
+                })
+            } else if (inputValue === 'State wise institutions') {
+                setChartData({
+                    'label': STATE_WISE_INSTITUTES,
+                    'series': Object.values(superDashboardData?.stateWiseInstituttes)
+                })
+            } else if (inputValue === 'State wise submissions') {
+                setChartData({
+                    'label': STATE_WISE_SUBMISSIONS,
+                    'series': Object.values(superDashboardData?.stateWiseSubmissions)
+                })
+            } else if (inputValue === 'State wise users') {
+                setChartData({
+                    'label': STATE_WISE_USERS,
+                    'series': Object.values(superDashboardData?.stateWiseUsers)
+                })
+            }
+        }
+    }, [superDashboardData, inputValue, chartData]);
+
+    console.log('chartData', chartData)
 
     useEffect(() => {
         let yearList = superDashboardData?.yearWiseSubmissionStats?.map((item) => {
@@ -108,7 +154,7 @@ const Dashboard = ({
                     </Grid>
                 </Grid>
             </Box>
-            <Box sx={ { mt: 1, flexGrow: 1 } }>
+            {/* <Box sx={ { mt: 1, flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 7 } xs={ 12 }>
                         <CardView>
@@ -138,7 +184,6 @@ const Dashboard = ({
                             }
                         </CardView>
                     </Grid>
-
                 </Grid>
             </Box>
             <Box sx={ { mt: 1, flexGrow: 1 } }>
@@ -204,7 +249,56 @@ const Dashboard = ({
                         </CardView>
                     </Grid>
                 </Grid>
+            </Box> */}
+
+            <Box sx={ { mt: 1, flexGrow: 1 } }>
+                <CardView>
+                    <Grid container spacing={ 1 }>
+                        <Grid item md={ 8 } xs={ 12 }>
+                            <Heading title={ value } />
+                            { isLoading ? <Skeleton /> :
+                                superDashboardData && chartData?.label?.length > 0 ?
+                                    <PieChartVariant
+                                        height={ 250 }
+                                        label={ chartData?.label }
+                                        series={ chartData?.series }
+                                    />
+                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                            }
+                        </Grid>
+                        <Grid item md={ 4 } xs={ 12 }>
+                            <Autocomplete
+                                value={ value }
+                                onChange={ (event, newValue) => {
+                                    setValue(newValue);
+                                } }
+                                inputValue={ inputValue }
+                                onInputChange={ (event, newInputValue) => {
+                                    setInputValue(newInputValue);
+                                } }
+                                id="controllable-states-demo"
+                                options={ options }
+                                sx={ { width: 300 } }
+                                renderInput={ (params) => <TextField { ...params } label="Choose chart" /> }
+                            />
+                        </Grid>
+                    </Grid>
+                </CardView>
             </Box>
+
+            {/* <CardView>
+                <Heading title='Country wise submissions' />
+                { isLoading ? <Skeleton /> :
+                    superDashboardData ?
+                        <PieChartVariant
+                            height={ 250 }
+                            label={ COUNTRY_WISE_SUBMISSIONS }
+                            series={ Object.values(superDashboardData?.countryWiseSubmissions) }
+                        />
+                        : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                }
+            </CardView> */}
+
             <Box sx={ { mt: 1, flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 5 } xs={ 12 }>
