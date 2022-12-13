@@ -23,9 +23,11 @@ import {
     COLUMN_ADMIN_CHART_COLOR,
     COLUMN_ADMIN_CHART_GRADIENT,
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
-    DOCUMENT_PROCESSED_NOT_FOUND,
     COLUMN_ADMIN_XAXIS_DATA
 } from './../../constant/data/ChartData';
+import {
+    DOCUMENT_PROCESSED_NOT_FOUND
+} from './../../constant/data/ErrorMessage';
 
 const Dashboard = ({
     GetWidgetCount,
