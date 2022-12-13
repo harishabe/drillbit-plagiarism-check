@@ -147,12 +147,18 @@ const InstructorForm = ({
             let Detaileddata = {
                 ...data, 'expiry_date': convertDate(data.expiry_date),
             };
+            Detaileddata.phone_number === '' && delete Detaileddata.phone_number
+            Detaileddata.department === '' && delete Detaileddata.department
+            Detaileddata.designation === '' && delete Detaileddata.designation
             EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, Detaileddata, 'instructor');
 
         } else {
             let Detaileddata = {
                 ...data, 'expiry_date': convertDate(data.expiry_date),
             };
+            Detaileddata.phone_number === '' && delete Detaileddata.phone_number
+            Detaileddata.department === '' && delete Detaileddata.department
+            Detaileddata.designation === '' && delete Detaileddata.designation
             CreateInstructorData(BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR, Detaileddata);
         }
     };

@@ -144,10 +144,22 @@ const UserForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            data['expiry_date'] = convertDate(data.expiry_date);
-            EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, data, 'user');
+            let Detaileddata = {
+                ...data, 'expiry_date': convertDate(data.expiry_date),
+            };
+            Detaileddata.phone_number === '' && delete Detaileddata.phone_number
+            Detaileddata.department === '' && delete Detaileddata.department
+            Detaileddata.designation === '' && delete Detaileddata.designation
+
+            EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, Detaileddata, 'user');
         } else {
-            let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
+            let Detaileddata = {
+                ...data, 'expiry_date': convertDate(data.expiry_date)
+            };
+            Detaileddata.phone_number === '' && delete Detaileddata.phone_number
+            Detaileddata.department === '' && delete Detaileddata.department
+            Detaileddata.designation === '' && delete Detaileddata.designation
+
             CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, Detaileddata);
         }
     };
