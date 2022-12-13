@@ -30,7 +30,7 @@ import {
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-const options = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users'];
+const chart = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users'];
 
 const Dashboard = ({
     GetWidgetCount,
@@ -40,9 +40,10 @@ const Dashboard = ({
 
     const [year, setYear] = useState([])
     const [submissions, setSubmissions] = useState([])
-    const [value, setValue] = useState(options[0]);
+    const [value, setValue] = useState(chart[0]);
     const [inputValue, setInputValue] = useState('');
     const [chartData, setChartData] = useState({});
+    const [chartLoading, setChartLoading] = useState(false);
 
     useEffect(() => {
         GetWidgetCount();
@@ -78,38 +79,48 @@ const Dashboard = ({
     useEffect(() => {
         if (superDashboardData) {
             if (inputValue === 'Country wise institutions') {
+                setChartLoading(true)
                 setChartData({
                     'label': COUNTRY_WISE_INSTITUTES,
                     'series': Object.values(superDashboardData?.countryWiseInstituttes)
                 })
             } else if (inputValue === 'Country wise submissions') {
+                setChartLoading(true)
                 setChartData({
                     'label': COUNTRY_WISE_SUBMISSIONS,
                     'series': Object.values(superDashboardData?.countryWiseSubmissions)
                 })
             } else if (inputValue === 'Country wise users') {
+                setChartLoading(true)
                 setChartData({
                     'label': COUNTRY_WISE_USERS,
                     'series': Object.values(superDashboardData?.countryWiseUsers)
                 })
             } else if (inputValue === 'State wise institutions') {
+                setChartLoading(true)
                 setChartData({
                     'label': STATE_WISE_INSTITUTES,
                     'series': Object.values(superDashboardData?.stateWiseInstituttes)
                 })
             } else if (inputValue === 'State wise submissions') {
+                setChartLoading(true)
                 setChartData({
                     'label': STATE_WISE_SUBMISSIONS,
                     'series': Object.values(superDashboardData?.stateWiseSubmissions)
                 })
             } else if (inputValue === 'State wise users') {
+                setChartLoading(true)
                 setChartData({
                     'label': STATE_WISE_USERS,
                     'series': Object.values(superDashboardData?.stateWiseUsers)
                 })
             }
         }
-    }, [superDashboardData, inputValue, chartData]);
+    }, [superDashboardData, inputValue]);
+
+    setTimeout(() => {
+        setChartLoading(false)
+    }, [50]);
 
     console.log('chartData', chartData)
 
@@ -154,109 +165,12 @@ const Dashboard = ({
                     </Grid>
                 </Grid>
             </Box>
-            {/* <Box sx={ { mt: 1, flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 7 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='Country wise institutions' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ COUNTRY_WISE_INSTITUTES }
-                                        series={ Object.values(superDashboardData?.countryWiseInstituttes) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                    <Grid item md={ 5 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='Country wise submissions' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ COUNTRY_WISE_SUBMISSIONS }
-                                        series={ Object.values(superDashboardData?.countryWiseSubmissions) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                </Grid>
-            </Box>
-            <Box sx={ { mt: 1, flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 5 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='Country wise users' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ COUNTRY_WISE_USERS }
-                                        series={ Object.values(superDashboardData?.countryWiseUsers) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                    <Grid item md={ 7 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='State wise institutions' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ STATE_WISE_INSTITUTES }
-                                        series={ Object.values(superDashboardData?.stateWiseInstituttes) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                </Grid>
-            </Box>
-            <Box sx={ { mt: 1, flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 7 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='State wise submisssions' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ STATE_WISE_SUBMISSIONS }
-                                        series={ Object.values(superDashboardData?.stateWiseSubmissions) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                    <Grid item md={ 5 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='State wise users' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ STATE_WISE_USERS }
-                                        series={ Object.values(superDashboardData?.stateWiseUsers) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                </Grid>
-            </Box> */}
-
             <Box sx={ { mt: 1, flexGrow: 1 } }>
                 <CardView>
                     <Grid container spacing={ 1 }>
                         <Grid item md={ 8 } xs={ 12 }>
                             <Heading title={ value } />
-                            { isLoading ? <Skeleton /> :
+                            { (isLoading || chartLoading) ? <Skeleton /> :
                                 superDashboardData && chartData?.label?.length > 0 ?
                                     <PieChartVariant
                                         height={ 250 }
@@ -269,6 +183,7 @@ const Dashboard = ({
                         <Grid item md={ 4 } xs={ 12 }>
                             <Autocomplete
                                 value={ value }
+                                disableClearable={ true }
                                 onChange={ (event, newValue) => {
                                     setValue(newValue);
                                 } }
@@ -277,7 +192,7 @@ const Dashboard = ({
                                     setInputValue(newInputValue);
                                 } }
                                 id="controllable-states-demo"
-                                options={ options }
+                                options={ chart }
                                 sx={ { width: 300 } }
                                 renderInput={ (params) => <TextField { ...params } label="Choose chart" /> }
                             />
@@ -285,19 +200,6 @@ const Dashboard = ({
                     </Grid>
                 </CardView>
             </Box>
-
-            {/* <CardView>
-                <Heading title='Country wise submissions' />
-                { isLoading ? <Skeleton /> :
-                    superDashboardData ?
-                        <PieChartVariant
-                            height={ 250 }
-                            label={ COUNTRY_WISE_SUBMISSIONS }
-                            series={ Object.values(superDashboardData?.countryWiseSubmissions) }
-                        />
-                        : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                }
-            </CardView> */}
 
             <Box sx={ { mt: 1, flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
