@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import { Skeleton } from '@mui/material';
 import { connect } from 'react-redux';
 import {
@@ -23,12 +25,9 @@ import {
     COLUMN_ADMIN_CHART_COLOR,
     COLUMN_ADMIN_CHART_GRADIENT,
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
-    DOCUMENT_PROCESSED_NOT_FOUND,
     COLUMN_ADMIN_XAXIS_DATA
 } from './../../constant/data/ChartData';
-
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import { DOCUMENT_PROCESSED_NOT_FOUND } from '../../constant/data/ErrorMessage'
 
 const chart = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users'];
 
@@ -78,51 +77,43 @@ const Dashboard = ({
 
     useEffect(() => {
         if (superDashboardData) {
+            setChartLoading(true)
             if (inputValue === 'Country wise institutions') {
-                setChartLoading(true)
                 setChartData({
                     'label': COUNTRY_WISE_INSTITUTES,
                     'series': Object.values(superDashboardData?.countryWiseInstituttes)
                 })
             } else if (inputValue === 'Country wise submissions') {
-                setChartLoading(true)
                 setChartData({
                     'label': COUNTRY_WISE_SUBMISSIONS,
                     'series': Object.values(superDashboardData?.countryWiseSubmissions)
                 })
             } else if (inputValue === 'Country wise users') {
-                setChartLoading(true)
                 setChartData({
                     'label': COUNTRY_WISE_USERS,
                     'series': Object.values(superDashboardData?.countryWiseUsers)
                 })
             } else if (inputValue === 'State wise institutions') {
-                setChartLoading(true)
                 setChartData({
                     'label': STATE_WISE_INSTITUTES,
                     'series': Object.values(superDashboardData?.stateWiseInstituttes)
                 })
             } else if (inputValue === 'State wise submissions') {
-                setChartLoading(true)
                 setChartData({
                     'label': STATE_WISE_SUBMISSIONS,
                     'series': Object.values(superDashboardData?.stateWiseSubmissions)
                 })
             } else if (inputValue === 'State wise users') {
-                setChartLoading(true)
                 setChartData({
                     'label': STATE_WISE_USERS,
                     'series': Object.values(superDashboardData?.stateWiseUsers)
                 })
             }
         }
+        setTimeout(() => {
+            setChartLoading(false)
+        }, []);
     }, [superDashboardData, inputValue]);
-
-    setTimeout(() => {
-        setChartLoading(false)
-    }, [50]);
-
-    console.log('chartData', chartData)
 
     useEffect(() => {
         let yearList = superDashboardData?.yearWiseSubmissionStats?.map((item) => {
