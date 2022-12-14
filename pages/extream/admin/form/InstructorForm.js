@@ -147,13 +147,15 @@ const InstructorForm = ({
             let Detaileddata = {
                 ...data, 'expiry_date': convertDate(data.expiry_date),
             };
-            EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, Detaileddata, 'instructor');
+            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
+            EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, requestData, 'instructor');
 
         } else {
             let Detaileddata = {
                 ...data, 'expiry_date': convertDate(data.expiry_date),
             };
-            CreateInstructorData(BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR, Detaileddata);
+            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
+            CreateInstructorData(BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR, requestData);
         }
     };
 
@@ -215,21 +217,21 @@ const InstructorForm = ({
 
     return (
         <>
-            <div style={ { textAlign: 'center' } }>
+            <div style={{ textAlign: 'center' }}>
                 <AddImageIcon />
             </div>
-            <form onSubmit={ handleSubmit(onSubmit) }>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
-                    { formJsonField?.map((field, i) => (
-                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
+                    {formJsonField?.map((field, i) => (
+                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
                             <FormComponent
-                                key={ i }
-                                field={ field }
-                                control={ control }
-                                isLoading={ isLoading }
+                                key={i}
+                                field={field}
+                                control={control}
+                                isLoading={isLoading}
                             />
                         </Grid>
-                    )) }
+                    ))}
                 </Grid>
             </form>
         </>

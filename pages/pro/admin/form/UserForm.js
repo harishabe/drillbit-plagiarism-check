@@ -145,10 +145,12 @@ const UserForm = ({
     const onSubmit = (data) => {
         if (editOperation) {
             data['expiry_date'] = convertDate(data.expiry_date);
-            EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, data, 'user');
+            let requestData = Object.entries(data).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
+            EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, requestData, 'user');
         } else {
             let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
-            CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, Detaileddata);
+            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
+            CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, requestData);
         }
     };
 

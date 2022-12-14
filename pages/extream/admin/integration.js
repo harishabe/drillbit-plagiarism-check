@@ -9,7 +9,6 @@ import Admin from './../../../layouts/Admin';
 import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer } from './../../../components';
 import { GetIntegrationList, GetGoogleLms } from '../../../redux/action/admin/AdminAction';
 import END_POINTS from '../../../utils/EndPoints';
-import { windowOpen } from '../../../utils/RegExp';
 import MoodleForm from './form/MoodleForm';
 import CanvasForm from './form/CanvasForm';
 import BlackboardForm from './form/BlackboardForm';
@@ -78,6 +77,7 @@ const Integration = ({
     }, [showGoogleClassroom]);
 
     useEffect(() => {
+        console.log('test', integrationData);
         let lmsData = integrationData && integrationData?.map((item) => {
             if (item.lms === ADMIN_INTEGRATION_MOODLE) {
                 item['img'] = ADMIN_INTEGRATION_MOODLE_IMG;
@@ -151,19 +151,20 @@ const Integration = ({
             </Grid> :
                 <Grid container spacing={2}>
                     {lmsData?.map((item, index) => (
-                        <Grid key={index} item md={4} xs={12}>
-                            <CardInfoView
-                                item={item}
-                                handleConfig={handleConfig}
-                                checked={checked}
-                                isTimer={false}
-                                isKnowMore={true}
-                                isConfig={true}
-                                isAvatar={false}
-                                isImage={true}
-                                path=''
-                            />
-                        </Grid>
+                        item.lms === 'GOOGLECLASSROOM' ? '' :
+                            <Grid key={index} item md={4} xs={12}>
+                                <CardInfoView
+                                    item={item}
+                                    handleConfig={handleConfig}
+                                    checked={checked}
+                                    isTimer={false}
+                                    isKnowMore={true}
+                                    isConfig={true}
+                                    isAvatar={false}
+                                    isImage={true}
+                                    path=''
+                                />
+                            </Grid>
                     ))}
                 </Grid>
             }
