@@ -302,7 +302,7 @@ const Dashboard = ({
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 6 } xs={ 12 }>
                         <CardView>
-                            <Heading title='Document Type' />
+                            <Heading title='Types of documents' />
                             { isLoadingDashboard ? <Skeleton /> :
                                 documentTypeData ? 
                                     <PieChart
@@ -310,7 +310,7 @@ const Dashboard = ({
                                         height={ 323 }
                                         label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
                                         series={ Object.values(documentTypeData) }
-                                        filename='Document Type'
+                                        filename='Types of documents'
                                     />
                                     : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
                             }
