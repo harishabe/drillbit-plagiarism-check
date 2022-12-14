@@ -5,7 +5,8 @@ import {
     GetExtremeRefDetail,
     ExtremeRefAccount,
     EditExtremeRefAccount,
-    DropdownListData
+    DropdownListData,
+    ExtremeRefListData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { SuperAdminPaginationValue } from '../../../utils/PaginationUrl';
@@ -145,4 +146,28 @@ export function* onLoadDropdown(action) {
 
 export function* SuperDropdownList() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START, onLoadDropdown);
+}
+
+/**
+ * Extreme & Pro (Instructor, students, users list)
+ * @param {*} action
+ */
+export function* onLoadExtremeRefList(action) {
+    const { response, error } = yield call(ExtremeRefListData, action.url, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* ExtremeRefListDetail() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_START, onLoadExtremeRefList);
 }

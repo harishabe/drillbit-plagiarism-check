@@ -44,3 +44,11 @@ export const DropdownListData = async () => {
     const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST;
     return GetMethod(url);
 };
+
+/**
+ * API CALL EXTREME & PRO (INSTRUCTOR, STUDENT, USER LISTS)
+ */
+export const ExtremeRefListData = async (apiUrl, paginationPayload) => {
+    const url = BASE_URL_SUPER + apiUrl + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};

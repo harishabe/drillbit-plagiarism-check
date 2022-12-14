@@ -8,6 +8,7 @@ export const GetWidgetCount = () => {
         type: types.FETCH_SUPER_ADMIN_DASH_WIDGET_START
     };
 };
+
 /**
  * Get Extreme and Ref Account
  */
@@ -41,5 +42,14 @@ export const CreateAccount = (url, data) => {
 export const DropdownList = () => {
     return {
         type: types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START
+    };
+};
+
+/**
+ * Extreme & Pro (Instructor, students, users list)
+ */
+export const GetExtremeRefList = (url, paginationPayload) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_START, url: url, paginationPayload: paginationPayload
     };
 };

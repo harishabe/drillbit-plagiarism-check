@@ -87,6 +87,23 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingList: false,
                 ListError: action.payload,
             };
+        case types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_START:
+            return {
+                ...state,
+                isLoadingExtProList: true,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_SUCCESS:
+            return {
+                ...state,
+                isLoadingExtProList: false,
+                extProList: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_FAIL:
+            return {
+                ...state,
+                isLoadingExtProList: false,
+                extProList: action.payload,
+            };
         default:
             return state;
     }
