@@ -9,7 +9,8 @@ import {
     DownloadSubmissionDetail,
     GrammarReportSubmission,
     SaveToRepoBulkDetail,
-    GetSubmissionHistoryData
+    GetSubmissionHistoryData,
+    GetSubmissionBulkReportDownload
 } from './common/Submission/DetailSubmissionData';
 import {
     LanguageListData,
@@ -183,6 +184,7 @@ const saga = [
     fork(DownloadSubmissionDetail),
     fork(SaveToRepoBulkDetail),
     fork(GetSubmissionHistoryData),
+    fork(GetSubmissionBulkReportDownload),    
     fork(LanguageListData),
     fork(UploadFileDriveData),
     fork(UploadFileNonEnglish),

@@ -62,3 +62,13 @@ export const SubmissionHistory = (url, paginationPayload) => {
         type: types.FETCH_SUBMISSION_HISTORY_START, url: url, paginationPayload: paginationPayload
     };
 };
+
+
+/**
+ * submission > submission report bulk download 
+ */
+export const SubmissionReportBulkDownload = (url, requestPayload) => {
+    return {
+        type: types.FETCH_SUBMISSION_BULK_REPORT_START, url: url, requestPayload: requestPayload
+    };
+};

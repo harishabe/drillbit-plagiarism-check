@@ -1,4 +1,5 @@
 import axois from 'axios';
+import { saveAs } from 'file-saver';
 
 const header = () => {
     return {
@@ -19,6 +20,13 @@ const FormDataHeader = () => {
     return {
         "Accept-Language": "en",
         "Content-Type": "multipart/form-data",
+        'authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+};
+
+const FormDataHeaderZip = () => {
+    return {
+        'Content-Type': "multipart/form-data",
         'authorization': `Bearer ${localStorage.getItem('token')}`
     }
 };
@@ -185,5 +193,19 @@ export const DeleteMethod = async (url) => {
         headers: header()
     })
         .then(response => ({ response }))
+        .catch(error => ({ error }))
+};
+
+
+export const PostMethodDownloadPdf = async (url, requestPayload, fileName) => {
+    return await axois.post(url, requestPayload, {
+        headers: FormDataHeaderZip(),
+        responseType: 'arraybuffer',
+    })
+        .then((response) => {
+            const blob = new Blob([response.data], {type: "application/zip"});
+            saveAs(blob, fileName);
+            return true;
+        })
         .catch(error => ({ error }))
 };
