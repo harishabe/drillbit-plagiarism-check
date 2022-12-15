@@ -157,3 +157,5 @@ export const WARNING_MESSAGES = {
     'DOWNLOAD': 'Are you sure you want to download ?',
     'DELETE': 'Are you sure you want to delete ?',
 }
+
+export const SIMILARITY_BULK_REPORT_TITLE = 'SimilarityBulkReport.zip';

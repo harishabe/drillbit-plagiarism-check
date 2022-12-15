@@ -1,6 +1,7 @@
 import END_POINTS from '../../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../../utils/BaseUrl';
+import { SIMILARITY_BULK_REPORT_TITLE } from '../../../../constant/data/Constant';
 
 import { GetMethodDownloadPdf, GetMethod, DeleteMethod, GetMethodDownload, PostMethod, GetDownloadPdfNewWindow, PostMethodDownloadPdf } from '../../ApiMethod';
 import { PaginationUrl } from '../../../../utils/PaginationUrl';
@@ -77,5 +78,5 @@ export const SubmissionHistoryData = async (apiUrl, paginationPayload) => {
  * SUBMISSION BULK REPORT DOWNLOAD
  */
 export const SubmissionBulkReportDownload = async (url, requestPayload) => {
-    return PostMethodDownloadPdf(url, requestPayload,'sample.zip');
+    return PostMethodDownloadPdf(url, requestPayload, SIMILARITY_BULK_REPORT_TITLE);
 };

@@ -1,4 +1,5 @@
 import axois from 'axios';
+import { saveAs } from 'file-saver';
 
 const header = () => {
     return {
@@ -25,7 +26,6 @@ const FormDataHeader = () => {
 
 const FormDataHeaderZip = () => {
     return {
-        'Content-Disposition': "attachment; filename=template.xlsx",
         'Content-Type': "multipart/form-data",
         'authorization': `Bearer ${localStorage.getItem('token')}`
     }
@@ -203,12 +203,8 @@ export const PostMethodDownloadPdf = async (url, requestPayload, fileName) => {
         responseType: 'arraybuffer',
     })
         .then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'template.zip');
-            document.body.appendChild(link);
-            link.click();
+            const blob = new Blob([response.data], {type: "application/zip"});
+            saveAs(blob, fileName);
             return true;
         })
         .catch(error => ({ error }))

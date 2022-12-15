@@ -105,7 +105,8 @@ const folderSubmission = ({
     UploadZipFileDataClear,
     isLoadingGrammarReport,
     GetGrammarReport,
-    SubmissionReportBulkDownload
+    SubmissionReportBulkDownload,
+    isLoadingBulkDownload
 }) => {
 
     const router = useRouter();
@@ -397,7 +398,7 @@ const folderSubmission = ({
         });
         let requestPayload = {};
         requestPayload['paperId'] = removeCommaWordEnd(rowsId);
-        SubmissionReportBulkDownload('https://s1.drillbitplagiarismcheck.com/pro/zipDownload', requestPayload);
+        SubmissionReportBulkDownload(BASE_URL_PRO + END_POINTS_PRO.SIMILARITY_REPORT_DOWNLOAD, requestPayload);
     }
 
     return (
@@ -459,11 +460,12 @@ const folderSubmission = ({
                             <SaveOutlinedIcon />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title='Submission report bulk download' arrow>
+                    {isLoadingBulkDownload ? <Skeleton width={200} /> : <Tooltip title='Submission report bulk download' arrow>
                         <IconButton onClick={submissionBulkDownload}>
                             <FileDownloadOutlinedIcon />
                         </IconButton>
-                    </Tooltip>
+                    </Tooltip>}
+
                 </DeleteAllButton>}
 
                 <CommonTable
@@ -562,6 +564,7 @@ const mapStateToProps = (state) => ({
     isLoadingSubmission: state?.submission?.isLoadingSubmission,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
     isLoadingDownload: state?.submission?.isLoadingDownload,
+    isLoadingBulkDownload: state?.submission?.isLoadingBulkDownload,
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
     uploadData: state?.instructorMyFolders?.uploadData,
     isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport
