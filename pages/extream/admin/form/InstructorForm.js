@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateInstructorData, EditData } from '../../../../redux/action/admin/AdminAction';
@@ -8,7 +9,7 @@ import FormJson from '../../../../constant/form/instructor-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS from '../../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import { BASE_URL_EXTREM, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
 const InstructorForm = ({
@@ -21,6 +22,7 @@ const InstructorForm = ({
     remainingGrammar
 }) => {
 
+    const router = useRouter();
     const [formJsonField, setFormJsonField] = useState(FormJson);
 
     const [editOperation, setEditOperation] = useState(false);
@@ -148,7 +150,12 @@ const InstructorForm = ({
                 ...data, 'expiry_date': convertDate(data.expiry_date),
             };
             let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
-            EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, requestData, 'instructor');
+
+            if (router?.pathname.split('/')[1] === 'super') {
+                EditData(BASE_URL_SUPER + `/extreme/license/${router?.query?.licenseId}/instructors/${editData?.user_id}`, requestData, 'super');
+            } else {
+                EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, requestData, 'instructor');
+            }
 
         } else {
             let Detaileddata = {

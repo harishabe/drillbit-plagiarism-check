@@ -46,10 +46,28 @@ export const DropdownList = () => {
 };
 
 /**
- * Extreme & Pro (Instructor, students, users list)
+ * Extreme (Instructor list)
  */
-export const GetExtremeRefList = (url, paginationPayload) => {
+export const GetExtremeInstructorList = (url, paginationPayload) => {
     return {
-        type: types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_START, url: url, paginationPayload: paginationPayload
+        type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START, url: url, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Extreme (students list)
+ */
+export const GetExtremeStudentList = (url, paginationPayload) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START, url: url, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Edit student
+ */
+export const SuperEditStudent = (url, data) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_START, url: url, query: data
     };
 };

@@ -5,13 +5,16 @@ import { useRouter } from 'next/router';
 import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateStudent, EditStudent } from '../../../../redux/action/instructor/InstructorAction';
+import { SuperEditStudent } from '../../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../../assets/icon';
 import FormJson from '../../../../constant/form/instructor-student-form.json';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
+import { BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 
 const StudentForm = ({
     CreateStudent,
     EditStudent,
+    SuperEditStudent,
     isLoadingCreate,
     editData
 }) => {
@@ -30,6 +33,8 @@ const StudentForm = ({
         control,
         name: 'phone_number',
     });
+
+    console.log('editData', editData)
 
     useEffect(() => {
         if (phoneNumber !== undefined) {
@@ -62,7 +67,11 @@ const StudentForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            EditStudent(router.query.clasId, editData?.id, data);
+            if (router?.pathname.split('/')[1] === 'super') {
+                SuperEditStudent(BASE_URL_SUPER + `/extreme/license/${router?.query?.licenseId}/students/${editData?.id}`, data)
+            } else {
+                EditStudent(router.query.clasId, editData?.id, data);
+            }
         } else {
             CreateStudent(router.query.clasId, data);
         }
@@ -138,6 +147,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         CreateStudent: (ClasId, data) => dispatch(CreateStudent(ClasId, data)),
         EditStudent: (ClasId, userId, requestPayload,) => dispatch(EditStudent(ClasId, userId, requestPayload,)),
+        SuperEditStudent: (url, requestPayload) => dispatch(SuperEditStudent(url, requestPayload)),
     };
 };
 

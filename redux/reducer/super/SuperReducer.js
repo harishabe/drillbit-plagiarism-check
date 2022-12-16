@@ -87,22 +87,56 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingList: false,
                 ListError: action.payload,
             };
-        case types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_START:
+        case types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START:
             return {
                 ...state,
-                isLoadingExtProList: true,
+                isLoadingExtInsList: true,
             };
-        case types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_SUCCESS:
+        case types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_SUCCESS:
             return {
                 ...state,
-                isLoadingExtProList: false,
-                extProList: action.payload,
+                isLoadingExtInsList: false,
+                extInsList: action.payload,
             };
-        case types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_FAIL:
+        case types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_FAIL:
             return {
                 ...state,
-                isLoadingExtProList: false,
-                extProList: action.payload,
+                isLoadingExtInsList: false,
+                extInsList: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START:
+            return {
+                ...state,
+                isLoadingExtStuList: true,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_SUCCESS:
+            return {
+                ...state,
+                isLoadingExtStuList: false,
+                extStuList: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_FAIL:
+            return {
+                ...state,
+                isLoadingExtStuList: false,
+                extStuList: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_START:
+            return {
+                ...state,
+                isLoadingEditStudent: true,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_SUCCESS:
+            return {
+                ...state,
+                isLoadingEditStudent: false,
+                editStudent: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_FAIL:
+            return {
+                ...state,
+                isLoadingEditStudent: false,
+                editStudent: action.payload,
             };
         default:
             return state;

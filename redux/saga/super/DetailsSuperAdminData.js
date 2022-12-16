@@ -6,7 +6,9 @@ import {
     ExtremeRefAccount,
     EditExtremeRefAccount,
     DropdownListData,
-    ExtremeRefListData
+    ExtremeInstructorListData,
+    ExtremeStudentListData,
+    SuperEditStudentData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { SuperAdminPaginationValue } from '../../../utils/PaginationUrl';
@@ -149,25 +151,79 @@ export function* SuperDropdownList() {
 }
 
 /**
- * Extreme & Pro (Instructor, students, users list)
+ * Extreme (Instructor list)
  * @param {*} action
  */
-export function* onLoadExtremeRefList(action) {
-    const { response, error } = yield call(ExtremeRefListData, action.url, action.paginationPayload);
+export function* onLoadExtremeInsList(action) {
+    const { response, error } = yield call(ExtremeInstructorListData, action.url, action.paginationPayload);
     if (response) {
         yield put({
-            type: types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_SUCCESS,
+            type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_SUCCESS,
             payload: response?.data,
         });
     } else {
         yield put({
-            type: types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_FAIL,
+            type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_FAIL,
             payload: error,
         });
         toastrValidation(error);
     }
 }
 
-export function* ExtremeRefListDetail() {
-    yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_PRO_LIST_START, onLoadExtremeRefList);
+export function* ExtremeInsListDetail() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START, onLoadExtremeInsList);
+}
+
+/**
+ * Extreme (students list)
+ * @param {*} action
+ */
+export function* onLoadExtremeStuList(action) {
+    const { response, error } = yield call(ExtremeStudentListData, action.url, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* ExtremeStuListDetail() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START, onLoadExtremeStuList);
+}
+
+/**
+ * Edit Student
+ * @param {*} action
+ */
+
+export function* onLoadEditStudent(action) {
+    const { response, error } = yield call(SuperEditStudentData, action.url, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_SUCCESS, payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START,
+            url: `/extreme/license/${action.url.split('/')[6]}/students`,
+            paginationPayload: SuperAdminPaginationValue,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* EditStudentData() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_START, onLoadEditStudent);
 }

@@ -20,7 +20,7 @@ import {
 } from '../../api/admin/DetailsAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { PaginationValue, StudentSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
-import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
+import { BASE_URL_EXTREM, BASE_URL_PRO, BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 
@@ -272,6 +272,12 @@ export function* onLoadEdit(action) {
             yield put({
                 type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
                 url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
+                paginationPayload: PaginationValue
+            });
+        } else if (action.API_END_POINT === 'super') {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
+                url: `/extreme/license/${action.url.split('/')[6]}/instructors`,
                 paginationPayload: PaginationValue
             });
         }
