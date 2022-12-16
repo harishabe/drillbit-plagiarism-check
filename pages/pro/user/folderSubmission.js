@@ -32,7 +32,8 @@ import {
     GetGrammarReport,
     DeletefolderSubmissionData,
     folderSubmissionsFileData,
-    SubmissionReportBulkDownload
+    SubmissionReportBulkDownload,
+    SubmissionReportDownload
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon, RegionalUploadIcon, NonEnglishUploadIcon, EnglishUploadIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -40,7 +41,7 @@ import { formatDate, removeCommaWordEnd, windowOpen } from '../../../utils/RegEx
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
-import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE } from '../../../constant/data/Constant';
+import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Author Name' },
@@ -51,7 +52,7 @@ const columns = [
     { id: 'percent', label: 'Similarity' },
     { id: 'paper_id', label: 'Paper ID' },
     { id: 'date_up', label: 'Submission Date' },
-    { id: 'action', label: 'Action' },
+    { id: 'action', label: 'Action', minWidth: 103 },
 ];
 
 function createData(id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, language) {
@@ -106,12 +107,15 @@ const folderSubmission = ({
     isLoadingGrammarReport,
     GetGrammarReport,
     SubmissionReportBulkDownload,
+    SubmissionReportDownload,
     isLoadingBulkDownload
 }) => {
 
     const router = useRouter();
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [showSubmissionReport, setShowSubmissionReport] = useState(false);
+    const [submissionReportData, setSubmissionReportData] = useState('');
     const [deleteRowData, setDeleteRowData] = useState('');
     const [saveRowData, setSaveRowData] = useState('');
     const [showSaveIcon, setShowSaveIcon] = useState(false);
@@ -183,7 +187,8 @@ const folderSubmission = ({
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                        (submission.percent !== (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) && { 'component': <FileDownloadOutlinedIcon />, 'type': 'download', 'title': 'Similarity report download' }
                     ],
                     submission.d_key,
                     submission.alert_msg,
@@ -200,6 +205,9 @@ const folderSubmission = ({
         if (icon === 'delete') {
             setDeleteRowData(rowData?.paper_id);
             setShowDeleteWarning(true);
+        } else if (icon === 'download') {
+            setSubmissionReportData(rowData);
+            setShowSubmissionReport(true);
         }
     };
 
@@ -339,6 +347,10 @@ const folderSubmission = ({
         setShowDownloadWarning(false);
     };
 
+    const handleSubmissionDownloadCloseWarning = () => {
+        setShowSubmissionReport(false);
+    };
+
     const handleFileDownloadYesWarning = () => {
         let detailedData = {
             folderId: folderId,
@@ -350,6 +362,14 @@ const folderSubmission = ({
         setShowDownloadWarning(false);
         setTimeout(() => {
             setShowDownloadWarning(false);
+        }, [100]);
+    };
+
+    const handleSubmissionDownloadYesWarning = () => {
+        SubmissionReportDownload(END_POINTS_PRO.SIMILARITY_REPORT_SINGLE_DOWNLOAD + `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`, submissionReportData?.original_fn);
+        setShowSubmissionReport(false);
+        setTimeout(() => {
+            setShowSubmissionReport(false);
         }, [100]);
     };
 
@@ -544,6 +564,16 @@ const folderSubmission = ({
                     />
                 }
 
+                {
+                    showSubmissionReport &&
+                    <WarningDialog
+                        message={ WARNING_MESSAGES.DOWNLOAD }
+                        handleYes={ handleSubmissionDownloadYesWarning }
+                        handleNo={ handleSubmissionDownloadCloseWarning }
+                        isOpen={ true }
+                    />
+                }
+
                 <PaginationContainer>
                     <Pagination
                         count={pageDetails?.totalPages}
@@ -581,6 +611,7 @@ const mapDispatchToProps = (dispatch) => {
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
         GetGrammarReport: (url) => dispatch(GetGrammarReport(url)),
         SubmissionReportBulkDownload: (url, requestPayload) => dispatch(SubmissionReportBulkDownload(url, requestPayload)),
+        SubmissionReportDownload: (url, data) => dispatch(SubmissionReportDownload(url, data)),
     };
 };
 

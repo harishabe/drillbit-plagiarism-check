@@ -80,3 +80,10 @@ export const SubmissionHistoryData = async (apiUrl, paginationPayload) => {
 export const SubmissionBulkReportDownload = async (url, requestPayload) => {
     return PostMethodDownloadPdf(url, requestPayload, SIMILARITY_BULK_REPORT_TITLE);
 };
+
+/**
+ * SUBMISSION BULK REPORT DOWNLOAD
+ */
+export const SubmissionSingleReportDownload = async (url, data) => {
+    return GetMethodDownloadPdf(url, data);
+};

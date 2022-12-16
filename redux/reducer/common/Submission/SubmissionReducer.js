@@ -138,6 +138,23 @@ const SubmissionReducer = (state = {}, action) => {
                 isLoadingBulkDownload: false,
                 submissionBulkDownloadErr: action.payload,
             };
+        case types.FETCH_SUBMISSION_REPORT_DOWNLOAD_START:
+            return {
+                ...state,
+                isLoadingSubmissionReport: true,
+            };
+        case types.FETCH_SUBMISSION_REPORT_DOWNLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoadingSubmissionReport: false,
+                submissionDownload: action.payload,
+            };
+        case types.FETCH_SUBMISSION_REPORT_DOWNLOAD_FAIL:
+            return {
+                ...state,
+                isLoadingSubmissionReport: false,
+                submissionDownloadErr: action.payload,
+            };
         default:
             return state;
     }
