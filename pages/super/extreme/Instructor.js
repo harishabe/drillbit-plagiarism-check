@@ -12,7 +12,6 @@ import {
     CommonTable,
     MainHeading,
     StatusDot,
-    BreadCrumb,
     CreateDrawer,
     WarningDialog,
     DialogModal
@@ -23,11 +22,8 @@ import {
     StatsIcon,
     DeleteWarningIcon,
     DownloadIcon
-    // AddMultipleIcon,
-    // AddPersonIcon
 } from '../../../assets/icon';
 import {
-    // GetInstructorData,
     DeleteData,
     DeactivateData,
     UploadFileDataClear
@@ -41,27 +37,23 @@ import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
 import { WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../constant/data/Constant';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, PlagiarismGrammarContainer } from '../../../style/index';
 import { platform } from '../../../utils/RegExp';
 
 const columns = [
     // { id: 'user_id', label: 'ID', minWidth: 100 },
     { id: 'name', label: 'Name' },
     { id: 'username', label: 'Email' },
-    { id: 'expiry_date', label: 'End Date', minWidth: 130 },
-    { id: 'status', label: 'Status', minWidth: 60 },
+    { id: 'expiry_date', label: 'End Date' },
+    { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
-    { id: 'plagairism', label: 'Plagiarism allocation', minWidth: 60 },
-    { id: 'plagiarismUsed', label: 'Plag uploaded', minWidth: 130 },
-    { id: 'plagiarismremaining', label: 'Plag remaining ', minWidth: 120 },
-    { id: 'grammar', label: 'Grammar allocation', minWidth: 60 },
-    { id: 'grammarUsed', label: 'Gram uploaded', minWidth: 140 },
-    { id: 'grammarremaining', label: 'Gram remaining ', minWidth: 130 },
-    { id: 'action', label: 'Actions', minWidth: 150 }
+    { id: 'plagairism', label: 'Plagiarism' },
+    { id: 'grammar', label: 'Grammar' },
+    { id: 'action', label: 'Actions', maxWidth: 100 }
 ];
 
-function createData(user_id, role, name, username, expiry_date, plagairism, plagiarismUsed, plagiarismremaining, grammar, grammarUsed, grammarremaining, status, stats, action, created_date, department, designation, phone_number) {
-    return { user_id, role, name, username, expiry_date, plagairism, plagiarismUsed, plagiarismremaining, grammar, grammarUsed, grammarremaining, status, stats, action, created_date, department, designation, phone_number };
+function createData(name, username, expiry_date, status, stats, plagairism, grammar, action, created_date, department, designation, phone_number, plagiarismUsed, plagiarismremaining, grammarUsed, grammarremaining, user_id, role) {
+    return { name, username, expiry_date, status, stats, plagairism, grammar, action, created_date, department, designation, phone_number, plagiarismUsed, plagiarismremaining, grammarUsed, grammarremaining, user_id, role };
 };
 
 const AddButtonBottom = styled.div`
@@ -86,23 +78,10 @@ const SkeletonContainer = styled.div`
 `;
 
 const SearchField = styled.div`
-    position:fixed;
+    position:absolute;
     top: 125px;
     right:16px;
 `;
-
-// const SuperAdminBreadCrumb = [
-//     {
-//         name: 'Dashboard',
-//         link: '/super/dashboard',
-//         active: false,
-//     },
-//     {
-//         name: 'Instructors',
-//         link: '',
-//         active: true,
-//     },
-// ];
 
 const Instructor = ({
     pageDetailsInstructor,
@@ -143,20 +122,55 @@ const Instructor = ({
             row =
                 createData(
                     // <AvatarName avatarText="I" title={instructor.id} color='#4795EE' />,
-                    instructor.id,
-                    instructor.role,
                     instructor.name,
                     instructor.username,
                     formatDate(instructor.expiry_date),
-                    instructor.plagairism,
-                    instructor.plagiarismUsed,
-                    instructor.plagiarismUsed,
-                    instructor.grammar,
-                    instructor.grammarUsed,
-                    instructor.grammarUsed,
                     <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
-                    instructor.role === Role.admin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
+                    [
+                        <>
+                            <div style={ { display: 'flex', width: '100%' } }>
+                                <Tooltip title='Plagiarism allocation' arrow>
+                                    <PlagiarismGrammarContainer color='#e6e6fa'>
+                                        { instructor.plagairism }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                                <Tooltip title='Plagiarism uploaded' arrow>
+                                    <PlagiarismGrammarContainer color='#ffe'>
+                                        { instructor.plagiarismUsed }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                                <Tooltip title='Plagiarism remaining' arrow>
+                                    <PlagiarismGrammarContainer color='#DAF7A6'>
+                                        { instructor.plagairism - instructor.plagiarismUsed }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                            </div>
+                        </>
+                    ],
+                    [
+                        <>
+                            <div style={ { display: 'flex', width: '100%' } }>
+                                <Tooltip title='Grammar allocation' arrow>
+                                    <PlagiarismGrammarContainer color='#e6e6fa'>
+                                        { instructor.grammar }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                                <Tooltip title='Grammar uploaded' arrow>
+                                    <PlagiarismGrammarContainer color='#ffe'>
+                                        { instructor?.grammarUsed }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                                <Tooltip title='Grammar remaining' arrow>
+                                    <PlagiarismGrammarContainer color='#DAF7A6'>
+                                        { instructor.grammar - instructor?.grammarUsed }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                            </div>
+                        </>
+                    ],
+                    instructor.role === Role.admin ?
+                        ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                         {
@@ -169,6 +183,8 @@ const Instructor = ({
                     instructor.department,
                     instructor.designation,
                     instructor.phone_number,
+                    instructor.id,
+                    instructor.role,
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -312,15 +328,6 @@ const Instructor = ({
         setShowDeleteWarning(true);
     };
 
-    const handleShow = (e, info) => {
-        if (info?.title === 'Add Instructor') {
-            setShowDialogModal(true);
-        } else if (info?.title === 'Add Multiple Instructors') {
-            UploadFileDataClear();
-            router.push({ pathname: '/extream/admin/addBulkInstructor' });
-        }
-    };
-
     const handleCloseDrawer = (drawerClose) => {
         setEditInstructor(drawerClose);
     };
@@ -366,16 +373,6 @@ const Instructor = ({
                 <CreateDrawer
                     isShowAddIcon={ true }
                     title='Add Instructor'
-                // options={ [
-                //     {
-                //         icon: <AddPersonIcon />,
-                //         title: 'Add Instructor',
-                //         handleFromCreateDrawer: false
-                //     }
-                // ] }
-                // title="Add Instructor"
-                // handleMultiData={ handleShow }
-                // isShowAddIcon={ true }
                 >
                     <InstructorForm
                     />
@@ -395,14 +392,6 @@ const Instructor = ({
                     />
                 </CreateDrawer>
             }
-
-            {/* <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
-                        <BreadCrumb item={ SuperAdminBreadCrumb } />
-                    </Grid>
-                </Grid>
-            </Box> */}
 
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
@@ -460,7 +449,7 @@ const Instructor = ({
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
                     isLoading={ isLoadingExtInsList }
-                    charLength={ 7 }
+                    charLength={ 10 }
                     path=''
                 />
 

@@ -12,12 +12,10 @@ import {
     WarningDialog,
     DialogModal,
     CreateDrawer,
-    BreadCrumb
 } from '../../../components';
 import SuperAdmin from './../../../layouts/SuperAdmin';
 import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../../assets/icon';
 import {
-    GetStudnetData,
     // EditData, 
     DeleteStudentData
 } from '../../../redux/action/admin/AdminAction';
@@ -38,30 +36,19 @@ const SearchField = styled.div`
 
 const columns = [
     { id: 'name', label: 'Name' },
-    { id: 'user_id', label: 'ID' },
     { id: 'username', label: 'Email' },
-    { id: 'department', label: 'Department' },
-    { id: 'section', label: 'Section' },
+    { id: 'end_date', label: 'End date' },
+    { id: 'status', label: 'Status' },
+    // { id: 'user_id', label: 'ID' },
+    // { id: 'department', label: 'Department' },
+    // { id: 'section', label: 'Section' },
     { id: 'stats', label: 'Statistics' },
     { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, name, user_id, username, department, section, stats, action) {
-    return { id, name, user_id, username, department, section, stats, action };
+function createData(id, name, user_id, username, department, section, end_date, status, stats, action) {
+    return { id, name, user_id, username, department, section, end_date, status, stats, action };
 }
-
-const IntegrationBreadCrumb = [
-    {
-        name: 'Dashboard',
-        link: '/extream/admin/dashboard',
-        active: false,
-    },
-    {
-        name: 'Students',
-        link: '',
-        active: true,
-    },
-];
 
 const Students = ({
     GetExtremeStudentList,
@@ -73,7 +60,6 @@ const Students = ({
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
-
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [studentId, setStudentId] = useState('');
@@ -103,6 +89,8 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
+                    student.end_date,
+                    student.status,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                     { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
@@ -326,7 +314,7 @@ const Students = ({
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
                     isLoading={ isLoadingExtStuList }
-                    charLength={ 10 }
+                    charLength={ 17 }
                     path=''
                 />
 

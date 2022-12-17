@@ -12,20 +12,18 @@ import { GetExtremeInstructorList, GetExtremeStudentList } from '../../redux/act
 const extremeIns = ({
     pageDetailsInstructor,
     pageDetailsStudent,
-    // assignmentData,
     isLoadingExtInsList,
-    // studentData,
     isLoadingExtStuList,
 }) => {
-    // const router = useRouter();
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState(0);
-    // const [myclass, setMyclass] = useState('');
+    const [adminName, setAdminName] = useState('');
 
-    // useEffect(() => {
-    //     if (router.isReady) {
-    //         setMyclass(router.query.clasName);
-    //     }
-    // }, [router.isReady]);
+    useEffect(() => {
+        if (router.isReady) {
+            setAdminName(router.query.name);
+        }
+    }, [router.isReady]);
 
     const SuperAdminBreadCrumb = [
         {
@@ -39,7 +37,7 @@ const extremeIns = ({
             active: false,
         },
         {
-            name: 'Instructor',
+            name: adminName,
             link: '',
             active: true,
         },
@@ -51,14 +49,12 @@ const extremeIns = ({
 
     const InstrcutorComponent = activeTab === 0 && <Instructor
         pageDetailsInstructor={ pageDetailsInstructor }
-        // assignmentData={ assignmentData }
         isLoadingExtInsList={ isLoadingExtInsList }
         activeTab={ activeTab }
     />;
 
     const StudentComponent = activeTab === 1 && <Students
         pageDetailsStudent={ pageDetailsStudent }
-        // studentData={ studentData }
         isLoadingExtStuList={ isLoadingExtStuList }
         activeTab={ activeTab }
     />;
@@ -99,12 +95,8 @@ const extremeIns = ({
 const mapStateToProps = (state) => ({
     pageDetailsInstructor: state?.superAdmin?.extInsList?.page,
     pageDetailsStudent: state?.superAdmin?.extStuList?.page,
-    // assignmentData: state?.instructorClasses?.assignmentData?._embedded?.assignmentDTOList,
     isLoadingExtInsList: state?.superAdmin?.isLoadingExtInsList,
     isLoadingExtStuList: state?.superAdmin?.isLoadingExtStuList,
-    // studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
-    // isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
-    // isLoadingTemplate: state?.instructorClasses?.isLoadingTemplate,
 });
 
 const mapDispatchToProps = (dispatch) => {

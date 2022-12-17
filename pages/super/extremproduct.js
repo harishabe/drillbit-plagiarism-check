@@ -141,6 +141,7 @@ const ExtremProduct = ({
             router.push({
                 pathname: '/super/extremeIns',
                 query: {
+                    name: rowData?.name,
                     licenseId: rowData?.lid,
                 }
             });
