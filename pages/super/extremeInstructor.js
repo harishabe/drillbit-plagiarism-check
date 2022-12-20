@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import SuperAdmin from './../../layouts/SuperAdmin';
+import SuperAdmin from '../../layouts/SuperAdmin';
 import { BreadCrumb, TabMenu } from '../../components';
 import Instructor from './extreme/Instructor';
 import Students from './extreme/Students';
 import { GetExtremeInstructorList, GetExtremeStudentList } from '../../redux/action/super/SuperAdminAction';
 
-const extremeIns = ({
+const extremeInstructor = ({
     pageDetailsInstructor,
     pageDetailsStudent,
     isLoadingExtInsList,
@@ -93,7 +93,7 @@ const extremeIns = ({
 };
 
 const mapStateToProps = (state) => ({
-    pageDetailsInstructor: state?.superAdmin?.extInsList?.page,
+    pageDetailsInstructor: state?.superAdmin?.extInsList?.list?.page,
     pageDetailsStudent: state?.superAdmin?.extStuList?.page,
     isLoadingExtInsList: state?.superAdmin?.isLoadingExtInsList,
     isLoadingExtStuList: state?.superAdmin?.isLoadingExtStuList,
@@ -106,6 +106,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-extremeIns.layout = SuperAdmin;
+extremeInstructor.layout = SuperAdmin;
 
-export default connect(mapStateToProps, mapDispatchToProps)(extremeIns);
+export default connect(mapStateToProps, mapDispatchToProps)(extremeInstructor);
