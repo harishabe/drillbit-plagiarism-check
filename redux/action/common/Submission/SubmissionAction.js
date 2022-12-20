@@ -72,3 +72,12 @@ export const SubmissionReportBulkDownload = (url, requestPayload) => {
         type: types.FETCH_SUBMISSION_BULK_REPORT_START, url: url, requestPayload: requestPayload
     };
 };
+
+/**
+ * submission > submission report download 
+ */
+export const SubmissionReportDownload = (url, data) => {
+    return {
+        type: types.FETCH_SUBMISSION_REPORT_DOWNLOAD_START, url: url, query: data
+    };
+};
