@@ -307,13 +307,32 @@ export function* onLoadDelete(action) {
             type: types.FETCH_ADMIN_DELETE_ROW_SUCCESS,
             payload: response?.data,
         });
-        yield put({
-            type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
-            url: action.url.split('/')[3] === 'extreme' ?
-                BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
-                BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
-            paginationPayload: action.paginationPayload
-        });
+        if (action.url.split('/')[3] === 'extreme') {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR,
+                paginationPayload: action.paginationPayload
+            });
+        } else if (action.url.split('/')[3] === 'pro') {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
+                paginationPayload: action.paginationPayload
+            });
+        } else if (action.url.split('/')[3] === 'authentication') {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
+                url: `/extreme/license/${action.url.split('/')[6]}/instructors`,
+                paginationPayload: action.paginationPayload
+            });
+        }
+        // yield put({
+        //     type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+        //     url: action.url.split('/')[3] === 'extreme' ?
+        //         BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
+        //         BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
+        //     paginationPayload: action.paginationPayload
+        // });
         toastrValidation(response);
     } else {
         yield put({
