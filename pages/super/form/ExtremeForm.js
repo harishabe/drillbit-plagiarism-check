@@ -52,13 +52,18 @@ const ExtremeForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            data['startDate'] = convertDate(data.startDate);
-            data['endDate'] = convertDate(data.endDate);
-            data['grammarAccess'] = data?.grammarAccess?.name;
-            data['institutionType'] = data?.institutionType?.name;
-            data['licenseType'] = data?.licenseType?.name;
-            data['timeZone'] = data?.timeZone?.name;
-            EditAccount(END_POINTS.SUPER_ADMIN_EXTREME + '/license/' + editData?.lid, data);
+            let DetailedData = {
+                ...data,
+                'endDate': convertDate(data?.endDate),
+                'startDate': convertDate(data?.startDate),
+                'grammarAccess': data?.grammarAccess?.name,
+                'institutionType': data?.institutionType?.name,
+                'licenseType': data?.licenseType?.name,
+                'timeZone': data?.timeZone?.name,
+                'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
+            };
+            let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
+            EditAccount(END_POINTS.SUPER_ADMIN_EXTREME + '/license/' + editData?.lid, requestData);
         } else {
             let DetailedData = {
                 ...data,
@@ -68,8 +73,10 @@ const ExtremeForm = ({
                 'institutionType': data?.institutionType?.name,
                 'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
+                'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
-            CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, DetailedData);
+            let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
+            CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, requestData);
         }
     };
 
@@ -106,6 +113,8 @@ const ExtremeForm = ({
                 'students': editData.students,
                 'submissions': editData.documents,
                 'documentlength': editData.document_type,
+                'folpath': editData.folpath,
+                'department': editData.department,
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
                 'institutionType': { 'name': editData.product_type },
@@ -127,6 +136,8 @@ const ExtremeForm = ({
                 'students',
                 'submissions',
                 'documentlength',
+                'folpath',
+                'department',
                 'grammarAccess',
                 'grammar',
                 'institutionType',
