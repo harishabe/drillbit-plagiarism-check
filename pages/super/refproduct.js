@@ -52,11 +52,11 @@ const columns = [
     { id: 'action', label: 'Action' }
 ];
 
-function createData(lid, name, email, college_name, country, instructors, documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone
+function createData(lid, name, email, college_name, country, instructors, documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department
 ) {
     return {
         lid, name, email, college_name, country, instructors, documents, action, state
-        , address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone
+        , address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department
     };
 }
 
@@ -106,6 +106,8 @@ const RefProduct = ({
                     data.license_type,
                     data.product_type,
                     data.timeZone,
+                    data.folpath,
+                    data.department,
                 );
             arr.push(row);
         });

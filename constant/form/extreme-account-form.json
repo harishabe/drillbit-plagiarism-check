@@ -121,6 +121,39 @@
     },
 
     {
+        "field_type": "input",
+        "id": "folpath",
+        "name": "folpath",
+        "label": "Folder path *",
+        "required": "Folder path",
+        "validationMsg": "Invalid Folder path"
+    },
+
+    {
+        "field_type": "input",
+        "id": "department",
+        "name": "department",
+        "label": "Department"
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "updateExpiryDateToAll",
+        "name": "updateExpiryDateToAll",
+        "label": "Update expiry date to all *",
+        "required": "expiry date",
+        "validationMsg": "Invalid Expiry Date",
+        "options": [
+            {
+                "name": "YES"
+            },
+            {
+                "name": "NO"
+            }
+        ]
+    },
+
+    {
         "field_type": "dropdown",
         "id": "grammarAccess",
         "name": "grammarAccess",
@@ -129,10 +162,10 @@
         "validationMsg": "Invalid Grammar Access",
         "options": [
             {
-                "name": "yes"
+                "name": "YES"
             },
             {
-                "name": "no"
+                "name": "NO"
             }
         ]
     },
