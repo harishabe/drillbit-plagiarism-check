@@ -470,8 +470,8 @@ const Instructor = ({
 
 
 const mapStateToProps = (state) => ({
-    pageDetailsInstructor: state?.superAdmin?.extInsList?.page,
-    extInsList: state?.superAdmin?.extInsList?._embedded?.instructorDTOList,
+    pageDetailsInstructor: state?.superAdmin?.extInsList?.list?.page,
+    extInsList: state?.superAdmin?.extInsList?.list?._embedded?.instructorDTOList,
     isLoadingExtInsList: state?.superAdmin?.isLoadingExtInsList,
 });
 

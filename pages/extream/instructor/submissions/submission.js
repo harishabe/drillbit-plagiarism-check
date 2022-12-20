@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
+import ReactDOM from 'react-dom';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import HistoryIcon from '@mui/icons-material/History';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import Instructor from '../../../../layouts/Instructor';
+import PageChange from '../../../../components/loader/PageChange';
 import {
     CommonTable,
     CreateDrawer,
@@ -29,7 +32,8 @@ import {
     DownloadCsv,
     SaveToRepoBulk,
     DownloadOriginalFile,
-    GetGrammarReport
+    GetGrammarReport,
+    SubmissionReportDownload
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { useRouter } from 'next/router';
 import { TextField, Pagination } from '@mui/material';
@@ -44,18 +48,18 @@ import AssignmentForm from '../form/AssignmentForm';
 import SubmissionHistoryPage from './submissionHistory';
 import { removeCommaWordEnd, formatDate, platform, windowOpen } from '../../../../utils/RegExp';
 import { PaginationContainer } from '../../../../style/index';
-import { BASE_URL_ANALYSIS, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
+import { BASE_URL, BASE_URL_ANALYSIS, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES, WINDOW_PLATFORM, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
 
 const columns = [
-    { id: 'name', label: 'Author Name' },
-    { id: 'title', label: 'Paper Title' },
-    { id: 'original_fn', label: 'Original File', isDownload: true },
+    { id: 'name', label: 'Name' },
+    { id: 'title', label: 'Title' },
+    { id: 'original_fn', label: 'File', isDownload: true },
     { id: 'lang1', label: 'Language' },
     { id: 'grammar_url', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'Paper ID' },
+    { id: 'paper_id', label: 'ID' },
     { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action', minWidth: 105 },
 ];
@@ -117,7 +121,9 @@ const Submission = ({
     uploadData,
     UploadZipFileDataClear,
     isLoadingGrammarReport,
-    GetGrammarReport
+    GetGrammarReport,
+    SubmissionReportDownload,
+    isLoadingSubmissionReport
 }) => {
     const router = useRouter();
     const clasId = router.query.clasId;
@@ -130,6 +136,8 @@ const Submission = ({
         orderBy: PaginationValue?.orderBy,
     });
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [showSubmissionReport, setShowSubmissionReport] = useState(false);
+    const [submissionReportData, setSubmissionReportData] = useState('');
     const [editAssignment, setEditAssignment] = useState(false);
     const [editAssignmentData, setEditAssignmentData] = useState('');
     const [deleteRowData, setDeleteRowData] = useState('');
@@ -171,6 +179,16 @@ const Submission = ({
                 [
                     { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                     { 'component': <HistoryIcon />, 'type': 'history', 'title': 'Submission History' },
+                    (submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) ?
+                        {
+                            'component': <FileDownloadOutlinedIcon />,
+                            'title': 'Similarity report not ready'
+                        } :
+                        {
+                            'component': <FileDownloadOutlinedIcon />,
+                            'type': 'download',
+                            'title': 'Similarity report download'
+                        }
                 ],
                 submission.alert_msg,
                 submission.rep_status,
@@ -181,6 +199,20 @@ const Submission = ({
         });
         setRows([...arr]);
     }, [submissionData]);
+
+    useEffect(() => {
+        if (isLoadingSubmissionReport) {
+            document.body.classList.add('body-page-transition');
+            ReactDOM.render(
+                <PageChange />,
+                document.getElementById('page-transition')
+            );
+        }
+        else {
+            ReactDOM.unmountComponentAtNode(document.getElementById('page-transition'));
+            document.body.classList.remove('body-page-transition');
+        }
+    }, [isLoadingSubmissionReport])
 
     /**
    * handle pagination
@@ -227,6 +259,9 @@ const Submission = ({
         } else if (icon === 'history') {
             setHistoryUserId(rowData?.user_id);
             setShowDialogModal(true);
+        } else if (icon === 'download') {
+            setSubmissionReportData(rowData);
+            setShowSubmissionReport(true);
         }
     };
 
@@ -341,6 +376,10 @@ const Submission = ({
         setShowSaveIcon(false);
     };
 
+    const handleSubmissionDownloadCloseWarning = () => {
+        setShowSubmissionReport(false);
+    };
+
     const handleYesWarning = () => {
         DeleteSubmission(`classes/${clasId}/assignments/${assId}/submissions?paperId=${deleteRowData}`);
         setShowDeleteAllIcon(false);
@@ -370,6 +409,11 @@ const Submission = ({
         setTimeout(() => {
             setShowDownloadWarning(false);
         }, [100]);
+    };
+
+    const handleSubmissionDownloadYesWarning = () => {
+        SubmissionReportDownload(BASE_URL + END_POINTS.SIMILARITY_REPORT_SINGLE_DOWNLOAD + `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`, submissionReportData);
+        setShowSubmissionReport(false);
     };
 
     /**
@@ -571,6 +615,16 @@ const Submission = ({
                 />
             }
 
+            {
+                showSubmissionReport &&
+                <WarningDialog
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleSubmissionDownloadYesWarning }
+                    handleNo={ handleSubmissionDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            }
+
             <PaginationContainer>
                 <Pagination
                     count={ pageDetails?.totalPages }
@@ -592,7 +646,8 @@ const mapStateToProps = (state) => ({
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
     uploadData: state?.instructorMyFolders?.uploadData,
     isLoadingDownload: state?.submission?.isLoadingDownload,
-    isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport
+    isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport,
+    isLoadingSubmissionReport: state?.submission?.isLoadingSubmissionReport
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -605,6 +660,7 @@ const mapDispatchToProps = (dispatch) => {
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
         GetGrammarReport: (url) => dispatch(GetGrammarReport(url)),
+        SubmissionReportDownload: (url, data) => dispatch(SubmissionReportDownload(url, data)),
     };
 };
 

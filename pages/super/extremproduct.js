@@ -139,7 +139,7 @@ const ExtremProduct = ({
             setEditUserData(rowData);
         } else if (icon === 'nextPath') {
             router.push({
-                pathname: '/super/extremeIns',
+                pathname: '/super/extremeInstructor',
                 query: {
                     name: rowData?.name,
                     licenseId: rowData?.lid,
