@@ -91,6 +91,9 @@ const ExtremeForm = ({
             if (field.name === 'adminEmail') {
                 field.disabled = isNameDisabled;
             }
+            if (field.name === 'folpath') {
+                field.disabled = isNameDisabled;
+            }
             return field;
         });
         setFormJsonField(formField);
