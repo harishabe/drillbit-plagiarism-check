@@ -1,4 +1,4 @@
-import { GetMethod, PostMethod, PutMethod } from './../ApiMethod';
+import { GetMethod, PostMethod, PutMethod, DeleteMethod } from './../ApiMethod';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 
@@ -25,6 +25,15 @@ export const LmsIntegrationDetail = async (url, data) => {
 export const ChangeConfigDetail = async (url, data) => {
     return PutMethod(url, data);
 };
+
+/**
+ * API CALL DELETE INTEGRATIONS
+ */
+
+export const DeleteIntegrationAdmin = async (url) => {
+    return DeleteMethod(url);
+};
+
 
 /**
  * API CALL GOOGLE CLASSROOM CONFIGURATION

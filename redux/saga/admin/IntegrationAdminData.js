@@ -7,7 +7,8 @@ import {
     GoogleClassroomDetail,
     GoogleLiveCoursesDetail,
     GoogleImportCoursesDetail,
-    GoogleCourseHomeDetail
+    GoogleCourseHomeDetail,
+    DeleteIntegrationAdmin
 } from '../../api/admin/IntegrationAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
@@ -20,7 +21,7 @@ import END_POINTS_PRO from '../../../utils/EndPointPro';
  */
 
 export function* onLoadIntegration(action) {
-    const { response, error } = yield call(GetIntegrationDetail,action.apiUrl);
+    const { response, error } = yield call(GetIntegrationDetail, action.apiUrl);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_INTEGRATION_DETAILS_SUCCESS,
@@ -44,8 +45,8 @@ export function* GetAdminIntegrationData() {
  * @param {*} action
  */
 
- export function* onLoadIntegrationDetails(action) {
-    const { response, error } = yield call(GetIntegrationDetail,action.apiUrl);
+export function* onLoadIntegrationDetails(action) {
+    const { response, error } = yield call(GetIntegrationDetail, action.apiUrl);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_INTEGRATION_TYPE_DETAILS_SUCCESS,
@@ -120,6 +121,37 @@ export function* onLoadChangeConfigDetail(action) {
 
 export function* ChangeConfiguration() {
     yield takeLatest(types.FETCH_ADMIN_INTEGRATION_CHANGE_CONFIG_START, onLoadChangeConfigDetail);
+}
+
+/**
+ * Delete integrations
+ */
+
+export function* onLoadDeleteIntegration(action) {
+    const { response, error } = yield call(DeleteIntegrationAdmin, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_DELETE_SUCCESS,
+            payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_DETAILS_START,
+            apiUrl: action.url.split('/')[3] === 'extreme' ?
+                BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_DATA :
+                BASE_URL_PRO + END_POINTS_PRO.ADMIN_INTEGRATION_DATA,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_DELETE_FAILURE,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* DeleteIntegration() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_DELETE_START, onLoadDeleteIntegration);
 }
 
 /**

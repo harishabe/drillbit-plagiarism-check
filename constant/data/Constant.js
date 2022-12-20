@@ -159,3 +159,9 @@ export const WARNING_MESSAGES = {
 }
 
 export const SIMILARITY_BULK_REPORT_TITLE = 'SimilarityBulkReport.zip';
+
+export const INTEGRATION_TYPES = {
+    MOODLE : 'Moodle',
+    CANVAS : 'Canvas',
+    BLACKBOARD : 'Blackboard',
+}

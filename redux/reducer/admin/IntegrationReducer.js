@@ -70,6 +70,23 @@ const IntegrationReducer = (state = {}, action) => {
                 isLoadingUpload: false,
                 configDataError: action.payload,
             };
+        case types.FETCH_ADMIN_INTEGRATION_DELETE_START:
+            return {
+                ...state,
+                isLoadingIntegrationDelete: true,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_DELETE_SUCCESS:
+            return {
+                ...state,
+                isLoadingIntegrationDelete: false,
+                integrationDelete: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_DELETE_FAILURE:
+            return {
+                ...state,
+                isLoadingIntegrationDelete: false,
+                integrationDelete: action.payload,
+            };
         case types.FETCH_ADMIN_INTEGRATION_GOOGLECLASSROOM_START:
             return {
                 ...state,

@@ -72,7 +72,8 @@ const CardInfoView = ({
     handleConfig,
     handleDownload,
     isDescription,
-    isLoading
+    isLoading,
+    handleDeleteIntegrations
 }) => {
     const router = useRouter();
 
@@ -272,13 +273,25 @@ const CardInfoView = ({
                                 </Link>
                                 : ''}
                             {isConfig &&
-                                <Switch
-                                    disabled={item?.lmsconfigured === true}
-                                    checked={item?.lmsconfigured}
-                                    onChange={handleConfig}
-                                    inputProps={{ 'aria-label': 'controlled' }}
-                                    name={item?.lms}
-                                />
+                                <>
+                                    <Switch
+                                        disabled={item?.lmsconfigured === true}
+                                        checked={item?.lmsconfigured}
+                                        onChange={handleConfig}
+                                        inputProps={{ 'aria-label': 'controlled' }}
+                                        name={item?.lms}
+                                    />
+                                    {item.type !== 'Moodle' &&
+                                        item?.lmsconfigured === true &&
+                                        <Tooltip title={`Delete ${item.type} Integration`} arrow>
+                                            <IconButton onClick={() => {
+                                                handleDeleteIntegrations(item.type)
+                                            }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    }
+                                </>
                             }
                             {isNextPath &&
                                 <Tooltip title={CARD_NEXT_PAGE} arrow>

@@ -5,8 +5,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Skeleton } from '@mui/material';
 import ProAdmin from './../../../layouts/ProAdmin';
-import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer } from './../../../components';
-import { GetIntegrationList } from '../../../redux/action/admin/AdminAction';
+import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer, WarningDialog } from './../../../components';
+import { GetIntegrationList, DeleteIntegration } from '../../../redux/action/admin/AdminAction';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import MoodleForm from './form/MoodleForm';
 import CanvasForm from './form/CanvasForm';
@@ -25,6 +25,10 @@ import {
     PRO_ADMIN_INTEGRATION_CANVAS_PATH,
     PRO_ADMIN_INTEGRATION_BLACKBOARD_PATH,
 } from '../../../constant/data/Integration';
+import {
+    INTEGRATION_TYPES,
+    WARNING_MESSAGES
+} from '../../../constant/data/Constant';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 
 const IntegrationBreadCrumb = [
@@ -42,6 +46,7 @@ const IntegrationBreadCrumb = [
 
 const Integration = ({
     GetIntegrationList,
+    DeleteIntegration,
     integrationData,
     isLoading,
 }) => {
@@ -55,6 +60,8 @@ const Integration = ({
         CANVAS: integrationData && integrationData[1]?.lmsconfigured,
         BLACKBOARD: integrationData && integrationData[2]?.lmsconfigured,
     });
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [selectedIntegrationType, setSelectedIntegrationType] = useState('');
 
 
     useEffect(() => {
@@ -67,19 +74,19 @@ const Integration = ({
                 item['img'] = ADMIN_INTEGRATION_MOODLE_IMG;
                 item['description'] = ADMIN_INTEGRATION_MOODLE_DESCRIPTION;
                 item['path'] = PRO_ADMIN_INTEGRATION_MOODLE_PATH;
-                item['type'] = 'Moodle';
+                item['type'] = INTEGRATION_TYPES.MOODLE;
             }
             if (item.lms === ADMIN_INTEGRATION_CANVAS) {
                 item['img'] = ADMIN_INTEGRATION_CANVAS_IMG;
                 item['description'] = ADMIN_INTEGRATION_CANVAS_DESCRIPTION;
                 item['path'] = PRO_ADMIN_INTEGRATION_CANVAS_PATH;
-                item['type'] = 'Canvas';
+                item['type'] = INTEGRATION_TYPES.CANVAS;
             }
             if (item.lms === ADMIN_INTEGRATION_BLACKBOARD) {
                 item['img'] = ADMIN_INTEGRATION_BLACKBOARD_IMG;
                 item['description'] = ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION;
                 item['path'] = PRO_ADMIN_INTEGRATION_BLACKBOARD_PATH;
-                item['type'] = 'Blackboard';
+                item['type'] = INTEGRATION_TYPES.BLACKBOARD;
             }
             return item;
         });
@@ -105,6 +112,26 @@ const Integration = ({
         setShowCanvas(drawerClose);
         setShowBlackboard(drawerClose);
     };
+
+    const handleDeleteIntegration = (integrationType) => {
+        setShowDeleteWarning(true);
+        setSelectedIntegrationType(integrationType);
+    };
+
+    const handleDeleteYesWarning = () => {
+        if (selectedIntegrationType === INTEGRATION_TYPES.CANVAS) {
+            DeleteIntegration(BASE_URL_PRO + END_POINTS_PRO.INTEGRATION_DELETE_CANVAS);
+            setShowDeleteWarning(false);
+        } else if (selectedIntegrationType === INTEGRATION_TYPES.BLACKBOARD) {
+            DeleteIntegration(BASE_URL_PRO + END_POINTS_PRO.INTEGRATION_DELETE_BLACKBOARD);
+            setShowDeleteWarning(false);
+        }
+    };
+
+    const handleDeleteCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -130,6 +157,7 @@ const Integration = ({
                             <CardInfoView
                                 item={item}
                                 handleConfig={handleConfig}
+                                handleDeleteIntegrations={handleDeleteIntegration}
                                 checked={checked}
                                 isTimer={false}
                                 isKnowMore={true}
@@ -170,6 +198,16 @@ const Integration = ({
                     <BlackboardForm />
                 </CreateDrawer>
             }
+
+            {
+                showDeleteWarning &&
+                <WarningDialog
+                    message={WARNING_MESSAGES.DELETE}
+                    handleYes={handleDeleteYesWarning}
+                    handleNo={handleDeleteCloseWarning}
+                    isOpen={true}
+                />
+            }
         </React.Fragment>
     );
 };
@@ -182,6 +220,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetIntegrationList: (apiUrl) => dispatch(GetIntegrationList(apiUrl)),
+        DeleteIntegration: (apiUrl) => dispatch(DeleteIntegration(apiUrl))
     };
 };
 

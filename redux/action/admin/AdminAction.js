@@ -234,6 +234,15 @@ export const ChangeConfig = (url, data) => {
 };
 
 /**
+ * delete integration
+ */
+export const DeleteIntegration = (url) => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_DELETE_START, url: url
+    };
+};
+
+/**
  * Get Google classroom
  */
 export const GetGoogleLms = () => {
