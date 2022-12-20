@@ -250,7 +250,7 @@ export function* GetSubmissionBulkReportDownload() {
  */
 
 export function* onLoadSubmissionReportDownload(action) {
-    const { response, error } = yield call(SubmissionSingleReportDownload, action.url, action.data);
+    const { response, error } = yield call(SubmissionSingleReportDownload, action.url, action.query);
     if (response) {
         yield put({
             type: types.FETCH_SUBMISSION_REPORT_DOWNLOAD_SUCCESS,

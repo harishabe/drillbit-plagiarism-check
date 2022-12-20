@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -42,15 +43,16 @@ import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER } from '../../../constant/data/Constant';
+import PageChange from '../../../components/loader/PageChange';
 
 const columns = [
-    { id: 'name', label: 'Author Name' },
-    { id: 'title', label: 'Paper Title' },
-    { id: 'original_fn', label: 'Original File', isDownload: true },
+    { id: 'name', label: 'Name' },
+    { id: 'title', label: 'Title' },
+    { id: 'original_fn', label: 'File', isDownload: true },
     { id: 'lang1', label: 'Language' },
     { id: 'grammar_url', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'Paper ID' },
+    { id: 'paper_id', label: 'ID' },
     { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action', minWidth: 103 },
 ];
@@ -108,7 +110,8 @@ const folderSubmission = ({
     GetGrammarReport,
     SubmissionReportBulkDownload,
     SubmissionReportDownload,
-    isLoadingBulkDownload
+    isLoadingBulkDownload,
+    isLoadingSubmissionReport
 }) => {
 
     const router = useRouter();
@@ -183,12 +186,21 @@ const folderSubmission = ({
                     submission.language1,
                     submission.grammar,
                     submission.grammar_url,
-                    <SimilarityStatus percent={submission.percent} />,
+                    <SimilarityStatus percent={ submission.percent } />,
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        (submission.percent !== (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) && { 'component': <FileDownloadOutlinedIcon />, 'type': 'download', 'title': 'Similarity report download' }
+                        (submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) ?
+                            {
+                                'component': <FileDownloadOutlinedIcon />,
+                                'title': 'Similarity report not ready'
+                            } :
+                            {
+                                'component': <FileDownloadOutlinedIcon />,
+                                'type': 'download',
+                                'title': 'Similarity report download'
+                            }
                     ],
                     submission.d_key,
                     submission.alert_msg,
@@ -200,6 +212,20 @@ const folderSubmission = ({
         });
         setRows([...arr]);
     }, [folderSubmissionData]);
+
+    useEffect(() => {
+        if (isLoadingSubmissionReport) {
+            document.body.classList.add('body-page-transition');
+            ReactDOM.render(
+                <PageChange />,
+                document.getElementById('page-transition')
+            );
+        }
+        else {
+            ReactDOM.unmountComponentAtNode(document.getElementById('page-transition'));
+            document.body.classList.remove('body-page-transition');
+        }
+    }, [isLoadingSubmissionReport])
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
@@ -366,11 +392,8 @@ const folderSubmission = ({
     };
 
     const handleSubmissionDownloadYesWarning = () => {
-        SubmissionReportDownload(END_POINTS_PRO.SIMILARITY_REPORT_SINGLE_DOWNLOAD + `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`, submissionReportData?.original_fn);
+        SubmissionReportDownload(END_POINTS_PRO.SIMILARITY_REPORT_SINGLE_DOWNLOAD + `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`, submissionReportData);
         setShowSubmissionReport(false);
-        setTimeout(() => {
-            setShowSubmissionReport(false);
-        }, [100]);
     };
 
     /**
@@ -423,92 +446,92 @@ const folderSubmission = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <BreadCrumb item={UserBreadCrumb} />
-                <Grid container spacing={1}>
-                    <Grid item md={5} xs={5}>
-                        <MainHeading title={`Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+            <Box sx={ { flexGrow: 1 } }>
+                <BreadCrumb item={ UserBreadCrumb } />
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 5 } xs={ 5 }>
+                        <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={7} xs={7} style={{ textAlign: 'right' }}>
+                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <Tooltip title="Refresh" arrow>
                             <IconButton
                                 aria-label="download-file"
                                 size="large"
-                                onClick={handleRefresh}
+                                onClick={ handleRefresh }
                             >
                                 <RefreshOutlinedIcon />
                             </IconButton>
                         </Tooltip>
 
-                        {folderSubmissionData?.length > 0 &&
+                        { folderSubmissionData?.length > 0 &&
                             isLoadingDownload ?
-                            <Skeleton width={50} style={{ display: 'inline-block', marginRight: '10px' }} />
+                            <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px' } } />
                             :
                             <Tooltip title="Submission report download" arrow>
                                 <IconButton
                                     aria-label="download-file"
                                     size="large"
-                                    onClick={handleDownload}>
+                                    onClick={ handleDownload }>
                                     <DownloadIcon />
                                 </IconButton>
                             </Tooltip>
                         }
                         <TextField
-                            sx={{ width: '40%', marginTop: '8px' }}
+                            sx={ { width: '40%', marginTop: '8px' } }
                             placeholder='Search'
-                            onChange={debouncedResults}
-                            inputProps={{
+                            onChange={ debouncedResults }
+                            inputProps={ {
                                 style: {
                                     padding: 5,
                                     display: 'inline-flex',
                                 },
-                            }}
+                            } }
                         />
                     </Grid>
                 </Grid>
             </Box>
             <>
 
-                {_.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
+                { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={deleteAllSubmission}>
+                        <IconButton onClick={ deleteAllSubmission }>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title='Save to repository' arrow>
-                        <IconButton onClick={saveAllSubmission}>
+                        <IconButton onClick={ saveAllSubmission }>
                             <SaveOutlinedIcon />
                         </IconButton>
                     </Tooltip>
-                    {isLoadingBulkDownload ? <Skeleton width={200} /> : <Tooltip title='Submission report bulk download' arrow>
-                        <IconButton onClick={submissionBulkDownload}>
+                    { isLoadingBulkDownload ? <Skeleton width={ 200 } /> : <Tooltip title='Submission report bulk download' arrow>
+                        <IconButton onClick={ submissionBulkDownload }>
                             <FileDownloadOutlinedIcon />
                         </IconButton>
-                    </Tooltip>}
+                    </Tooltip> }
 
-                </DeleteAllButton>}
+                </DeleteAllButton> }
 
                 <CommonTable
-                    isCheckbox={true}
-                    isSorting={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    handleAction={handleAction}
-                    handleTableSort={handleTableSort}
-                    handleCheckboxSelect={handleCheckboxSelect}
-                    handleSingleSelect={handleSingleSelect}
-                    downloadSubmissionFile={handleOriginalFileDownload}
-                    showAnalysisPage={handleShowAnalysisPage}
-                    showGrammarReport={handlGrammarReport}
-                    isLoading={isLoadingSubmission}
-                    isLoadingGrammarReport={isLoadingGrammarReport}
-                    charLength={10}
+                    isCheckbox={ true }
+                    isSorting={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    handleCheckboxSelect={ handleCheckboxSelect }
+                    handleSingleSelect={ handleSingleSelect }
+                    downloadSubmissionFile={ handleOriginalFileDownload }
+                    showAnalysisPage={ handleShowAnalysisPage }
+                    showGrammarReport={ handlGrammarReport }
+                    isLoading={ isLoadingSubmission }
+                    isLoadingGrammarReport={ isLoadingGrammarReport }
+                    charLength={ 10 }
                     path=''
                 />
 
                 <AddButtonBottom>
                     <CreateDrawer
-                        options={[
+                        options={ [
                             {
                                 icon: <RegionalUploadIcon />,
                                 title: 'Regional',
@@ -523,11 +546,11 @@ const folderSubmission = ({
                                 icon: <EnglishUploadIcon />,
                                 title: 'English',
                                 handleFromCreateDrawer: true
-                            }]}
-                        handleMultiData={handleShow}
-                        isShowAddIcon={true}
+                            }] }
+                        handleMultiData={ handleShow }
+                        isShowAddIcon={ true }
                         title="Upload File"
-                        navigateToMultiFile={true}
+                        navigateToMultiFile={ true }
                     >
                     </CreateDrawer>
                 </AddButtonBottom>
@@ -535,32 +558,32 @@ const folderSubmission = ({
                 {
                     showDeleteWarning &&
                     <WarningDialog
-                        warningIcon={<DeleteWarningIcon />}
-                        message={WARNING_MESSAGES.DELETE}
-                        handleYes={handleYesWarning}
-                        handleNo={handleCloseWarning}
-                        isOpen={true}
+                        warningIcon={ <DeleteWarningIcon /> }
+                        message={ WARNING_MESSAGES.DELETE }
+                        handleYes={ handleYesWarning }
+                        handleNo={ handleCloseWarning }
+                        isOpen={ true }
                     />
                 }
 
                 {
                     showSaveIcon &&
                     <WarningDialog
-                        warningIcon={<DeleteWarningIcon />}
-                        message={WARNING_MESSAGES.REPOSITORY}
-                        handleYes={handleYesSaveWarning}
-                        handleNo={handleCloseSaveWarning}
-                        isOpen={true}
+                        warningIcon={ <DeleteWarningIcon /> }
+                        message={ WARNING_MESSAGES.REPOSITORY }
+                        handleYes={ handleYesSaveWarning }
+                        handleNo={ handleCloseSaveWarning }
+                        isOpen={ true }
                     />
                 }
 
                 {
                     showDownloadWarning &&
                     <WarningDialog
-                        message={WARNING_MESSAGES.DOWNLOAD}
-                        handleYes={handleFileDownloadYesWarning}
-                        handleNo={handleFileDownloadCloseWarning}
-                        isOpen={true}
+                        message={ WARNING_MESSAGES.DOWNLOAD }
+                        handleYes={ handleFileDownloadYesWarning }
+                        handleNo={ handleFileDownloadCloseWarning }
+                        isOpen={ true }
                     />
                 }
 
@@ -576,8 +599,8 @@ const folderSubmission = ({
 
                 <PaginationContainer>
                     <Pagination
-                        count={pageDetails?.totalPages}
-                        onChange={handleChange}
+                        count={ pageDetails?.totalPages }
+                        onChange={ handleChange }
                         color="primary"
                         variant="outlined"
                         shape="rounded"
@@ -597,7 +620,8 @@ const mapStateToProps = (state) => ({
     isLoadingBulkDownload: state?.submission?.isLoadingBulkDownload,
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
     uploadData: state?.instructorMyFolders?.uploadData,
-    isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport
+    isLoadingGrammarReport: state?.submission?.isLoadingGrammarReport,
+    isLoadingSubmissionReport: state?.submission?.isLoadingSubmissionReport
 });
 
 const mapDispatchToProps = (dispatch) => {

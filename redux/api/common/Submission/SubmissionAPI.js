@@ -85,5 +85,5 @@ export const SubmissionBulkReportDownload = async (url, requestPayload) => {
  * SUBMISSION BULK REPORT DOWNLOAD
  */
 export const SubmissionSingleReportDownload = async (url, data) => {
-    return GetMethodDownloadPdf(url, data);
+    return GetMethodDownloadPdf(url, data?.original_fn);
 };
