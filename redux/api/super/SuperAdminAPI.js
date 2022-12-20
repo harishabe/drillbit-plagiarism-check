@@ -44,3 +44,26 @@ export const DropdownListData = async () => {
     const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST;
     return GetMethod(url);
 };
+
+/**
+ * API CALL EXTREME (INSTRUCTOR LISTS)
+ */
+export const ExtremeInstructorListData = async (apiUrl, paginationPayload) => {
+    const url = BASE_URL_SUPER + apiUrl + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};
+
+/**
+ * API CALL EXTREME (STUDENT LISTS)
+ */
+export const ExtremeStudentListData = async (apiUrl, paginationPayload) => {
+    const url = BASE_URL_SUPER + apiUrl + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};
+
+/**
+ * API CALL EDIT STUDENT
+ */
+export const SuperEditStudentData = async (url, data) => {
+    return PutMethod(url, data);
+};

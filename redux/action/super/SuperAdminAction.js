@@ -8,6 +8,7 @@ export const GetWidgetCount = () => {
         type: types.FETCH_SUPER_ADMIN_DASH_WIDGET_START
     };
 };
+
 /**
  * Get Extreme and Ref Account
  */
@@ -41,5 +42,32 @@ export const CreateAccount = (url, data) => {
 export const DropdownList = () => {
     return {
         type: types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START
+    };
+};
+
+/**
+ * Extreme (Instructor list)
+ */
+export const GetExtremeInstructorList = (url, paginationPayload) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START, url: url, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Extreme (students list)
+ */
+export const GetExtremeStudentList = (url, paginationPayload) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START, url: url, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Edit student
+ */
+export const SuperEditStudent = (url, data) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_START, url: url, query: data
     };
 };
