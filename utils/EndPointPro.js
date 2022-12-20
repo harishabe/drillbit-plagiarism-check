@@ -44,7 +44,7 @@ const END_POINTS_PRO = {
     USER_REPOSITARY_UPLOAD: '/privateRepository',
     GRAMMAR_REPORT: '/files/grammar/download/',
     SIMILARITY_REPORT_DOWNLOAD: '/zipDownload',
-    SIMILARITY_REPORT_SINGLE_DOWNLOAD: 'https://s1.drillbitplagiarismcheck.com/analysis-gateway/api/download2/'
+    SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/analysis-gateway/api/download2/'
 }
 
 export default END_POINTS_PRO;

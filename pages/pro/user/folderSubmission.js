@@ -40,7 +40,7 @@ import { DeleteIcon, DeleteWarningIcon, DownloadIcon, RegionalUploadIcon, NonEng
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd, windowOpen } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
-import { BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS } from '../../../utils/BaseUrl';
+import { BASE_URL, BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER } from '../../../constant/data/Constant';
 import PageChange from '../../../components/loader/PageChange';
@@ -392,7 +392,7 @@ const folderSubmission = ({
     };
 
     const handleSubmissionDownloadYesWarning = () => {
-        SubmissionReportDownload(END_POINTS_PRO.SIMILARITY_REPORT_SINGLE_DOWNLOAD + `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`, submissionReportData);
+        SubmissionReportDownload(BASE_URL + END_POINTS_PRO.SIMILARITY_REPORT_SINGLE_DOWNLOAD + `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`, submissionReportData);
         setShowSubmissionReport(false);
     };
 
