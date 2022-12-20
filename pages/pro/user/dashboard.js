@@ -216,7 +216,7 @@ const Dashboard = ({
                         <CardView>
                             <Heading title='Types of documents' />
                             { isLoading ? <Skeleton /> :
-                                documentTypeData ?
+                                documentTypeData && instructorDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
                                     <PieChart
                                         type="pie"
                                         height={ 325 }
