@@ -15,8 +15,9 @@ const StudentForm = ({
     CreateStudent,
     EditStudent,
     SuperEditStudent,
-    isLoadingCreate,
-    editData
+    isLoadingStudent,
+    editData,
+    isLoadingEditStudent
 }) => {
 
     const router = useRouter();
@@ -33,8 +34,6 @@ const StudentForm = ({
         control,
         name: 'phone_number',
     });
-
-    console.log('editData', editData)
 
     useEffect(() => {
         if (phoneNumber !== undefined) {
@@ -66,14 +65,16 @@ const StudentForm = ({
     }, [phoneNumber]);
 
     const onSubmit = (data) => {
+        let requestData = Object.entries(data).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
+
         if (editOperation) {
             if (router?.pathname.split('/')[1] === 'super') {
-                SuperEditStudent(BASE_URL_SUPER + `/extreme/license/${router?.query?.licenseId}/students/${editData?.id}`, data)
+                SuperEditStudent(BASE_URL_SUPER + `/extreme/license/${router?.query?.licenseId}/students/${editData?.id}`, requestData)
             } else {
-                EditStudent(router.query.clasId, editData?.id, data);
+                EditStudent(router.query.clasId, editData?.id, requestData);
             }
         } else {
-            CreateStudent(router.query.clasId, data);
+            CreateStudent(router.query.clasId, requestData);
         }
     };
 
@@ -95,7 +96,7 @@ const StudentForm = ({
             let a = {
                 'name': editData.name,
                 'email': editData.username,
-                'studentId': editData.id,
+                'studentId': editData.student_id || editData.user_id,
                 'department': editData.department,
                 'section': editData.section,
                 'phone_number': editData.phone_number
@@ -129,7 +130,7 @@ const StudentForm = ({
                                 key={ i }
                                 field={ field }
                                 control={ control }
-                                isLoading={ isLoadingCreate }
+                                isLoading={ isLoadingStudent || isLoadingEditStudent }
                             />
                         </Grid>
                     )) }
@@ -140,7 +141,7 @@ const StudentForm = ({
 };
 
 const mapStateToProps = (state) => ({
-    isLoadingCreate: state?.instructorClasses?.isLoading,
+    isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
 });
 
 const mapDispatchToProps = (dispatch) => {

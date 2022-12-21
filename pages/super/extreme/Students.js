@@ -26,7 +26,8 @@ import StudentStats from '../../extream/admin/student/StudentStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 import { PaginationContainer } from '../../../style/index';
-
+import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 
 const SearchField = styled.div`
     position:absolute;
@@ -56,7 +57,8 @@ const Students = ({
     pageDetailsStudent,
     // EditData,
     DeleteStudentData,
-    isLoadingExtStuList
+    isLoadingExtStuList,
+    isLoadingEditStudent
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
@@ -74,8 +76,10 @@ const Students = ({
     });
 
     useEffect(() => {
-        GetExtremeStudentList(`/extreme/license/${router?.query?.licenseId}/students`, paginationPayload);
-    }, [, paginationPayload]);
+        if (router.isReady) {
+            GetExtremeStudentList(END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/students`, paginationPayload);
+        }
+    }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -111,24 +115,19 @@ const Students = ({
     };
 
     const handleYesWarning = () => {
-        DeleteStudentData(deleteRowData, paginationPayload);
+        DeleteStudentData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/students?id=${deleteRowData}`);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
     };
 
     const handleAction = (event, icon, rowData) => {
-        const student = studentData.filter((s) => {
-            if (s.student_id === rowData?.user_id) {
-                return s.id;
-            }
-        });
         if (icon === 'edit') {
             setEditStudent(true);
             setEditStudentData(rowData);
 
         } else if (icon === 'delete') {
-            setDeleteRowData(student[0].id);
+            setDeleteRowData(rowData.id);
             setShowDeleteWarning(true);
 
         } else if (icon === 'stats') {
@@ -240,6 +239,7 @@ const Students = ({
                 >
                     <StudentForm
                         editData={ editStudentData }
+                        isLoadingEditStudent={ isLoadingEditStudent }
                     />
                 </CreateDrawer> }
 
@@ -252,7 +252,10 @@ const Students = ({
                         maxWidth="lg"
                         handleClose={ handleCloseDialog }
                     >
-                        <StudentStats studentId={ studentId } />
+                    <StudentStats
+                        lid={ router?.query?.licenseId }
+                        studentId={ studentId }
+                    />
                     </DialogModal>
                 </>
             }
@@ -338,13 +341,14 @@ const mapStateToProps = (state) => ({
     pageDetailsStudent: state?.superAdmin?.extStuList?.page,
     studentData: state?.superAdmin?.extStuList?._embedded?.studentDTOList,
     isLoadingExtStuList: state?.superAdmin?.isLoadingExtStuList,
+    isLoadingEditStudent: state?.superAdmin?.isLoadingEditStudent,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetExtremeStudentList: (url, paginationPayload) => dispatch(GetExtremeStudentList(url, paginationPayload)),
         // EditData: (data) => dispatch(EditData(data)),
-        DeleteStudentData: (deleteRowData, paginationPayload) => dispatch(DeleteStudentData(deleteRowData, paginationPayload))
+        DeleteStudentData: (url) => dispatch(DeleteStudentData(url))
     };
 };
 

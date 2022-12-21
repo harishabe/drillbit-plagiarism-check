@@ -112,8 +112,10 @@ const Instructor = ({
     const [editInstructorData, setEditInstructorData] = useState('');
 
     useEffect(() => {
-        GetExtremeInstructorList(`/extreme/license/${router?.query?.licenseId}/instructors`, paginationPayload);
-    }, [, paginationPayload]);
+        if (router.isReady) {
+            GetExtremeInstructorList(`/extreme/license/${router?.query?.licenseId}/instructors`, paginationPayload);
+        }
+    }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -206,7 +208,7 @@ const Instructor = ({
     };
 
     const handleYesWarning = () => {
-        DeleteData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR_DELETE + `${router?.query?.licenseId}/instructors?id=${deleteRowData}`, paginationPayload);
+        DeleteData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructors?id=${deleteRowData}`, paginationPayload);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);

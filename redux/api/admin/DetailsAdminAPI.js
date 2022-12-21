@@ -49,8 +49,7 @@ export const GetStudentDetail = async (paginationPayload) => {
  * API CALL FOR DELETE STUDENT
  */
 
-export const DeleteStudent = async (id) => {
-    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_STUDENT_DELETE + '?id=' + id;
+export const DeleteStudent = async (url) => {
     return DeleteMethod(url);
 };
 

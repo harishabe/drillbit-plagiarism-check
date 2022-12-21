@@ -43,7 +43,7 @@ const InstructorStats = ({
 
     useEffect(() => {
         if (lid) {
-            GetStats(BASE_URL_SUPER + `/extreme/license/${lid}/instructor/${instructorId}/stats`);
+            GetStats(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${lid}/instructor/${instructorId}/stats`);
         } else {
             GetStats(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS + '/' + instructorId + '/stats');
         }
@@ -58,7 +58,7 @@ const InstructorStats = ({
 
     const handleExportCsv = () => {
         if (lid) {
-            GetExportToCSV(BASE_URL_SUPER + `/extreme/license/${lid}/exportToCSV/${instructorId}`);
+            GetExportToCSV(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${lid}/exportToCSV/${instructorId}`);
         } else {
             GetExportToCSV(BASE_URL_EXTREM + END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + instructorStats?.id);
         }

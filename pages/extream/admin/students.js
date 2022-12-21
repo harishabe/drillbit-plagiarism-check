@@ -25,6 +25,8 @@ import StudentStats from './student/StudentStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 import { PaginationContainer } from '../../../style/index';
+import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_EXTREM } from '../../../utils/BaseUrl'; 
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -111,7 +113,7 @@ const Students = ({
     };
 
     const handleYesWarning = () => {
-        DeleteStudentData(deleteRowData, paginationPayload);
+        DeleteStudentData(BASE_URL_EXTREM + END_POINTS.ADMIN_STUDENT_DELETE + '?id=' + deleteRowData);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -337,7 +339,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetStudnetData: (paginationPayload) => dispatch(GetStudnetData(paginationPayload)),
         // EditData: (data) => dispatch(EditData(data)),
-        DeleteStudentData: (deleteRowData, paginationPayload) => dispatch(DeleteStudentData(deleteRowData, paginationPayload))
+        DeleteStudentData: (url) => dispatch(DeleteStudentData(url))
     };
 };
 
