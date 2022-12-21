@@ -27,9 +27,10 @@ import {
     GetExportToCSV,
 } from '../../../../redux/action/admin/AdminAction';
 import END_POINTS from '../../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import { BASE_URL_EXTREM, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 
 const StudentStats = ({
+    lid,
     studentId,
     GetStats,
     GetExportToCSV,
@@ -41,7 +42,11 @@ const StudentStats = ({
     const [submissionData, setSubmissionData] = useState([]);
 
     useEffect(() => {
-        GetStats(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS + '/' + studentId + '/stats');
+        if (lid) {
+            GetStats(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${lid}/instructor/${studentId}/stats`);
+        } else {
+            GetStats(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS + '/' + studentId + '/stats');
+        }
     }, []);
 
     useEffect(() => {
@@ -53,7 +58,12 @@ const StudentStats = ({
     }, [studentStats]);
 
     const handleExportCsv = () => {
-        GetExportToCSV(BASE_URL_EXTREM + END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + studentStats?.id);
+        if (lid) {
+            GetExportToCSV(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${lid}/exportToCSV/${studentId}`);
+        } else {
+            GetExportToCSV(BASE_URL_EXTREM + END_POINTS.ADMIN_EXPORT_CSV_STATS + '/' + studentStats?.id);
+        }
+
     };
 
     return (
