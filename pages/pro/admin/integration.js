@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Skeleton } from '@mui/material';
 import ProAdmin from './../../../layouts/ProAdmin';
+import { DeleteWarningIcon } from '../../../assets/icon'
 import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer, WarningDialog } from './../../../components';
 import { GetIntegrationList, DeleteIntegration } from '../../../redux/action/admin/AdminAction';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
@@ -204,6 +205,7 @@ const Integration = ({
                 <WarningDialog
                     message={WARNING_MESSAGES.DELETE}
                     handleYes={handleDeleteYesWarning}
+                    warningIcon={<DeleteWarningIcon />}
                     handleNo={handleDeleteCloseWarning}
                     isOpen={true}
                 />

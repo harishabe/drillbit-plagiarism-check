@@ -225,7 +225,7 @@ const Students = ({
             {showDeleteWarning &&
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
-                message={ WARNING_MESSAGES.DELETE }
+                    message={ WARNING_MESSAGES.DELETE }
                     handleYes={handleYesWarning}
                     handleNo={handleCloseWarning}
                     isOpen={true}
