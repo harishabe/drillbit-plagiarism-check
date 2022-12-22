@@ -77,7 +77,6 @@ const Integration = ({
     }, [showGoogleClassroom]);
 
     useEffect(() => {
-        console.log('test', integrationData);
         let lmsData = integrationData && integrationData?.map((item) => {
             if (item.lms === ADMIN_INTEGRATION_MOODLE) {
                 item['img'] = ADMIN_INTEGRATION_MOODLE_IMG;
@@ -151,7 +150,7 @@ const Integration = ({
             </Grid> :
                 <Grid container spacing={2}>
                     {lmsData?.map((item, index) => (
-                        item.lms === 'GOOGLECLASSROOM' ? '' :
+                        //item.lms === 'GOOGLECLASSROOM' ? '' :
                             <Grid key={index} item md={4} xs={12}>
                                 <CardInfoView
                                     item={item}
