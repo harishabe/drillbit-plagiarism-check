@@ -81,7 +81,9 @@ const END_POINTS = {
     SUPER_ADMIN_INSTRUCTOR: '/extreme/license/',
     GRAMMAR_REPORT:'/files/grammar/download/',
     SUBMISSION_INPUTS: '/files/submissionInputs',
-    SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/analysis-gateway/api/download2/'
+    SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/analysis-gateway/api/download2/',
+    INTEGRATION_DELETE_CANVAS: '/extreme/integrations/canvas',
+    INTEGRATION_DELETE_BLACKBOARD: '/extreme/integrations/blackboard'
 };
 
 export default END_POINTS;

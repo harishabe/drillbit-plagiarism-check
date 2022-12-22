@@ -6,8 +6,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Skeleton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
-import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer } from './../../../components';
-import { GetIntegrationList, GetGoogleLms } from '../../../redux/action/admin/AdminAction';
+import { DeleteWarningIcon } from '../../../assets/icon';
+import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer, WarningDialog } from './../../../components';
+import { GetIntegrationList, GetGoogleLms, DeleteIntegration } from '../../../redux/action/admin/AdminAction';
+
 import END_POINTS from '../../../utils/EndPoints';
 import MoodleForm from './form/MoodleForm';
 import CanvasForm from './form/CanvasForm';
@@ -30,6 +32,10 @@ import {
     ADMIN_INTEGRATION_BLACKBOARD_PATH,
     ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH,
 } from '../../../constant/data/Integration';
+import {
+    INTEGRATION_TYPES,
+    WARNING_MESSAGES
+} from '../../../constant/data/Constant';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 
 const IntegrationBreadCrumb = [
@@ -51,6 +57,7 @@ const Integration = ({
     googleConfigData,
     integrationData,
     isLoading,
+    DeleteIntegration
 }) => {
     const router = useRouter();
     const [lmsData, setLmsData] = useState([]);
@@ -63,7 +70,8 @@ const Integration = ({
         CANVAS: integrationData && integrationData[1]?.lmsconfigured,
         BLACKBOARD: integrationData && integrationData[2]?.lmsconfigured,
     });
-
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [selectedIntegrationType, setSelectedIntegrationType] = useState('');
 
     useEffect(() => {
         GetIntegrationList(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_DATA);
@@ -129,6 +137,25 @@ const Integration = ({
         setShowBlackboard(drawerClose);
     };
 
+    const handleDeleteIntegration = (integrationType) => {
+        setShowDeleteWarning(true);
+        setSelectedIntegrationType(integrationType);
+    };
+
+    const handleDeleteYesWarning = () => {
+        if (selectedIntegrationType === INTEGRATION_TYPES.CANVAS) {
+            DeleteIntegration(BASE_URL_EXTREM + END_POINTS.INTEGRATION_DELETE_CANVAS);
+            setShowDeleteWarning(false);
+        } else if (selectedIntegrationType === INTEGRATION_TYPES.BLACKBOARD) {
+            DeleteIntegration(BASE_URL_EXTREM + END_POINTS.INTEGRATION_DELETE_BLACKBOARD);
+            setShowDeleteWarning(false);
+        }
+    };
+
+    const handleDeleteCloseWarning = () => {
+        setShowDeleteWarning(false);
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -155,6 +182,7 @@ const Integration = ({
                                 <CardInfoView
                                     item={item}
                                     handleConfig={handleConfig}
+                                    handleDeleteIntegrations={handleDeleteIntegration}
                                     checked={checked}
                                     isTimer={false}
                                     isKnowMore={true}
@@ -195,6 +223,17 @@ const Integration = ({
                     <BlackboardForm />
                 </CreateDrawer>
             }
+
+            {
+                showDeleteWarning &&
+                <WarningDialog
+                    message={WARNING_MESSAGES.DELETE}
+                    handleYes={handleDeleteYesWarning}
+                    warningIcon={<DeleteWarningIcon />}
+                    handleNo={handleDeleteCloseWarning}
+                    isOpen={true}
+                />
+            }
             {showGoogleClassroom && <a href={googleConfigData}>Google</a>}
         </React.Fragment>
     );
@@ -210,6 +249,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetIntegrationList: (apiUrl) => dispatch(GetIntegrationList(apiUrl)),
         GetGoogleLms: () => dispatch(GetGoogleLms()),
+        DeleteIntegration: (apiUrl) => dispatch(DeleteIntegration(apiUrl))
     };
 };
 
