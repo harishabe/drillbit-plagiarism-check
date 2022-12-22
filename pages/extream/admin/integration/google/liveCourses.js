@@ -6,6 +6,7 @@ import {
     GetGoogleImportCourses,
     GetGoogleCourseHome,
 } from './../../../../../redux/action/admin/AdminAction';
+import ClassList from './classList'
 
 const LiveCourses = ({
     GetGoogleLiveCourses,
@@ -19,10 +20,9 @@ const LiveCourses = ({
     }, []);
 
     return(
-        <>Live Courses - google class room</>
+        <ClassList />
     )
 }
-
 
 const mapDispatchToProps = (dispatch) => {
     return {
