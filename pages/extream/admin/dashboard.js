@@ -194,6 +194,7 @@ const Dashboard = ({
                                 <>
                                     <Skeleton />
                                 </> :
+                                adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
                                 <LineChart
                                     chartType="line"
                                     graphName="File Submission"
@@ -209,7 +210,7 @@ const Dashboard = ({
                                     xaxisLabelShow={true}
                                     yaxisLabelShow={true}
                                     chartHeight={350}
-                                />
+                                    /> : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
                             }
                         </CardView>
                     </Grid>
@@ -227,7 +228,7 @@ const Dashboard = ({
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
-                        <CardView height="443px">
+                        <CardView height={ adminDashboardData?.topStudent?.students?.length > 0 && "443px" }>
                             <Heading title='Top Students' />
                             {isLoadingTopStudent ?
                                 <>
@@ -362,7 +363,7 @@ const Dashboard = ({
                             <CardView>
                                 <Heading title='Types of documents' />
                                 { isLoadingDashboard ? <Skeleton /> :
-                                    documentTypeData ?
+                                    documentTypeData && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
                                         <PieChart
                                             type="pie"
                                             height={ 325 }
