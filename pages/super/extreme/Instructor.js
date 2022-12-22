@@ -34,7 +34,7 @@ import InstructorForm from '../../extream/admin/form/InstructorForm';
 import InstructorStats from '../../extream/admin/instructor/InstructorStats';
 import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
-import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
+import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
 import { WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../constant/data/Constant';
 import { PaginationContainer, PlagiarismGrammarContainer } from '../../../style/index';
@@ -52,8 +52,8 @@ const columns = [
     { id: 'action', label: 'Actions', maxWidth: 100 }
 ];
 
-function createData(name, username, expiry_date, status, stats, plagairism, grammar, action, created_date, department, designation, phone_number, plagiarismUsed, plagiarismremaining, grammarUsed, grammarremaining, user_id, role) {
-    return { name, username, expiry_date, status, stats, plagairism, grammar, action, created_date, department, designation, phone_number, plagiarismUsed, plagiarismremaining, grammarUsed, grammarremaining, user_id, role };
+function createData(name, username, expiry_date, status, stats, plagairism, grammar, action, created_date, department, designation, phone_number, user_id, role) {
+    return { name, username, expiry_date, status, stats, plagairism, grammar, action, created_date, department, designation, phone_number, user_id, role };
 };
 
 const AddButtonBottom = styled.div`
@@ -112,8 +112,10 @@ const Instructor = ({
     const [editInstructorData, setEditInstructorData] = useState('');
 
     useEffect(() => {
-        GetExtremeInstructorList(`/extreme/license/${router?.query?.licenseId}/instructors`, paginationPayload);
-    }, [, paginationPayload]);
+        if (router.isReady) {
+            GetExtremeInstructorList(`/extreme/license/${router?.query?.licenseId}/instructors`, paginationPayload);
+        }
+    }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -206,7 +208,7 @@ const Instructor = ({
     };
 
     const handleYesWarning = () => {
-        DeleteData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_DELETE + deleteRowData, paginationPayload);
+        DeleteData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructors?id=${deleteRowData}`, paginationPayload);
         setShowDeleteAllIcon(false);
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -214,7 +216,7 @@ const Instructor = ({
     };
 
     const handleStatusWarning = () => {
-        DeactivateData(BASE_URL_EXTREM + END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + statusRowData.id + '/' + statusRowData.status, paginationPayload);
+        DeactivateData(BASE_URL_SUPER + END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + statusRowData.id + '/' + statusRowData.status, paginationPayload);
         setTimeout(() => {
             setStatusWarning(false);
         }, [100]);
@@ -365,7 +367,10 @@ const Instructor = ({
                     maxWidth="lg"
                     handleClose={ handleCloseDialog }
                 >
-                    <InstructorStats instructorId={ instructorId } />
+                        <InstructorStats
+                            lid={ router?.query?.licenseId }
+                            instructorId={ instructorId }
+                        />
                 </DialogModal>
             }
 

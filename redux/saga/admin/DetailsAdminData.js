@@ -307,13 +307,32 @@ export function* onLoadDelete(action) {
             type: types.FETCH_ADMIN_DELETE_ROW_SUCCESS,
             payload: response?.data,
         });
-        yield put({
-            type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
-            url: action.url.split('/')[3] === 'extreme' ?
-                BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
-                BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
-            paginationPayload: action.paginationPayload
-        });
+        if (action.url.split('/')[3] === 'extreme') {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR,
+                paginationPayload: action.paginationPayload
+            });
+        } else if (action.url.split('/')[3] === 'pro') {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
+                paginationPayload: action.paginationPayload
+            });
+        } else if (action.url.split('/')[3] === 'authentication') {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
+                url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${action.url.split('/')[6]}/instructors`,
+                paginationPayload: action.paginationPayload
+            });
+        }
+        // yield put({
+        //     type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+        //     url: action.url.split('/')[3] === 'extreme' ?
+        //         BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
+        //         BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
+        //     paginationPayload: action.paginationPayload
+        // });
         toastrValidation(response);
     } else {
         yield put({
@@ -334,13 +353,20 @@ export function* DeleteData() {
  */
 
 export function* onLoadDeleteStudent(action) {
-    const { response, error } = yield call(DeleteStudent, action.id);
+    const { response, error } = yield call(DeleteStudent, action.url);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_DELETE_STUDENT_ROW_SUCCESS,
             payload: response?.data,
         });
-        yield put({ type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: action.paginationPayload });
+        if (action.url.split('/')[3] === 'extreme') {
+            yield put({ type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: PaginationValue });
+        } else {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START,
+                url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${action.url.split('/')[6]}/students`, paginationPayload: PaginationValue
+            });
+        }
         toastrValidation(response);
     } else {
         yield put({

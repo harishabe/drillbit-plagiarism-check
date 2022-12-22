@@ -187,6 +187,9 @@ const InstructorForm = ({
 
     useEffect(() => {
         if (editData) {
+            let superAdminPlagiarism = editData?.plagairism[0]?.props?.children?.props?.children?.[0]?.props?.children?.props?.children
+            let superAdminGrammar = editData?.grammar[0]?.props?.children?.props?.children?.[0]?.props?.children?.props?.children
+
             let a = {
                 'name': editData.name,
                 'email': editData.username,
@@ -194,8 +197,8 @@ const InstructorForm = ({
                 'designation': editData?.designation === null ? '' : editData?.designation,
                 'phone_number': editData.phone_number,
                 'expiry_date': convertDate(editData.expiry_date),
-                'plagiarism': editData.plagairism,
-                'grammar': editData.grammar
+                'plagiarism': router?.pathname.split('/')[1] === 'super' ? superAdminPlagiarism : editData.plagairism,
+                'grammar': router?.pathname.split('/')[1] === 'super' ? superAdminGrammar : editData.grammar
             };
             const fields = [
                 'name',

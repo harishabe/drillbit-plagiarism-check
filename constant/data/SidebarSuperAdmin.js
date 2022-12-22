@@ -3,6 +3,12 @@ import {
   ClassIcon,
   DashboardWhiteIcon,
   ClassWhiteIcon,
+  ReportIcon,
+  ReportWhiteIcon,
+  IntegrationIcon,
+  IntegrationWhiteIcon,
+  RepositoryIcon,
+  RepositoryWhiteIcon
 } from '../../assets/icon';
 
 const SidebarSuperAdmin = [
@@ -21,22 +27,22 @@ const SidebarSuperAdmin = [
     layout: '/super',
   },
   {
-    icon: <ClassIcon />,
-    activeIcon: <ClassWhiteIcon />,
+    icon: <RepositoryIcon />,
+    activeIcon: <RepositoryWhiteIcon />,
     name: 'Extreme',
     path: '/extremproduct',
     layout: '/super',
   },
   {
-    icon: <ClassIcon />,
-    activeIcon: <ClassWhiteIcon />,
+    icon: <ReportIcon />,
+    activeIcon: <ReportWhiteIcon />,
     name: 'Reports',
     path: '/reports',
     layout: '/super',
   },
   {
-    icon: <ClassIcon />,
-    activeIcon: <ClassWhiteIcon />,
+    icon: <IntegrationIcon />,
+    activeIcon: <IntegrationWhiteIcon />,
     name: 'Settings',
     path: '/settings',
     layout: '/super',
