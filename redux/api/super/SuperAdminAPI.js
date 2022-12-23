@@ -67,3 +67,11 @@ export const ExtremeStudentListData = async (apiUrl, paginationPayload) => {
 export const SuperEditStudentData = async (url, data) => {
     return PutMethod(url, data);
 };
+
+/**
+ * API CALL MAKE HIM ADMIN
+ */
+export const MakeHimAdminData = async (apiUrl, paginationPayload) => {
+    const url = apiUrl + PaginationUrl(paginationPayload);
+    return PutMethod(url);
+};

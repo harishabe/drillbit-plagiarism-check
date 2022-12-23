@@ -114,7 +114,8 @@ import {
     SuperDropdownList,
     ExtremeInsListDetail,
     ExtremeStuListDetail,
-    EditStudentData
+    EditStudentData,
+    MakeHimAdminDetail
 } from './super/DetailsSuperAdminData';
 
 const saga = [
@@ -219,6 +220,7 @@ const saga = [
     fork(ExtremeInsListDetail),
     fork(ExtremeStuListDetail),
     fork(EditStudentData),
+    fork(MakeHimAdminDetail),
     fork(GetExtremeRef),
     fork(GrammarReportSubmission)
 ];

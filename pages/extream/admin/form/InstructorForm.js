@@ -152,7 +152,7 @@ const InstructorForm = ({
             let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
 
             if (router?.pathname.split('/')[1] === 'super') {
-                EditData(BASE_URL_SUPER + `/extreme/license/${router?.query?.licenseId}/instructors/${editData?.user_id}`, requestData, 'super');
+                EditData(BASE_URL_SUPER + `/extreme/license/${router?.query?.licenseId}/instructors/${editData?.user_id}`, requestData, 'superInstructor');
             } else {
                 EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, requestData, 'instructor');
             }

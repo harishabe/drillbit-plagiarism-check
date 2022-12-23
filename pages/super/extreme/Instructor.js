@@ -7,6 +7,7 @@ import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch, Skeleton, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { TextField, Pagination } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
 import SuperAdmin from './../../../layouts/SuperAdmin';
 import {
     CommonTable,
@@ -28,6 +29,9 @@ import {
     DeactivateData,
     UploadFileDataClear
 } from '../../../redux/action/admin/AdminAction';
+import {
+    MakeHimAdmin
+} from '../../../redux/action/super/SuperAdminAction';
 import { GetExtremeInstructorList } from '../../../redux/action/super/SuperAdminAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import InstructorForm from '../../extream/admin/form/InstructorForm';
@@ -87,6 +91,7 @@ const Instructor = ({
     pageDetailsInstructor,
     GetExtremeInstructorList,
     UploadFileDataClear,
+    MakeHimAdmin,
     extInsList,
     DeleteData,
     DeactivateData,
@@ -110,6 +115,7 @@ const Instructor = ({
     });
     const [editInstructor, setEditInstructor] = useState(false);
     const [editInstructorData, setEditInstructorData] = useState('');
+    const [makeAdminDialogModal, setMakeAdminDialogModal] = useState(false);
 
     useEffect(() => {
         if (router.isReady) {
@@ -175,6 +181,7 @@ const Instructor = ({
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                            { 'component': <PersonIcon />, 'type': 'admin', 'title': 'Make him admin' },
                         {
                             'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
                             'type': instructor.status === 'active' ? 'lock' : 'unlock',
@@ -207,6 +214,10 @@ const Instructor = ({
         setStatusWarning(false);
     };
 
+    const handleMakeAdminCloseWarning = () => {
+        setMakeAdminDialogModal(false);
+    };
+
     const handleYesWarning = () => {
         DeleteData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructors?id=${deleteRowData}`, paginationPayload);
         setShowDeleteAllIcon(false);
@@ -220,6 +231,13 @@ const Instructor = ({
         setTimeout(() => {
             setStatusWarning(false);
         }, [100]);
+    };
+
+    const handleMakeAdminWarning = () => {
+        setTimeout(() => {
+            setMakeAdminDialogModal(false)
+        }, [100]);
+        MakeHimAdmin(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/admin/${instructorId}`, paginationPayload)
     };
 
     const handleAction = (event, icon, rowData) => {
@@ -248,6 +266,9 @@ const Instructor = ({
         } else if (icon === 'stats') {
             setInstructorId(rowData?.user_id);
             setShowDialogModal(true);
+        } else if (icon === 'admin') {
+            setInstructorId(rowData?.user_id);
+            setMakeAdminDialogModal(true);
         }
     };
 
@@ -398,6 +419,17 @@ const Instructor = ({
                 </CreateDrawer>
             }
 
+            {
+                makeAdminDialogModal &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message={ 'Are you sure, you want to make him admin?' }
+                    handleYes={ handleMakeAdminWarning }
+                    handleNo={ handleMakeAdminCloseWarning }
+                    isOpen={ true }
+                />
+            }
+
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item container direction='row' justifyContent={ 'right' }>
@@ -485,7 +517,8 @@ const mapDispatchToProps = (dispatch) => {
         GetExtremeInstructorList: (url, paginationPayload) => dispatch(GetExtremeInstructorList(url, paginationPayload)),
         DeactivateData: (url, paginationPayload) => dispatch(DeactivateData(url, paginationPayload)),
         DeleteData: (url, paginationPayload) => dispatch(DeleteData(url, paginationPayload)),
-        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        MakeHimAdmin: (url, paginationPayload) => dispatch(MakeHimAdmin(url, paginationPayload)),
+        // UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };
 

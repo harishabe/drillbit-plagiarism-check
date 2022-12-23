@@ -274,10 +274,16 @@ export function* onLoadEdit(action) {
                 url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
                 paginationPayload: PaginationValue
             });
-        } else if (action.API_END_POINT === 'super') {
+        } else if (action.API_END_POINT === 'superInstructor') {
             yield put({
                 type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
-                url: `/extreme/license/${action.url.split('/')[6]}/instructors`,
+                url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${action.url.split('/')[6]}/instructors`,
+                paginationPayload: PaginationValue
+            });
+        } else if (action.API_END_POINT === 'superUser') {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${action.url.split('/')[6]}/users`,
                 paginationPayload: PaginationValue
             });
         }
@@ -319,10 +325,16 @@ export function* onLoadDelete(action) {
                 url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
                 paginationPayload: action.paginationPayload
             });
-        } else if (action.url.split('/')[3] === 'authentication') {
+        } else if (action.url.split('/')[4] === 'extreme') {
             yield put({
                 type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
                 url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${action.url.split('/')[6]}/instructors`,
+                paginationPayload: action.paginationPayload
+            });
+        } else if (action.url.split('/')[4] === 'pro') {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${action.url.split('/')[6]}/users`,
                 paginationPayload: action.paginationPayload
             });
         }
