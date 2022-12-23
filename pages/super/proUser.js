@@ -42,21 +42,23 @@ import UserStats from '../pro/admin/users/UserStats';
 import { removeCommaWordEnd, formatDate } from '../../utils/RegExp';
 import END_POINTS_PRO from '../../utils/EndPointPro';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer, PlagiarismGrammarContainer } from '../../style/index';
 import { Role } from '../../constant/data';
 import { WARNING_MESSAGES } from '../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Name' },
     { id: 'username', label: 'Email' },
-    { id: 'created_date', label: 'Creation Date' },
+    { id: 'expiry_date', label: 'End Date' },
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
-    { id: 'action', label: 'Actions' }
+    { id: 'plagairism', label: 'Plagiarism' },
+    { id: 'grammar', label: 'Grammar' },
+    { id: 'action', label: 'Actions', maxWidth: 100 }
 ];
 
-function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number) {
-    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number };
+function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, plagairism, grammar, action, expiry_date, department, designation, phone_number) {
+    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, plagairism, grammar, action, expiry_date, department, designation, phone_number };
 };
 
 const AddButtonBottom = styled.div`
@@ -115,11 +117,53 @@ const ProUser = ({
                     user.role,
                     user.name,
                     user.username,
-                    formatDate(user.creation_date),
+                    formatDate(user.expiry_date),
                     user.plagairism,
                     user.grammar,
                     <StatusDot color={ (user.status === 'active') || (user.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ user.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
+                    [
+                        <>
+                            <div style={ { display: 'flex', width: '100%' } }>
+                                <Tooltip title='Plagiarism allocation' arrow>
+                                    <PlagiarismGrammarContainer color='#e6e6fa'>
+                                        { user.plagairism }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                                <Tooltip title='Plagiarism uploaded' arrow>
+                                    <PlagiarismGrammarContainer color='#ffe'>
+                                        { user.plagiarismUsed }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                                <Tooltip title='Plagiarism remaining' arrow>
+                                    <PlagiarismGrammarContainer color='#DAF7A6'>
+                                        { user.plagairism - user.plagiarismUsed }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                            </div>
+                        </>
+                    ],
+                    [
+                        <>
+                            <div style={ { display: 'flex', width: '100%' } }>
+                                <Tooltip title='Grammar allocation' arrow>
+                                    <PlagiarismGrammarContainer color='#e6e6fa'>
+                                        { user.grammar }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                                <Tooltip title='Grammar uploaded' arrow>
+                                    <PlagiarismGrammarContainer color='#ffe'>
+                                        { user?.grammarUsed }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                                <Tooltip title='Grammar remaining' arrow>
+                                    <PlagiarismGrammarContainer color='#DAF7A6'>
+                                        { user.grammar - user?.grammarUsed }
+                                    </PlagiarismGrammarContainer>
+                                </Tooltip>
+                            </div>
+                        </>
+                    ],
                     user.role === Role.proAdmin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
@@ -461,7 +505,7 @@ const ProUser = ({
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
                     isLoading={ isLoading }
-                    charLength={ 15 }
+                    charLength={ 7 }
                     path=''
                 />
 

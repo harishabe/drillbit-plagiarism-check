@@ -9,6 +9,7 @@ import { Grid, Tooltip, TextField, Pagination, IconButton } from '@mui/material'
 import {
     CommonTable,
     MainHeading,
+    StatusDot,
     WarningDialog,
     DialogModal,
     CreateDrawer,
@@ -38,7 +39,7 @@ const SearchField = styled.div`
 const columns = [
     { id: 'name', label: 'Name' },
     { id: 'username', label: 'Email' },
-    { id: 'end_date', label: 'End date' },
+    { id: 'expiry_date', label: 'End date' },
     { id: 'status', label: 'Status' },
     // { id: 'user_id', label: 'ID' },
     // { id: 'department', label: 'Department' },
@@ -47,8 +48,8 @@ const columns = [
     { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, name, user_id, username, department, section, end_date, status, stats, action) {
-    return { id, name, user_id, username, department, section, end_date, status, stats, action };
+function createData(id, name, user_id, username, department, section, expiry_date, status, stats, action) {
+    return { id, name, user_id, username, department, section, expiry_date, status, stats, action };
 }
 
 const Students = ({
@@ -93,8 +94,8 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
-                    student.end_date,
-                    student.status,
+                    student.expiry_date,
+                    <StatusDot color={ (student.status === 'active') || (student.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ student.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                     { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
