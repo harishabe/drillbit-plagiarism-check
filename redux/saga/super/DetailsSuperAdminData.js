@@ -237,7 +237,6 @@ export function* EditStudentData() {
  */
 
 export function* onLoadMakeHimAdmin(action) {
-    console.log('action', action)
     const { response, error } = yield call(MakeHimAdminData, action.url, action.paginationPayload);
     if (response) {
         yield put({

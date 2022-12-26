@@ -528,6 +528,7 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.user?.page,
     userData: state?.detailsData?.instructorData?.user?._embedded?.usersDTOList,
     isLoading: state?.detailsData?.isLoading,
+    isLoading: state?.superAdmin?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
