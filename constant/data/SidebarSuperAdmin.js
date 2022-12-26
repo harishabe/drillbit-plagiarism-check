@@ -27,8 +27,8 @@ const SidebarSuperAdmin = [
     layout: '/super',
   },
   {
-    icon: <RepositoryIcon />,
-    activeIcon: <RepositoryWhiteIcon />,
+    icon: <ClassIcon />,
+    activeIcon: <ClassWhiteIcon />,
     name: 'Extreme',
     path: '/extremproduct',
     layout: '/super',
@@ -38,6 +38,13 @@ const SidebarSuperAdmin = [
     activeIcon: <ReportWhiteIcon />,
     name: 'Reports',
     path: '/reports',
+    layout: '/super',
+  },
+  {
+    icon: <RepositoryIcon />,
+    activeIcon: <RepositoryWhiteIcon />,
+    name: 'Repository',
+    path: '/repository',
     layout: '/super',
   },
   {

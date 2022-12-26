@@ -180,6 +180,15 @@ export const GetRepoList = (url, paginationPayload) => {
 };
 
 /**
+ * Clear repo data
+ */
+export const ClearRepoData = () => {
+    return {
+        type: types.FETCH_ADMIN_REPOSITARY_DETAILS_CLEAR
+    };
+};
+
+/**
  * Repositary > uploadfile
  */
 export const RepoUpload = (url, data) => {

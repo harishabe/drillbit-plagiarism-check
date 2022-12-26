@@ -40,8 +40,8 @@ export const EditExtremeRefAccount = async (apiUrl, data) => {
 /**
  * API CALL FOR DROPPDOWN LIST EXTREME AND REF ACCOUNT
  */
-export const DropdownListData = async () => {
-    const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST;
+export const DropdownListData = async (url) => {
+    // const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST;
     return GetMethod(url);
 };
 
