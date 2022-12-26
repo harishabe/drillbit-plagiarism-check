@@ -8,11 +8,13 @@ import {
     DropdownListData,
     ExtremeInstructorListData,
     ExtremeStudentListData,
-    SuperEditStudentData
+    SuperEditStudentData,
+    RemoveRepositaryData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { SuperAdminPaginationValue } from '../../../utils/PaginationUrl';
+import { SuperAdminPaginationValue, FolderSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
 
 /**
  * Get Super admin dashboard widget count details
@@ -211,7 +213,7 @@ export function* onLoadEditStudent(action) {
         });
         yield put({
             type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START,
-            url: `/extreme/license/${action.url.split('/')[6]}/students`,
+            url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${action.url.split('/')[6]}/students`,
             paginationPayload: SuperAdminPaginationValue,
         });
         toastrValidation(response)
@@ -226,4 +228,34 @@ export function* onLoadEditStudent(action) {
 
 export function* EditStudentData() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_START, onLoadEditStudent);
+}
+
+/**
+ * Remove Repository
+ * @param {*} action
+ */
+
+export function* onLoadRemoveRepository(action) {
+    const { response, error } = yield call(RemoveRepositaryData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_SUCCESS, payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
+            url: BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `${action.url.split('/')[6]}/repository`,
+            paginationPayload: FolderSubmissionsPaginationValue,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* RemoveRepositoryData() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_START, onLoadRemoveRepository);
 }

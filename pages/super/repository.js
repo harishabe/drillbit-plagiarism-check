@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { TextField, Autocomplete } from '@mui/material';
 import { Pagination } from '@mui/material';
-import { useRouter } from 'next/router';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import {
     BreadCrumb,
@@ -16,8 +14,8 @@ import {
 } from './../../components';
 import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
 import SuperAdmin from './../../layouts/SuperAdmin';
-import { GetRepoList, RemoveRepositary, ClearRepoData } from '../../redux/action/admin/AdminAction';
-import { DropdownList } from '../../redux/action/super/SuperAdminAction';
+import { GetRepoList, ClearRepoData } from '../../redux/action/admin/AdminAction';
+import { DropdownList, RemoveRepository } from '../../redux/action/super/SuperAdminAction';
 import END_POINTS from '../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { formatDate } from '../../utils/RegExp';
@@ -58,16 +56,16 @@ const Repository = ({
     DropdownList,
     ClearRepoData,
     dpList,
-    RemoveRepositary,
+    RemoveRepository,
     repoData,
     pageDetails,
     isLoadingRepo,
 }) => {
-    const router = useRouter();
+    const [rows, setRows] = useState([]);
     const [list, setList] = useState();
     const [value, setValue] = useState();
     const [inputValue, setInputValue] = useState('');
-    const [rows, setRows] = useState([]);
+    const [licenseId, setLicenseId] = useState('');
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
@@ -77,7 +75,7 @@ const Repository = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    if (inputValue === '' && repoData !== '') {
+    if (dpList && inputValue === '') {
         ClearRepoData()
     }
 
@@ -97,9 +95,15 @@ const Repository = ({
         dpList && list?.map((item) => {
             if (inputValue === item?.name) {
                 GetRepoList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `${item?.id}/repository`, paginationPayload);
+                setLicenseId(item?.id)
             }
+            // else if (inputValue === '' && paginationPayload?.search) {
+            //     GetRepoList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `/repository`, paginationPayload);
+            // }
         })
     }, [dpList, inputValue]);
+
+    // console.log('first', paginationPayload?.search)
 
     useEffect(() => {
         let row = '';
@@ -134,7 +138,7 @@ const Repository = ({
     };
 
     const handleYesWarning = () => {
-        RemoveRepositary(BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_REMOVE + deleteRowData);
+        RemoveRepository(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REMOVE_REPOSITORY + `${licenseId}/removeRepository/${deleteRowData}`);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -147,25 +151,25 @@ const Repository = ({
 
     /** search implementation using debounce concepts */
 
-    // const handleSearch = (event) => {
-    //     if (event.target.value !== '') {
-    //         paginationPayload['search'] = event.target.value;
-    //         setPaginationPayload({ ...paginationPayload, paginationPayload });
-    //     } else {
-    //         delete paginationPayload['search'];
-    //         setPaginationPayload({ ...paginationPayload, paginationPayload });
-    //     }
-    // };
+    const handleSearch = (event) => {
+        if (event.target.value !== '') {
+            paginationPayload['search'] = event.target.value;
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        } else {
+            delete paginationPayload['search'];
+            setPaginationPayload({ ...paginationPayload, paginationPayload });
+        }
+    };
 
-    // const debouncedResults = useMemo(() => {
-    //     return debouce(handleSearch, 300);
-    // }, []);
+    const debouncedResults = useMemo(() => {
+        return debouce(handleSearch, 300);
+    }, []);
 
-    // useEffect(() => {
-    //     return () => {
-    //         debouncedResults.cancel();
-    //     };
-    // });
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
 
     /** end debounce concepts */
 
@@ -190,14 +194,15 @@ const Repository = ({
                 </Grid>
             </Box>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 8 } xs={ 5 }>
+                <Grid item md={ 6 } xs={ 5 }>
                     <MainHeading
                         title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
-                <Grid item md={ 4 } xs={ 12 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 6 } xs={ 12 } style={ { display: 'inline-flex' } }>
                     <Autocomplete
                         size='small'
+                        sx={ { width: '400px', mr: 1 } }
                         value={ value }
                         onChange={ (event, newValue) => {
                             setValue(newValue);
@@ -210,6 +215,15 @@ const Repository = ({
                             return item?.name
                         }) }
                         renderInput={ (params) => <TextField { ...params } label="Institution list" /> }
+                    />
+                    <TextField
+                        placeholder='Search'
+                        onChange={ debouncedResults }
+                        inputProps={ {
+                            style: {
+                                padding: 8,
+                            }
+                        } }
                     />
                 </Grid>
             </Grid>
@@ -261,7 +275,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetRepoList: (url, PaginationValue) => dispatch(GetRepoList(url, PaginationValue)),
-        RemoveRepositary: (url) => dispatch(RemoveRepositary(url)),
+        RemoveRepository: (url) => dispatch(RemoveRepository(url)),
         DropdownList: (url) => dispatch(DropdownList(url)),
         ClearRepoData: () => dispatch(ClearRepoData()),
     };

@@ -1,6 +1,6 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
-import { PostMethod, GetMethod, PutMethod } from '../ApiMethod';
+import { PostMethod, GetMethod, PutMethod, DeleteMethod } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -66,4 +66,12 @@ export const ExtremeStudentListData = async (apiUrl, paginationPayload) => {
  */
 export const SuperEditStudentData = async (url, data) => {
     return PutMethod(url, data);
+};
+
+/**
+ * API CALL FOR REMOVE REPOSITARY
+ */
+
+export const RemoveRepositaryData = async (url) => {
+    return DeleteMethod(url);
 };
