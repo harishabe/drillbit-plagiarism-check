@@ -75,12 +75,12 @@ const Repository = ({
         orderBy: PaginationValue?.orderBy,
     });
 
-    if (dpList && inputValue === '') {
-        ClearRepoData()
-    }
-
     useEffect(() => {
         DropdownList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY_INSTITUTE)
+        ClearRepoData()
+        if (inputValue === '' && paginationPayload?.search) {
+            GetRepoList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `/repository`, paginationPayload);
+        }
     }, [, paginationPayload]);
 
     useEffect(() => {
@@ -97,13 +97,8 @@ const Repository = ({
                 GetRepoList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `${item?.id}/repository`, paginationPayload);
                 setLicenseId(item?.id)
             }
-            // else if (inputValue === '' && paginationPayload?.search) {
-            //     GetRepoList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `/repository`, paginationPayload);
-            // }
         })
-    }, [dpList, inputValue]);
-
-    // console.log('first', paginationPayload?.search)
+    }, [dpList, inputValue, paginationPayload]);
 
     useEffect(() => {
         let row = '';
