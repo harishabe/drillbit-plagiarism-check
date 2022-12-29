@@ -81,6 +81,8 @@ const END_POINTS = {
     SUPER_ADMIN_INSTRUCTOR: '/extreme/license/',
     SUPER_ADMIN_REPOSITORY_INSTITUTE: '/drillbit/institutes',
     SUPER_ADMIN_REPOSITORY: '/drillbit/license/',
+    SUPER_ADMIN_REPOSITORY_SEARCH: '/drillbit/repository?id=',
+    SUPER_ADMIN_REPORT_SEARCH: '/drillbit/userInfo?email=',
     SUPER_ADMIN_REMOVE_REPOSITORY: '/pro/license/',
     GRAMMAR_REPORT:'/files/grammar/download/',
     SUBMISSION_INPUTS: '/files/submissionInputs',

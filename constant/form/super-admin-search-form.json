@@ -1,0 +1,16 @@
+[
+    {
+        "field_type": "input",
+        "type": "email",
+        "id": "email",
+        "name": "email",
+        "label": "Email address *",
+        "required": "Enter email address",
+        "validationMsg": "Invalid email address"
+    },
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Submit"
+    }
+]

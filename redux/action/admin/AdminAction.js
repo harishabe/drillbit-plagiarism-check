@@ -108,6 +108,15 @@ export const ReportsData = (url) => {
 };
 
 /**
+ * Clear report data
+ */
+export const ClearReportData = () => {
+    return {
+        type: types.FETCH_ADMIN_REPORTS_DATA_CLEAR
+    };
+};
+
+/**
  * instructor and student csv file download
  */
 export const DownloadInstructorStudentData = (url, userType) => {

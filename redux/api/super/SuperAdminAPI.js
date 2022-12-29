@@ -75,3 +75,11 @@ export const SuperEditStudentData = async (url, data) => {
 export const RemoveRepositaryData = async (url) => {
     return DeleteMethod(url);
 };
+
+/**
+ * API CALL FOR GLOBAL SEARCH SUPER ADMIN
+ */
+
+export const GlobalSearchData = async (url) => {
+    return GetMethod(url);
+};

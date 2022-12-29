@@ -19,6 +19,12 @@ const ReportsReducer = (state = {}, action) => {
                 isLoading: false,
                 reportDataError: action.payload,
             };
+        case types.FETCH_ADMIN_REPORTS_DATA_CLEAR:
+            return {
+                ...state,
+                isLoading: false,
+                reportData: '',
+            };
         case types.FETCH_ADMIN_INSTRUCTOR_STUDENT_DOWNLOAD_START:
             return {
                 ...state,

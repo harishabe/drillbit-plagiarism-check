@@ -80,3 +80,21 @@ export const RemoveRepository = (url) => {
         type: types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_START, url: url
     };
 };
+
+/**
+ * Global search super admin
+ */
+export const GlobalSearch = (url) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_START, url: url
+    };
+};
+
+/**
+ * Global search super admin
+ */
+export const GlobalSearchClear = () => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_CLEAR
+    };
+};

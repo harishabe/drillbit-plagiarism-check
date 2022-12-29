@@ -15,7 +15,7 @@ import {
 import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import { GetRepoList, ClearRepoData } from '../../redux/action/admin/AdminAction';
-import { DropdownList, RemoveRepository } from '../../redux/action/super/SuperAdminAction';
+import { DropdownList, RemoveRepository, GlobalSearch, GlobalSearchClear } from '../../redux/action/super/SuperAdminAction';
 import END_POINTS from '../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { formatDate } from '../../utils/RegExp';
@@ -53,13 +53,17 @@ function createData(paper_id, name, mail_id, title, repository_type, lang1, date
 
 const Repository = ({
     GetRepoList,
+    GlobalSearch,
+    GlobalSearchClear,
     DropdownList,
     ClearRepoData,
     dpList,
+    globalData,
     RemoveRepository,
     repoData,
     pageDetails,
     isLoadingRepo,
+    isLoadingList
 }) => {
     const [rows, setRows] = useState([]);
     const [list, setList] = useState();
@@ -68,6 +72,7 @@ const Repository = ({
     const [licenseId, setLicenseId] = useState('');
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [globalSearch, setGlobalSearch] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -75,18 +80,23 @@ const Repository = ({
         orderBy: PaginationValue?.orderBy,
     });
 
+    if (inputValue === '' && repoData !== '') {
+        ClearRepoData()
+    }
+
     useEffect(() => {
         DropdownList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY_INSTITUTE)
-        ClearRepoData()
+        GlobalSearchClear()
         if (inputValue === '' && paginationPayload?.search) {
-            GetRepoList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `/repository`, paginationPayload);
+            GlobalSearch(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY_SEARCH + paginationPayload?.search);
+            setGlobalSearch(true)
         }
     }, [, paginationPayload]);
 
     useEffect(() => {
         let InstitutionList = [];
-        dpList && Object.entries(dpList)?.map(([key, val] = entry) => {
-            InstitutionList.push({ 'id': key, 'name': val });
+        dpList && dpList?.map((item) => {
+            InstitutionList.push({ 'id': item?.lid, 'name': item?.college_name });
         });
         setList(InstitutionList);
     }, [dpList]);
@@ -121,6 +131,26 @@ const Repository = ({
         setRows([...arr]);
     }, [repoData]);
 
+    useEffect(() => {
+        let arr = [];
+        globalData &&
+            arr.push(
+                createData(
+                    globalData?.paper_id,
+                    globalData?.name,
+                    globalData?.mail_id,
+                    globalData?.title,
+                    globalData?.repository_type,
+                    globalData?.language,
+                    globalData?.date_up && (formatDate(globalData?.date_up)),
+                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }],
+                )
+            ),
+            globalData?.lid && setLicenseId(globalData?.lid)
+        // setLicenseId(1)
+        setRows([...arr]);
+    }, [globalData]);
+
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
             setDeleteRowData(rowData?.paper_id);
@@ -133,9 +163,14 @@ const Repository = ({
     };
 
     const handleYesWarning = () => {
-        RemoveRepository(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REMOVE_REPOSITORY + `${licenseId}/removeRepository/${deleteRowData}`);
+        if (globalSearch) {
+            console.log('global search delete')
+        } else {
+            RemoveRepository(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REMOVE_REPOSITORY + `${licenseId}/removeRepository/${deleteRowData}`);
+        }
         setTimeout(() => {
             setShowDeleteWarning(false);
+            setGlobalSearch(false)
         }, [100]);
     };
 
@@ -243,7 +278,7 @@ const Repository = ({
                     handleAction={ handleAction }
                     handleTableSort={ handleTableSort }
                     charLength={ 10 }
-                    isLoading={ isLoadingRepo }
+                    isLoading={ isLoadingRepo || isLoadingList }
                 />
 
                 <PaginationContainer>
@@ -264,12 +299,16 @@ const mapStateToProps = (state) => ({
     repoData: state?.detailsData?.repoData?._embedded?.repositoryListList,
     pageDetails: state?.detailsData?.repoData?.page,
     isLoadingRepo: state?.detailsData?.isLoadingRepo,
-    dpList: state?.superAdmin?.ListSuccess?.institutes,
+    isLoadingList: state?.superAdmin?.isLoadingList,
+    dpList: state?.superAdmin?.ListSuccess,
+    globalData: state?.superAdmin?.globalData,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetRepoList: (url, PaginationValue) => dispatch(GetRepoList(url, PaginationValue)),
+        GlobalSearch: (url) => dispatch(GlobalSearch(url)),
+        GlobalSearchClear: () => dispatch(GlobalSearchClear()),
         RemoveRepository: (url) => dispatch(RemoveRepository(url)),
         DropdownList: (url) => dispatch(DropdownList(url)),
         ClearRepoData: () => dispatch(ClearRepoData()),

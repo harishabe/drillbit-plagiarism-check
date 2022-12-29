@@ -9,7 +9,8 @@ import {
     ExtremeInstructorListData,
     ExtremeStudentListData,
     SuperEditStudentData,
-    RemoveRepositaryData
+    RemoveRepositaryData,
+    GlobalSearchData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { SuperAdminPaginationValue, FolderSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
@@ -258,4 +259,29 @@ export function* onLoadRemoveRepository(action) {
 
 export function* RemoveRepositoryData() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_START, onLoadRemoveRepository);
+}
+
+/**
+ * Global search super admin
+ * @param {*} action
+ */
+
+export function* onLoadGlobalSearch(action) {
+    const { response, error } = yield call(GlobalSearchData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* GlobalSearchDetail() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_START, onLoadGlobalSearch);
 }

@@ -155,6 +155,29 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingList: false,
                 removeRepo: action.payload,
             };
+        case types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_START:
+            return {
+                ...state,
+                isLoadingList: true,
+            };
+        case types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_SUCCESS:
+            return {
+                ...state,
+                isLoadingList: false,
+                globalData: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_FAIL:
+            return {
+                ...state,
+                isLoadingList: false,
+                globalDataError: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_CLEAR:
+            return {
+                ...state,
+                isLoadingList: false,
+                globalData: '',
+            };
         default:
             return state;
     }
