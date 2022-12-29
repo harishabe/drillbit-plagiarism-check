@@ -45,7 +45,6 @@ import { PaginationContainer, PlagiarismGrammarContainer } from '../../../style/
 import { platform } from '../../../utils/RegExp';
 
 const columns = [
-    // { id: 'user_id', label: 'ID', minWidth: 100 },
     { id: 'name', label: 'Name' },
     { id: 'username', label: 'Email' },
     { id: 'expiry_date', label: 'End Date' },
@@ -518,7 +517,7 @@ const mapDispatchToProps = (dispatch) => {
         DeactivateData: (url, paginationPayload) => dispatch(DeactivateData(url, paginationPayload)),
         DeleteData: (url, paginationPayload) => dispatch(DeleteData(url, paginationPayload)),
         MakeHimAdmin: (url, paginationPayload) => dispatch(MakeHimAdmin(url, paginationPayload)),
-        // UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };
 
