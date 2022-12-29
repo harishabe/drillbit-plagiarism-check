@@ -55,6 +55,15 @@ export const DropdownList = () => {
 };
 
 /**
+ * Folder path list
+ */
+export const FolderPathList = () => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_START
+    };
+};
+
+/**
  * Extreme (Instructor list)
  */
 export const GetExtremeInstructorList = (url, paginationPayload) => {

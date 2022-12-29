@@ -113,6 +113,7 @@ import {
     DeleteExtremeRefAccount,
     EditExtremeRef,
     SuperDropdownList,
+    SuperFolderPathList,
     ExtremeInsListDetail,
     ExtremeStuListDetail,
     EditStudentData
@@ -218,6 +219,7 @@ const saga = [
     fork(DeleteExtremeRefAccount),
     fork(EditExtremeRef),
     fork(SuperDropdownList),
+    fork(SuperFolderPathList),
     fork(ExtremeInsListDetail),
     fork(ExtremeStuListDetail),
     fork(EditStudentData),

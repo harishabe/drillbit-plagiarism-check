@@ -121,12 +121,13 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "id": "folpath",
         "name": "folpath",
         "label": "Folder path *",
         "required": "Folder path",
-        "validationMsg": "Invalid Folder path"
+        "validationMsg": "Invalid Folder path",
+        "options": []
     },
 
     {

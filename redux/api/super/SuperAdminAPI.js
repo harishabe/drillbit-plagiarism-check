@@ -54,6 +54,14 @@ export const DropdownListData = async () => {
 };
 
 /**
+ * API CALL FOLDER PATH LIST
+ */
+export const FolderPathListData = async () => {
+    let url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_FOLDER_PATH_LIST
+    return GetMethod(url);
+};
+
+/**
  * API CALL EXTREME (INSTRUCTOR LISTS)
  */
 export const ExtremeInstructorListData = async (apiUrl, paginationPayload) => {

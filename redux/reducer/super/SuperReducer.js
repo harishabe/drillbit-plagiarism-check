@@ -104,6 +104,23 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingList: false,
                 ListError: action.payload,
             };
+        case types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_START:
+            return {
+                ...state,
+                isLoadingList: true,
+            };
+        case types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_SUCCESS:
+            return {
+                ...state,
+                isLoadingList: false,
+                folderListSuccess: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_FAIL:
+            return {
+                ...state,
+                isLoadingList: false,
+                folderListError: action.payload,
+            };
         case types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START:
             return {
                 ...state,

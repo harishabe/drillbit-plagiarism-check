@@ -78,6 +78,7 @@ const END_POINTS = {
     SUPER_ADMIN_EXTREME: '/extreme',
     SUPER_ADMIN_REF: '/pro',
     SUPER_ADMIN_DROPDOWN_LIST: '/drillbit/dplist',
+    SUPER_ADMIN_FOLDER_PATH_LIST: '/drillbit/folders',
     SUPER_ADMIN_INSTRUCTOR: '/extreme/license/',
     SUPER_ADMIN_DELETE_ACCOUNT: '/drillbit/license/',
     GRAMMAR_REPORT:'/files/grammar/download/',

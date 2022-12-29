@@ -9,7 +9,8 @@ import {
     ExtremeInstructorListData,
     ExtremeStudentListData,
     SuperEditStudentData,
-    ExtremeRefDeleteAccount
+    ExtremeRefDeleteAccount,
+    FolderPathListData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { SuperAdminPaginationValue } from '../../../utils/PaginationUrl';
@@ -179,6 +180,30 @@ export function* onLoadDropdown(action) {
 
 export function* SuperDropdownList() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START, onLoadDropdown);
+}
+
+/**
+ * Folderlist Extreme Ref Account
+ * @param {*} action
+ */
+export function* onLoadFolderPath(action) {
+    const { response, error } = yield call(FolderPathListData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* SuperFolderPathList() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_START, onLoadFolderPath);
 }
 
 /**
