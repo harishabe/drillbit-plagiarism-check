@@ -1,6 +1,6 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
-import { PostMethod, GetMethod, PutMethod } from '../ApiMethod';
+import { PostMethod, GetMethod, PutMethod, DeleteMethod } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -27,6 +27,14 @@ export const GetExtremeRefDetail = async (apiUrl, paginationPayload) => {
 export const ExtremeRefAccount = async (endPoint, data) => {
     const url = BASE_URL_SUPER + endPoint + '/license';
     return PostMethod(url, data);
+};
+
+/**
+ * API CALL FOR DELETE EXTREME AND REF ACCOUNT
+ */
+export const ExtremeRefDeleteAccount = async (licenseId, role) => {
+    const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DELETE_ACCOUNT + licenseId;
+    return DeleteMethod(url);
 };
 
 /**

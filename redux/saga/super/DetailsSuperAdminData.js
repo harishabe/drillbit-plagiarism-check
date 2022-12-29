@@ -8,7 +8,8 @@ import {
     DropdownListData,
     ExtremeInstructorListData,
     ExtremeStudentListData,
-    SuperEditStudentData
+    SuperEditStudentData,
+    ExtremeRefDeleteAccount
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { SuperAdminPaginationValue } from '../../../utils/PaginationUrl';
@@ -94,6 +95,36 @@ export function* onLoadCreateAccount(action) {
 
 export function* CreateExtremeRefAccount() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_START, onLoadCreateAccount);
+}
+
+/**
+ * Delete Extreme Ref Account
+ * @param {*} action
+ */
+
+export function* onLoadExtremeRefDelete(action) {
+    const { response, error } = yield call(ExtremeRefDeleteAccount, action.licenseId, action.role);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_SUCCESS, payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START,
+            url: `/${action.role}`,
+            paginationPayload: SuperAdminPaginationValue,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* DeleteExtremeRefAccount() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_START, onLoadExtremeRefDelete);
 }
 
 /**

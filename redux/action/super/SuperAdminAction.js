@@ -37,6 +37,15 @@ export const CreateAccount = (url, data) => {
 };
 
 /**
+ * Delete Extreme and Ref Account
+ */
+export const DeleteAccount = (licenseId, role) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_START, licenseId: licenseId, role: role
+    };
+};
+
+/**
  * DropdownList Extreme and Ref Account
  */
 export const DropdownList = () => {

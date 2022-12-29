@@ -9,12 +9,16 @@ import {
     CreateDrawer,
     CardView,
     CommonTable,
+    WarningDialog
 } from './../../components';
 import {
     EditIcon,
+    DeleteWarningIcon,
+    DeleteIcon
 } from '../../assets/icon';
 import {
     GetExtremeRefData,
+    DeleteAccount
 } from '../../redux/action/super/SuperAdminAction';
 import RefForm from './form/RefForm';
 import { PaginationContainer } from '../../style/index';
@@ -62,6 +66,7 @@ function createData(lid, name, email, college_name, country, instructors, docume
 
 const RefProduct = ({
     GetExtremeRefData,
+    DeleteAccount,
     pageDetails,
     refData,
     isLoading
@@ -75,6 +80,8 @@ const RefProduct = ({
     });
     const [editUser, setEditUser] = useState(false);
     const [editUserData, setEditUserData] = useState('');
+    const [licenseId, setLicenseId] = useState(false);
+    const [licenseIdData, setLicenseIdData] = useState('');
 
     useEffect(() => {
         GetExtremeRefData(END_POINTS.SUPER_ADMIN_REF, paginationPayload);
@@ -93,7 +100,10 @@ const RefProduct = ({
                     data.country,
                     data.instructors,
                     data.documents,
-                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }],
+                    [
+                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }
+                    ],
                     data.state,
                     data.address,
                     data.designation,
@@ -134,6 +144,9 @@ const RefProduct = ({
         if (icon === 'edit') {
             setEditUser(true);
             setEditUserData(rowData);
+        } else if (icon === 'delete') {
+            setLicenseId(true);
+            setLicenseIdData(rowData);
         }
     };
 
@@ -165,6 +178,16 @@ const RefProduct = ({
 
     /** end debounce concepts */
 
+    const handleStatusWarning = () => {
+        DeleteAccount(licenseIdData?.lid, 'pro');
+        setTimeout(() => {
+            setLicenseId(false);
+        }, [100]);
+    };
+
+    const handleStatusCloseWarning = () => {
+        setLicenseId(false);
+    };
     return (
         <>
             <Grid container spacing={ 1 }>
@@ -215,6 +238,17 @@ const RefProduct = ({
                 </CreateDrawer>
             }
 
+            {
+                licenseId &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message={ 'Are you sure, you want to delete account?' }
+                    handleYes={ handleStatusWarning }
+                    handleNo={ handleStatusCloseWarning }
+                    isOpen={ true }
+                />
+            }
+
             <AddButtonBottom>
                 <CreateDrawer
                     title="Add Ref Account"
@@ -246,6 +280,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetExtremeRefData: (url, paginationPayload) => dispatch(GetExtremeRefData(url, paginationPayload)),
+        DeleteAccount: (licenseId, role) => dispatch(DeleteAccount(licenseId, role)),
     };
 };
 

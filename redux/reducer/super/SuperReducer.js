@@ -53,6 +53,23 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingCreate: false,
                 createdError: action.payload,
             };
+        case types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_START:
+            return {
+                ...state,
+                isLoadingDelete: true,
+            };
+        case types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                isLoadingDelete: false,
+                deleteSuccess: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_FAIL:
+            return {
+                ...state,
+                isLoadingDelete: false,
+                deleteError: action.payload,
+            };
         case types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_START:
             return {
                 ...state,
