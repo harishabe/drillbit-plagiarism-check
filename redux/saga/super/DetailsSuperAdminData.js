@@ -16,6 +16,7 @@ import toastrValidation from '../../../utils/ToastrValidation';
 import { SuperAdminPaginationValue, FolderSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+import { EXTREME, PRO } from '../../../constant/data/Constant';
 
 /**
  * Get Super admin dashboard widget count details
@@ -242,11 +243,13 @@ export function* onLoadRemoveRepository(action) {
         yield put({
             type: types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_SUCCESS, payload: response?.data,
         });
-        yield put({
-            type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
-            url: BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `${action.url.split('/')[6]}/repository`,
-            paginationPayload: FolderSubmissionsPaginationValue,
-        });
+        if (action.url.split('/')[4] === PRO) {
+            yield put({
+                type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
+                url: BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `${action.url.split('/')[6]}/repository`,
+                paginationPayload: FolderSubmissionsPaginationValue,
+            });
+        }
         toastrValidation(response)
     } else {
         yield put({

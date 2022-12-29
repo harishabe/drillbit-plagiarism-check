@@ -61,6 +61,7 @@ const Repository = ({
     globalData,
     RemoveRepository,
     repoData,
+    removeRepo,
     pageDetails,
     isLoadingRepo,
     isLoadingList
@@ -146,10 +147,14 @@ const Repository = ({
                     [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }],
                 )
             ),
-            globalData?.lid && setLicenseId(globalData?.lid)
-        // setLicenseId(1)
         setRows([...arr]);
     }, [globalData]);
+
+    useEffect(() => {
+        if (removeRepo?.status === 200) {
+            GlobalSearchClear()
+        }
+    }, [removeRepo]);
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
@@ -164,7 +169,7 @@ const Repository = ({
 
     const handleYesWarning = () => {
         if (globalSearch) {
-            console.log('global search delete')
+            RemoveRepository(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_GLOBAL_SEARCH_REMOVE_REPOSITORY + deleteRowData);
         } else {
             RemoveRepository(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REMOVE_REPOSITORY + `${licenseId}/removeRepository/${deleteRowData}`);
         }
@@ -302,6 +307,7 @@ const mapStateToProps = (state) => ({
     isLoadingList: state?.superAdmin?.isLoadingList,
     dpList: state?.superAdmin?.ListSuccess,
     globalData: state?.superAdmin?.globalData,
+    removeRepo: state?.superAdmin?.removeRepo,
 });
 
 const mapDispatchToProps = (dispatch) => {

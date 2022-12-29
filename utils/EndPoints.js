@@ -84,6 +84,7 @@ const END_POINTS = {
     SUPER_ADMIN_REPOSITORY_SEARCH: '/drillbit/repository?id=',
     SUPER_ADMIN_REPORT_SEARCH: '/drillbit/userInfo?email=',
     SUPER_ADMIN_REMOVE_REPOSITORY: '/pro/license/',
+    SUPER_ADMIN_GLOBAL_SEARCH_REMOVE_REPOSITORY: '/drillbit/removeRepository/',
     GRAMMAR_REPORT:'/files/grammar/download/',
     SUBMISSION_INPUTS: '/files/submissionInputs',
     SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/analysis-gateway/api/download2/',
