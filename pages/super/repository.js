@@ -196,13 +196,13 @@ const Repository = ({
         }
     };
 
-    const debouncedResults = useMemo(() => {
+    const searchResults = useMemo(() => {
         return debouce(handleSearch, 300);
     }, []);
 
     useEffect(() => {
         return () => {
-            debouncedResults.cancel();
+            searchResults.cancel();
         };
     });
 
@@ -234,10 +234,10 @@ const Repository = ({
                         title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
-                <Grid item md={ 6 } xs={ 12 } style={ { display: 'inline-flex' } }>
+                <Grid item md={ 4.1 } xs={ 12 }>
                     <Autocomplete
                         size='small'
-                        sx={ { width: '400px', mr: 1 } }
+                        sx={ { width: '400px' } }
                         value={ value }
                         onChange={ (event, newValue) => {
                             setValue(newValue);
@@ -251,12 +251,14 @@ const Repository = ({
                         }) }
                         renderInput={ (params) => <TextField { ...params } label="Institution list" /> }
                     />
+                </Grid>
+                <Grid item md={ 1.9 } xs={ 12 }>
                     <TextField
                         placeholder='Search'
-                        onChange={ debouncedResults }
+                        onChange={ searchResults }
                         inputProps={ {
                             style: {
-                                padding: 8,
+                                padding: 9,
                             }
                         } }
                     />

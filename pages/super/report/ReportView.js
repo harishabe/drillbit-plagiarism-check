@@ -13,6 +13,7 @@ import {
 } from '../../../components';
 import { DownloadIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/report-submission-form.json';
+import { EXTREME, PRO } from '../../../constant/data/Constant';
 import { formatDate } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 
@@ -263,7 +264,7 @@ const ReportView = ({
                     }
 
                     {
-                        reportName === 'submissions' && role === 'extreme' &&
+                        reportName === 'submissions' && role === EXTREME &&
                         <>
                             <Tooltip title="Download submissions" arrow>
                                 <IconButton sx={ {
@@ -320,7 +321,7 @@ const ReportView = ({
                     }
 
                     {
-                        reportName === 'submissions' && role === 'pro' &&
+                        reportName === 'submissions' && role === PRO &&
                         <>
                             <Tooltip title="Download submissions" arrow>
                                 <IconButton sx={ {
