@@ -16,13 +16,13 @@ import { PaginationContainer } from '../../../../style/index';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 
 const SubmissionColumns = [
-    { id: 'name', label: 'Author Name' },
-    { id: 'title', label: 'Paper Title' },
-    { id: 'original_fn', label: 'Original File', isDownload: true },
+    { id: 'name', label: 'Name' },
+    { id: 'title', label: 'Title' },
+    { id: 'original_fn', label: 'File', isDownload: true },
     { id: 'lang1', label: 'Language' },
     { id: 'grammar_url', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'Paper ID' },
+    { id: 'paper_id', label: 'ID' },
     { id: 'date_up', label: 'Submission Date' },
 ];
 

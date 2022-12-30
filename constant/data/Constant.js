@@ -105,6 +105,8 @@ export const SIMILARITY_COLOR_STANDARD = {
  */
 export const PRO_ADMIN = 'admin';
 export const PRO_USER = 'user';
+export const EXTREME = 'extreme';
+export const PRO = 'pro';
 
 /**
  * Cards & Folders
