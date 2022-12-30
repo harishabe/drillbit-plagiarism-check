@@ -8,11 +8,14 @@ import {
     DropdownListData,
     ExtremeInstructorListData,
     ExtremeStudentListData,
-    SuperEditStudentData
+    SuperEditStudentData,
+    MakeHimAdminData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { SuperAdminPaginationValue } from '../../../utils/PaginationUrl';
+import { SuperAdminPaginationValue, PaginationValue } from '../../../utils/PaginationUrl';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
+import END_POINTS from '../../../utils/EndPoints';
 
 /**
  * Get Super admin dashboard widget count details
@@ -226,4 +229,42 @@ export function* onLoadEditStudent(action) {
 
 export function* EditStudentData() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_START, onLoadEditStudent);
+}
+
+/**
+ * Make him admin (extreme > instructor , pro > user)
+ * @param {*} action
+ */
+
+export function* onLoadMakeHimAdmin(action) {
+    const { response, error } = yield call(MakeHimAdminData, action.url, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_MAKE_HIM_ADMIN_SUCCESS, payload: response?.data,
+        });
+        if (action.url.split('/')[4] === 'pro') {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${action.url.split('/')[6]}/users`,
+                paginationPayload: PaginationValue
+            });
+        } else if (action.url.split('/')[4] === 'extreme') {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
+                url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${action.url.split('/')[6]}/instructors`,
+                paginationPayload: PaginationValue
+            });
+        }
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_MAKE_HIM_ADMIN_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* MakeHimAdminDetail() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_MAKE_HIM_ADMIN_START, onLoadMakeHimAdmin);
 }

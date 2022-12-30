@@ -46,7 +46,8 @@ const END_POINTS_PRO = {
     SIMILARITY_REPORT_DOWNLOAD: '/zipDownload',
     SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/analysis-gateway/api/download2/',
     INTEGRATION_DELETE_CANVAS: '/integrations/canvas',
-    INTEGRATION_DELETE_BLACKBOARD: '/integrations/blackboard'
+    INTEGRATION_DELETE_BLACKBOARD: '/integrations/blackboard',
+    SUPER_ADMIN_USER: '/pro/license/'
 }
 
 export default END_POINTS_PRO;
