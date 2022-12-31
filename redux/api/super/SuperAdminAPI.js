@@ -1,6 +1,6 @@
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
-import { PostMethod, GetMethod, PutMethod } from '../ApiMethod';
+import { PostMethod, GetMethod, PutMethod, DeleteMethod } from '../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
@@ -30,6 +30,14 @@ export const ExtremeRefAccount = async (endPoint, data) => {
 };
 
 /**
+ * API CALL FOR DELETE EXTREME AND REF ACCOUNT
+ */
+export const ExtremeRefDeleteAccount = async (licenseId, role) => {
+    const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DELETE_ACCOUNT + licenseId;
+    return DeleteMethod(url);
+};
+
+/**
  * API CALL FOR CREATE EXTREME AND REF ACCOUNT
  */
 export const EditExtremeRefAccount = async (apiUrl, data) => {
@@ -42,6 +50,14 @@ export const EditExtremeRefAccount = async (apiUrl, data) => {
  */
 export const DropdownListData = async () => {
     const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST;
+    return GetMethod(url);
+};
+
+/**
+ * API CALL FOLDER PATH LIST
+ */
+export const FolderPathListData = async () => {
+    let url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_FOLDER_PATH_LIST
     return GetMethod(url);
 };
 
@@ -59,6 +75,13 @@ export const ExtremeInstructorListData = async (apiUrl, paginationPayload) => {
 export const ExtremeStudentListData = async (apiUrl, paginationPayload) => {
     const url = BASE_URL_SUPER + apiUrl + PaginationUrl(paginationPayload);
     return GetMethod(url);
+};
+
+/**
+ * API CALL CREATE STUDENT
+ */
+export const SuperCreateStudentData = async (url, data) => {
+    return PostMethod(url, data);
 };
 
 /**

@@ -155,7 +155,11 @@ const UserForm = ({
         } else {
             let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
             let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
-            CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, requestData);
+            if (licenseId) {
+                CreateInstructorData(BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${licenseId}/user`, requestData);
+            } else {
+                CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, requestData);
+            }
         }
     };
 

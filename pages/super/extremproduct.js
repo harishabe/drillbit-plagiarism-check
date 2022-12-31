@@ -11,12 +11,16 @@ import {
     CreateDrawer,
     CardView,
     CommonTable,
+    WarningDialog
 } from './../../components';
 import {
     EditIcon,
+    DeleteIcon,
+    DeleteWarningIcon
 } from '../../assets/icon';
 import {
     GetExtremeRefData,
+    DeleteAccount
 } from '../../redux/action/super/SuperAdminAction';
 import ExtremeForm from './form/ExtremeForm';
 import { PaginationContainer } from '../../style/index';
@@ -62,6 +66,7 @@ function createData(lid, name, email, college_name, country, instructors, studen
 
 const ExtremProduct = ({
     GetExtremeRefData,
+    DeleteAccount,
     pageDetails,
     extremeData,
     isLoading
@@ -76,6 +81,8 @@ const ExtremProduct = ({
     });
     const [editUser, setEditUser] = useState(false);
     const [editUserData, setEditUserData] = useState('');
+    const [licenseId, setLicenseId] = useState(false);
+    const [licenseIdData, setLicenseIdData] = useState('');
 
     useEffect(() => {
         GetExtremeRefData(END_POINTS.SUPER_ADMIN_EXTREME, paginationPayload);
@@ -97,6 +104,7 @@ const ExtremProduct = ({
                     data.documents,
                     [
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                         { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     data.state,
@@ -139,6 +147,9 @@ const ExtremProduct = ({
         if (icon === 'edit') {
             setEditUser(true);
             setEditUserData(rowData);
+        } else if (icon === 'delete') {
+            setLicenseId(true);
+            setLicenseIdData(rowData);
         } else if (icon === 'nextPath') {
             router.push({
                 pathname: '/super/extremeInstructor',
@@ -177,6 +188,18 @@ const ExtremProduct = ({
     });
 
     /** end debounce concepts */
+
+    const handleStatusWarning = () => {
+        DeleteAccount(licenseIdData?.lid, 'extreme');
+        setTimeout(() => {
+            setLicenseId(false);
+        }, [100]);
+    };
+
+    const handleStatusCloseWarning = () => {
+        setLicenseId(false);
+    };
+
     return (
         <>
             <Grid container spacing={ 1 }>
@@ -206,7 +229,7 @@ const ExtremProduct = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 7 }
+                        charLength={ 6 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
                     />
@@ -225,6 +248,17 @@ const ExtremProduct = ({
                         editData={ editUserData }
                     />
                 </CreateDrawer>
+            }
+
+            {
+                licenseId &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message={ 'Are you sure, you want to delete account?' }
+                    handleYes={ handleStatusWarning }
+                    handleNo={ handleStatusCloseWarning }
+                    isOpen={ true }
+                />
             }
 
             <AddButtonBottom>
@@ -258,6 +292,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetExtremeRefData: (url, paginationPayload) => dispatch(GetExtremeRefData(url, paginationPayload)),
+        DeleteAccount: (licenseId, role) => dispatch(DeleteAccount(licenseId, role)),
     };
 };
 

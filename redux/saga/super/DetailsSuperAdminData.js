@@ -8,7 +8,10 @@ import {
     DropdownListData,
     ExtremeInstructorListData,
     ExtremeStudentListData,
+    SuperCreateStudentData,
     SuperEditStudentData,
+    ExtremeRefDeleteAccount,
+    FolderPathListData,
     MakeHimAdminData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
@@ -100,6 +103,36 @@ export function* CreateExtremeRefAccount() {
 }
 
 /**
+ * Delete Extreme Ref Account
+ * @param {*} action
+ */
+
+export function* onLoadExtremeRefDelete(action) {
+    const { response, error } = yield call(ExtremeRefDeleteAccount, action.licenseId, action.role);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_SUCCESS, payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START,
+            url: `/${action.role}`,
+            paginationPayload: SuperAdminPaginationValue,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* DeleteExtremeRefAccount() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_START, onLoadExtremeRefDelete);
+}
+
+/**
  * Edit Extreme Ref Account
  * @param {*} action
  */
@@ -154,6 +187,30 @@ export function* SuperDropdownList() {
 }
 
 /**
+ * Folderlist Extreme Ref Account
+ * @param {*} action
+ */
+export function* onLoadFolderPath(action) {
+    const { response, error } = yield call(FolderPathListData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* SuperFolderPathList() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_START, onLoadFolderPath);
+}
+
+/**
  * Extreme (Instructor list)
  * @param {*} action
  */
@@ -199,6 +256,36 @@ export function* onLoadExtremeStuList(action) {
 
 export function* ExtremeStuListDetail() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START, onLoadExtremeStuList);
+}
+
+/**
+ * Create Student
+ * @param {*} action
+ */
+
+export function* onLoadCreateStudent(action) {
+    const { response, error } = yield call(SuperCreateStudentData, action.url, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_SUCCESS, payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START,
+            url: `/extreme/license/${action.url.split('/')[6]}/students`,
+            paginationPayload: SuperAdminPaginationValue,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* CreateStudentData() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_START, onLoadCreateStudent);
 }
 
 /**

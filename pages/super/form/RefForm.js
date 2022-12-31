@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
-import { CreateAccount, EditAccount, DropdownList } from '../../../redux/action/super/SuperAdminAction';
+import { CreateAccount, EditAccount, DropdownList, FolderPathList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/ref-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
@@ -16,7 +16,9 @@ const RefForm = ({
     editData,
     EditAccount,
     DropdownList,
-    dpList
+    FolderPathList,
+    dpList,
+    folderList
 }) => {
     const [formJsonField, setFormJsonField] = useState(FormJson);
     const [editOperation, setEditOperation] = useState(false);
@@ -27,11 +29,13 @@ const RefForm = ({
 
     useEffect(() => {
         DropdownList();
+        FolderPathList();
     }, []);
 
     useEffect(() => {
         let InstitutionTypes = [];
         let timeZoneLists = [];
+        let folderTypes = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
@@ -45,10 +49,16 @@ const RefForm = ({
                 });
                 formItem['options'] = timeZoneLists;
             }
+            if (formItem.name === 'folpath') {
+                folderList && Object.entries(folderList)?.map(([key, val] = entry) => {
+                    folderTypes.push({ 'name': val });
+                });
+                formItem['options'] = folderTypes;
+            }
             return formItem;
         });
         setFormJsonField(formList);
-    }, [dpList]);
+    }, [dpList, folderList]);
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -57,6 +67,7 @@ const RefForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
+                'folpath': data?.folpath?.name,
                 'institutionType': data?.institutionType?.name,
                 'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
@@ -70,6 +81,7 @@ const RefForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
+                'folpath': data?.folpath?.name,
                 'institutionType': data?.institutionType?.name,
                 'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
@@ -115,9 +127,9 @@ const RefForm = ({
                 'instructors': editData.instructors,
                 'submissions': editData.documents,
                 'documentlength': editData.document_type,
-                'folpath': editData.folpath,
+                'folpath': { 'name': editData.folpath },
                 'department': editData.department,
-                'grammarAccess': { 'name': editData.grammar },
+                'grammarAccess': { 'name': editData.grammar.toUpperCase() },
                 'grammar': editData.grammar_documents,
                 'institutionType': { 'name': editData.product_type },
                 'licenseType': { 'name': editData.license_type },
@@ -180,6 +192,7 @@ const mapStateToProps = (state) => ({
     isLoadingCreate: state?.superAdmin?.isLoadingCreate,
     isLoadingEdit: state?.superAdmin?.isLoadingEdit,
     dpList: state?.superAdmin?.ListSuccess,
+    folderList: state?.superAdmin?.folderListSuccess,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -187,6 +200,7 @@ const mapDispatchToProps = (dispatch) => {
         CreateAccount: (url, data) => dispatch(CreateAccount(url, data)),
         EditAccount: (url, data) => dispatch(EditAccount(url, data)),
         DropdownList: () => dispatch(DropdownList()),
+        FolderPathList: () => dispatch(FolderPathList()),
     };
 };
 

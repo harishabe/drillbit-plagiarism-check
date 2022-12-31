@@ -54,6 +54,7 @@ const InputAutoComplete = ({
                         getOptionLabel={(option) => (option.name)}
                         renderOption={renderOption}
                         size={field.size}
+                        disabled={ field.disabled }
                         renderInput={(params) => <TextField
                             {...params} 
                             style={field.style }

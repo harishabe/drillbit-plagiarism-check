@@ -53,6 +53,23 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingCreate: false,
                 createdError: action.payload,
             };
+        case types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_START:
+            return {
+                ...state,
+                isLoadingDelete: true,
+            };
+        case types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                isLoadingDelete: false,
+                deleteSuccess: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_FAIL:
+            return {
+                ...state,
+                isLoadingDelete: false,
+                deleteError: action.payload,
+            };
         case types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_START:
             return {
                 ...state,
@@ -86,6 +103,23 @@ const SuperReducer = (state = {}, action) => {
                 ...state,
                 isLoadingList: false,
                 ListError: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_START:
+            return {
+                ...state,
+                isLoadingList: true,
+            };
+        case types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_SUCCESS:
+            return {
+                ...state,
+                isLoadingList: false,
+                folderListSuccess: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_FAIL:
+            return {
+                ...state,
+                isLoadingList: false,
+                folderListError: action.payload,
             };
         case types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START:
             return {
@@ -137,6 +171,23 @@ const SuperReducer = (state = {}, action) => {
                 ...state,
                 isLoadingEditStudent: false,
                 editStudent: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_START:
+            return {
+                ...state,
+                isLoadingCreateStudent: true,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_SUCCESS:
+            return {
+                ...state,
+                isLoadingCreateStudent: false,
+                createStudent: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_FAIL:
+            return {
+                ...state,
+                isLoadingCreateStudent: false,
+                createStudent: action.payload,
             };
         case types.FETCH_SUPER_ADMIN_MAKE_HIM_ADMIN_START:
             return {
