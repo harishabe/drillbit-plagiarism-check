@@ -172,6 +172,23 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingEditStudent: false,
                 editStudent: action.payload,
             };
+        case types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_START:
+            return {
+                ...state,
+                isLoadingCreateStudent: true,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_SUCCESS:
+            return {
+                ...state,
+                isLoadingCreateStudent: false,
+                createStudent: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_FAIL:
+            return {
+                ...state,
+                isLoadingCreateStudent: false,
+                createStudent: action.payload,
+            };
         case types.FETCH_SUPER_ADMIN_MAKE_HIM_ADMIN_START:
             return {
                 ...state,

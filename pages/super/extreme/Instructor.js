@@ -36,7 +36,7 @@ import { GetExtremeInstructorList } from '../../../redux/action/super/SuperAdmin
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import InstructorForm from '../../extream/admin/form/InstructorForm';
 import InstructorStats from '../../extream/admin/instructor/InstructorStats';
-import { removeCommaWordEnd, formatDate } from '../../../utils/RegExp';
+import { removeCommaWordEnd } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
@@ -131,7 +131,7 @@ const Instructor = ({
                     // <AvatarName avatarText="I" title={instructor.id} color='#4795EE' />,
                     instructor.name,
                     instructor.username,
-                    formatDate(instructor.expiry_date),
+                    instructor.expiry_date,
                     <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     [
@@ -177,7 +177,14 @@ const Instructor = ({
                         </>
                     ],
                     instructor.role === Role.admin ?
-                        ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
+                        ([
+                            { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                            {
+                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
+                                'type': instructor.status === 'active' ? 'lock' : 'unlock',
+                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
+                            }
+                        ]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                             { 'component': <PersonIcon />, 'type': 'admin', 'title': 'Make him admin' },
@@ -226,17 +233,17 @@ const Instructor = ({
     };
 
     const handleStatusWarning = () => {
-        DeactivateData(BASE_URL_SUPER + END_POINTS.ACTIVATE_DEACTIVATE_INSTRUCTOR + '/' + statusRowData.id + '/' + statusRowData.status, paginationPayload);
+        DeactivateData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + router?.query?.licenseId + '/instructor/' + statusRowData.id + '/' + statusRowData.status, paginationPayload);
         setTimeout(() => {
             setStatusWarning(false);
         }, [100]);
     };
 
     const handleMakeAdminWarning = () => {
+        MakeHimAdmin(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/admin/${instructorId}`, paginationPayload)
         setTimeout(() => {
             setMakeAdminDialogModal(false)
         }, [100]);
-        MakeHimAdmin(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/admin/${instructorId}`, paginationPayload)
     };
 
     const handleAction = (event, icon, rowData) => {

@@ -78,6 +78,13 @@ export const ExtremeStudentListData = async (apiUrl, paginationPayload) => {
 };
 
 /**
+ * API CALL CREATE STUDENT
+ */
+export const SuperCreateStudentData = async (url, data) => {
+    return PostMethod(url, data);
+};
+
+/**
  * API CALL EDIT STUDENT
  */
 export const SuperEditStudentData = async (url, data) => {

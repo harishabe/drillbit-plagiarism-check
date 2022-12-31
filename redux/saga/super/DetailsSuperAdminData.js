@@ -8,6 +8,7 @@ import {
     DropdownListData,
     ExtremeInstructorListData,
     ExtremeStudentListData,
+    SuperCreateStudentData,
     SuperEditStudentData,
     ExtremeRefDeleteAccount,
     FolderPathListData,
@@ -255,6 +256,36 @@ export function* onLoadExtremeStuList(action) {
 
 export function* ExtremeStuListDetail() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START, onLoadExtremeStuList);
+}
+
+/**
+ * Create Student
+ * @param {*} action
+ */
+
+export function* onLoadCreateStudent(action) {
+    const { response, error } = yield call(SuperCreateStudentData, action.url, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_SUCCESS, payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START,
+            url: `/extreme/license/${action.url.split('/')[6]}/students`,
+            paginationPayload: SuperAdminPaginationValue,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* CreateStudentData() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_START, onLoadCreateStudent);
 }
 
 /**

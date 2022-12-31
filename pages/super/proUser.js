@@ -77,7 +77,9 @@ const ProUser = ({
     userData,
     DeleteData,
     DeactivateData,
-    isLoading,
+    isLoadingdetailsData,
+    isLoadingsuperAdmin,
+    isLoadingadminCrud
 }) => {
     const router = useRouter();
     const [adminName, setAdminName] = useState('');
@@ -164,7 +166,14 @@ const ProUser = ({
                             </div>
                         </>
                     ],
-                    user.role === Role.proAdmin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
+                    user.role === Role.proAdmin ? ([
+                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        {
+                            'component': <Switch checked={ user.status === 'active' ? true : false } size="small" />,
+                            'type': user.status === 'active' ? 'lock' : 'unlock',
+                            'title': user.status === 'active' ? 'Activate' : 'De-activate'
+                        }
+                    ]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                         { 'component': <PersonIcon />, 'type': 'admin', 'title': 'Make him admin' },
@@ -229,11 +238,7 @@ const ProUser = ({
     };
 
     const handleStatusWarning = () => {
-        if (statusRowData?.status === 'ACTIVE') {
-            DeactivateData(BASE_URL_SUPER + END_POINTS_PRO.ACTIVATE_USER + statusRowData.id, paginationPayload);
-        } else {
-            DeactivateData(BASE_URL_SUPER + END_POINTS_PRO.DEACTIVATE_USER + statusRowData.id, paginationPayload);
-        }
+        DeactivateData(BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + router?.query?.licenseId + '/user/' + statusRowData.id + '/' + statusRowData.status, paginationPayload);
         setTimeout(() => {
             setStatusWarning(false);
         }, [100]);
@@ -357,14 +362,14 @@ const ProUser = ({
         setShowDeleteWarning(true);
     };
 
-    const handleShow = (e, info) => {
-        if (info?.title === 'Add User') {
-            setShowDialogModal(true);
-        } else if (info?.title === 'Add Multiple Users') {
-            UploadFileDataClear();
-            router.push({ pathname: '/pro/admin/addBulkUser' });
-        }
-    };
+    // const handleShow = (e, info) => {
+    //     if (info?.title === 'Add User') {
+    //         setShowDialogModal(true);
+    //     } else if (info?.title === 'Add Multiple Users') {
+    //         UploadFileDataClear();
+    //         router.push({ pathname: '/pro/admin/addBulkUser' });
+    //     }
+    // };
 
     const handleCloseDrawer = (drawerClose) => {
         setEditInstructor(drawerClose);
@@ -423,21 +428,12 @@ const ProUser = ({
 
             <AddButtonBottom>
                 <CreateDrawer
-                    options={ [
-                        {
-                            icon: <AddPersonIcon />,
-                            title: 'Add User',
-                            handleFromCreateDrawer: false
-                        },
-                        {
-                            icon: <AddMultipleIcon />,
-                            title: 'Add Multiple Users',
-                            handleFromCreateDrawer: true
-                        }] }
-                    title="Add User"
-                    handleMultiData={ handleShow }
-                    isShowAddIcon={ true }>
-                    <UserForm />
+                    isShowAddIcon={ true }
+                    title='Add user'
+                >
+                    <UserForm
+                        licenseId={ router?.query?.licenseId }
+                    />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -504,7 +500,11 @@ const ProUser = ({
                     handleTableSort={ handleTableSort }
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
-                    isLoading={ isLoading }
+                    isLoading={
+                        isLoadingdetailsData ||
+                        isLoadingsuperAdmin ||
+                        isLoadingadminCrud
+                    }
                     charLength={ 7 }
                     path=''
                 />
@@ -527,8 +527,9 @@ const ProUser = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.user?.page,
     userData: state?.detailsData?.instructorData?.user?._embedded?.usersDTOList,
-    isLoading: state?.detailsData?.isLoading,
-    isLoading: state?.superAdmin?.isLoading,
+    isLoadingdetailsData: state?.detailsData?.isLoading,
+    isLoadingsuperAdmin: state?.superAdmin?.isLoading,
+    isLoadingadminCrud: state?.adminCrud?.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {

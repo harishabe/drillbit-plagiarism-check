@@ -82,6 +82,15 @@ export const GetExtremeStudentList = (url, paginationPayload) => {
 };
 
 /**
+ * Create student
+ */
+export const SuperCreateStudent = (url, data) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_START, url: url, query: data
+    };
+};
+
+/**
  * Edit student
  */
 export const SuperEditStudent = (url, data) => {

@@ -5,15 +5,17 @@ import { useRouter } from 'next/router';
 import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateStudent, EditStudent } from '../../../../redux/action/instructor/InstructorAction';
-import { SuperEditStudent } from '../../../../redux/action/super/SuperAdminAction';
+import { SuperCreateStudent, SuperEditStudent } from '../../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../../assets/icon';
 import FormJson from '../../../../constant/form/instructor-student-form.json';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 import { BASE_URL_SUPER } from '../../../../utils/BaseUrl';
+import END_POINTS from '../../../../utils/EndPoints';
 
 const StudentForm = ({
     CreateStudent,
     EditStudent,
+    SuperCreateStudent,
     SuperEditStudent,
     isLoadingStudent,
     editData,
@@ -69,12 +71,17 @@ const StudentForm = ({
 
         if (editOperation) {
             if (router?.pathname.split('/')[1] === 'super') {
-                SuperEditStudent(BASE_URL_SUPER + `/extreme/license/${router?.query?.licenseId}/students/${editData?.id}`, requestData)
+                SuperEditStudent(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/students/${editData?.id}`, requestData)
             } else {
                 EditStudent(router.query.clasId, editData?.id, requestData);
             }
         } else {
-            CreateStudent(router.query.clasId, requestData);
+            if (router?.pathname.split('/')[1] === 'super') {
+                SuperCreateStudent(BASE_URL_SUPER + `/license/${router?.query?.licenseId}/students`, requestData)
+            } else {
+                CreateStudent(router.query.clasId, requestData);
+            }
+            // CreateStudent(router.query.clasId, requestData);
         }
     };
 
@@ -142,12 +149,14 @@ const StudentForm = ({
 
 const mapStateToProps = (state) => ({
     isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
+    isLoadingStudent: state?.superAdmin?.isLoadingCreateStudent,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         CreateStudent: (ClasId, data) => dispatch(CreateStudent(ClasId, data)),
         EditStudent: (ClasId, userId, requestPayload,) => dispatch(EditStudent(ClasId, userId, requestPayload,)),
+        SuperCreateStudent: (url, requestPayload) => dispatch(SuperCreateStudent(url, requestPayload)),
         SuperEditStudent: (url, requestPayload) => dispatch(SuperEditStudent(url, requestPayload)),
     };
 };

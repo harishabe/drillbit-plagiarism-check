@@ -9,6 +9,7 @@ import FormJson from '../../../../constant/form/instructor-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS from '../../../../utils/EndPoints';
+import { SUPER } from '../../../../constant/data/Constant';
 import { BASE_URL_EXTREM, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
@@ -151,8 +152,8 @@ const InstructorForm = ({
             };
             let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
 
-            if (router?.pathname.split('/')[1] === 'super') {
-                EditData(BASE_URL_SUPER + `/extreme/license/${router?.query?.licenseId}/instructors/${editData?.user_id}`, requestData, 'superInstructor');
+            if (router?.pathname.split('/')[1] === SUPER) {
+                EditData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructors/${editData?.user_id}`, requestData, 'superInstructor');
             } else {
                 EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, requestData, 'instructor');
             }
@@ -162,7 +163,11 @@ const InstructorForm = ({
                 ...data, 'expiry_date': convertDate(data.expiry_date),
             };
             let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
-            CreateInstructorData(BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR, requestData);
+            if (router?.pathname.split('/')[1] === SUPER) {
+                CreateInstructorData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructor`, requestData);
+            } else {
+                CreateInstructorData(BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR, requestData);
+            }
         }
     };
 
