@@ -136,13 +136,6 @@ export function* onLoadCreateInstructor(action) {
                 });
             }
         }
-        // yield put({
-        //     type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
-        //     url: action.url.split('/')[3] === EXTREME ?
-        //         BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
-        //         BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
-        //     paginationPayload: PaginationValue
-        // });
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_FAIL, payload: error });

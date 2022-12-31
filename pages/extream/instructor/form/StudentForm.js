@@ -11,6 +11,7 @@ import FormJson from '../../../../constant/form/instructor-student-form.json';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 import { BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
+import { SUPER } from '../../../../constant/data/Constant';
 
 const StudentForm = ({
     CreateStudent,
@@ -70,18 +71,17 @@ const StudentForm = ({
         let requestData = Object.entries(data).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
 
         if (editOperation) {
-            if (router?.pathname.split('/')[1] === 'super') {
+            if (router?.pathname.split('/')[1] === SUPER) {
                 SuperEditStudent(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/students/${editData?.id}`, requestData)
             } else {
                 EditStudent(router.query.clasId, editData?.id, requestData);
             }
         } else {
-            if (router?.pathname.split('/')[1] === 'super') {
+            if (router?.pathname.split('/')[1] === SUPER) {
                 SuperCreateStudent(BASE_URL_SUPER + `/license/${router?.query?.licenseId}/students`, requestData)
             } else {
                 CreateStudent(router.query.clasId, requestData);
             }
-            // CreateStudent(router.query.clasId, requestData);
         }
     };
 

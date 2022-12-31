@@ -160,7 +160,6 @@ const UserForm = ({
             } else {
                 CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, requestData);
             }
-            // CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, requestData);
         }
     };
 

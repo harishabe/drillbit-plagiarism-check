@@ -362,15 +362,6 @@ const ProUser = ({
         setShowDeleteWarning(true);
     };
 
-    // const handleShow = (e, info) => {
-    //     if (info?.title === 'Add User') {
-    //         setShowDialogModal(true);
-    //     } else if (info?.title === 'Add Multiple Users') {
-    //         UploadFileDataClear();
-    //         router.push({ pathname: '/pro/admin/addBulkUser' });
-    //     }
-    // };
-
     const handleCloseDrawer = (drawerClose) => {
         setEditInstructor(drawerClose);
     };
