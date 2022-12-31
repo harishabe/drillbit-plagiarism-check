@@ -107,6 +107,8 @@ export const PRO_ADMIN = 'admin';
 export const PRO_USER = 'user';
 export const EXTREME = 'extreme';
 export const PRO = 'pro';
+export const SUPER = 'super';
+export const AUTHENTICATION = 'authentication';
 
 /**
  * Cards & Folders

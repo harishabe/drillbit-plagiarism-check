@@ -138,23 +138,6 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingEditStudent: false,
                 editStudent: action.payload,
             };
-        case types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_START:
-            return {
-                ...state,
-                isLoadingList: true,
-            };
-        case types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_SUCCESS:
-            return {
-                ...state,
-                isLoadingList: false,
-                removeRepo: action.payload,
-            };
-        case types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_FAIL:
-            return {
-                ...state,
-                isLoadingList: false,
-                removeRepo: action.payload,
-            };
         case types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_START:
             return {
                 ...state,

@@ -69,14 +69,6 @@ export const SuperEditStudentData = async (url, data) => {
 };
 
 /**
- * API CALL FOR REMOVE REPOSITARY
- */
-
-export const RemoveRepositaryData = async (url) => {
-    return DeleteMethod(url);
-};
-
-/**
  * API CALL FOR GLOBAL SEARCH SUPER ADMIN
  */
 

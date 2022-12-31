@@ -115,7 +115,6 @@ import {
     ExtremeInsListDetail,
     ExtremeStuListDetail,
     EditStudentData,
-    RemoveRepositoryData,
     GlobalSearchDetail
 } from './super/DetailsSuperAdminData';
 
@@ -221,7 +220,6 @@ const saga = [
     fork(ExtremeInsListDetail),
     fork(ExtremeStuListDetail),
     fork(EditStudentData),
-    fork(RemoveRepositoryData),
     fork(GlobalSearchDetail),
     fork(GetExtremeRef),
     fork(GrammarReportSubmission)

@@ -209,9 +209,9 @@ export const RepoUpload = (url, data) => {
 /**
  * Remove repositary
  */
-export const RemoveRepositary = (url) => {
+export const RemoveRepositary = (url, role) => {
     return {
-        type: types.FETCH_ADMIN_REPOSITARY_DELETE_START, url: url
+        type: types.FETCH_ADMIN_REPOSITARY_DELETE_START, url: url, role: role
     };
 };
 

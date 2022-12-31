@@ -73,15 +73,6 @@ export const SuperEditStudent = (url, data) => {
 };
 
 /**
- * Remove Repository
- */
-export const RemoveRepository = (url) => {
-    return {
-        type: types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_START, url: url
-    };
-};
-
-/**
  * Global search super admin
  */
 export const GlobalSearch = (url) => {

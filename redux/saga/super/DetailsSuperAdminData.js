@@ -9,11 +9,10 @@ import {
     ExtremeInstructorListData,
     ExtremeStudentListData,
     SuperEditStudentData,
-    RemoveRepositaryData,
     GlobalSearchData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { SuperAdminPaginationValue, FolderSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
+import { SuperAdminPaginationValue } from '../../../utils/PaginationUrl';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { EXTREME, PRO } from '../../../constant/data/Constant';
@@ -230,38 +229,6 @@ export function* onLoadEditStudent(action) {
 
 export function* EditStudentData() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_START, onLoadEditStudent);
-}
-
-/**
- * Remove Repository
- * @param {*} action
- */
-
-export function* onLoadRemoveRepository(action) {
-    const { response, error } = yield call(RemoveRepositaryData, action.url);
-    if (response) {
-        yield put({
-            type: types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_SUCCESS, payload: response?.data,
-        });
-        if (action.url.split('/')[4] === PRO) {
-            yield put({
-                type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
-                url: BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `${action.url.split('/')[6]}/repository`,
-                paginationPayload: FolderSubmissionsPaginationValue,
-            });
-        }
-        toastrValidation(response)
-    } else {
-        yield put({
-            type: types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_FAIL,
-            payload: error,
-        });
-        toastrValidation(error)
-    }
-}
-
-export function* RemoveRepositoryData() {
-    yield takeLatest(types.FETCH_SUPER_ADMIN_REMOVE_REPOSITORY_START, onLoadRemoveRepository);
 }
 
 /**

@@ -14,12 +14,13 @@ import {
 } from './../../components';
 import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
 import SuperAdmin from './../../layouts/SuperAdmin';
-import { GetRepoList, ClearRepoData } from '../../redux/action/admin/AdminAction';
-import { DropdownList, RemoveRepository, GlobalSearch, GlobalSearchClear } from '../../redux/action/super/SuperAdminAction';
+import { GetRepoList, ClearRepoData, RemoveRepositary } from '../../redux/action/admin/AdminAction';
+import { DropdownList, GlobalSearch, GlobalSearchClear } from '../../redux/action/super/SuperAdminAction';
 import END_POINTS from '../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { formatDate } from '../../utils/RegExp';
 import { PaginationContainer } from '../../style/index';
+import { SUPER } from '../../constant/data/Constant';
 
 const RepositoryBreadCrumb = [
     {
@@ -59,12 +60,12 @@ const Repository = ({
     ClearRepoData,
     dpList,
     globalData,
-    RemoveRepository,
+    RemoveRepositary,
     repoData,
-    removeRepo,
+    removeData,
     pageDetails,
     isLoadingRepo,
-    isLoadingList
+    isLoadingRemove
 }) => {
     const [rows, setRows] = useState([]);
     const [list, setList] = useState();
@@ -151,10 +152,10 @@ const Repository = ({
     }, [globalData]);
 
     useEffect(() => {
-        if (removeRepo?.status === 200) {
+        if (removeData?.status === 200) {
             GlobalSearchClear()
         }
-    }, [removeRepo]);
+    }, [removeData]);
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
@@ -169,9 +170,9 @@ const Repository = ({
 
     const handleYesWarning = () => {
         if (globalSearch) {
-            RemoveRepository(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_GLOBAL_SEARCH_REMOVE_REPOSITORY + deleteRowData);
+            RemoveRepositary(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_GLOBAL_SEARCH_REMOVE_REPOSITORY + deleteRowData, SUPER);
         } else {
-            RemoveRepository(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REMOVE_REPOSITORY + `${licenseId}/removeRepository/${deleteRowData}`);
+            RemoveRepositary(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REMOVE_REPOSITORY + `${licenseId}/removeRepository/${deleteRowData}`, SUPER);
         }
         setTimeout(() => {
             setShowDeleteWarning(false);
@@ -285,7 +286,7 @@ const Repository = ({
                     handleAction={ handleAction }
                     handleTableSort={ handleTableSort }
                     charLength={ 10 }
-                    isLoading={ isLoadingRepo || isLoadingList }
+                    isLoading={ isLoadingRepo || isLoadingRemove }
                 />
 
                 <PaginationContainer>
@@ -306,10 +307,10 @@ const mapStateToProps = (state) => ({
     repoData: state?.detailsData?.repoData?._embedded?.repositoryListList,
     pageDetails: state?.detailsData?.repoData?.page,
     isLoadingRepo: state?.detailsData?.isLoadingRepo,
-    isLoadingList: state?.superAdmin?.isLoadingList,
+    isLoadingRemove: state?.detailsData?.isLoadingRemove,
     dpList: state?.superAdmin?.ListSuccess,
     globalData: state?.superAdmin?.globalData,
-    removeRepo: state?.superAdmin?.removeRepo,
+    removeData: state?.detailsData?.removeData,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -317,7 +318,7 @@ const mapDispatchToProps = (dispatch) => {
         GetRepoList: (url, PaginationValue) => dispatch(GetRepoList(url, PaginationValue)),
         GlobalSearch: (url) => dispatch(GlobalSearch(url)),
         GlobalSearchClear: () => dispatch(GlobalSearchClear()),
-        RemoveRepository: (url) => dispatch(RemoveRepository(url)),
+        RemoveRepositary: (url, role) => dispatch(RemoveRepositary(url, role)),
         DropdownList: (url) => dispatch(DropdownList(url)),
         ClearRepoData: () => dispatch(ClearRepoData()),
     };
