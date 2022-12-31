@@ -8,6 +8,7 @@ import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/ref-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 
 const RefForm = ({
     CreateAccount,
@@ -28,7 +29,7 @@ const RefForm = ({
     });
 
     useEffect(() => {
-        DropdownList();
+        DropdownList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST);
         FolderPathList();
     }, []);
 
@@ -199,7 +200,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         CreateAccount: (url, data) => dispatch(CreateAccount(url, data)),
         EditAccount: (url, data) => dispatch(EditAccount(url, data)),
-        DropdownList: () => dispatch(DropdownList()),
+        DropdownList: (url) => dispatch(DropdownList(url)),
         FolderPathList: () => dispatch(FolderPathList()),
     };
 };

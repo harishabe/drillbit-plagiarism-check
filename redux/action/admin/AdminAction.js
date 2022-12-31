@@ -108,6 +108,15 @@ export const ReportsData = (url) => {
 };
 
 /**
+ * Clear report data
+ */
+export const ClearReportData = () => {
+    return {
+        type: types.FETCH_ADMIN_REPORTS_DATA_CLEAR
+    };
+};
+
+/**
  * instructor and student csv file download
  */
 export const DownloadInstructorStudentData = (url, userType) => {
@@ -180,6 +189,15 @@ export const GetRepoList = (url, paginationPayload) => {
 };
 
 /**
+ * Clear repo data
+ */
+export const ClearRepoData = () => {
+    return {
+        type: types.FETCH_ADMIN_REPOSITARY_DETAILS_CLEAR
+    };
+};
+
+/**
  * Repositary > uploadfile
  */
 export const RepoUpload = (url, data) => {
@@ -191,9 +209,9 @@ export const RepoUpload = (url, data) => {
 /**
  * Remove repositary
  */
-export const RemoveRepositary = (url) => {
+export const RemoveRepositary = (url, role) => {
     return {
-        type: types.FETCH_ADMIN_REPOSITARY_DELETE_START, url: url
+        type: types.FETCH_ADMIN_REPOSITARY_DELETE_START, url: url, role: role
     };
 };
 

@@ -2,6 +2,7 @@ import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { GetMethod, PostMethod, PutMethod, DeleteMethod, GetMethodDownload, PostFormData } from './../ApiMethod';
 import { PaginationUrl } from '../../../utils/PaginationUrl';
+import { SUPER } from '../../../constant/data/Constant';
 
 /**
  * API CALL FOR INSTRUCTOR DATA
@@ -139,6 +140,10 @@ export const RepoUploadDetail = async (url, data) => {
  * API CALL FOR REMOVE REPOSITARY
  */
 
-export const RemoveRepositaryData = async (url) => {
-    return GetMethod(url);
+export const RemoveRepositaryData = async (url, role) => {
+    if (role === SUPER) {
+        return DeleteMethod(url);
+    } else {
+        return GetMethod(url);
+    }
 };

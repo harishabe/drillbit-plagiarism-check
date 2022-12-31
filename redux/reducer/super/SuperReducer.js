@@ -172,6 +172,28 @@ const SuperReducer = (state = {}, action) => {
                 isLoadingEditStudent: false,
                 editStudent: action.payload,
             };
+        case types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_START:
+            return {
+                ...state,
+                isLoadingList: true,
+            };
+        case types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_SUCCESS:
+            return {
+                ...state,
+                isLoadingList: false,
+                globalData: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_FAIL:
+            return {
+                ...state,
+                isLoadingList: false,
+                globalDataError: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_CLEAR:
+            return {
+                ...state,
+                isLoadingList: false,
+                globalData: '',
         case types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_START:
             return {
                 ...state,

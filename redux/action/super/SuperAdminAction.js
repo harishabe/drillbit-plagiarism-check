@@ -48,9 +48,9 @@ export const DeleteAccount = (licenseId, role) => {
 /**
  * DropdownList Extreme and Ref Account
  */
-export const DropdownList = () => {
+export const DropdownList = (url) => {
     return {
-        type: types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START
+        type: types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START, url: url
     };
 };
 
@@ -97,6 +97,24 @@ export const SuperEditStudent = (url, data) => {
     return {
         type: types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_START, url: url, query: data
     };
+};
+
+/**
+ * Global search super admin
+ */
+export const GlobalSearch = (url) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_START, url: url
+    };
+};
+
+/**
+ * Global search super admin
+ */
+export const GlobalSearchClear = () => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_CLEAR
+  };
 };
 
 /**

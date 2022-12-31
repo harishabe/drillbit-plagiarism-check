@@ -127,6 +127,12 @@ const DetailsReducer = (state = {}, action) => {
                 isLoadingRepo: false,
                 repoError: action.payload,
             };
+        case types.FETCH_ADMIN_REPOSITARY_DETAILS_CLEAR:
+            return {
+                ...state,
+                isLoadingRepo: false,
+                repoData: '',
+            };
         case types.FETCH_ADMIN_REPOSITARY_UPLOAD_START:
             return {
                 ...state,

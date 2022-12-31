@@ -116,6 +116,8 @@ import {
     SuperFolderPathList,
     ExtremeInsListDetail,
     ExtremeStuListDetail,
+    EditStudentData,
+    GlobalSearchDetail,
     CreateStudentData,
     EditStudentData,
     MakeHimAdminDetail
@@ -226,6 +228,7 @@ const saga = [
     fork(ExtremeStuListDetail),
     fork(CreateStudentData),
     fork(EditStudentData),
+    fork(GlobalSearchDetail),
     fork(MakeHimAdminDetail),
     fork(GetExtremeRef),
     fork(GrammarReportSubmission)

@@ -13,6 +13,7 @@ import {
 } from '../../../components';
 import { DownloadIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/report-submission-form.json';
+import { EXTREME, PRO } from '../../../constant/data/Constant';
 import { formatDate } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 
@@ -57,6 +58,24 @@ const submissionsColumns = [
     { id: 'reporttitle', label: 'Title', minWidth: 110 },
 ];
 
+const foldersColumn = [
+    { id: 'reportname', label: 'Folder Name', minWidth: 170 },
+    { id: 'reportid', label: 'Folder ID', minWidth: 170 },
+    { id: 'reportusername', label: 'Email', minWidth: 170 },
+    { id: 'reportcreated', label: 'Created Date', minWidth: 170 },
+    { id: 'reportendDate', label: 'End Date', minWidth: 170 },
+    { id: 'reportcount', label: 'Submissions', minWidth: 170 },
+];
+
+const proSubmissionsColumns = [
+    { id: 'reportname', label: 'Author Name', minWidth: 110 },
+    { id: 'reporttitle', label: 'Title', minWidth: 110 },
+    { id: 'reportdate_up', label: 'Submission Date', minWidth: 110 },
+    { id: 'reportusername', label: 'Email', minWidth: 110 },
+    { id: 'reportpaper_id', label: 'Paper ID', minWidth: 110 },
+    { id: 'reportpercent', label: 'Similarity', minWidth: 110 },
+];
+
 function submissionData(reportassignment_name, reportassignmet_id, reportauthor, reportclas_id, reportclas_name, reportemail, reportno_of_page, reportpaper_id, reportsimilarity, reportsubmission_date, reporttitle) {
     return { reportassignment_name, reportassignmet_id, reportauthor, reportclas_id, reportclas_name, reportemail, reportno_of_page, reportpaper_id, reportsimilarity, reportsubmission_date, reporttitle };
 }
@@ -69,11 +88,22 @@ function classesData(reportcls_id, reportcls_name, reportcreated, reportemail, r
     return { reportcls_id, reportcls_name, reportcreated, reportemail, reportstudents_count, reportsubmissions_count, reportvalidity };
 }
 
+function folderData(reportname, reportid, reportusername, reportcreated, reportendDate, reportcount) {
+    return { reportname, reportid, reportusername, reportcreated, reportendDate, reportcount };
+}
+
+function proSubmissionData(reportname, reporttitle, reportdate_up, reportusername, reportpaper_id, reportpercent) {
+    return { reportname, reporttitle, reportdate_up, reportusername, reportpaper_id, reportpercent };
+}
+
 const ReportView = ({
     reportName,
+    role,
     assignmentViewDownloadData,
     classesViewDownloadData,
     submissionsViewDownloadData,
+    foldersViewList,
+    submissionsViewList,
     isLoadingViewReport,
     isLoadingSubmission,
     isLoadingDownload,
@@ -138,8 +168,32 @@ const ReportView = ({
                 );
             arr.push(row);
         });
+        foldersViewList?.map((data) => {
+            row =
+                folderData(
+                    data.folder_name,
+                    data.folder_id,
+                    data.mail_id,
+                    formatDate(data.created_date),
+                    formatDate(data.end_date),
+                    data.no_of_submissions,
+                );
+            arr.push(row);
+        });
+        submissionsViewList?.map((data) => {
+            row =
+                proSubmissionData(
+                    data.name,
+                    data.title,
+                    formatDate(data.date_up),
+                    data.mail_id,
+                    data.paper_id,
+                    <SimilarityStatus percent={ data.percent } />,
+                );
+            arr.push(row);
+        });
         setRows([...arr]);
-    }, [assignmentViewDownloadData, classesViewDownloadData, submissionsViewDownloadData]);
+    }, [assignmentViewDownloadData, classesViewDownloadData, submissionsViewDownloadData, foldersViewList, submissionsViewList]);
 
     return (
         <>
@@ -210,7 +264,7 @@ const ReportView = ({
                     }
 
                     {
-                        reportName === 'submissions' &&
+                        reportName === 'submissions' && role === EXTREME &&
                         <>
                             <Tooltip title="Download submissions" arrow>
                                 <IconButton sx={ {
@@ -229,6 +283,63 @@ const ReportView = ({
                                 isCheckbox={ false }
                                 isSorting={ true }
                                 tableHeader={ submissionsColumns }
+                                tableData={ rows }
+                                charLength={ 10 }
+                                path=''
+                            />
+                        </>
+
+                    }
+
+                    {
+                        reportName === 'folders' &&
+                        <>
+                            { isLoadingDownload ? <Skeleton /> :
+                                <Tooltip title="Download Folders" arrow>
+                                    <IconButton sx={ {
+                                        position: 'fixed',
+                                        padding: '20px',
+                                        top: '9px',
+                                        right: '74px'
+                                    } }
+                                        onClick={ handleDownload }>
+                                        <DownloadButton >
+                                            <DownloadIcon />
+                                        </DownloadButton>
+                                    </IconButton>
+                                </Tooltip>
+                            }
+                            <CommonTable
+                                isCheckbox={ false }
+                                isSorting={ true }
+                                tableHeader={ foldersColumn }
+                                tableData={ rows }
+                                charLength={ 10 }
+                                path=''
+                            />
+                        </>
+                    }
+
+                    {
+                        reportName === 'submissions' && role === PRO &&
+                        <>
+                            <Tooltip title="Download submissions" arrow>
+                                <IconButton sx={ {
+                                    position: 'fixed',
+                                    padding: '20px',
+                                    top: '9px',
+                                    right: '74px'
+                                } }
+                                    onClick={ setOpen }>
+                                    <DownloadButton >
+                                        <DownloadIcon />
+                                    </DownloadButton>
+                                </IconButton>
+                            </Tooltip>
+                            <CommonTable
+                                isCheckbox={ false }
+                                isSorting={ true }
+                                tableHeader={ proSubmissionsColumns }
                                 tableData={ rows }
                                 charLength={ 10 }
                                 path=''

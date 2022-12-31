@@ -19,11 +19,12 @@ import {
     GetExportCsvFile,
 } from '../../api/admin/DetailsAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { PaginationValue, StudentSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
+import { PaginationValue, StudentSubmissionsPaginationValue, FolderSubmissionsPaginationValue } from '../../../utils/PaginationUrl';
 import { BASE_URL_EXTREM, BASE_URL_PRO, BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { EXTREME, PRO, AUTHENTICATION, INSTRUCTOR, USER } from '../../../constant/data/Constant'
+
 
 /**
  * Get instructor details
@@ -513,16 +514,30 @@ export function* RepoAdminUploadData() {
  */
 
 export function* onLoadRemoveRepositary(action) {
-    const { response, error } = yield call(RemoveRepositaryData, action.url);
+    const { response, error } = yield call(RemoveRepositaryData, action.url, action.role);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_REPOSITARY_DELETE_SUCCESS, payload: response?.data });
-        yield put({
-            type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
-            url: action.url.split('/')[3] === EXTREME ?
-                BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_DATA :
-                BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_DATA,
-            paginationPayload: StudentSubmissionsPaginationValue
-        });
+        if (action.url.split('/')[3] === EXTREME) {
+            yield put({
+                type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
+                url: BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_DATA,
+                paginationPayload: StudentSubmissionsPaginationValue
+            });
+        } else if (action.url.split('/')[3] === PRO) {
+            yield put({
+                type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
+                url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_DATA,
+                paginationPayload: StudentSubmissionsPaginationValue
+            });
+        } else if (action.url.split('/')[3] === AUTHENTICATION) {
+            if (action.url.split('/')[4] === PRO) {
+                yield put({
+                    type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
+                    url: BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_REPOSITORY + `${action.url.split('/')[6]}/repository`,
+                    paginationPayload: FolderSubmissionsPaginationValue,
+                });
+            }
+        }
         toastrValidation(response);
     } else {
         yield put({

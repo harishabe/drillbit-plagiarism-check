@@ -109,8 +109,10 @@ export const EXTREME = 'extreme';
 export const PRO = 'pro';
 export const SUPER = 'super';
 export const AUTHENTICATION = 'authentication';
+
 export const INSTRUCTOR = 'instructor';
 export const USER = 'user';
+
 
 /**
  * Cards & Folders

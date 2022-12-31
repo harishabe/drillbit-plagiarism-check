@@ -8,6 +8,7 @@ import {
     DropdownListData,
     ExtremeInstructorListData,
     ExtremeStudentListData,
+    GlobalSearchData,
     SuperCreateStudentData,
     SuperEditStudentData,
     ExtremeRefDeleteAccount,
@@ -17,8 +18,10 @@ import {
 import toastrValidation from '../../../utils/ToastrValidation';
 import { SuperAdminPaginationValue, PaginationValue } from '../../../utils/PaginationUrl';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
-import END_POINTS_PRO from '../../../utils/EndPointPro';
 import END_POINTS from '../../../utils/EndPoints';
+import { EXTREME, PRO } from '../../../constant/data/Constant';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
+
 
 /**
  * Get Super admin dashboard widget count details
@@ -301,7 +304,7 @@ export function* onLoadEditStudent(action) {
         });
         yield put({
             type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START,
-            url: `/extreme/license/${action.url.split('/')[6]}/students`,
+            url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${action.url.split('/')[6]}/students`,
             paginationPayload: SuperAdminPaginationValue,
         });
         toastrValidation(response)
@@ -319,6 +322,29 @@ export function* EditStudentData() {
 }
 
 /**
+ * Global search super admin
+ * @param {*} action
+ */
+
+export function* onLoadGlobalSearch(action) {
+    const { response, error } = yield call(GlobalSearchData, action.url);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_FAIL,
+        })
+    }
+}
+
+export function* GlobalSearchDetail() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_START, onLoadGlobalSearch);
+}
+    
+
  * Make him admin (extreme > instructor , pro > user)
  * @param {*} action
  */
