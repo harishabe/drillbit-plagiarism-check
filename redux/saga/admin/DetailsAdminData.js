@@ -23,7 +23,7 @@ import { PaginationValue, StudentSubmissionsPaginationValue, FolderSubmissionsPa
 import { BASE_URL_EXTREM, BASE_URL_PRO, BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
-import { EXTREME, PRO, AUTHENTICATION } from '../../../constant/data/Constant'
+import { EXTREME, PRO, AUTHENTICATION, INSTRUCTOR, USER } from '../../../constant/data/Constant'
 
 
 /**
@@ -110,13 +110,33 @@ export function* onLoadCreateInstructor(action) {
     const { response, error } = yield call(CreateInstructorData, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_SUCCESS, payload: response?.data });
-        yield put({
-            type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
-            url: action.url.split('/')[3] === 'extreme' ?
-                BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
-                BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
-            paginationPayload: PaginationValue
-        });
+        if (action.url.split('/')[3] === EXTREME) {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR,
+                paginationPayload: PaginationValue
+            });
+        } else if (action.url.split('/')[3] === PRO) {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
+                paginationPayload: PaginationValue
+            });
+        } else if (action.url.split('/')[3] === AUTHENTICATION) {
+            if (action.url.split('/')[4] === EXTREME) {
+                yield put({
+                    type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
+                    url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + action.url.split('/')[6] + '/instructors',
+                    paginationPayload: PaginationValue
+                });
+            } else {
+                yield put({
+                    type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                    url: BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + action.url.split('/')[6] + '/users',
+                    paginationPayload: PaginationValue
+                });
+            }
+        }
         toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_ADMIN_INSTRUCTOR_CREATE_FAIL, payload: error });
@@ -275,10 +295,16 @@ export function* onLoadEdit(action) {
                 url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
                 paginationPayload: PaginationValue
             });
-        } else if (action.API_END_POINT === 'super') {
+        } else if (action.API_END_POINT === 'superInstructor') {
             yield put({
                 type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
-                url: `/extreme/license/${action.url.split('/')[6]}/instructors`,
+                url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${action.url.split('/')[6]}/instructors`,
+                paginationPayload: PaginationValue
+            });
+        } else if (action.API_END_POINT === 'superUser') {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${action.url.split('/')[6]}/users`,
                 paginationPayload: PaginationValue
             });
         }
@@ -308,32 +334,31 @@ export function* onLoadDelete(action) {
             type: types.FETCH_ADMIN_DELETE_ROW_SUCCESS,
             payload: response?.data,
         });
-        if (action.url.split('/')[3] === 'extreme') {
+        if (action.url.split('/')[3] === EXTREME) {
             yield put({
                 type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
                 url: BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR,
                 paginationPayload: action.paginationPayload
             });
-        } else if (action.url.split('/')[3] === 'pro') {
+        } else if (action.url.split('/')[3] === PRO) {
             yield put({
                 type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
                 url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
                 paginationPayload: action.paginationPayload
             });
-        } else if (action.url.split('/')[3] === 'authentication') {
+        } else if (action.url.split('/')[4] === EXTREME) {
             yield put({
                 type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
                 url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${action.url.split('/')[6]}/instructors`,
                 paginationPayload: action.paginationPayload
             });
+        } else if (action.url.split('/')[4] === PRO) {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${action.url.split('/')[6]}/users`,
+                paginationPayload: action.paginationPayload
+            });
         }
-        // yield put({
-        //     type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
-        //     url: action.url.split('/')[3] === 'extreme' ?
-        //         BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
-        //         BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
-        //     paginationPayload: action.paginationPayload
-        // });
         toastrValidation(response);
     } else {
         yield put({
@@ -360,7 +385,7 @@ export function* onLoadDeleteStudent(action) {
             type: types.FETCH_ADMIN_DELETE_STUDENT_ROW_SUCCESS,
             payload: response?.data,
         });
-        if (action.url.split('/')[3] === 'extreme') {
+        if (action.url.split('/')[3] === EXTREME) {
             yield put({ type: types.FETCH_ADMIN_STUDENT_DATA_START, paginationPayload: PaginationValue });
         } else {
             yield put({
@@ -391,13 +416,38 @@ export function* onLoadDeactivate(action) {
     const { response, error } = yield call(DeactivateRow, action.url, action.paginationPayload);
     if (response) {
         yield put({ type: types.FETCH_ADMIN_DEACTIVATE_ROW_SUCCESS, payload: response?.data });
-        yield put({
-            type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
-            url: action.url.split('/')[3] === 'extreme' ?
-                BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR :
-                BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
-            paginationPayload: action.paginationPayload
-        });
+        if (action.url.split('/')[3] === EXTREME) {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR,
+                paginationPayload: action.paginationPayload
+            });
+        } else if (action.url.split('/')[3] === PRO) {
+            yield put({
+                type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                url: BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER,
+                paginationPayload: action.paginationPayload
+            });
+        } else if (action.url.split('/')[3] === AUTHENTICATION) {
+            if (action.url.split('/')[7] === INSTRUCTOR) {
+                yield put({
+                    type: types.FETCH_SUPER_ADMIN_EXT_INSTRUCTOR_LIST_START,
+                    url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + action.url.split('/')[6] + '/instructors',
+                    paginationPayload: PaginationValue
+                });
+                yield put({
+                    type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START,
+                    url: END_POINTS.SUPER_ADMIN_INSTRUCTOR + action.url.split('/')[6] + '/students',
+                    paginationPayload: PaginationValue
+                });
+            } else if (action.url.split('/')[7] === USER) {
+                yield put({
+                    type: types.FETCH_ADMIN_INSTRUCTOR_DATA_START,
+                    url: BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + action.url.split('/')[6] + '/users',
+                    paginationPayload: PaginationValue
+                });
+            }
+        }
     } else {
         yield put({ type: types.FETCH_ADMIN_DEACTIVATE_ROW_FAIL, payload: error });
     }
@@ -442,7 +492,7 @@ export function* onLoadUploadFile(action) {
         yield put({ type: types.FETCH_ADMIN_REPOSITARY_UPLOAD_SUCCESS, payload: response?.data });
         yield put({
             type: types.FETCH_ADMIN_REPOSITARY_DETAILS_START,
-            url: action.url.split('/')[3] === 'extreme' ?
+            url: action.url.split('/')[3] === EXTREME ?
                 BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_DATA :
                 BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_DATA,
             paginationPayload: StudentSubmissionsPaginationValue

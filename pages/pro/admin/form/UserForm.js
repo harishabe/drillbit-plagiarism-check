@@ -8,7 +8,7 @@ import FormJson from '../../../../constant/form/instructor-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
-import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
+import { BASE_URL_PRO, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
 const UserForm = ({
@@ -18,7 +18,8 @@ const UserForm = ({
     editData,
     EditData,
     remainingDocuments,
-    remainingGrammar
+    remainingGrammar,
+    licenseId
 }) => {
 
     const [formJsonField, setFormJsonField] = useState(FormJson);
@@ -144,13 +145,21 @@ const UserForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            data['expiry_date'] = convertDate(data.expiry_date);
-            let requestData = Object.entries(data).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
-            EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, requestData, 'user');
+            let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
+            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
+            if (licenseId) {
+                EditData(BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${licenseId}/users/${editData?.user_id}`, requestData, 'superUser');
+            } else {
+                EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, requestData, 'user');
+            }
         } else {
             let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
             let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
-            CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, requestData);
+            if (licenseId) {
+                CreateInstructorData(BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${licenseId}/user`, requestData);
+            } else {
+                CreateInstructorData(BASE_URL_PRO + END_POINTS_PRO.CREATE_USER, requestData);
+            }
         }
     };
 

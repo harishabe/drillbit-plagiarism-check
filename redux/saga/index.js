@@ -110,12 +110,17 @@ import {
     SuperDashboardWidget,
     GetExtremeRef,
     CreateExtremeRefAccount,
+    DeleteExtremeRefAccount,
     EditExtremeRef,
     SuperDropdownList,
+    SuperFolderPathList,
     ExtremeInsListDetail,
     ExtremeStuListDetail,
     EditStudentData,
-    GlobalSearchDetail
+    GlobalSearchDetail,
+    CreateStudentData,
+    EditStudentData,
+    MakeHimAdminDetail
 } from './super/DetailsSuperAdminData';
 
 const saga = [
@@ -215,12 +220,16 @@ const saga = [
     fork(GetAdminGoogleCourseHomeData),    
     fork(SuperDashboardWidget),    
     fork(CreateExtremeRefAccount),
+    fork(DeleteExtremeRefAccount),
     fork(EditExtremeRef),
     fork(SuperDropdownList),
+    fork(SuperFolderPathList),
     fork(ExtremeInsListDetail),
     fork(ExtremeStuListDetail),
+    fork(CreateStudentData),
     fork(EditStudentData),
     fork(GlobalSearchDetail),
+    fork(MakeHimAdminDetail),
     fork(GetExtremeRef),
     fork(GrammarReportSubmission)
 ];

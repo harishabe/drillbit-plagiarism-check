@@ -37,11 +37,29 @@ export const CreateAccount = (url, data) => {
 };
 
 /**
+ * Delete Extreme and Ref Account
+ */
+export const DeleteAccount = (licenseId, role) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_DELETE_ACCOUNT_START, licenseId: licenseId, role: role
+    };
+};
+
+/**
  * DropdownList Extreme and Ref Account
  */
 export const DropdownList = (url) => {
     return {
         type: types.FETCH_SUPER_ADMIN_DROPDOWN_LIST_START, url: url
+    };
+};
+
+/**
+ * Folder path list
+ */
+export const FolderPathList = () => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_FOLDER_PATH_LIST_START
     };
 };
 
@@ -60,6 +78,15 @@ export const GetExtremeInstructorList = (url, paginationPayload) => {
 export const GetExtremeStudentList = (url, paginationPayload) => {
     return {
         type: types.FETCH_SUPER_ADMIN_EXT_STUDENT_LIST_START, url: url, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Create student
+ */
+export const SuperCreateStudent = (url, data) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_START, url: url, query: data
     };
 };
 
@@ -87,5 +114,14 @@ export const GlobalSearch = (url) => {
 export const GlobalSearchClear = () => {
     return {
         type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_CLEAR
+  };
+};
+
+/**
+ * Make him admin (extreme > instructor , pro > user)
+ */
+export const MakeHimAdmin = (url, paginationPayload) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_MAKE_HIM_ADMIN_START, url: url, paginationPayload: paginationPayload
     };
 };

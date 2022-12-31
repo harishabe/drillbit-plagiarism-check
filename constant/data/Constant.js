@@ -101,7 +101,7 @@ export const SIMILARITY_COLOR_STANDARD = {
 }
 
 /**
- * Pro roles
+ * Pro roles & constant data
  */
 export const PRO_ADMIN = 'admin';
 export const PRO_USER = 'user';
@@ -109,6 +109,10 @@ export const EXTREME = 'extreme';
 export const PRO = 'pro';
 export const SUPER = 'super';
 export const AUTHENTICATION = 'authentication';
+
+export const INSTRUCTOR = 'instructor';
+export const USER = 'user';
+
 
 /**
  * Cards & Folders
@@ -168,4 +172,9 @@ export const INTEGRATION_TYPES = {
     MOODLE : 'Moodle',
     CANVAS : 'Canvas',
     BLACKBOARD : 'Blackboard',
+}
+
+export const ERROR_MESSAGE_RESPONSE = {
+    'ERROR_MSG_410':'File no longer available',
+    'ERR_NETWORK':'No response from server. Check if you are still connected to internet.'
 }

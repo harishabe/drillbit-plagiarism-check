@@ -5,10 +5,11 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import debouce from 'lodash.debounce';
-import { Grid, Tooltip, TextField, Pagination, IconButton } from '@mui/material';
+import { Grid, Tooltip, TextField, Pagination, IconButton, Switch } from '@mui/material';
 import {
     CommonTable,
     MainHeading,
+    StatusDot,
     WarningDialog,
     DialogModal,
     CreateDrawer,
@@ -17,7 +18,8 @@ import SuperAdmin from './../../../layouts/SuperAdmin';
 import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../../assets/icon';
 import {
     // EditData, 
-    DeleteStudentData
+    DeleteStudentData,
+    DeactivateData
 } from '../../../redux/action/admin/AdminAction';
 import { GetExtremeStudentList } from '../../../redux/action/super/SuperAdminAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -35,10 +37,16 @@ const SearchField = styled.div`
     right:16px;
 `;
 
+const AddButtonBottom = styled.div`
+    position:fixed;
+    bottom: 30px;
+    right:30px;
+`;
+
 const columns = [
     { id: 'name', label: 'Name' },
     { id: 'username', label: 'Email' },
-    { id: 'end_date', label: 'End date' },
+    { id: 'expiry_date', label: 'End date' },
     { id: 'status', label: 'Status' },
     // { id: 'user_id', label: 'ID' },
     // { id: 'department', label: 'Department' },
@@ -47,8 +55,8 @@ const columns = [
     { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, name, user_id, username, department, section, end_date, status, stats, action) {
-    return { id, name, user_id, username, department, section, end_date, status, stats, action };
+function createData(id, name, user_id, username, department, section, expiry_date, status, stats, action) {
+    return { id, name, user_id, username, department, section, expiry_date, status, stats, action };
 }
 
 const Students = ({
@@ -56,6 +64,7 @@ const Students = ({
     studentData,
     pageDetailsStudent,
     // EditData,
+    DeactivateData,
     DeleteStudentData,
     isLoadingExtStuList,
     isLoadingEditStudent
@@ -68,6 +77,9 @@ const Students = ({
     const [deleteRowData, setDeleteRowData] = useState('');
     const [editStudent, setEditStudent] = useState(false);
     const [editStudentData, setEditStudentData] = useState('');
+    const [showStatusWarning, setStatusWarning] = useState(false);
+    const [statusRowData, setStatusRowData] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -93,11 +105,17 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
-                    student.end_date,
-                    student.status,
+                    student.expiry_date,
+                    <StatusDot color={ (student.status === 'active') || (student.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ student.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                        {
+                            'component': <Switch checked={ student.status === 'active' ? true : false } size="small" />,
+                            'type': student.status === 'active' ? 'lock' : 'unlock',
+                            'title': student.status === 'active' ? 'Activate' : 'De-activate'
+                        }
+                    ]
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -125,7 +143,6 @@ const Students = ({
         if (icon === 'edit') {
             setEditStudent(true);
             setEditStudentData(rowData);
-
         } else if (icon === 'delete') {
             setDeleteRowData(rowData.id);
             setShowDeleteWarning(true);
@@ -133,6 +150,22 @@ const Students = ({
         } else if (icon === 'stats') {
             setStudentId(rowData.id);
             setShowDialogModal(true);
+        } else if (icon === 'lock') {
+            let activateDeactive = {
+                'id': rowData?.id,
+                'status': 'INACTIVE'
+            };
+            setStatusRowData(activateDeactive);
+            setStatusWarning(true);
+            setStatusMessage('inactive');
+        } else if (icon === 'unlock') {
+            let activateDeactive = {
+                'id': rowData?.id,
+                'status': 'ACTIVE'
+            };
+            setStatusRowData(activateDeactive);
+            setStatusWarning(true);
+            setStatusMessage('active');
         }
     };
 
@@ -218,9 +251,19 @@ const Students = ({
         setEditStudent(value);
     };
 
+    const handleStatusWarning = () => {
+        DeactivateData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + router?.query?.licenseId + '/instructor/' + statusRowData.id + '/' + statusRowData.status, paginationPayload);
+        setTimeout(() => {
+            setStatusWarning(false);
+        }, [100]);
+    };
+
+    const handleStatusCloseWarning = () => {
+        setStatusWarning(false);
+    };
+
     return (
         <React.Fragment>
-
             { showDeleteWarning &&
                 <WarningDialog
                     warningIcon={ <DeleteWarningIcon /> }
@@ -229,6 +272,17 @@ const Students = ({
                     handleNo={ handleCloseWarning }
                     isOpen={ true }
                 /> }
+
+            {
+                showStatusWarning &&
+                <WarningDialog
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message={ 'Are you sure, you want to ' + statusMessage + '?' }
+                    handleYes={ handleStatusWarning }
+                    handleNo={ handleStatusCloseWarning }
+                    isOpen={ true }
+                />
+            }
 
             { editStudent &&
                 <CreateDrawer
@@ -259,6 +313,16 @@ const Students = ({
                     </DialogModal>
                 </>
             }
+
+            <AddButtonBottom>
+                <CreateDrawer
+                    isShowAddIcon={ true }
+                    title='Add Student'
+                >
+                    <StudentForm
+                    />
+                </CreateDrawer>
+            </AddButtonBottom>
 
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
@@ -348,7 +412,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetExtremeStudentList: (url, paginationPayload) => dispatch(GetExtremeStudentList(url, paginationPayload)),
         // EditData: (data) => dispatch(EditData(data)),
-        DeleteStudentData: (url) => dispatch(DeleteStudentData(url))
+        DeleteStudentData: (url) => dispatch(DeleteStudentData(url)),
+        DeactivateData: (url, paginationPayload) => dispatch(DeactivateData(url, paginationPayload)),
     };
 };
 

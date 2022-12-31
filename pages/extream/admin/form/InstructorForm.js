@@ -9,6 +9,7 @@ import FormJson from '../../../../constant/form/instructor-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS from '../../../../utils/EndPoints';
+import { SUPER } from '../../../../constant/data/Constant';
 import { BASE_URL_EXTREM, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
@@ -47,11 +48,11 @@ const InstructorForm = ({
     });
 
     useEffect(() => {
-        if (licenseExpiryDate?.license_expiry_date !== undefined) {
+        if (licenseExpiryDate !== undefined) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['minDate'] = new Date();
-                    item['maxDate'] = new Date(licenseExpiryDate?.license_expiry_date);
+                    item['maxDate'] = new Date(licenseExpiryDate);
                 }
                 return item;
             });
@@ -98,7 +99,7 @@ const InstructorForm = ({
             }
         }
 
-        if ((new Date(expiryDate) > new Date(licenseExpiryDate?.license_expiry_date))) {
+        if ((new Date(expiryDate) > new Date(licenseExpiryDate))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
@@ -106,7 +107,7 @@ const InstructorForm = ({
                 return item;
             });
             setFormJsonField(fields);
-        } else if ((new Date() > new Date(expiryDate)) && !(new Date(expiryDate) > new Date(licenseExpiryDate?.license_expiry_date))) {
+        } else if ((new Date() > new Date(expiryDate)) && !(new Date(expiryDate) > new Date(licenseExpiryDate))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
@@ -124,7 +125,7 @@ const InstructorForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) && (new Date() < new Date(expiryDate)))) {
+        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date(expiryDate) <= new Date(licenseExpiryDate) && (new Date() < new Date(expiryDate)))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = false;
@@ -151,8 +152,8 @@ const InstructorForm = ({
             };
             let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
 
-            if (router?.pathname.split('/')[1] === 'super') {
-                EditData(BASE_URL_SUPER + `/extreme/license/${router?.query?.licenseId}/instructors/${editData?.user_id}`, requestData, 'super');
+            if (router?.pathname.split('/')[1] === SUPER) {
+                EditData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructors/${editData?.user_id}`, requestData, 'superInstructor');
             } else {
                 EditData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR_EDIT_DATA + 'instructor/' + editData?.user_id, requestData, 'instructor');
             }
@@ -162,7 +163,11 @@ const InstructorForm = ({
                 ...data, 'expiry_date': convertDate(data.expiry_date),
             };
             let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
-            CreateInstructorData(BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR, requestData);
+            if (router?.pathname.split('/')[1] === SUPER) {
+                CreateInstructorData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructor`, requestData);
+            } else {
+                CreateInstructorData(BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR, requestData);
+            }
         }
     };
 
@@ -215,7 +220,7 @@ const InstructorForm = ({
             setEditOperation(true);
         } else {
             let a = {
-                'expiry_date': convertDate(licenseExpiryDate?.license_expiry_date),
+                'expiry_date': convertDate(licenseExpiryDate),
             };
             const fields = [
                 'expiry_date',
@@ -252,7 +257,10 @@ const mapStateToProps = (state) => ({
     isLoading: state?.adminCrud?.isLoading,
     remainingDocuments: state?.detailsData?.instructorData?.remainingDocuments,
     remainingGrammar: state?.detailsData?.instructorData?.remainingGrammar,
-    licenseExpiryDate: state?.detailsData?.instructorData,
+    licenseExpiryDate: state?.detailsData?.instructorData?.license_expiry_date,
+    remainingDocuments: state?.superAdmin?.extInsList?.remainingDocuments,
+    remainingGrammar: state?.superAdmin?.extInsList?.remainingGrammar,
+    licenseExpiryDate: state?.superAdmin?.extInsList?.license_expiry_date,
 });
 
 const mapDispatchToProps = (dispatch) => {

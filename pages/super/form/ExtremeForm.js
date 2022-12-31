@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
-import { CreateAccount, EditAccount, DropdownList } from '../../../redux/action/super/SuperAdminAction';
+import { CreateAccount, EditAccount, DropdownList, FolderPathList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/extreme-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
@@ -17,7 +17,9 @@ const ExtremeForm = ({
     editData,
     EditAccount,
     DropdownList,
-    dpList
+    FolderPathList,
+    dpList,
+    folderList
 }) => {
     const [formJsonField, setFormJsonField] = useState(FormJson);
     const [editOperation, setEditOperation] = useState(false);
@@ -28,11 +30,13 @@ const ExtremeForm = ({
 
     useEffect(() => {
         DropdownList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST);
+        FolderPathList();
     }, []);
 
     useEffect(() => {
         let InstitutionTypes = [];
         let timeZoneLists = [];
+        let folderTypes = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
@@ -46,10 +50,16 @@ const ExtremeForm = ({
                 });
                 formItem['options'] = timeZoneLists;
             }
+            if (formItem.name === 'folpath') {
+                folderList && Object.entries(folderList)?.map(([key, val] = entry) => {
+                    folderTypes.push({ 'name': val });
+                });
+                formItem['options'] = folderTypes;
+            }
             return formItem;
         });
         setFormJsonField(formList);
-    }, [dpList]);
+    }, [dpList, folderList]);
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -58,6 +68,7 @@ const ExtremeForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
+                'folpath': data?.folpath?.name,
                 'institutionType': data?.institutionType?.name,
                 'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
@@ -71,6 +82,7 @@ const ExtremeForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
+                'folpath': data?.folpath?.name,
                 'institutionType': data?.institutionType?.name,
                 'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
@@ -117,7 +129,7 @@ const ExtremeForm = ({
                 'students': editData.students,
                 'submissions': editData.documents,
                 'documentlength': editData.document_type,
-                'folpath': editData.folpath,
+                'folpath': { 'name': editData.folpath },
                 'department': editData.department,
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
@@ -183,6 +195,7 @@ const mapStateToProps = (state) => ({
     isLoadingCreate: state?.superAdmin?.isLoadingCreate,
     isLoadingEdit: state?.superAdmin?.isLoadingEdit,
     dpList: state?.superAdmin?.ListSuccess,
+    folderList: state?.superAdmin?.folderListSuccess,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -190,6 +203,7 @@ const mapDispatchToProps = (dispatch) => {
         CreateAccount: (url, data) => dispatch(CreateAccount(url, data)),
         EditAccount: (url, data) => dispatch(EditAccount(url, data)),
         DropdownList: (url) => dispatch(DropdownList(url)),
+        FolderPathList: () => dispatch(FolderPathList()),
     };
 };
 

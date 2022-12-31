@@ -30,6 +30,14 @@ export const ExtremeRefAccount = async (endPoint, data) => {
 };
 
 /**
+ * API CALL FOR DELETE EXTREME AND REF ACCOUNT
+ */
+export const ExtremeRefDeleteAccount = async (licenseId, role) => {
+    const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DELETE_ACCOUNT + licenseId;
+    return DeleteMethod(url);
+};
+
+/**
  * API CALL FOR CREATE EXTREME AND REF ACCOUNT
  */
 export const EditExtremeRefAccount = async (apiUrl, data) => {
@@ -42,6 +50,14 @@ export const EditExtremeRefAccount = async (apiUrl, data) => {
  */
 export const DropdownListData = async (url) => {
     // const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST;
+    return GetMethod(url);
+};
+
+/**
+ * API CALL FOLDER PATH LIST
+ */
+export const FolderPathListData = async () => {
+    let url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_FOLDER_PATH_LIST
     return GetMethod(url);
 };
 
@@ -62,6 +78,13 @@ export const ExtremeStudentListData = async (apiUrl, paginationPayload) => {
 };
 
 /**
+ * API CALL CREATE STUDENT
+ */
+export const SuperCreateStudentData = async (url, data) => {
+    return PostMethod(url, data);
+};
+
+/**
  * API CALL EDIT STUDENT
  */
 export const SuperEditStudentData = async (url, data) => {
@@ -71,7 +94,13 @@ export const SuperEditStudentData = async (url, data) => {
 /**
  * API CALL FOR GLOBAL SEARCH SUPER ADMIN
  */
-
 export const GlobalSearchData = async (url) => {
     return GetMethod(url);
+}
+
+ * API CALL MAKE HIM ADMIN
+ */
+export const MakeHimAdminData = async (apiUrl, paginationPayload) => {
+    const url = apiUrl + PaginationUrl(paginationPayload);
+    return PutMethod(url);
 };
