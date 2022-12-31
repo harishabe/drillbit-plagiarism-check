@@ -165,3 +165,8 @@ export const INTEGRATION_TYPES = {
     CANVAS : 'Canvas',
     BLACKBOARD : 'Blackboard',
 }
+
+export const ERROR_MESSAGE_RESPONSE = {
+    'ERROR_MSG_410':'File no longer available',
+    'ERR_NETWORK':'No response from server. Check if you are still connected to internet.'
+}

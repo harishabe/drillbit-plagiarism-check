@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import { ERROR_MESSAGE_RESPONSE } from '../constant/data/Constant';
 
 const error = (message) => {
     toast.error(message, {
@@ -41,10 +42,12 @@ const toastrValidation = (response) => {
         error(response?.response?.data?.error);
     } else if (response?.response?.data?.status === 422) {
         error(response?.response?.data?.error);
+    } else if (response?.response?.status === 410) {
+        error(ERROR_MESSAGE_RESPONSE.ERROR_MSG_410);
     } else if (response?.code === "ECONNABORTED") {
         error('ERR_TIMED_OUT');
     } else if (response?.code === "ERR_NETWORK") {
-        error('No response from server. Check if you are still connected to internet.');
+        error(ERROR_MESSAGE_RESPONSE.ERR_NETWORK);
     }
 };
 
