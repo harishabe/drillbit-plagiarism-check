@@ -119,7 +119,6 @@ import {
     EditStudentData,
     GlobalSearchDetail,
     CreateStudentData,
-    EditStudentData,
     MakeHimAdminDetail
 } from './super/DetailsSuperAdminData';
 

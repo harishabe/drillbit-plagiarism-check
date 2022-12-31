@@ -345,7 +345,7 @@ export function* GlobalSearchDetail() {
 }
     
 
- * Make him admin (extreme > instructor , pro > user)
+ /* Make him admin (extreme > instructor , pro > user)
  * @param {*} action
  */
 

@@ -98,7 +98,7 @@ export const GlobalSearchData = async (url) => {
     return GetMethod(url);
 }
 
- * API CALL MAKE HIM ADMIN
+ /* API CALL MAKE HIM ADMIN
  */
 export const MakeHimAdminData = async (apiUrl, paginationPayload) => {
     const url = apiUrl + PaginationUrl(paginationPayload);

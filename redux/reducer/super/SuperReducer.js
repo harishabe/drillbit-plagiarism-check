@@ -194,6 +194,7 @@ const SuperReducer = (state = {}, action) => {
                 ...state,
                 isLoadingList: false,
                 globalData: '',
+            }
         case types.FETCH_SUPER_ADMIN_EXT_CREATE_STUDENT_START:
             return {
                 ...state,
