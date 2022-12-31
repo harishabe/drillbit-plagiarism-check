@@ -28,10 +28,11 @@ import {
     GetExportToCSV,
 } from '../../../../redux/action/admin/AdminAction';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
-import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
+import { BASE_URL_PRO, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 
 const UserStats = ({
     userId,
+    licenseId,
     GetStats,
     GetExportToCSV,
     userStats,
@@ -42,7 +43,11 @@ const UserStats = ({
     const [submissionData, setSubmissionData] = useState([]);
 
     useEffect(() => {
-        GetStats(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_STATS + userId);
+        if (licenseId) {
+            GetStats(BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${licenseId}/users/${userId}/stats`);
+        } else {
+            GetStats(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_STATS + userId);
+        }
     }, []);
 
     useEffect(() => {
@@ -53,7 +58,11 @@ const UserStats = ({
     }, [userStats]);
 
     const handleExportCsv = () => {
-        GetExportToCSV(BASE_URL_PRO + END_POINTS_PRO.ADMIN_EXPORT_CSV_STATS + userStats?.id);
+        if (licenseId) {
+            GetExportToCSV(BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${licenseId}/exportToCSV/${userStats?.id}`);
+        } else {
+            GetExportToCSV(BASE_URL_PRO + END_POINTS_PRO.ADMIN_EXPORT_CSV_STATS + userStats?.id);
+        }
     };
 
     return (

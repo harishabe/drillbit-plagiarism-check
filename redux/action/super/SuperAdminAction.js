@@ -71,3 +71,12 @@ export const SuperEditStudent = (url, data) => {
         type: types.FETCH_SUPER_ADMIN_EXT_EDIT_STUDENT_START, url: url, query: data
     };
 };
+
+/**
+ * Make him admin (extreme > instructor , pro > user)
+ */
+export const MakeHimAdmin = (url, paginationPayload) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_MAKE_HIM_ADMIN_START, url: url, paginationPayload: paginationPayload
+    };
+};

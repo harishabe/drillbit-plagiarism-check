@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import { Grid, TextField, Box } from '@mui/material';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
@@ -66,6 +68,7 @@ const RefProduct = ({
     refData,
     isLoading
 }) => {
+    const router = useRouter();
     const [rows, setRows] = useState([]);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -93,7 +96,10 @@ const RefProduct = ({
                     data.country,
                     data.instructors,
                     data.documents,
-                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }],
+                    [
+                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                    ],
                     data.state,
                     data.address,
                     data.designation,
@@ -134,6 +140,14 @@ const RefProduct = ({
         if (icon === 'edit') {
             setEditUser(true);
             setEditUserData(rowData);
+        } else if (icon === 'nextPath') {
+            router.push({
+                pathname: '/super/proUser',
+                query: {
+                    name: rowData?.name,
+                    licenseId: rowData?.lid,
+                }
+            });
         }
     };
 
