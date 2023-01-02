@@ -49,3 +49,8 @@ export const ASSIGNMENT_END_DATE_VALIDATION = 'End date always greater than or e
  * Instructor > My folder > my folder form
  */
 export const DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK= 'Choose "yes" on any one of the databases from the list';
+
+/**
+ * Reprocess
+ */
+export const REPROCESS_PAPER_ID = "Paper id is required";
