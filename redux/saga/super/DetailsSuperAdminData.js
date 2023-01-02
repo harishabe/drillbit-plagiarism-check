@@ -338,6 +338,7 @@ export function* onLoadGlobalSearch(action) {
         yield put({
             type: types.FETCH_SUPER_ADMIN_GLOBAL_SEARCH_FAIL,
         })
+        toastrValidation(error)
     }
 }
 
