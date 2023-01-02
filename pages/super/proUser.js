@@ -7,6 +7,7 @@ import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
 import PersonIcon from '@mui/icons-material/Person';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import { TextField, Pagination, IconButton } from '@mui/material';
 import SuperAdmin from './../../layouts/SuperAdmin';
@@ -31,10 +32,10 @@ import {
     GetInstructorData,
     DeleteData,
     DeactivateData,
-    UploadFileDataClear
 } from '../../redux/action/admin/AdminAction';
 import {
-    MakeHimAdmin
+    MakeHimAdmin,
+    ResendCredentials
 } from '../../redux/action/super/SuperAdminAction';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import UserForm from '../pro/admin/form/UserForm';
@@ -44,7 +45,7 @@ import END_POINTS_PRO from '../../utils/EndPointPro';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { PaginationContainer, PlagiarismGrammarContainer } from '../../style/index';
 import { Role } from '../../constant/data';
-import { WARNING_MESSAGES } from '../../constant/data/Constant';
+import { WARNING_MESSAGES, PRO } from '../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -67,13 +68,11 @@ const AddButtonBottom = styled.div`
     right:30px;
 `;
 
-
-
 const ProUser = ({
     pageDetails,
     GetInstructorData,
     MakeHimAdmin,
-    UploadFileDataClear,
+    ResendCredentials,
     userData,
     DeleteData,
     DeactivateData,
@@ -101,6 +100,25 @@ const ProUser = ({
     const [editInstructor, setEditInstructor] = useState(false);
     const [editInstructorData, setEditInstructorData] = useState('');
     const [makeAdminDialogModal, setMakeAdminDialogModal] = useState(false);
+    const [resendCredentialsDialogModal, setResendCredentialsDialogModal] = useState(false);
+
+    const UserBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/pro/admin/dashboard',
+            active: false,
+        },
+        {
+            name: 'Pro',
+            link: '/super/refproduct',
+            active: false,
+        },
+        {
+            name: adminName,
+            link: '',
+            active: true,
+        },
+    ];
 
     useEffect(() => {
         if (router.isReady) {
@@ -168,6 +186,7 @@ const ProUser = ({
                     ],
                     user.role === Role.proAdmin ? ([
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
                         {
                             'component': <Switch checked={ user.status === 'active' ? true : false } size="small" />,
                             'type': user.status === 'active' ? 'lock' : 'unlock',
@@ -177,6 +196,7 @@ const ProUser = ({
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                         { 'component': <PersonIcon />, 'type': 'admin', 'title': 'Make him admin' },
+                            { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
                         {
                             'component': <Switch checked={ user.status === 'active' ? true : false } size="small" />,
                             'type': user.status === 'active' ? 'lock' : 'unlock',
@@ -193,24 +213,6 @@ const ProUser = ({
         });
         setRows([...arr]);
     }, [userData]);
-
-    const UserBreadCrumb = [
-        {
-            name: 'Dashboard',
-            link: '/pro/admin/dashboard',
-            active: false,
-        },
-        {
-            name: 'Pro',
-            link: '/super/refproduct',
-            active: false,
-        },
-        {
-            name: adminName,
-            link: '',
-            active: true,
-        },
-    ];
 
     const handleChange = (event, value) => {
         event.preventDefault();
@@ -280,6 +282,9 @@ const ProUser = ({
         } else if (icon === 'admin') {
             setUserId(rowData?.user_id);
             setMakeAdminDialogModal(true);
+        } else if (icon === 'resend') {
+            setUserId(rowData?.user_id);
+            setResendCredentialsDialogModal(true);
         }
     };
 
@@ -366,6 +371,21 @@ const ProUser = ({
         setEditInstructor(drawerClose);
     };
 
+    const handleResendCredentialsWarning = () => {
+        let data = {
+            'lid': router?.query?.licenseId,
+            'user_id': userId
+        }
+        ResendCredentials(PRO, data)
+        setTimeout(() => {
+            setResendCredentialsDialogModal(false)
+        }, [100]);
+    };
+
+    const handleResendCredentialsCloseWarning = () => {
+        setResendCredentialsDialogModal(false);
+    };
+
     return (
         <React.Fragment>
             {
@@ -397,6 +417,17 @@ const ProUser = ({
                     message={ 'Are you sure, you want to make him admin?' }
                     handleYes={ handleMakeAdminWarning }
                     handleNo={ handleMakeAdminCloseWarning }
+                    isOpen={ true }
+                />
+            }
+
+            {
+                resendCredentialsDialogModal &&
+                <WarningDialog
+                    warningIcon={ <VpnKeyIcon /> }
+                    message={ 'Are you sure, you want resend credentials to this account?' }
+                    handleYes={ handleResendCredentialsWarning }
+                    handleNo={ handleResendCredentialsCloseWarning }
                     isOpen={ true }
                 />
             }
@@ -529,7 +560,7 @@ const mapDispatchToProps = (dispatch) => {
         DeactivateData: (url, paginationPayload) => dispatch(DeactivateData(url, paginationPayload)),
         DeleteData: (deleteRowData, paginationPayload) => dispatch(DeleteData(deleteRowData, paginationPayload)),
         MakeHimAdmin: (url, paginationPayload) => dispatch(MakeHimAdmin(url, paginationPayload)),
-        // UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+        ResendCredentials: (role, data) => dispatch(ResendCredentials(role, data)),
     };
 };
 

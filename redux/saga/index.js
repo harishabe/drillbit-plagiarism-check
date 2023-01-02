@@ -119,7 +119,8 @@ import {
     EditStudentData,
     GlobalSearchDetail,
     CreateStudentData,
-    MakeHimAdminDetail
+    MakeHimAdminDetail,
+    ResendCredentialsDetail
 } from './super/DetailsSuperAdminData';
 
 const saga = [
@@ -229,6 +230,7 @@ const saga = [
     fork(EditStudentData),
     fork(GlobalSearchDetail),
     fork(MakeHimAdminDetail),
+    fork(ResendCredentialsDetail),
     fork(GetExtremeRef),
     fork(GrammarReportSubmission)
 ];

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, TextField, Pagination, IconButton, Switch } from '@mui/material';
 import {
@@ -21,12 +22,12 @@ import {
     DeleteStudentData,
     DeactivateData
 } from '../../../redux/action/admin/AdminAction';
-import { GetExtremeStudentList } from '../../../redux/action/super/SuperAdminAction';
+import { GetExtremeStudentList, ResendCredentials } from '../../../redux/action/super/SuperAdminAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import StudentForm from '../../extream/instructor/form/StudentForm';
 import StudentStats from '../../extream/admin/student/StudentStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
-import { WARNING_MESSAGES } from '../../../constant/data/Constant';
+import { WARNING_MESSAGES, EXTREME } from '../../../constant/data/Constant';
 import { PaginationContainer } from '../../../style/index';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
@@ -60,7 +61,8 @@ function createData(id, name, user_id, username, department, section, expiry_dat
 }
 
 const Students = ({
-    GetExtremeStudentList,
+    GetExtremeStudentList, 
+    ResendCredentials,
     studentData,
     pageDetailsStudent,
     // EditData,
@@ -80,6 +82,7 @@ const Students = ({
     const [showStatusWarning, setStatusWarning] = useState(false);
     const [statusRowData, setStatusRowData] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
+    const [resendCredentialsDialogModal, setResendCredentialsDialogModal] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -110,6 +113,7 @@ const Students = ({
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
                         {
                             'component': <Switch checked={ student.status === 'active' ? true : false } size="small" />,
                             'type': student.status === 'active' ? 'lock' : 'unlock',
@@ -166,6 +170,9 @@ const Students = ({
             setStatusRowData(activateDeactive);
             setStatusWarning(true);
             setStatusMessage('active');
+        } else if (icon === 'resend') {
+            setStudentId(rowData.id);
+            setResendCredentialsDialogModal(true);
         }
     };
 
@@ -173,6 +180,9 @@ const Students = ({
         setShowDialogModal(false);
     };
 
+    const handleResendCredentialsCloseWarning = () => {
+        setResendCredentialsDialogModal(false);
+    };
 
     const handleSearch = (event) => {
         if (event.target.value !== '') {
@@ -258,6 +268,17 @@ const Students = ({
         }, [100]);
     };
 
+    const handleResendCredentialsWarning = () => {
+        let data = {
+            'lid': router?.query?.licenseId,
+            'user_id': studentId
+        }
+        ResendCredentials(EXTREME, data)
+        setTimeout(() => {
+            setResendCredentialsDialogModal(false)
+        }, [100]);
+    };
+
     const handleStatusCloseWarning = () => {
         setStatusWarning(false);
     };
@@ -280,6 +301,17 @@ const Students = ({
                     message={ 'Are you sure, you want to ' + statusMessage + '?' }
                     handleYes={ handleStatusWarning }
                     handleNo={ handleStatusCloseWarning }
+                    isOpen={ true }
+                />
+            }
+
+            {
+                resendCredentialsDialogModal &&
+                <WarningDialog
+                    warningIcon={ <VpnKeyIcon /> }
+                    message={ 'Are you sure, you want resend credentials to this account?' }
+                    handleYes={ handleResendCredentialsWarning }
+                    handleNo={ handleResendCredentialsCloseWarning }
                     isOpen={ true }
                 />
             }
@@ -414,6 +446,7 @@ const mapDispatchToProps = (dispatch) => {
         // EditData: (data) => dispatch(EditData(data)),
         DeleteStudentData: (url) => dispatch(DeleteStudentData(url)),
         DeactivateData: (url, paginationPayload) => dispatch(DeactivateData(url, paginationPayload)),
+        ResendCredentials: (role, data) => dispatch(ResendCredentials(role, data)),
     };
 };
 
