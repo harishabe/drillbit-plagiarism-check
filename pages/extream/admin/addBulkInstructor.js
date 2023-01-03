@@ -120,7 +120,7 @@ const AddBulkInstructor = ({
             setFileData('');
             setTimeout(() => {
                 router.push('/extream/admin/instructor');
-            }, 1000);
+            }, 4000);
         }
     }, [router, fileUploadData?.status]);
 
