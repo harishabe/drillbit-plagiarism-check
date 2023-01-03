@@ -4,6 +4,7 @@ const END_POINTS = {
     RESET_PASSWORD: '/authentication/saveNewPassword',
     ADMIN_DASHBOARD_WIDGET: '/extreme/admin/dashboard',
     ADMIN_DASHBOARD_DOCUMENT_CHART: '/extreme/admin/documentTypeChart',
+    ADMIN_DASHBOARD_DEPARTMENT_CHART: '/extreme/admin/departmentWiseSubmissions',
     ADMIN_TOP_STUDENT: '/extreme/admin/topStudents',
     ADMIN_TREND_ANALYSIS: '/extreme/admin/trendAnalysis',
     ADMIN_RENEW_ACCOUNT: '/extreme/admin/reviveValidity',
