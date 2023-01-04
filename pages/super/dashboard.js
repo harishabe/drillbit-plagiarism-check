@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import { useForm } from 'react-hook-form';
-import { Box, Grid, Skeleton, IconButton, Tooltip, TextField, Button } from '@mui/material';
+import { Box, Grid, Skeleton, IconButton, Tooltip } from '@mui/material';
 import styled from 'styled-components';
-import BeatLoader from 'react-spinners/BeatLoader';
-import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
 import {
     WidgetCard,
@@ -13,7 +11,8 @@ import {
     ErrorBlock,
     Heading,
     PieChartVariant,
-    DialogModal
+    DialogModal,
+    FormComponent
 } from './../../components';
 import {
     NoOfClassIcon,
@@ -32,14 +31,8 @@ import {
 } from './../../constant/data/ChartData';
 import {
     DOCUMENT_PROCESSED_NOT_FOUND,
-    REPROCESS_PAPER_ID
 } from './../../constant/data/ErrorMessage';
-
-const useStyles = makeStyles(() => ({
-    helperText: {
-        marginLeft: 0
-    }
-}));
+import FormJson from '../../constant/form/super-admin-reprocess-form.json';
 
 const ReprocessButton = styled.div`
     position:fixed;
@@ -55,8 +48,9 @@ const Dashboard = ({
     isLoading,
     isLoadingReprocess
 }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const classes = useStyles();
+    const { handleSubmit, control } = useForm({
+        mode: 'all',
+    });
 
     const [year, setYear] = useState([])
     const [submissions, setSubmissions] = useState([])
@@ -318,31 +312,25 @@ const Dashboard = ({
             </Box>
             { reprocess &&
                 <DialogModal
-                    headingTitle={ 'Paper Id' }
+                    headingTitle={ 'Reprocess file' }
                     isOpen={ true }
                     fullWidth="sm"
                     maxWidth="sm"
                     handleClose={ closeSearchDialog }
                 >
                     <form onSubmit={ handleSubmit(onSearch) }>
-                        <TextField
-                            sx={ { marginTop: '0px' } }
-                            fullWidth
-                            name='paperId'
-                            type="number"
-                            variant="outlined"
-                            { ...register('paperId', { required: true }) }
-                            error={ errors['paperId'] }
-                            helperText={ errors['paperId'] && REPROCESS_PAPER_ID }
-                            FormHelperTextProps={ {
-                                className: classes.helperText
-                            } }
-                        />
-                        <div style={ { textAlign: 'center', marginTop: '10px' } }>
-                            <Button color='primary' disabled={ isLoadingReprocess } type="submit" variant="contained" size="large" fullWidth>
-                                { isLoadingReprocess ? <BeatLoader color="#fff" /> : 'Submit' }
-                            </Button>
-                        </div>
+                        <Grid container>
+                            { FormJson?.map((field, i) => (
+                                <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
+                                    <FormComponent
+                                        key={ i }
+                                        field={ field }
+                                        control={ control }
+                                        isLoading={ isLoadingReprocess }
+                                    />
+                                </Grid>
+                            )) }
+                        </Grid>
                     </form>
                 </DialogModal>
             }
