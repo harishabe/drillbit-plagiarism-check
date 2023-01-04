@@ -164,6 +164,7 @@ export const WARNING_MESSAGES = {
     'REPOSITORY': 'Are you sure you want to save this to repository ?',
     'DOWNLOAD': 'Are you sure you want to download ?',
     'DELETE': 'Are you sure you want to delete ?',
+    'RESEND_CREDENTIALS': 'Are you sure, you want resend credentials to this account?',
 }
 
 export const SIMILARITY_BULK_REPORT_TITLE = 'SimilarityBulkReport.zip';
