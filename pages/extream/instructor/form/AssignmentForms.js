@@ -21,7 +21,11 @@ import InputButton from '../../../../components/form/elements/InputButton';
 import { CreateAssignment, EditAssignment } from '../../../../redux/action/instructor/InstructorAction';
 import { convertDate } from '../../../../utils/RegExp';
 import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
-import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK, ASSIGNMENT_START_DATE_VALIDATION, ASSIGNMENT_END_DATE_VALIDATION } from '../../../../constant/data/ErrorMessage';
+import {
+    DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK,
+    //  ASSIGNMENT_START_DATE_VALIDATION,
+    //   ASSIGNMENT_END_DATE_VALIDATION 
+} from '../../../../constant/data/ErrorMessage';
 import { ErrorMessageContainer } from '../../../../style/index';
 import { Tooltip } from '@mui/material';
 
@@ -89,15 +93,15 @@ const AssignmentForms = ({
 
     const { control, handleSubmit, setValue } = useForm();
 
-    const startDate = useWatch({
-        control,
-        name: 'start_date',
-    });
+    // const startDate = useWatch({
+    //     control,
+    //     name: 'start_date',
+    // });
 
-    const endDate = useWatch({
-        control,
-        name: 'end_date',
-    });
+    // const endDate = useWatch({
+    //     control,
+    //     name: 'end_date',
+    // });
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -393,46 +397,46 @@ const AssignmentForms = ({
         }
     }, [internet, repository, publication, studentPaper]);
 
-    useEffect(() => {
-        if (!editData) {
-            if (new Date(startDate).getFullYear() < new Date().getFullYear()) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
-            } else if ((new Date(startDate).getFullYear() === new Date().getFullYear()) && new Date(startDate).getMonth() < new Date().getMonth()) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
-            } else if ((new Date(startDate).getFullYear() === new Date().getFullYear() && new Date(startDate).getMonth() === new Date().getMonth()) && new Date(startDate).getDate() < new Date().getDate()) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
-            } else if (new Date(endDate).getFullYear() < new Date(startDate).getFullYear()) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
-            } else if ((new Date(endDate).getFullYear() === new Date(startDate).getFullYear()) && new Date(endDate).getMonth() < new Date(startDate).getMonth()) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
-            } else if ((new Date(endDate).getFullYear() === new Date(startDate).getFullYear() && new Date(endDate).getMonth() === new Date(startDate).getMonth()) && new Date(endDate).getDate() < new Date(startDate).getDate()) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
-            } else {
-                setDisabledButton(false);
-                setErrorMsgDBCheck('');
-            }
-        } else {
-            if (new Date(endDate).getFullYear() < new Date().getFullYear()) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
-            } else if ((new Date(endDate).getFullYear() === new Date().getFullYear()) && new Date(endDate).getMonth() < new Date().getMonth()) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
-            } else if ((new Date(endDate).getFullYear() === new Date().getFullYear() && new Date(endDate).getMonth() === new Date().getMonth()) && new Date(endDate).getDate() < new Date().getDate()) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
-            } else {
-                setDisabledButton(false);
-                setErrorMsgDBCheck('');
-            }
-        }
-    }, [startDate, endDate]);
+    // useEffect(() => {
+    //     if (!editData) {
+    //         if (new Date(startDate).getFullYear() < new Date().getFullYear()) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
+    //         } else if ((new Date(startDate).getFullYear() === new Date().getFullYear()) && new Date(startDate).getMonth() < new Date().getMonth()) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
+    //         } else if ((new Date(startDate).getFullYear() === new Date().getFullYear() && new Date(startDate).getMonth() === new Date().getMonth()) && new Date(startDate).getDate() < new Date().getDate()) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
+    //         } else if (new Date(endDate).getFullYear() < new Date(startDate).getFullYear()) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+    //         } else if ((new Date(endDate).getFullYear() === new Date(startDate).getFullYear()) && new Date(endDate).getMonth() < new Date(startDate).getMonth()) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+    //         } else if ((new Date(endDate).getFullYear() === new Date(startDate).getFullYear() && new Date(endDate).getMonth() === new Date(startDate).getMonth()) && new Date(endDate).getDate() < new Date(startDate).getDate()) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+    //         } else {
+    //             setDisabledButton(false);
+    //             setErrorMsgDBCheck('');
+    //         }
+    //     } else {
+    //         if (new Date(endDate).getFullYear() < new Date().getFullYear()) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+    //         } else if ((new Date(endDate).getFullYear() === new Date().getFullYear()) && new Date(endDate).getMonth() < new Date().getMonth()) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+    //         } else if ((new Date(endDate).getFullYear() === new Date().getFullYear() && new Date(endDate).getMonth() === new Date().getMonth()) && new Date(endDate).getDate() < new Date().getDate()) {
+    //             setDisabledButton(true);
+    //             setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+    //         } else {
+    //             setDisabledButton(false);
+    //             setErrorMsgDBCheck('');
+    //         }
+    //     }
+    // }, [startDate, endDate]);
 
     // useEffect(() => {
     //     if ((excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) || (addQuestion === ASSIGNMENT_SETTING_VALUE_YES)) {
@@ -786,11 +790,11 @@ const AssignmentForms = ({
                         'id': 'start_date',
                         'name': 'start_date',
                         'label': 'Select start date *',
-                        'prevDate': true,
-                        'maxDate': endDate,
+                        // 'prevDate': true,
+                        // 'maxDate': endDate,
                         'required': 'Select Start Date',
                         'validationMsg': 'Select Start Date',
-                        'disabled': editData && true
+                        // 'disabled': editData && true
                     } }
                 />
 
@@ -801,7 +805,7 @@ const AssignmentForms = ({
                         'id': 'end_date',
                         'name': 'end_date',
                         'label': 'Select end date *',
-                        'minDate': startDate,
+                        // 'minDate': startDate,
                         'required': 'Select End Date',
                         'validationMsg': 'Select End Date'
                     } }
