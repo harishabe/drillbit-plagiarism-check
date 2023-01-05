@@ -453,7 +453,7 @@ const Instructor = ({
                 makeAdminDialogModal &&
                 <WarningDialog
                     warningIcon={ <PersonIcon /> }
-                    message={ 'Are you sure, you want to make him admin?' }
+                    message={ WARNING_MESSAGES.MAKE_ADMIN }
                     handleYes={ handleMakeAdminWarning }
                     handleNo={ handleMakeAdminCloseWarning }
                     isOpen={ true }
