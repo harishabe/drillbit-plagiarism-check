@@ -155,6 +155,23 @@ const SubmissionReducer = (state = {}, action) => {
                 isLoadingSubmissionReport: false,
                 submissionDownloadErr: action.payload,
             };
+        case types.FETCH_SUBMISSION_REPROCESS_START:
+            return {
+                ...state,
+                isLoadingReprocess: true,
+            };
+        case types.FETCH_SUBMISSION_REPROCESS_SUCCESS:
+            return {
+                ...state,
+                isLoadingReprocess: false,
+                reprocessData: action.payload,
+            };
+        case types.FETCH_SUBMISSION_REPROCESS_FAIL:
+            return {
+                ...state,
+                isLoadingReprocess: false,
+                reprocessData: action.payload,
+            };
         default:
             return state;
     }

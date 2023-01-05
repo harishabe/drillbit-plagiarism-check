@@ -31,15 +31,15 @@ import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 const columns = [
     { id: 'name', label: 'Name' },
     { id: 'user_id', label: 'ID' },
-    { id: 'email', label: 'Email' },
+    { id: 'username', label: 'Email' },
     { id: 'department', label: 'Department' },
     { id: 'section', label: 'Section' },
     { id: 'stats', label: 'Statistics' },
     { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, name, user_id, email, department, section, stats, action) {
-    return { id, name, user_id, email, department, section, stats, action };
+function createData(id, name, user_id, username, department, section, stats, action) {
+    return { id, name, user_id, username, department, section, stats, action };
 }
 
 const IntegrationBreadCrumb = [
