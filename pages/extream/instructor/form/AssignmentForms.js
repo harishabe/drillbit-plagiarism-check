@@ -394,27 +394,43 @@ const AssignmentForms = ({
     }, [internet, repository, publication, studentPaper]);
 
     useEffect(() => {
-        if (new Date(startDate).getFullYear() < new Date().getFullYear()) {
-            setDisabledButton(true);
-            setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
-        } else if ((new Date(startDate).getFullYear() === new Date().getFullYear()) && new Date(startDate).getMonth() < new Date().getMonth()) {
-            setDisabledButton(true);
-            setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
-        } else if ((new Date(startDate).getFullYear() === new Date().getFullYear() && new Date(startDate).getMonth() === new Date().getMonth()) && new Date(startDate).getDate() < new Date().getDate()) {
-            setDisabledButton(true);
-            setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
-        } else if (new Date(endDate).getFullYear() < new Date(startDate).getFullYear()) {
-            setDisabledButton(true);
-            setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
-        } else if ((new Date(endDate).getFullYear() === new Date(startDate).getFullYear()) && new Date(endDate).getMonth() < new Date(startDate).getMonth()) {
-            setDisabledButton(true);
-            setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
-        } else if ((new Date(endDate).getFullYear() === new Date(startDate).getFullYear() && new Date(endDate).getMonth() === new Date(startDate).getMonth()) && new Date(endDate).getDate() < new Date(startDate).getDate()) {
-            setDisabledButton(true);
-            setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+        if (!editData) {
+            if (new Date(startDate).getFullYear() < new Date().getFullYear()) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
+            } else if ((new Date(startDate).getFullYear() === new Date().getFullYear()) && new Date(startDate).getMonth() < new Date().getMonth()) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
+            } else if ((new Date(startDate).getFullYear() === new Date().getFullYear() && new Date(startDate).getMonth() === new Date().getMonth()) && new Date(startDate).getDate() < new Date().getDate()) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(ASSIGNMENT_START_DATE_VALIDATION);
+            } else if (new Date(endDate).getFullYear() < new Date(startDate).getFullYear()) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+            } else if ((new Date(endDate).getFullYear() === new Date(startDate).getFullYear()) && new Date(endDate).getMonth() < new Date(startDate).getMonth()) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+            } else if ((new Date(endDate).getFullYear() === new Date(startDate).getFullYear() && new Date(endDate).getMonth() === new Date(startDate).getMonth()) && new Date(endDate).getDate() < new Date(startDate).getDate()) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+            } else {
+                setDisabledButton(false);
+                setErrorMsgDBCheck('');
+            }
         } else {
-            setDisabledButton(false);
-            setErrorMsgDBCheck('');
+            if (new Date(endDate).getFullYear() < new Date().getFullYear()) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+            } else if ((new Date(endDate).getFullYear() === new Date().getFullYear()) && new Date(endDate).getMonth() < new Date().getMonth()) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+            } else if ((new Date(endDate).getFullYear() === new Date().getFullYear() && new Date(endDate).getMonth() === new Date().getMonth()) && new Date(endDate).getDate() < new Date().getDate()) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(ASSIGNMENT_END_DATE_VALIDATION);
+            } else {
+                setDisabledButton(false);
+                setErrorMsgDBCheck('');
+            }
         }
     }, [startDate, endDate]);
 
@@ -742,10 +758,10 @@ const AssignmentForms = ({
 
     return (
         <div>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <LabelContainer>
                     <InputLabel>
                         Assignment name *
@@ -753,19 +769,19 @@ const AssignmentForms = ({
                 </LabelContainer>
 
                 <InputTextField
-                    control={control}
-                    field={{
+                    control={ control }
+                    field={ {
                         'field_type': 'text',
                         'id': 'assignment_name',
                         'name': 'assignment_name',
                         'required': 'Enter assignment name',
                         'validationMsg': 'Enter assignment name'
-                    }}
+                    } }
                 />
 
                 <InputDatePicker
-                    control={control}
-                    field={{
+                    control={ control }
+                    field={ {
                         'field_type': 'datepicker',
                         'id': 'start_date',
                         'name': 'start_date',
@@ -773,13 +789,14 @@ const AssignmentForms = ({
                         'prevDate': true,
                         'maxDate': endDate,
                         'required': 'Select Start Date',
-                        'validationMsg': 'Select Start Date'
-                    }}
+                        'validationMsg': 'Select Start Date',
+                        'disabled': editData && true
+                    } }
                 />
 
                 <InputDatePicker
-                    control={control}
-                    field={{
+                    control={ control }
+                    field={ {
                         'field_type': 'datepicker',
                         'id': 'end_date',
                         'name': 'end_date',
@@ -787,92 +804,92 @@ const AssignmentForms = ({
                         'minDate': startDate,
                         'required': 'Select End Date',
                         'validationMsg': 'Select End Date'
-                    }}
+                    } }
                 />
-                <label style={{ color: 'gray' }}>Instructions</label>
+                <label style={ { color: 'gray' } }>Instructions</label>
                 <InputFileType
-                    control={control}
-                    field={{
+                    control={ control }
+                    field={ {
                         'field_type': 'file',
                         'id': 'file',
                         'name': 'file',
                         'label': 'Choose File',
-                    }}
+                    } }
                 />
 
                 <Grid container>
-                    <Grid item md={6} style={{ marginLeft: '2px', marginTop: '5px' }}>
-                        <InputLabel style={{ margin: '10px 0px' }}>
+                    <Grid item md={ 6 } style={ { marginLeft: '2px', marginTop: '5px' } }>
+                        <InputLabel style={ { margin: '10px 0px' } }>
                             Assignment settings
                         </InputLabel>
                     </Grid>
-                    <Grid item md={1} style={{
+                    <Grid item md={ 1 } style={ {
                         textAlign: 'right',
                         marginTop: '10px',
                         marginLeft: '15px'
-                    }}>
+                    } }>
                         <Switch
-                            checked={showSetting}
-                            onChange={handleSwitchChange}
-                            inputProps={{ 'aria-label': 'controlled' }}
+                            checked={ showSetting }
+                            onChange={ handleSwitchChange }
+                            inputProps={ { 'aria-label': 'controlled' } }
                         />
                     </Grid>
                 </Grid>
-                {showSetting &&
+                { showSetting &&
                     <>
                         <div>
 
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Allow Assignment Grading
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={allowAssGrade}
+                                    value={ allowAssGrade }
                                         exclusive
-                                        onChange={handleAllowAssgnmtGrade}
+                                    onChange={ handleAllowAssgnmtGrade }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
 
                                 </Grid>
                             </Grid>
 
-                            {allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES &&
+                        { allowAssGrade === ASSIGNMENT_SETTING_VALUE_YES &&
                                 <InputNumberField
-                                    control={control}
-                                    field={{
+                            control={ control }
+                            field={ {
                                         'field_type': 'inputNumber',
                                         'id': 'marks',
                                         'size': 'small',
                                         'name': 'marks',
                                         'label': 'Enter Max Assignment Marks',
                                         'required': 'Enter max assignment marks'
-                                    }} />
+                            } } />
                             }
                         </div>
 
                         <div>
 
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Exclude Reference / Bibliography
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={excludeRefBib}
+                                    value={ excludeRefBib }
                                         exclusive
-                                        onChange={handleExcludeRef}
+                                    onChange={ handleExcludeRef }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -880,20 +897,20 @@ const AssignmentForms = ({
 
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Exclude Quotes
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={excludeQuote}
+                                    value={ excludeQuote }
                                         exclusive
-                                        onChange={handleExcludeQuote}
+                                    onChange={ handleExcludeQuote }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -901,22 +918,22 @@ const AssignmentForms = ({
 
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <Tooltip title={'YES - 14 similarity words, NO - default settings'} arrow>
-                                        <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <Tooltip title={ 'YES - 14 similarity words, NO - default settings' } arrow>
+                                    <InputLabel style={ { margin: '22px 0px' } }>
                                             Exclude small sources
                                         </InputLabel>
                                     </Tooltip>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={excludeSmallSource}
+                                    value={ excludeSmallSource }
                                         exclusive
-                                        onChange={handleExcludeSmallSource}
+                                    onChange={ handleExcludeSmallSource }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -924,29 +941,29 @@ const AssignmentForms = ({
 
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Save to repository
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={saveToRepo}
+                                    value={ saveToRepo }
                                         exclusive
-                                        onChange={handleSaveToRepo}
+                                    onChange={ handleSaveToRepo }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
-                            {saveToRepo === ASSIGNMENT_SETTING_VALUE_YES && <>
+                        { saveToRepo === ASSIGNMENT_SETTING_VALUE_YES && <>
                                 <Grid container>
-                                    <Grid item md={12}>
+                                <Grid item md={ 12 }>
                                         <InputAutoComplete
-                                            control={control}
-                                            field={{
+                                        control={ control }
+                                        field={ {
                                                 'field_type': 'dropdown',
                                                 'id': 'repoScope',
                                                 'label': 'Repository Scope',
@@ -959,43 +976,43 @@ const AssignmentForms = ({
                                                 }, {
                                                     'name': 'Global'
                                                 }]
-                                            }}
+                                        } }
                                         />
                                     </Grid>
                                 </Grid>
-                            </>}
+                        </> }
                         </div>
 
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Allow Resubmission
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={allowSubmission}
+                                    value={ allowSubmission }
                                         exclusive
-                                        onChange={handleAllowSubmission}
+                                    onChange={ handleAllowSubmission }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
-                            {allowSubmission === ASSIGNMENT_SETTING_VALUE_YES && <>
+                        { allowSubmission === ASSIGNMENT_SETTING_VALUE_YES && <>
                                 <InputNumberField
-                                    control={control}
-                                    field={{
+                                control={ control }
+                                field={ {
                                         'field_type': 'inputNumber',
                                         'id': 'no_of_resubmission',
                                         'name': 'no_of_resubmission',
                                         'size': 'small',
                                         'label': 'Enter no. of resubmission',
                                         'required': 'Enter number of submission'
-                                    }}
+                                } }
                                 />
                             </>
                             }
@@ -1003,34 +1020,34 @@ const AssignmentForms = ({
 
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Allow Submission After Due Date
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={allowSubmissionDueDate}
+                                    value={ allowSubmissionDueDate }
                                         exclusive
-                                        onChange={handleAllowSubmissionDueDate}
+                                    onChange={ handleAllowSubmissionDueDate }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
-                            {allowSubmissionDueDate === ASSIGNMENT_SETTING_VALUE_YES && <>
+                        { allowSubmissionDueDate === ASSIGNMENT_SETTING_VALUE_YES && <>
                                 <InputNumberField
-                                    control={control}
-                                    field={{
+                                control={ control }
+                                field={ {
                                         'field_type': 'inputNumber',
                                         'id': 'extra_days',
                                         'size': 'small',
                                         'name': 'extra_days',
                                         'label': 'Enter extra days',
                                         'required': 'Enter extra days after due date'
-                                    }} />
+                                } } />
                             </>
                             }
 
@@ -1038,20 +1055,20 @@ const AssignmentForms = ({
 
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Grammar Check
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={grammarCheck}
+                                    value={ grammarCheck }
                                         exclusive
-                                        onChange={handleGrammarCheck}
+                                    onChange={ handleGrammarCheck }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -1060,20 +1077,20 @@ const AssignmentForms = ({
 
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Choice Of Email Notifications
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={choiceEmailNotification}
+                                    value={ choiceEmailNotification }
                                         exclusive
-                                        onChange={handleChoiceEmailNotification}
+                                    onChange={ handleChoiceEmailNotification }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
@@ -1081,47 +1098,47 @@ const AssignmentForms = ({
 
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Add Questions
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={addQuestion}
+                                    value={ addQuestion }
                                         exclusive
-                                        onChange={handleAddQuestion}
+                                    onChange={ handleAddQuestion }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
 
-                            {addQuestion === ASSIGNMENT_SETTING_VALUE_YES &&
+                        { addQuestion === ASSIGNMENT_SETTING_VALUE_YES &&
                                 <div>
-                                    {questionList.map((item, i) => {
+                                { questionList.map((item, i) => {
                                         return (
                                             <>
-                                                <Grid key={i} container spacing={2} sx={{ marginBottom: '15px' }}>
-                                                    <Grid item md={9}>
+                                                <Grid key={ i } container spacing={ 2 } sx={ { marginBottom: '15px' } }>
+                                                    <Grid item md={ 9 }>
                                                         <TextField
-                                                            id={i}
+                                                            id={ i }
                                                             size="small"
-                                                            label={'Enter question ' + (i + 1)}
-                                                            name={item}
-                                                            value={item['q']}
-                                                            onChange={handleChange}
+                                                            label={ 'Enter question ' + (i + 1) }
+                                                            name={ item }
+                                                            value={ item['q'] }
+                                                            onChange={ handleChange }
                                                             inputProps={ {
                                                                 minLength: 3,
                                                             } }
                                                         />
                                                     </Grid>
-                                                    <Grid item md={2}>
+                                                    <Grid item md={ 2 }>
                                                         <Button
                                                             variant="contained"
-                                                            onClick={(e) => handleAddQuestionRemove(e, i)}
+                                                            onClick={ (e) => handleAddQuestionRemove(e, i) }
                                                         >
                                                             Remove
                                                         </Button>
@@ -1129,12 +1146,12 @@ const AssignmentForms = ({
                                                 </Grid>
                                             </>
                                         );
-                                    })}
+                                }) }
                                     <Button
-                                        sx={{ marginTop: '14px' }}
+                                    sx={ { marginTop: '14px' } }
                                         variant="contained"
-                                        onClick={addInput}
-                                        disabled={questionList.length === 5}
+                                    onClick={ addInput }
+                                    disabled={ questionList.length === 5 }
                                     >
                                         Add Questions
                                     </Button>
@@ -1144,46 +1161,46 @@ const AssignmentForms = ({
 
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Exclude Phrases
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={excludePhrases}
+                                    value={ excludePhrases }
                                         exclusive
-                                        onChange={handleExcludePhrases}
+                                    onChange={ handleExcludePhrases }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
-                            {excludePhrases === ASSIGNMENT_SETTING_VALUE_YES &&
+                        { excludePhrases === ASSIGNMENT_SETTING_VALUE_YES &&
                                 <>
-                                    {phrasesList.map((item, i) => {
+                            { phrasesList.map((item, i) => {
                                         return (
                                             <>
-                                                <Grid key={i} container spacing={2} sx={{ marginBottom: '15px' }}>
-                                                    <Grid item md={9}>
+                                                <Grid key={ i } container spacing={ 2 } sx={ { marginBottom: '15px' } }>
+                                                    <Grid item md={ 9 }>
                                                         <TextField
-                                                            id={i}
+                                                            id={ i }
                                                             size="small"
-                                                            label={'Enter phrases ' + (i + 1)}
-                                                            name={item}
-                                                            value={item['p']}
-                                                            onChange={handlePharsesChange}
+                                                            label={ 'Enter phrases ' + (i + 1) }
+                                                            name={ item }
+                                                            value={ item['p'] }
+                                                            onChange={ handlePharsesChange }
                                                             inputProps={ {
                                                                 minLength: 3,
                                                             } }
                                                         />
                                                     </Grid>
-                                                    <Grid item md={2}>
+                                                    <Grid item md={ 2 }>
                                                         <Button
                                                             variant="contained"
-                                                            onClick={(e) => handlePhrasesRemove(e, i)}
+                                                            onClick={ (e) => handlePhrasesRemove(e, i) }
                                                         >
                                                             Remove
                                                         </Button>
@@ -1191,12 +1208,12 @@ const AssignmentForms = ({
                                                 </Grid>
                                             </>
                                         );
-                                    })}
+                            }) }
                                     <Button
-                                        sx={{ marginTop: '14px' }}
+                                sx={ { marginTop: '14px' } }
                                         variant="contained"
-                                        onClick={addPhrasesInput}
-                                        disabled={phrasesList.length === 15}
+                                onClick={ addPhrasesInput }
+                                disabled={ phrasesList.length === 15 }
                                     >
                                         Add Phrases
                                     </Button>
@@ -1205,127 +1222,127 @@ const AssignmentForms = ({
                         </div>
                         <div>
                             <Grid container>
-                                <Grid item md={8}>
-                                    <InputLabel style={{ margin: '22px 0px' }}>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                         Viewing of similarity % and report
                                     </InputLabel>
                                 </Grid>
-                                <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                     <ToggleButtonGroup
                                         color="primary"
-                                        value={reportAccess}
+                                    value={ reportAccess }
                                         exclusive
-                                        onChange={handleReportAccess}
+                                    onChange={ handleReportAccess }
                                     >
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                        <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Grid>
                             </Grid>
                         </div>
                         <Grid container>
-                            <Grid item md={6}>
-                                <InputLabel style={{ margin: '22px 0px' }}>
+                        <Grid item md={ 6 }>
+                            <InputLabel style={ { margin: '22px 0px' } }>
                                     Daily submission limit
                                 </InputLabel>
                             </Grid>
-                            <Grid item md={6} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={ 6 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                 <TextField
                                     id="outlined-name"
                                     fullWidth
                                     type='number'
                                     name="daily_submissions_limit"
                                     size="small"
-                                    value={dailySubmissionLimit}
-                                    onChange={(e) => setDailySubmissionLimit(e.target.value)}
+                                value={ dailySubmissionLimit }
+                                onChange={ (e) => setDailySubmissionLimit(e.target.value) }
                                 />
                             </Grid>
                         </Grid>
                         <b>Compare against databases</b>
                         <Grid container>
-                            <Grid item md={8}>
-                                <InputLabel style={{ margin: '22px 0px' }}>
+                        <Grid item md={ 8 }>
+                            <InputLabel style={ { margin: '22px 0px' } }>
                                     Student Papers
                                 </InputLabel>
                             </Grid>
-                            <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                 <ToggleButtonGroup
                                     color="primary"
-                                    value={studentPaper}
+                                value={ studentPaper }
                                     exclusive
-                                    onChange={handleStudentPaper}
+                                onChange={ handleStudentPaper }
                                 >
-                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                 </ToggleButtonGroup>
                             </Grid>
                         </Grid>
                         <Grid container>
-                            <Grid item md={8}>
-                                <InputLabel style={{ margin: '22px 0px' }}>
+                        <Grid item md={ 8 }>
+                            <InputLabel style={ { margin: '22px 0px' } }>
                                     Journals & publishers
                                 </InputLabel>
                             </Grid>
-                            <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                 <ToggleButtonGroup
                                     color="primary"
-                                    value={publication}
+                                value={ publication }
                                     exclusive
-                                    onChange={handlePublications}
+                                onChange={ handlePublications }
                                 >
-                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                 </ToggleButtonGroup>
                             </Grid>
                         </Grid>
                         <Grid container>
-                            <Grid item md={8}>
-                                <InputLabel style={{ margin: '22px 0px' }}>
+                        <Grid item md={ 8 }>
+                            <InputLabel style={ { margin: '22px 0px' } }>
                                     Internet or Web
                                 </InputLabel>
                             </Grid>
-                            <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                 <ToggleButtonGroup
                                     color="primary"
-                                    value={internet}
+                                value={ internet }
                                     exclusive
-                                    onChange={handleInternet}
+                                onChange={ handleInternet }
                                 >
-                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                 </ToggleButtonGroup>
                             </Grid>
                         </Grid>
                         <Grid container>
-                            <Grid item md={8}>
-                                <InputLabel style={{ margin: '22px 0px' }}>
+                        <Grid item md={ 8 }>
+                            <InputLabel style={ { margin: '22px 0px' } }>
                                     Institution Repository
                                 </InputLabel>
                             </Grid>
-                            <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                                 <ToggleButtonGroup
                                     color="primary"
-                                    value={repository}
+                                value={ repository }
                                     exclusive
-                                    onChange={handleRepository}
+                                onChange={ handleRepository }
                                 >
-                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                    <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                 </ToggleButtonGroup>
                             </Grid>
                         </Grid>
                     </>
                 }
-                <div style={{ marginBottom: '15px' }}>
-                    {errorMsgDBCheck !== '' ? <ErrorMessageContainer>{errorMsgDBCheck}</ErrorMessageContainer> : ''}
+                <div style={ { marginBottom: '15px' } }>
+                    { errorMsgDBCheck !== '' ? <ErrorMessageContainer>{ errorMsgDBCheck }</ErrorMessageContainer> : '' }
                 </div>
-                <InputButton field={{
+                <InputButton field={ {
                     'field_type': 'button',
                     'type': 'submit',
                     'label': btnLabel,
                     'isDisabled': disabledButton
-                }}
-                    isLoading={isLoading}
+                } }
+                    isLoading={ isLoading }
                 />
             </form>
         </div>

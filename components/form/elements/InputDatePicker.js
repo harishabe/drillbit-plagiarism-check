@@ -66,6 +66,7 @@ const InputDatePicker = ({
                                 onChange={onChange}
                                 disableFuture={ field.nextDate }
                                 disablePast={ field.prevDate }
+                                disabled={ field.disabled }
                                 minDate={ field.minDate }
                                 maxDate={ field.maxDate }
                                 renderInput={(params) => <StyledDatePickerTextField
