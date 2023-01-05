@@ -5,10 +5,8 @@ import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import { Grid, Link, Autocomplete, Checkbox, TextField, Skeleton, IconButton, Tooltip } from '@mui/material';
+import { Grid, Link, Checkbox, IconButton, Tooltip } from '@mui/material';
 import {
-    Title,
-    SubTitle,
     SubTitle1,
     CardView,
     MainHeading
@@ -21,7 +19,6 @@ import {
     DragDropArea,
     ChooseLabel,
     ChipContainer,
-    ContentCenter
 } from './FileStyle';
 
 import {
@@ -40,11 +37,11 @@ import {
     UPLOAD_FILE_MAX_LIMIT,
     UPLOAD_NON_ENGLISH_FILE_MULTIFILE
 } from '../../constant/data/ErrorMessage';
-import { getItemLocalStorage } from '../../utils/RegExp';
+import { getItemLocalStorage, isValidFileUploaded } from '../../utils/RegExp';
+import { UPLOAD_SUPPORTED_FILES } from '../../constant/data/Constant';
 
-const SkeletonStyle = styled.div`
-    margin-top: 20px;
-    margin-left: 5px;
+const InvalidFileFormatError = styled.div`
+    color: red;
 `;
 
 const ErrorMessageContainer = styled.div`
@@ -65,10 +62,7 @@ const UploadFiles = ({
     multiFileUploadAPI,
     routerObj,
     isRepository,
-    title,
     LanguageList,
-    nonEnglishLang,
-    isLoadingLang,
     UploadNonEnglish,
     isLoadingNonEng,
     isRegionalFile,
@@ -82,6 +76,7 @@ const UploadFiles = ({
     const [value, setValue] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [language, setLanguage] = useState('English');
+    const [invalidFileFormat, setInvalidFileFormat] = useState(false);
     const [nonEnglishLanguage, setNonEnglishLanguage] = useState('');
     const [nonEnglishLangValue, setNonEnglishLangValue] = useState('');
     const [regionalLang, setRegionalLang] = useState('');
@@ -114,11 +109,17 @@ const UploadFiles = ({
 
     const handleUpload = (e) => {
         e.preventDefault();
-        if (Object.entries(e.target.files).length > 10) {
-            setFileWarning(true);
+        const file = e.target.files[0];
+        if (isValidFileUploaded(file)) {
+            setInvalidFileFormat(false)
+            if (Object.entries(e.target.files).length > 10) {
+                setFileWarning(true);
+            } else {
+                setFileData(Object.entries(e.target.files));
+                setFileWarning(false);
+            }
         } else {
-            setFileData(Object.entries(e.target.files));
-            setFileWarning(false);
+            setInvalidFileFormat(true);
         }
     };
 
@@ -324,6 +325,8 @@ const UploadFiles = ({
                                         type="file"
                                     />
                                 </div>
+                                <InvalidFileFormatError>{invalidFileFormat && UPLOAD_SUPPORTED_FILES.INVALID_FILE_FORMAT_ERROR}</InvalidFileFormatError>
+
                                 {(fileData?.length > 0) && fileData?.map((item, index) => (
                                     <ChipContainer key={index}>
                                         <Chip
@@ -345,7 +348,7 @@ const UploadFiles = ({
                                         <div>
                                             <FormControlLabel
                                                 control={
-                                                    <Checkbox disabled={ router?.query?.grammar?.toUpperCase() === 'NO' } checked={ grammarCheck } onChange={ handleGrammarPlagiarismChange } name="grammarCheck" />
+                                                    <Checkbox disabled={router?.query?.grammar?.toUpperCase() === 'NO'} checked={grammarCheck} onChange={handleGrammarPlagiarismChange} name="grammarCheck" />
                                                 }
                                                 label="Grammar Check"
                                             />
