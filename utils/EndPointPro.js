@@ -3,6 +3,7 @@ const END_POINTS_PRO = {
     ADMIN_PROFILE_UPLOAD_LOGO: '/admin/uploadLogo',
     ADMIN_DASHBOARD_WIDGET: '/admin/dashboard',
     ADMIN_DASHBOARD_DOCUMENT_CHART: '/admin/documentTypeChart',
+    ADMIN_DASHBOARD_DEPARTMENT_CHART: '/admin/departmentWiseSubmissions',
     ADMIN_TREND_ANALYSIS: '/admin/trendAnalysis',
     ADMIN_RENEW_ACCOUNT: '/admin/reviveValidity',
     ADMIN_USER: '/admin/users',

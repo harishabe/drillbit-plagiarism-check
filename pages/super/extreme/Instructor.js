@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch, Skeleton, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { TextField, Pagination } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import SuperAdmin from './../../../layouts/SuperAdmin';
@@ -30,9 +31,10 @@ import {
     UploadFileDataClear
 } from '../../../redux/action/admin/AdminAction';
 import {
-    MakeHimAdmin
+    GetExtremeInstructorList,
+    MakeHimAdmin,
+    ResendCredentials
 } from '../../../redux/action/super/SuperAdminAction';
-import { GetExtremeInstructorList } from '../../../redux/action/super/SuperAdminAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import InstructorForm from '../../extream/admin/form/InstructorForm';
 import InstructorStats from '../../extream/admin/instructor/InstructorStats';
@@ -40,7 +42,7 @@ import { removeCommaWordEnd } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
-import { WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../constant/data/Constant';
+import { WARNING_MESSAGES, WINDOW_PLATFORM, EXTREME } from '../../../constant/data/Constant';
 import { PaginationContainer, PlagiarismGrammarContainer } from '../../../style/index';
 import { platform } from '../../../utils/RegExp';
 
@@ -89,6 +91,7 @@ const SearchField = styled.div`
 const Instructor = ({
     pageDetailsInstructor,
     GetExtremeInstructorList,
+    ResendCredentials,
     UploadFileDataClear,
     MakeHimAdmin,
     extInsList,
@@ -115,6 +118,7 @@ const Instructor = ({
     const [editInstructor, setEditInstructor] = useState(false);
     const [editInstructorData, setEditInstructorData] = useState('');
     const [makeAdminDialogModal, setMakeAdminDialogModal] = useState(false);
+    const [resendCredentialsDialogModal, setResendCredentialsDialogModal] = useState(false);
 
     useEffect(() => {
         if (router.isReady) {
@@ -179,20 +183,22 @@ const Instructor = ({
                     instructor.role === Role.admin ?
                         ([
                             { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                            { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
                             {
                                 'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
                                 'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
-                            }
+                            },
                         ]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                             { 'component': <PersonIcon />, 'type': 'admin', 'title': 'Make him admin' },
+                            { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
                         {
                             'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
                             'type': instructor.status === 'active' ? 'lock' : 'unlock',
                             'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
-                        }
+                            },
                         ]),
                     instructor.creation_date,
                     instructor.department,
@@ -224,6 +230,10 @@ const Instructor = ({
         setMakeAdminDialogModal(false);
     };
 
+    const handleResendCredentialsCloseWarning = () => {
+        setResendCredentialsDialogModal(false);
+    };
+
     const handleYesWarning = () => {
         DeleteData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructors?id=${deleteRowData}`, paginationPayload);
         setShowDeleteAllIcon(false);
@@ -243,6 +253,17 @@ const Instructor = ({
         MakeHimAdmin(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/admin/${instructorId}`, paginationPayload)
         setTimeout(() => {
             setMakeAdminDialogModal(false)
+        }, [100]);
+    };
+
+    const handleResendCredentialsWarning = () => {
+        let data = {
+            'lid': router?.query?.licenseId,
+            'user_id': instructorId
+        }
+        ResendCredentials(EXTREME, data)
+        setTimeout(() => {
+            setResendCredentialsDialogModal(false)
         }, [100]);
     };
 
@@ -275,6 +296,9 @@ const Instructor = ({
         } else if (icon === 'admin') {
             setInstructorId(rowData?.user_id);
             setMakeAdminDialogModal(true);
+        } else if (icon === 'resend') {
+            setInstructorId(rowData?.user_id);
+            setResendCredentialsDialogModal(true);
         }
     };
 
@@ -428,10 +452,21 @@ const Instructor = ({
             {
                 makeAdminDialogModal &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
-                    message={ 'Are you sure, you want to make him admin?' }
+                    warningIcon={ <PersonIcon /> }
+                    message={ WARNING_MESSAGES.MAKE_ADMIN }
                     handleYes={ handleMakeAdminWarning }
                     handleNo={ handleMakeAdminCloseWarning }
+                    isOpen={ true }
+                />
+            }
+
+            {
+                resendCredentialsDialogModal &&
+                <WarningDialog
+                    warningIcon={ <VpnKeyIcon /> }
+                    message={ WARNING_MESSAGES.RESEND_CREDENTIALS }
+                    handleYes={ handleResendCredentialsWarning }
+                    handleNo={ handleResendCredentialsCloseWarning }
                     isOpen={ true }
                 />
             }
@@ -524,6 +559,7 @@ const mapDispatchToProps = (dispatch) => {
         DeactivateData: (url, paginationPayload) => dispatch(DeactivateData(url, paginationPayload)),
         DeleteData: (url, paginationPayload) => dispatch(DeleteData(url, paginationPayload)),
         MakeHimAdmin: (url, paginationPayload) => dispatch(MakeHimAdmin(url, paginationPayload)),
+        ResendCredentials: (role, data) => dispatch(ResendCredentials(role, data)),
         UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };

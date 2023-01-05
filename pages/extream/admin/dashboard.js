@@ -14,7 +14,8 @@ import {
     RenewValidity
 } from '../../../redux/action/admin/AdminAction';
 import {
-    Documentchart
+    Documentchart,
+    Departmentchart
 } from '../../../redux/action/common/Dashboard/DashboardAction';
 import {
     WidgetCard,
@@ -84,8 +85,10 @@ const Dashboard = ({
     isLoadingRenewAccount,
     GetWidgetCount,
     Documentchart,
+    Departmentchart,
     adminDashboardData,
     documentTypeData,
+    departmentTypeData,
     GetTopStudent,
     GetTrendAnalysis,
     RenewValidity
@@ -99,6 +102,7 @@ const Dashboard = ({
     useEffect(() => {
         GetWidgetCount(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_WIDGET);
         Documentchart(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_DOCUMENT_CHART);
+        Departmentchart(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_DEPARTMENT_CHART);
         GetTopStudent();
         GetTrendAnalysis(BASE_URL_EXTREM + END_POINTS.ADMIN_TREND_ANALYSIS);
         trendAnalysisSeries.push(adminDashboardData?.trendAnalysis?.similarWork, adminDashboardData?.trendAnalysis?.ownWork);
@@ -375,6 +379,22 @@ const Dashboard = ({
                                 }
                             </CardView>
                         </Grid>
+                        <Grid item md={ 6 } xs={ 12 }>
+                            <CardView>
+                                <Heading title='Departments' />
+                                { isLoadingDashboard ? <Skeleton /> :
+                                    departmentTypeData && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
+                                        <PieChart
+                                            type="pie"
+                                            height={ 305 }
+                                            label={ Object.keys(departmentTypeData) }
+                                            series={ Object.values(departmentTypeData) }
+                                            filename='Departments'
+                                        />
+                                        : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                }
+                            </CardView>
+                        </Grid>
                     </Grid>
                 </Box>
             </Box>
@@ -386,6 +406,7 @@ const mapStateToProps = (state) => ({
     isLoadingTopStudent: state?.adminDashboard?.isLoadingTopStudent,
     adminDashboardData: state?.adminDashboard,
     documentTypeData: state?.documentChart?.DocumentTypeData,
+    departmentTypeData: state?.documentChart?.DepartmentTypeData?.departmentSubmissions,
     isLoadingDashboard: state?.adminDashboard?.isLoadingDashboard,
     isLoadingTrendAnalysis: state?.adminDashboard?.isLoadingTrendAnalysis,
     isLoadingRenewAccount: state?.adminDashboard?.isLoadingRenewAccount,
@@ -395,6 +416,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetWidgetCount: (url) => dispatch(GetWidgetCount(url)),
         Documentchart: (url) => dispatch(Documentchart(url)),
+        Departmentchart: (url) => dispatch(Departmentchart(url)),
         GetTopStudent: () => dispatch(GetTopStudent()),
         GetTrendAnalysis: (url) => dispatch(GetTrendAnalysis(url)),
         RenewValidity: (url) => dispatch(RenewValidity(url)),

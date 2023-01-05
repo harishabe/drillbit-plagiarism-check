@@ -229,6 +229,23 @@ const SuperReducer = (state = {}, action) => {
                 isLoading: false,
                 makeHimAdmin: action.payload,
             };
+        case types.FETCH_SUPER_ADMIN_RESEND_CREDENTIALS_START:
+            return {
+                ...state,
+                isLoadingResend: true,
+            };
+        case types.FETCH_SUPER_ADMIN_RESEND_CREDENTIALS_SUCCESS:
+            return {
+                ...state,
+                isLoadingResend: false,
+                resendCredentials: action.payload,
+            };
+        case types.FETCH_SUPER_ADMIN_RESEND_CREDENTIALS_FAIL:
+            return {
+                ...state,
+                isLoadingResend: false,
+                resendCredentials: action.payload,
+            };
         default:
             return state;
     }

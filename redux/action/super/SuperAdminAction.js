@@ -125,3 +125,12 @@ export const MakeHimAdmin = (url, paginationPayload) => {
         type: types.FETCH_SUPER_ADMIN_MAKE_HIM_ADMIN_START, url: url, paginationPayload: paginationPayload
     };
 };
+
+/**
+ * Resend credentials to email
+ */
+export const ResendCredentials = (role, data) => {
+    return {
+        type: types.FETCH_SUPER_ADMIN_RESEND_CREDENTIALS_START, role: role, data: data
+    };
+};

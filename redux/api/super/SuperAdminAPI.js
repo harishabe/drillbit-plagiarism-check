@@ -104,3 +104,10 @@ export const MakeHimAdminData = async (apiUrl, paginationPayload) => {
     const url = apiUrl + PaginationUrl(paginationPayload);
     return PutMethod(url);
 };
+
+/* API CALL RESEND CREDENTIALS
+*/
+export const ResendCredentialsData = async (role, data) => {
+    const url = BASE_URL_SUPER + `/${role}/license/${data?.lid}/resendCredentials/${data?.user_id}`;
+    return GetMethod(url);
+};

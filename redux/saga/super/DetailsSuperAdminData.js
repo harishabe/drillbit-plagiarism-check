@@ -13,7 +13,8 @@ import {
     SuperEditStudentData,
     ExtremeRefDeleteAccount,
     FolderPathListData,
-    MakeHimAdminData
+    MakeHimAdminData,
+    ResendCredentialsData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { SuperAdminPaginationValue, PaginationValue } from '../../../utils/PaginationUrl';
@@ -381,4 +382,29 @@ export function* onLoadMakeHimAdmin(action) {
 
 export function* MakeHimAdminDetail() {
     yield takeLatest(types.FETCH_SUPER_ADMIN_MAKE_HIM_ADMIN_START, onLoadMakeHimAdmin);
+}
+
+/**
+ * Resend credentials
+ * @param {*} action
+ */
+
+export function* onLoadResendCredentials(action) {
+    const { response, error } = yield call(ResendCredentialsData, action.role, action.data);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_RESEND_CREDENTIALS_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_SUPER_ADMIN_RESEND_CREDENTIALS_FAIL,
+        })
+        toastrValidation(error)
+    }
+}
+
+export function* ResendCredentialsDetail() {
+    yield takeLatest(types.FETCH_SUPER_ADMIN_RESEND_CREDENTIALS_START, onLoadResendCredentials);
 }
