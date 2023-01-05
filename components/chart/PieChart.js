@@ -66,8 +66,8 @@ const PieChart = ({
         series: series,
         options: {
             chart: {
-                width: 380,
-                type: 'pie',
+                height: height,
+                type: type,
                 toolbar: {
                     show: true,
                     tools: {
@@ -84,6 +84,20 @@ const PieChart = ({
                             filename: filename
                         }
                     },
+                }
+            },
+            legend: {
+                show: true,
+                position: 'bottom',
+                fontSize: '16px',
+                fontFamily: 'Montserrat',
+                color: '#f5f5f5'
+            },
+            tooltip: {
+                enabled: true,
+                style: {
+                    fontSize: '12px',
+                    fontFamily: 'Montserrat'
                 }
             },
             labels: label,

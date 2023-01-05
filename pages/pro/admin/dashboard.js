@@ -312,7 +312,7 @@ const Dashboard = ({
                                 documentTypeData && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
                                     <PieChart
                                         type="pie"
-                                        height={ 323 }
+                                        height={ 305 }
                                         label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
                                         series={ Object.values(documentTypeData) }
                                         filename='Types of documents'
