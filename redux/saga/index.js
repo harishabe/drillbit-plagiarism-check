@@ -11,7 +11,8 @@ import {
     SaveToRepoBulkDetail,
     GetSubmissionHistoryData,
     GetSubmissionBulkReportDownload,
-    GetSubmissionReportDownload
+    GetSubmissionReportDownload,
+    GetSubmissionReprocess
 } from './common/Submission/DetailSubmissionData';
 import {
     LanguageListData,
@@ -198,6 +199,7 @@ const saga = [
     fork(GetSubmissionHistoryData),
     fork(GetSubmissionBulkReportDownload),    
     fork(GetSubmissionReportDownload),    
+    fork(GetSubmissionReprocess),    
     fork(LanguageListData),
     fork(UploadFileDriveData),
     fork(UploadFileNonEnglish),

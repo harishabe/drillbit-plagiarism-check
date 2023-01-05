@@ -10,7 +10,8 @@ import {
     SaveToRepoBulkData,
     SubmissionHistoryData,
     SubmissionBulkReportDownload,
-    SubmissionSingleReportDownload
+    SubmissionSingleReportDownload,
+    SubmissionReprocess
 } from '../../../api/common/Submission/SubmissionAPI';
 import toastrValidation from '../../../../utils/ToastrValidation';
 import { FolderSubmissionsPaginationValue } from '../../../../utils/PaginationUrl';
@@ -267,4 +268,29 @@ export function* onLoadSubmissionReportDownload(action) {
 
 export function* GetSubmissionReportDownload() {
     yield takeLatest(types.FETCH_SUBMISSION_REPORT_DOWNLOAD_START, onLoadSubmissionReportDownload);
+}
+
+/**
+ * Submission reprocess
+ * @param {*} action
+ */
+
+export function* onLoadSubmissionReprocess(action) {
+    const { response, error } = yield call(SubmissionReprocess, action.query);
+    if (response) {
+        yield put({
+            type: types.FETCH_SUBMISSION_REPROCESS_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_SUBMISSION_REPROCESS_FAIL,
+            payload: error,
+        });
+        toastrValidation(error);
+    }
+}
+
+export function* GetSubmissionReprocess() {
+    yield takeLatest(types.FETCH_SUBMISSION_REPROCESS_START, onLoadSubmissionReprocess);
 }

@@ -1,6 +1,6 @@
 import END_POINTS from '../../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
-import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../../utils/BaseUrl';
+import { BASE_URL_EXTREM, BASE_URL_PRO, BASE_URL } from '../../../../utils/BaseUrl';
 import { SIMILARITY_BULK_REPORT_TITLE } from '../../../../constant/data/Constant';
 
 import { GetMethodDownloadPdf, GetMethod, DeleteMethod, GetMethodDownload, PostMethod, GetDownloadPdfNewWindow, PostMethodDownloadPdf } from '../../ApiMethod';
@@ -86,4 +86,12 @@ export const SubmissionBulkReportDownload = async (url, requestPayload) => {
  */
 export const SubmissionSingleReportDownload = async (url, data) => {
     return GetMethodDownloadPdf(url, data?.original_fn.replace(/\.[^/.]+$/, "") + ".pdf");
+};
+
+/**
+ * SUBMISSION REPROCESS
+ */
+export const SubmissionReprocess = async (data) => {
+    let url = BASE_URL + END_POINTS.SUBMISSION_REPROCESS + data
+    return GetMethod(url);
 };
