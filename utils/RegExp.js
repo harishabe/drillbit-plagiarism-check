@@ -103,4 +103,10 @@ export const windowOpen = (url) => {
         newwin.focus()
     }
     return false;
+};
+
+export const isValidFileUploaded = (file) => {
+    const validExtensions = ['pdf', 'doc', 'docx', 'txt', 'rtf', 'dot', 'dotx', 'html', 'odt', 'pptx']
+    const fileExtension = file.type.split('/')[1]
+    return validExtensions.includes(fileExtension)
 }

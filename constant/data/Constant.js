@@ -149,6 +149,7 @@ export const UPLOAD_SUPPORTED_FILES = {
     'GDRIVE': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt',
     'NON_ENGLISH': 'Supported file format: docx, doc, pdf, txt',
     'REGIONAL': 'Supported file format: docx',
+    'INVALID_FILE_FORMAT_ERROR':'Invalid file format. Please check above file formats'
 }
 
 export const FORM_VALIDATION = {
