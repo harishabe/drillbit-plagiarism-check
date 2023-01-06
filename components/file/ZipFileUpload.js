@@ -17,7 +17,7 @@ import {
 import ZipFileForm from './ZipFileForm';
 import RepositoryFileFormZip from './RepositoryFileFormZip';
 import {
-    UPLOAD_FILE_MAX_LIMIT
+    UPLOAD_FILE_REPO_MAX_LIMIT
 } from '../../constant/data/ErrorMessage';
 
 import {
@@ -178,7 +178,7 @@ const ZipFileUpload = ({
                                     </ChipContainer>
                                 ))}
                             </div>
-                            {fileWarning && <div style={{ color: 'red' }}>{UPLOAD_FILE_MAX_LIMIT}</div>}
+                            { fileWarning && <div style={ { color: 'red' } }>{ UPLOAD_FILE_REPO_MAX_LIMIT }</div> }
                         </DragDropArea>
 
                         {(fileData?.length > 0 && isRepository) &&
