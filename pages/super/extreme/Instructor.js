@@ -453,7 +453,7 @@ const Instructor = ({
                 makeAdminDialogModal &&
                 <WarningDialog
                     warningIcon={ <PersonIcon /> }
-                    message={ 'Are you sure, you want to make him admin?' }
+                    message={ WARNING_MESSAGES.MAKE_ADMIN }
                     handleYes={ handleMakeAdminWarning }
                     handleNo={ handleMakeAdminCloseWarning }
                     isOpen={ true }
@@ -464,7 +464,7 @@ const Instructor = ({
                 resendCredentialsDialogModal &&
                 <WarningDialog
                     warningIcon={ <VpnKeyIcon /> }
-                    message={ 'Are you sure, you want resend credentials to this account?' }
+                    message={ WARNING_MESSAGES.RESEND_CREDENTIALS }
                     handleYes={ handleResendCredentialsWarning }
                     handleNo={ handleResendCredentialsCloseWarning }
                     isOpen={ true }

@@ -1,6 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
 import { userLogin, userForgetPassword, userResetPassword } from './login/Login';
-import { DocumentChartData } from './common/Dashboard/DashboardData';
+import { DocumentChartData, DepartmentChartData } from './common/Dashboard/DashboardData';
 import { DashboardWidget, TopStudent, TrendAnalysis, GetRenewalValidity } from './admin/Dashboard';
 import {
     GetDownloadFileData,
@@ -11,7 +11,8 @@ import {
     SaveToRepoBulkDetail,
     GetSubmissionHistoryData,
     GetSubmissionBulkReportDownload,
-    GetSubmissionReportDownload
+    GetSubmissionReportDownload,
+    GetSubmissionReprocess
 } from './common/Submission/DetailSubmissionData';
 import {
     LanguageListData,
@@ -132,6 +133,7 @@ const saga = [
     fork(profileChangePassword),
     fork(DashboardWidget),
     fork(DocumentChartData),
+    fork(DepartmentChartData),
     fork(TopStudent),
     fork(TrendAnalysis),
     fork(GetRenewalValidity),
@@ -197,6 +199,7 @@ const saga = [
     fork(GetSubmissionHistoryData),
     fork(GetSubmissionBulkReportDownload),    
     fork(GetSubmissionReportDownload),    
+    fork(GetSubmissionReprocess),    
     fork(LanguageListData),
     fork(UploadFileDriveData),
     fork(UploadFileNonEnglish),

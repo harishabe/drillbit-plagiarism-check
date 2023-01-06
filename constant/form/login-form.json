@@ -5,6 +5,7 @@
         "id": "username",
         "name": "username",
         "label": "Username *",
+        "maxLength": 100,
         "required": "Enter email address",
         "validationMsg": "Invalid email address"
     },
@@ -12,16 +13,17 @@
         "field_type": "input",
         "type": "password",
         "id": "password",
+        "maxLength": 100,
         "label": "Password *",
         "name": "password",
         "required": "Enter password",
         "validationMsg": "Minimum eight characters, at least one letter and one number"
     },
     {
-        "field_type":"linkField",
-        "align":"right",
-        "path":"/auth/forgot-password",
-        "label":"Forgot password?"
+        "field_type": "linkField",
+        "align": "right",
+        "path": "/auth/forgot-password",
+        "label": "Forgot password?"
     },
     {
         "field_type": "button",

@@ -1,0 +1,15 @@
+[
+    {
+        "field_type": "input",
+        "type": "number",
+        "id": "paperId",
+        "name": "paperId",
+        "label": "Paper Id *",
+        "required": "Paper Id"
+    },
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Submit"
+    }
+]

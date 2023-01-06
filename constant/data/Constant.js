@@ -149,6 +149,7 @@ export const UPLOAD_SUPPORTED_FILES = {
     'GDRIVE': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt',
     'NON_ENGLISH': 'Supported file format: docx, doc, pdf, txt',
     'REGIONAL': 'Supported file format: docx',
+    'INVALID_FILE_FORMAT_ERROR':'Invalid file format. Please check above file formats'
 }
 
 export const FORM_VALIDATION = {
@@ -164,6 +165,8 @@ export const WARNING_MESSAGES = {
     'REPOSITORY': 'Are you sure you want to save this to repository ?',
     'DOWNLOAD': 'Are you sure you want to download ?',
     'DELETE': 'Are you sure you want to delete ?',
+    'RESEND_CREDENTIALS': 'Are you sure, you want resend credentials to this account?',
+    'MAKE_ADMIN': 'Are you sure, you want to make him admin?',
 }
 
 export const SIMILARITY_BULK_REPORT_TITLE = 'SimilarityBulkReport.zip';

@@ -81,3 +81,12 @@ export const SubmissionReportDownload = (url, data) => {
         type: types.FETCH_SUBMISSION_REPORT_DOWNLOAD_START, url: url, query: data
     };
 };
+
+/**
+ * submission reprocess
+ */
+export const SubmissionReprocess = (data) => {
+    return {
+        type: types.FETCH_SUBMISSION_REPROCESS_START, query: data
+    };
+};
