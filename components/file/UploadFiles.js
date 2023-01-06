@@ -112,7 +112,7 @@ const UploadFiles = ({
         const file = e.target.files[0];
         if (isValidFileUploaded(file)) {
             setInvalidFileFormat(false)
-            if (Object.entries(e.target.files).length > 10) {
+            if (Object.entries(e.target.files).length > 15) {
                 setFileWarning(true);
             } else {
                 setFileData(Object.entries(e.target.files));
