@@ -199,22 +199,22 @@ const Dashboard = ({
                                     <Skeleton />
                                 </> :
                                 adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
-                                <LineChart
-                                    chartType="line"
-                                    graphName="File Submission"
-                                    filename='Similarity Ranges'
-                                    graphData={[
-                                        adminDashboardData?.data?.submissionsGraph?.zeroTen,
-                                        adminDashboardData?.data?.submissionsGraph?.elevenFourty,
-                                        adminDashboardData?.data?.submissionsGraph?.fourtyOneSixty,
-                                        adminDashboardData?.data?.submissionsGraph?.sixtyOneHundred,
-                                        adminDashboardData?.data?.submissionsGraph?.docError,
-                                    ]}
-                                    strokeCurve="straight"
-                                    xaxisLabelShow={true}
-                                    yaxisLabelShow={true}
-                                    chartHeight={350}
-                                    /> : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                    <LineChart
+                                        chartType="line"
+                                        graphName="File Submission"
+                                        filename='Similarity Ranges'
+                                        graphData={[
+                                            adminDashboardData?.data?.submissionsGraph?.zeroTen,
+                                            adminDashboardData?.data?.submissionsGraph?.elevenFourty,
+                                            adminDashboardData?.data?.submissionsGraph?.fourtyOneSixty,
+                                            adminDashboardData?.data?.submissionsGraph?.sixtyOneHundred,
+                                            adminDashboardData?.data?.submissionsGraph?.docError,
+                                        ]}
+                                        strokeCurve="straight"
+                                        xaxisLabelShow={true}
+                                        yaxisLabelShow={true}
+                                        chartHeight={350}
+                                    /> : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                             }
                         </CardView>
                     </Grid>
@@ -232,7 +232,7 @@ const Dashboard = ({
             <Box mt={1} sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={4} xs={12}>
-                        <CardView height={ adminDashboardData?.topStudent?.students?.length > 0 && "443px" }>
+                        <CardView height={adminDashboardData?.topStudent?.students?.length > 0 && "443px"}>
                             <Heading title='Top Students' />
                             {isLoadingTopStudent ?
                                 <>
@@ -252,7 +252,7 @@ const Dashboard = ({
                                                     chartType="area"
                                                     strokeCurve="smooth"
                                                     graphName="No. of Students"
-                                                    filename='Top Students' 
+                                                    filename='Top Students'
                                                     graphData={[
                                                         adminDashboardData?.topStudent?.submissionsGraph?.zeroTen,
                                                         adminDashboardData?.topStudent?.submissionsGraph?.elevenFourty,
@@ -300,9 +300,9 @@ const Dashboard = ({
                                         type={RADIAL_CHART_TYPE}
                                         color={RADIAL_CHART_COLOR}
                                         height={RADIAL_CHART_HEIGHT}
-                                        label={ [RADIAL_CHART_LABEL] }
+                                        label={[RADIAL_CHART_LABEL]}
                                         filename='Account Validity'
-                                        labelData={ [adminDashboardData?.data?.accountValidityDays] }
+                                        labelData={[adminDashboardData?.data?.accountValidityDays]}
                                         series={[adminDashboardData?.data?.accountValidityPercentage.toFixed(2)]}
                                     />
                                     {isLoadingRenewAccount ? <Skeleton /> :
@@ -361,37 +361,45 @@ const Dashboard = ({
                         </CardView>
                     </Grid>
                 </Grid>
-                <Box mt={ 1 } sx={ { flexGrow: 1 } }>
-                    <Grid container spacing={ 1 }>
-                        <Grid item md={ 6 } xs={ 12 }>
+                <Box mt={1} sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={1}>
+                        <Grid item md={6} xs={12}>
                             <CardView>
-                                <Heading title='Types of documents' />
-                                { isLoadingDashboard ? <Skeleton /> :
+                                <Heading title='Types of Documents' />
+                                {isLoadingDashboard ? <Skeleton
+                                    variant="circular"
+                                    style={{ margin: '59px auto' }}
+                                    height={250} width={250}
+                                /> :
                                     documentTypeData && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
                                         <PieChart
                                             type="pie"
-                                            height={ 325 }
-                                            label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
-                                            series={ Object.values(documentTypeData) }
-                                            filename='Types of documents'
+                                            height={325}
+                                            label={COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA}
+                                            series={Object.values(documentTypeData)}
+                                            filename='Types of Documents'
                                         />
-                                        : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                        : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                                 }
                             </CardView>
                         </Grid>
-                        <Grid item md={ 6 } xs={ 12 }>
+                        <Grid item md={6} xs={12}>
                             <CardView>
                                 <Heading title='Departments' />
-                                { isLoadingDashboard ? <Skeleton /> :
+                                {isLoadingDashboard ? <Skeleton
+                                    variant="circular"
+                                    style={{ margin: '59px auto' }}
+                                    height={250} width={250}
+                                /> :
                                     departmentTypeData && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
                                         <PieChart
                                             type="pie"
-                                            height={ 305 }
-                                            label={ Object.keys(departmentTypeData) }
-                                            series={ Object.values(departmentTypeData) }
+                                            height={325}
+                                            label={Object.keys(departmentTypeData)}
+                                            series={Object.values(departmentTypeData)}
                                             filename='Departments'
                                         />
-                                        : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                        : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                                 }
                             </CardView>
                         </Grid>

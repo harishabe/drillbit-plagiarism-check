@@ -297,7 +297,7 @@ const Dashboard = ({
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 8 } xs={ 12 }>
                         <CardView>
-                            <Heading title='Types of documents' />
+                            <Heading title='Types of Documents' />
                             { isLoading ? <Skeleton /> :
                                 documentTypeData && instructorDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
                                     <PieChart

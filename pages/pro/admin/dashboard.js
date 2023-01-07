@@ -119,58 +119,58 @@ const Dashboard = ({
     };
     return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 6 } xs={ 12 }>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Users'
-                            isLoading={ isLoadingDashboard }
-                            count={ isLoadingDashboard ? '' : (adminDashboardData?.data?.userAccountUsage?.usedAccounts) + ' / ' + (adminDashboardData?.data?.userAccountUsage)?.totalAccounts }
-                            icon={ <NoStudentIcon /> }
+                            isLoading={isLoadingDashboard}
+                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.userAccountUsage?.usedAccounts) + ' / ' + (adminDashboardData?.data?.userAccountUsage)?.totalAccounts}
+                            icon={<NoStudentIcon />}
                         />
                     </Grid>
-                    <Grid item md={ 6 } xs={ 12 }>
+                    <Grid item md={6} xs={12}>
                         <WidgetCard
                             title='Submissions'
-                            isLoading={ isLoadingDashboard }
-                            count={ isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + ' / ' + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions) }
-                            icon={ <NoOfSubmission /> }
+                            isLoading={isLoadingDashboard}
+                            count={isLoadingDashboard ? '' : (adminDashboardData?.data?.submissionsUsage?.usedSubmissions) + ' / ' + (adminDashboardData?.data?.submissionsUsage?.totalSubmissions)}
+                            icon={<NoOfSubmission />}
                         />
                     </Grid>
                 </Grid>
             </Box>
-            <Box mt={ 1 } sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 7 } xs={ 12 }>
+            <Box mt={1} sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={7} xs={12}>
                         <CardView>
                             <Heading title='Submissions Overview' />
-                            { isLoadingDashboard ? <Skeleton /> :
+                            {isLoadingDashboard ? <Skeleton /> :
                                 recentSubmission?.length && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ? <ColumnChart
-                                    type={ COLUMN_ADMIN_CHART_TYPE }
-                                    color={ COLUMN_ADMIN_CHART_COLOR }
-                                    xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
-                                    columnWidth={ COLUMN_ADMIN_WIDTH }
-                                    height={ COLUMN_ADMIN_CHART_HEIGHT }
-                                    seriesData={ [
+                                    type={COLUMN_ADMIN_CHART_TYPE}
+                                    color={COLUMN_ADMIN_CHART_COLOR}
+                                    xaxisData={COLUMN_ADMIN_XAXIS_DATA}
+                                    columnWidth={COLUMN_ADMIN_WIDTH}
+                                    height={COLUMN_ADMIN_CHART_HEIGHT}
+                                    seriesData={[
                                         {
                                             name: 'Document Processed',
                                             data: recentSubmission
                                         }
-                                    ] }
-                                    gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                    borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                    ]}
+                                    gradient={COLUMN_ADMIN_CHART_GRADIENT}
+                                    borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
                                     filename='Submissions Overview'
                                 />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                    : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                             }
                         </CardView>
                     </Grid>
-                    <Grid item md={ 5 } xs={ 12 }>
+                    <Grid item md={5} xs={12}>
                         <CardView>
                             <Heading
                                 title='Similarity Ranges'
                             />
-                            { isLoadingDashboard ?
+                            {isLoadingDashboard ?
                                 <>
                                     <Skeleton />
                                 </> :
@@ -179,18 +179,18 @@ const Dashboard = ({
                                         chartType="line"
                                         graphName="File Submission"
                                         filename='Similarity Ranges'
-                                        graphData={ [
+                                        graphData={[
                                             adminDashboardData?.data?.submissionsGraph?.zeroTen,
                                             adminDashboardData?.data?.submissionsGraph?.elevenFourty,
                                             adminDashboardData?.data?.submissionsGraph?.fourtyOneSixty,
                                             adminDashboardData?.data?.submissionsGraph?.sixtyOneHundred,
                                             adminDashboardData?.data?.submissionsGraph?.docError,
-                                        ] }
+                                        ]}
                                         strokeCurve="straight"
-                                        xaxisLabelShow={ true }
-                                        yaxisLabelShow={ true }
-                                        chartHeight={ 350 }
-                                    /> : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                        xaxisLabelShow={true}
+                                        yaxisLabelShow={true}
+                                        chartHeight={350}
+                                    /> : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                             }
                         </CardView>
                     </Grid>
@@ -200,51 +200,51 @@ const Dashboard = ({
                 showRenewWarning &&
                 <WarningDialog
                     message="Are you sure you want to renew ?"
-                    handleYes={ handleYesWarning }
-                    handleNo={ handleCloseWarning }
-                    isOpen={ true }
+                    handleYes={handleYesWarning}
+                    handleNo={handleCloseWarning}
+                    isOpen={true}
                 />
             }
-            <Box mt={ 1 } sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 6 } xs={ 12 }>
+            <Box mt={1} sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={4} xs={12}>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 6.6 } xs={ 12 }>
+                                <Grid item md={6.6} xs={12}>
                                     <Heading title='Account Validity' />
                                 </Grid>
-                                <Grid item md={ 5.4 } xs={ 12 }>
+                                <Grid item md={5.4} xs={12}>
                                     {
                                         isLoadingDashboard ?
                                             <Skeleton /> :
                                             <TextAlignRight>
                                                 <SubTitle
-                                                    title={ adminDashboardData?.data?.accountTotalDays + '(' + 'Total days' + ')' }
+                                                    title={adminDashboardData?.data?.accountTotalDays + '(' + 'Total days' + ')'}
                                                 />
                                             </TextAlignRight>
                                     }
                                 </Grid>
                             </Grid>
-                            { isLoadingDashboard ?
+                            {isLoadingDashboard ?
                                 <Skeleton
                                     variant="circular"
-                                    style={ { margin: '58px auto' } }
-                                    height={ 250 }
-                                    width={ 250 }
+                                    style={{ margin: '58px auto' }}
+                                    height={250}
+                                    width={250}
                                 /> :
                                 <>
                                     <RadialBarChart
                                         filename='Account Validity'
-                                        type={ RADIAL_CHART_TYPE }
-                                        color={ RADIAL_CHART_COLOR }
-                                        height={ RADIAL_CHART_HEIGHT }
-                                        label={ [RADIAL_CHART_LABEL] }
-                                        labelData={ [adminDashboardData?.data?.accountValidityDays] }
-                                        series={ [adminDashboardData?.data?.accountValidityPercentage.toFixed(2)] }
+                                        type={RADIAL_CHART_TYPE}
+                                        color={RADIAL_CHART_COLOR}
+                                        height={RADIAL_CHART_HEIGHT}
+                                        label={[RADIAL_CHART_LABEL]}
+                                        labelData={[adminDashboardData?.data?.accountValidityDays]}
+                                        series={[adminDashboardData?.data?.accountValidityPercentage.toFixed(2)]}
                                     />
-                                    { isLoadingRenewAccount ? <Skeleton /> :
+                                    {isLoadingRenewAccount ? <Skeleton /> :
                                         <Typography variant="h4" component="div" gutterBottom>
-                                            <a className={ classes.BorderColor } href='' onClick={ renewalClick } >
+                                            <a className={classes.BorderColor} href='' onClick={renewalClick} >
                                                 Renew your account
                                             </a>
                                         </Typography>
@@ -254,39 +254,39 @@ const Dashboard = ({
                             }
                         </CardView>
                     </Grid>
-                    <Grid item md={ 6 } xs={ 12 }>
+                    <Grid item md={4} xs={12}>
                         <CardView>
                             <Grid container>
-                                <Grid item md={ 6.6 } xs={ 12 }>
+                                <Grid item md={6.6} xs={12}>
                                     <Heading title='Trend Analysis' />
                                 </Grid>
-                                <Grid item md={ 5.4 } xs={ 12 }>
+                                <Grid item md={5.4} xs={12}>
                                     {
                                         isLoadingDashboard ?
                                             <Skeleton /> :
                                             <TextAlignRight>
                                                 <SubTitle
-                                                    title={ adminDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' }
+                                                    title={adminDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')'}
                                                 />
                                             </TextAlignRight>
                                     }
                                 </Grid>
                             </Grid>
-                            { isLoadingTrendAnalysis ?
+                            {isLoadingTrendAnalysis ?
                                 <Skeleton
                                     variant="circular"
-                                    style={ { margin: '59px auto' } }
-                                    height={ 250 } width={ 250 }
+                                    style={{ margin: '59px auto' }}
+                                    height={250} width={250}
                                 /> :
                                 <>
-                                    { adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
+                                    {adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
                                         <>
                                             <PieChart
                                                 type="donut"
                                                 filename='Trend Analysis'
-                                                color={ PIE_CHART_COLOR }
-                                                height={ 320 }
-                                                label={ PIE_CHART_LABEL }
+                                                color={PIE_CHART_COLOR}
+                                                height={320}
+                                                label={PIE_CHART_LABEL}
                                                 series={
                                                     [
                                                         adminDashboardData?.trendAnalysis?.similarWork,
@@ -295,45 +295,71 @@ const Dashboard = ({
                                                 }
                                             />
                                         </>
-                                        : <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
+                                        : <ErrorBlock message={TREND_ANALYSIS_NOT_FOUND} />
                                     }
                                 </>
                             }
                         </CardView>
                     </Grid>
-                </Grid>
-            </Box>
-            <Box mt={ 1 } sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 6 } xs={ 12 }>
+                    <Grid item md={4} xs={12}>
                         <CardView>
-                            <Heading title='Types of documents' />
-                            { isLoadingDashboard ? <Skeleton /> :
-                                documentTypeData && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
-                                    <PieChart
-                                        type="pie"
-                                        height={ 323 }
-                                        label={ COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA }
-                                        series={ Object.values(documentTypeData) }
-                                        filename='Types of documents'
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                            <Grid container>
+                                <Grid item md={6.6} xs={12}>
+                                    <Heading title='Types of Documents' />
+                                </Grid>
+                                <Grid item md={5.4} xs={12}>
+                                    {
+                                        isLoadingDashboard ?
+                                            <Skeleton /> :
+                                            <TextAlignRight>
+                                                <select>
+                                                    <option>Document type</option>
+                                                    <option>Department type</option>
+                                                </select>
+                                            </TextAlignRight>
+                                    }
+                                </Grid>
+                            </Grid>
+
+                            {isLoadingDashboard ? <Skeleton
+                                variant="circular"
+                                style={{ margin: '59px auto' }}
+                                height={250} width={250}
+                            /> :
+                                adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ?
+                                    <>
+                                        <PieChart
+                                            type="pie"
+                                            filename='Types of Documents'
+                                            height={400}
+                                            label={COLUMN_ADMIN_DOCUMNENT_XAXIS_DATA}
+                                            series={
+                                                Object.values(documentTypeData)
+                                            }
+                                        />
+                                    </>
+
+                                    : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                             }
                         </CardView>
                     </Grid>
-                    <Grid item md={ 6 } xs={ 12 }>
+                </Grid>
+            </Box>
+            <Box mt={1} sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                    <Grid item md={4} xs={12}>
                         <CardView>
                             <Heading title='Departments' />
-                            { isLoadingDashboard ? <Skeleton /> :
+                            {isLoadingDashboard ? <Skeleton /> :
                                 departmentTypeData && adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 ?
                                     <PieChart
                                         type="pie"
-                                        height={ 305 }
-                                        label={ Object.keys(departmentTypeData) }
-                                        series={ Object.values(departmentTypeData) }
+                                        height={323}
+                                        label={Object.keys(departmentTypeData)}
+                                        series={Object.values(departmentTypeData)}
                                         filename='Departments'
                                     />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                    : <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
                             }
                         </CardView>
                     </Grid>
