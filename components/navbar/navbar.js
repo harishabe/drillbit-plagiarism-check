@@ -80,6 +80,7 @@ const NavBar = ({
         event.preventDefault();
         localStorage.clear();
         window.location.href = '/auth/login';
+        window.location.replace('https://www.drillbitplagiarismcheck.com/');
     };
 
     const switchToUser = (e, switchRole) => {
