@@ -52,14 +52,18 @@ export default function MyApp(props) {
     const Layout = Component.layout || (({ children }) => <>{children}</>);
 
     function authCheck(url) {
+        console.log('urlurlurlurlurl', url);
         const publicPaths = ['/auth/login', '/auth/forgot-password', '/auth/reset-password'];
         const path = url.split('?')[0];
+        console.log('pathpathpathpath', path);
         if (!localStorage.getItem('token') && !publicPaths.includes(path)) {
+            alert('true')
             setAuthorized(false);
             router.push({
                 pathname: '/auth/login'
             });
         } else {
+            alert('false')
             setAuthorized(true);
         }
     }
