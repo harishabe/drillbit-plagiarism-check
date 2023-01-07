@@ -47,7 +47,7 @@ export default function MyApp(props) {
             router.events.off('routeChangeStart', hideContent);
             router.events.off('routeChangeComplete', authCheck);
         };
-    }, []);
+    }, [router.asPath]);
 
     const Layout = Component.layout || (({ children }) => <>{children}</>);
 
