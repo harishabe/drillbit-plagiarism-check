@@ -98,6 +98,7 @@ const Instructor = ({
     DeleteData,
     DeactivateData,
     isLoadingExtInsList,
+    isLoadingResend
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
@@ -526,7 +527,7 @@ const Instructor = ({
                     handleTableSort={ handleTableSort }
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
-                    isLoading={ isLoadingExtInsList }
+                    isLoading={ isLoadingExtInsList || isLoadingResend }
                     charLength={ 10 }
                     path=''
                 />
@@ -551,6 +552,7 @@ const mapStateToProps = (state) => ({
     pageDetailsInstructor: state?.superAdmin?.extInsList?.list?.page,
     extInsList: state?.superAdmin?.extInsList?.list?._embedded?.instructorDTOList,
     isLoadingExtInsList: state?.superAdmin?.isLoadingExtInsList,
+    isLoadingResend: state?.superAdmin?.isLoadingResend,
 });
 
 const mapDispatchToProps = (dispatch) => {

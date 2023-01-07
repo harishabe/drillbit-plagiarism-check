@@ -78,7 +78,8 @@ const ProUser = ({
     DeactivateData,
     isLoadingdetailsData,
     isLoadingsuperAdmin,
-    isLoadingadminCrud
+    isLoadingadminCrud,
+    isLoadingResend
 }) => {
     const router = useRouter();
     const [adminName, setAdminName] = useState('');
@@ -525,7 +526,8 @@ const ProUser = ({
                     isLoading={
                         isLoadingdetailsData ||
                         isLoadingsuperAdmin ||
-                        isLoadingadminCrud
+                        isLoadingadminCrud ||
+                        isLoadingResend
                     }
                     charLength={ 7 }
                     path=''
@@ -551,6 +553,7 @@ const mapStateToProps = (state) => ({
     userData: state?.detailsData?.instructorData?.user?._embedded?.usersDTOList,
     isLoadingdetailsData: state?.detailsData?.isLoading,
     isLoadingsuperAdmin: state?.superAdmin?.isLoading,
+    isLoadingResend: state?.superAdmin?.isLoadingResend,
     isLoadingadminCrud: state?.adminCrud?.isLoading,
 });
 
