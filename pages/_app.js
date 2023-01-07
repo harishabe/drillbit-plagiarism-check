@@ -39,7 +39,9 @@ export default function MyApp(props) {
     const [authorized, setAuthorized] = React.useState(false);
 
     React.useEffect(() => {
+        console.log('event');
         authCheck(router.asPath);
+        console.log('router.asPath', router.asPath);
         const hideContent = () => setAuthorized(false);
         router.events.on('routeChangeStart', hideContent);
         router.events.on('routeChangeComplete', authCheck);
@@ -47,7 +49,7 @@ export default function MyApp(props) {
             router.events.off('routeChangeStart', hideContent);
             router.events.off('routeChangeComplete', authCheck);
         };
-    }, [router.asPath]);
+    }, [router.events]);
 
     const Layout = Component.layout || (({ children }) => <>{children}</>);
 
