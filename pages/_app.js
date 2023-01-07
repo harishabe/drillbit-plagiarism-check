@@ -39,9 +39,8 @@ export default function MyApp(props) {
     const [authorized, setAuthorized] = React.useState(false);
 
     React.useEffect(() => {
-        console.log('event');
+        console.log('event->>>');
         authCheck(router.asPath);
-        console.log('router.asPath', router.asPath);
         const hideContent = () => setAuthorized(false);
         router.events.on('routeChangeStart', hideContent);
         router.events.on('routeChangeComplete', authCheck);
@@ -54,18 +53,14 @@ export default function MyApp(props) {
     const Layout = Component.layout || (({ children }) => <>{children}</>);
 
     function authCheck(url) {
-        console.log('urlurlurlurlurl', url);
         const publicPaths = ['/auth/login', '/auth/forgot-password', '/auth/reset-password'];
         const path = url.split('?')[0];
-        console.log('pathpathpathpath', path);
         if (!localStorage.getItem('token') && !publicPaths.includes(path)) {
-            alert('true')
             setAuthorized(false);
             router.push({
                 pathname: '/auth/login'
             });
         } else {
-            alert('false')
             setAuthorized(true);
         }
     }
