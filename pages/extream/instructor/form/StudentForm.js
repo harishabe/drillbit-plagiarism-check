@@ -78,7 +78,7 @@ const StudentForm = ({
             }
         } else {
             if (router?.pathname.split('/')[1] === SUPER) {
-                SuperCreateStudent(BASE_URL_SUPER + `/license/${router?.query?.licenseId}/students`, requestData)
+                SuperCreateStudent(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/students`, requestData)
             } else {
                 CreateStudent(router.query.clasId, requestData);
             }

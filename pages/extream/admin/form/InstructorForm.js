@@ -16,11 +16,14 @@ import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 const InstructorForm = ({
     CreateInstructorData,
     isLoading,
-    licenseExpiryDate,
     editData,
     EditData,
-    remainingDocuments,
-    remainingGrammar
+    extremeInstructorRemainingDocuments,
+    superAdminRemainingDocuments,
+    extremeInstructorRemainingGrammar,
+    superAdminRemainingGrammar,
+    extremeInstructorLicenseExpiryDate,
+    superAdminLicenseExpiryDate,
 }) => {
 
     const router = useRouter();
@@ -48,11 +51,11 @@ const InstructorForm = ({
     });
 
     useEffect(() => {
-        if (licenseExpiryDate !== undefined) {
+        if ((extremeInstructorLicenseExpiryDate || superAdminLicenseExpiryDate) !== undefined) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['minDate'] = new Date();
-                    item['maxDate'] = new Date(licenseExpiryDate);
+                    item['maxDate'] = new Date(extremeInstructorLicenseExpiryDate || superAdminLicenseExpiryDate);
                 }
                 return item;
             });
@@ -60,7 +63,7 @@ const InstructorForm = ({
         }
 
         if (allocationDocs !== undefined) {
-            if (allocationDocs > remainingDocuments) {
+            if ((allocationDocs > extremeInstructorRemainingDocuments) || (allocationDocs > superAdminRemainingDocuments)) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                         item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
@@ -80,7 +83,7 @@ const InstructorForm = ({
         }
 
         if (grammarDocs !== undefined) {
-            if (grammarDocs > remainingGrammar) {
+            if ((grammarDocs > extremeInstructorRemainingGrammar) || (grammarDocs > superAdminRemainingGrammar)) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                         item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
@@ -99,7 +102,7 @@ const InstructorForm = ({
             }
         }
 
-        if ((new Date(expiryDate) > new Date(licenseExpiryDate))) {
+        if ((new Date(expiryDate) > new Date(extremeInstructorLicenseExpiryDate || superAdminLicenseExpiryDate))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
@@ -107,7 +110,7 @@ const InstructorForm = ({
                 return item;
             });
             setFormJsonField(fields);
-        } else if ((new Date() > new Date(expiryDate)) && !(new Date(expiryDate) > new Date(licenseExpiryDate))) {
+        } else if ((new Date() > new Date(expiryDate)) && !(new Date(expiryDate) > new Date(extremeInstructorLicenseExpiryDate || superAdminLicenseExpiryDate))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
@@ -125,7 +128,7 @@ const InstructorForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date(expiryDate) <= new Date(licenseExpiryDate) && (new Date() < new Date(expiryDate)))) {
+        if (allocationDocs <= (extremeInstructorRemainingDocuments || superAdminRemainingDocuments) && grammarDocs <= (extremeInstructorRemainingGrammar || superAdminRemainingGrammar) && (new Date(expiryDate) <= new Date(extremeInstructorLicenseExpiryDate || superAdminLicenseExpiryDate) && (new Date() < new Date(expiryDate)))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = false;
@@ -150,7 +153,7 @@ const InstructorForm = ({
             let Detaileddata = {
                 ...data, 'expiry_date': convertDate(data.expiry_date),
             };
-            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
+            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' || value == null ? newObj : (newObj[key] = value, newObj)), {});
 
             if (router?.pathname.split('/')[1] === SUPER) {
                 EditData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructors/${editData?.user_id}`, requestData, 'superInstructor');
@@ -162,7 +165,7 @@ const InstructorForm = ({
             let Detaileddata = {
                 ...data, 'expiry_date': convertDate(data.expiry_date),
             };
-            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)),{});
+            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
             if (router?.pathname.split('/')[1] === SUPER) {
                 CreateInstructorData(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_INSTRUCTOR + `${router?.query?.licenseId}/instructor`, requestData);
             } else {
@@ -180,10 +183,10 @@ const InstructorForm = ({
                 field.disabled = isEmailDisabled;
             }
             if (field.name === 'grammar') {
-                field['info'] = '* Note : Document remaining-' + remainingGrammar;
+                field['info'] = '* Note : Document remaining-' + (extremeInstructorRemainingGrammar || superAdminRemainingGrammar);
             }
             if (field.name === 'plagiarism') {
-                field['info'] = '* Note : Document remaining-' + remainingDocuments;
+                field['info'] = '* Note : Document remaining-' + (extremeInstructorRemainingDocuments || superAdminRemainingDocuments);
             }
             return field;
         });
@@ -220,7 +223,7 @@ const InstructorForm = ({
             setEditOperation(true);
         } else {
             let a = {
-                'expiry_date': convertDate(licenseExpiryDate),
+                'expiry_date': convertDate(extremeInstructorLicenseExpiryDate || superAdminLicenseExpiryDate),
             };
             const fields = [
                 'expiry_date',
@@ -255,12 +258,12 @@ const InstructorForm = ({
 
 const mapStateToProps = (state) => ({
     isLoading: state?.adminCrud?.isLoading,
-    remainingDocuments: state?.detailsData?.instructorData?.remainingDocuments,
-    remainingGrammar: state?.detailsData?.instructorData?.remainingGrammar,
-    licenseExpiryDate: state?.detailsData?.instructorData?.license_expiry_date,
-    remainingDocuments: state?.superAdmin?.extInsList?.remainingDocuments,
-    remainingGrammar: state?.superAdmin?.extInsList?.remainingGrammar,
-    licenseExpiryDate: state?.superAdmin?.extInsList?.license_expiry_date,
+    extremeInstructorRemainingDocuments: state?.detailsData?.instructorData?.remainingDocuments,
+    extremeInstructorRemainingGrammar: state?.detailsData?.instructorData?.remainingGrammar,
+    extremeInstructorLicenseExpiryDate: state?.detailsData?.instructorData?.license_expiry_date,
+    superAdminRemainingDocuments: state?.superAdmin?.extInsList?.remainingDocuments,
+    superAdminRemainingGrammar: state?.superAdmin?.extInsList?.remainingGrammar,
+    superAdminLicenseExpiryDate: state?.superAdmin?.extInsList?.license_expiry_date,
 });
 
 const mapDispatchToProps = (dispatch) => {
