@@ -58,6 +58,8 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'reportdate_up',
     'reportusername',
     'reportpercent',
+    'superadminplagairism',
+    'superadmingrammar'
 ];
 export const TABLE_BODY_ALLOW_ICON = [
     'action',

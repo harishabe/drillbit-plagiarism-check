@@ -36,7 +36,7 @@ import {
     ResendCredentials
 } from '../../../redux/action/super/SuperAdminAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
-import InstructorForm from '../../extream/admin/form/InstructorForm';
+import InstructorForm from '../form/InstructorForm';
 import InstructorStats from '../../extream/admin/instructor/InstructorStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
