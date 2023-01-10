@@ -9,9 +9,8 @@ import FormJson from '../../../../constant/form/instructor-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS from '../../../../utils/EndPoints';
-import { SUPER } from '../../../../constant/data/Constant';
 import { BASE_URL_EXTREM, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
-import { FORM_VALIDATION } from '../../../../constant/data/Constant';
+import { FORM_VALIDATION, SUPER } from '../../../../constant/data/Constant';
 
 const InstructorForm = ({
     CreateInstructorData,
@@ -195,8 +194,8 @@ const InstructorForm = ({
 
     useEffect(() => {
         if (editData) {
-            let superAdminPlagiarism = editData?.plagairism[0]?.props?.children?.props?.children?.[0]?.props?.children?.props?.children
-            let superAdminGrammar = editData?.grammar[0]?.props?.children?.props?.children?.[0]?.props?.children?.props?.children
+            let superAdminPlagiarism = router?.pathname.split('/')[1] === SUPER && editData?.superadminplagairism[0]?.props?.children?.props?.children?.[0]?.props?.children?.props?.children
+            let superAdminGrammar = router?.pathname.split('/')[1] === SUPER && editData?.superadmingrammar[0]?.props?.children?.props?.children?.[0]?.props?.children?.props?.children
 
             let a = {
                 'name': editData.name,
@@ -205,8 +204,8 @@ const InstructorForm = ({
                 'designation': editData?.designation === null ? '' : editData?.designation,
                 'phone_number': editData.phone_number,
                 'expiry_date': convertDate(editData.expiry_date),
-                'plagiarism': router?.pathname.split('/')[1] === 'super' ? superAdminPlagiarism : editData.plagairism,
-                'grammar': router?.pathname.split('/')[1] === 'super' ? superAdminGrammar : editData.grammar
+                'plagiarism': superAdminPlagiarism || editData.plagairism,
+                'grammar': superAdminGrammar || editData.grammar
             };
             const fields = [
                 'name',
