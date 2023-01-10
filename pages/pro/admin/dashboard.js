@@ -312,10 +312,10 @@ const Dashboard = ({
                                         isLoadingDashboard ?
                                             <Skeleton /> :
                                             <TextAlignRight>
-                                                <select>
+                                                {/* <select>
                                                     <option>Document type</option>
                                                     <option>Department type</option>
-                                                </select>
+                                                </select> */}
                                             </TextAlignRight>
                                     }
                                 </Grid>
