@@ -63,10 +63,18 @@ const UserForm = ({
         }
 
         if (allocationDocs !== undefined) {
-            if (allocationDocs > remainingDocuments) {
+            if (allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                         item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else if (allocationDocs <= editData?.used_submissions) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && editData?.used_submissions > 0) {
+                        item['errorMsg'] = `Already ${editData?.used_submissions} submission uploaded, please choose more than that`;
                     }
                     return item;
                 });
@@ -83,10 +91,18 @@ const UserForm = ({
         }
 
         if (grammarDocs !== undefined) {
-            if (grammarDocs > remainingGrammar) {
+            if (grammarDocs > (editData ? remainingGrammar + editData?.total_grammar : remainingGrammar)) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                         item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else if (grammarDocs <= editData?.used_grammar) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar' && editData?.used_grammar > 0) {
+                        item['errorMsg'] = `Already ${editData?.used_grammar} grammer submission uploaded, please choose more than that`;
                     }
                     return item;
                 });
@@ -128,7 +144,7 @@ const UserForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs <= remainingDocuments && grammarDocs <= remainingGrammar && (new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) && (new Date() < new Date(expiryDate)))) {
+        if (allocationDocs <= (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments) && grammarDocs <= (editData ? remainingGrammar + editData?.total_grammar : remainingGrammar) && (new Date(expiryDate) <= new Date(licenseExpiryDate?.license_expiry_date) && (new Date() < new Date(expiryDate)))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = false;
@@ -171,8 +187,29 @@ const UserForm = ({
                 setFormJsonField(fields);
             }
         }
+        
+        // if (editData) {
+        //     if (allocationDocs > (editData?.used_submissions) && grammarDocs > (editData?.used_grammar)) {
+        //         let fields = FormJson?.map((item) => {
+        //             if (item?.field_type === 'button') {
+        //                 item['isDisabled'] = false;
+        //             }
+        //             return item;
+        //         });
+        //         setFormJsonField(fields);
+        //     } else {
+        //         let fields = FormJson?.map((item) => {
+        //             if (item?.field_type === 'button') {
+        //                 item['isDisabled'] = true;
+        //             }
+        //             return item;
+        //         });
+        //         setFormJsonField(fields);
+        //     }
+        // }
 
     }, [allocationDocs, grammarDocs, expiryDate, phoneNumber]);
+
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -203,10 +240,10 @@ const UserForm = ({
                 field.disabled = isEmailDisabled;
             }
             if (field.name === 'grammar') {
-                field['info'] = '* Note : Document remaining-' + remainingGrammar;
+                field['info'] = '* Note : Document remaining: ' + (editData ? remainingGrammar + editData?.total_grammar : remainingGrammar) + (editData?.used_grammar !== undefined ? ', Grammar submission uploaded: ' + editData?.used_grammar : '');
             }
             if (field.name === 'plagiarism') {
-                field['info'] = '* Note : Document remaining-' + remainingDocuments;
+                field['info'] = '* Note : Document remaining: ' + (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments) + (editData?.used_submissions !== undefined ? ', Submission uploaded: ' + editData?.used_submissions : '');
             }
             return field;
         });
