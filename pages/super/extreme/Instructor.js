@@ -185,11 +185,6 @@ const Instructor = ({
                         ([
                             { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                             { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
-                            {
-                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
-                                'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
-                            },
                         ]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },

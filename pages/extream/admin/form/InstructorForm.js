@@ -43,6 +43,11 @@ const InstructorForm = ({
         name: 'grammar',
     });
 
+    const phoneNumber = useWatch({
+        control,
+        name: 'phone_number',
+    });
+
     useEffect(() => {
         if ((extremeInstructorLicenseExpiryDate) !== undefined) {
             let fields = FormJson?.map((item) => {
@@ -139,7 +144,33 @@ const InstructorForm = ({
             setFormJsonField(fields);
         }
 
-    }, [allocationDocs, grammarDocs, expiryDate]);
+        if (phoneNumber !== undefined) {
+            if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                        item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                        item['errorMsg'] = '';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+
+    }, [allocationDocs, grammarDocs, expiryDate, phoneNumber]);
 
     const onSubmit = (data) => {
         if (editOperation) {

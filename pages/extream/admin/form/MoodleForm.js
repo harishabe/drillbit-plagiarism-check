@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { LmsIntegration, ChangeConfig } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/admin-moodle-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import END_POINTS from '../../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
+import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
 const MoodleForm = ({
     LmsIntegration,
@@ -21,6 +22,11 @@ const MoodleForm = ({
 
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
+    });
+
+    const phoneNumber = useWatch({
+        control,
+        name: 'phone',
     });
 
     const onSubmit = (data) => {
@@ -40,6 +46,34 @@ const MoodleForm = ({
         });
         setFormJsonField(formField);
     };
+
+    useEffect(() => {
+        if (phoneNumber !== undefined) {
+            if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                        item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                        item['errorMsg'] = '';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+    }, [phoneNumber]);
 
     useEffect(() => {
         if (editData) {
