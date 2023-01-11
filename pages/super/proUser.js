@@ -188,11 +188,6 @@ const ProUser = ({
                     user.role === Role.proAdmin ? ([
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
-                        {
-                            'component': <Switch checked={ user.status.toUpperCase() === 'ACTIVE' ? true : false } size="small" />,
-                            'type': user.status === 'active' ? 'lock' : 'unlock',
-                            'title': user.status === 'active' ? 'Activate' : 'De-activate'
-                        }
                     ]) :
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
