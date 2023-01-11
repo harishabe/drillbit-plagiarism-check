@@ -5,7 +5,7 @@
         "id": "name",
         "name": "name",
         "label": "Student Name *",
-        "required": "Student Name"
+        "required": "Enter student Name"
     },
     {
         "field_type": "input",
@@ -23,7 +23,7 @@
         "id": "studentId",
         "name": "studentId",
         "label": "Student ID *",
-        "required": "Student ID"
+        "required": "Enter student ID"
     },
     
     {
@@ -32,7 +32,7 @@
         "id": "department",
         "name": "department",
         "label": "Department *",
-        "required": "Department"
+        "required": "Enter department"
     },
     {
         "field_type": "input",
@@ -40,7 +40,7 @@
         "id": "section",
         "name": "section",
         "label": "Section *",
-        "required": "Section"
+        "required": "Enter section"
     },
     {
         "field_type": "inputNumber",
