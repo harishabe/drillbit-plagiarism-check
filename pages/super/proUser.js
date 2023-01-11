@@ -141,7 +141,7 @@ const ProUser = ({
                     formatDate(user.expiry_date),
                     user.plagairism,
                     user.grammar,
-                    <StatusDot color={ (user.status === 'active') || (user.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ user.status } />,
+                    <StatusDot color={ user.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ user.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     [
                         <>
@@ -189,7 +189,7 @@ const ProUser = ({
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
                         {
-                            'component': <Switch checked={ user.status === 'active' ? true : false } size="small" />,
+                            'component': <Switch checked={ user.status.toUpperCase() === 'ACTIVE' ? true : false } size="small" />,
                             'type': user.status === 'active' ? 'lock' : 'unlock',
                             'title': user.status === 'active' ? 'Activate' : 'De-activate'
                         }
