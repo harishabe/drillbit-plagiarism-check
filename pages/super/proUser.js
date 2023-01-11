@@ -53,13 +53,13 @@ const columns = [
     { id: 'expiry_date', label: 'End Date' },
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
-    { id: 'plagairism', label: 'Plagiarism' },
-    { id: 'grammar', label: 'Grammar' },
+    { id: 'superadminplagairism', label: 'Plagiarism' },
+    { id: 'superadmingrammar', label: 'Grammar' },
     { id: 'action', label: 'Actions', maxWidth: 100 }
 ];
 
-function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, plagairism, grammar, action, expiry_date, department, designation, phone_number) {
-    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, plagairism, grammar, action, expiry_date, department, designation, phone_number };
+function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, superadminplagairism, superadmingrammar, action, expiry_date, department, designation, phone_number) {
+    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, superadminplagairism, superadmingrammar, action, expiry_date, department, designation, phone_number };
 };
 
 const AddButtonBottom = styled.div`

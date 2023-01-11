@@ -36,7 +36,7 @@ import {
     ResendCredentials
 } from '../../../redux/action/super/SuperAdminAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
-import InstructorForm from '../../extream/admin/form/InstructorForm';
+import InstructorForm from '../form/InstructorForm';
 import InstructorStats from '../../extream/admin/instructor/InstructorStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
@@ -52,13 +52,13 @@ const columns = [
     { id: 'expiry_date', label: 'End Date' },
     { id: 'status', label: 'Status' },
     { id: 'stats', label: 'Statistics' },
-    { id: 'plagairism', label: 'Plagiarism' },
-    { id: 'grammar', label: 'Grammar' },
+    { id: 'superadminplagairism', label: 'Plagiarism' },
+    { id: 'superadmingrammar', label: 'Grammar' },
     { id: 'action', label: 'Actions', maxWidth: 100 }
 ];
 
-function createData(name, username, expiry_date, status, stats, plagairism, grammar, action, created_date, department, designation, phone_number, user_id, role) {
-    return { name, username, expiry_date, status, stats, plagairism, grammar, action, created_date, department, designation, phone_number, user_id, role };
+function createData(name, username, expiry_date, status, stats, superadminplagairism, superadmingrammar, action, created_date, department, designation, phone_number, user_id, role) {
+    return { name, username, expiry_date, status, stats, superadminplagairism, superadmingrammar, action, created_date, department, designation, phone_number, user_id, role };
 };
 
 const AddButtonBottom = styled.div`

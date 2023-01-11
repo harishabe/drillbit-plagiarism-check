@@ -56,8 +56,8 @@ const columns = [
     { id: 'action', label: 'Actions' },
 ];
 
-function createData(id, name, user_id, username, department, section, expiry_date, status, stats, action) {
-    return { id, name, user_id, username, department, section, expiry_date, status, stats, action };
+function createData(id, name, user_id, username, department, section, expiry_date, status, stats, action, phone_number) {
+    return { id, name, user_id, username, department, section, expiry_date, status, stats, action, phone_number };
 }
 
 const Students = ({
@@ -119,7 +119,8 @@ const Students = ({
                             'type': student.status === 'active' ? 'lock' : 'unlock',
                             'title': student.status === 'active' ? 'Activate' : 'De-activate'
                         }
-                    ]
+                    ],
+                    student.phone_number
                 );
             row['isSelected'] = false;
             arr.push(row);
