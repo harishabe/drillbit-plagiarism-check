@@ -69,7 +69,8 @@ const Students = ({
     DeactivateData,
     DeleteStudentData,
     isLoadingExtStuList,
-    isLoadingEditStudent
+    isLoadingEditStudent,
+    isLoadingResend
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
@@ -413,7 +414,7 @@ const Students = ({
                     handleTableSort={ handleTableSort }
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
-                    isLoading={ isLoadingExtStuList }
+                    isLoading={ isLoadingExtStuList || isLoadingResend }
                     charLength={ 17 }
                     path=''
                 />
@@ -439,6 +440,7 @@ const mapStateToProps = (state) => ({
     studentData: state?.superAdmin?.extStuList?._embedded?.studentDTOList,
     isLoadingExtStuList: state?.superAdmin?.isLoadingExtStuList,
     isLoadingEditStudent: state?.superAdmin?.isLoadingEditStudent,
+    isLoadingResend: state?.superAdmin?.isLoadingResend
 });
 
 const mapDispatchToProps = (dispatch) => {
