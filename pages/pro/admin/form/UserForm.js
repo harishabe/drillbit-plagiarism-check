@@ -62,7 +62,6 @@ const UserForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs !== undefined) {
             if (allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
@@ -88,9 +87,7 @@ const UserForm = ({
                 });
                 setFormJsonField(fields);
             }
-        }
 
-        if (grammarDocs !== undefined) {
             if (grammarDocs > (editData ? remainingGrammar + editData?.total_grammar : remainingGrammar)) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
@@ -116,7 +113,6 @@ const UserForm = ({
                 });
                 setFormJsonField(fields);
             }
-        }
 
         if ((new Date(expiryDate) > new Date(licenseExpiryDate?.license_expiry_date))) {
             let fields = FormJson?.map((item) => {
