@@ -41,7 +41,9 @@ const InputDatePicker = ({
     field
 }) => {
     const classes = useStyles();
-
+    const onKeyDown = (e) => {
+        e.preventDefault();
+     };
     return (
         <>
             <LabelContainer>
@@ -70,6 +72,7 @@ const InputDatePicker = ({
                                 maxDate={ field.maxDate }
                                 renderInput={(params) => <StyledDatePickerTextField
                                     margin="normal"
+                                    onKeyDown={onKeyDown}
                                     {...params}
                                     error={ !!error }
                                     helperText={error ? error.message : field.info} 
