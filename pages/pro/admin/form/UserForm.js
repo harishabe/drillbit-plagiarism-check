@@ -76,7 +76,7 @@ const UserForm = ({
         } else if (allocationDocs <= editData?.used_submissions) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && editData?.used_submissions > 0) {
-                    item['errorMsg'] = `Already ${editData?.used_submissions} submission uploaded, please choose more than that`;
+                    item['errorMsg'] = `Already ${editData?.used_submissions} submission uploaded, please choose upto ${remainingDocuments + editData?.total_submissions} documents`;
                 }
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = true;
@@ -113,7 +113,7 @@ const UserForm = ({
         } else if (grammarDocs <= editData?.used_grammar) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar' && editData?.used_grammar > 0) {
-                    item['errorMsg'] = `Already ${editData?.used_grammar} grammer submission uploaded, please choose more than that`;
+                    item['errorMsg'] = `Already ${editData?.used_grammar} grammer submission uploaded, please choose upto ${remainingGrammar + editData?.total_grammar} documents`;
                 }
                 if (item?.field_type === 'button') {
                     item['isDisabled'] = true;
