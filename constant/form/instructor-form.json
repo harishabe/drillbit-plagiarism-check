@@ -57,7 +57,6 @@
     
     {
         "field_type": "inputNumber",
-        "type": "number",
         "id": "plagiarism",
         "name": "plagiarism",
         "label": "Allocate documents *",
@@ -65,7 +64,6 @@
     },
     {
         "field_type": "inputNumber",
-        "type": "number",
         "id": "grammar",
         "name": "grammar",
         "label": "Grammar documents *",

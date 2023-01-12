@@ -69,6 +69,9 @@ const InputNumberField = ({
                         variant="outlined"
                         helperText={error ? error.message : field.info}
                         FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
+                        InputProps={{
+                            inputProps: { min: 0 }
+                        }}
                     />
                 )}
                 rules={{

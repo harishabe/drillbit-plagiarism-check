@@ -10,6 +10,7 @@ import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_PRO, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
+import { Tune } from '@mui/icons-material';
 
 const UserForm = ({
     CreateInstructorData,
@@ -68,18 +69,18 @@ const UserForm = ({
                     item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
                 }
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
+                    item['isDisabledAllocDocs'] = true;
                 }
                 return item;
             });
             setFormJsonField(fields);
-        } else if (allocationDocs <= editData?.used_submissions) {
+        } else if (allocationDocs < editData?.used_submissions) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && editData?.used_submissions > 0) {
                     item['errorMsg'] = `Already ${editData?.used_submissions} submission uploaded, please choose upto ${remainingDocuments + editData?.total_submissions} documents`;
                 }
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
+                    item['isDisabledAllocDocs'] = true;
                 }
                 return item;
             });
@@ -90,7 +91,7 @@ const UserForm = ({
                     item['errorMsg'] = '';
                 }
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = false;
+                    item['isDisabledAllocDocs'] = false;
                 }
                 return item;
             });
@@ -99,24 +100,24 @@ const UserForm = ({
     }, [allocationDocs]);
 
     useEffect(() => {
-        if (grammarDocs > (editData ? remainingGrammar + editData?.total_grammar : remainingGrammar)) {
+        if (grammarDocs > (editData ? (remainingGrammar + editData?.total_grammar) : remainingGrammar)) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                     item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
                 }
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
+                    item['isDisabledGrammarDoc'] = true;
                 }
                 return item;
             });
             setFormJsonField(fields);
-        } else if (grammarDocs <= editData?.used_grammar) {
+        } else if (grammarDocs < editData?.used_grammar) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar' && editData?.used_grammar > 0) {
                     item['errorMsg'] = `Already ${editData?.used_grammar} grammer submission uploaded, please choose upto ${remainingGrammar + editData?.total_grammar} documents`;
                 }
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
+                    item['isDisabledGrammarDoc'] = true;
                 }
                 return item;
             });
@@ -127,7 +128,7 @@ const UserForm = ({
                     item['errorMsg'] = '';
                 }
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = false;
+                    item['isDisabledGrammarDoc'] = false;
                 }
                 return item;
             });
@@ -142,7 +143,7 @@ const UserForm = ({
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
                 }
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
+                    item['isDisabledDate'] = true;
                 }
                 return item;
             });
@@ -153,7 +154,7 @@ const UserForm = ({
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
                 }
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
+                    item['isDisabledDate'] = true;
                 }
                 return item;
             });
@@ -164,7 +165,7 @@ const UserForm = ({
                     item['info'] = '';
                 }
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = false;
+                    item['isDisabledDate'] = false;
                 }
                 return item;
             });
@@ -180,7 +181,7 @@ const UserForm = ({
                         item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
                     }
                     if (item?.field_type === 'button') {
-                        item['isDisabled'] = true;
+                        item['isDisabledPhoneNo'] = true;
                     }
                     return item;
                 });
@@ -191,7 +192,7 @@ const UserForm = ({
                         item['errorMsg'] = '';
                     }
                     if (item?.field_type === 'button') {
-                        item['isDisabled'] = false;
+                        item['isDisabledPhoneNo'] = false;
                     }
                     return item;
                 });
@@ -199,7 +200,6 @@ const UserForm = ({
             }
         }
     }, [phoneNumber])
-
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -276,6 +276,21 @@ const UserForm = ({
             modifyFormField('Create User', false);
         }
     }, [editData]);
+
+    useEffect(() => {
+        let formField = formJsonField?.map((item) => {
+            if (item?.field_type === 'button') {
+                if (((item?.isDisabledAllocDocs === true) || (item?.isDisabledGrammarDoc === true) ||
+                    (item?.isDisabledDate === true) || (item?.isDisabledPhoneNo === true))) {
+                    item['isDisabled'] = true;
+                } else {
+                    item['isDisabled'] = false;
+                }
+            }
+            return item;
+        })
+        setFormJsonField(formField);
+    }, [formJsonField])
 
     return (
         <>
