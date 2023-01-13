@@ -60,50 +60,88 @@ const InstructorForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs !== undefined) {
-            if (allocationDocs > extremeInstructorRemainingDocuments) {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
-                        item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
-                        item['errorMsg'] = '';
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            }
+        if (allocationDocs > (editData ? extremeInstructorRemainingDocuments + editData?.plagairism : extremeInstructorRemainingDocuments)) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+                    item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledAllocDocs'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if (allocationDocs < editData?.plagiarismUsed) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && editData?.plagiarismUsed > 0) {
+                    item['errorMsg'] = `Already ${editData?.plagiarismUsed} submission uploaded, please choose upto ${extremeInstructorRemainingDocuments + editData?.plagairism} documents`;
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledAllocDocs'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+                    item['errorMsg'] = '';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledAllocDocs'] = false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
         }
 
-        if (grammarDocs !== undefined) {
-            if (grammarDocs > extremeInstructorRemainingGrammar) {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['errorMsg'] = '';
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            }
-        }
+    }, [allocationDocs, extremeInstructorRemainingDocuments])
 
-        if (new Date(expiryDate) > new Date(extremeInstructorLicenseExpiryDate)) {
+    useEffect(() => {
+        if (grammarDocs > (editData ? (extremeInstructorRemainingGrammar + editData?.grammar) : extremeInstructorRemainingGrammar)) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                    item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledGrammarDoc'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else if (grammarDocs < editData?.grammarUsed) {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'grammar' && editData?.grammarUsed > 0) {
+                    item['errorMsg'] = `Already ${editData?.grammarUsed} grammer submission uploaded, please choose upto ${extremeInstructorRemainingGrammar + editData?.grammar} documents`;
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledGrammarDoc'] = true;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                    item['errorMsg'] = '';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledGrammarDoc'] = false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+    }, [grammarDocs, extremeInstructorRemainingGrammar])
+
+    useEffect(() => {
+        if ((new Date(expiryDate) > new Date(extremeInstructorLicenseExpiryDate))) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledDate'] = true;
                 }
                 return item;
             });
@@ -113,6 +151,9 @@ const InstructorForm = ({
                 if (item?.field_type === 'datepicker') {
                     item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
                 }
+                if (item?.field_type === 'button') {
+                    item['isDisabledDate'] = true;
+                }
                 return item;
             });
             setFormJsonField(fields);
@@ -121,29 +162,16 @@ const InstructorForm = ({
                 if (item?.field_type === 'datepicker') {
                     item['info'] = '';
                 }
-                return item;
-            });
-            setFormJsonField(fields);
-        }
-
-        if (allocationDocs <= extremeInstructorRemainingDocuments && grammarDocs <= extremeInstructorRemainingGrammar && (new Date(expiryDate) <= new Date(extremeInstructorLicenseExpiryDate) && (new Date() < new Date(expiryDate)))) {
-            let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'button') {
-                    item['isDisabled'] = false;
-                }
-                return item;
-            });
-            setFormJsonField(fields);
-        } else {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
+                    item['isDisabledDate'] = false;
                 }
                 return item;
             });
             setFormJsonField(fields);
         }
+    }, [expiryDate])
 
+    useEffect(() => {
         if (phoneNumber !== undefined) {
             if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
                 let fields = FormJson?.map((item) => {
@@ -151,7 +179,7 @@ const InstructorForm = ({
                         item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
                     }
                     if (item?.field_type === 'button') {
-                        item['isDisabled'] = true;
+                        item['isDisabledPhoneNo'] = true;
                     }
                     return item;
                 });
@@ -162,15 +190,14 @@ const InstructorForm = ({
                         item['errorMsg'] = '';
                     }
                     if (item?.field_type === 'button') {
-                        item['isDisabled'] = false;
+                        item['isDisabledPhoneNo'] = false;
                     }
                     return item;
                 });
                 setFormJsonField(fields);
             }
         }
-
-    }, [allocationDocs, grammarDocs, expiryDate, phoneNumber]);
+    }, [phoneNumber])
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -197,10 +224,10 @@ const InstructorForm = ({
                 field.disabled = isEmailDisabled;
             }
             if (field.name === 'grammar') {
-                field['info'] = '* Note : Document remaining-' + (extremeInstructorRemainingGrammar);
+                field['info'] = '* Note : Document remaining: ' + (editData ? extremeInstructorRemainingGrammar + editData?.grammar : extremeInstructorRemainingGrammar) + (editData?.grammarUsed !== undefined ? ', Grammar submission uploaded: ' + editData?.grammarUsed : '');
             }
             if (field.name === 'plagiarism') {
-                field['info'] = '* Note : Document remaining-' + (extremeInstructorRemainingDocuments);
+                field['info'] = '* Note : Document remaining: ' + (editData ? extremeInstructorRemainingDocuments + editData?.plagairism : extremeInstructorRemainingDocuments) + (editData?.plagiarismUsed !== undefined ? ', Submission uploaded: ' + editData?.plagiarismUsed : '');
             }
             return field;
         });
@@ -245,23 +272,47 @@ const InstructorForm = ({
         }
     }, [editData]);
 
+    useEffect(() => {
+        if (editData) {
+            modifyFormField('Edit Instructor', true);
+        } else {
+            modifyFormField('Create Instructor', false);
+
+        }
+    }, [extremeInstructorRemainingDocuments, extremeInstructorRemainingGrammar])
+
+    useEffect(() => {
+        let formField = formJsonField?.map((item) => {
+            if (item?.field_type === 'button') {
+                if (((item?.isDisabledAllocDocs === true) || (item?.isDisabledGrammarDoc === true) ||
+                    (item?.isDisabledDate === true) || (item?.isDisabledPhoneNo === true))) {
+                    item['isDisabled'] = true;
+                } else {
+                    item['isDisabled'] = false;
+                }
+            }
+            return item;
+        })
+        setFormJsonField(formField);
+    }, [formJsonField])
+
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    {formJsonField?.map((field, i) => (
-                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
+                    { formJsonField?.map((field, i) => (
+                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
-                                key={i}
-                                field={field}
-                                control={control}
-                                isLoading={isLoading}
+                                key={ i }
+                                field={ field }
+                                control={ control }
+                                isLoading={ isLoading }
                             />
                         </Grid>
-                    ))}
+                    )) }
                 </Grid>
             </form>
         </>
