@@ -46,8 +46,106 @@ const InstructorForm = ({
         name: 'grammar',
     });
 
+    // useEffect(() => {
+    //     if (superAdminLicenseExpiryDate !== undefined) {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'datepicker') {
+    //                 item['minDate'] = new Date();
+    //                 item['maxDate'] = new Date(superAdminLicenseExpiryDate);
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     }
+
+    //     if (allocationDocs !== undefined) {
+    //         if (allocationDocs > superAdminRemainingDocuments) {
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+    //                     item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
+    //         } else {
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+    //                     item['errorMsg'] = '';
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
+    //         }
+    //     }
+
+    //     if (grammarDocs !== undefined) {
+    //         if (grammarDocs > superAdminRemainingGrammar) {
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+    //                     item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
+    //         } else {
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+    //                     item['errorMsg'] = '';
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
+    //         }
+    //     }
+
+    //     if ((new Date(expiryDate) > new Date(superAdminLicenseExpiryDate))) {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'datepicker') {
+    //                 item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     } else if ((new Date() > new Date(expiryDate)) && !(new Date(expiryDate) > new Date(superAdminLicenseExpiryDate))) {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'datepicker') {
+    //                 item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     } else {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'datepicker') {
+    //                 item['info'] = '';
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     }
+
+    //     if (allocationDocs <= superAdminRemainingDocuments && grammarDocs <= superAdminRemainingGrammar && (new Date(expiryDate) <= new Date(superAdminLicenseExpiryDate) && (new Date() < new Date(expiryDate)))) {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'button') {
+    //                 item['isDisabled'] = false;
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     } else {
+    //         let fields = FormJson?.map((item) => {
+    //             if (item?.field_type === 'button') {
+    //                 item['isDisabled'] = true;
+    //             }
+    //             return item;
+    //         });
+    //         setFormJsonField(fields);
+    //     }
+
+    // }, [allocationDocs, grammarDocs, expiryDate]);
+
     useEffect(() => {
-        if (superAdminLicenseExpiryDate !== undefined) {
+        if ((superAdminLicenseExpiryDate) !== undefined) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'datepicker') {
                     item['minDate'] = new Date();
@@ -58,91 +156,42 @@ const InstructorForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs !== undefined) {
-            if (allocationDocs > superAdminRemainingDocuments) {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
-                        item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
-                        item['errorMsg'] = '';
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            }
-        }
-
-        if (grammarDocs !== undefined) {
-            if (grammarDocs > superAdminRemainingGrammar) {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['errorMsg'] = '';
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            }
-        }
-
-        if ((new Date(expiryDate) > new Date(superAdminLicenseExpiryDate))) {
+        if (allocationDocs > (editData ? superAdminRemainingDocuments + editData?.plagairism : superAdminRemainingDocuments)) {
             let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'datepicker') {
-                    item['info'] = FORM_VALIDATION.EXPIRY_DATE_GREATER;
+                if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+                    item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledAllocDocs'] = true;
                 }
                 return item;
             });
             setFormJsonField(fields);
-        } else if ((new Date() > new Date(expiryDate)) && !(new Date(expiryDate) > new Date(superAdminLicenseExpiryDate))) {
+        } else if (allocationDocs < editData?.plagiarismUsed) {
             let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'datepicker') {
-                    item['info'] = FORM_VALIDATION.EXPIRY_DATE_LESSER;
+                if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && editData?.plagiarismUsed > 0) {
+                    item['errorMsg'] = `Already ${editData?.plagiarismUsed} submission uploaded, please choose upto ${extremeInstructorRemainingDocuments + editData?.plagairism} documents`;
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledAllocDocs'] = true;
                 }
                 return item;
             });
             setFormJsonField(fields);
         } else {
             let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'datepicker') {
-                    item['info'] = '';
+                if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+                    item['errorMsg'] = '';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledAllocDocs'] = false;
                 }
                 return item;
             });
             setFormJsonField(fields);
         }
 
-        if (allocationDocs <= superAdminRemainingDocuments && grammarDocs <= superAdminRemainingGrammar && (new Date(expiryDate) <= new Date(superAdminLicenseExpiryDate) && (new Date() < new Date(expiryDate)))) {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'button') {
-                    item['isDisabled'] = false;
-                }
-                return item;
-            });
-            setFormJsonField(fields);
-        } else {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'button') {
-                    item['isDisabled'] = true;
-                }
-                return item;
-            });
-            setFormJsonField(fields);
-        }
-
-    }, [allocationDocs, grammarDocs, expiryDate]);
+    }, [allocationDocs, extremeInstructorRemainingDocuments])
 
     const onSubmit = (data) => {
         if (editOperation) {
