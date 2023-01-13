@@ -58,8 +58,8 @@ const columns = [
     { id: 'action', label: 'Actions', maxWidth: 100 }
 ];
 
-function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, superadminplagairism, superadmingrammar, action, expiry_date, department, designation, phone_number) {
-    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, superadminplagairism, superadmingrammar, action, expiry_date, department, designation, phone_number };
+function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, superadminplagairism, superadmingrammar, action, expiry_date, department, designation, phone_number, plagiarismUsed, grammarUsed) {
+    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, superadminplagairism, superadmingrammar, action, expiry_date, department, designation, phone_number, plagiarismUsed, grammarUsed };
 };
 
 const AddButtonBottom = styled.div`
@@ -203,6 +203,8 @@ const ProUser = ({
                     user.department,
                     user.designation,
                     user.phone_number,
+                    user.plagiarismUsed,
+                    user.grammarUsed,
                 );
             row['isSelected'] = false;
             arr.push(row);

@@ -51,8 +51,8 @@ const columns = [
     { id: 'action', label: 'Actions' }
 ];
 
-function createData(user_id, role, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date, department, designation, phone_number) {
-    return { user_id, role, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date, department, designation, phone_number };
+function createData(user_id, role, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date, department, designation, phone_number, plagiarismUsed, grammarUsed) {
+    return { user_id, role, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date, department, designation, phone_number, plagiarismUsed, grammarUsed };
 };
 
 const AddButtonBottom = styled.div`
@@ -135,6 +135,8 @@ const Instructor = ({
                     instructor.department,
                     instructor.designation,
                     instructor.phone_number,
+                    instructor.plagiarismUsed,
+                    instructor.grammarUsed,
                 );
             row['isSelected'] = false;
             arr.push(row);

@@ -63,7 +63,7 @@ const UserForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)) {
+        if (allocationDocs > (editData ? remainingDocuments + (editData?.total_submissions || editData?.superadminplagairism) : remainingDocuments)) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                     item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
@@ -74,10 +74,10 @@ const UserForm = ({
                 return item;
             });
             setFormJsonField(fields);
-        } else if (allocationDocs < editData?.used_submissions) {
+        } else if ((allocationDocs < editData?.used_submissions) || (allocationDocs < editData?.plagiarismUsed)) {
             let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && editData?.used_submissions > 0) {
-                    item['errorMsg'] = `Already ${editData?.used_submissions} submission uploaded, please choose upto ${remainingDocuments + editData?.total_submissions} documents`;
+                if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && (editData?.used_submissions > 0 || editData?.plagiarismUsed > 0)) {
+                    item['errorMsg'] = `Already ${(editData?.used_submissions || editData?.plagiarismUsed)} submission uploaded, please choose upto ${remainingDocuments + editData?.total_submissions} documents`;
                 }
                 if (item?.field_type === 'button') {
                     item['isDisabledAllocDocs'] = true;
@@ -97,10 +97,10 @@ const UserForm = ({
             });
             setFormJsonField(fields);
         }
-    }, [allocationDocs]);
+    }, [allocationDocs, remainingDocuments]);
 
     useEffect(() => {
-        if (grammarDocs > (editData ? (remainingGrammar + editData?.total_grammar) : remainingGrammar)) {
+        if (grammarDocs > (editData ? remainingGrammar + (editData?.total_grammar || editData?.superadmingrammar) : remainingGrammar)) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                     item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
@@ -111,10 +111,10 @@ const UserForm = ({
                 return item;
             });
             setFormJsonField(fields);
-        } else if (grammarDocs < editData?.used_grammar) {
+        } else if ((grammarDocs < editData?.used_grammar) || (grammarDocs < editData?.grammarUsed)) {
             let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'inputNumber' && item?.name === 'grammar' && editData?.used_grammar > 0) {
-                    item['errorMsg'] = `Already ${editData?.used_grammar} grammer submission uploaded, please choose upto ${remainingGrammar + editData?.total_grammar} documents`;
+                if (item?.field_type === 'inputNumber' && item?.name === 'grammar' && (editData?.used_grammar > 0 || editData?.grammarUsed > 0)) {
+                    item['errorMsg'] = `Already ${(editData?.used_grammar || editData?.grammarUsed)} grammer submission uploaded, please choose upto ${remainingGrammar + editData?.total_grammar} documents`;
                 }
                 if (item?.field_type === 'button') {
                     item['isDisabledGrammarDoc'] = true;
@@ -134,7 +134,7 @@ const UserForm = ({
             });
             setFormJsonField(fields);
         }
-    }, [grammarDocs])
+    }, [grammarDocs, remainingGrammar])
 
     useEffect(() => {
         if ((new Date(expiryDate) > new Date(licenseExpiryDate?.license_expiry_date))) {
@@ -230,10 +230,18 @@ const UserForm = ({
                 field.disabled = isEmailDisabled;
             }
             if (field.name === 'grammar') {
-                field['info'] = '* Note : Document remaining: ' + (editData ? remainingGrammar + editData?.total_grammar : remainingGrammar) + (editData?.used_grammar !== undefined ? ', Grammar submission uploaded: ' + editData?.used_grammar : '');
+                if (licenseId) {
+                    field['info'] = '* Note : Document remaining: ' + (editData ? remainingGrammar + editData?.total_grammar : remainingGrammar) + (editData?.grammarUsed !== undefined ? ', Grammar submission uploaded: ' + editData?.grammarUsed : '');
+                } else {
+                    field['info'] = '* Note : Document remaining: ' + (editData ? remainingGrammar + editData?.total_grammar : remainingGrammar) + (editData?.used_grammar !== undefined ? ', Grammar submission uploaded: ' + editData?.used_grammar : '');
+                }
             }
             if (field.name === 'plagiarism') {
-                field['info'] = '* Note : Document remaining: ' + (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments) + (editData?.used_submissions !== undefined ? ', Submission uploaded: ' + editData?.used_submissions : '');
+                if (licenseId) {
+                    field['info'] = '* Note : Document remaining: ' + (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments) + (editData?.plagiarismUsed !== undefined ? ', Submission uploaded: ' + editData?.plagiarismUsed : '');
+                } else {
+                    field['info'] = '* Note : Document remaining: ' + (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments) + (editData?.used_submissions !== undefined ? ', Submission uploaded: ' + editData?.used_submissions : '');
+                }
             }
             return field;
         });
@@ -278,6 +286,14 @@ const UserForm = ({
     }, [editData]);
 
     useEffect(() => {
+        if (editData) {
+            modifyFormField('Edit User', true);
+        } else {
+            modifyFormField('Create User', false);
+        }
+    }, [remainingDocuments, remainingGrammar])
+
+    useEffect(() => {
         let formField = formJsonField?.map((item) => {
             if (item?.field_type === 'button') {
                 if (((item?.isDisabledAllocDocs === true) || (item?.isDisabledGrammarDoc === true) ||
@@ -294,21 +310,21 @@ const UserForm = ({
 
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    {formJsonField?.map((field, i) => (
-                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
+                    { formJsonField?.map((field, i) => (
+                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
-                                key={i}
-                                field={field}
-                                control={control}
-                                isLoading={isLoading}
+                                key={ i }
+                                field={ field }
+                                control={ control }
+                                isLoading={ isLoading }
                             />
                         </Grid>
-                    ))}
+                    )) }
                 </Grid>
             </form>
         </>
