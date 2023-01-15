@@ -39,7 +39,6 @@ export default function MyApp(props) {
     const [authorized, setAuthorized] = React.useState(false);
 
     React.useEffect(() => {
-        console.log('event->>>');
         authCheck(router.asPath);
         const hideContent = () => setAuthorized(false);
         router.events.on('routeChangeStart', hideContent);

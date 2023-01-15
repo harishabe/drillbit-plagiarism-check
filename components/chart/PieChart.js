@@ -9,7 +9,8 @@ const PieChart = ({
     label,
     height,
     series,
-    filename
+    filename,
+    pieChartPadding
 }) => {
     const donutChart = {
         series: series,
@@ -66,7 +67,7 @@ const PieChart = ({
 
     return (
         <>
-            <div id="chart" style={{ padding: type === 'donut' ? '40px 0px' : '' }}>
+            <div id="chart" style={{ padding: type === 'donut' ? '40px 0px' : pieChartPadding }}>
                 <ApexCharts options={chartData.options} series={chartData.series} height={height} type={type} />
             </div>
         </>
