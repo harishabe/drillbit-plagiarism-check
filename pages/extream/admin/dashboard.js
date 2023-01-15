@@ -511,7 +511,7 @@ const Dashboard = ({
                 ) : departmentTypeData &&
                   adminDashboardData?.data?.submissionsUsage?.usedSubmissions >
                     0 ? (
-                  documentsTypeData && (
+                  departmentsTypeData && (
                     <PieChart
                       type="pie"
                       height={

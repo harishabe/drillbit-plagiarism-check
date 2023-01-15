@@ -404,7 +404,7 @@ const Dashboard = ({
                 documentsTypeData && (
                   <PieChart
                     type="pie"
-                    filename="Types of Documents"
+                    filename="Document Types"
                     pieChartPadding="0px 2px"
                     height={
                       Object.entries(documentsTypeData).length > 5 ? 400 : 323
