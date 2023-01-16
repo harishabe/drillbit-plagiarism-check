@@ -1,5 +1,3 @@
-import END_POINTS from '../../../utils/EndPoints';
-import { BASE_URL_EXTREM, BASE_URL_INTEGRATION } from '../../../utils/BaseUrl';
 import { GetMethod, PutMethod, PostFormData } from './../ApiMethod';
 
 /**
@@ -23,6 +21,5 @@ export const UploadLogo = async (url, query) => {
  */
 
 export const ChangePassword = async (action) => {
-    const url = BASE_URL_EXTREM + END_POINTS.PROFILE_CHANGE_PASSWORD;
-    return PutMethod(url, action.requestPayload);
+    return PutMethod(action.apiUrl, action.requestPayload);
 };

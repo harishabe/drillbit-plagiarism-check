@@ -49,6 +49,7 @@ const END_POINTS_PRO = {
     INTEGRATION_DELETE_CANVAS: '/integrations/canvas',
     INTEGRATION_DELETE_BLACKBOARD: '/integrations/blackboard',
     SUPER_ADMIN_USER: '/pro/license/',
+    PROFILE_CHANGE_PASSWORD: '/account/password',
 }
 
 export default END_POINTS_PRO;
