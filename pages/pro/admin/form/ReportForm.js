@@ -152,7 +152,7 @@ const ReportForm = ({
             {showDialogModal &&
                 <>
                     <DialogModal
-                        headingTitle="Reports"
+                    headingTitle={ `Reports (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : ''})` }
                         isOpen={true}
                         fullWidth="xl"
                         maxWidth="xl"
