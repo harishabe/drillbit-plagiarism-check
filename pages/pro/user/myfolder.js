@@ -124,57 +124,59 @@ const MyFolder = ({
         setEditFolder(drawerClose);
     };
 
+    const isDisable = false;
+
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
-            <Grid container spacing={2}>
-                <Grid item md={5} xs={5}>
-                    <MainHeading title={`My Folder(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+            <Grid container spacing={ 2 }>
+                <Grid item md={ 5 } xs={ 5 }>
+                    <MainHeading title={ `My Folder(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={7} xs={7} style={{ textAlign: 'right' }}>
+                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={{ width: '40%', marginTop: '8px' }}
+                        sx={ { width: '40%', marginTop: '8px' } }
                         placeholder='Search'
-                        onChange={debouncedResults}
-                        inputProps={{
+                        onChange={ debouncedResults }
+                        inputProps={ {
                             style: {
                                 padding: 5,
                                 display: 'inline-flex',
                             },
-                        }}
+                        } }
                     />
                 </Grid>
             </Grid>
 
-            {isLoading ?
-                <Grid container spacing={2}>
-                    <Grid item md={3} xs={12}> <Skeleton variant="rectangular" height={150} /></Grid>
-                    <Grid item md={3} xs={12}> <Skeleton variant="rectangular" height={150} /></Grid>
-                    <Grid item md={3} xs={12}> <Skeleton variant="rectangular" height={150} /></Grid>
-                    <Grid item md={3} xs={12}> <Skeleton variant="rectangular" height={150} /></Grid>
+            { isLoading ?
+                <Grid container spacing={ 2 }>
+                    <Grid item md={ 3 } xs={ 12 }> <Skeleton variant="rectangular" height={ 150 } /></Grid>
+                    <Grid item md={ 3 } xs={ 12 }> <Skeleton variant="rectangular" height={ 150 } /></Grid>
+                    <Grid item md={ 3 } xs={ 12 }> <Skeleton variant="rectangular" height={ 150 } /></Grid>
+                    <Grid item md={ 3 } xs={ 12 }> <Skeleton variant="rectangular" height={ 150 } /></Grid>
                 </Grid> :
                 <>
-                    {myFolders?.length > 0 ?
-                        <Grid container spacing={2} sx={{ overflowX: 'hidden' }}>
-                            {myFolders?.map((item, index) => (
-                                <Grid key={index} item md={3} sm={4} xs={6}>
+                    { myFolders?.length > 0 ?
+                        <Grid container spacing={ 2 } sx={ { overflowX: 'hidden' } }>
+                            { myFolders?.map((item, index) => (
+                                <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
                                     <Folder
-                                        item={item}
-                                        isAction={true}
-                                        handleClick={handleFolderEdit}
-                                        handleDelete={handleFolderDelete}
+                                        item={ item }
+                                        isAction={ true }
+                                        handleClick={ handleFolderEdit }
+                                        handleDelete={ handleFolderDelete }
                                         path={ { pathname: '/pro/user/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id, grammar: item.grammar } } }
                                     />
                                 </Grid>
-                            ))}
+                            )) }
                         </Grid>
-                        : <ErrorBlock message={FOLDERS_NOT_FOUND} />
+                        : <ErrorBlock message={ FOLDERS_NOT_FOUND } />
                     }
                 </>
             }
@@ -182,20 +184,21 @@ const MyFolder = ({
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={ <DeleteWarningIcon /> }
                     message="Are you sure you want to delete ?"
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
             <AddButtonBottom>
                 <CreateDrawer
                     title="Create Folder"
-                    isShowAddIcon={true}>
+                    isShowAddIcon={ true }>
                     <MyFoldersForms
-                        isLoadingFolder={isLoadingFolder}
+                        isLoadingFolder={ isLoadingFolder }
+                        isDisable={ isDisable }
                     />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -204,21 +207,22 @@ const MyFolder = ({
                 editFolder &&
                 <CreateDrawer
                     title="Edit Folder"
-                    isShowAddIcon={false}
-                    showDrawer={editFolder}
-                    handleDrawerClose={handleCloseDrawer}
+                        isShowAddIcon={ false }
+                        showDrawer={ editFolder }
+                        handleDrawerClose={ handleCloseDrawer }
                 >
                     <MyFoldersForms
-                        editData={editFolderData}
-                        isLoadingEdit={isLoadingEdit}
+                            editData={ editFolderData }
+                            isLoadingEdit={ isLoadingEdit }
+                            isDisable={ isDisable }
                     />
                 </CreateDrawer>
             }
 
             <PaginationContainer>
                 <Pagination
-                    count={pageDetails?.totalPages}
-                    onChange={handleChange}
+                    count={ pageDetails?.totalPages }
+                    onChange={ handleChange }
                     color="primary"
                     variant="outlined"
                     shape="rounded"

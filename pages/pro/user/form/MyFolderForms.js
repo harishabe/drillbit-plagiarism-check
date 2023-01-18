@@ -41,6 +41,7 @@ const MyFoldersForms = ({
     CreateFolder,
     EditFolder,
     editData,
+    isDisable
 }) => {
 
     const [excludeRefBib, setExcludeRefBib] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
@@ -288,41 +289,41 @@ const MyFoldersForms = ({
 
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <LabelContainer>
                     <InputLabel>
                         Enter folder name *
                     </InputLabel>
                 </LabelContainer>
                 <InputTextField
-                    control={control}
-                    field={{
+                    control={ control }
+                    field={ {
                         'field_type': 'text',
                         'id': 'name',
                         'name': 'folder_name',
                         'required': 'Enter folder name',
                         'validationMsg': 'Enter folder name'
-                    }}
+                    } }
                 />
                 <div>
                     <Grid container>
-                        <Grid item md={8}>
-                            <InputLabel style={{ margin: '22px 0px' }}>
+                        <Grid item md={ 8 }>
+                            <InputLabel style={ { margin: '22px 0px' } }>
                                 Exclude Reference / Bibliography
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                             <ToggleButtonGroup
                                 color="primary"
-                                value={excludeRefBib}
+                                value={ excludeRefBib }
                                 exclusive
-                                onChange={handleExcludeRef}
+                                onChange={ handleExcludeRef }
                             >
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                             </ToggleButtonGroup>
                         </Grid>
                     </Grid>
@@ -330,20 +331,20 @@ const MyFoldersForms = ({
 
                 <div>
                     <Grid container>
-                        <Grid item md={8}>
-                            <InputLabel style={{ margin: '22px 0px' }}>
+                        <Grid item md={ 8 }>
+                            <InputLabel style={ { margin: '22px 0px' } }>
                                 Exclude Quotes
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                             <ToggleButtonGroup
                                 color="primary"
-                                value={excludeQuote}
+                                value={ excludeQuote }
                                 exclusive
-                                onChange={handleExcludeQuote}
+                                onChange={ handleExcludeQuote }
                             >
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                             </ToggleButtonGroup>
                         </Grid>
                     </Grid>
@@ -351,74 +352,77 @@ const MyFoldersForms = ({
 
                 <div>
                     <Grid container>
-                        <Grid item md={8}>
-                            <Tooltip title={'YES - 14 similarity words, NO - default settings'} arrow>
-                                <InputLabel style={{ margin: '22px 0px' }}>
+                        <Grid item md={ 8 }>
+                            <Tooltip title={ 'YES - 14 similarity words, NO - default settings' } arrow>
+                                <InputLabel style={ { margin: '22px 0px' } }>
                                     Exclude small sources
                                 </InputLabel>
                             </Tooltip>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                             <ToggleButtonGroup
                                 color="primary"
-                                value={excludeSmallSource}
+                                value={ excludeSmallSource }
                                 exclusive
-                                onChange={handleExcludeSmallSource}
+                                onChange={ handleExcludeSmallSource }
                             >
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                             </ToggleButtonGroup>
                         </Grid>
                     </Grid>
                 </div>
 
-                <div>
-                    <Grid container>
-                        <Grid item md={8}>
-                            <InputLabel style={{ margin: '22px 0px' }}>
-                                Grammar Check
-                            </InputLabel>
+                { !isDisable &&
+                    <div>
+                        <Grid container>
+                            <Grid item md={ 8 }>
+                                <InputLabel style={ { margin: '22px 0px' } }>
+                                    Grammar Check
+                                </InputLabel>
+                            </Grid>
+                            <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
+                                <ToggleButtonGroup
+                                    color="primary"
+                                    value={ grammarCheck }
+                                    exclusive
+                                    onChange={ handleGrammarCheck }
+                                >
+
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
+                                </ToggleButtonGroup>
+                            </Grid>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
-                            <ToggleButtonGroup
-                                color="primary"
-                                value={grammarCheck}
-                                exclusive
-                                onChange={handleGrammarCheck}
-                            >
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
-                            </ToggleButtonGroup>
-                        </Grid>
-                    </Grid>
-                </div>
+                    </div>
+                }
 
                 <div>
                     <Grid container>
-                        <Grid item md={8}>
-                            <InputLabel style={{ margin: '22px 0px' }}>
+                        <Grid item md={ 8 }>
+                            <InputLabel style={ { margin: '22px 0px' } }>
                                 Exclude Phrases
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                             <ToggleButtonGroup
                                 color="primary"
-                                value={excludePhrases}
+                                value={ excludePhrases }
                                 exclusive
-                                onChange={handleExcludePhrases}
+                                onChange={ handleExcludePhrases }
                             >
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                             </ToggleButtonGroup>
                         </Grid>
                     </Grid>
-                    {excludePhrases === ASSIGNMENT_SETTING_VALUE_YES &&
+                    { excludePhrases === ASSIGNMENT_SETTING_VALUE_YES &&
                         <>
-                            {phrasesList.map((item, i) => {
+                        { phrasesList.map((item, i) => {
                                 return (
                                     <>
-                                        <Grid key={i} container spacing={2} sx={{ marginBottom: '15px' }}>
-                                            <Grid item md={9}>
+                                        <Grid key={ i } container spacing={ 2 } sx={ { marginBottom: '15px' } }>
+                                            <Grid item md={ 9 }>
                                                 <TextField
                                                     id={ i }
                                                     size="small"
@@ -431,10 +435,10 @@ const MyFoldersForms = ({
                                                     } }
                                                 />
                                             </Grid>
-                                            <Grid item md={2}>
+                                            <Grid item md={ 2 }>
                                                 <Button
                                                     variant="contained"
-                                                    onClick={(e) => handlePhrasesRemove(e, i)}
+                                                    onClick={ (e) => handlePhrasesRemove(e, i) }
                                                 >
                                                     Remove
                                                 </Button>
@@ -442,12 +446,12 @@ const MyFoldersForms = ({
                                         </Grid>
                                     </>
                                 );
-                            })}
+                            }) }
                             <Button
-                                sx={{ marginBottom: '10px' }}
+                            sx={ { marginBottom: '10px' } }
                                 variant="contained"
-                                onClick={addPhrasesInput}
-                                disabled={phrasesList.length === 15}
+                            onClick={ addPhrasesInput }
+                            disabled={ phrasesList.length === 15 }
                             >
                                 Add Phrases
                             </Button>
@@ -457,88 +461,88 @@ const MyFoldersForms = ({
 
                 <b>Compare against databases</b>
                 <Grid container>
-                    <Grid item md={8}>
-                        <InputLabel style={{ margin: '22px 0px' }}>
+                    <Grid item md={ 8 }>
+                        <InputLabel style={ { margin: '22px 0px' } }>
                             Student Papers
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                    <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                         <ToggleButtonGroup
                             color="primary"
-                            value={studentPaper}
+                            value={ studentPaper }
                             exclusive
-                            onChange={handleStudentPaper}
+                            onChange={ handleStudentPaper }
                         >
-                            <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                            <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                            <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                            <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
                 </Grid>
                 <Grid container>
-                    <Grid item md={8}>
-                        <InputLabel style={{ margin: '22px 0px' }}>
+                    <Grid item md={ 8 }>
+                        <InputLabel style={ { margin: '22px 0px' } }>
                             Journals & publishers
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                    <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                         <ToggleButtonGroup
                             color="primary"
-                            value={publication}
+                            value={ publication }
                             exclusive
-                            onChange={handlePublications}
+                            onChange={ handlePublications }
                         >
-                            <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                            <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                            <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                            <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
                 </Grid>
                 <Grid container>
-                    <Grid item md={8}>
-                        <InputLabel style={{ margin: '22px 0px' }}>
+                    <Grid item md={ 8 }>
+                        <InputLabel style={ { margin: '22px 0px' } }>
                             Internet or Web
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                    <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                         <ToggleButtonGroup
                             color="primary"
-                            value={internet}
+                            value={ internet }
                             exclusive
-                            onChange={handleInternet}
+                            onChange={ handleInternet }
                         >
-                            <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                            <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                            <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                            <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
                 </Grid>
                 <Grid container>
-                    <Grid item md={8}>
-                        <InputLabel style={{ margin: '22px 0px' }}>
+                    <Grid item md={ 8 }>
+                        <InputLabel style={ { margin: '22px 0px' } }>
                             Institution Repository
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                    <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
                         <ToggleButtonGroup
                             color="primary"
-                            value={repository}
+                            value={ repository }
                             exclusive
-                            onChange={handleRepository}
+                            onChange={ handleRepository }
                         >
-                            <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
-                            <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                            <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                            <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
                 </Grid>
 
-                <div style={{ marginBottom: '15px' }}>
-                    {errorMsgDBCheck !== '' ? <ErrorMessageContainer>{errorMsgDBCheck}</ErrorMessageContainer> : ''}
+                <div style={ { marginBottom: '15px' } }>
+                    { errorMsgDBCheck !== '' ? <ErrorMessageContainer>{ errorMsgDBCheck }</ErrorMessageContainer> : '' }
                 </div>
-                <InputButton field={{
+                <InputButton field={ {
                     'field_type': 'button',
                     'type': 'submit',
                     'label': btnLabel,
                     'isDisabled': disabledButton
-                }}
-                    isLoading={isLoadingFolder || isLoadingEdit}
+                } }
+                    isLoading={ isLoadingFolder || isLoadingEdit }
                 />
             </form>
         </>
