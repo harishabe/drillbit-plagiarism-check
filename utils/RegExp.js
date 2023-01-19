@@ -108,6 +108,11 @@ export const windowOpen = (url) => {
 export const isValidFileUploaded = (file) => {
     const validExtensions = ['pdf', 'doc', 'docx', 'txt', 'rtf', 'dot', 'dotx', 'html', 'odt', 'pptx', 'ppt', 'xlsx', 'xls', 'wpd', 'ps', 'xml'];
     const fileExtension = file?.name?.split('.').pop();
-    console.log('fileextension', fileExtension)
+    return validExtensions.includes(fileExtension);
+}
+
+export const isValidRepositoryFileUploaded = (file) => {
+    const validExtensions = ['pdf', 'doc', 'docx'];
+    const fileExtension = file?.name?.split('.').pop();
     return validExtensions.includes(fileExtension);
 }
