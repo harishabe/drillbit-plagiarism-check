@@ -55,7 +55,7 @@ const uploadFileRepository = () => {
             key={0}
             isRepository={ true }
             choseFileTitle='browse your file here'
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.REPO_ALLOWED_FILE }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             fileIcon={ < UploadFileIcon /> }
             singleFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD_SINGLE_FILE }
