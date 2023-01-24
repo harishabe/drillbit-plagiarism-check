@@ -323,6 +323,7 @@ const UploadFiles = ({
                                         onChange={handleUpload}
                                         id="file-upload"
                                         type="file"
+                                        accept='.pdf, .doc, .docx, .txt, .rtf, .dot, .dotx, .html, .odt, .pptx'
                                     />
                                 </div>
                                 <InvalidFileFormatError>{invalidFileFormat && UPLOAD_SUPPORTED_FILES.INVALID_FILE_FORMAT_ERROR}</InvalidFileFormatError>

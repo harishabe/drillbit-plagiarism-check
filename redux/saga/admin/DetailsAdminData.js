@@ -448,8 +448,10 @@ export function* onLoadDeactivate(action) {
                 });
             }
         }
+        toastrValidation(response);
     } else {
         yield put({ type: types.FETCH_ADMIN_DEACTIVATE_ROW_FAIL, payload: error });
+        toastrValidation(error);
     }
 }
 

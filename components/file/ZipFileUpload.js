@@ -158,6 +158,7 @@ const ZipFileUpload = ({
                                 onChange={handleUpload}
                                 id="file-upload"
                                 type="file"
+                                accept=".zip"
                             />
                             <div>
                                 {(fileData?.length > 0) && fileData?.map((item, index) => (
