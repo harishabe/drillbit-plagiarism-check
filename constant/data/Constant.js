@@ -178,6 +178,8 @@ export const INTEGRATION_TYPES = {
     MOODLE : 'Moodle',
     CANVAS : 'Canvas',
     BLACKBOARD : 'Blackboard',
+    BRIGHTSPACE: 'Brightspace',
+    MOODLE_LTI: 'Moodle LTI',
 }
 
 export const ERROR_MESSAGE_RESPONSE = {

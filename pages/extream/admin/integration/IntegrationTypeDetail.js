@@ -46,6 +46,8 @@ const IntegrationTypeDetail = ({
     isMoodleTrue,
     isCanvasTrue,
     isBlackboardTrue,
+    isBrightspaceTrue,
+    isMoodleLtiTrue,
     integrationData,
     routerData,
     handleConfig
@@ -91,6 +93,38 @@ const IntegrationTypeDetail = ({
                 setRows([...row]);
             }
         } else if (routerData?.integration === 'Blackboard') {
+            if (integrationData?.creation_time !== undefined) {
+                let blackBoardDate = integrationData?.creation_time;
+                let row = [
+                    createData('Access end point', integrationData?.access_end_point),
+                    createData('Authentication end point', integrationData?.auth_end_point),
+                    createData('Configured Date', blackBoardDate),
+                    createData('Client id', integrationData?.client_id),
+                    createData('College Name', integrationData?.college_name),
+                    createData('Keyset end point', integrationData?.keyset_end_point),
+                    createData('Email Address', integrationData?.mail_id),
+                    createData('Method', integrationData?.method),
+                    createData('Platform url', integrationData?.platform_url),
+                ];
+                setRows([...row]);
+            }
+        } else if (routerData?.integration === 'Brightspace') {
+            if (integrationData?.creation_time !== undefined) {
+                let blackBoardDate = integrationData?.creation_time;
+                let row = [
+                    createData('Access end point', integrationData?.access_end_point),
+                    createData('Authentication end point', integrationData?.auth_end_point),
+                    createData('Configured Date', blackBoardDate),
+                    createData('Client id', integrationData?.client_id),
+                    createData('College Name', integrationData?.college_name),
+                    createData('Keyset end point', integrationData?.keyset_end_point),
+                    createData('Email Address', integrationData?.mail_id),
+                    createData('Method', integrationData?.method),
+                    createData('Platform url', integrationData?.platform_url),
+                ];
+                setRows([...row]);
+            }
+        } else if (routerData?.integration === 'Moodle LTI') {
             if (integrationData?.creation_time !== undefined) {
                 let blackBoardDate = integrationData?.creation_time;
                 let row = [
@@ -181,6 +215,46 @@ const IntegrationTypeDetail = ({
                             tableHeader={columns}
                             tableData={rows}
                             charLength={50}
+                            path=''
+                        />
+                    </CardView>
+                </>
+            }
+            { isBrightspaceTrue &&
+                <>
+                    <MainHeading title={ 'BrightSpace LTI Setup' } />
+                    <CardView>
+                        <SubHeading title={ 'BrightSpace LTI – Configured' } />
+                        <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
+                            <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
+                        </Button>
+                        <Divider className={ classes.mt10 } />
+                        <div className={ classes.margin }></div>
+                        <CommonTable
+                            isCheckbox={ false }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                            charLength={ 50 }
+                            path=''
+                        />
+                    </CardView>
+                </>
+            }
+            { isMoodleLtiTrue &&
+                <>
+                    <MainHeading title={ 'Moodle LTI Setup' } />
+                    <CardView>
+                        <SubHeading title={ 'Moodle LTI – Configured' } />
+                        <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
+                            <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
+                        </Button>
+                        <Divider className={ classes.mt10 } />
+                        <div className={ classes.margin }></div>
+                        <CommonTable
+                            isCheckbox={ false }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                            charLength={ 50 }
                             path=''
                         />
                     </CardView>
