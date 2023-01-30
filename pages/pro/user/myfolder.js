@@ -170,7 +170,7 @@ const MyFolder = ({
                                         isAction={ true }
                                         handleClick={ handleFolderEdit }
                                         handleDelete={ handleFolderDelete }
-                                        path={ { pathname: '/pro/user/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id, grammar: grammarSubscription } } }
+                                        path={ { pathname: '/pro/user/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? item.grammar : grammarSubscription } } }
                                     />
                                 </Grid>
                             )) }
