@@ -44,7 +44,9 @@ const ZipFileForm = ({
     isLoading,
     isLoadingLang,
     document_type,
-    LanguageList
+    nonEnglishLang,
+    LanguageList,
+    isNonEnglish
 }) => {
     const classes = useStyles();
     const { control, setValue, handleSubmit } = useForm();
@@ -82,12 +84,12 @@ const ZipFileForm = ({
                 {files && files?.map((item, index) => {
                     return (
                         <Grid container spacing={1} key={item[1]?.name || item.name}>
-                            <Grid item md={3} xs={12}>
+                            <Grid item md={ isNonEnglish ? 2.4 : 3 } xs={ 12 }>
                                 <div style={{ marginTop: '25px' }}>
                                     <EllipsisText value={item[1]?.name || item.name} charLength={22} />
                                 </div>
                             </Grid>
-                            <Grid item md={3} xs={12}>
+                            <Grid item md={ isNonEnglish ? 2.4 : 3 } xs={ 12 }>
                                 <InputTextField
                                     control={control}
                                     field={{
@@ -102,7 +104,7 @@ const ZipFileForm = ({
                                     }}
                                 />
                             </Grid>
-                            <Grid item md={3} xs={12}>
+                            <Grid item md={ isNonEnglish ? 2.4 : 3 } xs={ 12 }>
                                 <InputTextField
                                     control={control}
                                     field={{
@@ -117,7 +119,7 @@ const ZipFileForm = ({
                                     }}
                                 />
                             </Grid>
-                            <Grid item md={3} xs={12}>
+                            <Grid item md={ isNonEnglish ? 2.4 : 3 } xs={ 12 }>
                                 {isLoadingLang ?
                                     <SkeletonContainer>
                                         <Skeleton />
@@ -140,6 +142,31 @@ const ZipFileForm = ({
 
                                     </>}
                             </Grid>
+
+                            { isNonEnglish &&
+                                <Grid item md={ 2.4 } xs={ 12 }>
+                                    { isLoadingLang ?
+                                        <SkeletonContainer>
+                                            <Skeleton />
+                                        </SkeletonContainer> :
+                                        <>
+                                            <InputAutoComplete
+                                                control={ control }
+                                                field={ {
+                                                    'field_type': 'dropdown',
+                                                    'style': { marginTop: '10px' },
+                                                    'id': 'language' + index,
+                                                    'label': 'Language',
+                                                    'name': 'language' + index,
+                                                    'required': false,
+                                                    'validationMsg': UPLOAD_FILE_TYPE,
+                                                    'size': 'small',
+                                                    'options': nonEnglishLang !== undefined && nonEnglishLang?.map((item) => ({ 'name': item }))
+                                                } }
+                                            />
+
+                                        </> }
+                                </Grid> }
                         </Grid>
                     );
                 })}

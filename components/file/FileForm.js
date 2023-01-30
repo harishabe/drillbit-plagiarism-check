@@ -203,9 +203,9 @@ const FileForm = ({
                                                     field={ {
                                                         'field_type': 'dropdown',
                                                         'style': { marginTop: '0px' },
-                                                        'id': 'Language',
+                                                        'id': 'Language' + index,
                                                         'label': 'Select Language *',
-                                                        'name': 'nonEnglishLang',
+                                                        'name': 'nonEnglishLang' + index,
                                                         'required': UPLOAD_FILE_LANGUAGE,
                                                         'validationMsg': UPLOAD_FILE_LANGUAGE,
                                                         'size': 'small',

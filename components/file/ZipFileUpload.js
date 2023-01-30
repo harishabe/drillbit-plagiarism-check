@@ -51,7 +51,8 @@ const ZipFileUpload = ({
     isRepository,
     title,
     allowedFormat,
-    notAllowedFormat
+    notAllowedFormat,
+    isNonEnglish
 }) => {
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
@@ -103,6 +104,21 @@ const ZipFileUpload = ({
         uploadData['name'] = authorNameArr;
         uploadData['title'] = titleArr;
         uploadData['doc_type'] = documentTypeArr;
+        SubmissionListExtractedFileUpload(confirmZipFileAPI, uploadData);
+    };
+
+    const handleProcessZipFileNonEnglish = (data) => {
+        let authorNameArr = [], titleArr = [], documentTypeArr = [], languageArr = [];
+        uploadData?.fileNames?.map((item, i) => {
+            authorNameArr.push(data['authorName' + i]);
+            titleArr.push(data['title' + i]);
+            documentTypeArr.push(data['documentType' + i]);
+            languageArr.push(data['language' + i]);
+        });
+        uploadData['name'] = authorNameArr;
+        uploadData['title'] = titleArr;
+        uploadData['doc_type'] = documentTypeArr;
+        uploadData['languages'] = languageArr;
         SubmissionListExtractedFileUpload(confirmZipFileAPI, uploadData);
     };
 
@@ -188,13 +204,21 @@ const ZipFileUpload = ({
                                 btnTitle='Submit'
                                 isLoading={isLoadingExtractedFile}
                             />}
-                        {(uploadData?.fileNames?.length > 0 && !isRepository) &&
+                        { (uploadData?.fileNames?.length > 0 && !isRepository && !isNonEnglish) &&
                             <ZipFileForm
                                 handleSubmitFile={handleProcessZipFile}
                                 files={uploadData?.fileNames?.map((item) => ({ 'name': item }))}
                                 btnTitle='Submit'
                                 isLoading={isLoadingExtractedFile}
                             />}
+                        { (uploadData?.fileNames?.length > 0 && !isRepository && isNonEnglish) &&
+                            <ZipFileForm
+                                handleSubmitFile={ handleProcessZipFileNonEnglish }
+                                files={ uploadData?.fileNames?.map((item) => ({ 'name': item })) }
+                                btnTitle='Submit'
+                                isLoading={ isLoadingExtractedFile }
+                                isNonEnglish={ isNonEnglish }
+                            /> }
 
                         <div style={{ textAlign: 'center', marginTop: '10px' }}>
                             {(fileData?.length > 0 && (uploadData === '' || uploadData === undefined) && !isRepository)

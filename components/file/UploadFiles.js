@@ -169,6 +169,12 @@ const UploadFiles = ({
       !isRegionalFile
     ) {
       multiFileUpload(fileData, data);
+    } else if (
+      fileData.length > 1 &&
+      langType === "Non English" &&
+      !isRegionalFile
+    ) {
+      multiNonEngFileUpload(fileData, data);
     }
   };
 
@@ -208,7 +214,7 @@ const UploadFiles = ({
     bodyFormData.append("documentType", data.documentType0);
     bodyFormData.append("plagiarismCheck", plagiarismCheck ? "YES" : "NO");
     bodyFormData.append("grammarCheck", grammarCheck ? "YES" : "NO");
-    bodyFormData.append("language", data.nonEnglishLang);
+    bodyFormData.append("language", data.nonEnglishLang0);
     bodyFormData.append("file", files[0][1]);
     UploadNonEnglish(singleFileUploadAPI, bodyFormData);
   };
@@ -253,6 +259,29 @@ const UploadFiles = ({
     bodyFormData.append("authorName", authorNameArr);
     bodyFormData.append("title", titleArr);
     bodyFormData.append("documentType", documentTypeArr);
+    for (let i = 0; i < files.length; i++) {
+      bodyFormData.append("file", files[i][1]);
+    }
+    SubmissionListUpload(multiFileUploadAPI, bodyFormData);
+  };
+
+  const multiNonEngFileUpload = (files, data) => {
+    let authorNameArr = [],
+      titleArr = [],
+      documentTypeArr = [],
+      LanguageArr = [];
+    let bodyFormData = new FormData();
+    fileData?.map((item, i) => {
+      authorNameArr.push(data["authorName" + i]);
+      titleArr.push(data["title" + i]);
+      documentTypeArr.push(data["documentType" + i]);
+      LanguageArr.push(data["nonEnglishLang" + i]);
+    });
+
+    bodyFormData.append("authorName", authorNameArr);
+    bodyFormData.append("title", titleArr);
+    bodyFormData.append("documentType", documentTypeArr);
+    bodyFormData.append("language", LanguageArr);
     for (let i = 0; i < files.length; i++) {
       bodyFormData.append("file", files[i][1]);
     }
@@ -385,15 +414,7 @@ const UploadFiles = ({
                         onDelete={(e) => handleDelete(e, item)}
                       />
                     </ChipContainer>
-                  ))}
-                {fileData?.length > 1 &&
-                  !isRepository &&
-                  langType === "Non English" &&
-                  !isStudent && (
-                    <ErrorMessageContainer>
-                      {UPLOAD_NON_ENGLISH_FILE_MULTIFILE}
-                    </ErrorMessageContainer>
-                  )}
+                  )) }
                 {fileData?.length > 1 && !isRepository && isRegionalFile && (
                   <ErrorMessageContainer>
                     {UPLOAD_NON_ENGLISH_FILE_MULTIFILE}
@@ -466,7 +487,7 @@ const UploadFiles = ({
                     langType={langType}
                   />
                 )}
-              {fileData?.length === 1 &&
+              { fileData?.length > 0 &&
                 !isRepository &&
                 !isStudent &&
                 langType === "Non English" && (
