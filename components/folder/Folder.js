@@ -16,19 +16,10 @@ import { EllipsisText } from '../../components';
 import { CARD_FOLDER_ACTIONS } from '../../constant/data/Constant';
 
 const Container = styled.div`
-    // position: relative;    
-    // background-image: url(${'/img/FolderPng.png'});
-    // background-repeat: no-repeat;
-    // color: white;
-    // width: 250px;
-    // height: 100%;
-    // cursor:pointer;
-
     position: relative;
-    background-image: url(${'/img/Folder.svg'});
     background-repeat: no-repeat;
     width: 100%;
-    height: 100%;
+    height: 200px;
     display: flex;
     color: white;
     flex-direction: column;
@@ -69,7 +60,11 @@ const Folder = ({
     };
 
     return (
-        <Container submissionCount={item.no_of_submissions} style={{ cursor: 'pointer' }}>
+        <Container submissionCount={ item.no_of_submissions }
+            style={ {
+                cursor: 'pointer',
+                backgroundImage: item.no_of_submissions > 0 ? 'url(\'/img/FolderOpenPng.png\')' : 'url(\'/img/Folder.svg\')'
+            } }>
             <Grid item xs={11.8}>
                 {isAction &&
                     <>
