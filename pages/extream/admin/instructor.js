@@ -82,8 +82,6 @@ const Instructor = ({
     DeleteData,
     DeactivateData,
     isLoading,
-    EditInstructor,
-    CreateInstructor
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
@@ -107,17 +105,6 @@ const Instructor = ({
     useEffect(() => {
         GetInstructorData(BASE_URL_EXTREM + END_POINTS.ADMIN_INSTRUCTOR, paginationPayload);
     }, [, paginationPayload]);
-
-    useEffect(() => {
-        if (EditInstructor === 200) {
-            setTimeout(() => {
-                handleCloseDrawer(false)
-            }, 200);
-        }
-        // if (CreateInstructor === 200) {
-        //     setShowDialogModal(false)
-        // }
-    }, [isLoading, CreateInstructor, EditInstructor]);
 
     useEffect(() => {
         let row = '';
@@ -452,8 +439,6 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.list?.page,
     instructorData: state?.detailsData?.instructorData?.list?.content,
     isLoading: state?.detailsData?.isLoading,
-    EditInstructor: state?.adminCrud?.data?.status,
-    CreateInstructor: state?.adminCrud?.CreateInstructor?.status
 });
 
 const mapDispatchToProps = (dispatch) => {

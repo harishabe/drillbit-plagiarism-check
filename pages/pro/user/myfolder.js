@@ -124,8 +124,6 @@ const MyFolder = ({
         setEditFolder(drawerClose);
     };
 
-    const isDisable = false;
-
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -198,7 +196,6 @@ const MyFolder = ({
                     isShowAddIcon={ true }>
                     <MyFoldersForms
                         isLoadingFolder={ isLoadingFolder }
-                        isDisable={ isDisable }
                     />
                 </CreateDrawer>
             </AddButtonBottom>
@@ -214,7 +211,7 @@ const MyFolder = ({
                     <MyFoldersForms
                             editData={ editFolderData }
                             isLoadingEdit={ isLoadingEdit }
-                            isDisable={ isDisable }
+
                     />
                 </CreateDrawer>
             }

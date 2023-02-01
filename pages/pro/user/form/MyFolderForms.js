@@ -41,7 +41,6 @@ const MyFoldersForms = ({
     CreateFolder,
     EditFolder,
     editData,
-    isDisable
 }) => {
 
     const [excludeRefBib, setExcludeRefBib] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
@@ -373,7 +372,6 @@ const MyFoldersForms = ({
                     </Grid>
                 </div>
 
-                { !isDisable &&
                     <div>
                         <Grid container>
                             <Grid item md={ 8 }>
@@ -394,8 +392,7 @@ const MyFoldersForms = ({
                                 </ToggleButtonGroup>
                             </Grid>
                         </Grid>
-                    </div>
-                }
+                </div>
 
                 <div>
                     <Grid container>
