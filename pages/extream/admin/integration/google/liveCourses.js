@@ -1,37 +1,40 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import Admin from './../../../../../layouts/Admin';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import Admin from "./../../../../../layouts/Admin";
 import {
-    GetGoogleLiveCourses,
-    GetGoogleImportCourses,
-    GetGoogleCourseHome,
-} from './../../../../../redux/action/admin/AdminAction';
-import ClassList from './classList'
+  GetGoogleLiveCourses,
+  GetGoogleImportCourses,
+  GetGoogleCourseHome,
+} from "./../../../../../redux/action/admin/AdminAction";
+import ClassList from "./classList";
 
 const LiveCourses = ({
-    GetGoogleLiveCourses,
-    GetGoogleImportCourses,
-    GetGoogleCourseHome,
+  liveCourses,
+  GetGoogleLiveCourses,
+  GetGoogleImportCourses,
+  GetGoogleCourseHome,
 }) => {
-    useEffect(() => {
-        GetGoogleLiveCourses();
-        GetGoogleCourseHome();
-        GetGoogleImportCourses('abc');
-    }, []);
+  useEffect(() => {
+    GetGoogleLiveCourses();
+    // GetGoogleCourseHome();
+    // GetGoogleImportCourses('abc');
+  }, []);
 
-    return(
-        <ClassList />
-    )
-}
+  return <ClassList liveCourses={liveCourses} />;
+};
+
+const mapStateToProps = (state) => ({
+  liveCourses: state?.adminIntegrationData?.googleLiveCourseData,
+});
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        GetGoogleLiveCourses: () => dispatch(GetGoogleLiveCourses()),
-        GetGoogleImportCourses: (data) => dispatch(GetGoogleImportCourses(data)),
-        GetGoogleCourseHome: () => dispatch(GetGoogleCourseHome()),
-    };
+  return {
+    GetGoogleLiveCourses: () => dispatch(GetGoogleLiveCourses()),
+    GetGoogleImportCourses: (data) => dispatch(GetGoogleImportCourses(data)),
+    GetGoogleCourseHome: () => dispatch(GetGoogleCourseHome()),
+  };
 };
 
 LiveCourses.layout = Admin;
 
-export default connect(null, mapDispatchToProps)(LiveCourses);
+export default connect(mapStateToProps, mapDispatchToProps)(LiveCourses);

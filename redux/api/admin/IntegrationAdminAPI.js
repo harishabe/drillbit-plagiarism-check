@@ -1,4 +1,4 @@
-import { GetMethod, PostMethod, PutMethod, DeleteMethod } from './../ApiMethod';
+import { GetMethod, PostMethod, PostFormData, PutMethod, DeleteMethod } from './../ApiMethod';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 
@@ -56,7 +56,7 @@ export const GoogleLiveCoursesDetail = async () => {
  */
 
 export const GoogleImportCoursesDetail = async (data) => {
-    return PostMethod(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_IMPORTCOURSES, data);
+    return PostFormData(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_IMPORTCOURSES, data);
 };
 
 /**

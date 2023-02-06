@@ -177,7 +177,7 @@ const Integration = ({
             </Grid> :
                 <Grid container spacing={2}>
                     {lmsData?.map((item, index) => (
-                        item.lms === 'GOOGLECLASSROOM' ? '' :
+                        //item.lms === 'GOOGLECLASSROOM' ? '' :
                             <Grid key={index} item md={4} xs={12}>
                                 <CardInfoView
                                     item={item}
