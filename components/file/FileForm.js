@@ -118,7 +118,7 @@ const FileForm = ({
                                             className: classes.helperText
                                         }}
                                         inputProps={{
-                                            minLength: 1,
+                                            minLength: 3,
                                         }}
                                     />
                                 }
