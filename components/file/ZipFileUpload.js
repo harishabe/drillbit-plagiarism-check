@@ -117,14 +117,14 @@ const ZipFileUpload = ({
     };
 
     useEffect(() => {
-        if (extractedFileData) {
-            UploadZipFileDataClear();
-            UploadZipDataClear();
+        if (extractedFileData?.status === 200) {
             setTimeout(() => {
                 router.push(routerObj);
+                UploadZipDataClear();
+                UploadZipFileDataClear();
             }, 1000);
         }
-    }, [extractedFileData && extractedFileData !== '']);
+    }, [extractedFileData && extractedFileData?.status]);
 
     const handleBack = (e) => {
         e.preventDefault();

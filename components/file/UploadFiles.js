@@ -303,24 +303,22 @@ const UploadFiles = ({
   };
 
   useEffect(() => {
-    if (uploadData) {
-      UploadZipFileDataClear();
+    if (uploadData?.status === 200) {
       setTimeout(() => {
         router.push(routerObj);
+        UploadZipFileDataClear();
       }, 1000);
-      //router.push(routerObj);
     }
-  }, [uploadData && uploadData !== ""]);
+  }, [uploadData && uploadData?.status]);
 
   useEffect(() => {
-    if (uploadFileNonEng) {
-      UploadNonEnglishDataClear();
+    if (uploadFileNonEng?.status === 200) {
       setTimeout(() => {
         router.push(routerObj);
+        UploadNonEnglishDataClear();
       }, 1000);
-      //router.push(routerObj);
     }
-  }, [uploadFileNonEng && uploadFileNonEng !== ""]);
+  }, [uploadFileNonEng && uploadFileNonEng?.status]);
 
   const handleGrammarPlagiarismChange = (event) => {
     setGrammarPlagiarismCheck({
