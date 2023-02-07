@@ -48,6 +48,17 @@ const Folder = ({
     handleDelete,
 }) => {
 
+//     const Container = styled.div`
+//     position: relative;
+//     background-repeat: no-repeat;
+//     width: 100%;
+//     height: 200px;
+//     display: flex;
+//     color: white;
+//     flex-direction: column;
+//     justify-content: flex-end;
+//     background-image: ${item.no_of_submissions > 0 ? 'url(\'/img/FolderOpenPng.png\')' : 'url(\'/img/Folder.svg\')'};
+// `;
     const router = useRouter();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -65,20 +76,20 @@ const Folder = ({
                 cursor: 'pointer',
                 backgroundImage: item.no_of_submissions > 0 ? 'url(\'/img/FolderOpenPng.png\')' : 'url(\'/img/Folder.svg\')'
             } }>
-            <Grid item xs={11.8}>
-                {isAction &&
+            <Grid item xs={ 11.8 }>
+                { isAction &&
                     <>
-                        <Tooltip title={CARD_FOLDER_ACTIONS} arrow>
-                            <IconButton onClick={handleMenuClick}>
+                    <Tooltip title={ CARD_FOLDER_ACTIONS } arrow>
+                        <IconButton onClick={ handleMenuClick }>
                                 <ThreeDotIcon />
                             </IconButton>
                         </Tooltip>
                         <Menu
                             id="action-menu"
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            PaperProps={{
+                        anchorEl={ anchorEl }
+                        open={ open }
+                        onClose={ handleClose }
+                        PaperProps={ {
                                 elevation: 0,
                                 sx: {
                                     overflow: 'visible',
@@ -103,31 +114,31 @@ const Folder = ({
                                         zIndex: 0,
                                     },
                                 },
-                            }}
-                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                        } }
+                        transformOrigin={ { horizontal: 'right', vertical: 'top' } }
+                        anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
                         >
-                            <MenuItem onClick={(e) => {
+                        <MenuItem onClick={ (e) => {
                                 setAnchorEl(null);
                                 handleClick(e, item);
-                            }}>
+                        } }>
                                 <ListItemText>Edit</ListItemText>
                                 <EditIcon />
                             </MenuItem>
                             <Divider />
-                            <MenuItem onClick={(e) => {
+                        <MenuItem onClick={ (e) => {
                                 setAnchorEl(null);
                                 handleDelete(e, item);
-                            }}>
-                                <ListItemText sx={{ mr: 1 }}>Delete</ListItemText>
+                        } }>
+                            <ListItemText sx={ { mr: 1 } }>Delete</ListItemText>
                                 <DeleteIcon />
                             </MenuItem>
                         </Menu>
-                    </>}
+                    </> }
             </Grid>
-            <Center onClick={() => router.push(path)}>
-                <EllipsisText variant="body_1" value={item.folder_name} charLength={15} />
-                <FileCountContainer>{item.no_of_submissions} Files</FileCountContainer>
+            <Center onClick={ () => router.push(path) }>
+                <EllipsisText variant="body_1" value={ item.folder_name } charLength={ 15 } />
+                <FileCountContainer>{ item.no_of_submissions } Files</FileCountContainer>
             </Center>
         </Container>
     );

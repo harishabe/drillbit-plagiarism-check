@@ -500,9 +500,7 @@ const UploadFiles = ({
                     langType={langType}
                   />
                 )}
-              {fileData?.length === 1 &&
-                !isRepository &&
-                !isStudent &&
+              { fileData?.length === 1 &&
                 langType === "ScannedPDF" && (
                   <FileForm
                     handleSubmitFile={ handleSubmit }
