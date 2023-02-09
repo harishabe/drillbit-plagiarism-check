@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
@@ -56,9 +56,11 @@ const ZipFileUpload = ({
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
     const [fileWarning, setFileWarning] = useState(false);
+    const ref = createRef();
 
     const handleDelete = (e, item) => {
         e.preventDefault();
+        ref.current.value = '';
         let a = fileData.filter((filterItem) => {
             if (filterItem[1].name !== item[1].name) {
                 return filterItem;
@@ -115,14 +117,14 @@ const ZipFileUpload = ({
     };
 
     useEffect(() => {
-        if (extractedFileData) {
-            UploadZipFileDataClear();
-            UploadZipDataClear();
+        if (extractedFileData?.status === 200) {
             setTimeout(() => {
                 router.push(routerObj);
+                UploadZipDataClear();
+                UploadZipFileDataClear();
             }, 1000);
         }
-    }, [extractedFileData && extractedFileData !== '']);
+    }, [extractedFileData && extractedFileData?.status]);
 
     const handleBack = (e) => {
         e.preventDefault();
@@ -158,6 +160,7 @@ const ZipFileUpload = ({
                                 onChange={handleUpload}
                                 id="file-upload"
                                 type="file"
+                                ref={ ref }
                             />
                             <div>
                                 {(fileData?.length > 0) && fileData?.map((item, index) => (

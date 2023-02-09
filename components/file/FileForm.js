@@ -107,13 +107,13 @@ const FileForm = ({
                                         sx={{ marginTop: '0px' }}
                                         fullWidth
                                         margin="normal"
-                                        name={'authorName' + index}
+                                        name={ 'authorName' + item[0] }
                                         type="text"
                                         variant="outlined"
                                         size="small"
-                                        {...register('authorName' + index, { required: true })}
-                                        error={errors['authorName' + index]}
-                                        helperText={errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME}
+                                        { ...register('authorName' + item[0], { required: true }) }
+                                        error={ errors['authorName' + item[0]] }
+                                        helperText={ errors['authorName' + item[0]] && UPLOAD_FILE_AUTHOR_NAME }
                                         FormHelperTextProps={{
                                             className: classes.helperText
                                         }}
@@ -135,7 +135,7 @@ const FileForm = ({
                                         sx={{ marginTop: '0px' }}
                                         fullWidth
                                         margin="normal"
-                                        name={'authorName' + index}
+                                        name={ 'title' + index }
                                         type="text"
                                         variant="outlined"
                                         size="small"
@@ -149,13 +149,13 @@ const FileForm = ({
                                         sx={{ marginTop: '0px' }}
                                         fullWidth
                                         margin="normal"
-                                        name={'title' + index}
+                                        name={ 'title' + item[0] }
                                         type="text"
                                         variant="outlined"
                                         size="small"
-                                        {...register('title' + index, { required: true })}
-                                        helperText={errors['title' + index] && UPLOAD_FILE_AUTHOR_TITLE}
-                                        error={errors['title' + index]}
+                                        { ...register('title' + item[0], { required: true }) }
+                                        helperText={ errors['title' + item[0]] && UPLOAD_FILE_AUTHOR_TITLE }
+                                        error={ errors['title' + item[0]] }
                                         FormHelperTextProps={{
                                             className: classes.helperText
                                         }}
