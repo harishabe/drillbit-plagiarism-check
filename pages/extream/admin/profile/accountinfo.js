@@ -74,10 +74,10 @@ const AccountInfo = ({
         img.src = data?.target?.files[0] && window?.URL?.createObjectURL(data?.target?.files[0])
         img.onload = () => {
             if (img.width <= 250 && img.height <= 250) {
-                if (size > 2) {
+                if (size > 10) {
                     setError(true)
                     setMessage(`Sorry, this image doesn't look like the size we wanted. It's size is
-                ${size} MB, but we require less than 2 MB size image`);
+                ${size} MB, but we require less than 10 MB size image`);
 
                 } else {
                     setError(false)
@@ -103,7 +103,7 @@ const AccountInfo = ({
                         <MainHeading title='Account Information' />
                         <form>
                             <label htmlFor="contained-button-file">
-                                <Input accept="image/*" id="contained-button-file" onChange={ handleChange } type="file" />
+                                <Input accept=".png, .jpg, .jpeg" id="contained-button-file" onChange={ handleChange } type="file" />
                                 <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
                                     <>
                                         <UploadIcon />
@@ -113,9 +113,7 @@ const AccountInfo = ({
                                     </>
                                 </Button>
 
-                                <SubTitle2 title='Image resolutions : 250x250 (mm)' />
-                                <SubTitle2 title='Maximum size : 2 MB' />
-                                <SubTitle2 title='Supported formats : JPG,PNG' />
+                                <SubTitle2 title='Supported formats : JPG,PNG, Image resolutions : 250x250 (mm), Maximum size : 10 MB' />
                                 { error &&
                                     <SubTitle2 color='red' title={ message } />
                                 }
