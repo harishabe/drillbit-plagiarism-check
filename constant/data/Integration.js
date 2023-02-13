@@ -21,3 +21,15 @@ export const ADMIN_INTEGRATION_GOOGLECLASSROOM_IMG = "/img/lms/google-classroom.
 export const ADMIN_INTEGRATION_GOOGLECLASSROOM_DESCRIPTION = "Google classroom LTI Integration";
 export const ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH = "/extream/admin/integration/googleClassroom";
 export const PRO_ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH = "/pro/admin/integration/googleClassroom";
+
+export const ADMIN_INTEGRATION_BRIGHTSPACE = "BRIGHTSPACE";
+export const ADMIN_INTEGRATION_BRIGHTSPACE_IMG = "/img/lms/brightspace.svg";
+export const ADMIN_INTEGRATION_BRIGHTSPACE_DESCRIPTION = "Brightspace LTI Integration";
+export const ADMIN_INTEGRATION_BRIGHTSPACE_PATH = "/extream/admin/integration/brightspace";
+export const PRO_ADMIN_INTEGRATION_BRIGHTSPACE_PATH = "/pro/admin/integration/brightspace";
+
+export const ADMIN_INTEGRATION_MOODLE_LTI = "MOODLE_LTI";
+export const ADMIN_INTEGRATION_MOODLE_LTI_IMG = "/img/lms/moodleLti.svg";
+export const ADMIN_INTEGRATION_MOODLE_LTI_DESCRIPTION = "Moodle LTI Integration";
+export const ADMIN_INTEGRATION_MOODLE_LTI_PATH = "/extream/admin/integration/moodleLti";
+export const PRO_ADMIN_INTEGRATION_MOODLE_LTI_PATH = "/pro/admin/integration/moodleLti";
