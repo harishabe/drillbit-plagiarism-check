@@ -89,9 +89,19 @@ export function* onLoadCreateAccount(action) {
         yield put({
             type: types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_SUCCESS, payload: response?.data,
         });
-        yield put({
-            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.url, paginationPayload: SuperAdminPaginationValue,
-        });
+        if (action.url.split('/')[2] === EXTREME) {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: END_POINTS.RESELLER_EXTREME_LICENSES, paginationPayload: SuperAdminPaginationValue,
+            });
+        } else if (action.url.split('/')[2] === PRO) {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: END_POINTS.RESELLER_PRO_LICENSES, paginationPayload: SuperAdminPaginationValue,
+            });
+        } else {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.url, paginationPayload: SuperAdminPaginationValue,
+            });
+        }
         toastrValidation(response)
     } else {
         yield put({
@@ -147,11 +157,19 @@ export function* onLoadEditAccount(action) {
         yield put({
             type: types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_SUCCESS, payload: response?.data,
         });
-        yield put({
-            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START,
-            url: `/${action.url.split('/')[1]}`,
-            paginationPayload: SuperAdminPaginationValue,
-        });
+        if (action.url.split('/')[2] === EXTREME) {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: END_POINTS.RESELLER_EXTREME_LICENSES, paginationPayload: SuperAdminPaginationValue,
+            });
+        } else if (action.url.split('/')[2] === PRO) {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: END_POINTS.RESELLER_PRO_LICENSES, paginationPayload: SuperAdminPaginationValue,
+            });
+        } else {
+            yield put({
+                type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: `/${action.url.split('/')[1]}`, paginationPayload: SuperAdminPaginationValue,
+            });
+        }
         toastrValidation(response)
     } else {
         yield put({

@@ -1,0 +1,225 @@
+[
+    {
+        "field_type": "input",
+        "id": "institutionName",
+        "name": "institutionName",
+        "label": "Institution Name *",
+        "required": "Enter Institution Name",
+        "validationMsg": "Invalid Institution Name"
+    },
+    {
+        "field_type": "input",
+        "id": "state",
+        "name": "state",
+        "label": "State *",
+        "required": "State",
+        "validationMsg": "Invalid State"
+    },
+    {
+        "field_type": "input",
+        "id": "country",
+        "name": "country",
+        "label": "Country *",
+        "required": "Country",
+        "validationMsg": "Invalid Country"
+    },
+    {
+        "field_type": "input",
+        "id": "address",
+        "name": "address",
+        "label": "Address *",
+        "required": "Address",
+        "validationMsg": "Invalid Address"
+    },
+    {
+        "field_type": "input",
+        "id": "adminName",
+        "name": "adminName",
+        "label": "Admin Name *",
+        "required": "Admin Name",
+        "validationMsg": "Invalid Admin Name"
+    },
+    {
+        "field_type": "input",
+        "id": "adminEmail",
+        "name": "adminEmail",
+        "label": "Admin Email *",
+        "required": "Admin Email",
+        "validationMsg": "Invalid Admin Email"
+    },
+    {
+        "field_type": "input",
+        "id": "designation",
+        "name": "designation",
+        "label": "Designation *",
+        "required": "Designation",
+        "validationMsg": "Invalid Designation"
+    },
+    {
+        "field_type": "input",
+        "id": "phone",
+        "name": "phone",
+        "label": "Phone *",
+        "required": "Phone",
+        "validationMsg": "Invalid Phone"
+    },
+
+    {
+        "field_type": "datepicker",
+        "id": "startDate",
+        "name": "startDate",
+        "label": "Select Start Date *",
+        "minDate":true,
+        "required": "Select Start Date",
+        "validationMsg": "Select Start Date"
+    },
+
+    {
+        "field_type": "datepicker",
+        "id": "endDate",
+        "name": "endDate",
+        "label": "Select End Date *",
+        "minDate":true,
+        "required": "Select End Date",
+        "validationMsg": "Select End Date"
+    },
+
+    {
+        "field_type": "input",
+        "id": "instructors",
+        "name": "instructors",
+        "label": "Instructors *",
+        "required": "Instructors",
+        "validationMsg": "Invalid Instructors"
+    },
+
+    {
+        "field_type": "input",
+        "id": "students",
+        "name": "students",
+        "label": "Students *",
+        "required": "Students",
+        "validationMsg": "Invalid Students"
+    },
+
+    {
+        "field_type": "input",
+        "id": "submissions",
+        "name": "submissions",
+        "label": "Submissions *",
+        "required": "Submissions",
+        "validationMsg": "Invalid Submissions"
+    },
+
+    {
+        "field_type": "input",
+        "id": "documentlength",
+        "name": "documentlength",
+        "label": "Document length *",
+        "required": "Document length",
+        "validationMsg": "Invalid Document Length"
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "folpath",
+        "name": "folpath",
+        "label": "Folder path *",
+        "required": "Folder path",
+        "validationMsg": "Invalid Folder path",
+        "options": []
+    },
+
+    {
+        "field_type": "input",
+        "id": "department",
+        "name": "department",
+        "label": "Department"
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "updateExpiryDateToAll",
+        "name": "updateExpiryDateToAll",
+        "label": "Update expiry date to all *",
+        "required": "expiry date",
+        "validationMsg": "Invalid Expiry Date",
+        "options": [
+            {
+                "name": "YES"
+            },
+            {
+                "name": "NO"
+            }
+        ]
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "grammarAccess",
+        "name": "grammarAccess",
+        "label": "Grammar Access *",
+        "required": "Grammar Access",
+        "validationMsg": "Invalid Grammar Access",
+        "options": [
+            {
+                "name": "YES"
+            },
+            {
+                "name": "NO"
+            }
+        ]
+    },
+
+    {
+        "field_type": "input",
+        "id": "grammar",
+        "name": "grammar",
+        "label": "Grammar *",
+        "required": "Grammar",
+        "validationMsg": "Invalid Grammar"
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "institutionType",
+        "name": "institutionType",
+        "label": "Institution Type *", 
+        "required": "Institution Type",
+        "validationMsg": "Invalid Institution Type",
+        "options": []
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "licenseType",
+        "name": "licenseType",
+        "label": "License Type *",
+        "required": "License Type",
+        "validationMsg": "Invalid License Type",
+        "options": [
+            {
+                "name": "Demo"
+            },
+            {
+                "name": "License"
+            }
+        ]
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "timeZone",
+        "name": "timeZone",
+        "label": "Time Zone *",
+        "required": "Time Zone",
+        "validationMsg": "Invalid Time Zone",
+        "options": []
+    },
+
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Create Extreme Account"
+    }
+]
