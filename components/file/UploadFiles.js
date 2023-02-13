@@ -171,9 +171,7 @@ const UploadFiles = ({
       multiFileUpload(fileData, data);
     } else if (
       fileData.length === 1 &&
-      langType === "ScannedPDF" &&
-      !isRegionalFile &&
-      !isStudent
+      langType === "ScannedPDF"
     ) {
       scannedPdfFileUpload(fileData, data);
     }
@@ -416,7 +414,7 @@ const UploadFiles = ({
                     {UPLOAD_NON_ENGLISH_FILE_MULTIFILE}
                   </ErrorMessageContainer>
                 )}
-                { fileData?.length > 1 && !isRepository && langType === "ScannedPDF" && (
+                { fileData?.length > 1 && langType === "ScannedPDF" && (
                   <ErrorMessageContainer>
                     { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
                   </ErrorMessageContainer>

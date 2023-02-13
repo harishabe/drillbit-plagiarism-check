@@ -24,6 +24,8 @@ const Container = styled.div`
     color: white;
     flex-direction: column;
     justify-content: flex-end;
+    cursor: 'pointer';
+    background-image: ${props => (props.submissionCount > 0 ? 'url(\'/img/FolderOpenPng.png\')' : 'url(\'/img/Folder.svg\')')};
 `;
 
 const Center = styled.div`
@@ -48,17 +50,6 @@ const Folder = ({
     handleDelete,
 }) => {
 
-//     const Container = styled.div`
-//     position: relative;
-//     background-repeat: no-repeat;
-//     width: 100%;
-//     height: 200px;
-//     display: flex;
-//     color: white;
-//     flex-direction: column;
-//     justify-content: flex-end;
-//     background-image: ${item.no_of_submissions > 0 ? 'url(\'/img/FolderOpenPng.png\')' : 'url(\'/img/Folder.svg\')'};
-// `;
     const router = useRouter();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -71,11 +62,7 @@ const Folder = ({
     };
 
     return (
-        <Container submissionCount={ item.no_of_submissions }
-            style={ {
-                cursor: 'pointer',
-                backgroundImage: item.no_of_submissions > 0 ? 'url(\'/img/FolderOpenPng.png\')' : 'url(\'/img/Folder.svg\')'
-            } }>
+        <Container submissionCount={ item.no_of_submissions }>
             <Grid item xs={ 11.8 }>
                 { isAction &&
                     <>
