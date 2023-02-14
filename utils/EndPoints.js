@@ -96,6 +96,8 @@ const END_POINTS = {
     SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/analysis-gateway/api/download2/',
     INTEGRATION_DELETE_CANVAS: '/extreme/integrations/canvas',
     INTEGRATION_DELETE_BLACKBOARD: '/extreme/integrations/blackboard',
+    RESELLER_EXTREME_LICENSES: '/reseller/extreme',
+    RESELLER_PRO_LICENSES: '/reseller/pro',
     INTEGRATION_DELETE_BRIGHTSPACE: '/extreme/integrations/brightspace',
     INTEGRATION_DELETE_MOODLE_LTI: '/extreme/integrations/moodleLti',
 };

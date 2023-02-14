@@ -4,7 +4,8 @@ const Role = {
     'student': 'student',
     'super':'drillbit',
     'proAdmin':'lim-admin',
-    'proUser':'lim-instructor'
+    'proUser':'lim-instructor',
+    'supplier':'reseller'
 };
 
 export default Role;

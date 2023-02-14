@@ -148,9 +148,7 @@ export function* onLoadEditAccount(action) {
             type: types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_SUCCESS, payload: response?.data,
         });
         yield put({
-            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START,
-            url: `/${action.url.split('/')[1]}`,
-            paginationPayload: SuperAdminPaginationValue,
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.getUrl, paginationPayload: SuperAdminPaginationValue,
         });
         toastrValidation(response)
     } else {

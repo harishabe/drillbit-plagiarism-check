@@ -5,12 +5,12 @@ import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateAccount, EditAccount, DropdownList, FolderPathList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
-import FormJson from '../../../constant/form/extreme-account-form.json';
+import FormJson from '../../../constant/form/reseller-ref-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
-import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
 
-const ExtremeForm = ({
+const RefForm = ({
     CreateAccount,
     isLoadingCreate,
     isLoadingEdit,
@@ -75,7 +75,7 @@ const ExtremeForm = ({
                 'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            EditAccount(END_POINTS.SUPER_ADMIN_EXTREME + '/license/' + editData?.lid, END_POINTS.SUPER_ADMIN_EXTREME, requestData);
+            EditAccount(END_POINTS.RESELLER_PRO_LICENSES + '/license/' + editData?.lid, END_POINTS.RESELLER_PRO_LICENSES, requestData);
         } else {
             let DetailedData = {
                 ...data,
@@ -89,7 +89,7 @@ const ExtremeForm = ({
                 'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, requestData);
+            CreateAccount(END_POINTS.RESELLER_PRO_LICENSES, requestData);
         }
     };
 
@@ -123,7 +123,7 @@ const ExtremeForm = ({
                 'adminEmail': editData.email,
                 'designation': editData.designation,
                 'phone': editData.phone,
-                'startDate': convertDate(editData.created_date),
+                'startDate': convertDate(editData.start_date),
                 'endDate': convertDate(editData.expiry_date),
                 'instructors': editData.instructors,
                 'students': editData.students,
@@ -161,30 +161,30 @@ const ExtremeForm = ({
                 'timeZone',
             ];
             fields.forEach(field => { setValue(field, a[field]); });
-            modifyFormField('Edit Extreme Account', true);
+            modifyFormField('Edit Pro Account', true);
             setEditOperation(true);
         } else {
-            modifyFormField('Create Extreme Account', false);
+            modifyFormField('Create Pro Account', false);
         }
     }, [editData]);
 
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    {formJsonField?.map((field, i) => (
-                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
+                    { formJsonField?.map((field, i) => (
+                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
-                                key={i}
-                                field={field}
-                                control={control}
-                                isLoading={isLoadingCreate || isLoadingEdit}
+                                key={ i }
+                                field={ field }
+                                control={ control }
+                                isLoading={ isLoadingCreate || isLoadingEdit }
                             />
                         </Grid>
-                    ))}
+                    )) }
                 </Grid>
             </form>
         </>
@@ -207,4 +207,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExtremeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(RefForm);

@@ -23,6 +23,7 @@ import {
     SidebarSuperAdmin,
     SidebarProAdmin,
     SidebarProUser,
+    SidebarSupplier,
 } from '../constant/data';
 
 const drawerWidth = 200;
@@ -187,6 +188,8 @@ const SideBar = ({ open }) => {
             setSidebarItem(SidebarProUser);
         } else if (role === 'lim-instructor' && router.pathname.split('/')[1] === 'pro' && router.pathname.split('/')[2] === 'user') {
             setSidebarItem(SidebarProUser);
+        } else if (role === 'reseller') {
+            setSidebarItem(SidebarSupplier);
         }
     }, []);
 
