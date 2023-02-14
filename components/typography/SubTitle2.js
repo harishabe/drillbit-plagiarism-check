@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 const SubTitle2 = ({
     title,
+    color,
     ml
 }) => {
     return (
-        <Typography variant="body2" style={{ marginLeft: ml }} component="div" gutterBottom>
+        <Typography variant="body2" color={ color } style={ { marginLeft: ml } } component="div" gutterBottom>
             {title}
         </Typography>
     );

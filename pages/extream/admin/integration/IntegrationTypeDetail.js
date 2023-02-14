@@ -46,6 +46,8 @@ const IntegrationTypeDetail = ({
     isMoodleTrue,
     isCanvasTrue,
     isBlackboardTrue,
+    isBrightspaceTrue,
+    isMoodleLtiTrue,
     integrationData,
     routerData,
     handleConfig
@@ -55,6 +57,22 @@ const IntegrationTypeDetail = ({
     const [rows, setRows] = useState([]);
     const [technical, setTechnical] = useState([]);
 
+    const body =
+        <>
+            <Button onClick={ handleConfig } className={ classes.margin } variant="contained">
+                <ConfigIcon /> <span className={ classes.ml10 }>Change Configuration</span>
+            </Button>
+            <Divider className={ classes.mt10 } />
+            <div className={ classes.margin }></div>
+
+            <CommonTable
+                isCheckbox={ false }
+                tableHeader={ columns }
+                tableData={ rows }
+                charLength={ 50 }
+                path=''
+            />
+        </>
 
     useEffect(() => {
         if (routerData?.integration === 'Moodle') {
@@ -106,83 +124,97 @@ const IntegrationTypeDetail = ({
                 ];
                 setRows([...row]);
             }
+        } else if (routerData?.integration === 'Brightspace') {
+            if (integrationData?.creation_time !== undefined) {
+                let blackBoardDate = integrationData?.creation_time;
+                let row = [
+                    createData('Access end point', integrationData?.access_end_point),
+                    createData('Authentication end point', integrationData?.auth_end_point),
+                    createData('Configured Date', blackBoardDate),
+                    createData('Client id', integrationData?.client_id),
+                    createData('College Name', integrationData?.college_name),
+                    createData('Keyset end point', integrationData?.keyset_end_point),
+                    createData('Email Address', integrationData?.mail_id),
+                    createData('Method', integrationData?.method),
+                    createData('Platform url', integrationData?.platform_url),
+                ];
+                setRows([...row]);
+            }
+        } else if (routerData?.integration === 'Moodle LTI') {
+            if (integrationData?.creation_time !== undefined) {
+                let blackBoardDate = integrationData?.creation_time;
+                let row = [
+                    createData('Access end point', integrationData?.access_end_point),
+                    createData('Authentication end point', integrationData?.auth_end_point),
+                    createData('Configured Date', blackBoardDate),
+                    createData('Client id', integrationData?.client_id),
+                    createData('College Name', integrationData?.college_name),
+                    createData('Keyset end point', integrationData?.keyset_end_point),
+                    createData('Email Address', integrationData?.mail_id),
+                    createData('Method', integrationData?.method),
+                    createData('Platform url', integrationData?.platform_url),
+                ];
+                setRows([...row]);
+            }
         }
     }, [integrationData]);
     return (
         <>
-            {isMoodleTrue &&
+            { isMoodleTrue &&
                 <>
-                    <MainHeading title={'Moodle Plugin Setup'} />
+                <MainHeading title={ 'Moodle Plugin Setup' } />
                     <CardView>
-                        <SubHeading title={'Moodle Plug-in – Configured'} />
-                        <Button onClick={handleConfig} className={classes.margin} variant="contained">
-                            <ConfigIcon /> <span className={classes.ml10}>Change Configuration</span>
-                        </Button>
-
-                        <Divider className={classes.mt10} />
-                        <div className={classes.margin}></div>
-
-                        <CommonTable
-                            isCheckbox={false}
-                            tableHeader={columns}
-                            tableData={rows}
-                            charLength={50}
-                            path=''
-                        />
+                    <SubHeading title={ 'Moodle Plug-in – Configured' } />
+                    { body }
                     </CardView>
 
-                    <div className={classes.margin}></div>
+                <div className={ classes.margin }></div>
                     <CardView>
-                        <div className={classes.margin}></div>
+                    <div className={ classes.margin }></div>
                         <SubTitle title="Technical Contact Details :" />
                         <CommonTable
-                            isCheckbox={false}
-                            tableHeader={columns}
-                            tableData={technical}
-                            charLength={50}
+                        isCheckbox={ false }
+                        tableHeader={ columns }
+                        tableData={ technical }
+                        charLength={ 50 }
                             path=''
                         />
                     </CardView>
                 </>
             }
-            {isCanvasTrue &&
+            { isCanvasTrue &&
                 <>
-                    <MainHeading title={'Canvas LTI Setup'} />
+                <MainHeading title={ 'Canvas LTI Setup' } />
                     <CardView>
-                        <SubHeading title={'Canvas LTI – Configured'} />
-                        <Button onClick={handleConfig} className={classes.margin} variant="contained">
-                            <ConfigIcon /> <span className={classes.ml10}>Change Configuration</span>
-                        </Button>
-                        <Divider className={classes.mt10} />
-                        <div className={classes.margin}></div>
-
-                        <CommonTable
-                            isCheckbox={false}
-                            tableHeader={columns}
-                            tableData={rows}
-                            charLength={50}
-                            path=''
-                        />
+                    <SubHeading title={ 'Canvas LTI – Configured' } />
+                    { body }
                     </CardView>
                 </>
             }
-            {isBlackboardTrue &&
+            { isBlackboardTrue &&
                 <>
-                    <MainHeading title={'Blackboard LTI Setup'} />
+                <MainHeading title={ 'Blackboard LTI Setup' } />
                     <CardView>
-                        <SubHeading title={'Blackboard LTI – Configured'} />
-                        <Button onClick={handleConfig} className={classes.margin} variant="contained">
-                            <ConfigIcon /> <span className={classes.ml10}>Change Configuration</span>
-                        </Button>
-                        <Divider className={classes.mt10} />
-                        <div className={classes.margin}></div>
-                        <CommonTable
-                            isCheckbox={false}
-                            tableHeader={columns}
-                            tableData={rows}
-                            charLength={50}
-                            path=''
-                        />
+                    <SubHeading title={ 'Blackboard LTI – Configured' } />
+                    { body }
+                    </CardView>
+                </>
+            }
+            { isBrightspaceTrue &&
+                <>
+                    <MainHeading title={ 'BrightSpace LTI Setup' } />
+                    <CardView>
+                        <SubHeading title={ 'BrightSpace LTI – Configured' } />
+                    { body }
+                    </CardView>
+                </>
+            }
+            { isMoodleLtiTrue &&
+                <>
+                    <MainHeading title={ 'Moodle LTI Setup' } />
+                    <CardView>
+                        <SubHeading title={ 'Moodle LTI – Configured' } />
+                    { body }
                     </CardView>
                 </>
             }

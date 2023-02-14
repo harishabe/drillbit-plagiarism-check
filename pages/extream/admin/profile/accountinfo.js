@@ -42,6 +42,8 @@ const AccountInfo = ({
 }) => {
 
     const [rows, setRows] = useState([]);
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation');
@@ -67,22 +69,42 @@ const AccountInfo = ({
     }, [accountInfo]);
 
     const handleChange = (data) => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('file', data.target.files[0]);
-        ProfileLogo(BASE_URL_EXTREM + END_POINTS.ADMIN_PROFILE_UPLOAD_LOGO, bodyFormData);
+        let img = new Image()
+        let size = (data?.target?.files[0]?.size / 1024 / 1024).toFixed(2)
+        img.src = data?.target?.files[0] && window?.URL?.createObjectURL(data?.target?.files[0])
+        img.onload = () => {
+            if (img.width <= 250 && img.height <= 250) {
+                if (size > 2) {
+                    setError(true)
+                    setMessage(`Sorry, this image doesn't look like the size we wanted. It's size is
+                ${size} MB, but we require less than 2 MB size image`);
+
+                } else {
+                    setError(false)
+                    let bodyFormData = new FormData();
+                    bodyFormData.append('file', data.target.files[0]);
+                    ProfileLogo(BASE_URL_EXTREM + END_POINTS.ADMIN_PROFILE_UPLOAD_LOGO, bodyFormData);
+                }
+            } else {
+                setError(true)
+                setMessage(`Sorry, this image doesn't look like the size we wanted. It's 
+                ${img.width} x ${img.height} but we require 250 x 250 size image`);
+            }
+
+        }
     };
 
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10}>
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 }>
                         <MainHeading title='Account Information' />
                         <form>
                             <label htmlFor="contained-button-file">
-                                <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
-                                <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
+                                <Input accept="image/*" id="contained-button-file" onChange={ handleChange } type="file" />
+                                <Button variant="contained" component="span" style={ { marginBottom: '10px' } }>
                                     <>
                                         <UploadIcon />
                                         <UploadButtonAlign>
@@ -91,14 +113,19 @@ const AccountInfo = ({
                                     </>
                                 </Button>
 
+                                <SubTitle2 title='Image resolutions : 250x250 (mm)' />
+                                <SubTitle2 title='Maximum size : 2 MB' />
                                 <SubTitle2 title='Supported formats : JPG,PNG' />
+                                { error &&
+                                    <SubTitle2 color='red' title={ message } />
+                                }
                             </label>
                         </form>
                     </Grid>
-                    <Grid item md={2} style={{ textAlign: 'right' }}>
-                        {accountInfo &&
+                    <Grid item md={ 2 } style={ { textAlign: 'right' } }>
+                        { accountInfo &&
                             <>
-                                <ImgLogo src={`data:image/png;base64,${accountInfo.logo}`} />
+                            <ImgLogo src={ `data:image/png;base64,${accountInfo.logo}` } />
                             </>
                         }
                     </Grid>
@@ -107,7 +134,7 @@ const AccountInfo = ({
 
 
             <CardView>
-                {isLoading ? (
+                { isLoading ? (
                     <>
                         <Skeleton />
                         <Skeleton />
@@ -115,13 +142,13 @@ const AccountInfo = ({
                     </>
                 ) : (
                     <CommonTable
-                        isCheckbox={false}
-                        tableHeader={columns}
-                        tableData={rows}
-                        charLength={50}
+                            isCheckbox={ false }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                            charLength={ 50 }
                         path=''
                     />
-                )}
+                ) }
 
             </CardView>
         </React.Fragment >

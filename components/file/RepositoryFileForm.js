@@ -71,13 +71,13 @@ const RepositoryFileForm = ({
                                     sx={ { marginTop: '0px' } }
                                     fullWidth
                                     margin="normal"
-                                    name={ 'authorName' + index }
+                                    name={ 'authorName' + item[0] }
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    error={ errors['authorName' + index] }
-                                    { ...register('authorName' + index, { required: true }) }
-                                    helperText={ errors['authorName' + index] && UPLOAD_FILE_AUTHOR_NAME }
+                                    error={ errors['authorName' + item[0]] }
+                                    { ...register('authorName' + item[0], { required: true }) }
+                                    helperText={ errors['authorName' + item[0]] && UPLOAD_FILE_AUTHOR_NAME }
                                     FormHelperTextProps={ {
                                         className: classes.helperText
                                     } }
@@ -93,13 +93,13 @@ const RepositoryFileForm = ({
                                     sx={ { marginTop: '0px' } }
                                     fullWidth
                                     margin="normal"
-                                    name={ 'title' + index }
+                                    name={ 'title' + item[0] }
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    error={ errors['title' + index] }
-                                    { ...register('title' + index, { required: true }) }
-                                    helperText={ errors['title' + index] && UPLOAD_FILE_PAPER_TITLE }
+                                    error={ errors['title' + item[0]] }
+                                    { ...register('title' + item[0], { required: true }) }
+                                    helperText={ errors['title' + item[0]] && UPLOAD_FILE_PAPER_TITLE }
                                     FormHelperTextProps={ {
                                         className: classes.helperText
                                     } }
@@ -115,16 +115,16 @@ const RepositoryFileForm = ({
                                     sx={ { marginTop: '0px' } }
                                     fullWidth
                                     margin="normal"
-                                    name={ 'year' + index }
+                                    name={ 'year' + item[0] }
                                     type="number"
                                     variant="outlined"
                                     size="small"
-                                    error={ errors['year' + index] }
-                                    { ...register('year' + index, {
+                                    error={ errors['year' + item[0]] }
+                                    { ...register('year' + item[0], {
                                         required: true, min: 2000,
                                         max: d.getFullYear()
                                     }) }
-                                    helperText={ errors['year' + index] && UPLOAD_FILE_YEAR }
+                                    helperText={ errors['year' + item[0]] && UPLOAD_FILE_YEAR }
                                     FormHelperTextProps={ {
                                         className: classes.helperText
                                     } }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { useRouter } from "next/router";
@@ -80,6 +80,7 @@ const UploadFiles = ({
   const [nonEnglishLanguage, setNonEnglishLanguage] = useState("");
   const [nonEnglishLangValue, setNonEnglishLangValue] = useState("");
   const [regionalLang, setRegionalLang] = useState("");
+  const ref = createRef();
 
   useEffect(() => {
     if (router.isReady) {
@@ -97,6 +98,7 @@ const UploadFiles = ({
   const { grammarCheck, plagiarismCheck } = grammarPlagiarismCheck;
 
   const handleDelete = (e, item) => {
+    ref.current.value = '';
     e.preventDefault();
     let a = fileData.filter((filterItem) => {
       if (filterItem[1].name !== item[1].name) {
@@ -250,9 +252,9 @@ const UploadFiles = ({
       documentTypeArr = [];
     let bodyFormData = new FormData();
     fileData?.map((item, i) => {
-      authorNameArr.push(data["authorName" + i]);
-      titleArr.push(data["title" + i]);
-      documentTypeArr.push(data["documentType" + i]);
+      authorNameArr.push(data["authorName" + item[0]]);
+      titleArr.push(data["title" + item[0]]);
+      documentTypeArr.push(data["documentType" + item[0]]);
     });
 
     bodyFormData.append("authorName", authorNameArr);
@@ -272,16 +274,16 @@ const UploadFiles = ({
       languageArr = [];
     let bodyFormData = new FormData();
     fileData?.map((item, i) => {
-      authorNameArr.push(data["authorName" + i]);
-      titleArr.push(data["title" + i]);
-      yearArr.push(data["year" + i]);
-      if (data["repository" + i] === "Institution") {
+      authorNameArr.push(data["authorName" + item[0]]);
+      titleArr.push(data["title" + item[0]]);
+      yearArr.push(data["year" + item[0]]);
+      if (data["repository" + item[0]] === "Institution") {
         let local = "LOCAL";
         repositoryArr.push(local);
       } else {
-        repositoryArr.push(data["repository" + i].toUpperCase());
+        repositoryArr.push(data["repository" + item[0]].toUpperCase());
       }
-      languageArr.push(data["language" + i]);
+      languageArr.push(data["language" + item[0]]);
     });
 
     bodyFormData.append("name", authorNameArr);
@@ -315,24 +317,22 @@ const UploadFiles = ({
   };
 
   useEffect(() => {
-    if (uploadData) {
-      UploadZipFileDataClear();
+    if (uploadData?.status === 200) {
       setTimeout(() => {
         router.push(routerObj);
+        UploadZipFileDataClear();
       }, 1000);
-      //router.push(routerObj);
     }
-  }, [uploadData && uploadData !== ""]);
+  }, [uploadData && uploadData?.status]);
 
   useEffect(() => {
-    if (uploadFileNonEng) {
-      UploadNonEnglishDataClear();
+    if (uploadFileNonEng?.status === 200) {
       setTimeout(() => {
         router.push(routerObj);
+        UploadNonEnglishDataClear();
       }, 1000);
-      //router.push(routerObj);
     }
-  }, [uploadFileNonEng && uploadFileNonEng !== ""]);
+  }, [uploadFileNonEng && uploadFileNonEng?.status]);
 
   const handleGrammarPlagiarismChange = (event) => {
     setGrammarPlagiarismCheck({
@@ -385,6 +385,7 @@ const UploadFiles = ({
                     id="file-upload"
                     type="file"
                     accept={ langType === 'ScannedPDF' && '.pdf' }
+                    ref={ ref }
                   />
                 </div>
                 <InvalidFileFormatError>
