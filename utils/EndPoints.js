@@ -76,6 +76,8 @@ const END_POINTS = {
     ADMIN_MOODLE_INTEGRATION: '/extreme/integrations/moodle',
     ADMIN_CANVAS_INTEGRATION: '/extreme/integrations/canvas',
     ADMIN_BLACKBOARD_INTEGRATION: '/extreme/integrations/blackboard',
+    ADMIN_BRIGHTSPACE_INTEGRATION: '/extreme/integrations/brightspace',
+    ADMIN_MOODLE_LTI_INTEGRATION: '/extreme/integrations/moodleLti',
     SUPER_ADMIN_DASHBOARD_WIDGET: '/drillbit/dashboard',
     SUPER_ADMIN_EXTREME: '/extreme',
     SUPER_ADMIN_REF: '/pro',
@@ -96,6 +98,8 @@ const END_POINTS = {
     INTEGRATION_DELETE_BLACKBOARD: '/extreme/integrations/blackboard',
     RESELLER_EXTREME_LICENSES: '/reseller/extreme',
     RESELLER_PRO_LICENSES: '/reseller/pro',
+    INTEGRATION_DELETE_BRIGHTSPACE: '/extreme/integrations/brightspace',
+    INTEGRATION_DELETE_MOODLE_LTI: '/extreme/integrations/moodleLti',
 };
 
 export default END_POINTS;

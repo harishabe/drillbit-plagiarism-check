@@ -32,6 +32,8 @@ const END_POINTS_PRO = {
     ADMIN_MOODLE_INTEGRATION: '/integrations/moodle',
     ADMIN_CANVAS_INTEGRATION: '/integrations/canvas',
     ADMIN_BLACKBOARD_INTEGRATION: '/integrations/blackboard',
+    ADMIN_BRIGHTSPACE_INTEGRATION: '/integrations/brightspace',
+    ADMIN_MOODLE_LTI_INTEGRATION: '/integrations/moodleLti',
     USERS_DASHBOARD_WIDGET: '/user/dashboard',
     USER_DASHBOARD_DOCUMENT_CHART: '/user/documentTypeChart',
     USER_PROFILE_DATA: '/user/accountInformation',
@@ -48,6 +50,8 @@ const END_POINTS_PRO = {
     SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/analysis-gateway/api/download2/',
     INTEGRATION_DELETE_CANVAS: '/integrations/canvas',
     INTEGRATION_DELETE_BLACKBOARD: '/integrations/blackboard',
+    INTEGRATION_DELETE_BRIGHTSPACE: '/integrations/brightspace',
+    INTEGRATION_DELETE_MOODLE_LTI: '/integrations/moodleLti',
     SUPER_ADMIN_USER: '/pro/license/',
     PROFILE_CHANGE_PASSWORD: '/account/password',
 }

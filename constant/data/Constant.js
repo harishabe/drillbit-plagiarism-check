@@ -145,7 +145,8 @@ export const UPLOAD_TITLE_CONSTANT = {
 }
 
 export const UPLOAD_SUPPORTED_FILES = {
-    'SINGLE': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx',
+    'SINGLE': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt, pptx, ppt',
+    'SCANNED_PDF': 'File formats: pdf',
     'REGIONAL_FORMAT': 'File formats: pdf, doc, docx, txt, rtf, dot, dotx, html, odt',
     'ZIP': 'Supported Compressed file format: zip',
     'NON_ZIP': 'Non-Supported Compressed file format : rar,tar,7z',
@@ -179,6 +180,8 @@ export const INTEGRATION_TYPES = {
     MOODLE : 'Moodle',
     CANVAS : 'Canvas',
     BLACKBOARD : 'Blackboard',
+    BRIGHTSPACE: 'Brightspace',
+    MOODLE_LTI: 'Moodle LTI',
 }
 
 export const ERROR_MESSAGE_RESPONSE = {

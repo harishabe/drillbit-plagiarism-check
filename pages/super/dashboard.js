@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SuperAdmin from './../../layouts/SuperAdmin';
-import { useForm } from 'react-hook-form';
-import { Box, Grid, Skeleton, IconButton, Tooltip } from '@mui/material';
-import styled from 'styled-components';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import { Skeleton } from '@mui/material';
 import { connect } from 'react-redux';
 import {
     WidgetCard,
@@ -10,18 +10,14 @@ import {
     ColumnChart,
     ErrorBlock,
     Heading,
-    PieChartVariant,
-    DialogModal,
-    FormComponent
+    PieChart
 } from './../../components';
 import {
     NoOfClassIcon,
     NoOfAssignmntIcon,
     NoOfSubmission,
 } from '../../assets/icon';
-import FeedIcon from '@mui/icons-material/Feed';
 import { GetWidgetCount } from '../../redux/action/super/SuperAdminAction';
-import { SubmissionReprocess } from '../../redux/action/common/Submission/SubmissionAction';
 import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
@@ -29,32 +25,30 @@ import {
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
     COLUMN_ADMIN_XAXIS_DATA
 } from './../../constant/data/ChartData';
-import {
-    DOCUMENT_PROCESSED_NOT_FOUND,
-} from './../../constant/data/ErrorMessage';
-import FormJson from '../../constant/form/super-admin-reprocess-form.json';
+import { DOCUMENT_PROCESSED_NOT_FOUND } from '../../constant/data/ErrorMessage'
 
-const ReprocessButton = styled.div`
-    position:fixed;
-    top: 12px;
-    right:230px;
-    z-index:999;
-`;
+const chart = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users'];
+const submission = ['Year wise submissions', 'Month wise submissions'];
 
 const Dashboard = ({
     GetWidgetCount,
-    SubmissionReprocess,
     superDashboardData,
-    isLoading,
-    isLoadingReprocess
+    isLoading
 }) => {
-    const { handleSubmit, control } = useForm({
-        mode: 'all',
-    });
 
     const [year, setYear] = useState([])
     const [submissions, setSubmissions] = useState([])
-    const [reprocess, setReprocess] = useState(false);
+    const [monthWiseYearlyList, setMonthWiseYearlyList] = useState([])
+    const [submissionData, setSubmissionData] = useState(submission[0])
+    const [value, setValue] = useState(chart[0]);
+    const [chartData, setChartData] = useState({});
+    const [submissionChartData, setSubmissionChartData] = useState({});
+    const [submissionChartYear, setSubmissionChartYear] = useState({
+        'year': 2020,
+        'index': 0
+    });
+    const [chartLoading, setChartLoading] = useState(false);
+    const [submissionChartLoading, setSubmissionChartLoading] = useState(false);
 
     useEffect(() => {
         GetWidgetCount();
@@ -88,38 +82,105 @@ const Dashboard = ({
     })
 
     useEffect(() => {
+        if (superDashboardData) {
+            setChartLoading(true)
+            if (value === 'Country wise institutions') {
+                setChartData({
+                    'label': COUNTRY_WISE_INSTITUTES,
+                    'series': Object.values(superDashboardData?.countryWiseInstituttes)
+                })
+            } else if (value === 'Country wise submissions') {
+                setChartData({
+                    'label': COUNTRY_WISE_SUBMISSIONS,
+                    'series': Object.values(superDashboardData?.countryWiseSubmissions)
+                })
+            } else if (value === 'Country wise users') {
+                setChartData({
+                    'label': COUNTRY_WISE_USERS,
+                    'series': Object.values(superDashboardData?.countryWiseUsers)
+                })
+            } else if (value === 'State wise institutions') {
+                setChartData({
+                    'label': STATE_WISE_INSTITUTES,
+                    'series': Object.values(superDashboardData?.stateWiseInstituttes)
+                })
+            } else if (value === 'State wise submissions') {
+                setChartData({
+                    'label': STATE_WISE_SUBMISSIONS,
+                    'series': Object.values(superDashboardData?.stateWiseSubmissions)
+                })
+            } else if (value === 'State wise users') {
+                setChartData({
+                    'label': STATE_WISE_USERS,
+                    'series': Object.values(superDashboardData?.stateWiseUsers)
+                })
+            }
+        }
+        setTimeout(() => {
+            setChartLoading(false)
+        }, []);
+    }, [superDashboardData, value]);
+
+    useEffect(() => {
+        if (superDashboardData) {
+            setSubmissionChartLoading(true)
+            if (submissionData === 'Year wise submissions') {
+                setSubmissionChartData({
+                    'xaxisData': year,
+                    'data': submissions,
+                    'columnWidth': '10%'
+                })
+            } else if (submissionData === 'Month wise submissions') {
+                setSubmissionChartData({
+                    'xaxisData': COLUMN_ADMIN_XAXIS_DATA,
+                    'data': [
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.january,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.february,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.march,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.april,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.may,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.june,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.july,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.august,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.september,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.october,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.november,
+                        superDashboardData?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.december,
+                    ],
+                    'columnWidth': '30%'
+                })
+            }
+        }
+        setTimeout(() => {
+            setSubmissionChartLoading(false)
+        }, []);
+    }, [superDashboardData, year, submissions, submissionData, submissionChartYear]);
+
+    useEffect(() => {
         let yearList = superDashboardData?.yearWiseSubmissionStats?.map((item) => {
             return item.year;
         });
         let submission = superDashboardData?.yearWiseSubmissionStats?.map((item) => {
             return item.submissions;
         });
+        let monthYearList = superDashboardData?.monthWiseSubmissionStats?.map((item, index) => {
+            return { 'year': item?.year, index };
+        });
         setYear(yearList);
         setSubmissions(submission);
+        setMonthWiseYearlyList(monthYearList);
     }, [superDashboardData]);
 
-    const handleShow = () => {
-        setReprocess(true);
+    const handleChange = (val) => {
+        monthWiseYearlyList?.map((item) => {
+            if (val == item?.year) {
+                setSubmissionChartYear(item)
+            }
+        });
     }
-
-    const closeSearchDialog = () => {
-        setReprocess(false);
-    };
-
-    const onSearch = (data) => {
-        SubmissionReprocess(data?.paperId);
-    };
 
     return (
         <React.Fragment>
-            <ReprocessButton>
-                <Tooltip title="Reprocess paper" arrow>
-                    <IconButton
-                        onClick={ handleShow }>
-                        <FeedIcon />
-                    </IconButton>
-                </Tooltip>
-            </ReprocessButton>
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 } >
                     <Grid item md={ 4 } xs={ 12 }>
@@ -149,204 +210,105 @@ const Dashboard = ({
                 </Grid>
             </Box>
             <Box sx={ { mt: 1, flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 7 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='Country wise institutions' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ COUNTRY_WISE_INSTITUTES }
-                                        series={ Object.values(superDashboardData?.countryWiseInstituttes) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                    <Grid item md={ 5 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='Country wise submissions' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ COUNTRY_WISE_SUBMISSIONS }
-                                        series={ Object.values(superDashboardData?.countryWiseSubmissions) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-
-                </Grid>
-            </Box>
-            <Box sx={ { mt: 1, flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 5 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='Country wise users' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ COUNTRY_WISE_USERS }
-                                        series={ Object.values(superDashboardData?.countryWiseUsers) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                    <Grid item md={ 7 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='State wise institutions' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ STATE_WISE_INSTITUTES }
-                                        series={ Object.values(superDashboardData?.stateWiseInstituttes) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                </Grid>
-            </Box>
-            <Box sx={ { mt: 1, flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 7 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='State wise submisssions' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ STATE_WISE_SUBMISSIONS }
-                                        series={ Object.values(superDashboardData?.stateWiseSubmissions) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                    <Grid item md={ 5 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='State wise users' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData ?
-                                    <PieChartVariant
-                                        height={ 250 }
-                                        label={ STATE_WISE_USERS }
-                                        series={ Object.values(superDashboardData?.stateWiseUsers) }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                </Grid>
-            </Box>
-            <Box sx={ { mt: 1, flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 5 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='Year wise submission stats' />
-                            { isLoading ? <Skeleton /> :
-                                submissions?.length > 0 ?
-                                    <ColumnChart
-                                        type={ COLUMN_ADMIN_CHART_TYPE }
-                                        color={ COLUMN_ADMIN_CHART_COLOR }
-                                        xaxisData={ year }
-                                        columnWidth={ '20%' }
-                                        height={ 355 }
-                                        seriesData={ [
-                                            {
-                                                name: 'No. of submissions',
-                                                data: submissions
-                                            }
-                                        ] }
-                                        gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                        borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                    <Grid item md={ 7 } xs={ 12 }>
-                        <CardView>
-                            <Heading title='Month wise submission stats' />
-                            { isLoading ? <Skeleton /> :
-                                superDashboardData?.monthWiseSubmissionStats ?
-                                    <ColumnChart
-                                        type={ COLUMN_ADMIN_CHART_TYPE }
-                                        color={ COLUMN_ADMIN_CHART_COLOR }
-                                        xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
-                                        columnWidth={ '40%' }
-                                        height={ 355 }
-                                        seriesData={ [
-                                            {
-                                                name: 'No. of submissions',
-                                                data: [
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.january,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.february,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.march,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.april,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.may,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.june,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.july,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.august,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.september,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.october,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.november,
-                                                    superDashboardData?.monthWiseSubmissionStats?.[0]?.december,
-                                                ]
-                                            }
-                                        ] }
-                                        gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                        borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
-                                    />
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
-                            }
-                        </CardView>
-                    </Grid>
-                </Grid>
-            </Box>
-            { reprocess &&
-                <DialogModal
-                    headingTitle={ 'Reprocess file' }
-                    isOpen={ true }
-                    fullWidth="sm"
-                    maxWidth="sm"
-                    handleClose={ closeSearchDialog }
-                >
-                    <form onSubmit={ handleSubmit(onSearch) }>
-                        <Grid container>
-                            { FormJson?.map((field, i) => (
-                                <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
-                                    <FormComponent
-                                        key={ i }
-                                        field={ field }
-                                        control={ control }
-                                        isLoading={ isLoadingReprocess }
-                                    />
+                <CardView>
+                    <Grid container spacing={ 1 }>
+                        <Grid item md={ 11.8 } xs={ 12 }>
+                            <Grid container>
+                                <Grid item md={ 10 } xs={ 12 }>
+                                    <Heading title={ value } />
                                 </Grid>
-                            )) }
+                                <Grid item md={ 2 } xs={ 12 }>
+                                    <select onChange={ (e) => { setValue(e.target.value) } }>
+                                        { chart?.map((item, index) => (
+                                            <option key={ index }>{ item }</option>
+                                        )) }
+                                    </select>
+                                </Grid>
+                            </Grid>
+                            { (isLoading || chartLoading) ?
+                                <><Skeleton
+                                    variant="circular"
+                                    style={ { margin: "auto" } }
+                                    height={ 250 }
+                                    width={ 250 }
+                                />
+                                    <Skeleton style={ { marginTop: "30px" } } /></> :
+                                superDashboardData && chartData?.label?.length > 0 ?
+                                    <PieChart
+                                        type="pie"
+                                        filename={ value }
+                                        pieChartPadding="0px 2px"
+                                        height={ 370 }
+                                        label={ chartData?.label }
+                                        series={ chartData?.series }
+                                    />
+                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                            }
                         </Grid>
-                    </form>
-                </DialogModal>
-            }
+                    </Grid>
+                </CardView>
+            </Box>
+
+            <Box sx={ { mt: 1, flexGrow: 1 } }>
+                <CardView>
+                    <Grid container spacing={ 1 }>
+                        <Grid item md={ 11.8 } xs={ 12 }>
+                            <Grid container>
+                                <Grid item md={ submissionData === submission[0] ? 10 : 9.3 } xs={ 12 }>
+                                    <Heading title={ submissionData } />
+                                </Grid>
+                                <Grid item md={ 2 } xs={ 12 }>
+                                    <select onChange={ (e) => { setSubmissionData(e.target.value) } }>
+                                        { submission?.map((item, index) => (
+                                            <option key={ index }>{ item }</option>
+                                        )) }
+                                    </select>
+                                </Grid>
+                                { submissionData === submission[1] &&
+                                    <Grid item md={ 0.7 } xs={ 12 }>
+                                        <select value={ submissionChartYear?.year } onChange={ (e) => { handleChange(e.target.value) } }>
+                                            { monthWiseYearlyList?.map((item, index) => (
+                                                <option key={ index }>{ item?.year }</option>
+                                            )) }
+                                        </select>
+                                    </Grid>
+                                }
+                            </Grid>
+                            { (isLoading || submissionChartLoading) ? <Skeleton /> :
+                                superDashboardData && submissionChartData?.xaxisData?.length > 0 ?
+                                    <ColumnChart
+                                        filename={ submissionData }
+                                        type={ COLUMN_ADMIN_CHART_TYPE }
+                                        color={ COLUMN_ADMIN_CHART_COLOR }
+                                        xaxisData={ submissionChartData?.xaxisData }
+                                        columnWidth={ submissionChartData?.columnWidth }
+                                        height={ 355 }
+                                        seriesData={ [
+                                            {
+                                                name: 'No. of submissions',
+                                                data: submissionChartData?.data
+                                            }
+                                        ] }
+                                        gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                                        borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                    />
+                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                            }
+                        </Grid>
+                    </Grid>
+                </CardView>
+            </Box>
         </React.Fragment>
     );
 };
 const mapStateToProps = (state) => ({
     superDashboardData: state?.superAdmin?.data,
     isLoading: state?.superAdmin?.isLoading,
-    isLoadingReprocess: state?.submission?.isLoadingReprocess
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetWidgetCount: () => dispatch(GetWidgetCount()),
-        SubmissionReprocess: (paperId) => dispatch(SubmissionReprocess(paperId)),
     };
 };
 

@@ -104,64 +104,64 @@ const CardInfoView = ({
 
     return (
         <React.Fragment>
-            {/* onClick={ (e) => router.push(path) } */}
-            <Card style={{ marginTop: '10px', cursor: 'pointer' }}>
+            {/* onClick={ (e) => router.push(path) } */ }
+            <Card style={ { marginTop: '10px', cursor: 'pointer' } }>
                 <CardContent>
-                    {isDownload &&
+                    { isDownload &&
                         <>
                             {
                                 <>
                                     <AlignRight>
-                                        {item?.attachment !== null ?
-                                            <Tooltip title={'Assignment Instructions'} arrow>
-                                                <IconButton onClick={() => {
+                                    { item?.attachment !== null ?
+                                        <Tooltip title={ 'Assignment Instructions' } arrow>
+                                            <IconButton onClick={ () => {
                                                     setSelectedId(item.id);
                                                     handleDownload(item);
                                                     setTimeout(() => {
                                                         setSelectedId('');
                                                     }, [100]);
-                                                }}>
+                                            } }>
                                                     <DownloadFileIcon />
                                                 </IconButton>
                                             </Tooltip> :
-                                            <Tooltip title={'No Assignment Instructions'} arrow>
+                                        <Tooltip title={ 'No Assignment Instructions' } arrow>
                                                 <IconButton>
                                                     <DownloadFileIcon />
                                                 </IconButton>
-                                            </Tooltip>}
+                                        </Tooltip> }
                                     </AlignRight>
-                                    {(isLoading && item?.id === selectedId) && <Skeleton variant="rounded" />}
+                                { (isLoading && item?.id === selectedId) && <Skeleton variant="rounded" /> }
                                 </>
                             }
                         </>
                     }
-                    <Grid container spacing={2}>
-                        <Grid item xs={10}>
-                            {isAvatar &&
+                    <Grid container spacing={ 2 }>
+                        <Grid item xs={ 10 }>
+                            { isAvatar &&
                                 <Avatar
-                                    sx={{ bgcolor: item.color, width: 50, height: 50, fontSize: '15px' }}
+                                    sx={ { bgcolor: item.color, width: 50, height: 50, fontSize: '15px' } }
                                     variant="circle"
-                                    className={classes.margin}
+                                    className={ classes.margin }
                                 >
-                                    {item.name.toUpperCase().charAt(0)}
-                                </Avatar>}
+                                    { item.name.toUpperCase().charAt(0) }
+                                </Avatar> }
                         </Grid>
-                        <Grid item xs={2}>
-                            {isAction &&
+                        <Grid item xs={ 2 }>
+                            { isAction &&
                                 <>
                                     <AlignRight>
-                                        <Tooltip title={CARD_FOLDER_ACTIONS} arrow>
-                                            <IconButton onClick={handleMenuClick}>
+                                    <Tooltip title={ CARD_FOLDER_ACTIONS } arrow>
+                                        <IconButton onClick={ handleMenuClick }>
                                                 <ThreeDotIcon />
                                             </IconButton>
                                         </Tooltip>
                                     </AlignRight>
                                     <Menu
                                         id="action-menu"
-                                        anchorEl={anchorEl}
-                                        open={open}
-                                        onClose={handleClose}
-                                        PaperProps={{
+                                    anchorEl={ anchorEl }
+                                    open={ open }
+                                    onClose={ handleClose }
+                                    PaperProps={ {
                                             elevation: 0,
                                             sx: {
                                                 overflow: 'visible',
@@ -186,48 +186,53 @@ const CardInfoView = ({
                                                     zIndex: 0,
                                                 },
                                             },
-                                        }}
-                                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                    } }
+                                    transformOrigin={ { horizontal: 'right', vertical: 'top' } }
+                                    anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
                                     >
-                                        <MenuItem onClick={(e) => {
+                                    <MenuItem onClick={ (e) => {
                                             setAnchorEl(null);
                                             handleClick(e, item);
-                                        }}>
+                                    } }>
                                             <ListItemText>Edit</ListItemText>
                                             <EditIcon />
                                         </MenuItem>
                                         <Divider />
-                                        <MenuItem onClick={(e) => {
+                                    <MenuItem onClick={ (e) => {
                                             setAnchorEl(null);
                                             handleDelete(e, item);
-                                        }}>
+                                    } }>
                                             <ListItemText>Delete</ListItemText>
                                             <DeleteIcon />
                                         </MenuItem>
                                     </Menu>
-                                </>}
+                                </> }
                         </Grid>
                     </Grid>
 
-                    {isImage && <Image style={{ marginBottom: '15px' }} width="100" height="100" src={item.img} alt={item.lms} />}
-
-
-                    {isHeading && <EllipsisText value={item.name} charLength={30} />}
-
-                    {isDescription &&
-                        <EllipsisText value={item?.description === null ? NO_DATA_PLACEHOLDER : item?.description}
-                            variant={'subtitle2'} charLength={30} />
+                    { isImage &&
+                        <>
+                            <Image style={ { marginBottom: '15px' } } width="100" height="100" src={ item.img } alt={ item.lms } />
+                            <SubTitle1 title={ item.description } />
+                        </>
                     }
 
-                    {isInstructorName &&
-                        <Grid container sx={{ mt: 1.5 }}>
+
+                    { isHeading && <EllipsisText value={ item.name } charLength={ 30 } /> }
+
+                    { isDescription &&
+                        <EllipsisText value={ item?.description === null ? NO_DATA_PLACEHOLDER : item?.description }
+                            variant={ 'subtitle2' } charLength={ 30 } />
+                    }
+
+                    { isInstructorName &&
+                        <Grid container sx={ { mt: 1.5 } }>
                             <Grid>
                                 <InstructorPersonIcon />
                             </Grid>
-                            <Grid sx={{ ml: 1 }}>
+                            <Grid sx={ { ml: 1 } }>
                                 <SubTitle2
-                                    title={item.instructorName}
+                                    title={ item.instructorName }
                                 />
                             </Grid>
                         </Grid>
@@ -235,26 +240,26 @@ const CardInfoView = ({
 
                 </CardContent>
                 <Divider />
-                <CardActions style={{ padding: '18px' }}>
+                <CardActions style={ { padding: '18px' } }>
                     <Grid container>
-                        <Grid item md={9} xs={9}>
-                            {isTimer &&
+                        <Grid item md={ 9 } xs={ 9 }>
+                            { isTimer &&
                                 <CardStatusColor
-                                    style={{ borderRadius: '3px' }}
-                                    color={statusColor}
-                                    width={0}
+                                    style={ { borderRadius: '3px' } }
+                                    color={ statusColor }
+                                    width={ 0 }
                                 >
                                     <TimerIcon />
                                     <SubTitle2
-                                        title={Validity(item.validity)}
+                                        title={ Validity(item.validity) }
                                         ml="10px"
                                     />
-                                </CardStatusColor>}
+                                </CardStatusColor> }
 
-                            {isKnowMore &&
+                            { isKnowMore &&
                                 <>
-                                    <div onClick={() => router.push({ 'pathname': item?.path, query: { integration: item.type } })}>
-                                        {item?.lmsconfigured &&
+                                <div onClick={ () => router.push({ 'pathname': item?.path, query: { integration: item.type } }) }>
+                                    { item?.lmsconfigured &&
                                             <SubTitle1 textColor="primary" title="Know More" />
                                         }
                                     </div>
@@ -262,40 +267,40 @@ const CardInfoView = ({
                             }
                         </Grid>
 
-                        <Grid className={classes.right} item md={3} xs={3}>
-                            {isSubmit ?
-                                <Link href={submitPath}>
+                        <Grid className={ classes.right } item md={ 3 } xs={ 3 }>
+                            { isSubmit ?
+                                <Link href={ submitPath }>
                                     <Button
                                         variant="contained"
                                         size="small">
                                         Submit
                                     </Button>
                                 </Link>
-                                : ''}
-                            {isConfig &&
+                                : '' }
+                            { isConfig &&
                                 <>
                                     <Switch
-                                        disabled={item?.lmsconfigured === true}
-                                        checked={item?.lmsconfigured}
-                                        onChange={handleConfig}
-                                        inputProps={{ 'aria-label': 'controlled' }}
-                                        name={item?.lms}
+                                    disabled={ item?.lmsconfigured === true }
+                                    checked={ item?.lmsconfigured }
+                                    onChange={ handleConfig }
+                                    inputProps={ { 'aria-label': 'controlled' } }
+                                    name={ item?.lms }
                                     />
-                                    {item.type !== 'Moodle' &&
+                                { item.type !== 'Moodle' &&
                                         item?.lmsconfigured === true &&
-                                        <Tooltip title={`Delete ${item.type} Integration`} arrow>
-                                            <IconButton onClick={() => {
+                                    <Tooltip title={ `Delete ${item.type} Integration` } arrow>
+                                        <IconButton onClick={ () => {
                                                 handleDeleteIntegrations(item.type)
-                                            }}>
+                                        } }>
                                                 <DeleteIcon />
                                             </IconButton>
                                         </Tooltip>
                                     }
                                 </>
                             }
-                            {isNextPath &&
-                                <Tooltip title={CARD_NEXT_PAGE} arrow>
-                                    <IconButton onClick={() => router.push(path)}>
+                            { isNextPath &&
+                                <Tooltip title={ CARD_NEXT_PAGE } arrow>
+                                    <IconButton onClick={ () => router.push(path) }>
                                         <ArrowForwardOutlinedIcon />
                                     </IconButton>
                                 </Tooltip>
