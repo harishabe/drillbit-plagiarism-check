@@ -59,7 +59,8 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'reportusername',
     'reportpercent',
     'superadminplagairism',
-    'superadmingrammar'
+    'superadmingrammar',
+    'used_documents'
 ];
 export const TABLE_BODY_ALLOW_ICON = [
     'action',
