@@ -171,6 +171,11 @@ const UploadFiles = ({
       !isRegionalFile
     ) {
       multiFileUpload(fileData, data);
+    } else if (
+      fileData.length === 1 &&
+      langType === "ScannedPDF"
+    ) {
+      scannedPdfFileUpload(fileData, data);
     }
   };
 
@@ -302,6 +307,15 @@ const UploadFiles = ({
     SubmissionListUpload(singleFileUploadAPI, bodyFormData);
   };
 
+  const scannedPdfFileUpload = (files, data) => {
+    let bodyFormData = new FormData();
+    bodyFormData.append("authorName", data.authorName0);
+    bodyFormData.append("title", data.title0);
+    bodyFormData.append("documentType", data.documentType0);
+    bodyFormData.append("file", files[0][1]);
+    SubmissionListUpload(singleFileUploadAPI, bodyFormData);
+  };
+
   useEffect(() => {
     if (uploadData?.status === 200) {
       setTimeout(() => {
@@ -370,6 +384,7 @@ const UploadFiles = ({
                     onChange={handleUpload}
                     id="file-upload"
                     type="file"
+                    accept={ langType === 'ScannedPDF' && '.pdf' }
                     ref={ ref }
                   />
                 </div>
@@ -400,6 +415,11 @@ const UploadFiles = ({
                     {UPLOAD_NON_ENGLISH_FILE_MULTIFILE}
                   </ErrorMessageContainer>
                 )}
+                { fileData?.length > 1 && langType === "ScannedPDF" && (
+                  <ErrorMessageContainer>
+                    { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
+                  </ErrorMessageContainer>
+                ) }
                 {fileData?.length > 1 && !isRepository && isStudent && (
                   <ErrorMessageContainer>
                     {UPLOAD_NON_ENGLISH_FILE_MULTIFILE}
@@ -479,7 +499,17 @@ const UploadFiles = ({
                     langType={langType}
                   />
                 )}
-              {fileData?.length === 1 &&
+              { fileData?.length === 1 &&
+                langType === "ScannedPDF" && (
+                  <FileForm
+                    handleSubmitFile={ handleSubmit }
+                    files={ fileData }
+                    btnTitle="Submit"
+                    isLoading={ isLoadingUpload || isLoadingNonEng }
+                    langType={ langType }
+                  />
+                ) }
+              { fileData?.length === 1 &&
                 !isRepository &&
                 isStudent &&
                 langType === "English" && (

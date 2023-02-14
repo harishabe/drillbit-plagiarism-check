@@ -26,6 +26,9 @@ const tabMenu = [
     {
         label: 'Zip',
     },
+    {
+        label: 'Scanned PDF',
+    },
 ];
 
 const EnglishFile = () => {
@@ -106,6 +109,19 @@ const EnglishFile = () => {
             zipFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`}
             confirmZipFileAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/confirmZipFile`}
             routerObj={ { pathname: '/extream/instructor/mysubmissions', query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, grammar: router.query.grammar } } }
+        />,
+        <UploadFiles
+            key={ 3 }
+            choseFileTitle='Browse your file here'
+            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.SCANNED_PDF }
+            fileIcon={ <UploadFileIcon /> }
+            langType="ScannedPDF"
+            singleFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/scannedPDF` }
+            routerObj={ {
+                pathname: '/extream/instructor/mysubmissions',
+                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, grammar: router.query.grammar }
+            } }
         />
     ];
     return (
