@@ -25,7 +25,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: flex-end;
     cursor: pointer;
-    background-image: ${props => (props.submissionCount > 0 ? url('/img/FolderOpenPng.svg') : url('/img/Folder.svg'))};
+    background-image: ${props => (props.submissionCount > 0 ? 'url(\'/img/FolderOpenPng.svg\')' : 'url(\'/img/Folder.svg\')')};
 `;
 
 const Center = styled.div`
