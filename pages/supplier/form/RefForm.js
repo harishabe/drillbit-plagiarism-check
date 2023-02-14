@@ -75,7 +75,7 @@ const RefForm = ({
                 'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            EditAccount(END_POINTS.RESELLER_PRO_LICENSES + '/license/' + editData?.lid, requestData);
+            EditAccount(END_POINTS.RESELLER_PRO_LICENSES + '/license/' + editData?.lid, END_POINTS.RESELLER_PRO_LICENSES, requestData);
         } else {
             let DetailedData = {
                 ...data,
@@ -201,7 +201,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         CreateAccount: (url, data) => dispatch(CreateAccount(url, data)),
-        EditAccount: (url, data) => dispatch(EditAccount(url, data)),
+        EditAccount: (url, getUrl, data) => dispatch(EditAccount(url, getUrl, data)),
         DropdownList: (url) => dispatch(DropdownList(url)),
         FolderPathList: () => dispatch(FolderPathList()),
     };

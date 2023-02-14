@@ -75,7 +75,7 @@ const ExtremeForm = ({
                 'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            EditAccount(END_POINTS.RESELLER_EXTREME_LICENSES + '/license/' + editData?.lid, requestData);
+            EditAccount(END_POINTS.RESELLER_EXTREME_LICENSES + '/license/' + editData?.lid, END_POINTS.RESELLER_EXTREME_LICENSES, requestData);
         } else {
             let DetailedData = {
                 ...data,
@@ -83,7 +83,7 @@ const ExtremeForm = ({
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
                 'folpath': data?.folpath?.name,
-                'institutionType': data?.institutionType?.name,
+                'institutionType': data?.institutionType?.na0me,
                 'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
                 'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
@@ -201,7 +201,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         CreateAccount: (url, data) => dispatch(CreateAccount(url, data)),
-        EditAccount: (url, data) => dispatch(EditAccount(url, data)),
+        EditAccount: (url, getUrl, data) => dispatch(EditAccount(url, getUrl, data)),
         DropdownList: (url) => dispatch(DropdownList(url)),
         FolderPathList: () => dispatch(FolderPathList()),
     };
