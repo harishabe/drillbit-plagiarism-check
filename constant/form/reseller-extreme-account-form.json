@@ -112,44 +112,21 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "id": "documentlength",
         "name": "documentlength",
-        "label": "Document length *",
+        "label": "Document length (pages)*",
         "required": "Document length",
-        "validationMsg": "Invalid Document Length"
-    },
-
-    {
-        "field_type": "dropdown",
-        "id": "folpath",
-        "name": "folpath",
-        "label": "Folder path *",
-        "required": "Folder path",
-        "validationMsg": "Invalid Folder path",
-        "options": []
-    },
-
-    {
-        "field_type": "input",
-        "id": "department",
-        "name": "department",
-        "label": "Department"
-    },
-
-    {
-        "field_type": "dropdown",
-        "id": "updateExpiryDateToAll",
-        "name": "updateExpiryDateToAll",
-        "label": "Update expiry date to all *",
-        "required": "expiry date",
-        "validationMsg": "Invalid Expiry Date",
+        "validationMsg": "Invalid Document Length",
         "options": [
             {
-                "name": "YES"
+                "name": "1"
             },
             {
-                "name": "NO"
+                "name": "200"
+            },
+            {
+                "name": "400"
             }
         ]
     },
@@ -188,23 +165,6 @@
         "required": "Institution Type",
         "validationMsg": "Invalid Institution Type",
         "options": []
-    },
-
-    {
-        "field_type": "dropdown",
-        "id": "licenseType",
-        "name": "licenseType",
-        "label": "License Type *",
-        "required": "License Type",
-        "validationMsg": "Invalid License Type",
-        "options": [
-            {
-                "name": "Demo"
-            },
-            {
-                "name": "License"
-            }
-        ]
     },
 
     {

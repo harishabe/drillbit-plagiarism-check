@@ -17,9 +17,7 @@ const RefForm = ({
     editData,
     EditAccount,
     DropdownList,
-    FolderPathList,
     dpList,
-    folderList
 }) => {
     const [formJsonField, setFormJsonField] = useState(FormJson);
     const [editOperation, setEditOperation] = useState(false);
@@ -30,13 +28,11 @@ const RefForm = ({
 
     useEffect(() => {
         DropdownList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST);
-        FolderPathList();
     }, []);
 
     useEffect(() => {
         let InstitutionTypes = [];
         let timeZoneLists = [];
-        let folderTypes = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
@@ -50,16 +46,10 @@ const RefForm = ({
                 });
                 formItem['options'] = timeZoneLists;
             }
-            if (formItem.name === 'folpath') {
-                folderList && Object.entries(folderList)?.map(([key, val] = entry) => {
-                    folderTypes.push({ 'name': val });
-                });
-                formItem['options'] = folderTypes;
-            }
             return formItem;
         });
         setFormJsonField(formList);
-    }, [dpList, folderList]);
+    }, [dpList]);
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -68,11 +58,9 @@ const RefForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
-                'folpath': data?.folpath?.name,
+                'documentlength': data?.documentlength?.name,
                 'institutionType': data?.institutionType?.name,
-                'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
-                'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
             EditAccount(END_POINTS.RESELLER_PRO_LICENSES + '/license/' + editData?.lid, END_POINTS.RESELLER_PRO_LICENSES, requestData);
@@ -82,11 +70,9 @@ const RefForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
-                'folpath': data?.folpath?.name,
+                'documentlength': data?.documentlength?.name,
                 'institutionType': data?.institutionType?.name,
-                'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
-                'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
             CreateAccount(END_POINTS.RESELLER_PRO_LICENSES, requestData);
@@ -102,9 +88,6 @@ const RefForm = ({
                 field.disabled = isNameDisabled;
             }
             if (field.name === 'adminEmail') {
-                field.disabled = isNameDisabled;
-            }
-            if (field.name === 'folpath') {
                 field.disabled = isNameDisabled;
             }
             return field;
@@ -128,13 +111,11 @@ const RefForm = ({
                 'instructors': editData.instructors,
                 'students': editData.students,
                 'submissions': editData.documents,
-                'documentlength': editData.document_type,
-                'folpath': { 'name': editData.folpath },
+                'documentlength': { 'name': editData.document_type },
                 'department': editData.department,
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
                 'institutionType': { 'name': editData.product_type },
-                'licenseType': { 'name': editData.license_type },
                 'timeZone': { 'name': editData.timeZone },
             };
             const fields = [
@@ -152,12 +133,10 @@ const RefForm = ({
                 'students',
                 'submissions',
                 'documentlength',
-                'folpath',
                 'department',
                 'grammarAccess',
                 'grammar',
                 'institutionType',
-                'licenseType',
                 'timeZone',
             ];
             fields.forEach(field => { setValue(field, a[field]); });
