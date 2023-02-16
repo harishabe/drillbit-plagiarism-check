@@ -171,8 +171,7 @@ const UploadFiles = ({
       multiFileUpload(fileData, data);
     } else if (
       fileData.length > 1 &&
-      langType === "Non English" &&
-      !isRegionalFile
+      langType === "Non English"
     ) {
       multiNonEngFileUpload(fileData, data);
     }
