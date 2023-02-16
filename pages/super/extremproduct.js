@@ -28,19 +28,6 @@ import Pagination from '@mui/material/Pagination';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from '../../utils/EndPoints';
 
-const ExtremeBreadCrumb = [
-    {
-        name: 'Dashboard',
-        link: '/super/dashboard',
-        active: false,
-    },
-    {
-        name: 'Extreme',
-        link: '',
-        active: true,
-    },
-];
-
 const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
@@ -48,20 +35,21 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'License Id' },
-    { id: 'name', label: 'Admin name' },
+    { id: 'lid', label: 'LID', maxWidth: 50 },
+    { id: 'name', label: 'Name' },
     { id: 'email', label: 'Email' },
     { id: 'college_name', label: 'Institution name' },
     { id: 'country', label: 'Location' },
     { id: 'instructors', label: 'Instructors', },
     { id: 'students', label: 'Students' },
     { id: 'documents', label: 'Documents' },
-    { id: 'action', label: 'Action' }
+    { id: 'used_documents', label: 'SUB' },
+    { id: 'action', label: 'Action', minWidth: 140 }
 ];
 
-function createData(lid, name, email, college_name, country, instructors, students, documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department) {
+function createData(lid, name, email, college_name, country, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department) {
 
-    return { lid, name, email, college_name, country, instructors, students, documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department };
+    return { lid, name, email, college_name, country, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department };
 }
 
 const ExtremProduct = ({
@@ -84,6 +72,19 @@ const ExtremProduct = ({
     const [licenseId, setLicenseId] = useState(false);
     const [licenseIdData, setLicenseIdData] = useState('');
 
+    const ExtremeBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/super/dashboard',
+            active: false,
+        },
+        {
+            name: `Extreme (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : ''})`,
+            link: '',
+            active: true,
+        },
+    ];
+
     useEffect(() => {
         GetExtremeRefData(END_POINTS.SUPER_ADMIN_EXTREME, paginationPayload);
     }, [, paginationPayload]);
@@ -102,6 +103,7 @@ const ExtremProduct = ({
                     data.instructors,
                     data.students,
                     data.documents,
+                    data.used_documents,
                     [
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },

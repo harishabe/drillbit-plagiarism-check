@@ -25,6 +25,9 @@ const tabMenu = [
     {
         label: 'Zip',
     },
+    {
+        label: 'Scanned PDF',
+    },
 ];
 
 const EnglishFile = () => {
@@ -96,6 +99,16 @@ const EnglishFile = () => {
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
             zipFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/zipFile` }
             confirmZipFileAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/confirmZipFile` }
+            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar } } }
+        />,
+        <UploadFiles
+            key={ 3 }
+            choseFileTitle='Browse your file here'
+            title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.SCANNED_PDF }
+            fileIcon={ <UploadFileIcon /> }
+            langType="ScannedPDF"
+            singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/scannedPDF` }
             routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar } } }
         />
     ];

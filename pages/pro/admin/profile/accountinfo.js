@@ -44,6 +44,8 @@ const AccountInfo = ({
 
     const [rows, setRows] = useState([]);
     const [role, setRole] = useState('');
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         GetProfile(BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_DATA);
@@ -72,9 +74,29 @@ const AccountInfo = ({
     }, [accountInfo]);
 
     const handleChange = (data) => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('file', data.target.files[0]);
-        ProfileLogo(BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_UPLOAD_LOGO, bodyFormData);
+        let img = new Image()
+        let size = (data?.target?.files[0]?.size / 1024 / 1024).toFixed(2)
+        img.src = data?.target?.files[0] && window?.URL?.createObjectURL(data?.target?.files[0])
+        img.onload = () => {
+            if (img.width <= 250 && img.height <= 250) {
+                if (size > 10) {
+                    setError(true)
+                    setMessage(`Sorry, this image doesn't look like the size we wanted. It's size is
+                ${size} MB, but we require less than 10 MB size image`);
+
+                } else {
+                    setError(false)
+                    let bodyFormData = new FormData();
+                    bodyFormData.append('file', data.target.files[0]);
+                    ProfileLogo(BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_UPLOAD_LOGO, bodyFormData);
+                }
+            } else {
+                setError(true)
+                setMessage(`Sorry, this image doesn't look like the size we wanted. It's 
+                ${img.width} x ${img.height} but we require 250 x 250 size image`);
+            }
+
+        }
     };
 
 
@@ -86,7 +108,7 @@ const AccountInfo = ({
                         <MainHeading title='Account Information' />
                         <form>
                             <label htmlFor="contained-button-file">
-                                <Input accept="image/*" id="contained-button-file" onChange={handleChange} multiple type="file" />
+                                <Input accept=".png, .jpg, .jpeg" id="contained-button-file" onChange={ handleChange } multiple type="file" />
                                 <Button variant="contained" component="span" style={{ marginBottom: '10px' }}>
                                     <>
                                         <UploadIcon />
@@ -96,7 +118,10 @@ const AccountInfo = ({
                                     </>
                                 </Button>
 
-                                <SubTitle2 title='Supported formats : JPG,PNG' />
+                                <SubTitle2 title='Supported formats : JPG,PNG, Image resolutions : 250x250 (mm), Maximum size : 10 MB' />
+                                { error &&
+                                    <SubTitle2 color='red' title={ message } />
+                                }
                             </label>
                         </form>
                     </Grid>

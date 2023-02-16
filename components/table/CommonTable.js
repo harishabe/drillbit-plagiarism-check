@@ -117,7 +117,7 @@ const CommonTable = ({
                                             <TableCell
                                                 key={index}
                                                 align={column.align}
-                                                style={{ minWidth: column.minWidth }}
+                                                style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }
                                             >
                                                 {TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
                                                     <EllipsisText value={column.label} charLength={charLength} variant='body2_2' />

@@ -5,21 +5,19 @@ import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateAccount, EditAccount, DropdownList, FolderPathList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
-import FormJson from '../../../constant/form/extreme-account-form.json';
+import FormJson from '../../../constant/form/reseller-ref-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
-import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
+import END_POINTS from '../../../utils/EndPoints';
 
-const ExtremeForm = ({
+const RefForm = ({
     CreateAccount,
     isLoadingCreate,
     isLoadingEdit,
     editData,
     EditAccount,
     DropdownList,
-    FolderPathList,
     dpList,
-    folderList
 }) => {
     const [formJsonField, setFormJsonField] = useState(FormJson);
     const [editOperation, setEditOperation] = useState(false);
@@ -30,13 +28,11 @@ const ExtremeForm = ({
 
     useEffect(() => {
         DropdownList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST);
-        FolderPathList();
     }, []);
 
     useEffect(() => {
         let InstitutionTypes = [];
         let timeZoneLists = [];
-        let folderTypes = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
@@ -50,16 +46,10 @@ const ExtremeForm = ({
                 });
                 formItem['options'] = timeZoneLists;
             }
-            if (formItem.name === 'folpath') {
-                folderList && Object.entries(folderList)?.map(([key, val] = entry) => {
-                    folderTypes.push({ 'name': val });
-                });
-                formItem['options'] = folderTypes;
-            }
             return formItem;
         });
         setFormJsonField(formList);
-    }, [dpList, folderList]);
+    }, [dpList]);
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -68,28 +58,24 @@ const ExtremeForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
-                'folpath': data?.folpath?.name,
+                'documentlength': data?.documentlength?.name,
                 'institutionType': data?.institutionType?.name,
-                'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
-                'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            EditAccount(END_POINTS.SUPER_ADMIN_EXTREME + '/license/' + editData?.lid, END_POINTS.SUPER_ADMIN_EXTREME, requestData);
+            EditAccount(END_POINTS.RESELLER_PRO_LICENSES + '/license/' + editData?.lid, END_POINTS.RESELLER_PRO_LICENSES, requestData);
         } else {
             let DetailedData = {
                 ...data,
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
-                'folpath': data?.folpath?.name,
+                'documentlength': data?.documentlength?.name,
                 'institutionType': data?.institutionType?.name,
-                'licenseType': data?.licenseType?.name,
                 'timeZone': data?.timeZone?.name,
-                'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, requestData);
+            CreateAccount(END_POINTS.RESELLER_PRO_LICENSES, requestData);
         }
     };
 
@@ -102,9 +88,6 @@ const ExtremeForm = ({
                 field.disabled = isNameDisabled;
             }
             if (field.name === 'adminEmail') {
-                field.disabled = isNameDisabled;
-            }
-            if (field.name === 'folpath') {
                 field.disabled = isNameDisabled;
             }
             return field;
@@ -123,18 +106,16 @@ const ExtremeForm = ({
                 'adminEmail': editData.email,
                 'designation': editData.designation,
                 'phone': editData.phone,
-                'startDate': convertDate(editData.created_date),
+                'startDate': convertDate(editData.start_date),
                 'endDate': convertDate(editData.expiry_date),
                 'instructors': editData.instructors,
                 'students': editData.students,
                 'submissions': editData.documents,
-                'documentlength': editData.document_type,
-                'folpath': { 'name': editData.folpath },
+                'documentlength': { 'name': editData.document_type },
                 'department': editData.department,
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
                 'institutionType': { 'name': editData.product_type },
-                'licenseType': { 'name': editData.license_type },
                 'timeZone': { 'name': editData.timeZone },
             };
             const fields = [
@@ -152,39 +133,37 @@ const ExtremeForm = ({
                 'students',
                 'submissions',
                 'documentlength',
-                'folpath',
                 'department',
                 'grammarAccess',
                 'grammar',
                 'institutionType',
-                'licenseType',
                 'timeZone',
             ];
             fields.forEach(field => { setValue(field, a[field]); });
-            modifyFormField('Edit Extreme Account', true);
+            modifyFormField('Edit Pro Account', true);
             setEditOperation(true);
         } else {
-            modifyFormField('Create Extreme Account', false);
+            modifyFormField('Create Pro Account', false);
         }
     }, [editData]);
 
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    {formJsonField?.map((field, i) => (
-                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
+                    { formJsonField?.map((field, i) => (
+                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
-                                key={i}
-                                field={field}
-                                control={control}
-                                isLoading={isLoadingCreate || isLoadingEdit}
+                                key={ i }
+                                field={ field }
+                                control={ control }
+                                isLoading={ isLoadingCreate || isLoadingEdit }
                             />
                         </Grid>
-                    ))}
+                    )) }
                 </Grid>
             </form>
         </>
@@ -207,4 +186,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExtremeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(RefForm);

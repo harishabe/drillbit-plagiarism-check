@@ -41,6 +41,7 @@ const MyFoldersForms = ({
     CreateFolder,
     EditFolder,
     editData,
+    grammarSubscription
 }) => {
 
     const [excludeRefBib, setExcludeRefBib] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
@@ -372,7 +373,8 @@ const MyFoldersForms = ({
                     </Grid>
                 </div>
 
-                <div>
+                { grammarSubscription?.toUpperCase() === 'YES' && 
+                    <div>
                     <Grid container>
                         <Grid item md={8}>
                             <InputLabel style={{ margin: '22px 0px' }}>
@@ -391,7 +393,8 @@ const MyFoldersForms = ({
                             </ToggleButtonGroup>
                         </Grid>
                     </Grid>
-                </div>
+                    </div> 
+                }
 
                 <div>
                     <Grid container>
