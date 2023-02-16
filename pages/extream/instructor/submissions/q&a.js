@@ -117,7 +117,7 @@ const QNA = ({
             <CommonTable
                 isCheckbox={ false }
                 isSorting={ true }
-                tableHeader={ columns }
+                tableHeader={ queData && columns }
                 tableData={ rows }
                 isLoading={ isLoading }
             />
