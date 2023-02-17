@@ -139,6 +139,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/pro/user/uploadFile/englishFile' && name === 'My Folders') {
             return true;
+        } else if (router.pathname === '/pro/user/uploadFile/nonEnglishFile' && name === 'My Folders') {
+            return true;
         } else if (router.pathname === '/pro/user/uploadFile/regionalFile' && name === 'My Folders') {
             return true;
         } else if (router.pathname === '/pro/user/uploadFile/nonEnglishFile' && name === 'My Folders') {
@@ -158,6 +160,8 @@ const SideBar = ({ open }) => {
         } else if (router.pathname === '/extream/instructor/uploadFileFolder' && name === 'My Classes') {
             return true;
         } else if (router.pathname === '/extream/instructor/uploadFileFolder/englishFile' && name === 'My Folders') {
+            return true;
+        } else if (router.pathname === '/extream/instructor/uploadFileFolder/nonEnglishFile' && name === 'My Folders') {
             return true;
         } else if (router.pathname === '/super/proUser' && name === 'Pro') {
             return true;
