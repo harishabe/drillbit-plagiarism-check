@@ -132,6 +132,8 @@ const NavBar = ({
             setPath('/extream/admin');
         } else if ((userRole === Role?.instructor || Role?.admin) && (switchExtreamRole === Role?.instructor || switchExtreamRole === null) && (router.pathname.split('/')[2] === 'instructor')) {
             setPath('/extream/instructor');
+        } else if ((userRole === Role?.supplier)) {
+            setPath('/supplier/');
         }
     }, [, router, switchRole]);
 
@@ -272,13 +274,19 @@ const NavBar = ({
                     <ListItemText style={ { padding: '5px 15px' } } primary="Account info" secondary="Account details" />
                 </MenuItem>
                 <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
-                <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ () => [router.push(`${path}/profile/help`), setAnchorEl(null)] }>
-                    <ListItemIcon>
-                        <HelpIcon />
-                    </ListItemIcon>
-                    <ListItemText style={ { padding: '5px 15px' } } primary="Help" secondary="PDF / Video" />
-                </MenuItem>
-                <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
+
+                { role !== Role?.supplier &&
+                    <>
+                    <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ () => [router.push(`${path}/profile/help`), setAnchorEl(null)] }>
+                        <ListItemIcon>
+                            <HelpIcon />
+                        </ListItemIcon>
+                        <ListItemText style={ { padding: '5px 15px' } } primary="Help" secondary="PDF / Video" />
+                    </MenuItem>
+                    <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
+                    </>
+                }
+
                 <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ () => [router.push(`${path}/profile/changepassword`), setAnchorEl(null)] }>
                     <ListItemIcon>
                         <ChangePwdIcon />

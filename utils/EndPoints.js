@@ -98,6 +98,8 @@ const END_POINTS = {
     INTEGRATION_DELETE_BLACKBOARD: '/extreme/integrations/blackboard',
     RESELLER_EXTREME_LICENSES: '/reseller/extreme',
     RESELLER_PRO_LICENSES: '/reseller/pro',
+    RESELLER_ACCOUNT_INFORMATION: '/reseller/accountInformation',
+    RESELLER_CHANGE_PASSWORD: '/reseller/password',
     INTEGRATION_DELETE_BRIGHTSPACE: '/extreme/integrations/brightspace',
     INTEGRATION_DELETE_MOODLE_LTI: '/extreme/integrations/moodleLti',
 };
