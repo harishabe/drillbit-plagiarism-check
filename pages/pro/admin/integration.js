@@ -192,6 +192,7 @@ const Integration = ({
             </Grid> :
                 <Grid container spacing={2}>
                     {lmsData?.map((item, index) => (
+                        (item.lms === 'BRIGHTSPACE' || item.lms === 'MOODLE_LTI') ? '' :
                         <Grid key={index} item md={4} xs={12}>
                             <CardInfoView
                                 item={item}
