@@ -13,6 +13,7 @@ const MyClassesTables = ({
     pageDetailsStudent,
     pageDetailsAssignment,
     assignmentData,
+    grammarSubscription,
     isLoadingAssignment,
     studentData,
     isLoadingStudent,
@@ -53,6 +54,7 @@ const MyClassesTables = ({
         pageDetailsAssignment={ pageDetailsAssignment }
         assignmentData={ assignmentData }
         isLoadingAssignment={ isLoadingAssignment }
+        grammarSubscription={ grammarSubscription }
         activeTab={ activeTab }
     />;
 
@@ -99,7 +101,8 @@ const MyClassesTables = ({
 const mapStateToProps = (state) => ({
     pageDetailsStudent: state?.instructorClasses?.studentData?.page,
     pageDetailsAssignment: state?.instructorClasses?.assignmentData?.page,
-    assignmentData: state?.instructorClasses?.assignmentData?._embedded?.assignmentDTOList,
+    assignmentData: state?.instructorClasses?.assignmentData?.assignments?.content,
+    grammarSubscription: state?.instructorClasses?.assignmentData?.grammar_subscription,
     isLoadingAssignment: state?.instructorClasses?.isLoadingAssignment,
     studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
     isLoadingStudent: state?.instructorClasses?.isLoadingStudent,

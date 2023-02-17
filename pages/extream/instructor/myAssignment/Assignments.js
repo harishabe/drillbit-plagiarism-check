@@ -61,7 +61,7 @@ const SearchField = styled.div`
 const DownloadField = styled.div`
     position:absolute;
     top: 125px;
-    right:${ platform === WINDOW_PLATFORM ? '245px' : '225px' };
+    right:${platform === WINDOW_PLATFORM ? '245px' : '225px'};
 `;
 
 const DownloadButton = styled.div`
@@ -90,6 +90,7 @@ const Assignments = ({
     DownloadCsv,
     DeleteAssignment,
     assignmentData,
+    grammarSubscription,
     pageDetailsAssignment,
     isLoadingAssignment,
     isLoadingDownload,
@@ -129,7 +130,7 @@ const Assignments = ({
                     color={
                         assignment.status === 'active' ? '#38BE62' : '#E9596F'
                     }
-                    title={assignment.status}
+                    title={ assignment.status }
                 />,
                 formatDate(assignment.start_date),
                 formatDate(assignment.end_date),
@@ -163,7 +164,7 @@ const Assignments = ({
                 pathname: '/extream/instructor/mysubmissions',
                 query: {
                     clasId: router.query.clasId, clasName: router.query.clasName,
-                    assId: rowData?.assignmentData?.ass_id, assName: rowData?.assignmentData?.assignment_name, grammar: rowData?.assignmentData?.grammar
+                    assId: rowData?.assignmentData?.ass_id, assName: rowData?.assignmentData?.assignment_name, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData?.assignmentData?.grammar : grammarSubscription
                 }
             });
         }
@@ -263,22 +264,22 @@ const Assignments = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item container direction='row' justifyContent={'right'}>
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item container direction='row' justifyContent={ 'right' }>
                         <DownloadField>
                             <DownloadButton>
-                                {assignmentData?.length > 0 &&
+                                { assignmentData?.length > 0 &&
                                     isLoadingDownload ?
                                     <SkeletonContainer>
-                                        <Skeleton style={{ marginTop: '10px' }} width={50} />
+                                        <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
                                         <IconButton
                                             color="primary"
                                             aria-label="download-file"
                                             size="large"
-                                            onClick={handleDownload}>
+                                            onClick={ handleDownload }>
                                             <DownloadIcon />
                                         </IconButton>
                                     </Tooltip>
@@ -288,13 +289,13 @@ const Assignments = ({
                         <SearchField>
                             <TextField
                                 placeholder='Search'
-                                onChange={searchAssignment}
-                                inputProps={{
+                                onChange={ searchAssignment }
+                                inputProps={ {
                                     style: {
                                         padding: 5,
                                         display: 'inline-flex'
                                     }
-                                }}
+                                } }
                             />
                         </SearchField>
                     </Grid>
@@ -302,71 +303,74 @@ const Assignments = ({
             </Box>
             <AddButtonBottom>
                 <CreateDrawer
-                    isShowAddIcon={true}
+                    isShowAddIcon={ true }
                     title='Create Assignment'
                 >
-                    <AssignmentForms />
+                    <AssignmentForms
+                        grammarSubscription={ grammarSubscription }
+                    />
                 </CreateDrawer>
             </AddButtonBottom>
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
-                    message={WARNING_MESSAGES.DELETE}
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    warningIcon={ <DeleteWarningIcon /> }
+                    message={ WARNING_MESSAGES.DELETE }
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
             {
                 editAssignment &&
                 <CreateDrawer
                     title="Edit Student"
-                    isShowAddIcon={false}
-                    showDrawer={editAssignment}
-                    handleDrawerClose={handleCloseDrawer}
+                        isShowAddIcon={ false }
+                        showDrawer={ editAssignment }
+                        handleDrawerClose={ handleCloseDrawer }
                 >
                     <AssignmentForms
-                        editData={editAssignmentData}
+                            editData={ editAssignmentData }
+                            grammarSubscription={ grammarSubscription }
                     />
                 </CreateDrawer>
             }
             <>
                 <AddButtonBottom>
                     <CreateDrawer
-                        isShowAddIcon={true}
+                        isShowAddIcon={ true }
                         title='Create Assignment'
                     >
                         <AssignmentForms />
                     </CreateDrawer>
                 </AddButtonBottom>
-                {_.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
+                { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={deleteAllAssignment}>
+                        <IconButton onClick={ deleteAllAssignment }>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
-                </DeleteAllButton>}
+                </DeleteAllButton> }
                 <CommonTable
-                    isCheckbox={true}
-                    isSorting={true}
-                    tableHeader={columns}
-                    tableData={rows}
-                    handleAction={handleAction}
-                    handleTableSort={handleTableSort}
-                    handleCheckboxSelect={handleCheckboxSelect}
-                    handleSingleSelect={handleSingleSelect}
-                    isLoading={isLoadingAssignment}
-                    charLength={9}
+                    isCheckbox={ true }
+                    isSorting={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    handleCheckboxSelect={ handleCheckboxSelect }
+                    handleSingleSelect={ handleSingleSelect }
+                    isLoading={ isLoadingAssignment }
+                    charLength={ 9 }
                 />
-                    <PaginationContainer>
-                        <Pagination
-                            count={pageDetailsAssignment?.totalPages}
-                            onChange={handlePagination}
-                            color='primary'
-                            variant='outlined'
-                            shape='rounded'
-                        />
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetailsAssignment?.totalPages }
+                        onChange={ handlePagination }
+                        color='primary'
+                        variant='outlined'
+                        shape='rounded'
+                    />
                 </PaginationContainer>
             </>
         </React.Fragment>
