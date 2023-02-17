@@ -137,7 +137,7 @@ const Instructor = ({
                     instructor.name,
                     instructor.username,
                     instructor.expiry_date,
-                    <StatusDot color={ instructor.status === 'active' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
+                    <StatusDot color={ instructor.status?.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
                     [
                         <>

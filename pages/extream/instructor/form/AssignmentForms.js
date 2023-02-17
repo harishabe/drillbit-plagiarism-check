@@ -52,6 +52,7 @@ const AssignmentForms = ({
     EditAssignment,
     editData,
     isLoading,
+    grammarSubscription
 }) => {
     const router = useRouter();
 
@@ -1036,6 +1037,7 @@ const AssignmentForms = ({
 
                         </div>
 
+                    { grammarSubscription?.toUpperCase() === 'YES' && 
                         <div>
                             <Grid container>
                                 <Grid item md={8}>
@@ -1056,6 +1058,7 @@ const AssignmentForms = ({
                                 </Grid>
                             </Grid>
                         </div>
+                    }
 
 
                         <div>
