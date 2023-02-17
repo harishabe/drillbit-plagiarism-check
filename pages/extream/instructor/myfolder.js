@@ -233,7 +233,7 @@ const MyFolder = ({
 };
 
 const mapStateToProps = (state) => ({
-    pageDetails: state?.instructorMyFolders?.myFolders?.page,
+    pageDetails: state?.instructorMyFolders?.myFolders?.folders?.page,
     myFolders: state?.instructorMyFolders?.myFolders?.folders?.content,
     grammarSubscription: state?.instructorMyFolders?.myFolders?.grammar_subscription,
     isLoading: state?.instructorMyFolders?.isLoading,
