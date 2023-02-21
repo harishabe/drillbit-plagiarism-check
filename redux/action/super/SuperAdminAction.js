@@ -35,10 +35,11 @@ export const EditAccount = (url, getUrl, data) => {
 /**
  * Create Extreme and Ref Account
  */
-export const CreateAccount = (url, data) => {
+export const CreateAccount = (url, getUrl, data) => {
   return {
     type: types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_START,
     url: url,
+    getUrl: getUrl,
     query: data,
   };
 };

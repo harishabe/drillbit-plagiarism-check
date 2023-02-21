@@ -90,7 +90,7 @@ export function* onLoadCreateAccount(action) {
             type: types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_SUCCESS, payload: response?.data,
         });
         yield put({
-            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.url, paginationPayload: SuperAdminPaginationValue,
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.getUrl, paginationPayload: SuperAdminPaginationValue,
         });
         toastrValidation(response)
     } else {
@@ -119,7 +119,7 @@ export function* onLoadExtremeRefDelete(action) {
         });
         yield put({
             type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START,
-            url: `/${action.role}`,
+            url: action.role,
             paginationPayload: SuperAdminPaginationValue,
         });
         toastrValidation(response)

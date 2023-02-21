@@ -2,7 +2,6 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Grid, TextField, Box } from '@mui/material';
-import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
@@ -11,18 +10,14 @@ import {
     CreateDrawer,
     CardView,
     CommonTable,
-    WarningDialog
 } from './../../components';
 import {
     EditIcon,
-    DeleteWarningIcon,
-    DeleteIcon
 } from '../../assets/icon';
 import {
     GetExtremeRefData,
-    DeleteAccount
 } from '../../redux/action/super/SuperAdminAction';
-import RefForm from './form/RefForm';
+import ResellerForm from './form/ResellerForm';
 import { PaginationContainer } from '../../style/index';
 import Pagination from '@mui/material/Pagination';
 import { PaginationValue } from '../../utils/PaginationUrl';
@@ -35,33 +30,28 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'LID', maxWidth: 20 },
+    { id: 'lid', label: 'LID' },
     { id: 'name', label: 'Name' },
     { id: 'email', label: 'Email' },
     { id: 'college_name', label: 'Institution name' },
-    { id: 'country', label: 'Location', maxWidth: 110 },
-    { id: 'instructors', label: 'Users', maxWidth: 80 },
-    { id: 'documents', label: 'Documents' },
-    { id: 'used_documents', label: 'SUB' },
-    { id: 'action', label: 'Action', minWidth: 140 }
+    { id: 'country', label: 'Location' },
+    { id: 'used_documents', label: 'Used submissions' },
+    { id: 'action', label: 'Action' }
 ];
 
-function createData(lid, name, email, college_name, country, instructors, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department
+function createData(lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date
 ) {
     return {
-        lid, name, email, college_name, country, instructors, documents, used_documents, action, state
-        , address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department
+        lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date
     };
 }
 
-const RefProduct = ({
+const ResellerProduct = ({
     GetExtremeRefData,
-    DeleteAccount,
     pageDetails,
     refData,
     isLoading
 }) => {
-    const router = useRouter();
     const [rows, setRows] = useState([]);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -71,8 +61,6 @@ const RefProduct = ({
     });
     const [editUser, setEditUser] = useState(false);
     const [editUserData, setEditUserData] = useState('');
-    const [licenseId, setLicenseId] = useState(false);
-    const [licenseIdData, setLicenseIdData] = useState('');
 
     const RefBreadCrumb = [
         {
@@ -81,14 +69,14 @@ const RefProduct = ({
             active: false,
         },
         {
-            name: `Pro (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : ''})`,
+            name: `Reseller (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : ''})`,
             link: '',
             active: true,
         },
     ];
 
     useEffect(() => {
-        GetExtremeRefData(END_POINTS.SUPER_ADMIN_REF_LICENSE, paginationPayload);
+        GetExtremeRefData(END_POINTS.SUPER_ADMIN_RESELLER, paginationPayload);
     }, [, paginationPayload]);
 
     useEffect(() => {
@@ -102,28 +90,13 @@ const RefProduct = ({
                     data.email,
                     data.college_name,
                     data.country,
-                    data.instructors,
-                    data.documents,
                     data.used_documents,
-                    [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
-                    ],
+                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }],
                     data.state,
                     data.address,
                     data.designation,
                     data.phone,
-                    data.created_date,
                     data.expiry_date,
-                    data.document_type,
-                    data.grammar,
-                    data.grammar_documents,
-                    data.license_type,
-                    data.product_type,
-                    data.timeZone,
-                    data.folpath,
-                    data.department,
                 );
             arr.push(row);
         });
@@ -150,17 +123,6 @@ const RefProduct = ({
         if (icon === 'edit') {
             setEditUser(true);
             setEditUserData(rowData);
-        } else if (icon === 'delete') {
-            setLicenseId(true);
-            setLicenseIdData(rowData);
-        } else if (icon === 'nextPath') {
-            router.push({
-                pathname: '/super/proUser',
-                query: {
-                    name: rowData?.name,
-                    licenseId: rowData?.lid,
-                }
-            });
         }
     };
 
@@ -192,16 +154,6 @@ const RefProduct = ({
 
     /** end debounce concepts */
 
-    const handleStatusWarning = () => {
-        DeleteAccount(licenseIdData?.lid, END_POINTS.SUPER_ADMIN_REF_LICENSE);
-        setTimeout(() => {
-            setLicenseId(false);
-        }, [100]);
-    };
-
-    const handleStatusCloseWarning = () => {
-        setLicenseId(false);
-    };
     return (
         <>
             <Grid container spacing={ 1 }>
@@ -231,7 +183,7 @@ const RefProduct = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 10 }
+                        charLength={ 16 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
                     />
@@ -241,34 +193,22 @@ const RefProduct = ({
             {
                 editUser &&
                 <CreateDrawer
-                    title="Edit User"
                     isShowAddIcon={ false }
                     showDrawer={ editUser }
                     handleDrawerClose={ handleCloseDrawer }
                 >
-                    <RefForm
+                    <ResellerForm
                         editData={ editUserData }
                     />
                 </CreateDrawer>
             }
 
-            {
-                licenseId &&
-                <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
-                    message={ 'Are you sure, you want to delete account?' }
-                    handleYes={ handleStatusWarning }
-                    handleNo={ handleStatusCloseWarning }
-                    isOpen={ true }
-                />
-            }
-
             <AddButtonBottom>
                 <CreateDrawer
-                    title="Add Ref Account"
+                    title="Add Reseller Account"
                     isShowAddIcon={ true }
                 >
-                    <RefForm />
+                    <ResellerForm />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -294,10 +234,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetExtremeRefData: (url, paginationPayload) => dispatch(GetExtremeRefData(url, paginationPayload)),
-        DeleteAccount: (licenseId, role) => dispatch(DeleteAccount(licenseId, role)),
     };
 };
 
-RefProduct.layout = SuperAdmin;
+ResellerProduct.layout = SuperAdmin;
 
-export default connect(mapStateToProps, mapDispatchToProps)(RefProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(ResellerProduct);

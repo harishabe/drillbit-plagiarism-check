@@ -86,7 +86,7 @@ const ExtremProduct = ({
     ];
 
     useEffect(() => {
-        GetExtremeRefData(END_POINTS.SUPER_ADMIN_EXTREME, paginationPayload);
+        GetExtremeRefData(END_POINTS.SUPER_ADMIN_EXTREME_LICENSE, paginationPayload);
     }, [, paginationPayload]);
 
     useEffect(() => {
@@ -192,7 +192,7 @@ const ExtremProduct = ({
     /** end debounce concepts */
 
     const handleStatusWarning = () => {
-        DeleteAccount(licenseIdData?.lid, 'extreme');
+        DeleteAccount(licenseIdData?.lid, END_POINTS.SUPER_ADMIN_EXTREME_LICENSE);
         setTimeout(() => {
             setLicenseId(false);
         }, [100]);

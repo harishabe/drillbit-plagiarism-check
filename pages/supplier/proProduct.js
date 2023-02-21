@@ -58,7 +58,7 @@ const ProProduct = ({
   const [editUserData, setEditUserData] = useState('');
 
   useEffect(() => {
-    GetExtremeRefData(END_POINTS.RESELLER_PRO_LICENSES, paginationPayload);
+    GetExtremeRefData(END_POINTS.RESELLER_PRO, paginationPayload);
   }, [, paginationPayload]);
 
   useEffect(() => {

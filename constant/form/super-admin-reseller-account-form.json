@@ -1,0 +1,89 @@
+[
+    {
+        "field_type": "input",
+        "id": "organisation_name",
+        "name": "organisation_name",
+        "label": "Institution Name *",
+        "required": "Institution Name",
+        "validationMsg": "Invalid Institution Name"
+    },
+
+    {
+        "field_type": "input",
+        "id": "name",
+        "name": "name",
+        "label": "Admin Name *",
+        "required": "Enter Admin Name",
+        "validationMsg": "Invalid Admin Name"
+    },
+
+    {
+        "field_type": "input",
+        "id": "email",
+        "name": "email",
+        "label": "Admin Email *",
+        "required": "Admin Email",
+        "validationMsg": "Invalid Admin Email"
+    },
+
+    {
+        "field_type": "input",
+        "id": "designation",
+        "name": "designation",
+        "label": "Designation *",
+        "required": "Designation",
+        "validationMsg": "Invalid Designation"
+    },
+
+    {
+        "field_type": "input",
+        "id": "state",
+        "name": "state",
+        "label": "State *",
+        "required": "State",
+        "validationMsg": "Invalid State"
+    },
+
+    {
+        "field_type": "input",
+        "id": "country",
+        "name": "country",
+        "label": "Country *",
+        "required": "Country",
+        "validationMsg": "Invalid Country"
+    },
+
+    {
+        "field_type": "input",
+        "id": "address",
+        "name": "address",
+        "label": "Address *",
+        "required": "Address",
+        "validationMsg": "Invalid Address"
+    },
+
+    {
+        "field_type": "datepicker",
+        "id": "expiry_date",
+        "name": "expiry_date",
+        "label": "Select End Date *",
+        "minDate":true,
+        "required": "Select End Date",
+        "validationMsg": "Select End Date"
+    },
+
+    {
+        "field_type": "input",
+        "id": "phone",
+        "name": "phone",
+        "label": "Phone *",
+        "required": "Phone",
+        "validationMsg": "Invalid Phone"
+    },
+
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Create Ref Account"
+    }
+]
