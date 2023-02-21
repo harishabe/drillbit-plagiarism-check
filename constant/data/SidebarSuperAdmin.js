@@ -34,6 +34,13 @@ const SidebarSuperAdmin = [
     layout: '/super',
   },
   {
+    icon: <ClassIcon />,
+    activeIcon: <ClassWhiteIcon />,
+    name: 'Reseller',
+    path: '/resellerproduct',
+    layout: '/super',
+  },
+  {
     icon: <ReportIcon />,
     activeIcon: <ReportWhiteIcon />,
     name: 'Reports',

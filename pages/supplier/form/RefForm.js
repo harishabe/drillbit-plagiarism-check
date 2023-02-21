@@ -63,7 +63,7 @@ const RefForm = ({
                 'timeZone': data?.timeZone?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            EditAccount(END_POINTS.RESELLER_PRO_LICENSES + '/license/' + editData?.lid, END_POINTS.RESELLER_PRO_LICENSES, requestData);
+            EditAccount(END_POINTS.RESELLER_PRO_LICENSES + '/' + editData?.lid, END_POINTS.RESELLER_PRO, requestData);
         } else {
             let DetailedData = {
                 ...data,
@@ -75,7 +75,7 @@ const RefForm = ({
                 'timeZone': data?.timeZone?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            CreateAccount(END_POINTS.RESELLER_PRO_LICENSES, requestData);
+            CreateAccount(END_POINTS.RESELLER_PRO_LICENSES, END_POINTS.RESELLER_PRO, requestData);
         }
     };
 
@@ -179,7 +179,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        CreateAccount: (url, data) => dispatch(CreateAccount(url, data)),
+        CreateAccount: (url, getUrl, data) => dispatch(CreateAccount(url, getUrl, data)),
         EditAccount: (url, getUrl, data) => dispatch(EditAccount(url, getUrl, data)),
         DropdownList: (url) => dispatch(DropdownList(url)),
         FolderPathList: () => dispatch(FolderPathList()),

@@ -75,7 +75,7 @@ const ExtremeForm = ({
                 'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            EditAccount(END_POINTS.SUPER_ADMIN_EXTREME + '/license/' + editData?.lid, END_POINTS.SUPER_ADMIN_EXTREME, requestData);
+            EditAccount(END_POINTS.SUPER_ADMIN_EXTREME + '/' + editData?.lid, END_POINTS.SUPER_ADMIN_EXTREME_LICENSE, requestData);
         } else {
             let DetailedData = {
                 ...data,
@@ -89,7 +89,7 @@ const ExtremeForm = ({
                 'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, requestData);
+            CreateAccount(END_POINTS.SUPER_ADMIN_EXTREME, END_POINTS.SUPER_ADMIN_EXTREME_LICENSE, requestData);
         }
     };
 
@@ -200,7 +200,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        CreateAccount: (url, data) => dispatch(CreateAccount(url, data)),
+        CreateAccount: (url, getUrl, data) => dispatch(CreateAccount(url, getUrl, data)),
         EditAccount: (url, getUrl, data) => dispatch(EditAccount(url, getUrl, data)),
         DropdownList: (url) => dispatch(DropdownList(url)),
         FolderPathList: () => dispatch(FolderPathList()),

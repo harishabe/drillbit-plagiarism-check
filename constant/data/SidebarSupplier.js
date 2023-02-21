@@ -1,7 +1,5 @@
 import {
     ClassIcon,
-    StudentIcon,
-    StudentWhiteIcon,
     ClassWhiteIcon
 } from '../../assets/icon';
 
@@ -9,14 +7,14 @@ const SidebarSupplier = [
     {
         "icon": <ClassIcon />,
         "activeIcon": <ClassWhiteIcon />,
-        "name": "Extream Product",
+        "name": "Extreme",
         "path": "/extreamProduct",
         "layout": "/supplier",
     },
     {
-        "icon": <StudentIcon />,
-        "activeIcon": <StudentWhiteIcon />,
-        "name": "Pro Product",
+        "icon": <ClassIcon />,
+        "activeIcon": <ClassWhiteIcon />,
+        "name": "Pro",
         "path": "/proProduct",
         "layout": "/supplier",
     }
