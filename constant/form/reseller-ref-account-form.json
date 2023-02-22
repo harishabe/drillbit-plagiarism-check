@@ -63,7 +63,8 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "phone",
         "name": "phone",
         "label": "Phone *",
@@ -92,16 +93,18 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "instructors",
         "name": "instructors",
         "label": "Users *",
-        "required": "Instructors",
-        "validationMsg": "Invalid Instructors"
+        "required": "Users",
+        "validationMsg": "Invalid Users"
     },
 
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "submissions",
         "name": "submissions",
         "label": "Submissions *",
@@ -116,17 +119,7 @@
         "label": "Document length (pages)*",
         "required": "Document length",
         "validationMsg": "Invalid Document Length",
-        "options": [
-            {
-                "name": "1"
-            },
-            {
-                "name": "200"
-            },
-            {
-                "name": "400"
-            }
-        ]
+        "options": []
     },
 
     {
@@ -143,22 +136,16 @@
         "label": "Grammar Access *",
         "required": "Grammar Access",
         "validationMsg": "Invalid Grammar Access",
-        "options": [
-            {
-                "name": "YES"
-            },
-            {
-                "name": "NO"
-            }
-        ]
+        "options": []
     },
 
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "grammar",
         "name": "grammar",
-        "label": "Grammar *",
-        "required": "Grammar",
+        "label": "Grammar Allocation*",
+        "required": "Grammar Allocation",
         "validationMsg": "Invalid Grammar"
     },
 
