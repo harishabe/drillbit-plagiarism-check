@@ -67,9 +67,9 @@
         "type": "number",
         "id": "phone",
         "name": "phone",
-        "label": "Phone *",
-        "required": "Phone",
-        "validationMsg": "Invalid Phone"
+        "label": "Phone number *",
+        "required": "Phone number",
+        "validationMsg": "Invalid Phone number"
     },
 
     {
