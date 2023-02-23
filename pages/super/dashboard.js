@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import SuperAdmin from './../../layouts/SuperAdmin';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import { Skeleton } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { Box, Grid, Skeleton, IconButton, Tooltip } from '@mui/material';
+import styled from 'styled-components';
+import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
 import {
     WidgetCard,
@@ -10,14 +11,17 @@ import {
     ColumnChart,
     ErrorBlock,
     Heading,
-    PieChart
+    PieChart,
+    DialogModal
 } from './../../components';
 import {
     NoOfClassIcon,
     NoOfAssignmntIcon,
     NoOfSubmission,
 } from '../../assets/icon';
+import FeedIcon from '@mui/icons-material/Feed';
 import { GetWidgetCount } from '../../redux/action/super/SuperAdminAction';
+import { SubmissionReprocess } from '../../redux/action/common/Submission/SubmissionAction';
 import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
@@ -25,16 +29,39 @@ import {
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
     COLUMN_ADMIN_XAXIS_DATA
 } from './../../constant/data/ChartData';
-import { DOCUMENT_PROCESSED_NOT_FOUND } from '../../constant/data/ErrorMessage'
+import {
+    DOCUMENT_PROCESSED_NOT_FOUND,
+    REPROCESS_PAPER_ID
+} from '../../constant/data/ErrorMessage'
+import InputTextField from '../../components/form/elements/InputTextField'
+import InputButton from '../../components/form/elements/InputButton'
 
 const chart = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users'];
 const submission = ['Year wise submissions', 'Month wise submissions'];
 
+const useStyles = makeStyles(() => ({
+    helperText: {
+        marginLeft: 0
+    }
+}));
+
+const ReprocessButton = styled.div`
+    position:fixed;
+    top: 12px;
+    right:230px;
+    z-index:999;
+`;
+
 const Dashboard = ({
     GetWidgetCount,
+    SubmissionReprocess,
     superDashboardData,
-    isLoading
+    isLoading,
+    isLoadingReprocess
 }) => {
+
+    const { register, handleSubmit, formState: { errors }, control } = useForm();
+    const classes = useStyles();
 
     const [year, setYear] = useState([])
     const [submissions, setSubmissions] = useState([])
@@ -49,10 +76,23 @@ const Dashboard = ({
     });
     const [chartLoading, setChartLoading] = useState(false);
     const [submissionChartLoading, setSubmissionChartLoading] = useState(false);
+    const [reprocess, setReprocess] = useState(false);
 
     useEffect(() => {
         GetWidgetCount();
     }, []);
+
+    const handleShow = () => {
+        setReprocess(true);
+    }
+
+    const closeSearchDialog = () => {
+        setReprocess(false);
+    };
+
+    const onSearch = (data) => {
+        SubmissionReprocess(data?.paperId);
+    };
 
     let a = 0; let b = 0; let c = 0; let d = 0; let e = 0; let f = 0;
 
@@ -181,6 +221,14 @@ const Dashboard = ({
 
     return (
         <React.Fragment>
+            <ReprocessButton>
+                <Tooltip title="Reprocess paper" arrow>
+                    <IconButton
+                        onClick={ handleShow }>
+                        <FeedIcon />
+                    </IconButton>
+                </Tooltip>
+            </ReprocessButton>
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 } >
                     <Grid item md={ 4 } xs={ 12 }>
@@ -298,17 +346,52 @@ const Dashboard = ({
                     </Grid>
                 </CardView>
             </Box>
+            { reprocess &&
+                <DialogModal
+                    headingTitle={ 'Paper Id' }
+                    isOpen={ true }
+                    fullWidth="sm"
+                    maxWidth="sm"
+                    handleClose={ closeSearchDialog }
+                >
+                    <form onSubmit={ handleSubmit(onSearch) }>
+                        <InputTextField
+                            control={ control }
+                            field={ {
+                                'field_type': 'input',
+                                'style': { marginTop: '0px' },
+                                'id': 'paperId',
+                                'label': 'Paper Id',
+                                'name': 'paperId',
+                                'required': REPROCESS_PAPER_ID,
+                                'size': 'normal'
+                            } }
+                        />
+                        <InputButton
+                            control={ control }
+                            field={ {
+                                'type': 'submit',
+                                'disabled': isLoadingReprocess,
+                                'label': "Submit",
+                                'isDisabled': isLoadingReprocess
+                            } }
+                        />
+                    </form>
+                </DialogModal>
+            }
         </React.Fragment>
     );
 };
 const mapStateToProps = (state) => ({
     superDashboardData: state?.superAdmin?.data,
     isLoading: state?.superAdmin?.isLoading,
+    isLoadingReprocess: state?.submission?.isLoadingReprocess
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetWidgetCount: () => dispatch(GetWidgetCount()),
+        SubmissionReprocess: (paperId) => dispatch(SubmissionReprocess(paperId)),
     };
 };
 

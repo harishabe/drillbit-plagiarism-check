@@ -144,6 +144,8 @@ const ZipFileUpload = ({
 
     const handleBack = (e) => {
         e.preventDefault();
+        UploadZipDataClear();
+        UploadZipFileDataClear();
         router.push(routerObj);
     }
 
