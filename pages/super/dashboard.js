@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import { useForm } from 'react-hook-form';
-import { Box, Grid, Skeleton, IconButton, Tooltip, TextField, Button } from '@mui/material';
+import { Box, Grid, Skeleton, IconButton, Tooltip } from '@mui/material';
 import styled from 'styled-components';
-import BeatLoader from 'react-spinners/BeatLoader';
 import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
 import {
@@ -34,6 +33,8 @@ import {
     DOCUMENT_PROCESSED_NOT_FOUND,
     REPROCESS_PAPER_ID
 } from '../../constant/data/ErrorMessage'
+import InputTextField from '../../components/form/elements/InputTextField'
+import InputButton from '../../components/form/elements/InputButton'
 
 const chart = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users'];
 const submission = ['Year wise submissions', 'Month wise submissions'];
@@ -59,7 +60,7 @@ const Dashboard = ({
     isLoadingReprocess
 }) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, control } = useForm();
     const classes = useStyles();
 
     const [year, setYear] = useState([])
@@ -354,24 +355,27 @@ const Dashboard = ({
                     handleClose={ closeSearchDialog }
                 >
                     <form onSubmit={ handleSubmit(onSearch) }>
-                        <TextField
-                            sx={ { marginTop: '0px' } }
-                            fullWidth
-                            name='paperId'
-                            type="number"
-                            variant="outlined"
-                            { ...register('paperId', { required: true }) }
-                            error={ errors['paperId'] }
-                            helperText={ errors['paperId'] && REPROCESS_PAPER_ID }
-                            FormHelperTextProps={ {
-                                className: classes.helperText
+                        <InputTextField
+                            control={ control }
+                            field={ {
+                                'field_type': 'input',
+                                'style': { marginTop: '0px' },
+                                'id': 'paperId',
+                                'label': 'Paper Id',
+                                'name': 'paperId',
+                                'required': REPROCESS_PAPER_ID,
+                                'size': 'normal'
                             } }
                         />
-                        <div style={ { textAlign: 'center', marginTop: '10px' } }>
-                            <Button color='primary' disabled={ isLoadingReprocess } type="submit" variant="contained" size="large" fullWidth>
-                                { isLoadingReprocess ? <BeatLoader color="#fff" /> : 'Submit' }
-                            </Button>
-                        </div>
+                        <InputButton
+                            control={ control }
+                            field={ {
+                                'type': 'submit',
+                                'disabled': isLoadingReprocess,
+                                'label': "Submit",
+                                'isDisabled': isLoadingReprocess
+                            } }
+                        />
                     </form>
                 </DialogModal>
             }
