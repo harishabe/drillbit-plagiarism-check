@@ -28,6 +28,7 @@ const AddButtonBottom = styled.div`
 
 const columns = [
   { id: 'college_name', label: 'Institution name' },
+  { id: 'email', label: 'Email' },
   { id: 'country', label: 'Location' },
   { id: 'start_date', label: 'Start date' },
   { id: 'expiry_date', label: 'Expiry date' },
@@ -35,9 +36,9 @@ const columns = [
   { id: 'action', label: 'Action' }
 ];
 
-function createData(college_name, country, start_date, expiry_date, used_documents, action, lid, name, email, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department) {
+function createData(college_name, email, country, start_date, expiry_date, used_documents, action, lid, name, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department) {
 
-  return { college_name, country, start_date, expiry_date, used_documents, action, lid, name, email, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department };
+  return { college_name, email, country, start_date, expiry_date, used_documents, action, lid, name, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department };
 }
 
 const ProProduct = ({
@@ -68,6 +69,7 @@ const ProProduct = ({
       row =
         createData(
           data.college_name,
+          data.email,
           data.country,
           data.start_date,
           data.expiry_date,
@@ -77,7 +79,6 @@ const ProProduct = ({
           ],
           data.lid,
           data.name,
-          data.email,
           data.instructors,
           data.students,
           data.documents,
