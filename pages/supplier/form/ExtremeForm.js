@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateAccount, EditAccount, DropdownList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
@@ -9,6 +9,7 @@ import FormJson from '../../../constant/form/reseller-extreme-account-form.json'
 import { convertDate } from '../../../utils/RegExp';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+import { FORM_VALIDATION } from '../../../constant/data/Constant';
 
 const ExtremeForm = ({
     CreateAccount,
@@ -30,9 +31,21 @@ const ExtremeForm = ({
         DropdownList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST);
     }, []);
 
+    const grammarAccess = useWatch({
+        control,
+        name: 'grammarAccess',
+    });
+
+    const phoneNumber = useWatch({
+        control,
+        name: 'phone',
+    });
+
     useEffect(() => {
         let InstitutionTypes = [];
         let timeZoneLists = [];
+        let grammarAccessValue = [];
+        let documentlengthValue = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
@@ -46,10 +59,84 @@ const ExtremeForm = ({
                 });
                 formItem['options'] = timeZoneLists;
             }
+            if (formItem.name === 'documentlength') {
+                dpList?.documentLength?.map((item) => {
+                    documentlengthValue.push({ 'name': item });
+                });
+                formItem['options'] = documentlengthValue;
+            }
+            if (formItem.name === 'grammarAccess') {
+                dpList?.grammarAccess?.map((item) => {
+                    grammarAccessValue.push({ 'name': item });
+                });
+                formItem['options'] = grammarAccessValue;
+            }
             return formItem;
         });
         setFormJsonField(formList);
     }, [dpList]);
+
+    useEffect(() => {
+        if (phoneNumber !== undefined) {
+            if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                        item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                        item['errorMsg'] = '';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                    item['errorMsg'] = '';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+    }, [phoneNumber])
+
+    useEffect(() => {
+        if (grammarAccess?.name !== undefined) {
+            if (grammarAccess?.name === 'YES') {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        item['disabled'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        item['disabled'] = true;
+                        setValue('grammar', 0);
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+    }, [grammarAccess?.name])
 
     const onSubmit = (data) => {
         if (editOperation) {
