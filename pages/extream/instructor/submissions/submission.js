@@ -57,11 +57,11 @@ const columns = [
     { id: 'title', label: 'Title' },
     { id: 'original_fn', label: 'File', isDownload: true },
     { id: 'lang1', label: 'Language' },
-    { id: 'grammar_url', label: 'Grammar' },
+    { id: 'grammar_url', label: 'Grammar', maxWidth: 30 },
     { id: 'percent', label: 'Similarity' },
     { id: 'paper_id', label: 'ID' },
     { id: 'date_up', label: 'Submission Date' },
-    { id: 'action', label: 'Action', minWidth: 105 },
+    { id: 'action', label: 'Action', minWidth: 142 },
 ];
 
 function createData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status, user_id) {
