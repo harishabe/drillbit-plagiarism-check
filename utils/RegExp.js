@@ -93,6 +93,18 @@ export const getItemLocalStorage = (key) => {
     return a;
 };
 
+export const setItemSessionStorage = (key, value) => {
+    sessionStorage.setItem(key, value);
+};
+
+export const getItemSessionStorage = (key) => {
+    let a = sessionStorage.getItem(key);
+    return a;
+};
+export const clearSessionStorage = () => {
+    sessionStorage.clear();
+};
+
 export const windowOpen = (url) => {
     let params = 'width=' + screen.width;
     params += ', height=' + screen.height;

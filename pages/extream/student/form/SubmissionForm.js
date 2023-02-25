@@ -8,7 +8,7 @@ import FormJson from '../../../../constant/form/student-submission-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { NewSubmission } from '../../../../redux/action/student/StudentAction';
 import { UploadNonEnglish, LanguageList } from '../../../../redux/action/common/UploadFile/UploadFileAction';
-import { getItemLocalStorage } from '../../../../utils/RegExp';
+import { getItemSessionStorage } from '../../../../utils/RegExp';
 import { BASE_URL_UPLOAD } from '../../../../utils/BaseUrl'
 
 const SubmissionForm = ({
@@ -80,13 +80,13 @@ const SubmissionForm = ({
     const onSubmit = (data) => {
         let bodyFormData = new FormData();
         if (data?.language?.name === "English") {
-            bodyFormData.append('authorName', getItemLocalStorage('name'));
+            bodyFormData.append('authorName', getItemSessionStorage('name'));
             bodyFormData.append('title', assignmentName);
             bodyFormData.append('language', data?.language?.name);
             bodyFormData.append('file', data.file[0]);
             NewSubmission(bodyFormData, router.query.clasId, router.query.assId);
         } else {
-            bodyFormData.append('authorName', getItemLocalStorage('name'));
+            bodyFormData.append('authorName', getItemSessionStorage('name'));
             bodyFormData.append('title', assignmentName);
             bodyFormData.append('language', data?.non_english?.name);
             bodyFormData.append('file', data.file[0]);
@@ -110,7 +110,7 @@ const SubmissionForm = ({
 
     useEffect(() => {
         let a = {
-            'name': getItemLocalStorage('name'),
+            'name': getItemSessionStorage('name'),
             'title': assignmentName,
         };
         const fields = [

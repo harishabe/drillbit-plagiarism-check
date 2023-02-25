@@ -24,7 +24,7 @@ import {
     AccountIcon,
     HelpIcon
 } from '../../assets/icon';
-import { getItemLocalStorage, setItemLocalStorage } from '../../utils/RegExp';
+import { getItemSessionStorage, setItemSessionStorage, clearSessionStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
 import EllipsisText from '../ellipsis/EllipsisText';
 import SubTitle1 from '../typography/SubTitle1';
@@ -79,7 +79,7 @@ const NavBar = ({
     const handleLogout = (event) => {
         event.preventDefault();
         setAnchorEl(null);
-        localStorage.clear();
+        clearSessionStorage();
         window.location.href = '/auth/login';
         window.location.replace(window?.location?.origin + window?.location?.pathname);
     };
@@ -88,11 +88,11 @@ const NavBar = ({
         e.preventDefault();
         if (switchRole === Role.instructor) {
             setSwitchRole('instructor');
-            setItemLocalStorage('switchRole', 'instructor');
+            setItemSessionStorage('switchRole', 'instructor');
             router.push('/extream/instructor/dashboard');
         } else {
             setSwitchRole('admin');
-            setItemLocalStorage('switchRole', 'admin');
+            setItemSessionStorage('switchRole', 'admin');
             router.push('/extream/admin/dashboard');
         }
     };
@@ -101,22 +101,22 @@ const NavBar = ({
         e.preventDefault();
         if (switchProRole === 'lim-instructor') {
             setSwitchRole('user');
-            setItemLocalStorage('switchProRole', 'user');
+            setItemSessionStorage('switchProRole', 'user');
             router.push('/pro/user/dashboard');
         } else {
             setSwitchRole('admin');
-            setItemLocalStorage('switchProRole', 'admin');
+            setItemSessionStorage('switchProRole', 'admin');
             router.push('/pro/admin/dashboard');
         }
     };
 
 
     React.useEffect(() => {
-        let userName = getItemLocalStorage('name');
-        let userRole = getItemLocalStorage('role');
-        let email = getItemLocalStorage('email');
-        let switchExtreamRole = getItemLocalStorage('switchRole');
-        let switchProRole = getItemLocalStorage('switchProRole');
+        let userName = getItemSessionStorage('name');
+        let userRole = getItemSessionStorage('role');
+        let email = getItemSessionStorage('email');
+        let switchExtreamRole = getItemSessionStorage('switchRole');
+        let switchProRole = getItemSessionStorage('switchProRole');
         setName(userName);
         setRole(userRole);
         setEmail(email);
@@ -236,7 +236,7 @@ const NavBar = ({
                     />
                 </MenuItem>
                 <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
-                { (router.pathname.split('/')[1] === 'extream' && role === Role?.admin && ((getItemLocalStorage('switchRole') === null || getItemLocalStorage('switchRole') === 'admin') || (getItemLocalStorage('switchRole') === null || getItemLocalStorage('switchRole') === 'instructor'))) &&
+                { (router.pathname.split('/')[1] === 'extream' && role === Role?.admin && ((getItemSessionStorage('switchRole') === null || getItemSessionStorage('switchRole') === 'admin') || (getItemSessionStorage('switchRole') === null || getItemSessionStorage('switchRole') === 'instructor'))) &&
                     <>
                     <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => switchToUser(e, router.pathname.split('/')[2] === Role?.admin ? 'instructor' : 'admin') }>
                         <ListItemIcon>
@@ -252,7 +252,7 @@ const NavBar = ({
                     </>
                 }
                 { (router.pathname.split('/')[1] === 'pro' && role === Role?.proAdmin &&
-                    ((getItemLocalStorage('switchRole') === null || getItemLocalStorage('switchRole') === 'lim-admin') || (getItemLocalStorage('switchRole') === null || getItemLocalStorage('switchRole') === 'lim-instructor'))) &&
+                    ((getItemSessionStorage('switchRole') === null || getItemSessionStorage('switchRole') === 'lim-admin') || (getItemSessionStorage('switchRole') === null || getItemSessionStorage('switchRole') === 'lim-instructor'))) &&
                     <>
                     <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ (e) => switchToProUser(e, router.pathname.split('/')[2] === Role?.admin ? 'lim-instructor' : 'lim-admin') }>
                         <ListItemIcon>

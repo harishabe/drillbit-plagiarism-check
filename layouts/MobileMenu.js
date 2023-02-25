@@ -19,6 +19,7 @@ import {
     SidebarInstructor,
     SidebarStudent
 } from '../constant/data';
+import { getItemSessionStorage } from '../utils/RegExp'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +58,7 @@ const MobileMenu = () => {
     }
 
     React.useEffect(() => {
-        let role = localStorage.getItem('role');
+        let role = getItemSessionStorage('role');
         if (role === 'admin') {
             setSidebarItem(SidebarAdmin);
         } else if (role === 'instructor') {

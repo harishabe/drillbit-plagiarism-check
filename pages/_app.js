@@ -14,6 +14,7 @@ import theme from '../src/theme';
 
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import { getItemSessionStorage } from '../utils/RegExp'
 
 Router.events.on('routeChangeStart', (url) => {
     document.body.classList.add('body-page-transition');
@@ -54,7 +55,7 @@ export default function MyApp(props) {
     function authCheck(url) {
         const publicPaths = ['/auth/login', '/auth/forgot-password', '/auth/reset-password', '/auth/single-sign-on'];
         const path = url.split('?')[0];
-        if (!localStorage.getItem('token') && !publicPaths.includes(path)) {
+        if (!getItemSessionStorage('token') && !publicPaths.includes(path)) {
             setAuthorized(false);
             router.push({
                 pathname: '/auth/login'

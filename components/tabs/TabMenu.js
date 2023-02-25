@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { getItemLocalStorage } from '../../utils/RegExp';
+import { getItemSessionStorage } from '../../utils/RegExp';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -65,7 +65,7 @@ const TabMenu = ({
 
     const classes = useStyles();
 
-    const [value, setValue] = React.useState(getItemLocalStorage('tab') !== null ? parseInt(getItemLocalStorage('tab')) : 0);
+    const [value, setValue] = React.useState(getItemSessionStorage('tab') !== null ? parseInt(getItemSessionStorage('tab')) : 0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -73,11 +73,11 @@ const TabMenu = ({
     };
 
     useEffect(() => {
-        if (getItemLocalStorage('tab')) {
-            setValue(parseInt(getItemLocalStorage('tab')));
-            handleAPI(parseInt(getItemLocalStorage('tab')));
+        if (getItemSessionStorage('tab')) {
+            setValue(parseInt(getItemSessionStorage('tab')));
+            handleAPI(parseInt(getItemSessionStorage('tab')));
         }
-    }, [getItemLocalStorage])
+    }, [getItemSessionStorage])
 
     return (
         <Box sx={ { width: '100%' } }>

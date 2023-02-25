@@ -26,7 +26,7 @@ import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import { getItemLocalStorage } from '../../utils/RegExp';
+import { getItemSessionStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
 import {
     TABLE_HEADER_SORT_DISABLE,
@@ -75,7 +75,7 @@ const CommonTable = ({
 }) => {
     const router = useRouter();
     const classes = useStyles();
-    const role = getItemLocalStorage('role')
+    const role = getItemSessionStorage('role')
     const [toggle, setToggle] = React.useState(false);
     const [sortArrow, setSortArrow] = React.useState('');
     const [allSelected, setAllSelected] = React.useState(false);

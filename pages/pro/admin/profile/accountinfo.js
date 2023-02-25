@@ -9,6 +9,7 @@ import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/Profil
 import { Role } from '../../../../constant/data';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
+import { getItemSessionStorage } from '../../../../utils/RegExp'
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -49,7 +50,7 @@ const AccountInfo = ({
 
     useEffect(() => {
         GetProfile(BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_DATA);
-        setRole(localStorage.getItem('role'));
+        setRole(getItemSessionStorage('role'));
     }, []);
 
     useEffect(() => {
