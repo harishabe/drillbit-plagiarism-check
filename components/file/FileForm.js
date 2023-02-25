@@ -16,7 +16,7 @@ import {
 import {
     LanguageList
 } from '../../redux/action/common/UploadFile/UploadFileAction';
-import { getItemLocalStorage } from '../../utils/RegExp';
+import { getItemSessionStorage } from '../../utils/RegExp';
 import InputAutoComplete from '../form/elements/InputAutoComplete'
 
 export const LabelContainer = styled.div`
@@ -98,7 +98,7 @@ const FileForm = ({
                                         variant="outlined"
                                         size="small"
                                         disabled
-                                        label={getItemLocalStorage('name')}
+                                        label={ getItemSessionStorage('name') }
                                         inputProps={{
                                             minLength: 3,
                                         }}

@@ -1,11 +1,12 @@
 import axois from 'axios';
 import { saveAs } from 'file-saver';
+import { getItemSessionStorage } from '../../utils/RegExp'
 
 const header = () => {
     return {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        'authorization': `Bearer ${localStorage.getItem('token')}`
+        'authorization': `Bearer ${getItemSessionStorage('token')}`
     }
 };
 
@@ -20,14 +21,14 @@ const FormDataHeader = () => {
     return {
         "Accept-Language": "en",
         "Content-Type": "multipart/form-data",
-        'authorization': `Bearer ${localStorage.getItem('token')}`
+        'authorization': `Bearer ${getItemSessionStorage('token')}`
     }
 };
 
 const FormDataHeaderZip = () => {
     return {
         'Content-Type': "multipart/form-data",
-        'authorization': `Bearer ${localStorage.getItem('token')}`
+        'authorization': `Bearer ${getItemSessionStorage('token')}`
     }
 };
 
@@ -35,7 +36,7 @@ const headerEN = () => {
     return {
         "Accept-Language": "en",
         "Content-Type": "application/json",
-        'authorization': `Bearer ${localStorage.getItem('token')}`
+        'authorization': `Bearer ${getItemSessionStorage('token')}`
     }
 };
 

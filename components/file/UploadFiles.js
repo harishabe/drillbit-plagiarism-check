@@ -34,7 +34,7 @@ import {
   UPLOAD_NON_ENGLISH_FILE_MULTIFILE,
 } from "../../constant/data/ErrorMessage";
 import {
-  getItemLocalStorage,
+  getItemSessionStorage,
   isValidFileUploaded,
   isValidRepositoryFileUploaded,
 } from "../../utils/RegExp";
@@ -206,7 +206,7 @@ const UploadFiles = ({
 
   const singleFileUploadStudent = (files, data) => {
     let bodyFormData = new FormData();
-    bodyFormData.append("authorName", getItemLocalStorage("name"));
+    bodyFormData.append("authorName", getItemSessionStorage("name"));
     bodyFormData.append("title", router.query.assName);
     bodyFormData.append("language", langType);
     bodyFormData.append("file", files[0][1]);
@@ -227,7 +227,7 @@ const UploadFiles = ({
 
   const singleFileUploadNonEnglishStudent = (files, data) => {
     let bodyFormData = new FormData();
-    bodyFormData.append("authorName", getItemLocalStorage("name"));
+    bodyFormData.append("authorName", getItemSessionStorage("name"));
     bodyFormData.append("title", router.query.assName);
     bodyFormData.append("language", data.nonEnglishLang);
     bodyFormData.append("file", files[0][1]);

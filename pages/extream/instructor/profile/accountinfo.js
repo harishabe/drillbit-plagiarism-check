@@ -7,7 +7,7 @@ import { CardView, CommonTable, MainHeading } from '../../../../components';
 import { GetProfile } from '../../../../redux/action/profile/ProfileAction';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { getItemLocalStorage } from '../../../../utils/RegExp';
+import { getItemSessionStorage } from '../../../../utils/RegExp';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -34,7 +34,7 @@ const AccountInfo = ({
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        let roleEndpoint = (getItemLocalStorage('switchRole') !== null ? getItemLocalStorage('switchRole') : getItemLocalStorage('role'));
+        let roleEndpoint = (getItemSessionStorage('switchRole') !== null ? getItemSessionStorage('switchRole') : getItemSessionStorage('role'));
         GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + roleEndpoint + '/accountInformation');
     }, []);
 

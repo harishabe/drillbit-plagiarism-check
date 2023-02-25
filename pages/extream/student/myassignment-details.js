@@ -31,7 +31,7 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import SubmissionHistory from './submission-history';
 import QA from './q&a';
 import Feedback from './feedback';
-import { dateFormat, getItemLocalStorage } from '../../../utils/RegExp';
+import { dateFormat, getItemSessionStorage } from '../../../utils/RegExp';
 
 const tabMenu = [
     {
@@ -131,7 +131,7 @@ const MyAssignmentDetails = ({
                 ans1[item.id.replace('Q', 'A').toLowerCase()] = item?.answer;
             }
         });
-        ans1['studentName'] = getItemLocalStorage('name');
+        ans1['studentName'] = getItemSessionStorage('name');
         SendData(ans1, router.query.clasId, router.query.assId);
     };
 

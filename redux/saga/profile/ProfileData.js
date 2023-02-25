@@ -9,6 +9,7 @@ import toastrValidation from '../../../utils/ToastrValidation';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
+import { getItemSessionStorage } from '../../../utils/RegExp';
 
 /**
  * User Profile
@@ -42,7 +43,7 @@ export function* onLoadProfileLogo(action) {
         yield put({
             type: types.FETCH_PROFILE_DATA_START,
             url: action.url.split('/')[3] === 'extreme' ?
-                BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation' :
+                BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + getItemSessionStorage('role') + '/accountInformation' :
                 BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_DATA,
         });
         toastrValidation(response);

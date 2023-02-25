@@ -8,6 +8,7 @@ import { UploadIcon } from '../../../../assets/icon';
 import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/ProfileAction';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
+import { getItemSessionStorage } from '../../../../utils/RegExp'
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -46,7 +47,7 @@ const AccountInfo = ({
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation');
+        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + getItemSessionStorage('role') + '/accountInformation');
     }, []);
 
     useEffect(() => {

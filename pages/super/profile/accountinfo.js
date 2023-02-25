@@ -9,6 +9,7 @@ import { GetProfile, ProfileLogo } from '../../../redux/action/profile/ProfileAc
 import { Role } from '../../../constant/data';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+import { getItemSessionStorage } from '../../../utils/RegExp'
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -46,8 +47,8 @@ const AccountInfo = ({
     const [role, setRole] = useState('');
 
     useEffect(() => {
-        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + localStorage.getItem('role') + '/accountInformation');
-        setRole(localStorage.getItem('role'));
+        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + getItemSessionStorage('role') + '/accountInformation');
+        setRole(getItemSessionStorage('role'));
     }, []);
 
     useEffect(() => {
@@ -72,7 +73,7 @@ const AccountInfo = ({
     const handleChange = (data) => {
         let bodyFormData = new FormData();
         bodyFormData.append('file', data.target.files[0]);
-        ProfileLogo(localStorage.getItem('role'), bodyFormData);
+        ProfileLogo(getItemSessionStorage('role'), bodyFormData);
     };
 
     return (

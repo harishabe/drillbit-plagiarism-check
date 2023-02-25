@@ -3,13 +3,15 @@ import { useRouter } from "next/router";
 import { Role } from "../../constant/data";
 import PageChange from '../../components/loader/PageChange';
 import ReactDOM from 'react-dom';
+import { setItemSessionStorage, getItemSessionStorage } from '../../utils/RegExp'
+
 
 const SingleSignOn = () => {
   const router = useRouter();
   const [loadingPage, isLoadingPage] = useState(true)
   const [loginState, isLoginState] = useState([])
 
-  if (localStorage.getItem('role') && localStorage.getItem('token') && localStorage.getItem('email') && localStorage.getItem('name')) {
+  if (getItemSessionStorage('role') && getItemSessionStorage('token') && getItemSessionStorage('email') && getItemSessionStorage('name')) {
     isLoadingPage(false)
   }
 
@@ -38,46 +40,46 @@ const SingleSignOn = () => {
 
   useEffect(() => {
     if (loginState?.role === Role.admin) {
-      localStorage.setItem("role", Role.admin);
-      localStorage.setItem("token", loginState?.token);
-      localStorage.setItem("email", loginState?.username);
-      localStorage.setItem("name", loginState?.name);
+      setItemSessionStorage("role", Role.admin);
+      setItemSessionStorage("token", loginState?.token);
+      setItemSessionStorage("email", loginState?.username);
+      setItemSessionStorage("name", loginState?.name);
       router.push("/extream/admin/dashboard");
     } else if (loginState?.role === Role.instructor) {
-      localStorage.setItem("role", Role.instructor);
-      localStorage.setItem("token", loginState?.token);
-      localStorage.setItem("email", loginState?.username);
-      localStorage.setItem("name", loginState?.name);
+      setItemSessionStorage("role", Role.instructor);
+      setItemSessionStorage("token", loginState?.token);
+      setItemSessionStorage("email", loginState?.username);
+      setItemSessionStorage("name", loginState?.name);
       router.push("/extream/instructor/dashboard");
     } else if (loginState?.role === Role.student) {
-      localStorage.setItem("role", Role.student);
-      localStorage.setItem("token", loginState?.token);
-      localStorage.setItem("email", loginState?.username);
-      localStorage.setItem("name", loginState?.name);
+      setItemSessionStorage("role", Role.student);
+      setItemSessionStorage("token", loginState?.token);
+      setItemSessionStorage("email", loginState?.username);
+      setItemSessionStorage("name", loginState?.name);
       router.push("/extream/student/dashboard");
     } else if (loginState?.role === Role.proAdmin) {
-      localStorage.setItem("role", Role.proAdmin);
-      localStorage.setItem("token", loginState?.token);
-      localStorage.setItem("email", loginState?.username);
-      localStorage.setItem("name", loginState?.name);
+      setItemSessionStorage("role", Role.proAdmin);
+      setItemSessionStorage("token", loginState?.token);
+      setItemSessionStorage("email", loginState?.username);
+      setItemSessionStorage("name", loginState?.name);
       router.push("/pro/admin/dashboard");
     } else if (loginState?.role === Role.proUser) {
-      localStorage.setItem("role", Role.proUser);
-      localStorage.setItem("token", loginState?.token);
-      localStorage.setItem("email", loginState?.username);
-      localStorage.setItem("name", loginState?.name);
+      setItemSessionStorage("role", Role.proUser);
+      setItemSessionStorage("token", loginState?.token);
+      setItemSessionStorage("email", loginState?.username);
+      setItemSessionStorage("name", loginState?.name);
       router.push("/pro/user/dashboard");
     } else if (loginState?.role === Role.super) {
-      localStorage.setItem("role", Role.super);
-      localStorage.setItem("token", loginState?.token);
-      localStorage.setItem("email", loginState?.username);
-      localStorage.setItem("name", loginState?.name);
+      setItemSessionStorage("role", Role.super);
+      setItemSessionStorage("token", loginState?.token);
+      setItemSessionStorage("email", loginState?.username);
+      setItemSessionStorage("name", loginState?.name);
       router.push("/super/dashboard");
     } else if (loginState?.role === Role.supplier) {
-      localStorage.setItem("role", Role.supplier);
-      localStorage.setItem("token", loginState?.token);
-      localStorage.setItem("email", loginState?.username);
-      localStorage.setItem("name", loginState?.name);
+      setItemSessionStorage("role", Role.supplier);
+      setItemSessionStorage("token", loginState?.token);
+      setItemSessionStorage("email", loginState?.username);
+      setItemSessionStorage("name", loginState?.name);
       router.push("/supplier/extreamProduct");
     }
   }, [router, loginState]);

@@ -38,7 +38,7 @@ import {
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
-import { formatDate, removeCommaWordEnd, windowOpen } from '../../../utils/RegExp';
+import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL, BASE_URL_EXTREM, BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
@@ -410,7 +410,7 @@ const folderSubmission = ({
      * show analysis page
      */
     const handleShowAnalysisPage = (e, row) => {
-        let token = localStorage.getItem('token');
+        let token = getItemSessionStorage('token');
         let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
         windowOpen(url);
     };

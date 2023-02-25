@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Instructor from './../../../../layouts/Instructor';
 import { MainHeading, Title, CardView } from './../../../../components';
 import Link from 'next/link';
+import { getItemSessionStorage } from '../../../../utils/RegExp'
 
 const Help = () => {
 
@@ -20,9 +21,9 @@ const Help = () => {
 
     useEffect(() => {
         let d = data?.map((item) => {
-            if (localStorage.getItem('role') === 'lim-instructor') {
+            if (getItemSessionStorage('role') === 'lim-instructor') {
                 item['isShow'] = true;
-            } else if (localStorage.getItem('switchProRole') === 'user') {
+            } else if (getItemSessionStorage('switchProRole') === 'user') {
                 item['isShow'] = true;
             }
             return item;

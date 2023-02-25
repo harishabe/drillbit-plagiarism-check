@@ -25,6 +25,7 @@ import {
     SidebarProUser,
     SidebarSupplier,
 } from '../constant/data';
+import { getItemSessionStorage } from '../utils/RegExp'
 
 const drawerWidth = 200;
 
@@ -173,7 +174,7 @@ const SideBar = ({ open }) => {
     }
 
     React.useEffect(() => {
-        let role = localStorage.getItem('role');
+        let role = getItemSessionStorage('role');
         if (role === 'admin' && router.pathname.split('/')[1] === 'extream' && router.pathname.split('/')[2] === Role?.admin) {
             setSidebarItem(SidebarAdmin);
         } else if (role === 'admin' && router.pathname.split('/')[1] === 'extream' && router.pathname.split('/')[2] === Role?.instructor) {

@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Student from './../../../../layouts/Student';
 import { MainHeading, Title, CardView } from './../../../../components';
 import Link from 'next/link';
+import { getItemSessionStorage } from '../../../../utils/RegExp'
 
 const Help = () => {
 
@@ -20,7 +21,7 @@ const Help = () => {
 
     useEffect(() => {
         let d = data?.map((item) => {
-            if (localStorage.getItem('role') === 'student') {
+            if (getItemSessionStorage('role') === 'student') {
                 item['isShow'] = true;
             }
             return item;

@@ -34,7 +34,7 @@ import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import StudentInstitute from '../studentInstitute';
-import { removeCommaWordEnd, setItemLocalStorage, platform } from '../../../../utils/RegExp';
+import { removeCommaWordEnd, setItemSessionStorage, platform } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
@@ -119,7 +119,7 @@ const Students = ({
 
     useEffect(() => {
         GetStudent(router.query.clasId, paginationPayload);
-        setItemLocalStorage('tab', activeTab)
+        setItemSessionStorage('tab', activeTab)
     }, [, paginationPayload]);
 
     useEffect(() => {
