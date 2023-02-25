@@ -102,8 +102,7 @@ export const getItemSessionStorage = (key) => {
     return a;
 };
 export const clearSessionStorage = () => {
-    let a = sessionStorage.clear();
-    return a;
+    sessionStorage.clear();
 };
 
 export const windowOpen = (url) => {
