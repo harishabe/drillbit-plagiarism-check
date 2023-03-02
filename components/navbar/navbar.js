@@ -26,6 +26,7 @@ import {
 } from '../../assets/icon';
 import { getItemSessionStorage, setItemSessionStorage, clearSessionStorage } from '../../utils/RegExp';
 import { Role } from '../../constant/data';
+import { PROFILE_ROLE } from '../../constant/data/Constant';
 import EllipsisText from '../ellipsis/EllipsisText';
 import SubTitle1 from '../typography/SubTitle1';
 
@@ -65,6 +66,7 @@ const NavBar = ({
     const router = useRouter();
     const [name, setName] = React.useState('');
     const [role, setRole] = React.useState('');
+    const [profileRole, setProfileRole] = React.useState('');
     const [switchRole, setSwitchRole] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [path, setPath] = React.useState('');
@@ -122,18 +124,25 @@ const NavBar = ({
         setEmail(email);
         if ((userRole === Role?.proAdmin) && (router.pathname.split('/')[1] === 'pro') && (router.pathname.split('/')[2] === 'admin')) {
             setPath('/pro/admin');
+            setProfileRole(PROFILE_ROLE.ADMIN);
         } else if ((userRole === Role?.proUser || Role?.proAdmin) && (switchProRole === 'user' || switchProRole === null) && (router.pathname.split('/')[2] === 'user')) {
             setPath('/pro/user');
+            setProfileRole(PROFILE_ROLE.USER);
         } else if ((userRole === Role?.student)) {
             setPath('/extream/' + userRole);
+            setProfileRole(PROFILE_ROLE.STUDENT);
         } else if ((userRole === Role?.super)) {
             setPath('/super/');
+            setProfileRole(PROFILE_ROLE.SUPER);
         } else if ((userRole === Role?.admin) && (router.pathname.split('/')[1] === 'extream') && (router.pathname.split('/')[2] === 'admin')) {
             setPath('/extream/admin');
+            setProfileRole(PROFILE_ROLE.ADMIN);
         } else if ((userRole === Role?.instructor || Role?.admin) && (switchExtreamRole === Role?.instructor || switchExtreamRole === null) && (router.pathname.split('/')[2] === 'instructor')) {
             setPath('/extream/instructor');
+            setProfileRole(PROFILE_ROLE.INSTRUCTOR);
         } else if ((userRole === Role?.supplier)) {
             setPath('/supplier/');
+            setProfileRole(PROFILE_ROLE.RESELLER);
         }
     }, [, router, switchRole]);
 
@@ -168,7 +177,7 @@ const NavBar = ({
                                             { name !== undefined ? <EllipsisText value={ name } charLength={ 12 } /> : <Skeleton /> }
                                         </div>
                                         <div style={ { fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right', textTransform: 'capitalize' } }>
-                                            { router.pathname.split('/')[2] }
+                                            { profileRole }
                                         </div>
                                     </div>
 
