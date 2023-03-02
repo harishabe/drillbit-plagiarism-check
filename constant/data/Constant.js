@@ -96,6 +96,18 @@ export const SIMILARITY_COLOR_STANDARD = {
 }
 
 /**
+ * Submissions similarity percentage standard color
+ */
+export const PROFILE_ROLE = {
+    'ADMIN': 'Admin',
+    'INSTRUCTOR': 'Instructor',
+    'STUDENT': 'Student',
+    'USER': 'User',
+    'SUPER': 'Drillbit',
+    'RESELLER': 'Reseller',
+}
+
+/**
  * Color
  */
  export const COLORS = {
