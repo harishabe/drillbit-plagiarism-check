@@ -1,29 +1,38 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
+import MuiToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Grid from '@mui/material/Grid';
 import debouce from 'lodash.debounce';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
-import { TextField } from '@mui/material';
+import { TextField, Skeleton, Tooltip } from '@mui/material';
 import ProUser from './../../../layouts/ProUser';
 import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
 import {
     BreadCrumb,
     MainHeading,
+    Folder,
     CreateDrawer,
     WarningDialog,
+    ErrorBlock,
     CommonTable,
     FolderIconSmall
 } from '../../../components';
 import { GetAllFolders, DeleteFolder } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
+import { setItemSessionStorage, getItemSessionStorage } from '../../../utils/RegExp';
 import MyFoldersForms from './form/MyFolderForms';
+import { FOLDERS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { FOLDER_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
+import FolderIcon from '@mui/icons-material/Folder';
 
 const InstructorBreadCrumb = [
     {
@@ -37,6 +46,13 @@ const InstructorBreadCrumb = [
         active: true,
     },
 ];
+
+const ToggleButton = styled(MuiToggleButton)({
+    '&.Mui-selected, &.Mui-selected:hover': {
+        color: '#fff !important',
+        backgroundColor: '#3672FF !important'
+    }
+});
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -70,6 +86,7 @@ const MyFolder = ({
     isLoadingEdit
 }) => {
     const router = useRouter();
+    const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
     const [rows, setRows] = useState([]);
     const [editFolder, setEditFolder] = useState(false);
     const [editFolderData, setEditFolderData] = useState('');
@@ -86,72 +103,34 @@ const MyFolder = ({
         GetAllFolders(BASE_URL_PRO + END_POINTS_PRO.USER_MY_FOLDERS, paginationPayload);
     }, [, paginationPayload]);
 
-    useEffect(() => {
-        let row = '';
-        let arr = [];
-        myFolders?.map((folder) => {
-            row =
-                createData(
-                    folder.folder_id,
-                    <FolderIconSmall title={ folder.folder_name } charLength={ 17 } />,
-                    folder.created_date,
-                    folder.no_of_submissions,
-                    [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
-                    ],
-                    folder.ex_references,
-                    folder.ex_quotes,
-                    folder.small_sources,
-                    folder.ex_phrases,
-                    folder.db_studentpaper,
-                    folder.db_publications,
-                    folder.db_internet,
-                    folder.institution_repository,
-                    folder.phrases
-                );
-            row['isSelected'] = false;
-            arr.push(row);
-        });
-        setRows([...arr]);
-    }, [myFolders]);
+    const handleChangeView = (e, value) => {
+        e.preventDefault();
+        if (value !== null) {
+            setView(value);
+            setItemSessionStorage('view', value);
+        }
+    };
 
     const handleChange = (event, value) => {
         event.preventDefault();
         setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
-    const handleAction = (e, icon, rowData) => {
-        if (icon === 'edit') {
-            setEditFolder(true);
-            setEditFolderData(rowData);
-        } else if (icon === 'delete') {
-            setShowDeleteWarning(true);
-            setSelectedFolder(rowData);
-        } else if (icon === 'nextPath') {
-            router.push({
-                pathname: '/pro/user/folderSubmission',
-                query: {
-                    name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammar : grammarSubscription
-                }
-            });
-        }
+    const handleFolderEdit = (e, rowData) => {
+        e.preventDefault();
+        setEditFolder(true);
+        setEditFolderData(rowData);
     };
 
-    const handleTableSort = (e, column, sortToggle) => {
-        if (sortToggle) {
-            paginationPayload['field'] = column.id;
-            paginationPayload['orderBy'] = 'asc';
-        } else {
-            paginationPayload['field'] = column.id;
-            paginationPayload['orderBy'] = 'desc';
-        }
-        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    const handleFolderDelete = (e, data) => {
+        e.preventDefault();
+        setShowDeleteWarning(true);
+        setSelectedFolder(data);
     };
 
     const handleYesWarning = () => {
-        DeleteFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + selectedFolder.ass_id);
+        DeleteFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + (selectedFolder.folder_id || selectedFolder.ass_id));
+        // DeleteFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + selectedFolder.ass_id);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -185,6 +164,69 @@ const MyFolder = ({
 
     /** end debounce concepts */
 
+    /** Table implementation functions start*/
+
+    useEffect(() => {
+        let row = '';
+        let arr = [];
+        myFolders?.map((folder) => {
+            row =
+                createData(
+                    folder.folder_id,
+                    <FolderIconSmall title={ folder.folder_name } charLength={ 17 } />,
+                    folder.created_date,
+                    folder.no_of_submissions,
+                    [
+                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                    ],
+                    folder.ex_references,
+                    folder.ex_quotes,
+                    folder.small_sources,
+                    folder.ex_phrases,
+                    folder.db_studentpaper,
+                    folder.db_publications,
+                    folder.db_internet,
+                    folder.institution_repository,
+                    folder.phrases
+                );
+            row['isSelected'] = false;
+            arr.push(row);
+        });
+        setRows([...arr]);
+    }, [myFolders]);
+
+    const handleAction = (e, icon, rowData) => {
+        if (icon === 'edit') {
+            setEditFolder(true);
+            setEditFolderData(rowData);
+        } else if (icon === 'delete') {
+            setShowDeleteWarning(true);
+            setSelectedFolder(rowData);
+        } else if (icon === 'nextPath') {
+            router.push({
+                pathname: '/pro/user/folderSubmission',
+                query: {
+                    name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammar : grammarSubscription
+                }
+            });
+        }
+    };
+
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
+
+    /** Table implementation functions end*/
+
     const handleCloseDrawer = (drawerClose) => {
         setEditFolder(drawerClose);
     };
@@ -199,17 +241,33 @@ const MyFolder = ({
                 </Grid>
             </Box>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 5 } xs={ 5 }>
+                <Grid item md={ 3 } xs={ 5 }>
                     <MainHeading title={ `My Folder(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 6.5 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                    <ToggleButtonGroup
+                        color="primary"
+                        size='small'
+                        value={ view }
+                        exclusive
+                        onChange={ handleChangeView }
+                    >
+                        <Tooltip title='Table view' arrow>
+                            <ToggleButton value={ TABLE_VIEW } selected={ view === TABLE_VIEW }><ViewListRoundedIcon fontSize='small' /></ToggleButton>
+                        </Tooltip>
+                        <Tooltip title='Folder view' arrow>
+                            <ToggleButton value={ FOLDER_VIEW } selected={ view === FOLDER_VIEW }><FolderIcon fontSize='small' /></ToggleButton>
+                        </Tooltip>
+                    </ToggleButtonGroup>
+                </Grid>
+                <Grid item md={ 2.5 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={ { width: '100%', marginTop: '8px' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 7,
                                 display: 'inline-flex',
                             },
                         } }
@@ -217,17 +275,50 @@ const MyFolder = ({
                 </Grid>
             </Grid>
 
-            <CommonTable
-                isCheckbox={ false }
-                isSorting={ true }
-                tableHeader={ columns }
-                tableData={ rows }
-                charLength={ 17 }
-                handleAction={ handleAction }
-                handleTableSort={ handleTableSort }
-                isLoading={ isLoading }
-                path=''
-            />
+            {
+                view === FOLDER_VIEW ? (
+                    <>
+                        { isLoading ?
+                            <Grid container spacing={ 2 }>
+                                <Grid item md={ 3 } xs={ 12 }> <Skeleton variant="rectangular" height={ 150 } /></Grid>
+                                <Grid item md={ 3 } xs={ 12 }> <Skeleton variant="rectangular" height={ 150 } /></Grid>
+                                <Grid item md={ 3 } xs={ 12 }> <Skeleton variant="rectangular" height={ 150 } /></Grid>
+                                <Grid item md={ 3 } xs={ 12 }> <Skeleton variant="rectangular" height={ 150 } /></Grid>
+                            </Grid> :
+                            <>
+                                { myFolders?.length > 0 ?
+                                    <Grid container spacing={ 2 } sx={ { overflowX: 'hidden' } }>
+                                        { myFolders?.map((item, index) => (
+                                            <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
+                                                <Folder
+                                                    item={ item }
+                                                    isAction={ true }
+                                                    handleClick={ handleFolderEdit }
+                                                    handleDelete={ handleFolderDelete }
+                                                    path={ { pathname: '/pro/user/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? item.grammar : grammarSubscription } } }
+                                                />
+                                            </Grid>
+                                        )) }
+                                    </Grid>
+                                    : <ErrorBlock message={ FOLDERS_NOT_FOUND } />
+                                }
+                            </>
+                        }
+                    </>
+                ) : (
+                    <CommonTable
+                        isCheckbox={ false }
+                        isSorting={ true }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        charLength={ 17 }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
+                        isLoading={ isLoading }
+                        path=''
+                    />
+                )
+            }
 
             {
                 showDeleteWarning &&
@@ -258,6 +349,7 @@ const MyFolder = ({
                         isShowAddIcon={ false }
                         showDrawer={ editFolder }
                         handleDrawerClose={ handleCloseDrawer }
+                        view={ view }
                 >
                     <MyFoldersForms
                             editData={ editFolderData }
