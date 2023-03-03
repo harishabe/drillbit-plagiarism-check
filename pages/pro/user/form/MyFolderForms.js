@@ -117,7 +117,7 @@ const MyFoldersForms = ({
             });
             editFolderPayload['phrases'] = phrasesObj;
         }
-        EditFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + editData?.folder_id, editFolderPayload);
+        EditFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + editData?.ass_id, editFolderPayload);
     };
 
     useEffect(() => {
@@ -163,7 +163,7 @@ const MyFoldersForms = ({
     useEffect(() => {
         if (editData !== undefined) {
             let a = {
-                'folder_name': editData.folder_name
+                'folder_name': editData.assignment_name?.props?.title
             };
             const fields = [
                 'folder_name'
