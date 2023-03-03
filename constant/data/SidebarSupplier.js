@@ -8,14 +8,14 @@ const SidebarSupplier = [
         "icon": <ClassIcon />,
         "activeIcon": <ClassWhiteIcon />,
         "name": "Extreme",
-        "path": "/extremeProduct",
+        "path": "/extreme",
         "layout": "/supplier",
     },
     {
         "icon": <ClassIcon />,
         "activeIcon": <ClassWhiteIcon />,
         "name": "Pro",
-        "path": "/proProduct",
+        "path": "/pro",
         "layout": "/supplier",
     }
 ];

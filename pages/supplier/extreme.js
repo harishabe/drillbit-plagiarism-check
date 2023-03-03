@@ -41,7 +41,7 @@ function createData(college_name, email, country, start_date, expiry_date, used_
   return { college_name, email, country, start_date, expiry_date, used_documents, action, lid, name, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department };
 }
 
-const ExtremeProduct = ({
+const Extreme = ({
   GetExtremeRefData,
   pageDetails,
   extremeData,
@@ -193,6 +193,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-ExtremeProduct.layout = Admin;
+Extreme.layout = Admin;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExtremeProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(Extreme);

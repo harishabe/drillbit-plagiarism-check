@@ -62,7 +62,7 @@ const LoginForm = ({ login, loginState, isLoading }) => {
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/supplier/extremeProduct");
+      router.push("/supplier/extreme");
     }
   }, [router, loginState]);
 
