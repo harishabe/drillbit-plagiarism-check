@@ -8,7 +8,7 @@ import {
   CreateDrawer,
   CardView,
   CommonTable,
-} from './../../components';
+} from '../../components';
 import {
   EditIcon,
 } from '../../assets/icon';
@@ -41,7 +41,7 @@ function createData(college_name, email, country, start_date, expiry_date, used_
   return { college_name, email, country, start_date, expiry_date, used_documents, action, lid, name, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department };
 }
 
-const ExtreamProduct = ({
+const ExtremeProduct = ({
   GetExtremeRefData,
   pageDetails,
   extremeData,
@@ -193,6 +193,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-ExtreamProduct.layout = Admin;
+ExtremeProduct.layout = Admin;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExtreamProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(ExtremeProduct);
