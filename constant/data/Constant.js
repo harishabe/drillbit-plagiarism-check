@@ -60,7 +60,8 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'reportpercent',
     'superadminplagairism',
     'superadmingrammar',
-    'used_documents'
+    'used_documents',
+    'folder_no_of_submissions'
 ];
 export const TABLE_BODY_ALLOW_ICON = [
     'action',
