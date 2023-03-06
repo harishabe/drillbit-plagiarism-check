@@ -2,6 +2,7 @@ export const ASSIGNMENT_SETTING_VALUE_YES = "YES";
 export const ASSIGNMENT_SETTING_VALUE_NO = "NO";
 export const FOLDER_VIEW = "FOLDER_VIEW";
 export const TABLE_VIEW = "TABLE_VIEW";
+export const CLASS_VIEW = "CLASS_VIEW";
 export const FILE_TYPE = {
     key: 'assignment_instructor',
     value: 'Assignment Instructor.pdf'

@@ -100,7 +100,7 @@ const MyClassesTables = ({
 
 const mapStateToProps = (state) => ({
     pageDetailsStudent: state?.instructorClasses?.studentData?.page,
-    pageDetailsAssignment: state?.instructorClasses?.assignmentData?.page,
+    pageDetailsAssignment: state?.instructorClasses?.assignmentData?.assignments?.page,
     assignmentData: state?.instructorClasses?.assignmentData?.assignments?.content,
     grammarSubscription: state?.instructorClasses?.assignmentData?.grammar_subscription,
     isLoadingAssignment: state?.instructorClasses?.isLoadingAssignment,
