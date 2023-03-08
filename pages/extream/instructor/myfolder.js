@@ -174,7 +174,7 @@ const MyFolder = ({
             row =
                 createData(
                     folder.folder_id,
-                    <FolderIconSmall title={ folder.folder_name } charLength={ 17 } />,
+                    <FolderIconSmall component={ [<FolderIcon fontSize='small' htmlColor='#56B2EA' />] } title={ folder.folder_name } charLength={ 17 } />,
                     folder.creation_date,
                     folder.no_of_submissions,
                     [
