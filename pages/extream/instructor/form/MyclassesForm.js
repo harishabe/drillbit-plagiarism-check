@@ -26,7 +26,7 @@ const MyClassesForm = ({
 
     const expiryDate = useWatch({
         control,
-        name: 'expiry_date',
+        name: 'end_date',
     });
 
     useEffect(() => {
@@ -79,12 +79,10 @@ const MyClassesForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            data['end_date'] = convertDate(data.expiry_date);
-            delete data.expiry_date;
-            EditClass(editData?.id, data);
+            data['end_date'] = convertDate(data.end_date);
+            EditClass((editData?.id || editData?.class_id), data);
         } else {
-            let DetailedData = { ...data, 'end_date': convertDate(data.expiry_date) };
-            delete DetailedData.expiry_date;
+            let DetailedData = { ...data, 'end_date': convertDate(data.end_date) };
             CreateClass(DetailedData);
         }
     };
@@ -108,14 +106,14 @@ const MyClassesForm = ({
     useEffect(() => {
         if (editData) {
             let a = {
-                'class_name': editData.name,
+                'class_name': (editData.name || editData?.class_name?.props?.title),
                 'description': editData.description,
-                'expiry_date': editData.expiry_date,
+                'end_date': editData.end_date,
             };
             const fields = [
                 'class_name',
                 'description',
-                'expiry_date',
+                'end_date',
             ];
             fields.forEach(field => setValue(field, a[field]));
             modifyFormField('Edit Class', true);

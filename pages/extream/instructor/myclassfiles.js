@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
-import styled from 'styled-components';
 import Instructor from '../../../layouts/Instructor';
 import {
     CardInfoView,
     CreateDrawer,
-    WarningDialog
+    WarningDialog,
+    CommonTable,
+    FolderIconSmall,
+    StatusDot
 } from '../../../components';
-import { DeleteWarningIcon } from '../../../assets/icon';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
 import MyClassesForm from './form/MyclassesForm';
 import {
     renameKeys,
@@ -18,22 +22,41 @@ import {
 } from '../../../utils/RegExp';
 import { DeleteClass } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationContainer } from '../../../style/index';
-import { CLASS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { CLASS_VIEW } from '../../../constant/data/Constant';
+import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 
+const columns = [
+    { id: 'class_id', label: 'Class ID' },
+    { id: 'class_name', label: 'Class name' },
+    { id: 'created_date', label: 'Start date' },
+    { id: 'end_date', label: 'Expiry date' },
+    { id: 'status', label: 'Status' },
+    { id: 'action', label: 'Action' },
+];
+
+function createData(class_id, class_name, created_date, end_date, status, action, description) {
+    return {
+        class_id, class_name, created_date, end_date, status, action, description
+    };
+}
 
 const MyClassFiles = ({
     classesData,
     pageDetails,
     DeleteClass,
+    view,
     handlePagination,
+    handleTableSort,
+    isLoading,
+    isLoadingClassDelete
 }) => {
-
+    const router = useRouter();
+    const [rows, setRows] = useState([]);
     const [item, setItem] = useState([]);
     const [editClasses, setEditClasses] = useState(false);
     const [editClassesData, setEditClassesData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [selectedClass, setSelectedClass] = useState('');
-
 
     useEffect(() => {
         let row = '';
@@ -41,13 +64,13 @@ const MyClassFiles = ({
         classesData?.map((item) => {
             const randomColor = Math.floor(Math.random() * 16777215).toString(16);
             item['color'] = "#" + randomColor;
-            item['validity'] = findByExpiryDate(item.expiry_date);
+            item['validity'] = findByExpiryDate(item.end_date);
             row = renameKeys(item,
                 {
                     class_id: 'id',
                     class_name: 'name',
                     creation_date: 'creation_date',
-                    expiry_date: 'expiry_date',
+                    end_date: 'end_date',
                     status: 'status',
                     color: 'color',
                     validity: 'validity'
@@ -71,7 +94,7 @@ const MyClassFiles = ({
     };
 
     const handleYesWarning = () => {
-        DeleteClass(selectedClass.id);
+        DeleteClass((selectedClass.id || selectedClass.class_id));
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -85,37 +108,100 @@ const MyClassFiles = ({
         setEditClasses(drawerClose);
     };
 
+    /** Table implementation functions start*/
+
+    useEffect(() => {
+        let row = '';
+        let arr = [];
+        classesData?.map((classes) => {
+            row =
+                createData(
+                    classes.class_id,
+                    <FolderIconSmall component={ [<WysiwygIcon fontSize='small' htmlColor='#56B2EA' />] } title={ classes.class_name } charLength={ 17 } />,
+                    classes.creation_date,
+                    classes.end_date,
+                    <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
+                    />,
+                    [
+                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                    ],
+                    classes.description
+                );
+            row['isSelected'] = false;
+            arr.push(row);
+        });
+        setRows([...arr]);
+    }, [classesData]);
+
+    const handleAction = (e, icon, rowData) => {
+        if (icon === 'edit') {
+            setEditClasses(true);
+            setEditClassesData(rowData);
+        } else if (icon === 'delete') {
+            setSelectedClass(rowData);
+            setShowDeleteWarning(true);
+        } else if (icon === 'nextPath') {
+            router.push({
+                pathname: '/extream/instructor/my-assignment',
+                query: {
+                    clasId: rowData.class_id, clasName: rowData?.class_name?.props?.title
+                }
+            });
+        }
+    };
+
+    /** Table implementation functions end*/
     return (
         <React.Fragment>
-            <Grid container spacing={2}>
-                {item?.map((item, index) => (
-                    <Grid key={index} item md={4} xs={12}>
-                        <CardInfoView
-                            key={index}
-                            item={item}
-                            isAvatar={true}
-                            isHeading={true}
-                            isTimer={true}
-                            isAction={true}
-                            isNextPath={true}
-                            isDescription={true}
-                            handleClick={handleClassEdit}
-                            handleDelete={handleClassDelete}
-                            statusColor={expiryDateBgColor(item.validity)}
-                            path={{ pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } }}
-                        />
-                    </Grid>
-                ))}
-            </Grid>
+            {
+                view === CLASS_VIEW ? (
+                    <>
+                        <Grid container spacing={ 2 }>
+                            { item?.map((item, index) => (
+                                <Grid key={ index } item md={ 4 } xs={ 12 }>
+                                    <CardInfoView
+                                        key={ index }
+                                        item={ item }
+                                        isAvatar={ true }
+                                        isHeading={ true }
+                                        isTimer={ true }
+                                        isAction={ true }
+                                        isNextPath={ true }
+                                        isDescription={ true }
+                                        handleClick={ handleClassEdit }
+                                        handleDelete={ handleClassDelete }
+                                        statusColor={ expiryDateBgColor(item.validity) }
+                                        path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
+                                    />
+                                </Grid>
+                            )) }
+                        </Grid>
+                    </>
+                ) : (
+                    <CommonTable
+                        isCheckbox={ false }
+                        isSorting={ true }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        charLength={ 17 }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
+                        isLoading={ isLoading || isLoadingClassDelete }
+                        path=''
+                    />
+                )
+            }
 
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={ <DeleteWarningIcon /> }
                     message="Are you sure you want to delete ?"
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
@@ -123,12 +209,12 @@ const MyClassFiles = ({
                 editClasses &&
                 <CreateDrawer
                     title="Edit Class"
-                    isShowAddIcon={false}
-                    showDrawer={editClasses}
-                    handleDrawerClose={handleCloseDrawer}
+                        isShowAddIcon={ false }
+                        showDrawer={ editClasses }
+                        handleDrawerClose={ handleCloseDrawer }
                 >
                     <MyClassesForm
-                        editData={editClassesData}
+                            editData={ editClassesData }
                     />
                 </CreateDrawer>
             }
@@ -136,9 +222,9 @@ const MyClassFiles = ({
 
             <PaginationContainer>
                 <Pagination
-                    count={pageDetails?.totalPages}
-                    page={pageDetails?.number + 1}
-                    onChange={handlePagination}
+                    count={ pageDetails?.totalPages }
+                    page={ pageDetails?.number + 1 }
+                    onChange={ handlePagination }
                     color="primary"
                     variant="outlined"
                     shape="rounded"
