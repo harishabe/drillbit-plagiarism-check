@@ -130,7 +130,6 @@ const MyFolder = ({
 
     const handleYesWarning = () => {
         DeleteFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + (selectedFolder.folder_id || selectedFolder.ass_id));
-        // DeleteFolder(BASE_URL_PRO + END_POINTS_PRO.USER_FOLDER_EDIT_AND_DELETE_DATA + '/' + selectedFolder.ass_id);
         setTimeout(() => {
             setShowDeleteWarning(false);
         }, [100]);
@@ -349,7 +348,6 @@ const MyFolder = ({
                         isShowAddIcon={ false }
                         showDrawer={ editFolder }
                         handleDrawerClose={ handleCloseDrawer }
-                        view={ view }
                 >
                     <MyFoldersForms
                             editData={ editFolderData }

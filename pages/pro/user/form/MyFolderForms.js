@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import InputTextField from '../../../../components/form/elements/InputTextField';
 import InputButton from '../../../../components/form/elements/InputButton';
 import { CreateFolder, EditFolder } from '../../../../redux/action/instructor/InstructorAction';
-import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO, FOLDER_VIEW } from '../../../../constant/data/Constant';
+import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
 import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/data/ErrorMessage';
 import { ErrorMessageContainer } from '../../../../style/index';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
@@ -41,8 +41,7 @@ const MyFoldersForms = ({
     CreateFolder,
     EditFolder,
     editData,
-    grammarSubscription,
-    view
+    grammarSubscription
 }) => {
 
     const [excludeRefBib, setExcludeRefBib] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
@@ -163,7 +162,6 @@ const MyFoldersForms = ({
 
     useEffect(() => {
         if (editData !== undefined) {
-            console.log('editData', editData)
             let a = {
                 'folder_name': editData.folder_name || editData.assignment_name?.props?.title
             };
