@@ -71,7 +71,7 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                 <SubTitle title={ item.feedback !== null ? item.feedback?.marks : NO_DATA_PLACEHOLDER } />
                             </TableCell>
                             <TableCell>
-                                <SimilarityStatus percent={item.percent} />
+                                <SimilarityStatus percent={ item.percent } flag={ item.flag } />
                             </TableCell>
                             <TableCell>
                                 <MarginTop>

@@ -57,8 +57,8 @@ const submissionsColumns = [
     { id: 'reporttitle', label: 'Title', minWidth: 110 },
 ];
 
-function submissionData(reportassignment_name, reportassignmet_id, reportauthor, reportclas_id, reportclas_name, reportemail, reportno_of_page, reportpaper_id, reportsimilarity, reportsubmission_date, reporttitle) {
-    return { reportassignment_name, reportassignmet_id, reportauthor, reportclas_id, reportclas_name, reportemail, reportno_of_page, reportpaper_id, reportsimilarity, reportsubmission_date, reporttitle };
+function submissionData(reportassignment_name, reportassignmet_id, reportauthor, reportclas_id, reportclas_name, reportemail, reportno_of_page, reportpaper_id, reportsimilarity, reportsubmission_date, reporttitle, flag) {
+    return { reportassignment_name, reportassignmet_id, reportauthor, reportclas_id, reportclas_name, reportemail, reportno_of_page, reportpaper_id, reportsimilarity, reportsubmission_date, reporttitle, flag };
 }
 
 function assignmentData(reportass_id, reportass_name, reportemail, reportcreated, reportendDate, reportclass_id, reportclass_name, reportcount) {
@@ -132,7 +132,7 @@ const ReportView = ({
                     data.email_id,
                     data.number_of_pages,
                     data.paper_id,
-                    <SimilarityStatus percent={ data.similarity } />,
+                    <SimilarityStatus percent={ data.similarity } flag={ data.flag } />,
                     formatDate(data.submission_date),
                     data.title,
                 );

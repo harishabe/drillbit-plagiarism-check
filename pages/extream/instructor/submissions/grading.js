@@ -62,9 +62,9 @@ const Grading = ({
         { id: 'action', label: 'Feedback', minWidth: 150 },
     ];
 
-    function createData(STname, paper_id, marks, similarity, action) {
+    function createData(STname, paper_id, marks, similarity, action, flag) {
         return {
-            STname, paper_id, marks, similarity, action
+            STname, paper_id, marks, similarity, action, flag
         };
     }
 
@@ -76,7 +76,7 @@ const Grading = ({
                 grading.stduentName,
                 grading.paper_id,
                 grading.obtained_marks === BACKEND_NO_DATA_PLACEHOLDER ? grading.obtained_marks : grading.obtained_marks + '/' + grading.max_marks,
-                <SimilarityStatus percent={grading.similarity} />,
+                <SimilarityStatus percent={ grading.similarity } flag={ grading.flag } />,
                 [
                     { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },
                 ]

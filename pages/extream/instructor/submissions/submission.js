@@ -64,9 +64,9 @@ const columns = [
     { id: 'action', label: 'Action', minWidth: 142 },
 ];
 
-function createData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status, user_id) {
+function createData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status, user_id, flag) {
     return {
-        id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status, user_id
+        id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status, user_id, flag
     };
 }
 
@@ -173,7 +173,7 @@ const Submission = ({
                 submission.grammar,
                 submission.grammar_url,
                 submission.lang,
-                <SimilarityStatus percent={submission.percent} />,
+                <SimilarityStatus percent={ submission.percent } flag={ submission.flag } />,
                 submission.paper_id,
                 formatDate(submission.date_up),
                 [
