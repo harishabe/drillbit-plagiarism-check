@@ -3,9 +3,9 @@ import * as types from "../ActionType";
 /**
  * Get Dashboard data
  */
-export const GetWidgetCount = () => {
+export const GetWidgetCount = (url) => {
   return {
-    type: types.FETCH_SUPER_ADMIN_DASH_WIDGET_START,
+    type: types.FETCH_SUPER_ADMIN_DASH_WIDGET_START, url: url
   };
 };
 

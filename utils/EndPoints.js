@@ -102,6 +102,7 @@ const END_POINTS = {
     INTEGRATION_DELETE_BLACKBOARD: '/extreme/integrations/blackboard',
     RESELLER_EXTREME_LICENSES: '/reseller/extreme/license',
     RESELLER_PRO_LICENSES: '/reseller/pro/license',
+    RESELLER_DASHBOARD: '/reseller/dashboard',
     RESELLER_EXTREME: '/reseller/extreme/licenses',
     RESELLER_PRO: '/reseller/pro/licenses',
     RESELLER_ACCOUNT_INFORMATION: '/reseller/accountInformation',

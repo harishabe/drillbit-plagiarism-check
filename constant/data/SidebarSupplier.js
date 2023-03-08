@@ -1,9 +1,18 @@
 import {
+    DashboardIcon,
+    DashboardWhiteIcon,
     ClassIcon,
     ClassWhiteIcon
 } from '../../assets/icon';
 
 const SidebarSupplier = [
+    {
+        "icon": <DashboardIcon />,
+        "activeIcon": <DashboardWhiteIcon />,
+        "name": "Dashboard",
+        "path": "/dashboard",
+        "layout": "/supplier",
+    },
     {
         "icon": <ClassIcon />,
         "activeIcon": <ClassWhiteIcon />,
