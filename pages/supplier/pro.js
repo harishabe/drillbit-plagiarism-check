@@ -24,7 +24,7 @@ import RefForm from './form/RefForm';
 import { PaginationContainer } from '../../style/index';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from "../../utils/EndPoints";
-import { BASE_URL } from '../../utils/BaseUrl';
+import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { DOWNLOAD_CSV, WINDOW_PLATFORM } from '../../constant/data/Constant';
 import { platform } from '../../utils/RegExp';
 
@@ -154,7 +154,7 @@ const Pro = ({
     };
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL + END_POINTS.RESELLER_CSV_DOWNLOAD + 'proResellerCsv', DOWNLOAD_CSV.RESELLER_PRO);
+        DownloadCsv(BASE_URL_SUPER + END_POINTS.RESELLER_CSV_DOWNLOAD + 'proResellerCsv', DOWNLOAD_CSV.RESELLER_PRO);
     };
 
     /** search implementation using debounce concepts */
