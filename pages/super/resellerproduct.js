@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import { Grid, TextField, Box } from '@mui/material';
+import { Grid, TextField, Box, Skeleton, Tooltip, IconButton } from '@mui/material';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
@@ -13,20 +13,43 @@ import {
 } from './../../components';
 import {
     EditIcon,
+    DownloadIcon,
 } from '../../assets/icon';
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
+import {
+    DownloadCsv,
+} from '../../redux/action/common/Submission/SubmissionAction';
 import ResellerForm from './form/ResellerForm';
 import { PaginationContainer } from '../../style/index';
 import Pagination from '@mui/material/Pagination';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from '../../utils/EndPoints';
+import { platform } from '../../utils/RegExp';
+import { BASE_URL } from '../../utils/BaseUrl';
+import { DOWNLOAD_CSV, WINDOW_PLATFORM } from '../../constant/data/Constant';
 
 const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
     right:30px;
+`;
+
+const SkeletonContainer = styled.div`
+    margin-top: 16px;
+    margin-right: 5px;
+`;
+
+const DownloadField = styled.div`
+    position:absolute;
+    top: 80px;
+    right:275px;
+`;
+
+const DownloadButton = styled.div`
+    margin-top:-5px;
+    margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
 `;
 
 const columns = [
@@ -48,9 +71,11 @@ function createData(lid, name, email, college_name, country, used_documents, act
 
 const ResellerProduct = ({
     GetExtremeRefData,
+    DownloadCsv,
     pageDetails,
     refData,
-    isLoading
+    isLoading,
+    isLoadingDownload,
 }) => {
     const [rows, setRows] = useState([]);
     const [paginationPayload, setPaginationPayload] = useState({
@@ -130,6 +155,10 @@ const ResellerProduct = ({
         setEditUser(drawerClose);
     };
 
+    const handleDownload = () => {
+        DownloadCsv(BASE_URL + END_POINTS.SUPER_ADMIN_RESELLER_CSV_DOWNLOAD, DOWNLOAD_CSV.RESELLER_LISTS);
+    };
+
     /** search implementation using debounce concepts */
 
     const handleSearch = (event) => {
@@ -161,6 +190,25 @@ const ResellerProduct = ({
                     <BreadCrumb item={ RefBreadCrumb } />
                 </Grid>
                 <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                    <DownloadField>
+                        <DownloadButton>
+                            { refData?.length > 0 &&
+                                isLoadingDownload ?
+                                <SkeletonContainer>
+                                    <Skeleton width={ 40 } />
+                                </SkeletonContainer>
+                                :
+                                <Tooltip title="Download csv" arrow>
+                                    <IconButton
+                                        aria-label="download-file"
+                                        size="large"
+                                        onClick={ handleDownload }>
+                                        <DownloadIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            }
+                        </DownloadButton>
+                    </DownloadField>
                     <TextField
                         sx={ { width: '40%' } }
                         placeholder='Search'
@@ -229,11 +277,13 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.superAdmin?.ExtrRefData?.page,
     refData: state?.superAdmin?.ExtrRefData?._embedded?.licenseDTOList,
     isLoading: state?.superAdmin?.isLoadingExtrRef,
+    isLoadingDownload: state?.submission?.isLoadingDownload,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetExtremeRefData: (url, paginationPayload) => dispatch(GetExtremeRefData(url, paginationPayload)),
+        DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
     };
 };
 
