@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Grid, TextField, Box, Skeleton, Tooltip, IconButton } from '@mui/material';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
@@ -27,7 +28,7 @@ import Pagination from '@mui/material/Pagination';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from '../../utils/EndPoints';
 import { platform } from '../../utils/RegExp';
-import { BASE_URL } from '../../utils/BaseUrl';
+import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { DOWNLOAD_CSV, WINDOW_PLATFORM } from '../../constant/data/Constant';
 
 const AddButtonBottom = styled.div`
@@ -62,10 +63,10 @@ const columns = [
     { id: 'action', label: 'Action' }
 ];
 
-function createData(lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date
+function createData(lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date, timeZone
 ) {
     return {
-        lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date
+        lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date, timeZone
     };
 }
 
@@ -77,6 +78,7 @@ const ResellerProduct = ({
     isLoading,
     isLoadingDownload,
 }) => {
+    const router = useRouter();
     const [rows, setRows] = useState([]);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -116,12 +118,16 @@ const ResellerProduct = ({
                     data.college_name,
                     data.country,
                     data.used_documents,
-                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }],
+                    [
+                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                    ],
                     data.state,
                     data.address,
                     data.designation,
                     data.phone,
                     data.expiry_date,
+                    data.timeZone,
                 );
             arr.push(row);
         });
@@ -148,6 +154,14 @@ const ResellerProduct = ({
         if (icon === 'edit') {
             setEditUser(true);
             setEditUserData(rowData);
+        } else if (icon === 'nextPath') {
+            router.push({
+                pathname: '/super/resellerExtreme',
+                query: {
+                    name: rowData?.name,
+                    licenseId: rowData?.lid,
+                }
+            });
         }
     };
 
@@ -156,7 +170,7 @@ const ResellerProduct = ({
     };
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL + END_POINTS.SUPER_ADMIN_RESELLER_CSV_DOWNLOAD, DOWNLOAD_CSV.RESELLER_LISTS);
+        DownloadCsv(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_RESELLER_LIST + 'resellersCsv', DOWNLOAD_CSV.RESELLER_LISTS);
     };
 
     /** search implementation using debounce concepts */

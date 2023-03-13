@@ -168,6 +168,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/super/extremeInstructor' && name === 'Extreme') {
             return true;
+        } else if (router.pathname === '/super/resellerExtreme' && name === 'Reseller') {
+            return true;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }

@@ -84,7 +84,7 @@ const END_POINTS = {
     SUPER_ADMIN_EXTREME_LICENSE: '/extreme/licenses',
     SUPER_ADMIN_REF_LICENSE: '/pro/licenses',
     SUPER_ADMIN_RESELLER: '/drillbit/resellers',
-    SUPER_ADMIN_RESELLER_CSV_DOWNLOAD: '/authentication/drillbit/resellersCsv',
+    SUPER_ADMIN_RESELLER_LIST: '/drillbit/',
     SUPER_ADMIN_CREATE_EDIT_RESELLER: '/drillbit/reseller',
     SUPER_ADMIN_DROPDOWN_LIST: '/drillbit/dplist',
     SUPER_ADMIN_FOLDER_PATH_LIST: '/drillbit/folders',

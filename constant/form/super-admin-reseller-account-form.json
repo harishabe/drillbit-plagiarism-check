@@ -82,6 +82,26 @@
     },
 
     {
+        "field_type": "dropdown",
+        "id": "acc_manager",
+        "name": "acc_manager",
+        "label": "Account manager *",
+        "required": "Account manager",
+        "validationMsg": "Invalid manager name",
+        "options": []
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "timeZone",
+        "name": "timeZone",
+        "label": "Time Zone *",
+        "required": "Time Zone",
+        "validationMsg": "Invalid Time Zone",
+        "options": []
+    },
+
+    {
         "field_type": "button",
         "type": "submit",
         "label": "Create Ref Account"
