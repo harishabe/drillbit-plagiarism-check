@@ -145,6 +145,8 @@ export const DOWNLOAD_CSV = {
     'STUDENTS_LISTS': 'Students Lists',
     'QNA_LISTS': 'Q&A Lists',
     'GRADING_LISTS': 'Grading Lists',
+    'RESELLER_EXTREME': 'Extreme demo accounts list',
+    'RESELLER_PRO': 'Pro demo accounts list',
 }
 
 export const INSTRUCTOR_TEMPLATE_TITLE = 'Multiple_Instructor_Upload_Template';
