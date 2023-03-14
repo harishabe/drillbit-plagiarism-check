@@ -1,19 +1,25 @@
 import React from 'react';
+import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Image from 'next/image';
 import {
     LoginContainer,
     BannerContainer,
-    ImgContainer
+    ImgContainer,
+    InlineText,
+    AccountLink,
 } from '../../style/login-style';
 import LoginForm from './login-form';
 import { MainHeading } from '../../components';
 import { DrillBitLogo, LoginBannerIcon } from '../../assets/icon';
 import {
     LOGIN_IMG_BANNER,
-    LOGIN_WELCOME_DRILLBIT
+    LOGIN_WELCOME_DRILLBIT,
+    LOGIN_VIA_INSITUTIONS
 } from '../../constant/data/content';
+import { BASE_URL } from '../../utils/BaseUrl'
+import END_POINTS from '../../utils/EndPoints'
 
 const Login = () => {
     return (
@@ -33,11 +39,11 @@ const Login = () => {
                             <MainHeading mb={'20px'} title={LOGIN_WELCOME_DRILLBIT} />
                             {/* <DrillBitLogoIcon /> */}
                             <LoginForm />
-                            {/* <InlineText>
+                            <InlineText>
                                 <AccountLink>
-                                    <Link href="/posts/first-post">{LOGIN_CREATE_ACCOUNT}</Link>
+                                    <Link href={ BASE_URL + END_POINTS.SSO_LOGIN }>{ LOGIN_VIA_INSITUTIONS }</Link>
                                 </AccountLink>
-                            </InlineText> */}
+                            </InlineText>
                         </LoginContainer>
                     </Grid>
                 </Grid>

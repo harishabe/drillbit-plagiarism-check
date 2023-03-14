@@ -108,6 +108,8 @@ const END_POINTS = {
     RESELLER_CHANGE_PASSWORD: '/reseller/password',
     INTEGRATION_DELETE_BRIGHTSPACE: '/extreme/integrations/brightspace',
     INTEGRATION_DELETE_MOODLE_LTI: '/extreme/integrations/moodleLti',
+    SSO_LOGIN: '/saml',
+    SSO_LOGOUT: '/saml/saml/logout',
 };
 
 export default END_POINTS;
