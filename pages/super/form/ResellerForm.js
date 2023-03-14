@@ -32,19 +32,12 @@ const ResellerForm = ({
 
     useEffect(() => {
         let timeZoneLists = [];
-        let resellerLists = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'timeZone') {
                 dpList?.timeZoneList?.map((item) => {
                     timeZoneLists.push({ 'name': item?.zone });
                 });
                 formItem['options'] = timeZoneLists;
-            }
-            if (formItem.name === 'acc_manager') {
-                dpList && dpList?.resellerList?.map((item) => {
-                    resellerLists.push({ 'name': item });
-                });
-                formItem['options'] = resellerLists;
             }
             return formItem;
         });
@@ -56,7 +49,6 @@ const ResellerForm = ({
             let DetailedData = {
                 ...data,
                 'expiry_date': convertDate(data?.expiry_date),
-                'acc_manager': data?.acc_manager?.name,
                 'timeZone': data?.timeZone?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
@@ -65,7 +57,6 @@ const ResellerForm = ({
             let DetailedData = {
                 ...data,
                 'expiry_date': convertDate(data?.expiry_date),
-                'acc_manager': data?.acc_manager?.name,
                 'timeZone': data?.timeZone?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
@@ -101,7 +92,6 @@ const ResellerForm = ({
                 'address': editData.address,
                 'expiry_date': convertDate(editData.expiry_date),
                 'phone': editData.phone,
-                'acc_manager': { 'name': editData.acc_manager },
                 'timeZone': { 'name': editData.timeZone },
             };
             const fields = [
@@ -114,7 +104,6 @@ const ResellerForm = ({
                 'address',
                 'expiry_date',
                 'phone',
-                'acc_manager',
                 'timeZone',
             ];
             fields.forEach(field => { setValue(field, a[field]); });

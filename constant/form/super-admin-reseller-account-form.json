@@ -83,16 +83,6 @@
 
     {
         "field_type": "dropdown",
-        "id": "acc_manager",
-        "name": "acc_manager",
-        "label": "Account manager *",
-        "required": "Account manager",
-        "validationMsg": "Invalid manager name",
-        "options": []
-    },
-
-    {
-        "field_type": "dropdown",
         "id": "timeZone",
         "name": "timeZone",
         "label": "Time Zone *",
