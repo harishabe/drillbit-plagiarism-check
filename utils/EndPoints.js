@@ -104,9 +104,11 @@ const END_POINTS = {
     RESELLER_EXTREME_LICENSES: '/reseller/extreme/license',
     RESELLER_PRO_LICENSES: '/reseller/pro/license',
     RESELLER_EXTREME: '/reseller/extreme/licenses',
+    RESELLER_CUSTOMERS: '/reseller/licenseList',
     RESELLER_PRO: '/reseller/pro/licenses',
     RESELLER_ACCOUNT_INFORMATION: '/reseller/accountInformation',
     RESELLER_CHANGE_PASSWORD: '/reseller/password',
+    RESELLER_CSV_DOWNLOAD: '/reseller/',
     INTEGRATION_DELETE_BRIGHTSPACE: '/extreme/integrations/brightspace',
     INTEGRATION_DELETE_MOODLE_LTI: '/extreme/integrations/moodleLti',
 };

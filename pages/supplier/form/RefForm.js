@@ -46,6 +46,7 @@ const RefForm = ({
         let timeZoneLists = [];
         let grammarAccessValue = [];
         let documentlengthValue = [];
+        let resellerLists = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
@@ -70,6 +71,12 @@ const RefForm = ({
                     grammarAccessValue.push({ 'name': item });
                 });
                 formItem['options'] = grammarAccessValue;
+            }
+            if (formItem.name === 'acc_manager') {
+                dpList && dpList?.resellerList?.map((item) => {
+                    resellerLists.push({ 'name': item });
+                });
+                formItem['options'] = resellerLists;
             }
             return formItem;
         });
@@ -146,6 +153,7 @@ const RefForm = ({
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
                 'documentlength': data?.documentlength?.name,
+                'acc_manager': data?.acc_manager?.name,
                 'institutionType': data?.institutionType?.name,
                 'timeZone': data?.timeZone?.name,
             };
@@ -158,6 +166,7 @@ const RefForm = ({
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
                 'documentlength': data?.documentlength?.name,
+                'acc_manager': data?.acc_manager?.name,
                 'institutionType': data?.institutionType?.name,
                 'timeZone': data?.timeZone?.name,
             };
@@ -202,6 +211,7 @@ const RefForm = ({
                 'department': editData.department,
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
+                'acc_manager': { 'name': editData.acc_manager },
                 'institutionType': { 'name': editData.product_type },
                 'timeZone': { 'name': editData.timeZone },
             };
@@ -223,6 +233,7 @@ const RefForm = ({
                 'department',
                 'grammarAccess',
                 'grammar',
+                'acc_manager',
                 'institutionType',
                 'timeZone',
             ];

@@ -148,6 +148,8 @@ export const DOWNLOAD_CSV = {
     'RESELLER_LISTS': 'Reseller Lists',
     'EXTREME_LISTS': 'Reseller extreme list',
     'PRO_LISTS': 'Reseller pro list',
+    'RESELLER_EXTREME': 'Extreme demo accounts list',
+    'RESELLER_PRO': 'Pro demo accounts list',
 }
 
 export const INSTRUCTOR_TEMPLATE_TITLE = 'Multiple_Instructor_Upload_Template';
