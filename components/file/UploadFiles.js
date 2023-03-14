@@ -80,6 +80,12 @@ const UploadFiles = ({
   const [nonEnglishLanguage, setNonEnglishLanguage] = useState("");
   const [nonEnglishLangValue, setNonEnglishLangValue] = useState("");
   const [regionalLang, setRegionalLang] = useState("");
+  const [exemptCheck, setExemptCheck] = useState(
+    fileData.reduce((acc, file) => {
+      acc[file.id] = false;
+      return acc;
+    }, {})
+  );
   const ref = createRef();
 
   useEffect(() => {
@@ -106,6 +112,11 @@ const UploadFiles = ({
       }
     });
     setFileData(a);
+    setExemptCheck((prevState) => {
+      const newState = { ...prevState };
+      delete newState[item[0]];
+      return newState;
+    });
   };
 
   const checkFileFormat = (files, validFile) => {
@@ -236,18 +247,23 @@ const UploadFiles = ({
 
   const singleFileUploadRepository = (files, data) => {
     let bodyFormData = new FormData();
-    bodyFormData.append(
-      router.route.includes("pro/admin") ? "author_name" : "name",
-      data.authorName0
-    );
-    bodyFormData.append("title", data.title0);
-    bodyFormData.append("year", data.year0);
-    bodyFormData.append(
-      "repository",
-      data.repository0 === "Institution" ? "LOCAL" : "GLOBAL"
-    );
-    bodyFormData.append("language", data.language0);
-    bodyFormData.append("file", files[0][1]);
+    fileData?.map((item, i) => {
+      bodyFormData.append(
+        router.route.includes("pro/admin") ? "author_name" : "name",
+        data["authorName" + item[0]]
+      );
+      bodyFormData.append("title", data["title" + item[0]]);
+      bodyFormData.append("year", data["year" + item[0]]);
+      bodyFormData.append(
+        "repository",
+        data["repository" + item[0]] === "Institution" ? "LOCAL" : "GLOBAL"
+      );
+      bodyFormData.append("language", data["language" + item[0]]);
+      bodyFormData.append("rep_ex",
+        data["rep_ex" + item[0]] === true ? 1 : 0
+      );
+      bodyFormData.append("file", files[0][1]);
+    })
     SubmissionListUpload(singleFileUploadAPI, bodyFormData);
   };
 
@@ -299,7 +315,8 @@ const UploadFiles = ({
       titleArr = [],
       yearArr = [],
       repositoryArr = [],
-      languageArr = [];
+      languageArr = [],
+      regExArr = [];
     let bodyFormData = new FormData();
     fileData?.map((item, i) => {
       authorNameArr.push(data["authorName" + item[0]]);
@@ -311,6 +328,11 @@ const UploadFiles = ({
       } else {
         repositoryArr.push(data["repository" + item[0]].toUpperCase());
       }
+      if (data["rep_ex" + item[0]] === true) {
+        regExArr.push(1);
+      } else {
+        regExArr.push(0);
+      }
       languageArr.push(data["language" + item[0]]);
     });
 
@@ -319,6 +341,7 @@ const UploadFiles = ({
     bodyFormData.append("year", yearArr);
     bodyFormData.append("repository", repositoryArr);
     bodyFormData.append("language", languageArr);
+    bodyFormData.append("rep_ex", regExArr);
     for (let i = 0; i < files.length; i++) {
       bodyFormData.append("files", files[i][1]);
     }
@@ -366,6 +389,13 @@ const UploadFiles = ({
     setGrammarPlagiarismCheck({
       ...grammarPlagiarismCheck,
       [event.target.name]: event.target.checked,
+    });
+  };
+
+  const handleExemptCheckChange = (event, index) => {
+    const checked = event.target.checked;
+    setExemptCheck(prevState => {
+      return { ...prevState, [index]: checked }
     });
   };
 
@@ -493,6 +523,8 @@ const UploadFiles = ({
                   files={fileData}
                   btnTitle="Submit"
                   isLoading={isLoadingUpload}
+                  exemptCheck={ exemptCheck }
+                  handleExemptCheckChange={ handleExemptCheckChange }
                 />
               )}
               {fileData?.length > 0 &&

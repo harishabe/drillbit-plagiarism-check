@@ -1,35 +1,32 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { useRouter } from 'next/router';
-import { Grid, TextField, Box, Skeleton, Tooltip, IconButton } from '@mui/material';
-import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import debouce from 'lodash.debounce';
-import SuperAdmin from './../../layouts/SuperAdmin';
+import Admin from "../../layouts/Admin";
 import styled from 'styled-components';
+import debouce from 'lodash.debounce';
+import { Box, Pagination, Grid, TextField, Tooltip, Skeleton, IconButton } from '@mui/material';
 import {
-    BreadCrumb,
+    MainHeading,
     CreateDrawer,
     CardView,
     CommonTable,
-} from './../../components';
+} from '../../components';
 import {
     EditIcon,
-    DownloadIcon,
+    DownloadIcon
 } from '../../assets/icon';
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
 import {
-    DownloadCsv,
+    DownloadCsv
 } from '../../redux/action/common/Submission/SubmissionAction';
-import ResellerForm from './form/ResellerForm';
+import ExtremeForm from './form/ExtremeForm';
 import { PaginationContainer } from '../../style/index';
-import Pagination from '@mui/material/Pagination';
 import { PaginationValue } from '../../utils/PaginationUrl';
-import END_POINTS from '../../utils/EndPoints';
-import { platform } from '../../utils/RegExp';
+import END_POINTS from "../../utils/EndPoints";
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { DOWNLOAD_CSV, WINDOW_PLATFORM } from '../../constant/data/Constant';
+import { platform } from '../../utils/RegExp';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -38,14 +35,14 @@ const AddButtonBottom = styled.div`
 `;
 
 const SkeletonContainer = styled.div`
-    margin-top: 16px;
-    margin-right: 5px;
+    margin-top: 7px;
+    margin-right: 12px;
 `;
 
 const DownloadField = styled.div`
     position:absolute;
-    top: 80px;
-    right:275px;
+    top: 90px;
+    right:320px;
 `;
 
 const DownloadButton = styled.div`
@@ -54,31 +51,29 @@ const DownloadButton = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'LID' },
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
     { id: 'college_name', label: 'Institution name' },
+    { id: 'name', label: 'Username' },
+    { id: 'email', label: 'Email' },
     { id: 'country', label: 'Location' },
-    { id: 'used_documents', label: 'Used submissions' },
+    { id: 'start_date', label: 'Start date' },
+    { id: 'expiry_date', label: 'Expiry date' },
     { id: 'action', label: 'Action' }
 ];
 
-function createData(lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date, timeZone
-) {
-    return {
-        lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date, timeZone
-    };
+function createData(college_name, name, email, country, start_date, expiry_date, action, lid, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department) {
+
+    return { college_name, name, email, country, start_date, expiry_date, action, lid, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department };
 }
 
-const ResellerProduct = ({
+const Extreme = ({
     GetExtremeRefData,
     DownloadCsv,
     pageDetails,
-    refData,
+    extremeData,
     isLoading,
-    isLoadingDownload,
+    isLoadingDownload
 }) => {
-    const router = useRouter();
+
     const [rows, setRows] = useState([]);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -89,50 +84,47 @@ const ResellerProduct = ({
     const [editUser, setEditUser] = useState(false);
     const [editUserData, setEditUserData] = useState('');
 
-    const RefBreadCrumb = [
-        {
-            name: 'Dashboard',
-            link: '/super/dashboard',
-            active: false,
-        },
-        {
-            name: `Reseller (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : ''})`,
-            link: '',
-            active: true,
-        },
-    ];
-
     useEffect(() => {
-        GetExtremeRefData(END_POINTS.SUPER_ADMIN_RESELLER, paginationPayload);
+        GetExtremeRefData(END_POINTS.RESELLER_EXTREME, paginationPayload);
     }, [, paginationPayload]);
 
     useEffect(() => {
         let row = '';
         let arr = [];
-        refData?.map((data) => {
+        extremeData?.map((data) => {
             row =
                 createData(
-                    data.lid,
+                    data.college_name,
                     data.name,
                     data.email,
-                    data.college_name,
                     data.country,
-                    data.used_documents,
+                    data.start_date,
+                    data.expiry_date,
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }
                     ],
+                    data.lid,
+                    data.instructors,
+                    data.students,
+                    data.documents,
                     data.state,
                     data.address,
                     data.designation,
                     data.phone,
-                    data.expiry_date,
+                    data.created_date,
+                    data.document_type,
+                    data.grammar,
+                    data.grammar_documents,
+                    data.license_type,
+                    data.product_type,
                     data.timeZone,
+                    data.folpath,
+                    data.department,
                 );
             arr.push(row);
         });
         setRows([...arr]);
-    }, [refData]);
+    }, [extremeData]);
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
@@ -154,14 +146,6 @@ const ResellerProduct = ({
         if (icon === 'edit') {
             setEditUser(true);
             setEditUserData(rowData);
-        } else if (icon === 'nextPath') {
-            router.push({
-                pathname: '/super/resellerExtreme',
-                query: {
-                    name: rowData?.name,
-                    licenseId: rowData?.lid,
-                }
-            });
         }
     };
 
@@ -170,7 +154,7 @@ const ResellerProduct = ({
     };
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_RESELLER_LIST + 'resellersCsv', DOWNLOAD_CSV.RESELLER_LISTS);
+        DownloadCsv(BASE_URL_SUPER + END_POINTS.RESELLER_CSV_DOWNLOAD + 'extremeResellerCsv', DOWNLOAD_CSV.RESELLER_EXTREME);
     };
 
     /** search implementation using debounce concepts */
@@ -199,14 +183,14 @@ const ResellerProduct = ({
 
     return (
         <>
-            <Grid container spacing={ 1 }>
-                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
-                    <BreadCrumb item={ RefBreadCrumb } />
+            <Grid container spacing={ 2 }>
+                <Grid item md={ 5 } xs={ 5 }>
+                    <MainHeading title={ `Extreme (${pageDetails?.totalElements === undefined ? 0 : pageDetails?.totalElements})` } />
                 </Grid>
-                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <DownloadField>
                         <DownloadButton>
-                            { refData?.length > 0 &&
+                            { extremeData?.length > 0 &&
                                 isLoadingDownload ?
                                 <SkeletonContainer>
                                     <Skeleton width={ 40 } />
@@ -224,7 +208,7 @@ const ResellerProduct = ({
                         </DownloadButton>
                     </DownloadField>
                     <TextField
-                        sx={ { width: '40%' } }
+                        sx={ { width: '40%', marginTop: '8px' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
@@ -237,6 +221,7 @@ const ResellerProduct = ({
                 </Grid>
             </Grid>
 
+
             <Box sx={ { mt: 1, flexGrow: 1 } }>
                 <CardView>
                     <CommonTable
@@ -245,7 +230,7 @@ const ResellerProduct = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 16 }
+                        charLength={ 11 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
                     />
@@ -255,11 +240,12 @@ const ResellerProduct = ({
             {
                 editUser &&
                 <CreateDrawer
+                    title="Edit User"
                     isShowAddIcon={ false }
                     showDrawer={ editUser }
                     handleDrawerClose={ handleCloseDrawer }
                 >
-                    <ResellerForm
+                    <ExtremeForm
                         editData={ editUserData }
                     />
                 </CreateDrawer>
@@ -267,10 +253,10 @@ const ResellerProduct = ({
 
             <AddButtonBottom>
                 <CreateDrawer
-                    title="Add Reseller Account"
+                    title="Create Extreme Account"
                     isShowAddIcon={ true }
                 >
-                    <ResellerForm />
+                    <ExtremeForm />
                 </CreateDrawer>
             </AddButtonBottom>
 
@@ -284,23 +270,23 @@ const ResellerProduct = ({
                 />
             </PaginationContainer>
         </>
-    );
+    )
 };
 
 const mapStateToProps = (state) => ({
     pageDetails: state?.superAdmin?.ExtrRefData?.page,
-    refData: state?.superAdmin?.ExtrRefData?._embedded?.licenseDTOList,
+    extremeData: state?.superAdmin?.ExtrRefData?._embedded?.licenseDTOList,
     isLoading: state?.superAdmin?.isLoadingExtrRef,
     isLoadingDownload: state?.submission?.isLoadingDownload,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetExtremeRefData: (url, paginationPayload) => dispatch(GetExtremeRefData(url, paginationPayload)),
+        GetExtremeRefData: (url, paginationValue) => dispatch(GetExtremeRefData(url, paginationValue)),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
     };
 };
 
-ResellerProduct.layout = SuperAdmin;
+Extreme.layout = Admin;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResellerProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(Extreme);

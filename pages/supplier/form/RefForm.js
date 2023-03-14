@@ -202,6 +202,7 @@ const RefForm = ({
                 'department': editData.department,
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
+                'acc_manager': editData.acc_manager,
                 'institutionType': { 'name': editData.product_type },
                 'timeZone': { 'name': editData.timeZone },
             };
@@ -223,6 +224,7 @@ const RefForm = ({
                 'department',
                 'grammarAccess',
                 'grammar',
+                'acc_manager',
                 'institutionType',
                 'timeZone',
             ];

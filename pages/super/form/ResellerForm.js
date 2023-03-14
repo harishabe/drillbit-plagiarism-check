@@ -3,14 +3,17 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../components';
-import { CreateAccount, EditAccount } from '../../../redux/action/super/SuperAdminAction';
+import { CreateAccount, EditAccount, DropdownList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/super-admin-reseller-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
+import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 
 const ResellerForm = ({
     CreateAccount,
+    DropdownList,
+    dpList,
     isLoadingCreate,
     isLoadingEdit,
     editData,
@@ -23,11 +26,30 @@ const ResellerForm = ({
         mode: 'all',
     });
 
+    useEffect(() => {
+        DropdownList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST);
+    }, []);
+
+    useEffect(() => {
+        let timeZoneLists = [];
+        let formList = FormJson?.map((formItem) => {
+            if (formItem.name === 'timeZone') {
+                dpList?.timeZoneList?.map((item) => {
+                    timeZoneLists.push({ 'name': item?.zone });
+                });
+                formItem['options'] = timeZoneLists;
+            }
+            return formItem;
+        });
+        setFormJsonField(formList);
+    }, [dpList]);
+
     const onSubmit = (data) => {
         if (editOperation) {
             let DetailedData = {
                 ...data,
                 'expiry_date': convertDate(data?.expiry_date),
+                'timeZone': data?.timeZone?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
             EditAccount(END_POINTS.SUPER_ADMIN_CREATE_EDIT_RESELLER + '/' + editData?.lid, END_POINTS.SUPER_ADMIN_RESELLER, requestData);
@@ -35,6 +57,7 @@ const ResellerForm = ({
             let DetailedData = {
                 ...data,
                 'expiry_date': convertDate(data?.expiry_date),
+                'timeZone': data?.timeZone?.name,
             };
             let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
             CreateAccount(END_POINTS.SUPER_ADMIN_CREATE_EDIT_RESELLER, END_POINTS.SUPER_ADMIN_RESELLER, requestData);
@@ -69,6 +92,7 @@ const ResellerForm = ({
                 'address': editData.address,
                 'expiry_date': convertDate(editData.expiry_date),
                 'phone': editData.phone,
+                'timeZone': { 'name': editData.timeZone },
             };
             const fields = [
                 'organisation_name',
@@ -80,6 +104,7 @@ const ResellerForm = ({
                 'address',
                 'expiry_date',
                 'phone',
+                'timeZone',
             ];
             fields.forEach(field => { setValue(field, a[field]); });
             modifyFormField('Edit Reseller Account', true);
@@ -113,6 +138,7 @@ const ResellerForm = ({
 };
 
 const mapStateToProps = (state) => ({
+    dpList: state?.superAdmin?.ListSuccess,
     isLoadingCreate: state?.superAdmin?.isLoadingCreate,
     isLoadingEdit: state?.superAdmin?.isLoadingEdit,
 });
@@ -121,6 +147,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         CreateAccount: (url, getUrl, data) => dispatch(CreateAccount(url, getUrl, data)),
         EditAccount: (url, getUrl, data) => dispatch(EditAccount(url, getUrl, data)),
+        DropdownList: (url) => dispatch(DropdownList(url)),
     };
 };
 

@@ -146,6 +146,15 @@
     },
 
     {
+        "field_type": "input",
+        "id": "acc_manager",
+        "name": "acc_manager",
+        "label": "Account manager *",
+        "required": "Account manager",
+        "validationMsg": "Invalid manager name"
+    },
+    
+    {
         "field_type": "dropdown",
         "id": "institutionType",
         "name": "institutionType",

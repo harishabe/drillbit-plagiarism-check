@@ -57,7 +57,7 @@ const columns = [
     { id: 'title', label: 'Title' },
     { id: 'original_fn', label: 'File', isDownload: true },
     { id: 'lang1', label: 'Language' },
-    { id: 'grammar_url', label: 'Grammar', maxWidth: 30 },
+    { id: 'grammar_url', label: 'Grammar', maxWidth: 85 },
     { id: 'percent', label: 'Similarity' },
     { id: 'paper_id', label: 'ID' },
     { id: 'date_up', label: 'Submission Date' },

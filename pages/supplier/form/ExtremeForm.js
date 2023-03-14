@@ -201,6 +201,7 @@ const ExtremeForm = ({
                 'documentlength': { 'name': editData.document_type },
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
+                'acc_manager': editData.acc_manager,
                 'institutionType': { 'name': editData.product_type },
                 'timeZone': { 'name': editData.timeZone },
             };
@@ -221,6 +222,7 @@ const ExtremeForm = ({
                 'documentlength',
                 'grammarAccess',
                 'grammar',
+                'acc_manager',
                 'institutionType',
                 'timeZone',
             ];
