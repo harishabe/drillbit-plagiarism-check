@@ -41,13 +41,13 @@ const MyClassFiles = ({
         classesData?.map((item) => {
             const randomColor = Math.floor(Math.random() * 16777215).toString(16);
             item['color'] = "#" + randomColor;
-            item['validity'] = findByExpiryDate(item.expiry_date);
+            item['validity'] = findByExpiryDate(item.end_date);
             row = renameKeys(item,
                 {
                     class_id: 'id',
                     class_name: 'name',
                     creation_date: 'creation_date',
-                    expiry_date: 'expiry_date',
+                    end_date: 'end_date',
                     status: 'status',
                     color: 'color',
                     validity: 'validity'

@@ -20,8 +20,8 @@
     },
     {
         "field_type": "datepicker",
-        "id": "expiry_date",
-        "name": "expiry_date",
+        "id": "end_date",
+        "name": "end_date",
         "label": "Select expiry date *",
         "prevDate":true,
         "required": "Select expiry date",
