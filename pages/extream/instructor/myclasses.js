@@ -72,7 +72,7 @@ const MyClasses = ({
     isLoadingClassDelete,
     isLoadingDownload
 }) => {
-    const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
+    const [view, setView] = useState(getItemSessionStorage('classView') ? getItemSessionStorage('classView') : TABLE_VIEW);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -93,7 +93,7 @@ const MyClasses = ({
         e.preventDefault();
         if (value !== null) {
             setView(value);
-            setItemSessionStorage('view', value);
+            setItemSessionStorage('classView', value);
         }
     };
 

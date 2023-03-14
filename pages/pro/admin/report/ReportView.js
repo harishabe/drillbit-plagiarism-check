@@ -40,8 +40,8 @@ const submissionsColumns = [
     { id: 'reportpercent', label: 'Similarity', minWidth: 110 },
 ];
 
-function submissionData(reportname, reporttitle, reportdate_up, reportusername, reportpaper_id, reportpercent) {
-    return { reportname, reporttitle, reportdate_up, reportusername, reportpaper_id, reportpercent };
+function submissionData(reportname, reporttitle, reportdate_up, reportusername, reportpaper_id, reportpercent, flag) {
+    return { reportname, reporttitle, reportdate_up, reportusername, reportpaper_id, reportpercent, flag };
 }
 
 function folderData(reportname, reportid, reportusername, reportcreated, reportendDate, reportcount) {
@@ -92,7 +92,7 @@ const ReportView = ({
                     formatDate(data.date_up),
                     data.mail_id,
                     data.paper_id,
-                    <SimilarityStatus percent={ data.percent } />,
+                    <SimilarityStatus percent={ data.percent } flag={ data.flag } />,
                 );
             arr.push(row);
         });

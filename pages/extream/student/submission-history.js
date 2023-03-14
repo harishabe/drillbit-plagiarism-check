@@ -40,8 +40,8 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
-function createData(original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status) {
-    return { original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status };
+function createData(original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status, flag) {
+    return { original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status, flag };
 }
 
 const SubmissionHistory = ({
@@ -83,7 +83,7 @@ const SubmissionHistory = ({
                     formatDate(submission.date_up),
                     submission.grammar,
                     submission.grammar_url,
-                    <SimilarityStatus percent={submission.percent} width={100} />,
+                    <SimilarityStatus percent={ submission.percent } width={ 100 } flag={ submission.flag } />,
                     submission.feedback?.marks,
                     submission.status,
                     [

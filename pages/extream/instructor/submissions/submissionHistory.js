@@ -26,9 +26,9 @@ const SubmissionColumns = [
     { id: 'date_up', label: 'Submission Date' },
 ];
 
-function submissionHistoryData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up) {
+function submissionHistoryData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, flag) {
     return {
-        id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up
+        id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, flag
     };
 }
 
@@ -76,7 +76,7 @@ const SubmissionHistoryPage = ({
                     data.grammar,
                     data.grammar_url,
                     data.lang,
-                    <SimilarityStatus percent={ data.percent } />,
+                    <SimilarityStatus percent={ data.percent } flag={ data.flag } />,
                     data.paper_id,
                     formatDate(data.date_up),
                 );
