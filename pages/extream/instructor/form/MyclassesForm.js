@@ -80,7 +80,7 @@ const MyClassesForm = ({
     const onSubmit = (data) => {
         if (editOperation) {
             data['end_date'] = convertDate(data.end_date);
-            EditClass(editData?.id, data);
+            EditClass((editData?.id || editData?.class_id), data);
         } else {
             let DetailedData = { ...data, 'end_date': convertDate(data.end_date) };
             CreateClass(DetailedData);
@@ -106,7 +106,7 @@ const MyClassesForm = ({
     useEffect(() => {
         if (editData) {
             let a = {
-                'class_name': editData.name,
+                'class_name': (editData.name || editData?.class_name?.props?.title),
                 'description': editData.description,
                 'end_date': editData.end_date,
             };
