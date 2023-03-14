@@ -47,6 +47,7 @@ const RecentSubmissionTable = ({
                                     <TableCell>
                                         <SimilarityStatus
                                             percent={ item.percent }
+                                                flag={ item.flag }
                                         />
                                     </TableCell>
                                     <TableCell>

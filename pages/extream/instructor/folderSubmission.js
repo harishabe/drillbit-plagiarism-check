@@ -56,9 +56,9 @@ const columns = [
     { id: 'action', label: 'Action', minWidth: 105 },
 ];
 
-function createData(id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status) {
+function createData(id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, flag) {
     return {
-        id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status
+        id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, flag
     };
 }
 
@@ -171,7 +171,7 @@ const folderSubmission = ({
                     submission.lang1,
                     submission.grammar,
                     submission.grammar_url,
-                    <SimilarityStatus percent={submission.percent} />,
+                    <SimilarityStatus percent={ submission.percent } flag={ submission.flag } />,
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [
