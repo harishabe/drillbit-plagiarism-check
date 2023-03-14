@@ -145,6 +145,9 @@ export const DOWNLOAD_CSV = {
     'STUDENTS_LISTS': 'Students Lists',
     'QNA_LISTS': 'Q&A Lists',
     'GRADING_LISTS': 'Grading Lists',
+    'RESELLER_LISTS': 'Reseller Lists',
+    'EXTREME_LISTS': 'Reseller extreme list',
+    'PRO_LISTS': 'Reseller pro list',
     'RESELLER_EXTREME': 'Extreme demo accounts list',
     'RESELLER_PRO': 'Pro demo accounts list',
 }
