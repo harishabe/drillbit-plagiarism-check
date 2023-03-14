@@ -46,7 +46,6 @@ const ExtremeForm = ({
         let timeZoneLists = [];
         let grammarAccessValue = [];
         let documentlengthValue = [];
-        let resellerLists = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
@@ -71,12 +70,6 @@ const ExtremeForm = ({
                     grammarAccessValue.push({ 'name': item });
                 });
                 formItem['options'] = grammarAccessValue;
-            }
-            if (formItem.name === 'acc_manager') {
-                dpList && dpList?.resellerList?.map((item) => {
-                    resellerLists.push({ 'name': item });
-                });
-                formItem['options'] = resellerLists;
             }
             return formItem;
         });
@@ -153,7 +146,6 @@ const ExtremeForm = ({
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
                 'documentlength': data?.documentlength?.name,
-                'acc_manager': data?.acc_manager?.name,
                 'institutionType': data?.institutionType?.name,
                 'timeZone': data?.timeZone?.name,
             };
@@ -166,7 +158,6 @@ const ExtremeForm = ({
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
                 'documentlength': data?.documentlength?.name,
-                'acc_manager': data?.acc_manager?.name,
                 'institutionType': data?.institutionType?.name,
                 'timeZone': data?.timeZone?.name,
             };
@@ -210,7 +201,7 @@ const ExtremeForm = ({
                 'documentlength': { 'name': editData.document_type },
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
-                'acc_manager': { 'name': editData.acc_manager },
+                'acc_manager': editData.acc_manager,
                 'institutionType': { 'name': editData.product_type },
                 'timeZone': { 'name': editData.timeZone },
             };
