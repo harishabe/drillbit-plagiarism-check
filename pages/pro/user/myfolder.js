@@ -68,10 +68,10 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(ass_id, assignment_name, created_date, folder_no_of_submissions, action, ex_references, ex_quotes, small_sources, ex_phrases, db_studentpaper, db_publications, db_internet, institution_repository, phrases) {
+function createData(ass_id, assignment_name, created_date, folder_no_of_submissions, action, ex_references, ex_quotes, small_sources, ex_phrases, db_studentpaper, db_publications, db_internet, institution_repository, phrases, grammar) {
     return {
         ass_id, assignment_name, created_date, folder_no_of_submissions, action, ex_references
-        , ex_quotes, small_sources, ex_phrases, db_studentpaper, db_publications, db_internet, institution_repository, phrases
+        , ex_quotes, small_sources, ex_phrases, db_studentpaper, db_publications, db_internet, institution_repository, phrases, grammar
     };
 }
 
@@ -188,7 +188,8 @@ const MyFolder = ({
                     folder.db_publications,
                     folder.db_internet,
                     folder.institution_repository,
-                    folder.phrases
+                    folder.phrases,
+                    folder.grammar
                 );
             row['isSelected'] = false;
             arr.push(row);
