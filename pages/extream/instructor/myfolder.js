@@ -210,7 +210,7 @@ const MyFolder = ({
             router.push({
                 pathname: '/extream/instructor/folderSubmission',
                 query: {
-                    name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammar : grammarSubscription
+                    name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammarCheck : grammarSubscription
                 }
             });
         }
