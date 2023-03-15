@@ -166,13 +166,13 @@ export const UPLOAD_TITLE_CONSTANT = {
 }
 
 export const UPLOAD_SUPPORTED_FILES = {
-    'SINGLE': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps',
+    'SINGLE': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
     'SCANNED_PDF': 'File formats: pdf',
-    'REGIONAL_FORMAT': 'File formats: pdf, docx, txt, dotx, dot, doc, html, odt',
+    'REGIONAL_FORMAT': 'File formats: pdf, docx, txt, dotx, dot, doc, html, odt, tex, xml, tiff',
     'ZIP': 'Supported Compressed file format: zip',
     'NON_ZIP': 'Non-Supported Compressed file format : rar,tar,7z',
-    'GDRIVE': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps',
-    'NON_ENGLISH': 'Supported file format: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps',
+    'GDRIVE': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
+    'NON_ENGLISH': 'Supported file format: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
     'REGIONAL': 'Supported file format: docx',
     'REPO_ALLOWED_FILE': 'File formats: pdf, doc, docx',
     'INVALID_FILE_FORMAT_ERROR':'Invalid file format. Please check above file formats'
