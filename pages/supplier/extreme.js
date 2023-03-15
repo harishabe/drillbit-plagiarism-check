@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Box, Pagination, Grid, TextField, Tooltip, Skeleton, IconButton } from '@mui/material';
 import {
-    MainHeading,
     CreateDrawer,
     CardView,
     CommonTable,
+    BreadCrumb,
 } from '../../components';
 import {
     EditIcon,
@@ -39,12 +39,6 @@ const SkeletonContainer = styled.div`
     margin-right: 12px;
 `;
 
-const DownloadField = styled.div`
-    position:absolute;
-    top: 90px;
-    right:320px;
-`;
-
 const DownloadButton = styled.div`
     margin-top:-5px;
     margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
@@ -54,15 +48,17 @@ const columns = [
     { id: 'college_name', label: 'Institution name' },
     { id: 'name', label: 'Username' },
     { id: 'email', label: 'Email' },
+    { id: 'acc_manager', label: 'Account manager' },
     { id: 'country', label: 'Location' },
     { id: 'start_date', label: 'Start date' },
     { id: 'expiry_date', label: 'Expiry date' },
+    { id: 'used_documents', label: 'Submissions' },
     { id: 'action', label: 'Action' }
 ];
 
-function createData(college_name, name, email, country, start_date, expiry_date, action, lid, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department) {
+function createData(college_name, name, email, acc_manager, country, start_date, expiry_date, used_documents, action, lid, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department) {
 
-    return { college_name, name, email, country, start_date, expiry_date, action, lid, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department };
+    return { college_name, name, email, acc_manager, country, start_date, expiry_date, used_documents, action, lid, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department };
 }
 
 const Extreme = ({
@@ -84,6 +80,19 @@ const Extreme = ({
     const [editUser, setEditUser] = useState(false);
     const [editUserData, setEditUserData] = useState('');
 
+    const ResellerBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/supplier/dashboard',
+            active: false,
+        },
+        {
+            name: `Extreme(${pageDetails?.totalElements === undefined ? 0 : pageDetails?.totalElements})`,
+            link: '',
+            active: true,
+        },
+    ];
+
     useEffect(() => {
         GetExtremeRefData(END_POINTS.RESELLER_EXTREME, paginationPayload);
     }, [, paginationPayload]);
@@ -97,9 +106,11 @@ const Extreme = ({
                     data.college_name,
                     data.name,
                     data.email,
+                    data.acc_manager,
                     data.country,
                     data.start_date,
                     data.expiry_date,
+                    data.used_documents,
                     [
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }
                     ],
@@ -184,31 +195,31 @@ const Extreme = ({
     return (
         <>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 5 } xs={ 5 }>
-                    <MainHeading title={ `Extreme (${pageDetails?.totalElements === undefined ? 0 : pageDetails?.totalElements})` } />
+                <Grid item md={ 8.5 } xs={ 5 }>
+                    <BreadCrumb item={ ResellerBreadCrumb } />
                 </Grid>
-                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
-                    <DownloadField>
-                        <DownloadButton>
-                            { extremeData?.length > 0 &&
-                                isLoadingDownload ?
-                                <SkeletonContainer>
-                                    <Skeleton width={ 40 } />
-                                </SkeletonContainer>
-                                :
-                                <Tooltip title="Download csv" arrow>
-                                    <IconButton
-                                        aria-label="download-file"
-                                        size="large"
-                                        onClick={ handleDownload }>
-                                        <DownloadIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            }
-                        </DownloadButton>
-                    </DownloadField>
+                <Grid item md={ 0.5 } xs={ 7 } style={ { textAlign: 'right' } }>
+                    <DownloadButton>
+                        { extremeData?.length > 0 &&
+                            isLoadingDownload ?
+                            <SkeletonContainer>
+                                <Skeleton width={ 40 } />
+                            </SkeletonContainer>
+                            :
+                            <Tooltip title="Download csv" arrow>
+                                <IconButton
+                                    aria-label="download-file"
+                                    size="large"
+                                    onClick={ handleDownload }>
+                                    <DownloadIcon />
+                                </IconButton>
+                            </Tooltip>
+                        }
+                    </DownloadButton>
+                </Grid>
+                <Grid item md={ 3 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={ { width: '100%' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
