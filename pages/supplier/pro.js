@@ -48,10 +48,10 @@ const columns = [
     { id: 'college_name', label: 'Institution name' },
     { id: 'name', label: 'Username' },
     { id: 'email', label: 'Email' },
-    { id: 'acc_manager', label: 'Account manager' },
     { id: 'country', label: 'Location' },
     { id: 'start_date', label: 'Start date' },
     { id: 'expiry_date', label: 'Expiry date' },
+    { id: 'acc_manager', label: 'Account manager' },
     { id: 'used_documents', label: 'Submissions' },
     { id: 'action', label: 'Action' }
 ];
