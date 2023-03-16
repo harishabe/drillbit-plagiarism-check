@@ -22,6 +22,7 @@ const ExtremeForm = ({
     folderList
 }) => {
     const [formJsonField, setFormJsonField] = useState(FormJson);
+    const [reseller, setReseller] = useState('');
     const [editOperation, setEditOperation] = useState(false);
 
     const { handleSubmit, control, setValue } = useForm({
@@ -37,6 +38,7 @@ const ExtremeForm = ({
         let InstitutionTypes = [];
         let timeZoneLists = [];
         let folderTypes = [];
+        let resellerList = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
@@ -56,6 +58,12 @@ const ExtremeForm = ({
                 });
                 formItem['options'] = folderTypes;
             }
+            if (formItem.name === 'reseller') {
+                dpList?.resellerList?.map((item) => {
+                    resellerList.push({ 'id': item?.lid, 'name': item?.organisation_name });
+                });
+                formItem['options'] = resellerList;
+            }
             return formItem;
         });
         setFormJsonField(formList);
@@ -68,6 +76,7 @@ const ExtremeForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
+                'reseller': data?.reseller?.id,
                 'folpath': data?.folpath?.name,
                 'institutionType': data?.institutionType?.name,
                 'licenseType': data?.licenseType?.name,
@@ -82,6 +91,7 @@ const ExtremeForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
+                'reseller': data?.reseller?.id,
                 'folpath': data?.folpath?.name,
                 'institutionType': data?.institutionType?.name,
                 'licenseType': data?.licenseType?.name,
@@ -112,8 +122,17 @@ const ExtremeForm = ({
         setFormJsonField(formField);
     };
 
+    const resellerName = (id) => {
+        dpList?.resellerList?.map((item) => {
+            if (id === item?.lid) {
+                setReseller(item?.organisation_name)
+            }
+        });
+    }
+
     useEffect(() => {
         if (editData) {
+            resellerName(editData.reseller)
             let a = {
                 'institutionName': editData.college_name,
                 'state': editData.state,
@@ -133,7 +152,9 @@ const ExtremeForm = ({
                 'department': editData.department,
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
-                'institutionType': { 'name': editData.product_type },
+                'acc_manager': editData.acc_manager,
+                'reseller': { 'name': reseller },
+                'institutionType': { 'name': editData.institution_type },
                 'licenseType': { 'name': editData.license_type },
                 'timeZone': { 'name': editData.timeZone },
             };
@@ -156,6 +177,8 @@ const ExtremeForm = ({
                 'department',
                 'grammarAccess',
                 'grammar',
+                'acc_manager',
+                'reseller',
                 'institutionType',
                 'licenseType',
                 'timeZone',
@@ -166,7 +189,7 @@ const ExtremeForm = ({
         } else {
             modifyFormField('Create Extreme Account', false);
         }
-    }, [editData]);
+    }, [editData, reseller]);
 
     return (
         <>
