@@ -47,9 +47,9 @@ const columns = [
     { id: 'action', label: 'Action', minWidth: 140 }
 ];
 
-function createData(lid, name, email, college_name, country, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, institution_type, timeZone, folpath, department, acc_manager, reseller_list) {
+function createData(lid, name, email, college_name, country, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, institution_type, timeZone, folpath, department, acc_manager, reseller) {
 
-    return { lid, name, email, college_name, country, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, institution_type, timeZone, folpath, department, acc_manager, reseller_list };
+    return { lid, name, email, college_name, country, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, institution_type, timeZone, folpath, department, acc_manager, reseller };
 }
 
 const ExtremProduct = ({
@@ -124,7 +124,7 @@ const ExtremProduct = ({
                     data.folpath,
                     data.department,
                     data.acc_manager,
-                    data.reseller_list,
+                    data.reseller,
                 );
             arr.push(row);
         });
