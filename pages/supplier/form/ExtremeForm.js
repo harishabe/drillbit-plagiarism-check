@@ -202,7 +202,7 @@ const ExtremeForm = ({
                 'grammarAccess': { 'name': editData.grammar },
                 'grammar': editData.grammar_documents,
                 'acc_manager': editData.acc_manager,
-                'institutionType': { 'name': editData.product_type },
+                'institutionType': { 'name': editData.institution_type },
                 'timeZone': { 'name': editData.timeZone },
             };
             const fields = [

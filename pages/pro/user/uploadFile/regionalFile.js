@@ -63,7 +63,7 @@ const NonEnglishFile = () => {
                             isRegionalFile={ true }
                             choseFileTitle='browse your regional file here'
                             title={ UPLOAD_TITLE_CONSTANT.REGIONAL }
-                            allowedFormat={ UPLOAD_SUPPORTED_FILES.REGIONAL_FORMAT }
+                            allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
                             fileIcon={ <UploadFileIcon /> }
                             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/regional/folder/${router.query.folderId}/upload` }
                             routerObj={ {

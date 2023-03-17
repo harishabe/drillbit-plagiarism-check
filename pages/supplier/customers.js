@@ -6,9 +6,9 @@ import {
     Box, Pagination, Grid, TextField,
 } from '@mui/material';
 import {
-    MainHeading,
     CardView,
     CommonTable,
+    BreadCrumb
 } from '../../components';
 import {
     GetExtremeRefData,
@@ -23,12 +23,14 @@ const columns = [
     { id: 'email', label: 'Email' },
     { id: 'country', label: 'Location' },
     { id: 'start_date', label: 'Start date' },
-    { id: 'expiry_date', label: 'Expiry date' }
+    { id: 'expiry_date', label: 'Expiry date' },
+    { id: 'acc_manager', label: 'Account manager' },
+    { id: 'used_documents', label: 'Submissions' },
 ];
 
-function createData(college_name, name, email, country, start_date, expiry_date) {
+function createData(college_name, name, email, country, start_date, expiry_date, acc_manager, used_documents) {
 
-    return { college_name, name, email, country, start_date, expiry_date };
+    return { college_name, name, email, country, start_date, expiry_date, acc_manager, used_documents };
 }
 
 const Customers = ({
@@ -46,6 +48,19 @@ const Customers = ({
         orderBy: PaginationValue?.orderBy,
     });
 
+    const ResellerBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/supplier/dashboard',
+            active: false,
+        },
+        {
+            name: `Customers(${pageDetails?.totalElements === undefined ? 0 : pageDetails?.totalElements})`,
+            link: '',
+            active: true,
+        },
+    ];
+
     useEffect(() => {
         GetExtremeRefData(END_POINTS.RESELLER_CUSTOMERS, paginationPayload);
     }, [, paginationPayload]);
@@ -62,6 +77,8 @@ const Customers = ({
                     data.country,
                     data.start_date,
                     data.expiry_date,
+                    data.acc_manager,
+                    data.used_documents,
                 );
             arr.push(row);
         });
@@ -112,7 +129,7 @@ const Customers = ({
         <>
             <Grid container spacing={ 2 }>
                 <Grid item md={ 5 } xs={ 5 }>
-                    <MainHeading title={ `Customers (${pageDetails?.totalElements === undefined ? 0 : pageDetails?.totalElements})` } />
+                    <BreadCrumb item={ ResellerBreadCrumb } />
                 </Grid>
                 <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
