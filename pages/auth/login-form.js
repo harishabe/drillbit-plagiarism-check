@@ -32,13 +32,13 @@ const LoginForm = ({ login, loginState, isLoading }) => {
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/extream/instructor/dashboard");
+      router.push("/extream/instructor/myclasses");
     } else if (loginState?.role === Role.student) {
       setItemSessionStorage("role", Role.student);
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/extream/student/dashboard");
+      router.push("/extream/student/myclasses");
     } else if (loginState?.role === Role.proAdmin) {
       setItemSessionStorage("role", Role.proAdmin);
       setItemSessionStorage("token", loginState?.token);
@@ -50,7 +50,7 @@ const LoginForm = ({ login, loginState, isLoading }) => {
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/pro/user/dashboard");
+      router.push("/pro/user/myfolder");
     } else if (loginState?.role === Role.super) {
       setItemSessionStorage("role", Role.super);
       setItemSessionStorage("token", loginState?.token);
