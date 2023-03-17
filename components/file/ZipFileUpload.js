@@ -166,8 +166,11 @@ const ZipFileUpload = ({
                     <Grid item md={12} xs={12}>
                         <DragDropArea>
                             <UploadFileIcon />
-                            <SubTitle1 title={allowedFormat} />
+                            <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
                             <SubTitle1 title={notAllowedFormat} />
+                            <SubTitle1 title={ allowedFormat.MAX_FILES } />
+                            <SubTitle1 title={ allowedFormat.LENGTH } />
+                            <SubTitle1 title={ allowedFormat.SIZE } />
                             <Link style={{ marginLeft: '5px', display: 'block' }}>
                                 <ChooseLabel for="file-upload">
                                     Browse your zip here
