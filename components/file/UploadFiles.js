@@ -431,7 +431,7 @@ const UploadFiles = ({
               <DragDropArea>
                 {fileIcon}
                 <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
-                <SubTitle1 title={ allowedFormat.MAX_FILES } />
+                { !isStudent && !isRegionalFile && <SubTitle1 title={ allowedFormat.MAX_FILES } /> }
                 <SubTitle1 title={ allowedFormat.LENGTH } />
                 <SubTitle1 title={ allowedFormat.SIZE } />
                 <div style={{ display: "flex", justifyContent: "center" }}>

@@ -107,7 +107,7 @@ export const PROFILE_ROLE = {
     'INSTRUCTOR': 'Instructor',
     'STUDENT': 'Student',
     'USER': 'User',
-    'SUPER': 'Drillbit',
+    'SUPER': 'DrillBit',
     'RESELLER': 'Reseller',
 }
 
