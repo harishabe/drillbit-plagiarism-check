@@ -178,7 +178,7 @@ export const UPLOAD_SUPPORTED_FILES = {
         'SIZE': 'Document size - upto 100 MB',
     },
     'REGIONAL_FORMAT': {
-        'FILE_FORMATS': 'File formats: pdf, docx, txt, dotx, dot, doc, html, odt, tex, xml, tiff',
+        'FILE_FORMATS': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, html, odt, ppt, xls, ps, tex, xml, tiff',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
