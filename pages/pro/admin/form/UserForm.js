@@ -100,7 +100,7 @@ const UserForm = ({
     }, [allocationDocs, remainingDocuments]);
 
     useEffect(() => {
-        if (grammarDocs > (editData ? remainingGrammar + (editData?.total_grammar || editData?.superadmingrammar) : remainingGrammar)) {
+        if (grammarDocs > (editData ? remainingGrammar + editData?.total_grammar : remainingGrammar)) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                     item['errorMsg'] = FORM_VALIDATION.REMAINING_GRAMMAR;
