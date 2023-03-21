@@ -6,14 +6,20 @@ import { useState } from 'react';
 
 const SimilarityStatus = ({
     percent,
-    width
+    width,
+    flag
 }) => {
     const [color, setColor] = useState('');
     const [txtColor, setTextColor] = useState(COLORS.black);
     useEffect(() => {
         if (percent >= 0 && percent <= 10) {
-            setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_SATISFACTORY);
-            setTextColor(COLORS.black);
+            if (flag === 1) {
+                setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_UNACCEPTABLE);
+                setTextColor(COLORS.black);
+            } else {
+                setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_SATISFACTORY);
+                setTextColor(COLORS.black);
+            }
         } else if (percent > 10 && percent <= 40) {
             setColor(SIMILARITY_COLOR_STANDARD.SIMILARITY_UPGRADE);
             setTextColor(COLORS.black);

@@ -8,8 +8,8 @@ import { PaginationUrl } from '../../../utils/PaginationUrl';
  * API CALL FOR SUPER ADMIN DASHBOARD WIDGETS
  */
 
-export const GetWidgetData = () => {
-    const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DASHBOARD_WIDGET;
+export const GetWidgetData = (url) => {
+    // const url = BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DASHBOARD_WIDGET;
     return GetMethod(url);
 };
 

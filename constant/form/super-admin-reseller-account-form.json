@@ -82,6 +82,16 @@
     },
 
     {
+        "field_type": "dropdown",
+        "id": "timeZone",
+        "name": "timeZone",
+        "label": "Time Zone *",
+        "required": "Time Zone",
+        "validationMsg": "Invalid Time Zone",
+        "options": []
+    },
+
+    {
         "field_type": "button",
         "type": "submit",
         "label": "Create Ref Account"

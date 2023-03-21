@@ -54,7 +54,7 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                         color: '#fff',
                                     }}
                                 >
-                                    {item.ass_name.charAt(0).toUpperCase()}
+                                    {item.ass_name?.charAt(0)?.toUpperCase()}
                                 </Avatar>
                             </TableCell>
                             <TableCell>
@@ -71,7 +71,7 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                 <SubTitle title={ item.feedback !== null ? item.feedback?.marks : NO_DATA_PLACEHOLDER } />
                             </TableCell>
                             <TableCell>
-                                <SimilarityStatus percent={item.percent} />
+                                <SimilarityStatus percent={ item.percent } flag={ item.flag } />
                             </TableCell>
                             <TableCell>
                                 <MarginTop>

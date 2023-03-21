@@ -430,7 +430,10 @@ const UploadFiles = ({
             <Grid item md={12} xs={12}>
               <DragDropArea>
                 {fileIcon}
-                <SubTitle1 title={allowedFormat} />
+                <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
+                { !isStudent && !isRegionalFile && <SubTitle1 title={ allowedFormat.MAX_FILES } /> }
+                <SubTitle1 title={ allowedFormat.LENGTH } />
+                <SubTitle1 title={ allowedFormat.SIZE } />
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <Link style={{ marginLeft: "5px" }}>
                     <ChooseLabel for="file-upload">

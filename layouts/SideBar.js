@@ -168,6 +168,12 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/super/extremeInstructor' && name === 'Extreme') {
             return true;
+        } else if (router.pathname === '/super/resellerExtreme' && name === 'Reseller') {
+            return true;
+        } else if (router.pathname === '/supplier/profile/accountinfo') {
+            return false;
+        } else if (router.pathname === '/supplier/profile/changepassword') {
+            return false;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
         }

@@ -143,7 +143,9 @@ const GDriveFileUpload = ({
                                 <div>
                                     <GoogleDriveIcon />
                                 </div>
-                                <SubTitle1 title={allowedFormat} />
+                                <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
+                                <SubTitle1 title={ allowedFormat.LENGTH } />
+                                <SubTitle1 title={ allowedFormat.SIZE } />
                                 <Link style={{ marginLeft: '5px' }}>
                                     <ChooseLabel onClick={() => handleOpenPicker()}>
                                         Browse your file from google drive

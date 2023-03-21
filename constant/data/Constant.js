@@ -1,5 +1,8 @@
 export const ASSIGNMENT_SETTING_VALUE_YES = "YES";
 export const ASSIGNMENT_SETTING_VALUE_NO = "NO";
+export const FOLDER_VIEW = "FOLDER_VIEW";
+export const TABLE_VIEW = "TABLE_VIEW";
+export const CLASS_VIEW = "CLASS_VIEW";
 export const FILE_TYPE = {
     key: 'assignment_instructor',
     value: 'Assignment Instructor.pdf'
@@ -60,7 +63,8 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'reportpercent',
     'superadminplagairism',
     'superadmingrammar',
-    'used_documents'
+    'used_documents',
+    'folder_no_of_submissions'
 ];
 export const TABLE_BODY_ALLOW_ICON = [
     'action',
@@ -103,7 +107,7 @@ export const PROFILE_ROLE = {
     'INSTRUCTOR': 'Instructor',
     'STUDENT': 'Student',
     'USER': 'User',
-    'SUPER': 'Drillbit',
+    'SUPER': 'DrillBit',
     'RESELLER': 'Reseller',
 }
 
@@ -145,6 +149,11 @@ export const DOWNLOAD_CSV = {
     'STUDENTS_LISTS': 'Students Lists',
     'QNA_LISTS': 'Q&A Lists',
     'GRADING_LISTS': 'Grading Lists',
+    'RESELLER_LISTS': 'Reseller Lists',
+    'EXTREME_LISTS': 'Reseller extreme list',
+    'PRO_LISTS': 'Reseller pro list',
+    'RESELLER_EXTREME': 'Extreme demo accounts list',
+    'RESELLER_PRO': 'Pro demo accounts list',
 }
 
 export const INSTRUCTOR_TEMPLATE_TITLE = 'Multiple_Instructor_Upload_Template';
@@ -157,15 +166,42 @@ export const UPLOAD_TITLE_CONSTANT = {
 }
 
 export const UPLOAD_SUPPORTED_FILES = {
-    'SINGLE': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps',
-    'SCANNED_PDF': 'File formats: pdf',
-    'REGIONAL_FORMAT': 'File formats: pdf, docx, txt, dotx, dot, doc, html, odt',
-    'ZIP': 'Supported Compressed file format: zip',
+    'SINGLE': {
+        'FILE_FORMATS': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
+        'LENGTH': 'Document length - upto 800 pages',
+        'SIZE': 'Document size - upto 100 MB',
+        'MAX_FILES': ' Multiple files - upto 15 files at a time'
+    },
+    'SCANNED_PDF': {
+        'FILE_FORMATS': 'File formats: pdf',
+        'LENGTH': 'Document length - upto 800 pages',
+        'SIZE': 'Document size - upto 100 MB',
+    },
+    'REGIONAL_FORMAT': {
+        'FILE_FORMATS': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, html, odt, ppt, xls, ps, tex, xml, tiff',
+        'LENGTH': 'Document length - upto 800 pages',
+        'SIZE': 'Document size - upto 100 MB',
+    },
+    'ZIP': {
+        'FILE_FORMATS': 'Supported Compressed file format: zip',
+        'LENGTH': 'Document length - upto 800 pages',
+        'SIZE': 'Document size - upto 100 MB',
+        'MAX_FILES': 'Documents - upto 100 files in a single zip'
+    },
     'NON_ZIP': 'Non-Supported Compressed file format : rar,tar,7z',
-    'GDRIVE': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps',
-    'NON_ENGLISH': 'Supported file format: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps',
+    'GDRIVE': {
+        'FILE_FORMATS': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
+        'LENGTH': 'Document length - upto 800 pages',
+        'SIZE': 'Document size - upto 100 MB',
+    },
+    'NON_ENGLISH': 'Supported file format: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
     'REGIONAL': 'Supported file format: docx',
-    'REPO_ALLOWED_FILE': 'File formats: pdf, doc, docx',
+    'REPO_ALLOWED_FILE': {
+        'FILE_FORMATS': 'File formats: pdf, doc, docx',
+        'LENGTH': 'Document length - upto 800 pages',
+        'SIZE': 'Document size - upto 100 MB',
+        'MAX_FILES': ' Multiple files - upto 15 files at a time'
+    },
     'INVALID_FILE_FORMAT_ERROR':'Invalid file format. Please check above file formats'
 }
 

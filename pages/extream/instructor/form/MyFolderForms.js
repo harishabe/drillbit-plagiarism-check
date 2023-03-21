@@ -117,7 +117,7 @@ const MyFoldersForms = ({
             });
             editFolderPayload['phrases'] = phrasesObj;
         }
-        EditFolder(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '/' + editData?.folder_id, editFolderPayload);
+        EditFolder(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_FOLDER_EDIT_AND_DELETE_DATA + '/' + (editData?.folder_id || editData?.ass_id), editFolderPayload);
     };
 
     useEffect(() => {
@@ -173,7 +173,7 @@ const MyFoldersForms = ({
     useEffect(() => {
         if (editData !== undefined) {
             let a = {
-                'assignment_name': editData.folder_name
+                'assignment_name': editData.folder_name || editData.assignment_name?.props?.title
             };
             const fields = [
                 'assignment_name'
@@ -435,7 +435,7 @@ const MyFoldersForms = ({
                                                 <TextField
                                                     id={i}
                                                     size="small"
-                                                    label={'Enter pharses ' + (i + 1)}
+                                                    label={ 'Enter phrases ' + (i + 1) }
                                                     name={item}
                                                     value={item['p']}
                                                     required={ true }

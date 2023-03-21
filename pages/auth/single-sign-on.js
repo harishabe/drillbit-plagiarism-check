@@ -77,7 +77,7 @@ const SingleSignOn = () => {
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/supplier/extreme");
+      router.push("/supplier/dashboard");
     }
   }, [router, loginState]);
 
