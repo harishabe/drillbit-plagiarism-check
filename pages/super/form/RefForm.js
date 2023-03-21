@@ -187,7 +187,7 @@ const RefForm = ({
         } else {
             modifyFormField('Create Ref Account', false);
         }
-    }, [editData, reseller]);
+    }, [editData, reseller, dpList]);
 
     return (
         <>

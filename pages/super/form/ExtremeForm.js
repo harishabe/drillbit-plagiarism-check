@@ -189,7 +189,7 @@ const ExtremeForm = ({
         } else {
             modifyFormField('Create Extreme Account', false);
         }
-    }, [editData, reseller]);
+    }, [editData, reseller, dpList]);
 
     return (
         <>
