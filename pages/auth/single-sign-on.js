@@ -47,37 +47,37 @@ const SingleSignOn = () => {
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/extream/instructor/dashboard");
+      router.push(`/extream/instructor/dashboard?message=${loginState?.message}`);
     } else if (loginState?.role === Role.student) {
       setItemSessionStorage("role", Role.student);
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/extream/student/dashboard");
+      router.push(`/extream/student/dashboard?message=${loginState?.message}`);
     } else if (loginState?.role === Role.proAdmin) {
       setItemSessionStorage("role", Role.proAdmin);
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/pro/admin/dashboard");
+      router.push(`/pro/admin/dashboard?message=${loginState?.message}`);
     } else if (loginState?.role === Role.proUser) {
       setItemSessionStorage("role", Role.proUser);
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/pro/user/dashboard");
+      router.push(`/pro/user/dashboard?message=${loginState?.message}`);
     } else if (loginState?.role === Role.super) {
       setItemSessionStorage("role", Role.super);
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/super/dashboard");
+      router.push(`/super/dashboard?message=${loginState?.message}`);
     } else if (loginState?.role === Role.supplier) {
       setItemSessionStorage("role", Role.supplier);
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/supplier/dashboard");
+      router.push(`/supplier/dashboard?message=${loginState?.message}`);
     }
   }, [router, loginState]);
 
