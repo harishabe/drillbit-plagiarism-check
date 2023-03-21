@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from "next/router";
 import Admin from './../../layouts/SuperAdmin';
 import { Box, Grid, Skeleton } from '@mui/material';
 import { connect } from 'react-redux';
@@ -28,6 +29,7 @@ import {
 } from '../../constant/data/ErrorMessage'
 import { BASE_URL_SUPER } from '../../utils/BaseUrl'
 import END_POINTS from "../../utils/EndPoints";
+import { success } from '../../utils/ToastrValidation';
 
 const chart = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users'];
 const submission = ['Year wise submissions', 'Month wise submissions'];
@@ -37,6 +39,7 @@ const Dashboard = ({
     superDashboardData,
     isLoading,
 }) => {
+    const router = useRouter();
     const [year, setYear] = useState([])
     const [submissions, setSubmissions] = useState([])
     const [monthWiseYearlyList, setMonthWiseYearlyList] = useState([])
@@ -52,6 +55,9 @@ const Dashboard = ({
     const [submissionChartLoading, setSubmissionChartLoading] = useState(false);
 
     useEffect(() => {
+        if (router?.query?.message) {
+            success(router?.query?.message)
+        }
         GetWidgetCount(BASE_URL_SUPER + END_POINTS.RESELLER_DASHBOARD);
     }, []);
 
