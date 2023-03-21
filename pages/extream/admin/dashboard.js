@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useRouter } from 'next/router';
 import styled from "styled-components";
 import { Skeleton } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -60,6 +61,7 @@ import {
 } from "../../../constant/data/ErrorMessage";
 import END_POINTS from "../../../utils/EndPoints";
 import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
+import { success } from '../../../utils/ToastrValidation';
 
 const TextAlignRight = styled.div`
   text-align: right;
@@ -93,6 +95,7 @@ const Dashboard = ({
   GetTrendAnalysis,
   RenewValidity,
 }) => {
+  const router = useRouter();
   const classes = useStyles();
   const [recentSubmission, setRecentSubmission] = useState([]);
   const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
@@ -101,6 +104,9 @@ const Dashboard = ({
   const [departmentsTypeData, setDepartmentsTypeData] = useState();
 
   useEffect(() => {
+    if (router?.query?.message) {
+      success(router?.query?.message)
+    }
     GetWidgetCount(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_WIDGET);
     Documentchart(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_DOCUMENT_CHART);
     Departmentchart(

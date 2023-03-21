@@ -5,7 +5,6 @@ import PageChange from '../../components/loader/PageChange';
 import ReactDOM from 'react-dom';
 import { setItemSessionStorage, getItemSessionStorage } from '../../utils/RegExp'
 
-
 const SingleSignOn = () => {
   const router = useRouter();
   const [loadingPage, isLoadingPage] = useState(true)
@@ -21,11 +20,9 @@ const SingleSignOn = () => {
         'role': router?.query?.role,
         'token': router?.query?.token,
         'username': router?.query?.username,
-        'name': router?.query?.name
+        'name': router?.query?.name,
+        'message': router?.query?.message
       })
-      if (router?.query?.token === undefined) {
-        router.push('/auth/login');
-      }
       document.body.classList.add('body-page-transition');
       ReactDOM.render(
         <PageChange />,
@@ -44,7 +41,7 @@ const SingleSignOn = () => {
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
-      router.push("/extream/admin/dashboard");
+      router.push(`/extream/admin/dashboard?message=${loginState?.message}`);
     } else if (loginState?.role === Role.instructor) {
       setItemSessionStorage("role", Role.instructor);
       setItemSessionStorage("token", loginState?.token);

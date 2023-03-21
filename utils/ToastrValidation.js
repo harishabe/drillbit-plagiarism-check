@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { ERROR_MESSAGE_RESPONSE } from '../constant/data/Constant';
 
-const error = (message) => {
+export const error = (message) => {
     toast.error(message, {
         position: "top-right",
         autoClose: 5000,
@@ -13,7 +13,7 @@ const error = (message) => {
     });
 }
 
-const success = (message) => {
+export const success = (message) => {
     toast.success(message, {
         position: "top-right",
         autoClose: 5000,

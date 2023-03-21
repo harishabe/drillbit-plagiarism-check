@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Image from 'next/image';
+import { error } from '../../utils/ToastrValidation';
+import { useRouter } from "next/router";
 import {
     LoginContainer,
     BannerContainer,
@@ -22,6 +24,12 @@ import { BASE_URL } from '../../utils/BaseUrl'
 import END_POINTS from '../../utils/EndPoints'
 
 const Login = () => {
+    const router = useRouter();
+    useEffect(() => {
+        if (router?.query?.message) {
+            error(router?.query?.message)
+        }
+    }, [router])
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>

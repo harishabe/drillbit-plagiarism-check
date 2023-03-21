@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Skeleton } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -76,6 +77,7 @@ const Dashboard = ({
   GetTrendAnalysis,
   RenewValidity,
 }) => {
+  const router = useRouter();
   const classes = useStyles();
   const [recentSubmission, setRecentSubmission] = useState([]);
   const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
@@ -84,6 +86,9 @@ const Dashboard = ({
   const [departmentsTypeData, setDepartmentsTypeData] = useState();
 
   useEffect(() => {
+    if (router?.query?.message) {
+      success(router?.query?.message)
+    }
     GetWidgetCount(BASE_URL_PRO + END_POINTS_PRO.ADMIN_DASHBOARD_WIDGET);
     Documentchart(BASE_URL_PRO + END_POINTS_PRO.ADMIN_DASHBOARD_DOCUMENT_CHART);
     Departmentchart(
