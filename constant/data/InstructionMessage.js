@@ -10,7 +10,7 @@ export const INSTRUCTIONS_STEPS = {
         'STEP_3': 'Step 3: Select the class to create the assignment and enroll students.'
     },
     'SUBMISSION': {
-        'STEP_1': 'Step 1: click on the “+Upload” icon to upload the new file.',
+        'STEP_1': 'Step 1: Click on the “+Upload” icon to upload the new file.',
         'STEP_2': 'Step 2: Select the language and upload type (Upload file, Google Drive, ZIP, Scanned PDF).',
         'STEP_3': 'Step 3: Click on the “browse your file here”.',
         'STEP_4': 'Step 4: Select the file from your computer and enter the author’s name, title, file type, and click on Submit.',
@@ -19,7 +19,7 @@ export const INSTRUCTIONS_STEPS = {
     },
     'REPOSITORY': {
         'STEP_1': 'Note: It is recommended that you refrain from uploading any files to a repository unless you are sure that they are the final versions. This is because if you make any rewrites or corrections to the document after uploading it, and then use the same file for plagiarism checks, it will be flagged as 100% plagiarized.',
-        'STEP_2': 'Step 1: click on the “+Upload” icon to upload the new files to the repository.',
+        'STEP_2': 'Step 1: Click on the “+Upload” icon to upload the new files to the repository.',
         'STEP_3': 'Step 2: Select the upload type (Upload file, Google Drive, ZIP)',
         'STEP_4': 'Step 3: Click on the “browse your file here”.',
         'STEP_5': 'Step 4: Select the file from your computer and enter the author’s name, title, year, repository type, and language, and click on Submit.',
@@ -39,7 +39,7 @@ export const INSTRUCTIONS_STEPS = {
         'STEP_5': 'Step 5: Select the “Assignment” tab to create an assignment after the enrollment of students.',
     },
     'STUDENT_SUBMISSION': {
-        'STEP_1': 'Step 1: click on the “+Upload” icon to submit the new file.',
+        'STEP_1': 'Step 1: Click on the “+Upload” icon to submit the new file.',
         'STEP_2': 'Step 2: Select the language.',
         'STEP_3': 'Step 3: Click on the “browse your file here”.',
         'STEP_4': 'Step 4: Select the file from your computer and click on Submit.',
