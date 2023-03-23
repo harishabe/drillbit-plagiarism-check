@@ -240,6 +240,7 @@ const Repository = ({
                 <CommonTable
                     isCheckbox={false}
                     isSorting={true}
+                    isRepository={ true }
                     tableHeader={columns}
                     tableData={rows}
                     charLength={10}

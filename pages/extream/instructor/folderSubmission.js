@@ -493,6 +493,7 @@ const folderSubmission = ({
                 <CommonTable
                     isCheckbox={true}
                     isSorting={true}
+                    isSubmission={ true }
                     tableHeader={columns}
                     tableData={rows}
                     handleAction={handleAction}

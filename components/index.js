@@ -38,6 +38,7 @@ export { default as TableSkeleton } from './skeleton/TableSkeleton';
 export { default as CardInfoSkeleton } from './skeleton/CardInfoSkeleton';
 export { default as DialogModal } from './dialog/DialogModal';
 export { default as ErrorBlock } from './error/ErrorBlock';
+export { default as Instructions } from './instructions/Instructions';
 export { default as UploadFiles } from './file/UploadFiles';
 export { default as GDriveFileUpload } from './file/GDriveFileUpload';
 export { default as ZipFileUpload } from './file/ZipFileUpload';
