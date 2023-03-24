@@ -156,6 +156,20 @@ const Submission = ({
         }
     }, [router.isReady, paginationPayload]);
 
+    useEffect(() => {
+        const result = rows?.some((item) => item?.percent?.props?.percent === '--');
+        if (result) {
+            const intervalId = setInterval(() => {
+                let url = `classes/${clasId}/assignments/${assId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=${paginationPayload?.field}&orderBy=${paginationPayload?.orderBy}`;
+                GetSubmissionList(url);
+            }, 5000);
+
+            return () => {
+                clearInterval(intervalId);
+            };
+        }
+    }, [rows]);
+
     /**
    * table submission data
    */
@@ -589,7 +603,7 @@ const Submission = ({
                 downloadSubmissionFile={ handleOriginalFileDownload }
                 showAnalysisPage={ handleShowAnalysisPage }
                 showGrammarReport={ handlGrammarReport }
-                isLoading={ isLoading }
+                // isLoading={ isLoading }
                 isLoadingGrammarReport={ isLoadingGrammarReport }
                 charLength={ 10 }
             />

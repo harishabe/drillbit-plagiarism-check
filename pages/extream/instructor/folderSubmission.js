@@ -159,6 +159,19 @@ const folderSubmission = ({
     }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
+        const result = rows?.some((item) => item?.percent?.props?.percent === '--');
+        if (result) {
+            const intervalId = setInterval(() => {
+                folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
+            }, 5000);
+
+            return () => {
+                clearInterval(intervalId);
+            };
+        }
+    }, [rows]);
+
+    useEffect(() => {
         let row = '';
         let arr = [];
         folderSubmissionData?.map((submission) => {
@@ -502,7 +515,7 @@ const folderSubmission = ({
                     downloadSubmissionFile={handleOriginalFileDownload}
                     showAnalysisPage={handleShowAnalysisPage}
                     showGrammarReport={handlGrammarReport}
-                    isLoading={isLoadingSubmission}
+                    // isLoading={isLoadingSubmission}
                     isLoadingGrammarReport={isLoadingGrammarReport}
                     charLength={10}
                     path=''

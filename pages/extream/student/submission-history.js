@@ -97,6 +97,19 @@ const SubmissionHistory = ({
         setRows([...arr]);
     }, [submissionData]);
 
+    useEffect(() => {
+        const result = rows?.some((item) => item?.percent?.props?.percent === '--');
+        if (result) {
+            const intervalId = setInterval(() => {
+                handleRefresh()
+            }, 5000);
+
+            return () => {
+                clearInterval(intervalId);
+            };
+        }
+    }, [rows]);
+
     const handleShowAnalysisPage = (e, row) => {
         let token = getItemSessionStorage('token');
         let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
@@ -139,7 +152,7 @@ const SubmissionHistory = ({
                 tableData={rows}
                 downloadSubmissionFile={handleOriginalFileDownload}
                 handleTableSort={handleTableSort}
-                isLoading={isLoadingSubmission}
+                // isLoading={isLoadingSubmission}
                 handleAction={handleAction}
                 showAnalysisPage={handleShowAnalysisPage}
                 showGrammarReport={handlGrammarReport}
