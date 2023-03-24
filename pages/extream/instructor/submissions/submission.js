@@ -50,7 +50,7 @@ import { removeCommaWordEnd, formatDate, platform, windowOpen, getItemSessionSto
 import { PaginationContainer } from '../../../../style/index';
 import { BASE_URL, BASE_URL_ANALYSIS, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES, WINDOW_PLATFORM, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES, WINDOW_PLATFORM, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -162,7 +162,7 @@ const Submission = ({
             const intervalId = setInterval(() => {
                 let url = `classes/${clasId}/assignments/${assId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=${paginationPayload?.field}&orderBy=${paginationPayload?.orderBy}`;
                 GetSubmissionList(url);
-            }, 5000);
+            }, SUBMISSION_DELAY);
 
             return () => {
                 clearInterval(intervalId);

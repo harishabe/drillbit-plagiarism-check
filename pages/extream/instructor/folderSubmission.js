@@ -42,7 +42,7 @@ import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } fro
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL, BASE_URL_EXTREM, BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
-import { DOWNLOAD_CSV, WARNING_MESSAGES, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER } from '../../../constant/data/Constant';
+import { DOWNLOAD_CSV, WARNING_MESSAGES, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -163,7 +163,7 @@ const folderSubmission = ({
         if (result) {
             const intervalId = setInterval(() => {
                 folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
-            }, 5000);
+            }, SUBMISSION_DELAY);
 
             return () => {
                 clearInterval(intervalId);

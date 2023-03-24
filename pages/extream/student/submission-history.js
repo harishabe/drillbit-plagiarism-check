@@ -23,6 +23,7 @@ import { BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { formatDate, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
+import { SUBMISSION_DELAY } from '../../../constant/data/Constant';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -102,7 +103,7 @@ const SubmissionHistory = ({
         if (result) {
             const intervalId = setInterval(() => {
                 handleRefresh()
-            }, 5000);
+            }, SUBMISSION_DELAY);
 
             return () => {
                 clearInterval(intervalId);
