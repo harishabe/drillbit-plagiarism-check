@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateAccount, EditAccount, DropdownList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
@@ -9,6 +9,7 @@ import FormJson from '../../../constant/form/super-admin-reseller-account-form.j
 import { convertDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
+import { FORM_VALIDATION } from '../../../constant/data/Constant';
 
 const ResellerForm = ({
     CreateAccount,
@@ -24,6 +25,11 @@ const ResellerForm = ({
 
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
+    });
+
+    const phoneNumber = useWatch({
+        control,
+        name: 'phone',
     });
 
     useEffect(() => {
@@ -43,6 +49,45 @@ const ResellerForm = ({
         });
         setFormJsonField(formList);
     }, [dpList]);
+
+    useEffect(() => {
+        if (phoneNumber !== undefined) {
+            if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                        item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                        item['errorMsg'] = '';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                    item['errorMsg'] = '';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+    }, [phoneNumber])
 
     const onSubmit = (data) => {
         if (editOperation) {

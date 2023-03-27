@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../components';
 import { CreateAccount, EditAccount, DropdownList, FolderPathList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
@@ -9,6 +9,7 @@ import FormJson from '../../../constant/form/extreme-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
+import { FORM_VALIDATION } from '../../../constant/data/Constant';
 
 const ExtremeForm = ({
     CreateAccount,
@@ -23,10 +24,21 @@ const ExtremeForm = ({
 }) => {
     const [formJsonField, setFormJsonField] = useState(FormJson);
     const [reseller, setReseller] = useState('');
+    const [resellerId, setResellerId] = useState('');
     const [editOperation, setEditOperation] = useState(false);
 
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
+    });
+
+    const phoneNumber = useWatch({
+        control,
+        name: 'phone',
+    });
+
+    const grammarAccess = useWatch({
+        control,
+        name: 'grammarAccess',
     });
 
     useEffect(() => {
@@ -39,6 +51,8 @@ const ExtremeForm = ({
         let timeZoneLists = [];
         let folderTypes = [];
         let resellerList = [];
+        let grammarAccessValue = [];
+        let documentlengthValue = [];
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'institutionType') {
                 dpList?.institutionTypes?.map((item) => {
@@ -64,10 +78,84 @@ const ExtremeForm = ({
                 });
                 formItem['options'] = resellerList;
             }
+            if (formItem.name === 'documentlength') {
+                dpList?.documentLength?.map((item) => {
+                    documentlengthValue.push({ 'name': item });
+                });
+                formItem['options'] = documentlengthValue;
+            }
+            if (formItem.name === 'grammarAccess') {
+                dpList?.grammarAccess?.map((item) => {
+                    grammarAccessValue.push({ 'name': item });
+                });
+                formItem['options'] = grammarAccessValue;
+            }
             return formItem;
         });
         setFormJsonField(formList);
     }, [dpList, folderList]);
+
+    useEffect(() => {
+        if (phoneNumber !== undefined) {
+            if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                        item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                        item['errorMsg'] = '';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabled'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        } else {
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'phone') {
+                    item['errorMsg'] = '';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabled'] = false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
+        }
+    }, [phoneNumber])
+
+    useEffect(() => {
+        if (grammarAccess?.name !== undefined) {
+            if (grammarAccess?.name === 'YES') {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        item['disabled'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        item['disabled'] = true;
+                        setValue('grammar', 0);
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        }
+    }, [grammarAccess?.name])
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -76,7 +164,8 @@ const ExtremeForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
-                'reseller': data?.reseller?.id,
+                'documentlength': data?.documentlength?.name,
+                'reseller': data?.reseller?.id ? data?.reseller?.id : resellerId,
                 'folpath': data?.folpath?.name,
                 'institutionType': data?.institutionType?.name,
                 'licenseType': data?.licenseType?.name,
@@ -91,6 +180,7 @@ const ExtremeForm = ({
                 'endDate': convertDate(data?.endDate),
                 'startDate': convertDate(data?.startDate),
                 'grammarAccess': data?.grammarAccess?.name,
+                'documentlength': data?.documentlength?.name,
                 'reseller': data?.reseller?.id,
                 'folpath': data?.folpath?.name,
                 'institutionType': data?.institutionType?.name,
@@ -126,6 +216,7 @@ const ExtremeForm = ({
         dpList?.resellerList?.map((item) => {
             if (id === item?.lid) {
                 setReseller(item?.organisation_name)
+                setResellerId(item?.lid)
             }
         });
     }
@@ -147,7 +238,7 @@ const ExtremeForm = ({
                 'instructors': editData.instructors,
                 'students': editData.students,
                 'submissions': editData.documents,
-                'documentlength': editData.document_type,
+                'documentlength': { 'name': editData.document_type },
                 'folpath': { 'name': editData.folpath },
                 'department': editData.department,
                 'grammarAccess': { 'name': editData.grammar },
