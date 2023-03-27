@@ -29,10 +29,10 @@ const UploadButtonAlign = styled('div')({
 });
 
 const ImgLogo = styled('img')({
-    width: '100px',
-    height: '100px',
-    objectFit: 'cover',
-    objectPosition: 'bottom'
+    width: '180px',
+    height: '115px',
+    objectFit: 'contain',
+    overflow: 'hidden',
 });
 
 const AccountInfo = ({
