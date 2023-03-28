@@ -185,7 +185,7 @@ const NavBar = ({
 
                                     <div style={ { marginLeft: '15px', marginRight: '15px', cursor: 'pointer' } }>
                                         <Avatar onClick={ handleProfileClick } alt="Remy Sharp" sx={ { width: 45, height: 45, background: '#68C886', color: '#fff' } }>
-                                            { name && name?.charAt(0)?.toUpperCase() }
+                                            { name && name.charAt(0)?.toUpperCase() }
                                         </Avatar>
                                     </div>
                                     <IconButton
@@ -239,7 +239,7 @@ const NavBar = ({
             >
                 <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px', width: 328, boxShadow: 'none', maxWidth: '100%', background: '#fff' } }>
                     <Avatar alt={ name } style={ { width: '56px', height: '56px', background: '#68C886', color: '#fff' } }>
-                        { name && name?.charAt(0)?.toUpperCase() }
+                        { name && name.charAt(0)?.toUpperCase() }
                     </Avatar>
                     <ListItemText
                         primary={ <EllipsisText value={ name } charLength={ 20 } /> }
