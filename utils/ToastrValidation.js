@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { ERROR_MESSAGE_RESPONSE } from '../constant/data/Constant';
 
-const error = (message) => {
+export const error = (message) => {
     toast.error(message, {
         position: "top-right",
         autoClose: 5000,
@@ -13,7 +13,7 @@ const error = (message) => {
     });
 }
 
-const success = (message) => {
+export const success = (message) => {
     toast.success(message, {
         position: "top-right",
         autoClose: 5000,
@@ -32,6 +32,8 @@ const toastrValidation = (response) => {
         success(response?.data?.message);
     } else if (response?.status === 202) {
         success(response?.data?.message);
+    } else if (response?.status === 'ssoSucess') {
+        success(response?.message);
     } else if (response?.response?.status === 401) {
         error(response?.response?.data?.error || response?.response?.data?.message);
     } else if (response?.response?.status === 400) {
@@ -48,6 +50,8 @@ const toastrValidation = (response) => {
         error('ERR_TIMED_OUT');
     } else if (response?.code === "ERR_NETWORK") {
         error(ERROR_MESSAGE_RESPONSE.ERR_NETWORK);
+    } else if (response?.status === "ssoError") {
+        error(response?.message);
     }
 };
 

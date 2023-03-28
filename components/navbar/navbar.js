@@ -25,6 +25,8 @@ import {
     HelpIcon
 } from '../../assets/icon';
 import { getItemSessionStorage, setItemSessionStorage, clearSessionStorage } from '../../utils/RegExp';
+import { BASE_URL } from '../../utils/BaseUrl';
+import END_POINTS from '../../utils/EndPoints'
 import { Role } from '../../constant/data';
 import { PROFILE_ROLE } from '../../constant/data/Constant';
 import EllipsisText from '../ellipsis/EllipsisText';
@@ -302,8 +304,8 @@ const NavBar = ({
                     </ListItemIcon>
                     <ListItemText style={ { padding: '5px 15px' } } primary="Change password" secondary="Email" />
                 </MenuItem>
-                <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px', marginTop: '18px' } } onClick={ handleLogout }>
-                    <Button variant="contained" fullWidth color="primary">Log out</Button>
+                <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px', marginTop: '18px' } } onClick={ handleLogout } >
+                    <Button variant="contained" fullWidth color="primary" href={ BASE_URL + END_POINTS.SSO_LOGOUT }>Log out</Button>
                 </MenuItem>
 
                 <div style={ { textAlign: 'right', padding: '0px 15px' } }>
