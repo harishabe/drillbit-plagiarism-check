@@ -7,7 +7,7 @@ export const FILE_TYPE = {
     key: 'assignment_instructor',
     value: 'Assignment Instructor.pdf'
 };
-
+export const SUBMISSION_DELAY = 30000;
 export const WINDOW_PLATFORM = "MacIntel";
 
 export const FILE_LANGUAGE = {

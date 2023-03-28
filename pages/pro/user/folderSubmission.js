@@ -42,7 +42,7 @@ import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } fro
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL, BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
-import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER } from '../../../constant/data/Constant';
+import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../constant/data/Constant';
 import PageChange from '../../../components/loader/PageChange';
 
 const columns = [
@@ -159,6 +159,19 @@ const folderSubmission = ({
             folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
         }
     }, [router.isReady, paginationPayload]);
+
+    useEffect(() => {
+        const result = rows?.some((item) => item?.percent?.props?.percent === '--');
+        if (result) {
+            const intervalId = setInterval(() => {
+                folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
+            }, SUBMISSION_DELAY);
+
+            return () => {
+                clearInterval(intervalId);
+            };
+        }
+    }, [rows]);
 
     useEffect(() => {
         if (extractedFileData) {
@@ -523,7 +536,7 @@ const folderSubmission = ({
                     downloadSubmissionFile={ handleOriginalFileDownload }
                     showAnalysisPage={ handleShowAnalysisPage }
                     showGrammarReport={ handlGrammarReport }
-                    isLoading={ isLoadingSubmission }
+                    // isLoading={ isLoadingSubmission }
                     isLoadingGrammarReport={ isLoadingGrammarReport }
                     charLength={ 10 }
                     path=''

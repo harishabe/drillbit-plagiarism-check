@@ -50,7 +50,7 @@ import { removeCommaWordEnd, formatDate, platform, windowOpen, getItemSessionSto
 import { PaginationContainer } from '../../../../style/index';
 import { BASE_URL, BASE_URL_ANALYSIS, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES, WINDOW_PLATFORM, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES, WINDOW_PLATFORM, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -155,6 +155,20 @@ const Submission = ({
             GetSubmissionList(url);
         }
     }, [router.isReady, paginationPayload]);
+
+    useEffect(() => {
+        const result = rows?.some((item) => item?.percent?.props?.percent === '--');
+        if (result) {
+            const intervalId = setInterval(() => {
+                let url = `classes/${clasId}/assignments/${assId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=${paginationPayload?.field}&orderBy=${paginationPayload?.orderBy}`;
+                GetSubmissionList(url);
+            }, SUBMISSION_DELAY);
+
+            return () => {
+                clearInterval(intervalId);
+            };
+        }
+    }, [rows]);
 
     /**
    * table submission data
@@ -589,7 +603,7 @@ const Submission = ({
                 downloadSubmissionFile={ handleOriginalFileDownload }
                 showAnalysisPage={ handleShowAnalysisPage }
                 showGrammarReport={ handlGrammarReport }
-                isLoading={ isLoading }
+                // isLoading={ isLoading }
                 isLoadingGrammarReport={ isLoadingGrammarReport }
                 charLength={ 10 }
             />

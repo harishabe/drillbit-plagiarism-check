@@ -42,7 +42,7 @@ import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } fro
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL, BASE_URL_EXTREM, BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
-import { DOWNLOAD_CSV, WARNING_MESSAGES, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER } from '../../../constant/data/Constant';
+import { DOWNLOAD_CSV, WARNING_MESSAGES, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -157,6 +157,19 @@ const folderSubmission = ({
             folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
         }
     }, [router.isReady, paginationPayload]);
+
+    useEffect(() => {
+        const result = rows?.some((item) => item?.percent?.props?.percent === '--');
+        if (result) {
+            const intervalId = setInterval(() => {
+                folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);
+            }, SUBMISSION_DELAY);
+
+            return () => {
+                clearInterval(intervalId);
+            };
+        }
+    }, [rows]);
 
     useEffect(() => {
         let row = '';
@@ -502,7 +515,7 @@ const folderSubmission = ({
                     downloadSubmissionFile={handleOriginalFileDownload}
                     showAnalysisPage={handleShowAnalysisPage}
                     showGrammarReport={handlGrammarReport}
-                    isLoading={isLoadingSubmission}
+                    // isLoading={isLoadingSubmission}
                     isLoadingGrammarReport={isLoadingGrammarReport}
                     charLength={10}
                     path=''

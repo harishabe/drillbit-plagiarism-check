@@ -23,6 +23,7 @@ import { BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { formatDate, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
+import { SUBMISSION_DELAY } from '../../../constant/data/Constant';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -97,6 +98,19 @@ const SubmissionHistory = ({
         setRows([...arr]);
     }, [submissionData]);
 
+    useEffect(() => {
+        const result = rows?.some((item) => item?.percent?.props?.percent === '--');
+        if (result) {
+            const intervalId = setInterval(() => {
+                handleRefresh()
+            }, SUBMISSION_DELAY);
+
+            return () => {
+                clearInterval(intervalId);
+            };
+        }
+    }, [rows]);
+
     const handleShowAnalysisPage = (e, row) => {
         let token = getItemSessionStorage('token');
         let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
@@ -139,7 +153,7 @@ const SubmissionHistory = ({
                 tableData={rows}
                 downloadSubmissionFile={handleOriginalFileDownload}
                 handleTableSort={handleTableSort}
-                isLoading={isLoadingSubmission}
+                // isLoading={isLoadingSubmission}
                 handleAction={handleAction}
                 showAnalysisPage={handleShowAnalysisPage}
                 showGrammarReport={handlGrammarReport}
