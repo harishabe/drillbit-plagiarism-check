@@ -1177,6 +1177,7 @@ const AssignmentForms = ({
                                                             label={'Enter phrases ' + (i + 1)}
                                                             name={item}
                                                             value={item['p']}
+                                                            required={ true }
                                                             onChange={handlePharsesChange}
                                                             inputProps={ {
                                                                 minLength: 3,
