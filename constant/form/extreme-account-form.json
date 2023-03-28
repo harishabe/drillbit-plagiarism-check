@@ -25,11 +25,13 @@
     },
     {
         "field_type": "input",
+        "type":"text",
         "id": "address",
         "name": "address",
         "label": "Address *",
         "required": "Address",
-        "validationMsg": "Invalid Address"
+        "validationMsg": "Invalid Address",
+         "minLength":3
     },
     {
         "field_type": "input",
@@ -56,7 +58,8 @@
         "validationMsg": "Invalid Designation"
     },
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "phone",
         "name": "phone",
         "label": "Phone *",
@@ -85,7 +88,8 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "instructors",
         "name": "instructors",
         "label": "Instructors *",
@@ -94,7 +98,8 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "students",
         "name": "students",
         "label": "Students *",
@@ -103,7 +108,8 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "submissions",
         "name": "submissions",
         "label": "Submissions *",
@@ -112,12 +118,13 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "dropdown",
         "id": "documentlength",
         "name": "documentlength",
-        "label": "Document length *",
+        "label": "Document length (pages)*",
         "required": "Document length",
-        "validationMsg": "Invalid Document Length"
+        "validationMsg": "Invalid Document Length",
+        "options": []
     },
 
     {
@@ -161,18 +168,12 @@
         "label": "Grammar Access *",
         "required": "Grammar Access",
         "validationMsg": "Invalid Grammar Access",
-        "options": [
-            {
-                "name": "YES"
-            },
-            {
-                "name": "NO"
-            }
-        ]
+        "options": []
     },
 
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "grammar",
         "name": "grammar",
         "label": "Grammar *",

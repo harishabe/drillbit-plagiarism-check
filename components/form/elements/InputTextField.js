@@ -84,6 +84,7 @@ const InputTextField = ({
                         FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
                         inputProps={{
                             maxLength: field.maxLength,
+                            minLength: field.minLength,
                         }}
                     />
                 )}

@@ -28,11 +28,13 @@
 
     {
         "field_type": "input",
+        "type":"text",
         "id": "address",
         "name": "address",
         "label": "Address *",
         "required": "Address",
-        "validationMsg": "Invalid Address"
+        "validationMsg": "Invalid Address",
+        "minLength":3
     },
 
     {

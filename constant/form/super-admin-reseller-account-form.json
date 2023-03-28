@@ -23,7 +23,8 @@
         "name": "email",
         "label": "Admin Email *",
         "required": "Admin Email",
-        "validationMsg": "Invalid Admin Email"
+        "validationMsg": "Invalid Admin Email",
+        "minLength": 3
     },
 
     {
@@ -55,11 +56,13 @@
 
     {
         "field_type": "input",
+        "type":"text",
         "id": "address",
         "name": "address",
         "label": "Address *",
         "required": "Address",
-        "validationMsg": "Invalid Address"
+        "validationMsg": "Invalid Address",
+        "minLength":3
     },
 
     {
@@ -73,7 +76,8 @@
     },
 
     {
-        "field_type": "input",
+        "field_type": "inputNumber",
+        "type": "number",
         "id": "phone",
         "name": "phone",
         "label": "Phone *",

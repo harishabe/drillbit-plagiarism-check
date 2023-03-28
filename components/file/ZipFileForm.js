@@ -11,6 +11,7 @@ import {
     UPLOAD_FILE_AUTHOR_NAME,
     UPLOAD_FILE_AUTHOR_TITLE,
     UPLOAD_FILE_TYPE,
+    UPLOAD_FILE_LANGUAGE
 } from '../../constant/data/ErrorMessage';
 import {
     LanguageList
@@ -158,8 +159,8 @@ const ZipFileForm = ({
                                                     'id': 'language' + index,
                                                     'label': 'Language',
                                                     'name': 'language' + index,
-                                                    'required': false,
-                                                    'validationMsg': UPLOAD_FILE_TYPE,
+                                                    'required': UPLOAD_FILE_LANGUAGE,
+                                                    'validationMsg': UPLOAD_FILE_LANGUAGE,
                                                     'size': 'small',
                                                     'options': nonEnglishLang !== undefined && nonEnglishLang?.map((item) => ({ 'name': item }))
                                                 } }
