@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Image from 'next/image';
-import { error } from '../../utils/ToastrValidation';
+import ToastrValidation from '../../utils/ToastrValidation';
 import { useRouter } from "next/router";
 import {
     LoginContainer,
@@ -27,7 +27,10 @@ const Login = () => {
     const router = useRouter();
     useEffect(() => {
         if (router?.query?.message) {
-            error(router?.query?.message)
+            ToastrValidation({
+                status: 'ssoError',
+                message: router?.query?.message
+            })
         }
     }, [router])
     return (

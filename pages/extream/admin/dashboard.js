@@ -61,7 +61,7 @@ import {
 } from "../../../constant/data/ErrorMessage";
 import END_POINTS from "../../../utils/EndPoints";
 import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
-import { success } from '../../../utils/ToastrValidation';
+import ToastrValidation from '../../../utils/ToastrValidation';
 
 const TextAlignRight = styled.div`
   text-align: right;
@@ -105,7 +105,10 @@ const Dashboard = ({
 
   useEffect(() => {
     if (router?.query?.message) {
-      success(router?.query?.message)
+      ToastrValidation({
+        status: 'ssoSucess',
+        message: router?.query?.message
+      })
     }
     GetWidgetCount(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_WIDGET);
     Documentchart(BASE_URL_EXTREM + END_POINTS.ADMIN_DASHBOARD_DOCUMENT_CHART);

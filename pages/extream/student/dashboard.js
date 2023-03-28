@@ -41,7 +41,7 @@ import {
     DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND,
     TREND_ANALYSIS_NOT_FOUND
 } from '../../../constant/data/ErrorMessage';
-import { success } from '../../../utils/ToastrValidation';
+import ToastrValidation from '../../../utils/ToastrValidation';
 
 const TextAlignRight = styled.div`
     text-align: right;
@@ -91,7 +91,10 @@ const Dashboard = ({
 
     useEffect(() => {
         if (router?.query?.message) {
-            success(router?.query?.message)
+            ToastrValidation({
+                status: 'ssoSucess',
+                message: router?.query?.message
+            })
         }
         GetDashboardData();
     }, []);
