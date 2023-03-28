@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from "next/router";
 import SuperAdmin from './../../layouts/SuperAdmin';
 import { useForm } from 'react-hook-form';
 import { Box, Grid, Skeleton, IconButton, Tooltip } from '@mui/material';
@@ -37,6 +38,7 @@ import InputTextField from '../../components/form/elements/InputTextField'
 import InputButton from '../../components/form/elements/InputButton'
 import { BASE_URL_SUPER } from '../../utils/BaseUrl'
 import END_POINTS from "../../utils/EndPoints";
+import { success } from '../../utils/ToastrValidation';
 
 const chart = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users'];
 const submission = ['Year wise submissions', 'Month wise submissions'];
@@ -62,6 +64,7 @@ const Dashboard = ({
     isLoadingReprocess
 }) => {
 
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors }, control } = useForm();
     const classes = useStyles();
 
@@ -81,6 +84,9 @@ const Dashboard = ({
     const [reprocess, setReprocess] = useState(false);
 
     useEffect(() => {
+        if (router?.query?.message) {
+            success(router?.query?.message)
+        }
         GetWidgetCount(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DASHBOARD_WIDGET);
     }, []);
 

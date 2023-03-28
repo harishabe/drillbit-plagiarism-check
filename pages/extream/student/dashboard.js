@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from "next/router";
 import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
@@ -40,6 +41,7 @@ import {
     DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND,
     TREND_ANALYSIS_NOT_FOUND
 } from '../../../constant/data/ErrorMessage';
+import ToastrValidation from '../../../utils/ToastrValidation';
 
 const TextAlignRight = styled.div`
     text-align: right;
@@ -84,9 +86,16 @@ const Dashboard = ({
     studentDashboardData,
     isLoadingDashboard,
 }) => {
+    const router = useRouter();
     const [submissionOverview, setSubmissionOverview] = useState([]);
 
     useEffect(() => {
+        if (router?.query?.message) {
+            ToastrValidation({
+                status: 'ssoSucess',
+                message: router?.query?.message
+            })
+        }
         GetDashboardData();
     }, []);
 
