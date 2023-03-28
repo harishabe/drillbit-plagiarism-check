@@ -10,7 +10,9 @@ import {
     WarningDialog,
     CommonTable,
     FolderIconSmall,
-    StatusDot
+    StatusDot,
+    CardView,
+    Instructions
 } from '../../../components';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
@@ -24,6 +26,7 @@ import { DeleteClass } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationContainer } from '../../../style/index';
 import { CLASS_VIEW } from '../../../constant/data/Constant';
 import WysiwygIcon from '@mui/icons-material/Wysiwyg';
+import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const columns = [
     { id: 'class_id', label: 'Class ID' },
@@ -158,31 +161,38 @@ const MyClassFiles = ({
             {
                 view === CLASS_VIEW ? (
                     <>
-                        <Grid container spacing={ 2 }>
-                            { item?.map((item, index) => (
-                                <Grid key={ index } item md={ 4 } xs={ 12 }>
-                                    <CardInfoView
-                                        key={ index }
-                                        item={ item }
-                                        isAvatar={ true }
-                                        isHeading={ true }
-                                        isTimer={ true }
-                                        isAction={ true }
-                                        isNextPath={ true }
-                                        isDescription={ true }
-                                        handleClick={ handleClassEdit }
-                                        handleDelete={ handleClassDelete }
-                                        statusColor={ expiryDateBgColor(item.validity) }
-                                        path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
-                                    />
-                                </Grid>
-                            )) }
-                        </Grid>
+                        { item?.length > 0 ? 
+                            <Grid container spacing={ 2 }>
+                                { item?.map((item, index) => (
+                                    <Grid key={ index } item md={ 4 } xs={ 12 }>
+                                        <CardInfoView
+                                            key={ index }
+                                            item={ item }
+                                            isAvatar={ true }
+                                            isHeading={ true }
+                                            isTimer={ true }
+                                            isAction={ true }
+                                            isNextPath={ true }
+                                            isDescription={ true }
+                                            handleClick={ handleClassEdit }
+                                            handleDelete={ handleClassDelete }
+                                            statusColor={ expiryDateBgColor(item.validity) }
+                                            path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
+                                        />
+                                    </Grid>
+                                )) }
+                            </Grid>
+                            : <CardView>
+                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } />
+                            </CardView>
+                        }
+
                     </>
                 ) : (
                     <CommonTable
                         isCheckbox={ false }
                         isSorting={ true }
+                            isClass={ true }
                         tableHeader={ columns }
                         tableData={ rows }
                         charLength={ 17 }

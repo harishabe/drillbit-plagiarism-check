@@ -17,15 +17,16 @@ import {
     Folder,
     CreateDrawer,
     WarningDialog,
-    ErrorBlock,
+    Instructions,
     CommonTable,
-    FolderIconSmall
+    FolderIconSmall,
+    CardView
 } from '../../../components';
 import { GetAllFolders, DeleteFolder } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { setItemSessionStorage, getItemSessionStorage } from '../../../utils/RegExp';
 import MyFoldersForms from './form/MyFolderForms';
-import { FOLDERS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 import { FOLDER_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
@@ -302,7 +303,10 @@ const MyFolder = ({
                                             </Grid>
                                         )) }
                                     </Grid>
-                                    : <ErrorBlock message={ FOLDERS_NOT_FOUND } />
+                                    :
+                                    <CardView>
+                                        <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
+                                    </CardView>
                                 }
                             </>
                         }
@@ -311,6 +315,7 @@ const MyFolder = ({
                     <CommonTable
                         isCheckbox={ false }
                         isSorting={ true }
+                            isFolder={ true }
                         tableHeader={ columns }
                         tableData={ rows }
                         charLength={ 17 }
@@ -319,6 +324,7 @@ const MyFolder = ({
                         isLoading={ isLoading }
                         path=''
                     />
+
                 )
             }
 

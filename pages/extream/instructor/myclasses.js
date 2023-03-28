@@ -20,10 +20,8 @@ import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
     MainHeading,
-    ErrorBlock,
     CardInfoSkeleton,
     CreateDrawer,
-    CardView,
 } from '../../../components';
 import MyClassesForm from './form/MyclassesForm';
 import MyClassFiles from './myclassfiles';
@@ -31,7 +29,6 @@ import { DownloadIcon } from '../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
-import { CLASS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 import { setItemSessionStorage, getItemSessionStorage } from '../../../utils/RegExp';
 import { CLASS_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
 import GridOnIcon from '@mui/icons-material/GridOn';
@@ -206,18 +203,15 @@ const MyClasses = ({
                     <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
                 </Grid> :
                 <>
-                    {classesData?.length > 0 ? <MyClassFiles
-                        pageDetails={pageDetails}
-                        classesData={classesData}
+                    <MyClassFiles
+                        pageDetails={ pageDetails }
+                        classesData={ classesData }
                         view={ view }
-                        isLoading={isLoading}
+                        isLoading={ isLoading }
                         isLoadingClassDelete={ isLoadingClassDelete }
                         handleTableSort={ handleTableSort }
-                        handlePagination={handlePagination}
-                    /> :
-                        <CardView>
-                            <ErrorBlock message={CLASS_NOT_FOUND} />
-                        </CardView>}
+                        handlePagination={ handlePagination }
+                    />
                 </>
 
 

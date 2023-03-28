@@ -383,6 +383,7 @@ const Students = ({
                 <CommonTable
                     isCheckbox={ true }
                     isSorting={ true }
+                    isStudent={ true }
                     tableHeader={ columns }
                     tableData={ rows }
                     handleAction={ handleAction }

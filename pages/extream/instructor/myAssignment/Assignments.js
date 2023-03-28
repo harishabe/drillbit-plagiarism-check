@@ -354,6 +354,7 @@ const Assignments = ({
                 <CommonTable
                     isCheckbox={ true }
                     isSorting={ true }
+                    isAssignment={ true }
                     tableHeader={ columns }
                     tableData={ rows }
                     handleAction={ handleAction }

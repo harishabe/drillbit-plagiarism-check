@@ -594,6 +594,7 @@ const Submission = ({
             <CommonTable
                 isCheckbox={ true }
                 isSorting={ true }
+                isSubmission={ true }
                 tableHeader={ columns }
                 tableData={ rows }
                 handleAction={ handleAction }

@@ -148,7 +148,8 @@ const SubmissionHistory = ({
             </DownloadField>
             <CommonTable
                 isCheckbox={false}
-                isSorting={true}
+                isSorting={ true }
+                isStudentSubmission={ true }
                 tableHeader={columns}
                 tableData={rows}
                 downloadSubmissionFile={handleOriginalFileDownload}
