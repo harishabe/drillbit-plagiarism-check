@@ -5,7 +5,8 @@ const Role = {
     'super':'drillbit',
     'proAdmin':'lim-admin',
     'proUser':'lim-instructor',
-    'supplier':'reseller'
+    'supplier': 'reseller',
+    'consortium': 'consortium',
 };
 
 export default Role;

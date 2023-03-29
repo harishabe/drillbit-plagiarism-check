@@ -114,6 +114,12 @@ const END_POINTS = {
     INTEGRATION_DELETE_MOODLE_LTI: '/extreme/integrations/moodleLti',
     SSO_LOGIN: '/saml',
     SSO_LOGOUT: '/saml/saml/logout',
+    CONSORTIUM_DASHBOARD: '/consortium/dashboard',
+    CONSORTIUM_EXTREME: '/consortium/extreme/licenses',
+    CONSORTIUM_PRO: '/consortium/pro/licenses',
+    CONSORTIUM_CUSTOMERS: '/consortium/licenseList',
+    CONSORTIUM_EXTREME_LICENSES: '/consortium/extreme/license',
+    CONSORTIUM_PRO_LICENSES: '/consortium/pro/license',
 };
 
 export default END_POINTS;

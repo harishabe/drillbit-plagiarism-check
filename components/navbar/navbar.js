@@ -145,6 +145,9 @@ const NavBar = ({
         } else if ((userRole === Role?.supplier)) {
             setPath('/supplier/');
             setProfileRole(PROFILE_ROLE.RESELLER);
+        } else if ((userRole === Role?.consortium)) {
+            setPath('/consortium/');
+            setProfileRole(PROFILE_ROLE.CONSORTIUM);
         }
     }, [, router, switchRole]);
 
@@ -286,7 +289,7 @@ const NavBar = ({
                 </MenuItem>
                 <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
 
-                { role !== Role?.supplier &&
+                { role !== Role?.supplier && role !== Role?.consortium &&
                     <>
                     <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ () => [router.push(`${path}/profile/help`), setAnchorEl(null)] }>
                         <ListItemIcon>

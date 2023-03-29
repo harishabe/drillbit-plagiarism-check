@@ -1,0 +1,177 @@
+[
+    {
+        "field_type": "input",
+        "id": "institutionName",
+        "name": "institutionName",
+        "label": "Institution Name *",
+        "required": "Enter Institution Name",
+        "validationMsg": "Invalid Institution Name"
+    },
+    {
+        "field_type": "input",
+        "id": "state",
+        "name": "state",
+        "label": "State *",
+        "required": "State",
+        "validationMsg": "Invalid State"
+    },
+    {
+        "field_type": "input",
+        "id": "country",
+        "name": "country",
+        "label": "Country *",
+        "required": "Country",
+        "validationMsg": "Invalid Country"
+    },
+    {
+        "field_type": "input",
+        "type":"text",
+        "id": "address",
+        "name": "address",
+        "label": "Address *",
+        "required": "Address",
+        "validationMsg": "Invalid Address",
+         "minLength":3
+    },
+    {
+        "field_type": "input",
+        "id": "adminName",
+        "name": "adminName",
+        "label": "Co-ordinator Name *",
+        "required": "Co-ordinator Name",
+        "validationMsg": "Invalid Co-ordinator Name"
+    },
+    {
+        "field_type": "input",
+        "id": "adminEmail",
+        "name": "adminEmail",
+        "label": "Email *",
+        "required": "Email",
+        "validationMsg": "Invalid Email"
+    },
+    {
+        "field_type": "input",
+        "id": "designation",
+        "name": "designation",
+        "label": "Designation *",
+        "required": "Designation",
+        "validationMsg": "Invalid Designation"
+    },
+    {
+        "field_type": "input",
+        "id": "department",
+        "name": "department",
+        "label": "Department"
+    },
+    {
+        "field_type": "inputNumber",
+        "type": "number",
+        "id": "phone",
+        "name": "phone",
+        "label": "Phone *",
+        "required": "Phone",
+        "validationMsg": "Invalid Phone"
+    },
+
+    {
+        "field_type": "datepicker",
+        "id": "startDate",
+        "name": "startDate",
+        "label": "Select Start Date *",
+        "minDate":true,
+        "required": "Select Start Date",
+        "validationMsg": "Select Start Date"
+    },
+
+    {
+        "field_type": "datepicker",
+        "id": "endDate",
+        "name": "endDate",
+        "label": "Select End Date *",
+        "minDate":true,
+        "required": "Select End Date",
+        "validationMsg": "Select End Date"
+    },
+
+    {
+        "field_type": "inputNumber",
+        "type": "number",
+        "id": "instructors",
+        "name": "instructors",
+        "label": "Users *",
+        "required": "Users",
+        "validationMsg": "Invalid Users"
+    },
+
+    {
+        "field_type": "inputNumber",
+        "type": "number",
+        "id": "submissions",
+        "name": "submissions",
+        "label": "Submissions *",
+        "required": "Submissions",
+        "validationMsg": "Invalid Submissions"
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "documentlength",
+        "name": "documentlength",
+        "label": "Document length (pages)*",
+        "required": "Document length",
+        "validationMsg": "Invalid Document Length",
+        "options": []
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "updateExpiryDateToAll",
+        "name": "updateExpiryDateToAll",
+        "label": "Update expiry date to all *",
+        "required": "expiry date",
+        "validationMsg": "Invalid Expiry Date",
+        "options": [
+            {
+                "name": "YES"
+            },
+            {
+                "name": "NO"
+            }
+        ]
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "institutionType",
+        "name": "institutionType",
+        "label": "Institution Type *", 
+        "required": "Institution Type",
+        "validationMsg": "Invalid Institution Type",
+        "options": []
+    },
+
+    {
+        "field_type": "input",
+        "id": "acc_manager",
+        "name": "acc_manager",
+        "label": "Account manager *",
+        "required": "Account manager",
+        "validationMsg": "Invalid manager name"
+    },
+    
+    {
+        "field_type": "dropdown",
+        "id": "timeZone",
+        "name": "timeZone",
+        "label": "Time Zone *",
+        "required": "Time Zone",
+        "validationMsg": "Invalid Time Zone",
+        "options": []
+    },
+
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Create Extreme Account"
+    }
+]

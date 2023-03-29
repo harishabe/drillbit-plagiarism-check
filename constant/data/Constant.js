@@ -109,6 +109,7 @@ export const PROFILE_ROLE = {
     'USER': 'User',
     'SUPER': 'DrillBit',
     'RESELLER': 'Reseller',
+    'CONSORTIUM': 'Consortium',
 }
 
 /**
