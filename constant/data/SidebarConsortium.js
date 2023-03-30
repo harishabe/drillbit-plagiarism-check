@@ -27,13 +27,6 @@ const SidebarConsortium = [
         "path": "/pro",
         "layout": "/consortium",
     },
-    {
-        "icon": <ClassIcon />,
-        "activeIcon": <ClassWhiteIcon />,
-        "name": "Institutions",
-        "path": "/institutions",
-        "layout": "/consortium",
-    },
 ];
 
 export default SidebarConsortium;
