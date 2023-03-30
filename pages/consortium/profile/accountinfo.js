@@ -25,17 +25,18 @@ const AccountInfo = ({
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        GetProfile(BASE_URL_SUPER + END_POINTS.RESELLER_ACCOUNT_INFORMATION);
+        GetProfile(BASE_URL_SUPER + END_POINTS.CONSORTIUM_ACCOUNT_INFORMATION);
     }, []);
 
     useEffect(() => {
         let row = [
-            createData('Name', accountInfo?.name ? accountInfo?.name : '-'),
+            createData('Institution Name', accountInfo?.name ? accountInfo?.name : '-'),
             createData('Country', accountInfo?.country ? accountInfo?.country : '-'),
-            createData('Email id', accountInfo?.email ? accountInfo?.email : '-'),
+            createData('Username', accountInfo?.email ? accountInfo?.email : '-'),
             createData('Start date', accountInfo?.created_date ? accountInfo?.created_date : '-'),
             createData('End date', accountInfo?.expiry_date ? accountInfo?.expiry_date : '-'),
-            createData('Time zone', accountInfo?.timezone ? accountInfo?.timezone : '-'),
+            createData('No. of submission alloted', accountInfo?.submissions ? accountInfo?.submissions : '-'),
+            createData('No. of institution', accountInfo?.institutions ? accountInfo?.institutions : '-'),
         ];
         setRows([...row]);
     }, [accountInfo]);

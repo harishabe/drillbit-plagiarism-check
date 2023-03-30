@@ -168,7 +168,7 @@ const Pro = ({
     };
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_SUPER + END_POINTS.RESELLER_CSV_DOWNLOAD + 'proResellerCsv', DOWNLOAD_CSV.RESELLER_PRO);
+        DownloadCsv(BASE_URL_SUPER + END_POINTS.CONSORTIUM_CSV_DOWNLOAD + 'proConsortiumCsv', DOWNLOAD_CSV.CONSORTIUM_PRO);
     };
 
     /** search implementation using debounce concepts */

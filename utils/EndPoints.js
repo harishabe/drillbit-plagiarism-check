@@ -120,6 +120,9 @@ const END_POINTS = {
     CONSORTIUM_CUSTOMERS: '/consortium/licenseList',
     CONSORTIUM_EXTREME_LICENSES: '/consortium/extreme/license',
     CONSORTIUM_PRO_LICENSES: '/consortium/pro/license',
+    CONSORTIUM_CHANGE_PASSWORD: '/consortium/password',
+    CONSORTIUM_CSV_DOWNLOAD: '/consortium/',
+    CONSORTIUM_ACCOUNT_INFORMATION: '/consortium/accountInformation',
 };
 
 export default END_POINTS;

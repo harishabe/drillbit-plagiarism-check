@@ -169,7 +169,7 @@ const Extreme = ({
     };
 
     const handleDownload = () => {
-        DownloadCsv(BASE_URL_SUPER + END_POINTS.RESELLER_CSV_DOWNLOAD + 'extremeResellerCsv', DOWNLOAD_CSV.RESELLER_EXTREME);
+        DownloadCsv(BASE_URL_SUPER + END_POINTS.CONSORTIUM_CSV_DOWNLOAD + 'extremeConsortiumCsv', DOWNLOAD_CSV.CONSORTIUM_EXTREME);
     };
 
     /** search implementation using debounce concepts */

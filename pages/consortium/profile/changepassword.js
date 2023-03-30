@@ -20,7 +20,7 @@ const ChangePassword = ({ ProfileChangePassword, isLoading }) => {
     delete data["confirmPassword"];
     ProfileChangePassword(
       data,
-      BASE_URL_SUPER + END_POINTS.RESELLER_CHANGE_PASSWORD
+      BASE_URL_SUPER + END_POINTS.CONSORTIUM_CHANGE_PASSWORD
     );
   };
 
