@@ -92,7 +92,7 @@ const AccountInfo = ({
                 }
             } else {
                 setError(true)
-                setMessage(`Image size is ${img.width} x ${img.height}. Required size is 1000 x 1000.`);
+                setMessage(`Please resize the logo to fit the specified dimensions`);
             }
 
         }
