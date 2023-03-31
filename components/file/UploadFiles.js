@@ -311,14 +311,12 @@ const UploadFiles = ({
   };
 
   const multiFileUploadRepository = (files, data) => {
-    console.log('data', data)
     let authorNameArr = [],
       titleArr = [],
       yearArr = [],
       repositoryArr = [],
       languageArr = [],
       regExArr = [];
-    // console.log('authorNameArr', authorNameArr)
     let bodyFormData = new FormData();
     fileData?.map((item, i) => {
       authorNameArr.push(data["authorName" + item[0]]);
