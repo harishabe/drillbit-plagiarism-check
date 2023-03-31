@@ -311,12 +311,14 @@ const UploadFiles = ({
   };
 
   const multiFileUploadRepository = (files, data) => {
+    console.log('data', data)
     let authorNameArr = [],
       titleArr = [],
       yearArr = [],
       repositoryArr = [],
       languageArr = [],
       regExArr = [];
+    // console.log('authorNameArr', authorNameArr)
     let bodyFormData = new FormData();
     fileData?.map((item, i) => {
       authorNameArr.push(data["authorName" + item[0]]);
@@ -336,8 +338,14 @@ const UploadFiles = ({
       languageArr.push(data["language" + item[0]]);
     });
 
-    bodyFormData.append("name", authorNameArr);
-    bodyFormData.append("title", titleArr);
+    bodyFormData.append("name", authorNameArr?.map((item) => {
+      return item?.replace(/,/g, "@@@");
+    })
+    );
+    bodyFormData.append("title", titleArr?.map((item) => {
+      return item?.replace(/,/g, "@@@");
+    }));
+
     bodyFormData.append("year", yearArr);
     bodyFormData.append("repository", repositoryArr);
     bodyFormData.append("language", languageArr);
