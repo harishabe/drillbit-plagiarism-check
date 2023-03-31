@@ -35,7 +35,6 @@ import {
     folderSubmissionsFileData,
     DeletefolderSubmissionData,
     SubmissionReportDownload,
-    SubmissionReportBulkDownload
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -101,7 +100,6 @@ const folderSubmission = ({
     folderSubmissionData,
     isLoadingSubmission,
     isLoadingUpload,
-    isLoadingBulkDownload,
     isLoadingDownload,
     pageDetails,
     UploadFileDataClear,
@@ -112,7 +110,6 @@ const folderSubmission = ({
     GetGrammarReport,
     SubmissionReportDownload,
     isLoadingSubmissionReport,
-    SubmissionReportBulkDownload
 }) => {
 
     const router = useRouter();
@@ -443,20 +440,6 @@ const folderSubmission = ({
         }
     };
 
-    const submissionBulkDownload = () => {
-        let rowsId = '';
-        _.filter(rows, function (o) {
-            if (o.isSelected === true) {
-                return rows;
-            }
-        }).map((rowItem) => {
-            rowsId += rowItem?.paper_id + ',';
-        });
-        let requestPayload = {};
-        requestPayload['paperId'] = removeCommaWordEnd(rowsId);
-        SubmissionReportBulkDownload(BASE_URL_EXTREM + END_POINTS.SIMILARITY_REPORT_DOWNLOAD, requestPayload);
-    }
-
     return (
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
@@ -518,11 +501,6 @@ const folderSubmission = ({
                             <SaveOutlinedIcon />
                         </IconButton>
                     </Tooltip>
-                    { isLoadingBulkDownload ? <Skeleton width={ 200 } /> : <Tooltip title='Submission report bulk download' arrow>
-                        <IconButton onClick={ submissionBulkDownload }>
-                            <FileDownloadOutlinedIcon />
-                        </IconButton>
-                    </Tooltip> }
                 </DeleteAllButton>}
 
                 <CommonTable
@@ -625,7 +603,6 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.submission?.folderSubmissionData?.page,
     folderSubmissionData: state?.submission?.folderSubmissionData?._embedded?.submissionsList,
     isLoadingSubmission: state?.submission?.isLoadingSubmission,
-    isLoadingBulkDownload: state?.submission?.isLoadingBulkDownload,
     isLoadingUpload: state?.instructorMyFolders?.isLoadingUpload,
     isLoadingDownload: state?.submission?.isLoadingDownload,
     extractedFileData: state?.instructorMyFolders?.extractedFileData,
@@ -645,7 +622,6 @@ const mapDispatchToProps = (dispatch) => {
         UploadZipFileDataClear: () => dispatch(UploadZipFileDataClear()),
         GetGrammarReport: (url) => dispatch(GetGrammarReport(url)),
         SubmissionReportDownload: (url, data) => dispatch(SubmissionReportDownload(url, data)),
-        SubmissionReportBulkDownload: (url, requestPayload) => dispatch(SubmissionReportBulkDownload(url, requestPayload)),
     };
 };
 
