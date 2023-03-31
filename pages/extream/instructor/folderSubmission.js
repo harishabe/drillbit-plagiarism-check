@@ -34,7 +34,7 @@ import {
     GetGrammarReport,
     folderSubmissionsFileData,
     DeletefolderSubmissionData,
-    SubmissionReportDownload,
+    SubmissionReportDownload
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { DeleteIcon, DeleteWarningIcon, DownloadIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -109,7 +109,7 @@ const folderSubmission = ({
     isLoadingGrammarReport,
     GetGrammarReport,
     SubmissionReportDownload,
-    isLoadingSubmissionReport,
+    isLoadingSubmissionReport
 }) => {
 
     const router = useRouter();
