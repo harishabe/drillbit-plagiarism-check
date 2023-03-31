@@ -157,7 +157,7 @@ const ZipFileForm = ({
                                                     'field_type': 'dropdown',
                                                     'style': { marginTop: '10px' },
                                                     'id': 'language' + index,
-                                                    'label': 'Language',
+                                                    'label': 'Language *',
                                                     'name': 'language' + index,
                                                     'required': UPLOAD_FILE_LANGUAGE,
                                                     'validationMsg': UPLOAD_FILE_LANGUAGE,

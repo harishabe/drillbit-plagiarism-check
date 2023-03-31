@@ -23,9 +23,7 @@ const Instructions = ({ message }) => {
             { message &&
                 message.map((item, index) => {
                     return (
-                        <div key={ index }>
-                            <SubTitle title={ item } textColor="gray" />
-                        </div>
+                        <SubTitle title={ item } textColor="gray" />
                     );
                 }) }
         </div>

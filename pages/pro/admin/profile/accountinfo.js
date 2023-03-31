@@ -30,10 +30,10 @@ const UploadButtonAlign = styled('div')({
 });
 
 const ImgLogo = styled('img')({
-    width: '100px',
-    height: '100px',
-    objectFit: 'cover',
-    objectPosition: 'bottom'
+    width: '180px',
+    height: '115px',
+    objectFit: 'contain',
+    overflow: 'hidden',
 });
 
 const AccountInfo = ({
@@ -79,11 +79,10 @@ const AccountInfo = ({
         let size = (data?.target?.files[0]?.size / 1024 / 1024).toFixed(2)
         img.src = data?.target?.files[0] && window?.URL?.createObjectURL(data?.target?.files[0])
         img.onload = () => {
-            if (img.width <= 250 && img.height <= 250) {
+            if (img.width <= 1000 && img.height <= 1000) {
                 if (size > 10) {
                     setError(true)
-                    setMessage(`Sorry, this image doesn't look like the size we wanted. It's size is
-                ${size} MB, but we require less than 10 MB size image`);
+                    setMessage(`Image size is ${size} MB. Required size is less than 10 MB.`);
 
                 } else {
                     setError(false)
@@ -93,8 +92,7 @@ const AccountInfo = ({
                 }
             } else {
                 setError(true)
-                setMessage(`Sorry, this image doesn't look like the size we wanted. It's 
-                ${img.width} x ${img.height} but we require 250 x 250 size image`);
+                setMessage(`Please resize the logo to fit the specified dimensions`);
             }
 
         }
@@ -119,7 +117,7 @@ const AccountInfo = ({
                                     </>
                                 </Button>
 
-                                <SubTitle2 title='Supported formats : JPG,PNG, Image resolutions : 250x250 (mm), Maximum size : 10 MB' />
+                                <SubTitle2 title='Supported formats : JPG,PNG, Image resolutions : 1000x1000 (mm), Maximum size : 10 MB' />
                                 { error &&
                                     <SubTitle2 color='red' title={ message } />
                                 }
