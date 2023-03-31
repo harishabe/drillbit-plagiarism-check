@@ -55,6 +55,7 @@ const END_POINTS = {
     INSTRUCTOR_REPOSITARY_UPLOAD_MULTIPLE_FILE: '/extreme/privateRepository/multiple',
     INSTRUCTOR_REPOSITARY_UPLOAD_DRIVE: '/extreme/privateRepository/drive',
     INSTRUCTOR_REPOSITARY_REMOVE: '/extreme/removePrivateRepository/',
+    SIMILARITY_REPORT_DOWNLOAD: '/extreme/zipDownload',
     STUDENT_DASHBOARD_WIDGET: '/extreme/student/dashboard',
     STUDENT_MY_CLASSES: '/extreme/student/classes',
     STUDENT_MY_ASSIGNMENTS_SUBMISSION: '/extreme/student/myassignments-details',
