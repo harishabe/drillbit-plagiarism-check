@@ -278,8 +278,12 @@ const UploadFiles = ({
       documentTypeArr.push(data["documentType" + item[0]]);
     });
 
-    bodyFormData.append("authorName", authorNameArr);
-    bodyFormData.append("title", titleArr);
+    bodyFormData.append("authorName", authorNameArr?.map((item) => {
+      return item?.replace(/,/g, "@@@");
+    }));
+    bodyFormData.append("title", titleArr?.map((item) => {
+      return item?.replace(/,/g, "@@@");
+    }));
     bodyFormData.append("documentType", documentTypeArr);
     for (let i = 0; i < files.length; i++) {
       bodyFormData.append("file", files[i][1]);
@@ -300,8 +304,12 @@ const UploadFiles = ({
       LanguageArr.push(data["nonEnglishLang" + i]);
     });
 
-    bodyFormData.append("authorName", authorNameArr);
-    bodyFormData.append("title", titleArr);
+    bodyFormData.append("authorName", authorNameArr?.map((item) => {
+      return item?.replace(/,/g, "@@@");
+    }));
+    bodyFormData.append("title", titleArr?.map((item) => {
+      return item?.replace(/,/g, "@@@");
+    }));
     bodyFormData.append("documentType", documentTypeArr);
     bodyFormData.append("language", LanguageArr);
     for (let i = 0; i < files.length; i++) {
