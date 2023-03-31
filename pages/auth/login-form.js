@@ -63,6 +63,12 @@ const LoginForm = ({ login, loginState, isLoading }) => {
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
       router.push("/supplier/dashboard");
+    } else if (loginState?.role === Role.consortium) {
+      setItemSessionStorage("role", Role.consortium);
+      setItemSessionStorage("token", loginState?.token);
+      setItemSessionStorage("email", loginState?.username);
+      setItemSessionStorage("name", loginState?.name);
+      router.push("/consortium/dashboard");
     }
   }, [router, loginState]);
 

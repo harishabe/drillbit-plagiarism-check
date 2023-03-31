@@ -24,6 +24,7 @@ import {
     SidebarProAdmin,
     SidebarProUser,
     SidebarSupplier,
+    SidebarConsortium,
 } from '../constant/data';
 import { getItemSessionStorage } from '../utils/RegExp'
 
@@ -172,7 +173,11 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/supplier/profile/accountinfo') {
             return false;
+        } else if (router.pathname === '/consortium/profile/accountinfo') {
+            return false;
         } else if (router.pathname === '/supplier/profile/changepassword') {
+            return false;
+        } else if (router.pathname === '/consortium/profile/changepassword') {
             return false;
         } else {
             return router.route.indexOf(routeName) > -1 ? true : false;
@@ -201,6 +206,8 @@ const SideBar = ({ open }) => {
             setSidebarItem(SidebarProUser);
         } else if (role === 'reseller') {
             setSidebarItem(SidebarSupplier);
+        } else if (role === 'consortium') {
+            setSidebarItem(SidebarConsortium);
         }
     }, []);
 
