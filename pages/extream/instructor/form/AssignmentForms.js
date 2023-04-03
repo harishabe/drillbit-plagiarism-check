@@ -63,7 +63,7 @@ const AssignmentForms = ({
     const [excludeRefBib, setExcludeRefBib] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [excludeQuote, setExcludeQuote] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [excludeSmallSource, setExcludeSmallSource] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
-    const [excludeSubmission, setExcludeSubmission] = React.useState(false);
+    const [excludeSubmission, setExcludeSubmission] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [saveToRepo, setSaveToRepo] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [allowSubmission, setAllowSubmission] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [allowSubmissionDueDate, setAllowSubmissionDueDate] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
@@ -161,7 +161,7 @@ const AssignmentForms = ({
                 bodyFormData.append('db_internet', internet === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 bodyFormData.append('institution_repository', repository === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 bodyFormData.append('daily_submissions_limit', dailySubmissionLimit);
-                bodyFormData.append('ex_pre', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : excludeSubmission === true ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+                bodyFormData.append('ex_pre', excludeSubmission === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 CreateAssignment(router.query.clasId, bodyFormData);
             } else {
                 bodyFormData.append('assignment_name', data.assignment_name);
@@ -250,7 +250,7 @@ const AssignmentForms = ({
 
         if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
             bodyFormData.append('repository_scope', data?.repository_scope?.name === 'Institution' ? 'LOCAL' : 'GLOBAL');
-            bodyFormData.append('ex_pre', editData.assignmentData.ex_pre === excludeSubmission ? ASSIGNMENT_SETTING_VALUE_NO : ASSIGNMENT_SETTING_VALUE_YES);
+            bodyFormData.append('ex_pre', editData.assignmentData.ex_pre === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
         }
 
         if (editData.assignmentData.assignment_grading === ASSIGNMENT_SETTING_VALUE_YES) {
@@ -499,7 +499,7 @@ const AssignmentForms = ({
         setPublication(ASSIGNMENT_SETTING_VALUE_YES);
         setInternet(ASSIGNMENT_SETTING_VALUE_YES);
         setRepository(ASSIGNMENT_SETTING_VALUE_YES);
-        setExcludeSubmission(false);
+        setExcludeSubmission(ASSIGNMENT_SETTING_VALUE_NO);
     }, []);
 
     useEffect(() => {
@@ -692,8 +692,11 @@ const AssignmentForms = ({
         }
     };
 
-    const handleExcludeSubmission = (e) => {
-        setExcludeSubmission(e.target.checked);
+    const handleExcludeSubmission = (e, value) => {
+        e.preventDefault();
+        if (value !== null) {
+            setExcludeSubmission(value);
+        }
     };
 
     const handleAddQuestionRemove = (e, index) => {
@@ -914,22 +917,22 @@ const AssignmentForms = ({
                         <div>
                             <Grid container>
                             <Grid item md={ 8 }>
-                                <Tooltip title={ 'YES - 14 similarity words, NO - default settings' } arrow>
                                     <InputLabel style={ { margin: '22px 0px' } }>
-                                            Exclude small sources
-                                        </InputLabel>
-                                    </Tooltip>
+                                    Exclude small sources
+                                </InputLabel>
                                 </Grid>
                             <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
+                                <Tooltip title={ 'YES - 14 similarity words, NO - default settings' } arrow>
                                     <ToggleButtonGroup
                                         color="primary"
-                                    value={ excludeSmallSource }
+                                        value={ excludeSmallSource }
                                         exclusive
-                                    onChange={ handleExcludeSmallSource }
+                                        onChange={ handleExcludeSmallSource }
                                     >
-                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
-                                    <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
+                                        <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                        <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
                                     </ToggleButtonGroup>
+                                </Tooltip>
                                 </Grid>
                             </Grid>
                         </div>
@@ -954,44 +957,47 @@ const AssignmentForms = ({
                                 </Grid>
                             </Grid>
                         { saveToRepo === ASSIGNMENT_SETTING_VALUE_YES && <>
+                            <InputAutoComplete
+                                control={ control }
+                                field={ {
+                                    'field_type': 'dropdown',
+                                    'id': 'repoScope',
+                                    'label': 'Repository Scope',
+                                    'name': 'repository_scope',
+                                    'required': 'Choose repository scope',
+                                    'validationMsg': 'Please select repository scope',
+                                    'size': 'small',
+                                    'options': [{
+                                        'name': 'Institution'
+                                    }, {
+                                        'name': 'Global'
+                                    }]
+                                } }
+                            />
+                            <div>
                                 <Grid container>
-                                <Grid item md={ 12 }>
-                                        <InputAutoComplete
-                                        control={ control }
-                                        field={ {
-                                                'field_type': 'dropdown',
-                                                'id': 'repoScope',
-                                                'label': 'Repository Scope',
-                                                'name': 'repository_scope',
-                                                'required': 'Choose repository scope',
-                                                'validationMsg': 'Please select repository scope',
-                                                'size': 'small',
-                                                'options': [{
-                                                    'name': 'Institution'
-                                                }, {
-                                                    'name': 'Global'
-                                                }]
-                                        } }
-                                        />
+                                    <Grid item md={ 8 }>
+                                        <InputLabel style={ { margin: '22px 0px' } }>
+                                            Exclude previous submissions
+                                        </InputLabel>
                                     </Grid>
-                                <Grid item md={ 12 }>
-                                    <Tooltip title={ 'Student\'s re-submission is excluded with his/her previous submission' } arrow>
-                                        <FormControlLabel control={
-                                            <Checkbox
-                                                checked={ excludeSubmission }
+                                    <Grid item md={ 4 } style={ { textAlign: 'right', margin: '15px 0px' } }>
+                                        <Tooltip title={ 'Student\'s re-submission is excluded with his/her previous submission' } arrow>
+                                            <ToggleButtonGroup
+                                                color="primary"
+                                                value={ excludeSubmission }
                                                 exclusive
                                                 onChange={ handleExcludeSubmission }
-                                                name={ 'ex_pre' }
-                                                id={ 'ex_pre' }
-                                            />
-                                        }
-                                            label="Exclude previous submissions"
-                                        />
-                                    </Tooltip>
+                                            >
+                                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_YES }>Yes</ToggleButton>
+                                                <ToggleButton value={ ASSIGNMENT_SETTING_VALUE_NO }>No</ToggleButton>
+                                            </ToggleButtonGroup>
+                                        </Tooltip>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            </div>
                         </> }
-                        </div>
+                    </div>
 
                         <div>
                             <Grid container>
