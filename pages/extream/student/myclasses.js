@@ -1,16 +1,36 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import MuiToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { GetClassesData } from '../../../redux/action/student/StudentAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
-import { Skeleton, TextField } from '@mui/material';
+import { Skeleton, TextField, Tooltip } from '@mui/material';
 import Student from '../../../layouts/Student';
-import { BreadCrumb, CardInfoView, MainHeading, CardInfoSkeleton, ErrorBlock, CardView } from '../../../components';
+import {
+    BreadCrumb,
+    CardInfoView,
+    MainHeading,
+    CardInfoSkeleton,
+    ErrorBlock,
+    CardView,
+    CommonTable,
+    FolderIconSmall,
+    StatusDot
+} from '../../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { CLASS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { setItemSessionStorage, getItemSessionStorage } from '../../../utils/RegExp';
+import { CLASS_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 
 const StudentBreadCrumb = [
     {
@@ -25,14 +45,38 @@ const StudentBreadCrumb = [
     },
 ];
 
+const ToggleButton = styled(MuiToggleButton)({
+    '&.Mui-selected, &.Mui-selected:hover': {
+        color: '#fff !important',
+        backgroundColor: '#3672FF !important'
+    }
+});
+
+const columns = [
+    { id: 'class_id', label: 'Class ID' },
+    { id: 'class_name', label: 'Class name' },
+    { id: 'created_date', label: 'Start date' },
+    { id: 'end_date', label: 'Expiry date' },
+    { id: 'status', label: 'Status' },
+    { id: 'action', label: 'Action' },
+];
+
+function createData(class_id, class_name, created_date, end_date, status, action) {
+    return {
+        class_id, class_name, created_date, end_date, status, action
+    };
+}
+
 const MyClasses = ({
     GetClassesData,
     classesData,
     pageDetails,
     isLoading
 }) => {
+    const router = useRouter();
     const [item, setItem] = useState([]);
-
+    const [rows, setRows] = useState([]);
+    const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -43,6 +87,14 @@ const MyClasses = ({
     useEffect(() => {
         GetClassesData(paginationPayload);
     }, [, paginationPayload]);
+
+    const handleChangeView = (e, value) => {
+        e.preventDefault();
+        if (value !== null) {
+            setView(value);
+            setItemSessionStorage('view', value);
+        }
+    };
 
     useEffect(() => {
         let row = '';
@@ -66,6 +118,29 @@ const MyClasses = ({
             arr.push(row);
         });
         setItem([...arr]);
+    }, [classesData]);
+
+    useEffect(() => {
+        let row = '';
+        let arr = [];
+        classesData?.map((classes) => {
+            row =
+                createData(
+                    classes.class_id,
+                    <FolderIconSmall component={ [<WysiwygIcon fontSize='small' htmlColor='#56B2EA' />] } title={ classes.class_name } charLength={ 17 } />,
+                    classes.created_date,
+                    classes.end_date,
+                    <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
+                    />,
+                    [
+                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                    ],
+                    classes.description
+                );
+            row['isSelected'] = false;
+            arr.push(row);
+        });
+        setRows([...arr]);
     }, [classesData]);
 
     const handleChange = (event, value) => {
@@ -97,75 +172,131 @@ const MyClasses = ({
 
     /** end debounce concepts */
 
+    const handleAction = (e, icon, rowData) => {
+        if (icon === 'nextPath') {
+            router.push({
+                pathname: '/extream/student/myassignments',
+                query: {
+                    clasId: rowData.class_id, clasName: rowData.class_name?.props?.title
+                }
+            });
+        }
+    };
+
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
 
     return (
         <React.Fragment>
-            <BreadCrumb item={StudentBreadCrumb} />
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={ 5 } xs={ 5 }>
+            <BreadCrumb item={ StudentBreadCrumb } />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 3 } xs={ 5 }>
                         <MainHeading
-                            title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`}
+                            title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                         />
                     </Grid>
-                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                    <Grid item md={ 6.5 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                        <ToggleButtonGroup
+                            color="primary"
+                            size='small'
+                            value={ view }
+                            exclusive
+                            onChange={ handleChangeView }
+                        >
+                            <Tooltip title='Table view' arrow>
+                                <ToggleButton value={ TABLE_VIEW } selected={ view === TABLE_VIEW }><ViewListRoundedIcon fontSize='small' /></ToggleButton>
+                            </Tooltip>
+                            <Tooltip title='Class view' arrow>
+                                <ToggleButton value={ CLASS_VIEW } selected={ view === CLASS_VIEW }><GridOnIcon fontSize='small' /></ToggleButton>
+                            </Tooltip>
+                        </ToggleButtonGroup>
+                    </Grid>
+                    <Grid item md={ 2.5 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <TextField
-                            sx={ { width: '40%', marginTop: '8px' } }
+                            sx={ { width: '100%', marginTop: '8px' } }
                             placeholder='Search'
-                            onChange={debouncedResults}
-                            inputProps={{
+                            onChange={ debouncedResults }
+                            inputProps={ {
                                 style: {
-                                    padding: 5,
+                                    padding: 7,
                                     display: 'inline-flex'
                                 }
-                            }}
+                            } }
                         />
                     </Grid>
                 </Grid>
             </Box>
-            {isLoading ?
-                <Grid container spacing={2}>
-                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
-                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
-                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
-                </Grid> :
+            { view === CLASS_VIEW ? (
                 <>
-                    {classesData?.length > 0 ?
+                    { isLoading ?
+                        <Grid container spacing={ 2 }>
+                            <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                            <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                            <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                        </Grid> :
                         <>
-                            <Grid container spacing={2}>
-                                {item?.map((item, index) => (
-                                    <Grid key={ index } item md={ 4 } xs={ 12 }>
-                                        <CardInfoView
-                                            key={index}
-                                            isNextPath={true}
-                                            isAction={false}
-                                            item={item}
-                                            isAvatar={true}
-                                            isHeading={true}
-                                            isInstructorName={true}
-                                            isTimer={true}
-                                            statusColor={expiryDateBgColor(item.validity)}
-                                            path={ { pathname: '/extream/student/myassignments', query: { clasId: item.id, clasName: item.name } } }
-                                        />
+                            { classesData?.length > 0 ?
+                                <>
+                                    <Grid container spacing={ 2 }>
+                                        { item?.map((item, index) => (
+                                            <Grid key={ index } item md={ 4 } xs={ 12 }>
+                                                <CardInfoView
+                                                    key={ index }
+                                                    isNextPath={ true }
+                                                    isAction={ false }
+                                                    item={ item }
+                                                    isAvatar={ true }
+                                                    isHeading={ true }
+                                                    isInstructorName={ true }
+                                                    isTimer={ true }
+                                                    statusColor={ expiryDateBgColor(item.validity) }
+                                                    path={ { pathname: '/extream/student/myassignments', query: { clasId: item.id, clasName: item.name } } }
+                                                />
+                                            </Grid>
+                                        )) }
                                     </Grid>
-                                ))}
-                            </Grid>
-                            <div style={ { marginLeft: '45%', marginTop: '25px' } }>
-                                <Pagination
-                                    count={ pageDetails?.totalPages }
-                                    onChange={ handleChange }
-                                    color="primary"
-                                    variant="outlined"
-                                    shape="rounded"
-                                />
-                            </div>
+                                    <div style={ { marginLeft: '45%', marginTop: '25px' } }>
+                                        <Pagination
+                                            count={ pageDetails?.totalPages }
+                                            onChange={ handleChange }
+                                            color="primary"
+                                            variant="outlined"
+                                            shape="rounded"
+                                        />
+                                    </div>
+                                </>
+                                : <CardView>
+                                    <ErrorBlock message={ CLASS_NOT_FOUND } />
+                                </CardView>
+                            }
                         </>
-                        : <CardView>
-                            <ErrorBlock message={ CLASS_NOT_FOUND } />
-                        </CardView>
                     }
-                </>
+                </>) : (
+                <CommonTable
+                    isCheckbox={ false }
+                    isSorting={ true }
+                    isFolder={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    charLength={ 17 }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    isLoading={ isLoading }
+                    path=''
+                />
+
+            )
             }
+
         </React.Fragment>
     );
 };
