@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 
 export const LabelContainer = styled.div`
     margin-bottom:10px;
+    display:flex;
+    justify-content:center;
+    algin-items:center;
 `;
 
 const LabelCaption = ({

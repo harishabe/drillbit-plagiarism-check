@@ -72,6 +72,7 @@ const NavBar = ({
     const [switchRole, setSwitchRole] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [path, setPath] = React.useState('');
+    const [Sso, setSso] = React.useState(false);
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -86,6 +87,13 @@ const NavBar = ({
         clearSessionStorage();
         window.location.href = '/auth/login';
         window.location.replace(window?.location?.origin + window?.location?.pathname);
+    };
+
+    const handleSsoLogout = (event) => {
+        event.preventDefault();
+        setAnchorEl(null);
+        clearSessionStorage();
+        window.location.href = BASE_URL + END_POINTS.SSO_LOGOUT;
     };
 
     const switchToUser = (e, switchRole) => {
@@ -121,6 +129,7 @@ const NavBar = ({
         let email = getItemSessionStorage('email');
         let switchExtreamRole = getItemSessionStorage('switchRole');
         let switchProRole = getItemSessionStorage('switchProRole');
+        setSso(getItemSessionStorage('SSO'));
         setName(userName);
         setRole(userRole);
         setEmail(email);
@@ -307,9 +316,14 @@ const NavBar = ({
                     </ListItemIcon>
                     <ListItemText style={ { padding: '5px 15px' } } primary="Change password" secondary="Email" />
                 </MenuItem>
-                <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px', marginTop: '18px' } } onClick={ handleLogout } >
-                    <Button variant="contained" fullWidth color="primary" href={ BASE_URL + END_POINTS.SSO_LOGOUT }>Log out</Button>
-                </MenuItem>
+                { Sso ?
+                    <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px', marginTop: '18px' } } >
+                        <Button variant="contained" fullWidth color="primary" onClick={ handleSsoLogout }>Log out</Button>
+                    </MenuItem> :
+                    <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px', marginTop: '18px' } } onClick={ handleLogout } >
+                        <Button variant="contained" fullWidth color="primary" >Log out</Button>
+                    </MenuItem>
+                }
 
                 <div style={ { textAlign: 'right', padding: '0px 15px' } }>
                     <SubTitle1 title="v.2.1.0" />

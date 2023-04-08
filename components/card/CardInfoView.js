@@ -16,6 +16,7 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import { Divider, Skeleton } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
 import { SubTitle2, EllipsisText } from '../index';
 import {
@@ -86,6 +87,9 @@ const CardInfoView = ({
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+    const handleAssignmentClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -112,6 +116,33 @@ const CardInfoView = ({
                             {
                                 <>
                                     <AlignRight>
+                                    { item &&
+                                        <>
+                                            <Tooltip title={ 'Assignment Info' } arrow>
+                                                <IconButton onClick={ handleAssignmentClick }>
+                                                    <InfoIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Menu
+                                                id="basic-menu"
+                                                anchorEl={ anchorEl }
+                                                open={ open }
+                                                onClose={ handleClose }
+                                                MenuListProps={ {
+                                                    'aria-labelledby': 'basic-button',
+                                                } }
+                                            >
+                                                <MenuItem>Daily submission limit: { item.submissions_limit }</MenuItem>
+                                                <MenuItem>Allow resubmission: { item.allow_resubmission }</MenuItem>
+                                                <MenuItem>No. of resubmissions: { item.resubmission_count }</MenuItem>
+                                                <MenuItem>Allow submission after due date: { item.allow_submission_after_due }</MenuItem>
+                                                <MenuItem>View similarity report: { item.report_access }</MenuItem>
+                                                <MenuItem>Grammar check: { item.grammar }</MenuItem>
+                                                <MenuItem>Save to Repository: { item.save_to_repository }</MenuItem>
+                                                <MenuItem>Max Assignment Marks: { item.marks }</MenuItem>
+                                            </Menu>
+                                        </>
+                                    }
                                     { item?.attachment !== null ?
                                         <Tooltip title={ 'Assignment Instructions' } arrow>
                                             <IconButton onClick={ () => {

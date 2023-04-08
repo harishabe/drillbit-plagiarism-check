@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Image from 'next/image';
 import ToastrValidation from '../../utils/ToastrValidation';
 import { useRouter } from "next/router";
 import {
@@ -10,8 +8,8 @@ import {
     BannerContainer,
     ImgContainer,
     InlineText,
-    AccountLink,
 } from '../../style/login-style';
+import InputButton from '../../components/form/elements/InputButton';
 import LoginForm from './login-form';
 import { MainHeading } from '../../components';
 import { DrillBitLogo, LoginBannerIcon } from '../../assets/icon';
@@ -50,11 +48,13 @@ const Login = () => {
                             <MainHeading mb={'20px'} title={LOGIN_WELCOME_DRILLBIT} />
                             {/* <DrillBitLogoIcon /> */}
                             <LoginForm />
-                            <InlineText>
-                                <AccountLink>
-                                    <Link href={ BASE_URL + END_POINTS.SSO_LOGIN }>{ LOGIN_VIA_INSITUTIONS }</Link>
-                                </AccountLink>
-                            </InlineText>
+                            <InputButton
+                                field={ {
+                                    'field_type': 'button',
+                                    'label': LOGIN_VIA_INSITUTIONS,
+                                    'href': BASE_URL + END_POINTS.SSO_LOGIN
+                                } }
+                            />
                         </LoginContainer>
                     </Grid>
                 </Grid>

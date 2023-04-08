@@ -143,10 +143,10 @@ const MyClasses = ({
                 </Grid>
             </Box>
             <Grid container spacing={1}>
-                <Grid item md={ 7 } xs={ 5 }>
+                <Grid item md={ 4 } xs={ 5 }>
                     <MainHeading title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                 </Grid>
-                <Grid item md={ 2 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                <Grid item md={ 5 } style={ { textAlign: 'right', marginTop: '8px' } }>
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -177,12 +177,12 @@ const MyClasses = ({
                         </Tooltip>
                     }
                     <TextField
-                        sx={ { width: '83%', marginTop: '8px' } }
+                        sx={ { width: '80%', marginTop: '8px' } }
                         placeholder='Search'
                         onChange={debouncedResults}
                         inputProps={{
                             style: {
-                                padding: 5,
+                                padding: 6,
                                 display: 'inline-flex',
                             },
                         }}
