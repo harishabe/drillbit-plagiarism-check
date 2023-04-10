@@ -57,7 +57,7 @@ const GDriveFileUpload = ({
             showUploadView: true,
             showUploadFolders: true,
             supportDrives: true,
-            multiselect: true,
+            multiselect: false,
             customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
             callbackFunction: (data) => {
                 if (data && data?.docs?.length > 0) {
@@ -77,6 +77,7 @@ const GDriveFileUpload = ({
     };
 
     const handleSubmit = (data) => {
+        console.log('data', data)
         if (!isRepository) {
             let bodyFormData = new FormData();
             bodyFormData.append('authorName', data.authorName0);
