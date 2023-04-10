@@ -61,6 +61,7 @@ const GDriveFileUpload = ({
             customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
             callbackFunction: (data) => {
                 if (data && data?.docs?.length > 0) {
+                    console.log('callback', data)
                     setDocument(data?.docs);
                     setDriveFile(data && data?.docs[0].name);
                     setDriveFilePayload({
@@ -83,7 +84,7 @@ const GDriveFileUpload = ({
             documnet?.map((item, i) => {
                 bodyFormData.append("authorName", data["authorName" + item[0]]);
                 bodyFormData.append("title", data["title" + item[0]]);
-                bodyFormData.append("documentType", data["documentType" + item[0]]);
+                bodyFormData.append('documentType', data.documentType0);
                 bodyFormData.append('plagiarismCheck', 'YES');
                 bodyFormData.append('grammarCheck', 'NO');
                 bodyFormData.append('language', 'English');
@@ -99,15 +100,27 @@ const GDriveFileUpload = ({
             UploadFileDrive(fileUploadAPI, bodyFormData);
         } else {
             let bodyFormData = new FormData();
-            bodyFormData.append('name', data.authorName0);
-            bodyFormData.append('title', data.title0);
-            bodyFormData.append('year', data.year0);
-            bodyFormData.append('repository', (data.repository0 === 'Global') ? 'GLOBAL' : 'LOCAL');
-            bodyFormData.append('language', data.language0);
-            bodyFormData.append('fileId', driveFilePayload?.fileId);
-            bodyFormData.append('fileName', driveFilePayload?.fileName);
-            bodyFormData.append('token', driveAuthToken);
-            bodyFormData.append('fileSize', driveFilePayload?.fileSize);
+            documnet?.map((item, i) => {
+                bodyFormData.append("authorName", data["authorName" + item[0]]);
+                bodyFormData.append("title", data["title" + item[0]]);
+                bodyFormData.append("year", data["year" + item[0]]);
+                bodyFormData.append('repository', (data.repository0 === 'Global') ? 'GLOBAL' : 'LOCAL');
+                bodyFormData.append('language', data.language0);
+                bodyFormData.append("rep_ex", data["rep_ex" + item[0]]);
+                bodyFormData.append('fileId', driveFilePayload?.fileId);
+                bodyFormData.append('fileName', driveFilePayload?.fileName);
+                bodyFormData.append('token', driveAuthToken);
+                bodyFormData.append('fileSize', driveFilePayload?.fileSize);
+            })
+            // bodyFormData.append('name', data.authorName0);
+            // bodyFormData.append('title', data.title0);
+            // bodyFormData.append('year', data.year0);
+            // bodyFormData.append('repository', (data.repository0 === 'Global') ? 'GLOBAL' : 'LOCAL');
+            // bodyFormData.append('language', data.language0);
+            // bodyFormData.append('fileId', driveFilePayload?.fileId);
+            // bodyFormData.append('fileName', driveFilePayload?.fileName);
+            // bodyFormData.append('token', driveAuthToken);
+            // bodyFormData.append('fileSize', driveFilePayload?.fileSize);
             UploadFileDrive(fileUploadAPI, bodyFormData);
         }
     };
@@ -134,18 +147,18 @@ const GDriveFileUpload = ({
                 /> */}
 
                 <DragAreaPadding>
-                    <div style={{ display: 'flex' }}>
-                        <Tooltip title="Back" arrow style={{ marginTop: '-12px' }}>
-                            <IconButton size="large" onClick={handleBack}>
+                    <div style={ { display: 'flex' } }>
+                        <Tooltip title="Back" arrow style={ { marginTop: '-12px' } }>
+                            <IconButton size="large" onClick={ handleBack }>
                                 <ArrowBackOutlinedIcon />
                             </IconButton>
                         </Tooltip>
-                        {isRepository ?
+                        { isRepository ?
                             <MainHeading title='Upload files to repository' /> :
-                            <MainHeading title='Upload files for plagiarism check' />}
+                            <MainHeading title='Upload files for plagiarism check' /> }
                     </div>
-                    <Grid container spacing={1}>
-                        <Grid item md={12} xs={12}>
+                    <Grid container spacing={ 1 }>
+                        <Grid item md={ 12 } xs={ 12 }>
                             <DragDropArea>
                                 <div>
                                     <GoogleDriveIcon />
@@ -153,33 +166,33 @@ const GDriveFileUpload = ({
                                 <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
                                 <SubTitle1 title={ allowedFormat.LENGTH } />
                                 <SubTitle1 title={ allowedFormat.SIZE } />
-                                <Link style={{ marginLeft: '5px' }}>
-                                    <ChooseLabel onClick={() => handleOpenPicker()}>
+                                <Link style={ { marginLeft: '5px' } }>
+                                    <ChooseLabel onClick={ () => handleOpenPicker() }>
                                         Browse your file from google drive
                                     </ChooseLabel>
                                 </Link>
                                 <div>
-                                    {driveFile !== '' &&
+                                    { driveFile !== '' &&
                                         <ChipContainer>
                                             <Chip
-                                                label={driveFile}
+                                                label={ driveFile }
                                             />
-                                        </ChipContainer>}
+                                        </ChipContainer> }
                                 </div>
                             </DragDropArea>
-                            {driveFile && driveFile?.length > 0 &&
+                            { driveFile && driveFile?.length > 0 &&
                                 <>
-                                    {!isRepository ? <FileForm
-                                        handleSubmitFile={handleSubmit}
-                                        files={documnet}
+                                { !isRepository ? <FileForm
+                                    handleSubmitFile={ handleSubmit }
+                                    files={ documnet }
                                         btnTitle='Submit'
-                                        isLoading={isLoadingFileDrive}
+                                    isLoading={ isLoadingFileDrive }
                                     /> :
                                         <RepositoryFileForm
-                                            handleSubmitRepository={handleSubmit}
-                                            files={documnet}
+                                        handleSubmitRepository={ handleSubmit }
+                                        files={ documnet }
                                             btnTitle='Submit'
-                                            isLoading={isLoadingFileDrive}
+                                        isLoading={ isLoadingFileDrive }
                                         />
                                     }
                                 </>
