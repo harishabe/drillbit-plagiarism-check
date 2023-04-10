@@ -138,8 +138,8 @@ const CardInfoView = ({
                                                 <MenuItem>Allow submission after due date: { item.allow_submission_after_due }</MenuItem>
                                                 <MenuItem>View similarity report: { item.report_access }</MenuItem>
                                                 <MenuItem>Grammar check: { item.grammar }</MenuItem>
-                                                <MenuItem>Save to Repository: { item.save_to_repository }</MenuItem>
-                                                <MenuItem>Max Assignment Marks: { item.marks }</MenuItem>
+                                            <MenuItem>Save to repository: { item.save_to_repository }</MenuItem>
+                                            <MenuItem>Max assignment marks: { item.marks }</MenuItem>
                                             </Menu>
                                         </>
                                     }
