@@ -82,6 +82,7 @@ const Repository = ({
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [search, setSearch] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -124,9 +125,11 @@ const Repository = ({
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
+            setSearch(true)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         } else {
             delete paginationPayload['search'];
+            setSearch(false)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
     };
@@ -242,7 +245,8 @@ const Repository = ({
                     isSorting={true}
                     isRepository={ true }
                     tableHeader={columns}
-                    tableData={rows}
+                    tableData={ rows }
+                    isSearch={ search }
                     charLength={10}
                     handleAction={handleAction}
                     handleTableSort={handleTableSort}

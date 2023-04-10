@@ -18,6 +18,7 @@ import {
     CreateDrawer,
     WarningDialog,
     Instructions,
+    ErrorBlock,
     CommonTable,
     FolderIconSmall,
     CardView
@@ -92,6 +93,7 @@ const MyFolder = ({
     const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
     const [rows, setRows] = useState([]);
     const [editFolder, setEditFolder] = useState(false);
+    const [search, setSearch] = useState(false);
     const [editFolderData, setEditFolderData] = useState('');
     const [selectedFolder, setSelectedFolder] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -147,9 +149,11 @@ const MyFolder = ({
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
+            setSearch(true)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         } else {
             delete paginationPayload['search'];
+            setSearch(false)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
     };
@@ -305,7 +309,7 @@ const MyFolder = ({
                                     </Grid>
                                     :
                                     <CardView>
-                                        <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
+                                        { !search ? <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } /> : <ErrorBlock message="No data found" /> }
                                     </CardView>
                                 }
                             </>
@@ -318,6 +322,7 @@ const MyFolder = ({
                             isFolder={ true }
                         tableHeader={ columns }
                         tableData={ rows }
+                            isSearch={ search }
                         charLength={ 17 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }

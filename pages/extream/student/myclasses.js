@@ -287,6 +287,7 @@ const MyClasses = ({
                     isFolder={ true }
                     tableHeader={ columns }
                     tableData={ rows }
+                        isStudentRole={ true }
                     charLength={ 17 }
                     handleAction={ handleAction }
                     handleTableSort={ handleTableSort }

@@ -80,6 +80,8 @@ const CommonTable = ({
     isAssignment,
     isStudent,
     isStudentSubmission,
+    isSearch,
+    isStudentRole
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -89,7 +91,7 @@ const CommonTable = ({
     const [allSelected, setAllSelected] = React.useState(false);
     const [grammarPaperId, setGrammarPaperId] = React.useState('');
 
-
+    console.log('router', router)
     const sortHandle = (e, column) => {
         let a = !toggle;
         setToggle(a);
@@ -290,7 +292,7 @@ const CommonTable = ({
                         </TableBody>
                     </Table>
                     <>
-                        { (tableData?.length === 0 && !isLoading) &&
+                        { !isSearch && !isStudentRole && (tableData?.length === 0 && !isLoading) &&
                             <>
                                 { isFolder && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } /> }
                                 { isSubmission && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } /> }
@@ -302,6 +304,9 @@ const CommonTable = ({
                                 { !isFolder && !isSubmission && !isRepository && !isClass && !isAssignment && !isStudent && !isStudentSubmission && <ErrorBlock message="No data found" /> }
                             </>
                         }
+
+                        { isSearch && (tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" /> }
+                        { (tableData?.length === 0 && !isLoading && isStudentRole) && <ErrorBlock message="No class found" /> }
                     </>
                 </TableContainer>
             </CardContent>

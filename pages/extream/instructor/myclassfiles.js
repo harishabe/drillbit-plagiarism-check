@@ -12,7 +12,8 @@ import {
     FolderIconSmall,
     StatusDot,
     CardView,
-    Instructions
+    Instructions,
+    ErrorBlock
 } from '../../../components';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
@@ -48,6 +49,7 @@ const MyClassFiles = ({
     pageDetails,
     DeleteClass,
     view,
+    search,
     handlePagination,
     handleTableSort,
     isLoading,
@@ -183,7 +185,7 @@ const MyClassFiles = ({
                                 )) }
                             </Grid>
                             : <CardView>
-                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } />
+                                { !search ? <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } /> : <ErrorBlock message="No data found" /> }
                             </CardView>
                         }
 
@@ -194,7 +196,8 @@ const MyClassFiles = ({
                         isSorting={ true }
                             isClass={ true }
                         tableHeader={ columns }
-                        tableData={ rows }
+                            tableData={ rows }
+                            isSearch={ search }
                         charLength={ 17 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }

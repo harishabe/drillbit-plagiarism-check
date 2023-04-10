@@ -63,7 +63,7 @@ const UserForm = ({
             setFormJsonField(fields);
         }
 
-        if (allocationDocs > (editData ? remainingDocuments + (editData?.total_submissions || editData?.superadminplagairism) : remainingDocuments)) {
+        if (allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)) {
             let fields = FormJson?.map((item) => {
                 if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                     item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
