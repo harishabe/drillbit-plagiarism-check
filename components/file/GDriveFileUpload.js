@@ -80,16 +80,22 @@ const GDriveFileUpload = ({
         console.log('data', data)
         if (!isRepository) {
             let bodyFormData = new FormData();
-            bodyFormData.append('authorName', data.authorName0);
-            bodyFormData.append('title', data.title0);
-            bodyFormData.append('documentType', data.documentType0);
-            bodyFormData.append('plagiarismCheck', 'YES');
-            bodyFormData.append('grammarCheck', 'NO');
-            bodyFormData.append('language', 'English');
-            bodyFormData.append('fileId', driveFilePayload?.fileId);
-            bodyFormData.append('fileName', driveFilePayload?.fileName);
-            bodyFormData.append('token', driveAuthToken);
-            bodyFormData.append('fileSize', driveFilePayload?.fileSize);
+            documnet?.map((item, i) => {
+                bodyFormData.append("authorName", data["authorName" + item[0]]);
+                bodyFormData.append("title", data["title" + item[0]]);
+                bodyFormData.append("documentType", data["documentType" + item[0]]);
+                bodyFormData.append('plagiarismCheck', 'YES');
+                bodyFormData.append('grammarCheck', 'NO');
+                bodyFormData.append('language', 'English');
+                bodyFormData.append('fileId', driveFilePayload?.fileId);
+                bodyFormData.append('fileName', driveFilePayload?.fileName);
+                bodyFormData.append('token', driveAuthToken);
+                bodyFormData.append('fileSize', driveFilePayload?.fileSize);
+            });
+            // bodyFormData.append('authorName', data.authorName0);
+            // bodyFormData.append('title', data.title0);
+            // bodyFormData.append('documentType', data.documentType0);
+
             UploadFileDrive(fileUploadAPI, bodyFormData);
         } else {
             let bodyFormData = new FormData();
