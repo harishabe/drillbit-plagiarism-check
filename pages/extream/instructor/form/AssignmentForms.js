@@ -9,7 +9,6 @@ import { AddImageIcon } from '../../../../assets/icon';
 import InputLabel from '@mui/material/InputLabel';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
-import Checkbox from '@mui/material/Checkbox';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import MuiToggleButton from '@mui/material/ToggleButton';
 import FormControlLabel from "@mui/material/FormControlLabel";
