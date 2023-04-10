@@ -73,15 +73,6 @@ const CommonTable = ({
     showAnalysisPage,
     showGrammarReport,
     isLoadingGrammarReport,
-    isFolder,
-    isSubmission,
-    isRepository,
-    isClass,
-    isAssignment,
-    isStudent,
-    isStudentSubmission,
-    isSearch,
-    isStudentRole
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -91,7 +82,6 @@ const CommonTable = ({
     const [allSelected, setAllSelected] = React.useState(false);
     const [grammarPaperId, setGrammarPaperId] = React.useState('');
 
-    console.log('router', router)
     const sortHandle = (e, column) => {
         let a = !toggle;
         setToggle(a);
@@ -292,21 +282,7 @@ const CommonTable = ({
                         </TableBody>
                     </Table>
                     <>
-                        { !isSearch && !isStudentRole && (tableData?.length === 0 && !isLoading) &&
-                            <>
-                                { isFolder && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } /> }
-                                { isSubmission && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } /> }
-                                { isRepository && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } /> }
-                                { isClass && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } /> }
-                                { isAssignment && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.ASSIGNMENT) } /> }
-                                { isStudent && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT) } /> }
-                                { isStudentSubmission && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT_SUBMISSION) } /> }
-                                { !isFolder && !isSubmission && !isRepository && !isClass && !isAssignment && !isStudent && !isStudentSubmission && <ErrorBlock message="No data found" /> }
-                            </>
-                        }
-
-                        { isSearch && (tableData?.length === 0 && !isLoading) && <ErrorBlock message="No data found" /> }
-                        { (tableData?.length === 0 && !isLoading && isStudentRole) && <ErrorBlock message="No class found" /> }
+                        { tableData?.length === 0 && !isLoading && <ErrorBlock message="No data found" /> }
                     </>
                 </TableContainer>
             </CardContent>
