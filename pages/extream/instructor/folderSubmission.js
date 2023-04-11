@@ -21,7 +21,9 @@ import {
     MainHeading,
     CreateDrawer,
     WarningDialog,
-    SimilarityStatus
+    SimilarityStatus,
+    Instructions,
+    CardView
 } from '../../../components';
 import {
     UploadFileDataClear,
@@ -43,6 +45,7 @@ import { PaginationContainer } from '../../../style/index';
 import { BASE_URL, BASE_URL_EXTREM, BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../constant/data/Constant';
+import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const columns = [
     { id: 'name', label: 'Name' },
@@ -122,6 +125,7 @@ const folderSubmission = ({
     const [showSaveIcon, setShowSaveIcon] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [showDownloadWarning, setShowDownloadWarning] = useState(false);
+    const [search, setSearch] = useState(false);
     const [data, setData] = useState();
 
     const folderId = router.query.folderId;
@@ -293,9 +297,11 @@ const folderSubmission = ({
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
+            setSearch(true)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         } else {
             delete paginationPayload['search'];
+            setSearch(false)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
     };
@@ -502,25 +508,52 @@ const folderSubmission = ({
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton>}
-
-                <CommonTable
-                    isCheckbox={true}
-                    isSorting={true}
-                    isSubmission={ true }
-                    tableHeader={columns}
-                    tableData={rows}
-                    handleAction={handleAction}
-                    handleTableSort={handleTableSort}
-                    handleCheckboxSelect={handleCheckboxSelect}
-                    handleSingleSelect={handleSingleSelect}
-                    downloadSubmissionFile={handleOriginalFileDownload}
-                    showAnalysisPage={handleShowAnalysisPage}
-                    showGrammarReport={handlGrammarReport}
-                    // isLoading={isLoadingSubmission}
-                    isLoadingGrammarReport={isLoadingGrammarReport}
-                    charLength={10}
-                    path=''
-                />
+                { search ?
+                    <CommonTable
+                        isCheckbox={ true }
+                        isSorting={ true }
+                        isSubmission={ true }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
+                        handleCheckboxSelect={ handleCheckboxSelect }
+                        handleSingleSelect={ handleSingleSelect }
+                        downloadSubmissionFile={ handleOriginalFileDownload }
+                        showAnalysisPage={ handleShowAnalysisPage }
+                        showGrammarReport={ handlGrammarReport }
+                        // isLoading={isLoadingSubmission}
+                        isLoadingGrammarReport={ isLoadingGrammarReport }
+                        charLength={ 10 }
+                        path=''
+                    />
+                    :
+                    <>
+                        { rows.length > 0 ?
+                            <CommonTable
+                                isCheckbox={ true }
+                                isSorting={ true }
+                                isSubmission={ true }
+                                tableHeader={ columns }
+                                tableData={ rows }
+                                handleAction={ handleAction }
+                                handleTableSort={ handleTableSort }
+                                handleCheckboxSelect={ handleCheckboxSelect }
+                                handleSingleSelect={ handleSingleSelect }
+                                downloadSubmissionFile={ handleOriginalFileDownload }
+                                showAnalysisPage={ handleShowAnalysisPage }
+                                showGrammarReport={ handlGrammarReport }
+                                // isLoading={isLoadingSubmission}
+                                isLoadingGrammarReport={ isLoadingGrammarReport }
+                                charLength={ 10 }
+                                path=''
+                            /> :
+                            <CardView>
+                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } />
+                            </CardView>
+                        }
+                    </>
+                }
 
                 <AddButtonBottom>
                     <CreateDrawer

@@ -26,6 +26,7 @@ const LoginForm = ({ login, loginState, isLoading }) => {
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
+      setItemSessionStorage('switchRole', 'instructor');
       router.push("/extream/instructor/myclasses");
     } else if (loginState?.role === Role.instructor) {
       setItemSessionStorage("role", Role.instructor);
@@ -44,6 +45,7 @@ const LoginForm = ({ login, loginState, isLoading }) => {
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
+      setItemSessionStorage('switchProRole', 'user');
       router.push("/pro/user/myfolder");
     } else if (loginState?.role === Role.proUser) {
       setItemSessionStorage("role", Role.proUser);
