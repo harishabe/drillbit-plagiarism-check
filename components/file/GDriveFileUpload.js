@@ -61,7 +61,6 @@ const GDriveFileUpload = ({
             customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
             callbackFunction: (data) => {
                 if (data && data?.docs?.length > 0) {
-                    console.log('callback', data)
                     setDocument(data?.docs);
                     setDriveFile(data && data?.docs[0].name);
                     setDriveFilePayload({
@@ -78,7 +77,6 @@ const GDriveFileUpload = ({
     };
 
     const handleSubmit = (data) => {
-        console.log('data', data)
         if (!isRepository) {
             let bodyFormData = new FormData();
             documnet?.map((item, i) => {
@@ -93,34 +91,20 @@ const GDriveFileUpload = ({
                 bodyFormData.append('token', driveAuthToken);
                 bodyFormData.append('fileSize', driveFilePayload?.fileSize);
             });
-            // bodyFormData.append('authorName', data.authorName0);
-            // bodyFormData.append('title', data.title0);
-            // bodyFormData.append('documentType', data.documentType0);
-
             UploadFileDrive(fileUploadAPI, bodyFormData);
         } else {
             let bodyFormData = new FormData();
             documnet?.map((item, i) => {
-                bodyFormData.append("authorName", data["authorName" + item[0]]);
+                bodyFormData.append("name", data["authorName" + item[0]]);
                 bodyFormData.append("title", data["title" + item[0]]);
                 bodyFormData.append("year", data["year" + item[0]]);
                 bodyFormData.append('repository', (data.repository0 === 'Global') ? 'GLOBAL' : 'LOCAL');
                 bodyFormData.append('language', data.language0);
-                bodyFormData.append("rep_ex", data["rep_ex" + item[0]]);
                 bodyFormData.append('fileId', driveFilePayload?.fileId);
                 bodyFormData.append('fileName', driveFilePayload?.fileName);
                 bodyFormData.append('token', driveAuthToken);
                 bodyFormData.append('fileSize', driveFilePayload?.fileSize);
             })
-            // bodyFormData.append('name', data.authorName0);
-            // bodyFormData.append('title', data.title0);
-            // bodyFormData.append('year', data.year0);
-            // bodyFormData.append('repository', (data.repository0 === 'Global') ? 'GLOBAL' : 'LOCAL');
-            // bodyFormData.append('language', data.language0);
-            // bodyFormData.append('fileId', driveFilePayload?.fileId);
-            // bodyFormData.append('fileName', driveFilePayload?.fileName);
-            // bodyFormData.append('token', driveAuthToken);
-            // bodyFormData.append('fileSize', driveFilePayload?.fileSize);
             UploadFileDrive(fileUploadAPI, bodyFormData);
         }
     };
@@ -193,6 +177,7 @@ const GDriveFileUpload = ({
                                         files={ documnet }
                                             btnTitle='Submit'
                                         isLoading={ isLoadingFileDrive }
+                                        isGDrive={ true }
                                         />
                                     }
                                 </>
