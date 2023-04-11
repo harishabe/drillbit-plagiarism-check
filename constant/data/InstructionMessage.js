@@ -3,7 +3,7 @@ export const INSTRUCTIONS_STEPS = {
         'STEP_1': 'Create a new folder by clicking the "+" icon, then select the folder by clicking the arrow, and upload a file for plagiarism checking.'
     },
     'CLASS': {
-        'STEP_1': 'Create a new class by clicking "+Class", provide class name, description, and expiry date, then select the class by clicking the arrow to create assignments and enroll students.'
+        'STEP_1': 'Create a new class by clicking "+", provide class name, description, and expiry date, then select the class by clicking the arrow to create assignments and enroll students.'
     },
     'SUBMISSION': {
         'STEP_1': 'Click on "+" icon, select language, upload type, browse, enter details and submit it, and then view similarity percentage result by refreshing the page.'

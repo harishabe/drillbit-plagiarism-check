@@ -18,6 +18,7 @@ import {
     CreateDrawer,
     WarningDialog,
     Instructions,
+    ErrorBlock,
     CommonTable,
     FolderIconSmall,
     CardView
@@ -92,6 +93,7 @@ const MyFolder = ({
     const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
     const [rows, setRows] = useState([]);
     const [editFolder, setEditFolder] = useState(false);
+    const [search, setSearch] = useState(false);
     const [editFolderData, setEditFolderData] = useState('');
     const [selectedFolder, setSelectedFolder] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -147,9 +149,11 @@ const MyFolder = ({
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
+            setSearch(true)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         } else {
             delete paginationPayload['search'];
+            setSearch(false)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
     };
@@ -289,42 +293,91 @@ const MyFolder = ({
                                 <Grid item md={ 3 } xs={ 12 }> <Skeleton variant="rectangular" height={ 150 } /></Grid>
                             </Grid> :
                             <>
-                                { myFolders?.length > 0 ?
-                                    <Grid container spacing={ 2 } sx={ { overflowX: 'hidden' } }>
-                                        { myFolders?.map((item, index) => (
-                                            <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
-                                                <Folder
-                                                    item={ item }
-                                                    isAction={ true }
-                                                    handleClick={ handleFolderEdit }
-                                                    handleDelete={ handleFolderDelete }
-                                                    path={ { pathname: '/extream/instructor/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? item.grammarCheck : grammarSubscription } } }
-                                                />
+                                { search ?
+                                    <>
+                                        { myFolders?.length > 0 ?
+                                            <Grid container spacing={ 2 } sx={ { overflowX: 'hidden' } }>
+                                                { myFolders?.map((item, index) => (
+                                                    <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
+                                                        <Folder
+                                                            item={ item }
+                                                            isAction={ true }
+                                                            handleClick={ handleFolderEdit }
+                                                            handleDelete={ handleFolderDelete }
+                                                            path={ { pathname: '/extream/instructor/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? item.grammarCheck : grammarSubscription } } }
+                                                        />
+                                                    </Grid>
+                                                )) }
                                             </Grid>
-                                        )) }
-                                    </Grid>
+                                            :
+                                            <CardView>
+                                                <ErrorBlock message="No data found" />
+                                            </CardView>
+                                        }
+                                    </>
                                     :
-                                    <CardView>
-                                        <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
-                                    </CardView>
+                                    <>
+                                        { myFolders?.length > 0 ?
+                                            <Grid container spacing={ 2 } sx={ { overflowX: 'hidden' } }>
+                                                { myFolders?.map((item, index) => (
+                                                    <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
+                                                        <Folder
+                                                            item={ item }
+                                                            isAction={ true }
+                                                            handleClick={ handleFolderEdit }
+                                                            handleDelete={ handleFolderDelete }
+                                                            path={ { pathname: '/extream/instructor/folderSubmission', query: { name: item.folder_name, folderId: item.folder_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? item.grammarCheck : grammarSubscription } } }
+                                                        />
+                                                    </Grid>
+                                                )) }
+                                            </Grid>
+                                            :
+                                            <CardView>
+                                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
+                                            </CardView>
+                                        }
+                                    </>
                                 }
                             </>
                         }
                     </>
                 ) : (
-                    <CommonTable
-                        isCheckbox={ false }
-                        isSorting={ true }
-                            isFolder={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        charLength={ 17 }
-                        handleAction={ handleAction }
-                        handleTableSort={ handleTableSort }
-                        isLoading={ isLoading }
-                        path=''
-                    />
-
+                        <>
+                            { search ?
+                                <CommonTable
+                                    isCheckbox={ false }
+                                    isSorting={ true }
+                                    isFolder={ true }
+                                    tableHeader={ columns }
+                                    tableData={ rows }
+                                    charLength={ 17 }
+                                    handleAction={ handleAction }
+                                    handleTableSort={ handleTableSort }
+                                    isLoading={ isLoading }
+                                    path=''
+                                />
+                                :
+                                <>
+                                    { rows.length > 0 ?
+                                        <CommonTable
+                                            isCheckbox={ false }
+                                            isSorting={ true }
+                                            isFolder={ true }
+                                            tableHeader={ columns }
+                                            tableData={ rows }
+                                            charLength={ 17 }
+                                            handleAction={ handleAction }
+                                            handleTableSort={ handleTableSort }
+                                            isLoading={ isLoading }
+                                            path=''
+                                        /> :
+                                        <CardView>
+                                            <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
+                                        </CardView>
+                                    }
+                                </>
+                            }
+                        </>
                 )
             }
 

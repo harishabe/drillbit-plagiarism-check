@@ -13,7 +13,9 @@ import {
     MainHeading,
     CommonTable,
     CreateDrawer,
-    WarningDialog
+    WarningDialog,
+    Instructions,
+    CardView
 } from './../../../components';
 import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
 import Instructor from '../../../layouts/Instructor';
@@ -28,6 +30,7 @@ import { formatDate } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
+import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const InstructorBreadCrumb = [
     {
@@ -82,6 +85,7 @@ const Repository = ({
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [search, setSearch] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -124,9 +128,11 @@ const Repository = ({
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
+            setSearch(true)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         } else {
             delete paginationPayload['search'];
+            setSearch(false)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
     };
@@ -187,77 +193,97 @@ const Repository = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
-            <Grid container spacing={2}>
+            <Grid container spacing={ 2 }>
                 <Grid item md={ 5 } xs={ 5 }>
-                    <MainHeading title={`Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+                    <MainHeading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
                 <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '40%', marginTop: '8px' } }
                         placeholder='Search'
-                        onChange={debouncedResults}
-                        inputProps={{
+                        onChange={ debouncedResults }
+                        inputProps={ {
                             style: {
                                 padding: 5,
                                 display: 'inline-flex',
                             },
-                        }}
+                        } }
                     />
                 </Grid>
             </Grid>
             {
                 showDeleteWarning &&
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={ <DeleteWarningIcon /> }
                     message="Are you sure you want to delete ?"
-                    handleYes={handleYesWarning}
-                    handleNo={handleCloseWarning}
-                    isOpen={true}
+                    handleYes={ handleYesWarning }
+                    handleNo={ handleCloseWarning }
+                    isOpen={ true }
                 />
             }
 
             <AddButtonBottom>
                 <CreateDrawer
                     title="Upload File"
-                    isShowAddIcon={true}
-                    navigateToMultiFile={true}
-                    handleNavigateMultiFile={handleUploadFile}
+                    isShowAddIcon={ true }
+                    navigateToMultiFile={ true }
+                    handleNavigateMultiFile={ handleUploadFile }
                 >
                     <RepositaryForm
-                        isLoadingUpload={isLoadingUpload}
+                        isLoadingUpload={ isLoadingUpload }
                     />
                 </CreateDrawer>
             </AddButtonBottom>
 
             <>
-                <CommonTable
-                    isCheckbox={false}
-                    isSorting={true}
-                    isRepository={ true }
-                    tableHeader={columns}
-                    tableData={rows}
-                    charLength={10}
-                    handleAction={handleAction}
-                    handleTableSort={handleTableSort}
-                    isLoading={isLoadingRepo}
-                    path=''
-                />
+                { search ?
+                    < CommonTable
+                        isCheckbox={ false }
+                        isSorting={ true }
+                        isRepository={ true }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
+                        charLength={ 10 }
+                        isLoading={ isLoadingRepo }
+                    />
+                    :
+                    <>
+                        { rows.length > 0 ?
+                            <CommonTable
+                                isCheckbox={ false }
+                                isSorting={ true }
+                                isRepository={ true }
+                                tableHeader={ columns }
+                                tableData={ rows }
+                                handleAction={ handleAction }
+                                handleTableSort={ handleTableSort }
+                                charLength={ 10 }
+                                isLoading={ isLoadingRepo }
+                            /> :
+                            <CardView>
+                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } />
+                            </CardView>
+                        }
+                    </>
+                }
 
-                    <PaginationContainer>
-                        <Pagination
-                            count={ pageDetails?.totalPages }
-                            onChange={ handlePagination }
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        onChange={ handlePagination }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
                 </PaginationContainer>
             </>
         </React.Fragment>

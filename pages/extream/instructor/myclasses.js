@@ -70,6 +70,7 @@ const MyClasses = ({
     isLoadingDownload
 }) => {
     const [view, setView] = useState(getItemSessionStorage('classView') ? getItemSessionStorage('classView') : TABLE_VIEW);
+    const [search, setSearch] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -99,9 +100,11 @@ const MyClasses = ({
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
+            setSearch(true)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         } else {
             delete paginationPayload['search'];
+            setSearch(false)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
     };
@@ -207,6 +210,7 @@ const MyClasses = ({
                         pageDetails={ pageDetails }
                         classesData={ classesData }
                         view={ view }
+                        search={ search }
                         isLoading={ isLoading }
                         isLoadingClassDelete={ isLoadingClassDelete }
                         handleTableSort={ handleTableSort }
