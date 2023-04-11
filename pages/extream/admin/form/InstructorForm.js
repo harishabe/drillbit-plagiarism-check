@@ -19,6 +19,7 @@ const InstructorForm = ({
     extremeInstructorRemainingDocuments,
     extremeInstructorRemainingGrammar,
     extremeInstructorLicenseExpiryDate,
+    grammar_access
 }) => {
     const [formJsonField, setFormJsonField] = useState(FormJson);
 
@@ -121,16 +122,27 @@ const InstructorForm = ({
             });
             setFormJsonField(fields);
         } else {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                    item['errorMsg'] = '';
-                }
-                if (item?.field_type === 'button') {
-                    item['isDisabledGrammarDoc'] = false;
-                }
-                return item;
-            });
-            setFormJsonField(fields);
+            if (grammar_access?.toUpperCase() === 'NO') {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        setValue('grammar', '0');
+                        item['disabled'] = true
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        item['errorMsg'] = '';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabledGrammarDoc'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
         }
     }, [grammarDocs, extremeInstructorRemainingGrammar])
 
@@ -324,6 +336,7 @@ const mapStateToProps = (state) => ({
     extremeInstructorRemainingDocuments: state?.detailsData?.instructorData?.remainingDocuments,
     extremeInstructorRemainingGrammar: state?.detailsData?.instructorData?.remainingGrammar,
     extremeInstructorLicenseExpiryDate: state?.detailsData?.instructorData?.license_expiry_date,
+    grammar_access: state?.detailsData?.instructorData?.grammar_access
 });
 
 const mapDispatchToProps = (dispatch) => {

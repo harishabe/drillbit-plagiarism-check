@@ -10,7 +10,6 @@ import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_PRO, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
-import { Tune } from '@mui/icons-material';
 
 const UserForm = ({
     CreateInstructorData,
@@ -20,7 +19,8 @@ const UserForm = ({
     EditData,
     remainingDocuments,
     remainingGrammar,
-    licenseId
+    licenseId,
+    grammar_access
 }) => {
 
     const [formJsonField, setFormJsonField] = useState(FormJson);
@@ -123,16 +123,27 @@ const UserForm = ({
             });
             setFormJsonField(fields);
         } else {
-            let fields = FormJson?.map((item) => {
-                if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                    item['errorMsg'] = '';
-                }
-                if (item?.field_type === 'button') {
-                    item['isDisabledGrammarDoc'] = false;
-                }
-                return item;
-            });
-            setFormJsonField(fields);
+            if (grammar_access?.toUpperCase() === 'NO') {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        setValue('grammar', '0');
+                        item['disabled'] = true
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                        item['errorMsg'] = '';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabledGrammarDoc'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
         }
     }, [grammarDocs, remainingGrammar])
 
@@ -335,7 +346,8 @@ const mapStateToProps = (state) => ({
     isLoading: state?.adminCrud?.isLoading,
     remainingDocuments: state?.detailsData?.instructorData?.remainingDocuments,
     remainingGrammar: state?.detailsData?.instructorData?.remainingGrammar,
-    licenseExpiryDate: state?.detailsData?.instructorData
+    licenseExpiryDate: state?.detailsData?.instructorData,
+    grammar_access: state?.detailsData?.instructorData?.grammar_access
 });
 
 const mapDispatchToProps = (dispatch) => {
