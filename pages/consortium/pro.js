@@ -288,10 +288,10 @@ const Pro = ({
 };
 
 Pro.propTypes = {
+    GetExtremeRefData: propTypes.func.isRequired,
+    DownloadCsv: propTypes.func.isRequired,
     pageDetails: propTypes.object,
     extremeData: propTypes.array,
-    GetExtremeRefData: propTypes.func,
-    DownloadCsv: propTypes.func,
     isLoading: propTypes.bool,
     isLoadingDownload: propTypes.bool,
 };

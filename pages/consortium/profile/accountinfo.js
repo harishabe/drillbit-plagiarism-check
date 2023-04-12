@@ -69,9 +69,9 @@ const AccountInfo = ({
 };
 
 AccountInfo.propTypes = {
-    GetProfile: propTypes.func,
-    accountInfo: propTypes.object,
+    GetProfile: propTypes.func.isRequired,
     isLoading: propTypes.bool,
+    accountInfo: propTypes.object,
 };
 
 const mapStateToProps = (state) => ({

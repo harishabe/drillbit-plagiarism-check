@@ -82,7 +82,7 @@ const ChangePassword = ({ ProfileChangePassword, isLoading }) => {
 };
 
 ChangePassword.propTypes = {
-  ProfileChangePassword: propTypes.func,
+  ProfileChangePassword: propTypes.func.isRequired,
   isLoading: propTypes.bool,
 };
 

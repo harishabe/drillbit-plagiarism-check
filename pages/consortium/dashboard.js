@@ -320,7 +320,7 @@ const Dashboard = ({
 };
 
 Dashboard.propTypes = {
-    GetWidgetCount: propTypes.func,
+    GetWidgetCount: propTypes.func.isRequired,
     superDashboardData: propTypes.object,
     isLoading: propTypes.bool,
 };

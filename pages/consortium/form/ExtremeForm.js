@@ -231,13 +231,13 @@ const ExtremeForm = ({
 };
 
 ExtremeForm.propTypes = {
-    CreateAccount: propTypes.func,
-    EditAccount: propTypes.func,
-    DropdownList: propTypes.func,
-    FolderPathList: propTypes.func,
-    editData: propTypes.object,
+    CreateAccount: propTypes.func.isRequired,
     isLoadingCreate: propTypes.bool,
     isLoadingEdit: propTypes.bool,
+    editData: propTypes.object,
+    EditAccount: propTypes.func.isRequired,
+    DropdownList: propTypes.func.isRequired,
+    FolderPathList: propTypes.func.isRequired,
     dpList: propTypes.object,
     folderList: propTypes.array,
 };
