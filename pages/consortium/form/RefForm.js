@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../components';
@@ -225,6 +226,18 @@ const RefForm = ({
             </form>
         </>
     );
+};
+
+RefForm.propTypes = {
+    CreateAccount: propTypes.func.isRequired,
+    isLoadingCreate: propTypes.bool,
+    isLoadingEdit: propTypes.bool,
+    editData: propTypes.object,
+    EditAccount: propTypes.func.isRequired,
+    DropdownList: propTypes.func.isRequired,
+    FolderPathList: propTypes.func.isRequired,
+    dpList: propTypes.object,
+    folderList: propTypes.array,
 };
 
 const mapStateToProps = (state) => ({

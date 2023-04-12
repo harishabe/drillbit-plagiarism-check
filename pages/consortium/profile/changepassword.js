@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useForm, useWatch } from "react-hook-form";
 import Container from "@mui/material/Container";
 import Admin from './../../../layouts/Admin';
+import propTypes from 'prop-types';
 import { FormComponent, MainHeading, CardView } from "../../../components";
 import FormJson from "../../../constant/form/change-password-form.json";
 import { ProfileChangePassword } from "../../../redux/action/profile/ProfileAction";
@@ -78,6 +79,11 @@ const ChangePassword = ({ ProfileChangePassword, isLoading }) => {
       </CardView>
     </>
   );
+};
+
+ChangePassword.propTypes = {
+  ProfileChangePassword: propTypes.func.isRequired,
+  isLoading: propTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

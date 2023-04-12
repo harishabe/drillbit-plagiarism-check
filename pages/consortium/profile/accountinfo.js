@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Skeleton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
+import propTypes from 'prop-types';
 import { CardView, CommonTable, MainHeading } from '../../../components';
 import { GetProfile } from '../../../redux/action/profile/ProfileAction';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
@@ -65,6 +66,12 @@ const AccountInfo = ({
             </CardView>
         </React.Fragment >
     );
+};
+
+AccountInfo.propTypes = {
+    GetProfile: propTypes.func.isRequired,
+    isLoading: propTypes.bool,
+    accountInfo: propTypes.object,
 };
 
 const mapStateToProps = (state) => ({

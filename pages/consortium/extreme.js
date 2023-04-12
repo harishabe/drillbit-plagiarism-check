@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Admin from "../../layouts/Admin";
+import propTypes from 'prop-types';
 import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Box, Pagination, Grid, TextField, Tooltip, Skeleton, IconButton } from '@mui/material';
@@ -286,6 +287,15 @@ const Extreme = ({
             </PaginationContainer>
         </>
     )
+};
+
+Extreme.propTypes = {
+    GetExtremeRefData: propTypes.func.isRequired,
+    DownloadCsv: propTypes.func.isRequired,
+    pageDetails: propTypes.object,
+    extremeData: propTypes.array,
+    isLoading: propTypes.bool,
+    isLoadingDownload: propTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

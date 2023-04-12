@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 import Admin from './../../layouts/SuperAdmin';
+import propTypes from 'prop-types';
 import { Box, Grid, Skeleton } from '@mui/material';
 import { connect } from 'react-redux';
 import {
@@ -317,6 +318,13 @@ const Dashboard = ({
         </React.Fragment>
     );
 };
+
+Dashboard.propTypes = {
+    GetWidgetCount: propTypes.func.isRequired,
+    superDashboardData: propTypes.object,
+    isLoading: propTypes.bool,
+};
+
 const mapStateToProps = (state) => ({
     superDashboardData: state?.superAdmin?.data,
     isLoading: state?.superAdmin?.isLoading,
