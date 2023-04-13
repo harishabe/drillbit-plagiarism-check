@@ -43,6 +43,10 @@ const GDriveFileUpload = ({
     const [driveAuthToken, setDriveAuthToken] = useState('');
     const [openPicker, tokenData] = useDrivePicker();
 
+    const RepositoryMimeTypes = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+
+    const SubmissionMimeTypes = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.template,application/msword-template,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/wordperfect,application/rtf,text/html,application/vnd.oasis.opendocument.text,application/postscript,application/x-tex,application/xml,image/tiff';
+
     useEffect(() => {
         setDriveAuthToken(tokenData?.access_token);
     }, [tokenData]);
@@ -54,6 +58,7 @@ const GDriveFileUpload = ({
             clientId: '32303602935-7bv10gd67fipvuvg4r3ffdu5a3hh79gs.apps.googleusercontent.com',
             developerKey: 'AIzaSyBaI_bwyb-qSkgUlZkIMkbkul_gICLRBwc',
             viewId: 'DOCS',
+            viewMimeTypes: isRepository ? RepositoryMimeTypes : SubmissionMimeTypes,
             showUploadView: true,
             showUploadFolders: true,
             supportDrives: true,
@@ -61,11 +66,77 @@ const GDriveFileUpload = ({
             customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
             callbackFunction: (data) => {
                 if (data && data?.docs?.length > 0) {
+                    const fileName = data.docs[0].name;
+                    const mimeType = data.docs[0].mimeType;
+                    const hasExtension = fileName.includes('.');
+                    let fileExtension = '';
+
+                    if (!hasExtension) {
+                        switch (mimeType) {
+                            case 'application/pdf':
+                                fileExtension = '.pdf';
+                                break;
+                            case 'application/msword':
+                                fileExtension = '.doc';
+                                break;
+                            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                                fileExtension = '.docx';
+                                break;
+                            case 'text/plain':
+                                fileExtension = '.txt';
+                                break;
+                            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.template':
+                                fileExtension = '.dotx';
+                                break;
+                            case 'application/msword-template':
+                                fileExtension = '.dot';
+                                break;
+                            case 'application/vnd.ms-powerpoint':
+                                fileExtension = '.ppt';
+                                break;
+                            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+                                fileExtension = '.pptx';
+                                break;
+                            case 'application/vnd.ms-excel':
+                                fileExtension = '.xls';
+                                break;
+                            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                                fileExtension = '.xlsx';
+                                break;
+                            case 'application/wordperfect':
+                                fileExtension = '.wpd';
+                                break;
+                            case 'application/rtf':
+                                fileExtension = '.rtf';
+                                break;
+                            case 'text/html':
+                                fileExtension = '.html';
+                                break;
+                            case 'application/vnd.oasis.opendocument.text':
+                                fileExtension = '.odt';
+                                break;
+                            case 'application/postscript':
+                                fileExtension = '.ps';
+                                break;
+                            case 'application/x-tex':
+                                fileExtension = '.tex';
+                                break;
+                            case 'application/xml':
+                                fileExtension = '.xml';
+                                break;
+                            case 'image/tiff':
+                                fileExtension = '.tiff';
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
                     setDocument(data?.docs);
                     setDriveFile(data && data?.docs[0].name);
                     setDriveFilePayload({
                         'fileId': data.docs[0].id,
-                        'fileName': data.docs[0].name,
+                        'fileName': hasExtension ? fileName : fileName + fileExtension,
                         'url': data.docs[0].url,
                         'mimetype': data.docs[0].mimeType,
                         'token': driveAuthToken,

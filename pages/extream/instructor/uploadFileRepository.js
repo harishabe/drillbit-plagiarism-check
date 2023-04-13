@@ -68,7 +68,7 @@ const uploadFileRepository = () => {
         <GDriveFileUpload
             key={1}
             isRepository={true}
-            allowedFormat={UPLOAD_SUPPORTED_FILES.GDRIVE}
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVEREPOSITORY }
             title={UPLOAD_TITLE_CONSTANT.REPOSITORY}
             fileUploadAPI={BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_REPOSITARY_UPLOAD_DRIVE}
             routerObj={{ pathname: '/extream/instructor/repository' }}
