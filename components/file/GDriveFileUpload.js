@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
+import styled from "styled-components";
 import { Grid, Link, Tooltip, IconButton } from '@mui/material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import useDrivePicker from 'react-google-drive-picker';
@@ -24,6 +25,12 @@ import {
     GoogleDriveIcon
 } from '../../assets/icon';
 import { UploadFileDrive, UploadGdriveFileDataClear } from '../../redux/action/common/UploadFile/UploadFileAction';
+import { isValidFileUploaded, isValidRepositoryFileUploaded } from '../../utils/RegExp';
+import { UPLOAD_SUPPORTED_FILES } from "../../constant/data/Constant";
+
+const InvalidFileFormatError = styled.div`
+  color: red;
+`;
 
 const GDriveFileUpload = ({
     isLoadingFileDrive,
@@ -41,11 +48,84 @@ const GDriveFileUpload = ({
     const [driveFilePayload, setDriveFilePayload] = useState('');
     const [documnet, setDocument] = useState('');
     const [driveAuthToken, setDriveAuthToken] = useState('');
+    const [invalidFileFormat, setInvalidFileFormat] = useState(false);
     const [openPicker, tokenData] = useDrivePicker();
+
+    let fileExtension = '';
 
     const RepositoryMimeTypes = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
-    const SubmissionMimeTypes = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.template,application/msword-template,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/wordperfect,application/rtf,text/html,application/vnd.oasis.opendocument.text,application/postscript,application/x-tex,application/xml,image/tiff';
+    const SubmissionMimeTypes = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.template,application/msword-template,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/wordperfect,application/rtf,text/html,application/vnd.oasis.opendocument.text,application/postscript,application/x-tex,application/xml,image/tiff,text/x-latex,text/x-tex,text/xml';
+
+    const driveFileUploaded = (mimeType) => {
+        switch (mimeType) {
+            case 'application/pdf':
+                fileExtension = '.pdf';
+                break;
+            case 'application/msword':
+                fileExtension = '.doc';
+                break;
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                fileExtension = '.docx';
+                break;
+            case 'text/plain':
+                fileExtension = '.txt';
+                break;
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.template':
+                fileExtension = '.dotx';
+                break;
+            case 'application/msword-template':
+                fileExtension = '.dot';
+                break;
+            case 'application/vnd.ms-powerpoint':
+                fileExtension = '.ppt';
+                break;
+            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+                fileExtension = '.pptx';
+                break;
+            case 'application/vnd.ms-excel':
+                fileExtension = '.xls';
+                break;
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                fileExtension = '.xlsx';
+                break;
+            case 'application/wordperfect':
+                fileExtension = '.wpd';
+                break;
+            case 'application/rtf':
+                fileExtension = '.rtf';
+                break;
+            case 'text/html':
+                fileExtension = '.html';
+                break;
+            case 'application/vnd.oasis.opendocument.text':
+                fileExtension = '.odt';
+                break;
+            case 'application/postscript':
+                fileExtension = '.ps';
+                break;
+            case 'application/x-tex':
+                fileExtension = '.tex';
+                break;
+            case 'text/x-latex':
+                fileExtension = '.tex';
+                break;
+            case 'text/x-tex':
+                fileExtension = '.tex';
+                break;
+            case 'application/xml':
+                fileExtension = '.xml';
+                break;
+            case 'text/xml':
+                fileExtension = '.xml';
+                break;
+            case 'image/tiff':
+                fileExtension = '.tiff';
+                break;
+            default:
+                break;
+        }
+    }
 
     useEffect(() => {
         setDriveAuthToken(tokenData?.access_token);
@@ -66,69 +146,33 @@ const GDriveFileUpload = ({
             customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
             callbackFunction: (data) => {
                 if (data && data?.docs?.length > 0) {
-                    const fileName = data.docs[0].name;
-                    const mimeType = data.docs[0].mimeType;
-                    const hasExtension = fileName.includes('.');
-                    let fileExtension = '';
+                    const file = data.docs[0];
+                    let validFile;
 
-                    if (!hasExtension) {
-                        switch (mimeType) {
-                            case 'application/pdf':
-                                fileExtension = '.pdf';
-                                break;
-                            case 'application/msword':
-                                fileExtension = '.doc';
-                                break;
-                            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-                                fileExtension = '.docx';
-                                break;
-                            case 'text/plain':
-                                fileExtension = '.txt';
-                                break;
-                            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.template':
-                                fileExtension = '.dotx';
-                                break;
-                            case 'application/msword-template':
-                                fileExtension = '.dot';
-                                break;
-                            case 'application/vnd.ms-powerpoint':
-                                fileExtension = '.ppt';
-                                break;
-                            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-                                fileExtension = '.pptx';
-                                break;
-                            case 'application/vnd.ms-excel':
-                                fileExtension = '.xls';
-                                break;
-                            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-                                fileExtension = '.xlsx';
-                                break;
-                            case 'application/wordperfect':
-                                fileExtension = '.wpd';
-                                break;
-                            case 'application/rtf':
-                                fileExtension = '.rtf';
-                                break;
-                            case 'text/html':
-                                fileExtension = '.html';
-                                break;
-                            case 'application/vnd.oasis.opendocument.text':
-                                fileExtension = '.odt';
-                                break;
-                            case 'application/postscript':
-                                fileExtension = '.ps';
-                                break;
-                            case 'application/x-tex':
-                                fileExtension = '.tex';
-                                break;
-                            case 'application/xml':
-                                fileExtension = '.xml';
-                                break;
-                            case 'image/tiff':
-                                fileExtension = '.tiff';
-                                break;
-                            default:
-                                break;
+                    if (!isRepository) {
+                        if (file?.name?.includes('.')) {
+                            validFile = isValidFileUploaded(file);
+
+                            if (validFile === false) {
+                                driveFileUploaded(file?.mimeType)
+                            }
+                        } else {
+                            validFile = false;
+                            driveFileUploaded(file?.mimeType)
+                        }
+                    } else {
+                        if (file?.name?.includes('.')) {
+                            validFile = isValidRepositoryFileUploaded(file)
+
+                            if (validFile === false) {
+                                setInvalidFileFormat(true)
+                            } else {
+                                setInvalidFileFormat(false)
+                            }
+                        } else {
+                            validFile = false;
+                            setInvalidFileFormat(false)
+                            driveFileUploaded(file?.mimeType)
                         }
                     }
 
@@ -136,14 +180,14 @@ const GDriveFileUpload = ({
                     setDriveFile(data && data?.docs[0].name);
                     setDriveFilePayload({
                         'fileId': data.docs[0].id,
-                        'fileName': hasExtension ? fileName : fileName + fileExtension,
+                        'fileName': validFile ? file?.name : file?.name + fileExtension,
                         'url': data.docs[0].url,
                         'mimetype': data.docs[0].mimeType,
                         'token': driveAuthToken,
                         'fileSize': data.docs[0].sizeBytes
                     });
                 }
-            },
+            }
         });
     };
 
@@ -227,29 +271,38 @@ const GDriveFileUpload = ({
                                     </ChooseLabel>
                                 </Link>
                                 <div>
-                                    { driveFile !== '' &&
+                                    { !invalidFileFormat && driveFile !== '' &&
                                         <ChipContainer>
                                             <Chip
                                                 label={ driveFile }
                                             />
                                         </ChipContainer> }
                                 </div>
+                                <InvalidFileFormatError>
+                                    { invalidFileFormat && UPLOAD_SUPPORTED_FILES.INVALID_FILE_FORMAT_ERROR }
+                                </InvalidFileFormatError>
                             </DragDropArea>
-                            { driveFile && driveFile?.length > 0 &&
+
+                            {
+                                !invalidFileFormat &&
                                 <>
-                                { !isRepository ? <FileForm
-                                    handleSubmitFile={ handleSubmit }
-                                    files={ documnet }
-                                        btnTitle='Submit'
-                                    isLoading={ isLoadingFileDrive }
-                                    /> :
-                                        <RepositoryFileForm
-                                        handleSubmitRepository={ handleSubmit }
-                                        files={ documnet }
-                                            btnTitle='Submit'
-                                        isLoading={ isLoadingFileDrive }
-                                        isGDrive={ true }
-                                        />
+                                    { driveFile && driveFile?.length > 0 &&
+                                        <>
+                                            { !isRepository ? <FileForm
+                                                handleSubmitFile={ handleSubmit }
+                                                files={ documnet }
+                                                btnTitle='Submit'
+                                                isLoading={ isLoadingFileDrive }
+                                            /> :
+                                                <RepositoryFileForm
+                                                    handleSubmitRepository={ handleSubmit }
+                                                    files={ documnet }
+                                                    btnTitle='Submit'
+                                                    isLoading={ isLoadingFileDrive }
+                                                    isGDrive={ true }
+                                                />
+                                        }
+                                    </>
                                     }
                                 </>
                             }
