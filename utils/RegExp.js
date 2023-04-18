@@ -128,3 +128,9 @@ export const isValidRepositoryFileUploaded = (file) => {
     const fileExtension = file?.name?.split('.').pop().toLowerCase();
     return validExtensions.includes(fileExtension);
 }
+
+export const isValidRepositoryFileUpload = (file) => {
+    const validExtensions = ['pdf', 'doc', 'docx'];
+    const fileExtension = file.split('.').pop().toLowerCase();
+    return validExtensions.includes(fileExtension);
+}

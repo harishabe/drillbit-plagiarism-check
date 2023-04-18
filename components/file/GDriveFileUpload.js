@@ -25,7 +25,7 @@ import {
     GoogleDriveIcon
 } from '../../assets/icon';
 import { UploadFileDrive, UploadGdriveFileDataClear } from '../../redux/action/common/UploadFile/UploadFileAction';
-import { isValidFileUploaded, isValidRepositoryFileUploaded } from '../../utils/RegExp';
+import { isValidFileUploaded, isValidRepositoryFileUploaded, isValidRepositoryFileUpload } from '../../utils/RegExp';
 import { UPLOAD_SUPPORTED_FILES } from "../../constant/data/Constant";
 
 const InvalidFileFormatError = styled.div`
@@ -148,6 +148,7 @@ const GDriveFileUpload = ({
                 if (data && data?.docs?.length > 0) {
                     const file = data.docs[0];
                     let validFile;
+                    let validRepoFile;
 
                     if (!isRepository) {
                         if (file?.name?.includes('.')) {
@@ -163,9 +164,20 @@ const GDriveFileUpload = ({
                     } else {
                         if (file?.name?.includes('.')) {
                             validFile = isValidRepositoryFileUploaded(file)
-
                             if (validFile === false) {
-                                setInvalidFileFormat(true)
+
+                                if (file?.name.includes('.rtf') || file?.name.includes('.dot')) {
+                                    setInvalidFileFormat(true)
+                                } else {
+                                    driveFileUploaded(file?.mimeType)
+                                    validRepoFile = fileExtension !== '' && isValidRepositoryFileUpload(fileExtension)
+
+                                    if (validRepoFile === false) {
+                                        setInvalidFileFormat(true)
+                                    } else {
+                                        setInvalidFileFormat(false)
+                                    }
+                                }
                             } else {
                                 setInvalidFileFormat(false)
                             }
@@ -175,7 +187,6 @@ const GDriveFileUpload = ({
                             driveFileUploaded(file?.mimeType)
                         }
                     }
-
                     setDocument(data?.docs);
                     setDriveFile(data && data?.docs[0].name);
                     setDriveFilePayload({
