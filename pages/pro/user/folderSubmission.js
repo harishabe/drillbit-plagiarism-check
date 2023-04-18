@@ -571,7 +571,7 @@ const folderSubmission = ({
                                 path=''
                             /> :
                             <CardView>
-                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } />
+                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } />
                             </CardView>
                         }
                     </>
