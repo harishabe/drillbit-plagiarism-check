@@ -9,7 +9,8 @@ import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import {
     CommonTable,
     CreateDrawer,
-    SimilarityStatus
+    SimilarityStatus,
+    Instructions
 } from '../../../components';
 import {
     MessageExclamatoryIcon,
@@ -24,6 +25,7 @@ import END_POINTS from '../../../utils/EndPoints';
 import { formatDate, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 import { SUBMISSION_DELAY } from '../../../constant/data/Constant';
+import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const AddButtonBottom = styled.div`
     position:fixed;
@@ -146,21 +148,25 @@ const SubmissionHistory = ({
                     </Tooltip>
                 </DownloadButton>
             </DownloadField>
-            <CommonTable
-                isCheckbox={false}
-                isSorting={ true }
-                isStudentSubmission={ true }
-                tableHeader={columns}
-                tableData={rows}
-                downloadSubmissionFile={handleOriginalFileDownload}
-                handleTableSort={handleTableSort}
-                // isLoading={isLoadingSubmission}
-                handleAction={handleAction}
-                showAnalysisPage={handleShowAnalysisPage}
-                showGrammarReport={handlGrammarReport}
-                isLoadingGrammarReport={isLoadingGrammarReport}
-                charLength={10}
-            />
+            { rows.length > 0 ?
+                <CommonTable
+                    isCheckbox={ false }
+                    isSorting={ true }
+                    isStudentSubmission={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    downloadSubmissionFile={ handleOriginalFileDownload }
+                    handleTableSort={ handleTableSort }
+                    // isLoading={isLoadingSubmission}
+                    handleAction={ handleAction }
+                    showAnalysisPage={ handleShowAnalysisPage }
+                    showGrammarReport={ handlGrammarReport }
+                    isLoadingGrammarReport={ isLoadingGrammarReport }
+                    charLength={ 10 }
+                /> :
+                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT_SUBMISSION) } />
+            }
+
 
             <PaginationContainer>
                 <Pagination
