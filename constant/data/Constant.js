@@ -197,6 +197,11 @@ export const UPLOAD_SUPPORTED_FILES = {
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
+    'GDRIVEREPOSITORY': {
+        'FILE_FORMATS': 'File formats: pdf, doc, docx',
+        'LENGTH': 'Document length - upto 800 pages',
+        'SIZE': 'Document size - upto 100 MB',
+    },
     'NON_ENGLISH': 'Supported file format: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
     'REGIONAL': 'Supported file format: docx',
     'REPO_ALLOWED_FILE': {
