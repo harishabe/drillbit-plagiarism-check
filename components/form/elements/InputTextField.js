@@ -50,6 +50,9 @@ const InputTextField = ({
         if (field.name === 'confirmPassword') {
             setRegex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
         }
+        if (field.name === 'platform_url') {
+            setRegex(/^(http|https):\/\/.*\.com$/);
+        }
     }, [field]);
 
     return (
