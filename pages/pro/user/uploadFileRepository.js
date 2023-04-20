@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Box } from '@mui/material';
-import ProAdmin from '../../../layouts/ProAdmin';
+import ProUser from '../../../layouts/ProUser';
 import {
     BreadCrumb,
     TabMenu,
@@ -112,6 +112,6 @@ uploadFileRepository.propTypes = {
 
 };
 
-uploadFileRepository.layout = ProAdmin;
+uploadFileRepository.layout = ProUser;
 
 export default uploadFileRepository;
