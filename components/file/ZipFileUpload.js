@@ -186,11 +186,13 @@ const ZipFileUpload = ({
                             />
                             <div>
                                 {(fileData?.length > 0) && fileData?.map((item, index) => (
-                                    <ChipContainer key={index}>
-                                        <Chip
-                                            label={item[1]?.name}
-                                            onDelete={(e) => handleDelete(e, item)}
-                                        />
+                                    <ChipContainer key={ index }>
+                                        <Tooltip title={ item[1]?.name } arrow>
+                                            <Chip
+                                                label={ item[1]?.name.slice(0, 15) + '...' }
+                                                onDelete={ (e) => handleDelete(e, item) }
+                                            />
+                                        </Tooltip>
                                     </ChipContainer>
                                 ))}
                             </div>
