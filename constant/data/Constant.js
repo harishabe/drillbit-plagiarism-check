@@ -170,42 +170,42 @@ export const UPLOAD_TITLE_CONSTANT = {
 
 export const UPLOAD_SUPPORTED_FILES = {
     'SINGLE': {
-        'FILE_FORMATS': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
+        'FILE_FORMATS': 'File formats:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.rtf,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
         'MAX_FILES': ' Multiple files - upto 15 files at a time'
     },
     'SCANNED_PDF': {
-        'FILE_FORMATS': 'File formats: pdf',
+        'FILE_FORMATS': 'File formats: .pdf',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
     'REGIONAL_FORMAT': {
-        'FILE_FORMATS': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, html, odt, ppt, xls, ps, tex, xml, tiff',
+        'FILE_FORMATS': 'File formats:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
     'ZIP': {
-        'FILE_FORMATS': 'Supported Compressed file format: zip',
+        'FILE_FORMATS': 'Supported Compressed file format: .zip',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
         'MAX_FILES': 'Documents - upto 100 files in a single zip'
     },
-    'NON_ZIP': 'Non-Supported Compressed file format : rar,tar,7z',
+    'NON_ZIP': 'Non-Supported Compressed file format :  .rar, .tar, .7z',
     'GDRIVE': {
-        'FILE_FORMATS': 'File formats: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
+        'FILE_FORMATS': 'File formats:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.rtf,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
     'GDRIVEREPOSITORY': {
-        'FILE_FORMATS': 'File formats: pdf, doc, docx',
+        'FILE_FORMATS': 'File formats: .pdf, .doc, .docx',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
-    'NON_ENGLISH': 'Supported file format: pdf, doc, docx, txt, dotx, dot, pptx, xlsx, wpd, rtf, html, odt, ppt, xls, ps, tex, xml, tiff',
-    'REGIONAL': 'Supported file format: docx',
+    'NON_ENGLISH': 'Supported file format:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx, .wpd,.rtf,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
+    'REGIONAL': 'Supported file format: .docx',
     'REPO_ALLOWED_FILE': {
-        'FILE_FORMATS': 'File formats: pdf, doc, docx',
+        'FILE_FORMATS': 'File formats: .pdf, .doc, .docx',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
         'MAX_FILES': ' Multiple files - upto 15 files at a time'
