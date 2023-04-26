@@ -386,7 +386,7 @@ const Students = ({
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }
-                { search ?
+                { isLoadingStudent ?
                     <CommonTable
                         isCheckbox={ true }
                         isSorting={ true }
@@ -403,7 +403,7 @@ const Students = ({
                     />
                     :
                     <>
-                        { rows.length > 0 ?
+                        { search ?
                             <CommonTable
                                 isCheckbox={ true }
                                 isSorting={ true }
@@ -417,10 +417,29 @@ const Students = ({
                                 isLoading={ isLoadingStudent }
                                 charLength={ 17 }
                                 path=''
-                            /> :
-                            <CardView>
-                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT) } />
-                            </CardView>
+                            />
+                            :
+                            <>
+                                { rows && rows.length > 0 ?
+                                    <CommonTable
+                                        isCheckbox={ true }
+                                        isSorting={ true }
+                                        isStudent={ true }
+                                        tableHeader={ columns }
+                                        tableData={ rows }
+                                        handleAction={ handleAction }
+                                        handleTableSort={ handleTableSort }
+                                        handleCheckboxSelect={ handleCheckboxSelect }
+                                        handleSingleSelect={ handleSingleSelect }
+                                        isLoading={ isLoadingStudent }
+                                        charLength={ 17 }
+                                        path=''
+                                    /> :
+                                    rows && rows.length === 0 && !isLoadingStudent && <CardView>
+                                        <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT) } />
+                                    </CardView>
+                                }
+                            </>
                         }
                     </>
                 }

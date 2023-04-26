@@ -310,7 +310,7 @@ const MyFolder = ({
                                                 )) }
                                             </Grid>
                                             :
-                                            <CardView>
+                                            !isLoading && <CardView>
                                                 <ErrorBlock message="No data found" />
                                             </CardView>
                                         }
@@ -332,7 +332,7 @@ const MyFolder = ({
                                                 )) }
                                             </Grid>
                                             :
-                                            <CardView>
+                                            myFolders && !isLoading && <CardView>
                                                 <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
                                             </CardView>
                                         }
@@ -343,7 +343,7 @@ const MyFolder = ({
                     </>
                 ) : (
                         <>
-                            { search ?
+                            { isLoading ?
                                 <CommonTable
                                     isCheckbox={ false }
                                     isSorting={ true }
@@ -355,10 +355,9 @@ const MyFolder = ({
                                     handleTableSort={ handleTableSort }
                                     isLoading={ isLoading }
                                     path=''
-                                />
-                                :
+                                /> :
                                 <>
-                                    { rows.length > 0 ?
+                                    { search ?
                                         <CommonTable
                                             isCheckbox={ false }
                                             isSorting={ true }
@@ -370,10 +369,27 @@ const MyFolder = ({
                                             handleTableSort={ handleTableSort }
                                             isLoading={ isLoading }
                                             path=''
-                                        /> :
-                                        <CardView>
-                                            <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
-                                        </CardView>
+                                        />
+                                        :
+                                        <>
+                                            { rows && rows.length > 0 ?
+                                                <CommonTable
+                                                    isCheckbox={ false }
+                                                    isSorting={ true }
+                                                    isFolder={ true }
+                                                    tableHeader={ columns }
+                                                    tableData={ rows }
+                                                    charLength={ 17 }
+                                                    handleAction={ handleAction }
+                                                    handleTableSort={ handleTableSort }
+                                                    isLoading={ isLoading }
+                                                    path=''
+                                                /> :
+                                                rows && rows.length === 0 && !isLoading && <CardView>
+                                                    <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
+                                                </CardView>
+                                            }
+                                        </>
                                     }
                                 </>
                             }

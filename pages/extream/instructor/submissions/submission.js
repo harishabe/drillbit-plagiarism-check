@@ -597,7 +597,7 @@ const Submission = ({
                 </Tooltip>
             </DeleteAllButton> }
 
-            { search ?
+            { isLoading ?
                 <CommonTable
                     isCheckbox={ true }
                     isSorting={ true }
@@ -611,13 +611,13 @@ const Submission = ({
                     downloadSubmissionFile={ handleOriginalFileDownload }
                     showAnalysisPage={ handleShowAnalysisPage }
                     showGrammarReport={ handlGrammarReport }
-                    // isLoading={ isLoading }
+                    isLoading={ isLoading }
                     isLoadingGrammarReport={ isLoadingGrammarReport }
                     charLength={ 10 }
                 />
                 :
                 <>
-                    { rows.length > 0 ?
+                    { search ?
                         <CommonTable
                             isCheckbox={ true }
                             isSorting={ true }
@@ -634,14 +634,35 @@ const Submission = ({
                             // isLoading={ isLoading }
                             isLoadingGrammarReport={ isLoadingGrammarReport }
                             charLength={ 10 }
-                        /> :
-                        <CardView>
-                            <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } />
-                        </CardView>
+                        />
+                        :
+                        <>
+                            { rows && rows.length > 0 ?
+                                <CommonTable
+                                    isCheckbox={ true }
+                                    isSorting={ true }
+                                    isSubmission={ true }
+                                    tableHeader={ columns }
+                                    tableData={ rows }
+                                    handleAction={ handleAction }
+                                    handleCheckboxSelect={ handleCheckboxSelect }
+                                    handleSingleSelect={ handleSingleSelect }
+                                    handleTableSort={ handleTableSort }
+                                    downloadSubmissionFile={ handleOriginalFileDownload }
+                                    showAnalysisPage={ handleShowAnalysisPage }
+                                    showGrammarReport={ handlGrammarReport }
+                                    // isLoading={ isLoading }
+                                    isLoadingGrammarReport={ isLoadingGrammarReport }
+                                    charLength={ 10 }
+                                /> :
+                                rows && rows.length === 0 && !isLoading && <CardView>
+                                    <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } />
+                                </CardView>
+                            }
+                        </>
                     }
                 </>
             }
-
             {
                 showDownloadWarning &&
                 <WarningDialog

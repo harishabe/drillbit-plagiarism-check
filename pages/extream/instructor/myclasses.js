@@ -20,7 +20,6 @@ import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
     MainHeading,
-    CardInfoSkeleton,
     CreateDrawer,
 } from '../../../components';
 import MyClassesForm from './form/MyclassesForm';
@@ -199,27 +198,16 @@ const MyClasses = ({
                     <MyClassesForm />
                 </CreateDrawer>
             </AddButtonBottom>
-            { view === CLASS_VIEW && (isLoading || isLoadingClassDelete) ?
-                <Grid container spacing={ 2 }>
-                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
-                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
-                    <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
-                </Grid> :
-                <>
-                    <MyClassFiles
-                        pageDetails={ pageDetails }
-                        classesData={ classesData }
-                        view={ view }
-                        search={ search }
-                        isLoading={ isLoading }
-                        isLoadingClassDelete={ isLoadingClassDelete }
-                        handleTableSort={ handleTableSort }
-                        handlePagination={ handlePagination }
-                    />
-                </>
-
-
-            }
+            <MyClassFiles
+                pageDetails={ pageDetails }
+                classesData={ classesData }
+                view={ view }
+                search={ search }
+                isLoading={ isLoading }
+                isLoadingClassDelete={ isLoadingClassDelete }
+                handleTableSort={ handleTableSort }
+                handlePagination={ handlePagination }
+            />
         </React.Fragment>
     );
 };

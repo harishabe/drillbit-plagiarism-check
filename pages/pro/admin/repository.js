@@ -80,6 +80,7 @@ const Repository = ({
 
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [search, setSearch] = useState(false);
@@ -114,6 +115,17 @@ const Repository = ({
         });
         setRows([...arr]);
     }, [repoData]);
+
+    useEffect(() => {
+        if (rows.length === 0 && !isLoadingRepo) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoadingRepo, rows]);
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
@@ -238,50 +250,65 @@ const Repository = ({
                 >
                 </CreateDrawer>
             </AddButtonBottom>
-            <>
-                { search ?
-                    <CommonTable
-                        isCheckbox={ false }
-                        isSorting={ true }
-                        isRepository={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        handleAction={ handleAction }
-                        handleTableSort={ handleTableSort }
-                        charLength={ 10 }
-                        isLoading={ isLoadingRepo }
-                    />
-                    :
-                    <>
-                        { rows.length > 0 ?
-                            <CommonTable
-                                isCheckbox={ false }
-                                isSorting={ true }
-                                isRepository={ true }
-                                tableHeader={ columns }
-                                tableData={ rows }
-                                handleAction={ handleAction }
-                                handleTableSort={ handleTableSort }
-                                charLength={ 10 }
-                                isLoading={ isLoadingRepo }
-                            /> :
-                            <CardView>
-                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } />
-                            </CardView>
-                        }
-                    </>
-                }
 
-                <PaginationContainer>
-                    <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handlePagination }
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </PaginationContainer>
-            </>
+            { isLoadingRepo ?
+                <CommonTable
+                    isCheckbox={ false }
+                    isSorting={ true }
+                    isRepository={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    charLength={ 10 }
+                    isLoading={ isLoadingRepo }
+                />
+                :
+                <>
+                    { search ?
+                        <CommonTable
+                            isCheckbox={ false }
+                            isSorting={ true }
+                            isRepository={ true }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                            handleAction={ handleAction }
+                            handleTableSort={ handleTableSort }
+                            charLength={ 10 }
+                            isLoading={ isLoadingRepo }
+                        />
+                        :
+                        <>
+                            { rows && rows.length > 0 ?
+                                <CommonTable
+                                    isCheckbox={ false }
+                                    isSorting={ true }
+                                    isRepository={ true }
+                                    tableHeader={ columns }
+                                    tableData={ rows }
+                                    handleAction={ handleAction }
+                                    handleTableSort={ handleTableSort }
+                                    charLength={ 10 }
+                                    isLoading={ isLoadingRepo }
+                                /> : showInstructions && (
+                                    <CardView>
+                                        <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } />
+                                    </CardView>
+                                )
+                            }
+                        </>
+                    }
+                </>
+            }
+            <PaginationContainer>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    onChange={ handlePagination }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </PaginationContainer>
         </React.Fragment>
     );
 };

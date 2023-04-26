@@ -357,7 +357,7 @@ const Assignments = ({
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }
-                { search ?
+                { isLoadingAssignment ?
                     <CommonTable
                         isCheckbox={ true }
                         isSorting={ true }
@@ -373,7 +373,7 @@ const Assignments = ({
                     />
                     :
                     <>
-                        { rows.length > 0 ?
+                        { search ?
                             <CommonTable
                                 isCheckbox={ true }
                                 isSorting={ true }
@@ -386,13 +386,32 @@ const Assignments = ({
                                 handleSingleSelect={ handleSingleSelect }
                                 isLoading={ isLoadingAssignment }
                                 charLength={ 9 }
-                            /> :
-                            <CardView>
-                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.ASSIGNMENT) } />
-                            </CardView>
+                            />
+                            :
+                            <>
+                                { rows && rows.length > 0 ?
+                                    <CommonTable
+                                        isCheckbox={ true }
+                                        isSorting={ true }
+                                        isAssignment={ true }
+                                        tableHeader={ columns }
+                                        tableData={ rows }
+                                        handleAction={ handleAction }
+                                        handleTableSort={ handleTableSort }
+                                        handleCheckboxSelect={ handleCheckboxSelect }
+                                        handleSingleSelect={ handleSingleSelect }
+                                        isLoading={ isLoadingAssignment }
+                                        charLength={ 9 }
+                                    /> :
+                                    rows && rows.length === 0 && !isLoadingAssignment && <CardView>
+                                        <Instructions message={ Object.values(INSTRUCTIONS_STEPS.ASSIGNMENT) } />
+                                    </CardView>
+                                }
+                            </>
                         }
                     </>
                 }
+
 
                 <PaginationContainer>
                     <Pagination
