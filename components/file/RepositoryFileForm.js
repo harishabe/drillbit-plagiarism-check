@@ -85,6 +85,9 @@ const RepositoryFileForm = ({
                                     FormHelperTextProps={ {
                                         className: classes.helperText
                                     } }
+                                    inputProps={ {
+                                        minLength: 3,
+                                    } }
                                 />
                             </Grid>
                             <Grid item md={ isGDrive ? 2 : 1.7 } xs={ 12 }>
@@ -106,6 +109,9 @@ const RepositoryFileForm = ({
                                     helperText={ errors['title' + item[0]] && UPLOAD_FILE_PAPER_TITLE }
                                     FormHelperTextProps={ {
                                         className: classes.helperText
+                                    } }
+                                    inputProps={ {
+                                        minLength: 3,
                                     } }
                                 />
                             </Grid>
