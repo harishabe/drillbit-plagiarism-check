@@ -27,6 +27,7 @@ const InputButton = ({
                     type={field.type}
                     color="primary"
                     disabled={isLoading || field.isDisabled}
+                    href={ field.href }
                 >
                     {isLoading ? <BeatLoader color="#fff" /> : field.label}
                 </StyledButton>

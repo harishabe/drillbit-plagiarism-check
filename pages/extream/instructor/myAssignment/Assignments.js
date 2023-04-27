@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
-import { Pagination } from '@mui/material';
+import { Pagination, formLabelClasses } from '@mui/material';
 import { IconButton } from '@mui/material';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -16,7 +16,9 @@ import {
     CommonTable,
     StatusDot,
     CreateDrawer,
-    WarningDialog
+    WarningDialog,
+    Instructions,
+    CardView,
 } from '../../../../components';
 import {
     EditIcon,
@@ -39,6 +41,7 @@ import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../../constant/data/Constant';
 import { formatDate, platform } from '../../../../utils/RegExp';
+import { INSTRUCTIONS_STEPS } from '../../../../constant/data/InstructionMessage';
 
 const AddButtonBottom = styled.div`
     position: fixed;
@@ -103,6 +106,7 @@ const Assignments = ({
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [editAssignment, setEditAssignment] = useState(false);
+    const [search, setSearch] = useState(false);
     const [editAssignmentData, setEditAssignmentData] = useState('');
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -237,9 +241,11 @@ const Assignments = ({
     const handleSearchAssignment = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
+            setSearch(true)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         } else {
             delete paginationPayload['search'];
+            setSearch(false)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
     };
@@ -351,19 +357,43 @@ const Assignments = ({
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }
-                <CommonTable
-                    isCheckbox={ true }
-                    isSorting={ true }
-                    isAssignment={ true }
-                    tableHeader={ columns }
-                    tableData={ rows }
-                    handleAction={ handleAction }
-                    handleTableSort={ handleTableSort }
-                    handleCheckboxSelect={ handleCheckboxSelect }
-                    handleSingleSelect={ handleSingleSelect }
-                    isLoading={ isLoadingAssignment }
-                    charLength={ 9 }
-                />
+                { search ?
+                    <CommonTable
+                        isCheckbox={ true }
+                        isSorting={ true }
+                        isAssignment={ true }
+                        tableHeader={ columns }
+                        tableData={ rows }
+                        handleAction={ handleAction }
+                        handleTableSort={ handleTableSort }
+                        handleCheckboxSelect={ handleCheckboxSelect }
+                        handleSingleSelect={ handleSingleSelect }
+                        isLoading={ isLoadingAssignment }
+                        charLength={ 9 }
+                    />
+                    :
+                    <>
+                        { rows.length > 0 ?
+                            <CommonTable
+                                isCheckbox={ true }
+                                isSorting={ true }
+                                isAssignment={ true }
+                                tableHeader={ columns }
+                                tableData={ rows }
+                                handleAction={ handleAction }
+                                handleTableSort={ handleTableSort }
+                                handleCheckboxSelect={ handleCheckboxSelect }
+                                handleSingleSelect={ handleSingleSelect }
+                                isLoading={ isLoadingAssignment }
+                                charLength={ 9 }
+                            /> :
+                            <CardView>
+                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.ASSIGNMENT) } />
+                            </CardView>
+                        }
+                    </>
+                }
+
                 <PaginationContainer>
                     <Pagination
                         count={ pageDetailsAssignment?.totalPages }

@@ -13,7 +13,9 @@ import {
     MainHeading,
     CommonTable,
     CreateDrawer,
-    WarningDialog
+    WarningDialog,
+    Instructions,
+    CardView
 } from './../../../components';
 import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
 import ProUser from '../../../layouts/ProUser';
@@ -27,6 +29,7 @@ import { formatDate } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
+import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const InstructorBreadCrumb = [
     {
@@ -45,6 +48,7 @@ const AddButtonBottom = styled.div`
     position: fixed;
     bottom: 30px;
     right: 30px;
+    z-index: 9999;
 `;
 
 const columns = [
@@ -80,6 +84,7 @@ const Repository = ({
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [search, setSearch] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -122,9 +127,11 @@ const Repository = ({
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
+            setSearch(true)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         } else {
             delete paginationPayload['search'];
+            setSearch(false)
             setPaginationPayload({ ...paginationPayload, paginationPayload });
         }
     };
@@ -230,18 +237,40 @@ const Repository = ({
                 >
                 </CreateDrawer>
             </AddButtonBottom>
-            <CommonTable
-                isCheckbox={ false }
-                isSorting={ true }
-                isRepository={ true }
-                tableHeader={ columns }
-                tableData={ rows }
-                charLength={ 10 }
-                handleAction={ handleAction }
-                handleTableSort={ handleTableSort }
-                isLoading={ isLoadingRepo }
-                path=''
-            />
+            { search ?
+                <CommonTable
+                    isCheckbox={ false }
+                    isSorting={ true }
+                    isRepository={ true }
+                    tableHeader={ columns }
+                    tableData={ rows }
+                    charLength={ 10 }
+                    handleAction={ handleAction }
+                    handleTableSort={ handleTableSort }
+                    isLoading={ isLoadingRepo }
+                    path=''
+                />
+                :
+                <>
+                    { rows.length > 0 ?
+                        <CommonTable
+                            isCheckbox={ false }
+                            isSorting={ true }
+                            isRepository={ true }
+                            tableHeader={ columns }
+                            tableData={ rows }
+                            charLength={ 10 }
+                            handleAction={ handleAction }
+                            handleTableSort={ handleTableSort }
+                            isLoading={ isLoadingRepo }
+                            path=''
+                        /> :
+                        <CardView>
+                            <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } />
+                        </CardView>
+                    }
+                </>
+            }
 
             <PaginationContainer>
                 <Pagination

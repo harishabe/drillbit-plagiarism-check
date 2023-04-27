@@ -73,13 +73,6 @@ const CommonTable = ({
     showAnalysisPage,
     showGrammarReport,
     isLoadingGrammarReport,
-    isFolder,
-    isSubmission,
-    isRepository,
-    isClass,
-    isAssignment,
-    isStudent,
-    isStudentSubmission,
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -88,7 +81,6 @@ const CommonTable = ({
     const [sortArrow, setSortArrow] = React.useState('');
     const [allSelected, setAllSelected] = React.useState(false);
     const [grammarPaperId, setGrammarPaperId] = React.useState('');
-
 
     const sortHandle = (e, column) => {
         let a = !toggle;
@@ -290,18 +282,7 @@ const CommonTable = ({
                         </TableBody>
                     </Table>
                     <>
-                        { (tableData?.length === 0 && !isLoading) &&
-                            <>
-                                { isFolder && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } /> }
-                                { isSubmission && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } /> }
-                                { isRepository && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } /> }
-                                { isClass && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } /> }
-                                { isAssignment && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.ASSIGNMENT) } /> }
-                                { isStudent && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT) } /> }
-                                { isStudentSubmission && <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT_SUBMISSION) } /> }
-                                { !isFolder && !isSubmission && !isRepository && !isClass && !isAssignment && !isStudent && !isStudentSubmission && <ErrorBlock message="No data found" /> }
-                            </>
-                        }
+                        { tableData?.length === 0 && !isLoading && <ErrorBlock message="No data found" /> }
                     </>
                 </TableContainer>
             </CardContent>

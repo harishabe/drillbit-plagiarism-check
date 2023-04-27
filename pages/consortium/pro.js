@@ -32,6 +32,7 @@ const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
     right:30px;
+    z-index: 9999;
 `;
 
 const SkeletonContainer = styled.div`
@@ -58,9 +59,9 @@ const columns = [
     { id: 'action', label: 'Action' }
 ];
 
-function createData(college_name, name, email, acc_manager, country, start_date, expiry_date, documents, used_documents, instructors, action, lid, students, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
+function createData(college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, documents, used_documents, action, lid, students, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
 
-    return { college_name, name, email, acc_manager, country, start_date, expiry_date, documents, used_documents, instructors, action, lid, students, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type };
+    return { college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, documents, used_documents, action, lid, students, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type };
 }
 
 const Pro = ({
@@ -108,10 +109,10 @@ const Pro = ({
                     data.college_name,
                     data.name,
                     data.email,
-                    data.acc_manager,
                     data.country,
                     data.start_date,
                     data.expiry_date,
+                    data.acc_manager,
                     data.instructors,
                     data.documents,
                     data.used_documents,

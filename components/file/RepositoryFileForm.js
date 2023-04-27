@@ -36,7 +36,8 @@ const RepositoryFileForm = ({
     btnTitle,
     isLoading,
     exemptCheck,
-    handleExemptCheckChange
+    handleExemptCheckChange,
+    isGDrive
 }) => {
     const classes = useStyles();
     const d = new Date();
@@ -59,12 +60,12 @@ const RepositoryFileForm = ({
                 { files && files?.map((item, index) => {
                     return (
                         <Grid container spacing={ 1 } key={ item[1]?.name }>
-                            <Grid item md={ 1.4 } xs={ 12 }>
+                            <Grid item md={ isGDrive ? 2 : 1.4 } xs={ 12 }>
                                 <div style={ { marginTop: '25px' } }>
                                     <EllipsisText value={ item[1]?.name || item.name || item } charLength={ 10 } />
                                 </div>
                             </Grid>
-                            <Grid item md={ 1.7 } xs={ 12 }>
+                            <Grid item md={ isGDrive ? 2 : 1.7 } xs={ 12 }>
                                 <LabelContainer>
                                     <InputLabel>
                                         Author Name *
@@ -84,9 +85,12 @@ const RepositoryFileForm = ({
                                     FormHelperTextProps={ {
                                         className: classes.helperText
                                     } }
+                                    inputProps={ {
+                                        minLength: 3,
+                                    } }
                                 />
                             </Grid>
-                            <Grid item md={ 1.7 } xs={ 12 }>
+                            <Grid item md={ isGDrive ? 2 : 1.7 } xs={ 12 }>
                                 <LabelContainer>
                                     <InputLabel>
                                         Title *
@@ -106,9 +110,12 @@ const RepositoryFileForm = ({
                                     FormHelperTextProps={ {
                                         className: classes.helperText
                                     } }
+                                    inputProps={ {
+                                        minLength: 3,
+                                    } }
                                 />
                             </Grid>
-                            <Grid item md={ 1.7 } xs={ 12 }>
+                            <Grid item md={ isGDrive ? 2 : 1.7 } xs={ 12 }>
                                 <LabelContainer>
                                     <InputLabel>
                                         Year *
@@ -133,7 +140,7 @@ const RepositoryFileForm = ({
                                     } }
                                 />
                             </Grid>
-                            <Grid item md={ 1.7 } xs={ 12 }>
+                            <Grid item md={ isGDrive ? 2 : 1.7 } xs={ 12 }>
                                 <InputAutoComplete
                                     control={ control }
                                     field={ {
@@ -154,7 +161,7 @@ const RepositoryFileForm = ({
                                 />
                             </Grid>
 
-                            <Grid item md={ 1.7 } xs={ 12 }>
+                            <Grid item md={ isGDrive ? 2 : 1.7 } xs={ 12 }>
                                 <InputAutoComplete
                                     control={ control }
                                     field={ {
@@ -174,21 +181,23 @@ const RepositoryFileForm = ({
                                     } }
                                 />
                             </Grid>
-                            <Grid item md={ 2.0 } xs={ 12 }>
-                                <FormControlLabel
-                                    sx={ { marginTop: '18px' } }
-                                    control={
-                                        <Checkbox
-                                            checked={ exemptCheck[item[1].id] }
-                                            onChange={ (e) => handleExemptCheckChange(e, item) }
-                                            name={ 'rep_ex' + item[0] }
-                                            id={ 'rep_ex' + item[0] }
-                                        />
-                                    }
-                                    label="Exempt similarity check"
-                                    { ...register('rep_ex' + item[0], { required: false }) }
-                                />
-                            </Grid>
+                            { !isGDrive &&
+                                <Grid item md={ 2.0 } xs={ 12 }>
+                                    <FormControlLabel
+                                        sx={ { marginTop: '18px' } }
+                                        control={
+                                            <Checkbox
+                                                checked={ exemptCheck[item[1].id] }
+                                                onChange={ (e) => handleExemptCheckChange(e, item) }
+                                                name={ 'rep_ex' + item[0] }
+                                                id={ 'rep_ex' + item[0] }
+                                            />
+                                        }
+                                        label="Exempt similarity check"
+                                        { ...register('rep_ex' + item[0], { required: false }) }
+                                    />
+                                </Grid>
+                            }
                         </Grid>
                     );
                 }) }

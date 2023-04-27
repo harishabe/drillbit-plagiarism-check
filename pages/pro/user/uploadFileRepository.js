@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Box } from '@mui/material';
-import ProAdmin from '../../../layouts/ProAdmin';
+import ProUser from '../../../layouts/ProUser';
 import {
     BreadCrumb,
     TabMenu,
@@ -68,7 +68,7 @@ const uploadFileRepository = () => {
         <GDriveFileUpload
             key={1}
             isRepository={ true }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVE }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.GDRIVEREPOSITORY }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             fileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD_DRIVE }
             routerObj={ { pathname: '/pro/user/repository' } }
@@ -112,6 +112,6 @@ uploadFileRepository.propTypes = {
 
 };
 
-uploadFileRepository.layout = ProAdmin;
+uploadFileRepository.layout = ProUser;
 
 export default uploadFileRepository;

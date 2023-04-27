@@ -100,7 +100,7 @@ const Dashboard = ({
   const [recentSubmission, setRecentSubmission] = useState([]);
   const [trendAnalysisSeries, setTrendAnalysisSeries] = useState([]);
   const [showRenewWarning, setShowRenewWarning] = useState(false);
-  const [documentsTypeData, setDocumentsTypeData] = useState();
+  const [documentsType, setDocumentsType] = useState();
   const [departmentsTypeData, setDepartmentsTypeData] = useState();
 
   useEffect(() => {
@@ -127,7 +127,7 @@ const Dashboard = ({
   useEffect(() => {
     if (documentTypeData !== undefined) {
       let a = documentTypeFilterData(documentTypeData);
-      setDocumentsTypeData(a);
+      setDocumentsType(a);
     }
   }, [documentTypeData]);
 
@@ -139,14 +139,15 @@ const Dashboard = ({
   }, [departmentTypeData]);
 
   const documentTypeFilterData = (documentTypeData) => {
-    let docsObj = {};
+    let docsArr = [];
     documentTypeData &&
-      Object.entries(documentTypeData).filter((key) => {
+      Object.entries(documentTypeData).forEach((key) => {
         if (key[1] > 0) {
-          docsObj[key[0]] = key[1];
+          docsArr.push({ docType: key[0], count: key[1] });
         }
       });
-    return docsObj;
+    docsArr.sort((a, b) => b.count - a.count);
+    return docsArr;
   };
 
   useEffect(() => {
@@ -486,19 +487,19 @@ const Dashboard = ({
                 ) : documentTypeData &&
                   adminDashboardData?.data?.submissionsUsage?.usedSubmissions >
                     0 ? (
-                  documentsTypeData && (
+                      documentsType && (
                     <PieChart
                       type="pie"
                       height={
-                        Object.entries(documentsTypeData).length > 7 ? 400 : 325
+                        Object.entries(documentsType).length > 7 ? 400 : 325
                       }
                       pieChartPadding={
-                        Object.entries(documentsTypeData).length > 7
+                        Object.entries(documentsType).length > 7
                           ? ""
                           : "38px 2px"
                       }
-                      label={Object.keys(documentsTypeData)}
-                      series={Object.values(documentsTypeData)}
+                          label={ documentsType.map((doc) => doc.docType) }
+                          series={ documentsType.map((doc) => doc.count) }
                       filename="Document Types"
                     />
                   )
@@ -533,8 +534,8 @@ const Dashboard = ({
                           ? ""
                           : "38px 2px"
                       }
-                      label={Object.keys(departmentsTypeData)}
-                      series={Object.values(departmentsTypeData)}
+                          label={ departmentsTypeData.map((doc) => doc.docType) }
+                          series={ departmentsTypeData.map((doc) => doc.count) }
                       filename="Departments"
                     />
                   )

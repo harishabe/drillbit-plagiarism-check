@@ -29,5 +29,9 @@
         "field_type": "button",
         "type": "submit",
         "label": "Sign in"
+    },
+    {
+        "field_type": "labelCaption",
+        "label": "Or"
     }
 ]
