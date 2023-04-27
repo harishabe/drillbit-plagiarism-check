@@ -132,6 +132,7 @@ const Submission = ({
     const clasId = router.query.clasId;
     const assId = router.query.assId;
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -231,6 +232,17 @@ const Submission = ({
             document.body.classList.remove('body-page-transition');
         }
     }, [isLoadingSubmissionReport])
+
+    useEffect(() => {
+        if (rows.length === 0 && !isLoading) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoading, rows]);
 
     /**
    * handle pagination
@@ -654,10 +666,9 @@ const Submission = ({
                                     // isLoading={ isLoading }
                                     isLoadingGrammarReport={ isLoadingGrammarReport }
                                     charLength={ 10 }
-                                /> :
-                                rows && rows.length === 0 && !isLoading && <CardView>
+                                /> : showInstructions && (<CardView>
                                     <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } />
-                                </CardView>
+                                </CardView>)
                             }
                         </>
                     }
@@ -694,7 +705,7 @@ const Submission = ({
                 />
             }
 
-            <PaginationContainer>
+            { !showInstructions && <PaginationContainer>
                 <Pagination
                     count={ pageDetails?.totalPages }
                     onChange={ handlePagination }
@@ -702,7 +713,7 @@ const Submission = ({
                     variant='outlined'
                     shape='rounded'
                 />
-            </PaginationContainer>
+            </PaginationContainer> }
         </React.Fragment>
     );
 };

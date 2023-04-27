@@ -101,6 +101,7 @@ const Assignments = ({
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
     const [assId, setAssId] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
@@ -149,6 +150,17 @@ const Assignments = ({
         });
         setRows([...arr]);
     }, [assignmentData]);
+
+    useEffect(() => {
+        if (rows.length === 0 && !isLoadingAssignment) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoadingAssignment, rows]);
 
     const handlePagination = (event, value) => {
         event.preventDefault();
@@ -268,6 +280,22 @@ const Assignments = ({
         DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/assignments/download`, DOWNLOAD_CSV.ASSIGNMENTS_LISTS);
     };
 
+    const tableComponent = (
+        <CommonTable
+            isCheckbox={ true }
+            isSorting={ true }
+            isAssignment={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            handleAction={ handleAction }
+            handleTableSort={ handleTableSort }
+            handleCheckboxSelect={ handleCheckboxSelect }
+            handleSingleSelect={ handleSingleSelect }
+            isLoading={ isLoadingAssignment }
+            charLength={ 9 }
+        />
+    );
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -357,63 +385,22 @@ const Assignments = ({
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }
-                { isLoadingAssignment ?
-                    <CommonTable
-                        isCheckbox={ true }
-                        isSorting={ true }
-                        isAssignment={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        handleAction={ handleAction }
-                        handleTableSort={ handleTableSort }
-                        handleCheckboxSelect={ handleCheckboxSelect }
-                        handleSingleSelect={ handleSingleSelect }
-                        isLoading={ isLoadingAssignment }
-                        charLength={ 9 }
-                    />
-                    :
+                { isLoadingAssignment ? tableComponent :
                     <>
-                        { search ?
-                            <CommonTable
-                                isCheckbox={ true }
-                                isSorting={ true }
-                                isAssignment={ true }
-                                tableHeader={ columns }
-                                tableData={ rows }
-                                handleAction={ handleAction }
-                                handleTableSort={ handleTableSort }
-                                handleCheckboxSelect={ handleCheckboxSelect }
-                                handleSingleSelect={ handleSingleSelect }
-                                isLoading={ isLoadingAssignment }
-                                charLength={ 9 }
-                            />
-                            :
+                        { search ? tableComponent :
                             <>
-                                { rows && rows.length > 0 ?
-                                    <CommonTable
-                                        isCheckbox={ true }
-                                        isSorting={ true }
-                                        isAssignment={ true }
-                                        tableHeader={ columns }
-                                        tableData={ rows }
-                                        handleAction={ handleAction }
-                                        handleTableSort={ handleTableSort }
-                                        handleCheckboxSelect={ handleCheckboxSelect }
-                                        handleSingleSelect={ handleSingleSelect }
-                                        isLoading={ isLoadingAssignment }
-                                        charLength={ 9 }
-                                    /> :
-                                    rows && rows.length === 0 && !isLoadingAssignment && <CardView>
+                                { rows && rows.length > 0 ? tableComponent :
+                                    showInstructions && (<CardView>
                                         <Instructions message={ Object.values(INSTRUCTIONS_STEPS.ASSIGNMENT) } />
                                     </CardView>
+                                    )
                                 }
                             </>
                         }
                     </>
                 }
 
-
-                <PaginationContainer>
+                { !showInstructions && <PaginationContainer>
                     <Pagination
                         count={ pageDetailsAssignment?.totalPages }
                         onChange={ handlePagination }
@@ -421,7 +408,7 @@ const Assignments = ({
                         variant='outlined'
                         shape='rounded'
                     />
-                </PaginationContainer>
+                </PaginationContainer> }
             </>
         </React.Fragment>
     );

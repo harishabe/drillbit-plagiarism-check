@@ -61,6 +61,7 @@ const SubmissionHistory = ({
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
 
     const columns = [
         { id: 'original_fn', label: 'Filename', isDownload: true, minWidth: 140 },
@@ -113,6 +114,17 @@ const SubmissionHistory = ({
         }
     }, [rows]);
 
+    useEffect(() => {
+        if (rows.length === 0 && !isLoadingSubmission) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoadingSubmission, rows]);
+
     const handleShowAnalysisPage = (e, row) => {
         let token = getItemSessionStorage('token');
         let url = BASE_URL_ANALYSIS + row.paper_id + '/' + row.d_key + '/' + token;
@@ -163,12 +175,12 @@ const SubmissionHistory = ({
                     showGrammarReport={ handlGrammarReport }
                     isLoadingGrammarReport={ isLoadingGrammarReport }
                     charLength={ 10 }
-                /> :
-                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT_SUBMISSION) } />
+                /> : showInstructions && (
+                    <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT_SUBMISSION) } />)
             }
 
 
-            <PaginationContainer>
+            { !showInstructions && <PaginationContainer>
                 <Pagination
                     count={pageDetails?.totalPages}
                     onChange={handleChange}
@@ -176,16 +188,7 @@ const SubmissionHistory = ({
                     variant="outlined"
                     shape="rounded"
                 />
-            </PaginationContainer>
-
-            {/* <AddButtonBottom>
-                <CreateDrawer
-                    title="New Submission"
-                    isShowAddIcon={true}
-                >
-                    <SubmissionForm />
-                </CreateDrawer>
-            </AddButtonBottom> */}
+            </PaginationContainer> }
 
             <AddButtonBottom>
                 <CreateDrawer

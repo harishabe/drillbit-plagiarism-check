@@ -201,6 +201,21 @@ const Repository = ({
         router.push({ pathname: '/pro/user/uploadFileRepository' });
     };
 
+    const tableComponent = (
+        <CommonTable
+            isCheckbox={ false }
+            isSorting={ true }
+            isRepository={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            charLength={ 10 }
+            handleAction={ handleAction }
+            handleTableSort={ handleTableSort }
+            isLoading={ isLoadingRepo }
+            path=''
+        />
+    );
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -249,49 +264,12 @@ const Repository = ({
                 </CreateDrawer>
             </AddButtonBottom>
 
-            { isLoadingRepo ?
-                <CommonTable
-                    isCheckbox={ false }
-                    isSorting={ true }
-                    isRepository={ true }
-                    tableHeader={ columns }
-                    tableData={ rows }
-                    charLength={ 10 }
-                    handleAction={ handleAction }
-                    handleTableSort={ handleTableSort }
-                    isLoading={ isLoadingRepo }
-                    path=''
-                />
-                :
+            { isLoadingRepo ? tableComponent :
                 <>
-                    { search ?
-                        <CommonTable
-                            isCheckbox={ false }
-                            isSorting={ true }
-                            isRepository={ true }
-                            tableHeader={ columns }
-                            tableData={ rows }
-                            charLength={ 10 }
-                            handleAction={ handleAction }
-                            handleTableSort={ handleTableSort }
-                            isLoading={ isLoadingRepo }
-                            path=''
-                        />
-                        :
+                    { search ? tableComponent :
                         <>
-                            { rows && rows.length > 0 ?
-                                <CommonTable
-                                    isCheckbox={ false }
-                                    isSorting={ true }
-                                    isRepository={ true }
-                                    tableHeader={ columns }
-                                    tableData={ rows }
-                                    charLength={ 10 }
-                                    handleAction={ handleAction }
-                                    handleTableSort={ handleTableSort }
-                                    isLoading={ isLoadingRepo }
-                                    path=''
-                                /> : showInstructions && (
+                            { rows && rows.length > 0 ? tableComponent :
+                                showInstructions && (
                                     <CardView>
                                         <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } />
                                     </CardView>
@@ -301,7 +279,7 @@ const Repository = ({
                     }
                 </>
             }
-            <PaginationContainer>
+            { !showInstructions && <PaginationContainer>
                 <Pagination
                     count={ pageDetails?.totalPages }
                     onChange={ handlePagination }
@@ -309,7 +287,7 @@ const Repository = ({
                     variant="outlined"
                     shape="rounded"
                 />
-            </PaginationContainer>
+            </PaginationContainer> }
         </React.Fragment>
     );
 };

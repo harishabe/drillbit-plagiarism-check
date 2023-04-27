@@ -119,6 +119,7 @@ const folderSubmission = ({
 
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showSubmissionReport, setShowSubmissionReport] = useState(false);
     const [submissionReportData, setSubmissionReportData] = useState('');
@@ -243,6 +244,17 @@ const folderSubmission = ({
             document.body.classList.remove('body-page-transition');
         }
     }, [isLoadingSubmissionReport])
+
+    useEffect(() => {
+        if (rows.length === 0 && !isLoadingSubmission) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoadingSubmission, rows]);
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'delete') {
@@ -530,7 +542,7 @@ const folderSubmission = ({
 
                 </DeleteAllButton> }
 
-                { search ?
+                { isLoadingSubmission ?
                     <CommonTable
                         isCheckbox={ true }
                         isSorting={ true }
@@ -544,14 +556,14 @@ const folderSubmission = ({
                         downloadSubmissionFile={ handleOriginalFileDownload }
                         showAnalysisPage={ handleShowAnalysisPage }
                         showGrammarReport={ handlGrammarReport }
-                        // isLoading={ isLoadingSubmission }
+                        isLoading={ isLoadingSubmission }
                         isLoadingGrammarReport={ isLoadingGrammarReport }
                         charLength={ 10 }
                         path=''
                     />
                     :
                     <>
-                        { rows.length > 0 ?
+                        { search ?
                             <CommonTable
                                 isCheckbox={ true }
                                 isSorting={ true }
@@ -569,14 +581,37 @@ const folderSubmission = ({
                                 isLoadingGrammarReport={ isLoadingGrammarReport }
                                 charLength={ 10 }
                                 path=''
-                            /> :
-                            <CardView>
-                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } />
-                            </CardView>
+                            />
+                            :
+                            <>
+                                { rows.length > 0 ?
+                                    <CommonTable
+                                        isCheckbox={ true }
+                                        isSorting={ true }
+                                        isSubmission={ true }
+                                        tableHeader={ columns }
+                                        tableData={ rows }
+                                        handleAction={ handleAction }
+                                        handleTableSort={ handleTableSort }
+                                        handleCheckboxSelect={ handleCheckboxSelect }
+                                        handleSingleSelect={ handleSingleSelect }
+                                        downloadSubmissionFile={ handleOriginalFileDownload }
+                                        showAnalysisPage={ handleShowAnalysisPage }
+                                        showGrammarReport={ handlGrammarReport }
+                                        // isLoading={ isLoadingSubmission }
+                                        isLoadingGrammarReport={ isLoadingGrammarReport }
+                                        charLength={ 10 }
+                                        path=''
+                                    /> : showInstructions && (
+                                        <CardView>
+                                            <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } />
+                                        </CardView>
+                                    )
+                                }
+                            </>
                         }
                     </>
                 }
-
                 <AddButtonBottom>
                     <CreateDrawer
                         options={ [
@@ -645,7 +680,7 @@ const folderSubmission = ({
                     />
                 }
 
-                <PaginationContainer>
+                { !showInstructions && <PaginationContainer>
                     <Pagination
                         count={ pageDetails?.totalPages }
                         onChange={ handleChange }
@@ -653,7 +688,7 @@ const folderSubmission = ({
                         variant="outlined"
                         shape="rounded"
                     />
-                </PaginationContainer>
+                </PaginationContainer> }
             </>
         </React.Fragment>
     );

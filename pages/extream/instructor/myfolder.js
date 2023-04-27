@@ -92,6 +92,7 @@ const MyFolder = ({
     const router = useRouter();
     const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
     const [editFolder, setEditFolder] = useState(false);
     const [search, setSearch] = useState(false);
     const [editFolderData, setEditFolderData] = useState('');
@@ -204,6 +205,17 @@ const MyFolder = ({
         setRows([...arr]);
     }, [myFolders]);
 
+    useEffect(() => {
+        if (rows.length === 0 && !isLoading) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoading, rows]);
+
     const handleAction = (e, icon, rowData) => {
         if (icon === 'edit') {
             setEditFolder(true);
@@ -237,6 +249,21 @@ const MyFolder = ({
     const handleCloseDrawer = (drawerClose) => {
         setEditFolder(drawerClose);
     };
+
+    const tableComponent = (
+        <CommonTable
+            isCheckbox={ false }
+            isSorting={ true }
+            isFolder={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            charLength={ 17 }
+            handleAction={ handleAction }
+            handleTableSort={ handleTableSort }
+            isLoading={ isLoading }
+            path=''
+        />
+    );
 
     return (
         <React.Fragment>
@@ -331,8 +358,7 @@ const MyFolder = ({
                                                     </Grid>
                                                 )) }
                                             </Grid>
-                                            :
-                                            myFolders && !isLoading && <CardView>
+                                            : showInstructions && <CardView>
                                                 <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
                                             </CardView>
                                         }
@@ -343,51 +369,13 @@ const MyFolder = ({
                     </>
                 ) : (
                         <>
-                            { isLoading ?
-                                <CommonTable
-                                    isCheckbox={ false }
-                                    isSorting={ true }
-                                    isFolder={ true }
-                                    tableHeader={ columns }
-                                    tableData={ rows }
-                                    charLength={ 17 }
-                                    handleAction={ handleAction }
-                                    handleTableSort={ handleTableSort }
-                                    isLoading={ isLoading }
-                                    path=''
-                                /> :
+                            { isLoading ? tableComponent :
                                 <>
-                                    { search ?
-                                        <CommonTable
-                                            isCheckbox={ false }
-                                            isSorting={ true }
-                                            isFolder={ true }
-                                            tableHeader={ columns }
-                                            tableData={ rows }
-                                            charLength={ 17 }
-                                            handleAction={ handleAction }
-                                            handleTableSort={ handleTableSort }
-                                            isLoading={ isLoading }
-                                            path=''
-                                        />
-                                        :
+                                    { search ? tableComponent :
                                         <>
-                                            { rows && rows.length > 0 ?
-                                                <CommonTable
-                                                    isCheckbox={ false }
-                                                    isSorting={ true }
-                                                    isFolder={ true }
-                                                    tableHeader={ columns }
-                                                    tableData={ rows }
-                                                    charLength={ 17 }
-                                                    handleAction={ handleAction }
-                                                    handleTableSort={ handleTableSort }
-                                                    isLoading={ isLoading }
-                                                    path=''
-                                                /> :
-                                                rows && rows.length === 0 && !isLoading && <CardView>
+                                            { rows && rows.length > 0 ? tableComponent : showInstructions && (<CardView>
                                                     <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
-                                                </CardView>
+                                            </CardView>)
                                             }
                                         </>
                                     }
@@ -435,7 +423,7 @@ const MyFolder = ({
                 </CreateDrawer>
             }
 
-            <PaginationContainer>
+            { !showInstructions && <PaginationContainer>
                 <Pagination
                     count={ pageDetails?.totalPages }
                     onChange={ handleChange }
@@ -443,7 +431,7 @@ const MyFolder = ({
                     variant="outlined"
                     shape="rounded"
                 />
-            </PaginationContainer>
+            </PaginationContainer> }
         </React.Fragment>
     );
 };

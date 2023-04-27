@@ -58,6 +58,7 @@ const MyClassFiles = ({
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
     const [item, setItem] = useState([]);
     const [editClasses, setEditClasses] = useState(false);
     const [editClassesData, setEditClassesData] = useState('');
@@ -86,6 +87,16 @@ const MyClassFiles = ({
         setItem([...arr]);
     }, [classesData]);
 
+    useEffect(() => {
+        if (rows.length === 0 && !isLoading || !isLoadingClassDelete) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoading, isLoadingClassDelete, rows]);
 
     const handleClassEdit = (e, rowData) => {
         e.preventDefault();
@@ -159,6 +170,21 @@ const MyClassFiles = ({
     };
 
     /** Table implementation functions end*/
+    const tableComponent = (
+        <CommonTable
+            isCheckbox={ false }
+            isSorting={ true }
+            isClass={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            charLength={ 17 }
+            handleAction={ handleAction }
+            handleTableSort={ handleTableSort }
+            isLoading={ isLoading || isLoadingClassDelete }
+            path=''
+        />
+    );
+
     return (
         <React.Fragment>
             {
@@ -221,9 +247,10 @@ const MyClassFiles = ({
                                                     </Grid>
                                                 )) }
                                             </Grid>
-                                            : item && item?.length === 0 && !isLoading && <CardView>
+                                            : showInstructions && (<CardView>
                                                 <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } />
                                             </CardView>
+                                            )
                                         }
                                     </>
                                 }
@@ -232,51 +259,15 @@ const MyClassFiles = ({
                     </>
                     :
                     <>
-                        { isLoading || isLoadingClassDelete ?
-                            <CommonTable
-                                isCheckbox={ false }
-                                isSorting={ true }
-                                isClass={ true }
-                                tableHeader={ columns }
-                                tableData={ rows }
-                                charLength={ 17 }
-                                handleAction={ handleAction }
-                                handleTableSort={ handleTableSort }
-                                isLoading={ isLoading || isLoadingClassDelete }
-                                path=''
-                            />
-                            :
+                        { isLoading || isLoadingClassDelete ? tableComponent :
                             <>
-                                { search ?
-                                    <CommonTable
-                                        isCheckbox={ false }
-                                        isSorting={ true }
-                                        isClass={ true }
-                                        tableHeader={ columns }
-                                        tableData={ rows }
-                                        charLength={ 17 }
-                                        handleAction={ handleAction }
-                                        handleTableSort={ handleTableSort }
-                                        isLoading={ isLoading || isLoadingClassDelete }
-                                        path=''
-                                    /> :
+                                { search ? tableComponent :
                                     <>
-                                        { rows && rows.length > 0 ?
-                                            <CommonTable
-                                                isCheckbox={ false }
-                                                isSorting={ true }
-                                                isClass={ true }
-                                                tableHeader={ columns }
-                                                tableData={ rows }
-                                                charLength={ 17 }
-                                                handleAction={ handleAction }
-                                                handleTableSort={ handleTableSort }
-                                                isLoading={ isLoading || isLoadingClassDelete }
-                                                path=''
-                                            /> :
-                                            rows && rows.length === 0 && !isLoading && <CardView>
+                                        { rows && rows.length > 0 ? tableComponent : showInstructions && (
+                                            <CardView>
                                                 <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } />
                                             </CardView>
+                                        )
                                         }
                                     </>
                                 }
@@ -311,7 +302,7 @@ const MyClassFiles = ({
             }
 
 
-            <PaginationContainer>
+            { !showInstructions && <PaginationContainer>
                 <Pagination
                     count={ pageDetails?.totalPages }
                     page={ pageDetails?.number + 1 }
@@ -320,7 +311,7 @@ const MyClassFiles = ({
                     variant="outlined"
                     shape="rounded"
                 />
-            </PaginationContainer>
+            </PaginationContainer> }
         </React.Fragment>
     );
 };
