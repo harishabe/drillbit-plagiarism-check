@@ -175,6 +175,7 @@ const AssignmentForms = ({
                 bodyFormData.append('assignment_grading', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
                 //bodyFormData.append('exclude_include_sources', showSetting && ASSIGNMENT_SETTING_VALUE_YES);
                 bodyFormData.append('save_to_repository', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
+                bodyFormData.append('ex_pre', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
                 bodyFormData.append('allow_resubmissions', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
                 bodyFormData.append('allow_submissions_after_due_date', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
                 bodyFormData.append('grammar_check', !showSetting ? ASSIGNMENT_SETTING_VALUE_NO : '');
@@ -249,7 +250,12 @@ const AssignmentForms = ({
 
         if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
             bodyFormData.append('repository_scope', data?.repository_scope?.name === 'Institution' ? 'LOCAL' : 'GLOBAL');
-            bodyFormData.append('ex_pre', editData.assignmentData.ex_pre === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
+        }
+
+        if (editData.assignmentData.ex_pre === ASSIGNMENT_SETTING_VALUE_YES) {
+            bodyFormData.append('ex_pre', excludeSubmission);
+        } else {
+            bodyFormData.append('ex_pre', excludeSubmission);
         }
 
         if (editData.assignmentData.assignment_grading === ASSIGNMENT_SETTING_VALUE_YES) {
