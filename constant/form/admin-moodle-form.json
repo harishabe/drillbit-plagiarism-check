@@ -10,11 +10,11 @@
     {
         "field_type": "input",
         "type": "email",
-        "id": "email",
+        "id": "moodle_email",
         "name": "email",
         "label": "Email *",
         "required": "Enter email address",
-        "validationMsg": "Invalid email address"
+        "validationMsg": "Invalid email address, Should ends with '.com'"
     },
     {
         "field_type": "inputNumber",
@@ -30,7 +30,8 @@
         "id": "moodle_url",
         "name": "moodle_url",
         "label": "Moodle LMS URL *",
-        "required": "Enter moodle LMS URL"
+        "required": "Enter moodle LMS URL",
+        "validationMsg": "Invalid moodle lms url, Should ends with '.com'"
     },
     {
         "field_type": "button",
