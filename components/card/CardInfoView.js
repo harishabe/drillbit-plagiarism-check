@@ -273,7 +273,7 @@ const CardInfoView = ({
                 <Divider />
                 <CardActions style={ { padding: '18px' } }>
                     <Grid container>
-                        <Grid item md={ 9 } xs={ 9 }>
+                        <Grid item md={ isConfig ? 8 : 9 } xs={ isConfig ? 8 : 9 }>
                             { isTimer &&
                                 <CardStatusColor
                                     style={ { borderRadius: '3px' } }
@@ -298,7 +298,7 @@ const CardInfoView = ({
                             }
                         </Grid>
 
-                        <Grid className={ classes.right } item md={ 3 } xs={ 3 }>
+                        <Grid className={ classes.right } item md={ isConfig ? 4 : 3 } xs={ isConfig ? 4 : 3 }>
                             { isSubmit ?
                                 <Link href={ submitPath }>
                                     <Button
