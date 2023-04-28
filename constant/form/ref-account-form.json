@@ -142,23 +142,6 @@
 
     {
         "field_type": "dropdown",
-        "id": "updateExpiryDateToAll",
-        "name": "updateExpiryDateToAll",
-        "label": "Update expiry date to all *",
-        "required": "expiry date",
-        "validationMsg": "Invalid Expiry Date",
-        "options": [
-            {
-                "name": "YES"
-            },
-            {
-                "name": "NO"
-            }
-        ]
-    },
-
-    {
-        "field_type": "dropdown",
         "id": "grammarAccess",
         "name": "grammarAccess",
         "label": "Grammar Access *",
@@ -172,9 +155,7 @@
         "type": "number",
         "id": "grammar",
         "name": "grammar",
-        "label": "Grammar *",
-        "required": "Grammar",
-        "validationMsg": "Invalid Grammar"
+        "label": "Grammar *"
     },
 
     {
@@ -223,6 +204,23 @@
         ]
     },
 
+    {
+        "field_type": "dropdown",
+        "id": "updateExpiryDateToAll",
+        "name": "updateExpiryDateToAll",
+        "label": "Update expiry date to all *",
+        "required": "expiry date",
+        "validationMsg": "Invalid Expiry Date",
+        "options": [
+            {
+                "name": "YES"
+            },
+            {
+                "name": "NO"
+            }
+        ]
+    },
+    
     {
         "field_type": "dropdown",
         "id": "timeZone",
