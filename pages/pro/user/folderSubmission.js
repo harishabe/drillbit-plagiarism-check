@@ -70,6 +70,7 @@ const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
     right:30px;
+    z-index: 9999;
 `;
 
 // const DownloadField = styled.div`
@@ -571,7 +572,7 @@ const folderSubmission = ({
                                 path=''
                             /> :
                             <CardView>
-                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.REPOSITORY) } />
+                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } />
                             </CardView>
                         }
                     </>

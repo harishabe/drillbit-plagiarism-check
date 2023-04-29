@@ -5,7 +5,8 @@
         "id": "platform_url",
         "name": "platform_url",
         "label": "Platform url *",
-        "required": "Platform url"
+        "required": "Platform url",
+        "validationMsg":"Platform url should starts with 'http://' or 'https://' and ends with '.com'"
     },
     {
         "field_type": "input",

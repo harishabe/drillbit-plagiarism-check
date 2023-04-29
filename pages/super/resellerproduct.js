@@ -35,6 +35,7 @@ const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
     right:30px;
+    z-index: 9999;
 `;
 
 const SkeletonContainer = styled.div`

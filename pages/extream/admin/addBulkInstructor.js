@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, IconButton, Link, Tooltip } from '@mui/material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import Instructor from '../../../layouts/Instructor';
+import Admin from '../../../layouts/Admin';
 import {
     BreadCrumb,
     CardView,
@@ -118,9 +118,7 @@ const AddBulkInstructor = ({
     useEffect(() => {
         if (fileUploadData?.status === 200) {
             setFileData('');
-            setTimeout(() => {
-                router.push('/extream/admin/instructor');
-            }, 4000);
+            router.push('/extream/admin/instructor');
         }
     }, [router, fileUploadData?.status]);
 
@@ -225,7 +223,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-AddBulkInstructor.layout = Instructor;
+AddBulkInstructor.layout = Admin;
 
 AddBulkInstructor.propTypes = {
     DownloadTemplate: propTypes.func.isRequired,

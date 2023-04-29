@@ -75,7 +75,7 @@ const Dashboard = ({
   const router = useRouter();
 
   const [recentSubmission, setRecentSubmission] = useState([]);
-  const [documentsTypeData, setDocumentsTypeData] = useState();
+  const [documentsType, setDocumentsType] = useState();
 
   useEffect(() => {
     if (router?.query?.message) {
@@ -94,19 +94,20 @@ const Dashboard = ({
   useEffect(() => {
     if (documentTypeData !== undefined) {
       let b = documentTypeFilterData(documentTypeData);
-      setDocumentsTypeData(b);
+      setDocumentsType(b);
     }
   }, [documentTypeData]);
 
   const documentTypeFilterData = (documentTypeData) => {
-    let docsObj = {};
+    let docsArr = [];
     documentTypeData &&
-      Object.entries(documentTypeData).filter((key) => {
+      Object.entries(documentTypeData).forEach((key) => {
         if (key[1] > 0) {
-          docsObj[key[0]] = key[1];
+          docsArr.push({ docType: key[0], count: key[1] });
         }
       });
-    return docsObj;
+    docsArr.sort((a, b) => b.count - a.count);
+    return docsArr;
   };
 
   useEffect(() => {
@@ -408,13 +409,13 @@ const Dashboard = ({
               ) : documentTypeData &&
                 instructorDashboardData?.data?.submissionsUsage
                   ?.usedSubmissions > 0 ? (
-                documentsTypeData && (
+                    documentsType && (
                   <PieChart
                     type="pie"
                     filename="Document Types"
                     height={325}
-                    label={Object.keys(documentsTypeData)}
-                    series={Object.values(documentsTypeData)}
+                        label={ documentsType.map((doc) => doc.docType) }
+                        series={ documentsType.map((doc) => doc.count) }
                   />
                 )
               ) : (
