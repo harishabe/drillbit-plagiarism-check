@@ -46,7 +46,6 @@ const Login = () => {
                     <Grid item md={5} style={{ width: '100%' }}>
                         <LoginContainer>
                             <MainHeading mb={'20px'} title={LOGIN_WELCOME_DRILLBIT} />
-                            {/* <DrillBitLogoIcon /> */}
                             <LoginForm />
                             <InputButton
                                 field={ {

@@ -31,7 +31,7 @@ const StudentForm = ({
         if (editData) {
             let a = {
                 'name': editData.name,
-                'email': editData.email,
+            'email': editData.username,
                 'studentId': editData?.user_id,
                 'department': editData.department,
                 'section': editData.section
