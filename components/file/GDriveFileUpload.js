@@ -53,9 +53,9 @@ const GDriveFileUpload = ({
 
     let fileExtension = '';
 
-    const RepositoryMimeTypes = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.google-apps.kix';
+    const RepositoryMimeTypes = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
-    const SubmissionMimeTypes = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.template,application/msword-template,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/wordperfect,application/rtf,text/html,application/vnd.oasis.opendocument.text,application/postscript,application/x-tex,application/xml,image/tiff,text/x-latex,text/x-tex,text/xml,application/vnd.google-apps.kix,application/vnd.google-apps.ritz';
+    const SubmissionMimeTypes = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.template,application/msword-template,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/wordperfect,application/rtf,text/html,application/vnd.oasis.opendocument.text,application/postscript,application/x-tex,application/xml,image/tiff,text/x-latex,text/x-tex,text/xml';
 
     const driveFileUploaded = (mimeType) => {
         switch (mimeType) {
@@ -66,9 +66,6 @@ const GDriveFileUpload = ({
                 fileExtension = '.doc';
                 break;
             case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-                fileExtension = '.docx';
-                break;
-            case 'application/vnd.google-apps.kix':
                 fileExtension = '.docx';
                 break;
             case 'text/plain':
@@ -90,9 +87,6 @@ const GDriveFileUpload = ({
                 fileExtension = '.xls';
                 break;
             case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-                fileExtension = '.xlsx';
-                break;
-            case 'application/vnd.google-apps.ritz':
                 fileExtension = '.xlsx';
                 break;
             case 'application/wordperfect':
