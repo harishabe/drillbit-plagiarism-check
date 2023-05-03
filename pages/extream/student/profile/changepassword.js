@@ -6,6 +6,8 @@ import Student from './../../../../layouts/Student';
 import { FormComponent, MainHeading, CardView } from '../../../../components';
 import FormJson from '../../../../constant/form/change-password-form.json';
 import { ProfileChangePassword } from '../../../../redux/action/profile/ProfileAction';
+import { BASE_URL_EXTREM } from "../../../../utils/BaseUrl";
+import END_POINTS from "../../../../utils/EndPoints";
 
 const ChangePassword = ({
     ProfileChangePassword,
@@ -19,7 +21,7 @@ const ChangePassword = ({
 
     const onSubmit = (data) => {
         delete data['confirmPassword'];
-        ProfileChangePassword(data);
+        ProfileChangePassword(data, BASE_URL_EXTREM + END_POINTS.PROFILE_CHANGE_PASSWORD);
     };
 
     const confirmPassword = useWatch({
@@ -86,7 +88,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        ProfileChangePassword: (requestPayload) => dispatch(ProfileChangePassword(requestPayload)),
+        ProfileChangePassword: (requestPayload, apiUrl) => dispatch(ProfileChangePassword(requestPayload, apiUrl)),
     };
 };
 
