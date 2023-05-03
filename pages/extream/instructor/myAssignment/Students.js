@@ -60,7 +60,7 @@ const SearchField = styled.div`
 const DownloadField = styled.div`
     position:absolute;
     top: 125px;
-    right:${ platform === WINDOW_PLATFORM ? '245px' : '225px' };
+    right:${platform === WINDOW_PLATFORM ? '245px' : '225px'};
 `;
 
 const SkeletonContainer = styled.div`
@@ -105,6 +105,7 @@ const Students = ({
     const router = useRouter();
 
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
@@ -153,6 +154,17 @@ const Students = ({
         });
         setRows([...arr]);
     }, [studentData]);
+
+    useEffect(() => {
+        if (rows.length === 0 && !isLoadingStudent) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoadingStudent, rows]);
 
     const handleAction = (e, icon, rowData) => {
         e.preventDefault();
@@ -277,6 +289,23 @@ const Students = ({
         DownloadCsv(BASE_URL_EXTREM + END_POINTS.CREATE_ASSIGNMENT + `${router.query.clasId}/students/download`, DOWNLOAD_CSV.STUDENTS_LISTS);
     };
 
+    const tableComponent = (
+        <CommonTable
+            isCheckbox={ true }
+            isSorting={ true }
+            isStudent={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            handleAction={ handleAction }
+            handleTableSort={ handleTableSort }
+            handleCheckboxSelect={ handleCheckboxSelect }
+            handleSingleSelect={ handleSingleSelect }
+            isLoading={ isLoadingStudent }
+            charLength={ 17 }
+            path=''
+        />
+    );
+
     return (
         <React.Fragment>
             { showDialogModal &&
@@ -386,46 +415,21 @@ const Students = ({
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }
-                { search ?
-                    <CommonTable
-                        isCheckbox={ true }
-                        isSorting={ true }
-                        isStudent={ true }
-                        tableHeader={ columns }
-                        tableData={ rows }
-                        handleAction={ handleAction }
-                        handleTableSort={ handleTableSort }
-                        handleCheckboxSelect={ handleCheckboxSelect }
-                        handleSingleSelect={ handleSingleSelect }
-                        isLoading={ isLoadingStudent }
-                        charLength={ 17 }
-                        path=''
-                    />
-                    :
+                { isLoadingStudent ? tableComponent :
                     <>
-                        { rows.length > 0 ?
-                            <CommonTable
-                                isCheckbox={ true }
-                                isSorting={ true }
-                                isStudent={ true }
-                                tableHeader={ columns }
-                                tableData={ rows }
-                                handleAction={ handleAction }
-                                handleTableSort={ handleTableSort }
-                                handleCheckboxSelect={ handleCheckboxSelect }
-                                handleSingleSelect={ handleSingleSelect }
-                                isLoading={ isLoadingStudent }
-                                charLength={ 17 }
-                                path=''
-                            /> :
-                            <CardView>
-                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT) } />
-                            </CardView>
+                        { search ? tableComponent :
+                            <>
+                                { rows && rows.length > 0 ? tableComponent :
+                                    showInstructions && (<CardView>
+                                        <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT) } />
+                                    </CardView>)
+                                }
+                            </>
                         }
                     </>
                 }
 
-                <PaginationContainer>
+                { !showInstructions && <PaginationContainer>
                     <Pagination
                         count={ pageDetailsStudent?.totalPages }
                         onChange={ handlePagination }
@@ -433,7 +437,7 @@ const Students = ({
                         variant="outlined"
                         shape="rounded"
                     />
-                </PaginationContainer>
+                </PaginationContainer> }
             </>
         </React.Fragment>
     );

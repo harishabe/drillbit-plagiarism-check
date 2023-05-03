@@ -91,6 +91,7 @@ const MyFolder = ({
     const router = useRouter();
     const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
     const [editFolder, setEditFolder] = useState(false);
     const [search, setSearch] = useState(false);
     const [editFolderData, setEditFolderData] = useState('');
@@ -106,6 +107,17 @@ const MyFolder = ({
     useEffect(() => {
         GetAllFolders(BASE_URL_PRO + END_POINTS_PRO.USER_MY_FOLDERS, paginationPayload);
     }, [, paginationPayload]);
+
+    useEffect(() => {
+        if (rows.length === 0 && !isLoading || !isLoadingFolder || !isLoadingEdit) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoading, isLoadingFolder, isLoadingEdit, rows]);
 
     const handleChangeView = (e, value) => {
         e.preventDefault();
@@ -237,6 +249,20 @@ const MyFolder = ({
         setEditFolder(drawerClose);
     };
 
+    const tableComponent = (
+        <CommonTable
+            isCheckbox={ false }
+            isSorting={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            charLength={ 17 }
+            handleAction={ handleAction }
+            handleTableSort={ handleTableSort }
+            isLoading={ isLoading }
+            path=''
+        />
+    );
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -342,35 +368,17 @@ const MyFolder = ({
                     </>
                 ) : (
                         <>
-                            { search ?
-                                <CommonTable
-                                    isCheckbox={ false }
-                                    isSorting={ true }
-                                    tableHeader={ columns }
-                                    tableData={ rows }
-                                    charLength={ 17 }
-                                    handleAction={ handleAction }
-                                    handleTableSort={ handleTableSort }
-                                    isLoading={ isLoading }
-                                    path=''
-                                />
-                                :
+                            { isLoading ? tableComponent :
                                 <>
-                                    { rows.length > 0 ?
-                                        <CommonTable
-                                            isCheckbox={ false }
-                                            isSorting={ true }
-                                            tableHeader={ columns }
-                                            tableData={ rows }
-                                            charLength={ 17 }
-                                            handleAction={ handleAction }
-                                            handleTableSort={ handleTableSort }
-                                            isLoading={ isLoading }
-                                            path=''
-                                        /> :
-                                        <CardView>
-                                            <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
-                                        </CardView>
+                                    { search ? tableComponent :
+                                        <>
+                                            { rows && rows.length > 0 ? tableComponent : showInstructions && (
+                                                <CardView>
+                                                    <Instructions message={ Object.values(INSTRUCTIONS_STEPS.FOLDER) } />
+                                                </CardView>
+                                            )
+                                            }
+                                        </>
                                     }
                                 </>
                             }
@@ -416,7 +424,7 @@ const MyFolder = ({
                 </CreateDrawer>
             }
 
-            <PaginationContainer>
+            { !showInstructions && <PaginationContainer>
                 <Pagination
                     count={ pageDetails?.totalPages }
                     onChange={ handleChange }
@@ -424,7 +432,7 @@ const MyFolder = ({
                     variant="outlined"
                     shape="rounded"
                 />
-            </PaginationContainer>
+            </PaginationContainer> }
         </React.Fragment>
     );
 };

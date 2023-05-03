@@ -13,7 +13,8 @@ import {
     StatusDot,
     CardView,
     Instructions,
-    ErrorBlock
+    ErrorBlock,
+    CardInfoSkeleton
 } from '../../../components';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
@@ -57,6 +58,7 @@ const MyClassFiles = ({
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showInstructions, setShowInstructions] = useState(false);
     const [item, setItem] = useState([]);
     const [editClasses, setEditClasses] = useState(false);
     const [editClassesData, setEditClassesData] = useState('');
@@ -85,6 +87,16 @@ const MyClassFiles = ({
         setItem([...arr]);
     }, [classesData]);
 
+    useEffect(() => {
+        if (rows.length === 0 && !isLoading || !isLoadingClassDelete) {
+            const timer = setTimeout(() => {
+                setShowInstructions(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            setShowInstructions(false);
+        }
+    }, [isLoading, isLoadingClassDelete, rows]);
 
     const handleClassEdit = (e, rowData) => {
         e.preventDefault();
@@ -158,99 +170,106 @@ const MyClassFiles = ({
     };
 
     /** Table implementation functions end*/
+    const tableComponent = (
+        <CommonTable
+            isCheckbox={ false }
+            isSorting={ true }
+            isClass={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            charLength={ 17 }
+            handleAction={ handleAction }
+            handleTableSort={ handleTableSort }
+            isLoading={ isLoading || isLoadingClassDelete }
+            path=''
+        />
+    );
+
     return (
         <React.Fragment>
             {
                 view === CLASS_VIEW ?
                     <>
-                        { search ?
+                        { isLoading || isLoadingClassDelete ?
+                            <Grid container spacing={ 2 }>
+                                <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                                <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                                <Grid item md={ 4 } xs={ 12 }><CardInfoSkeleton /></Grid>
+                            </Grid>
+                            :
                             <>
-                                { item?.length > 0 ?
-                                    <Grid container spacing={ 2 }>
-                                        { item?.map((item, index) => (
-                                            <Grid key={ index } item md={ 4 } xs={ 12 }>
-                                                <CardInfoView
-                                                    key={ index }
-                                                    item={ item }
-                                                    isAvatar={ true }
-                                                    isHeading={ true }
-                                                    isTimer={ true }
-                                                    isAction={ true }
-                                                    isNextPath={ true }
-                                                    isDescription={ true }
-                                                    handleClick={ handleClassEdit }
-                                                    handleDelete={ handleClassDelete }
-                                                    statusColor={ expiryDateBgColor(item.validity) }
-                                                    path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
-                                                />
+                                { search ?
+                                    <>
+                                        { item?.length > 0 ?
+                                            <Grid container spacing={ 2 }>
+                                                { item?.map((item, index) => (
+                                                    <Grid key={ index } item md={ 4 } xs={ 12 }>
+                                                        <CardInfoView
+                                                            key={ index }
+                                                            item={ item }
+                                                            isAvatar={ true }
+                                                            isHeading={ true }
+                                                            isTimer={ true }
+                                                            isAction={ true }
+                                                            isNextPath={ true }
+                                                            isDescription={ true }
+                                                            handleClick={ handleClassEdit }
+                                                            handleDelete={ handleClassDelete }
+                                                            statusColor={ expiryDateBgColor(item.validity) }
+                                                            path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
+                                                        />
+                                                    </Grid>
+                                                )) }
                                             </Grid>
-                                        )) }
-                                    </Grid>
-                                    : <CardView>
-                                        <ErrorBlock message="No data found" />
-                                    </CardView>
-                                }
-                            </> : <>
-                                { item?.length > 0 ?
-                                    <Grid container spacing={ 2 }>
-                                        { item?.map((item, index) => (
-                                            <Grid key={ index } item md={ 4 } xs={ 12 }>
-                                                <CardInfoView
-                                                    key={ index }
-                                                    item={ item }
-                                                    isAvatar={ true }
-                                                    isHeading={ true }
-                                                    isTimer={ true }
-                                                    isAction={ true }
-                                                    isNextPath={ true }
-                                                    isDescription={ true }
-                                                    handleClick={ handleClassEdit }
-                                                    handleDelete={ handleClassDelete }
-                                                    statusColor={ expiryDateBgColor(item.validity) }
-                                                    path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
-                                                />
+                                            : !isLoading && <CardView>
+                                                <ErrorBlock message="No data found" />
+                                            </CardView>
+                                        }
+                                    </> : <>
+                                        { item && item?.length > 0 ?
+                                            <Grid container spacing={ 2 }>
+                                                { item?.map((item, index) => (
+                                                    <Grid key={ index } item md={ 4 } xs={ 12 }>
+                                                        <CardInfoView
+                                                            key={ index }
+                                                            item={ item }
+                                                            isAvatar={ true }
+                                                            isHeading={ true }
+                                                            isTimer={ true }
+                                                            isAction={ true }
+                                                            isNextPath={ true }
+                                                            isDescription={ true }
+                                                            handleClick={ handleClassEdit }
+                                                            handleDelete={ handleClassDelete }
+                                                            statusColor={ expiryDateBgColor(item.validity) }
+                                                            path={ { pathname: '/extream/instructor/my-assignment', query: { clasId: item.id, clasName: item.name } } }
+                                                        />
+                                                    </Grid>
+                                                )) }
                                             </Grid>
-                                        )) }
-                                    </Grid>
-                                    : <CardView>
-                                        <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } />
-                                    </CardView>
+                                            : showInstructions && (<CardView>
+                                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } />
+                                            </CardView>
+                                            )
+                                        }
+                                    </>
                                 }
-
-                            </> }
+                            </>
+                        }
                     </>
                     :
                     <>
-                        { search ?
-                            <CommonTable
-                                isCheckbox={ false }
-                                isSorting={ true }
-                                isClass={ true }
-                                tableHeader={ columns }
-                                tableData={ rows }
-                                charLength={ 17 }
-                                handleAction={ handleAction }
-                                handleTableSort={ handleTableSort }
-                                isLoading={ isLoading || isLoadingClassDelete }
-                                path=''
-                            /> :
+                        { isLoading || isLoadingClassDelete ? tableComponent :
                             <>
-                                { rows.length > 0 ?
-                                    <CommonTable
-                                        isCheckbox={ false }
-                                        isSorting={ true }
-                                        isClass={ true }
-                                        tableHeader={ columns }
-                                        tableData={ rows }
-                                        charLength={ 17 }
-                                        handleAction={ handleAction }
-                                        handleTableSort={ handleTableSort }
-                                        isLoading={ isLoading || isLoadingClassDelete }
-                                        path=''
-                                    /> :
-                                    <CardView>
-                                        <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } />
-                                    </CardView>
+                                { search ? tableComponent :
+                                    <>
+                                        { rows && rows.length > 0 ? tableComponent : showInstructions && (
+                                            <CardView>
+                                                <Instructions message={ Object.values(INSTRUCTIONS_STEPS.CLASS) } />
+                                            </CardView>
+                                        )
+                                        }
+                                    </>
                                 }
                             </>
                         }
@@ -283,7 +302,7 @@ const MyClassFiles = ({
             }
 
 
-            <PaginationContainer>
+            { !showInstructions && <PaginationContainer>
                 <Pagination
                     count={ pageDetails?.totalPages }
                     page={ pageDetails?.number + 1 }
@@ -292,7 +311,7 @@ const MyClassFiles = ({
                     variant="outlined"
                     shape="rounded"
                 />
-            </PaginationContainer>
+            </PaginationContainer> }
         </React.Fragment>
     );
 };
