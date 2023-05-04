@@ -14,7 +14,8 @@ import {
     UPLOAD_FILE_REPOSITORY_TYPE,
     UPLOAD_FILE_LANGUAGE,
 } from '../../constant/data/ErrorMessage';
-import InputAutoComplete from '../form/elements/InputAutoComplete'
+import InputAutoComplete from '../form/elements/InputAutoComplete';
+import { handleKeyPress } from '../../utils/RegExp';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -134,6 +135,7 @@ const RepositoryFileForm = ({
                                         required: true, min: 2000,
                                         max: d.getFullYear()
                                     }) }
+                                    onKeyPress={ handleKeyPress }
                                     helperText={ errors['year' + item[0]] && UPLOAD_FILE_YEAR }
                                     FormHelperTextProps={ {
                                         className: classes.helperText

@@ -20,7 +20,7 @@ import InputFileType from '../../../../components/form/elements/InputFileType';
 import InputAutoComplete from '../../../../components/form/elements/InputAutoComplete';
 import InputButton from '../../../../components/form/elements/InputButton';
 import { CreateAssignment, EditAssignment } from '../../../../redux/action/instructor/InstructorAction';
-import { convertDate } from '../../../../utils/RegExp';
+import { convertDate, handleKeyPress } from '../../../../utils/RegExp';
 import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
 import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK, ASSIGNMENT_START_DATE_VALIDATION, ASSIGNMENT_END_DATE_VALIDATION } from '../../../../constant/data/ErrorMessage';
 import { ErrorMessageContainer } from '../../../../style/index';
@@ -1278,6 +1278,7 @@ const AssignmentForms = ({
                                     name="daily_submissions_limit"
                                     size="small"
                                 value={ dailySubmissionLimit }
+                                onKeyPress={ handleKeyPress }
                                 onChange={ (e) => setDailySubmissionLimit(e.target.value) }
                                 />
                             </Grid>
