@@ -152,76 +152,74 @@ const ZipFileUpload = ({
     return (
         <CardView>
             <DragAreaPadding>
-                <div style={{ display: 'flex' }}>
-                    <Tooltip title="Back" arrow style={{ marginTop: '-12px' }}>
-                        <IconButton size="large" onClick={handleBack}>
+                <div style={ { display: 'flex' } }>
+                    <Tooltip title="Back" arrow style={ { marginTop: '-12px' } }>
+                        <IconButton size="large" onClick={ handleBack }>
                             <ArrowBackOutlinedIcon />
                         </IconButton>
                     </Tooltip>
-                    {isRepository ?
-                        <MainHeading title='Upload files to repository' /> : 
-                        <MainHeading title='Upload files for plagiarism check' />}
+                    { isRepository ?
+                        <MainHeading title='Upload files to repository' /> :
+                        <MainHeading title='Upload files for plagiarism check' /> }
                 </div>
-                <Grid container spacing={1}>
-                    <Grid item md={12} xs={12}>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 12 } xs={ 12 }>
                         <DragDropArea>
                             <UploadFileIcon />
                             <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
-                            <SubTitle1 title={notAllowedFormat} />
+                            <SubTitle1 title={ notAllowedFormat } />
                             <SubTitle1 title={ allowedFormat.MAX_FILES } />
                             <SubTitle1 title={ allowedFormat.LENGTH } />
                             <SubTitle1 title={ allowedFormat.SIZE } />
-                            <Link style={{ marginLeft: '5px', display: 'block' }}>
+                            <Link style={ { marginLeft: '5px', display: 'block' } }>
                                 <ChooseLabel for="file-upload">
                                     Browse your zip here
                                 </ChooseLabel>
                             </Link>
                             <Input
                                 multiple
-                                onChange={handleUpload}
+                                onChange={ handleUpload }
                                 id="file-upload"
                                 type="file"
                                 ref={ ref }
                                 accept=".zip"
                             />
                             <div>
-                                {(fileData?.length > 0) && fileData?.map((item, index) => (
+                                { (fileData?.length > 0) && fileData?.map((item, index) => (
                                     <ChipContainer key={ index }>
-                                        <Tooltip title={ item[1]?.name } arrow>
-                                            <Chip
-                                                label={ item[1]?.name.slice(0, 15) + '...' }
-                                                onDelete={ (e) => handleDelete(e, item) }
-                                            />
-                                        </Tooltip>
-                                    </ChipContainer>
-                                ))}
-                            </div>
-                            <div style={{ marginTop: '10px' }}>
-                                {uploadData?.fileNames?.map((files, index) => (
-                                    <ChipContainer key={index}>
                                         <Chip
-                                            label={files}
+                                            label={ item[1]?.name }
+                                            onDelete={ (e) => handleDelete(e, item) }
                                         />
                                     </ChipContainer>
-                                ))}
+                                )) }
+                            </div>
+                            <div style={ { marginTop: '10px' } }>
+                                { uploadData?.fileNames?.map((files, index) => (
+                                    <ChipContainer key={ index }>
+                                        <Chip
+                                            label={ files }
+                                        />
+                                    </ChipContainer>
+                                )) }
                             </div>
                             { fileWarning && <div style={ { color: 'red' } }>{ UPLOAD_FILE_REPO_MAX_LIMIT }</div> }
                         </DragDropArea>
 
-                        {(fileData?.length > 0 && isRepository) &&
+                        { (fileData?.length > 0 && isRepository) &&
                             <RepositoryFileFormZip
-                                handleSubmitRepositoryZip={handleProcessZipFileRepo}
-                                files={fileData[0][1]}
+                            handleSubmitRepositoryZip={ handleProcessZipFileRepo }
+                            files={ fileData[0][1] }
                                 btnTitle='Submit'
-                                isLoading={isLoadingExtractedFile}
-                            />}
+                                isLoading={ isLoadingExtractedFile }
+                            /> }
                         { (uploadData?.fileNames?.length > 0 && !isRepository && !isNonEnglish) &&
                             <ZipFileForm
-                                handleSubmitFile={handleProcessZipFile}
-                                files={uploadData?.fileNames?.map((item) => ({ 'name': item }))}
+                            handleSubmitFile={ handleProcessZipFile }
+                            files={ uploadData?.fileNames?.map((item) => ({ 'name': item })) }
                                 btnTitle='Submit'
-                                isLoading={isLoadingExtractedFile}
-                            />}
+                                isLoading={ isLoadingExtractedFile }
+                            /> }
                         { (uploadData?.fileNames?.length > 0 && !isRepository && isNonEnglish) &&
                             <ZipFileForm
                                 handleSubmitFile={ handleProcessZipFileNonEnglish }
@@ -231,11 +229,11 @@ const ZipFileUpload = ({
                                 isNonEnglish={ isNonEnglish }
                             /> }
 
-                        <div style={{ textAlign: 'center', marginTop: '10px' }}>
-                            {(fileData?.length > 0 && (uploadData === '' || uploadData === undefined) && !isRepository)
+                        <div style={ { textAlign: 'center', marginTop: '10px' } }>
+                            { (fileData?.length > 0 && (uploadData === '' || uploadData === undefined) && !isRepository)
                                 &&
-                                <Button color="primary" type="submit" disabled={isLoadingUpload} onClick={handleUploadZipFile} variant="contained" size="large">
-                                    {isLoadingUpload ? <BeatLoader color="#fff" /> : 'Upload Zip File'}
+                                <Button color="primary" type="submit" disabled={ isLoadingUpload } onClick={ handleUploadZipFile } variant="contained" size="large">
+                                    { isLoadingUpload ? <BeatLoader color="#fff" /> : 'Upload Zip File' }
                                 </Button>
                             }
                         </div>
