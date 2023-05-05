@@ -53,7 +53,6 @@ const ReprocessButton = styled.div`
     position:fixed;
     top: 12px;
     right:230px;
-    z-index:999;
 `;
 
 const Dashboard = ({
