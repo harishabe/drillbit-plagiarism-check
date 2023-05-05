@@ -134,3 +134,16 @@ export const isValidRepositoryFileUpload = (file) => {
     const fileExtension = file.split('.').pop().toLowerCase();
     return validExtensions.includes(fileExtension);
 }
+
+/**
+ * 
+ * Prevents letter e/E in inputNumber field_type 
+ */
+
+export const handleKeyPress = (event) => {
+    const keyCode = event.keyCode || event.which;
+    const keyValue = String.fromCharCode(keyCode);
+    if (/[eE]/.test(keyValue)) {
+        event.preventDefault();
+    }
+};

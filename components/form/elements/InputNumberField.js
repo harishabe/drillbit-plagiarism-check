@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import styled from 'styled-components';
+import { handleKeyPress } from '../../../utils/RegExp';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -63,6 +64,7 @@ const InputNumberField = ({
                         error={!!error}
                         value={value}
                         fullWidth
+                        onKeyPress={ handleKeyPress }
                         disabled={field.disabled}
                         name={field.name}
                         id={field.name}
