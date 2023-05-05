@@ -676,6 +676,7 @@ const Submission = ({
             <PaginationContainer>
                 <Pagination
                     count={ pageDetails?.totalPages }
+                    page={ pageDetails?.number + 1 }
                     onChange={ handlePagination }
                     color='primary'
                     variant='outlined'

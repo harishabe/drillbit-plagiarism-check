@@ -31,6 +31,7 @@ import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import WysiwygIcon from '@mui/icons-material/Wysiwyg';
+import { PaginationContainer } from '../../../style/index';
 
 const StudentBreadCrumb = [
     {
@@ -264,15 +265,6 @@ const MyClasses = ({
                                             </Grid>
                                         )) }
                                     </Grid>
-                                    <div style={ { marginLeft: '45%', marginTop: '25px' } }>
-                                        <Pagination
-                                            count={ pageDetails?.totalPages }
-                                            onChange={ handleChange }
-                                            color="primary"
-                                            variant="outlined"
-                                            shape="rounded"
-                                        />
-                                    </div>
                                 </>
                                 : <CardView>
                                     <ErrorBlock message={ CLASS_NOT_FOUND } />
@@ -294,8 +286,18 @@ const MyClasses = ({
                     path=''
                 />
 
-            )
-            }
+            ) }
+
+            <PaginationContainer>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    page={ pageDetails?.number + 1 }
+                    onChange={ handleChange }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </PaginationContainer>
 
         </React.Fragment>
     );

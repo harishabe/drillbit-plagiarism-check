@@ -424,6 +424,7 @@ const Students = ({
                 <PaginationContainer>
                     <Pagination
                         count={ pageDetailsStudent?.totalPages }
+                        page={ pageDetailsStudent?.number + 1 }
                         onChange={ handleChange }
                         color="primary"
                         variant="outlined"

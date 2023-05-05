@@ -397,6 +397,7 @@ const Assignments = ({
                 <PaginationContainer>
                     <Pagination
                         count={ pageDetailsAssignment?.totalPages }
+                        page={ pageDetailsAssignment?.number + 1 }
                         onChange={ handlePagination }
                         color='primary'
                         variant='outlined'

@@ -15,6 +15,7 @@ import Student from '../../../layouts/Student';
 import { BreadCrumb, CardInfoView, CardInfoSkeleton, CardView, MainHeading, ErrorBlock } from '../../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { PaginationContainer } from '../../../style/index';
 
 const MyAssignments = ({
     GetAssignmentData,
@@ -173,21 +174,21 @@ const MyAssignments = ({
                                     </Grid>
                                 ))}
                             </Grid>
-                            <div style={{ marginLeft: '45%', marginTop: '25px' }}>
-                                <Pagination
-                                    count={pageDetails?.totalPages}
-                                    onChange={handleChange}
-                                    color="primary"
-                                    variant="outlined"
-                                    shape="rounded"
-                                />
-                            </div>
                         </>
                         : <CardView>
                             <ErrorBlock message={ ASSIGNMENT_NOT_FOUND } />
                         </CardView>
                     }
-
+                    <PaginationContainer>
+                        <Pagination
+                            count={ pageDetails?.totalPages }
+                            page={ pageDetails?.number + 1 }
+                            onChange={ handleChange }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </PaginationContainer>
                 </>
             }
         </React.Fragment>
