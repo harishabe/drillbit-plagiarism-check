@@ -103,6 +103,7 @@ const addBulkUser = ({
         e.preventDefault();
         setFileData(e.target.files[0]);
         setShowError(false);
+        e.target.value = '';
     };
 
     const handleBack = (e) => {

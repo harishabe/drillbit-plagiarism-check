@@ -56,7 +56,7 @@ const DetailsReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoading: false,
-                fileUploadDataError: action.payload,
+                fileUploadData: action.payload,
             };
         case types.FETCH_ADMIN_STATS_DATA_START:
             return {
