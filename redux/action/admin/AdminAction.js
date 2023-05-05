@@ -144,6 +144,15 @@ export const ViewDownloadSubmissiondData = (url) => {
 };
 
 /**
+ * submission reports view & download data download clear
+ */
+export const ViewDownloadSubmissiondClearData = () => {
+    return {
+        type: types.FETCH_ADMIN_REPORTS_VIEW_SUBMISSION_DOWNLOAD_CLEAR
+    };
+};
+
+/**
  * Edit data
  */
 export const EditData = (url, data, API_END_POINT) => {
