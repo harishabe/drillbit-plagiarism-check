@@ -289,15 +289,19 @@ const Repository = ({
                     isLoading={ isLoadingRepo || isLoadingRemove }
                 />
 
-                <PaginationContainer>
-                    <Pagination
-                        count={ pageDetails?.totalPages }
-                        onChange={ handlePagination }
-                        color="primary"
-                        variant="outlined"
-                        shape="rounded"
-                    />
-                </PaginationContainer>
+                { inputValue !== '' && 
+                    <PaginationContainer>
+                        <Pagination
+                            count={ pageDetails?.totalPages }
+                            page={ pageDetails?.number + 1 }
+                            onChange={ handlePagination }
+                            color="primary"
+                            variant="outlined"
+                            shape="rounded"
+                        />
+                    </PaginationContainer>
+                }
+
             </>
         </React.Fragment>
     );

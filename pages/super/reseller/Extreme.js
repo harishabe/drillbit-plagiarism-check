@@ -206,6 +206,7 @@ const Extreme = ({
                 <PaginationContainer>
                     <Pagination
                         count={ pageDetailsInstructor?.totalPages }
+                        page={ pageDetailsInstructor?.number + 1 }
                         onChange={ handleChange }
                         color="primary"
                         variant="outlined"

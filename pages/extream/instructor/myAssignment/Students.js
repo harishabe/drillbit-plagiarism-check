@@ -95,7 +95,6 @@ const Students = ({
     pageDetailsStudent,
     isLoadingStudent,
     DeleteStudent,
-    setPaginationStudent,
     UploadFileDataClear,
     DownloadCsv,
     isLoadingDownload,
@@ -244,7 +243,7 @@ const Students = ({
 
     const handlePagination = (event, value) => {
         event.preventDefault();
-        setPaginationStudent({ ...paginationPayload, 'page': value - 1 });
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
     };
 
     const handleSearchStudent = (event) => {
@@ -428,6 +427,7 @@ const Students = ({
                 <PaginationContainer>
                     <Pagination
                         count={ pageDetailsStudent?.totalPages }
+                        page={ pageDetailsStudent?.number + 1 }
                         onChange={ handlePagination }
                         color="primary"
                         variant="outlined"
