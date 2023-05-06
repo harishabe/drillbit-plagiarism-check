@@ -424,15 +424,6 @@ const UploadFiles = ({
     router.push(routerObj);
   };
 
-  const ChipWithTooltip = ({ label, onDelete }) => {
-    const hasEllipsis = label.includes('...');
-    return (
-      <Tooltip title={ hasEllipsis ? label : '' } placement="bottom">
-        <Chip label={ hasEllipsis ? label.slice(0, -3) : label } onDelete={ onDelete } />
-      </Tooltip>
-    );
-  };
-
   return (
     <>
       <CardView>
