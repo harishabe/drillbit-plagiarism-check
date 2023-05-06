@@ -183,12 +183,12 @@ const UploadFiles = ({
     ) {
       multiFileUpload(fileData, data);
     } else if (
-        fileData.length > 1 &&
-        langType === "Non English"
-      ) {
-        multiNonEngFileUpload(fileData, data);
-      }
-      else if(fileData.length === 1 &&
+      fileData.length > 1 &&
+      langType === "Non English"
+    ) {
+      multiNonEngFileUpload(fileData, data);
+    }
+    else if (fileData.length === 1 &&
       langType === "ScannedPDF"
     ) {
       scannedPdfFileUpload(fileData, data);
@@ -428,35 +428,35 @@ const UploadFiles = ({
     <>
       <CardView>
         <DragAreaPadding>
-          <div style={{ display: "flex" }}>
-            <Tooltip title="Back" arrow style={{ marginTop: "-12px" }}>
-              <IconButton size="large" onClick={handleBack}>
+          <div style={ { display: "flex" } }>
+            <Tooltip title="Back" arrow style={ { marginTop: "-12px" } }>
+              <IconButton size="large" onClick={ handleBack }>
                 <ArrowBackOutlinedIcon />
               </IconButton>
             </Tooltip>
-            {isRepository ? (
+            { isRepository ? (
               <MainHeading title="Upload files to repository" />
             ) : (
               <MainHeading title="Upload files for plagiarism check" />
-            )}
+            ) }
           </div>
-          <Grid container spacing={1}>
-            <Grid item md={12} xs={12}>
+          <Grid container spacing={ 1 }>
+            <Grid item md={ 12 } xs={ 12 }>
               <DragDropArea>
-                {fileIcon}
+                { fileIcon }
                 <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
                 { !isStudent && !isRegionalFile && <SubTitle1 title={ allowedFormat.MAX_FILES } /> }
                 <SubTitle1 title={ allowedFormat.LENGTH } />
                 <SubTitle1 title={ allowedFormat.SIZE } />
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Link style={{ marginLeft: "5px" }}>
+                <div style={ { display: "flex", justifyContent: "center" } }>
+                  <Link style={ { marginLeft: "5px" } }>
                     <ChooseLabel for="file-upload">
-                      {choseFileTitle}
+                      { choseFileTitle }
                     </ChooseLabel>
                   </Link>
                   <Input
                     multiple
-                    onChange={handleUpload}
+                    onChange={ handleUpload }
                     id="file-upload"
                     type="file"
                     accept={ langType === 'ScannedPDF' && '.pdf' }
@@ -464,49 +464,47 @@ const UploadFiles = ({
                   />
                 </div>
                 <InvalidFileFormatError>
-                  {invalidFileFormat &&
-                    UPLOAD_SUPPORTED_FILES.INVALID_FILE_FORMAT_ERROR}
+                  { invalidFileFormat &&
+                    UPLOAD_SUPPORTED_FILES.INVALID_FILE_FORMAT_ERROR }
                 </InvalidFileFormatError>
 
-                {fileData?.length > 0 &&
+                { fileData?.length > 0 &&
                   fileData?.map((item, index) => (
-                    <ChipContainer key={index}>
-                      <Tooltip title={ item[1]?.name } arrow>
-                        <Chip
-                          label={ item[1]?.name.slice(0, 15) + '...' }
-                          onDelete={ (e) => handleDelete(e, item) }
-                        />
-                      </Tooltip>
+                    <ChipContainer key={ index }>
+                      <Chip
+                        label={ item[1]?.name }
+                        onDelete={ (e) => handleDelete(e, item) }
+                      />
                     </ChipContainer>
                   )) }
-                {fileData?.length > 1 && !isRepository && isRegionalFile && (
+                { fileData?.length > 1 && !isRepository && isRegionalFile && (
                   <ErrorMessageContainer>
-                    {UPLOAD_NON_ENGLISH_FILE_MULTIFILE}
+                    { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
                   </ErrorMessageContainer>
-                )}
+                ) }
                 { fileData?.length > 1 && langType === "ScannedPDF" && (
                   <ErrorMessageContainer>
                     { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
                   </ErrorMessageContainer>
                 ) }
-                {fileData?.length > 1 && !isRepository && isStudent && (
+                { fileData?.length > 1 && !isRepository && isStudent && (
                   <ErrorMessageContainer>
-                    {UPLOAD_NON_ENGLISH_FILE_MULTIFILE}
+                    { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
                   </ErrorMessageContainer>
-                )}
-                {fileWarning && (
+                ) }
+                { fileWarning && (
                   <ErrorMessageContainer>
-                    {UPLOAD_FILE_MAX_LIMIT}
+                    { UPLOAD_FILE_MAX_LIMIT }
                   </ErrorMessageContainer>
-                )}
+                ) }
               </DragDropArea>
 
-              {fileData?.length === 1 &&
+              { fileData?.length === 1 &&
                 !isRepository &&
                 !isStudent &&
                 langType === "English" && (
-                  <Grid container style={{ justifyContent: "center" }}>
-                    {!isRegionalFile && (
+                <Grid container style={ { justifyContent: "center" } }>
+                  { !isRegionalFile && (
                       <div>
                         <FormControlLabel
                           control={
@@ -514,8 +512,8 @@ const UploadFiles = ({
                               disabled={
                                 router?.query?.grammar?.toUpperCase() === "NO"
                               }
-                              checked={grammarCheck}
-                              onChange={handleGrammarPlagiarismChange}
+                            checked={ grammarCheck }
+                            onChange={ handleGrammarPlagiarismChange }
                               name="grammarCheck"
                             />
                           }
@@ -524,52 +522,52 @@ const UploadFiles = ({
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={plagiarismCheck}
-                              onChange={handleGrammarPlagiarismChange}
+                            checked={ plagiarismCheck }
+                            onChange={ handleGrammarPlagiarismChange }
                               name="plagiarismCheck"
                             />
                           }
                           label="Plagiarism Check"
                         />
                       </div>
-                    )}
+                  ) }
                   </Grid>
-                )}
+                ) }
 
-              {fileData?.length > 0 && isRepository && (
+              { fileData?.length > 0 && isRepository && (
                 <RepositoryFileForm
-                  handleSubmitRepository={handleSubmitRepository}
-                  files={fileData}
+                  handleSubmitRepository={ handleSubmitRepository }
+                  files={ fileData }
                   btnTitle="Submit"
-                  isLoading={isLoadingUpload}
+                  isLoading={ isLoadingUpload }
                   exemptCheck={ exemptCheck }
                   handleExemptCheckChange={ handleExemptCheckChange }
                 />
-              )}
-              {fileData?.length > 0 &&
+              ) }
+              { fileData?.length > 0 &&
                 !isRepository &&
                 !isStudent &&
                 langType === "English" && (
                   <FileForm
-                    handleSubmitFile={handleSubmit}
-                    files={fileData}
+                  handleSubmitFile={ handleSubmit }
+                  files={ fileData }
                     btnTitle="Submit"
-                    isLoading={isLoadingUpload || isLoadingNonEng}
-                    langType={langType}
+                  isLoading={ isLoadingUpload || isLoadingNonEng }
+                  langType={ langType }
                   />
-                )}
+                ) }
               { fileData?.length > 0 &&
                 !isRepository &&
                 !isStudent &&
                 langType === "Non English" && (
                   <FileForm
-                    handleSubmitFile={handleSubmit}
-                    files={fileData}
+                  handleSubmitFile={ handleSubmit }
+                  files={ fileData }
                     btnTitle="Submit"
-                    isLoading={isLoadingUpload || isLoadingNonEng}
-                    langType={langType}
+                  isLoading={ isLoadingUpload || isLoadingNonEng }
+                  langType={ langType }
                   />
-                )}
+                ) }
               { fileData?.length === 1 &&
                 langType === "ScannedPDF" && (
                   <FileForm
@@ -585,39 +583,39 @@ const UploadFiles = ({
                 isStudent &&
                 langType === "English" && (
                   <FileForm
-                    handleSubmitFile={handleSubmit}
-                    files={fileData}
+                  handleSubmitFile={ handleSubmit }
+                  files={ fileData }
                     btnTitle="Submit"
-                    isStudent={isStudent}
-                    assName={router.query.assName}
-                    isLoading={isLoadingUpload || isLoadingNonEng}
-                    langType={langType}
+                  isStudent={ isStudent }
+                  assName={ router.query.assName }
+                  isLoading={ isLoadingUpload || isLoadingNonEng }
+                  langType={ langType }
                   />
-                )}
-              {fileData?.length === 1 &&
+                ) }
+              { fileData?.length === 1 &&
                 !isRepository &&
                 isStudent &&
                 langType === "Non English" && (
                   <FileForm
-                    handleSubmitFile={handleSubmit}
-                    files={fileData}
+                  handleSubmitFile={ handleSubmit }
+                  files={ fileData }
                     btnTitle="Submit"
-                    isStudent={isStudent}
-                    assName={router.query.assName}
-                    isLoading={isLoadingUpload || isLoadingNonEng}
-                    langType={langType}
+                  isStudent={ isStudent }
+                  assName={ router.query.assName }
+                  isLoading={ isLoadingUpload || isLoadingNonEng }
+                  langType={ langType }
                   />
-                )}
-              {fileData?.length === 1 && !isRepository && isRegionalFile && (
+                ) }
+              { fileData?.length === 1 && !isRepository && isRegionalFile && (
                 <FileForm
-                  handleSubmitFile={handleSubmit}
-                  files={fileData}
-                  isRegionalFile={isRegionalFile}
+                  handleSubmitFile={ handleSubmit }
+                  files={ fileData }
+                  isRegionalFile={ isRegionalFile }
                   btnTitle="Submit"
-                  isLoading={isLoadingUpload || isLoadingNonEng}
-                  langType={langType}
+                  isLoading={ isLoadingUpload || isLoadingNonEng }
+                  langType={ langType }
                 />
-              )}
+              ) }
             </Grid>
           </Grid>
         </DragAreaPadding>

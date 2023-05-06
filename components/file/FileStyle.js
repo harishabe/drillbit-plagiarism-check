@@ -26,7 +26,17 @@ export const ChooseLabel = styled('label')({
 export const ChipContainer = styled('div')({
     display:'inline-flex',
     marginTop: '10px', 
-    marginLeft: '10px'
+    marginLeft: '10px',
+
+    '@media (min-width: 600px)': {
+        maxWidth: '400px',
+    },
+    '@media (min-width: 960px)': {
+        maxWidth: '600px',
+    },
+    '@media (min-width: 1280px)': {
+        maxWidth: '750px',
+    },
 });
 
 export const ContentCenter = styled('div')({
