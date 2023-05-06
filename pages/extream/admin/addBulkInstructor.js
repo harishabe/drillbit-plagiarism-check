@@ -126,7 +126,7 @@ const AddBulkInstructor = ({
             UploadFileDataClear()
             setFileData('');
         }
-    }, [router, fileData, fileUploadData?.status, fileUploadData?.response?.data?.status]);
+    }, [router, fileData, fileUploadData]);
 
     return (
         <React.Fragment>
