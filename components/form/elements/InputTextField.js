@@ -53,9 +53,6 @@ const InputTextField = ({
         if (field.name === 'platform_url') {
             setRegex(/^(http|https):\/\/.*\.com$/);
         }
-        if (field.name === 'moodle_url') {
-            setRegex(/^(https):\/\/.*\.(com|org|edu|ac|in|co\.uk|edu\.au)$/i)
-        }
     }, [field]);
 
     return (
