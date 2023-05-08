@@ -67,7 +67,7 @@ const EnglishFile = () => {
                     <Grid item md={ 12 } xs={ 12 }>
                         <UploadFiles
                             key={ 0 }
-                            choseFileTitle='browse your file here'
+                            choseFileTitle='Browse your file here'
                             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
                             allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
                             fileIcon={ <UploadFileIcon /> }

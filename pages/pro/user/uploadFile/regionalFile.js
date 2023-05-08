@@ -61,7 +61,7 @@ const NonEnglishFile = () => {
                         <UploadFiles
                             key={ 0 }
                             isRegionalFile={ true }
-                            choseFileTitle='browse your regional file here'
+                            choseFileTitle='Browse your regional file here'
                             title={ UPLOAD_TITLE_CONSTANT.REGIONAL }
                             allowedFormat={ UPLOAD_SUPPORTED_FILES.REGIONAL_FORMAT }
                             fileIcon={ <UploadFileIcon /> }

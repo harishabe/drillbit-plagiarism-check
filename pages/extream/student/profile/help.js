@@ -15,7 +15,7 @@ const Help = () => {
             'pdfLinkTitle': 'Student tutorial PDF download',
             'pdfLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Student%20user%20guide%20-%202022.pdf',
             'videoTitle': 'Student video tutorial',
-            'videoLink': 'https://www.drillbitplagiarism.com/userGuide/DrillBit%20Student%20user%20guide%20-%202022.pdf'
+            'videoLink': 'https://youtu.be/Lvxn9I4i-n4'
         }
     ]);
 

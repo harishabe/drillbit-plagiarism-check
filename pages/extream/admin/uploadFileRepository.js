@@ -54,7 +54,7 @@ const uploadFileRepository = () => {
         <UploadFiles
             key={0}
             isRepository={ true }
-            choseFileTitle='browse your file here'
+            choseFileTitle='Browse your file here'
             allowedFormat={ UPLOAD_SUPPORTED_FILES.REPO_ALLOWED_FILE }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             fileIcon={ < UploadFileIcon /> }
