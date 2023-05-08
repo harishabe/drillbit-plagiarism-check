@@ -179,7 +179,7 @@ const FileForm = ({
                                                     'field_type': 'dropdown',
                                                     'style': { marginTop: '0px' },
                                                     'id': 'documentType' + index,
-                                                    'label': 'File type *',
+                                                    'label': 'Document type *',
                                                     'name': 'documentType' + index,
                                                     'required': UPLOAD_FILE_TYPE,
                                                     'validationMsg': UPLOAD_FILE_TYPE,
