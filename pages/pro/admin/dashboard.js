@@ -471,8 +471,7 @@ const Dashboard = ({
 const mapStateToProps = (state) => ({
   adminDashboardData: state?.adminDashboard,
   documentTypeData: state?.documentChart?.DocumentTypeData,
-  departmentTypeData:
-    state?.documentChart?.DepartmentTypeData?.departmentSubmissions,
+  departmentTypeData: state?.documentChart?.DepartmentTypeData?.departmentSubmissions,
   isLoadingDashboard: state?.adminDashboard?.isLoadingDashboard,
   isLoadingTrendAnalysis: state?.adminDashboard?.isLoadingTrendAnalysis,
   isLoadingRenewAccount: state?.adminDashboard?.isLoadingRenewAccount,
