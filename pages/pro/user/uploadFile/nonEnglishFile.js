@@ -62,7 +62,7 @@ const NonEnglishFile = () => {
     const componentList = [
         <UploadFiles
             key={ 0 }
-            choseFileTitle='browse your file here'
+            choseFileTitle='Browse your file here'
             langType='Non English'
             title={ UPLOAD_TITLE_CONSTANT.SUBMISSION }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.SINGLE }
