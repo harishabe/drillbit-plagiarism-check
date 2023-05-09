@@ -6,13 +6,12 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { connect } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
-import { Box, Button, IconButton, Link, Tooltip } from '@mui/material';
+import { Box, Button, IconButton, Link, Tooltip, Chip } from '@mui/material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import ProAdmin from '../../../layouts/ProAdmin';
 import {
     BreadCrumb,
     CardView,
-    EllipsisText,
     MainHeading,
     Title1
 } from '../../../components';
@@ -22,7 +21,8 @@ import {
 } from '../../../assets/icon';
 import {
     DownloadTemplate,
-    UploadFile
+    UploadFile,
+    UploadFileDataClear
 } from '../../../redux/action/admin/AdminAction';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
@@ -54,6 +54,12 @@ const Input = styled('input')({
     display: 'none',
 });
 
+const ChipContainer = styled('div')({
+    display: 'inline-flex',
+    marginTop: '10px',
+    marginLeft: '10px'
+});
+
 const UserBreadCrumb = [
     {
         name: 'Dashboard',
@@ -77,7 +83,8 @@ const addBulkUser = ({
     UploadFile,
     isLoadingTemplate,
     isLoadingInstructorFileUpload,
-    fileUploadData
+    fileUploadData,
+    UploadFileDataClear
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -103,6 +110,7 @@ const addBulkUser = ({
         e.preventDefault();
         setFileData(e.target.files[0]);
         setShowError(false);
+        e.target.value = '';
     };
 
     const handleBack = (e) => {
@@ -114,8 +122,11 @@ const addBulkUser = ({
         if (fileUploadData?.status === 200) {
             setFileData('');
             router.push('/pro/admin/users');
+        } else if (fileUploadData?.response?.data?.status === 400) {
+            UploadFileDataClear()
+            setFileData('');
         }
-    }, [fileUploadData && fileUploadData !== '']);
+    }, [router, fileData, fileUploadData]);
 
     return (
         <React.Fragment>
@@ -161,12 +172,19 @@ const addBulkUser = ({
                                                     <Title1 title='File format : CSV' />
                                                     <Link style={{ marginLeft: '5px' }}>
                                                         <label htmlFor="file-upload" className={classes.customFileUpload}>
-                                                            browse your file here
+                                                            Browse your file here
                                                         </label>
                                                     </Link>
                                                     <Input onChange={handleUpload} id="file-upload" type="file" />
-                                                    <EllipsisText value={fileData !== '' ? fileData?.name : ''} charLength={80} />
-                                                    {showError ? <div style={{ color: 'red' }}>Please select your file to upload </div> : ''}
+                                                    <div>
+                                                        { fileData !== '' &&
+                                                            <ChipContainer>
+                                                                <Chip
+                                                                    label={ fileData?.name }
+                                                                />
+                                                            </ChipContainer> }
+                                                    </div>
+                                                    { showError ? <div style={ { color: 'red' } }>Please select your file to upload </div> : '' }
                                                 </div>
                                             </div>
                                         </Grid>
@@ -209,6 +227,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         DownloadTemplate: (url, title) => dispatch(DownloadTemplate(url, title)),
         UploadFile: (url, data) => dispatch(UploadFile(url, data)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear())
     };
 };
 

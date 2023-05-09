@@ -21,7 +21,8 @@ import {
 } from '../../../assets/icon';
 import {
     DownloadTemplate,
-    UploadFile
+    UploadFile,
+    UploadFileDataClear
 } from '../../../redux/action/admin/AdminAction';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
@@ -82,7 +83,8 @@ const AddBulkInstructor = ({
     UploadFile,
     isLoadingTemplate,
     isLoadingInstructorFileUpload,
-    fileUploadData
+    fileUploadData,
+    UploadFileDataClear
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -108,6 +110,7 @@ const AddBulkInstructor = ({
         e.preventDefault();
         setFileData(e.target.files[0]);
         setShowError(false);
+        e.target.value = '';
     };
 
     const handleBack = (e) => {
@@ -119,84 +122,87 @@ const AddBulkInstructor = ({
         if (fileUploadData?.status === 200) {
             setFileData('');
             router.push('/extream/admin/instructor');
+        } else if (fileUploadData?.response?.data?.status === 400) {
+            UploadFileDataClear()
+            setFileData('');
         }
-    }, [router, fileUploadData?.status]);
+    }, [router, fileData, fileUploadData]);
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
-                    <Grid item md={2} xs={2}>
+                    <Grid item md={ 2 } xs={ 2 }>
 
                     </Grid>
                 </Grid>
-                <Grid container spacing={1}>
-                    <Grid item md={12} xs={12}>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 12 } xs={ 12 }>
                         <CardView>
                             <Tooltip title="Back" arrow>
-                                <IconButton onClick={handleBack} size="large">
+                                <IconButton onClick={ handleBack } size="large">
                                     <ArrowBackOutlinedIcon />
                                 </IconButton>
                             </Tooltip>
-                            <div style={{ padding: '0px 50px' }}>
-                                <Grid container spacing={1}>
-                                    <Grid item md={6} xs={6}>
+                            <div style={ { padding: '0px 50px' } }>
+                                <Grid container spacing={ 1 }>
+                                    <Grid item md={ 6 } xs={ 6 }>
                                         <MainHeading title='Add Multiple Instructors' />
                                     </Grid>
-                                    <Grid item md={6} xs={6} align="right">
+                                    <Grid item md={ 6 } xs={ 6 } align="right">
                                         <Button
-                                            onClick={handleDownload}
+                                            onClick={ handleDownload }
                                             variant="contained"
                                             size="large"
                                             disabled={ isLoadingTemplate }
                                         >
-                                            {isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template'}
+                                            { isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template' }
                                         </Button>
                                     </Grid>
 
-                                    <Grid container spacing={1}>
-                                        <Grid item md={12} xs={12}>
-                                            <div className={classes.dragAndDropArea}>
+                                    <Grid container spacing={ 1 }>
+                                        <Grid item md={ 12 } xs={ 12 }>
+                                            <div className={ classes.dragAndDropArea }>
                                                 <UploadFileIcon />
                                                 <SubTitle1 title="File Format : CSV " />
-                                                <div className={classes.padding30}>
-                                                    <Link style={{ marginLeft: '5px' }}>
-                                                        <label htmlFor="file-upload" className={classes.customFileUpload}>
-                                                            browse your file here
+                                                <div className={ classes.padding30 }>
+                                                    <Link style={ { marginLeft: '5px' } }>
+                                                        <label htmlFor="file-upload" className={ classes.customFileUpload }>
+                                                            Browse your file here
                                                         </label>
                                                     </Link>
-                                                    <Input onChange={handleUpload} id="file-upload" type="file" />
+                                                    <Input onChange={ handleUpload } id="file-upload" type="file" />
                                                     <div>
-                                                        {fileData !== '' &&
+                                                        { fileData !== '' &&
                                                             <ChipContainer>
                                                                 <Chip
-                                                                    label={fileData?.name}
+                                                                    label={ fileData?.name }
                                                                 />
-                                                            </ChipContainer>}
+                                                            </ChipContainer> }
                                                     </div>
-                                                    {showError ? <div style={{ color: 'red' }}>Please select your file to upload </div> : ''}
+                                                    { showError ? <div style={ { color: 'red' } }>Please select your file to upload </div> : '' }
                                                 </div>
                                             </div>
                                         </Grid>
 
                                     </Grid>
 
-                                    <Grid container spacing={1}>
-                                        <Grid item md={4} xs={4}></Grid>
-                                        <Grid item md={4} xs={4} style={{ marginTop: '15px', textAlign: 'center' }}>
+                                    <Grid container spacing={ 1 }>
+                                        <Grid item md={ 4 } xs={ 4 }></Grid>
+                                        <Grid item md={ 4 } xs={ 4 } style={ { marginTop: '15px', textAlign: 'center' } }>
                                             <Button
                                                 onClick={ handleSubmit }
                                                 variant="contained"
                                                 size="large"
                                                 disabled={ isLoadingInstructorFileUpload }
                                             >
-                                                {isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit'}
+                                                { isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit' }
                                             </Button>
                                         </Grid>
-                                        <Grid item md={4} xs={4}></Grid>
+                                        <Grid item md={ 4 } xs={ 4 }></Grid>
                                     </Grid>
                                 </Grid>
                             </div>
@@ -220,6 +226,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         DownloadTemplate: (url, title) => dispatch(DownloadTemplate(url, title)),
         UploadFile: (url, data) => dispatch(UploadFile(url, data)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };
 

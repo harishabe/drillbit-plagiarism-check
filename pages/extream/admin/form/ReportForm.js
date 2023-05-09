@@ -4,7 +4,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
 import { FormComponent, DialogModal } from '../../../../components';
-import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData, ViewDownloadSubmissiondData } from '../../../../redux/action/admin/AdminAction';
+import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData, ViewDownloadSubmissiondData, ViewDownloadSubmissiondClearData } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/admin-report-form.json';
 import ReportView from '../report/ReportView';
 import { convertDate } from '../../../../utils/RegExp';
@@ -16,6 +16,7 @@ const ReportForm = ({
     ReportsData,
     ViewAndDownloadData,
     ViewDownloadSubmissiondData,
+    ViewDownloadSubmissiondClearData,
     DownloadInstructorStudentData,
     assignmentViewDownloadData,
     classesViewDownloadData,
@@ -94,6 +95,7 @@ const ReportForm = ({
     useEffect(() => {
         if (reportViewSubmissionResponse === 200) {
             setOpen(false);
+            ViewDownloadSubmissiondClearData()
         }
     }, [reportViewSubmissionResponse]);
 
@@ -218,6 +220,7 @@ const mapDispatchToProps = (dispatch) => {
         ReportsData: (url) => dispatch(ReportsData(url)),
         ViewAndDownloadData: (data) => dispatch(ViewAndDownloadData(data)),
         ViewDownloadSubmissiondData: (data) => dispatch(ViewDownloadSubmissiondData(data)),
+        ViewDownloadSubmissiondClearData: () => dispatch(ViewDownloadSubmissiondClearData()),
         DownloadInstructorStudentData: (url, type) => dispatch(DownloadInstructorStudentData(url, type)),
     };
 };
