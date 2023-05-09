@@ -144,17 +144,18 @@ const CardInfoView = ({
                                                 )) }
                                             </MenuList>
                                         } arrow>
-                                            <IconButton onMouseEnter={ handleMenuOpen } onMouseLeave={ handleMenuClose }>
+                                            <IconButton
+                                                onMouseEnter={ handleMenuOpen }
+                                                onMouseLeave={ handleMenuClose }
+                                            >
                                                 <InfoIcon />
                                             </IconButton>
                                         </Tooltip>
                                         { menuOpen && (
                                             <Menu
                                                 id="assignment-info-menu"
-                                                anchorEl={ document.querySelector('.MuiTooltip-popper') }
+                                                anchorEl={ document.querySelector('.MuiTooltip-tooltipPlacementTopStart') }
                                                 keepMounted
-                                                open={ menuOpen }
-                                                onClose={ handleMenuClose }
                                             >
                                             </Menu>
                                         ) }
