@@ -84,7 +84,6 @@ const CardInfoView = ({
     const [selectedId, setSelectedId] = useState('');
 
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [menuOpen, setMenuOpen] = useState(false);
     const open = Boolean(anchorEl);
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -92,14 +91,6 @@ const CardInfoView = ({
 
     const handleClose = () => {
         setAnchorEl(null);
-    };
-
-    const handleMenuOpen = () => {
-        setMenuOpen(true);
-    };
-
-    const handleMenuClose = () => {
-        setMenuOpen(false);
     };
 
     const Validity = (validity) => {
@@ -144,10 +135,7 @@ const CardInfoView = ({
                                                 )) }
                                             </MenuList>
                                         } arrow>
-                                            <IconButton
-                                                onMouseEnter={ handleMenuOpen }
-                                                onMouseLeave={ handleMenuClose }
-                                            >
+                                            <IconButton>
                                                 <InfoIcon />
                                             </IconButton>
                                         </Tooltip>
