@@ -6,8 +6,7 @@ import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
-import VpnKeyOffOutlinedIcon from '@mui/icons-material/VpnKeyOffOutlined';
-import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
+import InfoIcon from '@mui/icons-material/Info';
 import { TextField, Pagination, IconButton } from '@mui/material';
 import ProAdmin from './../../../layouts/ProAdmin';
 import {
@@ -61,6 +60,10 @@ const AddButtonBottom = styled.div`
     bottom: 30px;
     right:30px;
     z-index: 999;
+`;
+
+const SearchInfoButton = styled.div`
+    margin-top: 4px;
 `;
 
 const UserBreadCrumb = [
@@ -394,6 +397,13 @@ const Users = ({
                                 }
                             } }
                         />
+                        <Tooltip title={ 'Search by Name, Email, Creation date, Status' } arrow>
+                            <IconButton>
+                                <SearchInfoButton>
+                                    <InfoIcon />
+                                </SearchInfoButton>
+                            </IconButton>
+                        </Tooltip>
                     </Grid>
                 </Grid>
                 {/* <SubTitle title='6/10 users' />
