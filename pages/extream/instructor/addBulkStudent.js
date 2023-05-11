@@ -22,6 +22,7 @@ import {
 import {
     DownloadTemplate,
     UploadFile,
+    UploadFileDataClear
 } from '../../../redux/action/instructor/InstructorAction';
 
 const useStyles = makeStyles({
@@ -62,7 +63,8 @@ const AddBulkStudent = ({
     UploadFile,
     isLoadingTemplate,
     isLoadingStudentFileUpload,
-    fileUploadData
+    fileUploadData,
+    UploadFileDataClear
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -120,6 +122,7 @@ const AddBulkStudent = ({
         e.preventDefault();
         setFileData(e.target.files[0]);
         setShowError(false);
+        e.target.value = '';
     };
 
     const handleBack = (e) => {
@@ -131,8 +134,11 @@ const AddBulkStudent = ({
         if (fileUploadData?.status === 200) {
             setFileData('');
             router.push('/extream/instructor/my-assignment?clasId=' + classId + '&clasName=' + myclass);
+        } else if (fileUploadData?.response?.data?.status === 400) {
+            UploadFileDataClear()
+            setFileData('');
         }
-    }, [fileUploadData && fileUploadData !== '']);
+    }, [fileData, fileUploadData]);
 
     return (
         <React.Fragment>
@@ -153,7 +159,7 @@ const AddBulkStudent = ({
                                     <ArrowBackOutlinedIcon />
                                 </IconButton>
                             </Tooltip>
-                            <div style={{ padding: '25px 150px' }}>
+                            <div style={ { padding: '0px 50px' } }>
                                 <Grid container spacing={1}>
                                     <Grid item md={6} xs={6}>
                                         <MainHeading title='Add Multiple Students' />
@@ -177,7 +183,7 @@ const AddBulkStudent = ({
                                                 <div className={classes.padding30}>
                                                     <Link style={{ marginLeft: '5px' }}>
                                                         <label htmlFor="file-upload" className={classes.customFileUpload}>
-                                                            browse your file here
+                                                            Browse your file here
                                                         </label>
                                                     </Link>
                                                     <Input onChange={handleUpload} id="file-upload" type="file" />
@@ -222,8 +228,6 @@ const AddBulkStudent = ({
 
 
 const mapStateToProps = (state) => ({
-    studentData: state?.instructorClasses?.studentData?._embedded?.studentDTOList,
-    pageDetails: state?.instructorClasses?.studentData?.page,
     isLoadingTemplate: state?.instructorClasses?.isLoadingTemplate,
     isLoadingStudentFileUpload: state?.instructorClasses?.isLoadingStudentFileUpload,
     fileUploadData: state?.instructorClasses?.fileUploadData,
@@ -233,6 +237,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         DownloadTemplate: (ClasId) => dispatch(DownloadTemplate(ClasId)),
         UploadFile: (ClasId, data) => dispatch(UploadFile(ClasId, data)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };
 
@@ -241,8 +246,7 @@ AddBulkStudent.layout = Instructor;
 AddBulkStudent.propTypes = {
     DownloadTemplate: propTypes.func.isRequired,
     UploadFile: propTypes.func.isRequired,
-    studentData: propTypes.object,
-    pageDetails: propTypes.object,
+    UploadFileDataClear: propTypes.func.isRequired,
     isLoadingTemplate: propTypes.bool,
     isLoadingStudentFileUpload: propTypes.bool,
 };
