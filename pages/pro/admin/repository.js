@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
-import { Pagination } from '@mui/material';
+import { TextField, Tooltip, Pagination, IconButton } from '@mui/material';
 import { useRouter } from 'next/router';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
@@ -18,6 +17,7 @@ import {
     CardView
 } from './../../../components';
 import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
+import InfoIcon from '@mui/icons-material/Info';
 import ProAdmin from '../../../layouts/ProAdmin';
 import { GetRepoList, RemoveRepositary } from '../../../redux/action/admin/AdminAction';
 import {
@@ -48,6 +48,10 @@ const AddButtonBottom = styled.div`
     bottom: 30px;
     right: 30px;
     z-index: 9999;
+`;
+
+const SearchInfoButton = styled.div`
+    margin-top: 4px;
 `;
 
 const columns = [
@@ -216,6 +220,13 @@ const Repository = ({
                             },
                         } }
                     />
+                    <Tooltip title={ 'Search by Paper ID, Name, Email, Title, Language, Added date' } arrow>
+                        <IconButton>
+                            <SearchInfoButton>
+                                <InfoIcon />
+                            </SearchInfoButton>
+                        </IconButton>
+                    </Tooltip>
                 </Grid>
             </Grid>
 

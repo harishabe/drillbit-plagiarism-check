@@ -8,7 +8,8 @@ import debouce from 'lodash.debounce';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
-import { TextField, Skeleton, Tooltip } from '@mui/material';
+import { TextField, Skeleton, Tooltip, IconButton } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 import ProUser from './../../../layouts/ProUser';
 import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
 import {
@@ -61,6 +62,10 @@ const AddButtonBottom = styled.div`
     bottom: 30px;
     right:30px;
     z-index: 999;
+`;
+
+const SearchInfoButton = styled.div`
+    margin-top: 5px;
 `;
 
 const columns = [
@@ -250,7 +255,7 @@ const MyFolder = ({
                 <Grid item md={ 3 } xs={ 5 }>
                     <MainHeading title={ `My Folder(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 6.5 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                <Grid item md={ 6 } style={ { textAlign: 'right', marginTop: '8px' } }>
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -266,9 +271,9 @@ const MyFolder = ({
                         </Tooltip>
                     </ToggleButtonGroup>
                 </Grid>
-                <Grid item md={ 2.5 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 3 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '100%', marginTop: '8px' } }
+                        sx={ { width: '80%', marginTop: '8px' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
@@ -278,6 +283,13 @@ const MyFolder = ({
                             },
                         } }
                     />
+                    <Tooltip title={ 'Search by Folder ID, Folder name, Created date' } arrow>
+                        <IconButton>
+                            <SearchInfoButton>
+                                <InfoIcon />
+                            </SearchInfoButton>
+                        </IconButton>
+                    </Tooltip>
                 </Grid>
             </Grid>
 
