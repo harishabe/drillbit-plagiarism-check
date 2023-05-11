@@ -9,12 +9,13 @@ import Card from '@mui/material/Card';
 import Menu from '@mui/material/Menu';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
-import { Divider, Skeleton } from '@mui/material';
+import { Divider, Skeleton, Typography } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
@@ -87,9 +88,7 @@ const CardInfoView = ({
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleAssignmentClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -106,6 +105,17 @@ const CardInfoView = ({
         }
     };
 
+    const menuItems = [
+        { label: <Typography variant='subtitle2'>Daily submission limit: { item.submissions_limit }</Typography> },
+        { label: <Typography variant='subtitle2'>Allow resubmission: { item.allow_resubmission }</Typography> },
+        { label: <Typography variant='subtitle2'>No. of resubmissions: { item.resubmission_count }</Typography> },
+        { label: <Typography variant='subtitle2'>Allow submission after due date: { item.allow_submission_after_due }</Typography> },
+        { label: <Typography variant='subtitle2'>View similarity report: { item.report_access }</Typography> },
+        { label: <Typography variant='subtitle2'>Grammar check: { item.grammar }</Typography> },
+        { label: <Typography variant='subtitle2'>Save to repository: { item.save_to_repository }</Typography> },
+        { label: <Typography variant='subtitle2'>Max assignment marks: { item.marks }</Typography> },
+    ];
+
     return (
         <React.Fragment>
             {/* onClick={ (e) => router.push(path) } */ }
@@ -118,29 +128,17 @@ const CardInfoView = ({
                                     <AlignRight>
                                     { item &&
                                         <>
-                                            <Tooltip title={ 'Assignment Info' } arrow>
-                                                <IconButton onClick={ handleAssignmentClick }>
-                                                    <InfoIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Menu
-                                                id="basic-menu"
-                                                anchorEl={ anchorEl }
-                                                open={ open }
-                                                onClose={ handleClose }
-                                                MenuListProps={ {
-                                                    'aria-labelledby': 'basic-button',
-                                                } }
-                                            >
-                                                <MenuItem>Daily submission limit: { item.submissions_limit }</MenuItem>
-                                                <MenuItem>Allow resubmission: { item.allow_resubmission }</MenuItem>
-                                                <MenuItem>No. of resubmissions: { item.resubmission_count }</MenuItem>
-                                                <MenuItem>Allow submission after due date: { item.allow_submission_after_due }</MenuItem>
-                                                <MenuItem>View similarity report: { item.report_access }</MenuItem>
-                                                <MenuItem>Grammar check: { item.grammar }</MenuItem>
-                                            <MenuItem>Save to repository: { item.save_to_repository }</MenuItem>
-                                            <MenuItem>Max assignment marks: { item.marks }</MenuItem>
-                                            </Menu>
+                                        <Tooltip title={
+                                            <MenuList >
+                                                { menuItems.map((item, index) => (
+                                                    <MenuItem key={ index }>{ item.label }</MenuItem>
+                                                )) }
+                                            </MenuList>
+                                        } arrow>
+                                            <IconButton>
+                                                <InfoIcon />
+                                            </IconButton>
+                                        </Tooltip>
                                         </>
                                     }
                                     { item?.attachment !== null ?
