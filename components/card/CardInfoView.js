@@ -151,14 +151,6 @@ const CardInfoView = ({
                                                 <InfoIcon />
                                             </IconButton>
                                         </Tooltip>
-                                        { menuOpen && (
-                                            <Menu
-                                                id="assignment-info-menu"
-                                                anchorEl={ document.querySelector('.MuiTooltip-tooltipPlacementTopStart') }
-                                                keepMounted
-                                            >
-                                            </Menu>
-                                        ) }
                                         </>
                                     }
                                     { item?.attachment !== null ?
