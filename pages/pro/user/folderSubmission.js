@@ -12,7 +12,6 @@ import Box from '@mui/material/Box';
 import { Pagination, IconButton } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
-import InfoIcon from '@mui/icons-material/Info';
 import { TextField } from '@mui/material';
 import ProUser from '../../../layouts/ProUser';
 import {
@@ -56,7 +55,7 @@ const columns = [
     { id: 'lang1', label: 'Language' },
     { id: 'grammar_url', label: 'Grammar' },
     { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'ID' },
+    { id: 'paper_id', label: 'Paper ID' },
     { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action', minWidth: 103 },
 ];
@@ -94,10 +93,6 @@ const AddButtonBottom = styled.div`
 const DeleteAllButton = styled.div`
     marginLeft: 10px;
     display: flex;
-`;
-
-const SearchInfoButton = styled.div`
-    margin-top: 4px;
 `;
 
 const folderSubmission = ({
@@ -503,7 +498,7 @@ const folderSubmission = ({
                         }
                         <TextField
                             sx={ { width: '40%', marginTop: '8px' } }
-                            placeholder='Search'
+                            placeholder='Search by Paper ID'
                             onChange={ debouncedResults }
                             inputProps={ {
                                 style: {
@@ -512,13 +507,6 @@ const folderSubmission = ({
                                 },
                             } }
                         />
-                        <Tooltip title={ 'Search by Name, Title, File, Language, Grammar, Similarity, ID, Submission date' } arrow>
-                            <IconButton>
-                                <SearchInfoButton>
-                                    <InfoIcon />
-                                </SearchInfoButton>
-                            </IconButton>
-                        </Tooltip>
                     </Grid>
                 </Grid>
             </Box>

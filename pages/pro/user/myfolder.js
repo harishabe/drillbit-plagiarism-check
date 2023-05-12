@@ -8,8 +8,7 @@ import debouce from 'lodash.debounce';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
-import { TextField, Skeleton, Tooltip, IconButton } from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
+import { TextField, Skeleton, Tooltip } from '@mui/material';
 import ProUser from './../../../layouts/ProUser';
 import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
 import {
@@ -62,10 +61,6 @@ const AddButtonBottom = styled.div`
     bottom: 30px;
     right:30px;
     z-index: 999;
-`;
-
-const SearchInfoButton = styled.div`
-    margin-top: 5px;
 `;
 
 const columns = [
@@ -273,8 +268,8 @@ const MyFolder = ({
                 </Grid>
                 <Grid item md={ 3 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '80%', marginTop: '8px' } }
-                        placeholder='Search'
+                        sx={ { width: '100%', marginTop: '8px' } }
+                        placeholder='Search by Folder ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
@@ -283,13 +278,6 @@ const MyFolder = ({
                             },
                         } }
                     />
-                    <Tooltip title={ 'Search by Folder ID, Folder name, Created date' } arrow>
-                        <IconButton>
-                            <SearchInfoButton>
-                                <InfoIcon />
-                            </SearchInfoButton>
-                        </IconButton>
-                    </Tooltip>
                 </Grid>
             </Grid>
 

@@ -224,7 +224,7 @@ const MyClasses = ({
                     <Grid item md={ 2.5 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <TextField
                             sx={ { width: '100%', marginTop: '8px' } }
-                            placeholder='Search'
+                            placeholder='Search by Class ID'
                             onChange={ debouncedResults }
                             inputProps={ {
                                 style: {
