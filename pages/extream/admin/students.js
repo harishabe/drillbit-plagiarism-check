@@ -275,7 +275,7 @@ const Students = ({
                     <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <TextField
                             sx={ { width: '40%', marginTop: '8px' } }
-                            placeholder='Search'
+                            placeholder='Search by Email'
                             onChange={debouncedResults}
                             inputProps={{
                                 style: {

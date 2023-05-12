@@ -133,8 +133,8 @@ const MyAssignments = ({
                     </Grid>
                     <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <TextField
-                            sx={ { width: '40%', marginTop: '8px' } }
-                            placeholder='Search'
+                            sx={ { width: '45%', marginTop: '8px' } }
+                            placeholder='Search by Assignment name'
                             onChange={debouncedResults}
                             inputProps={{
                                 style: {

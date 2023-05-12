@@ -500,7 +500,7 @@ const Submission = ({
                 </DownloadField>
                 <SearchField>
                     <TextField
-                        placeholder='Search'
+                        placeholder='Search by ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {

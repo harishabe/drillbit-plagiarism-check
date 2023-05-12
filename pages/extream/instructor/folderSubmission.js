@@ -482,7 +482,7 @@ const folderSubmission = ({
 
                         <TextField
                             sx={{ width: '40%', marginTop: '8px' }}
-                            placeholder='Search'
+                            placeholder='Search by ID'
                             onChange={debouncedResults}
                             inputProps={{
                                 style: {

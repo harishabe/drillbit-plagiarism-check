@@ -181,7 +181,7 @@ const MyClasses = ({
                     }
                     <TextField
                         sx={ { width: '80%', marginTop: '8px' } }
-                        placeholder='Search'
+                        placeholder='Search by Class ID'
                         onChange={debouncedResults}
                         inputProps={{
                             style: {

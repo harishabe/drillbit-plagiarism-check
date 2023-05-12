@@ -206,7 +206,7 @@ const Repository = ({
                 <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '40%', marginTop: '8px' } }
-                        placeholder='Search'
+                        placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
