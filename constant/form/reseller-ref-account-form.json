@@ -146,9 +146,7 @@
         "type": "number",
         "id": "grammar",
         "name": "grammar",
-        "label": "Grammar Allocation*",
-        "required": "Grammar Allocation",
-        "validationMsg": "Invalid Grammar"
+        "label": "Grammar Allocation*"
     },
     
     {

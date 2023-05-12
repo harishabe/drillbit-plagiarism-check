@@ -126,7 +126,6 @@ const UserForm = ({
             if (grammar_access?.toUpperCase() === 'NO') {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        setValue('grammar', '0');
                         item['disabled'] = true
                     }
                     return item;

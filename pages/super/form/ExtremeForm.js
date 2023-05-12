@@ -148,7 +148,6 @@ const ExtremeForm = ({
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                         item['disabled'] = true;
-                        setValue('grammar', 0);
                     }
                     return item;
                 });
