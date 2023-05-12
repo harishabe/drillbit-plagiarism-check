@@ -62,7 +62,7 @@ const columns = [
     { id: 'lang1', label: 'Language' },
     { id: 'grammar_url', label: 'Grammar', maxWidth: 85 },
     { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'ID' },
+    { id: 'paper_id', label: 'Paper ID' },
     { id: 'date_up', label: 'Submission Date' },
     { id: 'action', label: 'Action', minWidth: 142 },
 ];
