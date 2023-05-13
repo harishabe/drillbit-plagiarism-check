@@ -14,7 +14,8 @@ import {
     BreadCrumb,
     CardView,
     MainHeading,
-    SubTitle1
+    SubTitle1,
+    SubTitle2
 } from '../../../components';
 import {
     UploadFileIcon
@@ -168,6 +169,7 @@ const AddBulkInstructor = ({
                                             <div className={ classes.dragAndDropArea }>
                                                 <UploadFileIcon />
                                                 <SubTitle1 title="File Format : CSV " />
+                                                <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " />
                                                 <div className={ classes.padding30 }>
                                                     <Link style={ { marginLeft: '5px' } }>
                                                         <label htmlFor="file-upload" className={ classes.customFileUpload }>
@@ -181,8 +183,10 @@ const AddBulkInstructor = ({
                                                                 <Chip
                                                                     label={ fileData?.name }
                                                                 />
-                                                            </ChipContainer> }
+                                                            </ChipContainer>
+                                                        }
                                                     </div>
+
                                                     { showError ? <div style={ { color: 'red' } }>Please select your file to upload </div> : '' }
                                                 </div>
                                             </div>
