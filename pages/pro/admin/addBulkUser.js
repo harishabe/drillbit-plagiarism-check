@@ -13,7 +13,8 @@ import {
     BreadCrumb,
     CardView,
     MainHeading,
-    Title1
+    SubTitle1,
+    SubTitle2
 } from '../../../components';
 import {
     DownBorderArrowIcon,
@@ -45,8 +46,8 @@ const useStyles = makeStyles({
         padding: '30px',
         textAlign: 'center'
     },
-    padding30: {
-        padding: '30px'
+    padding10: {
+        padding: '10px'
     }
 });
 
@@ -168,8 +169,9 @@ const addBulkUser = ({
                                         <Grid item md={12} xs={12}>
                                             <div className={classes.dragAndDropArea}>
                                                 <UploadFileIcon />
-                                                <div className={classes.padding30}>
-                                                    <Title1 title='File format : CSV' />
+                                                <div className={ classes.padding10 }>
+                                                    <SubTitle1 title='File format : CSV' />
+                                                    <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " />
                                                     <Link style={{ marginLeft: '5px' }}>
                                                         <label htmlFor="file-upload" className={classes.customFileUpload}>
                                                             Browse your file here
