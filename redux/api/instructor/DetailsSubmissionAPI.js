@@ -3,6 +3,7 @@ import { BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import {
     PostMethod, PutMethod, GetMethod, DeleteMethod, PostFormData, GetMethodDownload, PostMethodEN,
 } from './../ApiMethod';
+import { PaginationUrl } from '../../../utils/PaginationUrl';
 
 /**
  * API CALL FOR MY FOLDER > SUBMISSION DATA
@@ -10,6 +11,15 @@ import {
  */
 export const GetSubmissionGradingQna = async (apiUrl) => {
     const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl;
+    return GetMethod(url);
+}
+
+/**
+ * API CALL FOR MY FOLDER > SUBMISSION DATA
+ * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION
+ */
+export const GetGradingData = async (apiUrl, paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl + PaginationUrl(paginationPayload);
     return GetMethod(url);
 }
 
