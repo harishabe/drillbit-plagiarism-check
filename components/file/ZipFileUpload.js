@@ -177,7 +177,6 @@ const ZipFileUpload = ({
                                 </ChooseLabel>
                             </Link>
                             <Input
-                                multiple
                                 onChange={handleUpload}
                                 id="file-upload"
                                 type="file"

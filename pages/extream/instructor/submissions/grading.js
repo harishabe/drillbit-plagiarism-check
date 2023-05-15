@@ -22,7 +22,7 @@ const SkeletonContainer = styled.div`
 `;
 
 const DownloadField = styled.div`
-    position:fixed;
+    position:absolute;
     top: 125px;
     right:25px;
 `;

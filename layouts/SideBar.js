@@ -151,6 +151,8 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/pro/admin/uploadFileRepository' && name === 'Repository') {
             return true;
+        } else if (router.pathname === '/pro/admin/addBulkUser' && name === 'Users') {
+            return true;
         } else if (router.pathname === '/extream/instructor/uploadFile/nonEnglishFile' && name === 'My Classes') {
             return true;
         } else if (router.pathname === '/extream/instructor/uploadFile/englishFile' && name === 'My Classes') {

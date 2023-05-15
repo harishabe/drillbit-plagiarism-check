@@ -244,3 +244,5 @@ export const ERROR_MESSAGE_RESPONSE = {
     'ERROR_MSG_410':'File no longer available',
     'ERR_NETWORK':'No response from server. Check if you are still connected to internet.'
 }
+
+export const DOCUMENT_TYPES = ["Thesis","Dissertation","Article","e-Book","Synopsis","Assignment","Project Work","Research Paper","Chapter In Books","Analytical/Business Report","Blogs","Web Page","Others"]
