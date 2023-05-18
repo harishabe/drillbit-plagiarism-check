@@ -5,7 +5,7 @@ import { makeStyles } from "@mui/styles";
 import styled from "styled-components";
 import BeatLoader from "react-spinners/BeatLoader";
 import propTypes from "prop-types";
-import { Grid, InputLabel, TextField, Button, Skeleton } from "@mui/material";
+import { Grid, InputLabel, TextField, Button } from "@mui/material";
 import { EllipsisText } from "../../components";
 import {
   UPLOAD_FILE_AUTHOR_NAME,
@@ -13,10 +13,9 @@ import {
   UPLOAD_FILE_TYPE,
   UPLOAD_FILE_LANGUAGE,
 } from "../../constant/data/ErrorMessage";
-import { LanguageList } from "../../redux/action/common/UploadFile/UploadFileAction";
 import { getItemSessionStorage } from "../../utils/RegExp";
 import InputAutoComplete from "../form/elements/InputAutoComplete";
-import { DOCUMENT_TYPES } from "../../constant/data/Constant";
+import { DOCUMENT_TYPE_LANG } from "../../constant/data/Constant";
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -24,10 +23,6 @@ export const LabelContainer = styled.div`
     font-style:normal,
     margin-bottom:10px;
     color:#000
-`;
-
-const SkeletonContainer = styled.div`
-  margin-top: 20px;
 `;
 
 const useStyles = makeStyles(() => ({
@@ -40,13 +35,9 @@ const FileForm = ({
   files,
   handleSubmitFile,
   btnTitle,
-  nonEnglishLang,
   isLoading,
-  isLoadingLang,
-  LanguageList,
   langType,
   isRegionalFile,
-  regional_languages,
   isStudent,
   assName,
 }) => {
@@ -69,10 +60,6 @@ const FileForm = ({
     });
     handleSubmitFile(reqPayload);
   };
-
-  useEffect(() => {
-    LanguageList();
-  }, []);
 
   return (
     <div style={{ marginTop: "10px" }}>
@@ -206,8 +193,10 @@ const FileForm = ({
                         validationMsg: UPLOAD_FILE_TYPE,
                         size: "small",
                         options:
-                          DOCUMENT_TYPES !== undefined &&
-                          DOCUMENT_TYPES?.map((item) => ({ name: item })),
+                          DOCUMENT_TYPE_LANG !== undefined &&
+                          DOCUMENT_TYPE_LANG?.document_type?.map((item) => ({
+                            name: item,
+                          })),
                       }}
                     />
                   </Grid>
@@ -215,61 +204,49 @@ const FileForm = ({
 
                 {langType === "Non English" && (
                   <Grid item md={2.4} xs={12}>
-                    {isLoadingLang ? (
-                      <SkeletonContainer>
-                        <Skeleton />
-                      </SkeletonContainer>
-                    ) : (
-                      <>
-                        <InputAutoComplete
-                          control={control}
-                          field={{
-                            field_type: "dropdown",
-                            style: { marginTop: "0px" },
-                            id: "Language" + index,
-                            label: "Select Language *",
-                            name: "nonEnglishLang" + index,
-                            required: UPLOAD_FILE_LANGUAGE,
-                            validationMsg: UPLOAD_FILE_LANGUAGE,
-                            size: "small",
-                            options:
-                              nonEnglishLang !== undefined &&
-                              nonEnglishLang?.map((item) => ({ name: item })),
-                          }}
-                        />
-                      </>
-                    )}
+                    <InputAutoComplete
+                      control={control}
+                      field={{
+                        field_type: "dropdown",
+                        style: { marginTop: "0px" },
+                        id: "Language" + index,
+                        label: "Select Language *",
+                        name: "nonEnglishLang" + index,
+                        required: UPLOAD_FILE_LANGUAGE,
+                        validationMsg: UPLOAD_FILE_LANGUAGE,
+                        size: "small",
+                        options:
+                          DOCUMENT_TYPE_LANG !== undefined &&
+                          DOCUMENT_TYPE_LANG?.non_english_languages?.map(
+                            (item) => ({ name: item })
+                          ),
+                      }}
+                    />
                   </Grid>
                 )}
 
                 {isRegionalFile && (
                   <Grid item md={2.4} xs={12}>
-                    {isLoadingLang ? (
-                      <SkeletonContainer>
-                        <Skeleton />
-                      </SkeletonContainer>
-                    ) : (
-                      <>
-                        <InputAutoComplete
-                          control={control}
-                          field={{
-                            field_type: "dropdown",
-                            style: { marginTop: "0px" },
-                            id: "Language",
-                            label: "Select Language *",
-                            name: "regionalLanguage",
-                            required: UPLOAD_FILE_LANGUAGE,
-                            validationMsg: UPLOAD_FILE_LANGUAGE,
-                            size: "small",
-                            options:
-                              regional_languages !== undefined &&
-                              regional_languages?.map((item) => ({
-                                name: item,
-                              })),
-                          }}
-                        />
-                      </>
-                    )}
+                    <InputAutoComplete
+                      control={control}
+                      field={{
+                        field_type: "dropdown",
+                        style: { marginTop: "0px" },
+                        id: "Language",
+                        label: "Select Language *",
+                        name: "regionalLanguage",
+                        required: UPLOAD_FILE_LANGUAGE,
+                        validationMsg: UPLOAD_FILE_LANGUAGE,
+                        size: "small",
+                        options:
+                          DOCUMENT_TYPE_LANG !== undefined &&
+                          DOCUMENT_TYPE_LANG?.regional_languages?.map(
+                            (item) => ({
+                              name: item,
+                            })
+                          ),
+                      }}
+                    />
                   </Grid>
                 )}
               </Grid>
@@ -298,16 +275,4 @@ FileForm.propTypes = {
   isLoading: propTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
-  nonEnglishLang: state?.uploadFile?.nonEnglishLang?.non_english_languages,
-  regional_languages: state?.uploadFile?.nonEnglishLang?.regional_languages,
-  isLoadingLang: state?.uploadFile?.isLoadingLang,
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    LanguageList: () => dispatch(LanguageList()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(FileForm);
+export default FileForm
