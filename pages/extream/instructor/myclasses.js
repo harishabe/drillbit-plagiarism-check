@@ -13,7 +13,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
 import styled from 'styled-components';
 import debouce from 'lodash.debounce';
-import { GetClassesData } from '../../../redux/action/instructor/InstructorAction';
+import { GetClassesData, ClearAssignment, ClearStudent } from '../../../redux/action/instructor/InstructorAction';
 import { DownloadCsv } from '../../../redux/action/common/Submission/SubmissionAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import Instructor from '../../../layouts/Instructor';
@@ -29,7 +29,7 @@ import { DownloadIcon } from '../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
-import { setItemSessionStorage, getItemSessionStorage } from '../../../utils/RegExp';
+import { setItemSessionStorage, getItemSessionStorage, removeItemSessionStorage } from '../../../utils/RegExp';
 import { CLASS_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
 import GridOnIcon from '@mui/icons-material/GridOn';
 
@@ -67,7 +67,9 @@ const MyClasses = ({
     pageDetails,
     isLoading,
     isLoadingClassDelete,
-    isLoadingDownload
+    isLoadingDownload,
+    ClearAssignment,
+    ClearStudent
 }) => {
     const [view, setView] = useState(getItemSessionStorage('classView') ? getItemSessionStorage('classView') : TABLE_VIEW);
     const [search, setSearch] = useState(false);
@@ -80,6 +82,9 @@ const MyClasses = ({
 
     useEffect(() => {
         GetClassesData(paginationPayload);
+        removeItemSessionStorage('tab')
+        ClearAssignment()
+        ClearStudent()
     }, [, paginationPayload]);
 
     const handlePagination = (event, value) => {
@@ -235,6 +240,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetClassesData: (PaginationValue) => dispatch(GetClassesData(PaginationValue)),
+        ClearAssignment: () => dispatch(ClearAssignment()),
+        ClearStudent: () => dispatch(ClearStudent()),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
     };
 };
