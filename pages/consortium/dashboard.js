@@ -7,6 +7,7 @@ import {
     WidgetCard,
     CardView,
     ColumnChart,
+    BarChart,
     ErrorBlock,
     Heading,
     PieChart,
@@ -22,7 +23,9 @@ import {
     COLUMN_ADMIN_CHART_COLOR,
     COLUMN_ADMIN_CHART_GRADIENT,
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
-    COLUMN_ADMIN_XAXIS_DATA
+    COLUMN_ADMIN_XAXIS_DATA,
+    COLUMN_ADMIN_WIDTH,
+    COLUMN_ADMIN_CHART_HEIGHT
 } from './../../constant/data/ChartData';
 import {
     DOCUMENT_PROCESSED_NOT_FOUND,
@@ -53,6 +56,7 @@ const Dashboard = ({
     });
     const [chartLoading, setChartLoading] = useState(false);
     const [submissionChartLoading, setSubmissionChartLoading] = useState(false);
+    // const [institutionTypeData, setInstitutionTypeData] = useState();
 
     useEffect(() => {
         if (router?.query?.message) {
@@ -61,7 +65,7 @@ const Dashboard = ({
         GetWidgetCount(BASE_URL_SUPER + END_POINTS.CONSORTIUM_DASHBOARD);
     }, []);
 
-    let a = 0; let b = 0; let c = 0; let d = 0; let e = 0; let f = 0; let g = 0;
+    let a = 0; let b = 0; let c = 0; let d = 0; let e = 0; let f = 0;
 
     const COUNTRY_WISE_INSTITUTES = superDashboardData && Object.keys(superDashboardData?.countryWiseInstituttes).map((value) => {
         return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.countryWiseInstituttes)[a++] + ')'
@@ -88,9 +92,30 @@ const Dashboard = ({
         return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseUsers)[f++] + ')'
     })
 
-    const INSTITUTION_WISE_SUBMISSIONS = superDashboardData && Object.keys(superDashboardData?.institutionsWiseSubmissions).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.institutionsWiseSubmissions)[g++] + ')'
-    })
+    // const INSTITUTION_WISE_SUBMISSIONS = superDashboardData && Object.keys(superDashboardData?.institutionsWiseSubmissions).map((value) => {
+    //     return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length)
+    // })
+
+    const INSTITUTION_WISE_SUBMISSIONS = superDashboardData && Object.keys(superDashboardData.institutionsWiseSubmissions).map((value) => {
+        return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().substring(0, value.length);
+    });
+
+    // const seriesData = [{ 'Consortium account 1234': 65, 'testing instructor count1': 220, 'VTU': 108, 'Consortium account 123': 10, 'kvg college of engineering': 162, 'testing alloted submission': 310, 'testing instructor count': 75 }];
+    const seriesData = superDashboardData && Object.values(superDashboardData?.institutionsWiseSubmissions);
+    const sortedData = superDashboardData && seriesData.map((value, index) => {
+        return {
+            label: INSTITUTION_WISE_SUBMISSIONS[index] || '',
+            value: value || 0,
+        };
+    }).sort((a, b) => b.value - a.value);
+
+    const sortedSeries = superDashboardData && sortedData.map((data) => data.value);
+    const sortedLabels = superDashboardData && sortedData.map((data) => data.label);
+
+    // const seriesData = Object.values(superDashboardData?.institutionsWiseSubmissions);
+    // const seriesData = Object.values({ 'Consortium account 1234': 65, 'testing instructor count1': 220, 'VTU': 108, 'Consortium account 123': 10, 'kvg college of engineering': 162, 'testing alloted submission': 310, 'testing instructor count': 75 });
+    // const sortedSeries = seriesData.sort((a, b) => b - a);
+    // const sortedLabels = sortedSeries.map((value, index) => INSTITUTION_WISE_SUBMISSIONS && INSTITUTION_WISE_SUBMISSIONS[index]);
 
     useEffect(() => {
         if (superDashboardData) {
@@ -127,8 +152,8 @@ const Dashboard = ({
                 })
             } else if (value === 'Institution wise submissions') {
                 setChartData({
-                    'label': INSTITUTION_WISE_SUBMISSIONS,
-                    'series': Object.values(superDashboardData?.institutionsWiseSubmissions)
+                    'label': sortedLabels,
+                    'series': sortedSeries
                 })
             }
         }
@@ -250,14 +275,65 @@ const Dashboard = ({
                                 />
                                     <Skeleton style={ { marginTop: "30px" } } /></> :
                                 superDashboardData && chartData?.label?.length > 0 ?
-                                    <PieChart
-                                        type="pie"
-                                        filename={ value }
-                                        pieChartPadding="0px 2px"
-                                        height={ 370 }
-                                        label={ chartData?.label }
-                                        series={ chartData?.series }
-                                    />
+                                    <>
+                                        { value !== 'Institution wise submissions' ?
+
+                                            <PieChart
+                                                type="pie"
+                                                filename={ value }
+                                                pieChartPadding="0px 2px"
+                                                height={ 370 }
+                                                label={ chartData?.label }
+                                                series={ chartData?.series }
+                                            /> :
+                                            // <BarChart
+                                            //     filename={ submissionData }
+                                            //     type={ COLUMN_ADMIN_CHART_TYPE }
+                                            //     color={ COLUMN_ADMIN_CHART_COLOR }
+                                            //     xaxisData={ chartData?.label }
+                                            //     height={ BarHeight(chartData) }
+                                            //     // xaxisData={ ['series1', 'series2', 'series3', 'series4', 'series5', 'series6', 'series7'] }
+                                            //     // xaxisData={ ['series1', 'series2', 'series3', 'series4', 'series5', 'series6', 'series7', 'series8', 'series9', 'series10'] }
+                                            //     // xaxisData={ ['series1', 'series2', 'series3', 'series4', 'series5', 'series6', 'series7', 'series8', 'series9', 'series10', 'series11', 'series12', 'series13', 'series14'] }
+                                            //     // xaxisData={ ['series1', 'series2', 'series3', 'series4', 'series5', 'series6', 'series7', 'series8', 'series9', 'series10', 'series11', 'series1', 'series2', 'series3', 'series4', 'series5', 'series6', 'series7', 'series8', 'series9', 'series10', 'series11'] }
+                                            //     // xaxisData={ ['series1', 'series2', 'series3', 'series4', 'series5', 'series6', 'series7', 'series8', 'series9', 'series10', 'series11', 'series1', 'series2', 'series3', 'series4', 'series5', 'series6', 'series7', 'series8', 'series9', 'series10', 'series11', 'series1', 'series2', 'series3', 'series1', 'series2', 'series3', 'series4', 'series5', 'series6', 'series7', 'series8', 'series9', 'series10'] }
+                                            //     columnWidth={ COLUMN_ADMIN_WIDTH }
+                                            //     seriesData={ [
+                                            //         {
+                                            //             name: 'No. of submissions',
+                                            //             // data: chartData?.series
+                                            //             data: [21, 562, 27, 178, 78, 32, 226]
+                                            //             // data: [21, 562, 27, 178, 78, 32, 226, 21, 562, 27,]
+                                            //             // data: [21, 562, 27, 178, 78, 32, 226, 21, 562, 27, 27, 178, 78, 32]
+                                            //             // data: [21, 562, 27, 178, 78, 32, 226, 21, 562, 27, 178, 21, 562, 27, 178, 78, 32, 226, 21, 562, 27, 178, 21, 562, 27]
+                                            //             // data: [21, 562, 27, 178, 78, 32, 226, 21, 562, 27, 178, 21, 562, 27, 178, 78, 32, 226, 21, 562, 27, 178, 21, 562, 27, 21, 562, 27, 178, 78, 32, 226, 21, 562, 27]
+                                            //         }
+                                            //     ] }
+                                            //     gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                                            //     borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                            // />
+                                            <ColumnChart
+                                                filename={ submissionData }
+                                                type={ COLUMN_ADMIN_CHART_TYPE }
+                                                color={ COLUMN_ADMIN_CHART_COLOR }
+                                                xaxisData={ chartData?.label }
+                                                // xaxisData={ institutionTypeData.map((doc) => doc.label) }
+                                                // xaxisData={ ['Consortium account 123', 'Consortium account 1234', 'Testing user account', 'VTU', 'kvg college of engineering', 'testing alloted submission', 'testing instructor count', 'Consortium account 123', 'Consortium account 1234', 'Testing user account', 'VTU', 'kvg college of engineering', 'testing alloted submission', 'testing instructor count', 'Consortium account 123'] }
+                                                columnWidth={ COLUMN_ADMIN_WIDTH }
+                                                height={ 370 }
+                                                seriesData={ [
+                                                    {
+                                                        name: 'No. of submissions',
+                                                        data: chartData?.series
+                                                        // data: institutionTypeData.map((doc) => doc.label)
+                                                        // data: [21, 562, 27, 178, 78, 32, 226, 21, 562, 27, 27, 178, 78, 32, 21]
+                                                    }
+                                                ] }
+                                                gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                                                borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                            />
+                                        }
+                                    </>
                                     : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
                             }
                         </Grid>
