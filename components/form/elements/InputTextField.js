@@ -37,21 +37,11 @@ const InputTextField = ({
     const [regex, setRegex] = useState();
 
     useEffect(() => {
-        // if (field.type === 'email') {
-        //     setRegex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
-        // }
-        // if (field.type === 'password') {
-        //     setRegex(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g)
-        // }
-
         if (field.name === 'newPassword') {
             setRegex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
         }
         if (field.name === 'confirmPassword') {
             setRegex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
-        }
-        if (field.name === 'platform_url') {
-            setRegex(/^(http|https):\/\/.*\.com$/);
         }
     }, [field]);
 
