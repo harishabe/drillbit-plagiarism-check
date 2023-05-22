@@ -2,6 +2,10 @@ import { toast } from 'react-toastify';
 import { ERROR_MESSAGE_RESPONSE } from '../constant/data/Constant';
 
 export const error = (message) => {
+    const messageLength = message && message?.length;
+    if (typeof window !== 'undefined') {
+        window.postMessage({ type: 'MESSAGE_LENGTH', payload: messageLength });
+    }
     toast.error(message, {
         position: "top-right",
         autoClose: 5000,
@@ -14,6 +18,10 @@ export const error = (message) => {
 }
 
 export const success = (message) => {
+    const messageLength = message && message?.length;
+    if (typeof window !== 'undefined') {
+        window.postMessage({ type: 'MESSAGE_LENGTH', payload: messageLength });
+    }
     toast.success(message, {
         position: "top-right",
         autoClose: 5000,
