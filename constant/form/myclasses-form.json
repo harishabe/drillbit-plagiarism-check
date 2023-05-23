@@ -7,7 +7,8 @@
         "label": "Class name *",
         "disabled":false,
         "required": "Enter class name",
-        "validationMsg": "Enter Class name"
+        "validationMsg": "Enter Class name",
+        "minLength": 3
     },
     
     {
@@ -16,7 +17,8 @@
         "name": "description",
         "label": "Description *",
         "required": "Enter description",
-        "validationMsg": "Enter Description"
+        "validationMsg": "Enter Description",
+        "minLength": 3
     },
     {
         "field_type": "datepicker",
