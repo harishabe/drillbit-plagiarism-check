@@ -81,6 +81,7 @@ import {
 } from './instructor/DetailsInstructorData';
 import { 
     GetSubmissionData,
+    GetGradingDetail,
     EditSubmissionDetail,
     SaveToRepo,
     InstructorFeedbackDetail,
@@ -191,6 +192,7 @@ const saga = [
     fork(RepoUploadData),
     fork(RemoveRepositaryInstructorDetails),
     fork(GetSubmissionData),
+    fork(GetGradingDetail),
     fork(UploadSubmissionFile),
     fork(UploadExtractedFile),
     fork(DeleteSubmissionFile),

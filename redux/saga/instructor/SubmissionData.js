@@ -7,7 +7,8 @@ import {
     SaveToRepoSubmission,
     InstructorFeedbackData,
     UploadSubmission,
-    EditFeedbackData
+    EditFeedbackData,
+    GetGradingData
 } from '../../api//instructor/DetailsSubmissionAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 
@@ -37,6 +38,31 @@ export function* onLoadSubmission(action) {
 
 export function* GetSubmissionData() {
     yield takeLatest(types.FETCH_INSTRUCTOR_SUBMISSION_LIST_START, onLoadSubmission);
+}
+
+/**
+ * Submission-Grading-Qna
+ * My classes > assignments > Grading
+ * @param {*} action
+ */
+
+export function* onLoadGrading(action) {
+    const { response, error } = yield call(GetGradingData, action.url, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_GRADING_LIST_SUCCESS,
+            payload: response?.data,
+        });
+    } else {
+        yield put({
+            type: types.FETCH_INSTRUCTOR_GRADING_LIST_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export function* GetGradingDetail() {
+    yield takeLatest(types.FETCH_INSTRUCTOR_GRADING_LIST_START, onLoadGrading);
 }
 
 /**

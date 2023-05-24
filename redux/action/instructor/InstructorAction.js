@@ -233,6 +233,15 @@ export const GetSubmissionList = (url) => {
 };
 
 /**
+ * Get myclasses > assignments > grading
+ */
+export const GetGradingList = (url, paginationPayload) => {
+    return {
+        type: types.FETCH_INSTRUCTOR_GRADING_LIST_START, url: url, paginationPayload: paginationPayload
+    };
+};
+
+/**
  * Myfolder > submissionList > uploadfile
  * myclasses > assignments > submission-upload
  */
