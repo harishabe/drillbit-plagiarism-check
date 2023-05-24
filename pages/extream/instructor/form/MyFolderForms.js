@@ -315,7 +315,8 @@ const MyFoldersForms = ({
                         'id': 'name',
                         'name': 'assignment_name',
                         'required': 'Enter folder name',
-                        'validationMsg': 'Enter folder name'
+                        'validationMsg': 'Enter folder name',
+                        'minLength': 3
                     }}
                 />
                 <div>
