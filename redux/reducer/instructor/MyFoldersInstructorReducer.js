@@ -102,7 +102,7 @@ const MyFoldersInstructorReducer = (state = {}, action) => {
             return {
                 ...state,
                 isLoadingSubmission: false,
-                submissionDataError: action.payload,
+                submissionData: action.payload,
             };
         case types.FETCH_INSTRUCTOR_SUBMISSION_LIST_UPLOAD_START:
             return {

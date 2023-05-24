@@ -15,8 +15,7 @@ export const GetSubmissionGradingQna = async (apiUrl) => {
 }
 
 /**
- * API CALL FOR MY FOLDER > SUBMISSION DATA
- * API CALL FOR MY CLASSES > ASSIGNMENTS > SUBMISSION
+ * API CALL FOR MY CLASSES > ASSIGNMENTS > GRADING
  */
 export const GetGradingData = async (apiUrl, paginationPayload) => {
     const url = BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + apiUrl + PaginationUrl(paginationPayload);
