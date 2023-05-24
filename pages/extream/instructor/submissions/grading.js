@@ -37,6 +37,7 @@ const Grading = ({
     gradingData,
     isLoading,
     isLoadingDownload,
+    pageDetails
 }) => {
 
     const router = useRouter();
@@ -52,14 +53,14 @@ const Grading = ({
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
-        field: 'paper_id',
+        field: PaginationValue?.field,
         orderBy: PaginationValue?.orderBy,
     });
 
     useEffect(() => {
         let url = `classes/${clasId}/assignments/${assId}/grading`;
         GetGradingList(url, paginationPayload);
-    }, [clasId, assId]);
+    }, [clasId, assId, paginationPayload]);
 
     const columns = [
         { id: 'STname', label: 'Student Name', minWidth: 200 },
@@ -182,6 +183,7 @@ const mapStateToProps = (state) => ({
     isLoading: state?.instructorMyFolders?.isLoadingSubmission,
     isLoadingDownload: state?.submission?.isLoadingDownload,
     gradingData: state?.instructorMyFolders?.submissionData?._embedded?.gradingDTOList,
+    pageDetails: state?.instructorMyFolders?.submissionData?.page
 });
 
 const mapDispatchToProps = (dispatch) => {
