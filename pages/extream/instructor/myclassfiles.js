@@ -21,7 +21,8 @@ import MyClassesForm from './form/MyclassesForm';
 import {
     renameKeys,
     findByExpiryDate,
-    expiryDateBgColor
+    expiryDateBgColor,
+    formatDate
 } from '../../../utils/RegExp';
 import { DeleteClass } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationContainer } from '../../../style/index';
@@ -38,9 +39,9 @@ const columns = [
     { id: 'action', label: 'Action' },
 ];
 
-function createData(class_id, class_name, created_date, end_date, status, action, description) {
+function createData(class_id, class_name, created_date, end_date, status, action, description, expiry_date) {
     return {
-        class_id, class_name, created_date, end_date, status, action, description
+        class_id, class_name, created_date, end_date, status, action, description, expiry_date
     };
 }
 
@@ -123,8 +124,8 @@ const MyClassFiles = ({
                 createData(
                     classes.class_id,
                     <FolderIconSmall component={ [<WysiwygIcon fontSize='small' htmlColor='#56B2EA' />] } title={ classes.class_name } charLength={ 17 } />,
-                    classes.creation_date,
-                    classes.end_date,
+                    formatDate(classes.creation_date),
+                    formatDate(classes.end_date),
                     <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
                     />,
                     [
@@ -132,7 +133,8 @@ const MyClassFiles = ({
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                         { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
                     ],
-                    classes.description
+                    classes.description,
+                    classes.end_date
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -278,6 +280,7 @@ const MyClassFiles = ({
                 >
                     <MyClassesForm
                             editData={ editClassesData }
+                            view={ view }
                     />
                 </CreateDrawer>
             }
