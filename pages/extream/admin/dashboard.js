@@ -114,7 +114,6 @@ const Dashboard = ({
     });
   }, [year]);
 
-  console.log('submissionChartYear', submissionChartYear)
 
   useEffect(() => {
     if (router?.query?.message) {
