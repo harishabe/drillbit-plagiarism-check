@@ -44,8 +44,8 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
-function createData(original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status, flag) {
-    return { original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, repository_status, flag };
+function createData(original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, alert_msg, repository_status, flag) {
+    return { original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, alert_msg, repository_status, flag };
 }
 
 const SubmissionHistory = ({
@@ -94,6 +94,7 @@ const SubmissionHistory = ({
                         { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },
                     ],
                     submission.d_key,
+                    submission.alert_msg,
                     submission.rep_status
                 );
             arr.push(row);
