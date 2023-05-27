@@ -77,11 +77,17 @@ const Dashboard = ({
   const [year, setYear] = useState([]);
   const [submissions, setSubmissions] = useState([])
   const [submissionChartData, setSubmissionChartData] = useState({});
-  const [submissionChartYear, setSubmissionChartYear] = useState({
-    'year': 2020,
-    'index': 0
-  });
+  const [submissionChartYear, setSubmissionChartYear] = useState({});
   const [submissionChartLoading, setSubmissionChartLoading] = useState(false);
+
+  useEffect(() => {
+    setSubmissionChartYear({
+      'year': year && year.length > 0 ? year[year.length - 1] : 2020,
+      'index': year && year.length > 0 ? year.length - 1 : 0
+    });
+  }, [year]);
+
+  console.log('submissionChartYear', submissionChartYear)
 
   useEffect(() => {
     if (router?.query?.message) {
@@ -342,7 +348,7 @@ const Dashboard = ({
                   <Heading title="Submissions Overview" />
                 </Grid>
                 <Grid item md={ 1 } xs={ 12 }>
-                  <select value={ submissionChartYear?.year } onChange={ (e) => { handleChange(e.target.value) } }>
+                  <select value={ year && submissionChartYear?.year } onChange={ (e) => { handleChange(e.target.value) } }>
                     { year?.map((item, index) => (
                       <option key={ index }>{ item }</option>
                     )) }
@@ -361,7 +367,7 @@ const Dashboard = ({
                     seriesData={ [
                       {
                         name: 'No. of submissions',
-                        data: submissionChartData?.data
+                        data: year && submissionChartData?.data
                       }
                     ] }
                     gradient={ COLUMN_ADMIN_CHART_GRADIENT }
