@@ -121,42 +121,35 @@ const MyFoldersForms = ({
     };
 
     useEffect(() => {
-        if (studentPaper === 'YES' || publication === 'YES' || repository === 'YES' || internet === 'YES') {
+        if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
+            if (phrasesList.length === 0 || phrasesList[0].p === '') {
+                setDisabledButton(true);
+                setErrorMsgDBCheck('Enter minimum one phrase');
+            } else if (
+                studentPaper === 'NO' &&
+                publication === 'NO' &&
+                repository === 'NO' &&
+                internet === 'NO'
+            ) {
+                setDisabledButton(true);
+                setErrorMsgDBCheck(DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK);
+            } else {
+                setDisabledButton(false);
+                setErrorMsgDBCheck('');
+            }
+        } else if (
+            studentPaper === 'YES' ||
+            publication === 'YES' ||
+            repository === 'YES' ||
+            internet === 'YES'
+        ) {
             setDisabledButton(false);
             setErrorMsgDBCheck('');
         } else {
             setDisabledButton(true);
             setErrorMsgDBCheck(DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK);
         }
-    }, [internet, repository, publication, studentPaper]);
-
-    // useEffect(() => {
-    //     if (studentPaper === null || publication === null || repository === null || internet === null) {
-    //         setDisabledButton(true);
-    //         setErrorMsgDBCheck(DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK);
-    //     } else {
-    //         setDisabledButton(false);
-    //         setErrorMsgDBCheck('');
-    //     }
-    // }, [internet, repository, publication, studentPaper]);
-
-    useEffect(() => {
-        if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
-            if (phrasesList.length > 0 && phrasesList[0].p === '') {
-                setDisabledButton(true);
-                setErrorMsgDBCheck('Enter minimum one phrase');
-            } else if (phrasesList.length === 0 && excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck('Enter minimum one phrase');
-            } else {
-                setDisabledButton(false);
-                setErrorMsgDBCheck('');
-            }
-        } else {
-            setDisabledButton(false);
-            setErrorMsgDBCheck('');
-        }
-    }, [excludePhrases, phrasesList]);
+    }, [excludePhrases, phrasesList, internet, repository, publication, studentPaper]);
 
     useEffect(() => {
         setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_NO);
