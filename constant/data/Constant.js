@@ -166,6 +166,7 @@ export const UPLOAD_TITLE_CONSTANT = {
     'REPOSITORY': 'Upload files to the repository',
     'SUBMISSION': 'Upload files for plagiarism check',
     'REGIONAL': 'Upload regional file for plagiarism check',
+    'GDRIVE': 'Continue with Google Drive',
 }
 
 export const UPLOAD_SUPPORTED_FILES = {
