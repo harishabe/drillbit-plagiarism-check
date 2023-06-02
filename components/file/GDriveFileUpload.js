@@ -26,7 +26,7 @@ import {
 } from '../../assets/icon';
 import { UploadFileDrive, UploadGdriveFileDataClear } from '../../redux/action/common/UploadFile/UploadFileAction';
 import { isValidFileUploaded, isValidRepositoryFileUploaded, isValidRepositoryFileUpload } from '../../utils/RegExp';
-import { UPLOAD_SUPPORTED_FILES } from "../../constant/data/Constant";
+import { UPLOAD_SUPPORTED_FILES, UPLOAD_TITLE_CONSTANT } from "../../constant/data/Constant";
 
 const InvalidFileFormatError = styled.div`
   color: red;
@@ -278,7 +278,7 @@ const GDriveFileUpload = ({
                                 <SubTitle1 title={ allowedFormat.SIZE } />
                                 <Link style={ { marginLeft: '5px' } }>
                                     <ChooseLabel onClick={ () => handleOpenPicker() }>
-                                        Browse your file from google drive
+                                        { UPLOAD_TITLE_CONSTANT.GDRIVE }
                                     </ChooseLabel>
                                 </Link>
                                 <div>
