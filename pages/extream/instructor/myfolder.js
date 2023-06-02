@@ -25,7 +25,7 @@ import {
 } from '../../../components';
 import { GetAllFolders, DeleteFolder } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
-import { setItemSessionStorage, getItemSessionStorage, formatDate } from '../../../utils/RegExp';
+import { setItemSessionStorage, getItemSessionStorage, formatDate, removeItemSessionStorage } from '../../../utils/RegExp';
 import MyFoldersForms from './form/MyFolderForms';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 import { FOLDER_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
@@ -106,6 +106,7 @@ const MyFolder = ({
 
     useEffect(() => {
         GetAllFolders(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_MY_FOLDERS, paginationPayload);
+        removeItemSessionStorage('tab')
     }, [, paginationPayload]);
 
     const handleChangeView = (e, value) => {

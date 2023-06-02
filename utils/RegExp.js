@@ -101,6 +101,12 @@ export const getItemSessionStorage = (key) => {
     let a = sessionStorage.getItem(key);
     return a;
 };
+
+export const removeItemSessionStorage = (key) => {
+    let a = sessionStorage.removeItem(key);
+    return a;
+};
+
 export const clearSessionStorage = () => {
     sessionStorage.clear();
 };

@@ -30,6 +30,12 @@ const DetailsInstructorReducer = (state = {}, action) => {
                 isLoadingStudent: false,
                 studentData: action.payload,
             };
+        case types.FETCH_INSTRUCTOR_STUDENTS_DATA_CLEAR:
+            return {
+                ...state,
+                isLoadingStudent: false,
+                studentData: '',
+            };
         case types.FETCH_INSTRUCTOR_STUDENTS_DATA_FAIL:
             return {
                 ...state,
@@ -80,6 +86,12 @@ const DetailsInstructorReducer = (state = {}, action) => {
                 ...state,
                 isLoadingAssignment: false,
                 assignmentData: action.payload,
+            };
+        case types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_CLEAR:
+            return {
+                ...state,
+                isLoadingAssignment: false,
+                assignmentData: '',
             };
         case types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_FAIL:
             return {

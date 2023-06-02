@@ -132,6 +132,15 @@ export const GetStudent = (class_id, paginationPayload) => {
 };
 
 /**
+ * Clear Student
+ */
+export const ClearStudent = () => {
+    return {
+        type: types.FETCH_INSTRUCTOR_STUDENTS_DATA_CLEAR
+    };
+};
+
+/**
  * Get students in institute
  */
 export const GetStudentList = (paginationPayload) => {
@@ -155,6 +164,15 @@ export const EnrollStudent = (class_id, data) => {
 export const GetAssignment = (class_id, paginationPayload) => {
     return {
         type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_START, class_id: class_id, paginationPayload: paginationPayload
+    };
+};
+
+/**
+ * Clear Assignment
+ */
+export const ClearAssignment = () => {
+    return {
+        type: types.FETCH_INSTRUCTOR_ASSIGNMENTS_DATA_CLEAR
     };
 };
 
