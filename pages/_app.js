@@ -35,9 +35,32 @@ Router.events.on('routeChangeError', () => {
 });
 
 export default function MyApp(props) {
+    const [toastWidth, setToastWidth] = React.useState('');
     const router = useRouter();
     const { Component, pageProps } = props;
     const [authorized, setAuthorized] = React.useState(false);
+
+    React.useEffect(() => {
+        window.addEventListener('message', handleWindowMessage);
+        return () => {
+            window.removeEventListener('message', handleWindowMessage);
+        };
+    }, []);
+
+    const handleWindowMessage = (event) => {
+        if (event.data.type === 'MESSAGE_LENGTH') {
+            const messageLength = event.data.payload;
+            let newWidth = "";
+            if (messageLength < 50) {
+                newWidth = 'auto';
+            } else if (messageLength > 50 && messageLength <= 160) {
+                newWidth = `${messageLength * 3.5}px`;
+            } else if (messageLength > 160) {
+                newWidth = 'auto';
+            }
+            setToastWidth(newWidth !== "" ? newWidth : "");
+        }
+    };
 
     React.useEffect(() => {
         authCheck(router.asPath);
@@ -50,7 +73,7 @@ export default function MyApp(props) {
         };
     }, [router.events]);
 
-    const Layout = Component.layout || (({ children }) => <>{children}</>);
+    const Layout = Component.layout || (({ children }) => <>{ children }</>);
 
     function authCheck(url) {
         const publicPaths = ['/auth/login', '/auth/forgot-password', '/auth/reset-password', '/auth/single-sign-on'];
@@ -70,12 +93,12 @@ export default function MyApp(props) {
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
-            <ThemeProvider theme={theme}>
-                {/* <CssBaseline /> */}
-                <Provider store={store}>
+            <ThemeProvider theme={ theme }>
+                {/* <CssBaseline /> */ }
+                <Provider store={ store }>
                     <Layout>
-                        <ToastContainer />
-                        {authorized && <Component {...pageProps} />}
+                        <ToastContainer style={ toastWidth ? { width: toastWidth, padding: '0px' } : null } />
+                        { authorized && <Component { ...pageProps } /> }
                     </Layout>
                 </Provider>
             </ThemeProvider>

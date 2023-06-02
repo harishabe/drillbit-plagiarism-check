@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Tooltip, IconButton, Skeleton } from '@mui/material';
+import { Tooltip, IconButton, Skeleton, Pagination } from '@mui/material';
 import Instructor from '../../../../layouts/Instructor';
 import { CommonTable, SimilarityStatus, CreateDrawer } from '../../../../components';
 import { MessageExclamatoryIcon, DownloadIcon } from '../../../../assets/icon';
 import { connect } from 'react-redux';
-import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
+import { GetGradingList } from '../../../../redux/action/instructor/InstructorAction';
 import { useRouter } from 'next/router';
 import FeedbackForm from '../form/FeedbackForm';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
@@ -13,8 +13,8 @@ import { DOWNLOAD_CSV, BACKEND_NO_DATA_PLACEHOLDER } from '../../../../constant/
 import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
-
-
+import { PaginationValue } from '../../../../utils/PaginationUrl';
+import { PaginationContainer } from '../../../../style/index';
 
 const SkeletonContainer = styled.div`
     margin-top: 16px;
@@ -32,11 +32,12 @@ const DownloadButton = styled.div`
 `;
 
 const Grading = ({
-    GetSubmissionList,
+    GetGradingList,
     DownloadCsv,
     gradingData,
     isLoading,
     isLoadingDownload,
+    pageDetails
 }) => {
 
     const router = useRouter();
@@ -49,10 +50,17 @@ const Grading = ({
     const [feedbackData, setFeedbackData] = useState('');
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
 
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: PaginationValue?.field,
+        orderBy: PaginationValue?.orderBy,
+    });
+
     useEffect(() => {
         let url = `classes/${clasId}/assignments/${assId}/grading`;
-        GetSubmissionList(url);
-    }, [clasId, assId]);
+        GetGradingList(url, paginationPayload);
+    }, [clasId, assId, paginationPayload]);
 
     const columns = [
         { id: 'STname', label: 'Student Name', minWidth: 200 },
@@ -105,6 +113,11 @@ const Grading = ({
         DownloadCsv(BASE_URL_EXTREM + `/extreme/classes/${clasId}/assignments/${assId}/grading/download`, DOWNLOAD_CSV.GRADING_LISTS);
     };
 
+    const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
+
     return (
         <React.Fragment>
             {
@@ -150,6 +163,18 @@ const Grading = ({
                 isLoading={isLoading}
                 handleAction={handleAction}
             />
+
+            <PaginationContainer>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    page={ pageDetails?.number + 1 }
+                    onChange={ handleChange }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </PaginationContainer>
+
         </React.Fragment>
     );
 };
@@ -158,11 +183,12 @@ const mapStateToProps = (state) => ({
     isLoading: state?.instructorMyFolders?.isLoadingSubmission,
     isLoadingDownload: state?.submission?.isLoadingDownload,
     gradingData: state?.instructorMyFolders?.submissionData?._embedded?.gradingDTOList,
+    pageDetails: state?.instructorMyFolders?.submissionData?.page
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetSubmissionList: (url) => dispatch(GetSubmissionList(url)),
+        GetGradingList: (url, PaginationValue) => dispatch(GetGradingList(url, PaginationValue)),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
     };
 };

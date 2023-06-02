@@ -443,11 +443,19 @@ export const FETCH_INSTRUCTOR_DELETE_FOLDER_FAIL = 'FETCH_INSTRUCTOR_DELETE_FOLD
 /**
  * Instructor 
  * myfolder > submissionlist
- *  My classes > Assignments > submission-grading-q&a
+ *  My classes > Assignments > submission-q&a
  */
 export const FETCH_INSTRUCTOR_SUBMISSION_LIST_START = 'FETCH_INSTRUCTOR_SUBMISSION_LIST_START';
 export const FETCH_INSTRUCTOR_SUBMISSION_LIST_SUCCESS = 'FETCH_INSTRUCTOR_SUBMISSION_LIST_SUCCESS';
 export const FETCH_INSTRUCTOR_SUBMISSION_LIST_FAIL = 'FETCH_INSTRUCTOR_SUBMISSION_LIST_FAIL';
+
+/**
+ * Instructor 
+ *  My classes > Assignments > grading
+ */
+export const FETCH_INSTRUCTOR_GRADING_LIST_START = 'FETCH_INSTRUCTOR_GRADING_LIST_START';
+export const FETCH_INSTRUCTOR_GRADING_LIST_SUCCESS = 'FETCH_INSTRUCTOR_GRADING_LIST_SUCCESS';
+export const FETCH_INSTRUCTOR_GRADING_LIST_FAIL = 'FETCH_INSTRUCTOR_GRADING_LIST_FAIL';
 
 /**
  * Instructor myfolder > submissionlist > uploadFile

@@ -25,7 +25,7 @@ import {
 } from '../../../components';
 import { GetAllFolders, DeleteFolder } from '../../../redux/action/instructor/InstructorAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
-import { setItemSessionStorage, getItemSessionStorage, removeItemSessionStorage } from '../../../utils/RegExp';
+import { setItemSessionStorage, getItemSessionStorage, formatDate, removeItemSessionStorage } from '../../../utils/RegExp';
 import MyFoldersForms from './form/MyFolderForms';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 import { FOLDER_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
@@ -181,7 +181,7 @@ const MyFolder = ({
                 createData(
                     folder.folder_id,
                     <FolderIconSmall component={ [<FolderIcon fontSize='small' htmlColor='#56B2EA' />] } title={ folder.folder_name } charLength={ 17 } />,
-                    folder.creation_date,
+                    formatDate(folder.creation_date),
                     folder.no_of_submissions,
                     [
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
