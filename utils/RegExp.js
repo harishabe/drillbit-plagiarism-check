@@ -68,6 +68,31 @@ export const convertDate = (str) => {
     return dateStr;
 };
 
+/**
+ * 
+ * @param {*} str 
+ * using below convertDateAssignment function only for assignment post request
+ * @returns 
+ */
+export const convertDateAssignment = (str) => {
+    let date = new Date(str);
+    let currentTime = new Date();
+
+    let hours = currentTime.getHours();
+    let minutes = currentTime.getMinutes();
+    let seconds = currentTime.getSeconds();
+
+    hours = (hours < 10 ? "0" : "") + hours;
+    minutes = (minutes < 10 ? "0" : "") + minutes;
+    seconds = (seconds < 10 ? "0" : "") + seconds;
+
+    let dateStr = date.getFullYear() + "-" +
+        ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+        ("00" + date.getDate()).slice(-2) + " " +
+        hours + ":" + minutes + ":" + seconds;
+    return dateStr;
+};
+
 export const formatDate = (str) => {
     var date = new Date(str.replace(" ", "T"));
     var dateStr = ("00" + date.getDate()).slice(-2) + "-" +
