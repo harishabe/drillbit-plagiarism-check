@@ -25,7 +25,7 @@ import {
 } from '../../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { CLASS_NOT_FOUND } from '../../../constant/data/ErrorMessage';
-import { setItemSessionStorage, getItemSessionStorage } from '../../../utils/RegExp';
+import { setItemSessionStorage, getItemSessionStorage, formatDate } from '../../../utils/RegExp';
 import { CLASS_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
@@ -129,8 +129,8 @@ const MyClasses = ({
                 createData(
                     classes.class_id,
                     <FolderIconSmall component={ [<WysiwygIcon fontSize='small' htmlColor='#56B2EA' />] } title={ classes.class_name } charLength={ 17 } />,
-                    classes.created_date,
-                    classes.end_date,
+                    formatDate(classes.created_date),
+                    formatDate(classes.end_date),
                     <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
                     />,
                     [

@@ -8,12 +8,14 @@ import FormJson from '../../../../constant/form/myclasses-form.json';
 import { AddImageIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import { EXPIRY_DATE_GREATER_THAN_CURRENT_DATE } from '../../../../constant/data/ErrorMessage';
+import { CLASS_VIEW } from '../../../../constant/data/Constant';
 
 const MyClassesForm = ({
     isLoading,
     CreateClass,
     EditClass,
     editData,
+    view
 }) => {
 
     const [formJsonField, setFormJsonField] = useState(FormJson);
@@ -108,7 +110,7 @@ const MyClassesForm = ({
             let a = {
                 'class_name': (editData.name || editData?.class_name?.props?.title),
                 'description': editData.description,
-                'end_date': editData.end_date,
+                'end_date': view === CLASS_VIEW ? editData.end_date : editData.expiry_date,
             };
             const fields = [
                 'class_name',
