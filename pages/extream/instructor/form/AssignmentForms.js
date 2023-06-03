@@ -394,16 +394,6 @@ const AssignmentForms = ({
         EditAssignment(router.query.clasId, editData.ass_id, bodyFormData);
     };
 
-    useEffect(() => {
-        if (studentPaper === 'YES' || publication === 'YES' || repository === 'YES' || internet === 'YES') {
-            setDisabledButton(false);
-            setErrorMsgDBCheck('');
-        } else {
-            setDisabledButton(true);
-            setErrorMsgDBCheck(DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK);
-        }
-    }, [internet, repository, publication, studentPaper]);
-
     // useEffect(() => {
     //     if (new Date(startDate).getFullYear() < new Date().getFullYear()) {
     //         setDisabledButton(true);
@@ -429,63 +419,38 @@ const AssignmentForms = ({
     //     }
     // }, [startDate, endDate]);
 
-    // useEffect(() => {
-    //     if ((excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) || (addQuestion === ASSIGNMENT_SETTING_VALUE_YES)) {
-    //         if (phrasesList.length > 0 && phrasesList[0].p === '') {
-    //             setDisabledButton(true);
-    //             setErrorMsgDBCheck('Enter minimum one phrase');
-    //         } else if (phrasesList.length === 0 && excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
-    //             setDisabledButton(true);
-    //             setErrorMsgDBCheck('Enter minimum one phrase');
-    //         } else if (questionList.length > 0 && questionList[0].q === '') {
-    //             setDisabledButton(true);
-    //             setErrorMsgDBCheck('Enter minimum one question');
-    //         } else if (questionList.length === 0 && addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
-    //             setDisabledButton(true);
-    //             setErrorMsgDBCheck('Enter minimum one question');
-    //         } else {
-    //             setDisabledButton(false);
-    //             setErrorMsgDBCheck('');
-    //         }
-    //     } else {
-    //         setDisabledButton(false);
-    //         setErrorMsgDBCheck('');
-    //     }
-    // }, [excludePhrases, phrasesList, addQuestion, questionList]);
-
     useEffect(() => {
-        if ((excludePhrases === ASSIGNMENT_SETTING_VALUE_YES)) {
-            if (phrasesList.length > 0 && phrasesList[0].p === '') {
-                setDisabledButton(true);
-                setErrorMsgDBCheck('Enter minimum one phrase');
-            } else if (phrasesList.length === 0 && excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck('Enter minimum one phrase');
-            } else {
-                setDisabledButton(false);
-                setErrorMsgDBCheck('');
-            }
-        }
-    }, [excludePhrases, phrasesList]);
+        const isDatabaseSelected =
+            studentPaper === 'YES' ||
+            publication === 'YES' ||
+            repository === 'YES' ||
+            internet === 'YES';
 
-    useEffect(() => {
-        if ((addQuestion === ASSIGNMENT_SETTING_VALUE_YES)) {
-            if (questionList.length > 0 && questionList[0].q === '') {
+        if (addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
+            if (questionList.length === 0 || questionList[0].p === '') {
                 setDisabledButton(true);
                 setErrorMsgDBCheck('Enter minimum one question');
-            } else if (questionList.length === 0 && addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
-                setDisabledButton(true);
-                setErrorMsgDBCheck('Enter minimum one question');
-            } else {
-                setDisabledButton(false);
-                setErrorMsgDBCheck('');
+                return;
             }
         }
-        else {
-            setDisabledButton(false);
-            setErrorMsgDBCheck('');
+
+        if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
+            if (phrasesList.length === 0 || phrasesList[0].p === '') {
+                setDisabledButton(true);
+                setErrorMsgDBCheck('Enter minimum one phrase');
+                return;
+            }
         }
-    }, [addQuestion, questionList]);
+
+        if (!isDatabaseSelected) {
+            setDisabledButton(true);
+            setErrorMsgDBCheck(DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK);
+            return;
+        }
+
+        setDisabledButton(false);
+        setErrorMsgDBCheck('');
+    }, [excludePhrases, phrasesList, addQuestion, questionList, studentPaper, publication, repository, internet]);
 
     useEffect(() => {
         setAllowAssGrade(ASSIGNMENT_SETTING_VALUE_NO);
