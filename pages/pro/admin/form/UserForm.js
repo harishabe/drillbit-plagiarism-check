@@ -203,12 +203,18 @@ const UserForm = ({
 
     const onSubmit = (data) => {
         if (editOperation) {
-            let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
-            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
+            let Detaileddata = {
+                ...data,
+                'expiry_date': convertDate(data.expiry_date),
+                'grammar': data?.grammar ? data?.grammar : 0
+            };
+            console.log('Detaileddata', Detaileddata)
+            // let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
+            // console.log('requestData', requestData)
             if (licenseId) {
                 EditData(BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${licenseId}/users/${editData?.user_id}`, requestData, 'superUser');
             } else {
-                EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, requestData, 'user');
+                EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, Detaileddata, 'user');
             }
         } else {
             let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
@@ -313,6 +319,7 @@ const UserForm = ({
             const FormJsonCopy = [...formJsonField];
             FormJsonCopy.splice(7, 1);
             setFormJsonField(FormJsonCopy);
+            // setFormJsonField(formJsonField.filter(obj => obj.id !== "grammar"));
         }
     }, [grammar_access])
 

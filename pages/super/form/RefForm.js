@@ -134,50 +134,93 @@ const RefForm = ({
         }
     }, [phoneNumber])
 
-    useEffect(() => {
-        if (grammarAccess?.name !== undefined) {
-            if (grammarAccess?.name === 'YES') {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['disabled'] = false;
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['disabled'] = true;
-                        setValue('grammar', 0);
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            }
-        }
-    }, [grammarAccess?.name])
-
     // useEffect(() => {
     //     if (grammarAccess?.name !== undefined) {
-    //         const FormJsonCopy = [...formJsonField];
     //         if (grammarAccess?.name === 'YES') {
-    //             const grammarObject = {
-    //                 "field_type": "inputNumber",
-    //                 "type": "number",
-    //                 "id": "grammar",
-    //                 "name": "grammar",
-    //                 "label": "Grammar *",
-    //                 "required": "Grammar",
-    //                 "validationMsg": "Invalid Grammar"
-    //             };
-    //             FormJsonCopy.splice(17, 0, grammarObject);
-    //             setFormJsonField(FormJsonCopy);
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+    //                     item['disabled'] = false;
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
     //         } else {
-    //             FormJsonCopy.splice(17, 1);
-    //             setFormJsonField(FormJsonCopy);
+    //             let fields = FormJson?.map((item) => {
+    //                 if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+    //                     item['disabled'] = true;
+    //                     setValue('grammar', 0);
+    //                 }
+    //                 return item;
+    //             });
+    //             setFormJsonField(fields);
     //         }
     //     }
     // }, [grammarAccess?.name])
+
+    // useEffect(() => {
+    //     if (grammarAccess?.name !== undefined) {
+    //         const formJsonCopy = [...formJsonField];
+    //         const hasGrammar = formJsonField.find(obj => obj.id === "grammar");
+    // const grammarObject = {
+    //     "field_type": "inputNumber",
+    //     "type": "number",
+    //     "id": "grammar",
+    //     "name": "grammar",
+    //     "label": "Grammar *",
+    //     "required": "Grammar",
+    //     "validationMsg": "Invalid Grammar"
+    // };
+    // if (grammarAccess?.name === 'YES') {
+    //     console.log('YES')
+    //     formJsonCopy.splice(17, 0, grammarObject);
+    //     setFormJsonField(formJsonCopy);
+    // } else if (hasGrammar) {
+    //     console.log('NO')
+    //     formJsonCopy.splice(17, 1);
+    //     setFormJsonField(formJsonCopy);
+    // }
+    //         console.log('formJsonCopy', formJsonCopy)
+    //         console.log('formJsonField', formJsonField)
+    //     }
+    // }, [grammarAccess?.name])
+
+    // useEffect(() => {
+    //     if (grammarAccess?.name !== undefined) {
+    //         const formJsonCopy = [...formJsonField];
+    //         const hasGrammar = formJsonField.find(obj => obj.id === "grammar");
+    //         if (grammarAccess?.name === 'NO' && hasGrammar) {
+    //             console.log('NO')
+    //             formJsonCopy.splice(17, 1);
+    //             setFormJsonField(formJsonCopy);
+    //         } else {
+    //             setFormJsonField(FormJson);
+    //         }
+    //         console.log('formJsonCopy', formJsonCopy)
+    //         console.log('formJsonField', formJsonField)
+    //     }
+    // }, [grammarAccess?.name])
+
+    const RefJsonForm = (val) => {
+        const hasGrammar = formJsonField.find(obj => obj.id === "grammar");
+        const removeGrammar = formJsonField.filter(obj => obj.id !== "grammar");
+        if (val !== undefined) {
+            if (val === 'NO' && hasGrammar) {
+                setFormJsonField(removeGrammar);
+            } else {
+                setFormJsonField(FormJson);
+            }
+            console.log('!== undefined', formJsonField)
+        } else {
+            setFormJsonField(removeGrammar);
+            console.log('=== undefined', formJsonField)
+        }
+    }
+
+    // useEffect(() => {
+    //     RefJsonForm(grammarAccess?.name)
+    // }, [grammarAccess?.name])
+
+    console.log('grammarAccess?.name', grammarAccess?.name)
 
     const onSubmit = (data) => {
         if (editOperation) {
@@ -194,8 +237,8 @@ const RefForm = ({
                 'timeZone': data?.timeZone?.name,
                 'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
-            let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            EditAccount(END_POINTS.SUPER_ADMIN_REF + '/' + editData?.lid, END_POINTS.SUPER_ADMIN_REF_LICENSE, requestData);
+            // let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
+            EditAccount(END_POINTS.SUPER_ADMIN_REF + '/' + editData?.lid, END_POINTS.SUPER_ADMIN_REF_LICENSE, DetailedData);
         } else {
             let DetailedData = {
                 ...data,
@@ -210,8 +253,8 @@ const RefForm = ({
                 'timeZone': data?.timeZone?.name,
                 'updateExpiryDateToAll': data?.updateExpiryDateToAll?.name,
             };
-            let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            CreateAccount(END_POINTS.SUPER_ADMIN_REF, END_POINTS.SUPER_ADMIN_REF_LICENSE, requestData);
+            // let requestData = Object.entries(DetailedData).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
+            CreateAccount(END_POINTS.SUPER_ADMIN_REF, END_POINTS.SUPER_ADMIN_REF_LICENSE, DetailedData);
         }
     };
 
@@ -246,6 +289,7 @@ const RefForm = ({
     useEffect(() => {
         if (editData) {
             resellerName(editData.reseller)
+            RefJsonForm(editData.grammar.toUpperCase())
             let a = {
                 'institutionName': editData.college_name,
                 'state': editData.state,
