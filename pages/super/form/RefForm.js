@@ -157,6 +157,28 @@ const RefForm = ({
         }
     }, [grammarAccess?.name])
 
+    // useEffect(() => {
+    //     if (grammarAccess?.name !== undefined) {
+    //         const FormJsonCopy = [...formJsonField];
+    //         if (grammarAccess?.name === 'YES') {
+    //             const grammarObject = {
+    //                 "field_type": "inputNumber",
+    //                 "type": "number",
+    //                 "id": "grammar",
+    //                 "name": "grammar",
+    //                 "label": "Grammar *",
+    //                 "required": "Grammar",
+    //                 "validationMsg": "Invalid Grammar"
+    //             };
+    //             FormJsonCopy.splice(17, 0, grammarObject);
+    //             setFormJsonField(FormJsonCopy);
+    //         } else {
+    //             FormJsonCopy.splice(17, 1);
+    //             setFormJsonField(FormJsonCopy);
+    //         }
+    //     }
+    // }, [grammarAccess?.name])
+
     const onSubmit = (data) => {
         if (editOperation) {
             let DetailedData = {

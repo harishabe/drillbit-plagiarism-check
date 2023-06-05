@@ -123,27 +123,16 @@ const UserForm = ({
             });
             setFormJsonField(fields);
         } else {
-            if (grammar_access?.toUpperCase() === 'NO') {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        setValue('grammar', '0');
-                        item['disabled'] = true
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        item['errorMsg'] = '';
-                    }
-                    if (item?.field_type === 'button') {
-                        item['isDisabledGrammarDoc'] = false;
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            }
+            let fields = FormJson?.map((item) => {
+                if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
+                    item['errorMsg'] = '';
+                }
+                if (item?.field_type === 'button') {
+                    item['isDisabledGrammarDoc'] = false;
+                }
+                return item;
+            });
+            setFormJsonField(fields);
         }
     }, [grammarDocs, remainingGrammar])
 
@@ -318,6 +307,14 @@ const UserForm = ({
         })
         setFormJsonField(formField);
     }, [formJsonField])
+
+    useEffect(() => {
+        if (grammar_access?.toUpperCase() === 'NO') {
+            const FormJsonCopy = [...formJsonField];
+            FormJsonCopy.splice(7, 1);
+            setFormJsonField(FormJsonCopy);
+        }
+    }, [grammar_access])
 
     return (
         <>
