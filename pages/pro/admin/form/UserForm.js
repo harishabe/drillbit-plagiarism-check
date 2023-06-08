@@ -206,15 +206,12 @@ const UserForm = ({
             let Detaileddata = {
                 ...data,
                 'expiry_date': convertDate(data.expiry_date),
-                'grammar': data?.grammar ? data?.grammar : 0
             };
-            console.log('Detaileddata', Detaileddata)
-            // let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
-            // console.log('requestData', requestData)
+            let requestData = Object.entries(Detaileddata).reduce((newObj, [key, value]) => (value == '' ? newObj : (newObj[key] = value, newObj)), {});
             if (licenseId) {
                 EditData(BASE_URL_SUPER + END_POINTS_PRO.SUPER_ADMIN_USER + `${licenseId}/users/${editData?.user_id}`, requestData, 'superUser');
             } else {
-                EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, Detaileddata, 'user');
+                EditData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_EDIT_DATA + editData?.user_id, requestData, 'user');
             }
         } else {
             let Detaileddata = { ...data, 'expiry_date': convertDate(data.expiry_date) };
@@ -301,6 +298,12 @@ const UserForm = ({
 
     useEffect(() => {
         let formField = formJsonField?.map((item) => {
+            const hasGrammar = formJsonField.find(obj => obj.id === "grammar");
+            if (grammar_access?.toUpperCase() === 'NO') {
+                if (hasGrammar) {
+                    return formJsonField.filter(obj => obj.id !== "grammar")
+                }
+            }
             if (item?.field_type === 'button') {
                 if (((item?.isDisabledAllocDocs === true) || (item?.isDisabledGrammarDoc === true) ||
                     (item?.isDisabledDate === true) || (item?.isDisabledPhoneNo === true))) {
@@ -312,16 +315,7 @@ const UserForm = ({
             return item;
         })
         setFormJsonField(formField);
-    }, [formJsonField])
-
-    useEffect(() => {
-        if (grammar_access?.toUpperCase() === 'NO') {
-            const FormJsonCopy = [...formJsonField];
-            FormJsonCopy.splice(7, 1);
-            setFormJsonField(FormJsonCopy);
-            // setFormJsonField(formJsonField.filter(obj => obj.id !== "grammar"));
-        }
-    }, [grammar_access])
+    }, [formJsonField, grammar_access])
 
     return (
         <>

@@ -122,16 +122,6 @@ const InstructorForm = ({
             });
             setFormJsonField(fields);
         } else {
-            if (grammar_access?.toUpperCase() === 'NO') {
-                let fields = FormJson?.map((item) => {
-                    if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
-                        setValue('grammar', '0');
-                        item['disabled'] = true
-                    }
-                    return item;
-                });
-                setFormJsonField(fields);
-            } else {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                         item['errorMsg'] = '';
@@ -142,7 +132,6 @@ const InstructorForm = ({
                     return item;
                 });
                 setFormJsonField(fields);
-            }
         }
     }, [grammarDocs, extremeInstructorRemainingGrammar])
 
@@ -295,6 +284,12 @@ const InstructorForm = ({
 
     useEffect(() => {
         let formField = formJsonField?.map((item) => {
+            const hasGrammar = formJsonField.find(obj => obj.id === "grammar");
+            if (grammar_access?.toUpperCase() === 'NO') {
+                if (hasGrammar && item.id === "grammar") {
+                    return formJsonField.filter(obj => obj.id !== "grammar");
+                }
+            }
             if (item?.field_type === 'button') {
                 if (((item?.isDisabledAllocDocs === true) || (item?.isDisabledGrammarDoc === true) ||
                     (item?.isDisabledDate === true) || (item?.isDisabledPhoneNo === true))) {
@@ -306,7 +301,7 @@ const InstructorForm = ({
             return item;
         })
         setFormJsonField(formField);
-    }, [formJsonField])
+    }, [formJsonField, grammar_access])
 
     return (
         <>
