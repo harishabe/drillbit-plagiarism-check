@@ -55,9 +55,19 @@ const Dashboard = ({
   isLoading,
 }) => {
   const router = useRouter();
-
-  const [recentSubmission, setRecentSubmission] = useState([]);
   const [documentsType, setDocumentsType] = useState();
+  const [year, setYear] = useState([]);
+  const [submissions, setSubmissions] = useState([])
+  const [submissionChartData, setSubmissionChartData] = useState({});
+  const [submissionChartYear, setSubmissionChartYear] = useState({});
+  const [submissionChartLoading, setSubmissionChartLoading] = useState(false);
+
+  useEffect(() => {
+    setSubmissionChartYear({
+      'year': year && year.length > 0 ? year[year.length - 1] : 2020,
+      'index': year && year.length > 0 ? year.length - 1 : 0
+    });
+  }, [year]);
 
   useEffect(() => {
     if (router?.query?.message) {
@@ -69,15 +79,6 @@ const Dashboard = ({
     GetWidgetCount(BASE_URL_PRO + END_POINTS_PRO.USERS_DASHBOARD_WIDGET);
     Documentchart(BASE_URL_PRO + END_POINTS_PRO.USER_DASHBOARD_DOCUMENT_CHART);
   }, []);
-
-  useEffect(() => {
-    let submission = instructorDashboardData?.data?.monthlySubmissions?.map(
-      (item) => {
-        return item.submissions;
-      }
-    );
-    setRecentSubmission(submission);
-  }, [instructorDashboardData]);
 
   useEffect(() => {
     if (documentTypeData !== undefined) {
@@ -104,6 +105,54 @@ const Dashboard = ({
       query: { name: item?.folder_name, folderId: item?.folder_id },
     });
   };
+
+  useEffect(() => {
+    if (instructorDashboardData) {
+      setSubmissionChartLoading(true)
+      setSubmissionChartData({
+        'xaxisData': COLUMN_ADMIN_XAXIS_DATA,
+        'data': [
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.january,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.february,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.march,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.april,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.may,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.june,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.july,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.august,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.september,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.october,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.november,
+          instructorDashboardData?.data?.monthWiseSubmissionStats?.[submissionChartYear?.index]?.december,
+        ]
+      })
+    }
+    setTimeout(() => {
+      setSubmissionChartLoading(false)
+    }, []);
+  }, [instructorDashboardData, year, submissions, submissionChartYear]);
+
+  useEffect(() => {
+    let yearList = instructorDashboardData?.data?.monthWiseSubmissionStats?.map((item) => {
+      return item.year;
+    });
+    let submission = instructorDashboardData?.data?.monthWiseSubmissionStats?.map((item) => {
+      return item;
+    });
+    setYear(yearList);
+    setSubmissions(submission);
+  }, [instructorDashboardData]);
+
+  const handleChange = (val) => {
+    year?.map((item, index) => {
+      if (val == item) {
+        setSubmissionChartYear({
+          'year': item,
+          'index': index
+        })
+      }
+    });
+  }
 
   return (
     <React.Fragment>
@@ -182,31 +231,38 @@ const Dashboard = ({
         <Grid container spacing={1}>
           <Grid item md={8} xs={12}>
             <CardView>
-              <Heading title="Submissions Overview" />
-              {isLoading ? (
-                <Skeleton />
-              ) : recentSubmission?.length &&
-                instructorDashboardData?.data?.submissionsUsage
-                  ?.usedSubmissions > 0 ? (
-                <ColumnChart
-                  type={COLUMN_ADMIN_CHART_TYPE}
-                  color={COLUMN_ADMIN_CHART_COLOR}
-                  xaxisData={COLUMN_ADMIN_XAXIS_DATA}
-                  columnWidth={COLUMN_ADMIN_WIDTH}
-                  height={COLUMN_ADMIN_CHART_HEIGHT}
-                  seriesData={[
-                    {
-                      name: "Submission Overview",
-                      data: recentSubmission,
-                    },
-                  ]}
-                  gradient={COLUMN_ADMIN_CHART_GRADIENT}
-                  borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
-                  filename="Submissions Overview"
-                />
-              ) : (
-                <ErrorBlock message={DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND} />
-              )}
+              <Grid container>
+                <Grid item md={ 11 } xs={ 12 }>
+                  <Heading title="Submissions Overview" />
+                </Grid>
+                <Grid item md={ 1 } xs={ 12 }>
+                  <select value={ year && submissionChartYear?.year } onChange={ (e) => { handleChange(e.target.value) } }>
+                    { year?.map((item, index) => (
+                      <option key={ index }>{ item }</option>
+                    )) }
+                  </select>
+                </Grid>
+              </Grid>
+              { (isLoading || submissionChartLoading) ? <Skeleton /> :
+                instructorDashboardData && submissionChartData?.xaxisData?.length > 0 ?
+                  <ColumnChart
+                    filename={ `Submissions Overview ${submissionChartYear?.year}` }
+                    type={ COLUMN_ADMIN_CHART_TYPE }
+                    color={ COLUMN_ADMIN_CHART_COLOR }
+                    xaxisData={ submissionChartData?.xaxisData }
+                    columnWidth={ COLUMN_ADMIN_WIDTH }
+                    height={ 379 }
+                    seriesData={ [
+                      {
+                        name: 'No. of submissions',
+                        data: year && submissionChartData?.data
+                      }
+                    ] }
+                    gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                    borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                  />
+                  : <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
+              }
             </CardView>
           </Grid>
           <Grid item md={4} xs={12}>
