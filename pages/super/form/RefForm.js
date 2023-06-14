@@ -148,7 +148,7 @@ const RefForm = ({
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'grammar') {
                         item['disabled'] = true;
-                        setValue('grammar', 0);
+                        // setValue('grammar', 0);
                     }
                     return item;
                 });
@@ -282,21 +282,21 @@ const RefForm = ({
 
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div style={ { textAlign: 'center' } }>
                 <AddImageIcon />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>
-                    {formJsonField?.map((field, i) => (
-                        <Grid key={field?.name} md={12} style={{ marginLeft: '8px' }}>
+                    { formJsonField?.map((field, i) => (
+                        <Grid key={ field?.name } md={ 12 } style={ { marginLeft: '8px' } }>
                             <FormComponent
-                                key={i}
-                                field={field}
-                                control={control}
-                                isLoading={isLoadingCreate || isLoadingEdit}
+                                key={ i }
+                                field={ field }
+                                control={ control }
+                                isLoading={ isLoadingCreate || isLoadingEdit }
                             />
                         </Grid>
-                    ))}
+                    )) }
                 </Grid>
             </form>
         </>
