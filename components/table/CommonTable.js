@@ -120,7 +120,7 @@ const CommonTable = ({
                                                 style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }
                                             >
                                                 { TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
-                                                    <EllipsisText value={ column.label } charLength={ charLength } variant='body2_2' />
+                                                    <EllipsisText value={ column.label } tableHeader={ tableHeader } charLength={ charLength } variant='body2_2' />
                                                     : <TableSortLabel
                                                         onClick={ ((e) => sortHandle(e, column)) }
                                                         IconComponent={

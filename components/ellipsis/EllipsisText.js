@@ -12,21 +12,17 @@
 //         showSnackBar: false,
 //     };
 
-    
+
 //     render() {
-//         // const zoomPercentage = Math.round(typeof window !== "undefined" && window?.devicePixelRatio);
-//         // console.log(`Window zoom percentage: ${zoomPercentage}%`);
-//         // console.log(`window.innerWidth: ${typeof window !== "undefined" && window?.innerWidth}`);
-       
 //         return (
 //             <div>
 //                 <Tooltip
-//                     title={ (this.props.value?.length > charLength) ? this.props.value : '' }
+//                     title={ (this.props.value?.length > this.props.charLength) ? this.props.value : '' }
 //                     arrow>
 //                     <Typography variant={ this.props.variant ? this.props.variant : 'h4' } component="div" gutterBottom
-//                         ref={this.textElement}>
-//                         { this.props.label }  { (this.props.value?.length > charLength) ?
-//                             (((this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1)).substring(0, charLength)) + '...') :
+//                         ref={ this.textElement }>
+//                         { this.props.label }  { (this.props.value?.length > this.props.charLength) ?
+//                             (((this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1)).substring(0, this.props.charLength)) + '...') :
 //                             this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1) }
 //                     </Typography>
 //                 </Tooltip>
@@ -38,161 +34,165 @@
 
 // export default EllipsisText;
 
-import React, { Component } from 'react';
-import { Typography, Tooltip } from '@mui/material';
 
-class EllipsisText extends Component {
-    constructor(props) {
-        super(props);
-        this.textElement = React.createRef();
-        this.state = {
-            charLength: 8,
-        };
-    }
+// import React, { Component } from 'react';
+// import { Typography, Tooltip, Snackbar } from '@mui/material';
 
-    componentDidMount() {
-        this.updateCharLength();
-        window.addEventListener('resize', this.updateCharLength);
-    }
+// class EllipsisText extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.textElement = React.createRef();
+//     }
 
-    componentWillUnmount() {
-        this.updateCharLength();
-        window.removeEventListener('resize', this.updateCharLength);
-    }
+//     state = {
+//         overflowed: false,
+//         showSnackBar: false,
+//     };
 
-    // updateCharLength = () => {
-    //     const innerWidth = window.innerWidth;
-    //     console.log('innerWidth', innerWidth)
-    //     let charLength;
-    //     if (innerWidth <= 1280) {
-    //         charLength = 8;
-    //     } else if (innerWidth >= 1280 && innerWidth <= 1422) {
-    //         charLength = 9;
-    //     } else if (innerWidth >= 1422 && innerWidth <= 1600) {
-    //         charLength = 10;
-    //     } else if (innerWidth >= 1600 && innerWidth <= 1707) {
-    //         charLength = 15;
-    //     } else if (innerWidth >= 1707 && innerWidth <= 1920) {
-    //         charLength = 24;
-    //     } else if (innerWidth >= 1920 && innerWidth <= 2560) {
-    //         charLength = 40;
-    //     } else if (innerWidth >= 2560 && innerWidth <= 3840) {
-    //         charLength = 45;
-    //     } else {
-    //         charLength = 55;
-    //     }
-    //     this.setState({ charLength });
-    // };
+//     componentDidMount() {
+//         this.checkOverflow();
+//         window.addEventListener('resize', this.checkOverflow);
+//     }
 
-    updateCharLength = () => {
-        const containerWidth = this.textElement.current?.offsetWidth || 0;
-        const innerWidth = window.innerWidth;
-        let charLength;
+//     componentWillUnmount() {
+//         window.removeEventListener('resize', this.checkOverflow);
+//     }
 
-        if (innerWidth <= 1280) {
-            if (containerWidth <= 60) {
-                charLength = 6;
-            } else if (containerWidth <= 80) {
-                charLength = 8;
-            } else if (containerWidth <= 100) {
-                charLength = 10;
-            } else {
-                charLength = Math.floor(containerWidth / 10);
+//     checkOverflow = () => {
+//         const { offsetWidth, scrollWidth } = this.textElement.current;
+//         const overflowed = scrollWidth > offsetWidth;
+//         this.setState({ overflowed });
+//     };
+
+//     render() {
+//         const { value, variant, maxWidth } = this.props;
+//         const { overflowed, showSnackBar } = this.state;
+
+//         const truncatedValue = value && overflowed ? value.slice(0, value.length - 3) + '...' : value;
+//         const filledValue = truncatedValue?.padEnd(value.length, ' ');
+
+//         const containerStyle = {
+//             maxWidth: maxWidth || '100px',
+//             overflowX: 'hidden',
+//             tableLayout: 'auto', // Added this line
+//         };
+
+//         return (
+//             <div style={ containerStyle }>
+//                 <Tooltip title={ overflowed ? value : '' } arrow>
+//                     <Typography
+//                         variant={ variant || 'h4' }
+//                         component="div"
+//                         gutterBottom
+//                         ref={ this.textElement }
+//                         style={ { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' } }
+//                     >
+//                         { } { value }
+//                     </Typography>
+//                 </Tooltip>
+//                 <Snackbar
+//                     open={ showSnackBar }
+//                     onClose={ () => this.setState({ showSnackBar: false }) }
+//                     message="Text overflowed"
+//                 />
+//             </div>
+//         );
+//     }
+// }
+
+// export default EllipsisText;
+
+import React, { useRef, useEffect, useState } from 'react';
+import { Typography, Tooltip, Snackbar } from '@mui/material';
+
+const EllipsisText = ({ value, variant, tableHeader }) => {
+    const textElement = useRef(null);
+    const [overflowed, setOverflowed] = useState(false);
+    const [showSnackBar, setShowSnackBar] = useState(false);
+    const [maxWidth, setMaxWidth] = useState(calculateMaxWidth());
+
+    function calculateMaxWidth() {
+        if (typeof window !== 'undefined') {
+            const zoomPercentage = window.innerWidth / window.outerWidth * 100; // Calculate window zoom percentage
+
+            let maxWidth = 50; // Default maxWidth value
+
+            if (tableHeader !== undefined) {
+                switch (true) {
+                    case tableHeader.length >= 5 && tableHeader.length <= 8:
+                        maxWidth = 100;
+                        break;
+                    case tableHeader.length > 8 && tableHeader.length <= 14:
+                        maxWidth = 150;
+                        break;
+                    case tableHeader.length > 14:
+                        maxWidth = 200;
+                        break;
+                    default:
+                        maxWidth = 100;
+                }
             }
-        } else if (innerWidth <= 1422) {
-            if (containerWidth <= 60) {
-                charLength = 7;
-            } else if (containerWidth <= 80) {
-                charLength = 9;
-            } else if (containerWidth <= 100) {
-                charLength = 11;
-            } else {
-                charLength = Math.floor(containerWidth / 9);
-            }
-        } else if (innerWidth <= 1600) {
-            if (containerWidth <= 60) {
-                charLength = 8;
-            } else if (containerWidth <= 80) {
-                charLength = 10;
-            } else if (containerWidth <= 100) {
-                charLength = 12;
-            } else {
-                charLength = Math.floor(containerWidth / 8);
-            }
-        } else if (innerWidth <= 1707) {
-            if (containerWidth <= 60) {
-                charLength = 12;
-            } else if (containerWidth <= 80) {
-                charLength = 15;
-            } else if (containerWidth <= 100) {
-                charLength = 18;
-            } else {
-                charLength = Math.floor(containerWidth / 6);
-            }
-        } else if (innerWidth <= 1920) {
-            if (containerWidth <= 60) {
-                charLength = 18;
-            } else if (containerWidth <= 80) {
-                charLength = 24;
-            } else if (containerWidth <= 100) {
-                charLength = 30;
-            } else {
-                charLength = Math.floor(containerWidth / 6);
-            }
-        } else if (innerWidth <= 2560) {
-            if (containerWidth <= 60) {
-                charLength = 30;
-            } else if (containerWidth <= 80) {
-                charLength = 40;
-            } else if (containerWidth <= 100) {
-                charLength = 50;
-            } else {
-                charLength = Math.floor(containerWidth / 5);
-            }
-        } else if (innerWidth <= 3840) {
-            if (containerWidth <= 60) {
-                charLength = 35;
-            } else if (containerWidth <= 80) {
-                charLength = 40;
-            } else if (containerWidth <= 100) {
-                charLength = 45;
-            } else {
-                charLength = Math.floor(containerWidth / 5);
-            }
-        } else {
-            if (containerWidth <= 60) {
-                charLength = 45;
-            } else if (containerWidth <= 80) {
-                charLength = 50;
-            } else if (containerWidth <= 100) {
-                charLength = 55;
-            } else {
-                charLength = Math.floor(containerWidth / 5);
-            }
+
+            // Ensure maxWidth is within the range of 50 to 200
+            maxWidth = Math.max(50, Math.min(200, maxWidth));
+
+            console.log('maxWidth', maxWidth);
+            return `${maxWidth}px`;
         }
+    }
 
-        this.setState({ charLength });
+    useEffect(() => {
+        checkOverflow();
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    useEffect(() => {
+        setMaxWidth(calculateMaxWidth());
+    }, [tableHeader]);
+
+    const handleResize = () => {
+        setMaxWidth(calculateMaxWidth());
+        checkOverflow();
     };
 
+    const checkOverflow = () => {
+        const { offsetWidth, scrollWidth } = textElement.current;
+        setOverflowed(scrollWidth > offsetWidth);
+    };
 
-    render() {
-        const { value, variant, label } = this.props;
-        const { charLength } = this.state;
+    const truncatedValue = value && overflowed ? value.slice(0, value.length - 3) + '...' : value;
+    const filledValue = truncatedValue?.padEnd(value.length, ' ');
 
-        return (
-            <div>
-                <Tooltip title={ value?.length > charLength ? value : '' } arrow>
-                    <Typography variant={ variant ? variant : 'h4' } component="div" gutterBottom ref={ this.textElement }>
-                        { label }{ ' ' }
-                        { value?.length > charLength
-                            ? ((value?.charAt(0).toUpperCase() + value?.slice(1)).substring(0, charLength) + '...')
-                            : value?.charAt(0).toUpperCase() + value?.slice(1) }
-                    </Typography>
-                </Tooltip>
-            </div>
-        );
-    }
-}
+    const containerStyle = {
+        maxWidth: maxWidth,
+        overflowX: 'hidden',
+        tableLayout: 'auto',
+    };
+
+    return (
+        <div style={ containerStyle }>
+            <Tooltip title={ overflowed ? value : '' } arrow>
+                <Typography
+                    variant={ variant || 'h4' }
+                    component="div"
+                    gutterBottom
+                    ref={ textElement }
+                    style={ { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' } }
+                >
+                    { value }
+                </Typography>
+            </Tooltip>
+            <Snackbar
+                open={ showSnackBar }
+                onClose={ () => setShowSnackBar(false) }
+                message="Text overflowed"
+            />
+        </div>
+    );
+};
 
 export default EllipsisText;
 
