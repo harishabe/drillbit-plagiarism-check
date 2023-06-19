@@ -76,7 +76,7 @@ const uploadFileRepository = () => {
         <ZipFileUpload
             key={2}
             isRepository={ true }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP_REPO }
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
             zipFileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.USER_REPOSITARY_UPLOAD_ZIP }
