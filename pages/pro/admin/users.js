@@ -82,6 +82,7 @@ const Users = ({
     DeleteData,
     DeactivateData,
     isLoading,
+    grammar_access
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
@@ -288,7 +289,7 @@ const Users = ({
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Users') {
             UploadFileDataClear();
-            router.push({ pathname: '/pro/admin/addBulkUser' });
+            router.push({ pathname: '/pro/admin/addBulkUser', query: { grammar: grammar_access?.toUpperCase() } });
         }
     };
 
@@ -440,6 +441,7 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.user?.page,
     instructorData: state?.detailsData?.instructorData?.user?._embedded?.userResponseList,
     isLoading: state?.detailsData?.isLoading,
+    grammar_access: state?.detailsData?.instructorData?.grammar_access
 });
 
 const mapDispatchToProps = (dispatch) => {

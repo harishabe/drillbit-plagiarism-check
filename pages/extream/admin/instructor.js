@@ -83,6 +83,7 @@ const Instructor = ({
     DeleteData,
     DeactivateData,
     isLoading,
+    grammar_access
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
@@ -286,7 +287,7 @@ const Instructor = ({
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Instructors') {
             UploadFileDataClear();
-            router.push({ pathname: '/extream/admin/addBulkInstructor' });
+            router.push({ pathname: '/extream/admin/addBulkInstructor', query: { grammar: grammar_access?.toUpperCase() } });
         }
     };
 
@@ -441,6 +442,7 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.list?.page,
     instructorData: state?.detailsData?.instructorData?.list?.content,
     isLoading: state?.detailsData?.isLoading,
+    grammar_access: state?.detailsData?.instructorData?.grammar_access
 });
 
 const mapDispatchToProps = (dispatch) => {

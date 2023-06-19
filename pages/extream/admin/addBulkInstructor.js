@@ -169,7 +169,10 @@ const AddBulkInstructor = ({
                                             <div className={ classes.dragAndDropArea }>
                                                 <UploadFileIcon />
                                                 <SubTitle1 title="File Format : CSV " />
-                                                <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " />
+                                                { router?.query?.grammar === 'YES' ?
+                                                    <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " /> :
+                                                    <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* " />
+                                                }
                                                 <div className={ classes.padding30 }>
                                                     <Link style={ { marginLeft: '5px' } }>
                                                         <label htmlFor="file-upload" className={ classes.customFileUpload }>

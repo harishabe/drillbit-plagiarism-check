@@ -171,7 +171,10 @@ const addBulkUser = ({
                                                 <UploadFileIcon />
                                                 <div className={ classes.padding10 }>
                                                     <SubTitle1 title='File format : CSV' />
-                                                    <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " />
+                                                    { router?.query?.grammar === 'YES' ?
+                                                        <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " /> :
+                                                        <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* " />
+                                                    }
                                                     <Link style={{ marginLeft: '5px' }}>
                                                         <label htmlFor="file-upload" className={classes.customFileUpload}>
                                                             Browse your file here
