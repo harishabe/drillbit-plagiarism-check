@@ -81,8 +81,7 @@ const Users = ({
     instructorData,
     DeleteData,
     DeactivateData,
-    isLoading,
-    grammar_access
+    isLoading
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
@@ -440,8 +439,7 @@ const Users = ({
 const mapStateToProps = (state) => ({
     pageDetails: state?.detailsData?.instructorData?.user?.page,
     instructorData: state?.detailsData?.instructorData?.user?._embedded?.userResponseList,
-    isLoading: state?.detailsData?.isLoading,
-    grammar_access: state?.detailsData?.instructorData?.grammar_access
+    isLoading: state?.detailsData?.isLoading
 });
 
 const mapDispatchToProps = (dispatch) => {
