@@ -85,7 +85,8 @@ const addBulkUser = ({
     isLoadingTemplate,
     isLoadingInstructorFileUpload,
     fileUploadData,
-    UploadFileDataClear
+    UploadFileDataClear,
+    grammar_access
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -171,7 +172,7 @@ const addBulkUser = ({
                                                 <UploadFileIcon />
                                                 <div className={ classes.padding10 }>
                                                     <SubTitle1 title='File format : CSV' />
-                                                    { router?.query?.grammar === 'YES' ?
+                                                    { grammar_access?.toUpperCase() === 'YES' ?
                                                         <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " /> :
                                                         <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* " />
                                                     }
@@ -226,6 +227,7 @@ const mapStateToProps = (state) => ({
     isLoadingTemplate: state?.detailsData?.isLoadingTemplate,
     isLoadingInstructorFileUpload: state?.detailsData?.isLoading,
     fileUploadData: state?.detailsData?.fileUploadData,
+    grammar_access: state?.detailsData?.instructorData?.grammar_access
 });
 
 const mapDispatchToProps = (dispatch) => {

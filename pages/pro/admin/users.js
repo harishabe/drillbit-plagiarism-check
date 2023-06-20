@@ -289,7 +289,7 @@ const Users = ({
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Users') {
             UploadFileDataClear();
-            router.push({ pathname: '/pro/admin/addBulkUser', query: { grammar: grammar_access?.toUpperCase() } });
+            router.push({ pathname: '/pro/admin/addBulkUser' });
         }
     };
 

@@ -287,7 +287,7 @@ const Instructor = ({
             setShowDialogModal(true);
         } else if (info?.title === 'Add Multiple Instructors') {
             UploadFileDataClear();
-            router.push({ pathname: '/extream/admin/addBulkInstructor', query: { grammar: grammar_access?.toUpperCase() } });
+            router.push({ pathname: '/extream/admin/addBulkInstructor' });
         }
     };
 
