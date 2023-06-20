@@ -74,7 +74,7 @@ const uploadFileRepository = () => {
             key={2}
             isRepository={ true }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP_REPO }
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
             zipFileUploadAPI={ BASE_URL_EXTREM + END_POINTS.ADMIN_REPOSITARY_UPLOAD_ZIP }
             routerObj={ { pathname: '/extream/admin/repository' } }
