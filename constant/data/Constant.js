@@ -192,6 +192,12 @@ export const UPLOAD_SUPPORTED_FILES = {
         'SIZE': 'Document size - upto 100 MB',
         'MAX_FILES': 'Documents - upto 100 files in a single zip'
     },
+    'ZIP_REPO': {
+        'FILE_FORMATS': 'Supported Compressed file format: .zip  (limited to .doc, .docx, .pdf files)',
+        'LENGTH': 'Document length - upto 800 pages',
+        'SIZE': 'Document size - upto 100 MB',
+        'MAX_FILES': 'Documents - upto 100 files in a single zip'
+    },
     'NON_ZIP': 'Non-Supported Compressed file format :  .rar, .tar, .7z',
     'GDRIVE': {
         'FILE_FORMATS': 'File formats:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.rtf,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',

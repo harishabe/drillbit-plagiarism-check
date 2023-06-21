@@ -74,7 +74,7 @@ const uploadFileRepository = () => {
         <ZipFileUpload
             isRepository={ true }
             title={ UPLOAD_TITLE_CONSTANT.REPOSITORY }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.ZIP_REPO }
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
             zipFileUploadAPI={ BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPOSITARY_UPLOAD_ZIP }
             routerObj={ { pathname: '/pro/admin/repository' } }
