@@ -85,7 +85,8 @@ const addBulkUser = ({
     isLoadingTemplate,
     isLoadingInstructorFileUpload,
     fileUploadData,
-    UploadFileDataClear
+    UploadFileDataClear,
+    grammar_access
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -171,7 +172,10 @@ const addBulkUser = ({
                                                 <UploadFileIcon />
                                                 <div className={ classes.padding10 }>
                                                     <SubTitle1 title='File format : CSV' />
-                                                    <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " />
+                                                    { grammar_access?.toUpperCase() === 'YES' ?
+                                                        <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " /> :
+                                                        <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* " />
+                                                    }
                                                     <Link style={{ marginLeft: '5px' }}>
                                                         <label htmlFor="file-upload" className={classes.customFileUpload}>
                                                             Browse your file here
@@ -223,6 +227,7 @@ const mapStateToProps = (state) => ({
     isLoadingTemplate: state?.detailsData?.isLoadingTemplate,
     isLoadingInstructorFileUpload: state?.detailsData?.isLoading,
     fileUploadData: state?.detailsData?.fileUploadData,
+    grammar_access: state?.detailsData?.instructorData?.grammar_access
 });
 
 const mapDispatchToProps = (dispatch) => {

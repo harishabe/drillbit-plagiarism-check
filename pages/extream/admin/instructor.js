@@ -82,7 +82,7 @@ const Instructor = ({
     instructorData,
     DeleteData,
     DeactivateData,
-    isLoading,
+    isLoading
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
