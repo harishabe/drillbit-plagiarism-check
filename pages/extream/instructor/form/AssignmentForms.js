@@ -20,7 +20,7 @@ import InputFileType from '../../../../components/form/elements/InputFileType';
 import InputAutoComplete from '../../../../components/form/elements/InputAutoComplete';
 import InputButton from '../../../../components/form/elements/InputButton';
 import { CreateAssignment, EditAssignment } from '../../../../redux/action/instructor/InstructorAction';
-import { convertDateAssignment, handleKeyPress, convertDate } from '../../../../utils/RegExp';
+import { handleKeyPress, convertDate } from '../../../../utils/RegExp';
 import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
 import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK, ASSIGNMENT_START_DATE_VALIDATION, ASSIGNMENT_END_DATE_VALIDATION } from '../../../../constant/data/ErrorMessage';
 import { ErrorMessageContainer } from '../../../../style/index';
@@ -109,29 +109,8 @@ const AssignmentForms = ({
             let bodyFormData = new FormData();
             if (showSetting) {
                 bodyFormData.append('assignment_name', data.assignment_name);
-                const now = new Date();
-                const CurrentDate = now.toISOString().slice(0, 10) + " 00:00:00";
-
-                if (convertDate(data.start_date) === convertDate(data.end_date)) {
-                    if (convertDate(data.start_date) === CurrentDate) {
-                        bodyFormData.append('start_date', convertDateAssignment(data.start_date));
-                        bodyFormData.append('end_date', convertDate(data.end_date).replace("00:00:00", "23:59:59"));
-                    } else if (convertDate(data.start_date) !== CurrentDate) {
-                        bodyFormData.append('start_date', convertDate(data.start_date));
-                        bodyFormData.append('end_date', convertDate(data.end_date).replace("00:00:00", "23:59:59"));
-                    }
-                } else if (convertDate(data.start_date) !== convertDate(data.end_date)) {
-                    if (convertDate(data.start_date) === CurrentDate) {
-                        bodyFormData.append('start_date', convertDateAssignment(data.start_date));
-                        bodyFormData.append('end_date', convertDateAssignment(data.end_date));
-                    } else if (convertDate(data.start_date) !== CurrentDate) {
-                        bodyFormData.append('start_date', convertDate(data.start_date));
-                        bodyFormData.append('end_date', convertDate(data.end_date).replace("00:00:00", "23:59:59"));
-                    }
-                } else {
-                    bodyFormData.append('start_date', convertDateAssignment(data.start_date));
-                    bodyFormData.append('end_date', convertDateAssignment(data.end_date));
-                }
+                bodyFormData.append('start_date', convertDate(data.start_date));
+                bodyFormData.append('end_date', convertDate(data.end_date));
 
                 if (data.file !== undefined) {
                     bodyFormData.append('file', data?.file[0]);
@@ -186,29 +165,8 @@ const AssignmentForms = ({
                 CreateAssignment(router.query.clasId, bodyFormData);
             } else {
                 bodyFormData.append('assignment_name', data.assignment_name);
-                const now = new Date();
-                const CurrentDate = now.toISOString().slice(0, 10) + " 00:00:00";
-
-                if (convertDate(data.start_date) === convertDate(data.end_date)) {
-                    if (convertDate(data.start_date) === CurrentDate) {
-                        bodyFormData.append('start_date', convertDateAssignment(data.start_date));
-                        bodyFormData.append('end_date', convertDate(data.end_date).replace("00:00:00", "23:59:59"));
-                    } else if (convertDate(data.start_date) !== CurrentDate) {
-                        bodyFormData.append('start_date', convertDate(data.start_date));
-                        bodyFormData.append('end_date', convertDate(data.end_date).replace("00:00:00", "23:59:59"));
-                    }
-                } else if (convertDate(data.start_date) !== convertDate(data.end_date)) {
-                    if (convertDate(data.start_date) === CurrentDate) {
-                        bodyFormData.append('start_date', convertDateAssignment(data.start_date));
-                        bodyFormData.append('end_date', convertDateAssignment(data.end_date));
-                    } else if (convertDate(data.start_date) !== CurrentDate) {
-                        bodyFormData.append('start_date', convertDate(data.start_date));
-                        bodyFormData.append('end_date', convertDate(data.end_date).replace("00:00:00", "23:59:59"));
-                    }
-                } else {
-                    bodyFormData.append('start_date', convertDateAssignment(data.start_date));
-                    bodyFormData.append('end_date', convertDateAssignment(data.end_date));
-                }
+                bodyFormData.append('start_date', convertDate(data.start_date));
+                bodyFormData.append('end_date', convertDate(data.end_date));
 
                 if (data.file !== undefined) {
                     bodyFormData.append('file', data?.file[0]);
@@ -248,29 +206,8 @@ const AssignmentForms = ({
             }
         }
         bodyFormData.append('assignment_name', data.assignment_name);
-        const now = new Date();
-        const CurrentDate = now.toISOString().slice(0, 10) + " 00:00:00";
-
-        if (convertDate(data.start_date) === convertDate(data.end_date)) {
-            if (convertDate(data.start_date) === CurrentDate) {
-                bodyFormData.append('start_date', convertDateAssignment(data.start_date));
-                bodyFormData.append('end_date', convertDate(data.end_date).replace(/(\d{2}:\d{2}:\d{2})/, "23:59:59"));
-            } else if (convertDate(data.start_date) !== CurrentDate) {
-                bodyFormData.append('start_date', convertDate(data.start_date).replace(/(\d{2}:\d{2}:\d{2})/, "00:00:00"));
-                bodyFormData.append('end_date', convertDate(data.end_date).replace(/(\d{2}:\d{2}:\d{2})/, "23:59:59"));
-            }
-        } else if (convertDate(data.start_date) !== convertDate(data.end_date)) {
-            if (convertDate(data.start_date).replace(/(\d{2}:\d{2}:\d{2})/, "00:00:00") === CurrentDate) {
-                bodyFormData.append('start_date', convertDateAssignment(data.start_date));
-                bodyFormData.append('end_date', convertDateAssignment(data.end_date));
-            } else if (convertDate(data.start_date) !== CurrentDate) {
-                bodyFormData.append('start_date', convertDate(data.start_date).replace(/(\d{2}:\d{2}:\d{2})/, "00:00:00"));
-                bodyFormData.append('end_date', convertDate(data.end_date).replace(/(\d{2}:\d{2}:\d{2})/, "23:59:59"));
-            }
-        } else {
-            bodyFormData.append('start_date', convertDateAssignment(data.start_date));
-            bodyFormData.append('end_date', convertDateAssignment(data.end_date));
-        }
+        bodyFormData.append('start_date', convertDate(data.start_date));
+        bodyFormData.append('end_date', convertDate(data.end_date));
 
         if (editData.assignmentData.ex_references === ASSIGNMENT_SETTING_VALUE_YES) {
             //setExcludeRefBib(ASSIGNMENT_SETTING_VALUE_YES);

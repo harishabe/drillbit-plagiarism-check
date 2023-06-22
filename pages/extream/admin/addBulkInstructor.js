@@ -85,7 +85,8 @@ const AddBulkInstructor = ({
     isLoadingTemplate,
     isLoadingInstructorFileUpload,
     fileUploadData,
-    UploadFileDataClear
+    UploadFileDataClear,
+    grammar_access
 }) => {
     const router = useRouter();
     const classes = useStyles();
@@ -169,7 +170,10 @@ const AddBulkInstructor = ({
                                             <div className={ classes.dragAndDropArea }>
                                                 <UploadFileIcon />
                                                 <SubTitle1 title="File Format : CSV " />
-                                                <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " />
+                                                { grammar_access?.toUpperCase() === 'YES' ?
+                                                    <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " /> :
+                                                    <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* " />
+                                                }
                                                 <div className={ classes.padding30 }>
                                                     <Link style={ { marginLeft: '5px' } }>
                                                         <label htmlFor="file-upload" className={ classes.customFileUpload }>
@@ -224,6 +228,7 @@ const mapStateToProps = (state) => ({
     isLoadingTemplate: state?.detailsData?.isLoadingTemplate,
     isLoadingInstructorFileUpload: state?.detailsData?.isLoading,
     fileUploadData: state?.detailsData?.fileUploadData,
+    grammar_access: state?.detailsData?.instructorData?.grammar_access
 });
 
 const mapDispatchToProps = (dispatch) => {
