@@ -21,22 +21,22 @@ const MyRecentSubmissionTable = ({ tableData }) => {
             <Table aria-label='simple table'>
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan="2">
+                        <TableCell colSpan="2" style={ { maxWidth: 180 } }>
                             <SubTitle1 title="Assignments" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={ { maxWidth: 180 } }>
                             <SubTitle1 title="File Name" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={ { maxWidth: 180 } }>
                             <SubTitle1 title="Paper ID" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={ { maxWidth: 180 } }>
                             <SubTitle1 title="Marks" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={ { maxWidth: 180 } }>
                             <SubTitle1 title="Similarity" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={ { maxWidth: 180 } }>
                             <SubTitle1 title="Status" />
                         </TableCell>
                     </TableRow>
@@ -57,23 +57,23 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                     {item.ass_name?.charAt(0)?.toUpperCase()}
                                 </Avatar>
                             </TableCell>
-                            <TableCell>
+                            <TableCell style={ { maxWidth: 180 } }>
                                 <EllipsisText value={item.ass_name} charLength={15} />
                                 <SubTitle2 title={item.lang1} />
                             </TableCell>
-                            <TableCell>
+                            <TableCell style={ { maxWidth: 180 } }>
                                 <EllipsisText value={item.original_fn} charLength={15} />
                             </TableCell>
-                            <TableCell>
+                            <TableCell style={ { maxWidth: 180 } }>
                                 <SubTitle title={item.paper_id} />
                             </TableCell>
-                            <TableCell>
+                            <TableCell style={ { maxWidth: 180 } }>
                                 <SubTitle title={ item.feedback !== null ? item.feedback?.marks : NO_DATA_PLACEHOLDER } />
                             </TableCell>
-                            <TableCell>
+                            <TableCell style={ { maxWidth: 180 } }>
                                 <SimilarityStatus percent={ item.percent } flag={ item.flag } />
                             </TableCell>
-                            <TableCell>
+                            <TableCell style={ { maxWidth: 180 } }>
                                 <MarginTop>
                                     <StatusDot color={item.status === 'active' ? '#38BE62' : '#E9596F'} title={item.status} />
                                 </MarginTop>
