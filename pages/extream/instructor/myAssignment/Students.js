@@ -77,12 +77,12 @@ const DeleteAllButton = styled.div`
 `;
 
 const columns = [
-    { id: 'student_id', label: 'Student ID' },
-    { id: 'name', label: 'Student Name' },
-    { id: 'username', label: 'Email' },
-    { id: 'department', label: 'Department' },
-    { id: 'section', label: 'Section' },
-    { id: 'action', label: 'Actions' },
+    { id: 'student_id', label: 'Student ID', maxWidth: 120 },
+    { id: 'name', label: 'Student Name', maxWidth: 150 },
+    { id: 'username', label: 'Email', maxWidth: 160 },
+    { id: 'department', label: 'Department', maxWidth: 130 },
+    { id: 'section', label: 'Section', maxWidth: 90 },
+    { id: 'action', label: 'Actions', maxWidth: 200 },
 ];
 
 function createData(id, student_id, name, username, department, section, action, phone_number) {

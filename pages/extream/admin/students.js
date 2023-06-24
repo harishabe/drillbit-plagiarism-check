@@ -29,13 +29,13 @@ import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl'; 
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'user_id', label: 'ID' },
-    { id: 'username', label: 'Email' },
-    { id: 'department', label: 'Department' },
-    { id: 'section', label: 'Section' },
-    { id: 'stats', label: 'Statistics' },
-    { id: 'action', label: 'Actions' },
+    { id: 'name', label: 'Name', maxWidth: 150 },
+    { id: 'user_id', label: 'ID', maxWidth: 150 },
+    { id: 'username', label: 'Email', maxWidth: 150 },
+    { id: 'department', label: 'Department', maxWidth: 150 },
+    { id: 'section', label: 'Section', maxWidth: 150 },
+    { id: 'stats', label: 'Statistics', maxWidth: 150 },
+    { id: 'action', label: 'Actions', minWidth: 120 },
 ];
 
 function createData(id, name, user_id, username, department, section, stats, action) {

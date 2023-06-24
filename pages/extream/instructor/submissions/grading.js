@@ -63,11 +63,11 @@ const Grading = ({
     }, [clasId, assId, paginationPayload]);
 
     const columns = [
-        { id: 'STname', label: 'Student Name', minWidth: 200 },
-        { id: 'paper_id', label: 'Paper ID', minWidth: 150 },
-        { id: 'similarity', label: 'Similarity' },
-        { id: 'marks', label: 'Assignment Marks', minWidth: 200 },
-        { id: 'action', label: 'Feedback', minWidth: 150 },
+        { id: 'STname', label: 'Student Name', maxWidth: 216 },
+        { id: 'paper_id', label: 'Paper ID', maxWidth: 216 },
+        { id: 'similarity', label: 'Similarity', maxWidth: 216 },
+        { id: 'marks', label: 'Assignment Marks', maxWidth: 216 },
+        { id: 'action', label: 'Feedback', maxWidth: 216 },
     ];
 
     function createData(STname, paper_id, marks, similarity, action, flag) {

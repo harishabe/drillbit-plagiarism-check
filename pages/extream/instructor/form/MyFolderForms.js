@@ -166,7 +166,7 @@ const MyFoldersForms = ({
     useEffect(() => {
         if (editData !== undefined) {
             let a = {
-                'assignment_name': editData.folder_name || editData.assignment_name?.props?.title
+                'assignment_name': editData.folder_name || editData.assignment_name?.props?.value
             };
             const fields = [
                 'assignment_name'

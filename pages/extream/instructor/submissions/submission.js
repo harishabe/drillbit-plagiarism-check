@@ -56,15 +56,15 @@ import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES, WINDOW_PLATFORM, NO_DATA
 import { INSTRUCTIONS_STEPS } from '../../../../constant/data/InstructionMessage';
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'title', label: 'Title' },
-    { id: 'original_fn', label: 'File', isDownload: true },
-    { id: 'lang1', label: 'Language' },
-    { id: 'grammar_url', label: 'Grammar', maxWidth: 85 },
-    { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'Paper ID' },
-    { id: 'date_up', label: 'Submission Date' },
-    { id: 'action', label: 'Action', minWidth: 142 },
+    { id: 'name', label: 'Name', maxWidth: 90 },
+    { id: 'title', label: 'Title', maxWidth: 90 },
+    { id: 'original_fn', label: 'File', isDownload: true, maxWidth: 120 },
+    { id: 'lang1', label: 'Language', maxWidth: 80 },
+    { id: 'grammar_url', label: 'Grammar', minWidth: 100 },
+    { id: 'percent', label: 'Similarity', maxWidth: 120 },
+    { id: 'paper_id', label: 'Paper ID', maxWidth: 70 },
+    { id: 'date_up', label: 'Submission Date', maxWidth: 80 },
+    { id: 'action', label: 'Action', maxWidth: 200 },
 ];
 
 function createData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status, user_id, flag) {

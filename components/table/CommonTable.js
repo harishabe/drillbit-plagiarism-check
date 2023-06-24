@@ -133,6 +133,7 @@ const CommonTable = ({
                                                                     }
                                                                 </div>
                                                         }
+                                                        style={ { minWidth: column.minWidth, maxWidth: column.maxWidth, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' } }
                                                     >
                                                         <EllipsisText value={ column.label } charLength={ charLength } variant='body2_2' />
                                                     </TableSortLabel> }
@@ -178,7 +179,7 @@ const CommonTable = ({
                                                             <>
                                                                 {
                                                                     column.isDownload ?
-                                                                        <TableCell align={ column.align }>
+                                                                        <TableCell align={ column.align } style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                             { typeof (value) === 'string' ?
                                                                                 <div style={ { display: 'flex' } }>
                                                                                     <div style={ { width: '20%' } }>
@@ -197,7 +198,7 @@ const CommonTable = ({
                                                                         :
                                                                         <>
                                                                             { column.id === 'percent' &&
-                                                                                <TableCell align={ column.align }>
+                                                                                <TableCell align={ column.align } style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                                     <div style={ { display: 'flex' } }>
                                                                                         {
                                                                                             ((role !== 'student') || (role === 'student' && router?.query?.repo?.toUpperCase() === 'YES')) ?
@@ -245,7 +246,7 @@ const CommonTable = ({
                                                                                 </TableCell>
                                                                             }
                                                                             { column.id === 'grammar_url' &&
-                                                                                <TableCell align={ column.align }>
+                                                                                <TableCell align={ column.align } style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                                     { value === '--' && <StatusColor color='#E5E5E5'><BeatLoader size={ 10 } color="#3672FF" /></StatusColor> }
                                                                                     { (value !== '--' && value !== 'NA' && value !== null) &&
                                                                                         <>
@@ -263,7 +264,7 @@ const CommonTable = ({
                                                                                 </TableCell>
                                                                             }
                                                                             { (column.id !== 'percent' && column.id !== 'grammar_url') &&
-                                                                                <TableCell align={ column.align }>
+                                                                                <TableCell align={ column.align } style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                                     { typeof (value) === 'string' ?
                                                                                         <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } variant='body2_3' /> :
                                                                                         <Typography variant='body2_3' component="div">{ value !== null ? value : NO_DATA_PLACEHOLDER }</Typography> }

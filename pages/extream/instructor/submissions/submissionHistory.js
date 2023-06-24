@@ -16,14 +16,14 @@ import { PaginationContainer } from '../../../../style/index';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 
 const SubmissionColumns = [
-    { id: 'name', label: 'Name' },
-    { id: 'title', label: 'Title' },
-    { id: 'original_fn', label: 'File', isDownload: true },
-    { id: 'lang1', label: 'Language' },
-    { id: 'grammar_url', label: 'Grammar' },
-    { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'ID' },
-    { id: 'date_up', label: 'Submission Date' },
+    { id: 'name', label: 'Name', maxWidth: 135 },
+    { id: 'title', label: 'Title', maxWidth: 135 },
+    { id: 'original_fn', label: 'File', isDownload: true, maxWidth: 135 },
+    { id: 'lang1', label: 'Language', maxWidth: 135 },
+    { id: 'grammar_url', label: 'Grammar', minWidth: 105 },
+    { id: 'percent', label: 'Similarity', maxWidth: 135 },
+    { id: 'paper_id', label: 'Paper ID', maxWidth: 135 },
+    { id: 'date_up', label: 'Submission Date', maxWidth: 155 },
 ];
 
 function submissionHistoryData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, flag) {

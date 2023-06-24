@@ -9,11 +9,11 @@ import {
     CreateDrawer,
     WarningDialog,
     CommonTable,
-    FolderIconSmall,
     StatusDot,
     CardView,
     Instructions,
-    ErrorBlock
+    ErrorBlock,
+    EllipsisText,
 } from '../../../components';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
@@ -31,12 +31,12 @@ import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const columns = [
-    { id: 'class_id', label: 'Class ID' },
-    { id: 'class_name', label: 'Class name' },
-    { id: 'created_date', label: 'Start date' },
-    { id: 'end_date', label: 'Expiry date' },
-    { id: 'status', label: 'Status' },
-    { id: 'action', label: 'Action' },
+    { id: 'class_id', label: 'Class ID', maxWidth: 180 },
+    { id: 'class_name', label: 'Class name', maxWidth: 200 },
+    { id: 'created_date', label: 'Start date', maxWidth: 180 },
+    { id: 'end_date', label: 'Expiry date', maxWidth: 180 },
+    { id: 'status', label: 'Status', maxWidth: 180 },
+    { id: 'action', label: 'Action', maxWidth: 160 },
 ];
 
 function createData(class_id, class_name, created_date, end_date, status, action, description, expiry_date) {
@@ -123,7 +123,7 @@ const MyClassFiles = ({
             row =
                 createData(
                     classes.class_id,
-                    <FolderIconSmall component={ [<WysiwygIcon fontSize='small' htmlColor='#56B2EA' />] } title={ classes.class_name } charLength={ 17 } />,
+                    <EllipsisText component={ [<WysiwygIcon fontSize='14px' htmlColor='#56B2EA' />] } value={ classes.class_name } />,
                     formatDate(classes.creation_date),
                     formatDate(classes.end_date),
                     <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
@@ -153,7 +153,7 @@ const MyClassFiles = ({
             router.push({
                 pathname: '/extream/instructor/my-assignment',
                 query: {
-                    clasId: rowData.class_id, clasName: rowData?.class_name?.props?.title
+                    clasId: rowData.class_id, clasName: rowData?.class_name?.props?.value
                 }
             });
         }
