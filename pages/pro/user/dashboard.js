@@ -251,7 +251,7 @@ const Dashboard = ({
                     color={ COLUMN_ADMIN_CHART_COLOR }
                     xaxisData={ submissionChartData?.xaxisData }
                     columnWidth={ COLUMN_ADMIN_WIDTH }
-                    height={ 379 }
+                    height={ 349 }
                     seriesData={ [
                       {
                         name: 'No. of submissions',

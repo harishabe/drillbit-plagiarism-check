@@ -23,21 +23,21 @@ const DownloadButton = styled.div`
 `;
 
 const foldersColumn = [
-    { id: 'reportname', label: 'Folder Name', minWidth: 170 },
-    { id: 'reportid', label: 'Folder ID', minWidth: 170 },
-    { id: 'reportusername', label: 'Email', minWidth: 170 },
-    { id: 'reportcreated', label: 'Created Date', minWidth: 170 },
-    { id: 'reportendDate', label: 'End Date', minWidth: 170 },
-    { id: 'reportcount', label: 'Submissions', minWidth: 170 },
+    { id: 'reportname', label: 'Folder Name', maxWidth: 180 },
+    { id: 'reportid', label: 'Folder ID', maxWidth: 180 },
+    { id: 'reportusername', label: 'Email', maxWidth: 180 },
+    { id: 'reportcreated', label: 'Created Date', maxWidth: 180 },
+    { id: 'reportendDate', label: 'End Date', maxWidth: 180 },
+    { id: 'reportcount', label: 'Submissions', maxWidth: 180 },
 ];
 
 const submissionsColumns = [
-    { id: 'reportname', label: 'Author Name', minWidth: 110 },
-    { id: 'reporttitle', label: 'Title', minWidth: 110 },
-    { id: 'reportdate_up', label: 'Submission Date', minWidth: 110 },
-    { id: 'reportusername', label: 'Email', minWidth: 110 },
-    { id: 'reportpaper_id', label: 'Paper ID', minWidth: 110 },
-    { id: 'reportpercent', label: 'Similarity', minWidth: 110 },
+    { id: 'reportname', label: 'Author Name', maxWidth: 180 },
+    { id: 'reporttitle', label: 'Title', maxWidth: 180 },
+    { id: 'reportdate_up', label: 'Submission Date', maxWidth: 180 },
+    { id: 'reportusername', label: 'Email', maxWidth: 180 },
+    { id: 'reportpaper_id', label: 'Paper ID', maxWidth: 180 },
+    { id: 'reportpercent', label: 'Similarity', maxWidth: 180 },
 ];
 
 function submissionData(reportname, reporttitle, reportdate_up, reportusername, reportpaper_id, reportpercent, flag) {

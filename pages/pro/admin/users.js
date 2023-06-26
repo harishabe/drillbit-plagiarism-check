@@ -42,12 +42,12 @@ import { Role } from '../../../constant/data';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'username', label: 'Email' },
-    { id: 'created_date', label: 'Creation Date' },
-    { id: 'status', label: 'Status' },
-    { id: 'stats', label: 'Statistics' },
-    { id: 'action', label: 'Actions' }
+    { id: 'name', label: 'Name', maxWidth: 140 },
+    { id: 'username', label: 'Email', maxWidth: 180 },
+    { id: 'created_date', label: 'Creation Date', maxWidth: 180 },
+    { id: 'status', label: 'Status', maxWidth: 180 },
+    { id: 'stats', label: 'Statistics', maxWidth: 180 },
+    { id: 'action', label: 'Actions', maxWidth: 180 }
 ];
 
 function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar) {

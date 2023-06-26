@@ -26,34 +26,34 @@ const RecentSubmissionTable = ({
                             { tableData?.map((item, index) => (
                                 item['color'] = Colors[index],
                                 <TableRow key={ index }>
-                                    <TableCell style={ { width: '45px' } }>
+                                        <TableCell style={ { width: '45px', maxWidth: 150 } }>
                                         <Avatar
                                             alt={ item.name }
                                             sx={ { width: 50, height: 50, background: item.color, color: '#fff' } }
                                             >{ item?.name?.charAt(0)?.toUpperCase() }
                                         </Avatar>
                                     </TableCell>
-                                    <TableCell align='left'>
+                                        <TableCell align='left' style={ { maxWidth: 150 } }>
                                             <EllipsisText value={ item?.name !== null ? item?.name : 'NA' } charLength={ 15 } />
                                             <EllipsisText value={ item?.title !== null ? item?.title : 'NA' } variant={ 'body2' } charLength={ 15 } />
                                     </TableCell>
 
-                                    <TableCell>
+                                        <TableCell style={ { maxWidth: 150 } }>
                                         <SubTitle1 title={ item.paper_id } />
                                     </TableCell>
-                                    <TableCell>
+                                        <TableCell style={ { maxWidth: 150 } }>
                                         <SubTitle1 title={ formatDate(item.date_up) } />
                                     </TableCell>
-                                    <TableCell>
+                                        <TableCell style={ { maxWidth: 150 } }>
                                         <SimilarityStatus
                                             percent={ item.percent }
                                                 flag={ item.flag }
                                         />
                                     </TableCell>
-                                    <TableCell>
+                                        <TableCell style={ { maxWidth: 150 } }>
                                         <StatusDot color="#69C886" title={ item.status } />
                                     </TableCell>
-                                    <TableCell align='right'>
+                                        <TableCell align='right' style={ { maxWidth: 150 } }>
                                         <Button
                                             variant="contained"
                                             color="primary"
@@ -72,28 +72,28 @@ const RecentSubmissionTable = ({
                             { tableData?.map((item, index) => (
                                 item['color'] = Colors[index],
                                 <TableRow key={ index }>
-                                    <TableCell style={ { width: '45px' } }>
+                                        <TableCell style={ { width: '45px', maxWidth: 70 } }>
                                         <Avatar
                                             alt={ item.name }
                                             sx={ { width: 50, height: 50, background: item.color, color: '#fff' } }
                                         >{ item.name.charAt(0).toUpperCase() }
                                         </Avatar>
                                     </TableCell>
-                                    <TableCell align='left'>
+                                        <TableCell align='left' style={ { maxWidth: 70 } }>
                                         <SubTitle1
                                             title={ item.name } />
                                         <SubTitle
                                             title={ item.class_name } />
                                     </TableCell>
-                                    <TableCell>
+                                        <TableCell style={ { maxWidth: 70 } }>
                                         <SimilarityStatus
                                             percent={ item.percent }
                                         />
                                     </TableCell>
-                                    <TableCell>
+                                        <TableCell style={ { maxWidth: 70 } }>
                                         <StatusDot color="#69C886" title={ item.status } />
                                     </TableCell>
-                                    <TableCell align='right'>
+                                        <TableCell align='right' style={ { maxWidth: 70 } }>
                                         <Button
                                             variant="contained"
                                             color="primary"
