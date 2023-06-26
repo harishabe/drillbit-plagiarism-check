@@ -34,8 +34,8 @@ const useStyles = makeStyles({
 });
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'details', label: 'Details' },
+    { id: 'name', label: 'Name', minWidth: 170 },
+    { id: 'details', label: 'Details', maxWidth: 700 },
 ];
 
 function createData(name, details) {
