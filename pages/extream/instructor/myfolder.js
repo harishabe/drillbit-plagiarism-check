@@ -67,7 +67,7 @@ const columns = [
     { id: 'ass_id', label: 'Folder ID', maxWidth: 100 },
     { id: 'assignment_name', label: 'Folder name', maxWidth: 150 },
     { id: 'start_date', label: 'Created date', maxWidth: 140 },
-    { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 130 },
+    { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 60, headerWidth: 100 },
     { id: 'action', label: 'Action', maxWidth: 100 },
 ];
 
