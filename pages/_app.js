@@ -96,8 +96,8 @@ export default function MyApp(props) {
             <ThemeProvider theme={ theme }>
                 {/* <CssBaseline /> */ }
                 <Provider store={ store }>
-                    <Layout>
                         <ToastContainer style={ toastWidth ? { width: toastWidth, padding: '0px' } : null } />
+                    <Layout>
                         { authorized && <Component { ...pageProps } /> }
                     </Layout>
                 </Provider>
