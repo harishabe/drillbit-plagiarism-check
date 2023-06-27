@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
-import { SubTitle, SubTitle1, SimilarityStatus, EllipsisText } from '../index';
+import { SubTitle1, SimilarityStatus, EllipsisText } from '../index';
 import { StatusDot } from '../../components';
 import { formatDate } from '../../utils/RegExp';
 
@@ -42,7 +42,7 @@ const RecentSubmissionTable = ({
                                         <SubTitle1 title={ item.paper_id } />
                                     </TableCell>
                                         <TableCell style={ { maxWidth: 150 } }>
-                                        <SubTitle1 title={ formatDate(item.date_up) } />
+                                            <EllipsisText value={ formatDate(item.date_up) } variant="h5" />
                                     </TableCell>
                                         <TableCell style={ { maxWidth: 150 } }>
                                         <SimilarityStatus
@@ -72,18 +72,18 @@ const RecentSubmissionTable = ({
                             { tableData?.map((item, index) => (
                                 item['color'] = Colors[index],
                                 <TableRow key={ index }>
-                                        <TableCell style={ { width: '45px', maxWidth: 70 } }>
+                                        <TableCell style={ { width: '45px', maxWidth: 60 } }>
                                         <Avatar
                                             alt={ item.name }
                                             sx={ { width: 50, height: 50, background: item.color, color: '#fff' } }
                                         >{ item.name.charAt(0).toUpperCase() }
                                         </Avatar>
                                     </TableCell>
-                                        <TableCell align='left' style={ { maxWidth: 70 } }>
-                                        <SubTitle1
-                                            title={ item.name } />
-                                        <SubTitle
-                                            title={ item.class_name } />
+                                        <TableCell align='left' style={ { maxWidth: 90 } }>
+                                            <EllipsisText
+                                                value={ item.name } variant='h5' />
+                                            <EllipsisText
+                                                value={ item.class_name } variant='h4' />
                                     </TableCell>
                                         <TableCell style={ { maxWidth: 70 } }>
                                         <SimilarityStatus
@@ -93,7 +93,7 @@ const RecentSubmissionTable = ({
                                         <TableCell style={ { maxWidth: 70 } }>
                                         <StatusDot color="#69C886" title={ item.status } />
                                     </TableCell>
-                                        <TableCell align='right' style={ { maxWidth: 70 } }>
+                                        <TableCell align='right' style={ { maxWidth: 60 } }>
                                         <Button
                                             variant="contained"
                                             color="primary"
