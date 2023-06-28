@@ -50,8 +50,8 @@ const columns = [
     { id: 'action', label: 'Actions' }
 ];
 
-function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar) {
-    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar };
+function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar, expired) {
+    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar, expired };
 };
 
 const AddButtonBottom = styled.div`
@@ -125,7 +125,7 @@ const Users = ({
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                             { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                             {
-                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
+                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" disabled={ instructor.expired === 1 && true } />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
                                 'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
                             }
@@ -136,6 +136,7 @@ const Users = ({
                     instructor.phone_number,
                     instructor.used_submissions,
                     instructor.used_grammar,
+                    instructor.expired
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -182,7 +183,7 @@ const Users = ({
         } else if (icon === 'delete') {
             setDeleteRowData(rowData?.user_id);
             setShowDeleteWarning(true);
-        } else if (icon === 'lock') {
+        } else if (icon === 'lock' && rowData?.expired === 0) {
             let activateDeactive = {
                 'id': rowData?.user_id,
                 'status': 'INACTIVE'
@@ -190,7 +191,7 @@ const Users = ({
             setStatusRowData(activateDeactive);
             setStatusWarning(true);
             setStatusMessage('inactive');
-        } else if (icon === 'unlock') {
+        } else if (icon === 'unlock' && rowData?.expired === 0) {
             let activateDeactive = {
                 'id': rowData?.user_id,
                 'status': 'ACTIVE'
