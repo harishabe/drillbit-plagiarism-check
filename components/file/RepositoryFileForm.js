@@ -11,6 +11,7 @@ import {
     UPLOAD_FILE_AUTHOR_NAME,
     UPLOAD_FILE_PAPER_TITLE,
     UPLOAD_FILE_YEAR,
+    MIN_UPLOAD_FILE_YEAR,
     UPLOAD_FILE_REPOSITORY_TYPE,
     UPLOAD_FILE_LANGUAGE,
 } from '../../constant/data/ErrorMessage';
@@ -132,11 +133,12 @@ const RepositoryFileForm = ({
                                     size="small"
                                     error={ errors['year' + item[0]] }
                                     { ...register('year' + item[0], {
-                                        required: true, min: 2000,
-                                        max: d.getFullYear()
+                                        required: { value: true, message: UPLOAD_FILE_YEAR },
+                                        min: { value: 2000, message: MIN_UPLOAD_FILE_YEAR },
+                                        max: { value: d.getFullYear(), message: `Value should be less than or equal to ${d.getFullYear()}` },
                                     }) }
                                     onKeyPress={ handleKeyPress }
-                                    helperText={ errors['year' + item[0]] && UPLOAD_FILE_YEAR }
+                                    helperText={ errors['year' + item[0]] && errors['year' + item[0]].message }
                                     FormHelperTextProps={ {
                                         className: classes.helperText
                                     } }
