@@ -239,7 +239,6 @@ const MyFolder = ({
         setEditFolder(drawerClose);
     };
 
-    console.log('myFolders', myFolders)
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
