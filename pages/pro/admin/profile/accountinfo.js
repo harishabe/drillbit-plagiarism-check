@@ -146,8 +146,7 @@ const AccountInfo = ({
                     <CommonTable
                         isCheckbox={false}
                         tableHeader={columns}
-                        tableData={rows}
-                        charLength={50}
+                            tableData={ rows }
                         path=''
                     />
                 )}

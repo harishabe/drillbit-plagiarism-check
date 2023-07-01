@@ -69,7 +69,6 @@ const IntegrationTypeDetail = ({
                 isCheckbox={ false }
                 tableHeader={ columns }
                 tableData={ rows }
-                charLength={ 50 }
                 path=''
             />
         </>
@@ -176,7 +175,6 @@ const IntegrationTypeDetail = ({
                         isCheckbox={ false }
                         tableHeader={ columns }
                         tableData={ technical }
-                        charLength={ 50 }
                             path=''
                         />
                     </CardView>

@@ -421,10 +421,3 @@ a {
 .Toastify__toast{
   font-family: 'Montserrat' !important;
 }
-.css-1qsa7ls-MuiTableCell-root,
-.css-1rq9n6f-MuiTableCell-root {
-  padding-top: 16px;
-  padding-left: 1.7%;
-  padding-right: 8px;
-  padding-bottom: 16px;
-}

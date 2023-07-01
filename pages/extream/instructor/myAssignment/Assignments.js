@@ -370,7 +370,6 @@ const Assignments = ({
                         handleCheckboxSelect={ handleCheckboxSelect }
                         handleSingleSelect={ handleSingleSelect }
                         isLoading={ isLoadingAssignment }
-                        charLength={ 9 }
                     />
                     :
                     <>
@@ -386,7 +385,6 @@ const Assignments = ({
                                 handleCheckboxSelect={ handleCheckboxSelect }
                                 handleSingleSelect={ handleSingleSelect }
                                 isLoading={ isLoadingAssignment }
-                                charLength={ 9 }
                             /> :
                             <CardView>
                                 <Instructions message={ Object.values(INSTRUCTIONS_STEPS.ASSIGNMENT) } />

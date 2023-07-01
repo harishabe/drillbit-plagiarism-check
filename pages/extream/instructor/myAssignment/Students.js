@@ -398,7 +398,6 @@ const Students = ({
                         handleCheckboxSelect={ handleCheckboxSelect }
                         handleSingleSelect={ handleSingleSelect }
                         isLoading={ isLoadingStudent }
-                        charLength={ 17 }
                         path=''
                     />
                     :
@@ -415,7 +414,6 @@ const Students = ({
                                 handleCheckboxSelect={ handleCheckboxSelect }
                                 handleSingleSelect={ handleSingleSelect }
                                 isLoading={ isLoadingStudent }
-                                charLength={ 17 }
                                 path=''
                             /> :
                             <CardView>

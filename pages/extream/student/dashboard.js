@@ -194,7 +194,7 @@ const Dashboard = ({
                                         isLoadingDashboard ?
                                             <Skeleton /> :
                                             <TextAlignRight>
-                                                <EllipsisText value={studentDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')'} charLength={12} />
+                                                <EllipsisText value={ studentDashboardData?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } />
                                             </TextAlignRight>
                                     }
                                 </Grid>

@@ -284,7 +284,6 @@ const Dashboard = ({
                           "Submissions" +
                           ")"
                         }
-                        charLength={12}
                       />
                     </TextAlignRight>
                   )}

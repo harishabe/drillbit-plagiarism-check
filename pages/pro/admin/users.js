@@ -416,7 +416,6 @@ const Users = ({
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
                     isLoading={ isLoading }
-                    charLength={ 15 }
                     path=''
                 />
 

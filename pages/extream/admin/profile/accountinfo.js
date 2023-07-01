@@ -142,7 +142,6 @@ const AccountInfo = ({
                             isCheckbox={ false }
                             tableHeader={ columns }
                             tableData={ rows }
-                            charLength={ 50 }
                         path=''
                     />
                 ) }

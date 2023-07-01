@@ -34,8 +34,8 @@ const RecentSubmissionTable = ({
                                         </Avatar>
                                     </TableCell>
                                         <TableCell align='left' style={ { maxWidth: 150 } }>
-                                            <EllipsisText value={ item?.name !== null ? item?.name : 'NA' } charLength={ 15 } />
-                                            <EllipsisText value={ item?.title !== null ? item?.title : 'NA' } variant={ 'body2' } charLength={ 15 } />
+                                            <EllipsisText value={ item?.name !== null ? item?.name : 'NA' } />
+                                            <EllipsisText value={ item?.title !== null ? item?.title : 'NA' } variant={ 'body2' } />
                                     </TableCell>
 
                                         <TableCell style={ { maxWidth: 150 } }>

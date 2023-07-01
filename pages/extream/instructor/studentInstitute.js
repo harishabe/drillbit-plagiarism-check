@@ -142,7 +142,6 @@ function StudentInstitute({
                 isSorting={ true }
                 tableHeader={ columns }
                 tableData={ data }
-                charLength={ 10 }
                 handleAction={ handleAction }
                 handleTableSort={ handleTableSort }
                 handleCheckboxSelect={ handleCheckboxSelect }

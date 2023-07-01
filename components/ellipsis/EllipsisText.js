@@ -32,7 +32,7 @@ class EllipsisText extends Component {
         const { overflowed } = this.state;
 
         return (
-            <Tooltip title={ overflowed ? this.props.value : '' } arrow>
+            <Tooltip title={ overflowed || this.props.isFolder && (this.props.value?.length > this.props.maxLength) ? this.props.value : '' } arrow>
                 <Typography
                     variant={ this.props.variant ? this.props.variant : 'h4' }
                     component="div"
@@ -41,7 +41,9 @@ class EllipsisText extends Component {
                     style={ { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' } }
                     onMouseEnter={ this.checkTextOverflow }
                 >
-                    { this.props.component } { this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1) }
+                    { this.props.component } { this.props.isFolder ? (this.props.value?.length > this.props.maxLength) ?
+                        (((this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1)).substring(0, this.props.maxLength)) + '...') :
+                        this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1) : this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1) }
                 </Typography>
             </Tooltip>
         );

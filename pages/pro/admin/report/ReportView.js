@@ -132,7 +132,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ foldersColumn }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>
@@ -159,7 +158,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ submissionsColumns }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>

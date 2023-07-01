@@ -431,7 +431,6 @@ const Dashboard = ({
                           "Total days" +
                           ")"
                         }
-                        charLength={12}
                       />
                     </TextAlignRight>
                   )}
@@ -495,7 +494,6 @@ const Dashboard = ({
                           "Submissions" +
                           ")"
                         }
-                        charLength={12}
                       />
                     </TextAlignRight>
                   )}

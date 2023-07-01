@@ -416,7 +416,6 @@ const Instructor = ({
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
                     isLoading={ isLoading }
-                    charLength={ 17 }
                     path=''
                 />
 

@@ -152,7 +152,6 @@ const SubmissionHistoryPage = ({
                 downloadSubmissionFile={ handleOriginalFileDownload }
                 showAnalysisPage={ handleShowAnalysisPage }
                 showGrammarReport={ handlGrammarReport }
-                charLength={ 10 }
                 isLoading={ isLoadingHistory }
                 isLoadingGrammarReport={ isLoadingGrammarReport }
                 path=''

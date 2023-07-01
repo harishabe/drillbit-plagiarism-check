@@ -174,7 +174,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ assignmentsColumns }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>
@@ -203,7 +202,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ classesColumns }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>
@@ -230,7 +228,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ submissionsColumns }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>

@@ -164,7 +164,6 @@ const SubmissionHistory = ({
                     showAnalysisPage={ handleShowAnalysisPage }
                     showGrammarReport={ handlGrammarReport }
                     isLoadingGrammarReport={ isLoadingGrammarReport }
-                    charLength={ 10 }
                 /> :
                 <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT_SUBMISSION) } />
             }

@@ -66,11 +66,11 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                 </Avatar>
                             </TableCell>
                             <TableCell className={ classes.width }>
-                                <EllipsisText value={item.ass_name} charLength={15} />
+                                <EllipsisText value={ item.ass_name } />
                                 <SubTitle2 title={item.lang1} />
                             </TableCell>
                             <TableCell className={ classes.width }>
-                                <EllipsisText value={item.original_fn} charLength={15} />
+                                <EllipsisText value={ item.original_fn } />
                             </TableCell>
                             <TableCell className={ classes.width }>
                                 <SubTitle title={item.paper_id} />

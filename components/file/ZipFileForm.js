@@ -87,7 +87,7 @@ const ZipFileForm = ({
                         <Grid container spacing={1} key={item[1]?.name || item.name}>
                             <Grid item md={ isNonEnglish ? 2.4 : 3 } xs={ 12 }>
                                 <div style={{ marginTop: '25px' }}>
-                                    <EllipsisText value={item[1]?.name || item.name} charLength={22} />
+                                    <EllipsisText value={ item[1]?.name || item.name } />
                                 </div>
                             </Grid>
                             <Grid item md={ isNonEnglish ? 2.4 : 3 } xs={ 12 }>

@@ -547,7 +547,6 @@ const folderSubmission = ({
                         showGrammarReport={ handlGrammarReport }
                         // isLoading={ isLoadingSubmission }
                         isLoadingGrammarReport={ isLoadingGrammarReport }
-                        charLength={ 10 }
                         path=''
                     />
                     :
@@ -568,7 +567,6 @@ const folderSubmission = ({
                                 showGrammarReport={ handlGrammarReport }
                                 // isLoading={ isLoadingSubmission }
                                 isLoadingGrammarReport={ isLoadingGrammarReport }
-                                charLength={ 10 }
                                 path=''
                             /> :
                             <CardView>

@@ -613,7 +613,6 @@ const Submission = ({
                     showGrammarReport={ handlGrammarReport }
                     // isLoading={ isLoading }
                     isLoadingGrammarReport={ isLoadingGrammarReport }
-                    charLength={ 10 }
                 />
                 :
                 <>
@@ -633,7 +632,6 @@ const Submission = ({
                             showGrammarReport={ handlGrammarReport }
                             // isLoading={ isLoading }
                             isLoadingGrammarReport={ isLoadingGrammarReport }
-                            charLength={ 10 }
                         /> :
                         <CardView>
                             <Instructions message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) } />

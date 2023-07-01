@@ -279,7 +279,6 @@ const MyClasses = ({
                     isFolder={ true }
                     tableHeader={ columns }
                         tableData={ rows }
-                    charLength={ 17 }
                     handleAction={ handleAction }
                     handleTableSort={ handleTableSort }
                     isLoading={ isLoading }

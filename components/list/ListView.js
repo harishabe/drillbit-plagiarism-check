@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import { Title, SubTitle, SubTitle1 } from '../index';
+import { Title, SubTitle, SubTitle1, EllipsisText } from '../index';
 import { Divider } from '@mui/material';
 import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant';
 
@@ -16,10 +16,11 @@ const useStyles = makeStyles(() => ({
         margin: '15px 0px'
     },
     itemText: {
-        marginLeft: '5px'
+        marginLeft: '5px',
     },
     right: {
-        textAlign: 'right'
+        textAlign: 'right',
+        marginLeft: '16px'
     }
 }));
 
@@ -40,10 +41,10 @@ const ListView = ({
                         <ListItemText
                             disableTypography
                             className={classes.itemText}
-                            primary={<SubTitle1 title={item.name} />}
-                            secondary={ <SubTitle title={ item.department === null ? NO_DATA_PLACEHOLDER : item.department } /> }
+                            primary={ <EllipsisText value={ item.name } variant='h5' /> }
+                            secondary={ <EllipsisText value={ item.department === null ? NO_DATA_PLACEHOLDER : item.department } variant='h4' /> }
                         />
-                        <ListItemText style={{ textAlign: 'right' }}
+                        <ListItemText
                             disableTypography
                             className={classes.right}
                             primary={<Title title={item.percentage + '%'} color="primary" />}

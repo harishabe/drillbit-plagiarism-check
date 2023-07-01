@@ -73,15 +73,15 @@ const QNA = ({
             row = createData(
                 qna.studentName,
                 <EllipsisText value={ qna?.a1 === null ? NO_DATA_PLACEHOLDER : qna?.a1 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
                 <EllipsisText value={ qna?.a2 === null ? NO_DATA_PLACEHOLDER : qna?.a2 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
                 <EllipsisText value={ qna?.a3 === null ? NO_DATA_PLACEHOLDER : qna?.a3 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
                 <EllipsisText value={ qna?.a4 === null ? NO_DATA_PLACEHOLDER : qna?.a4 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
                 <EllipsisText value={ qna?.a5 === null ? NO_DATA_PLACEHOLDER : qna?.a5 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
             );
             row['isSelected'] = false;
             arr.push(row);

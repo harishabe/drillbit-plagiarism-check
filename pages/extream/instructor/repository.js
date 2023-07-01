@@ -253,7 +253,6 @@ const Repository = ({
                         tableData={ rows }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
-                        charLength={ 10 }
                         isLoading={ isLoadingRepo }
                     />
                     :
@@ -267,7 +266,6 @@ const Repository = ({
                                 tableData={ rows }
                                 handleAction={ handleAction }
                                 handleTableSort={ handleTableSort }
-                                charLength={ 10 }
                                 isLoading={ isLoadingRepo }
                             /> :
                             <CardView>

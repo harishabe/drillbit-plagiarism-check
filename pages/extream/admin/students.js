@@ -308,8 +308,7 @@ const Students = ({
                     handleTableSort={handleTableSort}
                     handleCheckboxSelect={handleCheckboxSelect}
                     handleSingleSelect={handleSingleSelect}
-                    isLoading={isLoading}
-                    charLength={10}
+                    isLoading={ isLoading }
                     path=''
                 />
 

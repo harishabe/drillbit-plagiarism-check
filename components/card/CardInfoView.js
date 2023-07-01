@@ -247,11 +247,11 @@ const CardInfoView = ({
                     }
 
 
-                    { isHeading && <EllipsisText value={ item.name } charLength={ 30 } /> }
+                    { isHeading && <EllipsisText value={ item.name } /> }
 
                     { isDescription &&
                         <EllipsisText value={ item?.description === null ? NO_DATA_PLACEHOLDER : item?.description }
-                            variant={ 'subtitle2' } charLength={ 30 } />
+                        variant={ 'subtitle2' } />
                     }
 
                     { isInstructorName &&

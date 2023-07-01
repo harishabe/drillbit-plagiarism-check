@@ -45,7 +45,7 @@ const RepositoryFileFormZip = ({
                     <Grid container spacing={1} key={files?.name}>
                         <Grid item md={2} xs={12}>
                             <div style={{ marginTop: '25px' }}>
-                                <EllipsisText value={files?.name || item} charLength={15} />
+                                <EllipsisText value={ files?.name || item } />
                             </div>
                         </Grid>
                         <Grid item md={5} xs={12}>
