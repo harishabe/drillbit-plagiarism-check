@@ -24,56 +24,56 @@ const DownloadButton = styled.div`
 `;
 
 const assignmentsColumns = [
-    { id: 'reportass_id', label: 'Assignment ID', minWidth: 170 },
-    { id: 'reportass_name', label: 'Assignment Name', minWidth: 170 },
-    { id: 'reportemail', label: 'Email', minWidth: 170 },
-    { id: 'reportcreated', label: 'Created Date', minWidth: 170 },
-    { id: 'reportendDate', label: 'End Date', minWidth: 170 },
-    { id: 'reportclass_id', label: 'Class ID', minWidth: 170 },
-    { id: 'reportclass_name', label: 'Class Name', minWidth: 170 },
-    { id: 'reportcount', label: 'Submission count', minWidth: 170 },
+    { id: 'reportass_id', label: 'Assignment ID', maxWidth: 100 },
+    { id: 'reportass_name', label: 'Assignment Name', maxWidth: 170 },
+    { id: 'reportemail', label: 'Email', maxWidth: 170 },
+    { id: 'reportcreated', label: 'Created Date', maxWidth: 170 },
+    { id: 'reportendDate', label: 'End Date', maxWidth: 170 },
+    { id: 'reportclass_id', label: 'Class ID', maxWidth: 170 },
+    { id: 'reportclass_name', label: 'Class Name', maxWidth: 170 },
+    { id: 'reportcount', label: 'Submission count', maxWidth: 100 },
 ];
 
 const classesColumns = [
-    { id: 'reportcls_id', label: 'Class ID', minWidth: 170 },
-    { id: 'reportcls_name', label: 'Class Name', minWidth: 170 },
-    { id: 'reportcreated', label: 'Creation Date', minWidth: 170 },
-    { id: 'reportemail', label: 'Email', minWidth: 170 },
-    { id: 'reportstudents_count', label: 'Students Count', minWidth: 170 },
-    { id: 'reportsubmissions_count', label: 'Submissions Count', minWidth: 170 },
-    { id: 'reportvalidity', label: 'Validity', minWidth: 170 },
+    { id: 'reportcls_id', label: 'Class ID', maxWidth: 80 },
+    { id: 'reportcls_name', label: 'Class Name', maxWidth: 150 },
+    { id: 'reportemail', label: 'Email', maxWidth: 200 },
+    { id: 'reportcreated', label: 'Creation Date', maxWidth: 150 },
+    { id: 'reportvalidity', label: 'Validity', maxWidth: 150 },
+    { id: 'reportstudents_count', label: 'Students Count', maxWidth: 100 },
+    { id: 'reportsubmissions_count', label: 'Submissions Count', maxWidth: 100 },
 ];
 
 const submissionsColumns = [
-    { id: 'reportassignment_name', label: 'Assignment Name', minWidth: 110 },
-    { id: 'reportassignmet_id', label: 'Assignment ID', minWidth: 110 },
-    { id: 'reportauthor', label: 'Author Name', minWidth: 110 },
-    { id: 'reportclas_id', label: 'Class ID', minWidth: 90 },
-    { id: 'reportclas_name', label: 'Class Name', minWidth: 110 },
-    { id: 'reportemail', label: 'Email', minWidth: 110 },
-    { id: 'reportno_of_page', label: 'Number Of Pages', minWidth: 110 },
-    { id: 'reportpaper_id', label: 'Paper ID', minWidth: 110 },
-    { id: 'reportsimilarity', label: 'Similarity', minWidth: 110 },
-    { id: 'reportsubmission_date', label: 'Submission Date', minWidth: 110 },
-    { id: 'reporttitle', label: 'Title', minWidth: 110 },
+    { id: 'reportassignment_name', label: 'Assignment Name', maxWidth: 90 },
+    { id: 'reportassignmet_id', label: 'Assignment ID', maxWidth: 110 },
+    { id: 'reportauthor', label: 'Author Name', maxWidth: 110 },
+    { id: 'reportclas_id', label: 'Class ID', maxWidth: 90 },
+    { id: 'reportclas_name', label: 'Class Name', maxWidth: 110 },
+    { id: 'reportemail', label: 'Email', maxWidth: 110 },
+    { id: 'reportno_of_page', label: 'No.of Pages', maxWidth: 90 },
+    { id: 'reportpaper_id', label: 'Paper ID', maxWidth: 95 },
+    { id: 'reportsimilarity', label: 'Similarity', maxWidth: 140 },
+    { id: 'reportsubmission_date', label: 'Submission Date', maxWidth: 110 },
+    { id: 'reporttitle', label: 'Title', maxWidth: 100 },
 ];
 
 const foldersColumn = [
-    { id: 'reportname', label: 'Folder Name', minWidth: 170 },
-    { id: 'reportid', label: 'Folder ID', minWidth: 170 },
-    { id: 'reportusername', label: 'Email', minWidth: 170 },
-    { id: 'reportcreated', label: 'Created Date', minWidth: 170 },
-    { id: 'reportendDate', label: 'End Date', minWidth: 170 },
-    { id: 'reportcount', label: 'Submissions', minWidth: 170 },
+    { id: 'reportname', label: 'Folder Name', maxWidth: 170 },
+    { id: 'reportid', label: 'Folder ID', maxWidth: 170 },
+    { id: 'reportusername', label: 'Email', maxWidth: 170 },
+    { id: 'reportcreated', label: 'Created Date', maxWidth: 170 },
+    { id: 'reportendDate', label: 'End Date', maxWidth: 170 },
+    { id: 'reportcount', label: 'Submissions', maxWidth: 90 },
 ];
 
 const proSubmissionsColumns = [
-    { id: 'reportname', label: 'Author Name', minWidth: 110 },
-    { id: 'reporttitle', label: 'Title', minWidth: 110 },
-    { id: 'reportdate_up', label: 'Submission Date', minWidth: 110 },
-    { id: 'reportusername', label: 'Email', minWidth: 110 },
-    { id: 'reportpaper_id', label: 'Paper ID', minWidth: 110 },
-    { id: 'reportpercent', label: 'Similarity', minWidth: 110 },
+    { id: 'reportname', label: 'Author Name', maxWidth: 170 },
+    { id: 'reporttitle', label: 'Title', maxWidth: 170 },
+    { id: 'reportdate_up', label: 'Submission Date', maxWidth: 130 },
+    { id: 'reportusername', label: 'Email', maxWidth: 170 },
+    { id: 'reportpaper_id', label: 'Paper ID', maxWidth: 80 },
+    { id: 'reportpercent', label: 'Similarity', maxWidth: 170 },
 ];
 
 function submissionData(reportassignment_name, reportassignmet_id, reportauthor, reportclas_id, reportclas_name, reportemail, reportno_of_page, reportpaper_id, reportsimilarity, reportsubmission_date, reporttitle, flag) {
@@ -228,7 +228,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ assignmentsColumns }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>
@@ -257,7 +256,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ classesColumns }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>
@@ -284,7 +282,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ submissionsColumns }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>
@@ -314,7 +311,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ foldersColumn }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>
@@ -341,7 +337,6 @@ const ReportView = ({
                                 isSorting={ true }
                                 tableHeader={ proSubmissionsColumns }
                                 tableData={ rows }
-                                charLength={ 10 }
                                 path=''
                             />
                         </>

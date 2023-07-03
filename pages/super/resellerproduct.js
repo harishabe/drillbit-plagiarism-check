@@ -46,7 +46,7 @@ const SkeletonContainer = styled.div`
 const DownloadField = styled.div`
     position:absolute;
     top: 80px;
-    right:275px;
+    right:225px;
 `;
 
 const DownloadButton = styled.div`
@@ -55,13 +55,13 @@ const DownloadButton = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'LID' },
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'college_name', label: 'Institution name' },
-    { id: 'country', label: 'Location' },
-    { id: 'used_documents', label: 'Used submissions' },
-    { id: 'action', label: 'Action' }
+    { id: 'lid', label: 'LID', maxWidth: 135 },
+    { id: 'name', label: 'Name', maxWidth: 105 },
+    { id: 'email', label: 'Email', maxWidth: 170 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 170 },
+    { id: 'country', label: 'Location', maxWidth: 115 },
+    { id: 'used_documents', label: 'Used submissions', maxWidth: 105 },
+    { id: 'action', label: 'Action', maxWidth: 115 }
 ];
 
 function createData(lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date, timeZone
@@ -201,10 +201,10 @@ const ResellerProduct = ({
     return (
         <>
             <Grid container spacing={ 1 }>
-                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 8 } xs={ 12 } style={ { textAlign: 'right' } }>
                     <BreadCrumb item={ RefBreadCrumb } />
                 </Grid>
-                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 4 } xs={ 12 } style={ { textAlign: 'right' } }>
                     <DownloadField>
                         <DownloadButton>
                             { refData?.length > 0 &&
@@ -225,7 +225,6 @@ const ResellerProduct = ({
                         </DownloadButton>
                     </DownloadField>
                     <TextField
-                        sx={ { width: '40%' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
@@ -246,7 +245,6 @@ const ResellerProduct = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 16 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
                     />

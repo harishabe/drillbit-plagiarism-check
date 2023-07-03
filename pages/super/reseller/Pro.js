@@ -42,14 +42,14 @@ const SkeletonContainer = styled.div`
     margin-right: 5px;
 `;
 const columns = [
-    { id: 'lid', label: 'LID' },
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'college_name', label: 'Institution name' },
-    { id: 'country', label: 'Location' },
-    { id: 'instructors', label: 'Users' },
-    { id: 'documents', label: 'Documents' },
-    { id: 'used_documents', label: 'Submissions' },
+    { id: 'lid', label: 'LID', maxWidth: 80 },
+    { id: 'name', label: 'Name', maxWidth: 120 },
+    { id: 'email', label: 'Email', maxWidth: 155 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 155 },
+    { id: 'country', label: 'Location', maxWidth: 80 },
+    { id: 'instructors', label: 'Users', maxWidth: 80 },
+    { id: 'documents', label: 'Documents', maxWidth: 80 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 80 },
 ]
 
 function createData(lid, name, email, college_name, country, instructors, documents, used_documents) {
@@ -90,9 +90,9 @@ const Pro = ({
                     data.email,
                     data.college_name,
                     data.country,
-                    data.instructors,
-                    data.documents,
-                    data.used_documents
+                    data.instructors.toString(),
+                    data.documents.toString(),
+                    data.used_documents.toString()
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -191,7 +191,6 @@ const Pro = ({
                     tableData={ rows }
                     handleTableSort={ handleTableSort }
                     isLoading={ isLoadingExtStuList }
-                    charLength={ 17 }
                     path=''
                 />
 

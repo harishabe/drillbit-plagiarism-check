@@ -8,8 +8,8 @@ import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'details', label: 'Details' },
+    { id: 'name', label: 'Name', maxWidth: 200 },
+    { id: 'details', label: 'Details', maxWidth: 500 },
 ];
 
 function createData(name, details) {
@@ -55,8 +55,7 @@ const AccountInfo = ({
                     <CommonTable
                         isCheckbox={ false }
                         tableHeader={ columns }
-                        tableData={ rows }
-                        charLength={ 50 }
+                            tableData={ rows }
                         path=''
                     />
                 ) }

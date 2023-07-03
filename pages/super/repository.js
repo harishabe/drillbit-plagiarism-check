@@ -36,14 +36,14 @@ const RepositoryBreadCrumb = [
 ];
 
 const columns = [
-    { id: 'paper_id', label: 'Paper ID' },
-    { id: 'name', label: 'Name' },
-    { id: 'mail_id', label: 'Email ID' },
-    { id: 'title', label: 'Title' },
-    { id: 'repository_type', label: 'Type' },
-    { id: 'lang1', label: 'Language' },
-    { id: 'date_up', label: 'Added Date' },
-    { id: 'action', label: 'Action' },
+    { id: 'paper_id', label: 'Paper ID', maxWidth: 100 },
+    { id: 'name', label: 'Name', maxWidth: 145 },
+    { id: 'mail_id', label: 'Email ID', maxWidth: 145 },
+    { id: 'title', label: 'Title', maxWidth: 145 },
+    { id: 'repository_type', label: 'Type', maxWidth: 125 },
+    { id: 'lang1', label: 'Language', maxWidth: 120 },
+    { id: 'date_up', label: 'Added Date', maxWidth: 150 },
+    { id: 'action', label: 'Action', maxWidth: 100 },
 ];
 
 function createData(paper_id, name, mail_id, title, repository_type, lang1, date_up, action) {
@@ -230,15 +230,14 @@ const Repository = ({
                 </Grid>
             </Box>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 6 } xs={ 5 }>
+                <Grid item md={ 5.5 } xs={ 5 }>
                     <MainHeading
                         title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
-                <Grid item md={ 4.1 } xs={ 12 }>
+                <Grid item md={ 4.5 } xs={ 12 }>
                     <Autocomplete
                         size='small'
-                        sx={ { width: '400px' } }
                         value={ value }
                         onChange={ (event, newValue) => {
                             setValue(newValue);
@@ -253,7 +252,7 @@ const Repository = ({
                         renderInput={ (params) => <TextField { ...params } label="Institution list" /> }
                     />
                 </Grid>
-                <Grid item md={ 1.9 } xs={ 12 }>
+                <Grid item md={ 2 } xs={ 12 }>
                     <TextField
                         placeholder='Search'
                         onChange={ searchResults }
@@ -285,7 +284,6 @@ const Repository = ({
                     tableData={ rows }
                     handleAction={ handleAction }
                     handleTableSort={ handleTableSort }
-                    charLength={ 10 }
                     isLoading={ isLoadingRepo || isLoadingRemove }
                 />
 

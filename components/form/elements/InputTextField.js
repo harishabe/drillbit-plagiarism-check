@@ -43,7 +43,7 @@ const InputTextField = ({
         if (field.name === 'confirmPassword') {
             setRegex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
         }
-        if (field.name === 'email') {
+        if ((field.name === 'email') || (field.name === 'adminEmail')) {
             setRegex(/^[A-Z0-9._%+-]{2,64}@[A-Z0-9.-]{2,255}\.[A-Z0-9-]{2,63}$/i);
         }
     }, [field]);

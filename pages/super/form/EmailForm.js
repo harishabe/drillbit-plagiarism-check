@@ -12,7 +12,7 @@ function createData(name, details) {
 
 const columns = [
     { id: 'name', label: 'Name' },
-    { id: 'details', label: 'Details' },
+    { id: 'details', label: 'Details', maxWidth: 400 },
 ];
 
 const EmailForm = ({
@@ -46,8 +46,7 @@ const EmailForm = ({
                     <CommonTable
                         isCheckbox={ false }
                         tableHeader={ columns }
-                        tableData={ rows }
-                        charLength={ 50 }
+                    tableData={ rows }
                         path=''
                     />
                 }

@@ -9,8 +9,8 @@ import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'details', label: 'Details' },
+    { id: 'name', label: 'Name', maxWidth: 200 },
+    { id: 'details', label: 'Details', maxWidth: 500 },
 ];
 
 function createData(name, details) {

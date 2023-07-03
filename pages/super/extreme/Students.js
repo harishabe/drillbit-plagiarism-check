@@ -46,15 +46,12 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'username', label: 'Email' },
-    { id: 'expiry_date', label: 'End date' },
-    { id: 'status', label: 'Status' },
-    // { id: 'user_id', label: 'ID' },
-    // { id: 'department', label: 'Department' },
-    // { id: 'section', label: 'Section' },
-    { id: 'stats', label: 'Statistics' },
-    { id: 'action', label: 'Actions' },
+    { id: 'name', label: 'Name', maxWidth: 200 },
+    { id: 'username', label: 'Email', maxWidth: 200 },
+    { id: 'expiry_date', label: 'End date', maxWidth: 200 },
+    { id: 'status', label: 'Status', maxWidth: 200 },
+    { id: 'stats', label: 'Statistics', maxWidth: 60 },
+    { id: 'action', label: 'Actions', maxWidth: 200 },
 ];
 
 function createData(id, name, user_id, username, department, section, expiry_date, status, stats, action, phone_number) {
@@ -416,7 +413,6 @@ const Students = ({
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
                     isLoading={ isLoadingExtStuList || isLoadingResend }
-                    charLength={ 17 }
                     path=''
                 />
 
