@@ -68,6 +68,7 @@ const NonEnglishFile = () => {
             title={ UPLOAD_TITLE_CONSTANT.REGIONAL }
             allowedFormat={ UPLOAD_SUPPORTED_FILES.REGIONAL_FORMAT }
             fileIcon={ <UploadFileIcon /> }
+            isCrossLangDropdown={ false }
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/regional/folder/${router.query.folderId}/upload` }
             routerObj={ {
                 pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
