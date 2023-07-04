@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
     },
     itemText: {
         marginLeft: '5px',
+        maxWidth: '185px'
     },
     right: {
         textAlign: 'right',
