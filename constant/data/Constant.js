@@ -469,5 +469,8 @@ export const DOCUMENT_TYPE_LANG = {
       "Tamil",
       "Telugu",
       "Urdu"
+    ],
+    "cross_language": [
+        "English"
     ]
   }

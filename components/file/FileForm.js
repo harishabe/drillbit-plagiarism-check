@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
 import styled from "styled-components";
@@ -12,6 +11,7 @@ import {
   UPLOAD_FILE_AUTHOR_TITLE,
   UPLOAD_FILE_TYPE,
   UPLOAD_FILE_LANGUAGE,
+  TARGET_UPLOAD_FILE_LANGUAGE
 } from "../../constant/data/ErrorMessage";
 import { getItemSessionStorage } from "../../utils/RegExp";
 import InputAutoComplete from "../form/elements/InputAutoComplete";
@@ -38,6 +38,7 @@ const FileForm = ({
   isLoading,
   langType,
   isRegionalFile,
+  isCrossLangDropdown,
   isStudent,
   assName,
 }) => {
@@ -70,7 +71,7 @@ const FileForm = ({
               <Grid container spacing={1} key={item[1]?.name || item.name}>
                 <Grid
                   item
-                  md={langType === "Non English" || isRegionalFile ? 2.4 : 3}
+                  md={ langType === "Non English" || isRegionalFile ? 2.4 : 3 }
                   xs={12}
                 >
                   <div style={{ marginTop: "25px" }}>
@@ -82,7 +83,7 @@ const FileForm = ({
                 </Grid>
                 <Grid
                   item
-                  md={langType === "Non English" || isRegionalFile ? 2.4 : 3}
+                  md={ langType === "Non English" || isRegionalFile ? 2.4 : 3 }
                   xs={12}
                 >
                   <LabelContainer>
@@ -129,7 +130,7 @@ const FileForm = ({
                 </Grid>
                 <Grid
                   item
-                  md={langType === "Non English" || isRegionalFile ? 2.4 : 3}
+                  md={ langType === "Non English" || isRegionalFile ? 2.4 : 3 }
                   xs={12}
                 >
                   <LabelContainer>
@@ -178,7 +179,7 @@ const FileForm = ({
                 {!isStudent && (
                   <Grid
                     item
-                    md={langType === "Non English" || isRegionalFile ? 2.4 : 3}
+                    md={ langType === "Non English" || isRegionalFile ? 2.4 : 3 }
                     xs={12}
                   >
                     <InputAutoComplete
@@ -226,7 +227,7 @@ const FileForm = ({
                 )}
 
                 {isRegionalFile && (
-                  <Grid item md={2.4} xs={12}>
+                  <Grid item md={ 2.4 } xs={ 12 }>
                     <InputAutoComplete
                       control={control}
                       field={{
@@ -249,6 +250,30 @@ const FileForm = ({
                     />
                   </Grid>
                 )}
+                { isCrossLangDropdown && (
+                  <Grid item md={ 3 } xs={ 12 }>
+                    <InputAutoComplete
+                      control={ control }
+                      field={ {
+                        field_type: "dropdown",
+                        style: { marginTop: "0px" },
+                        id: "Language",
+                        label: "Target Language *",
+                        name: "destinationLanguage",
+                        required: TARGET_UPLOAD_FILE_LANGUAGE,
+                        validationMsg: TARGET_UPLOAD_FILE_LANGUAGE,
+                        size: "small",
+                        options:
+                          DOCUMENT_TYPE_LANG !== undefined &&
+                          DOCUMENT_TYPE_LANG?.cross_language?.map(
+                            (item) => ({
+                              name: item,
+                            })
+                          ),
+                      } }
+                    />
+                  </Grid>
+                ) }
               </Grid>
             );
           })}

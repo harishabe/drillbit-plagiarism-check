@@ -66,6 +66,7 @@ const UploadFiles = ({
   UploadNonEnglish,
   isLoadingNonEng,
   isRegionalFile,
+  isCrossLangDropdown,
   uploadFileNonEng,
   langType,
   isStudent,
@@ -174,8 +175,10 @@ const UploadFiles = ({
       isStudent
     ) {
       singleFileUploadNonEnglishStudent(fileData, data);
-    } else if (fileData.length === 1 && isRegionalFile) {
+    } else if (fileData.length === 1 && isRegionalFile && !isCrossLangDropdown) {
       regionalFileUpload(fileData, data);
+    } else if (fileData.length === 1 && isRegionalFile && isCrossLangDropdown) {
+      regionalCrossLangFileUpload(fileData, data);
     } else if (
       fileData.length > 1 &&
       langType === "English" &&
@@ -368,6 +371,17 @@ const UploadFiles = ({
     bodyFormData.append("title", data.title0);
     bodyFormData.append("documentType", data.documentType0);
     bodyFormData.append("language", data.regionalLanguage);
+    bodyFormData.append("file", files[0][1]);
+    SubmissionListUpload(singleFileUploadAPI, bodyFormData);
+  };
+
+  const regionalCrossLangFileUpload = (files, data) => {
+    let bodyFormData = new FormData();
+    bodyFormData.append("authorName", data.authorName0);
+    bodyFormData.append("title", data.title0);
+    bodyFormData.append("documentType", data.documentType0);
+    bodyFormData.append("language", data.regionalLanguage);
+    bodyFormData.append("destination_language", data.destinationLanguage);
     bodyFormData.append("file", files[0][1]);
     SubmissionListUpload(singleFileUploadAPI, bodyFormData);
   };
@@ -616,6 +630,7 @@ const UploadFiles = ({
                   btnTitle="Submit"
                   isLoading={isLoadingUpload || isLoadingNonEng}
                   langType={langType}
+                  isCrossLangDropdown={ isCrossLangDropdown }
                 />
               )}
             </Grid>
