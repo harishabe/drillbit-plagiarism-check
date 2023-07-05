@@ -224,10 +224,9 @@ const folderSubmission = ({
                                     </Tooltip>
                                 </div>
                                 <div className={ classes.width }>
-                                    <EllipsisText value={ submission.language1 !== null ? submission.language1 : NO_DATA_PLACEHOLDER } />
+                                    <EllipsisText value={ submission.language1 } />
                                 </div>
-                            </div> :
-                            <Typography variant='body2_3' component="div">{ submission.language1 !== null ? submission.language1 : NO_DATA_PLACEHOLDER }</Typography>
+                            </div> : submission.language1
                     ],
                     submission.grammar,
                     submission.grammar_url,
