@@ -79,7 +79,7 @@ const NonEnglishFile = () => {
             isRegionalFile={ true }
             choseFileTitle='Browse your regional file here'
             title={ UPLOAD_TITLE_CONSTANT.REGIONAL }
-            allowedFormat={ UPLOAD_SUPPORTED_FILES.REGIONAL_FORMAT }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.CROSS_LANGUAGE_FORMAT }
             fileIcon={ <UploadFileIcon /> }
             isCrossLangDropdown={ true }
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/crossLangauge/folder/${router.query.folderId}/upload` }
