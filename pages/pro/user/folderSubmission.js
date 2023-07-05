@@ -2,16 +2,19 @@ import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import debouce from 'lodash.debounce';
-import { Grid, Tooltip } from '@mui/material';
+import { Grid, Tooltip, Typography } from '@mui/material';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import { Pagination, IconButton } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
+import GTranslateIcon from '@mui/icons-material/GTranslate';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { TextField } from '@mui/material';
 import ProUser from '../../../layouts/ProUser';
 import {
@@ -22,7 +25,8 @@ import {
     WarningDialog,
     SimilarityStatus,
     Instructions,
-    CardView
+    CardView,
+    EllipsisText
 } from '../../../components';
 import {
     UploadFileDataClear,
@@ -73,22 +77,23 @@ const AddButtonBottom = styled.div`
     z-index: 999;
 `;
 
-// const DownloadField = styled.div`
-//     position:absolute;
-//     top: 115px;
-//     right:295px;
-// `;
-
-// const RefreshButton = styled.div`
-//     position:absolute;
-//     top: 115px;
-//     right:335px;
-// `;
-
-// const SkeletonContainer = styled.div`
-//     margin-top: 16px;
-//     margin-right: 5px;
-// `;
+const useStyles = makeStyles(() => ({
+    lang: {
+        display: 'flex',
+    },
+    tooltipStyle: {
+        width: '20%',
+        marginTop: '4px'
+    },
+    width: {
+        width: '80%'
+    },
+    flex: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+}));
 
 const DeleteAllButton = styled.div`
     marginLeft: 10px;
@@ -119,6 +124,7 @@ const folderSubmission = ({
 }) => {
 
     const router = useRouter();
+    const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showSubmissionReport, setShowSubmissionReport] = useState(false);
@@ -133,6 +139,14 @@ const folderSubmission = ({
 
     const folderId = router.query.folderId;
     const folderName = router.query.name;
+
+
+    const TooltipContent = ({ value }) => (
+        <>
+            <div className={ classes.flex }>{ 'Cross Language' }</div>
+            <div className={ classes.flex }> { value } <ArrowRightAltIcon fontSize='small' /> English </div>
+        </>
+    );
 
     const UserBreadCrumb = [
         {
@@ -201,7 +215,20 @@ const folderSubmission = ({
                     submission.name,
                     submission.title,
                     submission.original_file_name,
-                    submission.language1,
+                    [
+                        submission?.language === "Cross-Language" ?
+                            <div className={ classes.lang }>
+                                <div className={ classes.tooltipStyle }>
+                                    <Tooltip title={ <TooltipContent value={ submission.language1 } /> } arrow>
+                                        <GTranslateIcon fontSize='23px' color='primary' />
+                                    </Tooltip>
+                                </div>
+                                <div className={ classes.width }>
+                                    <EllipsisText value={ submission.language1 !== null ? submission.language1 : NO_DATA_PLACEHOLDER } />
+                                </div>
+                            </div> :
+                            <Typography variant='body2_3' component="div">{ submission.language1 !== null ? submission.language1 : NO_DATA_PLACEHOLDER }</Typography>
+                    ],
                     submission.grammar,
                     submission.grammar_url,
                     <SimilarityStatus percent={ submission.percent } flag={ submission.flag } />,
@@ -223,7 +250,6 @@ const folderSubmission = ({
                     submission.d_key,
                     submission.alert_msg,
                     submission.repository_status,
-                    submission.language
                 );
             row['isSelected'] = false;
             arr.push(row);

@@ -19,8 +19,6 @@ import { IconButton, Tooltip } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
-import GTranslateIcon from '@mui/icons-material/GTranslate';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { TableSkeleton, EllipsisText, ErrorBlock, Instructions } from '../../components';
 import { DownloadIcon } from '../../assets/icon';
@@ -57,11 +55,6 @@ const useStyles = makeStyles(() => ({
     },
     customArrowContainer: {
         marginTop: '14px'
-    },
-    flex: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
     }
 }));
 
@@ -161,12 +154,6 @@ const CommonTable = ({
                                             </TableCell> }
                                         { tableHeader.map((column, index) => {
                                             const value = row[column.id];
-                                            const TooltipContent = () => (
-                                                <>
-                                                    <div className={ classes.flex }>{ 'Cross Language' }</div>
-                                                    <div className={ classes.flex }> { value } <ArrowRightAltIcon fontSize='small' /> English </div>
-                                                </>
-                                            );
                                             return (
                                                 <>
                                                     {
@@ -273,22 +260,6 @@ const CommonTable = ({
                                                                                         </>
                                                                                     }
                                                                                     { (value === 'NA' || value === null) && <StatusColor color='#E5E5E5'>{ NOT_APPLICABLE }</StatusColor> }
-                                                                                </TableCell>
-                                                                            }
-                                                                            { column.id === 'lang1' &&
-                                                                                <TableCell align={ column.align }>
-                                                                                    { typeof (value) === 'string' && row?.language === "Cross-Language" ?
-                                                                                        <div style={ { display: 'flex' } }>
-                                                                                            <div style={ { width: '20%', marginTop: '4px' } }>
-                                                                                                <Tooltip title={ <TooltipContent /> } arrow>
-                                                                                                    <GTranslateIcon fontSize='23px' color='primary' />
-                                                                                                </Tooltip>
-                                                                                            </div>
-                                                                                            <div style={ { width: '80%' } }>
-                                                                                                <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } />
-                                                                                            </div>
-                                                                                        </div> :
-                                                                                        <Typography variant='body2_3' component="div">{ value !== null ? value : NO_DATA_PLACEHOLDER }</Typography> }
                                                                                 </TableCell>
                                                                             }
                                                                             { (column.id !== 'percent' && column.id !== 'grammar_url') &&
