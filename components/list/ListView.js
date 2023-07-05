@@ -17,11 +17,10 @@ const useStyles = makeStyles(() => ({
     },
     itemText: {
         marginLeft: '5px',
-        maxWidth: '185px'
     },
     right: {
         textAlign: 'right',
-        marginLeft: '16px'
+        minWidth: '55px'
     }
 }));
 
