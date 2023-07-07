@@ -125,7 +125,7 @@ const Users = ({
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                             { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                             {
-                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
+                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" disabled={ instructor.expired === 1 } />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
                                 'title': instructor.status === 'active' ? 'Activate' : 'De-activate',
                                 'isDisabled': instructor.expired === 1
