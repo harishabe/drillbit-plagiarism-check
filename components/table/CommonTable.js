@@ -163,8 +163,8 @@ const CommonTable = ({
                                                                     <>
                                                                         {
                                                                             (icon.type === 'lock' || icon.type === 'unlock') ?
-                                                                                <Tooltip title={ icon.title } arrow>
-                                                                                    <span onClick={ (e) => handleAction(e, icon.type, row) } >{ icon.component }</span>
+                                                                                <Tooltip title={ !icon.isDisabled ? icon.title : '' } arrow>
+                                                                                    <IconButton disabled={ icon.isDisabled } onClick={ (e) => handleAction(e, icon.type, row) } >{ icon.component }</IconButton>
                                                                                 </Tooltip> :
                                                                                 <>
                                                                                     <Tooltip title={ icon.title } arrow>

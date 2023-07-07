@@ -50,8 +50,8 @@ const columns = [
     { id: 'action', label: 'Actions' }
 ];
 
-function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar) {
-    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar };
+function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar, expired) {
+    return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar, expired };
 };
 
 const AddButtonBottom = styled.div`
@@ -125,9 +125,10 @@ const Users = ({
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                             { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                             {
-                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
+                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" disabled={ instructor.expired === 1 } />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
+                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate',
+                                'isDisabled': instructor.expired === 1
                             }
                         ]),
                     instructor.expiry_date,
@@ -136,6 +137,7 @@ const Users = ({
                     instructor.phone_number,
                     instructor.used_submissions,
                     instructor.used_grammar,
+                    instructor.expired
                 );
             row['isSelected'] = false;
             arr.push(row);
