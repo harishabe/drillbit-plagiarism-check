@@ -93,7 +93,6 @@ const Integration = ({
     useEffect(() => {
         if (showGoogleClassroom) {
             router.push({ pathname: '/extream/admin/integration/google/googleAuth' });
-            //GetGoogleLms()
         }
     }, [showGoogleClassroom]);
 
@@ -213,8 +212,7 @@ const Integration = ({
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
             </Grid> :
                 <Grid container spacing={2}>
-                    {lmsData?.map((item, index) => (
-                        item.lms === 'GOOGLECLASSROOM' ? '' :
+                    { lmsData?.map((item, index) => (
                             <Grid key={index} item md={4} xs={12}>
                                 <CardInfoView
                                     item={item}

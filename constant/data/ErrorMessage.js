@@ -10,6 +10,7 @@ export const QNA_NOT_FOUND = "No data found!";
 export const FOLDERS_NOT_FOUND = "No Folder found!";
 export const INSTRUCTOR_NOT_FOUND = "No Instructors found!";
 export const DOCUMENT_PROCESSED_NOT_FOUND = "No data found!";
+export const NO_DATA_FOUND = "No data found!";
 
 /**
  * Submission, Repository Upload file

@@ -19,7 +19,7 @@ export const PRO_ADMIN_INTEGRATION_BLACKBOARD_PATH = "/pro/admin/integration/bla
 export const ADMIN_INTEGRATION_GOOGLECLASSROOM = "GOOGLECLASSROOM";
 export const ADMIN_INTEGRATION_GOOGLECLASSROOM_IMG = "/img/lms/google-classroom.svg";
 export const ADMIN_INTEGRATION_GOOGLECLASSROOM_DESCRIPTION = "Google classroom LTI Integration";
-export const ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH = "/extream/admin/integration/googleClassroom";
+export const ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH = "/extream/admin/integration/google/coursesDashboard";
 export const PRO_ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH = "/pro/admin/integration/googleClassroom";
 
 export const ADMIN_INTEGRATION_BRIGHTSPACE = "BRIGHTSPACE";

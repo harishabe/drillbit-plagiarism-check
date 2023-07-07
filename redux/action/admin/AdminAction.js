@@ -297,6 +297,15 @@ export const GetGoogleImportCourses = (data) => {
 };
 
 /**
+ * Clear Google Live Courses data
+ */
+export const ClearGoogleImportStatus = () => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_CLEAR
+    };
+};
+
+/**
  * Get Google Live Courses
  */
 export const GetGoogleCourseHome = () => {

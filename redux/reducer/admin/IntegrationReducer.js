@@ -138,6 +138,12 @@ const IntegrationReducer = (state = {}, action) => {
                 isLoadingImportCourse: false,
                 googleImportCourseData: action.payload,
             };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_CLEAR:
+            return {
+                ...state,
+                isLoadingImportCourse: false,
+                googleImportCourseData: '',
+            };
         case types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START:
             return {
                 ...state,
