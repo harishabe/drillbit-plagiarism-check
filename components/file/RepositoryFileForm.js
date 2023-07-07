@@ -135,7 +135,7 @@ const RepositoryFileForm = ({
                                     { ...register('year' + item[0], {
                                         required: { value: true, message: UPLOAD_FILE_YEAR },
                                         min: { value: 2000, message: MIN_UPLOAD_FILE_YEAR },
-                                        max: { value: d.getFullYear(), message: `Value should be less than or equal to ${d.getFullYear()}` },
+                                        max: { value: d.getFullYear(), message: `Entered year should be less than or equal to ${d.getFullYear()}` },
                                     }) }
                                     onKeyPress={ handleKeyPress }
                                     helperText={ errors['year' + item[0]] && errors['year' + item[0]].message }
