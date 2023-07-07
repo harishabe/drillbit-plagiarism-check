@@ -125,9 +125,10 @@ const Users = ({
                         ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                             { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
                             {
-                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" disabled={ instructor.expired === 1 && true } />,
+                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
+                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate',
+                                'isDisabled': instructor.expired === 1
                             }
                         ]),
                     instructor.expiry_date,
@@ -183,7 +184,7 @@ const Users = ({
         } else if (icon === 'delete') {
             setDeleteRowData(rowData?.user_id);
             setShowDeleteWarning(true);
-        } else if (icon === 'lock' && rowData?.expired === 0) {
+        } else if (icon === 'lock') {
             let activateDeactive = {
                 'id': rowData?.user_id,
                 'status': 'INACTIVE'
@@ -191,7 +192,7 @@ const Users = ({
             setStatusRowData(activateDeactive);
             setStatusWarning(true);
             setStatusMessage('inactive');
-        } else if (icon === 'unlock' && rowData?.expired === 0) {
+        } else if (icon === 'unlock') {
             let activateDeactive = {
                 'id': rowData?.user_id,
                 'status': 'ACTIVE'
