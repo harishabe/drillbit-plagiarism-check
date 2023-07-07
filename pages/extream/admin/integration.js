@@ -102,25 +102,25 @@ const Integration = ({
                 item['img'] = ADMIN_INTEGRATION_MOODLE_IMG;
                 item['description'] = ADMIN_INTEGRATION_MOODLE_DESCRIPTION;
                 item['path'] = ADMIN_INTEGRATION_MOODLE_PATH;
-                item['type'] = 'Moodle';
+                item['type'] = INTEGRATION_TYPES.MOODLE;
             }
             if (item.lms === ADMIN_INTEGRATION_CANVAS) {
                 item['img'] = ADMIN_INTEGRATION_CANVAS_IMG;
                 item['description'] = ADMIN_INTEGRATION_CANVAS_DESCRIPTION;
                 item['path'] = ADMIN_INTEGRATION_CANVAS_PATH;
-                item['type'] = 'Canvas';
+                item['type'] = INTEGRATION_TYPES.CANVAS;
             }
             if (item.lms === ADMIN_INTEGRATION_BLACKBOARD) {
                 item['img'] = ADMIN_INTEGRATION_BLACKBOARD_IMG;
                 item['description'] = ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION;
                 item['path'] = ADMIN_INTEGRATION_BLACKBOARD_PATH;
-                item['type'] = 'Blackboard';
+                item['type'] = INTEGRATION_TYPES.BLACKBOARD;
             }
             if (item.lms === ADMIN_INTEGRATION_GOOGLECLASSROOM) {
                 item['img'] = ADMIN_INTEGRATION_GOOGLECLASSROOM_IMG;
                 item['description'] = ADMIN_INTEGRATION_GOOGLECLASSROOM_DESCRIPTION;
                 item['path'] = ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH;
-                item['type'] = 'Google Classroom';
+                item['type'] = INTEGRATION_TYPES.GOOGLE_CLASSROOM;
             }
             if (item.lms === ADMIN_INTEGRATION_BRIGHTSPACE) {
                 item['img'] = ADMIN_INTEGRATION_BRIGHTSPACE_IMG;
@@ -184,6 +184,9 @@ const Integration = ({
             setShowDeleteWarning(false);
         } else if (selectedIntegrationType === INTEGRATION_TYPES.MOODLE_LTI) {
             DeleteIntegration(BASE_URL_EXTREM + END_POINTS.INTEGRATION_DELETE_MOODLE_LTI);
+            setShowDeleteWarning(false);
+        } else if (selectedIntegrationType === INTEGRATION_TYPES.GOOGLE_CLASSROOM) {
+            DeleteIntegration(BASE_URL_EXTREM + END_POINTS.INTEGRATION_DELETE_GOOGLE_CLASSROOM);
             setShowDeleteWarning(false);
         }
     };

@@ -250,6 +250,7 @@ export const INTEGRATION_TYPES = {
     BLACKBOARD : 'Blackboard',
     BRIGHTSPACE: 'Brightspace',
     MOODLE_LTI: 'Moodle LTI',
+    GOOGLE_CLASSROOM: 'Google Classroom',
 }
 
 export const ERROR_MESSAGE_RESPONSE = {

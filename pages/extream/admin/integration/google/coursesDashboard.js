@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Admin from '../../../../../layouts/Admin';
-import { Box, Switch, Grid, Button } from '@mui/material';
+import { Box, Switch, Grid, Button, Pagination } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { GoogleClassroomTable, StatusDot, BreadCrumb } from '../../../../../components';
 import {
@@ -10,6 +10,8 @@ import {
     ClearGoogleImportStatus
 } from './../../../../../redux/action/admin/AdminAction';
 import { formatDate } from '../../../../../utils/RegExp';
+import { PaginationValue } from '../../../../../utils/PaginationUrl';
+import { PaginationContainer } from '../../../../../style/index';
 
 const IntegrationBreadCrumb = [
     {
@@ -30,11 +32,11 @@ const IntegrationBreadCrumb = [
 ];
 
 const columns = [
-    { id: 'course_id', label: 'Course ID' },
-    { id: 'name', label: 'Course Name' },
-    { id: 'creation_date', label: 'Start date' },
-    { id: 'status', label: 'Status' },
-    { id: 'action', label: 'Actions' }
+    { id: 'course_id', label: 'Course ID', maxWidth: 100 },
+    { id: 'name', label: 'Course Name', maxWidth: 100 },
+    { id: 'creation_date', label: 'Start date', maxWidth: 100 },
+    { id: 'status', label: 'Status', maxWidth: 100 },
+    { id: 'action', label: 'Actions', maxWidth: 100 }
 ];
 
 function createData(course_id, name, creation_date, status, action) {
@@ -45,15 +47,22 @@ const CoursesDashboard = ({
     GetGoogleCourseHome,
     ClearGoogleImportStatus,
     googleCourseHomeData,
+    pageDetails,
     isLoadingCourseHome
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: 'user_id',
+        orderBy: PaginationValue?.orderBy,
+    });
 
     useEffect(() => {
         ClearGoogleImportStatus()
-        GetGoogleCourseHome();
-    }, []);
+        GetGoogleCourseHome(paginationPayload);
+    }, [, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -61,7 +70,7 @@ const CoursesDashboard = ({
         googleCourseHomeData?.map((data) => {
             row =
                 createData(
-                    // <AvatarName avatarText="I" title={data.id} color='#4795EE' />,
+                    // <AvatarName avatarText="C" title={ data.course_id } color='#4795EE' />,
                     data.course_id,
                     data.name,
                     formatDate(data.creation_date),
@@ -81,29 +90,47 @@ const CoursesDashboard = ({
         setRows([...arr]);
     }, [googleCourseHomeData]);
 
+    const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
+
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
+
     const handleAction = (event, icon, rowData) => {
         if (icon === 'lock') {
-            let activateDeactive = {
-                'id': rowData?.user_id,
-                'status': 'INACTIVE'
-            };
-            setStatusRowData(activateDeactive);
-            setStatusWarning(true);
-            setStatusMessage('inactive');
+            // let activateDeactive = {
+            //     'id': rowData?.user_id,
+            //     'status': 'INACTIVE'
+            // };
+            // setStatusRowData(activateDeactive);
+            // setStatusWarning(true);
+            // setStatusMessage('inactive');
+            console.log('lock')
         } else if (icon === 'unlock') {
-            let activateDeactive = {
-                'id': rowData?.user_id,
-                'status': 'ACTIVE'
-            };
-            setStatusRowData(activateDeactive);
-            setStatusWarning(true);
-            setStatusMessage('active');
+            // let activateDeactive = {
+            //     'id': rowData?.user_id,
+            //     'status': 'ACTIVE'
+            // };
+            // setStatusRowData(activateDeactive);
+            // setStatusWarning(true);
+            // setStatusMessage('active');
+            console.log('unlock')
         } else if (icon === 'nextPath') {
             router.push({
-                pathname: '/extream/instructor/folderSubmission',
-                query: {
-                    name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammarCheck : grammarSubscription
-                }
+                pathname: '/extream/admin/integration/google/classWork',
+                // query: {
+                //     name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammarCheck : grammarSubscription
+                // }
             });
         }
     };
@@ -137,7 +164,19 @@ const CoursesDashboard = ({
                 tableData={ rows }
                 isLoading={ isLoadingCourseHome }
                 handleAction={ handleAction }
+                handleTableSort={ handleTableSort }
             />
+
+            <PaginationContainer>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    page={ pageDetails?.number + 1 }
+                    onChange={ handleChange }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </PaginationContainer>
         </>
     )
 }
@@ -145,13 +184,14 @@ const CoursesDashboard = ({
 
 const mapStateToProps = (state) => ({
     googleCourseHomeData: state?.adminIntegrationData?.googleCourseHomeData?._embedded?.googleCourseDTOList,
+    pageDetails: state?.adminIntegrationData?.googleCourseHomeData?.page,
     isLoadingCourseHome: state?.adminIntegrationData?.isLoadingCourseHome,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         ClearGoogleImportStatus: () => dispatch(ClearGoogleImportStatus()),
-        GetGoogleCourseHome: () => dispatch(GetGoogleCourseHome()),
+        GetGoogleCourseHome: (paginationPayload) => dispatch(GetGoogleCourseHome(paginationPayload)),
     };
 };
 

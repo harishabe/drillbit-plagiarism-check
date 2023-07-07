@@ -308,8 +308,8 @@ export const ClearGoogleImportStatus = () => {
 /**
  * Get Google Live Courses
  */
-export const GetGoogleCourseHome = () => {
+export const GetGoogleCourseHome = (paginationPayload) => {
     return {
-        type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START
+        type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START, paginationPayload: paginationPayload
     };
 };

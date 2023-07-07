@@ -235,8 +235,8 @@ export function* GetAdminGoogleImportCoursesData() {
  * @param {*} action
  */
 
-export function* onLoadGoogleCourseHome() {
-    const { response, error } = yield call(GoogleCourseHomeDetail);
+export function* onLoadGoogleCourseHome(action) {
+    const { response, error } = yield call(GoogleCourseHomeDetail, action.paginationPayload);
     if (response) {
         yield put({
             type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_SUCCESS,

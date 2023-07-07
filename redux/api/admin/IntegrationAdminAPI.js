@@ -1,5 +1,6 @@
 import { GetMethod, PostMethod, PutMethod, DeleteMethod } from './../ApiMethod';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
+import { PaginationUrl } from '../../../utils/PaginationUrl';
 import END_POINTS from '../../../utils/EndPoints';
 
 /**
@@ -63,6 +64,7 @@ export const GoogleImportCoursesDetail = async (data) => {
  * API CALL GOOGLE CLASSROOM COURSE HOME
  */
 
-export const GoogleCourseHomeDetail = async () => {
-    return GetMethod(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_COURSEHOME);
+export const GoogleCourseHomeDetail = async (paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_COURSEHOME + PaginationUrl(paginationPayload);
+    return GetMethod(url);
 };

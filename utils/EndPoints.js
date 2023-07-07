@@ -112,6 +112,7 @@ const END_POINTS = {
     RESELLER_CSV_DOWNLOAD: '/reseller/',
     INTEGRATION_DELETE_BRIGHTSPACE: '/extreme/integrations/brightspace',
     INTEGRATION_DELETE_MOODLE_LTI: '/extreme/integrations/moodleLti',
+    INTEGRATION_DELETE_GOOGLE_CLASSROOM: '/extreme/integrations/google',
     SSO_LOGIN: '/saml',
     SSO_LOGOUT: '/saml/saml/logout',
     CONSORTIUM_DASHBOARD: '/consortium/dashboard',
