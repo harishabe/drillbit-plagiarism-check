@@ -83,6 +83,7 @@ const MyFolder = ({
     DeleteFolder,
     myFolders,
     grammarSubscription,
+    translation,
     pageDetails,
     isLoading,
     isLoadingFolder,
@@ -214,7 +215,7 @@ const MyFolder = ({
             router.push({
                 pathname: '/pro/user/folderSubmission',
                 query: {
-                    name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammar : grammarSubscription
+                    name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammar : grammarSubscription, crossLanguage: translation?.toUpperCase()
                 }
             });
         }
@@ -434,6 +435,7 @@ const mapStateToProps = (state) => ({
     pageDetails: state?.instructorMyFolders?.myFolders?.folders?.page,
     myFolders: state?.instructorMyFolders?.myFolders?.folders?.content,
     grammarSubscription: state?.instructorMyFolders?.myFolders?.grammar_subscription,
+    translation: state?.instructorMyFolders?.myFolders?.translation,
     isLoading: state?.instructorMyFolders?.isLoading,
     isLoadingFolder: state?.instructorMyFolders?.isLoadingFolder,
     isLoadingEdit: state?.instructorMyFolders?.isLoadingEdit,
