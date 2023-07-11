@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Admin from '../../../../../layouts/Admin';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Pagination } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { GoogleClassroomTable, StatusDot, BreadCrumb } from '../../../../../components';
@@ -11,6 +11,8 @@ import {
     ClearGoogleImportStatus
 } from '../../../../../redux/action/admin/AdminAction';
 import { formatDate } from '../../../../../utils/RegExp';
+import { PaginationValue } from '../../../../../utils/PaginationUrl';
+import { PaginationContainer } from '../../../../../style/index';
 
 const IntegrationBreadCrumb = [
     {
@@ -51,15 +53,22 @@ const Classwork = ({
     GetGoogleCourseHome,
     ClearGoogleImportStatus,
     googleCourseHomeData,
+    pageDetails,
     isLoadingCourseHome
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [paginationPayload, setPaginationPayload] = useState({
+        page: PaginationValue?.page,
+        size: PaginationValue?.size,
+        field: 'user_id',
+        orderBy: PaginationValue?.orderBy,
+    });
 
     useEffect(() => {
         ClearGoogleImportStatus()
-        GetGoogleCourseHome();
-    }, []);
+        GetGoogleCourseHome(paginationPayload);
+    }, [, paginationPayload]);
 
     useEffect(() => {
         let row = '';
@@ -104,6 +113,22 @@ const Classwork = ({
         }
     };
 
+    const handleChange = (event, value) => {
+        event.preventDefault();
+        setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
+    };
+
+    const handleTableSort = (e, column, sortToggle) => {
+        if (sortToggle) {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'asc';
+        } else {
+            paginationPayload['field'] = column.id;
+            paginationPayload['orderBy'] = 'desc';
+        }
+        setPaginationPayload({ ...paginationPayload, paginationPayload });
+    };
+
     return (
         <>
             <Box sx={ { flexGrow: 1 } }>
@@ -121,7 +146,18 @@ const Classwork = ({
                 tableData={ rows }
                 isLoading={ isLoadingCourseHome }
                 handleAction={ handleAction }
+                handleTableSort={ handleTableSort }
             />
+            <PaginationContainer>
+                <Pagination
+                    count={ pageDetails?.totalPages }
+                    page={ pageDetails?.number + 1 }
+                    onChange={ handleChange }
+                    color="primary"
+                    variant="outlined"
+                    shape="rounded"
+                />
+            </PaginationContainer>
         </>
     )
 }
@@ -129,13 +165,14 @@ const Classwork = ({
 
 const mapStateToProps = (state) => ({
     googleCourseHomeData: state?.adminIntegrationData?.googleCourseHomeData?._embedded?.googleCourseDTOList,
+    pageDetails: state?.adminIntegrationData?.googleCourseHomeData?.page,
     isLoadingCourseHome: state?.adminIntegrationData?.isLoadingCourseHome,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         ClearGoogleImportStatus: () => dispatch(ClearGoogleImportStatus()),
-        GetGoogleCourseHome: () => dispatch(GetGoogleCourseHome()),
+        GetGoogleCourseHome: (paginationPayload) => dispatch(GetGoogleCourseHome(paginationPayload)),
     };
 };
 

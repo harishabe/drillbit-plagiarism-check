@@ -9,7 +9,8 @@ import {
     BreadCrumb,
     MainHeading,
     CardView,
-    SubTitle1
+    SubTitle1,
+    SubTitle2
 } from './../../../../../components';
 import { GetGoogleLms } from '../../../../../redux/action/admin/AdminAction';
 import ToastrValidation from '../../../../../utils/ToastrValidation';
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() => ({
         padding: '0px 50px'
     },
     button: {
-        marginTop: '35px',
+        marginTop: '20px',
         textAlign: 'center'
     }
 }));
@@ -76,9 +77,6 @@ const googleAuth = ({
                             <Grid container spacing={ 1 }>
                                 <Grid item md={ 12 } xs={ 12 }>
                                     <MainHeading title='Welcome to Google Classroom Integration!' />
-                                </Grid>
-
-                                <Grid item md={ 12 } xs={ 12 }>
                                     <SubTitle1 title={ 'Enhance academic integrity and originality with our powerful plagiarism detection tools integrated with Google Classroom.' } />
 
                                     <SubTitle1 title={ 'Sign in to Google and enhance your app experience by accepting all required scopes for seamless integration.' } />
@@ -99,6 +97,19 @@ const googleAuth = ({
                                         </Button>
                                     </Grid>
                                     <Grid item md={ 4 } xs={ 4 }></Grid>
+                                    {
+                                        router?.query?.error &&
+                                        <Grid item md={ 12 } xs={ 12 }>
+                                            <SubTitle2 title={ '1.  Go to your Google Account.' } />
+                                            <SubTitle2 title={ '2. Click on "Security and privacy" in the menu.' } />
+                                            <SubTitle2 title={ '3. Find the "Third-Party Apps" or "Connected Apps" section.' } />
+                                            <SubTitle2 title={ '4. Review the apps with access to your account.' } />
+                                            <SubTitle2 title={ '5. Revoke access for the Drillbit app.' } />
+                                            <SubTitle2 title={ '6. Return to the Drillbit app and sign in.' } />
+                                            <SubTitle2 title={ '7. Grant access to the Drillbit app when prompted.' } />
+                                            <SubTitle2 title={ '8. Start using Drillbit with the newly granted access.' } />
+                                        </Grid>
+                                    }
                                 </Grid>
                             </Grid>
                         </div>
