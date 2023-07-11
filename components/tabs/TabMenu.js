@@ -94,6 +94,7 @@ const TabMenu = ({
                             } }
                             label={ item.label }
                             { ...a11yProps(index) }
+                            disabled={ item.isDisabled }
                         />
                     )) }
                 </Tabs>

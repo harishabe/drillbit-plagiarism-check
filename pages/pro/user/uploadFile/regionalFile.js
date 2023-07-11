@@ -13,18 +13,19 @@ import {
 import { BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
 import { UPLOAD_TITLE_CONSTANT, UPLOAD_SUPPORTED_FILES } from '../../../../constant/data/Constant';
 
-const tabMenu = [
-    {
-        label: 'Regional Language',
-    },
-    {
-        label: 'Cross Language',
-    },
-];
-
 const NonEnglishFile = () => {
     const router = useRouter();
     const [myFolder, setMyfolder] = useState('');
+
+    const tabMenu = [
+        {
+            label: 'Regional Language',
+        },
+        {
+            label: 'Cross Language',
+            isDisabled: router?.query?.translation === 'YES' ? false : true
+        }
+    ];
 
     useEffect(() => {
         if (router.isReady) {
@@ -71,7 +72,7 @@ const NonEnglishFile = () => {
             isCrossLangDropdown={ false }
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/regional/folder/${router.query.folderId}/upload` }
             routerObj={ {
-                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, translation: router.query.translation }
             } }
         />,
         <UploadFiles
@@ -84,7 +85,7 @@ const NonEnglishFile = () => {
             isCrossLangDropdown={ true }
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/crossLangauge/folder/${router.query.folderId}/upload` }
             routerObj={ {
-                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, translation: router.query.translation }
             } }
         />
     ];
@@ -105,6 +106,7 @@ const NonEnglishFile = () => {
                             menuButton={ tabMenu }
                             components={ componentList }
                             handleAPI={ handleAPI }
+                            isDisabled={ tabMenu[1].isDisabled }
                         />
                     </Grid>
                 </Grid>
