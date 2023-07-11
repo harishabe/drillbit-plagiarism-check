@@ -102,7 +102,7 @@ const Dashboard = ({
   const handlePage = (e, item) => {
     router.push({
       pathname: "/pro/user/folderSubmission",
-      query: { name: item?.folder_name, folderId: item?.folder_id },
+      query: { name: item?.folder_name, folderId: item?.folder_id, crossLanguage: instructorDashboardData?.data?.translation.toUpperCase() },
     });
   };
 

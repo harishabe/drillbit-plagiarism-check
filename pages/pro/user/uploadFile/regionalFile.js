@@ -23,7 +23,7 @@ const NonEnglishFile = () => {
         },
         {
             label: 'Cross Language',
-            isDisabled: router?.query?.translation === 'YES' ? false : true
+            isDisabled: router?.query?.crossLanguage === 'YES' ? false : true
         }
     ];
 
@@ -72,7 +72,7 @@ const NonEnglishFile = () => {
             isCrossLangDropdown={ false }
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/regional/folder/${router.query.folderId}/upload` }
             routerObj={ {
-                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, translation: router.query.translation }
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage }
             } }
         />,
         <UploadFiles
@@ -85,7 +85,7 @@ const NonEnglishFile = () => {
             isCrossLangDropdown={ true }
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/crossLangauge/folder/${router.query.folderId}/upload` }
             routerObj={ {
-                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, translation: router.query.translation }
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage }
             } }
         />
     ];
