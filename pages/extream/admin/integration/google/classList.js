@@ -39,7 +39,7 @@ const ClassList = ({
 
   const handleSubmit = () => {
     let bodyFormData = new FormData();
-    bodyFormData.append('course_id', ...importClass);
+    bodyFormData.append('course_id', importClass);
     GetGoogleImportCourses(bodyFormData);
   }
 
