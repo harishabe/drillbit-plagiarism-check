@@ -8,12 +8,15 @@ import {
     GoogleLiveCoursesDetail,
     GoogleImportCoursesDetail,
     GoogleCourseHomeDetail,
-    DeleteIntegrationAdmin
+    DeleteIntegrationAdmin,
+    GoogleCourseStatus,
+    GoogleClassWorkList
 } from '../../api/admin/IntegrationAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
 import { BASE_URL_EXTREM, BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
+import { PaginationValue } from '../../../utils/PaginationUrl';
 
 /**
  * Get integration data
@@ -236,6 +239,7 @@ export function* GetAdminGoogleImportCoursesData() {
  */
 
 export function* onLoadGoogleCourseHome(action) {
+    console.log('action', action)
     const { response, error } = yield call(GoogleCourseHomeDetail, action.paginationPayload);
     if (response) {
         yield put({
@@ -254,4 +258,62 @@ export function* onLoadGoogleCourseHome(action) {
 
 export function* GetAdminGoogleCourseHomeData() {
     yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START, onLoadGoogleCourseHome);
+}
+
+/**
+ * Google Course Enable Disable
+ * @param {*} action
+ */
+
+export function* onLoadGoogleCourseStatus(action) {
+    const { response, error } = yield call(GoogleCourseStatus, action.apiUrl, action.id);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_ENABLE_DISABLE_SUCCESS,
+            payload: response?.data,
+        });
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START,
+            url: BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_COURSEHOME,
+            paginationPayload: PaginationValue
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_ENABLE_DISABLE_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* GetAdminGoogleCourseStatus() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_ENABLE_DISABLE_START, onLoadGoogleCourseStatus);
+}
+
+/**
+ * Google Course/Class work list
+ * @param {*} action
+ */
+
+export function* onLoadGoogleClassWork(action) {
+    console.log('action', action)
+    const { response, error } = yield call(GoogleClassWorkList, action.id, action.paginationPayload);
+    if (response) {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_CLASS_WORK_LIST_SUCCESS,
+            payload: response?.data,
+        });
+        toastrValidation(response)
+    } else {
+        yield put({
+            type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_CLASS_WORK_LIST_FAIL,
+            payload: error,
+        });
+        toastrValidation(error)
+    }
+}
+
+export function* GetAdminGoogleClassWork() {
+    yield takeLatest(types.FETCH_ADMIN_INTEGRATION_GOOGLE_CLASS_WORK_LIST_START, onLoadGoogleClassWork);
 }

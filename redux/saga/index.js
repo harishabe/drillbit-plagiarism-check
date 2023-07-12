@@ -52,7 +52,9 @@ import {
     GetAdminGoogleLiveCoursesData,
     GetAdminGoogleImportCoursesData,
     GetAdminGoogleCourseHomeData,
-    DeleteIntegration
+    DeleteIntegration,
+    GetAdminGoogleCourseStatus,
+    GetAdminGoogleClassWork
 } from './admin/IntegrationAdminData';
 import {
     GetClassesData,
@@ -219,6 +221,8 @@ const saga = [
     fork(UploadAdminIntegration),
     fork(ChangeConfiguration),    
     fork(DeleteIntegration),
+    fork(GetAdminGoogleCourseStatus),
+    fork(GetAdminGoogleClassWork),
     fork(GetAdminGoogleClassroomData),    
     fork(GetAdminGoogleLiveCoursesData),    
     fork(GetAdminGoogleImportCoursesData),

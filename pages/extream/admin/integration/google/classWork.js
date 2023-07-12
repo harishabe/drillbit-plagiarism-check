@@ -2,59 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Admin from '../../../../../layouts/Admin';
-import { Box, Grid, Pagination } from '@mui/material';
+import { StatusColor } from '../../../../../style/index';
+import { Box, Grid, Pagination, Tooltip } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { GoogleClassroomTable, StatusDot, BreadCrumb } from '../../../../../components';
+import { GoogleClassroomTable, BreadCrumb } from '../../../../../components';
 import {
-    GetGoogleCourseHome,
-    ClearGoogleImportStatus
+    GetGoogleClassWork
 } from '../../../../../redux/action/admin/AdminAction';
 import { formatDate } from '../../../../../utils/RegExp';
 import { PaginationValue } from '../../../../../utils/PaginationUrl';
 import { PaginationContainer } from '../../../../../style/index';
 
-const IntegrationBreadCrumb = [
-    {
-        name: 'Dashboard',
-        link: '/extream/admin/dashboard',
-        active: false,
-    },
-    {
-        name: 'Integrations',
-        link: '/extream/admin/integration',
-        active: false,
-    },
-    {
-        name: 'Courses',
-        link: '/extream/admin/integration/google/coursesDashboard',
-        active: false,
-    },
-    {
-        name: 'Classwork',
-        link: '',
-        active: true,
-    },
-];
-
 const columns = [
-    { id: 'course_id', label: 'Assignment ID', maxWidth: 100 },
-    { id: 'name', label: 'Assignment Name', maxWidth: 100 },
-    { id: 'creation_date', label: 'Start date', maxWidth: 100 },
-    { id: 'status', label: 'Status', maxWidth: 100 },
-    { id: 'action', label: 'Actions', maxWidth: 100 }
+    { id: 'coursework_id', label: 'Assignment ID', maxWidth: 150 },
+    { id: 'title', label: 'Assignment Name', maxWidth: 160 },
+    { id: 'creation_time', label: 'Start date', maxWidth: 150 },
+    { id: 'drive_link', label: 'Drive link', maxWidth: 150 },
+    { id: 'action', label: 'Actions', maxWidth: 150 }
 ];
 
-function createData(course_id, name, creation_date, status, action) {
-    return { course_id, name, creation_date, status, action };
+function createData(coursework_id, title, creation_time, drive_link, action) {
+    return { coursework_id, title, creation_time, drive_link, action };
 };
 
 const Classwork = ({
-    GetGoogleCourseHome,
-    ClearGoogleImportStatus,
-    googleCourseHomeData,
+    GetGoogleClassWork,
+    googleClassWorkData,
     pageDetails,
-    isLoadingCourseHome
+    isLoadingClassWork
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
@@ -65,22 +42,51 @@ const Classwork = ({
         orderBy: PaginationValue?.orderBy,
     });
 
+    const IntegrationBreadCrumb = [
+        {
+            name: 'Dashboard',
+            link: '/extream/admin/dashboard',
+            active: false,
+        },
+        {
+            name: 'Integrations',
+            link: '/extream/admin/integration',
+            active: false,
+        },
+        {
+            name: 'Courses',
+            link: '/extream/admin/integration/google/coursesDashboard',
+            active: false,
+        },
+        {
+            name: router?.query?.name,
+            link: '',
+            active: true,
+        },
+    ];
+
     useEffect(() => {
-        ClearGoogleImportStatus()
-        GetGoogleCourseHome(paginationPayload);
-    }, [, paginationPayload]);
+        if (router.isReady) {
+            GetGoogleClassWork(router?.query?.courseId, paginationPayload);
+        }
+    }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
         let row = '';
         let arr = [];
-        googleCourseHomeData?.map((data) => {
+        googleClassWorkData?.map((data) => {
             row =
                 createData(
-                    // <AvatarName avatarText="C" title={ data.course_id } color='#4795EE' />,
-                    data.course_id,
-                    data.name,
-                    formatDate(data.creation_date),
-                    <StatusDot color={ (data.status.toUpperCase() === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ data.status } />,
+                    data.coursework_id,
+                    data.title,
+                    formatDate(data.creation_time),
+                    <a style={ { cursor: 'pointer' } } href={ data.drive_folder_alternate_link } target='_blank' >
+                        <Tooltip title='Google drive link' arrow>
+                            <StatusColor color='#E5E5E5'>
+                                <OpenInNewOutlinedIcon fontSize='small' />
+                            </StatusColor>
+                        </Tooltip>
+                    </a>,
                     ([
                         { 'component': <SettingsIcon />, 'type': 'settings', 'title': 'Settings' },
                         { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
@@ -90,25 +96,12 @@ const Classwork = ({
             arr.push(row);
         });
         setRows([...arr]);
-    }, [googleCourseHomeData]);
+    }, [googleClassWorkData]);
 
     const handleAction = (event, icon, rowData) => {
         if (icon === 'settings') {
-            // let activateDeactive = {
-            //     'id': rowData?.user_id,
-            //     'status': 'INACTIVE'
-            // };
-            // setStatusRowData(activateDeactive);
-            // setStatusWarning(true);
-            // setStatusMessage('inactive');
             console.log('settings')
         } else if (icon === 'nextPath') {
-            // router.push({
-            //     pathname: '/extream/admin/integration/google/assignments',
-            //     query: {
-            //         name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammarCheck : grammarSubscription
-            //     }
-            // });
             console.log('submission')
         }
     };
@@ -144,10 +137,11 @@ const Classwork = ({
                 isSorting={ true }
                 tableHeader={ columns }
                 tableData={ rows }
-                isLoading={ isLoadingCourseHome }
+                isLoading={ isLoadingClassWork }
                 handleAction={ handleAction }
                 handleTableSort={ handleTableSort }
             />
+
             <PaginationContainer>
                 <Pagination
                     count={ pageDetails?.totalPages }
@@ -164,15 +158,14 @@ const Classwork = ({
 
 
 const mapStateToProps = (state) => ({
-    googleCourseHomeData: state?.adminIntegrationData?.googleCourseHomeData?._embedded?.googleCourseDTOList,
-    pageDetails: state?.adminIntegrationData?.googleCourseHomeData?.page,
-    isLoadingCourseHome: state?.adminIntegrationData?.isLoadingCourseHome,
+    googleClassWorkData: state?.adminIntegrationData?.googleClassWorkData?._embedded?.google_CourseworkList,
+    pageDetails: state?.adminIntegrationData?.googleClassWorkData?.page,
+    isLoadingClassWork: state?.adminIntegrationData?.isLoadingClassWork,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        ClearGoogleImportStatus: () => dispatch(ClearGoogleImportStatus()),
-        GetGoogleCourseHome: (paginationPayload) => dispatch(GetGoogleCourseHome(paginationPayload)),
+        GetGoogleClassWork: (id, paginationPayload) => dispatch(GetGoogleClassWork(id, paginationPayload)),
     };
 };
 

@@ -29,6 +29,7 @@ const END_POINTS = {
     ADMIN_INTEGRATION_GOOGLE_LIVECOURSE: '/extreme/google/courses/liveCourses',
     ADMIN_INTEGRATION_GOOGLE_IMPORTCOURSES: '/extreme/google/courses/import',
     ADMIN_INTEGRATION_GOOGLE_COURSEHOME: '/extreme/google/courses/home',
+    ADMIN_INTEGRATION_GOOGLE_COURSE_STATUS_CLASS_WORK: '/extreme/google/courses/',
     INSTRUCTOR_DASHBOARD_WIDGET: '/extreme/instructor/dashboard',
     INSTRUCTOR_DASHBOARD_DOCUMENT_CHART: '/extreme/instructor/documentTypeChart',
     INSTRUCTOR_TOP_STUDENT: '/extreme/instructor/topStudents',

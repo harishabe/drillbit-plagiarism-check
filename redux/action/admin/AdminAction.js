@@ -313,3 +313,21 @@ export const GetGoogleCourseHome = (paginationPayload) => {
         type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START, paginationPayload: paginationPayload
     };
 };
+
+/**
+ * Get Google Course status
+ */
+export const GoogleCourseStatus = (apiUrl, id) => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_ENABLE_DISABLE_START, apiUrl: apiUrl, id: id
+    };
+};
+
+/**
+ * Get Google Course/Class work list
+ */
+export const GetGoogleClassWork = (id, paginationPayload) => {
+    return {
+        type: types.FETCH_ADMIN_INTEGRATION_GOOGLE_CLASS_WORK_LIST_START, id: id, paginationPayload: paginationPayload
+    };
+};
