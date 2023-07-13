@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import ProUser from '../../../../layouts/ProUser';
 import {
     BreadCrumb,
+    TabMenu,
     UploadFiles,
 } from '../../../../components';
 import {
@@ -15,6 +16,16 @@ import { UPLOAD_TITLE_CONSTANT, UPLOAD_SUPPORTED_FILES } from '../../../../const
 const NonEnglishFile = () => {
     const router = useRouter();
     const [myFolder, setMyfolder] = useState('');
+
+    const tabMenu = [
+        {
+            label: 'Regional Language',
+        },
+        {
+            label: 'Cross Language',
+            isDisabled: router?.query?.crossLanguage === 'YES' ? false : true
+        }
+    ];
 
     useEffect(() => {
         if (router.isReady) {
@@ -46,6 +57,39 @@ const NonEnglishFile = () => {
 
     ];
 
+    const handleAPI = () => {
+
+    };
+
+    const componentList = [
+        <UploadFiles
+            key={ 0 }
+            isRegionalFile={ true }
+            choseFileTitle='Browse your regional file here'
+            title={ UPLOAD_TITLE_CONSTANT.REGIONAL }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.REGIONAL_FORMAT }
+            fileIcon={ <UploadFileIcon /> }
+            isCrossLangDropdown={ false }
+            singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/regional/folder/${router.query.folderId}/upload` }
+            routerObj={ {
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage }
+            } }
+        />,
+        <UploadFiles
+            key={ 0 }
+            isRegionalFile={ true }
+            choseFileTitle='Browse your regional file here'
+            title={ UPLOAD_TITLE_CONSTANT.REGIONAL }
+            allowedFormat={ UPLOAD_SUPPORTED_FILES.CROSS_LANGUAGE_FORMAT }
+            fileIcon={ <UploadFileIcon /> }
+            isCrossLangDropdown={ true }
+            singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/crossLangauge/folder/${router.query.folderId}/upload` }
+            routerObj={ {
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage }
+            } }
+        />
+    ];
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -58,17 +102,11 @@ const NonEnglishFile = () => {
                 </Grid>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 12 } xs={ 12 }>
-                        <UploadFiles
-                            key={ 0 }
-                            isRegionalFile={ true }
-                            choseFileTitle='Browse your regional file here'
-                            title={ UPLOAD_TITLE_CONSTANT.REGIONAL }
-                            allowedFormat={ UPLOAD_SUPPORTED_FILES.REGIONAL_FORMAT }
-                            fileIcon={ <UploadFileIcon /> }
-                            singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/regional/folder/${router.query.folderId}/upload` }
-                            routerObj={ {
-                                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
-                            } }
+                        <TabMenu
+                            menuButton={ tabMenu }
+                            components={ componentList }
+                            handleAPI={ handleAPI }
+                            isDisabled={ tabMenu[1].isDisabled }
                         />
                     </Grid>
                 </Grid>

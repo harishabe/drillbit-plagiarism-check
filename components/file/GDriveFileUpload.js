@@ -143,7 +143,7 @@ const GDriveFileUpload = ({
             showUploadFolders: true,
             supportDrives: true,
             multiselect: false,
-            customScopes: ['https://www.googleapis.com/auth/drive.readonly'],
+            customScopes: ['https://www.googleapis.com/auth/drive.file'],
             callbackFunction: (data) => {
                 if (data && data?.docs?.length > 0) {
                     const file = data.docs[0];

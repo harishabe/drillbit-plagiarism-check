@@ -186,6 +186,11 @@ export const UPLOAD_SUPPORTED_FILES = {
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
+    'CROSS_LANGUAGE_FORMAT': {
+        'FILE_FORMATS': 'File formats:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
+        'LENGTH': 'Document length - upto 20 pages',
+        'SIZE': 'Document size - upto 100 MB',
+    },
     'ZIP': {
         'FILE_FORMATS': 'Supported Compressed file format: .zip',
         'LENGTH': 'Document length - upto 800 pages',
@@ -459,8 +464,7 @@ export const DOCUMENT_TYPE_LANG = {
       "Hindi",
       "Kannada",
       "Malayalam",
-      "Marathi",
-      "Nepali",
+        "Marathi",
       "Oriya",
       "Punjabi",
       "Sanskrit",
@@ -469,5 +473,8 @@ export const DOCUMENT_TYPE_LANG = {
       "Tamil",
       "Telugu",
       "Urdu"
+    ],
+    "cross_language": [
+        "English"
     ]
   }

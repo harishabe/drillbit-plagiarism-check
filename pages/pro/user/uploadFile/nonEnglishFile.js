@@ -70,7 +70,7 @@ const NonEnglishFile = () => {
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/nonEnglishFile` }
             multiFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/nonenglish/multipleFiles` }
             routerObj={ {
-                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage }
             } }
         />,
 
@@ -83,7 +83,7 @@ const NonEnglishFile = () => {
             zipFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/nonenglish/zipFile` }
             confirmZipFileAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/nonenglish/confirmZipFile` }
             routerObj={ {
-                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage }
             } }
         />
     ]

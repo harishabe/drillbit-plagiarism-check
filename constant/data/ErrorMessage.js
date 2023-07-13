@@ -27,8 +27,10 @@ export const UPLOAD_NON_ENGLISH_FILE_MULTIFILE = "Multiple files are not support
  */
 export const UPLOAD_FILE_PAPER_TITLE = "Paper title is required";
 export const UPLOAD_FILE_YEAR = "Published year is required";
+export const MIN_UPLOAD_FILE_YEAR = "Entered year should be greater than or equal to 2000";
 export const UPLOAD_FILE_REPOSITORY_TYPE = "Repository type is required";
 export const UPLOAD_FILE_LANGUAGE = "Language is required";
+export const TARGET_UPLOAD_FILE_LANGUAGE = "Target Language is required";
 
 /**
  * Confirm and Reset password

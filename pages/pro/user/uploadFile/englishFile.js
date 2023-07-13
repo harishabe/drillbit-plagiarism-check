@@ -79,7 +79,7 @@ const EnglishFile = () => {
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/singleFile` }
             multiFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/multipleFiles` }
             routerObj={ {
-                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
+                pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage }
             } }
         />,
         <GDriveFileUpload
@@ -89,7 +89,7 @@ const EnglishFile = () => {
             fileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/drive` }
             routerObj={ {
                 pathname: '/pro/user/folderSubmission',
-                query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar }
+                query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage }
             } }
         />,
         <ZipFileUpload
@@ -99,7 +99,7 @@ const EnglishFile = () => {
             notAllowedFormat={ UPLOAD_SUPPORTED_FILES.NON_ZIP }
             zipFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/zipFile` }
             confirmZipFileAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/confirmZipFile` }
-            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar } } }
+            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage } } }
         />,
         <UploadFiles
             key={ 3 }
@@ -109,7 +109,7 @@ const EnglishFile = () => {
             fileIcon={ <UploadFileIcon /> }
             langType="ScannedPDF"
             singleFileUploadAPI={ BASE_URL_UPLOAD + `/files/folder/${router.query.folderId}/scannedPDF` }
-            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar } } }
+            routerObj={ { pathname: '/pro/user/folderSubmission', query: { name: router.query.name, folderId: router.query.folderId, grammar: router.query.grammar, crossLanguage: router.query.crossLanguage } } }
         />
     ];
     return (
