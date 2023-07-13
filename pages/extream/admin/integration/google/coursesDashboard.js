@@ -141,7 +141,7 @@ const CoursesDashboard = ({
             router.push({
                 pathname: '/extream/admin/integration/google/classWork',
                 query: {
-                    name: rowData.name, courseId: rowData.course_id,
+                    courseName: rowData.name, courseId: rowData.course_id,
                 }
             });
         }

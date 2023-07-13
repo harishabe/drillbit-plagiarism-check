@@ -59,7 +59,7 @@ const Classwork = ({
             active: false,
         },
         {
-            name: router?.query?.name,
+            name: router?.query?.courseName,
             link: '',
             active: true,
         },
@@ -102,7 +102,12 @@ const Classwork = ({
         if (icon === 'settings') {
             console.log('settings')
         } else if (icon === 'nextPath') {
-            console.log('submission')
+            router.push({
+                pathname: '/extream/admin/integration/google/submissions',
+                query: {
+                    courseName: router?.query?.courseName, courseId: router?.query?.courseId, assName: rowData.title, assId: rowData.coursework_id,
+                }
+            });
         }
     };
 
