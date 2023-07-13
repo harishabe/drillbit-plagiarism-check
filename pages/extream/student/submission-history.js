@@ -64,15 +64,15 @@ const SubmissionHistory = ({
     const [rows, setRows] = useState([]);
 
     const columns = [
-        { id: 'original_fn', label: 'Filename', isDownload: true, minWidth: 140 },
-        { id: 'lang1', label: 'Language' },
-        { id: 'paper_id', label: 'Paper ID', minWidth: 140 },
-        { id: 'date_up', label: 'Date', minWidth: 140 },
-        { id: 'grammar_url', label: 'Grammar', minWidth: 80 },
-        { id: 'percent', label: 'Similarity', minWidth: 80 },
-        { id: 'score', label: 'Marks', minWidth: 80 },
-        { id: 'status', label: 'Status', minWidth: 100 },
-        { id: 'action', label: 'Feedback', minWidth: 80 },
+        { id: 'original_fn', label: 'Filename', isDownload: true, maxWidth: 120 },
+        { id: 'lang1', label: 'Language', maxWidth: 120 },
+        { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
+        { id: 'date_up', label: 'Date', maxWidth: 105 },
+        { id: 'grammar_url', label: 'Grammar', maxWidth: 125 },
+        { id: 'percent', label: 'Similarity', maxWidth: 120 },
+        { id: 'score', label: 'Marks', maxWidth: 125 },
+        { id: 'status', label: 'Status', maxWidth: 125 },
+        { id: 'action', label: 'Feedback', maxWidth: 120 },
     ];
 
     useEffect(() => {
@@ -164,7 +164,6 @@ const SubmissionHistory = ({
                     showAnalysisPage={ handleShowAnalysisPage }
                     showGrammarReport={ handlGrammarReport }
                     isLoadingGrammarReport={ isLoadingGrammarReport }
-                    charLength={ 10 }
                 /> :
                 <Instructions message={ Object.values(INSTRUCTIONS_STEPS.STUDENT_SUBMISSION) } />
             }

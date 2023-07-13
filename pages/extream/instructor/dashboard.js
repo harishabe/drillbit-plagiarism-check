@@ -401,7 +401,6 @@ const Dashboard = ({
                               "Submissions" +
                               ")"
                         }
-                        charLength={10}
                       />
                     </TextAlignRight>
                   )}

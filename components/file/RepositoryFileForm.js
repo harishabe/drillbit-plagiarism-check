@@ -64,7 +64,7 @@ const RepositoryFileForm = ({
                         <Grid container spacing={ 1 } key={ item[1]?.name }>
                             <Grid item md={ isGDrive ? 2 : 1.4 } xs={ 12 }>
                                 <div style={ { marginTop: '25px' } }>
-                                    <EllipsisText value={ item[1]?.name || item.name || item } charLength={ 10 } />
+                                    <EllipsisText value={ item[1]?.name || item.name || item } />
                                 </div>
                             </Grid>
                             <Grid item md={ isGDrive ? 2 : 1.7 } xs={ 12 }>

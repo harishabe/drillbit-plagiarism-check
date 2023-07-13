@@ -12,8 +12,8 @@ import END_POINTS from '../../../../utils/EndPoints';
 import { getItemSessionStorage } from '../../../../utils/RegExp'
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'details', label: 'Details' },
+    { id: 'name', label: 'Name', maxWidth: 200 },
+    { id: 'details', label: 'Details', maxWidth: 500 },
 ];
 
 function createData(name, details) {
@@ -117,8 +117,7 @@ const AccountInfo = ({
                     <CommonTable
                         isCheckbox={ false }
                         tableHeader={ columns }
-                        tableData={ rows }
-                        charLength={ 50 }
+                            tableData={ rows }
                         path=''
                     />
                 ) }

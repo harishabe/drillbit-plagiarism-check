@@ -9,24 +9,43 @@ class EllipsisText extends Component {
 
     state = {
         overflowed: false,
-        showSnackBar: false,
+    };
+
+    componentDidMount() {
+        this.checkTextOverflow();
+        window.addEventListener('resize', this.checkTextOverflow);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.checkTextOverflow);
+    }
+
+    checkTextOverflow = () => {
+        const textElement = this.textElement.current;
+        if (textElement) {
+            const isOverflowed = textElement.scrollWidth > textElement.clientWidth;
+            this.setState({ overflowed: isOverflowed });
+        }
     };
 
     render() {
-        return (
-            <div>
-                <Tooltip
-                    title={(this.props.value?.length > this.props.charLength) ? this.props.value : ''}
-                    arrow>
-                    <Typography variant={this.props.variant ? this.props.variant : 'h4'} component="div" gutterBottom
-                        ref={this.textElement}>
-                        {this.props.label}  {(this.props.value?.length > this.props.charLength) ?
-                            (((this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1)).substring(0, this.props.charLength)) + '...') :
-                            this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1) }
-                    </Typography>
-                </Tooltip>
+        const { overflowed } = this.state;
 
-            </div>
+        return (
+            <Tooltip title={ overflowed || this.props.isFolder && (this.props.value?.length > this.props.maxLength) ? this.props.value : '' } arrow>
+                <Typography
+                    variant={ this.props.variant ? this.props.variant : 'h4' }
+                    component="div"
+                    gutterBottom
+                    ref={ this.textElement }
+                    style={ { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' } }
+                    onMouseEnter={ this.checkTextOverflow }
+                >
+                    { this.props.component } { this.props.isFolder ? (this.props.value?.length > this.props.maxLength) ?
+                        (((this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1)).substring(0, this.props.maxLength)) + '...') :
+                        this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1) : this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1) }
+                </Typography>
+            </Tooltip>
         );
     }
 }

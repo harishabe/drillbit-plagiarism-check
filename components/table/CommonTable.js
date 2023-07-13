@@ -62,7 +62,6 @@ const CommonTable = ({
     tableHeader,
     tableData,
     isCheckbox,
-    charLength,
     handleAction,
     handleTableSort,
     handleCheckboxSelect,
@@ -117,10 +116,10 @@ const CommonTable = ({
                                             <TableCell
                                                 key={ index }
                                                 align={ column.align }
-                                                style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }
+                                                style={ { minWidth: column.minWidth, maxWidth: column.headerWidth !== undefined ? column.headerWidth : column.maxWidth } }
                                             >
                                                 { TABLE_HEADER_SORT_DISABLE.includes(column.id) ?
-                                                    <EllipsisText value={ column.label } charLength={ charLength } variant='body2_2' />
+                                                    <EllipsisText value={ column.label } variant='body2_2' />
                                                     : <TableSortLabel
                                                         onClick={ ((e) => sortHandle(e, column)) }
                                                         IconComponent={
@@ -133,8 +132,9 @@ const CommonTable = ({
                                                                     }
                                                                 </div>
                                                         }
+                                                        style={ { minWidth: column.minWidth, maxWidth: column.maxWidth, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' } }
                                                     >
-                                                        <EllipsisText value={ column.label } charLength={ charLength } variant='body2_2' />
+                                                        <EllipsisText value={ column.label } variant='body2_2' />
                                                     </TableSortLabel> }
 
                                             </TableCell>
@@ -178,7 +178,7 @@ const CommonTable = ({
                                                             <>
                                                                 {
                                                                     column.isDownload ?
-                                                                        <TableCell align={ column.align }>
+                                                                        <TableCell align={ column.align } style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                             { typeof (value) === 'string' ?
                                                                                 <div style={ { display: 'flex' } }>
                                                                                     <div style={ { width: '20%' } }>
@@ -189,7 +189,7 @@ const CommonTable = ({
                                                                                         </Tooltip>
                                                                                     </div>
                                                                                     <div style={ { width: '80%' } }>
-                                                                                        <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } />
+                                                                                        <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } />
                                                                                     </div>
                                                                                 </div> :
                                                                                 <Typography variant='body2_1' component="div">{ value !== null ? value : NO_DATA_PLACEHOLDER }</Typography> }
@@ -197,7 +197,7 @@ const CommonTable = ({
                                                                         :
                                                                         <>
                                                                             { column.id === 'percent' &&
-                                                                                <TableCell align={ column.align }>
+                                                                                <TableCell align={ column.align } style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                                     <div style={ { display: 'flex' } }>
                                                                                         {
                                                                                             ((role !== 'student') || (role === 'student' && router?.query?.repo?.toUpperCase() === 'YES')) ?
@@ -245,7 +245,7 @@ const CommonTable = ({
                                                                                 </TableCell>
                                                                             }
                                                                             { column.id === 'grammar_url' &&
-                                                                                <TableCell align={ column.align }>
+                                                                                <TableCell align={ column.align } style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                                     { value === '--' && <StatusColor color='#E5E5E5'><BeatLoader size={ 10 } color="#3672FF" /></StatusColor> }
                                                                                     { (value !== '--' && value !== 'NA' && value !== null) &&
                                                                                         <>
@@ -263,9 +263,9 @@ const CommonTable = ({
                                                                                 </TableCell>
                                                                             }
                                                                             { (column.id !== 'percent' && column.id !== 'grammar_url') &&
-                                                                                <TableCell align={ column.align }>
+                                                                                <TableCell align={ column.align } style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                                     { typeof (value) === 'string' ?
-                                                                                        <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } charLength={ charLength } variant='body2_3' /> :
+                                                                                        <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } variant='body2_3' /> :
                                                                                         <Typography variant='body2_3' component="div">{ value !== null ? value : NO_DATA_PLACEHOLDER }</Typography> }
                                                                                 </TableCell>
                                                                             }

@@ -108,7 +108,7 @@ const MyClassesForm = ({
     useEffect(() => {
         if (editData) {
             let a = {
-                'class_name': (editData.name || editData?.class_name?.props?.title),
+                'class_name': (editData.name || editData?.class_name?.props?.value),
                 'description': editData.description,
                 'end_date': view === CLASS_VIEW ? editData.end_date : editData.expiry_date,
             };

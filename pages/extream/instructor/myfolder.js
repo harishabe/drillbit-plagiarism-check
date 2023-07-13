@@ -20,7 +20,7 @@ import {
     Instructions,
     ErrorBlock,
     CommonTable,
-    FolderIconSmall,
+    EllipsisText,
     CardView
 } from '../../../components';
 import { GetAllFolders, DeleteFolder } from '../../../redux/action/instructor/InstructorAction';
@@ -64,11 +64,11 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'ass_id', label: 'Folder ID' },
-    { id: 'assignment_name', label: 'Folder name' },
-    { id: 'start_date', label: 'Created date' },
-    { id: 'folder_no_of_submissions', label: 'No. of Submissions' },
-    { id: 'action', label: 'Action' },
+    { id: 'ass_id', label: 'Folder ID', maxWidth: 100 },
+    { id: 'assignment_name', label: 'Folder name', maxWidth: 150 },
+    { id: 'start_date', label: 'Created date', maxWidth: 140 },
+    { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 60, headerWidth: 100 },
+    { id: 'action', label: 'Action', maxWidth: 100 },
 ];
 
 function createData(ass_id, assignment_name, start_date, folder_no_of_submissions, action, excludeReferences,
@@ -180,7 +180,7 @@ const MyFolder = ({
             row =
                 createData(
                     folder.folder_id,
-                    <FolderIconSmall component={ [<FolderIcon fontSize='small' htmlColor='#56B2EA' />] } title={ folder.folder_name } charLength={ 17 } />,
+                    <EllipsisText component={ [<FolderIcon fontSize='14px' htmlColor='#56B2EA' />] } value={ folder.folder_name } />,
                     formatDate(folder.creation_date),
                     folder.no_of_submissions,
                     [
@@ -216,7 +216,7 @@ const MyFolder = ({
             router.push({
                 pathname: '/extream/instructor/folderSubmission',
                 query: {
-                    name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammarCheck : grammarSubscription
+                    name: rowData.assignment_name?.props?.value, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammarCheck : grammarSubscription
                 }
             });
         }
@@ -351,7 +351,6 @@ const MyFolder = ({
                                     isFolder={ true }
                                     tableHeader={ columns }
                                     tableData={ rows }
-                                    charLength={ 17 }
                                     handleAction={ handleAction }
                                     handleTableSort={ handleTableSort }
                                     isLoading={ isLoading }
@@ -366,7 +365,6 @@ const MyFolder = ({
                                             isFolder={ true }
                                             tableHeader={ columns }
                                             tableData={ rows }
-                                            charLength={ 17 }
                                             handleAction={ handleAction }
                                             handleTableSort={ handleTableSort }
                                             isLoading={ isLoading }

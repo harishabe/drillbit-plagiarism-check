@@ -124,7 +124,7 @@ const Folder = ({
                     </> }
             </Grid>
             <Center onClick={ () => router.push(path) }>
-                <EllipsisText variant="body_1" value={ item.folder_name } charLength={ 15 } />
+                <EllipsisText variant="body_1" value={ item.folder_name } maxLength={ 25 } isFolder={ true } />
                 <FileCountContainer>{ item.no_of_submissions } Files</FileCountContainer>
             </Center>
         </Container>

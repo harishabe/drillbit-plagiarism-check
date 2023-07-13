@@ -46,15 +46,15 @@ const DownloadButton = styled.div`
 `;
 
 const columns = [
-    { id: 'college_name', label: 'Institution name' },
-    { id: 'name', label: 'Username' },
-    { id: 'email', label: 'Email' },
-    { id: 'country', label: 'Location' },
-    { id: 'start_date', label: 'Start date' },
-    { id: 'expiry_date', label: 'Expiry date' },
-    { id: 'acc_manager', label: 'Account manager' },
-    { id: 'used_documents', label: 'Submissions' },
-    { id: 'action', label: 'Action' }
+    { id: 'college_name', label: 'Institution name', maxWidth: 120 },
+    { id: 'name', label: 'Username', maxWidth: 120 },
+    { id: 'email', label: 'Email', maxWidth: 120 },
+    { id: 'country', label: 'Location', maxWidth: 115 },
+    { id: 'start_date', label: 'Start date', maxWidth: 120 },
+    { id: 'expiry_date', label: 'Expiry date', maxWidth: 125 },
+    { id: 'acc_manager', label: 'Account manager', maxWidth: 120 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 90 },
+    { id: 'action', label: 'Action', maxWidth: 90 }
 ];
 
 function createData(college_name, name, email, acc_manager, country, start_date, expiry_date, used_documents, action, lid, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
@@ -111,7 +111,7 @@ const Pro = ({
                     data.country,
                     data.start_date,
                     data.expiry_date,
-                    data.used_documents,
+                    data.used_documents.toString(),
                     [
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }
                     ],
@@ -242,7 +242,6 @@ const Pro = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 11 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
                     />

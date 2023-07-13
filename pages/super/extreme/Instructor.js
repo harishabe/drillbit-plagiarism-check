@@ -47,14 +47,14 @@ import { PaginationContainer, PlagiarismGrammarContainer } from '../../../style/
 import { platform } from '../../../utils/RegExp';
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'username', label: 'Email' },
-    { id: 'expiry_date', label: 'End Date' },
-    { id: 'status', label: 'Status' },
-    { id: 'stats', label: 'Statistics' },
-    { id: 'superadminplagairism', label: 'Plagiarism' },
-    { id: 'superadmingrammar', label: 'Grammar' },
-    { id: 'action', label: 'Actions', maxWidth: 100 }
+    { id: 'name', label: 'Name', maxWidth: 100 },
+    { id: 'username', label: 'Email', maxWidth: 100 },
+    { id: 'expiry_date', label: 'End Date', maxWidth: 100 },
+    { id: 'status', label: 'Status', maxWidth: 100 },
+    { id: 'stats', label: 'Statistics', maxWidth: 60 },
+    { id: 'superadminplagairism', label: 'Plagiarism', maxWidth: 150 },
+    { id: 'superadmingrammar', label: 'Grammar', maxWidth: 150 },
+    { id: 'action', label: 'Actions', minWidth: 100 }
 ];
 
 function createData(name, username, expiry_date, status, stats, superadminplagairism, superadmingrammar, action, created_date, department, designation, phone_number, user_id, role) {
@@ -524,7 +524,6 @@ const Instructor = ({
                     handleCheckboxSelect={ handleCheckboxSelect }
                     handleSingleSelect={ handleSingleSelect }
                     isLoading={ isLoadingExtInsList || isLoadingResend }
-                    charLength={ 10 }
                     path=''
                 />
 

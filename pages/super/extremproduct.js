@@ -36,16 +36,16 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'LID', maxWidth: 50 },
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'college_name', label: 'Institution name' },
-    { id: 'country', label: 'Location' },
-    { id: 'instructors', label: 'Instructors', },
-    { id: 'students', label: 'Students' },
-    { id: 'documents', label: 'Documents' },
-    { id: 'used_documents', label: 'SUB' },
-    { id: 'action', label: 'Action', minWidth: 140 }
+    { id: 'lid', label: 'LID', maxWidth: 85 },
+    { id: 'name', label: 'Name', maxWidth: 115 },
+    { id: 'email', label: 'Email', maxWidth: 130 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 128 },
+    { id: 'country', label: 'Location', maxWidth: 80 },
+    { id: 'instructors', label: 'Instructors', maxWidth: 80 },
+    { id: 'students', label: 'Students', maxWidth: 80 },
+    { id: 'documents', label: 'Documents', maxWidth: 80 },
+    { id: 'used_documents', label: 'SUB', maxWidth: 80 },
+    { id: 'action', label: 'Actions', minWidth: 80 }
 ];
 
 function createData(lid, name, email, college_name, country, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, institution_type, timeZone, folpath, department, acc_manager, reseller) {
@@ -96,15 +96,15 @@ const ExtremProduct = ({
         extremeData?.map((data) => {
             row =
                 createData(
-                    data.lid,
+                    data.lid.toString(),
                     data.name,
                     data.email,
                     data.college_name,
                     data.country,
-                    data.instructors,
-                    data.students,
-                    data.documents,
-                    data.used_documents,
+                    data.instructors.toString(),
+                    data.students.toString(),
+                    data.documents.toString(),
+                    data.used_documents.toString(),
                     [
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
@@ -234,7 +234,6 @@ const ExtremProduct = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 6 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
                     />

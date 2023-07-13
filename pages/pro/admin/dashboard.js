@@ -24,7 +24,7 @@ import {
   RadialBarChart,
   CardView,
   Heading,
-  SubTitle,
+  EllipsisText,
   LineChart,
   ErrorBlock,
   WarningDialog,
@@ -326,16 +326,16 @@ const Dashboard = ({
           <Grid item md={4} xs={12}>
             <CardView>
               <Grid container>
-                <Grid item md={6.6} xs={12}>
+                <Grid item md={ 7 } xs={ 12 }>
                   <Heading title="Account Validity" />
                 </Grid>
-                <Grid item md={5.4} xs={12}>
+                <Grid item md={ 5 } xs={ 12 }>
                   {isLoadingDashboard ? (
                     <Skeleton />
                   ) : (
                     <TextAlignRight>
-                      <SubTitle
-                        title={
+                        <EllipsisText
+                          value={
                           adminDashboardData?.data?.accountTotalDays +
                           "(" +
                           "Total days" +
@@ -396,8 +396,8 @@ const Dashboard = ({
                     <Skeleton />
                   ) : (
                     <TextAlignRight>
-                      <SubTitle
-                        title={
+                        <EllipsisText
+                          value={
                           adminDashboardData?.trendAnalysis
                             ?.documentsProcessed +
                           "(" +
@@ -443,7 +443,7 @@ const Dashboard = ({
             <CardView>
               <Grid container>
                 <Grid item md={6.6} xs={12}>
-                  <Heading title="Document Types" />
+                  <EllipsisText value="Document Types" variant="h2" />
                 </Grid>
                 <Grid item md={5.4} xs={12}>
                   {isLoadingDashboard ? (

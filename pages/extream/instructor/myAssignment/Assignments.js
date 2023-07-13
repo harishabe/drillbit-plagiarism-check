@@ -76,12 +76,12 @@ const DeleteAllButton = styled.div`
 `;
 
 const columns = [
-    { id: 'ass_id', label: 'Assignment ID' },
-    { id: 'assignment_name', label: 'Assignment Name' },
-    { id: 'status', label: 'Status' },
-    { id: 'start_date', label: 'Start Date' },
-    { id: 'end_date', label: 'End Date' },
-    { id: 'action', label: 'Actions' },
+    { id: 'ass_id', label: 'Assignment ID', maxWidth: 100 },
+    { id: 'assignment_name', label: 'Assignment Name', maxWidth: 180 },
+    { id: 'status', label: 'Status', maxWidth: 240 },
+    { id: 'start_date', label: 'Start Date', maxWidth: 130 },
+    { id: 'end_date', label: 'End Date', maxWidth: 130 },
+    { id: 'action', label: 'Actions', maxWidth: 260 },
 ];
 
 function createData(assignmentData, ass_id, assignment_name, status, start_date, end_date, action) {
@@ -370,7 +370,6 @@ const Assignments = ({
                         handleCheckboxSelect={ handleCheckboxSelect }
                         handleSingleSelect={ handleSingleSelect }
                         isLoading={ isLoadingAssignment }
-                        charLength={ 9 }
                     />
                     :
                     <>
@@ -386,7 +385,6 @@ const Assignments = ({
                                 handleCheckboxSelect={ handleCheckboxSelect }
                                 handleSingleSelect={ handleSingleSelect }
                                 isLoading={ isLoadingAssignment }
-                                charLength={ 9 }
                             /> :
                             <CardView>
                                 <Instructions message={ Object.values(INSTRUCTIONS_STEPS.ASSIGNMENT) } />

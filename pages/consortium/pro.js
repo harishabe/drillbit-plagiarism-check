@@ -46,17 +46,17 @@ const DownloadButton = styled.div`
 `;
 
 const columns = [
-    { id: 'college_name', label: 'Institution name' },
-    { id: 'name', label: 'Co-ordinator name' },
-    { id: 'email', label: 'Email' },
-    { id: 'country', label: 'Location' },
-    { id: 'start_date', label: 'Start date' },
-    { id: 'expiry_date', label: 'Expiry date' },
-    { id: 'acc_manager', label: 'Account manager' },
-    { id: 'instructors', label: 'Users' },
-    { id: 'documents', label: 'Allocated documents' },
-    { id: 'used_documents', label: 'Submissions' },
-    { id: 'action', label: 'Action' }
+    { id: 'college_name', label: 'Institution name', maxWidth: 90 },
+    { id: 'name', label: 'Co-ordinator name', maxWidth: 90 },
+    { id: 'email', label: 'Email', maxWidth: 90 },
+    { id: 'country', label: 'Location', maxWidth: 90 },
+    { id: 'start_date', label: 'Start date', maxWidth: 90 },
+    { id: 'expiry_date', label: 'Expiry date', maxWidth: 90 },
+    { id: 'acc_manager', label: 'Account manager', maxWidth: 90 },
+    { id: 'instructors', label: 'Users', maxWidth: 90 },
+    { id: 'documents', label: 'Allocated documents', maxWidth: 90 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 90 },
+    { id: 'action', label: 'Action', maxWidth: 90 }
 ];
 
 function createData(college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, documents, used_documents, action, lid, students, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
@@ -113,14 +113,14 @@ const Pro = ({
                     data.start_date,
                     data.expiry_date,
                     data.acc_manager,
-                    data.instructors,
-                    data.documents,
-                    data.used_documents,
+                    data.instructors.toString(),
+                    data.documents.toString(),
+                    data.used_documents.toString(),
                     [
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }
                     ],
                     data.lid,
-                    data.students,
+                    data.students.toString(),
                     data.state,
                     data.address,
                     data.designation,
@@ -244,7 +244,6 @@ const Pro = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 6 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
                     />

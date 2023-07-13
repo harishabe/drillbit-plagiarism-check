@@ -34,8 +34,8 @@ const useStyles = makeStyles({
 });
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'details', label: 'Details' },
+    { id: 'name', label: 'Name', minWidth: 170 },
+    { id: 'details', label: 'Details', maxWidth: 700 },
 ];
 
 function createData(name, details) {
@@ -69,7 +69,6 @@ const IntegrationTypeDetail = ({
                 isCheckbox={ false }
                 tableHeader={ columns }
                 tableData={ rows }
-                charLength={ 50 }
                 path=''
             />
         </>
@@ -176,7 +175,6 @@ const IntegrationTypeDetail = ({
                         isCheckbox={ false }
                         tableHeader={ columns }
                         tableData={ technical }
-                        charLength={ 50 }
                             path=''
                         />
                     </CardView>

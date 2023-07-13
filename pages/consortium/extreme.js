@@ -46,18 +46,18 @@ const DownloadButton = styled.div`
 `;
 
 const columns = [
-    { id: 'college_name', label: 'Institution name' },
-    { id: 'name', label: 'Co-ordinator name' },
-    { id: 'email', label: 'Email' },
-    { id: 'country', label: 'Location' },
-    { id: 'start_date', label: 'Start date' },
-    { id: 'expiry_date', label: 'Expiry date' },
-    { id: 'acc_manager', label: 'Account manager' },
-    { id: 'instructors', label: 'Instructors' },
-    { id: 'students', label: 'Students' },
-    { id: 'documents', label: 'Allocated documents' },
-    { id: 'used_documents', label: 'Submissions' },
-    { id: 'action', label: 'Action' }
+    { id: 'college_name', label: 'Institution name', maxWidth: 90 },
+    { id: 'name', label: 'Co-ordinator name', maxWidth: 90 },
+    { id: 'email', label: 'Email', maxWidth: 90 },
+    { id: 'country', label: 'Location', maxWidth: 78 },
+    { id: 'start_date', label: 'Start date', maxWidth: 83 },
+    { id: 'expiry_date', label: 'Expiry date', maxWidth: 90 },
+    { id: 'acc_manager', label: 'Account manager', maxWidth: 90 },
+    { id: 'instructors', label: 'Instructors', maxWidth: 75 },
+    { id: 'students', label: 'Students', maxWidth: 75 },
+    { id: 'documents', label: 'Allocated documents', maxWidth: 80 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 80 },
+    { id: 'action', label: 'Action', maxWidth: 75 }
 ];
 
 function createData(college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, used_documents, action, lid, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
@@ -114,10 +114,10 @@ const Extreme = ({
                     data.start_date,
                     data.expiry_date,
                     data.acc_manager,
-                    data.instructors,
-                    data.students,
-                    data.documents,
-                    data.used_documents,
+                    data.instructors.toString(),
+                    data.students.toString(),
+                    data.documents.toString(),
+                    data.used_documents.toString(),
                     [
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }
                     ],
@@ -246,7 +246,6 @@ const Extreme = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 6 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
                     />

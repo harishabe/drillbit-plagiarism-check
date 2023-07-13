@@ -26,15 +26,15 @@ import { PaginationContainer } from '../../../style/index';
 import { platform } from '../../../utils/RegExp';
 
 const columns = [
-    { id: 'lid', label: 'LID' },
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'college_name', label: 'Institution name' },
-    { id: 'country', label: 'Location' },
-    { id: 'instructors', label: 'Instructors', },
-    { id: 'students', label: 'Students' },
-    { id: 'documents', label: 'Documents' },
-    { id: 'used_documents', label: 'Submissions' },
+    { id: 'lid', label: 'LID', maxWidth: 80 },
+    { id: 'name', label: 'Name', maxWidth: 120 },
+    { id: 'email', label: 'Email', maxWidth: 155 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 155 },
+    { id: 'country', label: 'Location', maxWidth: 80 },
+    { id: 'instructors', label: 'Instructors', maxWidth: 80 },
+    { id: 'students', label: 'Students', maxWidth: 80 },
+    { id: 'documents', label: 'Documents', maxWidth: 80 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 80 },
 ];
 
 function createData(lid, name, email, college_name, country, instructors, students, documents, used_documents) {
@@ -96,10 +96,10 @@ const Extreme = ({
                     data.email,
                     data.college_name,
                     data.country,
-                    data.instructors,
-                    data.students,
-                    data.documents,
-                    data.used_documents
+                    data.instructors.toString(),
+                    data.students.toString(),
+                    data.documents.toString(),
+                    data.used_documents.toString()
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -199,7 +199,6 @@ const Extreme = ({
                     tableData={ rows }
                     handleTableSort={ handleTableSort }
                     isLoading={ isLoadingExtInsList }
-                    charLength={ 10 }
                     path=''
                 />
 

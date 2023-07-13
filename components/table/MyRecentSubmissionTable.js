@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { makeStyles } from '@mui/styles';
 import Avatar from '@mui/material/Avatar';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
@@ -15,28 +16,35 @@ const MarginTop = styled.div`
     marginTop:'7px';
 `;
 
+const useStyles = makeStyles(() => ({
+    width: {
+        maxWidth: 180
+    },
+}));
+
 const MyRecentSubmissionTable = ({ tableData }) => {
+    const classes = useStyles();
     return (
         <TableContainer>
             <Table aria-label='simple table'>
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan="2">
+                        <TableCell colSpan="2" className={ classes.width }>
                             <SubTitle1 title="Assignments" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={ classes.width }>
                             <SubTitle1 title="File Name" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={ classes.width }>
                             <SubTitle1 title="Paper ID" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={ classes.width }>
                             <SubTitle1 title="Marks" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={ classes.width }>
                             <SubTitle1 title="Similarity" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={ classes.width }>
                             <SubTitle1 title="Status" />
                         </TableCell>
                     </TableRow>
@@ -57,23 +65,23 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                     {item.ass_name?.charAt(0)?.toUpperCase()}
                                 </Avatar>
                             </TableCell>
-                            <TableCell>
-                                <EllipsisText value={item.ass_name} charLength={15} />
+                            <TableCell className={ classes.width }>
+                                <EllipsisText value={ item.ass_name } />
                                 <SubTitle2 title={item.lang1} />
                             </TableCell>
-                            <TableCell>
-                                <EllipsisText value={item.original_fn} charLength={15} />
+                            <TableCell className={ classes.width }>
+                                <EllipsisText value={ item.original_fn } />
                             </TableCell>
-                            <TableCell>
+                            <TableCell className={ classes.width }>
                                 <SubTitle title={item.paper_id} />
                             </TableCell>
-                            <TableCell>
+                            <TableCell className={ classes.width }>
                                 <SubTitle title={ item.feedback !== null ? item.feedback?.marks : NO_DATA_PLACEHOLDER } />
                             </TableCell>
-                            <TableCell>
+                            <TableCell className={ classes.width }>
                                 <SimilarityStatus percent={ item.percent } flag={ item.flag } />
                             </TableCell>
-                            <TableCell>
+                            <TableCell className={ classes.width }>
                                 <MarginTop>
                                     <StatusDot color={item.status === 'active' ? '#38BE62' : '#E9596F'} title={item.status} />
                                 </MarginTop>

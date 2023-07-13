@@ -52,12 +52,12 @@ const QNA = ({
     }, [clasId, assId]);
 
     const columns = [
-        { id: 'STname', label: 'Student Name' },
-        { id: 'q1', label: queData?.q1 !== null ? queData?.q1 : '' },
-        { id: 'q2', label: queData?.q2 !== null ? queData?.q2 : '' },
-        { id: 'q3', label: queData?.q3 !== null ? queData?.q3 : '' },
-        { id: 'q4', label: queData?.q4 !== null ? queData?.q4 : '' },
-        { id: 'q5', label: queData?.q5 !== null ? queData?.q5 : '' },
+        { id: 'STname', label: 'Student Name', maxWidth: 180 },
+        { id: 'q1', label: queData?.q1 !== null ? queData?.q1 : '', maxWidth: 180 },
+        { id: 'q2', label: queData?.q2 !== null ? queData?.q2 : '', maxWidth: 180 },
+        { id: 'q3', label: queData?.q3 !== null ? queData?.q3 : '', maxWidth: 180 },
+        { id: 'q4', label: queData?.q4 !== null ? queData?.q4 : '', maxWidth: 180 },
+        { id: 'q5', label: queData?.q5 !== null ? queData?.q5 : '', maxWidth: 180 },
     ];
 
     function createData(STname, q1, q2, q3, q4, q5) {
@@ -73,15 +73,15 @@ const QNA = ({
             row = createData(
                 qna.studentName,
                 <EllipsisText value={ qna?.a1 === null ? NO_DATA_PLACEHOLDER : qna?.a1 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
                 <EllipsisText value={ qna?.a2 === null ? NO_DATA_PLACEHOLDER : qna?.a2 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
                 <EllipsisText value={ qna?.a3 === null ? NO_DATA_PLACEHOLDER : qna?.a3 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
                 <EllipsisText value={ qna?.a4 === null ? NO_DATA_PLACEHOLDER : qna?.a4 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
                 <EllipsisText value={ qna?.a5 === null ? NO_DATA_PLACEHOLDER : qna?.a5 }
-                    variant={ 'subtitle2' } charLength={ 30 } />,
+                    variant={ 'subtitle2' } />,
             );
             row['isSelected'] = false;
             arr.push(row);

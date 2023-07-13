@@ -48,15 +48,15 @@ import { DOWNLOAD_CSV, WARNING_MESSAGES, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDE
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'title', label: 'Title' },
-    { id: 'original_fn', label: 'File', isDownload: true },
-    { id: 'lang1', label: 'Language' },
-    { id: 'grammar_url', label: 'Grammar' },
-    { id: 'percent', label: 'Similarity' },
-    { id: 'paper_id', label: 'Paper ID' },
-    { id: 'date_up', label: 'Submission Date' },
-    { id: 'action', label: 'Action', minWidth: 105 },
+    { id: 'name', label: 'Name', maxWidth: 90 },
+    { id: 'title', label: 'Title', maxWidth: 90 },
+    { id: 'original_fn', label: 'File', isDownload: true, maxWidth: 90 },
+    { id: 'lang1', label: 'Language', maxWidth: 70 },
+    { id: 'grammar_url', label: 'Grammar', maxWidth: 100 },
+    { id: 'percent', label: 'Similarity', maxWidth: 100 },
+    { id: 'paper_id', label: 'Paper ID', maxWidth: 80 },
+    { id: 'date_up', label: 'Submission Date', maxWidth: 100 },
+    { id: 'action', label: 'Action', maxWidth: 250 },
 ];
 
 function createData(id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, flag) {
@@ -524,7 +524,6 @@ const folderSubmission = ({
                         showGrammarReport={ handlGrammarReport }
                         // isLoading={isLoadingSubmission}
                         isLoadingGrammarReport={ isLoadingGrammarReport }
-                        charLength={ 10 }
                         path=''
                     />
                     :
@@ -545,7 +544,6 @@ const folderSubmission = ({
                                 showGrammarReport={ handlGrammarReport }
                                 // isLoading={isLoadingSubmission}
                                 isLoadingGrammarReport={ isLoadingGrammarReport }
-                                charLength={ 10 }
                                 path=''
                             /> :
                             <CardView>

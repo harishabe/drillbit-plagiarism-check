@@ -76,8 +76,7 @@ const FileForm = ({
                 >
                   <div style={{ marginTop: "25px" }}>
                     <EllipsisText
-                      value={item[1]?.name || item.name}
-                      charLength={18}
+                      value={ item[1]?.name || item.name }
                     />
                   </div>
                 </Grid>

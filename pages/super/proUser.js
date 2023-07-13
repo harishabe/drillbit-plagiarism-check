@@ -48,13 +48,13 @@ import { Role } from '../../constant/data';
 import { WARNING_MESSAGES, PRO } from '../../constant/data/Constant';
 
 const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'username', label: 'Email' },
-    { id: 'expiry_date', label: 'End Date' },
-    { id: 'status', label: 'Status' },
-    { id: 'stats', label: 'Statistics' },
-    { id: 'superadminplagairism', label: 'Plagiarism' },
-    { id: 'superadmingrammar', label: 'Grammar' },
+    { id: 'name', label: 'Name', maxWidth: 120 },
+    { id: 'username', label: 'Email', maxWidth: 120 },
+    { id: 'expiry_date', label: 'End Date', maxWidth: 120 },
+    { id: 'status', label: 'Status', maxWidth: 100 },
+    { id: 'stats', label: 'Statistics', maxWidth: 60 },
+    { id: 'superadminplagairism', label: 'Plagiarism', maxWidth: 150 },
+    { id: 'superadmingrammar', label: 'Grammar', maxWidth: 150 },
     { id: 'action', label: 'Actions', maxWidth: 100 }
 ];
 
@@ -527,7 +527,6 @@ const ProUser = ({
                         isLoadingadminCrud ||
                         isLoadingResend
                     }
-                    charLength={ 7 }
                     path=''
                 />
 

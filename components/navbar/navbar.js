@@ -187,8 +187,8 @@ const NavBar = ({
                                 <Box sx={ { display: { xs: 'none', md: 'flex' } } }>
                                     <Divider orientation="vertical" flexItem />
                                     <div style={ { display: 'block', marginLeft: '15px', marginRight: '15px' } }>
-                                        <div style={ { fontSize: '16px', fontWeight: 400, lineHeight: '24px' } }>
-                                            { name !== undefined ? <EllipsisText value={ name } charLength={ 12 } /> : <Skeleton /> }
+                                        <div style={ { fontSize: '16px', fontWeight: 400, lineHeight: '24px', maxWidth: '128px' } }>
+                                            { name !== undefined ? <EllipsisText value={ name } /> : <Skeleton /> }
                                         </div>
                                         <div style={ { fontSize: '12px', fontWeight: 400, color: '#666', letterSpacing: '0.4px', textAlign: 'right', textTransform: 'capitalize' } }>
                                             { profileRole }
@@ -254,8 +254,8 @@ const NavBar = ({
                         { name && name.charAt(0)?.toUpperCase() }
                     </Avatar>
                     <ListItemText
-                        primary={ <EllipsisText value={ name } charLength={ 20 } /> }
-                        secondary={ <EllipsisText value={ email } charLength={ 20 } /> }
+                        primary={ <EllipsisText value={ name } /> }
+                        secondary={ <EllipsisText value={ email } /> }
                     />
                 </MenuItem>
                 <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />

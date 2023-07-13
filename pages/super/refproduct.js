@@ -36,15 +36,15 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'LID', maxWidth: 20 },
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'college_name', label: 'Institution name' },
-    { id: 'country', label: 'Location', maxWidth: 110 },
-    { id: 'instructors', label: 'Users', maxWidth: 80 },
-    { id: 'documents', label: 'Documents' },
-    { id: 'used_documents', label: 'SUB' },
-    { id: 'action', label: 'Action', minWidth: 140 }
+    { id: 'lid', label: 'LID', maxWidth: 75 },
+    { id: 'name', label: 'Name', maxWidth: 125 },
+    { id: 'email', label: 'Email', maxWidth: 125 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 125 },
+    { id: 'country', label: 'Location', maxWidth: 70 },
+    { id: 'instructors', label: 'Users', maxWidth: 70 },
+    { id: 'documents', label: 'Documents', maxWidth: 70 },
+    { id: 'used_documents', label: 'SUB', maxWidth: 70 },
+    { id: 'action', label: 'Actions', minWidth: 115 }
 ];
 
 function createData(lid, name, email, college_name, country, instructors, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, institution_type, timeZone, folpath, department, acc_manager, reseller
@@ -98,14 +98,14 @@ const RefProduct = ({
         refData?.map((data) => {
             row =
                 createData(
-                    data.lid,
+                    data.lid.toString(),
                     data.name,
                     data.email,
                     data.college_name,
                     data.country,
-                    data.instructors,
-                    data.documents,
-                    data.used_documents,
+                    data.instructors.toString(),
+                    data.documents.toString(),
+                    data.used_documents.toString(),
                     [
                         { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
                         { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
@@ -234,7 +234,6 @@ const RefProduct = ({
                         tableHeader={ columns }
                         tableData={ rows }
                         isLoading={ isLoading }
-                        charLength={ 10 }
                         handleAction={ handleAction }
                         handleTableSort={ handleTableSort }
                     />
