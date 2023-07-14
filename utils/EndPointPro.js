@@ -47,7 +47,7 @@ const END_POINTS_PRO = {
     USER_REPOSITARY_UPLOAD: '/privateRepository',
     GRAMMAR_REPORT: '/files/grammar/download/',
     SIMILARITY_REPORT_DOWNLOAD: '/zipDownload',
-    SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/analysis-gateway/api/download2/',
+    SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/api/download2/',
     INTEGRATION_DELETE_CANVAS: '/integrations/canvas',
     INTEGRATION_DELETE_BLACKBOARD: '/integrations/blackboard',
     INTEGRATION_DELETE_BRIGHTSPACE: '/integrations/brightspace',

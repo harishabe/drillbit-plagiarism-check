@@ -7,7 +7,7 @@ import {
     ColumnChart,
     PieChart,
     SubTitle,
-    SubTitle1
+    EllipsisText
 } from '../../../../components';
 import {
     COLUMN_ADMIN_CHART_TYPE,
@@ -71,10 +71,8 @@ const StudentStats = ({
             <Grid item container>
                 { isLoading ? <Skeleton width={ 210 } /> :
                     <>
-                        <Grid item md={ 2 } xs={ 2 }> <SubTitle1 title="Student name" /></Grid>
-                        <Grid item md={ 1 } xs={ 1 }> <SubTitle1 title=":" /></Grid>
-                        <Grid item md={ 7 } xs={ 7 }>
-                            <SubTitle1 title={ studentStats?.name } />
+                        <Grid item md={ 8 } xs={ 6 }>
+                            <EllipsisText value={ `Student name : ${studentStats?.name}` } variant='h5' />
                         </Grid>
                         { isLoadingCsvExport ? <Skeleton width={ 150 } style={ { marginLeft: 'auto' } } /> :
                             <Tooltip title="Export to csv">

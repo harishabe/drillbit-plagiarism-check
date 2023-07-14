@@ -215,7 +215,7 @@ const MyFolder = ({
             router.push({
                 pathname: '/pro/user/folderSubmission',
                 query: {
-                    name: rowData.assignment_name?.props?.title, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammar : grammarSubscription, crossLanguage: translation?.toUpperCase()
+                    name: rowData.assignment_name?.props?.value, folderId: rowData.ass_id, grammar: grammarSubscription?.toUpperCase() === 'YES' ? rowData.grammar : grammarSubscription, crossLanguage: translation?.toUpperCase()
                 }
             });
         }

@@ -7,7 +7,7 @@ import {
     ColumnChart,
     PieChart,
     SubTitle,
-    SubTitle1
+    EllipsisText
 } from '../../../../components';
 
 import {
@@ -70,8 +70,8 @@ const UserStats = ({
             <Grid item container>
                 { isLoading ? <Skeleton width={ 210 } /> :
                     <>
-                        <Grid item md={ 6 } xs={ 6 }>
-                            <SubTitle1 title={ `Instructor name : ${userStats?.name}` } />
+                        <Grid item md={ 8 } xs={ 6 }>
+                            <EllipsisText value={ `User name : ${userStats?.name}` } variant='h5' />
                         </Grid>
                         { isLoadingCsvExport ? <Skeleton width={ 150 } style={ { marginLeft: 'auto' } } /> :
                             <Tooltip title="Export to csv">
