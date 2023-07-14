@@ -46,7 +46,7 @@ import { DeleteIcon, DeleteWarningIcon, DownloadIcon, RegionalUploadIcon, NonEng
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
-import { BASE_URL, BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS } from '../../../utils/BaseUrl';
+import { BASE_URL, BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS, BASE_URL_ANALYSIS_GATEWAY } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../constant/data/Constant';
 import PageChange from '../../../components/loader/PageChange';
@@ -82,11 +82,11 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
     },
     tooltipStyle: {
-        width: '20%',
+        width: '30%',
         marginTop: '4px'
     },
     width: {
-        width: '80%'
+        width: '100%'
     },
     flex: {
         display: 'flex',
@@ -437,7 +437,7 @@ const folderSubmission = ({
     };
 
     const handleSubmissionDownloadYesWarning = () => {
-        SubmissionReportDownload(BASE_URL + END_POINTS_PRO.SIMILARITY_REPORT_SINGLE_DOWNLOAD + `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`, submissionReportData);
+        SubmissionReportDownload(BASE_URL_ANALYSIS_GATEWAY + END_POINTS_PRO.SIMILARITY_REPORT_SINGLE_DOWNLOAD + `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`, submissionReportData);
         setShowSubmissionReport(false);
     };
 

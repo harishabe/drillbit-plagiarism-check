@@ -53,14 +53,14 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'paper_id', label: 'Paper ID', maxWidth: 140 },
+    { id: 'paper_id', label: 'Paper ID', maxWidth: 110 },
     { id: 'name', label: 'Name', maxWidth: 140 },
     { id: 'mail_id', label: 'Email ID', maxWidth: 140 },
     { id: 'title', label: 'Title', maxWidth: 140 },
     { id: 'repository_type', label: 'Type', maxWidth: 140 },
     { id: 'lang1', label: 'Language', maxWidth: 140 },
     { id: 'date_up', label: 'Added Date', maxWidth: 140 },
-    { id: 'action', label: 'Action', minWidth: 100 },
+    { id: 'action', label: 'Action', minWidth: 80 },
 ];
 
 function createData(paper_id, name, mail_id, title, repository_type, lang1, date_up, action) {
