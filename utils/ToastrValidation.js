@@ -4,7 +4,7 @@ import { ERROR_MESSAGE_RESPONSE } from '../constant/data/Constant';
 export const error = (message) => {
     const messageLength = message && message?.length;
     if (typeof window !== 'undefined') {
-        window.postMessage({ type: 'MESSAGE_LENGTH', payload: messageLength });
+        window.postMessage({ type: 'MESSAGE_LENGTH_ERROR', payload: messageLength });
     }
     toast.error(message, {
         position: "top-right",
@@ -20,7 +20,7 @@ export const error = (message) => {
 export const success = (message) => {
     const messageLength = message && message?.length;
     if (typeof window !== 'undefined') {
-        window.postMessage({ type: 'MESSAGE_LENGTH', payload: messageLength });
+        window.postMessage({ type: 'MESSAGE_LENGTH_SUCCESS', payload: messageLength });
     }
     toast.success(message, {
         position: "top-right",

@@ -20,6 +20,7 @@ const StudentForm = ({
     SuperEditStudent,
     isLoadingStudent,
     editData,
+    isLoadingCreateStudent,
     isLoadingEditStudent
 }) => {
 
@@ -137,7 +138,7 @@ const StudentForm = ({
                                 key={ i }
                                 field={ field }
                                 control={ control }
-                                isLoading={ isLoadingStudent || isLoadingEditStudent }
+                                isLoading={ isLoadingStudent || isLoadingEditStudent || isLoadingCreateStudent }
                             />
                         </Grid>
                     )) }
@@ -149,7 +150,8 @@ const StudentForm = ({
 
 const mapStateToProps = (state) => ({
     isLoadingStudent: state?.instructorClasses?.isLoadingStudent,
-    isLoadingStudent: state?.superAdmin?.isLoadingCreateStudent,
+    isLoadingCreateStudent: state?.superAdmin?.isLoadingCreateStudent,
+    isLoadingEditStudent: state?.superAdmin?.isLoadingEditStudent,
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -235,7 +235,11 @@ const MyFolder = ({
 
     /** Table implementation functions end*/
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setEditFolder(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setEditFolder(drawerClose);
     };
 
@@ -408,7 +412,8 @@ const MyFolder = ({
                     title="Edit Folder"
                         isShowAddIcon={ false }
                         showDrawer={ editFolder }
-                        handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <MyFoldersForms
                             editData={ editFolderData }

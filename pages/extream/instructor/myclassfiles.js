@@ -110,7 +110,11 @@ const MyClassFiles = ({
         setShowDeleteWarning(false);
     };
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setEditClasses(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setEditClasses(drawerClose);
     };
 
@@ -274,7 +278,8 @@ const MyClassFiles = ({
                     title="Edit Class"
                         isShowAddIcon={ false }
                         showDrawer={ editClasses }
-                        handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <MyClassesForm
                             editData={ editClassesData }

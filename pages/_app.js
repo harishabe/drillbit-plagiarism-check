@@ -48,7 +48,7 @@ export default function MyApp(props) {
     }, []);
 
     const handleWindowMessage = (event) => {
-        if (event.data.type === 'MESSAGE_LENGTH') {
+        if ((event.data.type === 'MESSAGE_LENGTH_SUCCESS') || (event.data.type === 'MESSAGE_LENGTH_ERROR')) {
             const messageLength = event.data.payload;
             let newWidth = "";
             if (messageLength < 50) {

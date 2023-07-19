@@ -268,7 +268,11 @@ const Students = ({
         };
     });
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setEditStudent(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setEditStudent(drawerClose);
     };
 
@@ -333,7 +337,8 @@ const Students = ({
                     title="Edit Student"
                         isShowAddIcon={ false }
                         showDrawer={ editStudent }
-                        handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <StudentForm
                             editData={ editStudentData }

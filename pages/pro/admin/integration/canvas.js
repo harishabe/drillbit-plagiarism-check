@@ -51,7 +51,11 @@ const Canvas = ({
         setForm(true);
     };
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setForm(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setForm(drawerClose);
     };
 
@@ -87,7 +91,8 @@ const Canvas = ({
                         title="Canvas Configuration"
                         isShowAddIcon={ false }
                         showDrawer={ form }
-                        handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                     >
                         <CanvasForm
                             editData={ integrationData }

@@ -294,8 +294,12 @@ const Users = ({
         }
     };
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
         setEditInstructor(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
+        setEditInstructor(drawerClose)
     };
 
     return (
@@ -361,7 +365,8 @@ const Users = ({
                     title="Edit Instructor"
                         isShowAddIcon={ false }
                         showDrawer={ editInstructor }
-                        handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <UserForm
                             editData={ editInstructorData }
