@@ -161,6 +161,12 @@ const Submission = ({
     }, [router.isReady, paginationPayload]);
 
     useEffect(() => {
+        if (isLoading) {
+            setRows([])
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
         const result = rows?.some((item) => item?.percent?.props?.percent === '--');
         if (result) {
             const intervalId = setInterval(() => {
