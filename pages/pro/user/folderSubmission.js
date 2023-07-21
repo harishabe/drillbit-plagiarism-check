@@ -226,7 +226,7 @@ const folderSubmission = ({
                                 <div className={ classes.width }>
                                     <EllipsisText value={ submission.language1 } />
                                 </div>
-                            </div> : submission.language1
+                            </div> : <EllipsisText value={ submission.language1 } />
                     ],
                     submission.grammar,
                     submission.grammar_url,

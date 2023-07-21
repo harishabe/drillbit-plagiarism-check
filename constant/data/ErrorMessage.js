@@ -17,6 +17,7 @@ export const DOCUMENT_PROCESSED_NOT_FOUND = "No data found!";
 export const UPLOAD_FILE_ERROR = "Please select your file to upload";
 export const UPLOAD_FILE_MAX_LIMIT = "Max file upload is 15.";
 export const UPLOAD_FILE_REPO_MAX_LIMIT = "Max file upload is 10.";
+export const UPLOAD_ZIP_FILES_ZERO = "No files found";
 export const UPLOAD_FILE_AUTHOR_NAME = "Author name is required";
 export const UPLOAD_FILE_AUTHOR_TITLE = "Author title is required";
 export const UPLOAD_FILE_TYPE = "Select file type";
