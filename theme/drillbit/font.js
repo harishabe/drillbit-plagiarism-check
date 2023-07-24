@@ -1,14 +1,14 @@
 const fontName = 'montserrat'
 const font = {
     fontFamily: fontName,
-    fontSize: 14,
+    fontSize: 12,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightBold: 700,
     h1: {
         fontFamily: fontName,
-        fontSize: '24px',
+        fontSize: '1.375rem',
         fontWeight: '600',
         fontStyle: 'normal',
         lineHeight: '36px',
@@ -16,7 +16,7 @@ const font = {
     },
     h2: {
         fontFamily: fontName,
-        fontSize: '20px',
+        fontSize: '1.125rem',
         fontWeight: '600',
         fontStyle: 'normal',
         lineHeight: '28px',
@@ -24,14 +24,14 @@ const font = {
     },
     h3: {
         fontFamily: fontName,
-        fontSize: '18px',
+        fontSize: '1rem',
         fontWeight: 400,
         lineHeight: 1.167,
         letterSpacing: '0em'
     },
     h3_1: {
         fontFamily: fontName,
-        fontSize: '18px',
+        fontSize: '1rem',
         fontWeight: 400,
         lineHeight: 1.167,
         letterSpacing: '0em',
@@ -40,7 +40,7 @@ const font = {
     h4: {
         fontFamily: fontName,
         fontStyle: 'normal',
-        fontSize: '16px',
+        fontSize: '0.875rem',
         fontWeight: 400,
         lineHeight: '24px',
         letterSpacing: '0.5px',
@@ -49,7 +49,7 @@ const font = {
     h5: {
         fontFamily: fontName,
         fontStyle: 'normal',
-        fontSize: '16px',
+        fontSize: '0.875rem',
         fontWeight: 500,
         lineHeight: '24px',
         letterSpacing: '0.5px',
@@ -58,21 +58,21 @@ const font = {
     body1: {
         fontFamily: fontName,
         fontWeight: 400,
-        fontSize: '16px',
+        fontSize: '0.875rem',
         lineHeight: 1.5,
         letterSpacing: '0.00938em'
     },
     body2: {
         fontFamily: fontName,
         fontWeight: 400,
-        fontSize: '14px',
+        fontSize: '0.75rem',
         lineHeight: '20px',
         color: '#666666'
     },
     body2_1: {
         fontFamily: fontName,
         fontWeight: 600,
-        fontSize: '16px',
+        fontSize: '0.875rem',
         lineHeight: '20px',
         color: '#666666'
     },
@@ -84,13 +84,13 @@ const font = {
         // color: '#666666'
         fontFamily: fontName,
         fontWeight: 600,
-        fontSize: '16px',
+        fontSize: '0.875rem',
         lineHeight: '20px',
         color: '#666666'
     },
     body2_3: {
         fontFamily: fontName,
-        fontSize: '16px',
+        fontSize: '0.875rem',
         color: '#666666'
         //fontSize: '15px',
     }

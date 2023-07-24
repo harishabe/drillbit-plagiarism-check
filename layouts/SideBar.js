@@ -28,7 +28,7 @@ import {
 } from '../constant/data';
 import { getItemSessionStorage } from '../utils/RegExp'
 
-const drawerWidth = 200;
+const drawerWidth = 160;
 
 const useStyles = makeStyles((theme) => ({
     activeClass: {
@@ -235,13 +235,13 @@ const SideBar = ({ open }) => {
                                             <Link href={text.layout + text.path} key={text.name}>
                                                 <a className={classes.link} >
                                                     <ListItemButton
-                                                        style={{ margin: '10px 15px 0', borderRadius: '4px' }}
-                                                        className={whiteFontClasses}
-                                                        sx={{
-                                                            minHeight: 58,
+                                                        style={ { margin: '10px 8px 0', borderRadius: '4px' } }
+                                                        className={ whiteFontClasses }
+                                                        sx={ {
+                                                            minHeight: 40,
                                                             justifyContent: open ? 'initial' : 'center',
-                                                            px: 2.5
-                                                        }}
+                                                            px: 1.5
+                                                        } }
                                                     >
                                                         <ListItemIcon
                                                             className={whiteFontClasses}
