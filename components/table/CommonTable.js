@@ -55,7 +55,12 @@ const useStyles = makeStyles(() => ({
     },
     customArrowContainer: {
         marginTop: '14px'
-    }
+    },
+    customTable: {
+        "& .MuiTableCell-sizeSmall": {
+            padding: "8px 10px"// <-- arbitrary value
+        }
+    },
 }));
 
 const CommonTable = ({
@@ -103,7 +108,7 @@ const CommonTable = ({
         <Card>
             <CardContent style={ { padding: '15px 0px' } }>
                 <TableContainer component={ Paper } classes={ { root: classes.customTableContainer } }>
-                    <Table stickyHeader>
+                    <Table stickyHeader size='small' className={ classes.customTable }>
                         <TableHead>
                             <TableRow>
                                 { isCheckbox &&

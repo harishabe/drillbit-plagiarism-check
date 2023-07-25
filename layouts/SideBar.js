@@ -28,7 +28,7 @@ import {
 } from '../constant/data';
 import { getItemSessionStorage } from '../utils/RegExp'
 
-const drawerWidth = 160;
+const drawerWidth = 165;
 
 const useStyles = makeStyles((theme) => ({
     activeClass: {

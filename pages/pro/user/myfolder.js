@@ -64,11 +64,11 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'ass_id', label: 'Folder ID', maxWidth: 100 },
-    { id: 'assignment_name', label: 'Folder name', maxWidth: 150 },
-    { id: 'created_date', label: 'Created date', maxWidth: 140 },
-    { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 130 },
-    { id: 'action', label: 'Action', maxWidth: 100 },
+    { id: 'ass_id', label: 'Folder ID', maxWidth: 83 },
+    { id: 'assignment_name', label: 'Folder name', maxWidth: 250 },
+    { id: 'created_date', label: 'Created date', maxWidth: 120 },
+    { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 110 },
+    { id: 'action', label: 'Action', maxWidth: 60 },
 ];
 
 function createData(ass_id, assignment_name, created_date, folder_no_of_submissions, action, ex_references, ex_quotes, small_sources, ex_phrases, db_studentpaper, db_publications, db_internet, institution_repository, phrases, grammar) {
