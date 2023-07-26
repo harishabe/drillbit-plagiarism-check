@@ -16,7 +16,9 @@ import {
     EllipsisText,
 } from '../../../components';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { DeleteWarningIcon } from '../../../assets/icon';
 import MyClassesForm from './form/MyclassesForm';
 import {
     renameKeys,
@@ -31,12 +33,12 @@ import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const columns = [
-    { id: 'class_id', label: 'Class ID', maxWidth: 180 },
-    { id: 'class_name', label: 'Class name', maxWidth: 200 },
-    { id: 'created_date', label: 'Start date', maxWidth: 180 },
-    { id: 'end_date', label: 'Expiry date', maxWidth: 180 },
-    { id: 'status', label: 'Status', maxWidth: 180 },
-    { id: 'action', label: 'Action', maxWidth: 160 },
+    { id: 'class_id', label: 'Class ID', maxWidth: 90 },
+    { id: 'class_name', label: 'Class name', maxWidth: 360 },
+    { id: 'created_date', label: 'Start date', maxWidth: 165 },
+    { id: 'end_date', label: 'Expiry date', maxWidth: 165 },
+    { id: 'status', label: 'Status', maxWidth: 130 },
+    { id: 'action', label: 'Action', maxWidth: 125 },
 ];
 
 function createData(class_id, class_name, created_date, end_date, status, action, description, expiry_date) {
@@ -129,9 +131,9 @@ const MyClassFiles = ({
                     <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
                     />,
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        { 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <ArrowForwardOutlinedIcon fontSize='small' />, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     classes.description,
                     classes.end_date

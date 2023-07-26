@@ -7,6 +7,9 @@ import { useRouter } from 'next/router';
 import { TextField } from '@mui/material';
 import debouce from 'lodash.debounce';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Box from '@mui/material/Box';
 import { Grid, Tooltip } from '@mui/material';
 import { Skeleton } from '@mui/material';
@@ -21,10 +24,7 @@ import {
     CardView,
 } from '../../../../components';
 import {
-    EditIcon,
-    DeleteIcon,
     DeleteWarningIcon,
-    DownloadIcon
 } from '../../../../assets/icon';
 import {
     GetAssignment,
@@ -77,11 +77,11 @@ const DeleteAllButton = styled.div`
 
 const columns = [
     { id: 'ass_id', label: 'Assignment ID', maxWidth: 100 },
-    { id: 'assignment_name', label: 'Assignment Name', maxWidth: 180 },
-    { id: 'status', label: 'Status', maxWidth: 240 },
-    { id: 'start_date', label: 'Start Date', maxWidth: 130 },
-    { id: 'end_date', label: 'End Date', maxWidth: 130 },
-    { id: 'action', label: 'Actions', maxWidth: 260 },
+    { id: 'assignment_name', label: 'Assignment Name', maxWidth: 250 },
+    { id: 'status', label: 'Status', maxWidth: 140 },
+    { id: 'start_date', label: 'Start Date', maxWidth: 150 },
+    { id: 'end_date', label: 'End Date', maxWidth: 150 },
+    { id: 'action', label: 'Actions', maxWidth: 110 },
 ];
 
 function createData(assignmentData, ass_id, assignment_name, status, start_date, end_date, action) {
@@ -139,9 +139,9 @@ const Assignments = ({
                 formatDate(assignment.start_date),
                 formatDate(assignment.end_date),
                 [
-                    { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                    { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                    { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                    { 'component': <EditOutlinedIcon fontSize="small" />, 'type': 'edit', 'title': 'Edit' },
+                    { 'component': <DeleteOutlineOutlinedIcon fontSize="small" />, 'type': 'delete', 'title': 'Delete' },
+                    { 'component': <ArrowForwardOutlinedIcon fontSize="small" />, 'type': 'nextPath', 'title': 'Next' }
                 ]
             );
             row['isSelected'] = false;
@@ -282,11 +282,10 @@ const Assignments = ({
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
                                         <IconButton
-                                            color="primary"
                                             aria-label="download-file"
                                             size="large"
                                             onClick={ handleDownload }>
-                                            <DownloadIcon />
+                                            <FileDownloadOutlinedIcon fontSize='medium' />
                                         </IconButton>
                                     </Tooltip>
                                 }
@@ -354,7 +353,7 @@ const Assignments = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={ deleteAllAssignment }>
-                            <DeleteIcon />
+                            <DeleteOutlineOutlinedIcon fontSize="small" />
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }

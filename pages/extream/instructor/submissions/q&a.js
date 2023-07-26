@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Tooltip, IconButton, Skeleton } from '@mui/material';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import { CommonTable, EllipsisText } from '../../../../components';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
-import { DownloadIcon } from '../../../../assets/icon';
 import { useRouter } from 'next/router';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
@@ -108,7 +108,7 @@ const QNA = ({
                                 aria-label="download-file"
                                 size="large"
                                 onClick={ handleDownload }>
-                                <DownloadIcon />
+                                <FileDownloadOutlinedIcon fontSize='medium' />
                             </IconButton>
                         </Tooltip>
                     }

@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
 
 const AlignRight = styled.div`
     text-align:right;
-    margin-right: 200px;
+    margin-right: 132px;
 `;
 
 const Colors = ['#7B68C8', '#68C886', '#8D34FF', '#34C2FF', '#3491FF', '#68C886'];
@@ -151,7 +151,7 @@ const ListView2 = ({
                             <AlignRight>
                                 <Button
                                     variant="contained"
-                                    size="large"
+                                    size="medium"
                                     type="button"
                                     disabled={isLoadingAns}
                                     color="primary"

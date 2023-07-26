@@ -54,15 +54,15 @@ import PageChange from '../../../components/loader/PageChange';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const columns = [
-    { id: 'name', label: 'Name', maxWidth: 90 },
-    { id: 'title', label: 'Title', maxWidth: 90 },
-    { id: 'original_fn', label: 'File', isDownload: true, maxWidth: 90 },
-    { id: 'lang1', label: 'Language', maxWidth: 70 },
+    { id: 'name', label: 'Name', maxWidth: 100 },
+    { id: 'title', label: 'Title', maxWidth: 100 },
+    { id: 'original_fn', label: 'File', isDownload: true, maxWidth: 120 },
+    { id: 'lang1', label: 'Language', maxWidth: 89 },
     { id: 'grammar_url', label: 'Grammar', maxWidth: 100 },
-    { id: 'percent', label: 'Similarity', maxWidth: 100 },
+    { id: 'percent', label: 'Similarity', maxWidth: 110 },
     { id: 'paper_id', label: 'Paper ID', maxWidth: 80 },
-    { id: 'date_up', label: 'Submission Date', maxWidth: 100 },
-    { id: 'action', label: 'Action', maxWidth: 250 },
+    { id: 'date_up', label: 'Submission Date', maxWidth: 120 },
+    { id: 'action', label: 'Action', maxWidth: 85 },
 ];
 
 function createData(id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, language, flag) {
@@ -505,7 +505,7 @@ const folderSubmission = ({
                                 size="large"
                                 onClick={ handleRefresh }
                             >
-                                <RefreshOutlinedIcon fontSize="small" />
+                                <RefreshOutlinedIcon fontSize="medium" />
                             </IconButton>
                         </Tooltip>
 
@@ -518,7 +518,7 @@ const folderSubmission = ({
                                     aria-label="download-file"
                                     size="large"
                                     onClick={ handleDownload }>
-                                    <FileDownloadOutlinedIcon fontSize="small" />
+                                    <FileDownloadOutlinedIcon fontSize="medium" />
                                 </IconButton>
                             </Tooltip>
                         }
@@ -541,17 +541,17 @@ const folderSubmission = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={ deleteAllSubmission }>
-                            <DeleteIcon />
+                            <DeleteOutlineOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title='Save to repository' arrow>
                         <IconButton onClick={ saveAllSubmission }>
-                            <SaveOutlinedIcon />
+                            <SaveOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                     { isLoadingBulkDownload ? <Skeleton width={ 200 } /> : <Tooltip title='Submission report bulk download' arrow>
                         <IconButton onClick={ submissionBulkDownload }>
-                            <FileDownloadOutlinedIcon />
+                            <FileDownloadOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip> }
 

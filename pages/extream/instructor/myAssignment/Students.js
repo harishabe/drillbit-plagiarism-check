@@ -5,9 +5,10 @@ import _ from 'lodash';
 import debouce from 'lodash.debounce';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
-import { Grid, TextField, Tooltip, Skeleton } from '@mui/material';
-import { Pagination } from '@mui/material';
-import { IconButton } from '@mui/material';
+import { Grid, TextField, Tooltip, Skeleton, Pagination, IconButton } from '@mui/material';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import {
     CommonTable,
@@ -18,13 +19,10 @@ import {
     CardView,
 } from '../../../../components';
 import {
-    EditIcon,
-    DeleteIcon,
     DeleteWarningIcon,
     AddMultipleIcon,
     AddPersonIcon,
-    AddFromListIcon,
-    DownloadIcon
+    AddFromListIcon
 } from '../../../../assets/icon';
 import StudentForm from '../form/StudentForm';
 import {
@@ -77,12 +75,12 @@ const DeleteAllButton = styled.div`
 `;
 
 const columns = [
-    { id: 'student_id', label: 'Student ID', maxWidth: 120 },
-    { id: 'name', label: 'Student Name', maxWidth: 150 },
-    { id: 'username', label: 'Email', maxWidth: 160 },
-    { id: 'department', label: 'Department', maxWidth: 130 },
+    { id: 'student_id', label: 'Student ID', maxWidth: 100 },
+    { id: 'name', label: 'Student Name', maxWidth: 200 },
+    { id: 'username', label: 'Email', maxWidth: 200 },
+    { id: 'department', label: 'Department', maxWidth: 110 },
     { id: 'section', label: 'Section', maxWidth: 90 },
-    { id: 'action', label: 'Actions', maxWidth: 200 },
+    { id: 'action', label: 'Actions', maxWidth: 70 },
 ];
 
 function createData(id, student_id, name, username, department, section, action, phone_number) {
@@ -142,8 +140,8 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
-                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                    [{ 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
                     ],
                     student.phone_number,
                 );
@@ -352,11 +350,10 @@ const Students = ({
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
                                         <IconButton
-                                            color="primary"
                                             aria-label="download-file"
                                             size="large"
                                             onClick={ handleDownload }>
-                                            <DownloadIcon />
+                                            <FileDownloadOutlinedIcon fontSize='medium' />
                                         </IconButton>
                                     </Tooltip>
                                 }
@@ -382,7 +379,7 @@ const Students = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={ deleteAllStudent }>
-                            <DeleteIcon />
+                            <DeleteOutlineOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton> }

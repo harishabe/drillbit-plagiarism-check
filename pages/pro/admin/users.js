@@ -401,10 +401,11 @@ const Users = ({
             </Box>
 
             <>
-                { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
+                { _.find(rows, function (o) { return o.isSelected === true; }) &&
+                    <div>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={ deleteAllInstructor }>
-                            <DeleteIcon />
+                                <DeleteOutlineOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                 </div> }
