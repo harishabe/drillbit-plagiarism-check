@@ -15,6 +15,7 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { TextField } from '@mui/material';
 import ProUser from '../../../layouts/ProUser';
 import {
@@ -42,7 +43,7 @@ import {
     SubmissionReportBulkDownload,
     SubmissionReportDownload
 } from '../../../redux/action/common/Submission/SubmissionAction';
-import { DeleteIcon, DeleteWarningIcon, DownloadIcon, RegionalUploadIcon, NonEnglishUploadIcon, EnglishUploadIcon } from '../../../assets/icon';
+import { DeleteWarningIcon, RegionalUploadIcon, NonEnglishUploadIcon, EnglishUploadIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
@@ -234,14 +235,14 @@ const folderSubmission = ({
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <DeleteOutlineOutlinedIcon fontSize="small" />, 'type': 'delete', 'title': 'Delete' },
                         (submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) ?
                             {
-                                'component': <FileDownloadOutlinedIcon />,
+                                'component': <FileDownloadOutlinedIcon fontSize="small" />,
                                 'title': 'Similarity report not ready'
                             } :
                             {
-                                'component': <FileDownloadOutlinedIcon />,
+                                'component': <FileDownloadOutlinedIcon fontSize="small" />,
                                 'type': 'download',
                                 'title': 'Similarity report download'
                             }
@@ -504,7 +505,7 @@ const folderSubmission = ({
                                 size="large"
                                 onClick={ handleRefresh }
                             >
-                                <RefreshOutlinedIcon />
+                                <RefreshOutlinedIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
 
@@ -517,7 +518,7 @@ const folderSubmission = ({
                                     aria-label="download-file"
                                     size="large"
                                     onClick={ handleDownload }>
-                                    <DownloadIcon />
+                                    <FileDownloadOutlinedIcon fontSize="small" />
                                 </IconButton>
                             </Tooltip>
                         }

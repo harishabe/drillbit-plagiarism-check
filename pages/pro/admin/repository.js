@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { TextField, Pagination } from '@mui/material';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useRouter } from 'next/router';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
@@ -16,7 +17,7 @@ import {
     Instructions,
     CardView
 } from './../../../components';
-import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
+import { DeleteWarningIcon } from '../../../assets/icon';
 import ProAdmin from '../../../layouts/ProAdmin';
 import { GetRepoList, RemoveRepositary } from '../../../redux/action/admin/AdminAction';
 import {
@@ -107,7 +108,7 @@ const Repository = ({
                     repo.repository_type,
                     repo.language,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
+                    [{ 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
             arr.push(row);

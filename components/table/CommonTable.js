@@ -163,7 +163,7 @@ const CommonTable = ({
                                                 <>
                                                     {
                                                         TABLE_BODY_ALLOW_ICON.includes(column.id) ?
-                                                            <TableCell>
+                                                            <TableCell style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                 { value.map((icon, index) => (
                                                                     <>
                                                                         {
