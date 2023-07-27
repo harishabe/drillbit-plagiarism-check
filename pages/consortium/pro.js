@@ -4,16 +4,14 @@ import Admin from "../../layouts/Admin";
 import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Box, Pagination, Grid, TextField, Tooltip, Skeleton, IconButton } from '@mui/material';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import {
     CreateDrawer,
     CardView,
     CommonTable,
     BreadCrumb
 } from '../../components';
-import {
-    EditIcon,
-    DownloadIcon
-} from '../../assets/icon';
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
@@ -36,7 +34,7 @@ const AddButtonBottom = styled.div`
 `;
 
 const SkeletonContainer = styled.div`
-    margin-top: 7px;
+    margin-top: 5px;
     margin-right: 12px;
 `;
 
@@ -46,17 +44,17 @@ const DownloadButton = styled.div`
 `;
 
 const columns = [
-    { id: 'college_name', label: 'Institution name', maxWidth: 90 },
-    { id: 'name', label: 'Co-ordinator name', maxWidth: 90 },
-    { id: 'email', label: 'Email', maxWidth: 90 },
-    { id: 'country', label: 'Location', maxWidth: 90 },
-    { id: 'start_date', label: 'Start date', maxWidth: 90 },
-    { id: 'expiry_date', label: 'Expiry date', maxWidth: 90 },
-    { id: 'acc_manager', label: 'Account manager', maxWidth: 90 },
-    { id: 'instructors', label: 'Users', maxWidth: 90 },
-    { id: 'documents', label: 'Allocated documents', maxWidth: 90 },
-    { id: 'used_documents', label: 'Submissions', maxWidth: 90 },
-    { id: 'action', label: 'Action', maxWidth: 90 }
+    { id: 'college_name', label: 'Institution name', maxWidth: 115 },
+    { id: 'name', label: 'Co-ordinator name', maxWidth: 120 },
+    { id: 'email', label: 'Email', maxWidth: 120 },
+    { id: 'country', label: 'Location', maxWidth: 85 },
+    { id: 'start_date', label: 'Start date', maxWidth: 80 },
+    { id: 'expiry_date', label: 'Expiry date', maxWidth: 80 },
+    { id: 'acc_manager', label: 'Account manager', maxWidth: 88 },
+    { id: 'instructors', label: 'Users', maxWidth: 70 },
+    { id: 'documents', label: 'Allocated documents', maxWidth: 80 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 70 },
+    { id: 'action', label: 'Action', maxWidth: 64 }
 ];
 
 function createData(college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, documents, used_documents, action, lid, students, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
@@ -117,7 +115,7 @@ const Pro = ({
                     data.documents.toString(),
                     data.used_documents.toString(),
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }
+                        { 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' }
                     ],
                     data.lid,
                     data.students.toString(),
@@ -215,7 +213,7 @@ const Pro = ({
                                     aria-label="download-file"
                                     size="large"
                                     onClick={ handleDownload }>
-                                    <DownloadIcon />
+                                    <FileDownloadOutlinedIcon fontSize='medium' />
                                 </IconButton>
                             </Tooltip>
                         }

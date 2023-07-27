@@ -4,16 +4,14 @@ import Admin from "../../layouts/Admin";
 import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Box, Pagination, Grid, TextField, Tooltip, Skeleton, IconButton } from '@mui/material';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import {
     CreateDrawer,
     CardView,
     CommonTable,
     BreadCrumb
 } from '../../components';
-import {
-    EditIcon,
-    DownloadIcon
-} from '../../assets/icon';
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
@@ -41,20 +39,20 @@ const SkeletonContainer = styled.div`
 `;
 
 const DownloadButton = styled.div`
-    margin-top:-5px;
+    margin-top:-6px;
     margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
 `;
 
 const columns = [
-    { id: 'college_name', label: 'Institution name', maxWidth: 120 },
-    { id: 'name', label: 'Username', maxWidth: 120 },
-    { id: 'email', label: 'Email', maxWidth: 120 },
-    { id: 'country', label: 'Location', maxWidth: 115 },
-    { id: 'start_date', label: 'Start date', maxWidth: 120 },
-    { id: 'expiry_date', label: 'Expiry date', maxWidth: 125 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 145 },
+    { id: 'name', label: 'Username', maxWidth: 130 },
+    { id: 'email', label: 'Email', maxWidth: 130 },
+    { id: 'country', label: 'Location', maxWidth: 90 },
+    { id: 'start_date', label: 'Start date', maxWidth: 110 },
+    { id: 'expiry_date', label: 'Expiry date', maxWidth: 110 },
     { id: 'acc_manager', label: 'Account manager', maxWidth: 120 },
-    { id: 'used_documents', label: 'Submissions', maxWidth: 90 },
-    { id: 'action', label: 'Action', maxWidth: 90 }
+    { id: 'used_documents', label: 'Submissions', maxWidth: 80 },
+    { id: 'action', label: 'Action', maxWidth: 75 }
 ];
 
 function createData(college_name, name, email, acc_manager, country, start_date, expiry_date, used_documents, action, lid, instructors, students, documents, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
@@ -113,7 +111,7 @@ const Pro = ({
                     data.expiry_date,
                     data.used_documents.toString(),
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }
+                        { 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' }
                     ],
                     data.lid,
                     data.instructors,
@@ -213,7 +211,7 @@ const Pro = ({
                                         aria-label="download-file"
                                         size="large"
                                         onClick={ handleDownload }>
-                                        <DownloadIcon />
+                                    <FileDownloadOutlinedIcon fontSize='medium' />
                                     </IconButton>
                                 </Tooltip>
                             }
