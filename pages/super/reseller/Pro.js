@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { Grid, Tooltip, Skeleton, IconButton, Box, TextField, Pagination } from '@mui/material';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import debouce from 'lodash.debounce';
 import {
     CommonTable
 } from '../../../components';
 import SuperAdmin from './../../../layouts/SuperAdmin';
-import { DownloadIcon } from '../../../assets/icon';
 import { GetExtremeStudentList } from '../../../redux/action/super/SuperAdminAction';
 import {
     DownloadCsv
@@ -29,8 +29,8 @@ const SearchField = styled.div`
 
 const DownloadField = styled.div`
     position:absolute;
-    top: 125px;
-    right:${platform === WINDOW_PLATFORM ? '245px' : '225px'};
+      top: 130px;
+    right:${platform === WINDOW_PLATFORM ? '225px' : '205px'};
 `;
 
 const DownloadButton = styled.div`
@@ -42,14 +42,14 @@ const SkeletonContainer = styled.div`
     margin-right: 5px;
 `;
 const columns = [
-    { id: 'lid', label: 'LID', maxWidth: 80 },
-    { id: 'name', label: 'Name', maxWidth: 120 },
-    { id: 'email', label: 'Email', maxWidth: 155 },
-    { id: 'college_name', label: 'Institution name', maxWidth: 155 },
-    { id: 'country', label: 'Location', maxWidth: 80 },
-    { id: 'instructors', label: 'Users', maxWidth: 80 },
-    { id: 'documents', label: 'Documents', maxWidth: 80 },
-    { id: 'used_documents', label: 'Submissions', maxWidth: 80 },
+    { id: 'lid', label: 'LID', maxWidth: 60 },
+    { id: 'name', label: 'Name', maxWidth: 140 },
+    { id: 'email', label: 'Email', maxWidth: 170 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 170 },
+    { id: 'country', label: 'Location', maxWidth: 90 },
+    { id: 'instructors', label: 'Users', maxWidth: 70 },
+    { id: 'documents', label: 'Documents', maxWidth: 110 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 100 },
 ]
 
 function createData(lid, name, email, college_name, country, instructors, documents, used_documents) {
@@ -156,11 +156,10 @@ const Pro = ({
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
                                         <IconButton
-                                            color="primary"
                                             aria-label="download-file"
-                                            size="large"
+                                            size="small"
                                             onClick={ handleDownload }>
-                                            <DownloadIcon />
+                                            <FileDownloadOutlinedIcon fontSize='medium' />
                                         </IconButton>
                                     </Tooltip>
                                 }

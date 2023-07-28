@@ -12,6 +12,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 //import DatePicker from '@mui/lab/DatePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Stack from '@mui/material/Stack';
+import { MuiFormElementConfig } from './../MuiFormElementConfig'
 
 
 export const LabelContainer = styled.div`
@@ -72,6 +73,7 @@ const InputDatePicker = ({
                                 maxDate={ field.maxDate }
                                 renderInput={(params) => <StyledDatePickerTextField
                                     margin="normal"
+                                    size={ MuiFormElementConfig.size }
                                     onKeyDown={onKeyDown}
                                     {...params}
                                     error={ !!error }

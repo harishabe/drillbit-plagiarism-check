@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { TextField } from '@mui/material';
+import { MuiFormElementConfig } from './../MuiFormElementConfig'
 
 const InfoContainer = styled.div`
     font-size: 13px;
@@ -36,11 +37,12 @@ const InputFileType = ({
                     <StyledInputField
                         margin="normal"
                         type="file"
+                        size={ MuiFormElementConfig.size }
                         onChange={ e => { onChange(e.target.files) } }
                         fullWidth
                         name={ field.name }
                         id={ field.name }
-                        variant="outlined"
+                        variant={ MuiFormElementConfig.variant }
                         error={ !!error }
                         helperText={
                             (value !== undefined) && (typeof value === 'string') && (value.length > 0) && `Last uploaded file: ${value}`

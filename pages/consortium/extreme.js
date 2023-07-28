@@ -39,7 +39,6 @@ const SkeletonContainer = styled.div`
 `;
 
 const DownloadButton = styled.div`
-    margin-top:-5px;
     margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
 `;
 
@@ -212,7 +211,7 @@ const Extreme = ({
                             <Tooltip title="Download csv" arrow>
                                 <IconButton
                                     aria-label="download-file"
-                                    size="large"
+                                    size="small"
                                     onClick={ handleDownload }>
                                     <FileDownloadOutlinedIcon fontSize='medium' />
                                 </IconButton>

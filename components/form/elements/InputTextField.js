@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import styled from 'styled-components';
+import { MuiFormElementConfig } from './../MuiFormElementConfig'
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -64,8 +65,8 @@ const InputTextField = ({
                 }) => (
                     <StyledInputField
                         style={{ marginTop: '10px' }}
-                        margin="normal"
-                        size={field.size}
+                        margin={ MuiFormElementConfig.margin }
+                        size={ MuiFormElementConfig.size }
                         type={field.type}
                         onChange={onChange}
                         onBlur={onBlur}
@@ -75,7 +76,7 @@ const InputTextField = ({
                         disabled={field.disabled}
                         name={field.name}
                         id={field.name}
-                        variant="outlined"
+                        variant={ MuiFormElementConfig.variant }
                         helperText={error ? error.message : field.info}
                         FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
                         inputProps={{

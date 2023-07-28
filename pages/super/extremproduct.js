@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Grid, TextField, Box } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
@@ -14,8 +16,6 @@ import {
     WarningDialog
 } from './../../components';
 import {
-    EditIcon,
-    DeleteIcon,
     DeleteWarningIcon
 } from '../../assets/icon';
 import {
@@ -36,16 +36,16 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'LID', maxWidth: 85 },
-    { id: 'name', label: 'Name', maxWidth: 115 },
-    { id: 'email', label: 'Email', maxWidth: 130 },
-    { id: 'college_name', label: 'Institution name', maxWidth: 128 },
-    { id: 'country', label: 'Location', maxWidth: 80 },
-    { id: 'instructors', label: 'Instructors', maxWidth: 80 },
-    { id: 'students', label: 'Students', maxWidth: 80 },
-    { id: 'documents', label: 'Documents', maxWidth: 80 },
-    { id: 'used_documents', label: 'SUB', maxWidth: 80 },
-    { id: 'action', label: 'Actions', minWidth: 80 }
+    { id: 'lid', label: 'LID', maxWidth: 65 },
+    { id: 'name', label: 'Name', maxWidth: 140 },
+    { id: 'email', label: 'Email', maxWidth: 140 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 160 },
+    { id: 'country', label: 'Location', maxWidth: 85 },
+    { id: 'instructors', label: 'Instructors', maxWidth: 70 },
+    { id: 'students', label: 'Students', maxWidth: 70 },
+    { id: 'documents', label: 'Documents', maxWidth: 70 },
+    { id: 'used_documents', label: 'SUB', maxWidth: 70 },
+    { id: 'action', label: 'Actions', maxWidth: 125 }
 ];
 
 function createData(lid, name, email, college_name, country, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, institution_type, timeZone, folpath, department, acc_manager, reseller) {
@@ -106,9 +106,9 @@ const ExtremProduct = ({
                     data.documents.toString(),
                     data.used_documents.toString(),
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        { 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <ArrowForwardOutlinedIcon fontSize='small' />, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     data.state,
                     data.address,

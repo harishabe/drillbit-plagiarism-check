@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Grid, TextField, Box, Skeleton, Tooltip, IconButton } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
@@ -12,10 +14,6 @@ import {
     CardView,
     CommonTable,
 } from './../../components';
-import {
-    EditIcon,
-    DownloadIcon,
-} from '../../assets/icon';
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
@@ -45,8 +43,8 @@ const SkeletonContainer = styled.div`
 
 const DownloadField = styled.div`
     position:absolute;
-    top: 80px;
-    right:225px;
+    top: 85px;
+    right:205px;
 `;
 
 const DownloadButton = styled.div`
@@ -55,13 +53,13 @@ const DownloadButton = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'LID', maxWidth: 135 },
-    { id: 'name', label: 'Name', maxWidth: 105 },
-    { id: 'email', label: 'Email', maxWidth: 170 },
-    { id: 'college_name', label: 'Institution name', maxWidth: 170 },
-    { id: 'country', label: 'Location', maxWidth: 115 },
-    { id: 'used_documents', label: 'Used submissions', maxWidth: 105 },
-    { id: 'action', label: 'Action', maxWidth: 115 }
+    { id: 'lid', label: 'LID', maxWidth: 60 },
+    { id: 'name', label: 'Name', maxWidth: 130 },
+    { id: 'email', label: 'Email', maxWidth: 180 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 200 },
+    { id: 'country', label: 'Location', maxWidth: 95 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 95 },
+    { id: 'action', label: 'Action', maxWidth: 75 }
 ];
 
 function createData(lid, name, email, college_name, country, used_documents, action, state, address, designation, phone, expiry_date, timeZone
@@ -120,8 +118,8 @@ const ResellerProduct = ({
                     data.country,
                     data.used_documents,
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        { 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <ArrowForwardOutlinedIcon fontSize='small' />, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     data.state,
                     data.address,
@@ -216,9 +214,9 @@ const ResellerProduct = ({
                                 <Tooltip title="Download csv" arrow>
                                     <IconButton
                                         aria-label="download-file"
-                                        size="large"
+                                        size="small"
                                         onClick={ handleDownload }>
-                                        <DownloadIcon />
+                                        <FileDownloadOutlinedIcon fontSize='medium' />
                                     </IconButton>
                                 </Tooltip>
                             }

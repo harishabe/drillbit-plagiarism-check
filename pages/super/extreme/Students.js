@@ -7,18 +7,18 @@ import Box from '@mui/material/Box';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, TextField, Pagination, IconButton, Switch } from '@mui/material';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import {
     CommonTable,
-    MainHeading,
     StatusDot,
     WarningDialog,
     DialogModal,
     CreateDrawer,
 } from '../../../components';
 import SuperAdmin from './../../../layouts/SuperAdmin';
-import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../../assets/icon';
+import { StatsIcon, DeleteWarningIcon } from '../../../assets/icon';
 import {
-    // EditData, 
     DeleteStudentData,
     DeactivateData
 } from '../../../redux/action/admin/AdminAction';
@@ -48,10 +48,10 @@ const AddButtonBottom = styled.div`
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 200 },
     { id: 'username', label: 'Email', maxWidth: 200 },
-    { id: 'expiry_date', label: 'End date', maxWidth: 200 },
-    { id: 'status', label: 'Status', maxWidth: 200 },
-    { id: 'stats', label: 'Statistics', maxWidth: 60 },
-    { id: 'action', label: 'Actions', maxWidth: 200 },
+    { id: 'expiry_date', label: 'End date', maxWidth: 150 },
+    { id: 'status', label: 'Status', maxWidth: 90 },
+    { id: 'stats', label: 'Statistics', maxWidth: 80 },
+    { id: 'action', label: 'Actions', maxWidth: 170 },
 ];
 
 function createData(id, name, user_id, username, department, section, expiry_date, status, stats, action, phone_number) {
@@ -63,7 +63,6 @@ const Students = ({
     ResendCredentials,
     studentData,
     pageDetailsStudent,
-    // EditData,
     DeactivateData,
     DeleteStudentData,
     isLoadingExtStuList,
@@ -110,9 +109,9 @@ const Students = ({
                     student.expiry_date,
                     <StatusDot color={ (student.status === 'active') || (student.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ student.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
-                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
+                    [{ 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <VpnKeyIcon fontSize='small' />, 'type': 'resend', 'title': 'Resend credentials' },
                         {
                             'component': <Switch checked={ student.status === 'active' ? true : false } size="small" />,
                             'type': student.status === 'active' ? 'lock' : 'unlock',
@@ -359,25 +358,6 @@ const Students = ({
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item container direction='row' justifyContent={ 'right' }>
-                        {/* <DownloadField>
-                            <DownloadButton>
-                                { assignmentData?.length > 0 &&
-                                    isLoadingDownload ?
-                                    <SkeletonContainer>
-                                        <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
-                                    </SkeletonContainer>
-                                    : <Tooltip title="Download csv" arrow>
-                                        <IconButton
-                                            color="primary"
-                                            aria-label="download-file"
-                                            size="large"
-                                            onClick={ handleDownload }>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                }
-                            </DownloadButton>
-                        </DownloadField> */}
                         <SearchField>
                             <TextField
                                 placeholder='Search'
@@ -398,7 +378,7 @@ const Students = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={ deleteAllInstructor }>
-                            <DeleteIcon />
+                            <DeleteOutlineOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                 </div> }
@@ -444,7 +424,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetExtremeStudentList: (url, paginationPayload) => dispatch(GetExtremeStudentList(url, paginationPayload)),
-        // EditData: (data) => dispatch(EditData(data)),
         DeleteStudentData: (url) => dispatch(DeleteStudentData(url)),
         DeactivateData: (url, paginationPayload) => dispatch(DeactivateData(url, paginationPayload)),
         ResendCredentials: (role, data) => dispatch(ResendCredentials(role, data)),

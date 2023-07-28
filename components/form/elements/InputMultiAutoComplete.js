@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { MuiFormElementConfig } from './../MuiFormElementConfig'
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -25,7 +26,8 @@ const InputMultiAutoComplete = ({
                     <Autocomplete
                         multiple
                         id="multiCheckbox"
-                        value={value}
+                        value={ value }
+                        size={ MuiFormElementConfig.size }
                         options={field?.options}
                         disableCloseOnSelect
                         getOptionLabel={(option) => option.name}
