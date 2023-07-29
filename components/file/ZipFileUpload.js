@@ -17,7 +17,8 @@ import {
 import ZipFileForm from './ZipFileForm';
 import RepositoryFileFormZip from './RepositoryFileFormZip';
 import {
-    UPLOAD_FILE_REPO_MAX_LIMIT
+    UPLOAD_FILE_REPO_MAX_LIMIT,
+    UPLOAD_ZIP_FILES_ZERO
 } from '../../constant/data/ErrorMessage';
 
 import {
@@ -205,6 +206,7 @@ const ZipFileUpload = ({
                                 ))}
                             </div>
                             { fileWarning && <div style={ { color: 'red' } }>{ UPLOAD_FILE_REPO_MAX_LIMIT }</div> }
+                            { uploadData?.fileNames?.length === 0 && <div style={ { color: 'red' } }>{ UPLOAD_ZIP_FILES_ZERO }</div> }
                         </DragDropArea>
 
                         {(fileData?.length > 0 && isRepository) &&
