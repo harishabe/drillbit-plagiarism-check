@@ -76,6 +76,12 @@ const SubmissionHistory = ({
     ];
 
     useEffect(() => {
+        if (isLoadingSubmission) {
+            setRows([])
+        }
+    }, [isLoadingSubmission]);
+
+    useEffect(() => {
         let row = '';
         let arr = [];
         submissionData?.map((submission) => {

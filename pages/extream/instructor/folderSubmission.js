@@ -419,7 +419,10 @@ const folderSubmission = ({
         if (uploadData) {
             UploadZipFileDataClear();
         }
-    }, [uploadData, extractedFileData]);
+        if (isLoadingSubmission) {
+            setRows([])
+        }
+    }, [uploadData, extractedFileData, isLoadingSubmission]);
 
     const handleRefresh = () => {
         folderSubmissionsFileData(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_SUBMISSION_GRADING_QNA + 'myFolder/' + folderId + '/submissions', paginationPayload);

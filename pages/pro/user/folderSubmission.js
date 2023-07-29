@@ -199,7 +199,10 @@ const folderSubmission = ({
         if (uploadData) {
             UploadZipFileDataClear();
         }
-    }, [uploadData, extractedFileData]);
+        if (isLoadingSubmission) {
+            setRows([])
+        }
+    }, [uploadData, extractedFileData, isLoadingSubmission]);
 
     const handleRefresh = () => {
         folderSubmissionsFileData(BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION + folderId + '/submissions', paginationPayload);
