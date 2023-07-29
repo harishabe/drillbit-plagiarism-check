@@ -98,7 +98,7 @@ const END_POINTS = {
     SUPER_ADMIN_DELETE_ACCOUNT: '/drillbit/license/',
     GRAMMAR_REPORT:'/files/grammar/download/',
     SUBMISSION_INPUTS: '/files/submissionInputs',
-    SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/analysis-gateway/api/download2/',
+    SIMILARITY_REPORT_SINGLE_DOWNLOAD: '/api/download2/',
     INTEGRATION_DELETE_CANVAS: '/extreme/integrations/canvas',
     INTEGRATION_DELETE_BLACKBOARD: '/extreme/integrations/blackboard',
     RESELLER_EXTREME_LICENSES: '/reseller/extreme/license',
