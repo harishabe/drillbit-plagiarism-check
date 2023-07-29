@@ -165,7 +165,11 @@ const Extreme = ({
         }
     };
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setEditUser(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setEditUser(drawerClose);
     };
 
@@ -258,7 +262,8 @@ const Extreme = ({
                     title="Edit User"
                     isShowAddIcon={ false }
                     showDrawer={ editUser }
-                    handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <ExtremeForm
                         editData={ editUserData }

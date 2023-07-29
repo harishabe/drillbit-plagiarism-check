@@ -260,7 +260,11 @@ const Assignments = ({
         };
     });
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setEditAssignment(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setEditAssignment(drawerClose);
     };
 
@@ -334,7 +338,8 @@ const Assignments = ({
                     title="Edit Student"
                         isShowAddIcon={ false }
                         showDrawer={ editAssignment }
-                        handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <AssignmentForms
                             editData={ editAssignmentData }

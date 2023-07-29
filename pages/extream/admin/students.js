@@ -217,8 +217,12 @@ const Students = ({
         setShowDeleteWarning(true);
     };
 
-    const handleCloseDrawer = (value) => {
+    const handleDrawerClose = (value) => {
         setEditStudent(value);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
+        setEditStudent(drawerClose);
     };
 
     return (
@@ -238,7 +242,8 @@ const Students = ({
                     title="Edit Instructor"
                     isShowAddIcon={false}
                     showDrawer={editStudent}
-                    handleDrawerClose={handleCloseDrawer}
+                    handleDrawerClose={ handleDrawerClose }
+                    handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <StudentForm
                         editData={editStudentData}

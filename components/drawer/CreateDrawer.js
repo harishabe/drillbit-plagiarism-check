@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Fab from '@mui/material/Fab';
@@ -14,8 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { IconButton } from '@mui/material';
 import { CloseIcon } from './../../assets/icon';
 import styled from 'styled-components';
-
-
+import { Role } from '../../constant/data';
+import { getItemSessionStorage } from '../../utils/RegExp';
 
 const CloseButtonCenter = styled.div`
     text-align:right
@@ -30,17 +30,34 @@ const CreateDrawer = ({
     handleMultiData,
     navigateToMultiFile,
     handleNavigateMultiFile,
-    handleDrawerClose
+    handleDrawerClose,
+    handleCloseDrawer
 }) => {
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         top: false,
         left: false,
         bottom: false,
         right: showDrawer,
     });
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
+    useEffect(() => {
+        window.addEventListener('message', closeDrawer);
+        return () => {
+            window.removeEventListener('message', closeDrawer);
+        };
+    }, []);
+
+    const closeDrawer = (e) => {
+        if (e?.data?.type === 'MESSAGE_LENGTH_SUCCESS' && getItemSessionStorage('role') !== Role.super) {
+            setState({ ...state, ['right']: false })
+            if (handleCloseDrawer !== undefined) {
+                handleCloseDrawer(false);
+            }
+        }
+    }
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -55,6 +72,7 @@ const CreateDrawer = ({
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };

@@ -290,7 +290,11 @@ const Instructor = ({
         }
     };
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setEditInstructor(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setEditInstructor(drawerClose);
     };
 
@@ -359,7 +363,8 @@ const Instructor = ({
                     title="Edit Instructor"
                     isShowAddIcon={ false }
                     showDrawer={ editInstructor }
-                    handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <InstructorForm
                         editData={ editInstructorData }
@@ -419,15 +424,15 @@ const Instructor = ({
                     path=''
                 />
 
-                    <PaginationContainer>
-                        <Pagination
-                            count={ pageDetails?.totalPages }
-                            page={ pageDetails?.number + 1 }
-                            onChange={ handleChange }
-                            color="primary"
-                            variant="outlined"
-                            shape="rounded"
-                        />
+                <PaginationContainer>
+                    <Pagination
+                        count={ pageDetails?.totalPages }
+                        page={ pageDetails?.number + 1 }
+                        onChange={ handleChange }
+                        color="primary"
+                        variant="outlined"
+                        shape="rounded"
+                    />
                 </PaginationContainer>
             </>
 

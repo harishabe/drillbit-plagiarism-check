@@ -50,7 +50,11 @@ const Moodle = ({
         setForm(true);
     };
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setForm(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setForm(drawerClose);
     };
 
@@ -86,7 +90,8 @@ const Moodle = ({
                         title="Moodle Configuration"
                         isShowAddIcon={ false }
                         showDrawer={ form }
-                        handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                     >
                         <MoodleForm
                             editData={ integrationData }

@@ -164,7 +164,11 @@ const Pro = ({
         }
     };
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setEditUser(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setEditUser(drawerClose);
     };
 
@@ -256,7 +260,8 @@ const Pro = ({
                     title="Edit User"
                     isShowAddIcon={ false }
                     showDrawer={ editUser }
-                    handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <RefForm
                         editData={ editUserData }

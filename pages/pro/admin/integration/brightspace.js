@@ -50,7 +50,11 @@ const Brightspace = ({
         setForm(true);
     };
 
-    const handleCloseDrawer = (drawerClose) => {
+    const handleDrawerClose = (drawerClose) => {
+        setForm(drawerClose);
+    };
+
+    const closeDrawerOnSuccess = (drawerClose) => {
         setForm(drawerClose);
     };
 
@@ -86,7 +90,8 @@ const Brightspace = ({
                         title="Brightspace Configuration"
                         isShowAddIcon={ false }
                         showDrawer={ form }
-                        handleDrawerClose={ handleCloseDrawer }
+                        handleDrawerClose={ handleDrawerClose }
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                     >
                         <BrightSpaceForm
                             editData={ integrationData }
