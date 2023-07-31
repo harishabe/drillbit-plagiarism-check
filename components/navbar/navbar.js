@@ -24,13 +24,14 @@ import {
     AccountIcon,
     HelpIcon
 } from '../../assets/icon';
-import { getItemSessionStorage, setItemSessionStorage, clearSessionStorage } from '../../utils/RegExp';
+import { getItemSessionStorage, setItemSessionStorage, clearSessionStorage, removeItemSessionStorage } from '../../utils/RegExp';
 import { BASE_URL } from '../../utils/BaseUrl';
 import END_POINTS from '../../utils/EndPoints'
 import { Role } from '../../constant/data';
 import { PROFILE_ROLE } from '../../constant/data/Constant';
 import EllipsisText from '../ellipsis/EllipsisText';
 import SubTitle1 from '../typography/SubTitle1';
+import { DialogModal } from '../dialog/DialogModal';
 
 const drawerWidth = 200;
 
@@ -63,6 +64,14 @@ const NavBar = ({
     open,
     handleDrawerOpen
 }) => {
+
+    const [subMenuanchorEl, setsubMenuAnchorEl] = React.useState(null);
+    const subMenuopen = Boolean(subMenuanchorEl);
+    const handlesubMenuClose = () => {
+        setsubMenuAnchorEl(null);
+    };
+
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openProfile = Boolean(anchorEl);
     const router = useRouter();
@@ -101,10 +110,12 @@ const NavBar = ({
         if (switchRole === Role.instructor) {
             setSwitchRole('instructor');
             setItemSessionStorage('switchRole', 'instructor');
+            removeItemSessionStorage('switchProRole')
             router.push('/extream/instructor/dashboard');
         } else {
             setSwitchRole('admin');
             setItemSessionStorage('switchRole', 'admin');
+            removeItemSessionStorage('switchProRole')
             router.push('/extream/admin/dashboard');
         }
     };
@@ -114,14 +125,30 @@ const NavBar = ({
         if (switchProRole === 'lim-instructor') {
             setSwitchRole('user');
             setItemSessionStorage('switchProRole', 'user');
+            removeItemSessionStorage('switchRole')
             router.push('/pro/user/dashboard');
         } else {
             setSwitchRole('admin');
             setItemSessionStorage('switchProRole', 'admin');
+            removeItemSessionStorage('switchRole')
             router.push('/pro/admin/dashboard');
         }
     };
 
+    const handleConsortium = (e, switchRole) => {
+        e.preventDefault();
+        removeItemSessionStorage('switchRole')
+        removeItemSessionStorage('switchProRole')
+        if (switchRole === Role?.consortium) {
+            setPath('/consortium/');
+            setProfileRole(PROFILE_ROLE.CONSORTIUM);
+            router.push('/consortium/dashboard')
+        } else {
+            setPath('/supplier/');
+            setProfileRole(PROFILE_ROLE.RESELLER);
+            router.push('/supplier/dashboard')
+        }
+    }
 
     React.useEffect(() => {
         let userName = getItemSessionStorage('name');
@@ -151,12 +178,36 @@ const NavBar = ({
         } else if ((userRole === Role?.instructor || Role?.admin) && (switchExtreamRole === Role?.instructor || switchExtreamRole === null) && (router.pathname.split('/')[2] === 'instructor')) {
             setPath('/extream/instructor');
             setProfileRole(PROFILE_ROLE.INSTRUCTOR);
-        } else if ((userRole === Role?.supplier)) {
+        } else if ((userRole === Role?.supplier && !switchExtreamRole && !switchProRole)) {
             setPath('/supplier/');
             setProfileRole(PROFILE_ROLE.RESELLER);
-        } else if ((userRole === Role?.consortium)) {
+        } else if ((userRole === Role?.supplier && switchExtreamRole === 'admin')) {
+            setPath('/extream/admin');
+            setProfileRole(PROFILE_ROLE.ADMIN);
+        } else if ((userRole === Role?.supplier && switchExtreamRole === 'instructor')) {
+            setPath('/extream/instructor');
+            setProfileRole(PROFILE_ROLE.INSTRUCTOR);
+        } else if ((userRole === Role?.supplier && switchProRole === 'admin')) {
+            setPath('/pro/admin');
+            setProfileRole(PROFILE_ROLE.ADMIN);
+        } else if ((userRole === Role?.supplier && switchProRole === 'user')) {
+            setPath('/pro/user');
+            setProfileRole(PROFILE_ROLE.USER);
+        } else if ((userRole === Role?.consortium && !switchExtreamRole && !switchProRole)) {
             setPath('/consortium/');
             setProfileRole(PROFILE_ROLE.CONSORTIUM);
+        } else if ((userRole === Role?.consortium && switchExtreamRole === 'admin')) {
+            setPath('/extream/admin');
+            setProfileRole(PROFILE_ROLE.ADMIN);
+        } else if ((userRole === Role?.consortium && switchExtreamRole === 'instructor')) {
+            setPath('/extream/instructor');
+            setProfileRole(PROFILE_ROLE.INSTRUCTOR);
+        } else if ((userRole === Role?.consortium && switchProRole === 'admin')) {
+            setPath('/pro/admin');
+            setProfileRole(PROFILE_ROLE.ADMIN);
+        } else if ((userRole === Role?.consortium && switchProRole === 'user')) {
+            setPath('/pro/user');
+            setProfileRole(PROFILE_ROLE.USER);
         }
     }, [, router, switchRole]);
 
@@ -290,6 +341,23 @@ const NavBar = ({
                         <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
                     </>
                 }
+
+                { (role === Role?.consortium) || (role === Role?.supplier) &&
+                    <>
+                        <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ () => setsubMenuAnchorEl(true) }
+                        >
+                            <ListItemIcon>
+                                <SwitchAccountIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                style={ { padding: '5px 15px' } }
+                                primary="Switch account"
+                                secondary="Switch to other roles"
+                            />
+                        </MenuItem>
+                        <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
+                    </>
+                }
                 <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px' } } onClick={ () => [router.push(`${path}/profile/accountinfo`), setAnchorEl(null)] }>
                     <ListItemIcon>
                         <AccountIcon />
@@ -329,6 +397,94 @@ const NavBar = ({
                     <SubTitle1 title="v.2.1.0" />
                 </div>
             </Menu>
+            {
+                subMenuopen &&
+                <DialogModal
+                    headingTitle={ "Switch to other Roles" }
+                    isOpen={ subMenuopen }
+                    fullWidth="sm"
+                    maxWidth="sm"
+                    handleClose={ handlesubMenuClose }
+                >
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={ subMenuanchorEl }
+                        open={ subMenuopen }
+                        onClose={ handlesubMenuClose }
+                        MenuListProps={ {
+                            'aria-labelledby': 'basic-button',
+                        } }
+                        PaperProps={ {
+                            elevation: 0,
+                            sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                }
+                            },
+                        } }
+                        transformOrigin={ { horizontal: 'right', vertical: 'top' } }
+                        anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
+                    >
+                        <MenuItem onClick={ (e) => [switchToUser(e, Role?.admin), setsubMenuAnchorEl(null)] }>
+                            <ListItemIcon>
+                                <SwitchAccountIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                style={ { padding: '5px 15px' } }
+                                primary="Extreme Admin"
+                            />
+                        </MenuItem>
+                        <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
+                        <MenuItem onClick={ (e) => [switchToUser(e, Role?.instructor), setsubMenuAnchorEl(null)] }>
+                            <ListItemIcon>
+                                <SwitchAccountIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                style={ { padding: '5px 15px' } }
+                                primary="Extreme Instructor"
+                            />
+                        </MenuItem>
+                        <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
+                        <MenuItem onClick={ (e) => [switchToProUser(e, Role?.proAdmin), setsubMenuAnchorEl(null)] }>
+                            <ListItemIcon>
+                                <SwitchAccountIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                style={ { padding: '5px 15px' } }
+                                primary="Pro Admin"
+                            />
+                        </MenuItem>
+                        <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
+                        <MenuItem onClick={ (e) => [switchToProUser(e, Role?.proUser), setsubMenuAnchorEl(null)] }>
+                            <ListItemIcon>
+                                <SwitchAccountIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                style={ { padding: '5px 15px' } }
+                                primary="Pro User"
+                            />
+                        </MenuItem>
+                        <Divider style={ { marginLeft: '10px', marginRight: '10px' } } />
+                        { (getItemSessionStorage('role') === Role?.consortium || getItemSessionStorage('role') === Role?.supplier) && (getItemSessionStorage('switchRole') !== null || getItemSessionStorage('switchProRole') !== null) &&
+                            <MenuItem onClick={ (e) => [handleConsortium(e, getItemSessionStorage('role') === Role?.consortium ? Role?.consortium : Role?.supplier), setsubMenuAnchorEl(null)] }>
+                                <ListItemIcon>
+                                    <SwitchAccountIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    style={ { padding: '5px 15px' } }
+                                    primary={ getItemSessionStorage('role') === Role?.consortium ? "Consortium" : "Reseller" }
+                                />
+                            </MenuItem>
+                        }
+                    </Menu>
+                </DialogModal>
+            }
         </>
     );
 };

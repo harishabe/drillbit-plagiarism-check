@@ -47,7 +47,8 @@ const AccountInfo = ({
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + getItemSessionStorage('role') + '/accountInformation');
+        let roleEndpoint = (getItemSessionStorage('switchRole') !== null ? getItemSessionStorage('switchRole') : getItemSessionStorage('role'));
+        GetProfile(BASE_URL_EXTREM + END_POINTS.PROFILE_DATA + roleEndpoint + '/accountInformation');
     }, []);
 
     useEffect(() => {
