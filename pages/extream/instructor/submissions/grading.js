@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Tooltip, IconButton, Skeleton, Pagination } from '@mui/material';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import { CommonTable, SimilarityStatus, CreateDrawer } from '../../../../components';
-import { MessageExclamatoryIcon, DownloadIcon } from '../../../../assets/icon';
 import { connect } from 'react-redux';
 import { GetGradingList } from '../../../../redux/action/instructor/InstructorAction';
 import { useRouter } from 'next/router';
@@ -86,7 +87,7 @@ const Grading = ({
                 grading.obtained_marks === BACKEND_NO_DATA_PLACEHOLDER ? grading.obtained_marks : grading.obtained_marks + '/' + grading.max_marks,
                 <SimilarityStatus percent={ grading.similarity } flag={ grading.flag } />,
                 [
-                    { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },
+                    { 'component': <FeedbackOutlinedIcon fontSize='medium' />, 'type': 'feedback', 'title': 'Feedback' },
                 ]
             );
             row['isSelected'] = false;
@@ -149,7 +150,7 @@ const Grading = ({
                                 aria-label="download-file"
                                 size="large"
                                 onClick={handleDownload}>
-                                <DownloadIcon />
+                                <FileDownloadOutlinedIcon fontSize='medium' />
                             </IconButton>
                         </Tooltip>
                     }

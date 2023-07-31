@@ -18,14 +18,14 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from "../../utils/EndPoints";
 
 const columns = [
-    { id: 'college_name', label: 'Institution name', maxWidth: 120 },
-    { id: 'name', label: 'Username', maxWidth: 120 },
-    { id: 'email', label: 'Email', maxWidth: 120 },
-    { id: 'country', label: 'Location', maxWidth: 115 },
-    { id: 'start_date', label: 'Start date', maxWidth: 120 },
-    { id: 'expiry_date', label: 'Expiry date', maxWidth: 125 },
-    { id: 'acc_manager', label: 'Account manager', maxWidth: 120 },
-    { id: 'used_documents', label: 'Submissions', maxWidth: 90 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 155 },
+    { id: 'name', label: 'Username', maxWidth: 135 },
+    { id: 'email', label: 'Email', maxWidth: 135 },
+    { id: 'country', label: 'Location', maxWidth: 90 },
+    { id: 'start_date', label: 'Start date', maxWidth: 110 },
+    { id: 'expiry_date', label: 'Expiry date', maxWidth: 110 },
+    { id: 'acc_manager', label: 'Account manager', maxWidth: 150 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 100 },
 ];
 
 function createData(college_name, name, email, country, start_date, expiry_date, acc_manager, used_documents) {

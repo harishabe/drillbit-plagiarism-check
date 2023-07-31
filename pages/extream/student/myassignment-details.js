@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import IconButton from '@mui/material/IconButton';
 import { Grid, Tooltip } from '@mui/material';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Student from '../../../layouts/Student';
 import {
     BreadCrumb,
@@ -16,7 +17,6 @@ import {
     Heading,
     DialogModal
 } from '../../../components';
-import { DownloadIcon } from '../../../assets/icon';
 import {
     GetSubmissionData,
     GetQna,
@@ -225,21 +225,20 @@ const MyAssignmentDetails = ({
                 <Grid item md={10} xs={12}>
                     <BreadCrumb item={StudentBreadCrumb} />
                 </Grid>
-                <Grid item md={1} xs={6} sx={{ marginTop: '15px' }}>
+                <Grid item md={ 1.3 } xs={ 6 } sx={ { marginTop: '15px' } }>
                     <div>
                         <StatusDot color={headerData?.status === 'active' ? '#38BE62' : '#E9596F'} title={headerData?.status} />
                     </div>
                 </Grid>
-                <Grid item md={1} xs={6}>
+                <Grid item md={ 0.7 } xs={ 6 }>
                     <Grid container>
                         <Tooltip arrow title="Download csv">
                             <IconButton
-                                sx={{ ml: 2, p: 1 }}
-                                color="primary"
+                                sx={ { ml: 1, p: 1 } }
                                 aria-label="download-file"
                                 size="large"
                                 onClick={handleDownload}>
-                                {isLoadingDownload ? <Skeleton width={50} /> : <DownloadIcon />}
+                                { isLoadingDownload ? <Skeleton width={ 50 } /> : <FileDownloadOutlinedIcon fontSize='medium' /> }
                             </IconButton>
                         </Tooltip>
                     </Grid>

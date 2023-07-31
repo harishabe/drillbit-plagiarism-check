@@ -6,7 +6,7 @@ import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-
+import { MuiFormElementConfig } from './../MuiFormElementConfig'
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -53,14 +53,14 @@ const InputAutoComplete = ({
                         options={field.options}
                         getOptionLabel={(option) => (option.name)}
                         renderOption={renderOption}
-                        size={field.size}
+                        size={ MuiFormElementConfig.size }
                         disabled={ field.disabled }
                         renderInput={(params) => <TextField
                             {...params} 
                             style={field.style }
                             name={field.name}
                             id={field.name}
-                            margin="normal"
+                            margin={ MuiFormElementConfig.margin }
                             error={!!error}
                             helperText={error && error.message}
                             FormHelperTextProps={{

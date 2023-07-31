@@ -6,6 +6,7 @@ import { TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import styled from 'styled-components';
 import { handleKeyPress } from '../../../utils/RegExp';
+import { MuiFormElementConfig } from './../MuiFormElementConfig'
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -59,6 +60,7 @@ const InputNumberField = ({
                         style={{ marginTop: '10px' }}
                         margin="normal"
                         type='number'
+                        size={ MuiFormElementConfig.size }
                         onChange={onChange}
                         onBlur={onBlur}
                         error={!!error}
@@ -68,7 +70,7 @@ const InputNumberField = ({
                         disabled={field.disabled}
                         name={field.name}
                         id={field.name}
-                        variant="outlined"
+                        variant={ MuiFormElementConfig.variant }
                         helperText={error ? error.message : field.info}
                         FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
                         InputProps={{

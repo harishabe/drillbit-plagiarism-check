@@ -5,13 +5,11 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Skeleton, IconButton, Box, TextField, Pagination } from '@mui/material';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import SuperAdmin from './../../../layouts/SuperAdmin';
 import {
     CommonTable
 } from '../../../components';
-import {
-    DownloadIcon
-} from '../../../assets/icon';
 import {
     GetExtremeInstructorList,
 } from '../../../redux/action/super/SuperAdminAction';
@@ -26,15 +24,15 @@ import { PaginationContainer } from '../../../style/index';
 import { platform } from '../../../utils/RegExp';
 
 const columns = [
-    { id: 'lid', label: 'LID', maxWidth: 80 },
-    { id: 'name', label: 'Name', maxWidth: 120 },
-    { id: 'email', label: 'Email', maxWidth: 155 },
-    { id: 'college_name', label: 'Institution name', maxWidth: 155 },
-    { id: 'country', label: 'Location', maxWidth: 80 },
-    { id: 'instructors', label: 'Instructors', maxWidth: 80 },
-    { id: 'students', label: 'Students', maxWidth: 80 },
-    { id: 'documents', label: 'Documents', maxWidth: 80 },
-    { id: 'used_documents', label: 'Submissions', maxWidth: 80 },
+    { id: 'lid', label: 'LID', maxWidth: 60 },
+    { id: 'name', label: 'Name', maxWidth: 130 },
+    { id: 'email', label: 'Email', maxWidth: 160 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 160 },
+    { id: 'country', label: 'Location', maxWidth: 90 },
+    { id: 'instructors', label: 'Instructors', maxWidth: 70 },
+    { id: 'students', label: 'Students', maxWidth: 70 },
+    { id: 'documents', label: 'Documents', maxWidth: 70 },
+    { id: 'used_documents', label: 'Submissions', maxWidth: 70 },
 ];
 
 function createData(lid, name, email, college_name, country, instructors, students, documents, used_documents) {
@@ -43,8 +41,8 @@ function createData(lid, name, email, college_name, country, instructors, studen
 
 const DownloadField = styled.div`
     position:absolute;
-    top: 125px;
-    right:${platform === WINDOW_PLATFORM ? '245px' : '225px'};
+    top: 130px;
+    right:${platform === WINDOW_PLATFORM ? '225px' : '205px'};
 `;
 
 const DownloadButton = styled.div`
@@ -165,11 +163,10 @@ const Extreme = ({
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
                                         <IconButton
-                                            color="primary"
                                             aria-label="download-file"
-                                            size="large"
+                                            size="small"
                                             onClick={ handleDownload }>
-                                            <DownloadIcon />
+                                            <FileDownloadOutlinedIcon fontSize='medium' />
                                         </IconButton>
                                     </Tooltip>
                                 }

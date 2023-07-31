@@ -9,8 +9,13 @@ import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
 import { TextField, Skeleton, Tooltip } from '@mui/material';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
+import FolderIcon from '@mui/icons-material/Folder';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Instructor from '../../../layouts/Instructor';
-import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
+import { DeleteWarningIcon } from '../../../assets/icon';
 import {
     BreadCrumb,
     MainHeading,
@@ -32,9 +37,6 @@ import { FOLDER_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
-import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
-import FolderIcon from '@mui/icons-material/Folder';
 
 const InstructorBreadCrumb = [
     {
@@ -64,10 +66,10 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'ass_id', label: 'Folder ID', maxWidth: 100 },
-    { id: 'assignment_name', label: 'Folder name', maxWidth: 150 },
-    { id: 'start_date', label: 'Created date', maxWidth: 140 },
-    { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 60, headerWidth: 100 },
+    { id: 'ass_id', label: 'Folder ID', maxWidth: 83 },
+    { id: 'assignment_name', label: 'Folder name', maxWidth: 320 },
+    { id: 'start_date', label: 'Created date', maxWidth: 120 },
+    { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 115 },
     { id: 'action', label: 'Action', maxWidth: 100 },
 ];
 
@@ -184,9 +186,9 @@ const MyFolder = ({
                     formatDate(folder.creation_date),
                     folder.no_of_submissions,
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        { 'component': <EditOutlinedIcon fontSize="small" />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteOutlineOutlinedIcon fontSize="small" />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <ArrowForwardOutlinedIcon fontSize="small" />, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     folder.excludeReferences,
                     folder.excludeQuotes,

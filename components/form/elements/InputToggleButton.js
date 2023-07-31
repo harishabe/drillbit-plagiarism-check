@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InputLabel from '@mui/material/InputLabel';
+import { MuiFormElementConfig } from './../MuiFormElementConfig'
 
 const ToggleButton = styled(MuiToggleButton)({
     '&.Mui-selected, &.Mui-selected:hover': {
@@ -37,7 +38,8 @@ const InputToggleButton = ({
                             <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
                                 <ToggleButtonGroup
                                     color="primary"
-                                    value={value}
+                                    value={ value }
+                                    size={ MuiFormElementConfig.size }
                                     label={field.label}
                                     exclusive
                                     onChange={onChange}

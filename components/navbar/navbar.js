@@ -32,7 +32,7 @@ import { PROFILE_ROLE } from '../../constant/data/Constant';
 import EllipsisText from '../ellipsis/EllipsisText';
 import SubTitle1 from '../typography/SubTitle1';
 
-const drawerWidth = 200;
+const drawerWidth = 165;
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',

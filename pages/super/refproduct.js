@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Grid, TextField, Box } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
@@ -14,9 +16,7 @@ import {
     WarningDialog
 } from './../../components';
 import {
-    EditIcon,
-    DeleteWarningIcon,
-    DeleteIcon
+    DeleteWarningIcon
 } from '../../assets/icon';
 import {
     GetExtremeRefData,
@@ -36,15 +36,15 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'lid', label: 'LID', maxWidth: 75 },
-    { id: 'name', label: 'Name', maxWidth: 125 },
-    { id: 'email', label: 'Email', maxWidth: 125 },
-    { id: 'college_name', label: 'Institution name', maxWidth: 125 },
-    { id: 'country', label: 'Location', maxWidth: 70 },
+    { id: 'lid', label: 'LID', maxWidth: 65 },
+    { id: 'name', label: 'Name', maxWidth: 140 },
+    { id: 'email', label: 'Email', maxWidth: 140 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 160 },
+    { id: 'country', label: 'Location', maxWidth: 85 },
     { id: 'instructors', label: 'Users', maxWidth: 70 },
-    { id: 'documents', label: 'Documents', maxWidth: 70 },
+    { id: 'documents', label: 'Documents', maxWidth: 80 },
     { id: 'used_documents', label: 'SUB', maxWidth: 70 },
-    { id: 'action', label: 'Actions', minWidth: 115 }
+    { id: 'action', label: 'Actions', maxWidth: 115 }
 ];
 
 function createData(lid, name, email, college_name, country, instructors, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, institution_type, timeZone, folpath, department, acc_manager, reseller
@@ -107,9 +107,9 @@ const RefProduct = ({
                     data.documents.toString(),
                     data.used_documents.toString(),
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        { 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <ArrowForwardOutlinedIcon fontSize='small' />, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     data.state,
                     data.address,

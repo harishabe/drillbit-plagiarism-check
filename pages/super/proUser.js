@@ -8,7 +8,8 @@ import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
 import PersonIcon from '@mui/icons-material/Person';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { TextField, Pagination, IconButton } from '@mui/material';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import {
@@ -21,12 +22,8 @@ import {
     DialogModal,
 } from '../../components';
 import {
-    EditIcon,
-    DeleteIcon,
     StatsIcon,
     DeleteWarningIcon,
-    AddMultipleIcon,
-    AddPersonIcon
 } from '../../assets/icon';
 import {
     GetInstructorData,
@@ -48,14 +45,14 @@ import { Role } from '../../constant/data';
 import { WARNING_MESSAGES, PRO } from '../../constant/data/Constant';
 
 const columns = [
-    { id: 'name', label: 'Name', maxWidth: 120 },
-    { id: 'username', label: 'Email', maxWidth: 120 },
-    { id: 'expiry_date', label: 'End Date', maxWidth: 120 },
-    { id: 'status', label: 'Status', maxWidth: 100 },
+    { id: 'name', label: 'Name', maxWidth: 100 },
+    { id: 'username', label: 'Email', maxWidth: 100 },
+    { id: 'expiry_date', label: 'End Date', maxWidth: 100 },
+    { id: 'status', label: 'Status', maxWidth: 70 },
     { id: 'stats', label: 'Statistics', maxWidth: 60 },
-    { id: 'superadminplagairism', label: 'Plagiarism', maxWidth: 150 },
-    { id: 'superadmingrammar', label: 'Grammar', maxWidth: 150 },
-    { id: 'action', label: 'Actions', maxWidth: 100 }
+    { id: 'superadminplagairism', label: 'Plagiarism', maxWidth: 130 },
+    { id: 'superadmingrammar', label: 'Grammar', maxWidth: 130 },
+    { id: 'action', label: 'Actions', maxWidth: 180 }
 ];
 
 function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, superadminplagairism, superadmingrammar, action, expiry_date, department, designation, phone_number, plagiarismUsed, grammarUsed) {
@@ -187,13 +184,13 @@ const ProUser = ({
                         </>
                     ],
                     user.role === Role.proAdmin ? ([
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
+                        { 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <VpnKeyIcon fontSize='small' />, 'type': 'resend', 'title': 'Resend credentials' },
                     ]) :
-                        ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <PersonIcon />, 'type': 'admin', 'title': 'Make him admin' },
-                            { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
+                        ([{ 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
+                            { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
+                            { 'component': <PersonIcon fontSize='small' />, 'type': 'admin', 'title': 'Make him admin' },
+                            { 'component': <VpnKeyIcon fontSize='small' />, 'type': 'resend', 'title': 'Resend credentials' },
                         {
                             'component': <Switch checked={ user.status === 'active' ? true : false } size="small" />,
                             'type': user.status === 'active' ? 'lock' : 'unlock',
@@ -508,7 +505,7 @@ const ProUser = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={ deleteAllInstructor }>
-                            <DeleteIcon />
+                            <DeleteOutlineOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                 </div> }

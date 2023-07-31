@@ -10,6 +10,8 @@ import {
   RepositoryIcon,
   RepositoryWhiteIcon
 } from '../../assets/icon';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import PaymentIcon from '@mui/icons-material/Payment';
 
 const SidebarSuperAdmin = [
   {
@@ -20,8 +22,8 @@ const SidebarSuperAdmin = [
     layout: '/super',
   },
   {
-    icon: <ClassIcon />,
-    activeIcon: <ClassWhiteIcon />,
+    icon: <CreditCardOutlinedIcon fontSize='small' />,
+    activeIcon: <CreditCardOutlinedIcon fontSize='small' />,
     name: 'Pro',
     path: '/refproduct',
     layout: '/super',
@@ -34,8 +36,8 @@ const SidebarSuperAdmin = [
     layout: '/super',
   },
   {
-    icon: <ClassIcon />,
-    activeIcon: <ClassWhiteIcon />,
+    icon: <PaymentIcon fontSize='small' />,
+    activeIcon: <PaymentIcon fontSize='small' />,
     name: 'Reseller',
     path: '/resellerproduct',
     layout: '/super',

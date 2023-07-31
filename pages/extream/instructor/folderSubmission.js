@@ -5,14 +5,19 @@ import styled from 'styled-components';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import debouce from 'lodash.debounce';
-import { Grid, Tooltip } from '@mui/material';
-import { Skeleton } from '@mui/material';
-import Box from '@mui/material/Box';
-import { Pagination, IconButton } from '@mui/material';
-import { TextField } from '@mui/material';
+import {
+    Grid,
+    Tooltip,
+    Skeleton,
+    Box,
+    Pagination,
+    IconButton,
+    TextField
+} from '@mui/material';
 import Instructor from '../../../layouts/Instructor';
 import PageChange from '../../../components/loader/PageChange';
 import {
@@ -38,7 +43,7 @@ import {
     DeletefolderSubmissionData,
     SubmissionReportDownload
 } from '../../../redux/action/common/Submission/SubmissionAction';
-import { DeleteIcon, DeleteWarningIcon, DownloadIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
+import { DeleteWarningIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
@@ -48,15 +53,15 @@ import { DOWNLOAD_CSV, WARNING_MESSAGES, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDE
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const columns = [
-    { id: 'name', label: 'Name', maxWidth: 90 },
-    { id: 'title', label: 'Title', maxWidth: 90 },
-    { id: 'original_fn', label: 'File', isDownload: true, maxWidth: 90 },
-    { id: 'lang1', label: 'Language', maxWidth: 70 },
+    { id: 'name', label: 'Name', maxWidth: 100 },
+    { id: 'title', label: 'Title', maxWidth: 100 },
+    { id: 'original_fn', label: 'File', isDownload: true, maxWidth: 120 },
+    { id: 'lang1', label: 'Language', maxWidth: 89 },
     { id: 'grammar_url', label: 'Grammar', maxWidth: 100 },
-    { id: 'percent', label: 'Similarity', maxWidth: 100 },
+    { id: 'percent', label: 'Similarity', maxWidth: 110 },
     { id: 'paper_id', label: 'Paper ID', maxWidth: 80 },
-    { id: 'date_up', label: 'Submission Date', maxWidth: 100 },
-    { id: 'action', label: 'Action', maxWidth: 250 },
+    { id: 'date_up', label: 'Submission Date', maxWidth: 120 },
+    { id: 'action', label: 'Action', maxWidth: 85 },
 ];
 
 function createData(id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, flag) {
@@ -192,14 +197,14 @@ const folderSubmission = ({
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
                         (submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) ?
                             {
-                                'component': <FileDownloadOutlinedIcon />,
+                                'component': <FileDownloadOutlinedIcon fontSize='small' />,
                                 'title': 'Similarity report not ready'
                             } :
                             {
-                                'component': <FileDownloadOutlinedIcon />,
+                                'component': <FileDownloadOutlinedIcon fontSize='small' />,
                                 'type': 'download',
                                 'title': 'Similarity report download'
                             }
@@ -399,19 +404,6 @@ const folderSubmission = ({
         }, [100]);
     };
 
-    //     /**
-    //    * file upload single, multiple and zip file
-    //    */
-    //     const handleUploadFile = () => {
-    //         if (extractedFileData) {
-    //             UploadFileDataClear();
-    //         }
-    //         if (uploadData) {
-    //             UploadZipFileDataClear();
-    //         }
-    //         router.push({ pathname: '/extream/instructor/uploadFileFolderSubmission', query: router.query });
-    //     };
-
     useEffect(() => {
         if (extractedFileData) {
             UploadFileDataClear();
@@ -465,7 +457,7 @@ const folderSubmission = ({
                                 size="large"
                                 onClick={handleRefresh}
                             >
-                                <RefreshOutlinedIcon />
+                                <RefreshOutlinedIcon fontSize='medium' />
                             </IconButton>
                         </Tooltip>
 
@@ -478,7 +470,7 @@ const folderSubmission = ({
                                     aria-label="download-file"
                                     size="large"
                                     onClick={handleDownload}>
-                                    <DownloadIcon />
+                                    <FileDownloadOutlinedIcon fontSize='medium' />
                                 </IconButton>
                             </Tooltip>
                         }
@@ -502,12 +494,12 @@ const folderSubmission = ({
                 {_.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={deleteAllSubmission}>
-                            <DeleteIcon />
+                            <DeleteOutlineOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title='Save to repository' arrow>
                         <IconButton onClick={saveAllSubmission}>
-                            <SaveOutlinedIcon />
+                            <SaveOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                 </DeleteAllButton>}

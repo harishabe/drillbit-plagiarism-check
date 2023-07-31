@@ -3,6 +3,8 @@ import { Box, Paper, Button } from '@mui/material';
 import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
 
+import { MuiFormElementConfig } from './../MuiFormElementConfig'
+
 const StyledButton = styled(Button)((disabled) => ({
     'background-color': disabled && '#3672FF !important',
     ':hover': {
@@ -19,11 +21,10 @@ const InputButton = ({
         <Paper>
             <Box my={2}>
                 <StyledButton
-                    style={{ padding: '12px' }}
                     fullWidth
-                    size="large"
-                    margin="normal"
-                    variant="contained"
+                    size='medium'
+                    margin={ MuiFormElementConfig.margin }
+                    variant={ MuiFormElementConfig.buttonVariant }
                     type={field.type}
                     color="primary"
                     disabled={isLoading || field.isDisabled}

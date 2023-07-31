@@ -4,6 +4,9 @@ import {
     ClassIcon,
     ClassWhiteIcon
 } from '../../assets/icon';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import AddCardIcon from '@mui/icons-material/AddCard';
+
 
 const SidebarSupplier = [
     {
@@ -21,15 +24,15 @@ const SidebarSupplier = [
         "layout": "/supplier",
     },
     {
-        "icon": <ClassIcon />,
-        "activeIcon": <ClassWhiteIcon />,
+        "icon": <CreditCardOutlinedIcon fontSize='small' />,
+        "activeIcon": <CreditCardOutlinedIcon fontSize='small' />,
         "name": "Pro",
         "path": "/pro",
         "layout": "/supplier",
     },
     {
-        "icon": <ClassIcon />,
-        "activeIcon": <ClassWhiteIcon />,
+        "icon": <AddCardIcon fontSize='small' />,
+        "activeIcon": <AddCardIcon fontSize='small' />,
         "name": "Customers",
         "path": "/customers",
         "layout": "/supplier",

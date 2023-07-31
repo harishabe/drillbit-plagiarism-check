@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { TextField, Autocomplete } from '@mui/material';
-import { Pagination } from '@mui/material';
+import { Box, Grid, TextField, Autocomplete, Pagination } from '@mui/material';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import {
     BreadCrumb,
@@ -12,7 +10,7 @@ import {
     CommonTable,
     WarningDialog
 } from './../../components';
-import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
+import { DeleteWarningIcon } from '../../assets/icon';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import { GetRepoList, ClearRepoData, RemoveRepositary } from '../../redux/action/admin/AdminAction';
 import { DropdownList, GlobalSearch, GlobalSearchClear } from '../../redux/action/super/SuperAdminAction';
@@ -36,14 +34,14 @@ const RepositoryBreadCrumb = [
 ];
 
 const columns = [
-    { id: 'paper_id', label: 'Paper ID', maxWidth: 100 },
-    { id: 'name', label: 'Name', maxWidth: 145 },
-    { id: 'mail_id', label: 'Email ID', maxWidth: 145 },
-    { id: 'title', label: 'Title', maxWidth: 145 },
-    { id: 'repository_type', label: 'Type', maxWidth: 125 },
+    { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
+    { id: 'name', label: 'Name', maxWidth: 140 },
+    { id: 'mail_id', label: 'Email ID', maxWidth: 215 },
+    { id: 'title', label: 'Title', maxWidth: 140 },
+    { id: 'repository_type', label: 'Type', maxWidth: 120 },
     { id: 'lang1', label: 'Language', maxWidth: 120 },
-    { id: 'date_up', label: 'Added Date', maxWidth: 150 },
-    { id: 'action', label: 'Action', maxWidth: 100 },
+    { id: 'date_up', label: 'Added Date', maxWidth: 145 },
+    { id: 'action', label: 'Action', minWidth: 80 },
 ];
 
 function createData(paper_id, name, mail_id, title, repository_type, lang1, date_up, action) {
@@ -125,7 +123,7 @@ const Repository = ({
                     repo.repository_type,
                     repo.language,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
+                    [{ 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -145,7 +143,7 @@ const Repository = ({
                     globalData?.repository_type,
                     globalData?.language,
                     globalData?.date_up && (formatDate(globalData?.date_up)),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }],
+                    [{ 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' }],
                 )
             ),
         setRows([...arr]);
