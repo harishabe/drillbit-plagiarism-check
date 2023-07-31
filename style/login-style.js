@@ -12,7 +12,7 @@ export const BannerContainer = styled.div`
 `;
 
 export const LoginContainer = styled.div`
-    padding: 25% 10% 0% 10%;
+    padding: 25% 15% 0% 15%;
 `;
 
 export const InlineText = styled.div`

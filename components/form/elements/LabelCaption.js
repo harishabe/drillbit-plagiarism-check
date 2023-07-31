@@ -15,7 +15,7 @@ const LabelCaption = ({
 }) => {
     return (
         <LabelContainer>
-            <b>{field.label}</b>
+            {field.label}
         </LabelContainer>
     );
 };
