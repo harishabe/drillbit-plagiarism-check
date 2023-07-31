@@ -235,16 +235,20 @@ const Dashboard = ({
                 <Grid item md={ 11 } xs={ 12 }>
                   <Heading title="Submissions Overview" />
                 </Grid>
-                <Grid item md={ 1 } xs={ 12 }>
+                { instructorDashboardData?.data?.submissionsUsage
+                  ?.usedSubmissions > 0 && 
+                  <Grid item md={ 1 } xs={ 12 }>
                   <select value={ year && submissionChartYear?.year } onChange={ (e) => { handleChange(e.target.value) } }>
                     { year?.map((item, index) => (
                       <option key={ index }>{ item }</option>
                     )) }
                   </select>
                 </Grid>
+                }
               </Grid>
               { (isLoading || submissionChartLoading) ? <Skeleton /> :
-                instructorDashboardData && submissionChartData?.xaxisData?.length > 0 ?
+                instructorDashboardData && instructorDashboardData?.data?.submissionsUsage
+                  ?.usedSubmissions > 0 && submissionChartData?.xaxisData?.length > 0 ?
                   <ColumnChart
                     filename={ `Submissions Overview ${submissionChartYear?.year}` }
                     type={ COLUMN_ADMIN_CHART_TYPE }

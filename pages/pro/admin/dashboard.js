@@ -210,57 +210,61 @@ const Dashboard = ({
 
   return (
     <React.Fragment>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={6} xs={12}>
+      <Box sx={ { flexGrow: 1 } }>
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 6 } xs={ 12 }>
             <WidgetCard
               title="Users"
-              isLoading={isLoadingDashboard}
+              isLoading={ isLoadingDashboard }
               count={
                 isLoadingDashboard
                   ? ""
                   : adminDashboardData?.data?.userAccountUsage?.usedAccounts +
-                    " / " +
-                    adminDashboardData?.data?.userAccountUsage?.totalAccounts
+                  " / " +
+                  adminDashboardData?.data?.userAccountUsage?.totalAccounts
               }
-              icon={<NoStudentIcon />}
+              icon={ <NoStudentIcon /> }
             />
           </Grid>
-          <Grid item md={6} xs={12}>
+          <Grid item md={ 6 } xs={ 12 }>
             <WidgetCard
               title="Submissions"
-              isLoading={isLoadingDashboard}
+              isLoading={ isLoadingDashboard }
               count={
                 isLoadingDashboard
                   ? ""
                   : adminDashboardData?.data?.submissionsUsage
-                      ?.usedSubmissions +
-                    " / " +
-                    adminDashboardData?.data?.submissionsUsage?.totalSubmissions
+                    ?.usedSubmissions +
+                  " / " +
+                  adminDashboardData?.data?.submissionsUsage?.totalSubmissions
               }
-              icon={<NoOfSubmission />}
+              icon={ <NoOfSubmission /> }
             />
           </Grid>
         </Grid>
       </Box>
-      <Box mt={1} sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={7} xs={12}>
+      <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 7 } xs={ 12 }>
             <CardView>
               <Grid container>
                 <Grid item md={ 11 } xs={ 12 }>
                   <Heading title="Submissions Overview" />
                 </Grid>
-                <Grid item md={ 1 } xs={ 12 }>
-                  <select value={ year && submissionChartYear?.year } onChange={ (e) => { handleChange(e.target.value) } }>
-                    { year?.map((item, index) => (
-                      <option key={ index }>{ item }</option>
-                    )) }
-                  </select>
-                </Grid>
+                { adminDashboardData?.data?.submissionsUsage
+                  ?.usedSubmissions > 0 &&
+                  <Grid item md={ 1 } xs={ 12 }>
+                    <select value={ year && submissionChartYear?.year } onChange={ (e) => { handleChange(e.target.value) } }>
+                      { year?.map((item, index) => (
+                        <option key={ index }>{ item }</option>
+                      )) }
+                    </select>
+                  </Grid>
+                }
               </Grid>
               { (isLoadingDashboard || submissionChartLoading) ? <Skeleton /> :
-                adminDashboardData && submissionChartData?.xaxisData?.length > 0 ?
+                adminDashboardData && adminDashboardData?.data?.submissionsUsage
+                  ?.usedSubmissions > 0 && submissionChartData?.xaxisData?.length > 0 ?
                   <ColumnChart
                     filename={ `Submissions Overview ${submissionChartYear?.year}` }
                     type={ COLUMN_ADMIN_CHART_TYPE }
@@ -281,10 +285,10 @@ const Dashboard = ({
               }
             </CardView>
           </Grid>
-          <Grid item md={5} xs={12}>
+          <Grid item md={ 5 } xs={ 12 }>
             <CardView>
               <Heading title="Similarity Ranges" />
-              {isLoadingDashboard ? (
+              { isLoadingDashboard ? (
                 <>
                   <Skeleton />
                 </>
@@ -294,43 +298,43 @@ const Dashboard = ({
                   chartType="line"
                   graphName="File Submission"
                   filename="Similarity Ranges"
-                  graphData={[
+                      graphData={ [
                     adminDashboardData?.data?.submissionsGraph?.zeroTen,
                     adminDashboardData?.data?.submissionsGraph?.elevenFourty,
                     adminDashboardData?.data?.submissionsGraph?.fourtyOneSixty,
                     adminDashboardData?.data?.submissionsGraph?.sixtyOneHundred,
                     adminDashboardData?.data?.submissionsGraph?.docError,
-                  ]}
+                  ] }
                   strokeCurve="straight"
-                  xaxisLabelShow={true}
-                  yaxisLabelShow={true}
-                  chartHeight={350}
+                      xaxisLabelShow={ true }
+                      yaxisLabelShow={ true }
+                      chartHeight={ 350 }
                 />
               ) : (
-                <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
-              )}
+                <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+              ) }
             </CardView>
           </Grid>
         </Grid>
       </Box>
-      {showRenewWarning && (
+      { showRenewWarning && (
         <WarningDialog
           message="Are you sure you want to renew ?"
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
+          handleYes={ handleYesWarning }
+          handleNo={ handleCloseWarning }
+          isOpen={ true }
         />
-      )}
-      <Box mt={1} sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={4} xs={12}>
+      ) }
+      <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 4 } xs={ 12 }>
             <CardView>
               <Grid container>
                 <Grid item md={ 7 } xs={ 12 }>
                   <Heading title="Account Validity" />
                 </Grid>
                 <Grid item md={ 5 } xs={ 12 }>
-                  {isLoadingDashboard ? (
+                  { isLoadingDashboard ? (
                     <Skeleton />
                   ) : (
                     <TextAlignRight>
@@ -343,56 +347,56 @@ const Dashboard = ({
                         }
                       />
                     </TextAlignRight>
-                  )}
+                  ) }
                 </Grid>
               </Grid>
-              {isLoadingDashboard ? (
+              { isLoadingDashboard ? (
                 <Skeleton
                   variant="circular"
-                  style={{ margin: "58px auto" }}
-                  height={250}
-                  width={250}
+                  style={ { margin: "58px auto" } }
+                  height={ 250 }
+                  width={ 250 }
                 />
               ) : (
                 <>
                   <RadialBarChart
                     filename="Account Validity"
-                    type={RADIAL_CHART_TYPE}
-                    color={RADIAL_CHART_COLOR}
-                    height={RADIAL_CHART_HEIGHT}
-                    label={[RADIAL_CHART_LABEL]}
-                    labelData={[adminDashboardData?.data?.accountValidityDays]}
-                    series={[
+                      type={ RADIAL_CHART_TYPE }
+                      color={ RADIAL_CHART_COLOR }
+                      height={ RADIAL_CHART_HEIGHT }
+                      label={ [RADIAL_CHART_LABEL] }
+                      labelData={ [adminDashboardData?.data?.accountValidityDays] }
+                      series={ [
                       adminDashboardData?.data?.accountValidityPercentage.toFixed(
                         2
                       ),
-                    ]}
+                    ] }
                   />
-                  {isLoadingRenewAccount ? (
+                    { isLoadingRenewAccount ? (
                     <Skeleton />
                   ) : (
                     <Typography variant="h4" component="div" gutterBottom>
                       <a
-                        className={classes.BorderColor}
+                            className={ classes.BorderColor }
                         href=""
-                        onClick={renewalClick}
+                            onClick={ renewalClick }
                       >
                         Renew your account
                       </a>
                     </Typography>
-                  )}
+                    ) }
                 </>
-              )}
+              ) }
             </CardView>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid item md={ 4 } xs={ 12 }>
             <CardView>
               <Grid container>
-                <Grid item md={6.6} xs={12}>
+                <Grid item md={ 6.6 } xs={ 12 }>
                   <Heading title="Trend Analysis" />
                 </Grid>
-                <Grid item md={5.4} xs={12}>
-                  {isLoadingDashboard ? (
+                <Grid item md={ 5.4 } xs={ 12 }>
+                  { isLoadingDashboard ? (
                     <Skeleton />
                   ) : (
                     <TextAlignRight>
@@ -406,47 +410,47 @@ const Dashboard = ({
                         }
                       />
                     </TextAlignRight>
-                  )}
+                  ) }
                 </Grid>
               </Grid>
-              {isLoadingTrendAnalysis ? (
+              { isLoadingTrendAnalysis ? (
                 <Skeleton
                   variant="circular"
-                  style={{ margin: "59px auto" }}
-                  height={250}
-                  width={250}
+                  style={ { margin: "59px auto" } }
+                  height={ 250 }
+                  width={ 250 }
                 />
               ) : (
                 <>
-                  {adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ? (
+                    { adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ? (
                     <>
                       <PieChart
                         type="donut"
                         filename="Trend Analysis"
-                        color={PIE_CHART_COLOR}
-                        height={320}
-                        label={PIE_CHART_LABEL}
-                        series={[
+                          color={ PIE_CHART_COLOR }
+                          height={ 320 }
+                          label={ PIE_CHART_LABEL }
+                          series={ [
                           adminDashboardData?.trendAnalysis?.similarWork,
                           adminDashboardData?.trendAnalysis?.ownWork,
-                        ]}
+                        ] }
                       />
                     </>
                   ) : (
-                    <ErrorBlock message={TREND_ANALYSIS_NOT_FOUND} />
-                  )}
+                      <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
+                    ) }
                 </>
-              )}
+              ) }
             </CardView>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid item md={ 4 } xs={ 12 }>
             <CardView>
               <Grid container>
-                <Grid item md={6.6} xs={12}>
+                <Grid item md={ 6.6 } xs={ 12 }>
                   <EllipsisText value="Document Types" variant="h2" />
                 </Grid>
-                <Grid item md={5.4} xs={12}>
-                  {isLoadingDashboard ? (
+                <Grid item md={ 5.4 } xs={ 12 }>
+                  { isLoadingDashboard ? (
                     <Skeleton />
                   ) : (
                     <TextAlignRight>
@@ -457,16 +461,16 @@ const Dashboard = ({
                         </select> 
                       */}
                     </TextAlignRight>
-                  )}
+                  ) }
                 </Grid>
               </Grid>
 
-              {isLoadingDashboard ? (
+              { isLoadingDashboard ? (
                 <Skeleton
                   variant="circular"
-                  style={{ margin: "59px auto" }}
-                  height={250}
-                  width={250}
+                  style={ { margin: "59px auto" } }
+                  height={ 250 }
+                  width={ 250 }
                 />
               ) : adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ? (
                   documentsType && (
@@ -482,23 +486,23 @@ const Dashboard = ({
                   />
                 )
               ) : (
-                <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
-              )}
+                <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+              ) }
             </CardView>
           </Grid>
         </Grid>
       </Box>
-      <Box mt={1} sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={4} xs={12}>
+      <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 4 } xs={ 12 }>
             <CardView>
               <Heading title="Departments" />
-              {isLoadingDashboard ? (
+              { isLoadingDashboard ? (
                 <Skeleton
                   variant="circular"
-                  style={{ margin: "59px auto" }}
-                  height={250}
-                  width={250}
+                  style={ { margin: "59px auto" } }
+                  height={ 250 }
+                  width={ 250 }
                 />
               ) : departmentTypeData &&
                 adminDashboardData?.data?.submissionsUsage?.usedSubmissions >
@@ -516,8 +520,8 @@ const Dashboard = ({
                   />
                 )
               ) : (
-                <ErrorBlock message={DOCUMENT_PROCESSED_NOT_FOUND} />
-              )}
+                <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+              ) }
             </CardView>
           </Grid>
         </Grid>

@@ -183,61 +183,61 @@ const Dashboard = ({
 
   return (
     <React.Fragment>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={3} xs={12}>
+      <Box sx={ { flexGrow: 1 } }>
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 3 } xs={ 12 }>
             <WidgetCard
               title="Classes"
-              isLoading={isLoading}
-              count={instructorDashboardData?.data?.no_of_classes}
-              icon={<NoOfClassIcon />}
+              isLoading={ isLoading }
+              count={ instructorDashboardData?.data?.no_of_classes }
+              icon={ <NoOfClassIcon /> }
             />
           </Grid>
-          <Grid item md={3} xs={12}>
+          <Grid item md={ 3 } xs={ 12 }>
             <WidgetCard
               title="Assignments"
-              isLoading={isLoading}
-              count={instructorDashboardData?.data?.no_of_assignments}
-              icon={<NoOfAssignmntIcon />}
+              isLoading={ isLoading }
+              count={ instructorDashboardData?.data?.no_of_assignments }
+              icon={ <NoOfAssignmntIcon /> }
             />
           </Grid>
-          <Grid item md={3} xs={12}>
+          <Grid item md={ 3 } xs={ 12 }>
             <WidgetCard
               title="Students"
-              isLoading={isLoading}
+              isLoading={ isLoading }
               count={
                 instructorDashboardData?.data?.studentAccountUsage
                   ?.usedAccounts !== undefined &&
                 instructorDashboardData?.data?.studentAccountUsage
                   ?.usedAccounts +
-                  " / " +
-                  instructorDashboardData?.data?.studentAccountUsage
-                    ?.totalAccounts
+                " / " +
+                instructorDashboardData?.data?.studentAccountUsage
+                  ?.totalAccounts
               }
-              icon={<NoStudentIcon />}
+              icon={ <NoStudentIcon /> }
             />
           </Grid>
-          <Grid item md={3} xs={12}>
+          <Grid item md={ 3 } xs={ 12 }>
             <WidgetCard
               title="Submissions"
-              isLoading={isLoading}
+              isLoading={ isLoading }
               count={
                 instructorDashboardData?.data?.submissionsUsage
                   ?.usedSubmissions !== undefined &&
                 instructorDashboardData?.data?.submissionsUsage
                   ?.usedSubmissions +
-                  " / " +
-                  instructorDashboardData?.data?.submissionsUsage
-                    ?.totalSubmissions
+                " / " +
+                instructorDashboardData?.data?.submissionsUsage
+                  ?.totalSubmissions
               }
-              icon={<NoOfSubmission />}
+              icon={ <NoOfSubmission /> }
             />
           </Grid>
         </Grid>
       </Box>
-      <Box mt={1} sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={4} xs={12}>
+      <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 4 } xs={ 12 }>
             <CardView
               height={
                 instructorDashboardData?.topStudent?.students?.length > 0 &&
@@ -245,7 +245,7 @@ const Dashboard = ({
               }
             >
               <Heading title="Top Students" />
-              {isLoadingTopStudent ? (
+              { isLoadingTopStudent ? (
                 <>
                   <ListSkeleton />
                   <ListSkeleton />
@@ -254,7 +254,7 @@ const Dashboard = ({
                 </>
               ) : (
                 <>
-                  {instructorDashboardData?.topStudent?.students?.length > 0 ? (
+                    { instructorDashboardData?.topStudent?.students?.length > 0 ? (
                     <>
                       <TopStudents
                         topStudentData={
@@ -267,7 +267,7 @@ const Dashboard = ({
                           strokeCurve="smooth"
                           graphName="No. students"
                           filename="Top Students"
-                          graphData={[
+                            graphData={ [
                             instructorDashboardData?.topStudent
                               ?.submissionsGraph?.zeroTen,
                             instructorDashboardData?.topStudent
@@ -278,34 +278,34 @@ const Dashboard = ({
                               ?.submissionsGraph?.sixtyOneHundred,
                             instructorDashboardData?.topStudent
                               ?.submissionsGraph?.docError,
-                          ]}
-                          xaxisLabelShow={false}
-                          yaxisLabelShow={false}
-                          chartHeight={142}
+                            ] }
+                            xaxisLabelShow={ false }
+                            yaxisLabelShow={ false }
+                            chartHeight={ 142 }
                         />
                       </CurveChartContainer>
                     </>
                   ) : (
-                    <ErrorBlock message={STUDENT_NOT_FOUND} />
-                  )}
+                      <ErrorBlock message={ STUDENT_NOT_FOUND } />
+                    ) }
                 </>
-              )}
+              ) }
             </CardView>
           </Grid>
-          <Grid item md={8} xs={12}>
+          <Grid item md={ 8 } xs={ 12 }>
             <CardView
               height={
                 instructorDashboardData?.data?.recent_submissions?.length > 0 &&
                 "440px"
               }
             >
-              <Grid container spacing={1}>
-                <Grid item md={10} xs={12}>
+              <Grid container spacing={ 1 }>
+                <Grid item md={ 10 } xs={ 12 }>
                   <Heading title="Recent Submissions" />
                 </Grid>
               </Grid>
 
-              {isLoading ? (
+              { isLoading ? (
                 <>
                   <ListSkeleton />
                   <ListSkeleton />
@@ -314,28 +314,28 @@ const Dashboard = ({
                 </>
               ) : (
                 <>
-                  {instructorDashboardData?.data?.recent_submissions?.length >
-                  0 ? (
+                    { instructorDashboardData?.data?.recent_submissions?.length >
+                      0 ? (
                     <RecentSubmissions
                       recentSubmission={
                         instructorDashboardData?.data?.recent_submissions
                       }
-                      handlePage={handlePage}
+                          handlePage={ handlePage }
                     />
                   ) : (
                     <ErrorBlock
-                      message={DASHBOARD_RECENT_SUBMISSION_NOT_FOUND}
+                          message={ DASHBOARD_RECENT_SUBMISSION_NOT_FOUND }
                     />
-                  )}
+                    ) }
                 </>
-              )}
+              ) }
             </CardView>
           </Grid>
         </Grid>
       </Box>
-      <Box mt={1} sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={8} xs={12}>
+      <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 8 } xs={ 12 }>
             <CardView
               height={
                 instructorDashboardData?.data?.no_of_submissions > 0 && "443px"
@@ -345,16 +345,24 @@ const Dashboard = ({
                 <Grid item md={ 11 } xs={ 12 }>
                   <Heading title="Submissions Overview" />
                 </Grid>
-                <Grid item md={ 1 } xs={ 12 }>
-                  <select value={ year && submissionChartYear?.year } onChange={ (e) => { handleChange(e.target.value) } }>
-                    { year?.map((item, index) => (
-                      <option key={ index }>{ item }</option>
-                    )) }
-                  </select>
-                </Grid>
+                { instructorDashboardData?.data?.submissionsUsage
+                  ?.usedSubmissions !== undefined &&
+                  instructorDashboardData?.data?.submissionsUsage
+                    ?.usedSubmissions > 0 &&
+                  <Grid item md={ 1 } xs={ 12 }>
+                    <select value={ year && submissionChartYear?.year } onChange={ (e) => { handleChange(e.target.value) } }>
+                      { year?.map((item, index) => (
+                        <option key={ index }>{ item }</option>
+                      )) }
+                    </select>
+                  </Grid>
+                }
               </Grid>
               { (isLoading || submissionChartLoading) ? <Skeleton /> :
-                instructorDashboardData && submissionChartData?.xaxisData?.length > 0 ?
+                instructorDashboardData && instructorDashboardData?.data?.submissionsUsage
+                  ?.usedSubmissions !== undefined &&
+                  instructorDashboardData?.data?.submissionsUsage
+                    ?.usedSubmissions > 0 && submissionChartData?.xaxisData?.length > 0 ?
                   <ColumnChart
                     filename={ `Submissions Overview ${submissionChartYear?.year}` }
                     type={ COLUMN_ADMIN_CHART_TYPE }
@@ -375,18 +383,18 @@ const Dashboard = ({
               }
             </CardView>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid item md={ 4 } xs={ 12 }>
             <CardView
               height={
                 instructorDashboardData?.data?.no_of_submissions > 0 && "443px"
               }
             >
               <Grid container>
-                <Grid item md={6.6} xs={12}>
+                <Grid item md={ 6.6 } xs={ 12 }>
                   <Heading title="Trend Analysis" />
                 </Grid>
-                <Grid item md={5.4} xs={12}>
-                  {isLoading ? (
+                <Grid item md={ 5.4 } xs={ 12 }>
+                  { isLoading ? (
                     <Skeleton />
                   ) : (
                     <TextAlignRight>
@@ -403,19 +411,19 @@ const Dashboard = ({
                         }
                       />
                     </TextAlignRight>
-                  )}
+                  ) }
                 </Grid>
               </Grid>
-              {isLoading ? (
+              { isLoading ? (
                 <Skeleton
                   variant="circular"
-                  style={{ margin: "58px auto" }}
-                  height={250}
-                  width={250}
+                  style={ { margin: "58px auto" } }
+                  height={ 250 }
+                  width={ 250 }
                 />
               ) : (
                 <>
-                  {instructorDashboardData?.data?.trendAnalysis
+                    { instructorDashboardData?.data?.trendAnalysis
                     ?.documentsProcessed ? (
                     <>
                       {/* <TextAlignRight>
@@ -430,36 +438,36 @@ const Dashboard = ({
                             ? ""
                             : "347px"
                         }
-                        color={PIE_CHART_COLOR}
-                        width={PIE_CHART_WIDTH}
-                        label={PIE_CHART_LABEL}
-                        series={[
+                            color={ PIE_CHART_COLOR }
+                            width={ PIE_CHART_WIDTH }
+                            label={ PIE_CHART_LABEL }
+                            series={ [
                           instructorDashboardData?.data?.trendAnalysis
                             ?.similarWork,
                           instructorDashboardData?.data?.trendAnalysis?.ownWork,
-                        ]}
+                            ] }
                       />
                     </>
                   ) : (
-                    <ErrorBlock message={TREND_ANALYSIS_NOT_FOUND} />
-                  )}
+                      <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
+                    ) }
                 </>
-              )}
+              ) }
             </CardView>
           </Grid>
         </Grid>
       </Box>
-      <Box mt={1} sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item md={8} xs={12}>
+      <Box mt={ 1 } sx={ { flexGrow: 1 } }>
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 8 } xs={ 12 }>
             <CardView>
               <Heading title="Document Types" />
-              {isLoading ? (
+              { isLoading ? (
                 <Skeleton
                   variant="circular"
-                  style={{ margin: "58px auto" }}
-                  height={250}
-                  width={250}
+                  style={ { margin: "58px auto" } }
+                  height={ 250 }
+                  width={ 250 }
                 />
               ) : documentTypeData &&
                 instructorDashboardData?.data?.submissionsUsage
@@ -468,14 +476,14 @@ const Dashboard = ({
                   <PieChart
                     type="pie"
                     filename="Document Types"
-                    height={325}
+                        height={ 325 }
                         label={ documentsType.map((doc) => doc.docType) }
                         series={ documentsType.map((doc) => doc.count) }
                   />
                 )
               ) : (
-                <ErrorBlock message={DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND} />
-              )}
+                <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
+              ) }
             </CardView>
           </Grid>
         </Grid>
