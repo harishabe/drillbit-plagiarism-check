@@ -247,7 +247,7 @@ const CardInfoView = ({
                     }
 
 
-                    { isHeading && <EllipsisText value={ item.name } /> }
+                    { isHeading && <EllipsisText value={ item.name } maxLength={ 110 } isFolder={ true } /> }
 
                     { isDescription &&
                         <EllipsisText value={ item?.description === null ? NO_DATA_PLACEHOLDER : item?.description }

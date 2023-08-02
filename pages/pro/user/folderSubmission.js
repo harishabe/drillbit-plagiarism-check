@@ -498,7 +498,7 @@ const folderSubmission = ({
                 <BreadCrumb item={ UserBreadCrumb } />
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 5 } xs={ 5 }>
-                        <MainHeading title={ `Submissions (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                        <MainHeading title={ `Submissions (${!isLoadingSubmission ? (pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0) : 0})` } />
                     </Grid>
                     <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <Tooltip title="Refresh" arrow>
