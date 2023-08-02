@@ -206,10 +206,26 @@ const SideBar = ({ open }) => {
             setSidebarItem(SidebarProUser);
         } else if (role === 'lim-instructor' && router.pathname.split('/')[1] === 'pro' && router.pathname.split('/')[2] === 'user') {
             setSidebarItem(SidebarProUser);
-        } else if (role === 'reseller') {
+        } else if (role === 'reseller' && !getItemSessionStorage('switchRole') && !getItemSessionStorage('switchProRole')) {
             setSidebarItem(SidebarSupplier);
-        } else if (role === 'consortium') {
+        } else if (role === 'reseller' && getItemSessionStorage('switchRole') === 'admin') {
+            setSidebarItem(SidebarAdmin);
+        } else if (role === 'reseller' && getItemSessionStorage('switchRole') === 'instructor') {
+            setSidebarItem(SidebarInstructor);
+        } else if (role === 'reseller' && getItemSessionStorage('switchProRole') === 'admin') {
+            setSidebarItem(SidebarProAdmin);
+        } else if (role === 'reseller' && getItemSessionStorage('switchProRole') === 'user') {
+            setSidebarItem(SidebarProUser);
+        } else if (role === 'consortium' && !getItemSessionStorage('switchRole') && !getItemSessionStorage('switchProRole')) {
             setSidebarItem(SidebarConsortium);
+        } else if (role === 'consortium' && getItemSessionStorage('switchRole') === 'admin') {
+            setSidebarItem(SidebarAdmin);
+        } else if (role === 'consortium' && getItemSessionStorage('switchRole') === 'instructor') {
+            setSidebarItem(SidebarInstructor);
+        } else if (role === 'consortium' && getItemSessionStorage('switchProRole') === 'admin') {
+            setSidebarItem(SidebarProAdmin);
+        } else if (role === 'consortium' && getItemSessionStorage('switchProRole') === 'user') {
+            setSidebarItem(SidebarProUser);
         }
     }, []);
 
