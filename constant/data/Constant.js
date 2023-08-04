@@ -64,7 +64,8 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'superadminplagairism',
     'superadmingrammar',
     'used_documents',
-    'folder_no_of_submissions'
+    'folder_no_of_submissions',
+    'drive_link'
 ];
 export const TABLE_BODY_ALLOW_ICON = [
     'action',
@@ -250,6 +251,7 @@ export const INTEGRATION_TYPES = {
     BLACKBOARD : 'Blackboard',
     BRIGHTSPACE: 'Brightspace',
     MOODLE_LTI: 'Moodle LTI',
+    GOOGLE_CLASSROOM: 'Google Classroom',
 }
 
 export const ERROR_MESSAGE_RESPONSE = {

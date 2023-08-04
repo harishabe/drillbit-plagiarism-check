@@ -1,5 +1,6 @@
 import { GetMethod, PostMethod, PutMethod, DeleteMethod } from './../ApiMethod';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
+import { PaginationUrl } from '../../../utils/PaginationUrl';
 import END_POINTS from '../../../utils/EndPoints';
 
 /**
@@ -63,6 +64,25 @@ export const GoogleImportCoursesDetail = async (data) => {
  * API CALL GOOGLE CLASSROOM COURSE HOME
  */
 
-export const GoogleCourseHomeDetail = async () => {
-    return GetMethod(BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_COURSEHOME);
+export const GoogleCourseHomeDetail = async (paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_COURSEHOME + PaginationUrl(paginationPayload);
+    return GetMethod(url);
+};
+
+/**
+ * API CALL GOOGLE CLASSROOM COURSE STATUS
+ */
+
+export const GoogleCourseStatus = async (apiUrl, id) => {
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_COURSE_STATUS_CLASS_WORK + `${apiUrl}/${id}`;
+    return GetMethod(url);
+};
+
+/**
+ * API CALL GOOGLE CLASSROOM COURSE/CLASS WORK
+ */
+
+export const GoogleClassWorkList = async (id, paginationPayload) => {
+    const url = BASE_URL_EXTREM + END_POINTS.ADMIN_INTEGRATION_GOOGLE_COURSE_STATUS_CLASS_WORK + id + '/coursework' + PaginationUrl(paginationPayload);
+    return GetMethod(url);
 };

@@ -138,6 +138,12 @@ const IntegrationReducer = (state = {}, action) => {
                 isLoadingImportCourse: false,
                 googleImportCourseData: action.payload,
             };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_IMPORT_COURSES_CLEAR:
+            return {
+                ...state,
+                isLoadingImportCourse: false,
+                googleImportCourseData: '',
+            };
         case types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_HOME_START:
             return {
                 ...state,
@@ -154,6 +160,40 @@ const IntegrationReducer = (state = {}, action) => {
                 ...state,
                 isLoadingCourseHome: false,
                 googleCourseHomeData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_ENABLE_DISABLE_START:
+            return {
+                ...state,
+                isLoadingCourseStatus: true,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_ENABLE_DISABLE_SUCCESS:
+            return {
+                ...state,
+                isLoadingCourseStatus: false,
+                googleCourseStatusData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_COURSE_ENABLE_DISABLE_FAIL:
+            return {
+                ...state,
+                isLoadingCourseStatus: false,
+                googleCourseStatusData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_CLASS_WORK_LIST_START:
+            return {
+                ...state,
+                isLoadingClassWork: true,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_CLASS_WORK_LIST_SUCCESS:
+            return {
+                ...state,
+                isLoadingClassWork: false,
+                googleClassWorkData: action.payload,
+            };
+        case types.FETCH_ADMIN_INTEGRATION_GOOGLE_CLASS_WORK_LIST_FAIL:
+            return {
+                ...state,
+                isLoadingClassWork: false,
+                googleClassWorkData: action.payload,
             };
         default:
             return state;
