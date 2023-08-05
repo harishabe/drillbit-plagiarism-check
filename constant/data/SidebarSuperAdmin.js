@@ -10,6 +10,7 @@ import {
   RepositoryIcon,
   RepositoryWhiteIcon
 } from '../../assets/icon';
+import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
 
 const SidebarSuperAdmin = [
   {
@@ -52,6 +53,13 @@ const SidebarSuperAdmin = [
     activeIcon: <RepositoryWhiteIcon />,
     name: 'Repository',
     path: '/repository',
+    layout: '/super',
+  },
+  {
+    icon: <SupportAgentOutlinedIcon />,
+    activeIcon: <SupportAgentOutlinedIcon />,
+    name: 'Support',
+    path: '/support',
     layout: '/super',
   },
   {

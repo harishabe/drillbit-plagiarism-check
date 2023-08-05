@@ -1,0 +1,94 @@
+[
+    {
+        "field_type": "dropdown",
+        "id": "priority",
+        "name": "priority",
+        "label": "Priority *",
+        "required": "Enter Priority",
+        "validationMsg": "Enter Priority",
+        "options": [
+            {
+                "name": "High"
+            },
+            {
+                "name": "Medium"
+            },
+            {
+                "name": "Low"
+            }
+        ]
+    },
+
+    {
+        "field_type": "input",
+        "type": "text",
+        "multiline": true,
+        "rows": 3,
+        "id": "description",
+        "name": "description",
+        "label": "Description *",
+        "required": "Enter description",
+        "validationMsg": "Enter Description",
+        "minLength": 3
+    },
+    {
+        "field_type": "dropdown",
+        "id": "issueCategory",
+        "name": "issueCategory",
+        "label": "Issue Category *",
+        "required": "Enter Issue Category",
+        "validationMsg": "Enter Issue Category",
+        "options": [
+            {
+                "name": "Technical issue"
+            },
+            {
+                "name": "Billing inquiry"
+            },
+            {
+                "name": "Account access"
+            },
+            {
+                "name": "General inquiry"
+            },
+            {
+                "name": "Feature request"
+            },
+            {
+                "name": "Product feedback"
+            }
+        ]
+    },
+
+    {
+        "field_type": "dropdown",
+        "id": "issueType",
+        "name": "issueType",
+        "label": "Issue Type *",
+        "required": "Enter Issue Type",
+        "validationMsg": "Enter Issue Type",
+        "options": [
+            {
+                "name": "General inquiry"
+            },
+            {
+                "name": "Feature request"
+            },
+            {
+                "name": "Product feedback"
+            }
+        ]
+    },
+
+    {
+        "field_type": "file",
+        "id": "file",
+        "name": "file"
+    },
+
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Create Ticket"
+    }
+]

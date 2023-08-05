@@ -1,25 +1,33 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
+import { useForm } from "react-hook-form";
+import FormJson from '../../constant/form/ticket-system-form.json';
+import { FormComponent } from '../../components';
 import Hidden from '@mui/material/Hidden';
 import Avatar from '@mui/material/Avatar';
 import { styled } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Paper from '@mui/material/Paper';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
-import { Button, Skeleton, Tooltip, Grid, Typography } from '@mui/material';
-import ListItemText from '@mui/material/ListItemText';
+import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
+import MuiAppBar from '@mui/material/AppBar'
+import {
+    Divider,
+    IconButton,
+    Box,
+    Toolbar,
+    Menu,
+    MenuItem,
+    Button,
+    Skeleton,
+    Tooltip,
+    Grid,
+    Typography,
+    ListItemText,
+    ListItemIcon,
+} from '@mui/material';
 import {
     ToggleBarIcon,
     DownArrowIcon,
@@ -100,19 +108,23 @@ const NavBar = ({
     open,
     handleDrawerOpen
 }) => {
+    const { handleSubmit, control, reset } = useForm({
+        mode: 'all',
+    });
     const classes = useStyles();
-    const [subMenuanchorEl, setsubMenuAnchorEl] = React.useState(null);
+    const [subMenuanchorEl, setsubMenuAnchorEl] = useState(null);
+    const [showTicketModal, setShowTicketModal] = useState(false);
     const subMenuopen = Boolean(subMenuanchorEl);
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const openProfile = Boolean(anchorEl);
     const router = useRouter();
-    const [name, setName] = React.useState('');
-    const [role, setRole] = React.useState('');
-    const [profileRole, setProfileRole] = React.useState('');
-    const [switchRole, setSwitchRole] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [path, setPath] = React.useState('');
-    const [Sso, setSso] = React.useState(false);
+    const [name, setName] = useState('');
+    const [role, setRole] = useState('');
+    const [profileRole, setProfileRole] = useState('');
+    const [switchRole, setSwitchRole] = useState('');
+    const [email, setEmail] = useState('');
+    const [path, setPath] = useState('');
+    const [Sso, setSso] = useState(false);
 
     const handleProfileClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -186,7 +198,7 @@ const NavBar = ({
         }
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         let userName = getItemSessionStorage('name');
         let userRole = getItemSessionStorage('role');
         let email = getItemSessionStorage('email');
@@ -247,6 +259,29 @@ const NavBar = ({
         }
     }, [, router, switchRole]);
 
+    const handleTicketModalClose = () => {
+        setShowTicketModal(false);
+        reset();
+    };
+
+    const onSubmit = (data) => {
+        console.log('data', data)
+        const formData = new FormData();
+        formData.append("priority", data?.priority?.name);
+        formData.append("description", data.description);
+        formData.append("issueCategory", data?.issueCategory?.name);
+        formData.append("issueType", data?.issueType?.name);
+        formData.append("customerContact", data.customerContact);
+        formData.append("file", data?.file !== undefined && data?.file[0]);
+
+        setShowTicketModal(false);
+        reset();
+    };
+
+    const handleSupportClick = () => {
+        setShowTicketModal(true)
+    }
+
     return (
         <>
             <Hidden mdDown implementation="css">
@@ -272,6 +307,16 @@ const NavBar = ({
                                 </Box>
                                 <Box sx={ { flexGrow: 1 } } />
                                 <Box sx={ { display: { xs: 'none', md: 'flex' } } }>
+                                    { role !== Role?.super &&
+                                        <Tooltip title='Technical support' arrow>
+                                            <IconButton
+                                                onClick={ handleSupportClick }
+                                                sx={ { marginRight: '10px' } }
+                                            >
+                                                <SupportAgentOutlinedIcon fontSize='medium' />
+                                            </IconButton>
+                                        </Tooltip>
+                                    }
                                     <Divider orientation="vertical" flexItem />
                                     <div style={ { display: 'block', marginLeft: '15px', marginRight: '15px' } }>
                                         <div style={ { fontSize: '16px', fontWeight: 400, lineHeight: '24px', maxWidth: '128px' } }>
@@ -525,6 +570,30 @@ const NavBar = ({
                         }
                         </Grid>
 
+                </DialogModal>
+            }
+            {
+                showTicketModal &&
+                <DialogModal
+                    headingTitle={ "Ticket Management System" }
+                    isOpen={ showTicketModal }
+                    fullWidth="sm"
+                    maxWidth="sm"
+                    handleClose={ handleTicketModalClose }
+                >
+                    <form onSubmit={ handleSubmit(onSubmit) }>
+                        <Grid container>
+                            { FormJson?.map((field, i) => (
+                                <Grid key={ field?.name } item md={ 12 } >
+                                    <FormComponent
+                                        key={ i }
+                                        field={ field }
+                                        control={ control }
+                                    />
+                                </Grid>
+                            )) }
+                        </Grid>
+                    </form>
                 </DialogModal>
             }
         </>

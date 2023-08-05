@@ -16,6 +16,7 @@ export { default as ListView2 } from './list/ListView2';
 export { default as RecentSubmissionTable } from './table/RecentSubmissionTable';
 export { default as MyRecentSubmissionTable } from './table/MyRecentSubmissionTable';
 export { default as CommonTable } from './table/CommonTable';
+export { default as TicketTable } from './table/TicketTable';
 export { default as FormComponent } from './form/FormComponent';
 export { default as PieChart } from './chart/PieChart';
 export { default as PieChartVariant } from './chart/PieChartVariant2';
