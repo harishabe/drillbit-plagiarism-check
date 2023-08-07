@@ -58,8 +58,8 @@ const SidebarSuperAdmin = [
   {
     icon: <SupportAgentOutlinedIcon />,
     activeIcon: <SupportAgentOutlinedIcon />,
-    name: 'Support',
-    path: '/support',
+    name: 'Ticket',
+    path: '/ticket',
     layout: '/super',
   },
   {

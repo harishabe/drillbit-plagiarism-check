@@ -31,6 +31,7 @@
         "validationMsg": "Enter Description",
         "minLength": 3
     },
+
     {
         "field_type": "dropdown",
         "id": "issueCategory",
@@ -78,6 +79,16 @@
                 "name": "Product feedback"
             }
         ]
+    },
+
+    {
+        "field_type": "inputNumber",
+        "type": "number",
+        "id": "contact",
+        "name": "contact",
+        "label": "Customer contact details *",
+        "required": "Enter Customer contact details",
+        "validationMsg": "Enter Customer contact details"
     },
 
     {

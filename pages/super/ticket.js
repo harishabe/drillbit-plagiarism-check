@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SuperAdmin from './../../layouts/SuperAdmin';
+import SuperAdmin from '../../layouts/SuperAdmin';
 import { TicketTable, BreadCrumb } from '../../components';
 import { Box, Grid } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
@@ -8,6 +8,7 @@ const columns = [
     { id: 'ticket_id', label: 'ID', maxWidth: 90 },
     { id: 'name', label: 'Name', maxWidth: 120 },
     { id: 'username', label: 'Email', maxWidth: 150 },
+    { id: 'role', label: 'Role', maxWidth: 150 },
     { id: 'contact', label: 'Contact number', maxWidth: 105 },
     { id: 'location', label: 'Location', maxWidth: 105 },
     { id: 'description', label: 'Description', maxWidth: 150 },
@@ -19,10 +20,10 @@ const columns = [
     { id: 'action', label: 'Actions', maxWidth: 100 },
 ];
 
-function createData(ticket_id, name, username, contact, location, description, attachment, raised_date, status, resolutions, resolved_date, action
+function createData(ticket_id, name, username, role, contact, location, description, attachment, raised_date, status, resolutions, resolved_date, action
 ) {
     return {
-        ticket_id, name, username, contact, location, description, attachment, raised_date, status, resolutions, resolved_date, action
+        ticket_id, name, username, role, contact, location, description, attachment, raised_date, status, resolutions, resolved_date, action
     };
 }
 
@@ -33,7 +34,7 @@ const SuperAdminBreadCrumb = [
         active: false,
     },
     {
-        name: 'Support',
+        name: 'Ticket',
         link: '',
         active: true,
     },
@@ -43,6 +44,7 @@ const Data = [{
     'ticket_id': '132461',
     'name': 'Akshay',
     'username': 'gowda.akshay27@gmail.com',
+    'role': 'Admin',
     'contact': '7624803666',
     'location': 'India',
     'description': 'Facing some issue',
@@ -56,6 +58,7 @@ const Data = [{
     'ticket_id': '132461',
     'name': 'Akshay',
     'username': 'gowda.akshay27@gmail.com',
+    'role': 'Admin',
     'contact': '7624803666',
     'location': 'India',
     'description': 'Facing some issue',
@@ -66,7 +69,7 @@ const Data = [{
     'resolved_date': '29-06-2023 12:42:02',
 }]
 
-const Support = () => {
+const Ticket = () => {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
@@ -114,6 +117,6 @@ const Support = () => {
     );
 };
 
-Support.layout = SuperAdmin;
+Ticket.layout = SuperAdmin;
 
-export default Support;
+export default Ticket;
