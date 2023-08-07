@@ -5,11 +5,11 @@ import { Box, Grid } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 
 const columns = [
-    { id: 'ticket_id', label: 'ID', maxWidth: 90 },
-    { id: 'name', label: 'Name', maxWidth: 120 },
+    { id: 'ticket_id', label: 'Ticket ID', maxWidth: 90 },
+    { id: 'name', label: 'Customer name', maxWidth: 120 },
     { id: 'username', label: 'Email', maxWidth: 150 },
     { id: 'role', label: 'Role', maxWidth: 150 },
-    { id: 'contact', label: 'Contact number', maxWidth: 105 },
+    { id: 'contact', label: 'Contact details', maxWidth: 105 },
     { id: 'location', label: 'Location', maxWidth: 105 },
     { id: 'description', label: 'Description', maxWidth: 150 },
     { id: 'attachment', label: 'Attachment', maxWidth: 150 },
