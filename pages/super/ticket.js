@@ -81,6 +81,7 @@ const Ticket = () => {
                     data.ticket_id,
                     data.name,
                     data.username,
+                    data.role,
                     data.contact,
                     data.location,
                     data.description,
