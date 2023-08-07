@@ -94,7 +94,8 @@
     {
         "field_type": "file",
         "id": "file",
-        "name": "file"
+        "name": "file",
+        "info": "Supported files : png, jpeg, jpg"
     },
 
     {
