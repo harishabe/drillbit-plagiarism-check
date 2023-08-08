@@ -20,19 +20,6 @@
     },
 
     {
-        "field_type": "input",
-        "type": "text",
-        "multiline": true,
-        "rows": 3,
-        "id": "description",
-        "name": "description",
-        "label": "Description *",
-        "required": "Enter description",
-        "validationMsg": "Enter Description",
-        "minLength": 3
-    },
-
-    {
         "field_type": "dropdown",
         "id": "issueCategory",
         "name": "issueCategory",
@@ -79,6 +66,19 @@
                 "name": "Product feedback"
             }
         ]
+    },
+
+    {
+        "field_type": "input",
+        "type": "text",
+        "multiline": true,
+        "rows": 3,
+        "id": "description",
+        "name": "description",
+        "label": "Description *",
+        "required": "Enter description",
+        "validationMsg": "Enter Description",
+        "minLength": 3
     },
 
     {

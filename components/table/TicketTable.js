@@ -27,9 +27,6 @@ const useStyles = makeStyles(() => ({
     padding: {
         padding: '0 0 4px 4px'
     },
-    customTableContainer: {
-        overflowX: 'initial'
-    },
     customArrowContainer: {
         marginTop: '14px'
     }
@@ -57,8 +54,11 @@ const TicketTable = ({
 
     return (
         <Card>
-            <CardContent style={ { padding: '15px 0px' } }>
-                <TableContainer component={ Paper } classes={ { root: classes.customTableContainer } }>
+            <CardContent style={ { padding: '15px 0px', maxWidth: '100%' } }>
+                <TableContainer component={ Paper } style={ {
+                    width: '81vw',
+                    overflowX: 'auto'
+                } }>
                     <Table stickyHeader>
                         <TableHead>
                             <TableRow>
@@ -145,6 +145,7 @@ const TicketTable = ({
                         { tableData?.length === 0 && !isLoading && <ErrorBlock message="No data found" /> }
                     </>
                 </TableContainer>
+
             </CardContent>
         </Card>
 

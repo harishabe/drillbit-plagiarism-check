@@ -175,7 +175,11 @@ const SideBar = ({ open }) => {
             return true;
         } else if (router.pathname === '/supplier/profile/accountinfo') {
             return false;
+        } else if (router.pathname === '/supplier/profile/ticket') {
+            return false;
         } else if (router.pathname === '/consortium/profile/accountinfo') {
+            return false;
+        } else if (router.pathname === '/consortium/profile/ticket') {
             return false;
         } else if (router.pathname === '/supplier/profile/changepassword') {
             return false;

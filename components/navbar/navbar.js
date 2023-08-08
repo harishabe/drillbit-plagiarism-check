@@ -12,6 +12,7 @@ import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
 import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import MuiAppBar from '@mui/material/AppBar'
 import {
     Divider,
@@ -311,7 +312,8 @@ const NavBar = ({
                                         <Tooltip title='Technical support' arrow>
                                             <IconButton
                                                 onClick={ handleSupportClick }
-                                                sx={ { marginRight: '10px' } }
+                                                sx={ { marginRight: '15px' } }
+                                                size='large'
                                             >
                                                 <SupportAgentOutlinedIcon fontSize='medium' />
                                             </IconButton>
@@ -381,7 +383,7 @@ const NavBar = ({
                 transformOrigin={ { horizontal: 'right', vertical: 'top' } }
                 anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
             >
-                <MenuItem className={ classes.profileMenuItem }>
+                <MenuItem style={ { paddingTop: '0px', paddingBottom: '0px', width: 328, boxShadow: 'none', maxWidth: '100%', background: '#fff' } }>
                     <Avatar alt={ name } style={ {
                         width: '56px',
                         height: '56px',
@@ -451,6 +453,25 @@ const NavBar = ({
                     <ListItemText className={ classes.listItemText } primary="Account info" secondary="Account details" />
                 </MenuItem>
                 <Divider className={ classes.divider } />
+
+                { role !== Role?.super &&
+                    <>
+                        <MenuItem className={ classes.menuItem } onClick={ () => [router.push(`${path}/profile/ticket`), setAnchorEl(null)] }>
+                            <Avatar alt={ name } style={ {
+                                width: '41px',
+                                height: '41px',
+                                background: '#84D8CC',
+                                color: '#fff',
+                                marginLeft: '0px',
+                                marginRight: '0px'
+                            } }>
+                                <ArticleOutlinedIcon fontSize='small' />
+                            </Avatar>
+                            <ListItemText className={ classes.listItemText } primary="Ticket history" secondary="View all tickets" />
+                        </MenuItem>
+                        <Divider className={ classes.divider } />
+                    </>
+                }
 
                 { role !== Role?.supplier && role !== Role?.consortium &&
                     <>
