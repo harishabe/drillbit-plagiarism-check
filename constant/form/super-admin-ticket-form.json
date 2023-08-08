@@ -1,0 +1,25 @@
+[
+    {
+        "field_type": "input",
+        "type": "text",
+        "multiline": true,
+        "rows": 4,
+        "id": "resolution",
+        "name": "resolution",
+        "label": "Resolution *",
+        "required": "Enter Resolution",
+        "validationMsg": "Enter Resolution",
+        "minLength": 3
+    },
+    {
+        "field_type": "file",
+        "id": "file",
+        "name": "file",
+        "info": "Supported files : png, jpeg, jpg"
+    },
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Submit"
+    }
+]
