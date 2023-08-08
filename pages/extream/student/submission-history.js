@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router';
-import { Tooltip } from '@mui/material';
-import { IconButton } from '@mui/material';
-import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import {
     CommonTable,
     CreateDrawer,
@@ -26,22 +23,11 @@ import { formatDate, windowOpen, getItemSessionStorage } from '../../../utils/Re
 import { PaginationContainer } from '../../../style/index';
 import { SUBMISSION_DELAY } from '../../../constant/data/Constant';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
-
 const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
     right:30px;
     z-index: 999;
-`;
-
-const DownloadField = styled.div`
-    position:absolute;
-    top: 260px;
-    right:20px;
-`;
-
-const DownloadButton = styled.div`
-    margin-top:-5px;
 `;
 
 function createData(original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, alert_msg, repository_status, flag) {
@@ -143,19 +129,6 @@ const SubmissionHistory = ({
 
     return (
         <>
-            <DownloadField>
-                <DownloadButton>
-                    <Tooltip title="Refresh" arrow>
-                        <IconButton
-                            aria-label="download-file"
-                            size="large"
-                            onClick={handleRefresh}
-                        >
-                            <RefreshOutlinedIcon />
-                        </IconButton>
-                    </Tooltip>
-                </DownloadButton>
-            </DownloadField>
             { rows.length > 0 ?
                 <CommonTable
                     isCheckbox={ false }
