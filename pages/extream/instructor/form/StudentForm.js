@@ -6,7 +6,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateStudent, EditStudent } from '../../../../redux/action/instructor/InstructorAction';
 import { SuperCreateStudent, SuperEditStudent } from '../../../../redux/action/super/SuperAdminAction';
-import { AddImageIcon } from '../../../../assets/icon';
+import { AddImageIcon, EditClassAndStudentIcon } from '../../../../assets/icon';
 import FormJson from '../../../../constant/form/instructor-student-form.json';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 import { BASE_URL_SUPER } from '../../../../utils/BaseUrl';
@@ -128,7 +128,7 @@ const StudentForm = ({
     return (
         <>
             <div style={ { textAlign: 'center' } }>
-                <AddImageIcon />
+                { editData ? <EditClassAndStudentIcon /> : <AddImageIcon /> }
             </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>

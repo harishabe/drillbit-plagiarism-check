@@ -5,7 +5,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateInstructorData, EditData } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/instructor-form.json';
-import { AddImageIcon } from '../../../../assets/icon';
+import { AddImageIcon, EditClassAndStudentIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import END_POINTS from '../../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
@@ -428,7 +428,7 @@ const InstructorForm = ({
     return (
         <>
             <div style={ { textAlign: 'center' } }>
-                <AddImageIcon />
+                { editData ? <EditClassAndStudentIcon /> : <AddImageIcon /> }
             </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>

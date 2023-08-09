@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
-import { AddImageIcon } from '../../../../assets/icon';
+import { CreateEditFolderIcon } from '../../../../assets/icon';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import MuiToggleButton from '@mui/material/ToggleButton';
@@ -293,7 +293,7 @@ const MyFoldersForms = ({
     return (
         <>
             <div style={{ textAlign: 'center' }}>
-                <AddImageIcon />
+                <CreateEditFolderIcon />
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <LabelContainer>
