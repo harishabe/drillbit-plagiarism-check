@@ -51,14 +51,6 @@ const useStyles = makeStyles(() => ({
     listItemText: {
         padding: '5px 15px'
     },
-    profileMenuItem: {
-        paddingTop: '0px',
-        paddingBottom: '0px',
-        width: 328,
-        boxShadow: 'none',
-        maxWidth: '100%',
-        background: '#fff'
-    },
     ssoLogout: {
         paddingTop: '0px',
         paddingBottom: '0px',
@@ -336,7 +328,14 @@ const NavBar = ({
                 transformOrigin={ { horizontal: 'right', vertical: 'top' } }
                 anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
             >
-                <MenuItem className={ classes.profileMenuItem }>
+                <MenuItem style={ {
+                    paddingTop: '0px',
+                    paddingBottom: '0px',
+                    width: 328,
+                    boxShadow: 'none',
+                    maxWidth: '100%',
+                    backgroundColor: '#fff'
+                } }>
                     <Avatar alt={ name } style={ {
                         width: '56px',
                         height: '56px',

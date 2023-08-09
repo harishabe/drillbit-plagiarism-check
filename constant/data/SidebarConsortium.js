@@ -4,6 +4,13 @@ import {
     ClassIcon,
     ClassWhiteIcon
 } from '../../assets/icon';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import styled from 'styled-components';
+
+const StyledCreditCardOutlinedIcon = styled(CreditCardOutlinedIcon)(() => ({
+    fontSize: '22px',
+    margin: '0px'
+}));
 
 const SidebarConsortium = [
     {
@@ -21,8 +28,8 @@ const SidebarConsortium = [
         "layout": "/consortium",
     },
     {
-        "icon": <ClassIcon />,
-        "activeIcon": <ClassWhiteIcon />,
+        "icon": <StyledCreditCardOutlinedIcon />,
+        "activeIcon": <StyledCreditCardOutlinedIcon />,
         "name": "Pro",
         "path": "/pro",
         "layout": "/consortium",

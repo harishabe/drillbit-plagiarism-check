@@ -233,7 +233,7 @@ const ExtremeForm = ({
                 'adminEmail': editData.email,
                 'designation': editData.designation,
                 'phone': editData.phone,
-                'startDate': convertDate(editData.created_date),
+                'startDate': convertDate(editData.start_date),
                 'endDate': convertDate(editData.expiry_date),
                 'instructors': editData.instructors,
                 'students': editData.students,
