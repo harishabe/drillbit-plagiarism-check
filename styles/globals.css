@@ -15,30 +15,13 @@ a {
 }
 
 
-@font-face {
-  font-family: 'DM Sans';
-  font-style: normal;
-  src: url('../font/DM_Sans/DMSans-Black.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'DM Sans';
-  font-style: normal;
-  src: url('../font/DM_Sans/DMSans-BlackItalic.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'DM Sans';
-  font-style: normal;
-  src: url('../font/DM_Sans/DMSans-ExtraLight.ttf') format('truetype');
-}
-
-
+/** font **/
 
 @font-face {
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 100;
+  font-display: swap;
   src: url('../font/DM_Sans/DMSans-Thin.ttf') format('truetype');
 }
 
@@ -46,20 +29,40 @@ a {
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 200;
-  src: url('../font/DM_Sans/DMSans-Light.ttf') format('truetype');
+  font-display: swap;
+  src: url('../font/DM_Sans/DMSans-ExtraLight.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 300;
+  font-display: swap;
+  src: url('../font/DM_Sans/DMSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
   src: url('../font/DM_Sans/DMSans-Regular.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DM Sans';
   font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../font/DM_Sans/DMSans-Medium.ttf') format('truetype');
+}
+
+/** Sub title **/
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
   font-weight: 600;
+  font-display: swap;
   src: url('../font/DM_Sans/DMSans-SemiBold.ttf') format('truetype');
 }
 
@@ -67,22 +70,36 @@ a {
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 700;
-  src: url('../font/DM_Sans/DMSans-Medium.ttf') format('truetype');
+  font-display: swap;
+  src: url('../font/DM_Sans/DMSans-Bold.ttf') format('truetype');
 }
 
+/** Sub heading **/
 @font-face {
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 800;
+  font-display: swap;
   src: url('../font/DM_Sans/DMSans-ExtraBold.ttf') format('truetype');
+}
+
+/** Main heading **/
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../font/DM_Sans/DMSans-Black.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DM Sans';
   font-style: normal;
-  font-weight: 900;
-  src: url('../font/DM_Sans/DMSans-Bold.ttf') format('truetype');
+  font-weight: 1000;
+  font-display: swap;
+  src: url('../font/DM_Sans/DMSans-White.woff2') format('woff2');
 }
+
 
 
 .body-page-transition {
