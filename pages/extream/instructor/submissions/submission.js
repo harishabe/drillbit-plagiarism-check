@@ -5,6 +5,7 @@ import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import HistoryIcon from '@mui/icons-material/History';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import PageChange from '../../../../components/loader/PageChange';
 import {
@@ -17,9 +18,7 @@ import {
     CardView,
 } from '../../../../components';
 import {
-    DeleteIcon,
     DeleteWarningIcon,
-    DownloadIcon,
     NonEnglishUploadIcon,
     EnglishUploadIcon
 } from '../../../../assets/icon';
@@ -63,8 +62,8 @@ const columns = [
     { id: 'grammar_url', label: 'Grammar', minWidth: 100 },
     { id: 'percent', label: 'Similarity', maxWidth: 120 },
     { id: 'paper_id', label: 'Paper ID', maxWidth: 70 },
-    { id: 'date_up', label: 'Submission Date', maxWidth: 80 },
-    { id: 'action', label: 'Action', maxWidth: 200 },
+    { id: 'date_up', label: 'Submission Date', maxWidth: 100 },
+    { id: 'action', label: 'Action', maxWidth: 110 },
 ];
 
 function createData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status, user_id, flag) {
@@ -94,8 +93,8 @@ const SearchField = styled.div`
 
 const DownloadField = styled.div`
     position:absolute;
-    top: 125px;
-    right:225px;
+    top: 123px;
+    right:205px;
 `;
 
 const DownloadButton = styled.div`
@@ -201,15 +200,15 @@ const Submission = ({
                 submission.paper_id,
                 formatDate(submission.date_up),
                 [
-                    { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                    { 'component': <HistoryIcon />, 'type': 'history', 'title': 'Submission History' },
+                    { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
+                    { 'component': <HistoryIcon fontSize='small' />, 'type': 'history', 'title': 'Submission History' },
                     (submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) ?
                         {
-                            'component': <FileDownloadOutlinedIcon />,
+                            'component': <FileDownloadOutlinedIcon fontSize='small' />,
                             'title': 'Similarity report not ready'
                         } :
                         {
-                            'component': <FileDownloadOutlinedIcon />,
+                            'component': <FileDownloadOutlinedIcon fontSize='small' />,
                             'type': 'download',
                             'title': 'Similarity report download'
                         }
@@ -484,7 +483,7 @@ const Submission = ({
                                 size="large"
                                 onClick={ handleRefresh }
                             >
-                                <RefreshOutlinedIcon />
+                                <RefreshOutlinedIcon fontSize='medium' />
                             </IconButton>
                         </Tooltip>
                         { submissionData?.length > 0 &&
@@ -498,7 +497,7 @@ const Submission = ({
                                     aria-label="download-file"
                                     size="large"
                                     onClick={ handleDownload }>
-                                    <DownloadIcon />
+                                    <FileDownloadOutlinedIcon fontSize='medium' />
                                 </IconButton>
                             </Tooltip>
                         }
@@ -593,12 +592,12 @@ const Submission = ({
             { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                 <Tooltip title='Delete' arrow>
                     <IconButton onClick={ deleteAllSubmission }>
-                        <DeleteIcon />
+                        <DeleteOutlineOutlinedIcon fontSize='small' />
                     </IconButton>
                 </Tooltip>
                 <Tooltip title='Save to repositary' arrow>
                     <IconButton onClick={ saveAllSubmission }>
-                        <SaveOutlinedIcon />
+                        <SaveOutlinedIcon fontSize='small' />
                     </IconButton>
                 </Tooltip>
             </DeleteAllButton> }

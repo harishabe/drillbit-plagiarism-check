@@ -7,6 +7,8 @@ import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
 import { TextField, Pagination, IconButton } from '@mui/material';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ProAdmin from './../../../layouts/ProAdmin';
 import {
     CommonTable,
@@ -18,8 +20,6 @@ import {
     DialogModal,
 } from '../../../components';
 import {
-    EditIcon,
-    DeleteIcon,
     StatsIcon,
     DeleteWarningIcon,
     AddMultipleIcon,
@@ -43,11 +43,11 @@ import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 140 },
-    { id: 'username', label: 'Email', maxWidth: 180 },
-    { id: 'created_date', label: 'Creation Date', maxWidth: 180 },
-    { id: 'status', label: 'Status', maxWidth: 180 },
-    { id: 'stats', label: 'Statistics', maxWidth: 180 },
-    { id: 'action', label: 'Actions', maxWidth: 180 }
+    { id: 'username', label: 'Email', maxWidth: 230 },
+    { id: 'created_date', label: 'Creation Date', maxWidth: 130 },
+    { id: 'status', label: 'Status', maxWidth: 75 },
+    { id: 'stats', label: 'Statistics', maxWidth: 70 },
+    { id: 'action', label: 'Actions', maxWidth: 120 }
 ];
 
 function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar, expired) {
@@ -121,9 +121,9 @@ const Users = ({
                     instructor.total_grammar,
                     <StatusDot color={ (instructor.status === 'active') || (instructor.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
-                    instructor.role === Role.proAdmin ? ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }]) :
-                        ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                            { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
+                    instructor.role === Role.proAdmin ? ([{ 'component': <EditOutlinedIcon fontSize="small" />, 'type': 'edit', 'title': 'Edit' }]) :
+                        ([{ 'component': <EditOutlinedIcon fontSize="small" />, 'type': 'edit', 'title': 'Edit' },
+                            { 'component': <DeleteOutlineOutlinedIcon fontSize="small" />, 'type': 'delete', 'title': 'Delete' },
                             {
                                 'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" disabled={ instructor.expired === 1 } />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
@@ -406,10 +406,11 @@ const Users = ({
             </Box>
 
             <>
-                { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
+                { _.find(rows, function (o) { return o.isSelected === true; }) &&
+                    <div>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={ deleteAllInstructor }>
-                            <DeleteIcon />
+                                <DeleteOutlineOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                 </div> }

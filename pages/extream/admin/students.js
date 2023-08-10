@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Box from '@mui/material/Box';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, TextField, Pagination, IconButton } from '@mui/material';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import {
     CommonTable,
     MainHeading,
@@ -13,10 +15,9 @@ import {
     BreadCrumb
 } from '../../../components';
 import Admin from '../../../layouts/Admin';
-import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../../assets/icon';
+import { StatsIcon, DeleteWarningIcon } from '../../../assets/icon';
 import {
     GetStudnetData,
-    // EditData, 
     DeleteStudentData
 } from '../../../redux/action/admin/AdminAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
@@ -31,11 +32,11 @@ import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 150 },
     { id: 'user_id', label: 'ID', maxWidth: 150 },
-    { id: 'username', label: 'Email', maxWidth: 150 },
-    { id: 'department', label: 'Department', maxWidth: 150 },
-    { id: 'section', label: 'Section', maxWidth: 150 },
-    { id: 'stats', label: 'Statistics', maxWidth: 150 },
-    { id: 'action', label: 'Actions', minWidth: 120 },
+    { id: 'username', label: 'Email', maxWidth: 200 },
+    { id: 'department', label: 'Department', maxWidth: 110 },
+    { id: 'section', label: 'Section', maxWidth: 110 },
+    { id: 'stats', label: 'Statistics', maxWidth: 70 },
+    { id: 'action', label: 'Actions', maxWidth: 80 },
 ];
 
 function createData(id, name, user_id, username, department, section, stats, action) {
@@ -59,7 +60,6 @@ const Students = ({
     GetStudnetData,
     studentData,
     pageDetails,
-    // EditData,
     DeleteStudentData,
     isLoading
 }) => {
@@ -95,7 +95,7 @@ const Students = ({
                     student.department,
                     student.section,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
-                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }, { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
+                    [{ 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' }, { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -296,10 +296,11 @@ const Students = ({
             </Box>
 
             <>
-                {_.find(rows, function (o) { return o.isSelected === true; }) && <div style={{ marginLeft: '10px' }}>
+                { _.find(rows, function (o) { return o.isSelected === true; }) &&
+                    <div>
                     <Tooltip title='Delete' arrow>
                         <IconButton onClick={deleteAllInstructor}>
-                            <DeleteIcon />
+                                <DeleteOutlineOutlinedIcon fontSize='small' />
                         </IconButton>
                     </Tooltip>
                 </div>}
@@ -343,7 +344,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         GetStudnetData: (paginationPayload) => dispatch(GetStudnetData(paginationPayload)),
-        // EditData: (data) => dispatch(EditData(data)),
         DeleteStudentData: (url) => dispatch(DeleteStudentData(url))
     };
 };
