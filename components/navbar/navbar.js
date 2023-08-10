@@ -37,7 +37,7 @@ import EllipsisText from '../ellipsis/EllipsisText';
 import SubTitle1 from '../typography/SubTitle1';
 import DialogModal from '../dialog/DialogModal';
 
-const drawerWidth = 200;
+const drawerWidth = 165;
 
 const useStyles = makeStyles(() => ({
     divider: {
