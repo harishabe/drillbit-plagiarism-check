@@ -54,12 +54,12 @@ const ToggleButton = styled(MuiToggleButton)({
 });
 
 const columns = [
-    { id: 'class_id', label: 'Class ID', maxWidth: 180 },
-    { id: 'class_name', label: 'Class name', maxWidth: 200 },
-    { id: 'created_date', label: 'Start date', maxWidth: 180 },
-    { id: 'end_date', label: 'Expiry date', maxWidth: 180 },
-    { id: 'status', label: 'Status', maxWidth: 180 },
-    { id: 'action', label: 'Action', minWidth: 100 },
+    { id: 'class_id', label: 'Class ID', maxWidth: 80 },
+    { id: 'class_name', label: 'Class name', maxWidth: 340 },
+    { id: 'created_date', label: 'Start date', maxWidth: 140 },
+    { id: 'end_date', label: 'Expiry date', maxWidth: 140 },
+    { id: 'status', label: 'Status', maxWidth: 110 },
+    { id: 'action', label: 'Action', minWidth: 30 },
 ];
 
 function createData(class_id, class_name, created_date, end_date, status, action) {
@@ -134,7 +134,7 @@ const MyClasses = ({
                     <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
                     />,
                     [
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        { 'component': <ArrowForwardOutlinedIcon fontSize='small' />, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     classes.description
                 );

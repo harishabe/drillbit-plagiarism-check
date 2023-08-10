@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { TextField, Pagination } from '@mui/material';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useRouter } from 'next/router';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
@@ -16,7 +17,7 @@ import {
     Instructions,
     CardView
 } from './../../../components';
-import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
+import { DeleteWarningIcon } from '../../../assets/icon';
 import ProUser from '../../../layouts/ProUser';
 import {
     GetRepoList,
@@ -51,14 +52,14 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'paper_id', label: 'Paper ID', maxWidth: 140 },
+    { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
     { id: 'name', label: 'Name', maxWidth: 140 },
-    { id: 'mail_id', label: 'Email ID', maxWidth: 140 },
+    { id: 'mail_id', label: 'Email ID', maxWidth: 215 },
     { id: 'title', label: 'Title', maxWidth: 140 },
-    { id: 'repository_type', label: 'Type', maxWidth: 140 },
-    { id: 'lang1', label: 'Language', maxWidth: 140 },
-    { id: 'date_up', label: 'Added Date', maxWidth: 140 },
-    { id: 'action', label: 'Action', minWidth: 100 },
+    { id: 'repository_type', label: 'Type', maxWidth: 120 },
+    { id: 'lang1', label: 'Language', maxWidth: 120 },
+    { id: 'date_up', label: 'Added Date', maxWidth: 145 },
+    { id: 'action', label: 'Action', minWidth: 80 },
 ];
 
 function createData(paper_id, name, mail_id, title, repository_type, lang1, date_up, action) {
@@ -108,7 +109,7 @@ const Repository = ({
                     repo.repository_type,
                     repo.language,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
+                    [{ 'component': <DeleteOutlineOutlinedIcon fontSize="small" />, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
             arr.push(row);

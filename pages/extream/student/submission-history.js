@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import {
     CommonTable,
     CreateDrawer,
@@ -10,7 +11,6 @@ import {
     Instructions
 } from '../../../components';
 import {
-    MessageExclamatoryIcon,
     NonEnglishUploadIcon,
     EnglishUploadIcon
 } from '../../../assets/icon';
@@ -50,15 +50,15 @@ const SubmissionHistory = ({
     const [rows, setRows] = useState([]);
 
     const columns = [
-        { id: 'original_fn', label: 'Filename', isDownload: true, maxWidth: 120 },
-        { id: 'lang1', label: 'Language', maxWidth: 120 },
-        { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
-        { id: 'date_up', label: 'Date', maxWidth: 105 },
+        { id: 'original_fn', label: 'Filename', isDownload: true, maxWidth: 175 },
+        { id: 'lang1', label: 'Language', maxWidth: 90 },
+        { id: 'paper_id', label: 'Paper ID', maxWidth: 80 },
+        { id: 'date_up', label: 'Date', maxWidth: 135 },
         { id: 'grammar_url', label: 'Grammar', maxWidth: 125 },
         { id: 'percent', label: 'Similarity', maxWidth: 120 },
-        { id: 'score', label: 'Marks', maxWidth: 125 },
-        { id: 'status', label: 'Status', maxWidth: 125 },
-        { id: 'action', label: 'Feedback', maxWidth: 120 },
+        { id: 'score', label: 'Marks', maxWidth: 60 },
+        { id: 'status', label: 'Status', maxWidth: 65 },
+        { id: 'action', label: 'Feedback', maxWidth: 75 },
     ];
 
     useEffect(() => {
@@ -83,7 +83,7 @@ const SubmissionHistory = ({
                     submission.feedback?.marks,
                     submission.status,
                     [
-                        { 'component': <MessageExclamatoryIcon />, 'type': 'feedback', 'title': 'Feedback' },
+                        { 'component': <FeedbackOutlinedIcon fontSize='medium' />, 'type': 'feedback', 'title': 'Feedback' },
                     ],
                     submission.d_key,
                     submission.alert_msg,

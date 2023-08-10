@@ -11,6 +11,7 @@ import {
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { GetClassesData, ClearAssignment, ClearStudent } from '../../../redux/action/instructor/InstructorAction';
@@ -25,7 +26,6 @@ import {
 } from '../../../components';
 import MyClassesForm from './form/MyclassesForm';
 import MyClassFiles from './myclassfiles';
-import { DownloadIcon } from '../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
@@ -176,11 +176,11 @@ const MyClasses = ({
                         <Skeleton width={50} style={{ display: 'inline-block', marginRight: '10px', marginTop: '12px' }} />
                         : <Tooltip title="Download csv" arrow>
                             <IconButton
-                                color="primary"
+                                style={ { marginTop: '3px' } }
                                 aria-label="download-file"
                                 size="large"
                                 onClick={handleDownload}>
-                                <DownloadIcon />
+                                <FileDownloadOutlinedIcon fontSize='medium' />
                             </IconButton>
                         </Tooltip>
                     }
