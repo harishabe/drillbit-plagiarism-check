@@ -19,7 +19,6 @@ const InputButton = ({
         <Paper>
             <Box my={2}>
                 <StyledButton
-                    style={{ padding: '12px' }}
                     fullWidth
                     size="large"
                     margin="normal"
