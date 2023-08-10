@@ -256,13 +256,11 @@ const CardInfoView = ({
 
                     { isInstructorName &&
                         <Grid container sx={ { mt: 1.5 } }>
-                            <Grid>
+                            <Grid md={ 0.8 }>
                                 <InstructorPersonIcon />
                             </Grid>
-                            <Grid sx={ { ml: 1 } }>
-                                <SubTitle2
-                                    title={ item.instructorName }
-                                />
+                            <Grid md={ 10.6 } sx={ { ml: 1 } }>
+                                <EllipsisText value={ item.instructorName } variant={ 'body2' } />
                             </Grid>
                         </Grid>
                     }
