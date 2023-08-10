@@ -36,6 +36,16 @@ import { PROFILE_ROLE } from '../../constant/data/Constant';
 import EllipsisText from '../ellipsis/EllipsisText';
 import SubTitle1 from '../typography/SubTitle1';
 import DialogModal from '../dialog/DialogModal';
+import componentStyled from 'styled-components';
+
+const StyledMenuItem = componentStyled(MenuItem)(() => ({
+    paddingTop: '0px',
+    paddingBottom: '0px',
+    width: 328,
+    boxShadow: 'none',
+    maxWidth: '100%',
+    backgroundColor: '#fff !important'
+}));
 
 const drawerWidth = 200;
 
@@ -328,14 +338,7 @@ const NavBar = ({
                 transformOrigin={ { horizontal: 'right', vertical: 'top' } }
                 anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
             >
-                <MenuItem style={ {
-                    paddingTop: '0px',
-                    paddingBottom: '0px',
-                    width: 328,
-                    boxShadow: 'none',
-                    maxWidth: '100%',
-                    backgroundColor: '#fff'
-                } }>
+                <StyledMenuItem>
                     <Avatar alt={ name } style={ {
                         width: '56px',
                         height: '56px',
@@ -348,7 +351,7 @@ const NavBar = ({
                         primary={ <EllipsisText value={ name } /> }
                         secondary={ <EllipsisText value={ email } /> }
                     />
-                </MenuItem>
+                </StyledMenuItem>
                 <Divider className={ classes.divider } />
                 { (router.pathname.split('/')[1] === 'extream' && role === Role?.admin && ((getItemSessionStorage('switchRole') === null || getItemSessionStorage('switchRole') === 'admin') || (getItemSessionStorage('switchRole') === null || getItemSessionStorage('switchRole') === 'instructor'))) &&
                     <>
