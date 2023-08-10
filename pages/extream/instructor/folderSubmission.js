@@ -38,7 +38,15 @@ import {
     DeletefolderSubmissionData,
     SubmissionReportDownload
 } from '../../../redux/action/common/Submission/SubmissionAction';
-import { DeleteIcon, DeleteWarningIcon, DownloadIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
+import {
+    DeleteIcon,
+    DeleteWarningIcon,
+    DownloadIcon,
+    AddFromListIcon,
+    AddMultipleIcon,
+    DownloadWarningIcon,
+    RepositorySaveWarningIcon
+} from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
@@ -591,7 +599,7 @@ const folderSubmission = ({
                 {
                     showSaveIcon &&
                     <WarningDialog
-                        warningIcon={<DeleteWarningIcon />}
+                        warningIcon={ <RepositorySaveWarningIcon /> }
                         message={WARNING_MESSAGES.REPOSITORY}
                         handleYes={handleYesSaveWarning}
                         handleNo={handleCloseSaveWarning}
@@ -602,6 +610,7 @@ const folderSubmission = ({
                 {
                     showDownloadWarning &&
                     <WarningDialog
+                        warningIcon={ <DownloadWarningIcon /> }
                         message={WARNING_MESSAGES.DOWNLOAD}
                         handleYes={handleFileDownloadYesWarning}
                         handleNo={handleFileDownloadCloseWarning}
@@ -612,6 +621,7 @@ const folderSubmission = ({
                 {
                     showSubmissionReport &&
                     <WarningDialog
+                        warningIcon={ <DownloadWarningIcon /> }
                         message={ WARNING_MESSAGES.DOWNLOAD }
                         handleYes={ handleSubmissionDownloadYesWarning }
                         handleNo={ handleSubmissionDownloadCloseWarning }

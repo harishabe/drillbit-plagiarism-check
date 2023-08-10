@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { useForm, useWatch } from 'react-hook-form';
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
-import { AddImageIcon } from '../../../../assets/icon';
+import { CreateAssignmentIcon } from '../../../../assets/icon';
 import InputLabel from '@mui/material/InputLabel';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
@@ -730,7 +730,7 @@ const AssignmentForms = ({
     return (
         <div>
             <div style={ { textAlign: 'center' } }>
-                <AddImageIcon />
+                <CreateAssignmentIcon />
             </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <LabelContainer>
