@@ -139,7 +139,7 @@ const ReportForm = ({
                     formItem['options'] = reportType;
                 }
                 if (formItem.name === 'instructor') {
-                    reportData?.instructorList.unshift({ 'name': 'all', 'username': 'all', 'id': 'all' });
+                    reportData?.instructorList?.unshift({ 'name': 'all', 'username': 'all', 'id': 'all' });
                     reportData?.instructorList?.map((item) => {
                         userList.push({ 'name': item?.username, 'userName': item?.name, 'userId': item?.id });
                     });
