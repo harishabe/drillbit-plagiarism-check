@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button'
 import debouce from 'lodash.debounce';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
@@ -15,7 +16,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ProUser from './../../../layouts/ProUser';
-import { DeleteWarningIcon } from '../../../assets/icon';
+import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
 import {
     BreadCrumb,
     MainHeading,
@@ -58,6 +59,13 @@ const ToggleButton = styled(MuiToggleButton)({
     }
 });
 
+const StyledButtonIcon = styled(Button)({
+    padding:'4px 4px', 
+    minWidth: '2rem', 
+    color:'#666666', 
+    border:'1px solid #666666'
+})
+
 const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;
@@ -66,11 +74,11 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'ass_id', label: 'Folder ID', maxWidth: 83 },
+    { id: 'ass_id', label: 'Folder ID', maxWidth: 90 },
     { id: 'assignment_name', label: 'Folder name', maxWidth: 320 },
-    { id: 'created_date', label: 'Created date', maxWidth: 120 },
+    { id: 'created_date', label: 'Created date', maxWidth: 125 },
     { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 115 },
-    { id: 'action', label: 'Action', maxWidth: 100 },
+    { id: 'action', label: 'Action', maxWidth: 60 },
 ];
 
 function createData(ass_id, assignment_name, created_date, folder_no_of_submissions, action, ex_references, ex_quotes, small_sources, ex_phrases, db_studentpaper, db_publications, db_internet, institution_repository, phrases, grammar) {
@@ -185,9 +193,9 @@ const MyFolder = ({
                     formatDate(folder.created_date),
                     folder.no_of_submissions,
                     [
-                        { 'component': <EditOutlinedIcon fontSize="small" />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteOutlineOutlinedIcon fontSize="small" />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon fontSize="small" />, 'type': 'nextPath', 'title': 'Next' }
+                        { 'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit' },
+                        { 'component': <StyledButtonIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     folder.ex_references,
                     folder.ex_quotes,

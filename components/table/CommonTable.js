@@ -124,11 +124,11 @@ const CommonTable = ({
                                                         onClick={ ((e) => sortHandle(e, column)) }
                                                         IconComponent={
                                                             () =>
-                                                                <div style={ { marginTop: '2px' } }>
+                                                                <div style={ { padding:'7px 0px 0px 5px' } }>
                                                                     {
                                                                         (toggle && sortArrow === column.id) ?
-                                                                            <ArrowDownwardIcon style={ { fontSize: '18px' } } /> :
-                                                                            <ArrowUpwardIcon style={ { fontSize: '18px' } } />
+                                                                            <ArrowDownwardIcon style={ { fontSize: '1rem' } } /> :
+                                                                            <ArrowUpwardIcon style={ { fontSize: '1rem' } } />
                                                                     }
                                                                 </div>
                                                         }
@@ -164,12 +164,12 @@ const CommonTable = ({
                                                                         {
                                                                             (icon.type === 'lock' || icon.type === 'unlock') ?
                                                                                 <Tooltip title={ !icon.isDisabled ? icon.title : '' } arrow>
-                                                                                    <IconButton disabled={ icon.isDisabled } onClick={ (e) => handleAction(e, icon.type, row) } >{ icon.component }</IconButton>
+                                                                                    <span role="button" disabled={ icon.isDisabled } onClick={ (e) => handleAction(e, icon.type, row) } >{ icon.component }</span>
                                                                                 </Tooltip> :
                                                                                 <>
                                                                                     <Tooltip title={ icon.title } arrow>
-                                                                                        <IconButton onClick={ (e) => handleAction(e, icon.type, row) }>{ icon.component }
-                                                                                        </IconButton>
+                                                                                        <span role="button" style={{paddingLeft:'10px'}} onClick={ (e) => handleAction(e, icon.type, row) }>{ icon.component }
+                                                                                        </span>
                                                                                     </Tooltip>
                                                                                 </>
                                                                         }</>

@@ -18,7 +18,7 @@ const drillBitTheme = {
         root: {
           color: "#000",
           marginTop: "8px",
-          fontWeight:600
+          fontWeight: 600,
         },
       },
     },
@@ -42,8 +42,15 @@ const drillBitTheme = {
           letterSpacing: "1px",
           textTransform: "capitalize",
           padding: "8px 16px",
-          fontSize:'0.875rem',
-          fontWeight:300
+          fontSize: "0.875rem",
+          fontWeight: 300,
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          padding: "8px 12px",
         },
       },
     },

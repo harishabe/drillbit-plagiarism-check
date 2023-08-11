@@ -36,7 +36,6 @@ class EllipsisText extends Component {
                 <Typography
                     variant={ this.props.variant ? this.props.variant : 'h4' }
                     component="div"
-                    gutterBottom
                     ref={ this.textElement }
                     style={ { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' } }
                     onMouseEnter={ this.checkTextOverflow }
