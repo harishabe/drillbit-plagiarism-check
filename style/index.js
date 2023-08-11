@@ -46,7 +46,24 @@ export const StyledButtonIcon = styled(Button)({
     padding:'4px 4px', 
     minWidth: '2rem', 
     color:'#666666', 
-    border:'1px solid #666666'
+    border: '1px solid #666666',
+    ":hover": {
+        background: "#3672ff",
+        color: "#fff",
+        border: '1px solid #3672ff',
+    },
+})
+
+export const StyledButtonRedIcon = styled(Button)({
+    padding: '4px 4px',
+    minWidth: '2rem',
+    color: '#666666',
+    border: '1px solid #666666',
+    ":hover": {
+        background: "#e9596f",
+        color: "#fff",
+        border: '1px solid #e9596f',
+    },
 })
 
 export const AddButtonBottom = styled.div`

@@ -37,7 +37,7 @@ import { FOLDER_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
 import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
-import { StyledButtonIcon, AddButtonBottom } from './../../../style/index'
+import { StyledButtonIcon, AddButtonBottom, StyledButtonRedIcon } from './../../../style/index'
 
 const InstructorBreadCrumb = [
     {
@@ -180,7 +180,7 @@ const MyFolder = ({
                     folder.no_of_submissions,
                     [
                         { 'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <StyledButtonIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' },
                         { 'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     folder.ex_references,

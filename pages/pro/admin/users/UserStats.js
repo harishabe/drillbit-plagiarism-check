@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Skeleton } from '@mui/material';
 import { Grid, IconButton, Tooltip } from '@mui/material';
-import { DownloadIcon } from '../../../../assets/icon';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import {
     ColumnChart,
     PieChart,
     SubTitle,
     EllipsisText
 } from '../../../../components';
-
+import { makeStyles } from '@mui/styles';
 import {
     COLUMN_ADMIN_CHART_TYPE,
     COLUMN_ADMIN_CHART_COLOR,
@@ -29,6 +29,13 @@ import {
 } from '../../../../redux/action/admin/AdminAction';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_PRO, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
+import { StyledButtonIcon } from './../../../../style/index';
+
+const useStyles = makeStyles(() => ({
+    margin: {
+        marginLeft: '350px'
+    },
+}));
 
 const UserStats = ({
     userId,
@@ -39,7 +46,7 @@ const UserStats = ({
     isLoading,
     isLoadingCsvExport,
 }) => {
-
+    const classes = useStyles();
     const [submissionData, setSubmissionData] = useState([]);
 
     useEffect(() => {
@@ -75,9 +82,7 @@ const UserStats = ({
                         </Grid>
                         { isLoadingCsvExport ? <Skeleton width={ 150 } style={ { marginLeft: 'auto' } } /> :
                             <Tooltip title="Export to csv">
-                                <IconButton onClick={ handleExportCsv } style={ { marginLeft: 'auto' } }>
-                                    <DownloadIcon />
-                                </IconButton>
+                                <StyledButtonIcon className={ classes.margin } variant="outlined" size='small' onClick={ handleExportCsv }><FileDownloadOutlinedIcon /></StyledButtonIcon>
                             </Tooltip> }
                     </>
                 }
