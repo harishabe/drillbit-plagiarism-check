@@ -40,6 +40,7 @@ import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import { PaginationContainer } from '../../../style/index';
 import { Role } from '../../../constant/data';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
+import { StyledButtonIcon, AddButtonBottom, StyledButtonRedIcon } from './../../../style/index';
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 140 },
@@ -53,13 +54,6 @@ const columns = [
 function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar, expired) {
     return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar, expired };
 };
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
-`;
 
 const UserBreadCrumb = [
     {
@@ -120,10 +114,14 @@ const Users = ({
                     instructor.total_submissions,
                     instructor.total_grammar,
                     <StatusDot color={ (instructor.status === 'active') || (instructor.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
-                    [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
-                    instructor.role === Role.proAdmin ? ([{ 'component': <EditOutlinedIcon fontSize="small" />, 'type': 'edit', 'title': 'Edit' }]) :
-                        ([{ 'component': <EditOutlinedIcon fontSize="small" />, 'type': 'edit', 'title': 'Edit' },
-                            { 'component': <DeleteOutlineOutlinedIcon fontSize="small" />, 'type': 'delete', 'title': 'Delete' },
+                    [{
+                        'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats'
+                    }],
+                    instructor.role === Role.proAdmin ? ([{
+                        'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                    }]) :
+                        ([{ 'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit' },
+                            { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' },
                             {
                                 'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" disabled={ instructor.expired === 1 } />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
@@ -409,9 +407,7 @@ const Users = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) &&
                     <div>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllInstructor }>
-                                <DeleteOutlineOutlinedIcon fontSize='small' />
-                        </IconButton>
+                            <StyledButtonIcon onClick={ deleteAllInstructor } variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonIcon>
                     </Tooltip>
                 </div> }
                 <CommonTable

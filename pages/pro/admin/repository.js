@@ -29,6 +29,7 @@ import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import { formatDate } from '../../../utils/RegExp';
 import { PaginationContainer } from '../../../style/index';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
+import { AddButtonBottom, StyledButtonRedIcon } from './../../../style/index';
 
 const AdminBreadCrumb = [
     {
@@ -42,13 +43,6 @@ const AdminBreadCrumb = [
         active: true,
     },
 ];
-
-const AddButtonBottom = styled.div`
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 9999;
-`;
 
 const columns = [
     { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
@@ -108,7 +102,9 @@ const Repository = ({
                     repo.repository_type,
                     repo.language,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' }]
+                    [{
+                        'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                    }]
                 );
             row['isSelected'] = false;
             arr.push(row);

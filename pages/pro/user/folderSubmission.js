@@ -52,6 +52,7 @@ import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../constant/data/Constant';
 import PageChange from '../../../components/loader/PageChange';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
+import { StyledButtonIcon, AddButtonBottom, StyledButtonRedIcon } from './../../../style/index';
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 100 },
@@ -61,8 +62,8 @@ const columns = [
     { id: 'grammar_url', label: 'Grammar', maxWidth: 100 },
     { id: 'percent', label: 'Similarity', maxWidth: 110 },
     { id: 'paper_id', label: 'Paper ID', maxWidth: 80 },
-    { id: 'date_up', label: 'Submission Date', maxWidth: 120 },
-    { id: 'action', label: 'Action', maxWidth: 85 },
+    { id: 'date_up', label: 'Submission Date', maxWidth: 100 },
+    { id: 'action', label: 'Action', maxWidth: 105 },
 ];
 
 function createData(id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, language, flag) {
@@ -70,13 +71,6 @@ function createData(id, name, title, original_fn, lang1, grammar, grammar_url, p
         id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, language, flag
     };
 }
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
-`;
 
 const useStyles = makeStyles(() => ({
     lang: {
@@ -93,7 +87,17 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    button: {
+        margin: '6px 6px 0px 0px'
+    },
+    multiButton: {
+        margin: '0px 6px 6px 0px'
+    },
+    search: {
+        width: '40%',
+        marginTop: '5px'
+    },
 }));
 
 const DeleteAllButton = styled.div`
@@ -238,14 +242,16 @@ const folderSubmission = ({
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [
-                        { 'component': <DeleteOutlineOutlinedIcon fontSize="small" />, 'type': 'delete', 'title': 'Delete' },
+                        {
+                            'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                        },
                         (submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) ?
                             {
-                                'component': <FileDownloadOutlinedIcon fontSize="small" />,
+                                'component': <StyledButtonIcon variant="outlined" size='small'><FileDownloadOutlinedIcon fontSize="small" /></StyledButtonIcon>,
                                 'title': 'Similarity report not ready'
                             } :
                             {
-                                'component': <FileDownloadOutlinedIcon fontSize="small" />,
+                                'component': <StyledButtonIcon variant="outlined" size='small'><FileDownloadOutlinedIcon fontSize="small" /></StyledButtonIcon>,
                                 'type': 'download',
                                 'title': 'Similarity report download'
                             }
@@ -503,13 +509,7 @@ const folderSubmission = ({
                     </Grid>
                     <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <Tooltip title="Refresh" arrow>
-                            <IconButton
-                                aria-label="download-file"
-                                size="large"
-                                onClick={ handleRefresh }
-                            >
-                                <RefreshOutlinedIcon fontSize="medium" />
-                            </IconButton>
+                            <StyledButtonIcon className={ classes.button } onClick={ handleRefresh } variant="outlined" size='small'><RefreshOutlinedIcon fontSize="small" /></StyledButtonIcon>
                         </Tooltip>
 
                         { folderSubmissionData?.length > 0 &&
@@ -517,16 +517,11 @@ const folderSubmission = ({
                             <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px' } } />
                             :
                             <Tooltip title="Submission report download" arrow>
-                                <IconButton
-                                    aria-label="download-file"
-                                    size="large"
-                                    onClick={ handleDownload }>
-                                    <FileDownloadOutlinedIcon fontSize="medium" />
-                                </IconButton>
+                                <StyledButtonIcon className={ classes.button } onClick={ handleDownload } variant="outlined" size='small'><FileDownloadOutlinedIcon fontSize="small" /></StyledButtonIcon>
                             </Tooltip>
                         }
                         <TextField
-                            sx={ { width: '40%', marginTop: '8px' } }
+                            className={ classes.search }
                             placeholder='Search by Paper ID'
                             onChange={ debouncedResults }
                             inputProps={ {
@@ -543,19 +538,13 @@ const folderSubmission = ({
 
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllSubmission }>
-                            <DeleteOutlineOutlinedIcon fontSize='small' />
-                        </IconButton>
+                        <StyledButtonRedIcon className={ classes.multiButton } variant="outlined" size='small' onClick={ deleteAllSubmission }><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>
                     </Tooltip>
-                    <Tooltip title='Save to repository' arrow> 
-                        <IconButton onClick={ saveAllSubmission }>
-                            <SaveOutlinedIcon fontSize='small' />
-                        </IconButton>
+                    <Tooltip title='Save to repository' arrow>
+                        <StyledButtonIcon className={ classes.multiButton } variant="outlined" size='small' onClick={ saveAllSubmission }><SaveOutlinedIcon fontSize='small' /></StyledButtonIcon>
                     </Tooltip>
                     { isLoadingBulkDownload ? <Skeleton width={ 200 } /> : <Tooltip title='Submission report bulk download' arrow>
-                        <IconButton onClick={ submissionBulkDownload }>
-                            <FileDownloadOutlinedIcon fontSize='small' />
-                        </IconButton>
+                        <StyledButtonIcon className={ classes.multiButton } variant="outlined" size='small' onClick={ submissionBulkDownload }><FileDownloadOutlinedIcon fontSize='small' /></StyledButtonIcon>
                     </Tooltip> }
 
                 </DeleteAllButton> }

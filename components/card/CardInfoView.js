@@ -20,13 +20,13 @@ import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
 import { SubTitle2, EllipsisText } from '../index';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import {
     TimerIcon,
     DownloadFileIcon,
     InstructorPersonIcon,
     ThreeDotIcon,
     EditIcon,
-    DeleteIcon
 } from '../../assets/icon';
 import SubTitle1 from '../typography/SubTitle1';
 import Switch from '@mui/material/Switch';
@@ -232,7 +232,7 @@ const CardInfoView = ({
                                             handleDelete(e, item);
                                     } }>
                                             <ListItemText>Delete</ListItemText>
-                                            <DeleteIcon />
+                                        <DeleteOutlineOutlinedIcon fontSize='small' />
                                         </MenuItem>
                                     </Menu>
                                 </> }
@@ -271,7 +271,7 @@ const CardInfoView = ({
                 <Divider />
                 <CardActions style={ { padding: '18px' } }>
                     <Grid container>
-                        <Grid item md={ isConfig ? 8 : 9 } xs={ isConfig ? 8 : 9 }>
+                        <Grid item md={ 8 } xs={ 8 }>
                             { isTimer &&
                                 <CardStatusColor
                                     style={ { borderRadius: '3px' } }
@@ -287,7 +287,7 @@ const CardInfoView = ({
 
                             { isKnowMore &&
                                 <>
-                                <div onClick={ () => router.push({ 'pathname': item?.path, query: { integration: item.type } }) }>
+                                <div onClick={ () => router.push({ 'pathname': item?.path, query: { integration: item.type } }) } >
                                     { item?.lmsconfigured &&
                                             <SubTitle1 textColor="primary" title="Know More" />
                                         }
@@ -296,7 +296,7 @@ const CardInfoView = ({
                             }
                         </Grid>
 
-                        <Grid className={ classes.right } item md={ isConfig ? 4 : 3 } xs={ isConfig ? 4 : 3 }>
+                        <Grid className={ classes.right } item md={ 4 } xs={ 4 }>
                             { isSubmit ?
                                 <Link href={ submitPath }>
                                     <Button
@@ -314,14 +314,15 @@ const CardInfoView = ({
                                     onChange={ handleConfig }
                                     inputProps={ { 'aria-label': 'controlled' } }
                                     name={ item?.lms }
+                                    size='small'
                                     />
                                 { item.type !== 'Moodle' &&
                                         item?.lmsconfigured === true &&
                                     <Tooltip title={ `Delete ${item.type} Integration` } arrow>
-                                        <IconButton onClick={ () => {
+                                        <IconButton size='small' onClick={ () => {
                                                 handleDeleteIntegrations(item.type)
                                         } }>
-                                                <DeleteIcon />
+                                            <DeleteOutlineOutlinedIcon fontSize='small' />
                                             </IconButton>
                                         </Tooltip>
                                     }
