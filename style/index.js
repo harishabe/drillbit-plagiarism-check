@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {Button} from '@mui/material'
 
 export const PaginationContainer = styled.div`
     margin-top:25px;
@@ -39,4 +40,18 @@ export const CardStatusColor = styled.div`
     padding: 5px 20px;
     text-align: center;
     border-radius: 5px;
+`;
+
+export const StyledButtonIcon = styled(Button)({
+    padding:'4px 4px', 
+    minWidth: '2rem', 
+    color:'#666666', 
+    border:'1px solid #666666'
+})
+
+export const AddButtonBottom = styled.div`
+    position:fixed;
+    bottom: 30px;
+    right:30px;
+    z-index: 999;
 `;

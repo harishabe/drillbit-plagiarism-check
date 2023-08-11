@@ -124,7 +124,7 @@ const CommonTable = ({
                                                         onClick={ ((e) => sortHandle(e, column)) }
                                                         IconComponent={
                                                             () =>
-                                                                <div style={ { padding:'7px 0px 0px 5px' } }>
+                                                                <div style={ { padding:'6px 0px 0px 5px' } }>
                                                                     {
                                                                         (toggle && sortArrow === column.id) ?
                                                                             <ArrowDownwardIcon style={ { fontSize: '1rem' } } /> :
