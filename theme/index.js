@@ -16,9 +16,9 @@ const drillBitTheme = {
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: "#000",
-          marginTop: "8px",
+          color: "#626363",
           fontWeight: 600,
+          marginTop:'5px'
         },
       },
     },
@@ -54,6 +54,13 @@ const drillBitTheme = {
         },
       },
     },
+    MuiToggleButton:{
+      styleOverrides:{
+        root:{
+          padding:'8px'
+        }
+      }
+    }
   },
 };
 

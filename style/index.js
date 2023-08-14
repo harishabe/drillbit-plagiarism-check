@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+
 import {Button} from '@mui/material'
+import styled from 'styled-components';
 
 export const PaginationContainer = styled.div`
     margin-top:25px;
@@ -43,26 +44,26 @@ export const CardStatusColor = styled.div`
 `;
 
 export const StyledButtonIcon = styled(Button)({
-    padding:'4px 4px', 
-    minWidth: '2rem', 
-    color:'#666666', 
-    border: '1px solid #666666',
+    padding:'4px 4px !important', 
+    minWidth: '2rem !important' , 
+    color:'#666666 !important', 
+    border: '1px solid #666666 !important',
     ":hover": {
-        background: "#3672ff",
-        color: "#fff",
-        border: '1px solid #3672ff',
+        background: "#3672ff !important",
+        color: "#fff !important",
+        border: '1px solid #3672ff !important',
     },
 })
 
 export const StyledButtonRedIcon = styled(Button)({
-    padding: '4px 4px',
-    minWidth: '2rem',
-    color: '#666666',
-    border: '1px solid #666666',
+    padding: '4px 4px !important',
+    minWidth: '2rem !important',
+    color: '#666666 !important',
+    border: '1px solid #666666 !important',
     ":hover": {
-        background: "#e9596f",
-        color: "#fff",
-        border: '1px solid #e9596f',
+        background: "#e9596f !important",
+        color: "#fff !important",
+        border: '1px solid #e9596f !important',
     },
 })
 

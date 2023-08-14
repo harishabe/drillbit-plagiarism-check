@@ -11,6 +11,11 @@ const StyledButton = styled(Button)((disabled) => ({
     },
 }));
 
+const LoaderContainer = styled.div`
+    position: relative;
+    top:3px;
+`;
+
 const InputButton = ({
     field,
     isLoading
@@ -20,7 +25,6 @@ const InputButton = ({
             <Box my={2}>
                 <StyledButton
                     fullWidth
-                    size="large"
                     margin="normal"
                     variant="contained"
                     type={field.type}
@@ -28,7 +32,7 @@ const InputButton = ({
                     disabled={isLoading || field.isDisabled}
                     href={ field.href }
                 >
-                    {isLoading ? <BeatLoader color="#fff" /> : field.label}
+                    {isLoading ? <LoaderContainer><BeatLoader size={11} color="#fff" /></LoaderContainer> : field.label}
                 </StyledButton>
             </Box>
         </Paper>

@@ -168,7 +168,7 @@ const CreateDrawer = ({
                             </Tooltip>
                         </CloseButtonCenter>
 
-                        <Box style={{ padding: '0px 25px' }}
+                        <Box style={{ padding: '0px 16px' }}
                             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 500 }}
                             role="presentation"
                         >

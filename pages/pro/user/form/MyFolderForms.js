@@ -318,7 +318,7 @@ const MyFoldersForms = ({
                                 Exclude Reference / Bibliography
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={excludeRefBib}
@@ -339,7 +339,7 @@ const MyFoldersForms = ({
                                 Exclude Quotes
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={excludeQuote}
@@ -362,7 +362,7 @@ const MyFoldersForms = ({
                                 </InputLabel>
                             </Tooltip>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={excludeSmallSource}
@@ -384,7 +384,7 @@ const MyFoldersForms = ({
                                 Grammar Check
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={grammarCheck}
@@ -406,7 +406,7 @@ const MyFoldersForms = ({
                                 Exclude Phrases
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={excludePhrases}
@@ -469,7 +469,7 @@ const MyFoldersForms = ({
                             Student Papers
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                    <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                         <ToggleButtonGroup
                             color="primary"
                             value={studentPaper}
@@ -487,7 +487,7 @@ const MyFoldersForms = ({
                             Journals & publishers
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                    <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                         <ToggleButtonGroup
                             color="primary"
                             value={publication}
@@ -505,7 +505,7 @@ const MyFoldersForms = ({
                             Internet or Web
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                    <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                         <ToggleButtonGroup
                             color="primary"
                             value={internet}
@@ -523,7 +523,7 @@ const MyFoldersForms = ({
                             Institution Repository
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                    <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                         <ToggleButtonGroup
                             color="primary"
                             value={repository}

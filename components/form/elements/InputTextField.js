@@ -52,7 +52,7 @@ const InputTextField = ({ control, field }) => {
           fieldState: { error },
         }) => (
           <StyledInputField
-            style={{ marginTop: "10px" }}
+            style={{ marginTop: "5px" }}
             margin="normal"
             size={field.size}
             type={field.type}

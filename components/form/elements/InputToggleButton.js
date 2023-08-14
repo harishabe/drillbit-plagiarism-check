@@ -30,11 +30,11 @@ const InputToggleButton = ({
                     <>
                         <Grid container>
                             <Grid item md={8}>
-                                <InputLabel style={{ fontSize: '15px', margin: '10px 0px' }}>
+                                <InputLabel style={{ fontSize: '15px', margin: '8px 0px' }}>
                                     {field.label}
                                 </InputLabel>
                             </Grid>
-                            <Grid item md={4} style={{ textAlign: 'right', margin: '15px 0px' }}>
+                            <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
                                 <ToggleButtonGroup
                                     color="primary"
                                     value={value}

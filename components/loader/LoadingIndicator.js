@@ -39,7 +39,7 @@ export const LoadingIndicator = () => {
                     <DrillBitSymbolLogo />
                 </LogoContainer>
                 <BeatContainer>
-                    <BeatLoader color="#3672FF" />
+                    <BeatLoader size={12} color="#3672FF" />
                 </BeatContainer>
             </LoaderWrapper>
         </LoaderContainer>

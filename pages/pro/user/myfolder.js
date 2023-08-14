@@ -180,8 +180,8 @@ const MyFolder = ({
                     folder.no_of_submissions,
                     [
                         { 'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next' }
+                        { 'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next' },                        
+                        { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' }
                     ],
                     folder.ex_references,
                     folder.ex_quotes,
