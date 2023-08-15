@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import SubTitle from '../typography/SubTitle1';
+import Title from '../typography/title';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
@@ -24,7 +24,7 @@ const ErrorBlock = ({
     return (
         <div className={classes.errorContainer}>
             <InfoOutlinedIcon className={classes.color} /> 
-            <SubTitle title={message} textColor="gray" />
+            <Title title={message} textColor="gray" />
         </div>
     );
 };

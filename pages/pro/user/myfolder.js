@@ -18,7 +18,7 @@ import ProUser from './../../../layouts/ProUser';
 import { DeleteWarningIcon } from '../../../assets/icon';
 import {
     BreadCrumb,
-    MainHeading,
+    Heading,
     Folder,
     CreateDrawer,
     WarningDialog,
@@ -249,7 +249,7 @@ const MyFolder = ({
             </Box>
             <Grid container spacing={ 2 }>
                 <Grid item md={ 3 } xs={ 5 }>
-                    <MainHeading title={ `My Folders(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                    <Heading title={ `My Folders(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
                 <Grid item md={ 6 } style={ { textAlign: 'right', marginTop: '8px' } }>
                     <ToggleButtonGroup

@@ -11,8 +11,7 @@ import RepositoryFileForm from './RepositoryFileForm';
 import {
     Title,
     CardView,
-    SubTitle1,
-    MainHeading
+    Heading,
 } from '../../components';
 import {
     DragAreaPadding,
@@ -258,14 +257,14 @@ const GDriveFileUpload = ({
 
                 <DragAreaPadding>
                     <div style={ { display: 'flex' } }>
-                        <Tooltip title="Back" arrow style={ { marginTop: '-12px' } }>
+                        <Tooltip title="Back" arrow style={ { marginTop: '-10px' } }>
                             <IconButton size="large" onClick={ handleBack }>
                                 <ArrowBackOutlinedIcon />
                             </IconButton>
                         </Tooltip>
                         { isRepository ?
-                            <MainHeading title='Upload files to repository' /> :
-                            <MainHeading title='Upload files for plagiarism check' /> }
+                            <Heading title='Upload files to repository' /> :
+                            <Heading title='Upload files for plagiarism check' /> }
                     </div>
                     <Grid container spacing={ 1 }>
                         <Grid item md={ 12 } xs={ 12 }>
@@ -273,9 +272,9 @@ const GDriveFileUpload = ({
                                 <div>
                                     <GoogleDriveIcon />
                                 </div>
-                                <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
-                                <SubTitle1 title={ allowedFormat.LENGTH } />
-                                <SubTitle1 title={ allowedFormat.SIZE } />
+                                <Title title={ allowedFormat.FILE_FORMATS } />
+                                <Title title={ allowedFormat.LENGTH } />
+                                <Title title={ allowedFormat.SIZE } />
                                 <Link style={ { marginLeft: '5px' } }>
                                     <ChooseLabel onClick={ () => handleOpenPicker() }>
                                         { UPLOAD_TITLE_CONSTANT.GDRIVE }

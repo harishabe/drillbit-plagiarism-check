@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SubTitle from '../typography/SubTitle1';
+import Title from '../typography/title';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
@@ -23,7 +23,7 @@ const Instructions = ({ message }) => {
             { message &&
                 message.map((item, index) => {
                     return (
-                        <SubTitle title={ item } textColor="gray" />
+                        <Title title={ item } textColor="gray" />
                     );
                 }) }
         </div>

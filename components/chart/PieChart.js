@@ -41,14 +41,16 @@ const PieChart = ({
                 show: true,
                 position: 'bottom',
                 fontSize: '12px',
-                fontFamily: 'Montserrat',
-                color: '#f5f5f5'
+                fontFamily: 'DM Sans',
+                color: '#454745 !important',
+                fontWeight:'600'
             },
             tooltip: {
                 enabled: true,
                 style: {
                     fontSize: '12px',
-                    fontFamily: 'Montserrat'
+                    fontFamily: 'DM Sans',
+                    fontWeight:'600'
                 }
             },
             labels: label,

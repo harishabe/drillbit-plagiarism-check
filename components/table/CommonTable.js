@@ -265,8 +265,8 @@ const CommonTable = ({
                                                                             { (column.id !== 'percent' && column.id !== 'grammar_url') &&
                                                                                 <TableCell align={ column.align } style={ { minWidth: column.minWidth, maxWidth: column.maxWidth } }>
                                                                                     { typeof (value) === 'string' ?
-                                                                                        <EllipsisText value={ value !== null ? value : NO_DATA_PLACEHOLDER } variant='body2_3' /> :
-                                                                                        <Typography variant='body2_3' component="div">{ value !== null ? value : NO_DATA_PLACEHOLDER }</Typography> }
+                                                                                        <EllipsisText value={ value !== null ? value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase() : NO_DATA_PLACEHOLDER } variant='body2_1' /> :
+                                                                                        <Typography variant='body2_1' component="div">{ value !== null ? value : NO_DATA_PLACEHOLDER }</Typography> }
                                                                                 </TableCell>
                                                                             }
                                                                         </>

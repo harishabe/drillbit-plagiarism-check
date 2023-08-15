@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import InputTextField from '../../../../components/form/elements/InputTextField';
 import InputButton from '../../../../components/form/elements/InputButton';
 import { CreateFolder, EditFolder } from '../../../../redux/action/instructor/InstructorAction';
@@ -17,7 +18,7 @@ import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/dat
 import { ErrorMessageContainer } from '../../../../style/index';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
-import { Tooltip } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -462,7 +463,8 @@ const MyFoldersForms = ({
                     }
                 </div>
 
-                <b>Compare against databases</b>
+                <Typography variant="h3">Compare against databases</Typography>
+                <Divider />
                 <Grid container>
                     <Grid item md={8}>
                         <InputLabel style={{ margin: '22px 0px' }}>

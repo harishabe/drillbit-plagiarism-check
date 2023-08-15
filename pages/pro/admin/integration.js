@@ -9,7 +9,7 @@ import { DeleteWarningIcon } from "../../../assets/icon";
 import {
   BreadCrumb,
   CardInfoView,
-  MainHeading,
+  Heading,
   CreateDrawer,
   WarningDialog,
 } from "./../../../components";
@@ -199,7 +199,7 @@ const Integration = ({
         </Grid>
       </Box>
 
-      <MainHeading
+      <Heading
         title={`Integrations (${
           integrationData?.length === undefined ? 0 : integrationData?.length
         })`}

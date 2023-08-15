@@ -7,7 +7,7 @@ const SubTitle1 = ({
     textColor
 }) => {
     return (
-        <Typography variant="h5" color={textColor} component="div" gutterBottom>
+        <Typography variant="h5" color={textColor} component="div">
             {title}
         </Typography>
     );

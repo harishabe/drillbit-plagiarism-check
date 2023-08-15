@@ -10,9 +10,8 @@ import {
 } from '../../assets/icon';
 import {
     Title,
-    CardView,
-    SubTitle1,
-    MainHeading
+    CardView,    
+    Heading
 } from '../../components';
 import ZipFileForm from './ZipFileForm';
 import RepositoryFileFormZip from './RepositoryFileFormZip';
@@ -154,24 +153,24 @@ const ZipFileUpload = ({
         <CardView>
             <DragAreaPadding>
                 <div style={{ display: 'flex' }}>
-                    <Tooltip title="Back" arrow style={{ marginTop: '-12px' }}>
+                    <Tooltip title="Back" arrow style={{ marginTop: '-10px' }}>
                         <IconButton size="large" onClick={handleBack}>
                             <ArrowBackOutlinedIcon />
                         </IconButton>
                     </Tooltip>
                     {isRepository ?
-                        <MainHeading title='Upload files to repository' /> : 
-                        <MainHeading title='Upload files for plagiarism check' />}
+                        <Heading title='Upload files to repository' /> : 
+                        <Heading title='Upload files for plagiarism check' />}
                 </div>
                 <Grid container spacing={1}>
                     <Grid item md={12} xs={12}>
                         <DragDropArea>
                             <UploadFileIcon />
-                            <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
-                            <SubTitle1 title={notAllowedFormat} />
-                            <SubTitle1 title={ allowedFormat.MAX_FILES } />
-                            <SubTitle1 title={ allowedFormat.LENGTH } />
-                            <SubTitle1 title={ allowedFormat.SIZE } />
+                            <Title title={ allowedFormat.FILE_FORMATS } />
+                            <Title title={notAllowedFormat} />
+                            <Title title={ allowedFormat.MAX_FILES } />
+                            <Title title={ allowedFormat.LENGTH } />
+                            <Title title={ allowedFormat.SIZE } />
                             <Link style={{ marginLeft: '5px', display: 'block' }}>
                                 <ChooseLabel for="file-upload">
                                     Browse your zip here

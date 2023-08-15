@@ -54,6 +54,22 @@ const LineChart = ({
             },
             xaxis: {
                 categories: ['0 - 10%', '11% - 40%', '41% - 60%', '61% - 100%', 'DocError'],
+                labels:{
+                    style: {
+                        fontSize: '12px',
+                        fontFamily:'DM Sans',
+                        fontWeight:'600',
+                    }
+                },
+            },
+            yaxis:{
+                labels:{
+                    style: {
+                        fontSize: '12px',
+                        fontFamily:'DM Sans',
+                        fontWeight:'600',
+                    }
+                },
             },
             dataLabels: {
                 enabled: true,

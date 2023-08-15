@@ -5,8 +5,8 @@ import { Button, Divider } from '@mui/material';
 import { ConfigIcon } from '../../../../assets/icon';
 import {
     CardView,
-    SubHeading,
-    MainHeading,
+    Title,
+    Heading,
     SubTitle,
     CommonTable
 } from '../../../../components';
@@ -161,16 +161,16 @@ const IntegrationTypeDetail = ({
         <>
             { isMoodleTrue &&
                 <>
-                <MainHeading title={ 'Moodle Plugin Setup' } />
+                <Heading title={ 'Moodle Plugin Setup' } />
                     <CardView>
-                    <SubHeading title={ 'Moodle Plug-in – Configured' } />
+                    <Title title={ 'Moodle Plug-in – Configured' } />
                     { body }
                     </CardView>
 
                 <div className={ classes.margin }></div>
                     <CardView>
                     <div className={ classes.margin }></div>
-                        <SubTitle title="Technical Contact Details :" />
+                        <Title title="Technical Contact Details :" />
                         <CommonTable
                         isCheckbox={ false }
                         tableHeader={ columns }
@@ -182,36 +182,36 @@ const IntegrationTypeDetail = ({
             }
             { isCanvasTrue &&
                 <>
-                <MainHeading title={ 'Canvas LTI Setup' } />
+                <Heading title={ 'Canvas LTI Setup' } />
                     <CardView>
-                    <SubHeading title={ 'Canvas LTI – Configured' } />
+                    <Title title={ 'Canvas LTI – Configured' } />
                     { body }
                     </CardView>
                 </>
             }
             { isBlackboardTrue &&
                 <>
-                <MainHeading title={ 'Blackboard LTI Setup' } />
+                <Heading title={ 'Blackboard LTI Setup' } />
                     <CardView>
-                    <SubHeading title={ 'Blackboard LTI – Configured' } />
+                    <Title title={ 'Blackboard LTI – Configured' } />
                     { body }
                     </CardView>
                 </>
             }
             { isBrightspaceTrue &&
                 <>
-                    <MainHeading title={ 'BrightSpace LTI Setup' } />
+                    <Heading title={ 'BrightSpace LTI Setup' } />
                     <CardView>
-                        <SubHeading title={ 'BrightSpace LTI – Configured' } />
+                        <Title title={ 'BrightSpace LTI – Configured' } />
                     { body }
                     </CardView>
                 </>
             }
             { isMoodleLtiTrue &&
                 <>
-                    <MainHeading title={ 'Moodle LTI Setup' } />
+                    <Heading title={ 'Moodle LTI Setup' } />
                     <CardView>
-                        <SubHeading title={ 'Moodle LTI – Configured' } />
+                        <Title title={ 'Moodle LTI – Configured' } />
                     { body }
                     </CardView>
                 </>

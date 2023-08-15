@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     BreadCrumb,
-    MainHeading,
+    Heading,
     CommonTable,
     CreateDrawer,
     WarningDialog,
@@ -196,12 +196,12 @@ const Repository = ({
                 </Grid>
             </Box>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 5 } xs={ 5 }>
-                    <MainHeading
+                <Grid item md={ 4.5 } xs={ 5 }>
+                    <Heading
                         title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
-                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 7.5 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '40%', marginTop: '8px' } }
                         placeholder='Search by Paper ID'

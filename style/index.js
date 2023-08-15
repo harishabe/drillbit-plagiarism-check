@@ -22,6 +22,7 @@ export const StatusColor = styled.div`
     text-align: center;
     border-radius: 5px;
     font-weight:600;
+    font-size:14px;
 `;
 
 export const PlagiarismGrammarContainer = styled.div`
@@ -38,7 +39,7 @@ export const CardStatusColor = styled.div`
     display: inline-flex;
     color:${(props) => props.textColor};
     background: ${(props) => props.color};
-    padding: 5px 20px;
+    padding: 1px 12px;
     text-align: center;
     border-radius: 5px;
 `;

@@ -129,7 +129,7 @@ const MyClassFiles = ({
             row =
                 createData(
                     classes.class_id,
-                    <EllipsisText component={ [<WysiwygIcon fontSize='14px' htmlColor='#56B2EA' />] } value={ classes.class_name } />,
+                    <EllipsisText component={ [<WysiwygIcon className='folder-class-icon' fontSize='18px' htmlColor='#56B2EA' />] } value={ classes.class_name } />,
                     formatDate(classes.creation_date),
                     formatDate(classes.end_date),
                     <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }

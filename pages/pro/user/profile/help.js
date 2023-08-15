@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Instructor from './../../../../layouts/Instructor';
-import { MainHeading, Title, CardView } from './../../../../components';
+import { MainHeading, Heading, CardView } from './../../../../components';
 import Link from 'next/link';
 import { getItemSessionStorage } from '../../../../utils/RegExp'
 
@@ -40,7 +40,7 @@ const Help = () => {
                         item?.isShow &&
                         <Grid key={ item.role } item md={ 4 } sm={ 12 }>
                             <CardView>
-                                <Title title={ item?.role?.charAt(0)?.toUpperCase() + item?.role?.slice(1) } />
+                                <Heading title={ item?.role?.charAt(0)?.toUpperCase() + item?.role?.slice(1) } />
                                 <div style={ { marginTop: '20px' } }>
                                     <Link href={ item?.pdfLink }>
                                         <a target='_blank' style={ { textDecoration: 'underline' } }>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
-import { Heading, CardView } from '../../components';
+import { Heading, CardView, SubHeading } from '../../components';
 import { Tooltip } from '@mui/material';
 import { StyledButtonIcon } from './../../style/index';
 
@@ -20,7 +20,7 @@ const WidgetCard = ({
             <Grid container spacing={2} justify="right">
                 <Grid item xs={8}>
                     <Heading title={title} color="common.gray" />
-                    {isLoading ? <Skeleton /> : <Heading title={count} />}
+                    {isLoading ? <Skeleton /> : <SubHeading title={count} />}
 
                 </Grid>
                 <Grid item xs={4} style={{ textAlign: 'right' }}>

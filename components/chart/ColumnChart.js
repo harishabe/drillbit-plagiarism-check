@@ -55,9 +55,11 @@ const ColumnChart = ({
                 offsetY: -20,
                 style: {
                     fontSize: '12px',
-                    colors: ['#304758']
+                    fontFamily:'DM Sans',
+                    fontWeight:'600',
+                    colors: ['#454745']
                 }
-            },
+            },            
             stroke: {
                 show: true,
                 width: 2,
@@ -65,11 +67,25 @@ const ColumnChart = ({
             },
             xaxis: {
                 categories: xaxisData,
+                labels:{
+                    style: {
+                        fontSize: '12px',
+                        fontFamily:'DM Sans',
+                        fontWeight:'600',
+                    }
+                },
             },
             yaxis: {
                 title: {
                     text: ''
-                }
+                },
+                labels:{
+                    style: {
+                        fontSize: '12px',
+                        fontFamily:'DM Sans',
+                        fontWeight:'600',
+                    }
+                },
             },
             fill: {
                 opacity: 1,
@@ -77,6 +93,11 @@ const ColumnChart = ({
             },
             tooltip: {
                 enabled: true,
+                style: {
+                    fontSize: '12px',
+                    fontFamily: 'DM Sans',
+                    fontWeight:'600'
+                },
                 y: {
                     formatter: function (val) {
                         return val;

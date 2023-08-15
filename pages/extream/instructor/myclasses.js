@@ -20,7 +20,7 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
-    MainHeading,
+    Heading,
     CardInfoSkeleton,
     CreateDrawer,
 } from '../../../components';
@@ -152,9 +152,9 @@ const MyClasses = ({
             </Box>
             <Grid container spacing={1}>
                 <Grid item md={ 4 } xs={ 5 }>
-                    <MainHeading title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+                    <Heading title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                 </Grid>
-                <Grid item md={ 5 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                <Grid item md={ 4.3 } style={ { textAlign: 'right', marginTop: '8px' } }>
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -170,13 +170,12 @@ const MyClasses = ({
                         </Tooltip>
                     </ToggleButtonGroup>
                 </Grid>
-                <Grid item md={ 3 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 3.7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     {classesData?.length > 0 &&
                         isLoadingDownload ?
                         <Skeleton width={50} style={{ display: 'inline-block', marginRight: '10px', marginTop: '12px' }} />
                         : <Tooltip title="Download csv" arrow>
                             <IconButton
-                                style={ { marginTop: '3px' } }
                                 aria-label="download-file"
                                 size="large"
                                 onClick={handleDownload}>
@@ -190,7 +189,7 @@ const MyClasses = ({
                         onChange={debouncedResults}
                         inputProps={{
                             style: {
-                                padding: 6,
+                                padding: 7,
                                 display: 'inline-flex',
                             },
                         }}

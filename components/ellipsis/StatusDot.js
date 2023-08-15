@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { StatusDotIcon } from '../../assets/icon';
-import { SubTitle } from '../../components';
+import { Title1 } from '../../components';
 
 const InlineAlign = styled.div`
     display:flex
@@ -19,7 +19,7 @@ const StatusDot = ({
 }) => {
     return (
         <InlineAlign>
-            <StatusDotIcon color={ color } /> <SubTitleStyle><SubTitle title={ title?.charAt(0).toUpperCase() + title?.slice(1).substring(0, title?.length).toLowerCase() } /></SubTitleStyle>
+            <StatusDotIcon color={ color } /> <SubTitleStyle><Title1 title={ title?.charAt(0).toUpperCase() + title?.slice(1).substring(0, title?.length).toLowerCase() } /></SubTitleStyle>
         </InlineAlign>
     );
 };

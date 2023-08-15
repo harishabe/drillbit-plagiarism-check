@@ -18,7 +18,7 @@ import Instructor from '../../../layouts/Instructor';
 import { DeleteWarningIcon } from '../../../assets/icon';
 import {
     BreadCrumb,
-    MainHeading,
+    Heading,
     Folder,
     CreateDrawer,
     WarningDialog,
@@ -66,10 +66,10 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'ass_id', label: 'Folder ID', maxWidth: 83 },
+    { id: 'ass_id', label: 'Folder ID', maxWidth: 88 },
     { id: 'assignment_name', label: 'Folder name', maxWidth: 320 },
     { id: 'start_date', label: 'Created date', maxWidth: 120 },
-    { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 115 },
+    { id: 'folder_no_of_submissions', label: 'Submissions', maxWidth: 115 },
     { id: 'action', label: 'Action', maxWidth: 100 },
 ];
 
@@ -182,7 +182,7 @@ const MyFolder = ({
             row =
                 createData(
                     folder.folder_id,
-                    <EllipsisText component={ [<FolderIcon fontSize='14px' htmlColor='#56B2EA' />] } value={ folder.folder_name } />,
+                    <EllipsisText component={ [<FolderIcon className='folder-class-icon' htmlColor='#56B2EA' />] } value={ folder.folder_name } />,
                     formatDate(folder.creation_date),
                     folder.no_of_submissions,
                     [
@@ -255,10 +255,10 @@ const MyFolder = ({
                 </Grid>
             </Box>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 3 } xs={ 5 }>
-                    <MainHeading title={ `My Folders(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                <Grid item md={ 5 } xs={ 5 }>
+                    <Heading title={ `My Folders(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 6.5 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                <Grid item md={ 4 } style={ { textAlign: 'right', marginTop: '8px' } }>
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -274,7 +274,7 @@ const MyFolder = ({
                         </Tooltip>
                     </ToggleButtonGroup>
                 </Grid>
-                <Grid item md={ 2.5 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 3 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '100%', marginTop: '8px' } }
                         placeholder='Search by Folder ID'

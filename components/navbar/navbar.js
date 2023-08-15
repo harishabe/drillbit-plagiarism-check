@@ -338,16 +338,16 @@ const NavBar = ({
             >
                 <MenuItem className={ classes.profileMenuItem }>
                     <Avatar alt={ name } style={ {
-                        width: '56px',
-                        height: '56px',
+                        width: '50px',
+                        height: '50px',
                         background: '#68C886',
                         color: '#fff'
                     } }>
                         { name && name.charAt(0)?.toUpperCase() }
                     </Avatar>
                     <ListItemText
-                        primary={ <EllipsisText value={ name } /> }
-                        secondary={ <EllipsisText value={ email } /> }
+                        primary={ <EllipsisText value={ name } variant="h4" /> }
+                        secondary={ <EllipsisText value={ email } variant="h5_1" /> }
                     />
                 </MenuItem>
                 <Divider className={ classes.divider } />

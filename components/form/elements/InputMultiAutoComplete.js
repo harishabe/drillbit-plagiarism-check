@@ -23,7 +23,7 @@ const InputMultiAutoComplete = ({ field, control }) => {
             value={value}
             options={field?.options}
             disableCloseOnSelect
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => option.name}            
             renderOption={(props, option, { selected }) => (
               <li {...props}>
                 <Checkbox
@@ -40,11 +40,6 @@ const InputMultiAutoComplete = ({ field, control }) => {
                 {...params}
                 label={field.label}
                 placeholder={field.label}
-                inputProps={{
-                  style: {
-                    padding: "12px 14px",
-                  },
-                }}
               />
             )}
             onChange={(e, data) => onChange(data)}

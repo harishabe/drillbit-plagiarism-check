@@ -15,47 +15,80 @@ const font = {
         fontWeight:900,
         letterSpacing: '0.15px'
     },
+    //heading
     h2: {
         fontFamily: fontName,
         fontSize: '18px',
         fontStyle: 'normal',
         lineHeight: '28px',
         fontWeight:800,
-        color: '#666666'
+        color: '#0E0F0C'
     },
+    //heading2
+    h2_1: {
+        fontFamily: fontName,
+        fontSize: '18px',
+        fontStyle: 'normal',
+        lineHeight: '28px',
+        fontWeight:600,
+        color: '#454745'
+    },
+    // sub heading
     h3: {
         fontFamily: fontName,
         fontSize: '16px',
-        lineHeight: 1.167,
-        fontWeight:700,
-        letterSpacing: '0em'
+        fontStyle: 'normal',
+        lineHeight: '28px',
+        fontWeight:800,
+        color: '#0E0F0C'
     },
+    // sub heading2
     h3_1: {
         fontFamily: fontName,
         fontSize: '16px',
-        lineHeight: 1.167,
+        fontStyle: 'normal',
+        lineHeight: '28px',
         fontWeight:600,
-        letterSpacing: '0em',
-        color: '#000'
+        color: '#454745'
     },
+    //title
     h4: {
         fontFamily: fontName,
-        fontStyle: 'normal',
         fontSize: '14px',
-        fontWeight:600,
+        fontStyle: 'normal',
         lineHeight: '24px',
-        letterSpacing: '0.5px',
-        color: '#666666'
+        fontWeight:800,
+        color: '#0E0F0C'
     },
+    // title2
+    h4_1: {
+        fontFamily: fontName,
+        fontSize: '14px',
+        fontStyle: 'normal',
+        lineHeight: '28px',
+        fontWeight:600,
+        color: '#454745'
+    },
+
+    //sub title
     h5: {
         fontFamily: fontName,
+        fontSize: '12px',
         fontStyle: 'normal',
-        fontSize: '14px',
-        fontWeight:600,
-        lineHeight: '24px',
-        letterSpacing: '0.5px',
-        color: '#000'
+        lineHeight: '28px',
+        fontWeight:800,
+        color: '#0E0F0C'
     },
+    //sub title2
+    h5_1: {
+        fontFamily: fontName,
+        fontSize: '12px',
+        fontStyle: 'normal',
+        lineHeight: '28px',
+        fontWeight:600,
+        color: '#454745'
+    },
+
     body1: {
         fontFamily: fontName,
         fontSize: '14px',
@@ -70,19 +103,21 @@ const font = {
         lineHeight: '20px',
         color: '#666666'
     },
+    // used for table body
     body2_1: {
         fontFamily: fontName,
         fontSize: '14px',
-        fontWeight:600,
+        fontWeight:500,
         lineHeight: '20px',
-        color: '#666666'
+        color: '#454745'
     },
+    // used for table heading
     body2_2: {
         fontFamily: fontName,
-        fontSize: '15px',
+        fontSize: '14px',
         fontWeight:900,
         lineHeight: '20px',
-        color: '#666666'
+        color: '#0E0F0C'
     },
     body2_3: {
         fontFamily: fontName,

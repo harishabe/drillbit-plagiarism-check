@@ -8,7 +8,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import {
     CommonTable,
-    MainHeading,
+    Heading,
     WarningDialog,
     DialogModal,
     CreateDrawer,
@@ -274,17 +274,17 @@ const Students = ({
 
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
-                    <Grid item md={ 5 } xs={ 5 }>
-                        <MainHeading title={`Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+                    <Grid item md={ 4.5 } xs={ 5 }>
+                        <Heading title={`Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                     </Grid>
-                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                    <Grid item md={ 7.5 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <TextField
                             sx={ { width: '40%', marginTop: '8px' } }
                             placeholder='Search by Email'
                             onChange={debouncedResults}
                             inputProps={{
                                 style: {
-                                    padding: 5,
+                                    padding: 7,
                                     display: 'inline-flex',
                                 },
                             }}

@@ -12,7 +12,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import ProAdmin from './../../../layouts/ProAdmin';
 import {
     CommonTable,
-    MainHeading,
+    Heading,
     StatusDot,
     BreadCrumb,
     CreateDrawer,
@@ -383,7 +383,7 @@ const Users = ({
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 5 } xs={ 5 }>
-                        <MainHeading title={ `Users(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                        <Heading title={ `Users(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
                     <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <TextField
@@ -392,7 +392,7 @@ const Users = ({
                             onChange={ debouncedResults }
                             inputProps={ {
                                 style: {
-                                    padding: 5,
+                                    padding: 7,
                                     display: 'inline-flex'
                                 }
                             } }

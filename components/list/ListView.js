@@ -32,17 +32,17 @@ const ListView = ({
         <List style={{height:'273px'}}>
             {listData?.map((item) => (
                 <div key={item.name}>
-                    <ListItem key={item.name} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+                    <ListItem key={item.name} style={{ padding:'0px' }}>
                         <ListItemAvatar style={{ marginRight: '5px' }}>
-                            <Avatar sx={{ width: 50, height: 50, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>
-                                {item.name.charAt(0)}
+                            <Avatar sx={{ width: 45, height: 45, marginBottom: '5px', background: item.bgcolor, color: '#fff' }}>
+                                {item.name.charAt(0).toUpperCase()}
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             disableTypography
                             className={classes.itemText}
-                            primary={ <EllipsisText value={ item.name } variant='h5' /> }
-                            secondary={ <EllipsisText value={ item.department === null ? NO_DATA_PLACEHOLDER : item.department } variant='h4' /> }
+                            primary={ <EllipsisText value={ item.name } variant='h4' /> }
+                            secondary={ <EllipsisText value={ item.department === null ? NO_DATA_PLACEHOLDER : item.department } variant='h4_1' /> }
                         />
                         <ListItemText
                             disableTypography

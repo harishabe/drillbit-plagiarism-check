@@ -28,7 +28,8 @@ import {
     ThreeDotIcon,
     EditIcon,
 } from '../../assets/icon';
-import SubTitle1 from '../typography/SubTitle1';
+import Title1 from '../typography/Title1';
+import Title from '../typography/title';
 import Switch from '@mui/material/Switch';
 import { NO_DATA_PLACEHOLDER, CARD_NEXT_PAGE, CARD_FOLDER_ACTIONS } from '../../constant/data/Constant';
 import { CardStatusColor } from '../../style/index';
@@ -242,16 +243,16 @@ const CardInfoView = ({
                     { isImage &&
                         <>
                             <Image style={ { marginBottom: '15px' } } width="100" height="100" src={ item.img } alt={ item.lms } />
-                            <SubTitle1 title={ item.description } />
+                            <Title title={ item.description } />
                         </>
                     }
 
 
-                    { isHeading && <EllipsisText value={ item.name } maxLength={ 110 } isFolder={ true } /> }
+                    { isHeading && <EllipsisText value={ item.name } variant="h4" maxLength={ 110 } isFolder={ true } /> }
 
                     { isDescription &&
                         <EllipsisText value={ item?.description === null ? NO_DATA_PLACEHOLDER : item?.description }
-                        variant={ 'subtitle2' } />
+                        variant='h4_1' />
                     }
 
                     { isInstructorName &&
@@ -278,10 +279,12 @@ const CardInfoView = ({
                                     color={ statusColor }
                                     width={ 0 }
                                 >
-                                    <TimerIcon />
+                                    <div style={{marginTop:'4px'}}><TimerIcon /></div>         
+                                                               
                                     <SubTitle2
                                         title={ Validity(item.validity) }
                                         ml="10px"
+                                        mt="2px"
                                     />
                                 </CardStatusColor> }
 
@@ -289,7 +292,7 @@ const CardInfoView = ({
                                 <>
                                 <div onClick={ () => router.push({ 'pathname': item?.path, query: { integration: item.type } }) } >
                                     { item?.lmsconfigured &&
-                                            <SubTitle1 textColor="primary" title="Know More" />
+                                            <Title1 color="primary" title="Know More" />
                                         }
                                     </div>
                                 </>
