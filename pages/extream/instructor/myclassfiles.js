@@ -34,11 +34,11 @@ import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const columns = [
     { id: 'class_id', label: 'Class ID', maxWidth: 90 },
-    { id: 'class_name', label: 'Class name', maxWidth: 360 },
+    { id: 'class_name', label: 'Class name', maxWidth: 300 },
     { id: 'created_date', label: 'Start date', maxWidth: 165 },
     { id: 'end_date', label: 'Expiry date', maxWidth: 165 },
     { id: 'status', label: 'Status', maxWidth: 130 },
-    { id: 'action', label: 'Action', maxWidth: 125 },
+    { id: 'action', label: 'Action', maxWidth: 135 },
 ];
 
 function createData(class_id, class_name, created_date, end_date, status, action, description, expiry_date) {
