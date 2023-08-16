@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import _ from 'lodash';
 import debouce from 'lodash.debounce';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import Box from '@mui/material/Box';
 import { Grid, TextField, Tooltip, Skeleton, Pagination, IconButton } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -36,18 +37,11 @@ import {
 import StudentInstitute from '../studentInstitute';
 import { removeCommaWordEnd, setItemSessionStorage, platform } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
-import { PaginationContainer } from '../../../../style/index';
+import { PaginationContainer, StyledButtonIcon, StyledButtonRedIcon, AddButtonBottom } from '../../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../../constant/data/Constant';
 import { INSTRUCTIONS_STEPS } from '../../../../constant/data/InstructionMessage';
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index:999;
-`;
 
 const SearchField = styled.div`
     position:absolute;
@@ -74,13 +68,22 @@ const DeleteAllButton = styled.div`
     marginLeft: 10px;
 `;
 
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "6px 8px 0px 0px",
+    },
+    multiButton: {
+        margin: "6px 6px 6px 0px",
+    },
+}));
+
 const columns = [
     { id: 'student_id', label: 'Student ID', maxWidth: 100 },
-    { id: 'name', label: 'Student Name', maxWidth: 200 },
-    { id: 'username', label: 'Email', maxWidth: 200 },
+    { id: 'name', label: 'Student Name', maxWidth: 190 },
+    { id: 'username', label: 'Email', maxWidth: 190 },
     { id: 'department', label: 'Department', maxWidth: 110 },
     { id: 'section', label: 'Section', maxWidth: 90 },
-    { id: 'action', label: 'Actions', maxWidth: 70 },
+    { id: 'action', label: 'Actions', maxWidth: 90 },
 ];
 
 function createData(id, student_id, name, username, department, section, action, phone_number) {
@@ -100,7 +103,7 @@ const Students = ({
 }) => {
 
     const router = useRouter();
-
+    const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -140,8 +143,10 @@ const Students = ({
                     student.username,
                     student.department,
                     student.section,
-                    [{ 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
+                    [{
+                        'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                    },
+                        { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' },
                     ],
                     student.phone_number,
                 );
@@ -354,13 +359,7 @@ const Students = ({
                                         <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
-                                        <IconButton
-                                            color="primary"
-                                            aria-label="download-file"
-                                            size="large"
-                                            onClick={ handleDownload }>
-                                            <FileDownloadOutlinedIcon fontSize='medium' />
-                                        </IconButton>
+                                        <StyledButtonIcon variant="outlined" size='small' className={ classes.button } onClick={ handleDownload }><FileDownloadOutlinedIcon fontSize='medium' /></StyledButtonIcon>
                                     </Tooltip>
                                 }
                             </DownloadButton>
@@ -372,7 +371,7 @@ const Students = ({
                                 onChange={ searchStudents }
                                 inputProps={ {
                                     style: {
-                                        padding: 5,
+                                        padding: 7,
                                         display: 'inline-flex'
                                     }
                                 } }
@@ -384,9 +383,14 @@ const Students = ({
             <>
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllStudent }>
-                            <DeleteOutlineOutlinedIcon fontSize='small' />
-                        </IconButton>
+                        <StyledButtonRedIcon
+                            className={ classes.multiButton }
+                            variant="outlined"
+                            size="small"
+                            onClick={ deleteAllStudent }
+                        >
+                            <DeleteOutlineOutlinedIcon fontSize="small" />
+                        </StyledButtonRedIcon>
                     </Tooltip>
                 </DeleteAllButton> }
                 { search ?

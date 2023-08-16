@@ -42,13 +42,13 @@ import { Grid, Tooltip } from '@mui/material';
 import debouce from 'lodash.debounce';
 import { Skeleton } from '@mui/material';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
-import { IconButton } from '@mui/material';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import SubmissionForm from '../form/SubmissionForm';
 import AssignmentForm from '../form/AssignmentForm';
 import SubmissionHistoryPage from './submissionHistory';
 import { removeCommaWordEnd, formatDate, platform, windowOpen, getItemSessionStorage } from '../../../../utils/RegExp';
-import { PaginationContainer } from '../../../../style/index';
+import { PaginationContainer, StyledButtonGreenIcon, StyledButtonRedIcon, StyledButtonIcon, AddButtonBottom } from '../../../../style/index';
 import { BASE_URL_ANALYSIS_GATEWAY, BASE_URL_ANALYSIS, BASE_URL_EXTREM, BASE_URL_UPLOAD } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { DOWNLOAD_CSV, FILE_LANGUAGE, WARNING_MESSAGES, WINDOW_PLATFORM, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../../constant/data/Constant';
@@ -57,13 +57,13 @@ import { INSTRUCTIONS_STEPS } from '../../../../constant/data/InstructionMessage
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 90 },
     { id: 'title', label: 'Title', maxWidth: 90 },
-    { id: 'original_fn', label: 'File', isDownload: true, maxWidth: 120 },
+    { id: 'original_fn', label: 'File', isDownload: true, maxWidth: 115 },
     { id: 'lang1', label: 'Language', maxWidth: 80 },
-    { id: 'grammar_url', label: 'Grammar', minWidth: 100 },
-    { id: 'percent', label: 'Similarity', maxWidth: 120 },
+    { id: 'grammar_url', label: 'Grammar', minWidth: 90 },
+    { id: 'percent', label: 'Similarity', maxWidth: 110 },
     { id: 'paper_id', label: 'Paper ID', maxWidth: 70 },
-    { id: 'date_up', label: 'Submission Date', maxWidth: 100 },
-    { id: 'action', label: 'Action', maxWidth: 110 },
+    { id: 'date_up', label: 'Submission Date', maxWidth: 90 },
+    { id: 'action', label: 'Action', maxWidth: 135 },
 ];
 
 function createData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status, user_id, flag) {
@@ -71,14 +71,6 @@ function createData(id, d_key, name, title, original_fn, lang1, grammar, grammar
         id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, action, alert_msg, repository_status, user_id, flag
     };
 }
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index:999;
-`;
-
 
 const SkeletonContainer = styled.div`
     margin-top: 16px;
@@ -107,6 +99,15 @@ const DeleteAllButton = styled.div`
     display: flex;
 `;
 
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "10px 6px 0px 0px",
+    },
+    multiButton: {
+        margin: "6px 6px 6px 0px",
+    },
+}));
+
 const Submission = ({
     GetSubmissionList,
     DownloadCsv,
@@ -127,6 +128,7 @@ const Submission = ({
     SubmissionReportDownload,
     isLoadingSubmissionReport
 }) => {
+    const classes = useStyles();
     const router = useRouter();
     const clasId = router.query.clasId;
     const assId = router.query.assId;
@@ -200,18 +202,28 @@ const Submission = ({
                 submission.paper_id,
                 formatDate(submission.date_up),
                 [
-                    { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
-                    { 'component': <HistoryIcon fontSize='small' />, 'type': 'history', 'title': 'Submission History' },
+                    {
+                        'component': <StyledButtonIcon variant="outlined" size='small'><HistoryIcon fontSize='small' /></StyledButtonIcon>, 'type': 'history', 'title': 'Submission History'
+                    },
                     (submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) ?
                         {
-                            'component': <FileDownloadOutlinedIcon fontSize='small' />,
-                            'title': 'Similarity report not ready'
-                        } :
-                        {
-                            'component': <FileDownloadOutlinedIcon fontSize='small' />,
-                            'type': 'download',
-                            'title': 'Similarity report download'
+                            component: (
+                                <StyledButtonIcon variant="outlined" size="small">
+                                    <FileDownloadOutlinedIcon fontSize="small" />
+                                </StyledButtonIcon>
+                            ),
+                            title: "Similarity report not ready",
                         }
+                        : {
+                            component: (
+                                <StyledButtonIcon variant="outlined" size="small">
+                                    <FileDownloadOutlinedIcon fontSize="small" />
+                                </StyledButtonIcon>
+                            ),
+                            type: "download",
+                            title: "Similarity report download",
+                        },
+                    { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' }
                 ],
                 submission.alert_msg,
                 submission.rep_status,
@@ -478,13 +490,14 @@ const Submission = ({
                 <DownloadField>
                     <DownloadButton>
                         <Tooltip title="Refresh" arrow>
-                            <IconButton
-                                aria-label="download-file"
-                                size="large"
+                            <StyledButtonIcon
+                                className={ classes.button }
                                 onClick={ handleRefresh }
+                                variant="outlined"
+                                size="small"
                             >
-                                <RefreshOutlinedIcon fontSize='medium' />
-                            </IconButton>
+                                <RefreshOutlinedIcon fontSize="small" />
+                            </StyledButtonIcon>
                         </Tooltip>
                         { submissionData?.length > 0 &&
                             isLoadingDownload ?
@@ -493,12 +506,14 @@ const Submission = ({
                             </SkeletonContainer>
                             :
                             <Tooltip title="Download csv" arrow>
-                                <IconButton
-                                    aria-label="download-file"
-                                    size="large"
-                                    onClick={ handleDownload }>
-                                    <FileDownloadOutlinedIcon fontSize='medium' />
-                                </IconButton>
+                                <StyledButtonIcon
+                                    className={ classes.button }
+                                    onClick={ handleDownload }
+                                    variant="outlined"
+                                    size="small"
+                                >
+                                    <FileDownloadOutlinedIcon fontSize="small" />
+                                </StyledButtonIcon>
                             </Tooltip>
                         }
                     </DownloadButton>
@@ -509,7 +524,7 @@ const Submission = ({
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 7,
                                 display: 'inline-flex',
                             },
                         } }
@@ -590,15 +605,25 @@ const Submission = ({
             }
 
             { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
-                <Tooltip title='Delete' arrow>
-                    <IconButton onClick={ deleteAllSubmission }>
-                        <DeleteOutlineOutlinedIcon fontSize='small' />
-                    </IconButton>
+                <Tooltip title="Save to repository" arrow>
+                    <StyledButtonGreenIcon
+                        className={ classes.multiButton }
+                        variant="outlined"
+                        size="small"
+                        onClick={ saveAllSubmission }
+                    >
+                        <SaveOutlinedIcon fontSize="small" />
+                    </StyledButtonGreenIcon>
                 </Tooltip>
-                <Tooltip title='Save to repositary' arrow>
-                    <IconButton onClick={ saveAllSubmission }>
-                        <SaveOutlinedIcon fontSize='small' />
-                    </IconButton>
+                <Tooltip title="Delete" arrow>
+                    <StyledButtonRedIcon
+                        className={ classes.multiButton }
+                        variant="outlined"
+                        size="small"
+                        onClick={ deleteAllSubmission }
+                    >
+                        <DeleteOutlineOutlinedIcon fontSize="small" />
+                    </StyledButtonRedIcon>
                 </Tooltip>
             </DeleteAllButton> }
 

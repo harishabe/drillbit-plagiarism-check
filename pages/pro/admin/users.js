@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
-import { TextField, Pagination, IconButton } from '@mui/material';
+import { TextField, Pagination } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ProAdmin from './../../../layouts/ProAdmin';
@@ -407,7 +407,7 @@ const Users = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) &&
                     <div>
                     <Tooltip title='Delete' arrow>
-                            <StyledButtonIcon onClick={ deleteAllInstructor } variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonIcon>
+                            <StyledButtonRedIcon onClick={ deleteAllInstructor } variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>
                     </Tooltip>
                 </div> }
                 <CommonTable

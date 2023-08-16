@@ -27,7 +27,7 @@ import {
     formatDate
 } from '../../../utils/RegExp';
 import { DeleteClass } from '../../../redux/action/instructor/InstructorAction';
-import { PaginationContainer } from '../../../style/index';
+import { StyledButtonIcon, StyledButtonRedIcon, PaginationContainer } from '../../../style/index';
 import { CLASS_VIEW } from '../../../constant/data/Constant';
 import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
@@ -135,9 +135,15 @@ const MyClassFiles = ({
                     <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
                     />,
                     [
-                        { 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon fontSize='small' />, 'type': 'nextPath', 'title': 'Next' }
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                        },
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next'
+                        },
+                        {
+                            'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                        }
                     ],
                     classes.description,
                     classes.end_date
