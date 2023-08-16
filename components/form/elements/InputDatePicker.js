@@ -26,6 +26,16 @@ const useStyles = makeStyles(() => ({
     marginLeft: 0,
     color: "#ff0000",
   },
+  root: {
+    "& .MuiInputBase-root": {
+      "& .MuiButtonBase-root": {
+        paddingLeft: '12px 14px'
+      },
+      "& .MuiInputBase-input": {
+        padding: '12px 14px',
+      }
+    }
+  }
 }));
 
 const InputDatePicker = ({ control, field }) => {
@@ -43,6 +53,7 @@ const InputDatePicker = ({ control, field }) => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Stack spacing={3}>
               <DatePicker
+               className={classes.root}
                 style={{ marginTop: "5px" }}
                 inputFormat="dd/MM/yyyy"
                 label={field.dateLabel}
@@ -62,11 +73,6 @@ const InputDatePicker = ({ control, field }) => {
                     helperText={error ? error.message : field.info}
                     FormHelperTextProps={{
                       className: classes.helperText,
-                    }}
-                    inputProps={{
-                      style: {
-                        padding: "12px 14px",
-                      },
                     }}
                   />
                 )}

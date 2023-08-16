@@ -18,7 +18,7 @@ const drillBitTheme = {
         root: {
           color: "#454745",
           fontWeight: 600,
-          marginTop:'5px'
+          marginTop: "5px",
         },
       },
     },
@@ -54,12 +54,12 @@ const drillBitTheme = {
         },
       },
     },
-    MuiToggleButton:{
-      styleOverrides:{
-        root:{
-          padding:'6px'
-        }
-      }
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          padding: "6px",
+        },
+      },
     },
   },
 };

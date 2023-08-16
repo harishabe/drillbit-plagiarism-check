@@ -19,6 +19,11 @@ const useStyles = makeStyles(() => ({
     marginLeft: 0,
     color: "#ff0000",
   },
+  root: {
+    "& .MuiOutlinedInput-root": {
+      padding: "5px",
+    },
+  },
 }));
 
 const InputAutoComplete = ({ field, control, renderOption }) => {
@@ -37,6 +42,7 @@ const InputAutoComplete = ({ field, control, renderOption }) => {
         }) => (
           <StyledAutocompleteField
             options={field.options}
+            className={classes.root}
             getOptionLabel={(option) => option.name}
             renderOption={renderOption}
             size={field.size}
@@ -57,11 +63,6 @@ const InputAutoComplete = ({ field, control, renderOption }) => {
             )}
             onChange={(e, data) => onChange(data)}
             value={{ name: value?.name === undefined ? "" : value?.name }}
-            inputProps={{
-              style: {
-                padding: "12px 14px",
-              },
-            }}
             //defaultValue={{ name: value }}
 
             {...props}
