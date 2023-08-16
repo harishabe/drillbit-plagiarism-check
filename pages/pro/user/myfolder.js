@@ -8,6 +8,7 @@ import debouce from 'lodash.debounce';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import { TextField, Skeleton, Tooltip } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
@@ -59,6 +60,13 @@ const ToggleButton = styled(MuiToggleButton)({
     }
 });
 
+const useStyles = makeStyles(() => ({
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
+
 const columns = [
     { id: 'ass_id', label: 'Folder ID', maxWidth: 90 },
     { id: 'assignment_name', label: 'Folder name', maxWidth: 260 },
@@ -86,6 +94,7 @@ const MyFolder = ({
     isLoadingEdit
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
     const [rows, setRows] = useState([]);
     const [editFolder, setEditFolder] = useState(false);
@@ -175,13 +184,13 @@ const MyFolder = ({
             row =
                 createData(
                     folder.folder_id,
-                    <EllipsisText component={ [<FolderIcon fontSize='14px' htmlColor='#56B2EA' />] } value={ folder.folder_name } />,
+                    <EllipsisText component={ [<FolderIcon className='folder-class-icon' fontSize='14px' htmlColor='#56B2EA' />] } value={ folder.folder_name } />,
                     formatDate(folder.created_date),
                     folder.no_of_submissions,
                     [
                         { 'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next' },                        
-                        { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' }
+                        { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next' }               
                     ],
                     folder.ex_references,
                     folder.ex_quotes,
@@ -251,7 +260,7 @@ const MyFolder = ({
                 <Grid item md={ 3 } xs={ 5 }>
                     <Heading title={ `My Folders(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 6 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                <Grid item md={ 6 } className={ classes.view }>
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -269,7 +278,7 @@ const MyFolder = ({
                 </Grid>
                 <Grid item md={ 3 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '100%', marginTop: '8px' } }
+                        sx={ { width: '100%' } }
                         placeholder='Search by Folder ID'
                         onChange={ debouncedResults }
                         inputProps={ {

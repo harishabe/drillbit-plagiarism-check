@@ -2,11 +2,11 @@ import React, { useEffect, useState, useMemo } from 'react';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
-import { TextField, Pagination, IconButton } from '@mui/material';
+import { TextField, Pagination } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Admin from './../../../layouts/Admin';
@@ -39,7 +39,7 @@ import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonIcon, AddButtonBottom, StyledButtonRedIcon } from '../../../style/index';
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 140 },
@@ -54,13 +54,6 @@ function createData(user_id, role, name, username, created_date, plagairism, gra
     return { user_id, role, name, username, created_date, plagairism, grammar, status, stats, action, expiry_date, department, designation, phone_number, plagiarismUsed, grammarUsed };
 };
 
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
-`;
-
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
@@ -74,6 +67,16 @@ const InstructorBreadCrumb = [
     },
 ];
 
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "0px 0px 6px 0px",
+    },
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
+
 const Instructor = ({
     pageDetails,
     GetInstructorData,
@@ -84,6 +87,7 @@ const Instructor = ({
     isLoading
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
@@ -121,14 +125,17 @@ const Instructor = ({
                     instructor.plagairism,
                     instructor.grammar,
                     <StatusDot color={ (instructor.status === 'active') || (instructor.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ instructor.status } />,
-                    [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
-                    instructor.role === Role.admin ? ([{ 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' }]) :
-                        ([{ 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' },
-                            { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
+                    [{
+                        'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats'
+                    }],
+                    instructor.role === Role.admin ? ([{ 'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit' }]) :
+                        ([{ 'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit' },
+                            { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' },
                             {
-                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
+                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" disabled={ instructor.expired === 1 } />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
+                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate',
+                                'isDisabled': instructor.expired === 1
                             }
                         ]),
                     instructor.expiry_date,
@@ -384,9 +391,9 @@ const Instructor = ({
                     <Grid item md={ 4.5 } xs={ 5 }>
                         <Heading title={ `Instructors(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={ 7.5 } xs={ 7 } style={ { textAlign: 'right' } }>
+                    <Grid item md={ 7.5 } xs={ 7 } className={ classes.view }>
                         <TextField
-                            sx={ { width: '40%', marginTop: '8px' } }
+                            sx={ { width: '40%' } }
                             placeholder='Search by Email'
                             onChange={ debouncedResults }
                             inputProps={ {
@@ -406,9 +413,7 @@ const Instructor = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) &&
                     <div>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllInstructor }>
-                                <DeleteOutlineOutlinedIcon fontSize='small' />
-                        </IconButton>
+                            <StyledButtonRedIcon onClick={ deleteAllInstructor } className={ classes.button } variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>
                     </Tooltip>
                 </div> }
                 <CommonTable

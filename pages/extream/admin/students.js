@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import Box from '@mui/material/Box';
 import debouce from 'lodash.debounce';
+import { makeStyles } from "@mui/styles";
 import { Grid, Tooltip, TextField, Pagination, IconButton } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -25,18 +26,18 @@ import StudentForm from './form/StudentForm';
 import StudentStats from './student/StudentStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonIcon, StyledButtonRedIcon } from '../../../style/index';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl'; 
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 150 },
     { id: 'user_id', label: 'ID', maxWidth: 150 },
-    { id: 'username', label: 'Email', maxWidth: 200 },
+    { id: 'username', label: 'Email', maxWidth: 180 },
     { id: 'department', label: 'Department', maxWidth: 110 },
     { id: 'section', label: 'Section', maxWidth: 110 },
     { id: 'stats', label: 'Statistics', maxWidth: 70 },
-    { id: 'action', label: 'Actions', maxWidth: 80 },
+    { id: 'action', label: 'Actions', maxWidth: 100 },
 ];
 
 function createData(id, name, user_id, username, department, section, stats, action) {
@@ -56,6 +57,16 @@ const IntegrationBreadCrumb = [
     },
 ];
 
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "0px 0px 6px 0px",
+    },
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
+
 const Students = ({
     GetStudnetData,
     studentData,
@@ -64,7 +75,7 @@ const Students = ({
     isLoading
 }) => {
     const [rows, setRows] = useState([]);
-
+    const classes = useStyles();
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [studentId, setStudentId] = useState('');
@@ -95,7 +106,7 @@ const Students = ({
                     student.department,
                     student.section,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
-                    [{ 'component': <EditOutlinedIcon fontSize='small' />, 'type': 'edit', 'title': 'Edit' }, { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' }]
+                    [{ 'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit' }, { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -277,9 +288,9 @@ const Students = ({
                     <Grid item md={ 4.5 } xs={ 5 }>
                         <Heading title={`Students(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
                     </Grid>
-                    <Grid item md={ 7.5 } xs={ 7 } style={ { textAlign: 'right' } }>
+                    <Grid item md={ 7.5 } xs={ 7 } className={ classes.view }>
                         <TextField
-                            sx={ { width: '40%', marginTop: '8px' } }
+                            sx={ { width: '40%' } }
                             placeholder='Search by Email'
                             onChange={debouncedResults}
                             inputProps={{
@@ -299,9 +310,7 @@ const Students = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) &&
                     <div>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={deleteAllInstructor}>
-                                <DeleteOutlineOutlinedIcon fontSize='small' />
-                        </IconButton>
+                            <StyledButtonRedIcon onClick={ deleteAllInstructor } className={ classes.button } variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>
                     </Tooltip>
                 </div>}
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -51,6 +51,16 @@ const columns = [
     { id: 'action', label: 'Actions', maxWidth: 120 }
 ];
 
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "0px 0px 6px 0px",
+    },
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
+
 function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar, expired) {
     return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, action, expiry_date, department, designation, phone_number, used_submissions, used_grammar, expired };
 };
@@ -77,6 +87,7 @@ const Users = ({
     DeactivateData,
     isLoading
 }) => {
+    const classes = useStyles();
     const router = useRouter();
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -385,9 +396,9 @@ const Users = ({
                     <Grid item md={ 5 } xs={ 5 }>
                         <Heading title={ `Users(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                    <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
                         <TextField
-                            sx={ { width: '40%', marginTop: '8px' } }
+                            sx={ { width: '40%' } }
                             placeholder='Search by Email'
                             onChange={ debouncedResults }
                             inputProps={ {
@@ -407,7 +418,7 @@ const Users = ({
                 { _.find(rows, function (o) { return o.isSelected === true; }) &&
                     <div>
                     <Tooltip title='Delete' arrow>
-                            <StyledButtonRedIcon onClick={ deleteAllInstructor } variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>
+                            <StyledButtonRedIcon onClick={ deleteAllInstructor } className={ classes.button } variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>
                     </Tooltip>
                 </div> }
                 <CommonTable

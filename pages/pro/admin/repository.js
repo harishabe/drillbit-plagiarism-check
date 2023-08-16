@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { TextField, Pagination } from '@mui/material';
@@ -44,6 +44,13 @@ const AdminBreadCrumb = [
     },
 ];
 
+const useStyles = makeStyles(() => ({
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
+
 const columns = [
     { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
     { id: 'name', label: 'Name', maxWidth: 140 },
@@ -74,6 +81,7 @@ const Repository = ({
 }) => {
 
     const router = useRouter();
+    const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -200,7 +208,7 @@ const Repository = ({
                         title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
-                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
                     <TextField
                         sx={ { width: '40%', marginTop: '8px' } }
                         placeholder='Search by Paper ID'

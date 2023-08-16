@@ -3,6 +3,7 @@ import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { GetClassesData } from '../../../redux/action/student/StudentAction';
@@ -15,7 +16,7 @@ import Student from '../../../layouts/Student';
 import {
     BreadCrumb,
     CardInfoView,
-    MainHeading,
+    Heading,
     CardInfoSkeleton,
     ErrorBlock,
     CardView,
@@ -31,7 +32,7 @@ import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import WysiwygIcon from '@mui/icons-material/Wysiwyg';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonIcon } from '../../../style/index';
 
 const StudentBreadCrumb = [
     {
@@ -45,6 +46,13 @@ const StudentBreadCrumb = [
         active: true,
     },
 ];
+
+const useStyles = makeStyles(() => ({
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
 
 const ToggleButton = styled(MuiToggleButton)({
     '&.Mui-selected, &.Mui-selected:hover': {
@@ -75,6 +83,7 @@ const MyClasses = ({
     isLoading
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [item, setItem] = useState([]);
     const [rows, setRows] = useState([]);
     const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
@@ -128,13 +137,15 @@ const MyClasses = ({
             row =
                 createData(
                     classes.class_id,
-                    <EllipsisText component={ [<WysiwygIcon fontSize='14px' htmlColor='#56B2EA' />] } value={ classes.class_name } />,
+                    <EllipsisText component={ [<WysiwygIcon className='folder-class-icon' fontSize='18px' htmlColor='#56B2EA' />] } value={ classes.class_name } />,
                     formatDate(classes.created_date),
                     formatDate(classes.end_date),
                     <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
                     />,
                     [
-                        { 'component': <ArrowForwardOutlinedIcon fontSize='small' />, 'type': 'nextPath', 'title': 'Next' }
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next'
+                        }
                     ],
                     classes.description
                 );
@@ -201,11 +212,11 @@ const MyClasses = ({
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 3 } xs={ 5 }>
-                        <MainHeading
+                        <Heading
                             title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                         />
                     </Grid>
-                    <Grid item md={ 6.5 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                    <Grid item md={ 6.5 } className={ classes.view }>
                         <ToggleButtonGroup
                             color="primary"
                             size='small'
@@ -223,7 +234,7 @@ const MyClasses = ({
                     </Grid>
                     <Grid item md={ 2.5 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <TextField
-                            sx={ { width: '100%', marginTop: '8px' } }
+                            sx={ { width: '100%' } }
                             placeholder='Search by Class ID'
                             onChange={ debouncedResults }
                             inputProps={ {
