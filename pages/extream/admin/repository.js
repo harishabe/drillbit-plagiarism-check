@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import { Box, Grid, Pagination, TextField } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useRouter } from 'next/router';
@@ -25,7 +25,7 @@ import {
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import { formatDate } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonRedIcon, AddButtonBottom } from '../../../style/index';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const AdminBreadCrumb = [
@@ -41,12 +41,12 @@ const AdminBreadCrumb = [
     },
 ];
 
-const AddButtonBottom = styled.div`
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 9999;
-`;
+const useStyles = makeStyles(() => ({
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
 
 const columns = [
     { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
@@ -77,6 +77,7 @@ const Repository = ({
     UploadZipFileDataClear
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -105,7 +106,7 @@ const Repository = ({
                     repo.repository_type,
                     repo.language,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' }]
+                    [{ 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' }]
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -201,9 +202,9 @@ const Repository = ({
                         title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
-                <Grid item md={ 7.5 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 7.5 } xs={ 7 } className={ classes.view }>
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={ { width: '40%' } }
                         placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {

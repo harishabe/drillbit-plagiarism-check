@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -20,15 +19,9 @@ import {
 import { BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { formatDate, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonIcon, AddButtonBottom } from '../../../style/index';
 import { SUBMISSION_DELAY } from '../../../constant/data/Constant';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
-`;
 
 function createData(original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, alert_msg, repository_status, flag) {
     return { original_fn, lang1, paper_id, date_up, grammar, grammar_url, percent, score, status, action, d_key, alert_msg, repository_status, flag };
@@ -83,7 +76,9 @@ const SubmissionHistory = ({
                     submission.feedback?.marks,
                     submission.status,
                     [
-                        { 'component': <FeedbackOutlinedIcon fontSize='medium' />, 'type': 'feedback', 'title': 'Feedback' },
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><FeedbackOutlinedIcon fontSize='medium' /></StyledButtonIcon>, 'type': 'feedback', 'title': 'Feedback'
+                        },
                     ],
                     submission.d_key,
                     submission.alert_msg,

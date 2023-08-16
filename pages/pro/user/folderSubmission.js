@@ -21,7 +21,7 @@ import ProUser from "../../../layouts/ProUser";
 import {
   CommonTable,
   BreadCrumb,
-  MainHeading,
+  Heading,
   CreateDrawer,
   WarningDialog,
   SimilarityStatus,
@@ -159,6 +159,10 @@ const useStyles = makeStyles(() => ({
     width: "40%",
     marginTop: "5px",
   },
+  view: {
+    textAlign: 'right',
+    marginBottom: '7px'
+  }
 }));
 
 const DeleteAllButton = styled.div`
@@ -643,7 +647,7 @@ const folderSubmission = ({
         <BreadCrumb item={ UserBreadCrumb } />
         <Grid container spacing={ 1 }>
           <Grid item md={ 5 } xs={ 5 }>
-            <MainHeading
+            <Heading
               title={ `Submissions (${!isLoadingSubmission
                   ? pageDetails?.totalElements !== undefined
                     ? pageDetails?.totalElements
@@ -652,7 +656,7 @@ const folderSubmission = ({
                 })` }
             />
           </Grid>
-          <Grid item md={ 7 } xs={ 7 } style={ { textAlign: "right" } }>
+          <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
             <Tooltip title="Refresh" arrow>
               <StyledButtonIcon
                 className={ classes.button }

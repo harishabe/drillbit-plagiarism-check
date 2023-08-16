@@ -12,7 +12,7 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import Pagination from '@mui/material/Pagination';
 import { TextField } from '@mui/material';
 import Student from '../../../layouts/Student';
-import { BreadCrumb, CardInfoView, CardInfoSkeleton, CardView, MainHeading, ErrorBlock } from '../../../components';
+import { BreadCrumb, CardInfoView, CardInfoSkeleton, CardView, Heading, ErrorBlock } from '../../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 import { PaginationContainer } from '../../../style/index';
@@ -127,7 +127,7 @@ const MyAssignments = ({
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item md={ 5 } xs={ 5 }>
-                        <MainHeading
+                        <Heading
                             title={`My Assignments(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`}
                         />
                     </Grid>

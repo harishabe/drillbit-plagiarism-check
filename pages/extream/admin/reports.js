@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Admin from './../../../layouts/Admin';
 import { BreadCrumb, CardView, WidgetCard, Heading } from './../../../components';
-import { DownloadIcon } from '../../../assets/icon';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { DownloadInstructorStudentData } from '../../../redux/action/admin/AdminAction';
 import ReportForm from './form/ReportForm';
 import END_POINTS from '../../../utils/EndPoints';
@@ -56,7 +56,7 @@ const Reports = ({
                             handleDownload={handDownload}
                             isLoading={isLoading}
                             isLoadingIcon={usersType === 'instructors' ? isLoadingDownload : false}
-                            icon={<DownloadIcon />}
+                            icon={ <FileDownloadOutlinedIcon fontSize='medium' /> }
                         />
                     </Grid>
                     <Grid item md={6} xs={12}>
@@ -67,7 +67,7 @@ const Reports = ({
                             handleDownload={handDownload}
                             isLoading={isLoading}
                             isLoadingIcon={usersType === 'students' ? isLoadingDownload : false}
-                            icon={<DownloadIcon />}
+                            icon={ <FileDownloadOutlinedIcon fontSize='medium' /> }
                         />
                     </Grid>
                 </Grid>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { TextField, Pagination } from '@mui/material';
@@ -45,6 +45,13 @@ const InstructorBreadCrumb = [
     },
 ];
 
+const useStyles = makeStyles(() => ({
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
+
 const columns = [
     { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
     { id: 'name', label: 'Name', maxWidth: 140 },
@@ -73,7 +80,7 @@ const Repository = ({
     uploadData,
     UploadZipFileDataClear
 }) => {
-
+    const classes = useStyles();
     const router = useRouter();
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
@@ -199,9 +206,9 @@ const Repository = ({
                 <Grid item md={ 5 } xs={ 5 }>
                     <Heading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={ { width: '40%' } }
                         placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {
