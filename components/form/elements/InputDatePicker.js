@@ -33,6 +33,7 @@ const useStyles = makeStyles(() => ({
       },
       "& .MuiInputBase-input": {
         padding: '12px 14px',
+        fontWeight:"500"
       }
     }
   }

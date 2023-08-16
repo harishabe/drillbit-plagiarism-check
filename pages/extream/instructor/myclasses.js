@@ -191,6 +191,7 @@ const MyClasses = ({
                             style: {
                                 padding: 7,
                                 display: 'inline-flex',
+                                fontWeight:500,
                             },
                         } }
                     />

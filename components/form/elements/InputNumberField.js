@@ -60,6 +60,7 @@ const InputNumberField = ({ control, field }) => {
               inputProps: { min: 0 },
               style: {
                 padding: "12px 14px",
+                fontWeight:"500"
               },
             }}
           />

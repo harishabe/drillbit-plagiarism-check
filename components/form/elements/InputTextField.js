@@ -72,6 +72,7 @@ const InputTextField = ({ control, field }) => {
               minLength: field.minLength,
               style: {
                 padding: "12px 14px",
+                fontWeight:"500"
               },
             }}
           />

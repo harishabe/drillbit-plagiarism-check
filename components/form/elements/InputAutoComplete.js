@@ -22,6 +22,7 @@ const useStyles = makeStyles(() => ({
   root: {
     "& .MuiOutlinedInput-root": {
       padding: "5px",
+      fontWeight:"500"
     },
   },
 }));

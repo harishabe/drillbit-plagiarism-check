@@ -51,6 +51,7 @@ const InputFileType = ({ control, field }) => {
             inputProps={{
               style: {
                 padding: "12px 14px",
+                fontWeight:"500"
               },
             }}
           />
