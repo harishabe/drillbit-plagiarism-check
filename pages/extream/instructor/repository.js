@@ -25,7 +25,7 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate, removeItemSessionStorage } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonRedIcon } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
@@ -109,7 +109,9 @@ const Repository = ({
                     repo.repository_type,
                     repo.language,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' }]
+                    [{
+                        'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                    }]
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -205,7 +207,7 @@ const Repository = ({
                 </Grid>
                 <Grid item md={ 7.3 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={ { width: '40%', marginBottom: '8px' } }
                         placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {

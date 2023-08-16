@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Tooltip, IconButton, Skeleton } from '@mui/material';
+import { makeStyles } from "@mui/styles";
+import { Tooltip, Skeleton } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import { CommonTable, EllipsisText } from '../../../../components';
@@ -13,6 +14,7 @@ import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { NO_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
+import { StyledButtonIcon } from '../../../../style/index';
 
 const SkeletonContainer = styled.div`
     margin-top: 16px;
@@ -29,6 +31,12 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "10px 6px 0px 0px",
+    }
+}));
+
 const QNA = ({
     GetSubmissionList,
     DownloadCsv,
@@ -37,11 +45,9 @@ const QNA = ({
     isLoading,
     isLoadingDownload
 }) => {
-
+    const classes = useStyles();
     const router = useRouter();
-
     const clasId = router.query.clasId;
-
     const assId = router.query.assId;
 
     const [rows, setRows] = useState([]);
@@ -104,12 +110,14 @@ const QNA = ({
                         </SkeletonContainer>
                         :
                         <Tooltip title="Download csv" arrow>
-                            <IconButton
-                                aria-label="download-file"
-                                size="large"
-                                onClick={ handleDownload }>
-                                <FileDownloadOutlinedIcon fontSize='medium' />
-                            </IconButton>
+                            <StyledButtonIcon
+                                className={ classes.button }
+                                onClick={ handleDownload }
+                                variant="outlined"
+                                size="small"
+                            >
+                                <FileDownloadOutlinedIcon fontSize="small" />
+                            </StyledButtonIcon>
                         </Tooltip>
                     }
                 </DownloadButton>

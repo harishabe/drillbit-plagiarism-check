@@ -6,11 +6,11 @@ import { makeStyles } from "@mui/styles";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import debouce from "lodash.debounce";
-import { Grid, Tooltip, Typography } from "@mui/material";
+import { Grid, Tooltip } from "@mui/material";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { Skeleton } from "@mui/material";
 import Box from "@mui/material/Box";
-import { Pagination, IconButton } from "@mui/material";
+import { Pagination } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import GTranslateIcon from "@mui/icons-material/GTranslate";
@@ -56,7 +56,13 @@ import {
   windowOpen,
   getItemSessionStorage,
 } from "../../../utils/RegExp";
-import { PaginationContainer } from "../../../style/index";
+import {
+  StyledButtonIcon,
+  AddButtonBottom,
+  StyledButtonRedIcon,
+  StyledButtonGreenIcon,
+  PaginationContainer
+} from "../../../style/index";
 import {
   BASE_URL,
   BASE_URL_PRO,
@@ -76,11 +82,6 @@ import {
 } from "../../../constant/data/Constant";
 import PageChange from "../../../components/loader/PageChange";
 import { INSTRUCTIONS_STEPS } from "../../../constant/data/InstructionMessage";
-import {
-  StyledButtonIcon,
-  AddButtonBottom,
-  StyledButtonRedIcon,
-} from "./../../../style/index";
 
 const columns = [
   { id: "name", label: "Name", maxWidth: 100 },
@@ -206,10 +207,10 @@ const folderSubmission = ({
 
   const TooltipContent = ({ value }) => (
     <>
-      <div className={classes.flex}>{"Cross Language"}</div>
-      <div className={classes.flex}>
-        {" "}
-        {value} <ArrowRightAltIcon fontSize="small" /> English{" "}
+      <div className={ classes.flex }>{ "Cross Language" }</div>
+      <div className={ classes.flex }>
+        { " " }
+        { value } <ArrowRightAltIcon fontSize="small" /> English{ " " }
       </div>
     </>
   );
@@ -243,9 +244,9 @@ const folderSubmission = ({
     if (router.isReady) {
       folderSubmissionsFileData(
         BASE_URL_PRO +
-          END_POINTS_PRO.USER_SUBMISSION +
-          folderId +
-          "/submissions",
+        END_POINTS_PRO.USER_SUBMISSION +
+        folderId +
+        "/submissions",
         paginationPayload
       );
     }
@@ -257,9 +258,9 @@ const folderSubmission = ({
       const intervalId = setInterval(() => {
         folderSubmissionsFileData(
           BASE_URL_PRO +
-            END_POINTS_PRO.USER_SUBMISSION +
-            folderId +
-            "/submissions",
+          END_POINTS_PRO.USER_SUBMISSION +
+          folderId +
+          "/submissions",
           paginationPayload
         );
       }, SUBMISSION_DELAY);
@@ -300,50 +301,50 @@ const folderSubmission = ({
         submission.original_file_name,
         [
           submission?.language === "Cross-Language" ? (
-            <div className={classes.lang}>
-              <div className={classes.tooltipStyle}>
+            <div className={ classes.lang }>
+              <div className={ classes.tooltipStyle }>
                 <Tooltip
-                  title={<TooltipContent value={submission.language1} />}
+                  title={ <TooltipContent value={ submission.language1 } /> }
                   arrow
                 >
                   <GTranslateIcon fontSize="23px" color="primary" />
                 </Tooltip>
               </div>
-              <div className={classes.width}>
-                <EllipsisText value={submission.language1} />
+              <div className={ classes.width }>
+                <EllipsisText value={ submission.language1 } />
               </div>
             </div>
           ) : (
-            <EllipsisText value={submission.language1} />
+              <EllipsisText value={ submission.language1 } />
           ),
         ],
         submission.grammar,
         submission.grammar_url,
         <SimilarityStatus
-          percent={submission.percent}
-          flag={submission.flag}
+          percent={ submission.percent }
+          flag={ submission.flag }
         />,
         submission.paper_id,
         formatDate(submission.date_up),
         [
           submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)
             ? {
-                component: (
-                  <StyledButtonIcon variant="outlined" size="small">
-                    <FileDownloadOutlinedIcon fontSize="small" />
-                  </StyledButtonIcon>
-                ),
-                title: "Similarity report not ready",
-              }
+              component: (
+                <StyledButtonIcon variant="outlined" size="small">
+                  <FileDownloadOutlinedIcon fontSize="small" />
+                </StyledButtonIcon>
+              ),
+              title: "Similarity report not ready",
+            }
             : {
-                component: (
-                  <StyledButtonIcon variant="outlined" size="small">
-                    <FileDownloadOutlinedIcon fontSize="small" />
-                  </StyledButtonIcon>
-                ),
-                type: "download",
-                title: "Similarity report download",
-              },
+              component: (
+                <StyledButtonIcon variant="outlined" size="small">
+                  <FileDownloadOutlinedIcon fontSize="small" />
+                </StyledButtonIcon>
+              ),
+              type: "download",
+              title: "Similarity report download",
+            },
           {
             component: (
               <StyledButtonRedIcon variant="outlined" size="small">
@@ -405,8 +406,8 @@ const folderSubmission = ({
   const handleYesWarning = () => {
     DeletefolderSubmissionData(
       BASE_URL_PRO +
-        END_POINTS_PRO.USER_SUBMISSION +
-        `${folderId}/submissions?paperId=${deleteRowData}`
+      END_POINTS_PRO.USER_SUBMISSION +
+      `${folderId}/submissions?paperId=${deleteRowData}`
     );
     setShowDeleteAllIcon(false);
     setTimeout(() => {
@@ -417,8 +418,8 @@ const folderSubmission = ({
   const handleYesSaveWarning = () => {
     SaveToRepoBulk(
       BASE_URL_PRO +
-        END_POINTS_PRO.USER_SUBMISSION +
-        `${folderId}/submissions/repository?paperId=${saveRowData}`
+      END_POINTS_PRO.USER_SUBMISSION +
+      `${folderId}/submissions/repository?paperId=${saveRowData}`
     );
     setShowDeleteAllIcon(false);
     setTimeout(() => {
@@ -567,8 +568,8 @@ const folderSubmission = ({
   const handleSubmissionDownloadYesWarning = () => {
     SubmissionReportDownload(
       BASE_URL_ANALYSIS_GATEWAY +
-        END_POINTS_PRO.SIMILARITY_REPORT_SINGLE_DOWNLOAD +
-        `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`,
+      END_POINTS_PRO.SIMILARITY_REPORT_SINGLE_DOWNLOAD +
+      `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`,
       submissionReportData
     );
     setShowSubmissionReport(false);
@@ -638,25 +639,24 @@ const folderSubmission = ({
 
   return (
     <React.Fragment>
-      <Box sx={{ flexGrow: 1 }}>
-        <BreadCrumb item={UserBreadCrumb} />
-        <Grid container spacing={1}>
-          <Grid item md={5} xs={5}>
+      <Box sx={ { flexGrow: 1 } }>
+        <BreadCrumb item={ UserBreadCrumb } />
+        <Grid container spacing={ 1 }>
+          <Grid item md={ 5 } xs={ 5 }>
             <MainHeading
-              title={`Submissions (${
-                !isLoadingSubmission
+              title={ `Submissions (${!isLoadingSubmission
                   ? pageDetails?.totalElements !== undefined
                     ? pageDetails?.totalElements
                     : 0
                   : 0
-              })`}
+                })` }
             />
           </Grid>
-          <Grid item md={7} xs={7} style={{ textAlign: "right" }}>
+          <Grid item md={ 7 } xs={ 7 } style={ { textAlign: "right" } }>
             <Tooltip title="Refresh" arrow>
               <StyledButtonIcon
-                className={classes.button}
-                onClick={handleRefresh}
+                className={ classes.button }
+                onClick={ handleRefresh }
                 variant="outlined"
                 size="small"
               >
@@ -664,130 +664,130 @@ const folderSubmission = ({
               </StyledButtonIcon>
             </Tooltip>
 
-            {folderSubmissionData?.length > 0 && isLoadingDownload ? (
+            { folderSubmissionData?.length > 0 && isLoadingDownload ? (
               <Skeleton
-                width={50}
-                style={{ display: "inline-block", marginRight: "10px" }}
+                width={ 50 }
+                style={ { display: "inline-block", marginRight: "10px" } }
               />
             ) : (
               <Tooltip title="Submission report download" arrow>
                 <StyledButtonIcon
-                  className={classes.button}
-                  onClick={handleDownload}
+                    className={ classes.button }
+                    onClick={ handleDownload }
                   variant="outlined"
                   size="small"
                 >
                   <FileDownloadOutlinedIcon fontSize="small" />
                 </StyledButtonIcon>
               </Tooltip>
-            )}
+            ) }
             <TextField
-              className={classes.search}
+              className={ classes.search }
               placeholder="Search by Paper ID"
-              onChange={debouncedResults}
-              inputProps={{
+              onChange={ debouncedResults }
+              inputProps={ {
                 style: {
                   padding: 5,
                   display: "inline-flex",
                 },
-              }}
+              } }
             />
           </Grid>
         </Grid>
       </Box>
       <>
-        {_.find(rows, function (o) {
+        { _.find(rows, function (o) {
           return o.isSelected === true;
         }) && (
           <DeleteAllButton>
-            <Tooltip title="Delete" arrow>
-              <StyledButtonRedIcon
-                className={classes.multiButton}
+            <Tooltip title="Save to repository" arrow>
+              <StyledButtonGreenIcon
+                className={ classes.multiButton }
                 variant="outlined"
                 size="small"
-                onClick={deleteAllSubmission}
+                onClick={ saveAllSubmission }
+              >
+                <SaveOutlinedIcon fontSize="small" />
+              </StyledButtonGreenIcon>
+            </Tooltip>
+            { isLoadingBulkDownload ? (
+              <Skeleton width={ 200 } />
+            ) : (
+              <Tooltip title="Submission report bulk download" arrow>
+                <StyledButtonIcon
+                    className={ classes.multiButton }
+                    variant="outlined"
+                    size="small"
+                    onClick={ submissionBulkDownload }
+                  >
+                    <FileDownloadOutlinedIcon fontSize="small" />
+                  </StyledButtonIcon>
+                </Tooltip>
+            ) }
+            <Tooltip title="Delete" arrow>
+              <StyledButtonRedIcon
+                className={ classes.multiButton }
+                variant="outlined"
+                size="small"
+                onClick={ deleteAllSubmission }
               >
                 <DeleteOutlineOutlinedIcon fontSize="small" />
               </StyledButtonRedIcon>
             </Tooltip>
-            <Tooltip title="Save to repository" arrow>
-              <StyledButtonIcon
-                className={classes.multiButton}
-                variant="outlined"
-                size="small"
-                onClick={saveAllSubmission}
-              >
-                <SaveOutlinedIcon fontSize="small" />
-              </StyledButtonIcon>
-            </Tooltip>
-            {isLoadingBulkDownload ? (
-              <Skeleton width={200} />
-            ) : (
-              <Tooltip title="Submission report bulk download" arrow>
-                <StyledButtonIcon
-                  className={classes.multiButton}
-                  variant="outlined"
-                  size="small"
-                  onClick={submissionBulkDownload}
-                >
-                  <FileDownloadOutlinedIcon fontSize="small" />
-                </StyledButtonIcon>
-              </Tooltip>
-            )}
           </DeleteAllButton>
-        )}
+          ) }
 
-        {search ? (
+        { search ? (
           <CommonTable
-            isCheckbox={true}
-            isSorting={true}
-            isSubmission={true}
-            tableHeader={columns}
-            tableData={rows}
-            handleAction={handleAction}
-            handleTableSort={handleTableSort}
-            handleCheckboxSelect={handleCheckboxSelect}
-            handleSingleSelect={handleSingleSelect}
-            downloadSubmissionFile={handleOriginalFileDownload}
-            showAnalysisPage={handleShowAnalysisPage}
-            showGrammarReport={handlGrammarReport}
+            isCheckbox={ true }
+            isSorting={ true }
+            isSubmission={ true }
+            tableHeader={ columns }
+            tableData={ rows }
+            handleAction={ handleAction }
+            handleTableSort={ handleTableSort }
+            handleCheckboxSelect={ handleCheckboxSelect }
+            handleSingleSelect={ handleSingleSelect }
+            downloadSubmissionFile={ handleOriginalFileDownload }
+            showAnalysisPage={ handleShowAnalysisPage }
+            showGrammarReport={ handlGrammarReport }
             // isLoading={ isLoadingSubmission }
-            isLoadingGrammarReport={isLoadingGrammarReport}
+            isLoadingGrammarReport={ isLoadingGrammarReport }
             path=""
           />
         ) : (
           <>
-            {rows.length > 0 ? (
+              { rows.length > 0 ? (
               <CommonTable
-                isCheckbox={true}
-                isSorting={true}
-                isSubmission={true}
-                tableHeader={columns}
-                tableData={rows}
-                handleAction={handleAction}
-                handleTableSort={handleTableSort}
-                handleCheckboxSelect={handleCheckboxSelect}
-                handleSingleSelect={handleSingleSelect}
-                downloadSubmissionFile={handleOriginalFileDownload}
-                showAnalysisPage={handleShowAnalysisPage}
-                showGrammarReport={handlGrammarReport}
+                  isCheckbox={ true }
+                  isSorting={ true }
+                  isSubmission={ true }
+                  tableHeader={ columns }
+                  tableData={ rows }
+                  handleAction={ handleAction }
+                  handleTableSort={ handleTableSort }
+                  handleCheckboxSelect={ handleCheckboxSelect }
+                  handleSingleSelect={ handleSingleSelect }
+                  downloadSubmissionFile={ handleOriginalFileDownload }
+                  showAnalysisPage={ handleShowAnalysisPage }
+                  showGrammarReport={ handlGrammarReport }
                 // isLoading={ isLoadingSubmission }
-                isLoadingGrammarReport={isLoadingGrammarReport}
+                  isLoadingGrammarReport={ isLoadingGrammarReport }
                 path=""
               />
             ) : (
               <CardView>
                 <Instructions
-                  message={Object.values(INSTRUCTIONS_STEPS.SUBMISSION)}
+                      message={ Object.values(INSTRUCTIONS_STEPS.SUBMISSION) }
                 />
               </CardView>
-            )}
+              ) }
           </>
-        )}
+        ) }
 
         <AddButtonBottom>
           <CreateDrawer
-            options={[
+            options={ [
               {
                 icon: <RegionalUploadIcon />,
                 title: "Regional",
@@ -803,57 +803,57 @@ const folderSubmission = ({
                 title: "English",
                 handleFromCreateDrawer: true,
               },
-            ]}
-            handleMultiData={handleShow}
-            isShowAddIcon={true}
+            ] }
+            handleMultiData={ handleShow }
+            isShowAddIcon={ true }
             title="Upload File"
-            navigateToMultiFile={true}
+            navigateToMultiFile={ true }
           ></CreateDrawer>
         </AddButtonBottom>
 
-        {showDeleteWarning && (
+        { showDeleteWarning && (
           <WarningDialog
-            warningIcon={<DeleteWarningIcon />}
-            message={WARNING_MESSAGES.DELETE}
-            handleYes={handleYesWarning}
-            handleNo={handleCloseWarning}
-            isOpen={true}
+            warningIcon={ <DeleteWarningIcon /> }
+            message={ WARNING_MESSAGES.DELETE }
+            handleYes={ handleYesWarning }
+            handleNo={ handleCloseWarning }
+            isOpen={ true }
           />
-        )}
+        ) }
 
-        {showSaveIcon && (
+        { showSaveIcon && (
           <WarningDialog
-            warningIcon={<DeleteWarningIcon />}
-            message={WARNING_MESSAGES.REPOSITORY}
-            handleYes={handleYesSaveWarning}
-            handleNo={handleCloseSaveWarning}
-            isOpen={true}
+            warningIcon={ <DeleteWarningIcon /> }
+            message={ WARNING_MESSAGES.REPOSITORY }
+            handleYes={ handleYesSaveWarning }
+            handleNo={ handleCloseSaveWarning }
+            isOpen={ true }
           />
-        )}
+        ) }
 
-        {showDownloadWarning && (
+        { showDownloadWarning && (
           <WarningDialog
-            message={WARNING_MESSAGES.DOWNLOAD}
-            handleYes={handleFileDownloadYesWarning}
-            handleNo={handleFileDownloadCloseWarning}
-            isOpen={true}
+            message={ WARNING_MESSAGES.DOWNLOAD }
+            handleYes={ handleFileDownloadYesWarning }
+            handleNo={ handleFileDownloadCloseWarning }
+            isOpen={ true }
           />
-        )}
+        ) }
 
-        {showSubmissionReport && (
+        { showSubmissionReport && (
           <WarningDialog
-            message={WARNING_MESSAGES.DOWNLOAD}
-            handleYes={handleSubmissionDownloadYesWarning}
-            handleNo={handleSubmissionDownloadCloseWarning}
-            isOpen={true}
+            message={ WARNING_MESSAGES.DOWNLOAD }
+            handleYes={ handleSubmissionDownloadYesWarning }
+            handleNo={ handleSubmissionDownloadCloseWarning }
+            isOpen={ true }
           />
-        )}
+        ) }
 
         <PaginationContainer>
           <Pagination
-            count={pageDetails?.totalPages}
-            page={pageDetails?.number + 1}
-            onChange={handleChange}
+            count={ pageDetails?.totalPages }
+            page={ pageDetails?.number + 1 }
+            onChange={ handleChange }
             color="primary"
             variant="outlined"
             shape="rounded"

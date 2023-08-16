@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import { Pagination, formLabelClasses } from '@mui/material';
-import { IconButton } from '@mui/material';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { TextField } from '@mui/material';
@@ -14,6 +13,7 @@ import Box from '@mui/material/Box';
 import { Grid, Tooltip } from '@mui/material';
 import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import Instructor from '../../../../layouts/Instructor';
 import {
     CommonTable,
@@ -36,19 +36,12 @@ import {
 import AssignmentForms from './../form/AssignmentForms';
 import { removeCommaWordEnd, setItemSessionStorage } from '../../../../utils/RegExp';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
-import { PaginationContainer } from '../../../../style/index';
+import { PaginationContainer, StyledButtonIcon, StyledButtonRedIcon, AddButtonBottom } from '../../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../../constant/data/Constant';
 import { formatDate, platform } from '../../../../utils/RegExp';
 import { INSTRUCTIONS_STEPS } from '../../../../constant/data/InstructionMessage';
-
-const AddButtonBottom = styled.div`
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index:999;
-`;
 
 const SkeletonContainer = styled.div`
     marginTop: 10px;
@@ -75,13 +68,22 @@ const DeleteAllButton = styled.div`
     marginLeft: 10px;
 `;
 
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "6px 8px 0px 0px",
+    },
+    multiButton: {
+        margin: "6px 6px 6px 0px",
+    },
+}));
+
 const columns = [
     { id: 'ass_id', label: 'Assignment ID', maxWidth: 100 },
     { id: 'assignment_name', label: 'Assignment Name', maxWidth: 250 },
     { id: 'status', label: 'Status', maxWidth: 140 },
-    { id: 'start_date', label: 'Start Date', maxWidth: 150 },
-    { id: 'end_date', label: 'End Date', maxWidth: 150 },
-    { id: 'action', label: 'Actions', maxWidth: 110 },
+    { id: 'start_date', label: 'Start Date', maxWidth: 140 },
+    { id: 'end_date', label: 'End Date', maxWidth: 140 },
+    { id: 'action', label: 'Actions', maxWidth: 130 },
 ];
 
 function createData(assignmentData, ass_id, assignment_name, status, start_date, end_date, action) {
@@ -100,6 +102,7 @@ const Assignments = ({
     activeTab
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [assId, setAssId] = useState('');
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -139,10 +142,12 @@ const Assignments = ({
                 formatDate(assignment.start_date),
                 formatDate(assignment.end_date),
                 [
-                    { 'component': <EditOutlinedIcon fontSize="small" />, 'type': 'edit', 'title': 'Edit' },
-                    { 'component': <DeleteOutlineOutlinedIcon fontSize="small" />, 'type': 'delete', 'title': 'Delete' },
-                    { 'component': <ArrowForwardOutlinedIcon fontSize="small" />, 'type': 'nextPath', 'title': 'Next' }
-                ]
+                    {
+                        'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                    },
+                    { 'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next' },
+                    { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' }
+                ],
             );
             row['isSelected'] = false;
             arr.push(row);
@@ -285,13 +290,7 @@ const Assignments = ({
                                         <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
-                                        <IconButton
-                                            color="primary"
-                                            aria-label="download-file"
-                                            size="large"
-                                            onClick={ handleDownload }>
-                                            <FileDownloadOutlinedIcon fontSize='medium' />
-                                        </IconButton>
+                                        <StyledButtonIcon variant="outlined" size='small' className={ classes.button } onClick={ handleDownload }><FileDownloadOutlinedIcon fontSize='medium' /></StyledButtonIcon>
                                     </Tooltip>
                                 }
                             </DownloadButton>
@@ -303,7 +302,7 @@ const Assignments = ({
                                 onChange={ searchAssignment }
                                 inputProps={ {
                                     style: {
-                                        padding: 5,
+                                        padding: 7,
                                         display: 'inline-flex'
                                     }
                                 } }
@@ -358,9 +357,14 @@ const Assignments = ({
                 </AddButtonBottom>
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllAssignment }>
+                        <StyledButtonRedIcon
+                            className={ classes.multiButton }
+                            variant="outlined"
+                            size="small"
+                            onClick={ deleteAllAssignment }
+                        >
                             <DeleteOutlineOutlinedIcon fontSize="small" />
-                        </IconButton>
+                        </StyledButtonRedIcon>
                     </Tooltip>
                 </DeleteAllButton> }
                 { search ?

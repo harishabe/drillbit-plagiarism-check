@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
@@ -15,7 +16,6 @@ import {
     Skeleton,
     Box,
     Pagination,
-    IconButton,
     TextField
 } from '@mui/material';
 import Instructor from '../../../layouts/Instructor';
@@ -46,7 +46,13 @@ import {
 import { DeleteWarningIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../../style/index';
+import {
+    StyledButtonIcon,
+    AddButtonBottom,
+    StyledButtonRedIcon,
+    StyledButtonGreenIcon,
+    PaginationContainer
+} from '../../../style/index';
 import { BASE_URL_ANALYSIS_GATEWAY, BASE_URL_EXTREM, BASE_URL_ANALYSIS, BASE_URL_UPLOAD } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../constant/data/Constant';
@@ -60,8 +66,8 @@ const columns = [
     { id: 'grammar_url', label: 'Grammar', maxWidth: 100 },
     { id: 'percent', label: 'Similarity', maxWidth: 110 },
     { id: 'paper_id', label: 'Paper ID', maxWidth: 80 },
-    { id: 'date_up', label: 'Submission Date', maxWidth: 120 },
-    { id: 'action', label: 'Action', maxWidth: 85 },
+    { id: 'date_up', label: 'Submission Date', maxWidth: 100 },
+    { id: 'action', label: 'Action', maxWidth: 105 },
 ];
 
 function createData(id, name, title, original_fn, lang1, grammar, grammar_url, percent, paper_id, date_up, action, d_key, alert_msg, repository_status, flag) {
@@ -70,29 +76,18 @@ function createData(id, name, title, original_fn, lang1, grammar, grammar_url, p
     };
 }
 
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index:999;
-`;
-
-const DownloadField = styled.div`
-    position:absolute;
-    top: 115px;
-    right:225px;
-`;
-
-const RefreshButton = styled.div`
-    position:absolute;
-    top: 115px;
-    right:265px;
-`;
-
-const SkeletonContainer = styled.div`
-    margin-top: 16px;
-    margin-right: 5px;
-`;
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "6px 6px 0px 0px",
+    },
+    multiButton: {
+        margin: "0px 6px 6px 0px",
+    },
+    search: {
+        width: "40%",
+        marginTop: "5px",
+    }
+}));
 
 const DeleteAllButton = styled.div`
     marginLeft: 10px;
@@ -119,7 +114,7 @@ const folderSubmission = ({
     SubmissionReportDownload,
     isLoadingSubmissionReport
 }) => {
-
+    const classes = useStyles();
     const router = useRouter();
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -197,17 +192,33 @@ const folderSubmission = ({
                     submission.paper_id,
                     formatDate(submission.date_up),
                     [
-                        { 'component': <DeleteOutlineOutlinedIcon fontSize='small' />, 'type': 'delete', 'title': 'Delete' },
-                        (submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)) ?
-                            {
-                                'component': <FileDownloadOutlinedIcon fontSize='small' />,
-                                'title': 'Similarity report not ready'
-                            } :
-                            {
-                                'component': <FileDownloadOutlinedIcon fontSize='small' />,
-                                'type': 'download',
-                                'title': 'Similarity report download'
+                        submission.percent === (NO_DATA_PLACEHOLDER || NA_DATA_PLACEHOLDER)
+                            ? {
+                                component: (
+                                    <StyledButtonIcon variant="outlined" size="small">
+                                        <FileDownloadOutlinedIcon fontSize="small" />
+                                    </StyledButtonIcon>
+                                ),
+                                title: "Similarity report not ready",
                             }
+                            : {
+                                component: (
+                                    <StyledButtonIcon variant="outlined" size="small">
+                                        <FileDownloadOutlinedIcon fontSize="small" />
+                                    </StyledButtonIcon>
+                                ),
+                                type: "download",
+                                title: "Similarity report download",
+                            },
+                        {
+                            component: (
+                                <StyledButtonRedIcon variant="outlined" size="small">
+                                    <DeleteOutlineOutlinedIcon fontSize="small" />
+                                </StyledButtonRedIcon>
+                            ),
+                            type: "delete",
+                            title: "Delete",
+                        },
                     ],
                     submission.d_key,
                     submission.alert_msg,
@@ -443,66 +454,78 @@ const folderSubmission = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <BreadCrumb item={InstructorBreadCrumb} />
-                <Grid container spacing={1}>
-                    <Grid item md={5} xs={5}>
+            <Box sx={ { flexGrow: 1 } }>
+                <BreadCrumb item={ InstructorBreadCrumb } />
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 5 } xs={ 5 }>
                         <MainHeading title={ `Submissions (${!isLoadingSubmission ? (pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0) : 0})` } />
                     </Grid>
-                    <Grid item md={7} xs={7} style={{ textAlign: 'right' }}>
-
+                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                         <Tooltip title="Refresh" arrow>
-                            <IconButton
-                                aria-label="download-file"
-                                size="large"
-                                onClick={handleRefresh}
+                            <StyledButtonIcon
+                                className={ classes.button }
+                                onClick={ handleRefresh }
+                                variant="outlined"
+                                size="small"
                             >
-                                <RefreshOutlinedIcon fontSize='medium' />
-                            </IconButton>
+                                <RefreshOutlinedIcon fontSize="small" />
+                            </StyledButtonIcon>
                         </Tooltip>
 
-                        {folderSubmissionData?.length > 0 &&
+                        { folderSubmissionData?.length > 0 &&
                             isLoadingDownload ?
-                            <Skeleton width={50} style={{ display: 'inline-block', marginRight: '10px' }} />
+                            <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px' } } />
                             :
                             <Tooltip title="Submission report download" arrow>
-                                <IconButton
-                                    aria-label="download-file"
-                                    size="large"
-                                    onClick={handleDownload}>
-                                    <FileDownloadOutlinedIcon fontSize='medium' />
-                                </IconButton>
+                                <StyledButtonIcon
+                                    className={ classes.button }
+                                    onClick={ handleDownload }
+                                    variant="outlined"
+                                    size="small"
+                                >
+                                    <FileDownloadOutlinedIcon fontSize="small" />
+                                </StyledButtonIcon>
                             </Tooltip>
                         }
 
                         <TextField
-                            sx={{ width: '40%', marginTop: '8px' }}
-                            placeholder='Search by Paper ID'
-                            onChange={debouncedResults}
-                            inputProps={{
+                            className={ classes.search }
+                            placeholder="Search by Paper ID"
+                            onChange={ debouncedResults }
+                            inputProps={ {
                                 style: {
                                     padding: 5,
-                                    display: 'inline-flex',
+                                    display: "inline-flex",
                                 },
-                            }}
+                            } }
                         />
                     </Grid>
                 </Grid>
             </Box>
             <>
 
-                {_.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
-                    <Tooltip title='Delete' arrow>
-                        <IconButton onClick={deleteAllSubmission}>
-                            <DeleteOutlineOutlinedIcon fontSize='small' />
-                        </IconButton>
+                { _.find(rows, function (o) { return o.isSelected === true; }) && <DeleteAllButton>
+                    <Tooltip title="Save to repository" arrow>
+                        <StyledButtonGreenIcon
+                            className={ classes.multiButton }
+                            variant="outlined"
+                            size="small"
+                            onClick={ saveAllSubmission }
+                        >
+                            <SaveOutlinedIcon fontSize="small" />
+                        </StyledButtonGreenIcon>
                     </Tooltip>
-                    <Tooltip title='Save to repository' arrow>
-                        <IconButton onClick={saveAllSubmission}>
-                            <SaveOutlinedIcon fontSize='small' />
-                        </IconButton>
+                    <Tooltip title="Delete" arrow>
+                        <StyledButtonRedIcon
+                            className={ classes.multiButton }
+                            variant="outlined"
+                            size="small"
+                            onClick={ deleteAllSubmission }
+                        >
+                            <DeleteOutlineOutlinedIcon fontSize="small" />
+                        </StyledButtonRedIcon>
                     </Tooltip>
-                </DeleteAllButton>}
+                </DeleteAllButton> }
                 { search ?
                     <CommonTable
                         isCheckbox={ true }
@@ -550,7 +573,7 @@ const folderSubmission = ({
 
                 <AddButtonBottom>
                     <CreateDrawer
-                        options={[
+                        options={ [
                             {
                                 icon: <AddMultipleIcon />,
                                 title: 'Non English',
@@ -560,11 +583,11 @@ const folderSubmission = ({
                                 icon: <AddFromListIcon />,
                                 title: 'English',
                                 handleFromCreateDrawer: true
-                            }]}
-                        handleMultiData={handleShow}
-                        isShowAddIcon={true}
+                            }] }
+                        handleMultiData={ handleShow }
+                        isShowAddIcon={ true }
                         title="Upload File"
-                        navigateToMultiFile={true}
+                        navigateToMultiFile={ true }
                     >
                     </CreateDrawer>
                 </AddButtonBottom>
@@ -572,32 +595,32 @@ const folderSubmission = ({
                 {
                     showDeleteWarning &&
                     <WarningDialog
-                        warningIcon={<DeleteWarningIcon />}
-                        message={WARNING_MESSAGES.DELETE}
-                        handleYes={handleYesWarning}
-                        handleNo={handleCloseWarning}
-                        isOpen={true}
+                        warningIcon={ <DeleteWarningIcon /> }
+                        message={ WARNING_MESSAGES.DELETE }
+                        handleYes={ handleYesWarning }
+                        handleNo={ handleCloseWarning }
+                        isOpen={ true }
                     />
                 }
 
                 {
                     showSaveIcon &&
                     <WarningDialog
-                        warningIcon={<DeleteWarningIcon />}
-                        message={WARNING_MESSAGES.REPOSITORY}
-                        handleYes={handleYesSaveWarning}
-                        handleNo={handleCloseSaveWarning}
-                        isOpen={true}
+                        warningIcon={ <DeleteWarningIcon /> }
+                        message={ WARNING_MESSAGES.REPOSITORY }
+                        handleYes={ handleYesSaveWarning }
+                        handleNo={ handleCloseSaveWarning }
+                        isOpen={ true }
                     />
                 }
 
                 {
                     showDownloadWarning &&
                     <WarningDialog
-                        message={WARNING_MESSAGES.DOWNLOAD}
-                        handleYes={handleFileDownloadYesWarning}
-                        handleNo={handleFileDownloadCloseWarning}
-                        isOpen={true}
+                        message={ WARNING_MESSAGES.DOWNLOAD }
+                        handleYes={ handleFileDownloadYesWarning }
+                        handleNo={ handleFileDownloadCloseWarning }
+                        isOpen={ true }
                     />
                 }
 
@@ -613,9 +636,9 @@ const folderSubmission = ({
 
                 <PaginationContainer>
                     <Pagination
-                        count={pageDetails?.totalPages}
+                        count={ pageDetails?.totalPages }
                         page={ pageDetails?.number + 1 }
-                        onChange={handleChange}
+                        onChange={ handleChange }
                         color="primary"
                         variant="outlined"
                         shape="rounded"

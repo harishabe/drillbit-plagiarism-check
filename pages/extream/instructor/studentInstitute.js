@@ -12,7 +12,7 @@ import {
     GetStudentList,
     EnrollStudent,
 } from '../../../redux/action/instructor/InstructorAction';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonIcon } from '../../../style/index';
 
 const columns = [
     { id: 'student_id', label: 'Student ID', maxWidth: 180 },
@@ -60,7 +60,9 @@ function StudentInstitute({
                     student.username,
                     student.department,
                     student.section,
-                    [{ 'component': <AddIcon color="primary" />, 'type': 'add', 'title': 'Add student' }]
+                    [{
+                        'component': <StyledButtonIcon variant="outlined" size='small'><AddIcon fontSize='small' /></StyledButtonIcon>, 'type': 'add', 'title': 'Add student'
+                    }]
                 );
             row['isSelected'] = false;
             arr.push(row);

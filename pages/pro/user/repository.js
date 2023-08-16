@@ -30,7 +30,7 @@ import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
-import { StyledButtonIcon, AddButtonBottom, StyledButtonRedIcon } from './../../../style/index';
+import { AddButtonBottom, StyledButtonRedIcon } from './../../../style/index';
 
 const InstructorBreadCrumb = [
     {

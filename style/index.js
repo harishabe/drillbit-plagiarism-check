@@ -68,6 +68,18 @@ export const StyledButtonRedIcon = styled(Button)({
     },
 })
 
+export const StyledButtonGreenIcon = styled(Button)({
+    padding: '4px 4px !important',
+    minWidth: '2rem !important',
+    color: '#666666 !important',
+    border: '1px solid #666666 !important',
+    ":hover": {
+        background: "#38BE62 !important",
+        color: "#fff !important",
+        border: '1px solid #38BE62 !important',
+    },
+})
+
 export const AddButtonBottom = styled.div`
     position:fixed;
     bottom: 30px;

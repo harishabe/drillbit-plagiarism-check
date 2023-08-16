@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Tooltip, IconButton, Skeleton, Pagination } from '@mui/material';
+import { makeStyles } from "@mui/styles";
+import { Tooltip, Skeleton, Pagination } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import Instructor from '../../../../layouts/Instructor';
@@ -15,7 +16,7 @@ import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
-import { PaginationContainer } from '../../../../style/index';
+import { PaginationContainer, StyledButtonIcon } from '../../../../style/index';
 
 const SkeletonContainer = styled.div`
     margin-top: 16px;
@@ -32,6 +33,12 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "10px 6px 0px 0px",
+    }
+}));
+
 const Grading = ({
     GetGradingList,
     DownloadCsv,
@@ -40,11 +47,9 @@ const Grading = ({
     isLoadingDownload,
     pageDetails
 }) => {
-
+    const classes = useStyles();
     const router = useRouter();
-
     const clasId = router.query.clasId;
-
     const assId = router.query.assId;
 
     const [rows, setRows] = useState([]);
@@ -87,7 +92,9 @@ const Grading = ({
                 grading.obtained_marks === BACKEND_NO_DATA_PLACEHOLDER ? grading.obtained_marks : grading.obtained_marks + '/' + grading.max_marks,
                 <SimilarityStatus percent={ grading.similarity } flag={ grading.flag } />,
                 [
-                    { 'component': <FeedbackOutlinedIcon fontSize='medium' />, 'type': 'feedback', 'title': 'Feedback' },
+                    {
+                        'component': <StyledButtonIcon variant="outlined" size='small'><FeedbackOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'feedback', 'title': 'Feedback'
+                    },
                 ]
             );
             row['isSelected'] = false;
@@ -146,12 +153,14 @@ const Grading = ({
                         </SkeletonContainer>
                         :
                         <Tooltip title="Download csv" arrow>
-                            <IconButton
-                                aria-label="download-file"
-                                size="large"
-                                onClick={handleDownload}>
-                                <FileDownloadOutlinedIcon fontSize='medium' />
-                            </IconButton>
+                            <StyledButtonIcon
+                                className={ classes.button }
+                                onClick={ handleDownload }
+                                variant="outlined"
+                                size="small"
+                            >
+                                <FileDownloadOutlinedIcon fontSize="small" />
+                            </StyledButtonIcon>
                         </Tooltip>
                     }
                 </DownloadButton>
