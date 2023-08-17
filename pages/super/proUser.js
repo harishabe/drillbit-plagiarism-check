@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import PersonIcon from '@mui/icons-material/Person';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { TextField, Pagination, IconButton } from '@mui/material';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import {
@@ -21,8 +23,6 @@ import {
     DialogModal,
 } from '../../components';
 import {
-    EditIcon,
-    DeleteIcon,
     StatsIcon,
     DeleteWarningIcon,
     AddMultipleIcon,
@@ -43,7 +43,7 @@ import UserStats from '../pro/admin/users/UserStats';
 import { removeCommaWordEnd, formatDate } from '../../utils/RegExp';
 import END_POINTS_PRO from '../../utils/EndPointPro';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
-import { PaginationContainer, PlagiarismGrammarContainer } from '../../style/index';
+import { PaginationContainer, PlagiarismGrammarContainer, AddButtonBottom, StyledButtonIcon, StyledButtonRedIcon } from '../../style/index';
 import { Role } from '../../constant/data';
 import { WARNING_MESSAGES, PRO } from '../../constant/data/Constant';
 
@@ -55,19 +55,12 @@ const columns = [
     { id: 'stats', label: 'Statistics', maxWidth: 60 },
     { id: 'superadminplagairism', label: 'Plagiarism', maxWidth: 150 },
     { id: 'superadmingrammar', label: 'Grammar', maxWidth: 150 },
-    { id: 'action', label: 'Actions', maxWidth: 100 }
+    { id: 'action', label: 'Actions', minWidth: 100 }
 ];
 
 function createData(user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, superadminplagairism, superadmingrammar, action, expiry_date, department, designation, phone_number, plagiarismUsed, grammarUsed) {
     return { user_id, role, name, username, created_date, total_submissions, total_grammar, status, stats, superadminplagairism, superadmingrammar, action, expiry_date, department, designation, phone_number, plagiarismUsed, grammarUsed };
 };
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
-`;
 
 const ProUser = ({
     pageDetails,
@@ -187,18 +180,31 @@ const ProUser = ({
                         </>
                     ],
                     user.role === Role.proAdmin ? ([
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
-                    ]) :
-                        ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <PersonIcon />, 'type': 'admin', 'title': 'Make him admin' },
-                            { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
                         {
-                            'component': <Switch checked={ user.status === 'active' ? true : false } size="small" />,
-                            'type': user.status === 'active' ? 'lock' : 'unlock',
-                            'title': user.status === 'active' ? 'Activate' : 'De-activate'
-                        }
+                            'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                        },
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><VpnKeyIcon fontSize='small' /></StyledButtonIcon>, 'type': 'resend', 'title': 'Resend credentials'
+                        },
+                    ]) :
+                        ([
+                            {
+                                'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                            },
+                            {
+                                'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                            },
+                            {
+                                'component': <StyledButtonIcon variant="outlined" size='small'><PersonIcon fontSize='small' /></StyledButtonIcon>, 'type': 'admin', 'title': 'Make him admin'
+                            },
+                            {
+                                'component': <StyledButtonIcon variant="outlined" size='small'><VpnKeyIcon fontSize='small' /></StyledButtonIcon>, 'type': 'resend', 'title': 'Resend credentials'
+                            },
+                            {
+                                'component': <Switch checked={ user.status === 'active' ? true : false } size="small" />,
+                                'type': user.status === 'active' ? 'lock' : 'unlock',
+                                'title': user.status === 'active' ? 'Activate' : 'De-activate'
+                            }
                         ]),
                     user.expiry_date,
                     user.department,

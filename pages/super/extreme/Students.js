@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, TextField, Pagination, IconButton, Switch } from '@mui/material';
 import {
@@ -15,8 +14,11 @@ import {
     DialogModal,
     CreateDrawer,
 } from '../../../components';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import SuperAdmin from './../../../layouts/SuperAdmin';
-import { EditIcon, DeleteIcon, StatsIcon, DeleteWarningIcon } from '../../../assets/icon';
+import { StatsIcon, DeleteWarningIcon } from '../../../assets/icon';
 import {
     // EditData, 
     DeleteStudentData,
@@ -28,7 +30,7 @@ import StudentForm from '../../extream/instructor/form/StudentForm';
 import StudentStats from '../../extream/admin/student/StudentStats';
 import { removeCommaWordEnd } from '../../../utils/RegExp';
 import { WARNING_MESSAGES, EXTREME } from '../../../constant/data/Constant';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, AddButtonBottom, StyledButtonRedIcon, StyledButtonIcon } from '../../../style/index';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 
@@ -36,13 +38,6 @@ const SearchField = styled.div`
     position:absolute;
     top: 125px;
     right:16px;
-`;
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
 `;
 
 const columns = [
@@ -59,7 +54,7 @@ function createData(id, name, user_id, username, department, section, expiry_dat
 }
 
 const Students = ({
-    GetExtremeStudentList, 
+    GetExtremeStudentList,
     ResendCredentials,
     studentData,
     pageDetailsStudent,
@@ -110,9 +105,16 @@ const Students = ({
                     student.expiry_date,
                     <StatusDot color={ (student.status === 'active') || (student.status === 'ACTIVE') ? '#38BE62' : '#E9596F' } title={ student.status } />,
                     [{ 'component': <StatsIcon />, 'type': 'stats', 'title': 'Stats' }],
-                    [{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
+                    [
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                        },
+                        {
+                            'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                        },
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><VpnKeyIcon fontSize='small' /></StyledButtonIcon>, 'type': 'resend', 'title': 'Resend credentials'
+                        },
                         {
                             'component': <Switch checked={ student.status === 'active' ? true : false } size="small" />,
                             'type': student.status === 'active' ? 'lock' : 'unlock',
