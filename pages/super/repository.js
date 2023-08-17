@@ -12,14 +12,15 @@ import {
     CommonTable,
     WarningDialog
 } from './../../components';
-import { DeleteIcon, DeleteWarningIcon } from '../../assets/icon';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { DeleteWarningIcon } from '../../assets/icon';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import { GetRepoList, ClearRepoData, RemoveRepositary } from '../../redux/action/admin/AdminAction';
 import { DropdownList, GlobalSearch, GlobalSearchClear } from '../../redux/action/super/SuperAdminAction';
 import END_POINTS from '../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { formatDate } from '../../utils/RegExp';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer, StyledButtonRedIcon } from '../../style/index';
 import { SUPER } from '../../constant/data/Constant';
 
 const RepositoryBreadCrumb = [
@@ -125,7 +126,9 @@ const Repository = ({
                     repo.repository_type,
                     repo.language,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
+                    [{
+                        'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                    },]
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -249,7 +252,7 @@ const Repository = ({
                         options={ list !== undefined && list?.map((item) => {
                             return item?.name
                         }) }
-                        renderInput={ (params) => <TextField { ...params } label="Institution list" /> }
+                        renderInput={ (params) => <TextField { ...params } placeholder="Institution list" /> }
                     />
                 </Grid>
                 <Grid item md={ 2 } xs={ 12 }>

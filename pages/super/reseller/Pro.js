@@ -3,20 +3,21 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import { Grid, Tooltip, Skeleton, IconButton, Box, TextField, Pagination } from '@mui/material';
 import debouce from 'lodash.debounce';
 import {
     CommonTable
 } from '../../../components';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import SuperAdmin from './../../../layouts/SuperAdmin';
-import { DownloadIcon } from '../../../assets/icon';
 import { GetExtremeStudentList } from '../../../redux/action/super/SuperAdminAction';
 import {
     DownloadCsv
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { WINDOW_PLATFORM, DOWNLOAD_CSV } from '../../../constant/data/Constant';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonIcon } from '../../../style/index';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import { platform } from '../../../utils/RegExp';
@@ -30,7 +31,7 @@ const SearchField = styled.div`
 const DownloadField = styled.div`
     position:absolute;
     top: 125px;
-    right:${platform === WINDOW_PLATFORM ? '245px' : '225px'};
+    right:${platform === WINDOW_PLATFORM ? '225px' : '205px'};
 `;
 
 const DownloadButton = styled.div`
@@ -41,6 +42,13 @@ const SkeletonContainer = styled.div`
     marginTop: 10px;
     margin-right: 5px;
 `;
+
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "6px 6px 0px 0px",
+    },
+}));
+
 const columns = [
     { id: 'lid', label: 'LID', maxWidth: 80 },
     { id: 'name', label: 'Name', maxWidth: 120 },
@@ -64,6 +72,7 @@ const Pro = ({
     isLoadingExtStuList,
     isLoadingDownload
 }) => {
+    const classes = useStyles();
     const router = useRouter();
     const [rows, setRows] = useState([]);
     const [paginationPayload, setPaginationPayload] = useState({
@@ -155,13 +164,14 @@ const Pro = ({
                                         <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
-                                        <IconButton
-                                            color="primary"
-                                            aria-label="download-file"
-                                            size="large"
-                                            onClick={ handleDownload }>
-                                            <DownloadIcon />
-                                        </IconButton>
+                                        <StyledButtonIcon
+                                            className={ classes.button }
+                                            onClick={ handleDownload }
+                                            variant="outlined"
+                                            size="small"
+                                        >
+                                            <FileDownloadOutlinedIcon fontSize="small" />
+                                        </StyledButtonIcon>
                                     </Tooltip>
                                 }
                             </DownloadButton>

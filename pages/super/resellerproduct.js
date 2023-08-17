@@ -1,21 +1,20 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import { Grid, TextField, Box, Skeleton, Tooltip, IconButton } from '@mui/material';
-import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import { Grid, TextField, Box, Skeleton, Tooltip } from '@mui/material';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import {
     BreadCrumb,
     CreateDrawer,
     CardView,
     CommonTable,
 } from './../../components';
-import {
-    EditIcon,
-    DownloadIcon,
-} from '../../assets/icon';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
@@ -23,20 +22,13 @@ import {
     DownloadCsv,
 } from '../../redux/action/common/Submission/SubmissionAction';
 import ResellerForm from './form/ResellerForm';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer, AddButtonBottom, StyledButtonIcon } from '../../style/index';
 import Pagination from '@mui/material/Pagination';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from '../../utils/EndPoints';
 import { platform } from '../../utils/RegExp';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { DOWNLOAD_CSV, WINDOW_PLATFORM } from '../../constant/data/Constant';
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
-`;
 
 const SkeletonContainer = styled.div`
     margin-top: 16px;
@@ -46,13 +38,19 @@ const SkeletonContainer = styled.div`
 const DownloadField = styled.div`
     position:absolute;
     top: 80px;
-    right:225px;
+    right:205px;
 `;
 
 const DownloadButton = styled.div`
     margin-top:-5px;
     margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
 `;
+
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "6px 6px 0px 0px",
+    },
+}));
 
 const columns = [
     { id: 'lid', label: 'LID', maxWidth: 135 },
@@ -79,6 +77,7 @@ const ResellerProduct = ({
     isLoading,
     isLoadingDownload,
 }) => {
+    const classes = useStyles();
     const router = useRouter();
     const [rows, setRows] = useState([]);
     const [paginationPayload, setPaginationPayload] = useState({
@@ -120,8 +119,12 @@ const ResellerProduct = ({
                     data.country,
                     data.used_documents,
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                        },
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next'
+                        }
                     ],
                     data.state,
                     data.address,
@@ -214,12 +217,14 @@ const ResellerProduct = ({
                                 </SkeletonContainer>
                                 :
                                 <Tooltip title="Download csv" arrow>
-                                    <IconButton
-                                        aria-label="download-file"
-                                        size="large"
-                                        onClick={ handleDownload }>
-                                        <DownloadIcon />
-                                    </IconButton>
+                                    <StyledButtonIcon
+                                        className={ classes.button }
+                                        onClick={ handleDownload }
+                                        variant="outlined"
+                                        size="small"
+                                    >
+                                        <FileDownloadOutlinedIcon fontSize="small" />
+                                    </StyledButtonIcon>
                                 </Tooltip>
                             }
                         </DownloadButton>
@@ -229,7 +234,7 @@ const ResellerProduct = ({
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 6,
                                 display: 'inline-flex',
                             },
                         } }

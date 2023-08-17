@@ -5,7 +5,6 @@ import { Grid, TextField, Box } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
-import styled from 'styled-components';
 import {
     BreadCrumb,
     CreateDrawer,
@@ -13,27 +12,20 @@ import {
     CommonTable,
     WarningDialog
 } from './../../components';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import {
-    EditIcon,
     DeleteWarningIcon,
-    DeleteIcon
 } from '../../assets/icon';
 import {
     GetExtremeRefData,
     DeleteAccount
 } from '../../redux/action/super/SuperAdminAction';
 import RefForm from './form/RefForm';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer, StyledButtonIcon, StyledButtonRedIcon, AddButtonBottom } from '../../style/index';
 import Pagination from '@mui/material/Pagination';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from '../../utils/EndPoints';
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
-`;
 
 const columns = [
     { id: 'lid', label: 'LID', maxWidth: 75 },
@@ -107,9 +99,15 @@ const RefProduct = ({
                     data.documents.toString(),
                     data.used_documents.toString(),
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                        },
+                        {
+                            'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                        },
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next'
+                        }
                     ],
                     data.state,
                     data.address,
