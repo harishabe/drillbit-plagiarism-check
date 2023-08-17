@@ -398,13 +398,14 @@ const Users = ({
                     </Grid>
                     <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
                         <TextField
-                            sx={ { width: '40%' } }
+                            sx={ { width: '41.5%' } }
                             placeholder='Search by Email'
                             onChange={ debouncedResults }
                             inputProps={ {
                                 style: {
                                     padding: 7,
-                                    display: 'inline-flex'
+                                    display: 'inline-flex',
+                                    fontWeight: 500
                                 }
                             } }
                         />

@@ -23,7 +23,7 @@ const SkeletonContainer = styled.div`
 
 const DownloadField = styled.div`
     position:absolute;
-    top: 125px;
+    top: 120px;
     right:25px;
 `;
 
@@ -116,7 +116,7 @@ const QNA = ({
                                 variant="outlined"
                                 size="small"
                             >
-                                <FileDownloadOutlinedIcon fontSize="small" />
+                                <FileDownloadOutlinedIcon fontSize="medium" />
                             </StyledButtonIcon>
                         </Tooltip>
                     }
