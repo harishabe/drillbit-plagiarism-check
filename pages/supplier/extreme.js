@@ -2,18 +2,17 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Admin from "../../layouts/Admin";
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import debouce from 'lodash.debounce';
-import { Box, Pagination, Grid, TextField, Tooltip, Skeleton, IconButton } from '@mui/material';
+import { Box, Pagination, Grid, TextField, Tooltip, Skeleton } from '@mui/material';
 import {
     CreateDrawer,
     CardView,
     CommonTable,
     BreadCrumb,
 } from '../../components';
-import {
-    EditIcon,
-    DownloadIcon
-} from '../../assets/icon';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
@@ -21,19 +20,12 @@ import {
     DownloadCsv
 } from '../../redux/action/common/Submission/SubmissionAction';
 import ExtremeForm from './form/ExtremeForm';
-import { PaginationContainer } from '../../style/index';
+import { PaginationContainer, AddButtonBottom, StyledButtonIcon } from '../../style/index';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from "../../utils/EndPoints";
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { DOWNLOAD_CSV, WINDOW_PLATFORM } from '../../constant/data/Constant';
 import { platform } from '../../utils/RegExp';
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
-`;
 
 const SkeletonContainer = styled.div`
     margin-top: 7px;
@@ -44,6 +36,12 @@ const DownloadButton = styled.div`
     margin-top:-5px;
     margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
 `;
+
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "6px 6px 0px 0px",
+    },
+}));
 
 const columns = [
     { id: 'college_name', label: 'Institution name', maxWidth: 120 },
@@ -70,7 +68,7 @@ const Extreme = ({
     isLoading,
     isLoadingDownload
 }) => {
-
+    const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -113,7 +111,9 @@ const Extreme = ({
                     data.expiry_date,
                     data.used_documents.toString(),
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' }
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                        },
                     ],
                     data.lid,
                     data.instructors,
@@ -204,7 +204,7 @@ const Extreme = ({
                 <Grid item md={ 8.5 } xs={ 5 }>
                     <BreadCrumb item={ ResellerBreadCrumb } />
                 </Grid>
-                <Grid item md={ 0.5 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 0.5 } xs={ 7 }>
                     <DownloadButton>
                         { extremeData?.length > 0 &&
                             isLoadingDownload ?
@@ -213,12 +213,14 @@ const Extreme = ({
                             </SkeletonContainer>
                             :
                             <Tooltip title="Download csv" arrow>
-                                <IconButton
-                                    aria-label="download-file"
-                                    size="large"
-                                    onClick={ handleDownload }>
-                                    <DownloadIcon />
-                                </IconButton>
+                                <StyledButtonIcon
+                                    className={ classes.button }
+                                    onClick={ handleDownload }
+                                    variant="outlined"
+                                    size="small"
+                                >
+                                    <FileDownloadOutlinedIcon fontSize="small" />
+                                </StyledButtonIcon>
                             </Tooltip>
                         }
                     </DownloadButton>
@@ -230,7 +232,7 @@ const Extreme = ({
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 6,
                                 display: 'inline-flex',
                             },
                         } }
