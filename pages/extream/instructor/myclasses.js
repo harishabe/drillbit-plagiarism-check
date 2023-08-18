@@ -159,7 +159,7 @@ const MyClasses = ({
                 <Grid item md={ 4 } xs={ 5 }>
                     <Heading title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 4.3 } className={ classes.view } >
+                <Grid item md={ 4.8 } className={ classes.view } >
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -175,7 +175,7 @@ const MyClasses = ({
                         </Tooltip>
                     </ToggleButtonGroup>
                 </Grid>
-                <Grid item md={ 3.7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 3.2 } xs={ 7 } style={ { textAlign: 'right' } }>
                     { classesData?.length > 0 &&
                         isLoadingDownload ?
                         <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px', marginTop: '12px' } } />

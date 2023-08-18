@@ -388,18 +388,19 @@ const Instructor = ({
 
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 4.5 } xs={ 5 }>
+                    <Grid item md={ 5 } xs={ 5 }>
                         <Heading title={ `Instructors(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={ 7.5 } xs={ 7 } className={ classes.view }>
+                    <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
                         <TextField
-                            sx={ { width: '40%' } }
+                            sx={ { width: '41.5%' } }
                             placeholder='Search by Email'
                             onChange={ debouncedResults }
                             inputProps={ {
                                 style: {
                                     padding: 7,
-                                    display: 'inline-flex'
+                                    display: 'inline-flex',
+                                    fontWeight: 500
                                 }
                             } }
                         />

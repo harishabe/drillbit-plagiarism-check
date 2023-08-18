@@ -17,7 +17,7 @@ import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/dat
 import { ErrorMessageContainer } from '../../../../style/index';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { Tooltip } from '@mui/material';
+import { Tooltip, Typography, Divider } from '@mui/material';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -463,7 +463,8 @@ const MyFoldersForms = ({
                     }
                 </div>
 
-                <b>Compare against databases</b>
+                <Typography variant="h3">Compare against databases</Typography>
+                <Divider />
                 <Grid container>
                     <Grid item md={8}>
                         <InputLabel style={{ margin: '22px 0px' }}>

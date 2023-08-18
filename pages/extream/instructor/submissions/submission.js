@@ -79,14 +79,14 @@ const SkeletonContainer = styled.div`
 
 const SearchField = styled.div`
     position:absolute;
-    top: 125px;
+    top: 124.5px;
     right:16px;
 `;
 
 const DownloadField = styled.div`
     position:absolute;
-    top: 123px;
-    right:205px;
+    top: 120px;
+    right:240px;
 `;
 
 const DownloadButton = styled.div`
@@ -496,7 +496,7 @@ const Submission = ({
                                 variant="outlined"
                                 size="small"
                             >
-                                <RefreshOutlinedIcon fontSize="small" />
+                                <RefreshOutlinedIcon fontSize="medium" />
                             </StyledButtonIcon>
                         </Tooltip>
                         { submissionData?.length > 0 &&
@@ -512,7 +512,7 @@ const Submission = ({
                                     variant="outlined"
                                     size="small"
                                 >
-                                    <FileDownloadOutlinedIcon fontSize="small" />
+                                    <FileDownloadOutlinedIcon fontSize="medium" />
                                 </StyledButtonIcon>
                             </Tooltip>
                         }
@@ -520,12 +520,14 @@ const Submission = ({
                 </DownloadField>
                 <SearchField>
                     <TextField
+                        sx={ { width: 222 } }
                         placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
                                 padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500,
                             },
                         } }
                     />

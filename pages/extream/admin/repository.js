@@ -197,20 +197,21 @@ const Repository = ({
                 </Grid>
             </Box>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 4.5 } xs={ 5 }>
+                <Grid item md={ 5 } xs={ 5 }>
                     <Heading
                         title={ `Repository (${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
-                <Grid item md={ 7.5 } xs={ 7 } className={ classes.view }>
+                <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
                     <TextField
-                        sx={ { width: '40%' } }
+                        sx={ { width: '42%' } }
                         placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500
                             },
                         } }
                     />
