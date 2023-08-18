@@ -6,9 +6,7 @@ import styled from 'styled-components';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch, Skeleton, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { TextField, Pagination } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
 import SuperAdmin from './../../../layouts/SuperAdmin';
 import {
     CommonTable,
@@ -18,9 +16,11 @@ import {
     WarningDialog,
     DialogModal
 } from '../../../components';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import PersonIcon from '@mui/icons-material/Person';
 import {
-    EditIcon,
-    DeleteIcon,
     StatsIcon,
     DeleteWarningIcon,
     DownloadIcon
@@ -43,7 +43,7 @@ import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import { Role } from '../../../constant/data';
 import { WARNING_MESSAGES, WINDOW_PLATFORM, EXTREME } from '../../../constant/data/Constant';
-import { PaginationContainer, PlagiarismGrammarContainer } from '../../../style/index';
+import { PaginationContainer, PlagiarismGrammarContainer, AddButtonBottom, StyledButtonIcon, StyledButtonRedIcon } from '../../../style/index';
 import { platform } from '../../../utils/RegExp';
 
 const columns = [
@@ -60,13 +60,6 @@ const columns = [
 function createData(name, username, expiry_date, status, stats, superadminplagairism, superadmingrammar, action, created_date, department, designation, phone_number, user_id, role) {
     return { name, username, expiry_date, status, stats, superadminplagairism, superadmingrammar, action, created_date, department, designation, phone_number, user_id, role };
 };
-
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index: 999;
-`;
 
 const DownloadField = styled.div`
     position:absolute;
@@ -184,13 +177,26 @@ const Instructor = ({
                     ],
                     instructor.role === Role.admin ?
                         ([
-                            { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                            { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
+                            {
+                                'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                            },
+                            {
+                                'component': <StyledButtonIcon variant="outlined" size='small'><VpnKeyIcon fontSize='small' /></StyledButtonIcon>, 'type': 'resend', 'title': 'Resend credentials'
+                            },
                         ]) :
-                        ([{ 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                            { 'component': <PersonIcon />, 'type': 'admin', 'title': 'Make him admin' },
-                            { 'component': <VpnKeyIcon />, 'type': 'resend', 'title': 'Resend credentials' },
+                        ([
+                            {
+                                'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                            },
+                            {
+                                'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                            },
+                            {
+                                'component': <StyledButtonIcon variant="outlined" size='small'><PersonIcon fontSize='small' /></StyledButtonIcon>, 'type': 'admin', 'title': 'Make him admin'
+                            },
+                            {
+                                'component': <StyledButtonIcon variant="outlined" size='small'><VpnKeyIcon fontSize='small' /></StyledButtonIcon>, 'type': 'resend', 'title': 'Resend credentials'
+                            },
                         {
                             'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
                             'type': instructor.status === 'active' ? 'lock' : 'unlock',

@@ -31,7 +31,7 @@ import END_POINTS from '../../../utils/EndPoints';
 import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
 import { setItemSessionStorage, getItemSessionStorage, removeItemSessionStorage } from '../../../utils/RegExp';
 import { CLASS_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
-import GridOnIcon from '@mui/icons-material/GridOn';
+import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 import { StyledButtonIcon, AddButtonBottom } from '../../../style/index';
 
 const InstructorBreadCrumb = [
@@ -171,7 +171,7 @@ const MyClasses = ({
                             <ToggleButton value={ TABLE_VIEW } selected={ view === TABLE_VIEW }><ViewListRoundedIcon fontSize='small' /></ToggleButton>
                         </Tooltip>
                         <Tooltip title='Class view' arrow>
-                            <ToggleButton value={ CLASS_VIEW } selected={ view === CLASS_VIEW }><GridOnIcon fontSize='small' /></ToggleButton>
+                            <ToggleButton value={ CLASS_VIEW } selected={ view === CLASS_VIEW }><WysiwygIcon fontSize='small' /></ToggleButton>
                         </Tooltip>
                     </ToggleButtonGroup>
                 </Grid>

@@ -16,6 +16,7 @@ import { convertDate } from '../../utils/RegExp';
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from '../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
+import { StyledButtonIcon } from '../../style';
 
 const SuperAdminBreadCrumb = [
     {
@@ -163,7 +164,7 @@ const Reports = ({
 
     useEffect(() => {
         let InstitutionList = [];
-        dpList && dpList?.map((item) => {
+        dpList && dpList?.length > 0 && dpList?.map((item) => {
             InstitutionList.push({ 'id': item?.lid, 'name': item?.college_name, 'role': item?.product_type });
         });
         setList(InstitutionList);
@@ -240,13 +241,16 @@ const Reports = ({
                         options={ list !== undefined && list?.map((item) => {
                             return item?.name
                         }) }
-                        renderInput={ (params) => <TextField { ...params } label="Institution list" /> }
+                        renderInput={ (params) => <TextField { ...params } placeholder="Institution list" /> }
                     />
                     <Tooltip title="Search" arrow>
-                        <IconButton
-                            onClick={ handleShow }>
-                            <SearchIcon />
-                        </IconButton>
+                        <StyledButtonIcon
+                            onClick={ handleShow }
+                            variant="outlined"
+                            size="small"
+                        >
+                            <SearchIcon fontSize="small" />
+                        </StyledButtonIcon>
                     </Tooltip>
                 </Grid>
             </Grid>
