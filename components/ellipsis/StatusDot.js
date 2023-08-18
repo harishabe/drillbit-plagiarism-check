@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { StatusDotIcon } from '../../assets/icon';
 import { EllipsisText } from '../../components';
-import { Typography } from '@mui/material';
 
 const InlineAlign = styled.div`
     display:flex
