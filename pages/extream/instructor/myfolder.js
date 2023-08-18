@@ -67,11 +67,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 const columns = [
-    { id: 'ass_id', label: 'Folder ID', maxWidth: 88 },
-    { id: 'assignment_name', label: 'Folder name', maxWidth: 320 },
-    { id: 'start_date', label: 'Created date', maxWidth: 120 },
+    { id: 'ass_id', label: 'Folder ID', maxWidth: 90 },
+    { id: 'assignment_name', label: 'Folder name', maxWidth: 260 },
+    { id: 'start_date', label: 'Created date', maxWidth: 125 },
     { id: 'folder_no_of_submissions', label: 'Submissions', maxWidth: 115 },
-    { id: 'action', label: 'Action', maxWidth: 100 },
+    { id: 'action', label: 'Action', maxWidth: 110 },
 ];
 
 function createData(ass_id, assignment_name, start_date, folder_no_of_submissions, action, excludeReferences,
