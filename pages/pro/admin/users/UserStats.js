@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Skeleton } from '@mui/material';
+import { Skeleton, Typography } from '@mui/material';
 import { Grid, IconButton, Tooltip } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import {
     ColumnChart,
     PieChart,
-    SubTitle,
     EllipsisText
 } from '../../../../components';
 import { makeStyles } from '@mui/styles';
@@ -33,7 +32,7 @@ import { StyledButtonIcon } from './../../../../style/index';
 
 const useStyles = makeStyles(() => ({
     margin: {
-        marginLeft: '350px'
+        marginLeft: 'auto',
     },
 }));
 
@@ -74,78 +73,76 @@ const UserStats = ({
 
     return (
         <>
-            <Grid item container>
-                { isLoading ? <Skeleton width={ 210 } /> :
-                    <>
-                        <Grid item md={ 8 } xs={ 6 }>
-                            <EllipsisText value={ `User name : ${userStats?.name}` } variant='h5' />
-                        </Grid>
-                        { isLoadingCsvExport ? <Skeleton width={ 150 } style={ { marginLeft: 'auto' } } /> :
-                            <Tooltip title="Export to csv">
-                                <StyledButtonIcon className={ classes.margin } variant="outlined" size='small' onClick={ handleExportCsv }><FileDownloadOutlinedIcon /></StyledButtonIcon>
-                            </Tooltip> }
-                    </>
-                }
+            <Grid container>
+                <Grid item md={ 8 } xs={ 8 }>
+                    { isLoading ? <Skeleton /> :
+                        <EllipsisText value={ `User name : ${userStats?.name}` } variant='body2_1' />
+                    }
+                </Grid>
+                <Grid item md={ 3.7 } xs={ 4 }></Grid>
+                <Grid item md={ 0.3 } xs={ 4 }>
+                    { isLoadingCsvExport ? <Skeleton width={ 30 } style={ { marginLeft: 'auto' } } /> :
+                        <Tooltip title="Export to csv">
+                            <StyledButtonIcon className={ classes.margin } variant="outlined" size='small' onClick={ handleExportCsv }><FileDownloadOutlinedIcon fontSize='small' /></StyledButtonIcon>
+                        </Tooltip> }
+                </Grid>
             </Grid>
 
-            <Grid item md={ 12 } xs={ 12 }>
-                <Grid container>
-                    <Grid item md={ 8 } xs={ 12 }>
-                        <SubTitle title={
-                            `Submissions (${userStats?.trendAnalysis?.documentsProcessed !== undefined ?
-                                userStats?.trendAnalysis?.documentsProcessed : 0})` }
-                        />
-                        { isLoading ?
-                            <>
-                                <Skeleton />
-                                <Skeleton />
-                                <Skeleton />
-                                <Skeleton />
-                            </> :
-                            submissionData?.length > 0 && <ColumnChart
-                                type={ COLUMN_ADMIN_CHART_TYPE }
-                                color={ COLUMN_ADMIN_CHART_COLOR }
-                                xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
-                                columnWidth={ COLUMN_ADMIN_WIDTH }
-                                height={ COLUMN_ADMIN_CHART_HEIGHT }
-                                seriesData={ [
-                                    {
-                                        name: 'Document Processed',
-                                        data: submissionData
-                                    }
-                                ] }
-                                gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
-                            />
-                        }
-                    </Grid>
-                    <Grid item md={ 4 } xs={ 12 }>
-                        <div style={ { textAlign: 'center' } }>
-                            <SubTitle title='Trend Analysis' />
-                        </div>
-                        { isLoading ?
-                            <Skeleton
-                                variant="circular"
-                                style={ { margin: '8px auto' } }
-                                height={ 250 }
-                                width={ 250 }
-                            /> :
-                            userStats?.trendAnalysis && <PieChart
-                                type="donut"
-                                color={ PIE_CHART_COLOR }
-                                width={ PIE_CHART_WIDTH }
-                                label={ PIE_CHART_LABEL }
-                                series={
-                                    [
-                                        userStats?.trendAnalysis?.similarWork,
-                                        userStats?.trendAnalysis?.ownWork
-                                    ]
+            <Grid container>
+                <Grid item md={ 8 } xs={ 12 }>
+                    <Typography variant='h3' >{
+                        `Submissions (${userStats?.trendAnalysis?.documentsProcessed !== undefined ?
+                            userStats?.trendAnalysis?.documentsProcessed : 0})` }</Typography>
+                    { isLoading ?
+                        <>
+                            <Skeleton />
+                            <Skeleton />
+                            <Skeleton />
+                            <Skeleton />
+                        </> :
+                        submissionData?.length > 0 && <ColumnChart
+                            type={ COLUMN_ADMIN_CHART_TYPE }
+                            color={ COLUMN_ADMIN_CHART_COLOR }
+                            xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
+                            columnWidth={ COLUMN_ADMIN_WIDTH }
+                            height={ COLUMN_ADMIN_CHART_HEIGHT }
+                            seriesData={ [
+                                {
+                                    name: 'Document Processed',
+                                    data: submissionData
                                 }
-                            />
-                        }
-                    </Grid>
+                            ] }
+                            gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                            borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                        />
+                    }
                 </Grid>
-            </Grid >
+                <Grid item md={ 4 } xs={ 12 }>
+                    <div style={ { textAlign: 'center' } }>
+                        <Typography variant='h3' >Trend Analysis</Typography>
+                    </div>
+                    { isLoading ?
+                        <Skeleton
+                            variant="circular"
+                            style={ { margin: '8px auto' } }
+                            height={ 250 }
+                            width={ 250 }
+                        /> :
+                        userStats?.trendAnalysis && <PieChart
+                            type="donut"
+                            color={ PIE_CHART_COLOR }
+                            width={ PIE_CHART_WIDTH }
+                            label={ PIE_CHART_LABEL }
+                            series={
+                                [
+                                    userStats?.trendAnalysis?.similarWork,
+                                    userStats?.trendAnalysis?.ownWork
+                                ]
+                            }
+                        />
+                    }
+                </Grid>
+            </Grid>
         </>
     );
 };
