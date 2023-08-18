@@ -64,7 +64,14 @@ const drillBitTheme = {
     MuiTab:{
       styleOverrides: {
         root: {
-          textTransform: "capitalize",
+          textTransform: "capitalize"
+        },
+      },
+    },
+    MuiInputBase:{
+      styleOverrides: {
+        root: {
+          fontWeight: "500",
         },
       },
     }

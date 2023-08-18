@@ -42,13 +42,17 @@ function a11yProps(index) {
 const useStyles = makeStyles(() => ({
     selected: {
         background: '#3672FF',
-        color: '#fff !important',
+        color: '#fff !important',        
+        fontSize:'14px',
+        fontWeight:700,
         borderTopLeftRadius: '15px',
         borderTopRightRadius: '15px'
     },
     unSelected: {
         background: '#f8f8f8',
         color: '#fff !important',
+        fontSize:'14px',
+        fontWeight:700,
         borderTopLeftRadius: '15px',
         borderTopRightRadius: '15px'
     },
