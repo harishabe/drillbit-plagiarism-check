@@ -24,11 +24,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
 import BeatLoader from "react-spinners/BeatLoader";
-import {
-  TableSkeleton,
-  EllipsisText,
-  ErrorBlock,
-} from "../../components";
+import { TableSkeleton, EllipsisText, ErrorBlock } from "../../components";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
@@ -85,7 +81,6 @@ const CommonTable = ({
   const [sortArrow, setSortArrow] = React.useState("");
   const [allSelected, setAllSelected] = React.useState(false);
   const [grammarPaperId, setGrammarPaperId] = React.useState("");
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [menuData, setMenuData] = React.useState([]);
@@ -598,7 +593,10 @@ const CommonTable = ({
                       <span
                         role="button"
                         disabled={icon.isDisabled}
-                        onClick={(e) => handleAction(e, icon.type, rowData)}
+                        onClick={(e) => {
+                          handleAction(e, icon.type, rowData);
+                          setIsMenuOpen(false);
+                        }}
                       >
                         {icon.component}
                       </span>
@@ -612,7 +610,10 @@ const CommonTable = ({
                             paddingLeft: "10px",
                             paddingRight: "10px",
                           }}
-                          onClick={(e) => handleAction(e, icon.type, rowData)}
+                          onClick={(e) => {
+                            handleAction(e, icon.type, rowData);
+                            setIsMenuOpen(false);
+                          }}
                         >
                           {icon.component}
                         </span>
