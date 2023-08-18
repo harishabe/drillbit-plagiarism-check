@@ -226,8 +226,9 @@ const CommonTable = ({
                                       onClick={(e) =>
                                         handleActionMenu(e, row[column.id], row)
                                       }
+                                      size='small'
                                     >
-                                      <MoreVertOutlinedIcon />
+                                      <MoreVertOutlinedIcon fontSize='small' />
                                     </IconButton>
                                   </Tooltip>
                                 </>
