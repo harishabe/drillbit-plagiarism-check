@@ -61,6 +61,13 @@ const drillBitTheme = {
         },
       },
     },
+    MuiTab:{
+      styleOverrides: {
+        root: {
+          textTransform: "capitalize",
+        },
+      },
+    }
   },
 };
 
