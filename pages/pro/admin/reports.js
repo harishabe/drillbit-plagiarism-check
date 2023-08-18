@@ -52,7 +52,7 @@ const Reports = ({
                             handleDownload={handDownload}
                             isLoading={isLoading}
                             isLoadingIcon={usersType === 'users' ? isLoadingDownload : false}
-                            icon={ <FileDownloadOutlinedIcon fontSize='medium' /> }
+                            icon={ <FileDownloadOutlinedIcon fontSize='small' /> }
                         />
                     </Grid>
                 </Grid>

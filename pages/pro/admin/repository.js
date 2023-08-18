@@ -210,13 +210,14 @@ const Repository = ({
                 </Grid>
                 <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={ { width: '42%' } }
                         placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
                                 padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500
                             },
                         } }
                     />

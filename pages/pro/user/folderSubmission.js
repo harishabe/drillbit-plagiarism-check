@@ -156,7 +156,7 @@ const useStyles = makeStyles(() => ({
     margin: "0px 6px 6px 0px",
   },
   search: {
-    width: "40%",
+    width: "41.5%",
     marginTop: "5px",
   },
   view: {
@@ -664,7 +664,7 @@ const folderSubmission = ({
                 variant="outlined"
                 size="small"
               >
-                <RefreshOutlinedIcon fontSize="small" />
+                <RefreshOutlinedIcon fontSize="medium" />
               </StyledButtonIcon>
             </Tooltip>
 
@@ -681,7 +681,7 @@ const folderSubmission = ({
                   variant="outlined"
                   size="small"
                 >
-                  <FileDownloadOutlinedIcon fontSize="small" />
+                    <FileDownloadOutlinedIcon fontSize="medium" />
                 </StyledButtonIcon>
               </Tooltip>
             ) }
@@ -691,8 +691,9 @@ const folderSubmission = ({
               onChange={ debouncedResults }
               inputProps={ {
                 style: {
-                  padding: 5,
+                  padding: 7,
                   display: "inline-flex",
+                  fontWeight: 500
                 },
               } }
             />

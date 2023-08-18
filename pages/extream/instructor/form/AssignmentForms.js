@@ -24,7 +24,7 @@ import { handleKeyPress, convertDate } from '../../../../utils/RegExp';
 import { ASSIGNMENT_SETTING_VALUE_YES, ASSIGNMENT_SETTING_VALUE_NO } from '../../../../constant/data/Constant';
 import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK, ASSIGNMENT_START_DATE_VALIDATION, ASSIGNMENT_END_DATE_VALIDATION } from '../../../../constant/data/ErrorMessage';
 import { ErrorMessageContainer } from '../../../../style/index';
-import { Tooltip } from '@mui/material';
+import { Tooltip, Typography, Divider } from '@mui/material';
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -789,14 +789,15 @@ const AssignmentForms = ({
 
                 <Grid container>
                     <Grid item md={ 6 } style={ { marginLeft: '2px', marginTop: '5px' } }>
-                        <InputLabel style={ { margin: '10px 0px' } }>
+                        <Typography variant="h3">Assignment settings</Typography>
+
+                        {/* <InputLabel style={ { margin: '10px 0px' } }>
                             Assignment settings
-                        </InputLabel>
+                        </InputLabel> */}
                     </Grid>
                     <Grid item md={ 1 } style={ {
                         textAlign: 'right',
-                        marginTop: '10px',
-                        marginLeft: '15px'
+                        marginTop: '1px',
                     } }>
                         <Switch
                             checked={ showSetting }
@@ -808,7 +809,7 @@ const AssignmentForms = ({
                 { showSetting &&
                     <>
                         <div>
-
+                        <Divider />
                             <Grid container>
                             <Grid item md={ 8 }>
                                 <InputLabel style={ { margin: '22px 0px' } }>
@@ -1250,7 +1251,8 @@ const AssignmentForms = ({
                                 />
                             </Grid>
                         </Grid>
-                        <b>Compare against databases</b>
+                    <Typography variant="h3">Compare against databases</Typography>
+                    <Divider />
                         <Grid container>
                         <Grid item md={ 8 }>
                             <InputLabel style={ { margin: '22px 0px' } }>

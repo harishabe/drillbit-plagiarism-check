@@ -57,7 +57,7 @@ const SearchField = styled.div`
 const DownloadField = styled.div`
     position:absolute;
     top: 125px;
-    right:${platform === WINDOW_PLATFORM ? '265px' : '245px'};
+    right:${platform === WINDOW_PLATFORM ? '255px' : '235px'};
 `;
 
 const DownloadButton = styled.div`
@@ -297,13 +297,14 @@ const Assignments = ({
                         </DownloadField>
                         <SearchField>
                             <TextField
-                                sx={ { width: 230 } }
+                                sx={ { width: 222 } }
                                 placeholder='Search by Assignment ID'
                                 onChange={ searchAssignment }
                                 inputProps={ {
                                     style: {
                                         padding: 7,
-                                        display: 'inline-flex'
+                                        display: 'inline-flex',
+                                        fontWeight: 500,
                                     }
                                 } }
                             />

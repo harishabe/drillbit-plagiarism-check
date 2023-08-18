@@ -260,7 +260,7 @@ const MyFolder = ({
                 <Grid item md={ 3 } xs={ 5 }>
                     <Heading title={ `My Folders(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 6 } className={ classes.view }>
+                <Grid item md={ 5.9 } className={ classes.view }>
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -276,15 +276,16 @@ const MyFolder = ({
                         </Tooltip>
                     </ToggleButtonGroup>
                 </Grid>
-                <Grid item md={ 3 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 3.1 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '100%' } }
+                        sx={ { width: '98%' } }
                         placeholder='Search by Folder ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
                                 padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500,
                             },
                         } }
                     />

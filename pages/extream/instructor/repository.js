@@ -202,18 +202,19 @@ const Repository = ({
                 </Grid>
             </Box>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 4.7 } xs={ 5 }>
+                <Grid item md={ 8.9 } xs={ 5 }>
                     <Heading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 7.3 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 3.1 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '40%', marginBottom: '8px' } }
+                        sx={ { width: '98%', marginBottom: '8px' } }
                         placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
                                 padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500
                             },
                         } }
                     />

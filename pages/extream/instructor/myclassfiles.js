@@ -58,7 +58,6 @@ const MyClassFiles = ({
   const [selectedClass, setSelectedClass] = useState("");
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-console.log('isSmallScreen', isSmallScreen)
   const columns = [
     { id: "class_id", label: "Class ID", maxWidth: 90 },
     { id: "class_name", label: "Class name", maxWidth: 300 },

@@ -56,7 +56,7 @@ const Reports = ({
                             handleDownload={handDownload}
                             isLoading={isLoading}
                             isLoadingIcon={usersType === 'instructors' ? isLoadingDownload : false}
-                            icon={ <FileDownloadOutlinedIcon fontSize='medium' /> }
+                            icon={ <FileDownloadOutlinedIcon fontSize='small' /> }
                         />
                     </Grid>
                     <Grid item md={6} xs={12}>
@@ -67,7 +67,7 @@ const Reports = ({
                             handleDownload={handDownload}
                             isLoading={isLoading}
                             isLoadingIcon={usersType === 'students' ? isLoadingDownload : false}
-                            icon={ <FileDownloadOutlinedIcon fontSize='medium' /> }
+                            icon={ <FileDownloadOutlinedIcon fontSize='small' /> }
                         />
                     </Grid>
                 </Grid>
