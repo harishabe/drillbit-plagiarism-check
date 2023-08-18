@@ -192,7 +192,7 @@ const CommonTable = ({
             </TableHead>
             <TableBody>
               {isLoading ? (
-                <TableSkeleton />
+                <TableSkeleton tableDataCount={tableHeader?.length} />
               ) : (
                 tableData?.map((row, index) => (
                   <TableRow hover key={index}>
