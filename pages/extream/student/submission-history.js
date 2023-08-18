@@ -43,15 +43,15 @@ const SubmissionHistory = ({
     const [rows, setRows] = useState([]);
 
     const columns = [
-        { id: 'original_fn', label: 'Filename', isDownload: true, maxWidth: 175 },
+        { id: 'original_fn', label: 'Filename', isDownload: true, maxWidth: 168 },
         { id: 'lang1', label: 'Language', maxWidth: 90 },
         { id: 'paper_id', label: 'Paper ID', maxWidth: 80 },
-        { id: 'date_up', label: 'Date', maxWidth: 135 },
+        { id: 'date_up', label: 'Date', maxWidth: 130 },
         { id: 'grammar_url', label: 'Grammar', maxWidth: 125 },
         { id: 'percent', label: 'Similarity', maxWidth: 120 },
         { id: 'score', label: 'Marks', maxWidth: 60 },
-        { id: 'status', label: 'Status', maxWidth: 65 },
-        { id: 'action', label: 'Feedback', maxWidth: 75 },
+        { id: 'status', label: 'Status', maxWidth: 70 },
+        { id: 'action', label: 'Feedback', maxWidth: 82 },
     ];
 
     useEffect(() => {

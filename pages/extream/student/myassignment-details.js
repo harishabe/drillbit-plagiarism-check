@@ -285,10 +285,10 @@ const MyAssignmentDetails = ({
 
             <CardView>
                 <Grid container>
-                    <Grid item md={ 11.7 } xs={ 11.7 }>
+                    <Grid item md={ 11.75 } xs={ 11.7 }>
                         <TabMenu menuButton={ tabMenu } components={ componentList } handleAPI={ handleAPI } />
                     </Grid>
-                    <Grid item md={ 0.3 } xs={ 0.3 }>
+                    <Grid item md={ 0.25 } xs={ 0.3 }>
                         <DownloadButton>
                             <Tooltip title="Refresh" arrow>
                                 <StyledButtonIcon
