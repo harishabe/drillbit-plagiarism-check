@@ -207,45 +207,50 @@ const MyClasses = ({
 
     return (
         <React.Fragment>
-            <BreadCrumb item={ StudentBreadCrumb } />
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 3 } xs={ 5 }>
-                        <Heading
-                            title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
-                        />
-                    </Grid>
-                    <Grid item md={ 6.5 } className={ classes.view }>
-                        <ToggleButtonGroup
-                            color="primary"
-                            size='small'
-                            value={ view }
-                            exclusive
-                            onChange={ handleChangeView }
-                        >
-                            <Tooltip title='Table view' arrow>
-                                <ToggleButton value={ TABLE_VIEW } selected={ view === TABLE_VIEW }><ViewListRoundedIcon fontSize='small' /></ToggleButton>
-                            </Tooltip>
-                            <Tooltip title='Class view' arrow>
-                                <ToggleButton value={ CLASS_VIEW } selected={ view === CLASS_VIEW }><WysiwygIcon fontSize='small' /></ToggleButton>
-                            </Tooltip>
-                        </ToggleButtonGroup>
-                    </Grid>
-                    <Grid item md={ 2.5 } xs={ 7 } style={ { textAlign: 'right' } }>
-                        <TextField
-                            sx={ { width: '100%' } }
-                            placeholder='Search by Class ID'
-                            onChange={ debouncedResults }
-                            inputProps={ {
-                                style: {
-                                    padding: 7,
-                                    display: 'inline-flex'
-                                }
-                            } }
-                        />
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ StudentBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
+            <Grid container spacing={ 1 }>
+                <Grid item md={ 6 } xs={ 5 }>
+                    <Heading
+                        title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
+                    />
+                </Grid>
+                <Grid item md={ 3.3 } className={ classes.view }>
+                    <ToggleButtonGroup
+                        color="primary"
+                        size='small'
+                        value={ view }
+                        exclusive
+                        onChange={ handleChangeView }
+                    >
+                        <Tooltip title='Table view' arrow>
+                            <ToggleButton value={ TABLE_VIEW } selected={ view === TABLE_VIEW }><ViewListRoundedIcon fontSize='small' /></ToggleButton>
+                        </Tooltip>
+                        <Tooltip title='Class view' arrow>
+                            <ToggleButton value={ CLASS_VIEW } selected={ view === CLASS_VIEW }><WysiwygIcon fontSize='small' /></ToggleButton>
+                        </Tooltip>
+                    </ToggleButtonGroup>
+                </Grid>
+                <Grid item md={ 2.7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                    <TextField
+                        sx={ { width: '100%' } }
+                        placeholder='Search by Class ID'
+                        onChange={ debouncedResults }
+                        inputProps={ {
+                            style: {
+                                padding: 7,
+                                display: 'inline-flex',
+                                fontWeight: 500,
+                            }
+                        } }
+                    />
+                </Grid>
+            </Grid>
             { view === CLASS_VIEW ? (
                 <>
                     { isLoading ?
