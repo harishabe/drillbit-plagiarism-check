@@ -192,7 +192,10 @@ const CommonTable = ({
             </TableHead>
             <TableBody>
               {isLoading ? (
-                <TableSkeleton tableDataCount={tableHeader?.length} />
+                <TableSkeleton
+                  isCheckbox={isCheckbox}
+                  tableDataCount={tableHeader?.length}
+                />
               ) : (
                 tableData?.map((row, index) => (
                   <TableRow hover key={index}>
@@ -226,9 +229,9 @@ const CommonTable = ({
                                       onClick={(e) =>
                                         handleActionMenu(e, row[column.id], row)
                                       }
-                                      size='small'
+                                      size="small"
                                     >
-                                      <MoreVertOutlinedIcon fontSize='small' />
+                                      <MoreVertOutlinedIcon fontSize="small" />
                                     </IconButton>
                                   </Tooltip>
                                 </>
