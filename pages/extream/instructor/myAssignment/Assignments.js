@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import { Pagination, formLabelClasses } from '@mui/material';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -48,18 +50,6 @@ const SkeletonContainer = styled.div`
     margin-right: 5px;
 `;
 
-const SearchField = styled.div`
-    position:absolute;
-    top: 125px;
-    right:16px;
-`;
-
-const DownloadField = styled.div`
-    position:absolute;
-    top: 125px;
-    right:${platform === WINDOW_PLATFORM ? '255px' : '235px'};
-`;
-
 const DownloadButton = styled.div`
     margin-top:-5px;
 `;
@@ -101,6 +91,7 @@ const Assignments = ({
     isLoadingDownload,
     activeTab
 }) => {
+    const theme = useTheme();
     const router = useRouter();
     const classes = useStyles();
     const [rows, setRows] = useState([]);
@@ -117,6 +108,19 @@ const Assignments = ({
         field: 'ass_id',
         orderBy: PaginationValue?.orderBy,
     });
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("908"));
+
+    const DownloadField = styled.div`
+        position:absolute;
+        top: ${isSmallScreen ? "85px" : "125px"};
+        right:${platform === WINDOW_PLATFORM ? '255px' : '235px'};
+    `;
+
+    const SearchField = styled.div`
+        position:absolute;
+        top: ${isSmallScreen ? "85px" : "125px"};
+        right:16px; 
+    `;
 
     useEffect(() => {
         if (router.isReady) {
