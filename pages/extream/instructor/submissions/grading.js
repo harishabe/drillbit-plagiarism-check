@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { makeStyles } from "@mui/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import { Tooltip, Skeleton, Pagination } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
@@ -47,6 +49,7 @@ const Grading = ({
     isLoadingDownload,
     pageDetails
 }) => {
+    const theme = useTheme();
     const classes = useStyles();
     const router = useRouter();
     const clasId = router.query.clasId;
@@ -62,6 +65,14 @@ const Grading = ({
         field: PaginationValue?.field,
         orderBy: PaginationValue?.orderBy,
     });
+
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("900"));
+
+    const DownloadField = styled.div`
+        position:absolute;
+        top: ${isSmallScreen ? "85px" : "120px"};
+        right:25px;
+    `;
 
     useEffect(() => {
         let url = `classes/${clasId}/assignments/${assId}/grading`;

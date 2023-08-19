@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import _ from 'lodash';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import ReactDOM from 'react-dom';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
@@ -77,18 +79,6 @@ const SkeletonContainer = styled.div`
     margin-right: 5px;
 `;
 
-const SearchField = styled.div`
-    position:absolute;
-    top: 124.5px;
-    right:16px;
-`;
-
-const DownloadField = styled.div`
-    position:absolute;
-    top: 120px;
-    right:240px;
-`;
-
 const DownloadButton = styled.div`
     margin-top:-5px;
     margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
@@ -128,6 +118,7 @@ const Submission = ({
     SubmissionReportDownload,
     isLoadingSubmissionReport
 }) => {
+    const theme = useTheme();
     const classes = useStyles();
     const router = useRouter();
     const clasId = router.query.clasId;
@@ -153,6 +144,20 @@ const Submission = ({
     const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
     const [showDownloadWarning, setShowDownloadWarning] = useState(false);
     const [data, setData] = useState();
+
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("900"));
+
+    const DownloadField = styled.div`
+        position:absolute;
+        top: ${isSmallScreen ? "85px" : "120px"};
+        right:240px;
+    `;
+
+    const SearchField = styled.div`
+        position:absolute;
+        top: ${isSmallScreen ? "89px" : "124.5px"};
+        right:16px;
+    `;
 
     useEffect(() => {
         if (router.isReady) {

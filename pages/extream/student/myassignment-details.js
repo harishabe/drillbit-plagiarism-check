@@ -234,7 +234,10 @@ const MyAssignmentDetails = ({
                 </Grid>
                 <Grid item md={ 1.1 } xs={ 1 } sx={ { marginTop: '8px' } }>
                     <div>
-                        <StatusDot color={ headerData?.status === 'active' ? '#38BE62' : '#E9596F' } title={ headerData?.status } />
+                        {
+                            headerData !== undefined && 
+                            <StatusDot color={ headerData?.status === 'active' ? '#38BE62' : '#E9596F' } title={ headerData?.status } />
+                        }
                     </div>
                 </Grid>
                 <Grid item md={ 0.4 } xs={ 1 }>
