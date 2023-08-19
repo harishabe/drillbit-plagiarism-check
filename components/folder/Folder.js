@@ -29,7 +29,7 @@ const Container = styled.div`
 `;
 
 const Center = styled.div`
-    padding-top: 32%;
+    padding-top: 82px;
     padding-left: 10px;
 `;
 
@@ -63,7 +63,7 @@ const Folder = ({
 
     return (
         <Container submissionCount={ item.no_of_submissions }>
-            <Grid item xs={ 11.8 }>
+            <Grid item md={ 3.4 } xs={ 3.4 }>
                 { isAction &&
                     <>
                     <Tooltip title={ CARD_FOLDER_ACTIONS } arrow>

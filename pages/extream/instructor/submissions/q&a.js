@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Tooltip, Skeleton } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
@@ -21,12 +23,6 @@ const SkeletonContainer = styled.div`
     margin-right: 5px;
 `;
 
-const DownloadField = styled.div`
-    position:absolute;
-    top: 120px;
-    right:25px;
-`;
-
 const DownloadButton = styled.div`
     margin-top:-5px;
 `;
@@ -45,10 +41,19 @@ const QNA = ({
     isLoading,
     isLoadingDownload
 }) => {
+    const theme = useTheme();
     const classes = useStyles();
     const router = useRouter();
     const clasId = router.query.clasId;
     const assId = router.query.assId;
+
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("900"));
+
+    const DownloadField = styled.div`
+        position:absolute;
+        top: ${isSmallScreen ? "85px" : "120px"};
+        right:25px;
+    `;
 
     const [rows, setRows] = useState([]);
 

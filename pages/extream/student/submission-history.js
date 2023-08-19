@@ -154,15 +154,6 @@ const SubmissionHistory = ({
                 />
             </PaginationContainer>
 
-            {/* <AddButtonBottom>
-                <CreateDrawer
-                    title="New Submission"
-                    isShowAddIcon={true}
-                >
-                    <SubmissionForm />
-                </CreateDrawer>
-            </AddButtonBottom> */}
-
             <AddButtonBottom>
                 <CreateDrawer
                     options={[

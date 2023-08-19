@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import _ from 'lodash';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import debouce from 'lodash.debounce';
 import styled from 'styled-components';
 import { makeStyles } from "@mui/styles";
@@ -42,18 +44,6 @@ import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { DOWNLOAD_CSV, WARNING_MESSAGES, WINDOW_PLATFORM } from '../../../../constant/data/Constant';
 import { INSTRUCTIONS_STEPS } from '../../../../constant/data/InstructionMessage';
-
-const SearchField = styled.div`
-    position:absolute;
-    top: 125px;
-    right:16px;
-`;
-
-const DownloadField = styled.div`
-    position:absolute;
-    top: 125px;
-    right:${ platform === WINDOW_PLATFORM ? '255px' : '235px' };
-`;
 
 const SkeletonContainer = styled.div`
     marginTop: 10px;
@@ -101,7 +91,7 @@ const Students = ({
     isLoadingDownload,
     activeTab
 }) => {
-
+    const theme = useTheme();
     const router = useRouter();
     const classes = useStyles();
     const [rows, setRows] = useState([]);
@@ -120,6 +110,20 @@ const Students = ({
     });
     const [clasId, setClasId] = useState('');
     const [clasName, setClasName] = useState('');
+
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("900"));
+
+    const DownloadField = styled.div`
+        position:absolute;
+        top: ${isSmallScreen ? "85px" : "125px"};
+        right:${platform === WINDOW_PLATFORM ? '255px' : '235px'};
+    `;
+
+    const SearchField = styled.div`
+        position:absolute;
+        top: ${isSmallScreen ? "85px" : "125px"};
+        right:16px; 
+    `;
 
     useEffect(() => {
         GetStudent(router.query.clasId, paginationPayload);

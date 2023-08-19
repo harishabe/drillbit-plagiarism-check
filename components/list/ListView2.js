@@ -26,11 +26,21 @@ const useStyles = makeStyles(() => ({
     right: {
         textAlign: 'right',
     },
+    itemAnswered: {
+        width: '71vw',
+        height: 'auto',
+        borderRadius: '3px',
+        backgroundColor: '#E7E7E7',
+        padding: '12px'
+    },
+    itemUnAnswered: {
+        width: '71vw'
+    },
 }));
 
 const AlignRight = styled.div`
     text-align:right;
-    margin-right: 200px;
+    margin-right: 5%;
 `;
 
 const Colors = ['#7B68C8', '#68C886', '#8D34FF', '#34C2FF', '#3491FF', '#68C886'];
@@ -60,15 +70,15 @@ const ListView2 = ({
     return (
         <>
             <List>
-                {isLoadingQa ?
+                { isLoadingQa ?
                     <>
                         <Skeleton />
                         <Skeleton />
                         <Skeleton />
                     </> :
                     <>
-                        {qnaData?.message ?
-                            <ErrorBlock message={qnaData?.message} /> :
+                        { qnaData?.message ?
+                            <ErrorBlock message={ qnaData?.message } /> :
                             qnaData?.map((item, index) => (
                                 item['bgcolor'] = Colors[index],
                                 item['id'] = `Q${index + 1}`,
@@ -76,57 +86,51 @@ const ListView2 = ({
                                     {
                                         <>
                                             <ListItem
-                                                key={index}
-                                                style={{
+                                                key={ index }
+                                                style={ {
                                                     paddingLeft: '0px',
                                                     paddingRight: '0px',
-                                                }}
+                                                } }
                                             >
-                                                <Grid container spacing={1}>
-                                                    <Grid item xs={0}>
+                                                <Grid container spacing={ 1 }>
+                                                    <Grid item xs={ 0 }>
                                                         <ListItemAvatar>
                                                             <Avatar
-                                                                sx={{
+                                                                sx={ {
                                                                     width: 42,
                                                                     height: 42,
                                                                     marginTop: '8px',
                                                                     background: item.bgcolor,
                                                                     color: '#fff',
-                                                                }}
+                                                                } }
                                                             >
-                                                                Q{index + 1}
+                                                                Q{ index + 1 }
                                                             </Avatar>
                                                         </ListItemAvatar>
                                                     </Grid>
                                                     <Grid item xs={ 8 }>
                                                         <ListItemText
                                                             disableTypography
-                                                            className={classes.itemText}
-                                                            primary={<Title1 title={item.question} />}
+                                                            className={ classes.itemText }
+                                                            primary={ <Title1 title={ item.question } /> }
                                                             secondary={
                                                                 <>
                                                                     {
-                                                                        item.answer ? <Box
-                                                                            sx={ {
-                                                                                width: 850,
-                                                                                height: 'auto',
-                                                                                borderRadius: '3px',
-                                                                                backgroundColor: '#E7E7E7',
-                                                                                padding: '12px'
-                                                                            } }>
-                                                                            <SubTitle2 title={ item.answer } />
-                                                                        </Box> : 
-                                                                        <>
-                                                                            <textarea
-                                                                                rows="5"
-                                                                                name={'a' + (index + 1)}
-                                                                                cols="90"
-                                                                                onChange={handleAnswer}
-                                                                                placeholder='Click to Answer here'
-                                                                            >
+                                                                        item.answer ?
+                                                                            <Box className={ classes.itemAnswered }>
+                                                                                <SubTitle2 title={ item.answer } />
+                                                                            </Box> :
+                                                                            <>
+                                                                                <textarea
+                                                                                    rows="5"
+                                                                                    name={ 'a' + (index + 1) }
+                                                                                    className={ classes.itemUnAnswered }
+                                                                                    onChange={ handleAnswer }
+                                                                                    placeholder='Click to Answer here'
+                                                                                >
 
-                                                                            </textarea>
-                                                                        </>
+                                                                                </textarea>
+                                                                            </>
                                                                     }
                                                                 </>
                                                             }
@@ -135,8 +139,8 @@ const ListView2 = ({
                                                     <Grid item xs={ 3 }>
                                                         <ListItemText
                                                             disableTypography
-                                                            className={classes.right}
-                                                            primary={<SubTitle2 title={'Asked : ' + formatDate(item.question_date)} />}
+                                                            className={ classes.right }
+                                                            primary={ <SubTitle2 title={ 'Asked : ' + formatDate(item.question_date) } /> }
                                                         />
                                                     </Grid>
                                                 </Grid>
@@ -147,18 +151,18 @@ const ListView2 = ({
                             ))
                         }
 
-                        {qnaData?.message ? '' :
+                        { qnaData?.message ? '' :
                             <AlignRight>
                                 <Button
                                     variant="contained"
                                     size="large"
                                     type="button"
-                                    disabled={isLoadingAns}
+                                    disabled={ isLoadingAns }
                                     color="primary"
-                                    onClick={(e) => handleSend(e, answer, qnaData)}
+                                    onClick={ (e) => handleSend(e, answer, qnaData) }
 
                                 >
-                                    {isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer'}
+                                    { isLoadingAns ? <BeatLoader color="#fff" /> : 'Submit Answer' }
                                 </Button>
                             </AlignRight>
                         }

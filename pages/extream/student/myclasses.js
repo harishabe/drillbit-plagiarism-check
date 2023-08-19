@@ -220,7 +220,7 @@ const MyClasses = ({
                         title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
                     />
                 </Grid>
-                <Grid item md={ 3.3 } className={ classes.view }>
+                <Grid item md={ 3.3 } xs={ 3.6 } className={ classes.view }>
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -236,7 +236,7 @@ const MyClasses = ({
                         </Tooltip>
                     </ToggleButtonGroup>
                 </Grid>
-                <Grid item md={ 2.7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 2.7 } xs={ 3.4 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '100%' } }
                         placeholder='Search by Class ID'
@@ -264,7 +264,7 @@ const MyClasses = ({
                                 <>
                                     <Grid container spacing={ 2 }>
                                         { item?.map((item, index) => (
-                                            <Grid key={ index } item md={ 4 } xs={ 12 }>
+                                            <Grid key={ index } item xl={ 3 } md={ 4 } sm={ 6 } xs={ 12 }>
                                                 <CardInfoView
                                                     key={ index }
                                                     isNextPath={ true }

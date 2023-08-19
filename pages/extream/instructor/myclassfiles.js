@@ -233,7 +233,7 @@ const MyClassFiles = ({
               {item?.length > 0 ? (
                 <Grid container spacing={2}>
                   {item?.map((item, index) => (
-                    <Grid key={index} item md={4} xs={12}>
+                    <Grid key={ index } item xl={ 3 } md={ 4 } sm={ 6 } xs={ 12 }>
                       <CardInfoView
                         key={index}
                         item={item}
@@ -265,7 +265,7 @@ const MyClassFiles = ({
               {item?.length > 0 ? (
                 <Grid container spacing={2}>
                   {item?.map((item, index) => (
-                    <Grid key={index} item md={4} xs={12}>
+                    <Grid key={ index } item xl={ 3 } md={ 4 } sm={ 6 } xs={ 12 }>
                       <CardInfoView
                         key={index}
                         item={item}

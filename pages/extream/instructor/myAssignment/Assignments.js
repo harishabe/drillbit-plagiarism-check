@@ -108,7 +108,7 @@ const Assignments = ({
         field: 'ass_id',
         orderBy: PaginationValue?.orderBy,
     });
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("908"));
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("900"));
 
     const DownloadField = styled.div`
         position:absolute;
