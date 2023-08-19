@@ -48,7 +48,7 @@ const SuperAdmin = ({ children }) => {
           <DrawerHeader />
         </Hidden>
         <Hidden mdUp implementation="css">
-          <MobileMenu />
+          <DrawerHeader />
         </Hidden>
         {children}
       </Box>

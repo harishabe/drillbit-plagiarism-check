@@ -213,6 +213,7 @@ const CommonTable = ({
                     )}
                     {tableHeader.map((column, index) => {
                       const value = row[column.id];
+                      console.log('valuevaluevaluevalue', value)
                       return (
                         <>
                           {TABLE_BODY_ALLOW_ICON.includes(column.id) ? (
@@ -222,7 +223,7 @@ const CommonTable = ({
                                 maxWidth: column.maxWidth,
                               }}
                             >
-                              {isSmallScreen ? (
+                              {isSmallScreen && value.length > 1 ? (
                                 <>
                                   <Tooltip title="Actions" arrow>
                                     <IconButton
@@ -247,6 +248,7 @@ const CommonTable = ({
                                         arrow
                                       >
                                         <span
+                                          style={{cursor:'pointer'}}
                                           role="button"
                                           disabled={icon.isDisabled}
                                           onClick={(e) =>
@@ -261,7 +263,7 @@ const CommonTable = ({
                                         <Tooltip title={icon.title} arrow>
                                           <span
                                             role="button"
-                                            style={{ paddingLeft: "10px" }}
+                                            style={{ paddingLeft: "10px", cursor:'pointer' }}
                                             onClick={(e) =>
                                               handleAction(e, icon.type, row)
                                             }
