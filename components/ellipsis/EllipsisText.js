@@ -12,9 +12,9 @@ const StyledLinkField = styled(Link)(() => ({
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   overflow: "hidden",
-  marginTop: "5px",
-  color: "#454745",
-  textDecorationColor: "#454745",
+  marginTop: "5px !important",
+  color: "#454745 !important",
+  textDecorationColor: "#454745 !important",
   cursor: "pointer",
 }));
 
