@@ -5,7 +5,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { CreateClass, EditClass } from '../../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../../constant/form/myclasses-form.json';
-import { AddImageIcon } from '../../../../assets/icon';
+import { CreateClassIcon, EditClassAndStudentIcon } from '../../../../assets/icon';
 import { convertDate } from '../../../../utils/RegExp';
 import { EXPIRY_DATE_GREATER_THAN_CURRENT_DATE } from '../../../../constant/data/ErrorMessage';
 import { CLASS_VIEW } from '../../../../constant/data/Constant';
@@ -128,7 +128,7 @@ const MyClassesForm = ({
     return (
         <>
             <div style={{ textAlign: 'center' }}>
-                <AddImageIcon />
+                { editData ? <EditClassAndStudentIcon /> : <CreateClassIcon /> }
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>

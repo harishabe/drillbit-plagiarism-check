@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { EditData } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/student-form.json';
-import { AddImageIcon } from '../../../../assets/icon';
+import { EditClassAndStudentIcon } from '../../../../assets/icon';
 import END_POINTS from '../../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 
@@ -51,7 +51,7 @@ const StudentForm = ({
     return (
         <>
             <div style={{ textAlign: 'center' }}>
-                <AddImageIcon />
+                <EditClassAndStudentIcon />
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>

@@ -34,54 +34,33 @@ import {
   UploadZipFileDataClear,
 } from "../../../redux/action/instructor/InstructorAction";
 import {
-  DownloadCsv,
-  SaveToRepoBulk,
-  DownloadOriginalFile,
-  GetGrammarReport,
-  DeletefolderSubmissionData,
-  folderSubmissionsFileData,
-  SubmissionReportBulkDownload,
-  SubmissionReportDownload,
-} from "../../../redux/action/common/Submission/SubmissionAction";
+    DownloadCsv,
+    SaveToRepoBulk,
+    DownloadOriginalFile,
+    GetGrammarReport,
+    DeletefolderSubmissionData,
+    folderSubmissionsFileData,
+    SubmissionReportBulkDownload,
+    SubmissionReportDownload
+} from '../../../redux/action/common/Submission/SubmissionAction';
 import {
-  DeleteWarningIcon,
-  RegionalUploadIcon,
-  NonEnglishUploadIcon,
-  EnglishUploadIcon,
-} from "../../../assets/icon";
-import { PaginationValue } from "../../../utils/PaginationUrl";
-import {
-  formatDate,
-  removeCommaWordEnd,
-  windowOpen,
-  getItemSessionStorage,
-} from "../../../utils/RegExp";
-import {
-  StyledButtonIcon,
-  AddButtonBottom,
-  StyledButtonRedIcon,
-  StyledButtonGreenIcon,
-  PaginationContainer
-} from "../../../style/index";
-import {
-  BASE_URL,
-  BASE_URL_PRO,
-  BASE_URL_ANALYSIS,
-  BASE_URL_UPLOAD,
-  BASE_URL_REGIONAL_ANALYSIS,
-  BASE_URL_ANALYSIS_GATEWAY,
-} from "../../../utils/BaseUrl";
-import END_POINTS_PRO from "../../../utils/EndPointPro";
-import {
-  DOWNLOAD_CSV,
-  WARNING_MESSAGES,
-  FILE_LANGUAGE,
-  NO_DATA_PLACEHOLDER,
-  NA_DATA_PLACEHOLDER,
-  SUBMISSION_DELAY,
-} from "../../../constant/data/Constant";
-import PageChange from "../../../components/loader/PageChange";
-import { INSTRUCTIONS_STEPS } from "../../../constant/data/InstructionMessage";
+    DeleteIcon,
+    DeleteWarningIcon,
+    DownloadIcon,
+    RegionalUploadIcon,
+    NonEnglishUploadIcon,
+    EnglishUploadIcon,
+    DownloadWarningIcon,
+    RepositorySaveWarningIcon
+} from '../../../assets/icon';
+import { PaginationValue } from '../../../utils/PaginationUrl';
+import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
+import { PaginationContainer, StyledButtonGreenIcon, StyledButtonRedIcon, StyledButtonIcon, AddButtonBottom } from '../../../style/index';
+import { BASE_URL, BASE_URL_PRO, BASE_URL_ANALYSIS, BASE_URL_UPLOAD, BASE_URL_REGIONAL_ANALYSIS, BASE_URL_ANALYSIS_GATEWAY } from '../../../utils/BaseUrl';
+import END_POINTS_PRO from '../../../utils/EndPointPro';
+import { DOWNLOAD_CSV, WARNING_MESSAGES, FILE_LANGUAGE, NO_DATA_PLACEHOLDER, NA_DATA_PLACEHOLDER, SUBMISSION_DELAY } from '../../../constant/data/Constant';
+import PageChange from '../../../components/loader/PageChange';
+import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 
 const columns = [
   { id: "name", label: "Name", maxWidth: 100 },
@@ -828,7 +807,7 @@ const folderSubmission = ({
 
         { showSaveIcon && (
           <WarningDialog
-            warningIcon={ <DeleteWarningIcon /> }
+            warningIcon={ <RepositorySaveWarningIcon /> }
             message={ WARNING_MESSAGES.REPOSITORY }
             handleYes={ handleYesSaveWarning }
             handleNo={ handleCloseSaveWarning }
@@ -838,6 +817,7 @@ const folderSubmission = ({
 
         { showDownloadWarning && (
           <WarningDialog
+            warningIcon={ <DownloadWarningIcon /> }
             message={ WARNING_MESSAGES.DOWNLOAD }
             handleYes={ handleFileDownloadYesWarning }
             handleNo={ handleFileDownloadCloseWarning }

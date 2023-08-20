@@ -43,7 +43,15 @@ import {
     DeletefolderSubmissionData,
     SubmissionReportDownload
 } from '../../../redux/action/common/Submission/SubmissionAction';
-import { DeleteWarningIcon, AddFromListIcon, AddMultipleIcon } from '../../../assets/icon';
+import {
+    DeleteIcon,
+    DeleteWarningIcon,
+    DownloadIcon,
+    AddFromListIcon,
+    AddMultipleIcon,
+    DownloadWarningIcon,
+    RepositorySaveWarningIcon
+} from '../../../assets/icon';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import { formatDate, removeCommaWordEnd, windowOpen, getItemSessionStorage } from '../../../utils/RegExp';
 import {
@@ -611,27 +619,29 @@ const folderSubmission = ({
                 {
                     showSaveIcon &&
                     <WarningDialog
-                        warningIcon={ <DeleteWarningIcon /> }
-                        message={ WARNING_MESSAGES.REPOSITORY }
-                        handleYes={ handleYesSaveWarning }
-                        handleNo={ handleCloseSaveWarning }
-                        isOpen={ true }
+                        warningIcon={ <RepositorySaveWarningIcon /> }
+                        message={WARNING_MESSAGES.REPOSITORY}
+                        handleYes={handleYesSaveWarning}
+                        handleNo={handleCloseSaveWarning}
+                        isOpen={true}
                     />
                 }
 
                 {
                     showDownloadWarning &&
                     <WarningDialog
-                        message={ WARNING_MESSAGES.DOWNLOAD }
-                        handleYes={ handleFileDownloadYesWarning }
-                        handleNo={ handleFileDownloadCloseWarning }
-                        isOpen={ true }
+                        warningIcon={ <DownloadWarningIcon /> }
+                        message={WARNING_MESSAGES.DOWNLOAD}
+                        handleYes={handleFileDownloadYesWarning}
+                        handleNo={handleFileDownloadCloseWarning}
+                        isOpen={true}
                     />
                 }
 
                 {
                     showSubmissionReport &&
                     <WarningDialog
+                        warningIcon={ <DownloadWarningIcon /> }
                         message={ WARNING_MESSAGES.DOWNLOAD }
                         handleYes={ handleSubmissionDownloadYesWarning }
                         handleNo={ handleSubmissionDownloadCloseWarning }

@@ -5,7 +5,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../../components';
 import { InstructorFeedback, EditFeedback } from '../../../../redux/action/instructor/InstructorAction';
 import FormJson from '../../../../constant/form/feedback-form.json';
-import { AddImageIcon } from '../../../../assets/icon';
+import { EditClassAndStudentIcon } from '../../../../assets/icon';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
 
 const FeedbackForm = ({
@@ -97,7 +97,7 @@ const FeedbackForm = ({
     return (
         <>
             <div style={ { textAlign: 'center' } }>
-                <AddImageIcon />
+                <EditClassAndStudentIcon />
             </div>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container>

@@ -21,6 +21,9 @@ import {
 } from '../../../../components';
 import {
     DeleteWarningIcon,
+    DownloadWarningIcon,
+    RepositorySaveWarningIcon,
+    DownloadIcon,
     NonEnglishUploadIcon,
     EnglishUploadIcon
 } from '../../../../assets/icon';
@@ -680,6 +683,7 @@ const Submission = ({
             {
                 showDownloadWarning &&
                 <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
                     message={ WARNING_MESSAGES.DOWNLOAD }
                     handleYes={ handleFileDownloadYesWarning }
                     handleNo={ handleFileDownloadCloseWarning }
@@ -690,7 +694,7 @@ const Submission = ({
             {
                 showSaveIcon &&
                 <WarningDialog
-                    warningIcon={ <DeleteWarningIcon /> }
+                    warningIcon={ <RepositorySaveWarningIcon /> }
                     message={ WARNING_MESSAGES.REPOSITORY }
                     handleYes={ handleYesSaveWarning }
                     handleNo={ handleCloseSaveWarning }
@@ -701,6 +705,7 @@ const Submission = ({
             {
                 showSubmissionReport &&
                 <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
                     message={ WARNING_MESSAGES.DOWNLOAD }
                     handleYes={ handleSubmissionDownloadYesWarning }
                     handleNo={ handleSubmissionDownloadCloseWarning }
