@@ -133,12 +133,12 @@ const Customers = ({
                 </Grid>
                 <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={ { width: '40%' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 6,
                                 display: 'inline-flex',
                             },
                         } }

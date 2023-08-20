@@ -6,7 +6,7 @@ const SubHeading = ({
     title
 }) => {
     return (
-        <Typography variant="h2" component="div" gutterBottom>
+        <Typography variant="h2_1" component="div" gutterBottom>
             {title}
         </Typography>
     );

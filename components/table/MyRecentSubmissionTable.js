@@ -8,7 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import styled from 'styled-components';
-import { SubTitle, SubTitle1, SubTitle2, EllipsisText, SimilarityStatus } from '../index';
+import { Title, SubTitle2, EllipsisText, SimilarityStatus } from '../index';
 import { StatusDot } from '../index';
 import { NO_DATA_PLACEHOLDER } from '../../constant/data/Constant';
 
@@ -30,22 +30,22 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                 <TableHead>
                     <TableRow>
                         <TableCell colSpan="2" className={ classes.width }>
-                            <SubTitle1 title="Assignments" />
+                            <Title title="Assignments" />
                         </TableCell>
                         <TableCell className={ classes.width }>
-                            <SubTitle1 title="File Name" />
+                            <Title title="File Name" />
                         </TableCell>
                         <TableCell className={ classes.width }>
-                            <SubTitle1 title="Paper ID" />
+                            <Title title="Paper ID" />
                         </TableCell>
                         <TableCell className={ classes.width }>
-                            <SubTitle1 title="Marks" />
+                            <Title title="Marks" />
                         </TableCell>
                         <TableCell className={ classes.width }>
-                            <SubTitle1 title="Similarity" />
+                            <Title title="Similarity" />
                         </TableCell>
                         <TableCell className={ classes.width }>
-                            <SubTitle1 title="Status" />
+                            <Title title="Status" />
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -73,10 +73,10 @@ const MyRecentSubmissionTable = ({ tableData }) => {
                                 <EllipsisText value={ item.original_fn } />
                             </TableCell>
                             <TableCell className={ classes.width }>
-                                <SubTitle title={item.paper_id} />
+                                <EllipsisText value={ item.paper_id.toString() } />
                             </TableCell>
                             <TableCell className={ classes.width }>
-                                <SubTitle title={ item.feedback !== null ? item.feedback?.marks : NO_DATA_PLACEHOLDER } />
+                                <EllipsisText value={ item.feedback !== null ? item.feedback?.marks.toString() : NO_DATA_PLACEHOLDER } />
                             </TableCell>
                             <TableCell className={ classes.width }>
                                 <SimilarityStatus percent={ item.percent } flag={ item.flag } />

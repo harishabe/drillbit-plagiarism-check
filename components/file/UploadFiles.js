@@ -6,7 +6,7 @@ import Chip from "@mui/material/Chip";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { Grid, Link, Checkbox, IconButton, Tooltip } from "@mui/material";
-import { SubTitle1, CardView, MainHeading } from "./../../components";
+import { Title, CardView, Heading } from "./../../components";
 import FileForm from "./FileForm";
 import RepositoryFileForm from "./RepositoryFileForm";
 import {
@@ -443,25 +443,25 @@ const UploadFiles = ({
       <CardView>
         <DragAreaPadding>
           <div style={{ display: "flex" }}>
-            <Tooltip title="Back" arrow style={{ marginTop: "-12px" }}>
+            <Tooltip title="Back" arrow style={{ marginTop: "-10px" }}>
               <IconButton size="large" onClick={handleBack}>
                 <ArrowBackOutlinedIcon />
               </IconButton>
             </Tooltip>
             {isRepository ? (
-              <MainHeading title="Upload files to repository" />
+              <Heading title="Upload files to repository" />
             ) : (
-              <MainHeading title="Upload files for plagiarism check" />
+              <Heading title="Upload files for plagiarism check" />
             )}
           </div>
           <Grid container spacing={1}>
             <Grid item md={12} xs={12}>
               <DragDropArea>
                 {fileIcon}
-                <SubTitle1 title={ allowedFormat.FILE_FORMATS } />
-                { !isStudent && !isRegionalFile && <SubTitle1 title={ allowedFormat.MAX_FILES } /> }
-                <SubTitle1 title={ allowedFormat.LENGTH } />
-                <SubTitle1 title={ allowedFormat.SIZE } />
+                <Title title={ allowedFormat.FILE_FORMATS } />
+                { !isStudent && !isRegionalFile && <Title title={ allowedFormat.MAX_FILES } /> }
+                <Title title={ allowedFormat.LENGTH } />
+                <Title title={ allowedFormat.SIZE } />
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <Link style={{ marginLeft: "5px" }}>
                     <ChooseLabel for="file-upload">

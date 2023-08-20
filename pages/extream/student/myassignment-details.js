@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import IconButton from '@mui/material/IconButton';
 import { Grid, Tooltip } from '@mui/material';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Student from '../../../layouts/Student';
 import {
     BreadCrumb,
@@ -17,7 +18,6 @@ import {
     Heading,
     DialogModal
 } from '../../../components';
-import { DownloadIcon } from '../../../assets/icon';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import {
     GetSubmissionData,
@@ -34,6 +34,7 @@ import SubmissionHistory from './submission-history';
 import QA from './q&a';
 import Feedback from './feedback';
 import { dateFormat, getItemSessionStorage } from '../../../utils/RegExp';
+import { StyledButtonIcon } from '../../../style';
 
 const tabMenu = [
     {
@@ -228,27 +229,27 @@ const MyAssignmentDetails = ({
     return (
         <React.Fragment>
             <Grid container>
-                <Grid item md={ 10 } xs={ 12 }>
+                <Grid item md={ 10.5 } xs={ 12 }>
                     <BreadCrumb item={ StudentBreadCrumb } />
                 </Grid>
-                <Grid item md={ 1 } xs={ 6 } sx={ { marginTop: '15px' } }>
+                <Grid item md={ 1.1 } xs={ 1 } sx={ { marginTop: '8px' } }>
                     <div>
-                        <StatusDot color={ headerData?.status === 'active' ? '#38BE62' : '#E9596F' } title={ headerData?.status } />
+                        {
+                            headerData !== undefined && 
+                            <StatusDot color={ headerData?.status === 'active' ? '#38BE62' : '#E9596F' } title={ headerData?.status } />
+                        }
                     </div>
                 </Grid>
-                <Grid item md={ 1 } xs={ 6 }>
-                    <Grid container>
-                        <Tooltip arrow title="Download csv">
-                            <IconButton
-                                sx={ { ml: 6, p: 1 } }
-                                color="primary"
-                                aria-label="download-file"
-                                size="large"
-                                onClick={ handleDownload }>
-                                { isLoadingDownload ? <Skeleton width={ 50 } /> : <DownloadIcon /> }
-                            </IconButton>
-                        </Tooltip>
-                    </Grid>
+                <Grid item md={ 0.4 } xs={ 1 }>
+                    <Tooltip arrow title="Download csv">
+                        <StyledButtonIcon
+                            onClick={ handleDownload }
+                            variant="outlined"
+                            size="small"
+                        >
+                            { isLoadingDownload ? <Skeleton width={ 50 } /> : <FileDownloadOutlinedIcon fontSize='small' /> }
+                        </StyledButtonIcon>
+                    </Tooltip>
                 </Grid>
             </Grid>
             <Box sx={ { flexGrow: 1 } } marginBottom={ '15px' }>
@@ -287,19 +288,19 @@ const MyAssignmentDetails = ({
 
             <CardView>
                 <Grid container>
-                    <Grid item md={ 11.7 } xs={ 11.7 }>
+                    <Grid item md={ 11.75 } xs={ 11.7 }>
                         <TabMenu menuButton={ tabMenu } components={ componentList } handleAPI={ handleAPI } />
                     </Grid>
-                    <Grid item md={ 0.3 } xs={ 0.3 }>
+                    <Grid item md={ 0.25 } xs={ 0.3 }>
                         <DownloadButton>
                             <Tooltip title="Refresh" arrow>
-                                <IconButton
-                                    aria-label="download-file"
-                                    size="small"
+                                <StyledButtonIcon
                                     onClick={ handleRefresh }
+                                    variant="outlined"
+                                    size="small"
                                 >
-                                    <RefreshOutlinedIcon fontSize='medium' />
-                                </IconButton>
+                                    <RefreshOutlinedIcon fontSize='small' />
+                                </StyledButtonIcon>
                             </Tooltip>
                         </DownloadButton>
                     </Grid>

@@ -17,7 +17,7 @@ const SubTitle = ({
 }) => {
     const classes = useStyles();
     return (
-        <Typography variant="h4" color={textColor} component="div" gutterBottom>
+        <Typography variant="h5" color={textColor} component="div" gutterBottom>
             { isLink ?
                 <span className={ classes.BorderColor }>
                     <Link href=''>{ title }</Link>
@@ -33,5 +33,3 @@ SubTitle.propTypes = {
 };
 
 export default SubTitle;
-
-// 'http://uat.drillbitplagiarismcheck.com:8082/extreme/admin/reviveValidity'

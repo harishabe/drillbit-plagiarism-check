@@ -7,7 +7,7 @@ const Title1 = ({
     color
 }) => {
     return (
-        <Typography variant="h3_1" color={color} component="div" gutterBottom>
+        <Typography variant="h4_1" color={color} component="div">
             {title}
         </Typography>
     );

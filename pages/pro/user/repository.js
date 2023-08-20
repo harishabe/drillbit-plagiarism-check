@@ -1,22 +1,23 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { TextField, Pagination } from '@mui/material';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useRouter } from 'next/router';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     BreadCrumb,
-    MainHeading,
+    Heading,
     CommonTable,
     CreateDrawer,
     WarningDialog,
     Instructions,
     CardView
 } from './../../../components';
-import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
+import { DeleteWarningIcon } from '../../../assets/icon';
 import ProUser from '../../../layouts/ProUser';
 import {
     GetRepoList,
@@ -29,6 +30,7 @@ import { PaginationContainer } from '../../../style/index';
 import { BASE_URL_PRO } from '../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
+import { AddButtonBottom, StyledButtonRedIcon } from './../../../style/index';
 
 const InstructorBreadCrumb = [
     {
@@ -43,22 +45,22 @@ const InstructorBreadCrumb = [
     },
 ];
 
-const AddButtonBottom = styled.div`
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 9999;
-`;
+const useStyles = makeStyles(() => ({
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
 
 const columns = [
-    { id: 'paper_id', label: 'Paper ID', maxWidth: 140 },
+    { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
     { id: 'name', label: 'Name', maxWidth: 140 },
-    { id: 'mail_id', label: 'Email ID', maxWidth: 140 },
+    { id: 'mail_id', label: 'Email ID', maxWidth: 215 },
     { id: 'title', label: 'Title', maxWidth: 140 },
-    { id: 'repository_type', label: 'Type', maxWidth: 140 },
-    { id: 'lang1', label: 'Language', maxWidth: 140 },
-    { id: 'date_up', label: 'Added Date', maxWidth: 140 },
-    { id: 'action', label: 'Action', minWidth: 100 },
+    { id: 'repository_type', label: 'Type', maxWidth: 120 },
+    { id: 'lang1', label: 'Language', maxWidth: 120 },
+    { id: 'date_up', label: 'Added Date', maxWidth: 145 },
+    { id: 'action', label: 'Action', minWidth: 80 },
 ];
 
 function createData(paper_id, name, mail_id, title, repository_type, lang1, date_up, action) {
@@ -78,7 +80,7 @@ const Repository = ({
     uploadData,
     UploadZipFileDataClear
 }) => {
-
+    const classes = useStyles();
     const router = useRouter();
     const [rows, setRows] = useState([]);
     const [deleteRowData, setDeleteRowData] = useState('');
@@ -108,7 +110,9 @@ const Repository = ({
                     repo.repository_type,
                     repo.language,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
+                    [{
+                        'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                    }]
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -200,17 +204,18 @@ const Repository = ({
             </Box>
             <Grid container spacing={ 2 }>
                 <Grid item md={ 5 } xs={ 5 }>
-                    <MainHeading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                    <Heading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={ { width: '42%' } }
                         placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500
                             },
                         } }
                     />

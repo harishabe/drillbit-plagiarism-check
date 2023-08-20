@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import { Skeleton } from '@mui/material';
 import Admin from './../../../layouts/Admin';
 import { DeleteWarningIcon } from '../../../assets/icon';
-import { BreadCrumb, CardInfoView, MainHeading, CreateDrawer, WarningDialog } from './../../../components';
+import { BreadCrumb, CardInfoView, Heading, CreateDrawer, WarningDialog } from './../../../components';
 import { GetIntegrationList, GetGoogleLms, DeleteIntegration } from '../../../redux/action/admin/AdminAction';
 import END_POINTS from '../../../utils/EndPoints';
 import MoodleForm from './form/MoodleForm';
@@ -205,7 +205,7 @@ const Integration = ({
                 </Grid>
             </Box>
 
-            <MainHeading title={`Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})`} />
+            <Heading title={`Integrations (${integrationData?.length === undefined ? 0 : integrationData?.length})`} />
 
             {isLoading ? <Grid container spacing={2}>
                 <Grid item md={4} xs={12}><Skeleton /></Grid>
@@ -215,7 +215,7 @@ const Integration = ({
                 <Grid container spacing={2}>
                     {lmsData?.map((item, index) => (
                         item.lms === 'GOOGLECLASSROOM' ? '' :
-                            <Grid key={index} item md={4} xs={12}>
+                            <Grid key={ index } item xl={ 3 } md={ 4 } sm={ 6 } xs={ 12 }>
                                 <CardInfoView
                                     item={item}
                                     handleConfig={handleConfig}

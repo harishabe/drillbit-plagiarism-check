@@ -3,6 +3,7 @@ import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { GetClassesData } from '../../../redux/action/student/StudentAction';
@@ -15,7 +16,7 @@ import Student from '../../../layouts/Student';
 import {
     BreadCrumb,
     CardInfoView,
-    MainHeading,
+    Heading,
     CardInfoSkeleton,
     ErrorBlock,
     CardView,
@@ -29,9 +30,8 @@ import { setItemSessionStorage, getItemSessionStorage, formatDate } from '../../
 import { CLASS_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
-import GridOnIcon from '@mui/icons-material/GridOn';
 import WysiwygIcon from '@mui/icons-material/Wysiwyg';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonIcon } from '../../../style/index';
 
 const StudentBreadCrumb = [
     {
@@ -46,6 +46,13 @@ const StudentBreadCrumb = [
     },
 ];
 
+const useStyles = makeStyles(() => ({
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
+
 const ToggleButton = styled(MuiToggleButton)({
     '&.Mui-selected, &.Mui-selected:hover': {
         color: '#fff !important',
@@ -54,12 +61,12 @@ const ToggleButton = styled(MuiToggleButton)({
 });
 
 const columns = [
-    { id: 'class_id', label: 'Class ID', maxWidth: 180 },
-    { id: 'class_name', label: 'Class name', maxWidth: 200 },
-    { id: 'created_date', label: 'Start date', maxWidth: 180 },
-    { id: 'end_date', label: 'Expiry date', maxWidth: 180 },
-    { id: 'status', label: 'Status', maxWidth: 180 },
-    { id: 'action', label: 'Action', minWidth: 100 },
+    { id: 'class_id', label: 'Class ID', maxWidth: 80 },
+    { id: 'class_name', label: 'Class name', maxWidth: 340 },
+    { id: 'created_date', label: 'Start date', maxWidth: 140 },
+    { id: 'end_date', label: 'Expiry date', maxWidth: 140 },
+    { id: 'status', label: 'Status', maxWidth: 110 },
+    { id: 'action', label: 'Action', minWidth: 30 },
 ];
 
 function createData(class_id, class_name, created_date, end_date, status, action) {
@@ -75,6 +82,7 @@ const MyClasses = ({
     isLoading
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [item, setItem] = useState([]);
     const [rows, setRows] = useState([]);
     const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
@@ -128,13 +136,15 @@ const MyClasses = ({
             row =
                 createData(
                     classes.class_id,
-                    <EllipsisText component={ [<WysiwygIcon fontSize='14px' htmlColor='#56B2EA' />] } value={ classes.class_name } />,
+                    <EllipsisText component={ [<WysiwygIcon className='folder-class-icon' fontSize='18px' htmlColor='#56B2EA' />] } value={ classes.class_name } />,
                     formatDate(classes.created_date),
                     formatDate(classes.end_date),
                     <StatusDot color={ classes.status.toUpperCase() === 'ACTIVE' ? '#38BE62' : '#E9596F' } title={ classes.status }
                     />,
                     [
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next'
+                        }
                     ],
                     classes.description
                 );
@@ -197,45 +207,50 @@ const MyClasses = ({
 
     return (
         <React.Fragment>
-            <BreadCrumb item={ StudentBreadCrumb } />
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 3 } xs={ 5 }>
-                        <MainHeading
-                            title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
-                        />
-                    </Grid>
-                    <Grid item md={ 6.5 } style={ { textAlign: 'right', marginTop: '8px' } }>
-                        <ToggleButtonGroup
-                            color="primary"
-                            size='small'
-                            value={ view }
-                            exclusive
-                            onChange={ handleChangeView }
-                        >
-                            <Tooltip title='Table view' arrow>
-                                <ToggleButton value={ TABLE_VIEW } selected={ view === TABLE_VIEW }><ViewListRoundedIcon fontSize='small' /></ToggleButton>
-                            </Tooltip>
-                            <Tooltip title='Class view' arrow>
-                                <ToggleButton value={ CLASS_VIEW } selected={ view === CLASS_VIEW }><GridOnIcon fontSize='small' /></ToggleButton>
-                            </Tooltip>
-                        </ToggleButtonGroup>
-                    </Grid>
-                    <Grid item md={ 2.5 } xs={ 7 } style={ { textAlign: 'right' } }>
-                        <TextField
-                            sx={ { width: '100%', marginTop: '8px' } }
-                            placeholder='Search by Class ID'
-                            onChange={ debouncedResults }
-                            inputProps={ {
-                                style: {
-                                    padding: 7,
-                                    display: 'inline-flex'
-                                }
-                            } }
-                        />
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ StudentBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
+            <Grid container spacing={ 1 }>
+                <Grid item md={ 6 } xs={ 5 }>
+                    <Heading
+                        title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` }
+                    />
+                </Grid>
+                <Grid item md={ 3.3 } xs={ 3.6 } className={ classes.view }>
+                    <ToggleButtonGroup
+                        color="primary"
+                        size='small'
+                        value={ view }
+                        exclusive
+                        onChange={ handleChangeView }
+                    >
+                        <Tooltip title='Table view' arrow>
+                            <ToggleButton value={ TABLE_VIEW } selected={ view === TABLE_VIEW }><ViewListRoundedIcon fontSize='small' /></ToggleButton>
+                        </Tooltip>
+                        <Tooltip title='Class view' arrow>
+                            <ToggleButton value={ CLASS_VIEW } selected={ view === CLASS_VIEW }><WysiwygIcon fontSize='small' /></ToggleButton>
+                        </Tooltip>
+                    </ToggleButtonGroup>
+                </Grid>
+                <Grid item md={ 2.7 } xs={ 3.4 } style={ { textAlign: 'right' } }>
+                    <TextField
+                        sx={ { width: '100%' } }
+                        placeholder='Search by Class ID'
+                        onChange={ debouncedResults }
+                        inputProps={ {
+                            style: {
+                                padding: 7,
+                                display: 'inline-flex',
+                                fontWeight: 500,
+                            }
+                        } }
+                    />
+                </Grid>
+            </Grid>
             { view === CLASS_VIEW ? (
                 <>
                     { isLoading ?
@@ -249,7 +264,7 @@ const MyClasses = ({
                                 <>
                                     <Grid container spacing={ 2 }>
                                         { item?.map((item, index) => (
-                                            <Grid key={ index } item md={ 4 } xs={ 12 }>
+                                            <Grid key={ index } item xl={ 3 } md={ 4 } sm={ 6 } xs={ 12 }>
                                                 <CardInfoView
                                                     key={ index }
                                                     isNextPath={ true }

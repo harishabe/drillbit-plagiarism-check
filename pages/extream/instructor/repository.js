@@ -2,22 +2,20 @@ import React, { useState, useEffect, useMemo } from 'react';
 import debouce from 'lodash.debounce';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { TextField } from '@mui/material';
-import { Pagination } from '@mui/material';
+import { Box, Grid, Pagination, TextField } from '@mui/material';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useRouter } from 'next/router';
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import {
     BreadCrumb,
-    MainHeading,
+    Heading,
     CommonTable,
     CreateDrawer,
     WarningDialog,
     Instructions,
     CardView
 } from './../../../components';
-import { DeleteIcon, DeleteWarningIcon } from '../../../assets/icon';
+import { DeleteWarningIcon } from '../../../assets/icon';
 import Instructor from '../../../layouts/Instructor';
 import {
     GetRepoList,
@@ -27,7 +25,7 @@ import {
 } from '../../../redux/action/instructor/InstructorAction';
 import RepositaryForm from './form/RepositaryForm';
 import { formatDate, removeItemSessionStorage } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonRedIcon } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
@@ -53,13 +51,13 @@ const AddButtonBottom = styled.div`
 `;
 
 const columns = [
-    { id: 'paper_id', label: 'Paper ID', maxWidth: 110 },
+    { id: 'paper_id', label: 'Paper ID', maxWidth: 120 },
     { id: 'name', label: 'Name', maxWidth: 140 },
-    { id: 'mail_id', label: 'Email ID', maxWidth: 140 },
+    { id: 'mail_id', label: 'Email ID', maxWidth: 215 },
     { id: 'title', label: 'Title', maxWidth: 140 },
-    { id: 'repository_type', label: 'Type', maxWidth: 140 },
-    { id: 'lang1', label: 'Language', maxWidth: 140 },
-    { id: 'date_up', label: 'Added Date', maxWidth: 140 },
+    { id: 'repository_type', label: 'Type', maxWidth: 120 },
+    { id: 'lang1', label: 'Language', maxWidth: 120 },
+    { id: 'date_up', label: 'Added Date', maxWidth: 145 },
     { id: 'action', label: 'Action', minWidth: 80 },
 ];
 
@@ -111,7 +109,9 @@ const Repository = ({
                     repo.repository_type,
                     repo.language,
                     formatDate(repo.date_up),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }]
+                    [{
+                        'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                    }]
                 );
             row['isSelected'] = false;
             arr.push(row);
@@ -202,18 +202,19 @@ const Repository = ({
                 </Grid>
             </Box>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 5 } xs={ 5 }>
-                    <MainHeading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                <Grid item md={ 8.9 } xs={ 8.9 }>
+                    <Heading title={ `Repository(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 3.1 } xs={ 3.1 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '40%', marginTop: '8px' } }
+                        sx={ { width: '98%', marginBottom: '8px' } }
                         placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500
                             },
                         } }
                     />

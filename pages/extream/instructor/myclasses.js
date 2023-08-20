@@ -4,14 +4,15 @@ import {
     Grid,
     Skeleton,
     Tooltip,
-    IconButton,
     TextField,
     Box,
 } from '@mui/material';
 import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import debouce from 'lodash.debounce';
 import { GetClassesData, ClearAssignment, ClearStudent } from '../../../redux/action/instructor/InstructorAction';
 import { DownloadCsv } from '../../../redux/action/common/Submission/SubmissionAction';
@@ -19,19 +20,19 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import Instructor from '../../../layouts/Instructor';
 import {
     BreadCrumb,
-    MainHeading,
+    Heading,
     CardInfoSkeleton,
     CreateDrawer,
 } from '../../../components';
 import MyClassesForm from './form/MyclassesForm';
 import MyClassFiles from './myclassfiles';
-import { DownloadIcon } from '../../../assets/icon';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
 import { setItemSessionStorage, getItemSessionStorage, removeItemSessionStorage } from '../../../utils/RegExp';
 import { CLASS_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
-import GridOnIcon from '@mui/icons-material/GridOn';
+import WysiwygIcon from '@mui/icons-material/Wysiwyg';
+import { StyledButtonIcon, AddButtonBottom } from '../../../style/index';
 
 const InstructorBreadCrumb = [
     {
@@ -53,12 +54,15 @@ const ToggleButton = styled(MuiToggleButton)({
     }
 });
 
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index:999;
-`;
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "0px 6px 0px 0px",
+    },
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
 
 const MyClasses = ({
     GetClassesData,
@@ -72,6 +76,7 @@ const MyClasses = ({
     ClearStudent
 }) => {
     const [view, setView] = useState(getItemSessionStorage('classView') ? getItemSessionStorage('classView') : TABLE_VIEW);
+    const classes = useStyles();
     const [search, setSearch] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -143,18 +148,18 @@ const MyClasses = ({
 
     return (
         <React.Fragment>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10} xs={10}>
-                        <BreadCrumb item={InstructorBreadCrumb} />
+            <Box sx={ { flexGrow: 1 } }>
+                <Grid container spacing={ 1 }>
+                    <Grid item md={ 10 } xs={ 10 }>
+                        <BreadCrumb item={ InstructorBreadCrumb } />
                     </Grid>
                 </Grid>
             </Box>
-            <Grid container spacing={1}>
-                <Grid item md={ 4 } xs={ 5 }>
-                    <MainHeading title={`My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`} />
+            <Grid container spacing={ 1 }>
+                <Grid item md={ 4 } xs={ 4 }>
+                    <Heading title={ `My Classes(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 5 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                <Grid item md={ 4.8 } xs={ 4.8 } className={ classes.view } >
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -166,41 +171,36 @@ const MyClasses = ({
                             <ToggleButton value={ TABLE_VIEW } selected={ view === TABLE_VIEW }><ViewListRoundedIcon fontSize='small' /></ToggleButton>
                         </Tooltip>
                         <Tooltip title='Class view' arrow>
-                            <ToggleButton value={ CLASS_VIEW } selected={ view === CLASS_VIEW }><GridOnIcon fontSize='small' /></ToggleButton>
+                            <ToggleButton value={ CLASS_VIEW } selected={ view === CLASS_VIEW }><WysiwygIcon fontSize='small' /></ToggleButton>
                         </Tooltip>
                     </ToggleButtonGroup>
                 </Grid>
-                <Grid item md={ 3 } xs={ 7 } style={ { textAlign: 'right' } }>
-                    {classesData?.length > 0 &&
+                <Grid item md={ 3.2 } xs={ 3.2 } style={ { textAlign: 'right' } }>
+                    { classesData?.length > 0 &&
                         isLoadingDownload ?
-                        <Skeleton width={50} style={{ display: 'inline-block', marginRight: '10px', marginTop: '12px' }} />
+                        <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px', marginTop: '12px' } } />
                         : <Tooltip title="Download csv" arrow>
-                            <IconButton
-                                color="primary"
-                                aria-label="download-file"
-                                size="large"
-                                onClick={handleDownload}>
-                                <DownloadIcon />
-                            </IconButton>
+                            <StyledButtonIcon variant="outlined" size='small' className={ classes.button } onClick={ handleDownload }><FileDownloadOutlinedIcon fontSize='medium' /></StyledButtonIcon>
                         </Tooltip>
                     }
                     <TextField
-                        sx={ { width: '80%', marginTop: '8px' } }
+                        sx={ { width: '80%' } }
                         placeholder='Search by Class ID'
-                        onChange={debouncedResults}
-                        inputProps={{
+                        onChange={ debouncedResults }
+                        inputProps={ {
                             style: {
-                                padding: 6,
+                                padding: 7,
                                 display: 'inline-flex',
+                                fontWeight:500,
                             },
-                        }}
+                        } }
                     />
                 </Grid>
             </Grid>
             <AddButtonBottom>
                 <CreateDrawer
                     title="Create Class"
-                    isShowAddIcon={true}>
+                    isShowAddIcon={ true }>
                     <MyClassesForm />
                 </CreateDrawer>
             </AddButtonBottom>

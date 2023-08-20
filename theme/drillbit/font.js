@@ -1,4 +1,5 @@
-const fontName = 'montserrat'
+const fontName = "'DM Sans', sans-serif"
+
 const font = {
     fontFamily: fontName,
     fontSize: 14,
@@ -8,89 +9,120 @@ const font = {
     fontWeightBold: 700,
     h1: {
         fontFamily: fontName,
-        fontSize: '24px',
-        fontWeight: '600',
+        fontSize: '22px',
         fontStyle: 'normal',
         lineHeight: '36px',
+        fontWeight:900,
         letterSpacing: '0.15px'
     },
+    //heading
     h2: {
         fontFamily: fontName,
-        fontSize: '20px',
-        fontWeight: '600',
+        fontSize: '18px',
         fontStyle: 'normal',
         lineHeight: '28px',
-        color: '#666666'
+        fontWeight:800,
+        color: '#0E0F0C'
     },
+    //heading2
+    h2_1: {
+        fontFamily: fontName,
+        fontSize: '18px',
+        fontStyle: 'normal',
+        lineHeight: '28px',
+        fontWeight:600,
+        color: '#454745'
+    },
+    // sub heading
     h3: {
         fontFamily: fontName,
-        fontSize: '18px',
-        fontWeight: 400,
-        lineHeight: 1.167,
-        letterSpacing: '0em'
+        fontSize: '16px',
+        fontStyle: 'normal',
+        lineHeight: '28px',
+        fontWeight:800,
+        color: '#0E0F0C'
     },
+    // sub heading2
     h3_1: {
         fontFamily: fontName,
-        fontSize: '18px',
-        fontWeight: 400,
-        lineHeight: 1.167,
-        letterSpacing: '0em',
-        color: '#000'
+        fontSize: '16px',
+        fontStyle: 'normal',
+        lineHeight: '28px',
+        fontWeight:600,
+        color: '#454745'
     },
+    //title
     h4: {
         fontFamily: fontName,
+        fontSize: '14px',
         fontStyle: 'normal',
-        fontSize: '16px',
-        fontWeight: 400,
         lineHeight: '24px',
-        letterSpacing: '0.5px',
-        color: '#666666'
+        fontWeight:800,
+        color: '#0E0F0C'
     },
+    // title2
+    h4_1: {
+        fontFamily: fontName,
+        fontSize: '14px',
+        fontStyle: 'normal',
+        lineHeight: '28px',
+        fontWeight:600,
+        color: '#454745'
+    },
+
+    //sub title
     h5: {
         fontFamily: fontName,
+        fontSize: '12px',
         fontStyle: 'normal',
-        fontSize: '16px',
-        fontWeight: 500,
-        lineHeight: '24px',
-        letterSpacing: '0.5px',
-        color: '#000'
+        lineHeight: '28px',
+        fontWeight:800,
+        color: '#0E0F0C'
     },
+    //sub title2
+    h5_1: {
+        fontFamily: fontName,
+        fontSize: '12px',
+        fontStyle: 'normal',
+        lineHeight: '28px',
+        fontWeight:600,
+        color: '#454745'
+    },
+
     body1: {
         fontFamily: fontName,
-        fontWeight: 400,
-        fontSize: '16px',
+        fontSize: '14px',
         lineHeight: 1.5,
+        fontWeight:700,
         letterSpacing: '0.00938em'
     },
     body2: {
         fontFamily: fontName,
-        fontWeight: 400,
-        fontSize: '14px',
+        fontSize: '12px',
+        fontWeight:500,
         lineHeight: '20px',
         color: '#666666'
     },
+    // used for table body
     body2_1: {
         fontFamily: fontName,
-        fontWeight: 600,
-        fontSize: '16px',
+        fontSize: '14px',
+        fontWeight:500,
         lineHeight: '20px',
-        color: '#666666'
+        color: '#454745'
     },
+    // used for table heading
     body2_2: {
-        // fontFamily: fontName,
-        // fontWeight: 600,
-        // fontSize: '15px',
-        // lineHeight: '20px',
-        // color: '#666666'
         fontFamily: fontName,
-        fontWeight: 600,
-        fontSize: '16px',
+        fontSize: '14px',
+        fontWeight:900,
         lineHeight: '20px',
-        color: '#666666'
+        color: '#0E0F0C'
     },
     body2_3: {
         fontFamily: fontName,
-        fontSize: '16px',
+        fontSize: '14px',
+        fontWeight:600,
         color: '#666666'
         //fontSize: '15px',
     }

@@ -335,7 +335,7 @@ const Dashboard = ({
       </Box>
       <Box mt={ 1 } sx={ { flexGrow: 1 } }>
         <Grid container spacing={ 1 }>
-          <Grid item md={ 8 } xs={ 12 }>
+          <Grid item md={ 7 } xs={ 12 }>
             <CardView
               height={
                 instructorDashboardData?.data?.no_of_submissions > 0 && "443px"
@@ -383,7 +383,7 @@ const Dashboard = ({
               }
             </CardView>
           </Grid>
-          <Grid item md={ 4 } xs={ 12 }>
+          <Grid item md={ 5 } xs={ 12 }>
             <CardView
               height={
                 instructorDashboardData?.data?.no_of_submissions > 0 && "443px"

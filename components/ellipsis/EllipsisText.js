@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { Typography, Tooltip } from '@mui/material';
+
+const ComponentContainer = styled.span`
+    position:relative;
+    top:4px;
+`
 
 class EllipsisText extends Component {
     constructor(props) {
@@ -34,14 +40,13 @@ class EllipsisText extends Component {
         return (
             <Tooltip title={ overflowed || this.props.isFolder && (this.props.value?.length > this.props.maxLength) ? this.props.value : '' } arrow>
                 <Typography
-                    variant={ this.props.variant ? this.props.variant : 'h4' }
+                    variant={ this.props.variant ? this.props.variant : 'body2_1' }
                     component="div"
-                    gutterBottom
                     ref={ this.textElement }
                     style={ { textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' } }
                     onMouseEnter={ this.checkTextOverflow }
                 >
-                    { this.props.component } { this.props.isFolder ? (this.props.value?.length > this.props.maxLength) ?
+                    <ComponentContainer>{ this.props.component }</ComponentContainer> { this.props.isFolder ? (this.props.value?.length > this.props.maxLength) ?
                         (((this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1)).substring(0, this.props.maxLength)) + '...') :
                         this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1) : this.props.value?.charAt(0).toUpperCase() + this.props.value?.slice(1) }
                 </Typography>

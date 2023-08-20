@@ -12,8 +12,8 @@ import ProAdmin from '../../../layouts/ProAdmin';
 import {
     BreadCrumb,
     CardView,
-    MainHeading,
-    SubTitle1,
+    Heading,
+    Title,
     SubTitle2
 } from '../../../components';
 import {
@@ -152,7 +152,7 @@ const addBulkUser = ({
                             <div style={{ padding: '0px 50px' }}>
                                 <Grid container spacing={1}>
                                     <Grid item md={6} xs={6}>
-                                        <MainHeading title='Add Multiple Users' />
+                                        <Heading title='Add Multiple Users' />
                                     </Grid>
                                     <Grid item md={6} xs={6} align="right">
                                         <Button
@@ -171,7 +171,7 @@ const addBulkUser = ({
                                             <div className={classes.dragAndDropArea}>
                                                 <UploadFileIcon />
                                                 <div className={ classes.padding10 }>
-                                                    <SubTitle1 title='File format : CSV' />
+                                                    <Title title='File format : CSV' />
                                                     { grammar_access?.toUpperCase() === 'YES' ?
                                                         <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* , Number of Grammar Submissions* " /> :
                                                         <SubTitle2 title=" Mandatory fields : Name* , Email Address* , Number of Submissions* " />

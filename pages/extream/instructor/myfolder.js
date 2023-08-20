@@ -8,12 +8,18 @@ import debouce from 'lodash.debounce';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import { TextField, Skeleton, Tooltip } from '@mui/material';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
+import FolderIcon from '@mui/icons-material/Folder';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Instructor from '../../../layouts/Instructor';
-import { DeleteWarningIcon, DeleteIcon, EditIcon } from '../../../assets/icon';
+import { DeleteWarningIcon } from '../../../assets/icon';
 import {
     BreadCrumb,
-    MainHeading,
+    Heading,
     Folder,
     CreateDrawer,
     WarningDialog,
@@ -29,12 +35,9 @@ import { setItemSessionStorage, getItemSessionStorage, formatDate, removeItemSes
 import MyFoldersForms from './form/MyFolderForms';
 import { INSTRUCTIONS_STEPS } from '../../../constant/data/InstructionMessage';
 import { FOLDER_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonIcon, StyledButtonRedIcon, AddButtonBottom } from '../../../style/index';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
-import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
-import FolderIcon from '@mui/icons-material/Folder';
 
 const InstructorBreadCrumb = [
     {
@@ -56,19 +59,19 @@ const ToggleButton = styled(MuiToggleButton)({
     }
 });
 
-const AddButtonBottom = styled.div`
-    position:fixed;
-    bottom: 30px;
-    right:30px;
-    z-index:999;
-`;
+const useStyles = makeStyles(() => ({
+    view: {
+        textAlign: 'right',
+        marginBottom: '7px'
+    }
+}));
 
 const columns = [
-    { id: 'ass_id', label: 'Folder ID', maxWidth: 100 },
-    { id: 'assignment_name', label: 'Folder name', maxWidth: 150 },
-    { id: 'start_date', label: 'Created date', maxWidth: 140 },
-    { id: 'folder_no_of_submissions', label: 'No. of Submissions', maxWidth: 60, headerWidth: 100 },
-    { id: 'action', label: 'Action', maxWidth: 100 },
+    { id: 'ass_id', label: 'Folder ID', maxWidth: 90 },
+    { id: 'assignment_name', label: 'Folder name', maxWidth: 260 },
+    { id: 'start_date', label: 'Created date', maxWidth: 125 },
+    { id: 'folder_no_of_submissions', label: 'Submissions', maxWidth: 115 },
+    { id: 'action', label: 'Action', maxWidth: 110 },
 ];
 
 function createData(ass_id, assignment_name, start_date, folder_no_of_submissions, action, excludeReferences,
@@ -90,6 +93,7 @@ const MyFolder = ({
     isLoadingEdit
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [view, setView] = useState(getItemSessionStorage('view') ? getItemSessionStorage('view') : TABLE_VIEW);
     const [rows, setRows] = useState([]);
     const [editFolder, setEditFolder] = useState(false);
@@ -180,13 +184,15 @@ const MyFolder = ({
             row =
                 createData(
                     folder.folder_id,
-                    <EllipsisText component={ [<FolderIcon fontSize='14px' htmlColor='#56B2EA' />] } value={ folder.folder_name } />,
+                    <EllipsisText component={ [<FolderIcon className='folder-class-icon' htmlColor='#56B2EA' />] } value={ folder.folder_name } />,
                     formatDate(folder.creation_date),
                     folder.no_of_submissions,
                     [
-                        { 'component': <EditIcon />, 'type': 'edit', 'title': 'Edit' },
-                        { 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' },
-                        { 'component': <ArrowForwardOutlinedIcon />, 'type': 'nextPath', 'title': 'Next' }
+                        {
+                            'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
+                        },
+                        { 'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize="small" /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete' },
+                        { 'component': <StyledButtonIcon variant="outlined" size='small'><ArrowForwardOutlinedIcon fontSize="small" /></StyledButtonIcon>, 'type': 'nextPath', 'title': 'Next' }
                     ],
                     folder.excludeReferences,
                     folder.excludeQuotes,
@@ -253,10 +259,10 @@ const MyFolder = ({
                 </Grid>
             </Box>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 3 } xs={ 5 }>
-                    <MainHeading title={ `My Folders(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
+                <Grid item md={ 3 } xs={ 3 }>
+                    <Heading title={ `My Folders(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                 </Grid>
-                <Grid item md={ 6.5 } style={ { textAlign: 'right', marginTop: '8px' } }>
+                <Grid item md={ 5.9 } xs={ 5.9 } className={ classes.view }>
                     <ToggleButtonGroup
                         color="primary"
                         size='small'
@@ -272,15 +278,16 @@ const MyFolder = ({
                         </Tooltip>
                     </ToggleButtonGroup>
                 </Grid>
-                <Grid item md={ 2.5 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 3.1 } xs={ 3.1 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '100%', marginTop: '8px' } }
+                        sx={ { width: '98%' } }
                         placeholder='Search by Folder ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
                                 padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500,
                             },
                         } }
                     />
@@ -303,7 +310,7 @@ const MyFolder = ({
                                         { myFolders?.length > 0 ?
                                             <Grid container spacing={ 2 } sx={ { overflowX: 'hidden' } }>
                                                 { myFolders?.map((item, index) => (
-                                                    <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
+                                                    <Grid key={ index } item xl={ 2.4 } md={ 3 } sm={ 4 } xs={ 6 } >
                                                         <Folder
                                                             item={ item }
                                                             isAction={ true }
@@ -325,7 +332,7 @@ const MyFolder = ({
                                         { myFolders?.length > 0 ?
                                             <Grid container spacing={ 2 } sx={ { overflowX: 'hidden' } }>
                                                 { myFolders?.map((item, index) => (
-                                                    <Grid key={ index } item md={ 3 } sm={ 4 } xs={ 6 }>
+                                                    <Grid key={ index } item xl={ 2.4 } md={ 3 } sm={ 4 } xs={ 6 }>
                                                         <Folder
                                                             item={ item }
                                                             isAction={ true }

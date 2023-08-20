@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Tooltip, IconButton, Skeleton } from '@mui/material';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import { Tooltip, Skeleton } from '@mui/material';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Instructor from '../../../../layouts/Instructor';
 import { CommonTable, EllipsisText } from '../../../../components';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
-import { DownloadIcon } from '../../../../assets/icon';
 import { useRouter } from 'next/router';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
@@ -13,21 +16,22 @@ import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { NO_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
+import { StyledButtonIcon } from '../../../../style/index';
 
 const SkeletonContainer = styled.div`
     margin-top: 16px;
     margin-right: 5px;
 `;
 
-const DownloadField = styled.div`
-    position:absolute;
-    top: 125px;
-    right:25px;
-`;
-
 const DownloadButton = styled.div`
     margin-top:-5px;
 `;
+
+const useStyles = makeStyles(() => ({
+    button: {
+        margin: "10px 6px 0px 0px",
+    }
+}));
 
 const QNA = ({
     GetSubmissionList,
@@ -37,12 +41,19 @@ const QNA = ({
     isLoading,
     isLoadingDownload
 }) => {
-
+    const theme = useTheme();
+    const classes = useStyles();
     const router = useRouter();
-
     const clasId = router.query.clasId;
-
     const assId = router.query.assId;
+
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("900"));
+
+    const DownloadField = styled.div`
+        position:absolute;
+        top: ${isSmallScreen ? "85px" : "120px"};
+        right:25px;
+    `;
 
     const [rows, setRows] = useState([]);
 
@@ -104,12 +115,14 @@ const QNA = ({
                         </SkeletonContainer>
                         :
                         <Tooltip title="Download csv" arrow>
-                            <IconButton
-                                aria-label="download-file"
-                                size="large"
-                                onClick={ handleDownload }>
-                                <DownloadIcon />
-                            </IconButton>
+                            <StyledButtonIcon
+                                className={ classes.button }
+                                onClick={ handleDownload }
+                                variant="outlined"
+                                size="small"
+                            >
+                                <FileDownloadOutlinedIcon fontSize="medium" />
+                            </StyledButtonIcon>
                         </Tooltip>
                     }
                 </DownloadButton>

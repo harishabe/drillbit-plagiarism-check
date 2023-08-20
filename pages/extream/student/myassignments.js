@@ -12,7 +12,7 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import Pagination from '@mui/material/Pagination';
 import { TextField } from '@mui/material';
 import Student from '../../../layouts/Student';
-import { BreadCrumb, CardInfoView, CardInfoSkeleton, CardView, MainHeading, ErrorBlock } from '../../../components';
+import { BreadCrumb, CardInfoView, CardInfoSkeleton, CardView, Heading, ErrorBlock } from '../../../components';
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 import { PaginationContainer } from '../../../style/index';
@@ -126,20 +126,21 @@ const MyAssignments = ({
             <BreadCrumb item={StudentBreadCrumb} />
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
-                    <Grid item md={ 5 } xs={ 5 }>
-                        <MainHeading
+                    <Grid item md={ 9.3 } xs={ 7 }>
+                        <Heading
                             title={`My Assignments(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`}
                         />
                     </Grid>
-                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                    <Grid item md={ 2.7 } xs={ 5 } style={ { textAlign: 'right' } }>
                         <TextField
-                            sx={ { width: '45%', marginTop: '8px' } }
+                            sx={ { width: '100%' } }
                             placeholder='Search by Assignment name'
                             onChange={debouncedResults}
                             inputProps={{
                                 style: {
-                                    padding: 5,
-                                    display: 'inline-flex'
+                                    padding: 7,
+                                    display: 'inline-flex',
+                                    fontWeight: 500
                                 }
                             }}
                         />
@@ -157,7 +158,7 @@ const MyAssignments = ({
                         <>
                             <Grid container spacing={2}>
                                 {item?.map((item, index) => (
-                                    <Grid key={ index } item md={ 4 } xs={ 12 }>
+                                    <Grid key={ index } item xl={ 3 } md={ 4 } sm={ 6 } xs={ 12 }>
                                         <CardInfoView
                                             key={item.id}
                                             item={item}

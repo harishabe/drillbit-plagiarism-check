@@ -19,7 +19,7 @@ function createData(name, details) {
 };
 
 const ImgLogo = styled('img')({
-    width: '180px',
+    width: '100%',
     height: '115px',
     objectFit: 'contain',
     overflow: 'hidden',
