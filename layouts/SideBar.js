@@ -13,8 +13,6 @@ import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { SubTitle2 } from "../components";
-import packageJSON from "../package.json";
 
 import { DrillBitLogo, DrillBitSymbolLogo } from "../assets/icon";
 import { Role } from "../constant/data";
@@ -54,11 +52,6 @@ const useStyles = makeStyles((theme) => ({
   shadow: {
     boxShadow: "0 3px 6px rgb(0 0 0 / 9%), 0 3px 6px rgb(0 0 0 / 19%)",
   },
-  version:{
-    position: "absolute", 
-    bottom: "0", 
-    right: "5px"
-  }
 }));
 
 const StyledList = styled(List)({
@@ -439,9 +432,6 @@ const SideBar = ({ open }) => {
                 );
               })}
             </List>
-            <div className={classes.version}>
-              <SubTitle2 title={"v." + packageJSON.version} />
-            </div>
           </Drawer>
         </Hidden>
       </Box>

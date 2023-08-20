@@ -24,6 +24,7 @@ import {
   WarningDialog,
   Instructions,
   CardView,
+  EllipsisText,
 } from "../../../../components";
 import { DeleteWarningIcon } from "../../../../assets/icon";
 import {
@@ -161,7 +162,21 @@ const Assignments = ({
       row = createData(
         assignment,
         assignment.ass_id,
-        assignment.assignment_name,
+        <EllipsisText
+        value={assignment.assignment_name}
+        queryData={{
+          clasId: router.query.clasId,
+          clasName: router.query.clasName,
+          assId: assignment?.ass_id,
+          assName: assignment?.assignment_name,
+          grammar:
+            grammarSubscription?.toUpperCase() === "YES"
+              ? assignment?.grammar
+              : grammarSubscription,
+        }}
+        pathname="/extream/instructor/mysubmissions"
+        isLink={true}
+      />,
         <StatusDot
           color={assignment.status === "active" ? "#38BE62" : "#E9596F"}
           title={assignment.status}

@@ -153,7 +153,7 @@ const CommonTable = ({
                           <EllipsisText
                             value={column.label}
                             variant="body2_2"
-                          />
+                          /> 
                         ) : (
                           <TableSortLabel
                             onClick={(e) => sortHandle(e, column)}
@@ -213,7 +213,6 @@ const CommonTable = ({
                     )}
                     {tableHeader.map((column, index) => {
                       const value = row[column.id];
-                      console.log('valuevaluevaluevalue', value)
                       return (
                         <>
                           {TABLE_BODY_ALLOW_ICON.includes(column.id) ? (

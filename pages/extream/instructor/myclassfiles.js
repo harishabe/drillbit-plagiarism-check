@@ -158,6 +158,12 @@ const MyClassFiles = ({
             />,
           ]}
           value={classes.class_name}
+          queryData={{
+            clasId: classes.class_id,
+            clasName: classes?.class_name,
+          }}
+          pathname="/extream/instructor/my-assignment"
+          isLink={true}
         />,
         formatDate(classes.creation_date),
         formatDate(classes.end_date),
@@ -233,7 +239,7 @@ const MyClassFiles = ({
               {item?.length > 0 ? (
                 <Grid container spacing={2}>
                   {item?.map((item, index) => (
-                    <Grid key={ index } item xl={ 3 } md={ 4 } sm={ 6 } xs={ 12 }>
+                    <Grid key={index} item xl={3} md={4} sm={6} xs={12}>
                       <CardInfoView
                         key={index}
                         item={item}
@@ -265,7 +271,7 @@ const MyClassFiles = ({
               {item?.length > 0 ? (
                 <Grid container spacing={2}>
                   {item?.map((item, index) => (
-                    <Grid key={ index } item xl={ 3 } md={ 4 } sm={ 6 } xs={ 12 }>
+                    <Grid key={index} item xl={3} md={4} sm={6} xs={12}>
                       <CardInfoView
                         key={index}
                         item={item}
