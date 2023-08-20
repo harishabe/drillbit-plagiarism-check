@@ -40,6 +40,7 @@ import EllipsisText from "../ellipsis/EllipsisText";
 import SubTitle1 from "../typography/SubTitle1";
 import DialogModal from "../dialog/DialogModal";
 import MobileMenu from "../../layouts/MobileMenu";
+import packageJSON from "../../package.json";
 
 const drawerWidth = 165;
 
@@ -636,7 +637,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
         )}
 
         <div style={{ textAlign: "right", padding: "0px 15px" }}>
-          <SubTitle1 title="v.2.1.0" />
+          <SubTitle1 title={"v." + packageJSON.version} />
         </div>
       </Menu>
       {subMenuopen && (
