@@ -39,10 +39,12 @@ import {
 
 const SavedRepository = styled.div`
   color: #008000;
+  cursor:pointer;
 `;
 
 const AlertMessage = styled.div`
   color: #ff0000;
+  cursor:pointer;
 `;
 
 const useStyles = makeStyles(() => ({
