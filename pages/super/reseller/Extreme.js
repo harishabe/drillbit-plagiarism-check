@@ -43,7 +43,7 @@ function createData(lid, name, email, college_name, country, instructors, studen
 const DownloadField = styled.div`
     position:absolute;
     top: 125px;
-    right:${platform === WINDOW_PLATFORM ? '225px' : '205px'};
+    right:${platform === WINDOW_PLATFORM ? '255px' : '235px'};
 `;
 
 const DownloadButton = styled.div`
@@ -176,7 +176,7 @@ const Extreme = ({
                                             variant="outlined"
                                             size="small"
                                         >
-                                            <FileDownloadOutlinedIcon fontSize="small" />
+                                            <FileDownloadOutlinedIcon fontSize="medium" />
                                         </StyledButtonIcon>
                                     </Tooltip>
                                 }
@@ -188,8 +188,10 @@ const Extreme = ({
                                 onChange={ debouncedResults }
                                 inputProps={ {
                                     style: {
-                                        padding: 5,
-                                        display: 'inline-flex'
+                                        padding: 7,
+                                        display: 'inline-flex',
+                                        fontWeight: 500,
+                                        width: '200px'
                                     }
                                 } }
                             />

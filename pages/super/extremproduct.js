@@ -206,18 +206,19 @@ const ExtremProduct = ({
     return (
         <>
             <Grid container spacing={ 1 }>
-                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 6 } xs={ 6 } style={ { textAlign: 'right' } }>
                     <BreadCrumb item={ ExtremeBreadCrumb } />
                 </Grid>
-                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 6 } xs={ 6 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '40%' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500
                             },
                         } }
                     />

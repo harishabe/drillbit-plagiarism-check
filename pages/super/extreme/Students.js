@@ -3,12 +3,12 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import Box from '@mui/material/Box';
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, TextField, Pagination, IconButton, Switch } from '@mui/material';
 import {
     CommonTable,
-    MainHeading,
     StatusDot,
     WarningDialog,
     DialogModal,
@@ -40,6 +40,12 @@ const SearchField = styled.div`
     right:16px;
 `;
 
+const useStyles = makeStyles(() => ({
+    multiButton: {
+        margin: "6px 6px 6px 0px",
+    },
+}));
+
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 200 },
     { id: 'username', label: 'Email', maxWidth: 200 },
@@ -66,6 +72,7 @@ const Students = ({
     isLoadingResend
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showDialogModal, setShowDialogModal] = useState(false);
@@ -360,34 +367,17 @@ const Students = ({
 
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
-                    <Grid item container direction='row' justifyContent={ 'right' }>
-                        {/* <DownloadField>
-                            <DownloadButton>
-                                { assignmentData?.length > 0 &&
-                                    isLoadingDownload ?
-                                    <SkeletonContainer>
-                                        <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
-                                    </SkeletonContainer>
-                                    : <Tooltip title="Download csv" arrow>
-                                        <IconButton
-                                            color="primary"
-                                            aria-label="download-file"
-                                            size="large"
-                                            onClick={ handleDownload }>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                }
-                            </DownloadButton>
-                        </DownloadField> */}
+                    <Grid item container direction='row'>
                         <SearchField>
                             <TextField
                                 placeholder='Search'
                                 onChange={ debouncedResults }
                                 inputProps={ {
                                     style: {
-                                        padding: 5,
-                                        display: 'inline-flex'
+                                        padding: 7,
+                                        display: 'inline-flex',
+                                        fontWeight: 500,
+                                        width: '200px'
                                     }
                                 } }
                             />
@@ -397,13 +387,19 @@ const Students = ({
             </Box>
 
             <>
-                { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
-                    <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllInstructor }>
-                            <DeleteIcon />
-                        </IconButton>
-                    </Tooltip>
-                </div> }
+                { _.find(rows, function (o) { return o.isSelected === true; }) &&
+                    <div>
+                        <Tooltip title='Delete' arrow>
+                            <StyledButtonRedIcon
+                                className={ classes.multiButton }
+                                onClick={ deleteAllInstructor }
+                                variant="outlined"
+                                size='small'
+                            >
+                                <DeleteOutlineOutlinedIcon fontSize='small' />
+                            </StyledButtonRedIcon>
+                        </Tooltip>
+                    </div> }
 
                 <CommonTable
                     isCheckbox={ true }

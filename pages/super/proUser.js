@@ -2,16 +2,15 @@ import React, { useEffect, useState, useMemo } from 'react';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
 import PersonIcon from '@mui/icons-material/Person';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { TextField, Pagination, IconButton } from '@mui/material';
+import { TextField, Pagination } from '@mui/material';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import {
     CommonTable,
@@ -25,8 +24,6 @@ import {
 import {
     StatsIcon,
     DeleteWarningIcon,
-    AddMultipleIcon,
-    AddPersonIcon
 } from '../../assets/icon';
 import {
     GetInstructorData,
@@ -46,6 +43,12 @@ import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { PaginationContainer, PlagiarismGrammarContainer, AddButtonBottom, StyledButtonIcon, StyledButtonRedIcon } from '../../style/index';
 import { Role } from '../../constant/data';
 import { WARNING_MESSAGES, PRO } from '../../constant/data/Constant';
+
+const useStyles = makeStyles(() => ({
+    multiButton: {
+        margin: "0px 6px 6px 0px",
+    },
+}));
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 120 },
@@ -76,6 +79,7 @@ const ProUser = ({
     isLoadingResend
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [adminName, setAdminName] = useState('');
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -489,18 +493,19 @@ const ProUser = ({
 
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
-                    <Grid item md={ 5 } xs={ 5 }>
+                    <Grid item md={ 6 } xs={ 6 }>
                         <MainHeading title={ `Users(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})` } />
                     </Grid>
-                    <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                    <Grid item md={ 6 } xs={ 6 } style={ { textAlign: 'right' } }>
                         <TextField
-                            sx={ { width: '40%', marginTop: '8px' } }
+                            sx={ { width: '40%' } }
                             placeholder='Search'
                             onChange={ debouncedResults }
                             inputProps={ {
                                 style: {
-                                    padding: 5,
-                                    display: 'inline-flex'
+                                    padding: 7,
+                                    display: 'inline-flex',
+                                    fontWeight: 500
                                 }
                             } }
                         />
@@ -513,9 +518,14 @@ const ProUser = ({
             <>
                 { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
                     <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllInstructor }>
-                            <DeleteIcon />
-                        </IconButton>
+                        <StyledButtonRedIcon
+                            className={ classes.multiButton }
+                            onClick={ deleteAllInstructor }
+                            variant="outlined"
+                            size='small'
+                        >
+                            <DeleteOutlineOutlinedIcon fontSize='small' />
+                        </StyledButtonRedIcon>
                     </Tooltip>
                 </div> }
                 <CommonTable
