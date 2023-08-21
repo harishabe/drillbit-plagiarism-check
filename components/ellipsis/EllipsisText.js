@@ -14,8 +14,12 @@ const StyledLinkField = styled(Link)(() => ({
   overflow: "hidden",
   marginTop: "5px !important",
   color: "#454745 !important",
-  textDecorationColor: "#454745 !important",
+  textDecoration: "none !important",
   cursor: "pointer",
+  ":hover": {
+    textDecorationColor: "rgb(69, 71, 69) !important",
+    textDecoration: "underline !important",
+  },
 }));
 
 class EllipsisText extends Component {

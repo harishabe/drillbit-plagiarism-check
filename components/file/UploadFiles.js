@@ -243,7 +243,7 @@ const UploadFiles = ({
     let bodyFormData = new FormData();
     bodyFormData.append("authorName", getItemSessionStorage("name"));
     bodyFormData.append("title", router.query.assName);
-    bodyFormData.append("language", data.nonEnglishLang);
+    bodyFormData.append("language", data?.nonEnglishLang0);
     bodyFormData.append("file", files[0][1]);
     UploadNonEnglish(singleFileUploadAPI, bodyFormData);
   };

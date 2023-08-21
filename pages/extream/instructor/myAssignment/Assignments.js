@@ -228,6 +228,7 @@ const Assignments = ({
     e.preventDefault();
     if (icon === "edit") {
       setEditAssignment(true);
+      rowData['assignment_name'] = rowData?.assignment_name?.props?.value
       setEditAssignmentData(rowData);
     } else if (icon === "delete") {
       setDeleteRowData(rowData?.ass_id);
