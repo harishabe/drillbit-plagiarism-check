@@ -52,7 +52,7 @@ const useStyles = makeStyles(() => ({
 const ReprocessButton = styled.div`
     position:fixed;
     top: 12px;
-    right:230px;
+    right:200px;
     z-index:999;
 `;
 
@@ -233,7 +233,7 @@ const Dashboard = ({
                 <Tooltip title="Reprocess paper" arrow>
                     <IconButton
                         onClick={ handleShow }>
-                        <FeedIcon />
+                        <FeedIcon fontSize='medium' />
                     </IconButton>
                 </Tooltip>
             </ReprocessButton>

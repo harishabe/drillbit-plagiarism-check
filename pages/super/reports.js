@@ -223,10 +223,10 @@ const Reports = ({
     return (
         <>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 7 } xs={ 5 }>
+                <Grid item md={ 7 } xs={ 7 }>
                     <BreadCrumb item={ SuperAdminBreadCrumb } />
                 </Grid>
-                <Grid item md={ 5 } xs={ 12 } style={ { display: 'inline-flex' } }>
+                <Grid item md={ 5 } xs={ 5 } style={ { display: 'inline-flex' } }>
                     <Autocomplete
                         size='small'
                         sx={ { width: '500px', mr: 1 } }

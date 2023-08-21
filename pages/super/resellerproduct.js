@@ -5,7 +5,6 @@ import { Grid, TextField, Box, Skeleton, Tooltip } from '@mui/material';
 import debouce from 'lodash.debounce';
 import SuperAdmin from './../../layouts/SuperAdmin';
 import styled from 'styled-components';
-import { makeStyles } from "@mui/styles";
 import {
     BreadCrumb,
     CreateDrawer,
@@ -35,23 +34,6 @@ const SkeletonContainer = styled.div`
     margin-right: 5px;
 `;
 
-const DownloadField = styled.div`
-    position:absolute;
-    top: 80px;
-    right:205px;
-`;
-
-const DownloadButton = styled.div`
-    margin-top:-5px;
-    margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
-`;
-
-const useStyles = makeStyles(() => ({
-    button: {
-        margin: "6px 6px 0px 0px",
-    },
-}));
-
 const columns = [
     { id: 'lid', label: 'LID', maxWidth: 135 },
     { id: 'name', label: 'Name', maxWidth: 105 },
@@ -77,7 +59,6 @@ const ResellerProduct = ({
     isLoading,
     isLoadingDownload,
 }) => {
-    const classes = useStyles();
     const router = useRouter();
     const [rows, setRows] = useState([]);
     const [paginationPayload, setPaginationPayload] = useState({
@@ -204,38 +185,37 @@ const ResellerProduct = ({
     return (
         <>
             <Grid container spacing={ 1 }>
-                <Grid item md={ 8 } xs={ 12 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 8 } xs={ 8 } style={ { textAlign: 'right' } }>
                     <BreadCrumb item={ RefBreadCrumb } />
                 </Grid>
-                <Grid item md={ 4 } xs={ 12 } style={ { textAlign: 'right' } }>
-                    <DownloadField>
-                        <DownloadButton>
-                            { refData?.length > 0 &&
-                                isLoadingDownload ?
-                                <SkeletonContainer>
-                                    <Skeleton width={ 40 } />
-                                </SkeletonContainer>
-                                :
-                                <Tooltip title="Download csv" arrow>
-                                    <StyledButtonIcon
-                                        className={ classes.button }
-                                        onClick={ handleDownload }
-                                        variant="outlined"
-                                        size="small"
-                                    >
-                                        <FileDownloadOutlinedIcon fontSize="small" />
-                                    </StyledButtonIcon>
-                                </Tooltip>
-                            }
-                        </DownloadButton>
-                    </DownloadField>
+                <Grid item md={ 1.5 } xs={ 1.5 } style={ { textAlign: 'right' } }>
+                    { refData?.length > 0 &&
+                        isLoadingDownload ?
+                        <SkeletonContainer>
+                            <Skeleton width={ 40 } />
+                        </SkeletonContainer>
+                        :
+                        <Tooltip title="Download csv" arrow>
+                            <StyledButtonIcon
+                                onClick={ handleDownload }
+                                variant="outlined"
+                                size="small"
+                            >
+                                <FileDownloadOutlinedIcon fontSize="medium" />
+                            </StyledButtonIcon>
+                        </Tooltip>
+                    }
+                </Grid>
+                <Grid item md={ 2.5 } xs={ 2.5 } style={ { textAlign: 'right' } }>
                     <TextField
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 6,
+                                padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500,
+                                width: '200px'
                             },
                         } }
                     />
