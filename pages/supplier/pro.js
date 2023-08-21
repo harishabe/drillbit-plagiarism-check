@@ -33,7 +33,7 @@ const SkeletonContainer = styled.div`
 `;
 
 const DownloadButton = styled.div`
-    margin-top:-5px;
+    margin-top:-5.5px;
     margin-right:${platform === WINDOW_PLATFORM ? '25px' : '0px'};
 `;
 
@@ -201,10 +201,10 @@ const Pro = ({
     return (
         <>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 8.5 } xs={ 5 }>
+                <Grid item md={ 9 } xs={ 9 }>
                     <BreadCrumb item={ ResellerBreadCrumb } />
                 </Grid>
-                <Grid item md={ 0.5 } xs={ 7 }>
+                <Grid item md={ 0.5 } xs={ 0.5 }>
                     <DownloadButton> 
                             { extremeData?.length > 0 &&
                                 isLoadingDownload ?
@@ -219,21 +219,22 @@ const Pro = ({
                                     variant="outlined"
                                     size="small"
                                 >
-                                    <FileDownloadOutlinedIcon fontSize="small" />
+                                    <FileDownloadOutlinedIcon fontSize="medium" />
                                 </StyledButtonIcon>
                                 </Tooltip>
                             }
                     </DownloadButton>
                 </Grid>
-                <Grid item md={ 3 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 2.5 } xs={ 2.5 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '100%' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 6,
+                                padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500
                             },
                         } }
                     />

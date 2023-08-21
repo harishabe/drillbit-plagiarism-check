@@ -128,18 +128,19 @@ const Customers = ({
     return (
         <>
             <Grid container spacing={ 2 }>
-                <Grid item md={ 5 } xs={ 5 }>
+                <Grid item md={ 9.5 } xs={ 9.5 }>
                     <BreadCrumb item={ ResellerBreadCrumb } />
                 </Grid>
-                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 2.5 } xs={ 2.5 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '40%' } }
+                        sx={ { width: '100%' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 6,
+                                padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500
                             },
                         } }
                     />
