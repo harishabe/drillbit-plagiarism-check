@@ -3,14 +3,14 @@ import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { makeStyles } from "@mui/styles";
 import debouce from 'lodash.debounce';
-import { Grid, Tooltip, Switch, Skeleton, IconButton } from '@mui/material';
+import { Grid, Tooltip, Switch } from '@mui/material';
 import Box from '@mui/material/Box';
 import { TextField, Pagination } from '@mui/material';
 import SuperAdmin from './../../../layouts/SuperAdmin';
 import {
     CommonTable,
-    MainHeading,
     StatusDot,
     CreateDrawer,
     WarningDialog,
@@ -23,7 +23,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import {
     StatsIcon,
     DeleteWarningIcon,
-    DownloadIcon
 } from '../../../assets/icon';
 import {
     DeleteData,
@@ -61,20 +60,11 @@ function createData(name, username, expiry_date, status, stats, superadminplagai
     return { name, username, expiry_date, status, stats, superadminplagairism, superadmingrammar, action, created_date, department, designation, phone_number, user_id, role };
 };
 
-const DownloadField = styled.div`
-    position:absolute;
-    top: 125px;
-    right:${platform === WINDOW_PLATFORM ? '245px' : '225px'};
-`;
-
-const DownloadButton = styled.div`
-    margin-top:-5px;
-`;
-
-const SkeletonContainer = styled.div`
-    marginTop: 10px;
-    margin-right: 5px;
-`;
+const useStyles = makeStyles(() => ({
+    multiButton: {
+        margin: "6px 6px 6px 0px",
+    },
+}));
 
 const SearchField = styled.div`
     position:absolute;
@@ -95,6 +85,7 @@ const Instructor = ({
     isLoadingResend
 }) => {
     const router = useRouter();
+    const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [deleteRowData, setDeleteRowData] = useState('');
@@ -197,10 +188,10 @@ const Instructor = ({
                             {
                                 'component': <StyledButtonIcon variant="outlined" size='small'><VpnKeyIcon fontSize='small' /></StyledButtonIcon>, 'type': 'resend', 'title': 'Resend credentials'
                             },
-                        {
-                            'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
-                            'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                            'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
+                            {
+                                'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
+                                'type': instructor.status === 'active' ? 'lock' : 'unlock',
+                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
                             },
                         ]),
                     instructor.creation_date,
@@ -476,34 +467,17 @@ const Instructor = ({
 
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
-                    <Grid item container direction='row' justifyContent={ 'right' }>
-                        {/* <DownloadField>
-                            <DownloadButton>
-                                { assignmentData?.length > 0 &&
-                                    isLoadingDownload ?
-                                    <SkeletonContainer>
-                                        <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
-                                    </SkeletonContainer>
-                                    : <Tooltip title="Download csv" arrow>
-                                        <IconButton
-                                            color="primary"
-                                            aria-label="download-file"
-                                            size="large"
-                                            onClick={ handleDownload }>
-                                            <DownloadIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                }
-                            </DownloadButton>
-                        </DownloadField> */}
+                    <Grid item container direction='row'>
                         <SearchField>
                             <TextField
                                 placeholder='Search'
                                 onChange={ debouncedResults }
                                 inputProps={ {
                                     style: {
-                                        padding: 5,
-                                        display: 'inline-flex'
+                                        padding: 7,
+                                        display: 'inline-flex',
+                                        fontWeight: 500,
+                                        width: '200px'
                                     }
                                 } }
                             />
@@ -513,13 +487,19 @@ const Instructor = ({
             </Box>
 
             <>
-                { _.find(rows, function (o) { return o.isSelected === true; }) && <div style={ { marginLeft: '10px' } }>
-                    <Tooltip title='Delete' arrow>
-                        <IconButton onClick={ deleteAllInstructor }>
-                            <DeleteIcon />
-                        </IconButton>
-                    </Tooltip>
-                </div> }
+                { _.find(rows, function (o) { return o.isSelected === true; }) &&
+                    <div>
+                        <Tooltip title='Delete' arrow>
+                            <StyledButtonRedIcon
+                                className={ classes.multiButton }
+                                onClick={ deleteAllInstructor }
+                                variant="outlined"
+                                size='small'
+                            >
+                                <DeleteOutlineOutlinedIcon fontSize='small' />
+                            </StyledButtonRedIcon>
+                        </Tooltip>
+                    </div> }
                 <CommonTable
                     isCheckbox={ true }
                     isSorting={ true }

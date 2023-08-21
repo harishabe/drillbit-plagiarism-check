@@ -31,7 +31,7 @@ const SearchField = styled.div`
 const DownloadField = styled.div`
     position:absolute;
     top: 125px;
-    right:${platform === WINDOW_PLATFORM ? '225px' : '205px'};
+    right:${platform === WINDOW_PLATFORM ? '255px' : '235px'};
 `;
 
 const DownloadButton = styled.div`
@@ -170,7 +170,7 @@ const Pro = ({
                                             variant="outlined"
                                             size="small"
                                         >
-                                            <FileDownloadOutlinedIcon fontSize="small" />
+                                            <FileDownloadOutlinedIcon fontSize="medium" />
                                         </StyledButtonIcon>
                                     </Tooltip>
                                 }
@@ -182,8 +182,10 @@ const Pro = ({
                                 onChange={ debouncedResults }
                                 inputProps={ {
                                     style: {
-                                        padding: 5,
-                                        display: 'inline-flex'
+                                        padding: 7,
+                                        display: 'inline-flex',
+                                        fontWeight: 500,
+                                        width: '200px'
                                     }
                                 } }
                             />

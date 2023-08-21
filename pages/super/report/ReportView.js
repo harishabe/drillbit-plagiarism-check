@@ -11,15 +11,15 @@ import {
     DialogModal,
     SimilarityStatus
 } from '../../../components';
-import { DownloadIcon } from '../../../assets/icon';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FormJson from '../../../constant/form/report-submission-form.json';
 import { EXTREME, PRO } from '../../../constant/data/Constant';
 import { formatDate } from '../../../utils/RegExp';
-import { PaginationContainer } from '../../../style/index';
+import { PaginationContainer, StyledButtonIcon } from '../../../style/index';
 
 const DownloadButton = styled.div`
     position:fixed;
-    top: 17px;
+    top: 14px;
     right:80px;
 `;
 
@@ -210,17 +210,11 @@ const ReportView = ({
                         <>
                             { isLoadingDownload ? <Skeleton /> :
                                 <Tooltip title="Download Assignments" arrow>
-                                    <IconButton sx={ {
-                                        position: 'fixed',
-                                        padding: '20px',
-                                        top: '9px',
-                                        right: '74px'
-                                    } }
-                                        onClick={ handleDownload }>
-                                        <DownloadButton >
-                                            <DownloadIcon />
-                                        </DownloadButton>
-                                    </IconButton>
+                                    <DownloadButton >
+                                        <StyledButtonIcon variant="outlined" size='small' onClick={ handleDownload }>
+                                            <FileDownloadOutlinedIcon fontSize='small' />
+                                        </StyledButtonIcon>
+                                    </DownloadButton>
                                 </Tooltip>
                             }
                             <CommonTable
@@ -238,17 +232,11 @@ const ReportView = ({
                         <>
                             { isLoadingDownload ? <Skeleton /> :
                                 <Tooltip title="Download classes" arrow>
-                                    <IconButton sx={ {
-                                        position: 'fixed',
-                                        padding: '20px',
-                                        top: '9px',
-                                        right: '74px'
-                                    } }
-                                        onClick={ handleDownload }>
-                                        <DownloadButton >
-                                            <DownloadIcon />
-                                        </DownloadButton>
-                                    </IconButton>
+                                    <DownloadButton >
+                                        <StyledButtonIcon variant="outlined" size='small' onClick={ handleDownload }>
+                                            <FileDownloadOutlinedIcon fontSize='small' />
+                                        </StyledButtonIcon>
+                                    </DownloadButton>
                                 </Tooltip>
                             }
                             <CommonTable
@@ -265,17 +253,11 @@ const ReportView = ({
                         reportName === 'submissions' && role === EXTREME &&
                         <>
                             <Tooltip title="Download submissions" arrow>
-                                <IconButton sx={ {
-                                    position: 'fixed',
-                                    padding: '20px',
-                                    top: '9px',
-                                    right: '74px'
-                                } }
-                                    onClick={ setOpen }>
-                                    <DownloadButton >
-                                        <DownloadIcon />
-                                    </DownloadButton>
-                                </IconButton>
+                                <DownloadButton >
+                                    <StyledButtonIcon variant="outlined" size='small' onClick={ setOpen }>
+                                        <FileDownloadOutlinedIcon fontSize='small' />
+                                    </StyledButtonIcon>
+                                </DownloadButton>
                             </Tooltip>
                             <CommonTable
                                 isCheckbox={ false }
@@ -293,17 +275,11 @@ const ReportView = ({
                         <>
                             { isLoadingDownload ? <Skeleton /> :
                                 <Tooltip title="Download Folders" arrow>
-                                    <IconButton sx={ {
-                                        position: 'fixed',
-                                        padding: '20px',
-                                        top: '9px',
-                                        right: '74px'
-                                    } }
-                                        onClick={ handleDownload }>
-                                        <DownloadButton >
-                                            <DownloadIcon />
-                                        </DownloadButton>
-                                    </IconButton>
+                                    <DownloadButton >
+                                        <StyledButtonIcon variant="outlined" size='small' onClick={ handleDownload }>
+                                            <FileDownloadOutlinedIcon fontSize='small' />
+                                        </StyledButtonIcon>
+                                    </DownloadButton>
                                 </Tooltip>
                             }
                             <CommonTable
@@ -320,17 +296,11 @@ const ReportView = ({
                         reportName === 'submissions' && role === PRO &&
                         <>
                             <Tooltip title="Download submissions" arrow>
-                                <IconButton sx={ {
-                                    position: 'fixed',
-                                    padding: '20px',
-                                    top: '9px',
-                                    right: '74px'
-                                } }
-                                    onClick={ setOpen }>
-                                    <DownloadButton >
-                                        <DownloadIcon />
-                                    </DownloadButton>
-                                </IconButton>
+                                <DownloadButton >
+                                    <StyledButtonIcon variant="outlined" size='small' onClick={ setOpen }>
+                                        <FileDownloadOutlinedIcon fontSize='small' />
+                                    </StyledButtonIcon>
+                                </DownloadButton>
                             </Tooltip>
                             <CommonTable
                                 isCheckbox={ false }

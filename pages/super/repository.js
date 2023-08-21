@@ -148,7 +148,9 @@ const Repository = ({
                     globalData?.repository_type,
                     globalData?.language,
                     globalData?.date_up && (formatDate(globalData?.date_up)),
-                    [{ 'component': <DeleteIcon />, 'type': 'delete', 'title': 'Delete' }],
+                    [{
+                        'component': <StyledButtonRedIcon variant="outlined" size='small'><DeleteOutlineOutlinedIcon fontSize='small' /></StyledButtonRedIcon>, 'type': 'delete', 'title': 'Delete'
+                    }],
                 )
             ),
         setRows([...arr]);

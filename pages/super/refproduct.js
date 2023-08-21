@@ -31,12 +31,12 @@ const columns = [
     { id: 'lid', label: 'LID', maxWidth: 75 },
     { id: 'name', label: 'Name', maxWidth: 125 },
     { id: 'email', label: 'Email', maxWidth: 125 },
-    { id: 'college_name', label: 'Institution name', maxWidth: 125 },
+    { id: 'college_name', label: 'Institution name', maxWidth: 120 },
     { id: 'country', label: 'Location', maxWidth: 70 },
     { id: 'instructors', label: 'Users', maxWidth: 70 },
     { id: 'documents', label: 'Documents', maxWidth: 70 },
     { id: 'used_documents', label: 'SUB', maxWidth: 70 },
-    { id: 'action', label: 'Actions', minWidth: 115 }
+    { id: 'action', label: 'Actions', maxWidth: 125 }
 ];
 
 function createData(lid, name, email, college_name, country, instructors, documents, used_documents, action, state, address, designation, phone, created_date, expiry_date, document_type, grammar, grammar_documents, license_type, institution_type, timeZone, folpath, department, acc_manager, reseller
@@ -206,18 +206,19 @@ const RefProduct = ({
     return (
         <>
             <Grid container spacing={ 1 }>
-                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 6 } xs={ 6 } style={ { textAlign: 'right' } }>
                     <BreadCrumb item={ RefBreadCrumb } />
                 </Grid>
-                <Grid item md={ 6 } xs={ 12 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 6 } xs={ 6 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '40%' } }
                         placeholder='Search'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
-                                padding: 5,
+                                padding: 7,
                                 display: 'inline-flex',
+                                fontWeight: 500
                             },
                         } }
                     />
