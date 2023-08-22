@@ -168,6 +168,10 @@ const useStyles = makeStyles(() => ({
     textAlign: "right",
     marginBottom: "7px",
   },
+  skeleton: {
+    display: "inline-block",
+    marginRight: "10px"
+  }
 }));
 
 const DeleteAllButton = styled.div`
@@ -201,6 +205,7 @@ const folderSubmission = ({
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [showSubmissionReport, setShowSubmissionReport] = useState(false);
   const [submissionReportData, setSubmissionReportData] = useState("");
   const [deleteRowData, setDeleteRowData] = useState("");
@@ -537,10 +542,19 @@ const folderSubmission = ({
   };
 
   const handleDownload = () => {
+    setShowModal(true)
+  };
+
+  const handleDownloadYesWarning = () => {
     DownloadCsv(
       BASE_URL_PRO + END_POINTS_PRO.USER_SUBMISSION_LIST_DOWNLOAD + folderId,
       DOWNLOAD_CSV.SUBMISSION_REPORT
     );
+    setShowModal(false);
+  };
+
+  const handleDownloadCloseWarning = () => {
+    setShowModal(false);
   };
 
   const handleOriginalFileDownload = (e, data) => {
@@ -671,10 +685,11 @@ const folderSubmission = ({
               </StyledButtonIcon>
             </Tooltip>
 
-            {folderSubmissionData?.length > 0 && isLoadingDownload ? (
+            { folderSubmissionData?.length > 0 && isLoadingDownload ? (
               <Skeleton
-                width={50}
-                style={{ display: "inline-block", marginRight: "10px" }}
+                width={ 30 }
+                height={ 35 }
+                className={ classes.skeleton }
               />
             ) : (
               <Tooltip title="Submission report download" arrow>
@@ -860,6 +875,16 @@ const folderSubmission = ({
             isOpen={true}
           />
         )}
+
+        { showModal && (
+          <WarningDialog
+            warningIcon={ <DownloadWarningIcon /> }
+            message={ WARNING_MESSAGES.DOWNLOAD }
+            handleYes={ handleDownloadYesWarning }
+            handleNo={ handleDownloadCloseWarning }
+            isOpen={ true }
+          />
+        ) }
 
         <PaginationContainer>
           <Pagination
