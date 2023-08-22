@@ -12,9 +12,11 @@ import { PaginationValue } from '../../../utils/PaginationUrl';
 import Pagination from '@mui/material/Pagination';
 import { TextField } from '@mui/material';
 import Student from '../../../layouts/Student';
-import { BreadCrumb, CardInfoView, CardInfoSkeleton, CardView, Heading, ErrorBlock } from '../../../components';
+import { BreadCrumb, CardInfoView, CardInfoSkeleton, CardView, Heading, ErrorBlock, WarningDialog } from '../../../components';
+import { DownloadWarningIcon } from "../../../assets/icon";
 import { renameKeys, findByExpiryDate, expiryDateBgColor } from '../../../utils/RegExp';
 import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
+import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 import { PaginationContainer } from '../../../style/index';
 
 const MyAssignments = ({
@@ -28,6 +30,7 @@ const MyAssignments = ({
 
     const router = useRouter();
     const [myclass, setMyclass] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         if (router.isReady) {
@@ -118,7 +121,16 @@ const MyAssignments = ({
     /** end debounce concepts */
 
     const handleDownload = (item) => {
-        DownloadAssignmentInstruction(item.attachment, router.query.clasId, item.id);
+        setShowModal([true, item])
+    };
+
+    const handleDownloadYesWarning = () => {
+        DownloadAssignmentInstruction(showModal[1]?.attachment, router.query.clasId, showModal[1]?.id);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     return (
@@ -180,6 +192,15 @@ const MyAssignments = ({
                             <ErrorBlock message={ ASSIGNMENT_NOT_FOUND } />
                         </CardView>
                     }
+                    { showModal && (
+                        <WarningDialog
+                            warningIcon={ <DownloadWarningIcon /> }
+                            message={ WARNING_MESSAGES.DOWNLOAD }
+                            handleYes={ handleDownloadYesWarning }
+                            handleNo={ handleDownloadCloseWarning }
+                            isOpen={ true }
+                        />
+                    ) }
                     <PaginationContainer>
                         <Pagination
                             count={ pageDetails?.totalPages }

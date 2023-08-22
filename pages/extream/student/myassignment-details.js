@@ -4,9 +4,9 @@ import styled from "styled-components";
 import { Skeleton } from "@mui/material";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
-import IconButton from "@mui/material/IconButton";
 import { Grid, Tooltip } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { DownloadWarningIcon } from "../../../assets/icon";
 import Student from "../../../layouts/Student";
 import {
   BreadCrumb,
@@ -30,6 +30,7 @@ import {
 import { DownloadOriginalFile } from "../../../redux/action/common/Submission/SubmissionAction";
 import { PaginationValue } from "../../../utils/PaginationUrl";
 
+import { WARNING_MESSAGES } from "../../../constant/data/Constant";
 import SubmissionHistory from "./submission-history";
 import QA from "./q&a";
 import Feedback from "./feedback";
@@ -76,6 +77,7 @@ const MyAssignmentDetails = ({
   const [showRenewWarning, setShowRenewWarning] = useState(false);
   const [data, setData] = useState();
   const [showDialogModal, setShowDialogModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [feedbackId, setFeedbackId] = useState("");
   const [paginationPayload, setPaginationPayload] = useState({
     page: PaginationValue?.page,
@@ -131,8 +133,17 @@ const MyAssignmentDetails = ({
   }, [router.isReady]);
 
   const handleDownload = () => {
+    setShowModal(true)
+  };
+
+  const handleDownloadYesWarning = () => {
     let url = `/${router.query.clasId}/assignments/${router.query.assId}/downloadHistory`;
     DownloadStudentCsv(url);
+    setShowModal(false);
+  };
+
+  const handleDownloadCloseWarning = () => {
+    setShowModal(false);
   };
 
   const handleSend = (e, ans1, qnaData) => {
@@ -251,17 +262,17 @@ const MyAssignmentDetails = ({
         </Grid>
         <Grid item md={0.4} xs={1}>
           <Tooltip arrow title="Download csv">
-            <StyledButtonIcon
+            { isLoadingDownload ? (
+              <Skeleton width={ 30 } height={ 40 } />
+            ) : (
+                <StyledButtonIcon
               onClick={handleDownload}
               variant="outlined"
               size="small"
-            >
-              {isLoadingDownload ? (
-                <Skeleton width={50} />
-              ) : (
-                <FileDownloadOutlinedIcon fontSize="small" />
-              )}
-            </StyledButtonIcon>
+                >
+                  <FileDownloadOutlinedIcon fontSize="small" />
+                </StyledButtonIcon>
+            ) }
           </Tooltip>
         </Grid>
       </Grid>
@@ -372,14 +383,26 @@ const MyAssignmentDetails = ({
           </Grid>
         </Grid>
       </CardView>
+
       {showRenewWarning && (
         <WarningDialog
-          message="Are you sure you want to download ?"
+          warningIcon={ <DownloadWarningIcon /> }
+          message={ WARNING_MESSAGES.DOWNLOAD }
           handleYes={handleYesWarning}
           handleNo={handleCloseWarning}
           isOpen={true}
         />
       )}
+
+      { showModal && (
+        <WarningDialog
+          warningIcon={ <DownloadWarningIcon /> }
+          message={ WARNING_MESSAGES.DOWNLOAD }
+          handleYes={ handleDownloadYesWarning }
+          handleNo={ handleDownloadCloseWarning }
+          isOpen={ true }
+        />
+      ) }
 
       {showDialogModal && (
         <>

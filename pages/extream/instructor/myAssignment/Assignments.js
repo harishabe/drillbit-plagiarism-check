@@ -24,7 +24,7 @@ import {
   CardView,
   EllipsisText,
 } from "../../../../components";
-import { DeleteWarningIcon } from "../../../../assets/icon";
+import { DeleteWarningIcon, DownloadWarningIcon } from "../../../../assets/icon";
 import {
   GetAssignment,
   DeleteAssignment,
@@ -139,6 +139,7 @@ const Assignments = ({
   const [assId, setAssId] = useState("");
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [deleteRowData, setDeleteRowData] = useState("");
   const [editAssignment, setEditAssignment] = useState(false);
   const [search, setSearch] = useState(false);
@@ -347,12 +348,21 @@ const Assignments = ({
   };
 
   const handleDownload = () => {
+    setShowModal(true)
+  };
+
+  const handleDownloadYesWarning = () => {
     DownloadCsv(
       BASE_URL_EXTREM +
         END_POINTS.CREATE_ASSIGNMENT +
         `${router.query.clasId}/assignments/download`,
       DOWNLOAD_CSV.ASSIGNMENTS_LISTS
     );
+    setShowModal(false);
+  };
+
+  const handleDownloadCloseWarning = () => {
+    setShowModal(false);
   };
 
   return (
@@ -362,9 +372,9 @@ const Assignments = ({
           <Grid item container direction="row" justifyContent={"right"}>
             <DownloadField>
               <DownloadButton>
-                {assignmentData?.length > 0 && isLoadingDownload ? (
+                { assignmentData?.length > 0 && isLoadingDownload ? (
                   <SkeletonContainer>
-                    <Skeleton style={{ marginTop: "10px" }} width={50} />
+                    <Skeleton width={ 30 } height={ 40 } />
                   </SkeletonContainer>
                 ) : (
                   <Tooltip title="Download csv" arrow>
@@ -411,6 +421,15 @@ const Assignments = ({
           isOpen={true}
         />
       )}
+      { showModal && (
+        <WarningDialog
+          warningIcon={ <DownloadWarningIcon /> }
+          message={ WARNING_MESSAGES.DOWNLOAD }
+          handleYes={ handleDownloadYesWarning }
+          handleNo={ handleDownloadCloseWarning }
+          isOpen={ true }
+        />
+      ) }
       {editAssignment && (
         <CreateDrawer
           title="Edit Student"

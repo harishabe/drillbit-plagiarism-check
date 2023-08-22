@@ -5,8 +5,9 @@ import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Tooltip, Skeleton } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { DownloadWarningIcon } from "../../../../assets/icon";
 import Instructor from '../../../../layouts/Instructor';
-import { CommonTable, EllipsisText } from '../../../../components';
+import { CommonTable, EllipsisText, WarningDialog } from '../../../../components';
 import { connect } from 'react-redux';
 import { GetSubmissionList } from '../../../../redux/action/instructor/InstructorAction';
 import { useRouter } from 'next/router';
@@ -15,13 +16,8 @@ import { DOWNLOAD_CSV } from '../../../../constant/data/Constant';
 import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
-import { NO_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
+import { NO_DATA_PLACEHOLDER, WARNING_MESSAGES } from '../../../../constant/data/Constant';
 import { StyledButtonIcon } from '../../../../style/index';
-
-const SkeletonContainer = styled.div`
-    margin-top: 16px;
-    margin-right: 5px;
-`;
 
 const DownloadButton = styled.div`
     margin-top:-5px;
@@ -56,6 +52,7 @@ const QNA = ({
     `;
 
     const [rows, setRows] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         let url = `classes/${clasId}/assignments/${assId}/qa`;
@@ -101,7 +98,16 @@ const QNA = ({
     }, [ansData]);
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         DownloadCsv(BASE_URL_EXTREM + `/extreme/classes/${clasId}/assignments/${assId}/qa/download`, DOWNLOAD_CSV.QNA_LISTS);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     return (
@@ -110,9 +116,7 @@ const QNA = ({
                 <DownloadButton>
                     { ansData?.length > 0 &&
                         isLoadingDownload ?
-                        <SkeletonContainer>
-                            <Skeleton width={ 40 } />
-                        </SkeletonContainer>
+                        <Skeleton width={ 30 } height={ 50 } />
                         :
                         <Tooltip title="Download csv" arrow>
                             <StyledButtonIcon
@@ -127,6 +131,15 @@ const QNA = ({
                     }
                 </DownloadButton>
             </DownloadField>
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
             <CommonTable
                 isCheckbox={ false }
                 isSorting={ true }

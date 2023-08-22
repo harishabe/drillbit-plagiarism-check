@@ -6,30 +6,20 @@ import { useTheme } from "@mui/material/styles";
 import { Tooltip, Skeleton, Pagination } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
+import { DownloadWarningIcon } from "../../../../assets/icon";
 import Instructor from '../../../../layouts/Instructor';
-import { CommonTable, SimilarityStatus, CreateDrawer } from '../../../../components';
+import { CommonTable, SimilarityStatus, CreateDrawer, WarningDialog } from '../../../../components';
 import { connect } from 'react-redux';
 import { GetGradingList } from '../../../../redux/action/instructor/InstructorAction';
 import { useRouter } from 'next/router';
 import FeedbackForm from '../form/FeedbackForm';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
-import { DOWNLOAD_CSV, BACKEND_NO_DATA_PLACEHOLDER } from '../../../../constant/data/Constant';
+import { DOWNLOAD_CSV, BACKEND_NO_DATA_PLACEHOLDER, WARNING_MESSAGES } from '../../../../constant/data/Constant';
 import {
     DownloadCsv,
 } from '../../../../redux/action/common/Submission/SubmissionAction';
 import { PaginationValue } from '../../../../utils/PaginationUrl';
 import { PaginationContainer, StyledButtonIcon } from '../../../../style/index';
-
-const SkeletonContainer = styled.div`
-    margin-top: 16px;
-    margin-right: 5px;
-`;
-
-const DownloadField = styled.div`
-    position:absolute;
-    top: 120px;
-    right:25px;
-`;
 
 const DownloadButton = styled.div`
     margin-top:-5px;
@@ -58,6 +48,7 @@ const Grading = ({
     const [rows, setRows] = useState([]);
     const [feedbackData, setFeedbackData] = useState('');
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
@@ -129,7 +120,16 @@ const Grading = ({
     };
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         DownloadCsv(BASE_URL_EXTREM + `/extreme/classes/${clasId}/assignments/${assId}/grading/download`, DOWNLOAD_CSV.GRADING_LISTS);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     const handleChange = (event, value) => {
@@ -159,9 +159,7 @@ const Grading = ({
                 <DownloadButton>
                     {gradingData?.length > 0 &&
                         isLoadingDownload ?
-                        <SkeletonContainer>
-                            <Skeleton width={40} />
-                        </SkeletonContainer>
+                        <Skeleton width={ 30 } height={ 50 } />
                         :
                         <Tooltip title="Download csv" arrow>
                             <StyledButtonIcon
@@ -184,6 +182,16 @@ const Grading = ({
                 isLoading={isLoading}
                 handleAction={handleAction}
             />
+
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
 
             <PaginationContainer>
                 <Pagination

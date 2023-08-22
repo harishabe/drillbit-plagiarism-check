@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Admin from './../../../layouts/Admin';
-import { BreadCrumb, CardView, WidgetCard, Heading } from './../../../components';
+import { BreadCrumb, CardView, WidgetCard, Heading, WarningDialog } from './../../../components';
+import { WARNING_MESSAGES } from "../../../constant/data/Constant"
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { DownloadWarningIcon } from "../../../assets/icon";
 import { DownloadInstructorStudentData } from '../../../redux/action/admin/AdminAction';
 import ReportForm from './form/ReportForm';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
-
 
 const IntegrationBreadCrumb = [
     {
@@ -32,15 +33,25 @@ const Reports = ({
 }) => {
 
     const [usersType, setUsersType] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     const handDownload = (e, title) => {
-        if (title.slice(0, 16) === 'Instructors list') {
+        setShowModal([true, e, title])
+    };
+
+    const handleDownloadYesWarning = () => {
+        if (showModal?.[2].slice(0, 16) === 'Instructors list') {
             DownloadInstructorStudentData(BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + 'instructors/download', 'Instructors');
             setUsersType('instructors');
-        } else if (title.slice(0, 13) === 'Students list') {
+        } else if (showModal?.[2].slice(0, 13) === 'Students list') {
             DownloadInstructorStudentData(BASE_URL_EXTREM + END_POINTS.ADMIN_REPORTS_DOWNLOAD_INSTRUCTOR_LIST + 'students/download', 'Students');
             setUsersType('students');
         }
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     return (
@@ -78,6 +89,15 @@ const Reports = ({
                     <ReportForm />
                 </CardView>
             </Box>
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
         </React.Fragment>
     );
 };
