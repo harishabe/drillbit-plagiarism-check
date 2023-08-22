@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import { Skeleton } from "@mui/material";
 import { Grid, Typography, Tooltip } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { DownloadWarningIcon } from "../../../../assets/icon";
 import {
   ColumnChart,
   PieChart,
-  SubTitle,
   EllipsisText,
+  WarningDialog
 } from "../../../../components";
+import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import {
   COLUMN_ADMIN_CHART_TYPE,
   COLUMN_ADMIN_CHART_COLOR,
@@ -21,7 +23,6 @@ import {
   PIE_CHART_WIDTH,
   PIE_CHART_LABEL,
 } from "../../../../constant/data/ChartData";
-
 import {
   GetStats,
   GetExportToCSV,
@@ -40,21 +41,22 @@ const StudentStats = ({
   isLoadingCsvExport,
 }) => {
   const [submissionData, setSubmissionData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (lid) {
       GetStats(
         BASE_URL_SUPER +
-          END_POINTS.SUPER_ADMIN_INSTRUCTOR +
-          `${lid}/instructor/${studentId}/stats`
+        END_POINTS.SUPER_ADMIN_INSTRUCTOR +
+        `${lid}/instructor/${studentId}/stats`
       );
     } else {
       GetStats(
         BASE_URL_EXTREM +
-          END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS +
-          "/" +
-          studentId +
-          "/stats"
+        END_POINTS.ADMIN_INSTRUCTOR_STUDENT_STATS +
+        "/" +
+        studentId +
+        "/stats"
       );
     }
   }, []);
@@ -68,65 +70,73 @@ const StudentStats = ({
   }, [studentStats]);
 
   const handleExportCsv = () => {
+    setShowModal(true)
+  };
+
+  const handleDownloadYesWarning = () => {
     if (lid) {
       GetExportToCSV(
         BASE_URL_SUPER +
-          END_POINTS.SUPER_ADMIN_INSTRUCTOR +
-          `${lid}/exportToCSV/${studentId}`
+        END_POINTS.SUPER_ADMIN_INSTRUCTOR +
+        `${lid}/exportToCSV/${studentId}`
       );
     } else {
       GetExportToCSV(
         BASE_URL_EXTREM +
-          END_POINTS.ADMIN_EXPORT_CSV_STATS +
-          "/" +
-          studentStats?.id
+        END_POINTS.ADMIN_EXPORT_CSV_STATS +
+        "/" +
+        studentStats?.id
       );
     }
+    setShowModal(false);
+  };
+
+  const handleDownloadCloseWarning = () => {
+    setShowModal(false);
   };
 
   return (
     <>
       <Grid item container>
-        {isLoading ? (
-          <Skeleton width={210} />
+        { isLoading ? (
+          <Skeleton width={ 210 } />
         ) : (
           <>
-            <Grid item md={8} xs={6}>
+              <Grid item md={ 8 } xs={ 6 }>
               <EllipsisText
-                value={`Student name : ${studentStats?.name}`}
+                  value={ `Student name : ${studentStats?.name}` }
                 variant="body2_1"
               />
             </Grid>
-            {isLoadingCsvExport ? (
-              <Skeleton width={150} style={{ marginLeft: "auto" }} />
+              { isLoadingCsvExport ? (
+                <Skeleton width={ 30 } height={ 45 } style={ { marginLeft: "auto" } } />
             ) : (
               <Tooltip title="Export to csv">
                 <StyledButtonIcon
-                  style={{ marginLeft: "auto" }}
+                      style={ { marginLeft: "auto" } }
                   variant="outlined"
                   size="small"
-                  onClick={handleExportCsv}
+                      onClick={ handleExportCsv }
                 >
                   <FileDownloadOutlinedIcon fontSize="small" />
                 </StyledButtonIcon>
               </Tooltip>
-            )}
+              ) }
           </>
-        )}
+        ) }
       </Grid>
 
-      <Grid item md={12} xs={12}>
+      <Grid item md={ 12 } xs={ 12 }>
         <Grid container>
-          <Grid item md={8} xs={12}>
+          <Grid item md={ 8 } xs={ 12 }>
             <Typography variant="h3">
-              {`Submissions (${
-                studentStats?.trendAnalysis?.documentsProcessed !== undefined
+              { `Submissions (${studentStats?.trendAnalysis?.documentsProcessed !== undefined
                   ? studentStats?.trendAnalysis?.documentsProcessed
                   : 0
-              })`}
+                })` }
             </Typography>
 
-            {isLoading ? (
+            { isLoading ? (
               <>
                 <Skeleton />
                 <Skeleton />
@@ -136,53 +146,62 @@ const StudentStats = ({
             ) : (
               submissionData?.length > 0 && (
                 <ColumnChart
-                  type={COLUMN_ADMIN_CHART_TYPE}
-                  color={COLUMN_ADMIN_CHART_COLOR}
-                  xaxisData={COLUMN_ADMIN_XAXIS_DATA}
-                  columnWidth={COLUMN_ADMIN_WIDTH}
-                  height={COLUMN_ADMIN_CHART_HEIGHT}
-                  seriesData={[
+                    type={ COLUMN_ADMIN_CHART_TYPE }
+                    color={ COLUMN_ADMIN_CHART_COLOR }
+                    xaxisData={ COLUMN_ADMIN_XAXIS_DATA }
+                    columnWidth={ COLUMN_ADMIN_WIDTH }
+                    height={ COLUMN_ADMIN_CHART_HEIGHT }
+                    seriesData={ [
                     {
                       name: "Document Processed",
                       data: submissionData,
                     },
-                  ]}
-                  gradient={COLUMN_ADMIN_CHART_GRADIENT}
-                  borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
+                    ] }
+                    gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                    borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
                 />
               )
-            )}
+            ) }
           </Grid>
-          <Grid item md={4} xs={12}>
-            <div style={{ textAlign: "center" }}>
+          <Grid item md={ 4 } xs={ 12 }>
+            <div style={ { textAlign: "center" } }>
               <Typography variant="h3">Trend Analysis</Typography>
             </div>
-            {isLoading ? (
+            { isLoading ? (
               <Skeleton
                 variant="circular"
-                style={{ margin: "8px auto" }}
-                height={250}
-                width={250}
+                style={ { margin: "8px auto" } }
+                height={ 250 }
+                width={ 250 }
               />
             ) : (
               <>
-                {studentStats?.trendAnalysis && (
+                  { studentStats?.trendAnalysis && (
                   <PieChart
                     type="donut"
-                    color={PIE_CHART_COLOR}
-                    width={PIE_CHART_WIDTH}
-                    label={PIE_CHART_LABEL}
-                    series={[
+                      color={ PIE_CHART_COLOR }
+                      width={ PIE_CHART_WIDTH }
+                      label={ PIE_CHART_LABEL }
+                      series={ [
                       studentStats?.trendAnalysis?.similarWork,
                       studentStats?.trendAnalysis?.ownWork,
-                    ]}
+                      ] }
                   />
-                )}
+                  ) }
               </>
-            )}
+            ) }
           </Grid>
         </Grid>
       </Grid>
+      { showModal && (
+        <WarningDialog
+          warningIcon={ <DownloadWarningIcon /> }
+          message={ WARNING_MESSAGES.DOWNLOAD }
+          handleYes={ handleDownloadYesWarning }
+          handleNo={ handleDownloadCloseWarning }
+          isOpen={ true }
+        />
+      ) }
     </>
   );
 };

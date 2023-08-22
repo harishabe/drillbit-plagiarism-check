@@ -11,6 +11,7 @@ import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { DownloadWarningIcon } from "../../../assets/icon";
 import styled from 'styled-components';
 import { makeStyles } from "@mui/styles";
 import debouce from 'lodash.debounce';
@@ -23,6 +24,7 @@ import {
     Heading,
     CardInfoSkeleton,
     CreateDrawer,
+    WarningDialog
 } from '../../../components';
 import MyClassesForm from './form/MyclassesForm';
 import MyClassFiles from './myclassfiles';
@@ -30,7 +32,7 @@ import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { DOWNLOAD_CSV } from '../../../constant/data/Constant';
 import { setItemSessionStorage, getItemSessionStorage, removeItemSessionStorage } from '../../../utils/RegExp';
-import { CLASS_VIEW, TABLE_VIEW } from '../../../constant/data/Constant';
+import { CLASS_VIEW, TABLE_VIEW, WARNING_MESSAGES } from '../../../constant/data/Constant';
 import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 import { StyledButtonIcon, AddButtonBottom } from '../../../style/index';
 
@@ -76,6 +78,7 @@ const MyClasses = ({
     ClearStudent
 }) => {
     const [view, setView] = useState(getItemSessionStorage('classView') ? getItemSessionStorage('classView') : TABLE_VIEW);
+    const [showModal, setShowModal] = useState(false);
     const classes = useStyles();
     const [search, setSearch] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
@@ -143,7 +146,16 @@ const MyClasses = ({
     };
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         DownloadCsv(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_CSV_FILES, DOWNLOAD_CSV.CLASSROOM_REPORTS);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     return (
@@ -178,7 +190,7 @@ const MyClasses = ({
                 <Grid item md={ 3.2 } xs={ 3.2 } style={ { textAlign: 'right' } }>
                     { classesData?.length > 0 &&
                         isLoadingDownload ?
-                        <Skeleton width={ 50 } style={ { display: 'inline-block', marginRight: '10px', marginTop: '12px' } } />
+                        <Skeleton width={ 30 } height={ 40 } style={ { display: 'inline-block', marginRight: '10px' } } />
                         : <Tooltip title="Download csv" arrow>
                             <StyledButtonIcon variant="outlined" size='small' className={ classes.button } onClick={ handleDownload }><FileDownloadOutlinedIcon fontSize='medium' /></StyledButtonIcon>
                         </Tooltip>
@@ -222,9 +234,16 @@ const MyClasses = ({
                         handlePagination={ handlePagination }
                     />
                 </>
-
-
             }
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
         </React.Fragment>
     );
 };

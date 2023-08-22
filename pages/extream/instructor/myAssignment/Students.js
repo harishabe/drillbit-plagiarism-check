@@ -30,6 +30,7 @@ import {
   AddMultipleIcon,
   AddPersonIcon,
   AddFromListIcon,
+  DownloadWarningIcon
 } from "../../../../assets/icon";
 import StudentForm from "../form/StudentForm";
 import {
@@ -77,7 +78,7 @@ const DeleteAllButton = styled.div`
 const DownloadField = styled.div`
   position: absolute;
   top: 125px;
-  right: ${platform === WINDOW_PLATFORM ? "255px" : "235px"};
+  right: ${platform === WINDOW_PLATFORM ? "265px" : "245px"};
   @media (max-width: 900px) {
     top: 85px;
   }
@@ -149,6 +150,7 @@ const Students = ({
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [deleteRowData, setDeleteRowData] = useState("");
   const [editStudent, setEditStudent] = useState(false);
   const [search, setSearch] = useState(false);
@@ -338,12 +340,21 @@ const Students = ({
   };
 
   const handleDownload = () => {
+    setShowModal(true)
+  };
+
+  const handleDownloadYesWarning = () => {
     DownloadCsv(
       BASE_URL_EXTREM +
-        END_POINTS.CREATE_ASSIGNMENT +
-        `${router.query.clasId}/students/download`,
+      END_POINTS.CREATE_ASSIGNMENT +
+      `${router.query.clasId}/students/download`,
       DOWNLOAD_CSV.STUDENTS_LISTS
     );
+    setShowModal(false);
+  };
+
+  const handleDownloadCloseWarning = () => {
+    setShowModal(false);
   };
 
   return (
@@ -361,6 +372,15 @@ const Students = ({
           </DialogModal>
         </>
       )}
+      { showModal && (
+        <WarningDialog
+          warningIcon={ <DownloadWarningIcon /> }
+          message={ WARNING_MESSAGES.DOWNLOAD }
+          handleYes={ handleDownloadYesWarning }
+          handleNo={ handleDownloadCloseWarning }
+          isOpen={ true }
+        />
+      ) }
       {showDeleteWarning && (
         <WarningDialog
           warningIcon={<DeleteWarningIcon />}
@@ -412,9 +432,9 @@ const Students = ({
           <Grid item container direction="row" justifyContent={"right"}>
             <DownloadField>
               <DownloadButton>
-                {studentData?.length > 0 && isLoadingDownload ? (
+                { studentData?.length > 0 && isLoadingDownload ? (
                   <SkeletonContainer>
-                    <Skeleton style={{ marginTop: "10px" }} width={50} />
+                    <Skeleton width={ 30 } height={ 40 } />
                   </SkeletonContainer>
                 ) : (
                   <Tooltip title="Download csv" arrow>
