@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import ProAdmin from './../../../layouts/ProAdmin';
-import { BreadCrumb, CardView, WidgetCard, Heading } from '../../../components';
+import { BreadCrumb, CardView, WidgetCard, Heading, WarningDialog } from '../../../components';
+import { WARNING_MESSAGES } from "../../../constant/data/Constant"
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { DownloadWarningIcon } from "../../../assets/icon";
 import { DownloadInstructorStudentData } from '../../../redux/action/admin/AdminAction';
 import ReportForm from './form/ReportForm';
 import END_POINTS_PRO from '../../../utils/EndPointPro';
@@ -31,12 +33,22 @@ const Reports = ({
 }) => {
 
     const [usersType, setUsersType] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     const handDownload = (e, title) => {
-        if (title.slice(0, 10) === 'Users list') {
+        setShowModal([true, e, title])
+    };
+
+    const handleDownloadYesWarning = () => {
+        if (showModal?.[2].slice(0, 10) === 'Users list') {
             DownloadInstructorStudentData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_USER_LIST, 'Users');
             setUsersType('users');
         }
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     return (
@@ -63,6 +75,15 @@ const Reports = ({
                     <ReportForm />
                 </CardView>
             </Box>
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
         </React.Fragment>
     );
 };

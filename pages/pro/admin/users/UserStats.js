@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { Skeleton, Typography } from "@mui/material";
 import { Grid, Tooltip } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import { ColumnChart, PieChart, EllipsisText } from "../../../../components";
+import { DownloadWarningIcon } from "../../../../assets/icon";
+import { ColumnChart, PieChart, EllipsisText, WarningDialog } from "../../../../components";
+import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import { makeStyles } from "@mui/styles";
 import {
   COLUMN_ADMIN_CHART_TYPE,
@@ -43,6 +45,7 @@ const UserStats = ({
 }) => {
   const classes = useStyles();
   const [submissionData, setSubmissionData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (licenseId) {
@@ -64,17 +67,26 @@ const UserStats = ({
   }, [userStats]);
 
   const handleExportCsv = () => {
+    setShowModal(true)
+  };
+
+  const handleDownloadYesWarning = () => {
     if (licenseId) {
       GetExportToCSV(
         BASE_URL_SUPER +
-          END_POINTS_PRO.SUPER_ADMIN_USER +
-          `${licenseId}/exportToCSV/${userStats?.id}`
+        END_POINTS_PRO.SUPER_ADMIN_USER +
+        `${licenseId}/exportToCSV/${userStats?.id}`
       );
     } else {
       GetExportToCSV(
         BASE_URL_PRO + END_POINTS_PRO.ADMIN_EXPORT_CSV_STATS + userStats?.id
       );
     }
+    setShowModal(false);
+  };
+
+  const handleDownloadCloseWarning = () => {
+    setShowModal(false);
   };
 
   return (
@@ -93,7 +105,7 @@ const UserStats = ({
         <Grid item md={3.7} xs={4}></Grid>
         <Grid item md={0.3} xs={4}>
           {isLoadingCsvExport ? (
-            <Skeleton width={30} style={{ marginLeft: "auto" }} />
+            <Skeleton width={ 30 } height={ 45 } style={ { marginLeft: "auto" } } />
           ) : (
             <Tooltip title="Export to csv">
               <StyledButtonIcon
@@ -170,6 +182,15 @@ const UserStats = ({
           )}
         </Grid>
       </Grid>
+      { showModal && (
+        <WarningDialog
+          warningIcon={ <DownloadWarningIcon /> }
+          message={ WARNING_MESSAGES.DOWNLOAD }
+          handleYes={ handleDownloadYesWarning }
+          handleNo={ handleDownloadCloseWarning }
+          isOpen={ true }
+        />
+      ) }
     </>
   );
 };

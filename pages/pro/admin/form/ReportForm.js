@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { useForm, useWatch } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import { Skeleton } from '@mui/material';
-import { FormComponent, DialogModal } from '../../../../components';
+import { FormComponent, DialogModal, WarningDialog } from '../../../../components';
 import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData, ViewDownloadSubmissiondData, ViewDownloadSubmissiondClearData } from '../../../../redux/action/admin/AdminAction';
+import { DownloadWarningIcon } from "../../../../assets/icon";
+import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import FormJson from '../../../../constant/form/pro-admin-report-form.json';
 import ReportView from '../report/ReportView';
 import { convertDate } from '../../../../utils/RegExp';
@@ -32,6 +34,7 @@ const ReportForm = ({
     const [reportDownloadData, setReportDownloadData] = useState();
     const [showDialogModal, setShowDialogModal] = useState(false);
     const [open, setOpen] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -78,10 +81,19 @@ const ReportForm = ({
     };
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
         let url = BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_LIST + reportDownloadData?.report?.name + 'Report?page=' + PaginationValue?.page + '&size=' + PaginationValue?.size + '&user=' + reportDownloadData?.user?.userId + '&from=' + fromDate + '&to=' + toDate;
         DownloadInstructorStudentData(url, reportDownloadData?.report?.name);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     const onSend = (data) => {
@@ -178,6 +190,15 @@ const ReportForm = ({
                     </DialogModal>
                 </>
             }
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
                     {formData?.map((field, index) => (
