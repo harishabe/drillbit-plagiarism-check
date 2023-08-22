@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
 import _ from "lodash";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import ReactDOM from "react-dom";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
@@ -23,7 +21,6 @@ import {
   DeleteWarningIcon,
   DownloadWarningIcon,
   RepositorySaveWarningIcon,
-  DownloadIcon,
   NonEnglishUploadIcon,
   EnglishUploadIcon,
 } from "../../../../assets/icon";
@@ -152,6 +149,24 @@ const DeleteAllButton = styled.div`
   display: flex;
 `;
 
+const DownloadField = styled.div`
+  position: absolute;
+  top: 120px;
+  right: 240px;
+  @media (max-width: 900px) {
+    top: 85px;
+  }
+`;
+
+const SearchField = styled.div`
+  position: absolute;
+  top: 124.5px;
+  right: 16px;
+  @media (max-width: 900px) {
+    top: 89px;
+  }
+`;
+
 const useStyles = makeStyles(() => ({
   button: {
     margin: "10px 6px 0px 0px",
@@ -181,7 +196,6 @@ const Submission = ({
   SubmissionReportDownload,
   isLoadingSubmissionReport,
 }) => {
-  const theme = useTheme();
   const classes = useStyles();
   const router = useRouter();
   const clasId = router.query.clasId;
@@ -208,32 +222,12 @@ const Submission = ({
   const [showDownloadWarning, setShowDownloadWarning] = useState(false);
   const [data, setData] = useState();
 
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("900"));
-
-  const DownloadField = styled.div`
-    position: absolute;
-    top: ${isSmallScreen ? "85px" : "120px"};
-    right: 240px;
-  `;
-
-  const SearchField = styled.div`
-    position: absolute;
-    top: ${isSmallScreen ? "89px" : "124.5px"};
-    right: 16px;
-  `;
-
   useEffect(() => {
     if (router.isReady) {
       let url = `classes/${clasId}/assignments/${assId}/submissions?page=${paginationPayload?.page}&size=${paginationPayload?.size}&field=${paginationPayload?.field}&orderBy=${paginationPayload?.orderBy}`;
       GetSubmissionList(url);
     }
   }, [router.isReady, paginationPayload]);
-
-  useEffect(() => {
-    if (isLoading) {
-      setRows([]);
-    }
-  }, [isLoading]);
 
   useEffect(() => {
     const result = rows?.some((item) => item?.percent?.props?.percent === "--");
@@ -755,7 +749,7 @@ const Submission = ({
           downloadSubmissionFile={handleOriginalFileDownload}
           showAnalysisPage={handleShowAnalysisPage}
           showGrammarReport={handlGrammarReport}
-          // isLoading={ isLoading }
+          isLoading={ isLoading }
           isLoadingGrammarReport={isLoadingGrammarReport}
         />
       ) : (
@@ -766,7 +760,7 @@ const Submission = ({
               isSorting={true}
               isSubmission={true}
               tableHeader={columns}
-              tableData={rows}
+              tableData={isLoading? [] : rows}
               handleAction={handleAction}
               handleCheckboxSelect={handleCheckboxSelect}
               handleSingleSelect={handleSingleSelect}
@@ -774,7 +768,7 @@ const Submission = ({
               downloadSubmissionFile={handleOriginalFileDownload}
               showAnalysisPage={handleShowAnalysisPage}
               showGrammarReport={handlGrammarReport}
-              // isLoading={ isLoading }
+              isLoading={ isLoading }
               isLoadingGrammarReport={isLoadingGrammarReport}
             />
           ) : (

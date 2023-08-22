@@ -287,10 +287,7 @@ const folderSubmission = ({
     if (uploadData) {
       UploadZipFileDataClear();
     }
-    if (isLoadingSubmission) {
-      setRows([]);
-    }
-  }, [uploadData, extractedFileData, isLoadingSubmission]);
+  }, [uploadData, extractedFileData]);
 
   const handleRefresh = () => {
     folderSubmissionsFileData(
@@ -756,7 +753,7 @@ const folderSubmission = ({
             isSorting={true}
             isSubmission={true}
             tableHeader={columns}
-            tableData={rows}
+            tableData={isLoadingSubmission ? [] : rows}
             handleAction={handleAction}
             handleTableSort={handleTableSort}
             handleCheckboxSelect={handleCheckboxSelect}
@@ -764,7 +761,7 @@ const folderSubmission = ({
             downloadSubmissionFile={handleOriginalFileDownload}
             showAnalysisPage={handleShowAnalysisPage}
             showGrammarReport={handlGrammarReport}
-            // isLoading={ isLoadingSubmission }
+            isLoading={isLoadingSubmission}
             isLoadingGrammarReport={isLoadingGrammarReport}
             path=""
           />
@@ -776,7 +773,7 @@ const folderSubmission = ({
                 isSorting={true}
                 isSubmission={true}
                 tableHeader={columns}
-                tableData={rows}
+                tableData={isLoadingSubmission ? [] : rows}
                 handleAction={handleAction}
                 handleTableSort={handleTableSort}
                 handleCheckboxSelect={handleCheckboxSelect}
@@ -784,7 +781,7 @@ const folderSubmission = ({
                 downloadSubmissionFile={handleOriginalFileDownload}
                 showAnalysisPage={handleShowAnalysisPage}
                 showGrammarReport={handlGrammarReport}
-                // isLoading={ isLoadingSubmission }
+                isLoading={isLoadingSubmission}
                 isLoadingGrammarReport={isLoadingGrammarReport}
                 path=""
               />

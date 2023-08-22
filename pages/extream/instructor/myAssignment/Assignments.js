@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
 import _ from "lodash";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import { Pagination, formLabelClasses } from "@mui/material";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
@@ -68,6 +66,24 @@ const DeleteAllButton = styled.div`
   marginleft: 10px;
 `;
 
+const SearchField = styled.div`
+  position: absolute;
+  top: 125px;
+  right: 16px;
+  @media (max-width: 900px) {
+    top: 85px;
+  }
+`;
+
+const DownloadField = styled.div`
+  position: absolute;
+  top: 125px;
+  right: ${platform === WINDOW_PLATFORM ? "265px" : "245px"};
+  @media (max-width: 900px) {
+    top: 85px;
+  }
+`;
+
 const useStyles = makeStyles(() => ({
   button: {
     margin: "6px 8px 0px 0px",
@@ -117,7 +133,6 @@ const Assignments = ({
   isLoadingDownload,
   activeTab,
 }) => {
-  const theme = useTheme();
   const router = useRouter();
   const classes = useStyles();
   const [rows, setRows] = useState([]);
@@ -134,19 +149,6 @@ const Assignments = ({
     field: "ass_id",
     orderBy: PaginationValue?.orderBy,
   });
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("900"));
-
-  const DownloadField = styled.div`
-    position: absolute;
-    top: ${isSmallScreen ? "85px" : "125px"};
-    right: ${platform === WINDOW_PLATFORM ? "255px" : "235px"};
-  `;
-
-  const SearchField = styled.div`
-    position: absolute;
-    top: ${isSmallScreen ? "85px" : "125px"};
-    right: 16px;
-  `;
 
   useEffect(() => {
     if (router.isReady) {
@@ -163,20 +165,20 @@ const Assignments = ({
         assignment,
         assignment.ass_id,
         <EllipsisText
-        value={assignment.assignment_name}
-        queryData={{
-          clasId: router.query.clasId,
-          clasName: router.query.clasName,
-          assId: assignment?.ass_id,
-          assName: assignment?.assignment_name,
-          grammar:
-            grammarSubscription?.toUpperCase() === "YES"
-              ? assignment?.grammar
-              : grammarSubscription,
-        }}
-        pathname="/extream/instructor/mysubmissions"
-        isLink={true}
-      />,
+          value={assignment.assignment_name}
+          queryData={{
+            clasId: router.query.clasId,
+            clasName: router.query.clasName,
+            assId: assignment?.ass_id,
+            assName: assignment?.assignment_name,
+            grammar:
+              grammarSubscription?.toUpperCase() === "YES"
+                ? assignment?.grammar
+                : grammarSubscription,
+          }}
+          pathname="/extream/instructor/mysubmissions"
+          isLink={true}
+        />,
         <StatusDot
           color={assignment.status === "active" ? "#38BE62" : "#E9596F"}
           title={assignment.status}
@@ -228,7 +230,7 @@ const Assignments = ({
     e.preventDefault();
     if (icon === "edit") {
       setEditAssignment(true);
-      rowData['assignment_name'] = rowData?.assignment_name?.props?.value
+      rowData["assignment_name"] = rowData?.assignment_name?.props?.value;
       setEditAssignmentData(rowData);
     } else if (icon === "delete") {
       setDeleteRowData(rowData?.ass_id);

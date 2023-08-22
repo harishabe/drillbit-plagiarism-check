@@ -2,8 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import _ from "lodash";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import debouce from "lodash.debounce";
 import styled from "styled-components";
 import { makeStyles } from "@mui/styles";
@@ -14,7 +12,6 @@ import {
   Tooltip,
   Skeleton,
   Pagination,
-  IconButton,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -77,6 +74,24 @@ const DeleteAllButton = styled.div`
   marginleft: 10px;
 `;
 
+const DownloadField = styled.div`
+  position: absolute;
+  top: 125px;
+  right: ${platform === WINDOW_PLATFORM ? "255px" : "235px"};
+  @media (max-width: 900px) {
+    top: 85px;
+  }
+`;
+
+const SearchField = styled.div`
+  position: absolute;
+  top: 125px;
+  right: 16px;
+  @media (max-width: 900px) {
+    top: 85px;
+  }
+`;
+
 const useStyles = makeStyles(() => ({
   button: {
     margin: "6px 8px 0px 0px",
@@ -128,7 +143,6 @@ const Students = ({
   isLoadingDownload,
   activeTab,
 }) => {
-  const theme = useTheme();
   const router = useRouter();
   const classes = useStyles();
   const [rows, setRows] = useState([]);
@@ -147,20 +161,6 @@ const Students = ({
   });
   const [clasId, setClasId] = useState("");
   const [clasName, setClasName] = useState("");
-
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("900"));
-
-  const DownloadField = styled.div`
-    position: absolute;
-    top: ${isSmallScreen ? "85px" : "125px"};
-    right: ${platform === WINDOW_PLATFORM ? "255px" : "235px"};
-  `;
-
-  const SearchField = styled.div`
-    position: absolute;
-    top: ${isSmallScreen ? "85px" : "125px"};
-    right: 16px;
-  `;
 
   useEffect(() => {
     GetStudent(router.query.clasId, paginationPayload);
