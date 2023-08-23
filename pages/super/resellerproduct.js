@@ -10,10 +10,12 @@ import {
     CreateDrawer,
     CardView,
     CommonTable,
+    WarningDialog
 } from './../../components';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { DownloadWarningIcon } from "../../assets/icon";
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
@@ -27,11 +29,10 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from '../../utils/EndPoints';
 import { platform } from '../../utils/RegExp';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
-import { DOWNLOAD_CSV, WINDOW_PLATFORM } from '../../constant/data/Constant';
+import { DOWNLOAD_CSV, WINDOW_PLATFORM, WARNING_MESSAGES } from '../../constant/data/Constant';
 
 const SkeletonContainer = styled.div`
-    margin-top: 16px;
-    margin-right: 5px;
+    margin-left: 95px
 `;
 
 const columns = [
@@ -61,6 +62,7 @@ const ResellerProduct = ({
 }) => {
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -155,7 +157,16 @@ const ResellerProduct = ({
     };
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         DownloadCsv(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_RESELLER_LIST + 'resellersCsv', DOWNLOAD_CSV.RESELLER_LISTS);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     /** search implementation using debounce concepts */
@@ -192,7 +203,7 @@ const ResellerProduct = ({
                     { refData?.length > 0 &&
                         isLoadingDownload ?
                         <SkeletonContainer>
-                            <Skeleton width={ 40 } />
+                            <Skeleton width={ 30 } height={ 40 } />
                         </SkeletonContainer>
                         :
                         <Tooltip title="Download csv" arrow>
@@ -248,6 +259,16 @@ const ResellerProduct = ({
                     />
                 </CreateDrawer>
             }
+
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
 
             <AddButtonBottom>
                 <CreateDrawer

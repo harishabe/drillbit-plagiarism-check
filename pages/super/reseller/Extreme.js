@@ -8,9 +8,11 @@ import debouce from 'lodash.debounce';
 import { Grid, Tooltip, Skeleton, Box, TextField, Pagination } from '@mui/material';
 import SuperAdmin from './../../../layouts/SuperAdmin';
 import {
-    CommonTable
+    CommonTable,
+    WarningDialog
 } from '../../../components';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { DownloadWarningIcon } from "../../../assets/icon";
 import {
     GetExtremeInstructorList,
 } from '../../../redux/action/super/SuperAdminAction';
@@ -20,7 +22,7 @@ import {
 import { PaginationValue } from '../../../utils/PaginationUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
-import { WINDOW_PLATFORM, DOWNLOAD_CSV } from '../../../constant/data/Constant';
+import { WINDOW_PLATFORM, DOWNLOAD_CSV, WARNING_MESSAGES } from '../../../constant/data/Constant';
 import { PaginationContainer, StyledButtonIcon } from '../../../style/index';
 import { platform } from '../../../utils/RegExp';
 
@@ -78,6 +80,7 @@ const Extreme = ({
     const classes = useStyles();
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -154,7 +157,16 @@ const Extreme = ({
     };
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         DownloadCsv(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_RESELLER_LIST + `resellerCsv/${router?.query?.licenseId}/extreme`, DOWNLOAD_CSV.EXTREME_LISTS);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     return (
@@ -167,7 +179,7 @@ const Extreme = ({
                                 { extInsList?.length > 0 &&
                                     isLoadingDownload ?
                                     <SkeletonContainer>
-                                        <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
+                                        <Skeleton width={ 30 } height={ 40 } />
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
                                         <StyledButtonIcon
@@ -200,6 +212,15 @@ const Extreme = ({
                 </Grid>
             </Box>
 
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
             <>
                 <CommonTable
                     isCheckbox={ false }
