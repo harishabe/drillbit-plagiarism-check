@@ -9,10 +9,12 @@ import {
     CreateDrawer,
     CardView,
     CommonTable,
-    BreadCrumb
+    BreadCrumb,
+    WarningDialog
 } from '../../components';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { DownloadWarningIcon } from "../../assets/icon";
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
@@ -25,6 +27,7 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from "../../utils/EndPoints";
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { DOWNLOAD_CSV, WINDOW_PLATFORM } from '../../constant/data/Constant';
+import { WARNING_MESSAGES } from '../../constant/data/Constant';
 import { platform } from '../../utils/RegExp';
 
 const SkeletonContainer = styled.div`
@@ -72,6 +75,7 @@ const Pro = ({
 }) => {
     const classes = useStyles();
     const [rows, setRows] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -173,7 +177,16 @@ const Pro = ({
     };
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         DownloadCsv(BASE_URL_SUPER + END_POINTS.CONSORTIUM_CSV_DOWNLOAD + 'proConsortiumCsv', DOWNLOAD_CSV.CONSORTIUM_PRO);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     /** search implementation using debounce concepts */
@@ -211,7 +224,7 @@ const Pro = ({
                         { extremeData?.length > 0 &&
                             isLoadingDownload ?
                             <SkeletonContainer>
-                                <Skeleton width={ 40 } />
+                                <Skeleton width={ 35 } height={ 35 } />
                             </SkeletonContainer>
                             :
                             <Tooltip title="Download csv" arrow>
@@ -280,6 +293,16 @@ const Pro = ({
                     <RefForm />
                 </CreateDrawer>
             </AddButtonBottom>
+
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
 
             <PaginationContainer>
                 <Pagination

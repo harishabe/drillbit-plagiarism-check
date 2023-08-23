@@ -1186,6 +1186,7 @@ const AssignmentForms = ({
                                                             onChange={ handlePharsesChange }
                                                             inputProps={ {
                                                                 minLength: 3,
+                                                                fontWeight: 500
                                                             } }
                                                         />
                                                     </Grid>

@@ -10,9 +10,11 @@ import {
     CardView,
     CommonTable,
     BreadCrumb,
+    WarningDialog
 } from '../../components';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { DownloadWarningIcon } from "../../assets/icon";
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
@@ -24,7 +26,7 @@ import { PaginationContainer, AddButtonBottom, StyledButtonIcon } from '../../st
 import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from "../../utils/EndPoints";
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
-import { DOWNLOAD_CSV, WINDOW_PLATFORM } from '../../constant/data/Constant';
+import { DOWNLOAD_CSV, WINDOW_PLATFORM, WARNING_MESSAGES } from '../../constant/data/Constant';
 import { platform } from '../../utils/RegExp';
 
 const SkeletonContainer = styled.div`
@@ -70,6 +72,7 @@ const Extreme = ({
 }) => {
     const classes = useStyles();
     const [rows, setRows] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -171,7 +174,16 @@ const Extreme = ({
     };
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         DownloadCsv(BASE_URL_SUPER + END_POINTS.RESELLER_CSV_DOWNLOAD + 'extremeResellerCsv', DOWNLOAD_CSV.RESELLER_EXTREME);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     /** search implementation using debounce concepts */
@@ -209,7 +221,7 @@ const Extreme = ({
                         { extremeData?.length > 0 &&
                             isLoadingDownload ?
                             <SkeletonContainer>
-                                <Skeleton width={ 40 } />
+                                <Skeleton width={ 35 } height={ 35 } />
                             </SkeletonContainer>
                             :
                             <Tooltip title="Download csv" arrow>
@@ -270,6 +282,16 @@ const Extreme = ({
                     />
                 </CreateDrawer>
             }
+
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
 
             <AddButtonBottom>
                 <CreateDrawer
