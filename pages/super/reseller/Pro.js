@@ -4,19 +4,21 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { makeStyles } from "@mui/styles";
-import { Grid, Tooltip, Skeleton, IconButton, Box, TextField, Pagination } from '@mui/material';
+import { Grid, Tooltip, Skeleton, Box, TextField, Pagination } from '@mui/material';
 import debouce from 'lodash.debounce';
 import {
-    CommonTable
+    CommonTable,
+    WarningDialog
 } from '../../../components';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { DownloadWarningIcon } from "../../../assets/icon";
 import SuperAdmin from './../../../layouts/SuperAdmin';
 import { GetExtremeStudentList } from '../../../redux/action/super/SuperAdminAction';
 import {
     DownloadCsv
 } from '../../../redux/action/common/Submission/SubmissionAction';
 import { PaginationValue } from '../../../utils/PaginationUrl';
-import { WINDOW_PLATFORM, DOWNLOAD_CSV } from '../../../constant/data/Constant';
+import { WINDOW_PLATFORM, DOWNLOAD_CSV, WARNING_MESSAGES } from '../../../constant/data/Constant';
 import { PaginationContainer, StyledButtonIcon } from '../../../style/index';
 import END_POINTS from '../../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
@@ -75,6 +77,7 @@ const Pro = ({
     const classes = useStyles();
     const router = useRouter();
     const [rows, setRows] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
@@ -148,7 +151,16 @@ const Pro = ({
     };
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         DownloadCsv(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_RESELLER_LIST + `resellerCsv/${router?.query?.licenseId}/pro`, DOWNLOAD_CSV.PRO_LISTS);
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     return (
@@ -161,7 +173,7 @@ const Pro = ({
                                 { studentData?.length > 0 &&
                                     isLoadingDownload ?
                                     <SkeletonContainer>
-                                        <Skeleton style={ { marginTop: '10px' } } width={ 50 } />
+                                        <Skeleton width={ 30 } height={ 40 } />
                                     </SkeletonContainer>
                                     : <Tooltip title="Download csv" arrow>
                                         <StyledButtonIcon
@@ -194,8 +206,17 @@ const Pro = ({
                 </Grid>
             </Box>
 
-            <>
+            { showModal && (
+                <WarningDialog
+                    warningIcon={ <DownloadWarningIcon /> }
+                    message={ WARNING_MESSAGES.DOWNLOAD }
+                    handleYes={ handleDownloadYesWarning }
+                    handleNo={ handleDownloadCloseWarning }
+                    isOpen={ true }
+                />
+            ) }
 
+            <>
                 <CommonTable
                     isCheckbox={ false }
                     isSorting={ true }

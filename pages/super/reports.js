@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { TextField, Autocomplete, Skeleton, IconButton, Tooltip } from '@mui/material';
+import { TextField, Autocomplete, Skeleton, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { FormComponent, DialogModal, CardView, Heading, BreadCrumb } from '../../components';
+import { DownloadWarningIcon } from "../../assets/icon";
+import { FormComponent, DialogModal, CardView, Heading, BreadCrumb, WarningDialog } from '../../components';
 import { ReportsData, ViewAndDownloadData, DownloadInstructorStudentData, ViewDownloadSubmissiondData, ClearReportData } from '../../redux/action/admin/AdminAction';
 import { DropdownList, GlobalSearch, GlobalSearchClear } from '../../redux/action/super/SuperAdminAction';
 import FormJson from '../../constant/form/admin-report-form.json';
@@ -17,6 +18,7 @@ import { PaginationValue } from '../../utils/PaginationUrl';
 import END_POINTS from '../../utils/EndPoints';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import { StyledButtonIcon } from '../../style';
+import { WARNING_MESSAGES } from "../../constant/data/Constant";
 
 const SuperAdminBreadCrumb = [
     {
@@ -64,6 +66,7 @@ const Reports = ({
     const [role, setRole] = useState('');
     const [reportDownloadData, setReportDownloadData] = useState();
     const [showDialogModal, setShowDialogModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [open, setOpen] = useState(false);
     const [emailSearch, setEmailSearch] = useState(false);
     const [paginationPayload, setPaginationPayload] = useState({
@@ -118,6 +121,10 @@ const Reports = ({
     };
 
     const handleDownload = () => {
+        setShowModal(true)
+    };
+
+    const handleDownloadYesWarning = () => {
         let fromDate = convertDate(reportDownloadData?.fromDate);
         let toDate = convertDate(reportDownloadData?.toDate);
         if (role === 'extreme') {
@@ -127,6 +134,11 @@ const Reports = ({
             let url = BASE_URL_SUPER + `/${role}/license/${licenseId}/` + reportDownloadData?.report?.name + 'Report?&user=' + reportDownloadData?.instructor?.userId + '&from=' + fromDate + '&to=' + toDate;
             DownloadInstructorStudentData(url, reportDownloadData?.report?.name);
         }
+        setShowModal(false);
+    };
+
+    const handleDownloadCloseWarning = () => {
+        setShowModal(false);
     };
 
     const onSend = (data) => {
@@ -297,6 +309,16 @@ const Reports = ({
                             isLoadingList={ isLoadingList }
                         />
                     }
+
+                    { showModal && (
+                        <WarningDialog
+                            warningIcon={ <DownloadWarningIcon /> }
+                            message={ WARNING_MESSAGES.DOWNLOAD }
+                            handleYes={ handleDownloadYesWarning }
+                            handleNo={ handleDownloadCloseWarning }
+                            isOpen={ true }
+                        />
+                    ) }
 
                     <form onSubmit={ handleSubmit(onSubmit) }>
                         <Grid container>
