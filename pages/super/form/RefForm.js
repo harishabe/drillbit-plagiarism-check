@@ -234,7 +234,7 @@ const RefForm = ({
                 'designation': editData.designation,
                 'phone': editData.phone,
                 'startDate': convertDate(editData.created_date),
-                'endDate': convertDate(editData.expiry_date),
+                'endDate': convertDate(editData.start_date),
                 'instructors': editData.instructors,
                 'submissions': editData.documents,
                 'documentlength': { 'name': editData.document_type },

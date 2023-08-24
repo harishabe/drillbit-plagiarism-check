@@ -4,6 +4,19 @@ import {
     ClassIcon,
     ClassWhiteIcon
 } from '../../assets/icon';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import AddCardIcon from '@mui/icons-material/AddCard';
+import styled from 'styled-components';
+
+const StyledCreditCardOutlinedIcon = styled(CreditCardOutlinedIcon)(() => ({
+    fontSize: '22px',
+    margin: '-3px'
+}));
+
+const StyledAddCardIcon = styled(AddCardIcon)(() => ({
+    fontSize: '22px',
+    margin: '-3px'
+}));
 
 const SidebarSupplier = [
     {
@@ -21,15 +34,15 @@ const SidebarSupplier = [
         "layout": "/supplier",
     },
     {
-        "icon": <ClassIcon />,
-        "activeIcon": <ClassWhiteIcon />,
+        "icon": <StyledCreditCardOutlinedIcon />,
+        "activeIcon": <StyledCreditCardOutlinedIcon />,
         "name": "Pro",
         "path": "/pro",
         "layout": "/supplier",
     },
     {
-        "icon": <ClassIcon />,
-        "activeIcon": <ClassWhiteIcon />,
+        "icon": <StyledAddCardIcon />,
+        "activeIcon": <StyledAddCardIcon />,
         "name": "Customers",
         "path": "/customers",
         "layout": "/supplier",

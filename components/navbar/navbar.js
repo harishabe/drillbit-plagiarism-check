@@ -62,7 +62,7 @@ const useStyles = makeStyles(() => ({
     width: 328,
     boxShadow: "none",
     maxWidth: "100%",
-    background: "#fff",
+    background: "#fff !important",
   },
   ssoLogout: {
     paddingTop: "0px",
