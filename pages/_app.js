@@ -76,7 +76,7 @@ export default function MyApp(props) {
     const Layout = Component.layout || (({ children }) => <>{ children }</>);
 
     function authCheck(url) {
-        const publicPaths = ['/auth/login', '/auth/forgot-password', '/auth/reset-password', '/auth/single-sign-on'];
+        const publicPaths = ['/auth/login', '/auth/forgot-password', '/auth/reset-password', '/auth/single-sign-on', '/auth/lti'];
         const path = url.split('?')[0];
         if (!getItemSessionStorage('token') && !publicPaths.includes(path)) {
             setAuthorized(false);
