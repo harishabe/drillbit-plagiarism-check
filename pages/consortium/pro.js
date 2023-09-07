@@ -224,7 +224,7 @@ const Pro = ({
     /** end debounce concepts */
 
     const handleShow = (e, info) => {
-        if (info?.title === "Create Multiple Pro Account") {
+        if (info?.title === "Create Multiple Pro Accounts") {
             UploadFileDataClear();
             router.push({ pathname: "/consortium/proBulkLicenseCreation" });
         }

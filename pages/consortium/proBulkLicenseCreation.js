@@ -27,7 +27,7 @@ import {
 } from '../../redux/action/admin/AdminAction';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import END_POINTS from '../../utils/EndPoints';
-// import { INSTRUCTOR_TEMPLATE_TITLE } from '../../constant/data/Constant';  <--- DOWNLOAD TEMPLATE -->
+import { PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE, BULK_CREATION_TITLE } from '../../constant/data/Constant';
 
 const useStyles = makeStyles({
     customFileUpload: {
@@ -50,14 +50,18 @@ const useStyles = makeStyles({
         padding: '30px',
         textAlign: 'center'
     },
-    padding30: {
+    padding10: {
         padding: '10px'
     },
     link: {
         marginLeft: '5px'
     },
     error: {
-        color: 'red'
+        color: '#FF0000'
+    },
+    button: {
+        marginTop: '15px',
+        textAlign: 'center'
     }
 });
 
@@ -90,7 +94,7 @@ const InstructorBreadCrumb = [
 ];
 
 const ProBulkLicenseCreation = ({
-    // DownloadTemplate, <--- DOWNLOAD TEMPLATE -->
+    DownloadTemplate,
     UploadFile,
     isLoadingTemplate,
     isLoadingInstructorFileUpload,
@@ -103,8 +107,7 @@ const ProBulkLicenseCreation = ({
     const [showError, setShowError] = useState(false);
 
     const handleDownload = () => {
-        // DownloadTemplate(BASE_URL_EXTREM + END_POINTS.INSTRUCTOR_DOWNLOAD_TEMPLATE, INSTRUCTOR_TEMPLATE_TITLE);  <--- DOWNLOAD TEMPLATE -->
-        console.log('need template API')
+        DownloadTemplate(BASE_URL_SUPER + END_POINTS.CREATE_MULTIPLE_PRO_LICENSES, PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE);
     };
 
     const handleSubmit = () => {
@@ -162,7 +165,7 @@ const ProBulkLicenseCreation = ({
                             <div className={ classes.customFileUploadHeader }>
                                 <Grid container spacing={ 1 }>
                                     <Grid item md={ 6 } xs={ 6 }>
-                                        <MainHeading title='Create Multiple Pro Accounts' />
+                                        <MainHeading title={ BULK_CREATION_TITLE.MAIN_HEADING } />
                                     </Grid>
                                     <Grid item md={ 6 } xs={ 6 } align="right">
                                         <Button
@@ -171,7 +174,7 @@ const ProBulkLicenseCreation = ({
                                             size="large"
                                             disabled={ isLoadingTemplate }
                                         >
-                                            { isLoadingTemplate ? <BeatLoader color="#fff" /> : 'Download Template' }
+                                            { isLoadingTemplate ? <BeatLoader color="#fff" /> : BULK_CREATION_TITLE.TEMPLATE_BUTTON }
                                         </Button>
                                     </Grid>
 
@@ -179,12 +182,12 @@ const ProBulkLicenseCreation = ({
                                         <Grid item md={ 12 } xs={ 12 }>
                                             <div className={ classes.dragAndDropArea }>
                                                 <UploadFileIcon />
-                                                <SubTitle1 title="File Format : CSV " />
-                                                <SubTitle2 title=" Mandatory fields : Institution Name* , State* , Country* , Coordinator Name* , Coordinator Email* , Designation* , Department* , Phone* , Start Date* , End Date* , No Of Users* , No Of Submissions* , Account Manager* , Institution Type* " />
-                                                <div className={ classes.padding30 }>
+                                                <SubTitle1 title={ BULK_CREATION_TITLE.HEADING } />
+                                                <SubTitle2 title={ BULK_CREATION_TITLE.MANDATORY_FIELDS } />
+                                                <div className={ classes.padding10 }>
                                                     <Link className={ classes.link }>
                                                         <label htmlFor="file-upload" className={ classes.customFileUpload }>
-                                                            Browse your file here
+                                                            { BULK_CREATION_TITLE.BROWSE_YOUR_FILE }
                                                         </label>
                                                     </Link>
                                                     <Input onChange={ handleUpload } id="file-upload" type="file" />
@@ -198,7 +201,7 @@ const ProBulkLicenseCreation = ({
                                                         }
                                                     </div>
 
-                                                    { showError ? <div className={ classes.error }>Please select your file to upload </div> : '' }
+                                                    { showError ? <div className={ classes.error }>{ BULK_CREATION_TITLE.ERROR } </div> : '' }
                                                 </div>
                                             </div>
                                         </Grid>
@@ -207,14 +210,14 @@ const ProBulkLicenseCreation = ({
 
                                     <Grid container spacing={ 1 }>
                                         <Grid item md={ 4 } xs={ 4 }></Grid>
-                                        <Grid item md={ 4 } xs={ 4 } style={ { marginTop: '15px', textAlign: 'center' } }>
+                                        <Grid item md={ 4 } xs={ 4 } className={ classes.button }>
                                             <Button
                                                 onClick={ handleSubmit }
                                                 variant="contained"
                                                 size="large"
                                                 disabled={ isLoadingInstructorFileUpload }
                                             >
-                                                { isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : 'Submit' }
+                                                { isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : BULK_CREATION_TITLE.SUBMIT_BUTTON }
                                             </Button>
                                         </Grid>
                                         <Grid item md={ 4 } xs={ 4 }></Grid>
