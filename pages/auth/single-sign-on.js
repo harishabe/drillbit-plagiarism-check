@@ -7,16 +7,16 @@ import { setItemSessionStorage, getItemSessionStorage } from '../../utils/RegExp
 
 const SingleSignOn = () => {
   const router = useRouter();
-  const [loadingPage, isLoadingPage] = useState(true)
-  const [loginState, isLoginState] = useState([])
+  const [loadingPage, setLoadingPage] = useState(true)
+  const [loginState, setLoginState] = useState({})
 
   if (getItemSessionStorage('role') && getItemSessionStorage('token') && getItemSessionStorage('email') && getItemSessionStorage('name')) {
-    isLoadingPage(false)
+    setLoadingPage(false)
   }
 
   useEffect(() => {
     if (loadingPage) {
-      isLoginState({
+      setLoginState({
         'role': router?.query?.role,
         'token': router?.query?.token,
         'username': router?.query?.username,
