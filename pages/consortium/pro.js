@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import Admin from "../../layouts/Admin";
 import styled from 'styled-components';
 import { makeStyles } from "@mui/styles";
@@ -14,13 +15,20 @@ import {
 } from '../../components';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { DownloadWarningIcon } from "../../assets/icon";
+import {
+    DownloadWarningIcon,
+    AddMultipleIcon,
+    AddPersonIcon
+} from "../../assets/icon";
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
 import {
     DownloadCsv
 } from '../../redux/action/common/Submission/SubmissionAction';
+import {
+    UploadFileDataClear
+} from '../../redux/action/admin/AdminAction';
 import RefForm from './form/RefForm';
 import { PaginationContainer, AddButtonBottom, StyledButtonIcon } from '../../style/index';
 import { PaginationValue } from '../../utils/PaginationUrl';
@@ -70,9 +78,11 @@ const Pro = ({
     DownloadCsv,
     pageDetails,
     extremeData,
+    UploadFileDataClear,
     isLoading,
     isLoadingDownload
 }) => {
+    const router = useRouter()
     const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -213,6 +223,13 @@ const Pro = ({
 
     /** end debounce concepts */
 
+    const handleShow = (e, info) => {
+        if (info?.title === "Create Multiple Pro Accounts") {
+            UploadFileDataClear();
+            router.push({ pathname: "/consortium/proBulkLicenseCreation" });
+        }
+    };
+
     return (
         <>
             <Grid container spacing={ 2 }>
@@ -287,7 +304,20 @@ const Pro = ({
 
             <AddButtonBottom>
                 <CreateDrawer
+                    options={ [
+                        {
+                            icon: <AddPersonIcon />,
+                            title: "Create Pro Account",
+                            handleFromCreateDrawer: false,
+                        },
+                        {
+                            icon: <AddMultipleIcon />,
+                            title: "Create Multiple Pro Accounts",
+                            handleFromCreateDrawer: true,
+                        },
+                    ] }
                     title="Create Pro Account"
+                    handleMultiData={ handleShow }
                     isShowAddIcon={ true }
                 >
                     <RefForm />
@@ -329,6 +359,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetExtremeRefData: (url, paginationValue) => dispatch(GetExtremeRefData(url, paginationValue)),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };
 

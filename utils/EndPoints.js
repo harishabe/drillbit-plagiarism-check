@@ -123,6 +123,7 @@ const END_POINTS = {
     CONSORTIUM_CHANGE_PASSWORD: '/consortium/password',
     CONSORTIUM_CSV_DOWNLOAD: '/consortium/',
     CONSORTIUM_ACCOUNT_INFORMATION: '/consortium/accountInformation',
+    CREATE_MULTIPLE_PRO_LICENSES: '/consortium/pro/license/bulk',
 };
 
 export default END_POINTS;

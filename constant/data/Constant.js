@@ -160,7 +160,17 @@ export const DOWNLOAD_CSV = {
 }
 
 export const INSTRUCTOR_TEMPLATE_TITLE = 'Multiple_Instructor_Upload_Template';
+export const PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE = 'Multiple_Pro_License_Upload_Template';
 export const USER_TEMPLATE_TITLE = 'Multiple_User_Upload_Template';
+export const BULK_CREATION_TITLE = {
+    'SUBMIT_BUTTON': 'Download Template',
+    'TEMPLATE_BUTTON': 'Download Template',
+    'MAIN_HEADING': 'Create Multiple Pro Accounts',
+    'HEADING': 'File Format : CSV ',
+    'MANDATORY_FIELDS': ' Mandatory fields : Institution Name* , State* , Country* , Coordinator Name* , Coordinator Email* , Designation* , Department* , Phone* , Start Date* , End Date* , No Of Users* , No Of Submissions* , Account Manager* , Institution Type* ',
+    'BROWSE_YOUR_FILE': 'Browse your file here',
+    'ERROR': 'Please select your file to upload'
+}
 
 export const UPLOAD_TITLE_CONSTANT = {
     'REPOSITORY': 'Upload files to the repository',
