@@ -13,6 +13,7 @@ const CardView = ({
             </CardContent>
         </Card>
     );
+    
 };
 
 export default CardView;
