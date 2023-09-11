@@ -67,7 +67,8 @@ const AccountInfo = ({
             createData('Files Saved to Repository', accountInfo?.total_documents_added_to_Repository ? accountInfo?.total_documents_added_to_Repository : '-'),
             createData('Account Expires on', accountInfo?.expiry_date ? accountInfo?.expiry_date : '-'),
             createData('Account Type', accountInfo?.license_type ? accountInfo?.license_type : '-'),
-            createData('Product Name', accountInfo?.product_name ? accountInfo?.product_name : '-'),
+            // createData('Product Name', accountInfo?.product_name ? accountInfo?.product_name : '-'),
+            createData('Product Name', 'Drillbit extreme'),
             createData('Admin Account', accountInfo?.email ? accountInfo?.email : '-'),
             createData('Time Zone', accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
         ];
