@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../components';
-import { CreateAccount, EditAccount, DropdownList, FolderPathList } from '../../../redux/action/super/SuperAdminAction';
+import { CreateAccount, EditAccount, DropdownList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/reseller-ref-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
@@ -271,7 +271,6 @@ const mapDispatchToProps = (dispatch) => {
         CreateAccount: (url, getUrl, data) => dispatch(CreateAccount(url, getUrl, data)),
         EditAccount: (url, getUrl, data) => dispatch(EditAccount(url, getUrl, data)),
         DropdownList: (url) => dispatch(DropdownList(url)),
-        FolderPathList: () => dispatch(FolderPathList()),
     };
 };
 
