@@ -518,9 +518,6 @@ const CommonTable = ({
                                             value={
                                               value !== null
                                                 ? value
-                                                    ?.charAt(0)
-                                                    .toUpperCase() +
-                                                  value?.slice(1).toLowerCase()
                                                 : NO_DATA_PLACEHOLDER
                                             }
                                             variant="body2_1"
