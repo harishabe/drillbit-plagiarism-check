@@ -81,14 +81,9 @@ class EllipsisText extends Component {
             >
               {this.props.isFolder
                 ? this.props.value?.length > this.props.maxLength
-                  ? (
-                      this.props.value?.charAt(0).toUpperCase() +
-                      this.props.value?.slice(1)
-                    ).substring(0, this.props.maxLength) + "..."
-                  : this.props.value?.charAt(0).toUpperCase() +
-                    this.props.value?.slice(1)
-                : this.props.value?.charAt(0).toUpperCase() +
-                  this.props.value?.slice(1)}
+                  ? this.props.value?.substring(0, this.props.maxLength) + "..."
+                  : this.props.value
+                : this.props.value}
             </StyledLinkField>
           </div>
         ) : (
@@ -106,14 +101,9 @@ class EllipsisText extends Component {
             <ComponentContainer>{this.props.component}</ComponentContainer>{" "}
             {this.props.isFolder
               ? this.props.value?.length > this.props.maxLength
-                ? (
-                    this.props.value?.charAt(0).toUpperCase() +
-                    this.props.value?.slice(1)
-                  ).substring(0, this.props.maxLength) + "..."
-                : this.props.value?.charAt(0).toUpperCase() +
-                  this.props.value?.slice(1)
-              : this.props.value?.charAt(0).toUpperCase() +
-                this.props.value?.slice(1)}
+                ? this.props.value.substring(0, this.props.maxLength) + "..."
+                : this.props.value
+              : this.props.value}
           </Typography>
         )}
       </Tooltip>
