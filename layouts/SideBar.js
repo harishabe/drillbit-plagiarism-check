@@ -140,6 +140,11 @@ const SideBar = ({ open }) => {
     ) {
       return true;
     } else if (
+      router.pathname === "/extream/admin/addBulkStudent" &&
+      name === "Students"
+    ) {
+      return true;
+    } else if (
       router.pathname === "/extream/instructor/mysubmissions" &&
       name === "My Classes"
     ) {

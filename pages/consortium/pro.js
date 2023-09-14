@@ -199,8 +199,6 @@ const Pro = ({
         setShowModal(false);
     };
 
-    /** search implementation using debounce concepts */
-
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
@@ -220,8 +218,6 @@ const Pro = ({
             debouncedResults.cancel();
         };
     });
-
-    /** end debounce concepts */
 
     const handleShow = (e, info) => {
         if (info?.title === "Create Multiple Pro Accounts") {
