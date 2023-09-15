@@ -35,6 +35,10 @@ const useStyles = makeStyles({
         padding: '6px 12px',
         cursor: 'pointer'
     },
+    customFileUploadHeader: {
+        padding: '0px 50px',
+        marginTop: '-50px'
+    },
     dragAndDropArea: {
         height: '300px',
         border: '1px dashed rgba(0, 0, 0, 0.38)',
@@ -149,7 +153,7 @@ const AddBulkInstructor = ({
                                     <ArrowBackOutlinedIcon />
                                 </IconButton>
                             </Tooltip>
-                            <div style={ { padding: '0px 50px' } }>
+                            <div className={ classes.customFileUploadHeader }>
                                 <Grid container spacing={ 1 }>
                                     <Grid item md={ 6 } xs={ 6 }>
                                         <MainHeading title='Add Multiple Instructors' />

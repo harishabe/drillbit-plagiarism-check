@@ -70,7 +70,9 @@ const END_POINTS = {
     CREATE_STUDENT: '/extreme/classes/',
     CREATE_ASSIGNMENT: '/extreme/classes/',
     INSTRUCTOR_DOWNLOAD_TEMPLATE: '/extreme/admin/instructorTemplate',
+    STUDENTS_DOWNLOAD_TEMPLATE: '/extreme/admin/studentTemplate',
     CREATE_MULTIPLE_INSTRUCTOR:'/extreme/admin/addMultipleInstructors',
+    CREATE_MULTIPLE_STUDENTS: '/extreme/admin/addMultipleStudents',
     STUDENT_DOWNLOAD_TEMPLATE: '/extreme/classes/',
     CREATE_MULTIPLE_STUDENT: '/extreme/classes/',
     ADMIN_MOODLE_INTEGRATION: '/extreme/integrations/moodle',
@@ -124,6 +126,7 @@ const END_POINTS = {
     CONSORTIUM_CSV_DOWNLOAD: '/consortium/',
     CONSORTIUM_ACCOUNT_INFORMATION: '/consortium/accountInformation',
     CREATE_MULTIPLE_PRO_LICENSES: '/consortium/pro/license/bulk',
+    CREATE_MULTIPLE_EXTREME_LICENSES: '/consortium/extreme/license/bulk',
 };
 
 export default END_POINTS;

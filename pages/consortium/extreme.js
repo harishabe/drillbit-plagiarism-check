@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import Admin from "../../layouts/Admin";
 import styled from 'styled-components';
 import { makeStyles } from "@mui/styles";
@@ -14,13 +15,20 @@ import {
 } from '../../components';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { DownloadWarningIcon } from "../../assets/icon";
+import {
+    DownloadWarningIcon,
+    AddMultipleIcon,
+    AddPersonIcon
+} from "../../assets/icon";
 import {
     GetExtremeRefData,
 } from '../../redux/action/super/SuperAdminAction';
 import {
     DownloadCsv
 } from '../../redux/action/common/Submission/SubmissionAction';
+import {
+    UploadFileDataClear
+} from '../../redux/action/admin/AdminAction';
 import ExtremeForm from './form/ExtremeForm';
 import { PaginationContainer, AddButtonBottom, StyledButtonIcon } from '../../style/index';
 import { PaginationValue } from '../../utils/PaginationUrl';
@@ -68,11 +76,13 @@ function createData(college_name, name, email, country, start_date, expiry_date,
 const Extreme = ({
     GetExtremeRefData,
     DownloadCsv,
+    UploadFileDataClear,
     pageDetails,
     extremeData,
     isLoading,
     isLoadingDownload
 }) => {
+    const router = useRouter()
     const classes = useStyles();
     const [rows, setRows] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -189,8 +199,6 @@ const Extreme = ({
         setShowModal(false);
     };
 
-    /** search implementation using debounce concepts */
-
     const handleSearch = (event) => {
         if (event.target.value !== '') {
             paginationPayload['search'] = event.target.value;
@@ -211,7 +219,12 @@ const Extreme = ({
         };
     });
 
-    /** end debounce concepts */
+    const handleShow = (e, info) => {
+        if (info?.title === "Create Multiple Extreme Accounts") {
+            UploadFileDataClear();
+            router.push({ pathname: "/consortium/extremeBulkLicenseCreation" });
+        }
+    };
 
     return (
         <>
@@ -288,7 +301,20 @@ const Extreme = ({
 
             <AddButtonBottom>
                 <CreateDrawer
+                    options={ [
+                        {
+                            icon: <AddPersonIcon />,
+                            title: "Create Extreme Account",
+                            handleFromCreateDrawer: false,
+                        },
+                        {
+                            icon: <AddMultipleIcon />,
+                            title: "Create Multiple Extreme Accounts",
+                            handleFromCreateDrawer: true,
+                        },
+                    ] }
                     title="Create Extreme Account"
+                    handleMultiData={ handleShow }
                     isShowAddIcon={ true }
                 >
                     <ExtremeForm />
@@ -330,6 +356,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         GetExtremeRefData: (url, paginationValue) => dispatch(GetExtremeRefData(url, paginationValue)),
         DownloadCsv: (url, title) => dispatch(DownloadCsv(url, title)),
+        UploadFileDataClear: () => dispatch(UploadFileDataClear()),
     };
 };
 

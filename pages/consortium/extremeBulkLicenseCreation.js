@@ -27,7 +27,7 @@ import {
 } from '../../redux/action/admin/AdminAction';
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import END_POINTS from '../../utils/EndPoints';
-import { PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE, CONSORTIUM_PRO_BULK_CREATION_TITLE } from '../../constant/data/Constant';
+import { EXTREME_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE, CONSORTIUM_EXTREME_BULK_CREATION_TITLE } from '../../constant/data/Constant';
 
 const useStyles = makeStyles({
     customFileUpload: {
@@ -82,13 +82,13 @@ const InstructorBreadCrumb = [
         active: false,
     },
     {
-        name: 'Pro',
-        link: '/consortium/pro',
+        name: 'Extreme',
+        link: '/consortium/extreme',
         active: false,
     },
     {
-        name: 'Create Multiple Pro Accounts',
-        link: '/consortium/proBulkLicenseCreation',
+        name: 'Create Multiple Extreme Accounts',
+        link: '/consortium/extremeBulkLicenseCreation',
         active: true,
     },
 ];
@@ -107,7 +107,7 @@ const ProBulkLicenseCreation = ({
     const [showError, setShowError] = useState(false);
 
     const handleDownload = () => {
-        DownloadTemplate(BASE_URL_SUPER + END_POINTS.CREATE_MULTIPLE_PRO_LICENSES, PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE);
+        DownloadTemplate(BASE_URL_SUPER + END_POINTS.CREATE_MULTIPLE_EXTREME_LICENSES, EXTREME_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE);
     };
 
     const handleSubmit = () => {
@@ -115,7 +115,7 @@ const ProBulkLicenseCreation = ({
             setShowError(false);
             let bodyFormData = new FormData();
             bodyFormData.append('file', fileData);
-            UploadFile(BASE_URL_SUPER + END_POINTS.CREATE_MULTIPLE_PRO_LICENSES, bodyFormData);
+            UploadFile(BASE_URL_SUPER + END_POINTS.CREATE_MULTIPLE_EXTREME_LICENSES, bodyFormData);
         } else {
             setShowError(true);
         }
@@ -130,13 +130,13 @@ const ProBulkLicenseCreation = ({
 
     const handleBack = (e) => {
         e.preventDefault();
-        router.push('/consortium/pro');
+        router.push('/consortium/extreme');
     };
 
     useEffect(() => {
         if (fileUploadData?.status === 200 || fileUploadData?.status === 201) {
             setFileData('');
-            router.push('/consortium/pro');
+            router.push('/consortium/extreme');
         } else if (fileUploadData?.response?.data?.status === 400) {
             UploadFileDataClear()
             setFileData('');
@@ -165,7 +165,7 @@ const ProBulkLicenseCreation = ({
                             <div className={ classes.customFileUploadHeader }>
                                 <Grid container spacing={ 1 }>
                                     <Grid item md={ 6 } xs={ 6 }>
-                                        <MainHeading title={ CONSORTIUM_PRO_BULK_CREATION_TITLE.MAIN_HEADING } />
+                                        <MainHeading title={ CONSORTIUM_EXTREME_BULK_CREATION_TITLE.MAIN_HEADING } />
                                     </Grid>
                                     <Grid item md={ 6 } xs={ 6 } align="right">
                                         <Button
@@ -174,7 +174,7 @@ const ProBulkLicenseCreation = ({
                                             size="large"
                                             disabled={ isLoadingTemplate }
                                         >
-                                            { isLoadingTemplate ? <BeatLoader color="#fff" /> : CONSORTIUM_PRO_BULK_CREATION_TITLE.TEMPLATE_BUTTON }
+                                            { isLoadingTemplate ? <BeatLoader color="#fff" /> : CONSORTIUM_EXTREME_BULK_CREATION_TITLE.TEMPLATE_BUTTON }
                                         </Button>
                                     </Grid>
 
@@ -182,12 +182,12 @@ const ProBulkLicenseCreation = ({
                                         <Grid item md={ 12 } xs={ 12 }>
                                             <div className={ classes.dragAndDropArea }>
                                                 <UploadFileIcon />
-                                                <SubTitle1 title={ CONSORTIUM_PRO_BULK_CREATION_TITLE.HEADING } />
-                                                <SubTitle2 title={ CONSORTIUM_PRO_BULK_CREATION_TITLE.MANDATORY_FIELDS } />
+                                                <SubTitle1 title={ CONSORTIUM_EXTREME_BULK_CREATION_TITLE.HEADING } />
+                                                <SubTitle2 title={ CONSORTIUM_EXTREME_BULK_CREATION_TITLE.MANDATORY_FIELDS } />
                                                 <div className={ classes.padding10 }>
                                                     <Link className={ classes.link }>
                                                         <label htmlFor="file-upload" className={ classes.customFileUpload }>
-                                                            { CONSORTIUM_PRO_BULK_CREATION_TITLE.BROWSE_YOUR_FILE }
+                                                            { CONSORTIUM_EXTREME_BULK_CREATION_TITLE.BROWSE_YOUR_FILE }
                                                         </label>
                                                     </Link>
                                                     <Input onChange={ handleUpload } id="file-upload" type="file" />
@@ -201,7 +201,7 @@ const ProBulkLicenseCreation = ({
                                                         }
                                                     </div>
 
-                                                    { showError ? <div className={ classes.error }>{ CONSORTIUM_PRO_BULK_CREATION_TITLE.ERROR } </div> : '' }
+                                                    { showError ? <div className={ classes.error }>{ CONSORTIUM_EXTREME_BULK_CREATION_TITLE.ERROR } </div> : '' }
                                                 </div>
                                             </div>
                                         </Grid>
@@ -217,7 +217,7 @@ const ProBulkLicenseCreation = ({
                                                 size="large"
                                                 disabled={ isLoadingInstructorFileUpload }
                                             >
-                                                { isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : CONSORTIUM_PRO_BULK_CREATION_TITLE.SUBMIT_BUTTON }
+                                                { isLoadingInstructorFileUpload ? <BeatLoader color="#fff" /> : CONSORTIUM_EXTREME_BULK_CREATION_TITLE.SUBMIT_BUTTON }
                                             </Button>
                                         </Grid>
                                         <Grid item md={ 4 } xs={ 4 }></Grid>
