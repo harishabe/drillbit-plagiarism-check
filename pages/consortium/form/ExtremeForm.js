@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { connect } from 'react-redux';
 import { useForm, useWatch } from 'react-hook-form';
 import { FormComponent } from '../../../components';
-import { CreateAccount, EditAccount, DropdownList, FolderPathList } from '../../../redux/action/super/SuperAdminAction';
+import { CreateAccount, EditAccount, DropdownList } from '../../../redux/action/super/SuperAdminAction';
 import { AddImageIcon } from '../../../assets/icon';
 import FormJson from '../../../constant/form/consortium-extreme-account-form.json';
 import { convertDate } from '../../../utils/RegExp';
@@ -18,9 +18,7 @@ const ExtremeForm = ({
     editData,
     EditAccount,
     DropdownList,
-    FolderPathList,
     dpList,
-    folderList
 }) => {
     const [formJsonField, setFormJsonField] = useState(FormJson);
     const [editOperation, setEditOperation] = useState(false);
@@ -36,7 +34,6 @@ const ExtremeForm = ({
 
     useEffect(() => {
         DropdownList(BASE_URL_SUPER + END_POINTS.SUPER_ADMIN_DROPDOWN_LIST);
-        FolderPathList();
     }, []);
 
     useEffect(() => {
@@ -65,7 +62,7 @@ const ExtremeForm = ({
             return formItem;
         });
         setFormJsonField(formList);
-    }, [dpList, folderList]);
+    }, [dpList]);
 
     useEffect(() => {
         if (phoneNumber !== undefined) {
@@ -233,7 +230,6 @@ const mapStateToProps = (state) => ({
     isLoadingCreate: state?.superAdmin?.isLoadingCreate,
     isLoadingEdit: state?.superAdmin?.isLoadingEdit,
     dpList: state?.superAdmin?.ListSuccess,
-    folderList: state?.superAdmin?.folderListSuccess,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -241,7 +237,6 @@ const mapDispatchToProps = (dispatch) => {
         CreateAccount: (url, getUrl, data) => dispatch(CreateAccount(url, getUrl, data)),
         EditAccount: (url, getUrl, data) => dispatch(EditAccount(url, getUrl, data)),
         DropdownList: (url) => dispatch(DropdownList(url)),
-        FolderPathList: () => dispatch(FolderPathList()),
     };
 };
 
