@@ -15,6 +15,7 @@ import CanvasForm from './form/CanvasForm';
 import BlackboardForm from './form/BlackboardForm';
 import BrightSpaceForm from './form/BrightSpaceForm';
 import MoodleLTIForm from './form/MoodleLTIForm';
+import SchoologyForm from './form/SchoologyForm';
 import {
     ADMIN_INTEGRATION_MOODLE,
     ADMIN_INTEGRATION_CANVAS,
@@ -22,24 +23,28 @@ import {
     ADMIN_INTEGRATION_GOOGLECLASSROOM,
     ADMIN_INTEGRATION_BRIGHTSPACE,
     ADMIN_INTEGRATION_MOODLE_LTI,
+    ADMIN_INTEGRATION_SCHOOLOGY,
     ADMIN_INTEGRATION_MOODLE_IMG,
     ADMIN_INTEGRATION_CANVAS_IMG,
     ADMIN_INTEGRATION_BLACKBOARD_IMG,
     ADMIN_INTEGRATION_GOOGLECLASSROOM_IMG,
     ADMIN_INTEGRATION_BRIGHTSPACE_IMG,
     ADMIN_INTEGRATION_MOODLE_LTI_IMG,
+    ADMIN_INTEGRATION_SCHOOLOGY_IMG,
     ADMIN_INTEGRATION_MOODLE_DESCRIPTION,
     ADMIN_INTEGRATION_CANVAS_DESCRIPTION,
     ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION,
     ADMIN_INTEGRATION_GOOGLECLASSROOM_DESCRIPTION,
     ADMIN_INTEGRATION_BRIGHTSPACE_DESCRIPTION,
     ADMIN_INTEGRATION_MOODLE_LTI_DESCRIPTION,
+    ADMIN_INTEGRATION_SCHOOLOGY_DESCRIPTION,
     ADMIN_INTEGRATION_MOODLE_PATH,
     ADMIN_INTEGRATION_CANVAS_PATH,
     ADMIN_INTEGRATION_BLACKBOARD_PATH,
     ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH,
     ADMIN_INTEGRATION_BRIGHTSPACE_PATH,
     ADMIN_INTEGRATION_MOODLE_LTI_PATH,
+    ADMIN_INTEGRATION_SCHOOLOGY_PATH,
 } from '../../../constant/data/Integration';
 import {
     INTEGRATION_TYPES,
@@ -76,12 +81,14 @@ const Integration = ({
     const [showGoogleClassroom, setShowGoogleClassroom] = useState(false);
     const [showBrightSpace, setShowBrightSpace] = useState(false);
     const [showMoodleLti, setShowMoodleLti] = useState(false);
+    const [showSchoology, setShowSchoology] = useState(false);
     const [checked, setChecked] = useState({
         MOODLE: integrationData && integrationData[0]?.lmsconfigured,
         CANVAS: integrationData && integrationData[1]?.lmsconfigured,
         BLACKBOARD: integrationData && integrationData[2]?.lmsconfigured,
         BRIGHTSPACE: integrationData && integrationData[3]?.lmsconfigured,
         MOODLE_LTI: integrationData && integrationData[4]?.lmsconfigured,
+        SCHOOLOGY: integrationData && integrationData[5]?.lmsconfigured,
     });
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [selectedIntegrationType, setSelectedIntegrationType] = useState('');
@@ -103,25 +110,25 @@ const Integration = ({
                 item['img'] = ADMIN_INTEGRATION_MOODLE_IMG;
                 item['description'] = ADMIN_INTEGRATION_MOODLE_DESCRIPTION;
                 item['path'] = ADMIN_INTEGRATION_MOODLE_PATH;
-                item['type'] = 'Moodle';
+                item['type'] = INTEGRATION_TYPES.MOODLE;
             }
             if (item.lms === ADMIN_INTEGRATION_CANVAS) {
                 item['img'] = ADMIN_INTEGRATION_CANVAS_IMG;
                 item['description'] = ADMIN_INTEGRATION_CANVAS_DESCRIPTION;
                 item['path'] = ADMIN_INTEGRATION_CANVAS_PATH;
-                item['type'] = 'Canvas';
+                item['type'] = INTEGRATION_TYPES.CANVAS;
             }
             if (item.lms === ADMIN_INTEGRATION_BLACKBOARD) {
                 item['img'] = ADMIN_INTEGRATION_BLACKBOARD_IMG;
                 item['description'] = ADMIN_INTEGRATION_BLACKBOARD_DESCRIPTION;
                 item['path'] = ADMIN_INTEGRATION_BLACKBOARD_PATH;
-                item['type'] = 'Blackboard';
+                item['type'] = INTEGRATION_TYPES.BLACKBOARD;
             }
             if (item.lms === ADMIN_INTEGRATION_GOOGLECLASSROOM) {
                 item['img'] = ADMIN_INTEGRATION_GOOGLECLASSROOM_IMG;
                 item['description'] = ADMIN_INTEGRATION_GOOGLECLASSROOM_DESCRIPTION;
                 item['path'] = ADMIN_INTEGRATION_GOOGLECLASSROOM_PATH;
-                item['type'] = 'Google Classroom';
+                item['type'] = INTEGRATION_TYPES.GOOGLECLASSROOM;
             }
             if (item.lms === ADMIN_INTEGRATION_BRIGHTSPACE) {
                 item['img'] = ADMIN_INTEGRATION_BRIGHTSPACE_IMG;
@@ -135,6 +142,12 @@ const Integration = ({
                 item['path'] = ADMIN_INTEGRATION_MOODLE_LTI_PATH;
                 item['type'] = INTEGRATION_TYPES.MOODLE_LTI;
             }
+            if (item.lms === ADMIN_INTEGRATION_SCHOOLOGY) {
+                item['img'] = ADMIN_INTEGRATION_SCHOOLOGY_IMG;
+                item['description'] = ADMIN_INTEGRATION_SCHOOLOGY_DESCRIPTION;
+                item['path'] = ADMIN_INTEGRATION_SCHOOLOGY_PATH;
+                item['type'] = INTEGRATION_TYPES.SCHOOLOGY;
+            }
             return item;
         });
         setLmsData(lmsData);
@@ -145,18 +158,20 @@ const Integration = ({
             ...checked,
             [event.target.name]: event.target.checked,
         });
-        if (event.target.name === 'MOODLE') {
+        if (event.target.name === ADMIN_INTEGRATION_MOODLE) {
             setShowMoodle(true);
-        } else if (event.target.name === 'CANVAS') {
+        } else if (event.target.name === ADMIN_INTEGRATION_CANVAS) {
             setShowCanvas(true);
-        } else if (event.target.name === 'BLACKBOARD') {
+        } else if (event.target.name === ADMIN_INTEGRATION_BLACKBOARD) {
             setShowBlackboard(true);
-        } else if (event.target.name === 'GOOGLECLASSROOM') {
+        } else if (event.target.name === ADMIN_INTEGRATION_GOOGLECLASSROOM) {
             setShowGoogleClassroom(true);
-        } else if (event.target.name === 'BRIGHTSPACE') {
+        } else if (event.target.name === ADMIN_INTEGRATION_BRIGHTSPACE) {
             setShowBrightSpace(true);
-        } else if (event.target.name === 'MOODLE_LTI') {
+        } else if (event.target.name === ADMIN_INTEGRATION_MOODLE_LTI) {
             setShowMoodleLti(true);
+        } else if (event.target.name === ADMIN_INTEGRATION_SCHOOLOGY) {
+            setShowSchoology(true);
         }
     };
 
@@ -166,6 +181,7 @@ const Integration = ({
         setShowBlackboard(drawerClose);
         setShowBrightSpace(drawerClose);
         setShowMoodleLti(drawerClose);
+        setShowSchoology(drawerClose);
     };
 
     const handleDeleteIntegration = (integrationType) => {
@@ -185,6 +201,9 @@ const Integration = ({
             setShowDeleteWarning(false);
         } else if (selectedIntegrationType === INTEGRATION_TYPES.MOODLE_LTI) {
             DeleteIntegration(BASE_URL_EXTREM + END_POINTS.INTEGRATION_DELETE_MOODLE_LTI);
+            setShowDeleteWarning(false);
+        } else if (selectedIntegrationType === INTEGRATION_TYPES.SCHOOLOGY) {
+            DeleteIntegration(BASE_URL_EXTREM + END_POINTS.ADMIN_SCHOOLOGY_INTEGRATION);
             setShowDeleteWarning(false);
         }
     };
@@ -276,6 +295,15 @@ const Integration = ({
                     handleDrawerClose={ handleCloseDrawer }
                 >
                     <MoodleLTIForm />
+                </CreateDrawer>
+            }
+            { showSchoology &&
+                <CreateDrawer
+                    isShowAddIcon={ false }
+                    showDrawer={ showSchoology }
+                    handleDrawerClose={ handleCloseDrawer }
+                >
+                    <SchoologyForm />
                 </CreateDrawer>
             }
 
