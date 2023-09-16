@@ -80,6 +80,7 @@ const END_POINTS = {
     ADMIN_BLACKBOARD_INTEGRATION: '/extreme/integrations/blackboard',
     ADMIN_BRIGHTSPACE_INTEGRATION: '/extreme/integrations/brightspace',
     ADMIN_MOODLE_LTI_INTEGRATION: '/extreme/integrations/moodleLti',
+    ADMIN_SCHOOLOGY_INTEGRATION: '/extreme/integrations/schoology',
     SUPER_ADMIN_DASHBOARD_WIDGET: '/drillbit/dashboard',
     SUPER_ADMIN_EXTREME: '/extreme/license',
     SUPER_ADMIN_REF: '/pro/license',

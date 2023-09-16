@@ -280,6 +280,8 @@ export const INTEGRATION_TYPES = {
     BLACKBOARD : 'Blackboard',
     BRIGHTSPACE: 'Brightspace',
     MOODLE_LTI: 'Moodle LTI',
+    SCHOOLOGY: 'Schoology',
+    GOOGLECLASSROOM: 'Google Classroom',
 }
 
 export const ERROR_MESSAGE_RESPONSE = {

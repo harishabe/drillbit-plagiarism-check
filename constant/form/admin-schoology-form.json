@@ -1,0 +1,37 @@
+[
+    {
+        "field_type": "input",
+        "type": "text",
+        "id": "organization_name",
+        "name": "organization_name",
+        "label": "Organization name *",
+        "minLength": 3,
+        "required": "Organization name is required",
+        "validationMsg": "Invalid Organization name"
+    },
+    {
+        "field_type": "input",
+        "type": "email",
+        "id": "email",
+        "name": "email",
+        "label": "Email *",
+        "maxLength": 100,
+        "required": "Email address is required",
+        "validationMsg": "Invalid email address"
+    },
+    {
+        "field_type": "inputNumber",
+        "type": "number",
+        "id": "phone",
+        "name": "phone",
+        "label": "Phone number",
+        "required": "Phone number is required",
+        "validationMsg": "Invalid phone number"
+    },
+
+    {
+        "field_type": "button",
+        "type": "submit",
+        "label": "Submit"
+    }
+]
