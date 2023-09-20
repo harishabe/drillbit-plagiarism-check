@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import _ from "lodash";
+import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import debouce from "lodash.debounce";
@@ -9,7 +10,6 @@ import {
   Tooltip,
   TextField,
   Pagination,
-  IconButton,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -22,10 +22,11 @@ import {
   BreadCrumb,
 } from "../../../components";
 import Admin from "../../../layouts/Admin";
-import { StatsIcon, DeleteWarningIcon } from "../../../assets/icon";
+import { StatsIcon, DeleteWarningIcon, AddMultipleIcon } from "../../../assets/icon";
 import {
   GetStudnetData,
   DeleteStudentData,
+  UploadFileDataClear
 } from "../../../redux/action/admin/AdminAction";
 import { PaginationValue } from "../../../utils/PaginationUrl";
 import StudentForm from "./form/StudentForm";
@@ -37,6 +38,7 @@ import {
   StyledButtonIcon,
   StyledButtonRedIcon,
   MultiSelectTableAction,
+  AddButtonBottom
 } from "../../../style/index";
 import END_POINTS from "../../../utils/EndPoints";
 import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
@@ -93,7 +95,9 @@ const Students = ({
   pageDetails,
   DeleteStudentData,
   isLoading,
+  UploadFileDataClear
 }) => {
+  const router = useRouter();
   const [rows, setRows] = useState([]);
   const classes = useStyles();
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
@@ -273,6 +277,13 @@ const Students = ({
     setEditStudent(drawerClose);
   };
 
+  const handleShow = (e, info) => {
+    if (info?.title === "Add Multiple Students") {
+      UploadFileDataClear();
+      router.push({ pathname: "/extream/admin/addBulkStudent" });
+    }
+  };
+
   return (
     <React.Fragment>
       {showDeleteWarning && (
@@ -343,8 +354,6 @@ const Students = ({
                 },
               }}
             />
-            {/* <SubTitle title='6/10 users &nbsp;' />
-                        <InfoIcon /> */}
           </Grid>
         </Grid>
       </Box>
@@ -366,6 +375,22 @@ const Students = ({
             </Tooltip>
           </MultiSelectTableAction>
         )}
+
+        <AddButtonBottom onClick={ handleShow }>
+          <CreateDrawer
+            options={ [
+              {
+                icon: <AddMultipleIcon />,
+                title: "Add Multiple Students",
+                handleFromCreateDrawer: true,
+              },
+            ] }
+            title="Add Students"
+            handleMultiData={ handleShow }
+            isShowAddIcon={ true }
+          >
+          </CreateDrawer>
+        </AddButtonBottom>
 
         <CommonTable
           isCheckbox={true}
@@ -406,6 +431,7 @@ const mapDispatchToProps = (dispatch) => {
     GetStudnetData: (paginationPayload) =>
       dispatch(GetStudnetData(paginationPayload)),
     DeleteStudentData: (url) => dispatch(DeleteStudentData(url)),
+    UploadFileDataClear: () => dispatch(UploadFileDataClear()),
   };
 };
 

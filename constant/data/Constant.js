@@ -160,14 +160,34 @@ export const DOWNLOAD_CSV = {
 }
 
 export const INSTRUCTOR_TEMPLATE_TITLE = 'Multiple_Instructor_Upload_Template';
+export const STUDENT_TEMPLATE_TITLE = 'Multiple_Student_Upload_Template';
 export const PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE = 'Multiple_Pro_License_Upload_Template';
+export const EXTREME_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE = 'Multiple_Extreme_License_Upload_Template';
 export const USER_TEMPLATE_TITLE = 'Multiple_User_Upload_Template';
-export const BULK_CREATION_TITLE = {
-    'SUBMIT_BUTTON': 'Download Template',
+export const CONSORTIUM_PRO_BULK_CREATION_TITLE = {
+    'SUBMIT_BUTTON': 'Submit',
     'TEMPLATE_BUTTON': 'Download Template',
     'MAIN_HEADING': 'Create Multiple Pro Accounts',
     'HEADING': 'File Format : CSV ',
     'MANDATORY_FIELDS': ' Mandatory fields : Institution Name* , State* , Country* , Coordinator Name* , Coordinator Email* , Designation* , Department* , Phone* , Start Date* , End Date* , No Of Users* , No Of Submissions* , Account Manager* , Institution Type* ',
+    'BROWSE_YOUR_FILE': 'Browse your file here',
+    'ERROR': 'Please select your file to upload'
+}
+export const CONSORTIUM_EXTREME_BULK_CREATION_TITLE = {
+    'SUBMIT_BUTTON': 'Submit',
+    'TEMPLATE_BUTTON': 'Download Template',
+    'MAIN_HEADING': 'Create Multiple Extreme Accounts',
+    'HEADING': 'File Format : CSV ',
+    'MANDATORY_FIELDS': ' Mandatory fields : Institution Name* , State* , Country* , Coordinator Name* , Coordinator Email* , Designation* , Department* , Phone* , Start Date* , End Date* , No Of Instructors* , No Of Students* , No Of Submissions* , Account Manager* , Institution Type* ',
+    'BROWSE_YOUR_FILE': 'Browse your file here',
+    'ERROR': 'Please select your file to upload'
+}
+export const STUDENT_BULK_CREATION_TITLE = {
+    'SUBMIT_BUTTON': 'Submit',
+    'TEMPLATE_BUTTON': 'Download Template',
+    'MAIN_HEADING': 'Add Multiple Students',
+    'HEADING': 'File Format : CSV ',
+    'MANDATORY_FIELDS': ' Mandatory fields :  Student Name* ,  Email* , Student ID* , Department* , Section* , Phone* ',
     'BROWSE_YOUR_FILE': 'Browse your file here',
     'ERROR': 'Please select your file to upload'
 }
@@ -260,6 +280,8 @@ export const INTEGRATION_TYPES = {
     BLACKBOARD : 'Blackboard',
     BRIGHTSPACE: 'Brightspace',
     MOODLE_LTI: 'Moodle LTI',
+    SCHOOLOGY: 'Schoology',
+    GOOGLECLASSROOM: 'Google Classroom',
 }
 
 export const ERROR_MESSAGE_RESPONSE = {

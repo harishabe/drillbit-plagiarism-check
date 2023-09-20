@@ -48,6 +48,7 @@ const IntegrationTypeDetail = ({
     isBlackboardTrue,
     isBrightspaceTrue,
     isMoodleLtiTrue,
+    isSchoologyTrue,
     integrationData,
     routerData,
     handleConfig
@@ -125,11 +126,11 @@ const IntegrationTypeDetail = ({
             }
         } else if (routerData?.integration === 'Brightspace') {
             if (integrationData?.creation_time !== undefined) {
-                let blackBoardDate = integrationData?.creation_time;
+                let brightSpaceDate = integrationData?.creation_time;
                 let row = [
                     createData('Access end point', integrationData?.access_end_point),
                     createData('Authentication end point', integrationData?.auth_end_point),
-                    createData('Configured Date', blackBoardDate),
+                    createData('Configured Date', brightSpaceDate),
                     createData('Client id', integrationData?.client_id),
                     createData('College Name', integrationData?.college_name),
                     createData('Keyset end point', integrationData?.keyset_end_point),
@@ -141,17 +142,31 @@ const IntegrationTypeDetail = ({
             }
         } else if (routerData?.integration === 'Moodle LTI') {
             if (integrationData?.creation_time !== undefined) {
-                let blackBoardDate = integrationData?.creation_time;
+                let moodleLtiDate = integrationData?.creation_time;
                 let row = [
                     createData('Access end point', integrationData?.access_end_point),
                     createData('Authentication end point', integrationData?.auth_end_point),
-                    createData('Configured Date', blackBoardDate),
+                    createData('Configured Date', moodleLtiDate),
                     createData('Client id', integrationData?.client_id),
                     createData('College Name', integrationData?.college_name),
                     createData('Keyset end point', integrationData?.keyset_end_point),
                     createData('Email Address', integrationData?.mail_id),
                     createData('Method', integrationData?.method),
                     createData('Platform url', integrationData?.platform_url),
+                ];
+                setRows([...row]);
+            }
+        } else if (routerData?.integration === 'Schoology') {
+            if (integrationData?.creation_time !== undefined) {
+                let schoologyDate = integrationData?.creation_time;
+                let row = [
+                    createData('Organization Name', integrationData?.organization_name),
+                    createData('Email Address', integrationData?.email),
+                    createData('Configured Date', schoologyDate),
+                    createData('Consumer Key', integrationData?.consumer_key),
+                    createData('Secret key', integrationData?.secret),
+                    createData('Platform', integrationData?.platform),
+                    createData('Phone Number', integrationData?.phone),
                 ];
                 setRows([...row]);
             }
@@ -213,6 +228,15 @@ const IntegrationTypeDetail = ({
                     <CardView>
                         <Title title={ 'Moodle LTI – Configured' } />
                     { body }
+                    </CardView>
+                </>
+            }
+            { isSchoologyTrue &&
+                <>
+                    <Heading title={ 'Schoology LTI Setup' } />
+                    <CardView>
+                        <Title title={ 'Schoology LTI – Configured' } />
+                        { body }
                     </CardView>
                 </>
             }
