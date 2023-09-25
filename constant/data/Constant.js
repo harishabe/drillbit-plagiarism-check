@@ -27,6 +27,7 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'STname',
     'similarity',
     'marks',
+    'percent',
     'q1',
     'q2',
     'q3',

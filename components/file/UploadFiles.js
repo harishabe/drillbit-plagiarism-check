@@ -337,7 +337,7 @@ const UploadFiles = ({
         let local = "LOCAL";
         repositoryArr.push(local);
       } else {
-        repositoryArr.push(data["repository" + item[0]].toUpperCase());
+        repositoryArr.push(data["repository" + item[0]]?.toUpperCase());
       }
       if (data["rep_ex" + item[0]] === true) {
         regExArr.push(1);
@@ -473,7 +473,7 @@ const UploadFiles = ({
                     onChange={handleUpload}
                     id="file-upload"
                     type="file"
-                    accept={ langType === 'ScannedPDF' && '.pdf' }
+                    accept={ langType === 'ScannedPDF' && '.pdf' || isRepository && '.pdf, .doc, .docx' }
                     ref={ ref }
                   />
                 </div>
