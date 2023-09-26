@@ -119,6 +119,10 @@ const Grading = ({
         setShowFeedbackForm(drawerClose);
     };
 
+    const closeDrawerOnSuccess = (drawerClose) => {
+        setShowFeedbackForm(drawerClose);
+    };
+
     const handleDownload = () => {
         setShowModal(true)
     };
@@ -146,6 +150,7 @@ const Grading = ({
                     isShowAddIcon={false}
                     showDrawer={showFeedbackForm}
                     handleDrawerClose={handleCloseDrawer}
+                        handleCloseDrawer={ closeDrawerOnSuccess }
                 >
                     <FeedbackForm
                         clasId={clasId}
