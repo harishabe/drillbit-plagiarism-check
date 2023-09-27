@@ -150,9 +150,9 @@ const RepositoryFileForm = ({
                                     field={ {
                                         'field_type': 'dropdown',
                                         'style': { marginTop: '0px' },
-                                        'id': 'repository' + index,
+                                        'id': 'repository' + item[0],
                                         'label': 'Repository *',
-                                        'name': 'repository' + index,
+                                        'name': 'repository' + item[0],
                                         'required': UPLOAD_FILE_REPOSITORY_TYPE,
                                         'validationMsg': UPLOAD_FILE_REPOSITORY_TYPE,
                                         'size': 'small',
@@ -171,9 +171,9 @@ const RepositoryFileForm = ({
                                     field={ {
                                         'field_type': 'dropdown',
                                         'style': { marginTop: '0px' },
-                                        'id': 'language' + index,
+                                        'id': 'language' + item[0],
                                         'label': 'Language *',
-                                        'name': 'language' + index,
+                                        'name': 'language' + item[0],
                                         'required': UPLOAD_FILE_LANGUAGE,
                                         'validationMsg': UPLOAD_FILE_LANGUAGE,
                                         'size': 'small',

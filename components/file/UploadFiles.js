@@ -35,14 +35,7 @@ import {
 } from "../../constant/data/ErrorMessage";
 import {
   getItemSessionStorage,
-  isValidFileUploaded,
-  isValidRepositoryFileUploaded,
 } from "../../utils/RegExp";
-import { UPLOAD_SUPPORTED_FILES } from "../../constant/data/Constant";
-
-const InvalidFileFormatError = styled.div`
-  color: red;
-`;
 
 const ErrorMessageContainer = styled.div`
   margin-top: 10px;
@@ -74,13 +67,7 @@ const UploadFiles = ({
   const router = useRouter();
   const [fileData, setFileData] = useState([]);
   const [fileWarning, setFileWarning] = useState(false);
-  const [value, setValue] = useState("");
-  const [inputValue, setInputValue] = useState("");
   const [language, setLanguage] = useState("English");
-  const [invalidFileFormat, setInvalidFileFormat] = useState(false);
-  const [nonEnglishLanguage, setNonEnglishLanguage] = useState("");
-  const [nonEnglishLangValue, setNonEnglishLangValue] = useState("");
-  const [regionalLang, setRegionalLang] = useState("");
   const [exemptCheck, setExemptCheck] = useState(
     fileData.reduce((acc, file) => {
       acc[file.id] = false;
@@ -120,30 +107,18 @@ const UploadFiles = ({
     });
   };
 
-  const checkFileFormat = (files, validFile) => {
-    if (validFile) {
-      setInvalidFileFormat(false);
-      if (Object.entries(files).length > 15) {
-        setFileWarning(true);
-      } else {
-        setFileData(Object.entries(files));
-        setFileWarning(false);
-      }
+  const checkFileFormat = (files) => {
+    if (Object.entries(files).length > 15) {
+      setFileWarning(true);
     } else {
-      setInvalidFileFormat(true);
+      setFileData(Object.entries(files));
+      setFileWarning(false);
     }
   };
 
   const handleUpload = (e) => {
     e.preventDefault();
-    const file = e.target.files[0];
-    if (isRepository) {
-      let validFile = isValidRepositoryFileUploaded(file);
-      checkFileFormat(e.target.files, validFile);
-    } else {
-      let validFile = isValidFileUploaded(file);
-      checkFileFormat(e.target.files, validFile);
-    }
+    checkFileFormat(e.target.files)
   };
 
   const handleSubmit = (data) => {
@@ -337,7 +312,7 @@ const UploadFiles = ({
         let local = "LOCAL";
         repositoryArr.push(local);
       } else {
-        repositoryArr.push(data["repository" + item[0]].toUpperCase());
+        repositoryArr.push(data["repository" + item[0]]?.toUpperCase());
       }
       if (data["rep_ex" + item[0]] === true) {
         regExArr.push(1);
@@ -473,14 +448,10 @@ const UploadFiles = ({
                     onChange={handleUpload}
                     id="file-upload"
                     type="file"
-                    accept={ langType === 'ScannedPDF' && '.pdf' }
+                    accept={ allowedFormat.ALLOW_FILE_FORMATS }
                     ref={ ref }
                   />
                 </div>
-                <InvalidFileFormatError>
-                  {invalidFileFormat &&
-                    UPLOAD_SUPPORTED_FILES.INVALID_FILE_FORMAT_ERROR}
-                </InvalidFileFormatError>
 
                 {fileData?.length > 0 &&
                   fileData?.map((item, index) => (

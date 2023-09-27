@@ -478,7 +478,7 @@ const AssignmentForms = ({
         if (editData !== undefined) {
             setShowSetting(true);
             let a = {
-                'assignment_name': editData.assignment_name,
+                'assignment_name': editData?.assignmentData?.assignment_name,
                 'end_date': editData.assignmentData?.end_date,
                 'start_date': editData.assignmentData?.start_date,
                 'marks': editData.assignmentData.marks,
