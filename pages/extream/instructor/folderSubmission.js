@@ -45,9 +45,8 @@ import {
 } from "../../../redux/action/common/Submission/SubmissionAction";
 import {
   DeleteWarningIcon,
-  DownloadIcon,
-  AddFromListIcon,
-  AddMultipleIcon,
+  NonEnglishUploadIcon,
+  EnglishUploadIcon,
   DownloadWarningIcon,
   RepositorySaveWarningIcon,
 } from "../../../assets/icon";
@@ -720,12 +719,12 @@ const folderSubmission = ({
           <CreateDrawer
             options={[
               {
-                icon: <AddMultipleIcon />,
+                icon: <NonEnglishUploadIcon />,
                 title: "Non English",
                 handleFromCreateDrawer: true,
               },
               {
-                icon: <AddFromListIcon />,
+                icon: <EnglishUploadIcon />,
                 title: "English",
                 handleFromCreateDrawer: true,
               },
