@@ -196,8 +196,8 @@ const MyClasses = ({
                         </Tooltip>
                     }
                     <TextField
-                        sx={ { width: '80%' } }
-                        placeholder='Search by Class ID'
+                        sx={ { width: '82%' } }
+                        placeholder='Search by Class ID / Class name'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {

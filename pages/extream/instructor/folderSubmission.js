@@ -91,7 +91,7 @@ const columns = [
   { id: "percent", label: "Similarity", maxWidth: 110 },
   { id: "paper_id", label: "Paper ID", maxWidth: 80 },
   { id: "date_up", label: "Submission Date", maxWidth: 100 },
-  { id: "action", label: "Action", maxWidth: 105 },
+  { id: "action", label: "Actions", maxWidth: 105 },
 ];
 
 function createData(

@@ -429,7 +429,7 @@ const AssignmentForms = ({
             internet === 'YES';
 
         if (addQuestion === ASSIGNMENT_SETTING_VALUE_YES) {
-            if (questionList.length === 0 || questionList[0].p === '') {
+            if (questionList.length === 0 || questionList[0].q === '') {
                 setDisabledButton(true);
                 setErrorMsgDBCheck('Enter minimum one question');
                 return;
@@ -1120,6 +1120,7 @@ const AssignmentForms = ({
                                                             label={ 'Enter question ' + (i + 1) }
                                                             name={ item }
                                                             value={ item['q'] }
+                                                            required={ true }
                                                             onChange={ handleChange }
                                                             inputProps={ {
                                                                 minLength: 3,

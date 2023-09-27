@@ -288,7 +288,7 @@ const MyClasses = ({ GetClassesData, classesData, pageDetails, isLoading }) => {
         <Grid item md={2.7} xs={3.4} style={{ textAlign: "right" }}>
           <TextField
             sx={{ width: "100%" }}
-            placeholder="Search by Class ID"
+            placeholder="Search by Class ID / Class name"
             onChange={debouncedResults}
             inputProps={{
               style: {

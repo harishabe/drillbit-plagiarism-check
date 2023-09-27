@@ -247,10 +247,10 @@ const MyAssignmentDetails = ({
   return (
     <React.Fragment>
       <Grid container>
-        <Grid item md={10.5} xs={12}>
+        <Grid item md={10} xs={12}>
           <BreadCrumb item={StudentBreadCrumb} />
         </Grid>
-        <Grid item md={1.1} xs={1} sx={{ marginTop: "8px" }}>
+        <Grid item md={1.6} xs={1} sx={{ marginTop: "8px" }}>
           <div>
             {headerData !== undefined && (
               <StatusDot
