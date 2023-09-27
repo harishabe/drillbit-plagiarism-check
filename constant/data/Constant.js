@@ -203,33 +203,39 @@ export const UPLOAD_TITLE_CONSTANT = {
 export const UPLOAD_SUPPORTED_FILES = {
     'SINGLE': {
         'FILE_FORMATS': 'File formats:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.rtf,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
+        'ALLOW_FILE_FORMATS': '.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.rtf,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
         'MAX_FILES': ' Multiple files - upto 15 files at a time'
     },
     'SCANNED_PDF': {
         'FILE_FORMATS': 'File formats: .pdf',
+        'ALLOW_FILE_FORMATS': '.pdf',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
     'REGIONAL_FORMAT': {
         'FILE_FORMATS': 'File formats:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
+        'ALLOW_FILE_FORMATS': '.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
     'CROSS_LANGUAGE_FORMAT': {
         'FILE_FORMATS': 'File formats:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
+        'ALLOW_FILE_FORMATS': '.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx,.wpd,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
         'LENGTH': 'Document length - upto 20 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
     'ZIP': {
         'FILE_FORMATS': 'Supported Compressed file format: .zip',
+        'ALLOW_FILE_FORMATS': '.zip',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
         'MAX_FILES': 'Documents - upto 100 files in a single zip'
     },
     'ZIP_REPO': {
         'FILE_FORMATS': 'Supported Compressed file format: .zip  (limited to .doc, .docx, .pdf files)',
+        'ALLOW_FILE_FORMATS': '.zip',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
         'MAX_FILES': 'Documents - upto 100 files in a single zip'
@@ -245,10 +251,9 @@ export const UPLOAD_SUPPORTED_FILES = {
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
     },
-    'NON_ENGLISH': 'Supported file format:.pdf,.doc,.docx,.txt,.dotx,.dot,.pptx,.xlsx, .wpd,.rtf,.html,.odt,.ppt,.xls,.ps,.tex,.xml,.tiff',
-    'REGIONAL': 'Supported file format: .docx',
     'REPO_ALLOWED_FILE': {
         'FILE_FORMATS': 'File formats: .pdf, .doc, .docx',
+        'ALLOW_FILE_FORMATS': '.pdf, .doc, .docx',
         'LENGTH': 'Document length - upto 800 pages',
         'SIZE': 'Document size - upto 100 MB',
         'MAX_FILES': ' Multiple files - upto 15 files at a time'

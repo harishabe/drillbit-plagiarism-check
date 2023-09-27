@@ -181,7 +181,7 @@ const ZipFileUpload = ({
                                 id="file-upload"
                                 type="file"
                                 ref={ ref }
-                                accept=".zip"
+                                accept={ allowedFormat.ALLOW_FILE_FORMATS }
                             />
                             <div>
                                 {(fileData?.length > 0) && fileData?.map((item, index) => (
