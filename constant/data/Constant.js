@@ -25,6 +25,7 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'score',
     'status',
     'STname',
+    'gradingpaper_id',
     'similarity',
     'marks',
     'percent',

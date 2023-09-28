@@ -64,7 +64,7 @@ const MyClassFiles = ({
     { id: "created_date", label: "Start date", maxWidth: 165 },
     { id: "end_date", label: "Expiry date", maxWidth: 165 },
     { id: "status", label: "Status", maxWidth: 130 },
-    { id: "action", label: "Action", maxWidth: 145 },
+    { id: "action", label: "Actions", maxWidth: 145 },
   ];
 
   function createData(
