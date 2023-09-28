@@ -106,11 +106,11 @@ const Grading = ({
     }, [gradingData]);
 
     const handleAction = (event, icon, rowData) => {
-        if (rowData?.paper_id === BACKEND_NO_DATA_PLACEHOLDER) {
+        if (rowData?.gradingpaper_id === BACKEND_NO_DATA_PLACEHOLDER) {
             setShowFeedbackForm(false);
         } else {
             setShowFeedbackForm(true);
-            setFeedbackData(rowData?.paper_id);
+            setFeedbackData(rowData?.gradingpaper_id);
         }
 
     };
