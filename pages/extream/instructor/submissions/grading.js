@@ -78,9 +78,9 @@ const Grading = ({
         { id: 'action', label: 'Feedback', maxWidth: 216 },
     ];
 
-    function createData(STname, paper_id, marks, similarity, action, flag) {
+    function createData(STname, gradingpaper_id, marks, similarity, action, flag) {
         return {
-            STname, paper_id, marks, similarity, action, flag
+            STname, gradingpaper_id, marks, similarity, action, flag
         };
     }
 
