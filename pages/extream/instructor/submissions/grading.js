@@ -72,7 +72,7 @@ const Grading = ({
 
     const columns = [
         { id: 'STname', label: 'Student Name', maxWidth: 216 },
-        { id: 'paper_id', label: 'Paper ID', maxWidth: 216 },
+        { id: 'gradingpaper_id', label: 'Paper ID', maxWidth: 216 },
         { id: 'similarity', label: 'Similarity', maxWidth: 216 },
         { id: 'marks', label: 'Assignment Marks', maxWidth: 216 },
         { id: 'action', label: 'Feedback', maxWidth: 216 },
