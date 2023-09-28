@@ -95,7 +95,7 @@ const Grading = ({
                 <SimilarityStatus percent={ grading.similarity } flag={ grading.flag } />,
                 [
                     {
-                        'component': <StyledButtonIcon variant="outlined" size='small' disabled={ grading.paper_id === '--' } ><FeedbackOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'feedback', 'title': grading.paper_id === '--' ? 'Feedback is disabled because of no similarity percentage.' : 'Feedback'
+                        'component': <StyledButtonIcon variant="outlined" size='small' disabled={ grading.paper_id === BACKEND_NO_DATA_PLACEHOLDER } ><FeedbackOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'feedback', 'title': grading.paper_id === BACKEND_NO_DATA_PLACEHOLDER ? 'Feedback is disabled because of no similarity percentage.' : 'Feedback'
                     },
                 ]
             );
@@ -106,7 +106,7 @@ const Grading = ({
     }, [gradingData]);
 
     const handleAction = (event, icon, rowData) => {
-        if (rowData?.paper_id === '--') {
+        if (rowData?.paper_id === BACKEND_NO_DATA_PLACEHOLDER) {
             setShowFeedbackForm(false);
         } else {
             setShowFeedbackForm(true);
