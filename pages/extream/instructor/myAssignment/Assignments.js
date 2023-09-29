@@ -109,7 +109,9 @@ function createData(
   status,
   start_date,
   end_date,
-  action
+  action,
+  ass_grading,
+  ass_question
 ) {
   return {
     assignmentData,
@@ -119,6 +121,8 @@ function createData(
     start_date,
     end_date,
     action,
+    ass_grading,
+    ass_question
   };
 }
 
@@ -172,6 +176,8 @@ const Assignments = ({
             clasName: router.query.clasName,
             assId: assignment?.ass_id,
             assName: assignment?.assignment_name,
+            assGrading: assignment?.assignment_grading,
+            assQuestion: assignment?.questions,
             grammar:
               grammarSubscription?.toUpperCase() === "YES"
                 ? assignment?.grammar
@@ -214,7 +220,9 @@ const Assignments = ({
             type: "nextPath",
             title: "Next",
           },
-        ]
+        ],
+        assignment?.assignment_grading,
+        assignment?.questions
       );
       row["isSelected"] = false;
       arr.push(row);
@@ -243,6 +251,8 @@ const Assignments = ({
           clasName: router.query.clasName,
           assId: rowData?.assignmentData?.ass_id,
           assName: rowData?.assignmentData?.assignment_name,
+          assGrading: rowData?.assignmentData?.assignment_grading,
+          assQuestion: rowData?.assignmentData?.questions,
           grammar:
             grammarSubscription?.toUpperCase() === "YES"
               ? rowData?.assignmentData?.grammar

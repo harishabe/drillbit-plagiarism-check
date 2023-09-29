@@ -49,27 +49,29 @@ const MySubmissions = () => {
     };
 
     const SubmissionComponent = activeTab === 0 && <Submission />;
-    const GradingComponent = activeTab === 1 && <Grading />;
-    const QnaComponent = activeTab === 2 && <QNA />;
 
     const tabMenu = [
         {
-            // label: `Submission(${pageDetails?.totalElements !== undefined ? pageDetails?.totalElements : 0})`,
             label: 'Submission',
-        },
-        {
-            label: 'Grades',
-        },
-        {
-            label: 'Question & Answer',
         },
     ];
 
     const componentList = [
         SubmissionComponent,
-        GradingComponent,
-        QnaComponent
     ];
+    
+    if (router?.query?.assGrading?.toLowerCase() === 'yes') {
+        tabMenu.splice(1, 0, {
+            label: 'Grades',
+        })
+        componentList.splice(1, 0, <Grading />)
+    }
+    if (router?.query?.assQuestion?.toLowerCase() === 'yes') {
+        tabMenu.splice(2, 0, {
+            label: 'Question & Answer',
+        })
+        componentList.splice(2, 0, <QNA />)
+    }
 
     return (
         <React.Fragment>
