@@ -347,8 +347,8 @@ const SideBar = ({ open }) => {
       !getItemSessionStorage("switchProRole")
     ) {
       const isFlag = getItemSessionStorage("flag")
-      if(isFlag){ 
-        const filteredSidebarConsortium = SidebarConsortium.filter(item => item.name !== 'Extreme').map(item => {
+      if(isFlag === 'true'){ 
+        const filteredSidebarConsortium = [...SidebarConsortium].filter(item => item.name !== 'Extreme').map(item => {
           if (item.name === 'Pro') {
             return { ...item, name: 'Extreme' };
           }
@@ -356,7 +356,7 @@ const SideBar = ({ open }) => {
         });
         setSidebarItem(filteredSidebarConsortium);
       }else{
-        setSidebarItem(SidebarConsortium);
+        setSidebarItem([...SidebarConsortium]);
       }
     } else if (
       role === "consortium" &&

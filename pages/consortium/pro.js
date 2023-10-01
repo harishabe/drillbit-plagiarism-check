@@ -163,7 +163,7 @@ const Pro = ({
       active: false,
     },
     {
-      name: `${isFlag?'Product':'Pro'}(${
+      name: `${isFlag === 'true'?'Product':'Pro'}(${
         pageDetails?.totalElements === undefined
           ? 0
           : pageDetails?.totalElements
@@ -293,7 +293,7 @@ const Pro = ({
   });
 
   const handleShow = (e, info) => {
-    const isFlagTitle = isFlag ? "Create Multiple Accounts" : "Create Multiple Pro Accounts" 
+    const isFlagTitle = isFlag === 'true' ? "Create Multiple Accounts" : "Create Multiple Pro Accounts" 
     if (info?.title === isFlagTitle) {
       UploadFileDataClear();
       router.push({ pathname: "/consortium/bulkLicenseCreation" });
@@ -373,18 +373,18 @@ const Pro = ({
           options={[
             {
               icon: <AddPersonIcon />,
-              title: isFlag ? "Create Account" : "Create Pro Account",
+              title: isFlag === 'true' ? "Create Account" : "Create Pro Account",
               handleFromCreateDrawer: false,
             },
             {
               icon: <AddMultipleIcon />,
-              title: isFlag
+              title: isFlag === 'true'
                 ? "Create Multiple Accounts"
                 : "Create Multiple Pro Accounts",
               handleFromCreateDrawer: true,
             },
           ]}
-          title={isFlag ? "Create Account" : "Create Pro Account"}
+          title={isFlag === 'true' ? "Create Account" : "Create Pro Account"}
           handleMultiData={handleShow}
           isShowAddIcon={true}
         >

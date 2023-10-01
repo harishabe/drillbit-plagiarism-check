@@ -543,7 +543,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
             </>
           )}
 
-        {(role === Role?.consortium || role === Role?.supplier) && (
+        {/* {(role === Role?.consortium || role === Role?.supplier) && (
           <>
             <MenuItem
               className={classes.menuItem}
@@ -560,7 +560,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
             </MenuItem>
             <Divider className={classes.divider} />
           </>
-        )}
+        )} */}
         <MenuItem
           className={classes.menuItem}
           onClick={() => [

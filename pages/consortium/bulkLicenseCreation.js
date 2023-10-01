@@ -167,7 +167,7 @@ const bulkLicenseCreation = ({
                             <div className={ classes.customFileUploadHeader }>
                                 <Grid container spacing={ 1 }>
                                     <Grid item md={ 6 } xs={ 6 }>
-                                        <MainHeading title={ isFlag? 'Create Multiple Accounts': CONSORTIUM_PRO_BULK_CREATION_TITLE.MAIN_HEADING } />
+                                        <MainHeading title={ isFlag === 'true'? 'Create Multiple Accounts': CONSORTIUM_PRO_BULK_CREATION_TITLE.MAIN_HEADING } />
                                     </Grid>
                                     <Grid item md={ 6 } xs={ 6 } align="right">
                                         <Button
