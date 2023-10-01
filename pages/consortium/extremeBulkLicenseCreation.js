@@ -93,7 +93,7 @@ const InstructorBreadCrumb = [
     },
 ];
 
-const ProBulkLicenseCreation = ({
+const ExtremeBulkLicenseCreation = ({
     DownloadTemplate,
     UploadFile,
     isLoadingTemplate,
@@ -249,13 +249,13 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-ProBulkLicenseCreation.layout = Admin;
+ExtremeBulkLicenseCreation.layout = Admin;
 
-ProBulkLicenseCreation.propTypes = {
+ExtremeBulkLicenseCreation.propTypes = {
     DownloadTemplate: propTypes.func.isRequired,
     UploadFile: propTypes.func.isRequired,
     isLoadingTemplate: propTypes.bool,
     isLoadingInstructorFileUpload: propTypes.bool,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProBulkLicenseCreation);
+export default connect(mapStateToProps, mapDispatchToProps)(ExtremeBulkLicenseCreation);

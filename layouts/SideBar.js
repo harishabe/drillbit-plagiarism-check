@@ -346,7 +346,18 @@ const SideBar = ({ open }) => {
       !getItemSessionStorage("switchRole") &&
       !getItemSessionStorage("switchProRole")
     ) {
-      setSidebarItem(SidebarConsortium);
+      const isFlag = getItemSessionStorage("flag")
+      if(isFlag){ 
+        const filteredSidebarConsortium = SidebarConsortium.filter(item => item.name !== 'Extreme').map(item => {
+          if (item.name === 'Pro') {
+            return { ...item, name: 'Extreme' };
+          }
+          return item;
+        });
+        setSidebarItem(filteredSidebarConsortium);
+      }else{
+        setSidebarItem(SidebarConsortium);
+      }
     } else if (
       role === "consortium" &&
       getItemSessionStorage("switchRole") === "admin"

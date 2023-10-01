@@ -70,6 +70,7 @@ const LoginForm = ({ login, loginState, isLoading }) => {
       setItemSessionStorage("token", loginState?.token);
       setItemSessionStorage("email", loginState?.username);
       setItemSessionStorage("name", loginState?.name);
+      setItemSessionStorage("flag", loginState?.in_flag);
       router.push("/consortium/dashboard");
     }
   }, [router, loginState]);

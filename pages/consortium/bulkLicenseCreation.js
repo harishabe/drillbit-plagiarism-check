@@ -28,6 +28,7 @@ import {
 import { BASE_URL_SUPER } from '../../utils/BaseUrl';
 import END_POINTS from '../../utils/EndPoints';
 import { PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE, CONSORTIUM_PRO_BULK_CREATION_TITLE } from '../../constant/data/Constant';
+import { getItemSessionStorage } from "../../utils/RegExp";
 
 const useStyles = makeStyles({
     customFileUpload: {
@@ -82,18 +83,18 @@ const InstructorBreadCrumb = [
         active: false,
     },
     {
-        name: 'Pro',
+        name: 'Product',
         link: '/consortium/pro',
         active: false,
     },
     {
-        name: 'Create Multiple Pro Accounts',
-        link: '/consortium/proBulkLicenseCreation',
+        name: 'Create Multiple Accounts',
+        link: '/consortium/bulkLicenseCreation',
         active: true,
     },
 ];
 
-const ProBulkLicenseCreation = ({
+const bulkLicenseCreation = ({
     DownloadTemplate,
     UploadFile,
     isLoadingTemplate,
@@ -105,6 +106,7 @@ const ProBulkLicenseCreation = ({
     const classes = useStyles();
     const [fileData, setFileData] = useState('');
     const [showError, setShowError] = useState(false);
+    const isFlag = getItemSessionStorage("flag");
 
     const handleDownload = () => {
         DownloadTemplate(BASE_URL_SUPER + END_POINTS.CREATE_MULTIPLE_PRO_LICENSES, PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE);
@@ -165,7 +167,7 @@ const ProBulkLicenseCreation = ({
                             <div className={ classes.customFileUploadHeader }>
                                 <Grid container spacing={ 1 }>
                                     <Grid item md={ 6 } xs={ 6 }>
-                                        <MainHeading title={ CONSORTIUM_PRO_BULK_CREATION_TITLE.MAIN_HEADING } />
+                                        <MainHeading title={ isFlag? 'Create Multiple Accounts': CONSORTIUM_PRO_BULK_CREATION_TITLE.MAIN_HEADING } />
                                     </Grid>
                                     <Grid item md={ 6 } xs={ 6 } align="right">
                                         <Button
@@ -249,13 +251,13 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-ProBulkLicenseCreation.layout = Admin;
+bulkLicenseCreation.layout = Admin;
 
-ProBulkLicenseCreation.propTypes = {
+bulkLicenseCreation.propTypes = {
     DownloadTemplate: propTypes.func.isRequired,
     UploadFile: propTypes.func.isRequired,
     isLoadingTemplate: propTypes.bool,
     isLoadingInstructorFileUpload: propTypes.bool,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProBulkLicenseCreation);
+export default connect(mapStateToProps, mapDispatchToProps)(bulkLicenseCreation);

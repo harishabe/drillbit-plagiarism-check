@@ -163,7 +163,7 @@ export const DOWNLOAD_CSV = {
 
 export const INSTRUCTOR_TEMPLATE_TITLE = 'Multiple_Instructor_Upload_Template';
 export const STUDENT_TEMPLATE_TITLE = 'Multiple_Student_Upload_Template';
-export const PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE = 'Multiple_Pro_License_Upload_Template';
+export const PRO_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE = 'Multiple_License_Upload_Template';
 export const EXTREME_ACCOUNT_BULK_CREATION_TEMPLATE_TITLE = 'Multiple_Extreme_License_Upload_Template';
 export const USER_TEMPLATE_TITLE = 'Multiple_User_Upload_Template';
 export const CONSORTIUM_PRO_BULK_CREATION_TITLE = {
