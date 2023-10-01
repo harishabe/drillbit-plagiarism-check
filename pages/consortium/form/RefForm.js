@@ -22,7 +22,6 @@ const RefForm = ({
 }) => {
     const [formJsonField, setFormJsonField] = useState(FormJson);
     const [editOperation, setEditOperation] = useState(false);
-
     const { handleSubmit, control, setValue } = useForm({
         mode: 'all',
     });
@@ -194,10 +193,10 @@ const RefForm = ({
                 'timeZone',
             ];
             fields.forEach(field => { setValue(field, a[field]); });
-            modifyFormField('Edit Ref Account', true);
+            modifyFormField('Edit Account', true);
             setEditOperation(true);
         } else {
-            modifyFormField('Create Ref Account', false);
+            modifyFormField('Create Account', false);
         }
     }, [editData]);
 
