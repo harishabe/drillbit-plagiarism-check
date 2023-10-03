@@ -89,7 +89,7 @@ const Extreme = ({
     const [paginationPayload, setPaginationPayload] = useState({
         page: PaginationValue?.page,
         size: PaginationValue?.size,
-        field: 'name',
+        field: 'lid',
         orderBy: PaginationValue?.orderBy,
     });
     const [editUser, setEditUser] = useState(false);
@@ -256,7 +256,7 @@ const Extreme = ({
                 <Grid item md={ 2.5 } xs={ 2.5 } style={ { textAlign: 'right' } }>
                     <TextField
                         sx={ { width: '100%' } }
-                        placeholder='Search'
+                        placeholder='Search by Institution name'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {

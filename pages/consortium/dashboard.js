@@ -208,6 +208,10 @@ const Dashboard = ({
         });
     }
 
+    const submissionDetail = submissionData === submission[1] && submissionChartData?.data?.reduce((acc, currentValue) => {
+        return acc + currentValue;
+    }, 0);
+
     return (
         <React.Fragment>
             <Box sx={ { flexGrow: 1 } }>
@@ -331,7 +335,7 @@ const Dashboard = ({
                                 }
                             </Grid>
                             { (isLoading || submissionChartLoading) ? <Skeleton /> :
-                                superDashboardData && submissionChartData?.xaxisData?.length > 0 ?
+                                superDashboardData && submissionChartData?.xaxisData?.length > 0 && submissionDetail !== 0 ?
                                     <ColumnChart
                                         filename={ submissionData }
                                         type={ COLUMN_ADMIN_CHART_TYPE }
