@@ -54,6 +54,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const columns = [
+    { id: 'lid', label: 'LID', maxWidth: 90 },
     { id: 'college_name', label: 'Institution name', maxWidth: 90 },
     { id: 'name', label: 'Co-ordinator name', maxWidth: 90 },
     { id: 'email', label: 'Email', maxWidth: 90 },
@@ -68,9 +69,9 @@ const columns = [
     { id: 'action', label: 'Action', maxWidth: 75 }
 ];
 
-function createData(college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, used_documents, action, lid, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
+function createData(lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
 
-    return { college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, used_documents, action, lid, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type };
+    return { lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type };
 }
 
 const Extreme = ({
@@ -118,6 +119,7 @@ const Extreme = ({
         extremeData?.map((data) => {
             row =
                 createData(
+                    data.lid,
                     data.college_name,
                     data.name,
                     data.email,
@@ -134,7 +136,6 @@ const Extreme = ({
                             'component': <StyledButtonIcon variant="outlined" size='small'><EditOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'edit', 'title': 'Edit'
                         },
                     ],
-                    data.lid,
                     data.state,
                     data.address,
                     data.designation,

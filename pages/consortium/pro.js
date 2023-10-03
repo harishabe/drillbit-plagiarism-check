@@ -60,6 +60,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const columns = [
+  { id: 'lid', label: 'LID', maxWidth: 90 },
   { id: "college_name", label: "Institution name", maxWidth: 90 },
   { id: "name", label: "Co-ordinator name", maxWidth: 90 },
   { id: "email", label: "Email", maxWidth: 90 },
@@ -74,6 +75,7 @@ const columns = [
 ];
 
 function createData(
+  lid,
   college_name,
   name,
   email,
@@ -85,7 +87,6 @@ function createData(
   documents,
   used_documents,
   action,
-  lid,
   students,
   state,
   address,
@@ -103,6 +104,7 @@ function createData(
   institution_type
 ) {
   return {
+    lid,
     college_name,
     name,
     email,
@@ -114,7 +116,6 @@ function createData(
     documents,
     used_documents,
     action,
-    lid,
     students,
     state,
     address,
@@ -182,6 +183,7 @@ const Pro = ({
     let arr = [];
     extremeData?.map((data) => {
       row = createData(
+        data.lid,
         data.college_name,
         data.name,
         data.email,
@@ -203,7 +205,6 @@ const Pro = ({
             title: "Edit",
           },
         ],
-        data.lid,
         data.students.toString(),
         data.state,
         data.address,
