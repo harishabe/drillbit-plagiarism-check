@@ -44,3 +44,9 @@ export const SuperAdminPaginationValue = {
     'field': 'name',
     'orderBy': 'desc'
 }
+export const ConsortiumPaginationValue = {
+    'page': 0,
+    'size': 25,
+    'field': 'lid',
+    'orderBy': 'desc'
+}

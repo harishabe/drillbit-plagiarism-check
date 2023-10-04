@@ -17,7 +17,8 @@ import {
     ResendCredentialsData
 } from '../../api/super/SuperAdminAPI';
 import toastrValidation from '../../../utils/ToastrValidation';
-import { SuperAdminPaginationValue, PaginationValue } from '../../../utils/PaginationUrl';
+import { SuperAdminPaginationValue, PaginationValue, ConsortiumPaginationValue } from '../../../utils/PaginationUrl';
+import { getItemSessionStorage } from '../../../utils/RegExp';
 import { BASE_URL_SUPER } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { EXTREME, PRO } from '../../../constant/data/Constant';
@@ -90,7 +91,7 @@ export function* onLoadCreateAccount(action) {
             type: types.FETCH_SUPER_ADMIN_CREATE_ACCOUNT_SUCCESS, payload: response?.data,
         });
         yield put({
-            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.getUrl, paginationPayload: SuperAdminPaginationValue,
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.getUrl, paginationPayload: getItemSessionStorage('role') !== 'consortium' ? SuperAdminPaginationValue : ConsortiumPaginationValue,
         });
         toastrValidation(response)
     } else {
@@ -148,7 +149,7 @@ export function* onLoadEditAccount(action) {
             type: types.FETCH_SUPER_ADMIN_EDIT_ACCOUNT_SUCCESS, payload: response?.data,
         });
         yield put({
-            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.getUrl, paginationPayload: SuperAdminPaginationValue,
+            type: types.FETCH_SUPER_ADMIN_EXTREME_REF_START, url: action.getUrl, paginationPayload: getItemSessionStorage('role') !== 'consortium' ? SuperAdminPaginationValue : ConsortiumPaginationValue,
         });
         toastrValidation(response)
     } else {
