@@ -207,6 +207,7 @@ const folderSubmission = ({
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showSubmissionReport, setShowSubmissionReport] = useState(false);
+  const [bulkSubmissionReport, setBulkSubmissionReport] = useState(false);
   const [submissionReportData, setSubmissionReportData] = useState("");
   const [deleteRowData, setDeleteRowData] = useState("");
   const [saveRowData, setSaveRowData] = useState("");
@@ -571,6 +572,10 @@ const folderSubmission = ({
     setShowSubmissionReport(false);
   };
 
+  const handleBulkDownloadCloseWarning = () => {
+    setBulkSubmissionReport(false);
+  };
+
   const handleFileDownloadYesWarning = () => {
     let detailedData = {
       folderId: folderId,
@@ -593,6 +598,24 @@ const folderSubmission = ({
       submissionReportData
     );
     setShowSubmissionReport(false);
+  };
+
+  const handleBulkDownloadYesWarning = () => {
+    let rowsId = "";
+    _.filter(rows, function (o) {
+      if (o.isSelected === true) {
+        return rows;
+      }
+    }).map((rowItem) => {
+      rowsId += rowItem?.paper_id + ",";
+    });
+    let requestPayload = {};
+    requestPayload["paperId"] = removeCommaWordEnd(rowsId);
+    SubmissionReportBulkDownload(
+      BASE_URL_PRO + END_POINTS_PRO.SIMILARITY_REPORT_DOWNLOAD,
+      requestPayload
+    );
+    setBulkSubmissionReport(false);
   };
 
   /**
@@ -641,20 +664,7 @@ const folderSubmission = ({
   };
 
   const submissionBulkDownload = () => {
-    let rowsId = "";
-    _.filter(rows, function (o) {
-      if (o.isSelected === true) {
-        return rows;
-      }
-    }).map((rowItem) => {
-      rowsId += rowItem?.paper_id + ",";
-    });
-    let requestPayload = {};
-    requestPayload["paperId"] = removeCommaWordEnd(rowsId);
-    SubmissionReportBulkDownload(
-      BASE_URL_PRO + END_POINTS_PRO.SIMILARITY_REPORT_DOWNLOAD,
-      requestPayload
-    );
+    setBulkSubmissionReport(true)
   };
 
   return (
@@ -735,7 +745,7 @@ const folderSubmission = ({
                 </StyledButtonGreenIcon>
               </Tooltip>
               {isLoadingBulkDownload ? (
-                <Skeleton width={200} style={{ marginRight: "5px" }} />
+                <Skeleton width={30} style={{ marginRight: "5px" }} />
               ) : (
                 <Tooltip title="Submission report bulk download" arrow>
                   <StyledButtonIcon
@@ -872,6 +882,16 @@ const folderSubmission = ({
             message={WARNING_MESSAGES.DOWNLOAD}
             handleYes={handleSubmissionDownloadYesWarning}
             handleNo={handleSubmissionDownloadCloseWarning}
+            isOpen={true}
+          />
+        )}
+
+        {bulkSubmissionReport && (
+          <WarningDialog
+            warningIcon={<DownloadWarningIcon />}
+            message={WARNING_MESSAGES.DOWNLOAD}
+            handleYes={handleBulkDownloadYesWarning}
+            handleNo={handleBulkDownloadCloseWarning}
             isOpen={true}
           />
         )}
