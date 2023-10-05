@@ -208,7 +208,7 @@ const Dashboard = ({
         });
     }
 
-    const submissionDetail = submissionData === submission[1] && submissionChartData?.data?.reduce((acc, currentValue) => {
+    const submissionDetail = submissionData && submissionChartData?.data?.reduce((acc, currentValue) => {
         return acc + currentValue;
     }, 0);
 
