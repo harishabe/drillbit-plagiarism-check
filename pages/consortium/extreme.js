@@ -65,13 +65,13 @@ const columns = [
     { id: 'instructors', label: 'Instructors', maxWidth: 75 },
     { id: 'students', label: 'Students', maxWidth: 75 },
     { id: 'documents', label: 'Allocated documents', maxWidth: 80 },
-    { id: 'used_documents', label: 'Submissions', maxWidth: 80 },
+    { id: 'cons_used_documents', label: 'Submissions', maxWidth: 80 },
     { id: 'action', label: 'Action', maxWidth: 75 }
 ];
 
-function createData(lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
+function createData(lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, cons_used_documents, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
 
-    return { lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type };
+    return { lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, cons_used_documents, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type };
 }
 
 const Extreme = ({
@@ -158,10 +158,10 @@ const Extreme = ({
 
     const handleTableSort = (e, column, sortToggle) => {
         if (sortToggle) {
-            paginationPayload['field'] = column.id;
+            paginationPayload['field'] = column.id === 'cons_used_documents' ? 'sub_count' : column.id;
             paginationPayload['orderBy'] = 'asc';
         } else {
-            paginationPayload['field'] = column.id;
+            paginationPayload['field'] = column.id === 'cons_used_documents' ? 'sub_count' : column.id;
             paginationPayload['orderBy'] = 'desc';
         }
         setPaginationPayload({ ...paginationPayload, paginationPayload });
