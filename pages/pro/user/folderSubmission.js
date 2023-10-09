@@ -6,9 +6,11 @@ import { makeStyles } from "@mui/styles";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import debouce from "lodash.debounce";
-import { Grid, Tooltip } from "@mui/material";
+import { Grid, Tooltip, useMediaQuery } from "@mui/material";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Skeleton } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { Pagination } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
@@ -51,6 +53,7 @@ import {
   NonEnglishUploadIcon,
   EnglishUploadIcon,
   DownloadWarningIcon,
+  AIDownloadIcon,
   RepositorySaveWarningIcon,
 } from "../../../assets/icon";
 import { PaginationValue } from "../../../utils/PaginationUrl";
@@ -75,6 +78,7 @@ import {
   BASE_URL_UPLOAD,
   BASE_URL_REGIONAL_ANALYSIS,
   BASE_URL_ANALYSIS_GATEWAY,
+  BASE_URL_AI_ANALYSIS,
 } from "../../../utils/BaseUrl";
 import END_POINTS_PRO from "../../../utils/EndPointPro";
 import {
@@ -88,18 +92,6 @@ import {
 import PageChange from "../../../components/loader/PageChange";
 import { INSTRUCTIONS_STEPS } from "../../../constant/data/InstructionMessage";
 
-const columns = [
-  { id: "name", label: "Name", maxWidth: 100 },
-  { id: "title", label: "Title", maxWidth: 100 },
-  { id: "original_fn", label: "File", isDownload: true, maxWidth: 120 },
-  { id: "lang1", label: "Language", maxWidth: 89 },
-  { id: "grammar_url", label: "Grammar", maxWidth: 100 },
-  { id: "percent", label: "Similarity", maxWidth: 110 },
-  { id: "paper_id", label: "Paper ID", maxWidth: 80 },
-  { id: "date_up", label: "Submission Date", maxWidth: 100 },
-  { id: "action", label: "Action", maxWidth: 105 },
-];
-
 function createData(
   id,
   name,
@@ -109,6 +101,7 @@ function createData(
   grammar,
   grammar_url,
   percent,
+  ai,
   paper_id,
   date_up,
   action,
@@ -127,6 +120,7 @@ function createData(
     grammar,
     grammar_url,
     percent,
+    ai,
     paper_id,
     date_up,
     action,
@@ -170,14 +164,31 @@ const useStyles = makeStyles(() => ({
   },
   skeleton: {
     display: "inline-block",
-    marginRight: "10px"
-  }
+    marginRight: "10px",
+  },
 }));
 
 const DeleteAllButton = styled.div`
   marginleft: 10px;
   display: flex;
 `;
+
+const AISimilarityReport = ({ submission, handleAiAnalysis }) => {
+  return (
+    <Tooltip title="AI Similarity report" arrow>
+      <div
+        style={{ cursor: "pointer", color: "#483d8b", fontWeight: "bold" }}
+        onClick={(e) => handleAiAnalysis(e, submission)}
+      >
+        {submission.percent === "--" ? (
+          '--'
+        ) : (
+          submission.ai !== "" && submission.ai + "%"
+        )}
+      </div>
+    </Tooltip>
+  );
+};
 
 const folderSubmission = ({
   folderSubmissionsFileData,
@@ -207,6 +218,7 @@ const folderSubmission = ({
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showSubmissionReport, setShowSubmissionReport] = useState(false);
+  const [showAiSubmissionReport, setShowAiSubmissionReport] = useState(false);
   const [bulkSubmissionReport, setBulkSubmissionReport] = useState(false);
   const [submissionReportData, setSubmissionReportData] = useState("");
   const [deleteRowData, setDeleteRowData] = useState("");
@@ -219,6 +231,21 @@ const folderSubmission = ({
 
   const folderId = router.query.folderId;
   const folderName = router.query.name;
+
+  const theme = useTheme();
+  const isScreen = useMediaQuery(theme.breakpoints.down("1335"));
+  const columns = [
+    { id: "name", label: "Name", maxWidth: 100 },
+    { id: "title", label: "Title", maxWidth: 100 },
+    { id: "original_fn", label: "File", isDownload: true, maxWidth: 120 },
+    { id: "lang1", label: "Language", maxWidth: 89 },
+    { id: "grammar_url", label: "Grammar", maxWidth: 100 },
+    { id: "percent", label: "Similarity %", maxWidth: 110 },
+    { id: "ai", label: "AI %", maxWidth: 50 },
+    { id: "paper_id", label: "Paper ID", maxWidth: 80 },
+    { id: "date_up", label: "Submission Date", maxWidth: 100 },
+    { id: "action", label: "Action", maxWidth: isScreen ? 145 : 130 },
+  ];
 
   const TooltipContent = ({ value }) => (
     <>
@@ -302,6 +329,15 @@ const folderSubmission = ({
     );
   };
 
+  const handleAIAnalysis = (e, row) => {
+    console.log("row-handleAIAnalysis", row);
+    let token = getItemSessionStorage("token");
+    let url =
+      BASE_URL_AI_ANALYSIS + "/" + row.paper_id + "/" + row.d_key + "/" + token;
+    console.log("urlurlurl", url);
+    windowOpen(url);
+  };
+
   useEffect(() => {
     let row = "";
     let arr = [];
@@ -336,6 +372,18 @@ const folderSubmission = ({
           percent={submission.percent}
           flag={submission.flag}
         />,
+        <>
+          {submission?.language === "English" ? (
+            <AISimilarityReport
+              submission={submission}
+              handleAiAnalysis={(e) => handleAIAnalysis(e, submission)}
+            />
+          ) : (
+            <Tooltip title="AI(%) support only for English language" arrow>
+              <InfoOutlinedIcon fontSize="small" />
+            </Tooltip>
+          )}
+        </>,
         submission.paper_id,
         formatDate(submission.date_up),
         [
@@ -359,6 +407,26 @@ const folderSubmission = ({
               },
           {
             component: (
+              <StyledButtonIcon
+                variant="outlined"
+                disabled={submission?.language !== "English"}
+                size="small"
+              >
+                {submission?.language === "English" ? (
+                  <FileDownloadOutlinedIcon fontSize="small" />
+                ) : (
+                  <InfoOutlinedIcon fontSize="small" />
+                )}
+              </StyledButtonIcon>
+            ),
+            type: "AIReportDownload",
+            title:
+              submission?.language === "English"
+                ? "AI similarity report download"
+                : "AI download support only English language",
+          },
+          {
+            component: (
               <StyledButtonRedIcon variant="outlined" size="small">
                 <DeleteOutlineOutlinedIcon fontSize="small" />
               </StyledButtonRedIcon>
@@ -369,7 +437,9 @@ const folderSubmission = ({
         ],
         submission.d_key,
         submission.alert_msg,
-        submission.repository_status
+        submission.repository_status,
+        submission.language,
+        submission.flag
       );
       row["isSelected"] = false;
       arr.push(row);
@@ -393,12 +463,16 @@ const folderSubmission = ({
   }, [isLoadingSubmissionReport]);
 
   const handleAction = (event, icon, rowData) => {
+    event.preventDefault();
     if (icon === "delete") {
       setDeleteRowData(rowData?.paper_id);
       setShowDeleteWarning(true);
     } else if (icon === "download") {
       setSubmissionReportData(rowData);
       setShowSubmissionReport(true);
+    } else if (icon === "AIReportDownload" && rowData.language === "English") {
+      setSubmissionReportData(rowData);
+      setShowAiSubmissionReport(true);
     }
   };
 
@@ -543,7 +617,7 @@ const folderSubmission = ({
   };
 
   const handleDownload = () => {
-    setShowModal(true)
+    setShowModal(true);
   };
 
   const handleDownloadYesWarning = () => {
@@ -598,6 +672,20 @@ const folderSubmission = ({
       submissionReportData
     );
     setShowSubmissionReport(false);
+  };
+
+  const handleAISubmissionDownloadYesWarning = () => {
+    SubmissionReportDownload(
+      BASE_URL_ANALYSIS_GATEWAY +
+        END_POINTS_PRO.AI_SIMILARITY_REPORT_SINGLE_DOWNLOAD +
+        `${submissionReportData?.paper_id}/${submissionReportData?.d_key}`,
+      submissionReportData
+    );
+    setShowAiSubmissionReport(false);
+  };
+
+  const handleAISubmissionDownloadCloseWarning = () => {
+    setShowAiSubmissionReport(false);
   };
 
   const handleBulkDownloadYesWarning = () => {
@@ -664,7 +752,7 @@ const folderSubmission = ({
   };
 
   const submissionBulkDownload = () => {
-    setBulkSubmissionReport(true)
+    setBulkSubmissionReport(true);
   };
 
   return (
@@ -695,12 +783,8 @@ const folderSubmission = ({
               </StyledButtonIcon>
             </Tooltip>
 
-            { folderSubmissionData?.length > 0 && isLoadingDownload ? (
-              <Skeleton
-                width={ 30 }
-                height={ 35 }
-                className={ classes.skeleton }
-              />
+            {folderSubmissionData?.length > 0 && isLoadingDownload ? (
+              <Skeleton width={30} height={35} className={classes.skeleton} />
             ) : (
               <Tooltip title="Submission report download" arrow>
                 <StyledButtonIcon
@@ -886,6 +970,16 @@ const folderSubmission = ({
           />
         )}
 
+        {showAiSubmissionReport && (
+          <WarningDialog
+            warningIcon={<AIDownloadIcon />}
+            message={WARNING_MESSAGES.AI_DOWNLOAD}
+            handleYes={handleAISubmissionDownloadYesWarning}
+            handleNo={handleAISubmissionDownloadCloseWarning}
+            isOpen={showAiSubmissionReport}
+          />
+        )}
+
         {bulkSubmissionReport && (
           <WarningDialog
             warningIcon={<DownloadWarningIcon />}
@@ -896,15 +990,15 @@ const folderSubmission = ({
           />
         )}
 
-        { showModal && (
+        {showModal && (
           <WarningDialog
-            warningIcon={ <DownloadWarningIcon /> }
-            message={ WARNING_MESSAGES.DOWNLOAD }
-            handleYes={ handleDownloadYesWarning }
-            handleNo={ handleDownloadCloseWarning }
-            isOpen={ true }
+            warningIcon={<DownloadWarningIcon />}
+            message={WARNING_MESSAGES.DOWNLOAD}
+            handleYes={handleDownloadYesWarning}
+            handleNo={handleDownloadCloseWarning}
+            isOpen={true}
           />
-        ) }
+        )}
 
         <PaginationContainer>
           <Pagination

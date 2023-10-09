@@ -27,6 +27,7 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'STname',
     'gradingpaper_id',
     'similarity',
+    'ai',
     'marks',
     'percent',
     'q1',
@@ -66,7 +67,7 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'superadminplagairism',
     'superadmingrammar',
     'used_documents',
-    'folder_no_of_submissions'
+    'folder_no_of_submissions',
 ];
 export const TABLE_BODY_ALLOW_ICON = [
     'action',
@@ -274,6 +275,7 @@ export const FORM_VALIDATION = {
 export const WARNING_MESSAGES = {
     'REPOSITORY': 'Are you sure you want to save this to repository ?',
     'DOWNLOAD': 'Are you sure you want to download ?',
+    'AI_DOWNLOAD': 'Are you sure you want to download AI report ?',
     'DELETE': 'Are you sure you want to delete ?',
     'RESEND_CREDENTIALS': 'Are you sure, you want resend credentials to this account?',
     'MAKE_ADMIN': 'Are you sure, you want to make him admin?',
