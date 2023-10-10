@@ -65,13 +65,13 @@ const columns = [
     { id: 'instructors', label: 'Instructors', maxWidth: 75 },
     { id: 'students', label: 'Students', maxWidth: 75 },
     { id: 'documents', label: 'Allocated documents', maxWidth: 80 },
-    { id: 'used_documents', label: 'Submissions', maxWidth: 80 },
+    { id: 'sub_count', label: 'Submissions', maxWidth: 80 },
     { id: 'action', label: 'Action', maxWidth: 75 }
 ];
 
-function createData(lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
+function createData(lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, sub_count, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type) {
 
-    return { lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, used_documents, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type };
+    return { lid, college_name, name, email, country, start_date, expiry_date, acc_manager, instructors, students, documents, sub_count, action, state, address, designation, phone, created_date, document_type, grammar, grammar_documents, license_type, product_type, timeZone, folpath, department, institution_type };
 }
 
 const Extreme = ({
