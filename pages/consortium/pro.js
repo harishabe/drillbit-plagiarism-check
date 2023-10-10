@@ -70,7 +70,7 @@ const columns = [
   { id: "acc_manager", label: "Account manager", maxWidth: 90 },
   { id: "instructors", label: "Users", maxWidth: 90 },
   { id: "documents", label: "Allocated documents", maxWidth: 90 },
-  { id: "cons_used_documents", label: "Submissions", maxWidth: 90 },
+  { id: "sub_count", label: "Submissions", maxWidth: 90 },
   { id: "action", label: "Action", maxWidth: 90 },
 ];
 
@@ -85,7 +85,7 @@ function createData(
   acc_manager,
   instructors,
   documents,
-  cons_used_documents,
+  sub_count,
   action,
   students,
   state,
@@ -114,7 +114,7 @@ function createData(
     acc_manager,
     instructors,
     documents,
-    cons_used_documents,
+    sub_count,
     action,
     students,
     state,
@@ -228,10 +228,10 @@ const Pro = ({
 
   const handleTableSort = (e, column, sortToggle) => {
     if (sortToggle) {
-      paginationPayload['field'] = column.id === 'cons_used_documents' ? 'sub_count' : column.id;
+      paginationPayload['field'] = column.id 
       paginationPayload["orderBy"] = "asc";
     } else {
-      paginationPayload['field'] = column.id === 'cons_used_documents' ? 'sub_count' : column.id;
+      paginationPayload['field'] = column.id
       paginationPayload["orderBy"] = "desc";
     }
     setPaginationPayload({ ...paginationPayload, paginationPayload });
