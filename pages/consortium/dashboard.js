@@ -33,7 +33,7 @@ import { BASE_URL_SUPER } from '../../utils/BaseUrl'
 import END_POINTS from "../../utils/EndPoints";
 import { success } from '../../utils/ToastrValidation';
 
-const chart = ['Country wise institutions', 'Country wise submissions', 'Country wise users', 'State wise institutions', 'State wise submissions', 'State wise users', 'Institution wise submissions'];
+const chart = ['Institution wise submissions', 'Institutions type', 'State wise institutions', 'State wise submissions', 'State wise users' ];
 const submission = ['Year wise submissions', 'Month wise submissions'];
 
 const Dashboard = ({
@@ -55,6 +55,7 @@ const Dashboard = ({
     });
     const [chartLoading, setChartLoading] = useState(false);
     const [submissionChartLoading, setSubmissionChartLoading] = useState(false);
+    const [institutionTypeData, setInstitutionTypeData] = useState();
 
     useEffect(() => {
         if (router?.query?.message) {
@@ -63,31 +64,22 @@ const Dashboard = ({
         GetWidgetCount(BASE_URL_SUPER + END_POINTS.CONSORTIUM_DASHBOARD);
     }, []);
 
-    let a = 0; let b = 0; let c = 0; let d = 0; let e = 0; let f = 0;
+    let a = 0; let b = 0; let c = 0; let d = 0;
 
-    const COUNTRY_WISE_INSTITUTES = superDashboardData && Object.keys(superDashboardData?.countryWiseInstituttes).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.countryWiseInstituttes)[a++] + ')'
-    })
-
-    const COUNTRY_WISE_SUBMISSIONS = superDashboardData && Object.keys(superDashboardData?.countryWiseSubmissions).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.countryWiseSubmissions)[b++] + ')'
-    })
-
-    const COUNTRY_WISE_USERS = superDashboardData && Object.keys(superDashboardData?.countryWiseUsers
-    ).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.countryWiseUsers)[c++] + ')'
+    const INSITUTIONS_TYPES = superDashboardData && Object.keys(superDashboardData?.institutionTypes).map((value) => {
+        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.institutionTypes)[a++] + ')'
     })
 
     const STATE_WISE_INSTITUTES = superDashboardData && Object.keys(superDashboardData?.stateWiseInstituttes).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseInstituttes)[d++] + ')'
+        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseInstituttes)[b++] + ')'
     })
 
     const STATE_WISE_SUBMISSIONS = superDashboardData && Object.keys(superDashboardData?.stateWiseSubmissions).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseSubmissions)[e++] + ')'
+        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseSubmissions)[c++] + ')'
     })
 
     const STATE_WISE_USERS = superDashboardData && Object.keys(superDashboardData?.stateWiseUsers).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseUsers)[f++] + ')'
+        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseUsers)[d++] + ')'
     })
 
     const INSTITUTION_WISE_SUBMISSIONS = superDashboardData && Object.keys(superDashboardData.institutionsWiseSubmissions).map((value) => {
@@ -105,25 +97,39 @@ const Dashboard = ({
     const sortedSeries = superDashboardData && sortedData.map((data) => data.value);
     const sortedLabels = superDashboardData && sortedData.map((data) => data.label);
 
+    const columnWidth = (label) => {
+        if (label?.length <= 5){
+            return '10%';
+        } else if (label?.length >= 6 && label?.length <= 10){
+            return '30%'
+        } else if (label?.length >= 11) {
+            return COLUMN_ADMIN_WIDTH
+        }
+    }
+
+    const InstitutionTypeFilterData = (institutionTypeData) => {
+        let instituteArr = [];
+        institutionTypeData &&
+            Object.entries(institutionTypeData).forEach((key) => {
+                if (key[1] > 0) {
+                    instituteArr.push({ instituteType: key[0], count: key[1] });
+                }
+            });
+        instituteArr.sort((a, b) => b.count - a.count);
+        return instituteArr;
+    };
+    
+    useEffect(() => {
+        if (superDashboardData?.institutionTypes !== undefined) {
+            let b = InstitutionTypeFilterData(superDashboardData?.institutionTypes);
+            setInstitutionTypeData(b);
+        }
+    }, [superDashboardData?.institutionTypes]);
+
     useEffect(() => {
         if (superDashboardData) {
             setChartLoading(true)
-            if (value === 'Country wise institutions') {
-                setChartData({
-                    'label': COUNTRY_WISE_INSTITUTES,
-                    'series': Object.values(superDashboardData?.countryWiseInstituttes)
-                })
-            } else if (value === 'Country wise submissions') {
-                setChartData({
-                    'label': COUNTRY_WISE_SUBMISSIONS,
-                    'series': Object.values(superDashboardData?.countryWiseSubmissions)
-                })
-            } else if (value === 'Country wise users') {
-                setChartData({
-                    'label': COUNTRY_WISE_USERS,
-                    'series': Object.values(superDashboardData?.countryWiseUsers)
-                })
-            } else if (value === 'State wise institutions') {
+            if (value === 'State wise institutions') {
                 setChartData({
                     'label': STATE_WISE_INSTITUTES,
                     'series': Object.values(superDashboardData?.stateWiseInstituttes)
@@ -137,6 +143,11 @@ const Dashboard = ({
                 setChartData({
                     'label': STATE_WISE_USERS,
                     'series': Object.values(superDashboardData?.stateWiseUsers)
+                })
+            } else if (value === 'Institutions type') {
+                setChartData({
+                    'label': INSITUTIONS_TYPES,
+                    'series': Object.values(superDashboardData?.institutionTypes)
                 })
             } else if (value === 'Institution wise submissions') {
                 setChartData({
@@ -274,8 +285,8 @@ const Dashboard = ({
                                                 filename={ value }
                                                 pieChartPadding="0px 2px"
                                                 height={ 370 }
-                                                label={ chartData?.label }
-                                                series={ chartData?.series }
+                                                label={ value !== 'Institutions type' ? chartData?.label : institutionTypeData.map((data) => data.instituteType) }
+                                                series={ value !== 'Institutions type' ? chartData?.series : institutionTypeData.map((data) => data.count) }
                                             />
                                             :
                                             <>
@@ -285,7 +296,7 @@ const Dashboard = ({
                                                         type={ COLUMN_ADMIN_CHART_TYPE }
                                                         color={ COLUMN_ADMIN_CHART_COLOR }
                                                         xaxisData={ chartData?.label }
-                                                        columnWidth={ COLUMN_ADMIN_WIDTH }
+                                                        columnWidth={ columnWidth(chartData?.label) }
                                                         height={ 370 }
                                                         seriesData={ [
                                                             {
