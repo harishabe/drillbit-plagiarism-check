@@ -4,7 +4,7 @@ import { Skeleton, Typography } from "@mui/material";
 import { Grid, Tooltip } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { DownloadWarningIcon } from "../../../../assets/icon";
-import { ColumnChart, PieChart, EllipsisText, WarningDialog } from "../../../../components";
+import { ColumnChart, PieChart, EllipsisText, WarningDialog, ErrorBlock } from "../../../../components";
 import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import { makeStyles } from "@mui/styles";
 import {
@@ -19,7 +19,7 @@ import {
   PIE_CHART_WIDTH,
   PIE_CHART_LABEL,
 } from "../../../../constant/data/ChartData";
-
+import { SUBMISSION_NOT_FOUND, DOCUMENT_PROCESSED_NOT_FOUND } from '../../../../constant/data/ErrorMessage';
 import {
   GetStats,
   GetExportToCSV,
@@ -66,6 +66,10 @@ const UserStats = ({
     setSubmissionData(submission);
   }, [userStats]);
 
+  const totalSubmissions = userStats && submissionData?.reduce((acc, currentValue) => {
+    return acc + currentValue;
+  }, 0);
+
   const handleExportCsv = () => {
     setShowModal(true)
   };
@@ -103,6 +107,7 @@ const UserStats = ({
           )}
         </Grid>
         <Grid item md={3.7} xs={4}></Grid>
+        { totalSubmissions !== 0 && 
         <Grid item md={0.3} xs={4}>
           {isLoadingCsvExport ? (
             <Skeleton width={ 30 } height={ 45 } style={ { marginLeft: "auto" } } />
@@ -119,6 +124,7 @@ const UserStats = ({
             </Tooltip>
           )}
         </Grid>
+        }
       </Grid>
 
       <Grid container>
@@ -136,7 +142,7 @@ const UserStats = ({
               <Skeleton />
             </>
           ) : (
-            submissionData?.length > 0 && (
+              totalSubmissions !== 0 ? submissionData?.length > 0 && (
               <ColumnChart
                 type={COLUMN_ADMIN_CHART_TYPE}
                 color={COLUMN_ADMIN_CHART_COLOR}
@@ -152,7 +158,7 @@ const UserStats = ({
                 gradient={COLUMN_ADMIN_CHART_GRADIENT}
                 borderRadius={COLUMN_ADMIN_CHART_BORDER_RADIUS}
               />
-            )
+              ) : <ErrorBlock message={ SUBMISSION_NOT_FOUND } />
           )}
         </Grid>
         <Grid item md={4} xs={12}>
@@ -167,7 +173,7 @@ const UserStats = ({
               width={250}
             />
           ) : (
-            userStats?.trendAnalysis && (
+              totalSubmissions !== 0 ? userStats?.trendAnalysis && (
               <PieChart
                 type="donut"
                 color={PIE_CHART_COLOR}
@@ -178,7 +184,7 @@ const UserStats = ({
                   userStats?.trendAnalysis?.ownWork,
                 ]}
               />
-            )
+              ) : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
           )}
         </Grid>
       </Grid>
