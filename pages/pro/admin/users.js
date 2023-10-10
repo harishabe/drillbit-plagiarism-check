@@ -48,10 +48,12 @@ import {
 } from "./../../../style/index";
 
 const columns = [
-  { id: "name", label: "Name", maxWidth: 140 },
-  { id: "username", label: "Email", maxWidth: 230 },
-  { id: "created_date", label: "Creation Date", maxWidth: 130 },
+  { id: "name", label: "Name", maxWidth: 100 },
+  { id: "username", label: "Email", maxWidth: 150 },
+  { id: "created_date", label: "Creation Date", maxWidth: 100 },
   { id: "status", label: "Status", maxWidth: 75 },
+  { id: "total_submissions", label: "Allocated submission", maxWidth: 75 },
+  { id: "used_submissions", label: "Submitted Submission", maxWidth: 75 },
   { id: "stats", label: "Statistics", maxWidth: 70 },
   { id: "action", label: "Actions", maxWidth: 120 },
 ];
