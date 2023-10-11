@@ -75,7 +75,6 @@ const ColumnChart = ({
                     },
                     trim: true,
                     hideOverlappingLabels: false,
-                    rotate: 0
                 },
             },
             yaxis: {
