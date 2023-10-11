@@ -72,7 +72,10 @@ const ColumnChart = ({
                         fontSize: '12px',
                         fontFamily:'DM Sans',
                         fontWeight:'600',
-                    }
+                    },
+                    trim: true,
+                    hideOverlappingLabels: false,
+                    rotate: 0
                 },
             },
             yaxis: {
