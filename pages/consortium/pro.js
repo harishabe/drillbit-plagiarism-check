@@ -15,9 +15,9 @@ import {
 } from "@mui/material";
 import {
   CreateDrawer,
-  CardView,
   CommonTable,
   BreadCrumb,
+  Heading,
   WarningDialog,
 } from "../../components";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const columns = [
-  { id: 'lid', label: 'LID', maxWidth: 90 },
+  { id: "lid", label: "License Id", maxWidth: 90 },
   { id: "college_name", label: "Institution name", maxWidth: 90 },
   { id: "name", label: "Co-ordinator name", maxWidth: 90 },
   { id: "email", label: "Email", maxWidth: 90 },
@@ -164,11 +164,7 @@ const Pro = ({
       active: false,
     },
     {
-      name: `${isFlag === 'true'?'Product':'Pro'}(${
-        pageDetails?.totalElements === undefined
-          ? 0
-          : pageDetails?.totalElements
-      })`,
+      name: `${isFlag === "true" ? "Product" : "Pro product"}`,
       link: "",
       active: true,
     },
@@ -228,10 +224,10 @@ const Pro = ({
 
   const handleTableSort = (e, column, sortToggle) => {
     if (sortToggle) {
-      paginationPayload['field'] = column.id 
+      paginationPayload["field"] = column.id;
       paginationPayload["orderBy"] = "asc";
     } else {
-      paginationPayload['field'] = column.id
+      paginationPayload["field"] = column.id;
       paginationPayload["orderBy"] = "desc";
     }
     setPaginationPayload({ ...paginationPayload, paginationPayload });
@@ -294,7 +290,10 @@ const Pro = ({
   });
 
   const handleShow = (e, info) => {
-    const isFlagTitle = isFlag === 'true' ? "Create Multiple Accounts" : "Create Multiple Pro Accounts" 
+    const isFlagTitle =
+      isFlag === "true"
+        ? "Create Multiple Accounts"
+        : "Create Multiple Pro Accounts";
     if (info?.title === isFlagTitle) {
       UploadFileDataClear();
       router.push({ pathname: "/consortium/bulkLicenseCreation" });
@@ -303,9 +302,22 @@ const Pro = ({
 
   return (
     <>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={1}>
+          <Grid item md={10} xs={10}>
+            <BreadCrumb item={ResellerBreadCrumb} />
+          </Grid>
+        </Grid>
+      </Box>
       <Grid container spacing={2}>
         <Grid item md={9} xs={9}>
-          <BreadCrumb item={ResellerBreadCrumb} />
+          <Heading
+            title={`${isFlag === "true" ? "Licenses" : "Licenses"}(${
+              pageDetails?.totalElements === undefined
+                ? 0
+                : pageDetails?.totalElements
+            })`}
+          />
         </Grid>
         <Grid item md={0.5} xs={0.5}>
           <DownloadButton>
@@ -344,17 +356,15 @@ const Pro = ({
       </Grid>
 
       <Box sx={{ mt: 1, flexGrow: 1 }}>
-        <CardView>
-          <CommonTable
-            isCheckbox={false}
-            isSorting={true}
-            tableHeader={columns}
-            tableData={rows}
-            isLoading={isLoading}
-            handleAction={handleAction}
-            handleTableSort={handleTableSort}
-          />
-        </CardView>
+        <CommonTable
+          isCheckbox={false}
+          isSorting={true}
+          tableHeader={columns}
+          tableData={rows}
+          isLoading={isLoading}
+          handleAction={handleAction}
+          handleTableSort={handleTableSort}
+        />
       </Box>
 
       {editUser && (
@@ -374,18 +384,20 @@ const Pro = ({
           options={[
             {
               icon: <AddPersonIcon />,
-              title: isFlag === 'true' ? "Create Account" : "Create Pro Account",
+              title:
+                isFlag === "true" ? "Create Account" : "Create Pro Account",
               handleFromCreateDrawer: false,
             },
             {
               icon: <AddMultipleIcon />,
-              title: isFlag === 'true'
-                ? "Create Multiple Accounts"
-                : "Create Multiple Pro Accounts",
+              title:
+                isFlag === "true"
+                  ? "Create Multiple Accounts"
+                  : "Create Multiple Pro Accounts",
               handleFromCreateDrawer: true,
             },
           ]}
-          title={isFlag === 'true' ? "Create Account" : "Create Pro Account"}
+          title={isFlag === "true" ? "Create Account" : "Create Pro Account"}
           handleMultiData={handleShow}
           isShowAddIcon={true}
         >

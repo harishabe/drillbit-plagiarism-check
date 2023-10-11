@@ -41,6 +41,7 @@ import {
 import { BASE_URL_PRO } from "../../../utils/BaseUrl";
 import END_POINTS_PRO from "../../../utils/EndPointPro";
 import ToastrValidation from "../../../utils/ToastrValidation";
+import { getItemSessionStorage } from "../../../utils/RegExp";
 
 const TextAlignRight = styled.div`
   text-align: right;
@@ -61,6 +62,7 @@ const Dashboard = ({
   const [submissionChartData, setSubmissionChartData] = useState({});
   const [submissionChartYear, setSubmissionChartYear] = useState({});
   const [submissionChartLoading, setSubmissionChartLoading] = useState(false);
+  const isFlag = getItemSessionStorage("flag");
 
   useEffect(() => {
     setSubmissionChartYear({
@@ -178,6 +180,7 @@ const Dashboard = ({
                   ?.totalSubmissions
               }
               icon={<NoOfAssignmntIcon />}
+              isSubInfo={Boolean(isFlag)}
             />
           </Grid>
         </Grid>

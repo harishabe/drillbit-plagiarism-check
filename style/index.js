@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import styled from "styled-components";
 
 export const PaginationContainer = styled.div`
-  margin-top: 25px;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
 `;

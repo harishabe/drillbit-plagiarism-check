@@ -121,7 +121,7 @@ const CommonTable = ({
 
   return (
     <Card>
-      <CardContent style={ { padding: "15px 0px" } }>
+      <CardContent style={ { padding: "0.5rem 0rem 0rem 0rem" } }>
         <TableContainer
           component={ Paper }
           classes={ { root: classes.customTableContainer } }
