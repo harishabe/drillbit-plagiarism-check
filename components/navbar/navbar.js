@@ -199,7 +199,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
     let userRole = getItemSessionStorage("role");
     let email = getItemSessionStorage("email");
     let switchExtreamRole = getItemSessionStorage("switchRole");
-    let switchProRole = getItemSessionStorage("switchProRole");
+    let switchProRole = getItemSessionStorage("switchProRole");    
     setSso(getItemSessionStorage("SSO"));
     setName(userName);
     setRole(userRole);
@@ -284,7 +284,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
       setProfileRole(PROFILE_ROLE.USER);
     }
   }, [, router, switchRole]);
-
+  
   return (
     <>
       <Hidden mdDown implementation="css">
@@ -543,7 +543,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
             </>
           )}
 
-        {/* {(role === Role?.consortium || role === Role?.supplier) && (
+        {role === Role?.consortium && (
           <>
             <MenuItem
               className={classes.menuItem}
@@ -560,7 +560,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
             </MenuItem>
             <Divider className={classes.divider} />
           </>
-        )} */}
+        )}
         <MenuItem
           className={classes.menuItem}
           onClick={() => [
@@ -648,13 +648,17 @@ const NavBar = ({ open, handleDrawerOpen }) => {
           maxWidth="sm"
           handleClose={handlesubMenuClose}
         >
+          <Typography variant="h2" sx={{ ml: 2 }}>
+            { getItemSessionStorage("flag") === 'true' ? "Extreme" : "Pro"}
+          </Typography>
+          <Divider className={classes.subMenuItem} />
           <Grid
             container
             direction="row"
             justifyContent="center"
             alignItems="center"
           >
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <Typography variant="h5" sx={{ ml: 2 }}>
                 Extreme
               </Typography>
@@ -689,12 +693,8 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 />
               </MenuItem>
               <Divider className={classes.divider} />
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
-              <Typography variant="h5" sx={{ ml: 2 }}>
-                Pro
-              </Typography>
-              <Divider className={classes.subMenuItem} />
               <MenuItem
                 onClick={(e) => [
                   switchToProUser(e, Role?.proAdmin),
@@ -706,10 +706,11 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 </ListItemIcon>
                 <ListItemText
                   className={classes.listItemText}
-                  primary="Admin (Pro)"
+                  primary="Admin"
                 />
               </MenuItem>
-              <Divider className={classes.divider} />
+            </Grid>
+            <Grid item xs={6}>
               <MenuItem
                 onClick={(e) => [
                   switchToProUser(e, Role?.proUser),
@@ -719,13 +720,10 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 <ListItemIcon>
                   <PermIdentityOutlinedIcon fontSize="large" />
                 </ListItemIcon>
-                <ListItemText
-                  className={classes.listItemText}
-                  primary="User (Pro)"
-                />
+                <ListItemText className={classes.listItemText} primary="User" />
               </MenuItem>
-              <Divider className={classes.divider} />
-            </Grid>
+            </Grid>            
+            <Divider className={classes.subMenuItem} />
           </Grid>
           <Grid
             container
