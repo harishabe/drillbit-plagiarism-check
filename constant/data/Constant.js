@@ -279,6 +279,7 @@ export const WARNING_MESSAGES = {
     'DELETE': 'Are you sure you want to delete ?',
     'RESEND_CREDENTIALS': 'Are you sure, you want resend credentials to this account?',
     'MAKE_ADMIN': 'Are you sure, you want to make him admin?',
+    'DOWNLOAD_USER_LIST': 'Are you sure, you want to download users list?',
 }
 
 export const SIMILARITY_BULK_REPORT_TITLE = 'SimilarityBulkReport.zip';

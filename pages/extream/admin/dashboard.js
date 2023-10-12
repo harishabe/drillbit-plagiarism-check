@@ -36,6 +36,7 @@ import {
   NoOfClassIcon,
   NoOfSubmission,
   NoStudentIcon,
+  RenewAccountIcon
 } from "../../../assets/icon";
 import TopStudents from "../instructor/dashboard/TopStudents";
 import {
@@ -356,6 +357,7 @@ const Dashboard = ({
       { showRenewWarning && (
         <WarningDialog
           message="Are you sure you want to renew ?"
+          warningIcon={ <RenewAccountIcon /> }
           handleYes={ handleYesWarning }
           handleNo={ handleCloseWarning }
           isOpen={ true }

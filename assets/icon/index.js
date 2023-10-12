@@ -66,3 +66,4 @@ export { default as EnglishUploadIcon } from './EnglishUploadIcon';
 export { default as NonEnglishUploadIcon } from './NonEnglishUploadIcon';
 export { default as RegionalUploadIcon } from './RegionalUploadIcon';
 export { default as LoginBannerIcon } from './LoginBannerIcon';
+export { default as RenewAccountIcon } from './RenewAccountIcon';
