@@ -29,7 +29,7 @@ import {
   ErrorBlock,
   WarningDialog,
 } from "../../../components";
-import { NoOfSubmission, NoStudentIcon } from "../../../assets/icon";
+import { NoOfSubmission, NoStudentIcon, RenewAccountIcon } from "../../../assets/icon";
 import {
   COLUMN_ADMIN_CHART_TYPE,
   COLUMN_ADMIN_CHART_COLOR,
@@ -320,6 +320,7 @@ const Dashboard = ({
       { showRenewWarning && (
         <WarningDialog
           message="Are you sure you want to renew ?"
+          warningIcon={ <RenewAccountIcon />}
           handleYes={ handleYesWarning }
           handleNo={ handleCloseWarning }
           isOpen={ true }

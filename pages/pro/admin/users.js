@@ -4,11 +4,10 @@ import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import debouce from "lodash.debounce";
-import { Grid, Tooltip, Switch } from "@mui/material";
-import Box from "@mui/material/Box";
-import { TextField, Pagination } from "@mui/material";
+import { Box, Grid, Tooltip, Switch, Skeleton, TextField, Pagination } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import ProAdmin from "./../../../layouts/ProAdmin";
 import {
   CommonTable,
@@ -24,12 +23,14 @@ import {
   DeleteWarningIcon,
   AddMultipleIcon,
   AddPersonIcon,
+  DownloadWarningIcon,
 } from "../../../assets/icon";
 import {
   GetInstructorData,
   DeleteData,
   DeactivateData,
   UploadFileDataClear,
+  DownloadInstructorStudentData
 } from "../../../redux/action/admin/AdminAction";
 import { PaginationValue } from "../../../utils/PaginationUrl";
 import UserForm from "./form/UserForm";
@@ -48,17 +49,26 @@ import {
 } from "./../../../style/index";
 
 const columns = [
-  { id: "name", label: "Name", maxWidth: 100 },
-  { id: "username", label: "Email", maxWidth: 150 },
-  { id: "created_date", label: "Creation Date", maxWidth: 100 },
-  { id: "status", label: "Status", maxWidth: 75 },
-  { id: "total_submissions", label: "Allocated submission", maxWidth: 75 },
-  { id: "used_submissions", label: "Submitted Submission", maxWidth: 75 },
-  { id: "stats", label: "Statistics", maxWidth: 70 },
+  { id: "name", label: "Name", maxWidth: 80 },
+  { id: "username", label: "Email", maxWidth: 95 },
+  { id: "designation", label: "Designation", maxWidth: 75 },
+  { id: "department", label: "Department", maxWidth: 75 },
+  { id: "created_date", label: "Creation Date", maxWidth: 90 },
+  { id: "total_submissions", label: "Allocated Submission", maxWidth: 65 },
+  { id: "used_submissions", label: "Submitted Submission", maxWidth: 65 },
+  { id: "status", label: "Status", maxWidth: 60 },
+  { id: "stats", label: "Statistics", maxWidth: 50 },
   { id: "action", label: "Actions", maxWidth: 120 },
 ];
 
 const useStyles = makeStyles(() => ({
+  downloadButton: {
+    margin: "0px 10px 0px 0px",
+  },
+  skeleton: {
+    display: 'inline-block',
+    marginRight: '10px'
+  },
   button: {
     margin: "0px 0px 6px 0px",
   },
@@ -129,6 +139,8 @@ const Users = ({
   DeleteData,
   DeactivateData,
   isLoading,
+  DownloadInstructorStudentData,
+  isLoadingDownload
 }) => {
   const classes = useStyles();
   const router = useRouter();
@@ -136,6 +148,7 @@ const Users = ({
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [deleteRowData, setDeleteRowData] = useState("");
   const [showStatusWarning, setStatusWarning] = useState(false);
+  const [showDownloadWarning, setShowDownloadWarning] = useState(false);
   const [showDialogModal, setShowDialogModal] = useState(false);
   const [statusRowData, setStatusRowData] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
@@ -181,7 +194,7 @@ const Users = ({
           {
             component: <StatsIcon />,
             type: "stats",
-            title: "Stats",
+            title: "Statistics",
           },
         ],
         instructor.role === Role.proAdmin
@@ -256,6 +269,10 @@ const Users = ({
     setStatusWarning(false);
   };
 
+  const handleDownloadCloseWarning = () => {
+    setShowDownloadWarning(false);
+  };
+
   const handleYesWarning = () => {
     DeleteData(
       BASE_URL_PRO + END_POINTS_PRO.ADMIN_USER_DELETE + deleteRowData,
@@ -282,6 +299,11 @@ const Users = ({
     setTimeout(() => {
       setStatusWarning(false);
     }, [100]);
+  };
+
+  const handleDownloadWarning = () => {
+    DownloadInstructorStudentData(BASE_URL_PRO + END_POINTS_PRO.ADMIN_REPORTS_DOWNLOAD_USER_LIST, 'Users');
+    setShowDownloadWarning(false);
   };
 
   const handleAction = (event, icon, rowData) => {
@@ -409,6 +431,10 @@ const Users = ({
     setEditInstructor(drawerClose);
   };
 
+  const handleDownload = () => {
+    setShowDownloadWarning(true)
+  };
+
   return (
     <React.Fragment>
       {showDeleteWarning && (
@@ -427,6 +453,16 @@ const Users = ({
           message={"Are you sure, you want to " + statusMessage + "?"}
           handleYes={handleStatusWarning}
           handleNo={handleStatusCloseWarning}
+          isOpen={true}
+        />
+      )}
+
+      {showDownloadWarning && (
+        <WarningDialog
+          warningIcon={ <DownloadWarningIcon />}
+          message={ WARNING_MESSAGES.DOWNLOAD_USER_LIST }
+          handleYes={handleDownloadWarning}
+          handleNo={handleDownloadCloseWarning}
           isOpen={true}
         />
       )}
@@ -497,6 +533,17 @@ const Users = ({
             />
           </Grid>
           <Grid item md={7} xs={7} className={classes.view}>
+            { instructorData?.length > 0 &&
+              isLoadingDownload ?
+              <Skeleton width={ 30 } height={ 40 } className={ classes.skeleton } />
+              : <Tooltip title="Download Users list" arrow>
+                <StyledButtonIcon variant="outlined" size='small'
+                  className={ classes.downloadButton }
+                  onClick={ handleDownload }>
+                  <FileDownloadOutlinedIcon fontSize='medium' />
+                </StyledButtonIcon>
+              </Tooltip>
+            }
             <TextField
               sx={{ width: "41.5%" }}
               placeholder="Search by Email"
@@ -562,9 +609,9 @@ const Users = ({
 
 const mapStateToProps = (state) => ({
   pageDetails: state?.detailsData?.instructorData?.user?.page,
-  instructorData:
-    state?.detailsData?.instructorData?.user?._embedded?.userResponseList,
+  instructorData: state?.detailsData?.instructorData?.user?._embedded?.userResponseList,
   isLoading: state?.detailsData?.isLoading,
+  isLoadingDownload: state?.adminReport?.isLoadingDownload,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -576,6 +623,7 @@ const mapDispatchToProps = (dispatch) => {
     DeleteData: (deleteRowData, paginationPayload) =>
       dispatch(DeleteData(deleteRowData, paginationPayload)),
     UploadFileDataClear: () => dispatch(UploadFileDataClear()),
+    DownloadInstructorStudentData: (url, userType) => dispatch(DownloadInstructorStudentData(url, userType))
   };
 };
 
