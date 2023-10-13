@@ -482,7 +482,7 @@ const Dashboard = ({
             </CardView>
           </Grid>
           <Grid item md={ 4 } xs={ 12 }>
-            <CardView>
+            <CardView height={ adminDashboardData?.trendAnalysis?.documentsProcessed > 0 && 442 }>
               <Grid container>
                 <Grid item md={ 7 } xs={ 12 }>
                   <Heading title="Trend Analysis" />
@@ -518,13 +518,14 @@ const Dashboard = ({
                     <PieChart
                       type="donut"
                         color={ PIE_CHART_COLOR }
-                        height={ 322 }
+                        height={ 330 }
                         label={ PIE_CHART_LABEL }
                       filename="Trend Analysis"
                         series={ [
                         adminDashboardData?.trendAnalysis?.similarWork,
                         adminDashboardData?.trendAnalysis?.ownWork,
                       ] }
+                        offsetY={ 35 }
                     />
                   ) : (
                       <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
@@ -537,7 +538,7 @@ const Dashboard = ({
         <Box mt={ 1 } sx={ { flexGrow: 1 } }>
           <Grid container spacing={ 1 }>
             <Grid item md={ 6 } xs={ 12 }>
-              <CardView>
+              <CardView height={420}>
                 <Heading title="Document Types" />
                 { isLoadingDashboard ? (
                   <Skeleton
@@ -552,9 +553,7 @@ const Dashboard = ({
                     documentsType && (
                     <PieChart
                       type="pie"
-                      height={
-                        Object.entries(documentsType).length > 7 ? 400 : 325
-                      }
+                      height={ 360 }
                       pieChartPadding={
                         Object.entries(documentsType).length > 7
                           ? ""
@@ -563,6 +562,8 @@ const Dashboard = ({
                           label={ documentsType.map((doc) => doc.docType) }
                           series={ documentsType.map((doc) => doc.count) }
                       filename="Document Types"
+                      legendHeight={ 56 }
+                      offsetY={ 35 }
                     />
                   )
                 ) : (
@@ -571,7 +572,7 @@ const Dashboard = ({
               </CardView>
             </Grid>
             <Grid item md={ 6 } xs={ 12 }>
-              <CardView>
+              <CardView height={ 420 }>
                 <Heading title="Departments" />
                 { isLoadingDashboard ? (
                   <Skeleton
@@ -586,11 +587,7 @@ const Dashboard = ({
                   departmentsTypeData && (
                     <PieChart
                       type="pie"
-                      height={
-                        Object.entries(departmentsTypeData).length > 7
-                          ? 400
-                          : 325
-                      }
+                      height={ 360 }
                       pieChartPadding={
                         Object.entries(departmentsTypeData).length > 7
                           ? ""
@@ -599,6 +596,8 @@ const Dashboard = ({
                           label={ departmentsTypeData.map((doc) => doc.docType) }
                           series={ departmentsTypeData.map((doc) => doc.count) }
                       filename="Departments"
+                      legendHeight={ 56 }
+                      offsetY={ 35 }
                     />
                   )
                 ) : (

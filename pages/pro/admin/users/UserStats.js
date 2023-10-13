@@ -176,6 +176,7 @@ const UserStats = ({
               totalSubmissions !== 0 ? userStats?.trendAnalysis && (
               <PieChart
                 type="donut"
+                height={ 340 }
                 color={PIE_CHART_COLOR}
                 width={PIE_CHART_WIDTH}
                 label={PIE_CHART_LABEL}
@@ -183,6 +184,7 @@ const UserStats = ({
                   userStats?.trendAnalysis?.similarWork,
                   userStats?.trendAnalysis?.ownWork,
                 ]}
+                offsetY={ 37 }
               />
               ) : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
           )}

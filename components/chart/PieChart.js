@@ -10,7 +10,8 @@ const PieChart = ({
     height,
     series,
     filename,
-    pieChartPadding
+    legendHeight,
+    offsetY,
 }) => {
     const donutChart = {
         series: series,
@@ -35,7 +36,8 @@ const PieChart = ({
                             filename: filename
                         }
                     },
-                }
+                },
+                offsetY: offsetY ? offsetY : 0
             },
             legend: {
                 show: true,
@@ -43,7 +45,8 @@ const PieChart = ({
                 fontSize: '12px',
                 fontFamily: 'DM Sans',
                 color: '#454745 !important',
-                fontWeight:'600'
+                fontWeight:'600',
+                height: type === 'donut' ? undefined : legendHeight ? legendHeight : undefined
             },
             tooltip: {
                 enabled: true,
@@ -69,7 +72,7 @@ const PieChart = ({
 
     return (
         <>
-            <div id="chart" style={{ padding: type === 'donut' ? '40px 0px' : pieChartPadding }}>
+            <div id="chart">
                 <ApexCharts options={chartData.options} series={chartData.series} height={height} type={type} />
             </div>
         </>

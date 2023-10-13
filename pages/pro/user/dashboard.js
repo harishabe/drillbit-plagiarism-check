@@ -273,7 +273,7 @@ const Dashboard = ({
             </CardView>
           </Grid>
           <Grid item md={4} xs={12}>
-            <CardView>
+            <CardView height={ 439 }>
               <Grid container>
                 <Grid item md={6.6} xs={12}>
                   <Heading title="Trend Analysis" />
@@ -314,7 +314,7 @@ const Dashboard = ({
                         instructorDashboardData?.data?.trendAnalysis
                           ?.documentsProcessed === 0
                           ? ""
-                          : "317px"
+                          : "340px"
                       }
                       color={PIE_CHART_COLOR}
                       width={PIE_CHART_WIDTH}
@@ -324,6 +324,7 @@ const Dashboard = ({
                           ?.similarWork,
                         instructorDashboardData?.data?.trendAnalysis?.ownWork,
                       ]}
+                      offsetY={ 35 }
                     />
                   ) : (
                     <ErrorBlock message={TREND_ANALYSIS_NOT_FOUND} />
@@ -337,7 +338,7 @@ const Dashboard = ({
       <Box mt={1} sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <Grid item md={8} xs={12}>
-            <CardView>
+            <CardView height={ 430 }>
               <Heading title="Document Types" />
               {isLoading ? (
                 <Skeleton
@@ -352,10 +353,12 @@ const Dashboard = ({
                 documentsType && (
                   <PieChart
                     type="pie"
-                    height={325}
+                    height={ 360 }
                     label={documentsType.map((doc) => doc.docType)}
                     series={documentsType.map((doc) => doc.count)}
                     filename="Document Types"
+                    legendHeight={ 56 }
+                    offsetY={ 35 }
                   />
                 )
               ) : (
