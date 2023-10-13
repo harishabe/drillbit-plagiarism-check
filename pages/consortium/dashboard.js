@@ -9,7 +9,6 @@ import {
     ColumnChart,
     ErrorBlock,
     Heading,
-    PieChart,
 } from './../../components';
 import {
     NoOfClassIcon,
@@ -24,7 +23,6 @@ import {
     COLUMN_ADMIN_CHART_BORDER_RADIUS,
     COLUMN_ADMIN_XAXIS_DATA,
     COLUMN_ADMIN_WIDTH,
-    COLUMN_ADMIN_CHART_HEIGHT
 } from './../../constant/data/ChartData';
 import {
     DOCUMENT_PROCESSED_NOT_FOUND,
@@ -33,7 +31,7 @@ import { BASE_URL_SUPER } from '../../utils/BaseUrl'
 import END_POINTS from "../../utils/EndPoints";
 import { success } from '../../utils/ToastrValidation';
 
-const chart = ['Institution wise submissions', 'Institutions type', 'State wise institutions', 'State wise submissions', 'State wise users' ];
+const chart = ['Institution wise submissions', 'Institutions type', 'State wise institutions', 'State wise submissions', 'State wise users'];
 const submission = ['Year wise submissions', 'Month wise submissions'];
 
 const Dashboard = ({
@@ -55,7 +53,6 @@ const Dashboard = ({
     });
     const [chartLoading, setChartLoading] = useState(false);
     const [submissionChartLoading, setSubmissionChartLoading] = useState(false);
-    const [institutionTypeData, setInstitutionTypeData] = useState();
 
     useEffect(() => {
         if (router?.query?.message) {
@@ -64,97 +61,93 @@ const Dashboard = ({
         GetWidgetCount(BASE_URL_SUPER + END_POINTS.CONSORTIUM_DASHBOARD);
     }, []);
 
-    let a = 0; let b = 0; let c = 0; let d = 0;
-
     const INSITUTIONS_TYPES = superDashboardData && Object.keys(superDashboardData?.institutionTypes).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.institutionTypes)[a++] + ')'
+        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length)
     })
 
     const STATE_WISE_INSTITUTES = superDashboardData && Object.keys(superDashboardData?.stateWiseInstituttes).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseInstituttes)[b++] + ')'
+        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length)
     })
 
     const STATE_WISE_SUBMISSIONS = superDashboardData && Object.keys(superDashboardData?.stateWiseSubmissions).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseSubmissions)[c++] + ')'
+        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length)
     })
 
     const STATE_WISE_USERS = superDashboardData && Object.keys(superDashboardData?.stateWiseUsers).map((value) => {
-        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length) + '(' + Object.values(superDashboardData?.stateWiseUsers)[d++] + ')'
+        return value?.charAt(0).toUpperCase() + value?.slice(1).toLowerCase().substring(0, value?.length)
     })
 
     const INSTITUTION_WISE_SUBMISSIONS = superDashboardData && Object.keys(superDashboardData.institutionsWiseSubmissions).map((value) => {
         return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().substring(0, value.length);
     });
 
-    const seriesData = superDashboardData && Object.values(superDashboardData?.institutionsWiseSubmissions);
-    const sortedData = superDashboardData && seriesData.map((value, index) => {
+    const SelectedChart = (val) => {
+        if (superDashboardData) {
+            switch (val) {
+                case 'Institution wise submissions':
+                    return {
+                        name: INSTITUTION_WISE_SUBMISSIONS,
+                        value: Object.values(superDashboardData?.institutionsWiseSubmissions),
+                        seriesDataName: 'No. of Submissions'
+                    }
+                case 'Institutions type':
+                    return {
+                        name: INSITUTIONS_TYPES,
+                        value: Object.values(superDashboardData?.institutionTypes),
+                        seriesDataName: 'No. of Institutes'
+                    }
+                case 'State wise institutions':
+                    return {
+                        name: STATE_WISE_INSTITUTES,
+                        value: Object.values(superDashboardData?.stateWiseInstituttes),
+                        seriesDataName: 'No. of Institutes'
+                    }
+                case 'State wise submissions':
+                    return {
+                        name: STATE_WISE_SUBMISSIONS,
+                        value: Object.values(superDashboardData?.stateWiseSubmissions),
+                        seriesDataName: 'No. of Submissions'
+                    }
+                case 'State wise users':
+                    return {
+                        name: STATE_WISE_USERS,
+                        value: Object.values(superDashboardData?.stateWiseUsers),
+                        seriesDataName: 'No. of Users'
+                    }
+            }
+        }
+    }
+
+    const seriesData = superDashboardData && SelectedChart(value);
+    const sortedData = superDashboardData && seriesData?.value?.map((value, index) => {
         return {
-            label: INSTITUTION_WISE_SUBMISSIONS[index] || '',
+            label: seriesData?.name?.[index] || '',
             value: value || 0,
         };
     }).sort((a, b) => b.value - a.value);
 
     const sortedSeries = superDashboardData && sortedData.map((data) => data.value);
     const sortedLabels = superDashboardData && sortedData.map((data) => data.label);
+    const seriesDataName = superDashboardData && seriesData?.seriesDataName
 
     const columnWidth = (label) => {
-        if (label?.length <= 5){
+        if (label?.length <= 5) {
             return '10%';
-        } else if (label?.length >= 6 && label?.length <= 10){
+        } else if (label?.length >= 6 && label?.length <= 10) {
             return '30%'
         } else if (label?.length >= 11) {
             return COLUMN_ADMIN_WIDTH
         }
     }
 
-    const InstitutionTypeFilterData = (institutionTypeData) => {
-        let instituteArr = [];
-        institutionTypeData &&
-            Object.entries(institutionTypeData).forEach((key) => {
-                if (key[1] > 0) {
-                    instituteArr.push({ instituteType: key[0], count: key[1] });
-                }
-            });
-        instituteArr.sort((a, b) => b.count - a.count);
-        return instituteArr;
-    };
-    
-    useEffect(() => {
-        if (superDashboardData?.institutionTypes !== undefined) {
-            let b = InstitutionTypeFilterData(superDashboardData?.institutionTypes);
-            setInstitutionTypeData(b);
-        }
-    }, [superDashboardData?.institutionTypes]);
-
     useEffect(() => {
         if (superDashboardData) {
             setChartLoading(true)
-            if (value === 'State wise institutions') {
-                setChartData({
-                    'label': STATE_WISE_INSTITUTES,
-                    'series': Object.values(superDashboardData?.stateWiseInstituttes)
-                })
-            } else if (value === 'State wise submissions') {
-                setChartData({
-                    'label': STATE_WISE_SUBMISSIONS,
-                    'series': Object.values(superDashboardData?.stateWiseSubmissions)
-                })
-            } else if (value === 'State wise users') {
-                setChartData({
-                    'label': STATE_WISE_USERS,
-                    'series': Object.values(superDashboardData?.stateWiseUsers)
-                })
-            } else if (value === 'Institutions type') {
-                setChartData({
-                    'label': INSITUTIONS_TYPES,
-                    'series': Object.values(superDashboardData?.institutionTypes)
-                })
-            } else if (value === 'Institution wise submissions') {
-                setChartData({
-                    'label': sortedLabels,
-                    'series': sortedSeries
-                })
-            }
+            setChartData({
+                'label': sortedLabels,
+                'series': sortedSeries,
+                'name': seriesDataName
+            })
         }
         setTimeout(() => {
             setChartLoading(false)
@@ -270,50 +263,31 @@ const Dashboard = ({
                                 </Grid>
                             </Grid>
                             { (isLoading || chartLoading) ?
-                                <><Skeleton
-                                    variant="circular"
-                                    style={ { margin: "auto" } }
-                                    height={ 250 }
-                                    width={ 250 }
-                                />
-                                    <Skeleton style={ { marginTop: "30px" } } /></> :
-                                superDashboardData && chartData?.label?.length > 0 ?
-                                    <>
-                                        { value !== 'Institution wise submissions' ?
-                                            <PieChart
-                                                type="pie"
-                                                filename={ value }
-                                                pieChartPadding="0px 2px"
-                                                height={ 370 }
-                                                label={ value !== 'Institutions type' ? chartData?.label : institutionTypeData.map((data) => data.instituteType) }
-                                                series={ value !== 'Institutions type' ? chartData?.series : institutionTypeData.map((data) => data.count) }
-                                            />
-                                            :
-                                            <>
-                                                { superDashboardData?.totalSubmissions > 0 ?
-                                                    <ColumnChart
-                                                        filename={ submissionData }
-                                                        type={ COLUMN_ADMIN_CHART_TYPE }
-                                                        color={ COLUMN_ADMIN_CHART_COLOR }
-                                                        xaxisData={ chartData?.label }
-                                                        columnWidth={ columnWidth(chartData?.label) }
-                                                        height={ 370 }
-                                                        seriesData={ [
-                                                            {
-                                                                name: 'No. of submissions',
-                                                                data: chartData?.series
-                                                            }
-                                                        ] }
-                                                        gradient={ COLUMN_ADMIN_CHART_GRADIENT }
-                                                        borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
-                                                    />
-                                                    :
-                                                    <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                <Skeleton />
+                                :
+                                <>
+                                    { superDashboardData && chartData?.label?.length > 0 &&
+                                        superDashboardData?.totalSubmissions > 0 ?
+                                        <ColumnChart
+                                            filename={ value }
+                                            type={ COLUMN_ADMIN_CHART_TYPE }
+                                            color={ COLUMN_ADMIN_CHART_COLOR }
+                                            xaxisData={ chartData?.label }
+                                            columnWidth={ columnWidth(chartData?.label) }
+                                            height={ 355 }
+                                            seriesData={ [
+                                                {
+                                                    name: chartData?.name,
+                                                    data: chartData?.series
                                                 }
-                                            </>
-                                        }
-                                    </>
-                                    : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                            ] }
+                                            gradient={ COLUMN_ADMIN_CHART_GRADIENT }
+                                            borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
+                                        />
+                                        :
+                                        <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
+                                    }
+                                </>
                             }
                         </Grid>
                     </Grid>
