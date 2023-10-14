@@ -391,7 +391,7 @@ const Dashboard = ({
             </CardView>
           </Grid>
           <Grid item md={ 4 } xs={ 12 }>
-            <CardView height={ 443 }>
+            <CardView height={adminDashboardData?.trendAnalysis?.documentsProcessed > 0 && 443 }>
               <Grid container>
                 <Grid item md={ 6.6 } xs={ 12 }>
                   <Heading title="Trend Analysis" />
@@ -447,7 +447,7 @@ const Dashboard = ({
             </CardView>
           </Grid>
           <Grid item md={ 4 } xs={ 12 }>
-            <CardView height={ 443 }>
+            <CardView height={adminDashboardData?.trendAnalysis?.documentsProcessed > 0 && 443 }>
               <Grid container>
                 <Grid item md={ 12 } xs={ 12 }>
                   <Heading title="Document Types" />
@@ -483,7 +483,7 @@ const Dashboard = ({
       <Box mt={ 1 } sx={ { flexGrow: 1 } }>
         <Grid container spacing={ 1 }>
           <Grid item md={ 4 } xs={ 12 }>
-            <CardView height={ 443 }>
+            <CardView height={ adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 && 443 }>
               <Heading title="Departments" />
               { isLoadingDashboard ? (
                 <Skeleton
@@ -502,7 +502,7 @@ const Dashboard = ({
                     label={ departmentsTypeData.map((doc) => doc.docType) }
                     series={ departmentsTypeData.map((doc) => doc.count) }
                     filename="Departments"
-                        legendHeight={ 56 }
+                    legendHeight={ 56 }
                     offsetY={ 35 }
                   />
                 )

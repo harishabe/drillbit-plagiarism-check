@@ -273,7 +273,7 @@ const Dashboard = ({
             </CardView>
           </Grid>
           <Grid item md={4} xs={12}>
-            <CardView height={ 439 }>
+            <CardView height={instructorDashboardData?.data?.trendAnalysis?.documentsProcessed > 0 && 439 }>
               <Grid container>
                 <Grid item md={6.6} xs={12}>
                   <Heading title="Trend Analysis" />
@@ -306,16 +306,11 @@ const Dashboard = ({
               ) : (
                 <>
                   {instructorDashboardData?.data?.trendAnalysis
-                    ?.documentsProcessed ? (
+                    ?.documentsProcessed > 0 ? (
                     <PieChart
                       type="donut"
                       filename="Trend Analysis"
-                      height={
-                        instructorDashboardData?.data?.trendAnalysis
-                          ?.documentsProcessed === 0
-                          ? ""
-                          : "340px"
-                      }
+                      height={ 340 }
                       color={PIE_CHART_COLOR}
                       width={PIE_CHART_WIDTH}
                       label={PIE_CHART_LABEL}
@@ -338,7 +333,7 @@ const Dashboard = ({
       <Box mt={1} sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <Grid item md={8} xs={12}>
-            <CardView height={ 430 }>
+            <CardView height={ instructorDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 && 430 }>
               <Heading title="Document Types" />
               {isLoading ? (
                 <Skeleton

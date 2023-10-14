@@ -538,7 +538,7 @@ const Dashboard = ({
         <Box mt={ 1 } sx={ { flexGrow: 1 } }>
           <Grid container spacing={ 1 }>
             <Grid item md={ 6 } xs={ 12 }>
-              <CardView height={420}>
+              <CardView height={ adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 && 420}>
                 <Heading title="Document Types" />
                 { isLoadingDashboard ? (
                   <Skeleton
@@ -572,7 +572,7 @@ const Dashboard = ({
               </CardView>
             </Grid>
             <Grid item md={ 6 } xs={ 12 }>
-              <CardView height={ 420 }>
+              <CardView height={ adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 && 420 }>
                 <Heading title="Departments" />
                 { isLoadingDashboard ? (
                   <Skeleton
