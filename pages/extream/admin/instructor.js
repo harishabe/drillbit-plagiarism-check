@@ -48,11 +48,15 @@ import {
 } from "../../../style/index";
 
 const columns = [
-  { id: "name", label: "Name", maxWidth: 140 },
-  { id: "username", label: "Email", maxWidth: 230 },
-  { id: "created_date", label: "Creation Date", maxWidth: 130 },
-  { id: "status", label: "Status", maxWidth: 75 },
-  { id: "stats", label: "Statistics", maxWidth: 70 },
+  { id: "name", label: "Name", maxWidth: 80 },
+  { id: "username", label: "Email", maxWidth: 95 },
+  { id: "designation", label: "Designation", maxWidth: 75 },
+  { id: "department", label: "Department", maxWidth: 75 },
+  { id: "created_date", label: "Creation Date", maxWidth: 90 },
+  { id: "plagairism", label: "Allocated", maxWidth: 65 },
+  { id: "plagiarismUsed", label: "Submission", maxWidth: 65 },
+  { id: "status", label: "Status", maxWidth: 60 },
+  { id: "stats", label: "Statistics", maxWidth: 50 },
   { id: "action", label: "Actions", maxWidth: 120 },
 ];
 
@@ -178,7 +182,7 @@ const Instructor = ({
           {
             component: <StatsIcon />,
             type: "stats",
-            title: "Stats",
+            title: "Statistics",
           },
         ],
         instructor.role === Role.admin
