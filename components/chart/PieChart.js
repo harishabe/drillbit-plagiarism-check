@@ -46,7 +46,7 @@ const PieChart = ({
                 fontFamily: 'DM Sans',
                 color: '#454745 !important',
                 fontWeight:'600',
-                height: type === 'donut' ? undefined : legendHeight ? legendHeight : undefined
+                height: legendHeight
             },
             tooltip: {
                 enabled: true,
