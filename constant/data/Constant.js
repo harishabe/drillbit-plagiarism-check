@@ -68,7 +68,9 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'used_documents',
     'folder_no_of_submissions',
     'total_submissions',
-    'used_submissions'
+    'used_submissions',
+    'plagairism',
+    'plagiarismUsed'
 ];
 export const TABLE_BODY_ALLOW_ICON = [
     'action',
