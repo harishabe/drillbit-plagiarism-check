@@ -248,6 +248,7 @@ const Dashboard = ({
                                         height={ 370 }
                                         label={ chartData?.label }
                                         series={ chartData?.series }
+                                        legendHeight={ 37 }
                                     />
                                     : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
                             }

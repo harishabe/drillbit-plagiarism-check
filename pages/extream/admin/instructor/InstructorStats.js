@@ -176,6 +176,7 @@ const InstructorStats = ({
               instructorStats?.trendAnalysis && (
                 <PieChart
                   type="donut"
+                    height={ 340 }
                     color={ PIE_CHART_COLOR }
                     width={ PIE_CHART_WIDTH }
                     label={ PIE_CHART_LABEL }
@@ -183,6 +184,7 @@ const InstructorStats = ({
                     instructorStats?.trendAnalysis?.similarWork,
                     instructorStats?.trendAnalysis?.ownWork,
                     ] }
+                    offsetY={ 37 }
                 />
               )
             ) }

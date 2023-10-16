@@ -298,7 +298,7 @@ const Dashboard = ({
                   chartType="line"
                   graphName="File Submission"
                   filename="Similarity Ranges"
-                      graphData={ [
+                  graphData={ [
                     adminDashboardData?.data?.submissionsGraph?.zeroTen,
                     adminDashboardData?.data?.submissionsGraph?.elevenFourty,
                     adminDashboardData?.data?.submissionsGraph?.fourtyOneSixty,
@@ -306,9 +306,9 @@ const Dashboard = ({
                     adminDashboardData?.data?.submissionsGraph?.docError,
                   ] }
                   strokeCurve="straight"
-                      xaxisLabelShow={ true }
-                      yaxisLabelShow={ true }
-                      chartHeight={ 350 }
+                  xaxisLabelShow={ true }
+                  yaxisLabelShow={ true }
+                  chartHeight={ 350 }
                 />
               ) : (
                 <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
@@ -320,7 +320,7 @@ const Dashboard = ({
       { showRenewWarning && (
         <WarningDialog
           message="Are you sure you want to renew ?"
-          warningIcon={ <RenewAccountIcon />}
+          warningIcon={ <RenewAccountIcon /> }
           handleYes={ handleYesWarning }
           handleNo={ handleCloseWarning }
           isOpen={ true }
@@ -339,8 +339,8 @@ const Dashboard = ({
                     <Skeleton />
                   ) : (
                     <TextAlignRight>
-                        <EllipsisText
-                          value={
+                      <EllipsisText
+                        value={
                           adminDashboardData?.data?.accountTotalDays +
                           "(" +
                           "Total days" +
@@ -362,36 +362,36 @@ const Dashboard = ({
                 <>
                   <RadialBarChart
                     filename="Account Validity"
-                      type={ RADIAL_CHART_TYPE }
-                      color={ RADIAL_CHART_COLOR }
-                      height={ RADIAL_CHART_HEIGHT }
-                      label={ [RADIAL_CHART_LABEL] }
-                      labelData={ [adminDashboardData?.data?.accountValidityDays] }
-                      series={ [
+                    type={ RADIAL_CHART_TYPE }
+                    color={ RADIAL_CHART_COLOR }
+                    height={ RADIAL_CHART_HEIGHT }
+                    label={ [RADIAL_CHART_LABEL] }
+                    labelData={ [adminDashboardData?.data?.accountValidityDays] }
+                    series={ [
                       adminDashboardData?.data?.accountValidityPercentage.toFixed(
                         2
                       ),
                     ] }
                   />
-                    { isLoadingRenewAccount ? (
+                  { isLoadingRenewAccount ? (
                     <Skeleton />
                   ) : (
                     <Typography variant="h4" component="div" gutterBottom>
                       <a
-                            className={ classes.BorderColor }
+                        className={ classes.BorderColor }
                         href=""
-                            onClick={ renewalClick }
+                        onClick={ renewalClick }
                       >
                         Renew your account
                       </a>
                     </Typography>
-                    ) }
+                  ) }
                 </>
               ) }
             </CardView>
           </Grid>
           <Grid item md={ 4 } xs={ 12 }>
-            <CardView>
+            <CardView height={adminDashboardData?.trendAnalysis?.documentsProcessed > 0 && 443 }>
               <Grid container>
                 <Grid item md={ 6.6 } xs={ 12 }>
                   <Heading title="Trend Analysis" />
@@ -401,8 +401,8 @@ const Dashboard = ({
                     <Skeleton />
                   ) : (
                     <TextAlignRight>
-                        <EllipsisText
-                          value={
+                      <EllipsisText
+                        value={
                           adminDashboardData?.trendAnalysis
                             ?.documentsProcessed +
                           "(" +
@@ -423,46 +423,34 @@ const Dashboard = ({
                 />
               ) : (
                 <>
-                    { adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ? (
+                  { adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ? (
                     <>
                       <PieChart
                         type="donut"
                         filename="Trend Analysis"
-                          color={ PIE_CHART_COLOR }
-                          height={ 320 }
-                          label={ PIE_CHART_LABEL }
-                          series={ [
+                        color={ PIE_CHART_COLOR }
+                        height={ 330 }
+                        label={ PIE_CHART_LABEL }
+                        series={ [
                           adminDashboardData?.trendAnalysis?.similarWork,
                           adminDashboardData?.trendAnalysis?.ownWork,
                         ] }
+                        legendHeight={ 37 }
+                        offsetY={ 35 }
                       />
                     </>
                   ) : (
-                      <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
-                    ) }
+                    <ErrorBlock message={ TREND_ANALYSIS_NOT_FOUND } />
+                  ) }
                 </>
               ) }
             </CardView>
           </Grid>
           <Grid item md={ 4 } xs={ 12 }>
-            <CardView>
+            <CardView height={adminDashboardData?.trendAnalysis?.documentsProcessed > 0 && 443 }>
               <Grid container>
-                <Grid item md={ 6.6 } xs={ 12 }>
-                  <EllipsisText value="Document Types" variant="h2" />
-                </Grid>
-                <Grid item md={ 5.4 } xs={ 12 }>
-                  { isLoadingDashboard ? (
-                    <Skeleton />
-                  ) : (
-                    <TextAlignRight>
-                      {/* 
-                      <select>
-                          <option>Document type</option>
-                          <option>Department type</option>
-                        </select> 
-                      */}
-                    </TextAlignRight>
-                  ) }
+                <Grid item md={ 12 } xs={ 12 }>
+                  <Heading title="Document Types" />
                 </Grid>
               </Grid>
 
@@ -474,16 +462,15 @@ const Dashboard = ({
                   width={ 250 }
                 />
               ) : adminDashboardData?.trendAnalysis?.documentsProcessed > 0 ? (
-                  documentsType && (
+                documentsType && (
                   <PieChart
                     type="pie"
                     filename="Document Types"
-                    pieChartPadding="0px 2px"
-                    height={
-                      Object.entries(documentsType).length > 5 ? 400 : 323
-                    }
-                      label={ documentsType.map((doc) => doc.docType) }
-                      series={ documentsType.map((doc) => doc.count) }
+                    height={ 360 }
+                    label={ documentsType.map((doc) => doc.docType) }
+                    series={ documentsType.map((doc) => doc.count) }
+                    legendHeight={ 56 }
+                    offsetY={ 35 }
                   />
                 )
               ) : (
@@ -496,7 +483,7 @@ const Dashboard = ({
       <Box mt={ 1 } sx={ { flexGrow: 1 } }>
         <Grid container spacing={ 1 }>
           <Grid item md={ 4 } xs={ 12 }>
-            <CardView>
+            <CardView height={ adminDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 && 443 }>
               <Heading title="Departments" />
               { isLoadingDashboard ? (
                 <Skeleton
@@ -507,17 +494,16 @@ const Dashboard = ({
                 />
               ) : departmentTypeData &&
                 adminDashboardData?.data?.submissionsUsage?.usedSubmissions >
-                  0 ? (
+                0 ? (
                 departmentsTypeData && (
                   <PieChart
                     type="pie"
-                    height={
-                      Object.entries(departmentsTypeData).length > 5 ? 400 : 323
-                    }
-                    pieChartPadding="38px 2px"
-                        label={ departmentsTypeData.map((doc) => doc.docType) }
-                        series={ departmentsTypeData.map((doc) => doc.count) }
+                    height={ 360 }
+                    label={ departmentsTypeData.map((doc) => doc.docType) }
+                    series={ departmentsTypeData.map((doc) => doc.count) }
                     filename="Departments"
+                    legendHeight={ 56 }
+                    offsetY={ 35 }
                   />
                 )
               ) : (

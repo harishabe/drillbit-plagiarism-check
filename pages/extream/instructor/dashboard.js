@@ -385,9 +385,7 @@ const Dashboard = ({
           </Grid>
           <Grid item md={ 5 } xs={ 12 }>
             <CardView
-              height={
-                instructorDashboardData?.data?.no_of_submissions > 0 && "443px"
-              }
+              height={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed > 0 && 468}
             >
               <Grid container>
                 <Grid item md={ 6.6 } xs={ 12 }>
@@ -424,20 +422,12 @@ const Dashboard = ({
               ) : (
                 <>
                     { instructorDashboardData?.data?.trendAnalysis
-                    ?.documentsProcessed ? (
+                    ?.documentsProcessed > 0 ? (
                     <>
-                      {/* <TextAlignRight>
-                                                <SubTitle title={ instructorDashboardData?.data?.trendAnalysis?.documentsProcessed + '(' + 'Submissions' + ')' } />
-                                            </TextAlignRight> */}
                       <PieChart
                         type="donut"
                         filename="Trend Analysis"
-                        height={
-                          instructorDashboardData?.data?.trendAnalysis
-                            ?.documentsProcessed === 0
-                            ? ""
-                            : "347px"
-                        }
+                            height={ 340 }
                             color={ PIE_CHART_COLOR }
                             width={ PIE_CHART_WIDTH }
                             label={ PIE_CHART_LABEL }
@@ -446,6 +436,7 @@ const Dashboard = ({
                             ?.similarWork,
                           instructorDashboardData?.data?.trendAnalysis?.ownWork,
                             ] }
+                            offsetY={ 40 }
                       />
                     </>
                   ) : (
@@ -460,7 +451,7 @@ const Dashboard = ({
       <Box mt={ 1 } sx={ { flexGrow: 1 } }>
         <Grid container spacing={ 1 }>
           <Grid item md={ 8 } xs={ 12 }>
-            <CardView>
+            <CardView height={ instructorDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 &&  420 }>
               <Heading title="Document Types" />
               { isLoading ? (
                 <Skeleton
@@ -476,9 +467,11 @@ const Dashboard = ({
                   <PieChart
                     type="pie"
                     filename="Document Types"
-                        height={ 325 }
+                        height={ 360 }
                         label={ documentsType.map((doc) => doc.docType) }
                         series={ documentsType.map((doc) => doc.count) }
+                        legendHeight={ 56 }
+                        offsetY={ 35 }
                   />
                 )
               ) : (
