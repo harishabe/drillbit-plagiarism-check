@@ -55,7 +55,7 @@ const columns = [
   { id: "department", label: "Department", maxWidth: 75 },
   { id: "created_date", label: "Creation Date", maxWidth: 90 },
   { id: "total_submissions", label: "Allocated", maxWidth: 65 },
-  { id: "used_submissions", label: "Submission", maxWidth: 65 },
+  { id: "used_submissions", label: "Submissions", maxWidth: 65 },
   { id: "status", label: "Status", maxWidth: 60 },
   { id: "stats", label: "Statistics", maxWidth: 50 },
   { id: "action", label: "Actions", maxWidth: 120 },
