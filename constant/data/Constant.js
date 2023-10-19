@@ -88,6 +88,7 @@ export const TABLE_NEXT_PAGE = "Next";
 export const NO_DATA_PLACEHOLDER = '--';
 export const BACKEND_NO_DATA_PLACEHOLDER = '--';
 export const NA_DATA_PLACEHOLDER = 'NA';
+export const DREP_PLACEHOLDER = 'DREP';
 
 /**
  * Doc error

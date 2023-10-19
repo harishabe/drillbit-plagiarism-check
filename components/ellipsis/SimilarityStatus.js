@@ -4,6 +4,7 @@ import {
   SIMILARITY_COLOR_STANDARD,
   NO_DATA_PLACEHOLDER,
   NA_DATA_PLACEHOLDER,
+  DREP_PLACEHOLDER,
   DOC_ERROR_PLACEHOLDER_1,
   DOC_ERROR_PLACEHOLDER_2,
   COLORS,
@@ -52,7 +53,8 @@ const SimilarityStatus = ({ percent, width, flag }) => {
       setTextColor(COLORS.black);
     } else if (
       percent === NO_DATA_PLACEHOLDER ||
-      percent === NA_DATA_PLACEHOLDER
+      percent === NA_DATA_PLACEHOLDER ||
+      percent === DREP_PLACEHOLDER
     ) {
       setColor(COLORS.white);
       setTextColor(COLORS.black);
@@ -62,10 +64,11 @@ const SimilarityStatus = ({ percent, width, flag }) => {
   return (
     <StatusColors color={color} textColor={txtColor} width={width}>
       <Typography variant="h4_1">
-        {percent !== NO_DATA_PLACEHOLDER &&
-        percent !== DOC_ERROR_PLACEHOLDER_1 &&
-        percent !== NA_DATA_PLACEHOLDER &&
-        percent !== DOC_ERROR_PLACEHOLDER_2
+        { percent !== NO_DATA_PLACEHOLDER &&
+          percent !== DOC_ERROR_PLACEHOLDER_1 &&
+          percent !== NA_DATA_PLACEHOLDER &&
+          percent !== DOC_ERROR_PLACEHOLDER_2 && 
+          percent !== DREP_PLACEHOLDER
           ? percent + "%"
           : percent}
       </Typography>
