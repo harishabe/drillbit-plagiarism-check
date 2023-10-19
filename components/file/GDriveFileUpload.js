@@ -223,8 +223,8 @@ const GDriveFileUpload = ({
                 bodyFormData.append("name", data["authorName" + item[0]]);
                 bodyFormData.append("title", data["title" + item[0]]);
                 bodyFormData.append("year", data["year" + item[0]]);
-                bodyFormData.append('repository', (data.repository0 === 'Global') ? 'GLOBAL' : 'LOCAL');
-                bodyFormData.append('language', data.language0);
+                bodyFormData.append('repository', (data["repository" + item[0]] === 'Global') ? 'GLOBAL' : 'LOCAL');
+                bodyFormData.append('language', data["language" + item[0]]);
                 bodyFormData.append('fileId', driveFilePayload?.fileId);
                 bodyFormData.append('fileName', driveFilePayload?.fileName);
                 bodyFormData.append('token', driveAuthToken);
