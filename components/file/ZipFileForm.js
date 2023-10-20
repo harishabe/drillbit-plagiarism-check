@@ -99,8 +99,7 @@ const ZipFileForm = ({
                                         'id': 'authorName' + index,
                                         'label': 'Author name',
                                         'name': 'authorName' + index,
-                                        'required': false,
-                                        'validationMsg': UPLOAD_FILE_AUTHOR_NAME,
+                                        'required': UPLOAD_FILE_AUTHOR_NAME,
                                         'size': 'small'
                                     }}
                                 />
@@ -114,8 +113,7 @@ const ZipFileForm = ({
                                         'id': 'title' + index,
                                         'label': 'Title',
                                         'name': 'title' + index,
-                                        'required': false,
-                                        'validationMsg': UPLOAD_FILE_AUTHOR_TITLE,
+                                        'required': UPLOAD_FILE_AUTHOR_TITLE,
                                         'size': 'small'
                                     }}
                                 />
@@ -134,8 +132,7 @@ const ZipFileForm = ({
                                                 'id': 'documentType' + index,
                                                 'label': 'File type',
                                                 'name': 'documentType' + index,
-                                                'required': false,
-                                                'validationMsg': UPLOAD_FILE_TYPE,
+                                                'required': UPLOAD_FILE_TYPE,
                                                 'size': 'small',
                                                 'options': document_type !== undefined && document_type?.map((item) => ({ 'name': item }))
                                             }}

@@ -118,12 +118,12 @@ const AccountInfo = ({
                                     </>
                                 </Button>
 
-                                <SubTitle2 title='Supported formats : JPG,PNG, Image resolutions : 1000x1000 (mm), Maximum size : 10 MB' />
                                 { error &&
                                     <SubTitle2 color='red' title={ message } />
                                 }
                             </label>
                         </form>
+                        <SubTitle2 title='Supported formats : JPG,PNG, Image resolutions : 1000x1000 (mm), Maximum size : 10 MB' />
                     </Grid>
                     <Grid item md={2} style={{ textAlign: 'right' }}>
                         {accountInfo &&

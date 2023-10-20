@@ -83,7 +83,7 @@ const columns = [
   { id: "assignment_name", label: "Folder name", maxWidth: 260 },
   { id: "created_date", label: "Created date", maxWidth: 125 },
   { id: "folder_no_of_submissions", label: "Submissions", maxWidth: 115 },
-  { id: "action", label: "Action", maxWidth: 110 },
+  { id: "action", label: "Actions", maxWidth: 110 },
 ];
 
 function createData(
