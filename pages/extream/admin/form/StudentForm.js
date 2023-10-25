@@ -32,7 +32,7 @@ const StudentForm = ({
             let a = {
                 'name': editData.name,
             'email': editData.username,
-                'studentId': editData?.user_id,
+                'studentId': editData?.student_user_id,
                 'department': editData.department,
                 'section': editData.section
             };
