@@ -161,12 +161,12 @@ const UploadFiles = ({
     ) {
       multiFileUpload(fileData, data);
     } else if (
-        fileData.length > 1 &&
-        langType === "Non English"
-      ) {
-        multiNonEngFileUpload(fileData, data);
-      }
-      else if(fileData.length === 1 &&
+      fileData.length > 1 &&
+      langType === "Non English"
+    ) {
+      multiNonEngFileUpload(fileData, data);
+    }
+    else if (fileData.length === 1 &&
       langType === "ScannedPDF"
     ) {
       scannedPdfFileUpload(fileData, data);
@@ -183,9 +183,11 @@ const UploadFiles = ({
 
   const singleFileUpload = (files, data) => {
     let bodyFormData = new FormData();
-    bodyFormData.append("authorName", data.authorName0);
-    bodyFormData.append("title", data.title0);
-    bodyFormData.append("documentType", data.documentType0);
+    fileData?.map((item, i) => {
+      bodyFormData.append("authorName", data["authorName" + item[0]]);
+      bodyFormData.append("title", data["title" + item[0]]);
+      bodyFormData.append("documentType", data["documentType" + item[0]]);
+    })
     bodyFormData.append("plagiarismCheck", plagiarismCheck ? "YES" : "NO");
     bodyFormData.append("grammarCheck", grammarCheck ? "YES" : "NO");
     bodyFormData.append("language", langType);
@@ -204,12 +206,14 @@ const UploadFiles = ({
 
   const singleFileUploadNonEnglish = (files, data) => {
     let bodyFormData = new FormData();
-    bodyFormData.append("authorName", data.authorName0);
-    bodyFormData.append("title", data.title0);
-    bodyFormData.append("documentType", data.documentType0);
+    fileData?.map((item, i) => {
+      bodyFormData.append("authorName", data["authorName" + item[0]]);
+      bodyFormData.append("title", data["title" + item[0]]);
+      bodyFormData.append("documentType", data["documentType" + item[0]]);
+      bodyFormData.append("language", data["nonEnglishLang" + item[0]]);
+    })
     bodyFormData.append("plagiarismCheck", plagiarismCheck ? "YES" : "NO");
     bodyFormData.append("grammarCheck", grammarCheck ? "YES" : "NO");
-    bodyFormData.append("language", data.nonEnglishLang0);
     bodyFormData.append("file", files[0][1]);
     UploadNonEnglish(singleFileUploadAPI, bodyFormData);
   };
@@ -276,10 +280,10 @@ const UploadFiles = ({
       LanguageArr = [];
     let bodyFormData = new FormData();
     fileData?.map((item, i) => {
-      authorNameArr.push(data["authorName" + i]);
-      titleArr.push(data["title" + i]);
-      documentTypeArr.push(data["documentType" + i]);
-      LanguageArr.push(data["nonEnglishLang" + i]);
+      authorNameArr.push(data["authorName" + item[0]]);
+      titleArr.push(data["title" + item[0]]);
+      documentTypeArr.push(data["documentType" + item[0]]);
+      LanguageArr.push(data["nonEnglishLang" + item[0]]);
     });
 
     bodyFormData.append("authorName", authorNameArr?.map((item) => {
@@ -342,9 +346,11 @@ const UploadFiles = ({
 
   const regionalFileUpload = (files, data) => {
     let bodyFormData = new FormData();
-    bodyFormData.append("authorName", data.authorName0);
-    bodyFormData.append("title", data.title0);
-    bodyFormData.append("documentType", data.documentType0);
+    fileData?.map((item, i) => {
+      bodyFormData.append("authorName", data["authorName" + item[0]]);
+      bodyFormData.append("title", data["title" + item[0]]);
+      bodyFormData.append("documentType", data["documentType" + item[0]]);
+    })
     bodyFormData.append("language", data.regionalLanguage);
     bodyFormData.append("file", files[0][1]);
     SubmissionListUpload(singleFileUploadAPI, bodyFormData);
@@ -417,35 +423,35 @@ const UploadFiles = ({
     <>
       <CardView>
         <DragAreaPadding>
-          <div style={{ display: "flex" }}>
-            <Tooltip title="Back" arrow style={{ marginTop: "-10px" }}>
-              <IconButton size="large" onClick={handleBack}>
+          <div style={ { display: "flex" } }>
+            <Tooltip title="Back" arrow style={ { marginTop: "-10px" } }>
+              <IconButton size="large" onClick={ handleBack }>
                 <ArrowBackOutlinedIcon />
               </IconButton>
             </Tooltip>
-            {isRepository ? (
+            { isRepository ? (
               <Heading title="Upload files to repository" />
             ) : (
               <Heading title="Upload files for plagiarism check" />
-            )}
+            ) }
           </div>
-          <Grid container spacing={1}>
-            <Grid item md={12} xs={12}>
+          <Grid container spacing={ 1 }>
+            <Grid item md={ 12 } xs={ 12 }>
               <DragDropArea>
-                {fileIcon}
+                { fileIcon }
                 <Title title={ allowedFormat.FILE_FORMATS } />
                 { !isStudent && !isRegionalFile && <Title title={ allowedFormat.MAX_FILES } /> }
                 <Title title={ allowedFormat.LENGTH } />
                 <Title title={ allowedFormat.SIZE } />
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Link style={{ marginLeft: "5px" }}>
+                <div style={ { display: "flex", justifyContent: "center" } }>
+                  <Link style={ { marginLeft: "5px" } }>
                     <ChooseLabel for="file-upload">
-                      {choseFileTitle}
+                      { choseFileTitle }
                     </ChooseLabel>
                   </Link>
                   <Input
                     multiple
-                    onChange={handleUpload}
+                    onChange={ handleUpload }
                     id="file-upload"
                     type="file"
                     accept={ allowedFormat.ALLOW_FILE_FORMATS }
@@ -453,9 +459,9 @@ const UploadFiles = ({
                   />
                 </div>
 
-                {fileData?.length > 0 &&
+                { fileData?.length > 0 &&
                   fileData?.map((item, index) => (
-                    <ChipContainer key={index}>
+                    <ChipContainer key={ index }>
                       <Tooltip title={ item[1]?.name } arrow>
                         <Chip
                           label={ item[1]?.name.slice(0, 15) + '...' }
@@ -464,34 +470,34 @@ const UploadFiles = ({
                       </Tooltip>
                     </ChipContainer>
                   )) }
-                {fileData?.length > 1 && !isRepository && isRegionalFile && (
+                { fileData?.length > 1 && !isRepository && isRegionalFile && (
                   <ErrorMessageContainer>
-                    {UPLOAD_NON_ENGLISH_FILE_MULTIFILE}
+                    { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
                   </ErrorMessageContainer>
-                )}
+                ) }
                 { fileData?.length > 1 && langType === "ScannedPDF" && (
                   <ErrorMessageContainer>
                     { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
                   </ErrorMessageContainer>
                 ) }
-                {fileData?.length > 1 && !isRepository && isStudent && (
+                { fileData?.length > 1 && !isRepository && isStudent && (
                   <ErrorMessageContainer>
-                    {UPLOAD_NON_ENGLISH_FILE_MULTIFILE}
+                    { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
                   </ErrorMessageContainer>
-                )}
-                {fileWarning && (
+                ) }
+                { fileWarning && (
                   <ErrorMessageContainer>
-                    {UPLOAD_FILE_MAX_LIMIT}
+                    { UPLOAD_FILE_MAX_LIMIT }
                   </ErrorMessageContainer>
-                )}
+                ) }
               </DragDropArea>
 
-              {fileData?.length === 1 &&
+              { fileData?.length === 1 &&
                 !isRepository &&
                 !isStudent &&
                 langType === "English" && (
-                  <Grid container style={{ justifyContent: "center" }}>
-                    {!isRegionalFile && (
+                  <Grid container style={ { justifyContent: "center" } }>
+                    { !isRegionalFile && (
                       <div>
                         <FormControlLabel
                           control={
@@ -499,8 +505,8 @@ const UploadFiles = ({
                               disabled={
                                 router?.query?.grammar?.toUpperCase() === "NO"
                               }
-                              checked={grammarCheck}
-                              onChange={handleGrammarPlagiarismChange}
+                              checked={ grammarCheck }
+                              onChange={ handleGrammarPlagiarismChange }
                               name="grammarCheck"
                             />
                           }
@@ -509,52 +515,52 @@ const UploadFiles = ({
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={plagiarismCheck}
-                              onChange={handleGrammarPlagiarismChange}
+                              checked={ plagiarismCheck }
+                              onChange={ handleGrammarPlagiarismChange }
                               name="plagiarismCheck"
                             />
                           }
                           label="Plagiarism Check"
                         />
                       </div>
-                    )}
+                    ) }
                   </Grid>
-                )}
+                ) }
 
-              {fileData?.length > 0 && isRepository && (
+              { fileData?.length > 0 && isRepository && (
                 <RepositoryFileForm
-                  handleSubmitRepository={handleSubmitRepository}
-                  files={fileData}
+                  handleSubmitRepository={ handleSubmitRepository }
+                  files={ fileData }
                   btnTitle="Submit"
-                  isLoading={isLoadingUpload}
+                  isLoading={ isLoadingUpload }
                   exemptCheck={ exemptCheck }
                   handleExemptCheckChange={ handleExemptCheckChange }
                 />
-              )}
-              {fileData?.length > 0 &&
+              ) }
+              { fileData?.length > 0 &&
                 !isRepository &&
                 !isStudent &&
                 langType === "English" && (
                   <FileForm
-                    handleSubmitFile={handleSubmit}
-                    files={fileData}
+                    handleSubmitFile={ handleSubmit }
+                    files={ fileData }
                     btnTitle="Submit"
-                    isLoading={isLoadingUpload || isLoadingNonEng}
-                    langType={langType}
+                    isLoading={ isLoadingUpload || isLoadingNonEng }
+                    langType={ langType }
                   />
-                )}
+                ) }
               { fileData?.length > 0 &&
                 !isRepository &&
                 !isStudent &&
                 langType === "Non English" && (
                   <FileForm
-                    handleSubmitFile={handleSubmit}
-                    files={fileData}
+                    handleSubmitFile={ handleSubmit }
+                    files={ fileData }
                     btnTitle="Submit"
-                    isLoading={isLoadingUpload || isLoadingNonEng}
-                    langType={langType}
+                    isLoading={ isLoadingUpload || isLoadingNonEng }
+                    langType={ langType }
                   />
-                )}
+                ) }
               { fileData?.length === 1 &&
                 langType === "ScannedPDF" && (
                   <FileForm
@@ -570,40 +576,40 @@ const UploadFiles = ({
                 isStudent &&
                 langType === "English" && (
                   <FileForm
-                    handleSubmitFile={handleSubmit}
-                    files={fileData}
+                    handleSubmitFile={ handleSubmit }
+                    files={ fileData }
                     btnTitle="Submit"
-                    isStudent={isStudent}
-                    assName={router.query.assName}
-                    isLoading={isLoadingUpload || isLoadingNonEng}
-                    langType={langType}
+                    isStudent={ isStudent }
+                    assName={ router.query.assName }
+                    isLoading={ isLoadingUpload || isLoadingNonEng }
+                    langType={ langType }
                   />
-                )}
-              {fileData?.length === 1 &&
+                ) }
+              { fileData?.length === 1 &&
                 !isRepository &&
                 isStudent &&
                 langType === "Non English" && (
                   <FileForm
-                    handleSubmitFile={handleSubmit}
-                    files={fileData}
+                    handleSubmitFile={ handleSubmit }
+                    files={ fileData }
                     btnTitle="Submit"
-                    isStudent={isStudent}
-                    assName={router.query.assName}
-                    isLoading={isLoadingUpload || isLoadingNonEng}
-                    langType={langType}
+                    isStudent={ isStudent }
+                    assName={ router.query.assName }
+                    isLoading={ isLoadingUpload || isLoadingNonEng }
+                    langType={ langType }
                   />
-                )}
-              {fileData?.length === 1 && !isRepository && isRegionalFile && (
+                ) }
+              { fileData?.length === 1 && !isRepository && isRegionalFile && (
                 <FileForm
-                  handleSubmitFile={handleSubmit}
-                  files={fileData}
-                  isRegionalFile={isRegionalFile}
+                  handleSubmitFile={ handleSubmit }
+                  files={ fileData }
+                  isRegionalFile={ isRegionalFile }
                   btnTitle="Submit"
-                  isLoading={isLoadingUpload || isLoadingNonEng}
-                  langType={langType}
+                  isLoading={ isLoadingUpload || isLoadingNonEng }
+                  langType={ langType }
                   isCrossLangDropdown={ isCrossLangDropdown }
                 />
-              )}
+              ) }
             </Grid>
           </Grid>
         </DragAreaPadding>

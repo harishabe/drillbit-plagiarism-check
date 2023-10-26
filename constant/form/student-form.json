@@ -5,7 +5,8 @@
         "id": "name",
         "name": "name",
         "label": "Enter name *",
-        "required": "Enter name"
+        "required": "Enter name",
+        "minLength": 3
     },
     {
         "field_type": "input",
