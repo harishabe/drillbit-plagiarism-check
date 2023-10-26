@@ -383,7 +383,7 @@ const MyFolder = ({
         <Grid item md={3.1} xs={3.1} style={{ textAlign: "right" }}>
           <TextField
             sx={{ width: "98%" }}
-            placeholder="Search by Folder ID"
+            placeholder="Search by Folder ID / Folder name"
             onChange={debouncedResults}
             inputProps={{
               style: {
