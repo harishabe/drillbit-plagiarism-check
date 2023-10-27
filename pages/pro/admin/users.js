@@ -313,7 +313,7 @@ const Users = ({
     } else if (icon === "delete") {
       setDeleteRowData(rowData?.user_id);
       setShowDeleteWarning(true);
-    } else if (icon === "lock") {
+    } else if (icon === "lock" && rowData?.expired !== 1) {
       let activateDeactive = {
         id: rowData?.user_id,
         status: "INACTIVE",
@@ -321,7 +321,7 @@ const Users = ({
       setStatusRowData(activateDeactive);
       setStatusWarning(true);
       setStatusMessage("inactive");
-    } else if (icon === "unlock") {
+    } else if (icon === "unlock" && rowData?.expired !== 1) {
       let activateDeactive = {
         id: rowData?.user_id,
         status: "ACTIVE",
