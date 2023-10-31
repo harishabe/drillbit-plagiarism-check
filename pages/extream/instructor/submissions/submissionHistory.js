@@ -131,7 +131,7 @@ const SubmissionHistoryPage = ({
                             top: '13px',
                             right: '65px'
                         } }
-                        placeholder='Search'
+                        placeholder='Search by Paper ID'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
