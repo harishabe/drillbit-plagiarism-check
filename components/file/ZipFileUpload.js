@@ -142,6 +142,12 @@ const ZipFileUpload = ({
         }
     }, [extractedFileData && extractedFileData?.status]);
 
+    useEffect(() => {
+        if (fileData?.length === 0) {
+            UploadZipFileDataClear();
+        }
+    }, [fileData?.length]);
+
     const handleBack = (e) => {
         e.preventDefault();
         UploadZipDataClear();

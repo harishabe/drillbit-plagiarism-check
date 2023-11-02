@@ -19,7 +19,7 @@ export const UPLOAD_FILE_MAX_LIMIT = "Max file upload is 15.";
 export const UPLOAD_FILE_REPO_MAX_LIMIT = "Max file upload is 10.";
 export const UPLOAD_ZIP_FILES_ZERO = "Uploaded zip file is empty, and no files were found within it.";
 export const UPLOAD_FILE_AUTHOR_NAME = "Author name is required";
-export const UPLOAD_FILE_AUTHOR_TITLE = "Author title is required";
+export const UPLOAD_FILE_AUTHOR_TITLE = "Paper title is required";
 export const UPLOAD_FILE_TYPE = "Select file type";
 export const UPLOAD_NON_ENGLISH_FILE_MULTIFILE = "Multiple files are not supported.";
 
