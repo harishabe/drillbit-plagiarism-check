@@ -125,7 +125,9 @@ const AssignmentForms = ({
                 //bodyFormData.append('exclude_include_sources', excludeIncludeSource === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 bodyFormData.append('save_to_repository', saveToRepo === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
-                    bodyFormData.append('repository_scope', data?.repository_scope?.name === 'Institution' ? 'LOCAL' : 'GLOBAL');
+                    bodyFormData.append('repository_scope', 
+                        data?.repository_scope?.name === 'Institution' ? 'LOCAL' : data?.repository_scope?.name.toUpperCase()
+                    );
                 }
                 bodyFormData.append('allow_resubmissions', allowSubmission === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO);
                 if (allowSubmission === ASSIGNMENT_SETTING_VALUE_YES) {
@@ -251,7 +253,9 @@ const AssignmentForms = ({
 
 
         if (saveToRepo === ASSIGNMENT_SETTING_VALUE_YES) {
-            bodyFormData.append('repository_scope', data?.repository_scope?.name === 'Institution' ? 'LOCAL' : 'GLOBAL');
+            bodyFormData.append('repository_scope',
+                data?.repository_scope?.name === 'Institution' ? 'LOCAL' : data?.repository_scope?.name.toUpperCase()
+            );
         }
 
         if (editData.assignmentData.ex_pre === ASSIGNMENT_SETTING_VALUE_YES) {
@@ -483,7 +487,7 @@ const AssignmentForms = ({
                 'start_date': editData.assignmentData?.start_date,
                 'marks': editData.assignmentData.marks,
                 'extra_days': editData.assignmentData.extra_days,
-                'repository_scope': { 'name': (editData.assignmentData.repository_scope === null ? '' : editData.assignmentData.repository_scope === 'LOCAL' ? 'Institution' : 'Global') },
+                'repository_scope': { 'name': editData.assignmentData.repository_scope !== null && editData.assignmentData.repository_scope === 'LOCAL' ? 'Institution' : 'Global' },
                 'no_of_resubmission': editData.assignmentData.resubmission_count,
                 'resubmission_count': editData.assignmentData.resubmission_count,
                 'file': editData.assignmentData.attachment === null ? '' : editData.assignmentData.attachment
@@ -938,7 +942,6 @@ const AssignmentForms = ({
                                     'label': 'Repository Scope',
                                     'name': 'repository_scope',
                                     'required': 'Choose repository scope',
-                                    'validationMsg': 'Please select repository scope',
                                     'size': 'small',
                                     'options': [{
                                         'name': 'Institution'

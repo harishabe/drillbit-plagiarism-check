@@ -79,7 +79,7 @@ const NonEnglishFile = () => {
             multiFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/nonenglish/multipleFiles` }
             routerObj={ {
                 pathname: '/extream/instructor/mysubmissions',
-                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, grammar: router.query.grammar }
+                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, assGrading: router.query.assGrading, assQuestion: router.query.assQuestion, grammar: router.query.grammar }
             } }
         />,
         <ZipFileUpload
@@ -92,7 +92,7 @@ const NonEnglishFile = () => {
             confirmZipFileAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/nonenglish/confirmZipFile` }
             routerObj={ {
                 pathname: '/extream/instructor/mysubmissions',
-                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, grammar: router.query.grammar }
+                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, assGrading: router.query.assGrading, assQuestion: router.query.assQuestion, grammar: router.query.grammar }
             } }
         />
     ]
