@@ -77,6 +77,7 @@ const ZipFileUpload = ({
             setFileWarning(true);
         } else {
             setFileData(Object.entries(e.target.files));
+            UploadZipFileDataClear();
             setFileWarning(false);
         }
     };
