@@ -25,7 +25,10 @@ const RadialBarChart = ({
                     },
                     export: {
                         csv: {
-                            filename: filename
+                            filename: filename,
+                            columnDelimiter: ' : ',
+                            headerCategory: 'Days remaining',
+                            headerValue: `${labelData} days`,
                         },
                         svg: {
                             filename: filename
