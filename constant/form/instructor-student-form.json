@@ -5,7 +5,8 @@
         "id": "name",
         "name": "name",
         "label": "Student Name *",
-        "required": "Enter student Name"
+        "required": "Enter student Name",
+        "minLength": 3
     },
     {
         "field_type": "input",

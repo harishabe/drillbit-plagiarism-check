@@ -63,18 +63,18 @@ const FileForm = ({
   };
 
   return (
-    <div style={{ marginTop: "10px" }}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {files &&
+    <div style={ { marginTop: "10px" } }>
+      <form onSubmit={ handleSubmit(onSubmit) }>
+        { files &&
           files?.map((item, index) => {
             return (
-              <Grid container spacing={1} key={item[1]?.name || item.name}>
+              <Grid container spacing={ 1 } key={ item[1]?.name || item.name }>
                 <Grid
                   item
                   md={ langType === "Non English" || isRegionalFile ? 2.4 : 3 }
-                  xs={12}
+                  xs={ 12 }
                 >
-                  <div style={{ marginTop: "25px" }}>
+                  <div style={ { marginTop: "25px" } }>
                     <EllipsisText
                       value={ item[1]?.name || item.name }
                     />
@@ -83,112 +83,112 @@ const FileForm = ({
                 <Grid
                   item
                   md={ langType === "Non English" || isRegionalFile ? 2.4 : 3 }
-                  xs={12}
+                  xs={ 12 }
                 >
                   <LabelContainer>
                     <InputLabel>Author Name *</InputLabel>
                   </LabelContainer>
-                  {isStudent ? (
+                  { isStudent ? (
                     <TextField
-                      sx={{ marginTop: "0px" }}
+                      sx={ { marginTop: "0px" } }
                       fullWidth
                       margin="normal"
-                      name={"authorName" + index}
+                      name={ "authorName" + index }
                       type="text"
                       variant="outlined"
                       size="small"
                       disabled
-                      label={getItemSessionStorage("name")}
-                      inputProps={{
+                      label={ getItemSessionStorage("name") }
+                      inputProps={ {
                         minLength: 3,
-                      }}
+                      } }
                     />
                   ) : (
                     <TextField
-                      sx={{ marginTop: "0px" }}
+                      sx={ { marginTop: "0px" } }
                       fullWidth
                       margin="normal"
-                      name={"authorName" + item[0]}
+                      name={ "authorName" + item[0] }
                       type="text"
                       variant="outlined"
                       size="small"
-                      {...register("authorName" + item[0], { required: true })}
-                      error={errors["authorName" + item[0]]}
+                      { ...register("authorName" + item[0], { required: true }) }
+                      error={ errors["authorName" + item[0]] }
                       helperText={
                         errors["authorName" + item[0]] &&
                         UPLOAD_FILE_AUTHOR_NAME
                       }
-                      FormHelperTextProps={{
+                      FormHelperTextProps={ {
                         className: classes.helperText,
-                      }}
-                      inputProps={{
+                      } }
+                      inputProps={ {
                         minLength: 3,
-                      }}
+                      } }
                     />
-                  )}
+                  ) }
                 </Grid>
                 <Grid
                   item
                   md={ langType === "Non English" || isRegionalFile ? 2.4 : 3 }
-                  xs={12}
+                  xs={ 12 }
                 >
                   <LabelContainer>
                     <InputLabel>Title *</InputLabel>
                   </LabelContainer>
 
-                  {isStudent ? (
+                  { isStudent ? (
                     <TextField
-                      sx={{ marginTop: "0px" }}
+                      sx={ { marginTop: "0px" } }
                       fullWidth
                       margin="normal"
-                      name={"title" + index}
+                      name={ "title" + index }
                       type="text"
                       variant="outlined"
                       size="small"
                       disabled
-                      label={assName}
-                      inputProps={{
+                      label={ assName }
+                      inputProps={ {
                         minLength: 3,
-                      }}
+                      } }
                     />
                   ) : (
                     <TextField
-                      sx={{ marginTop: "0px" }}
+                      sx={ { marginTop: "0px" } }
                       fullWidth
                       margin="normal"
-                      name={"title" + item[0]}
+                      name={ "title" + item[0] }
                       type="text"
                       variant="outlined"
                       size="small"
-                      {...register("title" + item[0], { required: true })}
+                      { ...register("title" + item[0], { required: true }) }
                       helperText={
                         errors["title" + item[0]] && UPLOAD_FILE_AUTHOR_TITLE
                       }
-                      error={errors["title" + item[0]]}
-                      FormHelperTextProps={{
+                      error={ errors["title" + item[0]] }
+                      FormHelperTextProps={ {
                         className: classes.helperText,
-                      }}
-                      inputProps={{
+                      } }
+                      inputProps={ {
                         minLength: 3,
-                      }}
+                      } }
                     />
-                  )}
+                  ) }
                 </Grid>
 
-                {!isStudent && (
+                { !isStudent && (
                   <Grid
                     item
                     md={ langType === "Non English" || isRegionalFile ? 2.4 : 3 }
-                    xs={12}
+                    xs={ 12 }
                   >
                     <InputAutoComplete
-                      control={control}
-                      field={{
+                      control={ control }
+                      field={ {
                         field_type: "dropdown",
                         style: { marginTop: "0px" },
-                        id: "documentType" + index,
+                        id: "documentType" + item[0],
                         label: "Document type *",
-                        name: "documentType" + index,
+                        name: "documentType" + item[0],
                         required: UPLOAD_FILE_TYPE,
                         validationMsg: UPLOAD_FILE_TYPE,
                         size: "small",
@@ -197,21 +197,21 @@ const FileForm = ({
                           DOCUMENT_TYPE_LANG?.document_type?.map((item) => ({
                             name: item,
                           })),
-                      }}
+                      } }
                     />
                   </Grid>
-                )}
+                ) }
 
-                {langType === "Non English" && (
-                  <Grid item md={2.4} xs={12}>
+                { langType === "Non English" && (
+                  <Grid item md={ 2.4 } xs={ 12 }>
                     <InputAutoComplete
-                      control={control}
-                      field={{
+                      control={ control }
+                      field={ {
                         field_type: "dropdown",
                         style: { marginTop: "0px" },
-                        id: "Language" + index,
+                        id: "Language" + item[0],
                         label: "Select Language *",
-                        name: "nonEnglishLang" + index,
+                        name: "nonEnglishLang" + item[0],
                         required: UPLOAD_FILE_LANGUAGE,
                         validationMsg: UPLOAD_FILE_LANGUAGE,
                         size: "small",
@@ -220,19 +220,19 @@ const FileForm = ({
                           DOCUMENT_TYPE_LANG?.non_english_languages?.map(
                             (item) => ({ name: item })
                           ),
-                      }}
+                      } }
                     />
                   </Grid>
-                )}
+                ) }
 
-                {isRegionalFile && (
+                { isRegionalFile && (
                   <Grid item md={ 2.4 } xs={ 12 }>
                     <InputAutoComplete
-                      control={control}
-                      field={{
+                      control={ control }
+                      field={ {
                         field_type: "dropdown",
                         style: { marginTop: "0px" },
-                        id: "Language",
+                        id: "Language" + item[0],
                         label: "Select Language *",
                         name: "regionalLanguage",
                         required: UPLOAD_FILE_LANGUAGE,
@@ -245,10 +245,10 @@ const FileForm = ({
                               name: item,
                             })
                           ),
-                      }}
+                      } }
                     />
                   </Grid>
-                )}
+                ) }
                 { isCrossLangDropdown && (
                   <Grid item md={ 3 } xs={ 12 }>
                     <InputAutoComplete
@@ -275,16 +275,16 @@ const FileForm = ({
                 ) }
               </Grid>
             );
-          })}
-        <div style={{ textAlign: "center", marginTop: "10px" }}>
+          }) }
+        <div style={ { textAlign: "center", marginTop: "10px" } }>
           <Button
             color="primary"
-            disabled={isLoading}
+            disabled={ isLoading }
             type="submit"
             variant="contained"
             size="large"
           >
-            {isLoading ? <BeatLoader color="#fff" /> : btnTitle}
+            { isLoading ? <BeatLoader color="#fff" /> : btnTitle }
           </Button>
         </div>
       </form>
