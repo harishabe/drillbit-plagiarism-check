@@ -369,8 +369,10 @@ const UploadFiles = ({
 
   const scannedPdfFileUpload = (files, data) => {
     let bodyFormData = new FormData();
-    bodyFormData.append("authorName", data.authorName0);
-    bodyFormData.append("title", data.title0);
+    fileData?.map((item, i) => {
+      bodyFormData.append("authorName", data["authorName" + item[0]]);
+      bodyFormData.append("title", data["title" + item[0]]);
+    })
     bodyFormData.append("documentType", data.documentType0);
     bodyFormData.append("file", files[0][1]);
     SubmissionListUpload(singleFileUploadAPI, bodyFormData);
