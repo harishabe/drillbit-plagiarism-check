@@ -26,9 +26,9 @@ const SubmissionColumns = [
     { id: 'date_up', label: 'Submission Date', maxWidth: 155 },
 ];
 
-function submissionHistoryData(id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, flag) {
+function submissionHistoryData(id, d_key, name, title, original_fn, lang1, alert_msg, grammar, grammar_url, lang, percent, paper_id, date_up, flag) {
     return {
-        id, d_key, name, title, original_fn, lang1, grammar, grammar_url, lang, percent, paper_id, date_up, flag
+        id, d_key, name, title, original_fn, lang1, alert_msg, grammar, grammar_url, lang, percent, paper_id, date_up, flag
     };
 }
 
@@ -73,6 +73,7 @@ const SubmissionHistoryPage = ({
                     data.title,
                     data.original_fn,
                     data.lang1,
+                    data.alert_msg,
                     data.grammar,
                     data.grammar_url,
                     data.lang,
