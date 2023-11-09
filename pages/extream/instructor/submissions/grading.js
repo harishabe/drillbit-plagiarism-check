@@ -73,16 +73,20 @@ const Grading = ({
     const columns = [
         { id: 'STname', label: 'Student Name', maxWidth: 216 },
         { id: 'gradingpaper_id', label: 'Paper ID', maxWidth: 216 },
-        { id: 'similarity', label: 'Similarity', maxWidth: 216 },
+        { id: 'percent', label: 'Similarity', maxWidth: 216 },
         { id: 'marks', label: 'Assignment Marks', maxWidth: 216 },
         { id: 'action', label: 'Feedback', maxWidth: 216 },
     ];
 
-    function createData(STname, gradingpaper_id, marks, similarity, action, flag) {
+    function createData(STname, gradingpaper_id, marks, percent, action, alert_msg, flag) {
         return {
-            STname, gradingpaper_id, marks, similarity, action, flag
+            STname, gradingpaper_id, marks, percent, action, alert_msg, flag
         };
     }
+
+    const handleShowAnalysisPage = () => {
+        return 0
+    };
 
     useEffect(() => {
         let row = '';
@@ -97,7 +101,8 @@ const Grading = ({
                     {
                         'component': <StyledButtonIcon variant="outlined" size='small' disabled={ grading.paper_id === BACKEND_NO_DATA_PLACEHOLDER } ><FeedbackOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'feedback', 'title': grading.paper_id === BACKEND_NO_DATA_PLACEHOLDER ? 'Feedback is disabled because of no similarity percentage.' : 'Feedback'
                     },
-                ]
+                ],
+                grading.alert_msg,
             );
             row['isSelected'] = false;
             arr.push(row);
@@ -186,6 +191,7 @@ const Grading = ({
                 tableData={rows}
                 isLoading={isLoading}
                 handleAction={handleAction}
+                showAnalysisPage={ handleShowAnalysisPage }
             />
 
             { showModal && (
