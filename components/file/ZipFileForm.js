@@ -100,8 +100,7 @@ const ZipFileForm = ({
                                         'label': 'Author name',
                                         'name': 'authorName' + index,
                                         'required': UPLOAD_FILE_AUTHOR_NAME,
-                                        'size': 'small',
-                                        'maxLength': 100,
+                                        'size': 'small'
                                     }}
                                 />
                             </Grid>
@@ -115,8 +114,7 @@ const ZipFileForm = ({
                                         'label': 'Title',
                                         'name': 'title' + index,
                                         'required': UPLOAD_FILE_AUTHOR_TITLE,
-                                        'size': 'small',
-                                        'maxLength': 100,
+                                        'size': 'small'
                                     }}
                                 />
                             </Grid>
