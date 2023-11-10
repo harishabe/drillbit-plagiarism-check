@@ -103,7 +103,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const columns = [
-  { id: "student_id", label: "Student ID", maxWidth: 100 },
+  { id: "student_user_id", label: "Student ID", maxWidth: 100 },
   { id: "name", label: "Student Name", maxWidth: 190 },
   { id: "username", label: "Email", maxWidth: 190 },
   { id: "department", label: "Department", maxWidth: 110 },
@@ -113,7 +113,7 @@ const columns = [
 
 function createData(
   id,
-  student_id,
+  student_user_id,
   name,
   username,
   department,
@@ -123,7 +123,7 @@ function createData(
 ) {
   return {
     id,
-    student_id,
+    student_user_id,
     name,
     username,
     department,
