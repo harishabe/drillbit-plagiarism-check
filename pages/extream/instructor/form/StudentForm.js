@@ -104,7 +104,7 @@ const StudentForm = ({
             let a = {
                 'name': editData.name,
                 'email': editData.username,
-                'studentId': editData.student_id || editData.user_id,
+                'studentId': editData.student_user_id || editData.user_id,
                 'department': editData.department,
                 'section': editData.section,
                 'phone_number': editData.phone_number
