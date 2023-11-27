@@ -498,8 +498,8 @@ const ProUser = ({
                     </Grid>
                     <Grid item md={ 6 } xs={ 6 } style={ { textAlign: 'right' } }>
                         <TextField
-                            sx={ { width: '40%' } }
-                            placeholder='Search'
+                            sx={ { width: '45%' } }
+                            placeholder='Search by Name, Email'
                             onChange={ debouncedResults }
                             inputProps={ {
                                 style: {

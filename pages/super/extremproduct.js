@@ -211,8 +211,8 @@ const ExtremProduct = ({
                 </Grid>
                 <Grid item md={ 6 } xs={ 6 } style={ { textAlign: 'right' } }>
                     <TextField
-                        sx={ { width: '40%' } }
-                        placeholder='Search'
+                        sx={ { width: '45%' } }
+                        placeholder='Search by LID, Institution name'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {

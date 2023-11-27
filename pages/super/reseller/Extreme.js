@@ -196,7 +196,7 @@ const Extreme = ({
                         </DownloadField>
                         <SearchField>
                             <TextField
-                                placeholder='Search'
+                                placeholder='Search by Name, Email'
                                 onChange={ debouncedResults }
                                 inputProps={ {
                                     style: {

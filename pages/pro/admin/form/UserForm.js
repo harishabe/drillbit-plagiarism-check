@@ -6,11 +6,11 @@ import { FormComponent } from '../../../../components';
 import { CreateInstructorData, EditData } from '../../../../redux/action/admin/AdminAction';
 import FormJson from '../../../../constant/form/instructor-form.json';
 import { AddImageIcon, EditClassAndStudentIcon } from '../../../../assets/icon';
-import { convertDate } from '../../../../utils/RegExp';
+import { convertDate, getItemSessionStorage } from '../../../../utils/RegExp';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { BASE_URL_PRO, BASE_URL_SUPER } from '../../../../utils/BaseUrl';
 import { FORM_VALIDATION } from '../../../../constant/data/Constant';
-import { Typography } from '@mui/material';
+import { Role } from '../../../../constant/data';
 
 const UserForm = ({
     CreateInstructorData,
@@ -110,7 +110,51 @@ const UserForm = ({
                 });
                 setFormJsonField(fields);
             }
-
+            if (allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+                        item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabledAllocDocs'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else if ((allocationDocs < editData?.used_submissions) || (allocationDocs < editData?.plagiarismUsed)) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && (editData?.used_submissions > 0 || editData?.plagiarismUsed > 0)) {
+                        item['errorMsg'] = `Already ${(editData?.used_submissions || editData?.plagiarismUsed)} submission uploaded, please choose upto ${remainingDocuments + editData?.total_submissions} documents`;
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabledAllocDocs'] = true;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            } else {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
+                        item['errorMsg'] = '';
+                    }
+                    if (item?.field_type === 'button') {
+                        item['isDisabledAllocDocs'] = false;
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
+        } else if (getItemSessionStorage('role') === Role.super) {
+            if (licenseExpiryDate?.license_expiry_date !== undefined) {
+                let fields = FormJson?.map((item) => {
+                    if (item?.field_type === 'datepicker') {
+                        item['minDate'] = new Date();
+                        item['maxDate'] = new Date(licenseExpiryDate?.license_expiry_date);
+                    }
+                    return item;
+                });
+                setFormJsonField(fields);
+            }
             if (allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
@@ -312,6 +356,33 @@ const UserForm = ({
                     setFormJsonField(fields);
                 }
             }
+        } 
+        else if (getItemSessionStorage('role') === Role.super) {
+            if (phoneNumber !== undefined) {
+                if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
+                    let fields = FormJson?.map((item) => {
+                        if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                            item['errorMsg'] = FORM_VALIDATION.PHONE_NUMBER;
+                        }
+                        if (item?.field_type === 'button') {
+                            item['isDisabledPhoneNo'] = true;
+                        }
+                        return item;
+                    });
+                    setFormJsonField(fields);
+                } else {
+                    let fields = FormJson?.map((item) => {
+                        if (item?.field_type === 'inputNumber' && item?.name === 'phone_number') {
+                            item['errorMsg'] = '';
+                        }
+                        if (item?.field_type === 'button') {
+                            item['isDisabledPhoneNo'] = false;
+                        }
+                        return item;
+                    });
+                    setFormJsonField(fields);
+                }
+            }
         }
     }, [phoneNumber])
 
@@ -425,6 +496,19 @@ const UserForm = ({
             }).filter((obj => obj.id !== "grammar"))
             setFormJsonField(formField);
         } else if (grammar_access?.toUpperCase() === 'YES') {
+            let formField = formJsonField?.map((item) => {
+                if (item?.field_type === 'button') {
+                    if (((item?.isDisabledAllocDocs === true) || (item?.isDisabledGrammarDoc === true) ||
+                        (item?.isDisabledDate === true) || (item?.isDisabledPhoneNo === true))) {
+                        item['isDisabled'] = true;
+                    } else {
+                        item['isDisabled'] = false;
+                    }
+                }
+                return item;
+            })
+            setFormJsonField(formField);
+        } else if (getItemSessionStorage('role') === Role.super) {
             let formField = formJsonField?.map((item) => {
                 if (item?.field_type === 'button') {
                     if (((item?.isDisabledAllocDocs === true) || (item?.isDisabledGrammarDoc === true) ||
