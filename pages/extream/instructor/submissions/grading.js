@@ -25,6 +25,10 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
+const AlignCenter = styled.div`
+    text-align:center;
+`;
+
 const useStyles = makeStyles(() => ({
     button: {
         margin: "10px 6px 0px 0px",
@@ -96,7 +100,7 @@ const Grading = ({
                 grading.stduentName,
                 grading.paper_id,
                 grading.obtained_marks === BACKEND_NO_DATA_PLACEHOLDER ? grading.obtained_marks : grading.obtained_marks + '/' + grading.max_marks,
-                <SimilarityStatus percent={ grading.similarity } flag={ grading.flag } />,
+                grading.similarity === '--'?<AlignCenter>--</AlignCenter> :<SimilarityStatus percent={ grading.similarity } flag={ grading.flag } />,
                 [
                     {
                         'component': <StyledButtonIcon variant="outlined" size='small' disabled={ grading.paper_id === BACKEND_NO_DATA_PLACEHOLDER } ><FeedbackOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'feedback', 'title': grading.paper_id === BACKEND_NO_DATA_PLACEHOLDER ? 'Feedback is disabled because of no similarity percentage.' : 'Feedback'
