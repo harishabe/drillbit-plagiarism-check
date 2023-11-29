@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import debouce from 'lodash.debounce';
 import { useRouter } from 'next/router';
+import { makeStyles } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { connect } from 'react-redux';
@@ -19,6 +20,13 @@ import { ASSIGNMENT_NOT_FOUND } from '../../../constant/data/ErrorMessage';
 import { WARNING_MESSAGES } from '../../../constant/data/Constant';
 import { PaginationContainer } from '../../../style/index';
 
+const useStyles = makeStyles({
+    box: {
+        flexGrow: 1, 
+        marginBottom: '11px'
+    }
+});
+
 const MyAssignments = ({
     GetAssignmentData,
     DownloadAssignmentInstruction,
@@ -29,6 +37,7 @@ const MyAssignments = ({
 }) => {
 
     const router = useRouter();
+    const classes = useStyles();
     const [myclass, setMyclass] = useState('');
     const [showModal, setShowModal] = useState(false);
 
@@ -136,7 +145,7 @@ const MyAssignments = ({
     return (
         <React.Fragment>
             <BreadCrumb item={StudentBreadCrumb} />
-            <Box sx={{ flexGrow: 1 }}>
+            <Box className={ classes.box }>
                 <Grid container spacing={1}>
                     <Grid item md={ 9.3 } xs={ 7 }>
                         <Heading

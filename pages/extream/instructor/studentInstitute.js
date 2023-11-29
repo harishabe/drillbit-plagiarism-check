@@ -15,7 +15,7 @@ import {
 import { PaginationContainer, StyledButtonIcon } from '../../../style/index';
 
 const columns = [
-    { id: 'student_id', label: 'Student ID', maxWidth: 180 },
+    { id: 'student_user_id', label: 'Student ID', maxWidth: 180 },
     { id: 'name', label: 'Student Name', maxWidth: 180 },
     { id: 'username', label: 'Email', maxWidth: 180 },
     { id: 'department', label: 'Department', maxWidth: 180 },
@@ -23,8 +23,8 @@ const columns = [
     { id: 'action', label: 'Action', maxWidth: 180 },
 ];
 
-function createData(id, student_id, name, username, department, section, action) {
-    return { id, student_id, name, username, department, section, action };
+function createData(id, student_user_id, name, username, department, section, action) {
+    return { id, student_user_id, name, username, department, section, action };
 }
 
 function StudentInstitute({

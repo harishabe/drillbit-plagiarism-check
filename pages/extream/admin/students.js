@@ -45,7 +45,7 @@ import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
 
 const columns = [
   { id: "name", label: "Name", maxWidth: 150 },
-  { id: "user_id", label: "ID", maxWidth: 150 },
+  { id: "student_user_id", label: "ID", maxWidth: 150 },
   { id: "username", label: "Email", maxWidth: 180 },
   { id: "department", label: "Department", maxWidth: 110 },
   { id: "section", label: "Section", maxWidth: 110 },
@@ -56,14 +56,14 @@ const columns = [
 function createData(
   id,
   name,
-  user_id,
+  student_user_id,
   username,
   department,
   section,
   stats,
   action
 ) {
-  return { id, name, user_id, username, department, section, stats, action };
+  return { id, name, student_user_id, username, department, section, stats, action };
 }
 
 const IntegrationBreadCrumb = [
@@ -176,7 +176,7 @@ const Students = ({
 
   const handleAction = (event, icon, rowData) => {
     const student = studentData.filter((s) => {
-      if (s.student_id === rowData?.user_id) {
+      if (s.student_id === rowData?.student_user_id) {
         return s.id;
       }
     });

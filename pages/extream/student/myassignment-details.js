@@ -106,7 +106,7 @@ const MyAssignmentDetails = ({
     },
     {
       name: myassignment,
-      link: "/extream/student/myassignments?" + router?.asPath,
+      link: "/extream/student/myassignments?clasId=" + router.query.clasId + "&clasName=" + router.query.clasName,
       active: false,
     },
     {
@@ -368,7 +368,8 @@ const MyAssignmentDetails = ({
               handleAPI={handleAPI}
             />
           </Grid>
-          <Grid item md={0.25} xs={0.3}>
+          { activeTab === 0 &&
+            <Grid item md={0.25} xs={0.3}>
             <DownloadButton>
               <Tooltip title="Refresh" arrow>
                 <StyledButtonIcon
@@ -381,6 +382,7 @@ const MyAssignmentDetails = ({
               </Tooltip>
             </DownloadButton>
           </Grid>
+          }
         </Grid>
       </CardView>
 

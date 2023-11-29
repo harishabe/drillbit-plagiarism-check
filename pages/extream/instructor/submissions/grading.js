@@ -25,6 +25,10 @@ const DownloadButton = styled.div`
     margin-top:-5px;
 `;
 
+const AlignCenter = styled.div`
+    text-align:center;
+`;
+
 const useStyles = makeStyles(() => ({
     button: {
         margin: "10px 6px 0px 0px",
@@ -73,16 +77,20 @@ const Grading = ({
     const columns = [
         { id: 'STname', label: 'Student Name', maxWidth: 216 },
         { id: 'gradingpaper_id', label: 'Paper ID', maxWidth: 216 },
-        { id: 'similarity', label: 'Similarity', maxWidth: 216 },
+        { id: 'percent', label: 'Similarity', maxWidth: 216 },
         { id: 'marks', label: 'Assignment Marks', maxWidth: 216 },
         { id: 'action', label: 'Feedback', maxWidth: 216 },
     ];
 
-    function createData(STname, gradingpaper_id, marks, similarity, action, flag) {
+    function createData(STname, gradingpaper_id, marks, percent, action, alert_msg, flag) {
         return {
-            STname, gradingpaper_id, marks, similarity, action, flag
+            STname, gradingpaper_id, marks, percent, action, alert_msg, flag
         };
     }
+
+    const handleShowAnalysisPage = () => {
+        return 0
+    };
 
     useEffect(() => {
         let row = '';
@@ -92,12 +100,13 @@ const Grading = ({
                 grading.stduentName,
                 grading.paper_id,
                 grading.obtained_marks === BACKEND_NO_DATA_PLACEHOLDER ? grading.obtained_marks : grading.obtained_marks + '/' + grading.max_marks,
-                <SimilarityStatus percent={ grading.similarity } flag={ grading.flag } />,
+                grading.similarity === '--'?<AlignCenter>--</AlignCenter> :<SimilarityStatus percent={ grading.similarity } flag={ grading.flag } />,
                 [
                     {
                         'component': <StyledButtonIcon variant="outlined" size='small' disabled={ grading.paper_id === BACKEND_NO_DATA_PLACEHOLDER } ><FeedbackOutlinedIcon fontSize='small' /></StyledButtonIcon>, 'type': 'feedback', 'title': grading.paper_id === BACKEND_NO_DATA_PLACEHOLDER ? 'Feedback is disabled because of no similarity percentage.' : 'Feedback'
                     },
-                ]
+                ],
+                grading.alert_msg,
             );
             row['isSelected'] = false;
             arr.push(row);
@@ -186,6 +195,7 @@ const Grading = ({
                 tableData={rows}
                 isLoading={isLoading}
                 handleAction={handleAction}
+                showAnalysisPage={ handleShowAnalysisPage }
             />
 
             { showModal && (

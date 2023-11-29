@@ -8,9 +8,11 @@ import {
   ColumnChart,
   PieChart,
   EllipsisText,
-  WarningDialog
+  WarningDialog,
+  ErrorBlock
 } from "../../../../components";
 import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
+import { SUBMISSION_NOT_FOUND, DOCUMENT_PROCESSED_NOT_FOUND } from '../../../../constant/data/ErrorMessage';
 import {
   COLUMN_ADMIN_CHART_TYPE,
   COLUMN_ADMIN_CHART_COLOR,
@@ -68,6 +70,10 @@ const InstructorStats = ({
     setSubmissionData(submission);
   }, [instructorStats]);
 
+  const totalSubmissions = instructorStats && submissionData?.reduce((acc, currentValue) => {
+    return acc + currentValue;
+  }, 0);
+
   const handleExportCsv = () => {
     setShowModal(true)
   };
@@ -96,33 +102,35 @@ const InstructorStats = ({
 
   return (
     <>
-      <Grid item container>
-        { isLoading ? (
-          <Skeleton width={ 210 } />
-        ) : (
-          <>
-              <Grid item md={ 8 } xs={ 6 }>
-              <EllipsisText
-                  value={ `Instructor name : ${instructorStats?.name}` }
-                variant="body2_1"
-              />
-            </Grid>
-              { isLoadingCsvExport ? (
-                <Skeleton width={ 30 } height={ 45 } style={ { marginLeft: "auto" } } />
+      <Grid container>
+        <Grid item md={ 8 } xs={ 8 }>
+          { isLoading ? (
+            <Skeleton />
+          ) : (
+            <EllipsisText
+              value={ `Instructor name : ${instructorStats?.name}` }
+              variant="body2_1"
+            />
+          ) }
+        </Grid>
+        <Grid item md={ 3.7 } xs={ 4 }></Grid>
+        { totalSubmissions !== 0 &&
+          <Grid item md={ 0.3 } xs={ 4 }>
+            { isLoadingCsvExport ? (
+              <Skeleton width={ 30 } height={ 45 } style={ { marginLeft: "auto" } } />
             ) : (
               <Tooltip title="Export to csv">
                 <StyledButtonIcon
-                      style={ { marginLeft: "auto" } }
                   variant="outlined"
                   size="small"
-                      onClick={ handleExportCsv }
+                  onClick={ handleExportCsv }
                 >
                   <FileDownloadOutlinedIcon fontSize="small" />
                 </StyledButtonIcon>
               </Tooltip>
-              ) }
-          </>
-        ) }
+            ) }
+          </Grid>
+        }
       </Grid>
 
       <Grid item md={ 12 } xs={ 12 }>
@@ -142,7 +150,7 @@ const InstructorStats = ({
                 <Skeleton />
               </>
             ) : (
-              submissionData?.length > 0 && (
+                totalSubmissions !== 0 ? submissionData?.length > 0 && (
                 <ColumnChart
                     type={ COLUMN_ADMIN_CHART_TYPE }
                     color={ COLUMN_ADMIN_CHART_COLOR }
@@ -158,7 +166,7 @@ const InstructorStats = ({
                     gradient={ COLUMN_ADMIN_CHART_GRADIENT }
                     borderRadius={ COLUMN_ADMIN_CHART_BORDER_RADIUS }
                 />
-              )
+                ) : <ErrorBlock message={ SUBMISSION_NOT_FOUND } />
             ) }
           </Grid>
           <Grid item md={ 4 } xs={ 12 }>
@@ -173,7 +181,7 @@ const InstructorStats = ({
                 width={ 250 }
               />
             ) : (
-              instructorStats?.trendAnalysis && (
+                totalSubmissions !== 0 ? instructorStats?.trendAnalysis && (
                 <PieChart
                   type="donut"
                     height={ 340 }
@@ -186,7 +194,7 @@ const InstructorStats = ({
                     ] }
                     offsetY={ 37 }
                 />
-              )
+                ) : <ErrorBlock message={ DOCUMENT_PROCESSED_NOT_FOUND } />
             ) }
           </Grid>
         </Grid>

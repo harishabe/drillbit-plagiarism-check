@@ -88,7 +88,7 @@ const EnglishFile = () => {
             multiFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/multipleFiles`}
             routerObj={{
                 pathname: '/extream/instructor/mysubmissions',
-                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, grammar: router.query.grammar }
+                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, assGrading: router.query.assGrading, assQuestion: router.query.assQuestion, grammar: router.query.grammar }
             }}
         />,
         <GDriveFileUpload
@@ -98,7 +98,7 @@ const EnglishFile = () => {
             fileUploadAPI={BASE_URL_UPLOAD + `/files/classes/${router.query.clasId}/assignments/${router.query.assId}/drive`}
             routerObj={{
                 pathname: '/extream/instructor/mysubmissions',
-                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, grammar: router.query.grammar }
+                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, assGrading: router.query.assGrading, assQuestion: router.query.assQuestion, grammar: router.query.grammar }
             }}
         />,
         <ZipFileUpload
@@ -108,7 +108,7 @@ const EnglishFile = () => {
             notAllowedFormat={UPLOAD_SUPPORTED_FILES.NON_ZIP}
             zipFileUploadAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/zipFile`}
             confirmZipFileAPI={BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/confirmZipFile`}
-            routerObj={ { pathname: '/extream/instructor/mysubmissions', query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, grammar: router.query.grammar } } }
+            routerObj={ { pathname: '/extream/instructor/mysubmissions', query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, assGrading: router.query.assGrading, assQuestion: router.query.assQuestion, grammar: router.query.grammar } } }
         />,
         <UploadFiles
             key={ 3 }
@@ -120,7 +120,7 @@ const EnglishFile = () => {
             singleFileUploadAPI={ BASE_URL_UPLOAD + END_POINTS.INSTRUCTOR_SUBMISSION_UPLOAD + `classes/${router.query.clasId}/assignments/${router.query.assId}/scannedPDF` }
             routerObj={ {
                 pathname: '/extream/instructor/mysubmissions',
-                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, grammar: router.query.grammar }
+                query: { clasId: router.query.clasId, assId: router.query.assId, clasName: router.query.clasName, assName: router.query.assName, assGrading: router.query.assGrading, assQuestion: router.query.assQuestion, grammar: router.query.grammar }
             } }
         />
     ];

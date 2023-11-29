@@ -5,7 +5,8 @@
         "id": "name",
         "name": "name",
         "label": "Enter name *",
-        "required": "Enter name"
+        "required": "Enter name",
+        "minLength": 3
     },
     {
         "field_type": "input",
@@ -24,23 +25,23 @@
         "id": "studentId",
         "name": "studentId",
         "label": "Student Id *",
-        "required": "Enter documents"
+        "required": "Enter student ID"
     },
     {
         "field_type": "input",
         "type": "text",
         "id": "department",
         "name": "department",
-        "label": "Department documents *",
-        "required": "Enter department documents"
+        "label": "Department *",
+        "required": "Enter department"
     },
     {
         "field_type": "input",
         "type": "text",
         "id": "section",
         "name": "section",
-        "label": "Section documents *",
-        "required": "Section"
+        "label": "Section *",
+        "required": "Enter section"
     },
     {
         "field_type": "button",

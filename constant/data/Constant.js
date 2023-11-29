@@ -70,7 +70,8 @@ export const TABLE_HEADER_SORT_DISABLE = [
     'total_submissions',
     'used_submissions',
     'plagairism',
-    'plagiarismUsed'
+    'plagiarismUsed',
+    'student_user_id'
 ];
 export const TABLE_BODY_ALLOW_ICON = [
     'action',

@@ -38,7 +38,7 @@ const EnglishFile = () => {
         },
         {
             name: assName,
-            link: '/extream/student/myassignments?' + router?.asPath,
+            link: '/extream/student/myassignments?clasId=' + router.query.clasId + "&clasName=" + router.query.clasName,
             active: false,
         },
         {

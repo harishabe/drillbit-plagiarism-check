@@ -47,9 +47,9 @@ const AccountInfo = ({
             createData('Admin Email Address', accountInfo?.adminEmail ? accountInfo?.adminEmail : '-'),
             createData('Created Date', accountInfo?.createdDate ? accountInfo?.createdDate : '-'),
             createData('Expiry Date', accountInfo?.expiryDate ? accountInfo?.expiryDate : '-'),
-            createData('Total Documents Alloted', accountInfo?.totalDocumentsAlloted ? accountInfo?.totalDocumentsAlloted : '-'),
-            createData('Total Documents Submitted', accountInfo?.totalDocumentsSubmitted ? accountInfo?.totalDocumentsSubmitted : '-'),
-            createData('Files Saved to Repository', accountInfo?.totalDocumentsAddedToRepository ? accountInfo?.totalDocumentsAddedToRepository : '-'),
+            createData('Total Documents Alloted', accountInfo?.totalDocumentsAlloted ),
+            createData('Total Documents Submitted', accountInfo?.totalDocumentsSubmitted),
+            createData('Files Saved to Repository', accountInfo?.totalDocumentsAddedToRepository),
             createData('Time Zone', accountInfo?.timeZone ? accountInfo?.timeZone : '-'),
         ];
         setRows([...row]);
