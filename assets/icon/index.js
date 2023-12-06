@@ -67,3 +67,6 @@ export { default as NonEnglishUploadIcon } from './NonEnglishUploadIcon';
 export { default as RegionalUploadIcon } from './RegionalUploadIcon';
 export { default as LoginBannerIcon } from './LoginBannerIcon';
 export { default as RenewAccountIcon } from './RenewAccountIcon';
+export { default as TimeIcon } from './TimeIcon';
+export { default as TimeRegionalIcon } from './TimeRegionalIcon';
+export { default as TimeNonEngIcon } from './TimeNonEngIcon';
