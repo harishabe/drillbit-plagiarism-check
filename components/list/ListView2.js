@@ -58,13 +58,30 @@ const ListView2 = ({
 
     const classes = useStyles();
     const [answer, setAnswer] = useState([]);
+    const [disable, setIsDisable] = useState(true);
+
+    const hasQuestionsToAnswer = qnaData?.length > 0 && qnaData?.some((item) => !item.answer);
+    const isAnyFieldNotAnswered = Array.isArray(qnaData) && qnaData.some(item => item.answer === null || item.answer.trim() === "");
+    let isAnyFieldNotEmpty = hasQuestionsToAnswer && Object.values(answer).some(value => value !== null && value.trim() !== '');
 
     useEffect(() => {
         GetQna(router.query.clasId, router.query.assId);
     }, []);
+    
+    useEffect(() => {
+        if (isAnyFieldNotAnswered && !isAnyFieldNotEmpty){
+            setIsDisable(true)
+        } else if (isAnyFieldNotAnswered && isAnyFieldNotEmpty) {
+            setIsDisable(false)
+        }
+    }, [qnaData, answer, hasQuestionsToAnswer, isAnyFieldNotEmpty, isAnyFieldNotAnswered]);
+    
+    useEffect(()=>{
+       Array.isArray(qnaData) && qnaData?.length > 0 && qnaData?.some(item => item.answer === null || item.answer.trim() === "") && setAnswer([])
+    }, [qnaData])
 
     const handleAnswer = (e) => {
-        setAnswer({ ...answer, [e.target.name]: e.target.value });
+        setAnswer({ ...answer, [e.target.name]: e.target.value.trim() !== '' ? e.target.value : null });
     };
 
     return (
@@ -151,13 +168,13 @@ const ListView2 = ({
                             ))
                         }
 
-                        { qnaData?.message ? '' :
+                        { hasQuestionsToAnswer &&
                             <AlignRight>
                                 <Button
                                     variant="contained"
                                     size="large"
                                     type="button"
-                                    disabled={ isLoadingAns }
+                                    disabled={ isLoadingAns || disable }
                                     color="primary"
                                     onClick={ (e) => handleSend(e, answer, qnaData) }
 
