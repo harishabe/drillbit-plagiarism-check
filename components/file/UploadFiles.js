@@ -117,6 +117,7 @@ const UploadFiles = ({
   };
 
   const handleUpload = (e) => {
+    setFileData([])
     e.preventDefault();
     checkFileFormat(e.target.files)
   };
@@ -484,12 +485,12 @@ const UploadFiles = ({
                     { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
                   </ErrorMessageContainer>
                 ) }
-                { fileData?.length > 1 && !isRepository && isStudent && (
+                { (fileData?.length > 1 || fileWarning) && !isRepository && isStudent && (
                   <ErrorMessageContainer>
                     { UPLOAD_NON_ENGLISH_FILE_MULTIFILE }
                   </ErrorMessageContainer>
                 ) }
-                { fileWarning && (
+                { fileWarning && !isStudent &&(
                   <ErrorMessageContainer>
                     { UPLOAD_FILE_MAX_LIMIT }
                   </ErrorMessageContainer>

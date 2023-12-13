@@ -77,10 +77,32 @@ const RecentSubmissionTable = ({ isUser, tableData, handlePage }) => {
                         />
                       </TableCell>
                       <TableCell style={ { maxWidth: 150 } }>
-                        <SimilarityStatus
-                          percent={ item.percent }
-                          flag={ item.flag }
-                        />
+                        <div style={ { display: "flex" } }>
+                          <div
+                            style={
+                              item?.alert_msg !== null &&
+                                item?.alert_msg !== ""
+                                ? {
+                                  width: "17%",
+                                  marginTop: "5px",
+                                }
+                                : { marginTop: "5px" }
+                            }
+                          >
+                            { item?.alert_msg != null &&
+                              item?.alert_msg !== "" && (
+                                <Tooltip
+                                  title={ item.alert_msg }
+                                  arrow
+                                >
+                                  <AlertMessage>
+                                    <ReportProblemOutlinedIcon fontSize="small" />
+                                  </AlertMessage>
+                                </Tooltip>
+                              ) }
+                          </div>
+                          <SimilarityStatus percent={ item.percent } flag={ item.flag } />
+                        </div>
                       </TableCell>
                       <TableCell style={ { maxWidth: 150 } }>
                         <StatusDotContainer>

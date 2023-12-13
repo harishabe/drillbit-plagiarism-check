@@ -451,7 +451,7 @@ const Dashboard = ({
       <Box mt={ 1 } sx={ { flexGrow: 1 } }>
         <Grid container spacing={ 1 }>
           <Grid item md={ 8 } xs={ 12 }>
-            <CardView height={ instructorDashboardData?.data?.submissionsUsage?.usedSubmissions > 0 &&  420 }>
+            <CardView height={ documentsType && documentsType.reduce((total, item) => total + item.count, 0) > 0 &&  420 }>
               <Heading title="Document Types" />
               { isLoading ? (
                 <Skeleton
@@ -460,10 +460,7 @@ const Dashboard = ({
                   height={ 250 }
                   width={ 250 }
                 />
-              ) : documentTypeData &&
-                instructorDashboardData?.data?.submissionsUsage
-                  ?.usedSubmissions > 0 ? (
-                    documentsType && (
+              ) : documentTypeData && documentsType && documentsType.reduce((total, item) => total + item.count, 0) > 0 ? (
                   <PieChart
                     type="pie"
                     filename="Document Types"
@@ -473,7 +470,6 @@ const Dashboard = ({
                         legendHeight={ 56 }
                         offsetY={ 35 }
                   />
-                )
               ) : (
                 <ErrorBlock message={ DASHBOARD_SUBMISSION_OVERVIEW_NOT_FOUND } />
               ) }
