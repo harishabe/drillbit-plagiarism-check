@@ -49,7 +49,15 @@ const SidebarProAdmin = [
         "name": "Integrations",
         "path": "/integration",
         "layout": "/pro/admin",
-    }
+    },
+    {
+        "icon": <RepositoryIcon/>,
+        "activeIcon": <RepositoryWhiteIcon />,
+        "name": "Ticket",
+        "path": "/createticket",
+        "pathList": ["/createticket"],
+        "layout": "/pro/admin",
+    },
 ];
 
 export default SidebarProAdmin;

@@ -2,7 +2,9 @@ import {
     DashboardIcon,
     ClassIcon,
     DashboardWhiteIcon,
-    ClassWhiteIcon
+    ClassWhiteIcon,
+    RepositoryIcon,
+    RepositoryWhiteIcon
 } from '../../assets/icon';
 
 const SidebarStudent = [
@@ -18,6 +20,14 @@ const SidebarStudent = [
         "activeIcon": <ClassWhiteIcon />,
         "name": "My Classes",
         "path": "/myclasses",
+        "layout": "/extream/student",
+    },
+    {
+        "icon": <RepositoryIcon />,
+        "activeIcon": <RepositoryWhiteIcon />,
+        "name": "Ticket",
+        "path": "/createticket",
+        "pathList": ["/createticket"],
         "layout": "/extream/student",
     }
 ];

@@ -128,6 +128,8 @@ const END_POINTS = {
     CONSORTIUM_ACCOUNT_INFORMATION: '/consortium/accountInformation',
     CREATE_MULTIPLE_PRO_LICENSES: '/consortium/pro/license/bulk',
     CREATE_MULTIPLE_EXTREME_LICENSES: '/consortium/extreme/license/bulk',
+    CREATE_TICKETING_SYSTEM:'/support/create_ticket',
+    TICKET_DETAILS:'/support/ticketdetails/10001'
 };
 
 export default END_POINTS;

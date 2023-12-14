@@ -124,6 +124,7 @@ import {
     MakeHimAdminDetail,
     ResendCredentialsDetail
 } from './super/DetailsSuperAdminData';
+import { GetTicketSubmissionData, GetMyTicket } from './common/Support/TicketData';
 
 const saga = [
     fork(userLogin),
@@ -237,7 +238,9 @@ const saga = [
     fork(MakeHimAdminDetail),
     fork(ResendCredentialsDetail),
     fork(GetExtremeRef),
-    fork(GrammarReportSubmission)
+    fork(GrammarReportSubmission),
+    fork(GetTicketSubmissionData),
+    fork(GetMyTicket)
 ];
 
 export default function* rootSaga() {
