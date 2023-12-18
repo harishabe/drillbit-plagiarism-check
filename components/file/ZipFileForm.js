@@ -47,10 +47,11 @@ const ZipFileForm = ({
     document_type,
     nonEnglishLang,
     LanguageList,
-    isNonEnglish
+    isNonEnglish,
+    isUploadInProgress
 }) => {
     const classes = useStyles();
-    const { control, setValue, handleSubmit } = useForm();
+    const { control, setValue, handleSubmit, reset } = useForm();
     const onSubmit = (data) => {
         let reqPayload = {};
         Object.entries(data).map((key) => {
@@ -78,6 +79,21 @@ const ZipFileForm = ({
             fields.forEach(field => setValue(field, a[field]));
         });
     }, []);
+
+    useEffect(() => {
+        if (files && isUploadInProgress) {
+            const resetValues = {};
+
+            files.forEach((item, index) => {
+                resetValues["authorName" + index] = '';
+                resetValues["title" + index] = '';
+                resetValues["documentType" + index] = '';
+                resetValues["language" + index] = '';
+            });
+
+            reset(resetValues);
+        }
+    }, [files, reset]);
 
     return (
         <div style={{ marginTop: '10px' }}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
@@ -23,9 +23,10 @@ const RepositoryFileFormZip = ({
     files,
     handleSubmitRepositoryZip,
     btnTitle,
-    isLoading
+    isLoading,
+    isUploadInProgress
 }) => {
-    const { control, handleSubmit } = useForm();
+    const { control, handleSubmit, reset } = useForm();
     const onSubmit = (data) => {
         let reqPayload = {};
         Object.entries(data).map((key) => {
@@ -38,6 +39,17 @@ const RepositoryFileFormZip = ({
         handleSubmitRepositoryZip(reqPayload);
     };
 
+    useEffect(() => {
+        if (files && isUploadInProgress){
+            let resetValues = {
+                "repository" : '',
+                "language" : ''
+            }
+            
+            reset(resetValues);
+        }
+    }, [files, reset])
+    
     return (
         <div style={{ marginTop: '10px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>

@@ -57,6 +57,7 @@ const ZipFileUpload = ({
     const router = useRouter();
     const [fileData, setFileData] = useState([]);
     const [fileWarning, setFileWarning] = useState(false);
+    const [isUploadInProgress, setUploadInProgress] = useState(false);
     const ref = createRef();
 
     const handleDelete = (e, item) => {
@@ -73,12 +74,17 @@ const ZipFileUpload = ({
 
     const handleUpload = (e) => {
         e.preventDefault();
-        if (Object.entries(e.target.files).length > 10) {
-            setFileWarning(true);
+        if (Object.entries(e.target.files).length > 0){
+            setUploadInProgress(true);
+            if (Object.entries(e.target.files).length > 10) {
+                setFileWarning(true);
+            } else {
+                setFileData(Object.entries(e.target.files));
+                UploadZipFileDataClear();
+                setFileWarning(false);
+            }
         } else {
-            setFileData(Object.entries(e.target.files));
-            UploadZipFileDataClear();
-            setFileWarning(false);
+            setUploadInProgress(false);
         }
     };
 
@@ -218,6 +224,7 @@ const ZipFileUpload = ({
                         {(fileData?.length > 0 && isRepository) &&
                             <RepositoryFileFormZip
                                 handleSubmitRepositoryZip={handleProcessZipFileRepo}
+                                isUploadInProgress={ isUploadInProgress }
                                 files={fileData[0][1]}
                                 btnTitle='Submit'
                                 isLoading={isLoadingExtractedFile}
@@ -225,6 +232,7 @@ const ZipFileUpload = ({
                         { (uploadData?.fileNames?.length > 0 && !isRepository && !isNonEnglish) &&
                             <ZipFileForm
                                 handleSubmitFile={handleProcessZipFile}
+                                isUploadInProgress={ isUploadInProgress }
                                 files={uploadData?.fileNames?.map((item) => ({ 'name': item }))}
                                 btnTitle='Submit'
                                 isLoading={isLoadingExtractedFile}
@@ -232,6 +240,7 @@ const ZipFileUpload = ({
                         { (uploadData?.fileNames?.length > 0 && !isRepository && isNonEnglish) &&
                             <ZipFileForm
                                 handleSubmitFile={ handleProcessZipFileNonEnglish }
+                                isUploadInProgress={ isUploadInProgress }
                                 files={ uploadData?.fileNames?.map((item) => ({ 'name': item })) }
                                 btnTitle='Submit'
                                 isLoading={ isLoadingExtractedFile }

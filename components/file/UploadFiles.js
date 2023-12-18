@@ -67,6 +67,7 @@ const UploadFiles = ({
   const router = useRouter();
   const [fileData, setFileData] = useState([]);
   const [fileWarning, setFileWarning] = useState(false);
+  const [isUploadInProgress, setUploadInProgress] = useState(false);
   const [language, setLanguage] = useState("English");
   const [exemptCheck, setExemptCheck] = useState(
     fileData.reduce((acc, file) => {
@@ -110,6 +111,7 @@ const UploadFiles = ({
   const checkFileFormat = (files) => {
     if (Object.entries(files).length > 15) {
       setFileWarning(true);
+      setFileData([])
     } else {
       setFileData(Object.entries(files));
       setFileWarning(false);
@@ -117,9 +119,13 @@ const UploadFiles = ({
   };
 
   const handleUpload = (e) => {
-    setFileData([])
     e.preventDefault();
-    checkFileFormat(e.target.files)
+    if (e.target.files && e.target.files.length > 0){
+      setUploadInProgress(true);
+      checkFileFormat(e.target.files)
+    } else {
+      setUploadInProgress(false);
+    }
   };
 
   const handleSubmit = (data) => {
@@ -536,6 +542,7 @@ const UploadFiles = ({
                 <RepositoryFileForm
                   handleSubmitRepository={ handleSubmitRepository }
                   files={ fileData }
+                  isUploadInProgress={ isUploadInProgress }
                   btnTitle="Submit"
                   isLoading={ isLoadingUpload }
                   exemptCheck={ exemptCheck }
@@ -549,6 +556,7 @@ const UploadFiles = ({
                   <FileForm
                     handleSubmitFile={ handleSubmit }
                     files={ fileData }
+                    isUploadInProgress={ isUploadInProgress }
                     btnTitle="Submit"
                     isLoading={ isLoadingUpload || isLoadingNonEng }
                     langType={ langType }
@@ -561,6 +569,7 @@ const UploadFiles = ({
                   <FileForm
                     handleSubmitFile={ handleSubmit }
                     files={ fileData }
+                    isUploadInProgress={ isUploadInProgress }
                     btnTitle="Submit"
                     isLoading={ isLoadingUpload || isLoadingNonEng }
                     langType={ langType }
@@ -571,6 +580,7 @@ const UploadFiles = ({
                   <FileForm
                     handleSubmitFile={ handleSubmit }
                     files={ fileData }
+                    isUploadInProgress={ isUploadInProgress }
                     btnTitle="Submit"
                     isLoading={ isLoadingUpload || isLoadingNonEng }
                     langType={ langType }
@@ -583,6 +593,7 @@ const UploadFiles = ({
                   <FileForm
                     handleSubmitFile={ handleSubmit }
                     files={ fileData }
+                    isUploadInProgress={ isUploadInProgress }
                     btnTitle="Submit"
                     isStudent={ isStudent }
                     assName={ router.query.assName }
@@ -597,6 +608,7 @@ const UploadFiles = ({
                   <FileForm
                     handleSubmitFile={ handleSubmit }
                     files={ fileData }
+                    isUploadInProgress={ isUploadInProgress }
                     btnTitle="Submit"
                     isStudent={ isStudent }
                     assName={ router.query.assName }
@@ -608,6 +620,7 @@ const UploadFiles = ({
                 <FileForm
                   handleSubmitFile={ handleSubmit }
                   files={ fileData }
+                  isUploadInProgress={ isUploadInProgress }
                   isRegionalFile={ isRegionalFile }
                   btnTitle="Submit"
                   isLoading={ isLoadingUpload || isLoadingNonEng }

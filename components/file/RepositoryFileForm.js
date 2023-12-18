@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
@@ -39,11 +39,12 @@ const RepositoryFileForm = ({
     isLoading,
     exemptCheck,
     handleExemptCheckChange,
-    isGDrive
+    isGDrive,
+    isUploadInProgress
 }) => {
     const classes = useStyles();
     const d = new Date();
-    const { register, control, handleSubmit, formState: { errors } } = useForm();
+    const { register, control, handleSubmit, formState: { errors }, reset } = useForm();
     const onSubmit = (data) => {
         let reqPayload = {};
         Object.entries(data).map((key) => {
@@ -55,6 +56,23 @@ const RepositoryFileForm = ({
         });
         handleSubmitRepository(reqPayload);
     };
+
+    useEffect(() => {
+        if (files && isUploadInProgress) {
+            const resetValues = {};
+
+            files.forEach((item, index) => {
+                resetValues["authorName" + item[0]] = '';
+                resetValues["title" + item[0]] = '';
+                resetValues["year" + item[0]] = '';
+                resetValues["repository" + item[0]] = '';
+                resetValues["language" + item[0]] = '';
+                resetValues["rep_ex" + item[0]] = '';
+            });
+
+            reset(resetValues);
+        }
+    }, [files, reset]);
 
     return (
         <div style={ { marginTop: '10px' } }>
