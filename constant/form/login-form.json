@@ -21,17 +21,20 @@
     },
     {
         "field_type": "linkField",
+        "id":"forgot_password",
         "align": "right",
         "path": "/auth/forgot-password",
         "label": "Forgot password?"
     },
     {
         "field_type": "button",
+        "id": "sign_in",
         "type": "submit",
         "label": "Sign in"
     },
     {
         "field_type": "labelCaption",
+        "id":"or",
         "label": "Or"
     }
 ]

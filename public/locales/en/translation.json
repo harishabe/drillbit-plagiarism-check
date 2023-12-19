@@ -1,0 +1,29 @@
+{
+    "LOGIN_WELCOME_DRILLBIT": "Welcome to DrillBit",
+    "formComponent": {
+        "username": {
+            "label": "Email Address *",
+            "required": "Enter email address",
+            "validationMsg": "Invalid email address",
+            "info": ""
+        },
+        "password": {
+            "label": "Password *",
+            "required": "Enter password",
+            "validationMsg": "Minimum eight characters, at least one letter and one number",
+            "info": ""
+        },
+        "forgot_password": {
+            "label": "Forgot password?"
+        },
+        "sign_in": {
+            "label": "Sign in"
+        },
+        "or": {
+            "label": "Or"
+        },
+        "login_via_institution": {
+            "label": "Login via Institution"
+        }
+    }
+}

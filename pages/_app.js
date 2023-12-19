@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import { ThemeProvider } from "@mui/styles";
 import PageChange from '../components/loader/PageChange';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import Router, { useRouter } from 'next/router';
 
 import theme from '../src/theme';
@@ -95,6 +96,7 @@ export default function MyApp(props) {
             </Head>
             <ThemeProvider theme={ theme }>
                 {/* <CssBaseline /> */ }
+                        <LanguageSwitcher/>
                 <Provider store={ store }>
                         <ToastContainer style={ toastWidth ? { width: toastWidth, padding: '0px' } : null } />
                     <Layout>

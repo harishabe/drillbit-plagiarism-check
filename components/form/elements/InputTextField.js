@@ -5,6 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { TextField } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
   helperTextLeft: {
@@ -20,6 +21,7 @@ const StyledInputField = styled(TextField)(() => ({
 }));
 
 const InputTextField = ({ control, field }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const [regex, setRegex] = useState();
@@ -42,7 +44,7 @@ const InputTextField = ({ control, field }) => {
 
   return (
     <>
-      <InputLabel>{field.label}</InputLabel>
+      <InputLabel>{ t(`formComponent.${field.id}.label`) }</InputLabel>
       <Controller
         name={field.name}
         control={control}
@@ -65,7 +67,7 @@ const InputTextField = ({ control, field }) => {
             name={field.name}
             id={field.name}
             variant="outlined"
-            helperText={error ? error.message : field.info}
+            helperText={ error ? t(`formComponent.${field.id}.required`) : t(`formComponent.${field.id}.info`)}
             FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
             inputProps={{
               maxLength: field.maxLength,
@@ -77,10 +79,10 @@ const InputTextField = ({ control, field }) => {
           />
         )}
         rules={{
-          required: field.required,
+          required: t(`formComponent.${field.id}.required`),
           pattern: {
             value: regex,
-            message: field.validationMsg,
+            message: t(`formComponent.${field.id}.validationMsg`),
           },
         }}
       />

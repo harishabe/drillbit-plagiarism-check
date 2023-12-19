@@ -1,8 +1,10 @@
 import * as React from "react";
+import { I18nextProvider } from 'react-i18next';
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import theme from "../src/theme";
 import { ServerStyleSheets } from "@mui/styles";
 import { ServerStyleSheet as StyledServerStyleSheet } from "styled-components";
+import i18n from './i18n';
 
 export default class MyDocument extends Document {
   render() {
@@ -33,7 +35,11 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: (App) => (props) =>
-        styledSheet.collectStyles(sheets.collect(<App {...props} />)),
+        styledSheet.collectStyles(sheets.collect(
+          <I18nextProvider i18n={ i18n }>
+            <App { ...props } />
+          </I18nextProvider>,
+        )),
     });
   const initialProps = await Document.getInitialProps(ctx);
   return {

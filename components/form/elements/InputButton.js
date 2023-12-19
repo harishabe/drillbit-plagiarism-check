@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Paper, Button } from '@mui/material';
 import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
+import { useTranslation } from "react-i18next";
 
 const StyledButton = styled(Button)((disabled) => ({
     'background-color': disabled && '#3672FF !important',
@@ -20,6 +21,7 @@ const InputButton = ({
     field,
     isLoading
 }) => {
+    const { t } = useTranslation();
     return (
         <Paper>
             <Box my={2}>
@@ -32,7 +34,7 @@ const InputButton = ({
                     disabled={isLoading || field.isDisabled}
                     href={ field.href }
                 >
-                    {isLoading ? <LoaderContainer><BeatLoader size={11} color="#fff" /></LoaderContainer> : field.label}
+                    { isLoading ? <LoaderContainer><BeatLoader size={ 11 } color="#fff" /></LoaderContainer> : t(`formComponent.${field.id}.label`)}
                 </StyledButton>
             </Box>
         </Paper>
