@@ -128,6 +128,10 @@ const END_POINTS = {
     CONSORTIUM_ACCOUNT_INFORMATION: '/consortium/accountInformation',
     CREATE_MULTIPLE_PRO_LICENSES: '/consortium/pro/license/bulk',
     CREATE_MULTIPLE_EXTREME_LICENSES: '/consortium/extreme/license/bulk',
+    MFA_ACTIVATION_INSTRUCTOR: '/extreme/instructor/mfa/',
+    MFA_ACTIVATION_STUDENT: '/extreme/student/mfa/',
+    MFA_ACTIVATION_ADMIN: '/extreme/admin/mfa/',
+    MFA_LOGIN: '/authentication/verifyOtp'
 };
 
 export default END_POINTS;

@@ -124,6 +124,7 @@ import {
     MakeHimAdminDetail,
     ResendCredentialsDetail
 } from './super/DetailsSuperAdminData';
+import { MfaActivateData, MFALogin } from './common/Settings/MfaData';
 
 const saga = [
     fork(userLogin),
@@ -237,7 +238,9 @@ const saga = [
     fork(MakeHimAdminDetail),
     fork(ResendCredentialsDetail),
     fork(GetExtremeRef),
-    fork(GrammarReportSubmission)
+    fork(GrammarReportSubmission),
+    fork(MfaActivateData),
+    fork(MFALogin)
 ];
 
 export default function* rootSaga() {

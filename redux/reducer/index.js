@@ -16,6 +16,7 @@ import SuperReducer from './super/SuperReducer';
 import DocumnentChartReducer from './common/Dashboard/DashboardReducer';
 import SubmissionReducer from './common/Submission/SubmissionReducer';
 import UploadFileReducer from './common/UploadFile/UploadFileReducer';
+import MfaReducer from './common/Settings/MfaReducer';
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
     documentChart: DocumnentChartReducer,
     submission: SubmissionReducer,
     uploadFile: UploadFileReducer,
+    MfaActivation: MfaReducer
 });
 
 export default rootReducer;

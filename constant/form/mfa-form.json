@@ -1,0 +1,15 @@
+[
+  {
+    "field_type": "inputNumber",
+    "type": "number",
+    "id": "otp",
+    "name": "otp",
+    "label": "Enter OTP *",
+    "required": "Enter OTP"
+  },
+  {
+    "field_type": "button",
+    "type": "submit",
+    "label": "Submit"
+  }
+]
