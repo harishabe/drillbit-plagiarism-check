@@ -1,8 +1,16 @@
 {
     "LOGIN_WELCOME_DRILLBIT": "Bienvenue sur DrillBit",
+    "FORGET_PASSWORD": "Mot de passe oublié ?",
+    "BACK_TO_LOGIN": "« Retour connexion",
     "formComponent": {
         "username": {
             "label": "Adresse e-mail *",
+            "required": "Entrer l'adresse e-mail",
+            "validationMsg": "Adresse e-mail invalide",
+            "info": ""
+        },
+        "email": {
+            "label": "Entrer l'adresse e-mail *",
             "required": "Entrer l'adresse e-mail",
             "validationMsg": "Adresse e-mail invalide",
             "info": ""
@@ -18,6 +26,9 @@
         },
         "sign_in": {
             "label": "Se connecter"
+        },
+        "forget_password_button": {
+            "label": "Soumettre"
         },
         "or": {
             "label": "Ou"

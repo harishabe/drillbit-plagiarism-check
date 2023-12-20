@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { makeStyles } from "@mui/styles";
 import ToastrValidation from '../../utils/ToastrValidation';
 import { useRouter } from "next/router";
 import {
@@ -11,6 +12,7 @@ import {
     InlineText,
 } from '../../style/login-style';
 import InputButton from '../../components/form/elements/InputButton';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
 import LoginForm from './login-form';
 import { MainHeading } from '../../components';
 import { DrillBitLogo, LoginBannerIcon } from '../../assets/icon';
@@ -22,7 +24,20 @@ import {
 import { BASE_URL } from '../../utils/BaseUrl'
 import END_POINTS from '../../utils/EndPoints'
 
+const useStyles = makeStyles(() => ({
+    form: {
+        width: '100%'
+    },
+    dropdown: {
+        display: 'flex', 
+        justifyContent: 'flex-end', 
+        marginRight: '10px', 
+        marginTop: '10px'
+    },
+}));
+
 const Login = () => {
+    const classes = useStyles();
     const { t } = useTranslation();
     const router = useRouter();
     useEffect(() => {
@@ -45,7 +60,10 @@ const Login = () => {
                             </ImgContainer>
                         </BannerContainer>
                     </Grid>
-                    <Grid item md={5} style={{ width: '100%' }}>
+                    <Grid item md={ 5 } className={ classes.form }>
+                        <div className={ classes.dropdown }>
+                            <LanguageSwitcher/>
+                        </div>
                         <LoginContainer>
                             <MainHeading mb={'20px'} title={t('LOGIN_WELCOME_DRILLBIT')} />
                             <LoginForm />
