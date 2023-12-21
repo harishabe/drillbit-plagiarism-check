@@ -52,6 +52,13 @@ const UserForm = ({
         name: 'phone_number',
     });
 
+    const superAdmin = getItemSessionStorage('role') === Role.super
+
+    const plagiarismCondition = allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)
+
+    const plagiarismCondition_2 = (allocationDocs < editData?.used_submissions) || (allocationDocs < editData?.plagiarismUsed)
+
+    
     useEffect(() => {
         if (grammar_access?.toUpperCase() === 'NO') {
             if (licenseExpiryDate?.license_expiry_date !== undefined) {
@@ -65,7 +72,7 @@ const UserForm = ({
                 setFormJsonField(fields);
             }
 
-            if (allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)) {
+            if (plagiarismCondition) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                         item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
@@ -76,7 +83,7 @@ const UserForm = ({
                     return item;
                 }).filter((obj => obj.id !== "grammar"))
                 setFormJsonField(fields);
-            } else if ((allocationDocs < editData?.used_submissions) || (allocationDocs < editData?.plagiarismUsed)) {
+            } else if (plagiarismCondition_2) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && (editData?.used_submissions > 0 || editData?.plagiarismUsed > 0)) {
                         item['errorMsg'] = `Already ${(editData?.used_submissions || editData?.plagiarismUsed)} submission uploaded, please choose upto ${remainingDocuments + editData?.total_submissions} documents`;
@@ -110,7 +117,7 @@ const UserForm = ({
                 });
                 setFormJsonField(fields);
             }
-            if (allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)) {
+            if (plagiarismCondition) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                         item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
@@ -121,7 +128,7 @@ const UserForm = ({
                     return item;
                 });
                 setFormJsonField(fields);
-            } else if ((allocationDocs < editData?.used_submissions) || (allocationDocs < editData?.plagiarismUsed)) {
+            } else if (plagiarismCondition_2) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && (editData?.used_submissions > 0 || editData?.plagiarismUsed > 0)) {
                         item['errorMsg'] = `Already ${(editData?.used_submissions || editData?.plagiarismUsed)} submission uploaded, please choose upto ${remainingDocuments + editData?.total_submissions} documents`;
@@ -144,7 +151,7 @@ const UserForm = ({
                 });
                 setFormJsonField(fields);
             }
-        } else if (getItemSessionStorage('role') === Role.super) {
+        } else if (superAdmin) {
             if (licenseExpiryDate?.license_expiry_date !== undefined) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'datepicker') {
@@ -155,7 +162,7 @@ const UserForm = ({
                 });
                 setFormJsonField(fields);
             }
-            if (allocationDocs > (editData ? remainingDocuments + editData?.total_submissions : remainingDocuments)) {
+            if (plagiarismCondition) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism') {
                         item['errorMsg'] = FORM_VALIDATION.REMAINING_DOCUMENTS;
@@ -166,7 +173,7 @@ const UserForm = ({
                     return item;
                 });
                 setFormJsonField(fields);
-            } else if ((allocationDocs < editData?.used_submissions) || (allocationDocs < editData?.plagiarismUsed)) {
+            } else if (plagiarismCondition_2) {
                 let fields = FormJson?.map((item) => {
                     if (item?.field_type === 'inputNumber' && item?.name === 'plagiarism' && (editData?.used_submissions > 0 || editData?.plagiarismUsed > 0)) {
                         item['errorMsg'] = `Already ${(editData?.used_submissions || editData?.plagiarismUsed)} submission uploaded, please choose upto ${remainingDocuments + editData?.total_submissions} documents`;
@@ -357,7 +364,7 @@ const UserForm = ({
                 }
             }
         } 
-        else if (getItemSessionStorage('role') === Role.super) {
+        else if (superAdmin) {
             if (phoneNumber !== undefined) {
                 if ((phoneNumber?.length >= 1 && phoneNumber?.length < 10) || phoneNumber?.length > 15) {
                     let fields = FormJson?.map((item) => {
@@ -508,7 +515,7 @@ const UserForm = ({
                 return item;
             })
             setFormJsonField(formField);
-        } else if (getItemSessionStorage('role') === Role.super) {
+        } else if (superAdmin) {
             let formField = formJsonField?.map((item) => {
                 if (item?.field_type === 'button') {
                     if (((item?.isDisabledAllocDocs === true) || (item?.isDisabledGrammarDoc === true) ||
