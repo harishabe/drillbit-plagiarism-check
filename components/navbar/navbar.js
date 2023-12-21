@@ -76,7 +76,10 @@ const useStyles = makeStyles(() => ({
     marginRight: "10px",
   },
   ml_10:{
-    marginLeft: "10px",
+    display: 'flex !important',
+    justifyContent: 'flex-end !important',
+    marginRight: '10px !important',
+    marginTop: '10px !important'
   }
 }));
 
@@ -319,8 +322,9 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 </Box>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                  <div className={classes.ml_10}>
                   <LanguageSwitcher/>
-                  <div className={classes.ml_10}></div>
+                  </div>
                   <Divider orientation="vertical" flexItem />
                   <div
                     style={{

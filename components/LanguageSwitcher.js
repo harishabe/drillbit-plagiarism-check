@@ -43,6 +43,7 @@ const LanguageSwitcher = () => {
                 onChange={ handleChange }
                 value={initialLanguage}
                 size='small'
+                sx={{maxHeight:22}}
             >
                 { countries.map((country) => (
                     <MenuItem key={ country.code } value={ country.code }>
