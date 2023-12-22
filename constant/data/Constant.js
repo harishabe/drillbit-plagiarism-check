@@ -14,6 +14,12 @@ export const FILE_LANGUAGE = {
     'REGIONAL':'Regional'
 };
 export const NOT_APPLICABLE = 'NA';
+
+export const countries = [
+    { code: 'en', name: 'English', country_code: 'gb' },
+    { code: 'es', name: 'Español', country_code: 'es' },
+    { code: 'fr', name: 'Français', country_code: 'fr' },
+];
 /**
  * common table constants
  */

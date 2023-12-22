@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import i18n from '../pages/i18n';
 import { getCookie } from '../utils/RegExp';
-
-const countries = [
-    { code: 'en', name: 'English', country_code: 'gb' },
-    { code: 'es', name: 'Español', country_code: 'es' },
-    { code: 'fr', name: 'Français', country_code: 'fr' },
-];
+import { countries } from '../constant/data/Constant';
 
 const LanguageSwitcher = () => {
     const [initialLanguage, setInitialLanguage] = useState('');
