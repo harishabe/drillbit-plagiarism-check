@@ -75,7 +75,7 @@ const RecentSubmissionTable = ({ isUser, tableData, handlePage }) => {
     <>
       { isUser ? (
         <TableContainer>
-          <Table className={ useStyles().table } aria-label="simple table">
+          <Table aria-label="simple table">
             <TableBody>
               { tableData?.map((item, index) => {
                 item["color"] = Colors[index];
@@ -158,7 +158,7 @@ const RecentSubmissionTable = ({ isUser, tableData, handlePage }) => {
         </TableContainer>
       ) : (
         <TableContainer>
-          <Table className={ useStyles().table } aria-label="simple table">
+          <Table aria-label="simple table">
             <TableBody>
               { tableData?.map((item, index) => {
                 item["color"] = Colors[index];
