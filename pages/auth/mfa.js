@@ -6,9 +6,10 @@ import {
   LoginContainer,
   BannerContainer,
   ImgContainer,
+  MarginTop
 } from "../../style/login-style";
 import MFAForm from "./MfaForm";
-import { MainHeading } from "../../components";
+import { MainHeading, Title1 } from "../../components";
 import { DrillBitLogo } from "../../assets/icon";
 import { LOGIN_IMG_BANNER } from "../../constant/data/content";
 
@@ -32,8 +33,11 @@ const MfaPage = () => {
           </Grid>
           <Grid item md={5} style={{ width: "100%" }}>
             <LoginContainer>
-              <MainHeading mb={"20px"} title="Multi factor authentication" />
-              <MFAForm />
+              <MainHeading mb={"20px"} title="Authenticate your account" />
+              <Title1 title="Please check your registered email inbox for the OTP. If you don't see it in your inbox, kindly check your spam or junk folder." />
+              <MarginTop>
+                <MFAForm />
+              </MarginTop>
             </LoginContainer>
           </Grid>
         </Grid>

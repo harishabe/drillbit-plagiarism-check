@@ -25,3 +25,7 @@ export const AccountLink = styled.div`
     color:#3672ff;
     text-decoration:underline;
 `;
+
+export const MarginTop = styled.div`
+    margin-top:1.5rem;
+`;
