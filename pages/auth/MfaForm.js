@@ -105,7 +105,6 @@ const MFAForm = ({ isLoading, MfaLogin, mfaData }) => {
 const mapStateToProps = (state) => ({
   mfaData: state?.mfaActivation?.mfaData,
   isLoading: state?.mfaActivation?.isLoadingMfa,
-  loginState: state?.login?.data,
 });
 
 const mapDispatchToProps = (dispatch) => {

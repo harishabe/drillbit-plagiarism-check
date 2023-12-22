@@ -97,8 +97,7 @@ export const setItemSessionStorage = (key, value) => {
     sessionStorage.setItem(key, value);
 };
 
-export const 
-getItemSessionStorage = (key) => {
+export const getItemSessionStorage = (key) => {
     let a = sessionStorage.getItem(key);
     return a;
 };
