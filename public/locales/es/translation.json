@@ -2,7 +2,7 @@
     "LOGIN_WELCOME_DRILLBIT": "Bienvenido a DrillBit",
     "FORGET_PASSWORD": "Has olvidado tu contraseña ?",
     "BACK_TO_LOGIN": "« Atrás para iniciar sesión",
-    "formComponent": {
+    "FORM_COMPONENT": {
         "username": {
             "label": "Dirección de correo electrónico *",
             "required": "Introducir la dirección de correo electrónico",

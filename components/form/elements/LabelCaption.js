@@ -17,7 +17,7 @@ const LabelCaption = ({
     const { t } = useTranslation();
     return (
         <LabelContainer>
-            <b>{ t(`formComponent.${field.id}.label`) }</b>
+            <b>{ t(`FORM_COMPONENT.${field.id}.label`) }</b>
         </LabelContainer>
     );
 };

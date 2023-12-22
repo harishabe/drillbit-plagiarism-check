@@ -12,7 +12,7 @@ const LinkField = ({
         <div align={field.align}>
             <InputLabel>
                 <Link href={field.path}>
-                    { t(`formComponent.${field.id}.label`) }
+                    { t(`FORM_COMPONENT.${field.id}.label`) }
                 </Link>
             </InputLabel>
         </div>

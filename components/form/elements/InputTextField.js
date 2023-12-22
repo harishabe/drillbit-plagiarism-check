@@ -44,7 +44,7 @@ const InputTextField = ({ control, field }) => {
 
   return (
     <>
-      <InputLabel>{ t(`formComponent.${field.id}.label`) }</InputLabel>
+      <InputLabel>{ t(`FORM_COMPONENT.${field.id}.label`) }</InputLabel>
       <Controller
         name={field.name}
         control={control}
@@ -67,7 +67,7 @@ const InputTextField = ({ control, field }) => {
             name={field.name}
             id={field.name}
             variant="outlined"
-            helperText={ error ? t(`formComponent.${field.id}.required`) : t(`formComponent.${field.id}.info`)}
+            helperText={ error ? t(`FORM_COMPONENT.${field.id}.required`) : t(`FORM_COMPONENT.${field.id}.info`)}
             FormHelperTextProps={{ classes: { root: classes.helperTextLeft } }}
             inputProps={{
               maxLength: field.maxLength,
@@ -79,10 +79,10 @@ const InputTextField = ({ control, field }) => {
           />
         )}
         rules={{
-          required: t(`formComponent.${field.id}.required`),
+          required: t(`FORM_COMPONENT.${field.id}.required`),
           pattern: {
             value: regex,
-            message: t(`formComponent.${field.id}.validationMsg`),
+            message: t(`FORM_COMPONENT.${field.id}.validationMsg`),
           },
         }}
       />

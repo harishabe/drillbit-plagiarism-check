@@ -34,7 +34,7 @@ const InputButton = ({
                     disabled={isLoading || field.isDisabled}
                     href={ field.href }
                 >
-                    { isLoading ? <LoaderContainer><BeatLoader size={ 11 } color="#fff" /></LoaderContainer> : t(`formComponent.${field.id}.label`)}
+                    { isLoading ? <LoaderContainer><BeatLoader size={ 11 } color="#fff" /></LoaderContainer> : t(`FORM_COMPONENT.${field.id}.label`)}
                 </StyledButton>
             </Box>
         </Paper>
