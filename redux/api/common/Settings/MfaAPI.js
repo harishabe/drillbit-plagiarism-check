@@ -1,12 +1,12 @@
-import { PutMethod, PostMethod } from "../../ApiMethod";
-import { BASE_URL_LOGIN_MFA } from "../../../../utils/BaseUrl";
+import { PutMethod, LoginPostMethod } from "../../ApiMethod";
+import { BASE_URL } from "../../../../utils/BaseUrl";
 import END_POINTS from '../../../../utils/EndPoints';
 
 export const MfaActivateOption = async (url) => {
     return PutMethod(url);
 };
 
-export const MFALoginData = async () => {
-    const url = BASE_URL_LOGIN_MFA + END_POINTS.MFA_LOGIN;
-    return PostMethod(url);
+export const MFALoginData = async (data) => {
+    const url = BASE_URL + END_POINTS.MFA_LOGIN;
+    return LoginPostMethod(url, data);
 };

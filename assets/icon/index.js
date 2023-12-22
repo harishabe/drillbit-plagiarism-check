@@ -70,3 +70,5 @@ export { default as RenewAccountIcon } from './RenewAccountIcon';
 export { default as TimeIcon } from './TimeIcon';
 export { default as TimeRegionalIcon } from './TimeRegionalIcon';
 export { default as TimeNonEngIcon } from './TimeNonEngIcon';
+export { default as SettingsIcon } from './SettingsIcon';
+export { default as SettingsWhiteIcon } from './SettingsWhiteIcon';

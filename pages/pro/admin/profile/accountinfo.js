@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Box, Skeleton, Button, FormControlLabel, FormControl, Switch } from '@mui/material';
+import { Grid, Box, Skeleton, Button} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Admin from './../../../../layouts/Admin';
 import { CardView, CommonTable, MainHeading, SubTitle2, SubTitle, Title1 } from '../../../../components';
@@ -10,7 +10,6 @@ import { Role } from '../../../../constant/data';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
 import { getItemSessionStorage } from '../../../../utils/RegExp';
-import { MfaActivation } from '../../../../redux/action/common/Settings/MfaAction';
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 200 },
@@ -49,19 +48,12 @@ const AccountInfo = ({
     const [role, setRole] = useState('');
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
-    const [isMfaEnabled, setIsMfaEnabled] = useState(false);
-
-    const handleSwitchChange = (event) => {
-        setIsMfaEnabled(event.target.checked);
-        const mfaValue = isMfaEnabled ? 'NO' : 'YES';
-        MfaActivation(BASE_URL_PRO + END_POINTS_PRO.MFA_ACTIVATION_ADMIN + mfaValue);
-    };
     
     useEffect(() => {
         GetProfile(BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_DATA);
         setRole(getItemSessionStorage('role'));
     }, []);
-
+    
     useEffect(() => {
         let row = [
             createData('Institution Name', accountInfo?.institution_name ? accountInfo?.institution_name : '-'),
@@ -162,28 +154,6 @@ const AccountInfo = ({
                 )}
 
             </CardView>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item md={10}>
-                        <MainHeading title='Multi factor authentication' />
-                    </Grid>
-                </Grid>
-            </Box>
-            <CardView>
-            <FormControl component="fieldset">
-                <Grid container alignItems="center" spacing={2}>
-                    <Grid item>
-                        <Title1 title='Multi factor authentication'/>
-                    </Grid>
-                    <Grid item>
-                        <FormControlLabel
-                            control={<Switch checked={isMfaEnabled} onChange={handleSwitchChange} />}
-                            label={isMfaEnabled ? 'On' : 'Off'}
-                        />
-                    </Grid>
-                </Grid>
-            </FormControl>
-        </CardView>
         </React.Fragment >
     );
 };
@@ -191,14 +161,12 @@ const AccountInfo = ({
 const mapStateToProps = (state) => ({
     accountInfo: state?.profile?.profileData,
     isLoading: state?.profile?.isLoading,
-    isMfaEnabled: state?.mfa?.isMfaEnabled,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         GetProfile: (role) => dispatch(GetProfile(role)),
         ProfileLogo: (role, data) => dispatch(ProfileLogo(role, data)),
-        MfaActivation: (url) => dispatch(MfaActivation(url)),
     };
 };
 

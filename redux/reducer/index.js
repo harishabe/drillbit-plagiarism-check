@@ -36,7 +36,7 @@ const rootReducer = combineReducers({
     documentChart: DocumnentChartReducer,
     submission: SubmissionReducer,
     uploadFile: UploadFileReducer,
-    MfaActivation: MfaReducer
+    mfaActivation: MfaReducer
 });
 
 export default rootReducer;

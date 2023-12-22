@@ -5,19 +5,19 @@ const MfaReducer = (state = {}, action) => {
         case types.FETCH_MFA_ACTIVATION_START:
             return {
                 ...state,
-                isLoadingDocument: true,
+                isLoadingMfaActivation: true,
             };
         case types.FETCH_MFA_ACTIVATION_SUCCESS:
             return {
                 ...state,
-                isLoadingDocument: false,
-                DocumentTypeData: action.payload,
+                isLoadingMfaActivation: false,
+                MfaData: action.payload,
             };
         case types.FETCH_MFA_ACTIVATION_FAIL:
             return {
                 ...state,
-                isLoadingDocument: false,
-                DocumentTypeData: action.payload,
+                isLoadingMfaActivation: false,
+                MfaData: action.payload,
             };
             case types.FETCH_MFA_LOGIN_START:
                 return {
