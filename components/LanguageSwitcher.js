@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import i18n from '../pages/i18n';
-import Cookies from 'js-cookie';
-import CountryFlag from 'react-country-flag';
-import { Select, MenuItem, FormControl } from '@mui/material'
 import { getCookie } from '../utils/RegExp';
 
 const countries = [
@@ -32,28 +29,18 @@ const LanguageSwitcher = () => {
     const handleChange = (event) => {
         const languageCode = event.target.value;
         i18n.changeLanguage(languageCode);
-        Cookies.set('i18next', languageCode, { expires: 365 });
         setInitialLanguage(languageCode);
     };
 
     return (
-        <FormControl>
-            <Select
-                id="language-select"
-                onChange={ handleChange }
-                value={initialLanguage}
-                size='small'
-                sx={{maxHeight:22}}
-            >
-                { countries.map((country) => (
-                    <MenuItem key={ country.code } value={ country.code }>
-                        <CountryFlag countryCode={ country.country_code } svg 
-                        style={ { marginRight: '8px' } } />
-                        {' '}{ country.name }
-                    </MenuItem>
-                )) }
-            </Select>
-        </FormControl>
+        <select
+            onChange={ handleChange }
+            value={ initialLanguage }
+        >
+            { countries.map((country) => (
+                <option key={ country.code } value={ country.code }>{ country.name } -{ country.code }</option>
+            )) }
+        </select>
     );
 };
 
