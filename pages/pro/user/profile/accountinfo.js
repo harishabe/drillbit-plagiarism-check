@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Box, Skeleton } from '@mui/material';
+import { Grid, Box, Skeleton} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Instructor from './../../../../layouts/Instructor';
-import { CardView, CommonTable, MainHeading } from '../../../../components';
+import { CardView, CommonTable, MainHeading, Title1 } from '../../../../components';
 import { GetProfile } from '../../../../redux/action/profile/ProfileAction';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
-
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 200 },
     { id: 'details', label: 'Details', maxWidth: 500 },
@@ -27,14 +26,15 @@ const ImgLogo = styled('img')({
 const AccountInfo = ({
     GetProfile,
     isLoading,
-    accountInfo
+    accountInfo,
+    MfaActivation,
 }) => {
 
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
         GetProfile(BASE_URL_PRO + END_POINTS_PRO.USER_PROFILE_DATA);
-    }, []);
+    }, [GetProfile]);
 
     useEffect(() => {
         let row = [
@@ -55,6 +55,7 @@ const AccountInfo = ({
         ];
         setRows([...row]);
     }, [accountInfo]);
+    
 
     return (
         <React.Fragment>
@@ -91,6 +92,8 @@ const AccountInfo = ({
                 )}
 
             </CardView>
+
+            
         </React.Fragment >
     );
 };

@@ -2,7 +2,9 @@ import {
     DashboardIcon,
     ClassIcon,
     DashboardWhiteIcon,
-    ClassWhiteIcon
+    ClassWhiteIcon,
+    SettingsIcon,
+    SettingsWhiteIcon
 } from '../../assets/icon';
 
 const SidebarStudent = [
@@ -19,7 +21,15 @@ const SidebarStudent = [
         "name": "My Classes",
         "path": "/myclasses",
         "layout": "/extream/student",
-    }
+    },
+    {
+        "icon": <SettingsIcon />,
+        "activeIcon": <SettingsWhiteIcon />,
+        "name": "Settings",
+        "path": "/settings",
+        "pathList": ["/settings"],
+        "layout": "/extream/student",
+    },
 ];
 
 export default SidebarStudent;

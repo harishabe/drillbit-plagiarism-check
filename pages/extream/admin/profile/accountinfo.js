@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Box, Skeleton, Button } from '@mui/material';
+import { Grid, Box, Skeleton, Button} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Admin from './../../../../layouts/Admin';
 import { CardView, CommonTable, MainHeading, SubTitle2, SubTitle } from '../../../../components';
@@ -9,6 +9,7 @@ import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/Profil
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { getItemSessionStorage } from '../../../../utils/RegExp'
+
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 200 },
@@ -39,7 +40,7 @@ const AccountInfo = ({
     GetProfile,
     ProfileLogo,
     isLoading,
-    accountInfo
+    accountInfo,
 }) => {
 
     const [rows, setRows] = useState([]);

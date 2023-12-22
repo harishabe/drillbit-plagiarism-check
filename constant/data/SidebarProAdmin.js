@@ -11,6 +11,8 @@ import {
     IntegrationWhiteIcon,
     RepositoryIcon,
     RepositoryWhiteIcon,
+    SettingsIcon,
+    SettingsWhiteIcon
 } from '../../assets/icon';
 
 const SidebarProAdmin = [
@@ -49,7 +51,15 @@ const SidebarProAdmin = [
         "name": "Integrations",
         "path": "/integration",
         "layout": "/pro/admin",
-    }
+    },
+    {
+        "icon": <SettingsIcon />,
+        "activeIcon": <SettingsWhiteIcon />,
+        "name": "Settings",
+        "path": "/settings",
+        "pathList": ["/settings"],
+        "layout": "/pro/admin",
+    },
 ];
 
 export default SidebarProAdmin;

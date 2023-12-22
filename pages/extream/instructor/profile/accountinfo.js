@@ -8,7 +8,6 @@ import { GetProfile } from '../../../../redux/action/profile/ProfileAction';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
 import { getItemSessionStorage } from '../../../../utils/RegExp';
-
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 200 },
     { id: 'details', label: 'Details', maxWidth: 500 },
@@ -28,7 +27,7 @@ const ImgLogo = styled('img')({
 const AccountInfo = ({
     GetProfile,
     isLoading,
-    accountInfo
+    accountInfo,
 }) => {
 
     const [rows, setRows] = useState([]);
@@ -102,7 +101,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        GetProfile: (role) => dispatch(GetProfile(role))
+        GetProfile: (role) => dispatch(GetProfile(role)),
     };
 };
 
