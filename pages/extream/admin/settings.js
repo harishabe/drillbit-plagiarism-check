@@ -15,7 +15,7 @@ import { MfaActivation } from '../../../redux/action/common/Settings/MfaAction';
 import { getItemSessionStorage,setItemSessionStorage } from '../../../utils/RegExp';
 import Admin from '../../../layouts/Admin';
 import { WarningDialog } from './../../../components';
-import { DeleteWarningIcon } from '../../../assets/icon';
+import { MfaWarningIcon } from '../../../assets/icon';
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
@@ -57,7 +57,7 @@ const Settings = ({
      return (
         <React.Fragment>
                 <WarningDialog
-                    warningIcon={<DeleteWarningIcon />}
+                    warningIcon={<MfaWarningIcon />}
                     message={isMfaEnabled ? "Are you sure, you want to deactivate MFA?" : "Are you sure, you want to activate MFA?"}
                     handleYes={handleYesWarning}
                     handleNo={handleStatusCloseWarning}

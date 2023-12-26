@@ -72,3 +72,4 @@ export { default as TimeRegionalIcon } from './TimeRegionalIcon';
 export { default as TimeNonEngIcon } from './TimeNonEngIcon';
 export { default as SettingsIcon } from './SettingsIcon';
 export { default as SettingsWhiteIcon } from './SettingsWhiteIcon';
+export { default as MfaWarningIcon } from './MfaWarningIcon';
