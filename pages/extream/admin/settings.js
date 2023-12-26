@@ -7,13 +7,17 @@ import {
     BreadCrumb,
     Heading,
     CardView,
-    Title1
+    Title1,
+    SubTitle
 } from './../../../components';
+import { makeStyles } from "@mui/styles";
 import { BASE_URL_EXTREM } from '../../../utils/BaseUrl';
 import END_POINTS from '../../../utils/EndPoints';
 import { MfaActivation } from '../../../redux/action/common/Settings/MfaAction';
 import { getItemSessionStorage,setItemSessionStorage } from '../../../utils/RegExp';
 import Admin from '../../../layouts/Admin';
+import { WarningDialog } from './../../../components';
+import { MfaWarningIcon } from '../../../assets/icon';
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
@@ -27,54 +31,104 @@ const InstructorBreadCrumb = [
     },
 ];
 
+const useStyles = makeStyles (() => ({
+    margin : {
+        marginTop: "16px",
+    },
+    text : {
+        marginTop : "-5px",
+    },
+}));
 
 const Settings = ({
     MfaActivation,
 }) => {
+    const classes = useStyles();
+
     const mfaValue = getItemSessionStorage('mfa') === 'true';
     const [isMfaEnabled, setIsMfaEnabled] = useState(mfaValue);
+    const [showStatusWarning, setStatusWarning] = useState(false);
 
-    const handleSwitchChange = (event) => {
-        event.preventDefault()
+    const handleSwitchChange = () => {
+        setStatusWarning(true);
+      };
+
+      const handleYesWarning = () => {
         const newMfaStatus = !isMfaEnabled;
-        setIsMfaEnabled(newMfaStatus);
-        MfaActivation(BASE_URL_EXTREM + END_POINTS.MFA_ACTIVATION_ADMIN + (newMfaStatus ? 'YES' : 'NO'));
+        setIsMfaEnabled(newMfaStatus); 
+        const url = BASE_URL_EXTREM + END_POINTS.MFA_ACTIVATION_ADMIN + (newMfaStatus ? 'YES' : 'NO');
+        MfaActivation(url);
         setItemSessionStorage('mfa', newMfaStatus.toString());
+        setStatusWarning(false);
     };
 
-     return (
+    const handleStatusCloseWarning = () => {
+        setStatusWarning(false);
+      };
+
+      return (
         <React.Fragment>
-            <Box sx={ { flexGrow: 1 } }>
-                <Grid container spacing={ 1 }>
-                    <Grid item md={ 10 } xs={ 10 }>
-                        <BreadCrumb item={ InstructorBreadCrumb } />
-                    </Grid>
-                </Grid>
-            </Box>
-            <Grid container spacing={ 2 }>
-                <Grid item md={ 5 } xs={ 5 }>
-                    <Heading title= {`Settings`} />
-                </Grid>
+          <WarningDialog
+            warningIcon={<MfaWarningIcon />}
+            message={
+              isMfaEnabled
+                ? "Are you sure, you want to deactivate multi factor authentication?"
+                : "Are you sure, you want to activate multi factor authentication?"
+            }
+            handleYes={handleYesWarning}
+            handleNo={handleStatusCloseWarning}
+            isOpen={showStatusWarning}
+          />
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={1}>
+              <Grid item md={10} xs={10}>
+                <BreadCrumb item={InstructorBreadCrumb} />
+              </Grid>
             </Grid>
-            <CardView>
-            <FormControl component="fieldset">
-                <Grid container alignItems="center" spacing={2}>
-                    <Grid item>
-                        <Title1 title='Multi factor authentication'/>
-                    </Grid>
-                    <Grid item>
-                        <FormControlLabel
-                            control={<Switch checked={isMfaEnabled} onChange={handleSwitchChange} />}
-                            label={isMfaEnabled ? 'On' : 'Off'}
-                        />
-                    </Grid>
+          </Box>
+          <Grid container spacing={2}>
+            <Grid item md={5} xs={5}>
+              <Heading title={`Settings`} />
+            </Grid>
+          </Grid>
+          <CardView>
+            <Grid container spacing={2}>
+              <Grid item>
+                <Heading title="Multi-Factor Authentication" />
+                <Title1
+                  title={
+                    "Multi-factor authentication (MFA), also known as two-factor authentication (2FA) or two-step verification, is a security process that requires users to provide multiple forms of identification before they can access an account, system, or application."
+                  }
+                  color={"common.gray"}
+                />
+              </Grid>
+            </Grid>
+            
+              <Grid container spacing={2} className={classes.margin}>
+                <Grid item md={5} xs={8} sm={8} lg={5}>
+                  <Title1 title="Multi factor authentication" />
+                    <SubTitle className={classes.text}
+                      title={"* Check your email address for verification code "}
+                    />
                 </Grid>
-            </FormControl>
-        </CardView>
-         
+                <Grid item md={7} xs={4} sm={4} lg={7}>
+                <FormControl component="fieldset">
+                    <FormControlLabel
+                        control={
+                        <Switch
+                            checked={isMfaEnabled}
+                            onChange={handleSwitchChange}
+                        />
+                        }
+                        label={isMfaEnabled ? "On" : "Off"}
+                    />              
+                    </FormControl>
+                </Grid>
+              </Grid>
+          </CardView>
         </React.Fragment>
-    );
- };
+      );
+    };    
 
 const mapStateToProps = (state) => ({
     isMfaEnabled: state?.mfa?.isMfaEnabled,
