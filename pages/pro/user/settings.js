@@ -56,15 +56,13 @@ const Settings = ({
 
      return (
         <React.Fragment>
-             {showStatusWarning && (
                 <WarningDialog
                     warningIcon={<DeleteWarningIcon />}
                     message={isMfaEnabled ? "Are you sure, you want to deactivate MFA?" : "Are you sure, you want to activate MFA?"}
                     handleYes={handleYesWarning}
                     handleNo={handleStatusCloseWarning}
-                    isOpen={true}
+                    isOpen={showStatusWarning}
                 />
-            )}
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 10 } xs={ 10 }>
