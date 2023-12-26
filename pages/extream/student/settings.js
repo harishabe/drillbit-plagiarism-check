@@ -14,6 +14,8 @@ import END_POINTS from '../../../utils/EndPoints';
 import { MfaActivation } from '../../../redux/action/common/Settings/MfaAction';
 import { getItemSessionStorage,setItemSessionStorage } from '../../../utils/RegExp';
 import Student from '../../../layouts/Student';
+import { WarningDialog } from './../../../components';
+import { DeleteWarningIcon } from '../../../assets/icon';
 
 const InstructorBreadCrumb = [
     {
@@ -33,17 +35,36 @@ const Settings = ({
 }) => {
     const mfaValue = getItemSessionStorage('mfa') === 'true';
     const [isMfaEnabled, setIsMfaEnabled] = useState(mfaValue);
+    const [showStatusWarning, setStatusWarning] = useState(false);
 
-    const handleSwitchChange = (event) => {
-        event.preventDefault()
+    const handleSwitchChange = () => {
+        setStatusWarning(true);
+      };
+
+      const handleYesWarning = () => {
         const newMfaStatus = !isMfaEnabled;
-        setIsMfaEnabled(newMfaStatus);
-        MfaActivation(BASE_URL_EXTREM + END_POINTS.MFA_ACTIVATION_STUDENT + (newMfaStatus ? 'YES' : 'NO'));
+        setIsMfaEnabled(newMfaStatus); 
+        const url = BASE_URL_EXTREM + END_POINTS.MFA_ACTIVATION_STUDENT + (newMfaStatus ? 'YES' : 'NO');
+        MfaActivation(url);
         setItemSessionStorage('mfa', newMfaStatus.toString());
+        setStatusWarning(false);
     };
+
+    const handleStatusCloseWarning = () => {
+        setStatusWarning(false);
+      };
 
      return (
         <React.Fragment>
+            {showStatusWarning && (
+                <WarningDialog
+                    warningIcon={<DeleteWarningIcon />}
+                    message={isMfaEnabled ? "Are you sure, you want to deactivate MFA?" : "Are you sure, you want to activate MFA?"}
+                    handleYes={handleYesWarning}
+                    handleNo={handleStatusCloseWarning}
+                    isOpen={true}
+                />
+            )}
             <Box sx={ { flexGrow: 1 } }>
                 <Grid container spacing={ 1 }>
                     <Grid item md={ 10 } xs={ 10 }>

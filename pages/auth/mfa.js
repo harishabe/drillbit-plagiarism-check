@@ -1,6 +1,8 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import InputLabel from '@mui/material/InputLabel';
+import Link from 'next/link';
 import Image from "next/image";
 import {
   LoginContainer,
@@ -37,6 +39,11 @@ const MfaPage = () => {
               <Title1 title="Please check your registered email inbox for the OTP. If you don't see it in your inbox, kindly check your spam or junk folder." />
               <MarginTop>
                 <MFAForm />
+                <div align='center'>
+                  <InputLabel>
+                      <Link href="/auth/login" > « Back to login</Link>
+                  </InputLabel>
+              </div>
               </MarginTop>
             </LoginContainer>
           </Grid>
