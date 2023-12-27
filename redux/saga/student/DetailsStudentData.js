@@ -207,6 +207,7 @@ export function* onLoadSendAnswer(action) {
             type: types.FETCH_STUDENTS_QA_ANSWER_DETAILS_FAIL,
             payload: error,
         });
+        toastrValidation(error);
     }
 }
 

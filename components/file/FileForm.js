@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
 import styled from "styled-components";
@@ -41,6 +41,7 @@ const FileForm = ({
   isCrossLangDropdown,
   isStudent,
   assName,
+  isUploadInProgress
 }) => {
   const classes = useStyles();
   const {
@@ -48,6 +49,7 @@ const FileForm = ({
     control,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
 
   const onSubmit = (data) => {
@@ -61,6 +63,25 @@ const FileForm = ({
     });
     handleSubmitFile(reqPayload);
   };
+
+  useEffect(() => {
+    if (files && isUploadInProgress) {
+      const resetValues = {};
+
+      files.forEach((item, index) => {
+        resetValues["authorName" + item[0]] = '';
+        resetValues["title" + item[0]] = '';
+        resetValues["documentType" + item[0]] = '';
+        resetValues["nonEnglishLang" + item[0]] = '';
+        resetValues["Language" + item[0]] = '';
+        resetValues["regionalLanguage"] = '';
+        resetValues["destinationLanguage"] = '';
+      });
+
+      reset(resetValues);
+    }
+  }, [files, reset]);
+
 
   return (
     <div style={ { marginTop: "10px" } }>

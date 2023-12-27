@@ -75,6 +75,7 @@ const CommonTable = ({
   showAnalysisPage,
   showGrammarReport,
   isLoadingGrammarReport,
+  isGrade
 }) => {
   const router = useRouter();
   const classes = useStyles();
@@ -400,6 +401,7 @@ const CommonTable = ({
                                                       <a
                                                                   style={ {
                                                           fontWeight: "600",
+                                                          cursor: isGrade && 'text',
                                                                   } }
                                                         href="#"
                                                                   onClick={ (e) =>

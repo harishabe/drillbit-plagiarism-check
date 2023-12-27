@@ -191,7 +191,7 @@ const Instructor = ({
                             {
                                 'component': <Switch checked={ instructor.status === 'active' ? true : false } size="small" />,
                                 'type': instructor.status === 'active' ? 'lock' : 'unlock',
-                                'title': instructor.status === 'active' ? 'Activate' : 'De-activate'
+                                'title': instructor.status === 'active' ? 'Active' : 'De-active'
                             },
                         ]),
                     instructor.creation_date,

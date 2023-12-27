@@ -207,7 +207,7 @@ const ProUser = ({
                             {
                                 'component': <Switch checked={ user.status === 'active' ? true : false } size="small" />,
                                 'type': user.status === 'active' ? 'lock' : 'unlock',
-                                'title': user.status === 'active' ? 'Activate' : 'De-activate'
+                                'title': user.status === 'active' ? 'Active' : 'De-active'
                             }
                         ]),
                     user.expiry_date,

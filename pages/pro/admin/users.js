@@ -238,7 +238,7 @@ const Users = ({
                 ),
                 type: instructor.status === "active" ? "lock" : "unlock",
                 title:
-                  instructor.status === "active" ? "Activate" : "De-activate",
+                  instructor.status === "active" ? "Active" : "De-active",
                 isDisabled: instructor.expired === 1,
               },
             ],

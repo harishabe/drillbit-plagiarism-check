@@ -125,7 +125,7 @@ const Students = ({
                         {
                             'component': <Switch checked={ student.status === 'active' ? true : false } size="small" />,
                             'type': student.status === 'active' ? 'lock' : 'unlock',
-                            'title': student.status === 'active' ? 'Activate' : 'De-activate'
+                            'title': student.status === 'active' ? 'Active' : 'De-active'
                         }
                     ],
                     student.phone_number

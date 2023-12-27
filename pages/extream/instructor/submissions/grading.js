@@ -195,6 +195,7 @@ const Grading = ({
                 tableData={rows}
                 isLoading={isLoading}
                 handleAction={handleAction}
+                isGrade={true}
                 showAnalysisPage={ handleShowAnalysisPage }
             />
 
