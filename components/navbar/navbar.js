@@ -41,6 +41,7 @@ import SubTitle1 from "../typography/SubTitle1";
 import DialogModal from "../dialog/DialogModal";
 import MobileMenu from "../../layouts/MobileMenu";
 import packageJSON from "../../package.json";
+import LanguageSwitcher from '../LanguageSwitcher';
 
 const drawerWidth = 165;
 
@@ -74,6 +75,9 @@ const useStyles = makeStyles(() => ({
     marginLeft: "10px",
     marginRight: "10px",
   },
+  ml_10:{
+    marginRight: '10px !important',
+  }
 }));
 
 const AppBar = styled(MuiAppBar, {
@@ -315,6 +319,8 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 </Box>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                  <LanguageSwitcher/>
+                  <div className={classes.ml_10}/>
                   <Divider orientation="vertical" flexItem />
                   <div
                     style={{

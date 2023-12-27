@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useTranslation } from "react-i18next";
 
 
 export const LabelContainer = styled.div`
@@ -13,9 +14,10 @@ export const LabelContainer = styled.div`
 const LabelCaption = ({
     field
 }) => {
+    const { t } = useTranslation();
     return (
         <LabelContainer>
-            <b>{field.label}</b>
+            <b>{ t(`FORM_COMPONENT.${field.id}.label`) }</b>
         </LabelContainer>
     );
 };
