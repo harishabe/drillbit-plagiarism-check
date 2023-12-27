@@ -370,14 +370,14 @@ const Students = ({
                     <Grid item container direction='row'>
                         <SearchField>
                             <TextField
-                                placeholder='Search'
+                                placeholder='Search by Name, Email'
                                 onChange={ debouncedResults }
                                 inputProps={ {
                                     style: {
                                         padding: 7,
                                         display: 'inline-flex',
                                         fontWeight: 500,
-                                        width: '200px'
+                                        width: '225px'
                                     }
                                 } }
                             />

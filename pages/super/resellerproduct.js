@@ -196,10 +196,10 @@ const ResellerProduct = ({
     return (
         <>
             <Grid container spacing={ 1 }>
-                <Grid item md={ 8 } xs={ 8 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } }>
                     <BreadCrumb item={ RefBreadCrumb } />
                 </Grid>
-                <Grid item md={ 1.5 } xs={ 1.5 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 2.2 } xs={ 2.2 } style={ { textAlign: 'right' } }>
                     { refData?.length > 0 &&
                         isLoadingDownload ?
                         <SkeletonContainer>
@@ -217,16 +217,16 @@ const ResellerProduct = ({
                         </Tooltip>
                     }
                 </Grid>
-                <Grid item md={ 2.5 } xs={ 2.5 } style={ { textAlign: 'right' } }>
+                <Grid item md={ 2.8 } xs={ 2.8 } style={ { textAlign: 'right' } }>
                     <TextField
-                        placeholder='Search'
+                        placeholder='Search by LID, Institution name'
                         onChange={ debouncedResults }
                         inputProps={ {
                             style: {
                                 padding: 7,
                                 display: 'inline-flex',
                                 fontWeight: 500,
-                                width: '200px'
+                                width: '225px'
                             },
                         } }
                     />

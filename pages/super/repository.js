@@ -259,7 +259,7 @@ const Repository = ({
                 </Grid>
                 <Grid item md={ 2 } xs={ 12 }>
                     <TextField
-                        placeholder='Search'
+                        placeholder='Search by Paper ID'
                         onChange={ searchResults }
                         inputProps={ {
                             style: {

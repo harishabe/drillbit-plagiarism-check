@@ -273,10 +273,10 @@ const RefForm = ({
                 'timeZone',
             ];
             fields.forEach(field => { setValue(field, a[field]); });
-            modifyFormField('Edit Ref Account', true);
+            modifyFormField('Edit Pro Account', true);
             setEditOperation(true);
         } else {
-            modifyFormField('Create Ref Account', false);
+            modifyFormField('Create Pro Account', false);
         }
     }, [editData, reseller, dpList]);
 
