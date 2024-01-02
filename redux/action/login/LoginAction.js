@@ -6,6 +6,12 @@ export const login = (data) => {
     };
 };
 
+export const ClearLoginState = () => {
+    return {
+        type: types.FETCH_LOGIN_MFA_DATA_CLEAR
+    };
+};
+
 export const ForgetPassword = (data) => {
     return {
         type: types.FETCH_FORGET_PASSWORD_START, query: data

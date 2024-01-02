@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import InputLabel from '@mui/material/InputLabel';
-import Link from 'next/link';
+import InputLabel from "@mui/material/InputLabel";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import {
   LoginContainer,
   BannerContainer,
   ImgContainer,
-  MarginTop
+  MarginTop,
 } from "../../style/login-style";
 import MFAForm from "./MfaForm";
 import { MainHeading, Title1 } from "../../components";
 import { DrillBitLogo } from "../../assets/icon";
 import { LOGIN_IMG_BANNER } from "../../constant/data/content";
+import { ClearLoginState } from "../../redux/action/login/LoginAction";
 
-const MfaPage = () => {
+const MfaPage = ({ ClearLoginState, loginState }) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (loginState === "") {
+      router.push("/auth/login");
+    }
+  }, [loginState, router]);
+
+  const handleBackToLogin = () => {
+    ClearLoginState();
+  };
+    
+  window.addEventListener('popstate', handleBackToLogin);
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -39,11 +55,14 @@ const MfaPage = () => {
               <Title1 title="Please check your registered email inbox for the OTP. If you don't see it in your inbox, kindly check your spam or junk folder." />
               <MarginTop>
                 <MFAForm />
-                <div align='center'>
-                  <InputLabel>
-                      <Link href="/auth/login" > « Back to login</Link>
+                <div align="center">
+                  <InputLabel
+                    onClick={handleBackToLogin}
+                    style={{ cursor: "pointer" }}
+                  >
+                    « Back to login
                   </InputLabel>
-              </div>
+                </div>
               </MarginTop>
             </LoginContainer>
           </Grid>
@@ -53,4 +72,14 @@ const MfaPage = () => {
   );
 };
 
-export default MfaPage;
+const mapStateToProps = (state) => ({
+  loginState: state?.login?.data,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ClearLoginState: () => dispatch(ClearLoginState()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MfaPage);
