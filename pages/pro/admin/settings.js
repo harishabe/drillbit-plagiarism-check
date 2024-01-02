@@ -21,7 +21,7 @@ import { MfaWarningIcon } from '../../../assets/icon';
 const InstructorBreadCrumb = [
     {
         name: 'Dashboard',
-        link: '/pro/user/dashboard',
+        link: '/pro/admin/dashboard',
         active: false,
     },
     {

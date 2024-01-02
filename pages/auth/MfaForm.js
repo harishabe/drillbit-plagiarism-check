@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { FormComponent } from "../../components";
 import FormJson from "../../constant/form/mfa-form.json";
 import { MfaLogin } from "../../redux/action/common/Settings/MfaAction";
 import { setItemSessionStorage } from "../../utils/RegExp";
 import { Role } from "../../constant/data";
+import { FORM_VALIDATION } from "../../constant/data/Constant";
 
 const MFAForm = ({ isLoading, MfaLogin, mfaData }) => {
   const router = useRouter();
-  const { handleSubmit, control } = useForm({
+  const [formJsonField, setFormJsonField] = useState(FormJson);
+
+  const { handleSubmit, control, setValue } = useForm({
     mode: "all",
   });
-
+  const otp = useWatch({
+    control,
+    name: 'otp',
+  });
   const onSubmitMFA = (data) => {
     let obj = {
       otp: data.otp,
@@ -22,7 +28,8 @@ const MFAForm = ({ isLoading, MfaLogin, mfaData }) => {
     MfaLogin(obj);
   };
   console.log("123", mfaData);
-
+  
+ 
   useEffect(() => {
     if (mfaData?.role === Role.admin) {
       setItemSessionStorage("role", Role.admin);
@@ -85,6 +92,43 @@ const MFAForm = ({ isLoading, MfaLogin, mfaData }) => {
       router.push("/consortium/dashboard");
     }
   }, [router, mfaData]);
+  useEffect(() => {
+    if (otp !== undefined) {
+      if (otp.length < 1 || otp.length > 6) {
+        let fields = FormJson?.map((item) => {
+          if (item?.field_type === 'inputNumber' && item?.name === 'otp') {
+            item['errorMsg'] = FORM_VALIDATION.OTP;
+          }
+          if (item?.field_type === 'button') {
+            item['isDisabledOtp'] = true;
+          }
+          return item;
+        });
+        setFormJsonField(fields);
+      } else {
+        let fields = FormJson?.map((item) => {
+          if (item?.field_type === 'inputNumber' && item?.name === 'otp') {
+            item['errorMsg'] = '';
+          }
+          if (item?.field_type === 'button') {
+            item['isDisabledOtp'] = false;
+          }
+          return item;
+        });
+        setFormJsonField(fields);
+      }
+    }
+  }, [otp]);
+
+  useEffect(() => {
+    let formField = formJsonField?.map((item) => {
+        if (item?.field_type === 'button') {
+            item['isDisabled'] = item?.isDisabledOtp;
+        }
+        return item;
+    });
+    setFormJsonField(formField);
+}, [formJsonField]);
 
   return (
     <form onSubmit={handleSubmit(onSubmitMFA)}>
@@ -95,6 +139,7 @@ const MFAForm = ({ isLoading, MfaLogin, mfaData }) => {
               field={field}
               control={control}
               isLoading={isLoading}
+              
             />
           ))
         : null}
