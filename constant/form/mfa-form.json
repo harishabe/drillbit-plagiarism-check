@@ -5,7 +5,8 @@
     "id": "otp",
     "name": "otp",
     "label": "Enter OTP *",
-    "required": "Enter OTP"
+    "required": true,
+    "validationMsg": "Enter OTP"
   },
   {
     "field_type": "button",
