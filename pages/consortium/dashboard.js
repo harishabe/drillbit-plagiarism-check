@@ -313,7 +313,7 @@ const Dashboard = ({
                                 },
                                 {
                                     label: 'Min time',
-                                    value:superDashboardData?.consortiumTimeCalculations?.regAvgProcessingTime,
+                                    value:superDashboardData?.consortiumTimeCalculations?.regMinProcessingTimePerDoc,
                                 }
                             ]}
                             icon={ <TimeRegionalIcon /> }
