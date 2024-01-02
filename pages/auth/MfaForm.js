@@ -27,7 +27,6 @@ const MFAForm = ({ isLoading, MfaLogin, mfaData }) => {
     };
     MfaLogin(obj);
   };
-  console.log("123", mfaData);
   
  
   useEffect(() => {
