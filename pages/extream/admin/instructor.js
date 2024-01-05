@@ -296,7 +296,7 @@ const Instructor = ({
       };
       setStatusRowData(activateDeactive);
       setStatusWarning(true);
-      setStatusMessage("inactive");
+      setStatusMessage("deactivate");
     } else if (icon === "unlock") {
       let activateDeactive = {
         id: rowData?.user_id,
@@ -304,7 +304,7 @@ const Instructor = ({
       };
       setStatusRowData(activateDeactive);
       setStatusWarning(true);
-      setStatusMessage("active");
+      setStatusMessage("activate");
     } else if (icon === "stats") {
       setInstructorId(rowData?.user_id);
       setShowDialogModal(true);
