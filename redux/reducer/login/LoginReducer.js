@@ -19,6 +19,12 @@ const LoginReducer = (state = {}, action) => {
                 isLoadingLogin: false,
                 error: action.payload
             };
+        case types.FETCH_LOGIN_MFA_DATA_CLEAR:
+            return {
+                ...state,
+                isLoadingLogin: false,
+                data: ""
+            };   
         case types.FETCH_FORGET_PASSWORD_START:
             return {
                 ...state,

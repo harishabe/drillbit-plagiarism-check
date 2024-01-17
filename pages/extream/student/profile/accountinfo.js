@@ -9,7 +9,7 @@ import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/Profil
 import { Role } from '../../../../constant/data';
 import { BASE_URL_EXTREM } from '../../../../utils/BaseUrl';
 import END_POINTS from '../../../../utils/EndPoints';
-import { getItemSessionStorage } from '../../../../utils/RegExp'
+import { getItemSessionStorage, setItemSessionStorage } from '../../../../utils/RegExp';
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 200 },
@@ -40,7 +40,8 @@ const AccountInfo = ({
     GetProfile,
     ProfileLogo,
     isLoading,
-    accountInfo
+    accountInfo,
+    MfaActivation
 }) => {
 
     const [rows, setRows] = useState([]);

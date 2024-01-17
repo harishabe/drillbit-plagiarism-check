@@ -125,6 +125,7 @@ import {
     ResendCredentialsDetail
 } from './super/DetailsSuperAdminData';
 import { GetTicketSubmissionData, GetMyTicket } from './common/Support/TicketData';
+import { MfaActivateData, MFALogin } from './common/Settings/MfaData';
 
 const saga = [
     fork(userLogin),
@@ -240,7 +241,9 @@ const saga = [
     fork(GetExtremeRef),
     fork(GrammarReportSubmission),
     fork(GetTicketSubmissionData),
-    fork(GetMyTicket)
+    fork(GetMyTicket),
+    fork(MfaActivateData),
+    fork(MFALogin)
 ];
 
 export default function* rootSaga() {

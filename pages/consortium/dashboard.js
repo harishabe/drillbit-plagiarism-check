@@ -14,6 +14,9 @@ import {
     NoOfClassIcon,
     NoOfAssignmntIcon,
     NoOfSubmission,
+    TimeIcon,
+    TimeRegionalIcon,
+    TimeNonEngIcon,
 } from '../../assets/icon';
 import { GetWidgetCount } from '../../redux/action/super/SuperAdminAction';
 import {
@@ -30,6 +33,7 @@ import {
 import { BASE_URL_SUPER } from '../../utils/BaseUrl'
 import END_POINTS from "../../utils/EndPoints";
 import { success } from '../../utils/ToastrValidation';
+import WidgetCardTitle from '../../components/card/WidgetCardTitle';
 
 const chart = ['Institution wise submissions', 'Institutions type', 'State wise institutions', 'State wise submissions', 'State wise users'];
 const submission = ['Year wise submissions', 'Month wise submissions'];
@@ -242,6 +246,77 @@ const Dashboard = ({
                             isLoading={ isLoading }
                             count={ isLoading ? '' : superDashboardData?.totalSubmissions }
                             icon={ <NoOfSubmission /> }
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
+            <Box sx={ { flexGrow: 1, marginTop:'0.5rem'  } }>
+                <Grid container spacing={ 1 } >
+                    <Grid item md={ 4 } xs={ 12 }>
+                        <WidgetCardTitle
+                            title='English'
+                            isLoading={ isLoading }
+                            label={superDashboardData?.consortiumTimeCalculations?.engTotalCount}
+                            data={ isLoading ? '' : 
+                            [{
+                                label: 'Max time',
+                                value:superDashboardData?.consortiumTimeCalculations?.engMaxProcessingTimePerDoc,
+                            },
+                            {
+                                label: 'Avg time',
+                                value:superDashboardData?.consortiumTimeCalculations?.engAvgProcessingTime,
+                            },
+                            {
+                                label: 'Min time',
+                                value:superDashboardData?.consortiumTimeCalculations?.engMinProcessingTimePerDoc,
+                            }
+                            ]}
+                            icon={ <TimeIcon /> }
+                        />
+                    </Grid>
+                    <Grid item md={ 4 } xs={ 12 }>
+                        <WidgetCardTitle
+                            title='Non English'
+                            isLoading={ isLoading }
+                            label={superDashboardData?.consortiumTimeCalculations?.nonEngTotalCount}
+                            data={ isLoading ? '' : 
+                            [{
+                                label: 'Max time',
+                                value:superDashboardData?.consortiumTimeCalculations?.nonEngMaxProcessingTimePerDoc,
+                            },
+                            {
+                                label: 'Avg time',
+                                value:superDashboardData?.consortiumTimeCalculations?.nonEngAvgProcessingTime,
+                            },
+                            {
+                                label: 'Min time',
+                                value:superDashboardData?.consortiumTimeCalculations?.nonEngMinProcessingTimePerDoc,
+                            }
+                            ]}
+                            icon={ <TimeNonEngIcon /> }
+                        />
+                    </Grid>
+                    <Grid item md={ 4 } xs={ 12 }>
+                        <WidgetCardTitle
+                            title='Regional'
+                            isLoading={ isLoading }
+                            label={superDashboardData?.consortiumTimeCalculations?.regTotalCount}
+                            data={ isLoading ? '' : 
+                            [
+                                {
+                                    label: 'Max time',
+                                    value:superDashboardData?.consortiumTimeCalculations?.regMaxProcessingTimePerDoc,
+                                },
+                                {
+                                    label: 'Avg time',
+                                    value:superDashboardData?.consortiumTimeCalculations?.regAvgProcessingTime,
+                                },
+                                {
+                                    label: 'Min time',
+                                    value:superDashboardData?.consortiumTimeCalculations?.regMinProcessingTimePerDoc,
+                                }
+                            ]}
+                            icon={ <TimeRegionalIcon /> }
                         />
                     </Grid>
                 </Grid>

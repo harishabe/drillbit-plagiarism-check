@@ -8,7 +8,9 @@ import {
     IntegrationWhiteIcon,
     RepositoryIcon,
     RepositoryWhiteIcon,
-    CompareDocIcon
+    CompareDocIcon,
+    SettingsIcon,
+    SettingsWhiteIcon
 } from '../../assets/icon';
 
 const SidebarInstructor = [
@@ -42,6 +44,14 @@ const SidebarInstructor = [
         "name": "Repository",
         "path": "/repository",
         "pathList": ["/repository"],
+        "layout": "/extream/instructor",
+    },
+    {
+        "icon": <SettingsIcon />,
+        "activeIcon": <SettingsWhiteIcon />,
+        "name": "Settings",
+        "path": "/settings",
+        "pathList": ["/settings"],
         "layout": "/extream/instructor",
     },
     // {

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Box, Skeleton, Button } from '@mui/material';
+import { Grid, Box, Skeleton, Button} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Admin from './../../../../layouts/Admin';
-import { CardView, CommonTable, MainHeading, SubTitle2, SubTitle } from '../../../../components';
+import { CardView, CommonTable, MainHeading, SubTitle2, SubTitle, Title1 } from '../../../../components';
 import { UploadIcon } from '../../../../assets/icon';
 import { GetProfile, ProfileLogo } from '../../../../redux/action/profile/ProfileAction';
 import { Role } from '../../../../constant/data';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
-import { getItemSessionStorage } from '../../../../utils/RegExp'
+import { getItemSessionStorage } from '../../../../utils/RegExp';
 
 const columns = [
     { id: 'name', label: 'Name', maxWidth: 200 },
@@ -40,19 +40,20 @@ const AccountInfo = ({
     GetProfile,
     ProfileLogo,
     isLoading,
-    accountInfo
+    accountInfo,
+    MfaActivation
 }) => {
 
     const [rows, setRows] = useState([]);
     const [role, setRole] = useState('');
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
-
+    
     useEffect(() => {
         GetProfile(BASE_URL_PRO + END_POINTS_PRO.ADMIN_PROFILE_DATA);
         setRole(getItemSessionStorage('role'));
     }, []);
-
+    
     useEffect(() => {
         let row = [
             createData('Institution Name', accountInfo?.institution_name ? accountInfo?.institution_name : '-'),
@@ -68,6 +69,7 @@ const AccountInfo = ({
             createData('Account Expires on', accountInfo?.expiry_date ? accountInfo?.expiry_date : '-'),
             createData('Account Type', accountInfo?.license_type ? accountInfo?.license_type : '-'),
             // createData('Product Name', accountInfo?.product_name ? accountInfo?.product_name : '-'),
+            createData('Grammar checks', accountInfo?.grammar ? accountInfo?.grammar : '-'),
             createData('Product Name', 'Drillbit Extreme'),
             createData('Admin Account', accountInfo?.email ? accountInfo?.email : '-'),
             createData('Time Zone', accountInfo?.timeZone ? accountInfo?.timeZone : '-'),

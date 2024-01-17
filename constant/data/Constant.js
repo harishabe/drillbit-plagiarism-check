@@ -275,6 +275,7 @@ export const FORM_VALIDATION = {
     'EXPIRY_DATE_GREATER': 'The entered date should not be greater than the expiry date.',
     'EXPIRY_DATE_LESSER': 'The entered date should not less than the current date.',
     'PHONE_NUMBER': 'Size must be between 10 and 15',
+    'OTP': 'Otp must be of 6 digit',
 }
 
 export const WARNING_MESSAGES = {
@@ -474,7 +475,6 @@ export const DOCUMENT_TYPE_LANG = {
       "Tonga",
       "Tsonga",
       "Tswana",
-      "Tulu",
       "Turkish",
       "Turkmen",
       "Tuvan/Tuvanian",

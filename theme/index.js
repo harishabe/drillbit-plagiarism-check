@@ -61,6 +61,13 @@ const drillBitTheme = {
         },
       },
     },
+    MuiSwitch: {
+      styleOverrides: {
+        root: {
+          color: '#e6dfdf',
+        },
+      },
+    },
     MuiTab:{
       styleOverrides: {
         root: {
