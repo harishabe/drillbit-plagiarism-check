@@ -60,6 +60,14 @@ const SidebarAdmin = [
         "layout": "/extream/admin",
     },
     {
+        "icon": <RepositoryIcon />,
+        "activeIcon": <RepositoryWhiteIcon />,
+        "name": "Ticket",
+        "path": "/createticket",
+        "pathList": ["/createticket"],
+        "layout": "/extream/admin",
+    },
+    {
         "icon": <SettingsIcon />,
         "activeIcon": <SettingsWhiteIcon />,
         "name": "Settings",
