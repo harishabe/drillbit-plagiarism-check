@@ -55,7 +55,8 @@ const END_POINTS_PRO = {
     SUPER_ADMIN_USER: '/pro/license/',
     PROFILE_CHANGE_PASSWORD: '/account/password',
     MFA_ACTIVATION: '/user/mfa/',
-    MFA_ACTIVATION_ADMIN: '/admin/mfa/'
+    MFA_ACTIVATION_ADMIN: '/admin/mfa/',
+    CREATE_ANNOUNCEMENTS: '/admin/announcement'
 }
 
 export default END_POINTS_PRO;

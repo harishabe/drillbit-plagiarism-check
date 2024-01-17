@@ -406,13 +406,13 @@ const SideBar = ({ open }) => {
                   ),
                 });
                 return (
-                  <Tooltip title={!open ? text.name : ""} arrow>
+                  <Tooltip title={!open ? text.name : ""} key={key} arrow>
                     <StyledList>
                       <Link href={text.layout + text.path} key={text.name}>
                         <a className={classes.link}>
                           <ListItemButton
                             style={{
-                              margin: "10px 8px 0",
+                              margin: "10px 6px 0",
                               borderRadius: "4px",
                             }}
                             className={whiteFontClasses}
@@ -426,7 +426,7 @@ const SideBar = ({ open }) => {
                               className={whiteFontClasses}
                               sx={{
                                 minWidth: 0,
-                                mr: open ? 3 : "auto",
+                                mr: open ? 2 : "auto",
                                 justifyContent: "center",
                               }}
                             >

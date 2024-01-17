@@ -17,6 +17,7 @@ import DocumnentChartReducer from './common/Dashboard/DashboardReducer';
 import SubmissionReducer from './common/Submission/SubmissionReducer';
 import UploadFileReducer from './common/UploadFile/UploadFileReducer';
 import MfaReducer from './common/Settings/MfaReducer';
+import AnnouncementsReducer from './common/Announcements/AnnouncementsReducer';
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -36,7 +37,8 @@ const rootReducer = combineReducers({
     documentChart: DocumnentChartReducer,
     submission: SubmissionReducer,
     uploadFile: UploadFileReducer,
-    mfaActivation: MfaReducer
+    mfaActivation: MfaReducer,
+    announcements: AnnouncementsReducer
 });
 
 export default rootReducer;

@@ -125,6 +125,7 @@ import {
     ResendCredentialsDetail
 } from './super/DetailsSuperAdminData';
 import { MfaActivateData, MFALogin } from './common/Settings/MfaData';
+import { AnnouncementsCreateData, GetAnnouncementData } from './common/Announcements/AnnouncementsData';
 
 const saga = [
     fork(userLogin),
@@ -240,7 +241,9 @@ const saga = [
     fork(GetExtremeRef),
     fork(GrammarReportSubmission),
     fork(MfaActivateData),
-    fork(MFALogin)
+    fork(MFALogin),
+    fork(AnnouncementsCreateData),
+    fork(GetAnnouncementData)
 ];
 
 export default function* rootSaga() {

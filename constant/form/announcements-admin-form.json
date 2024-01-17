@@ -1,0 +1,45 @@
+[
+  {
+    "field_type": "input",
+    "type": "text",
+    "id": "title",
+    "name": "title",
+    "label": "Enter Title*",
+    "required": "Enter title of announcement"
+  },
+  {
+    "field_type": "textarea",
+    "type": "text",
+    "id": "content",
+    "name": "content",
+    "label": "Enter  announcement *",
+    "required": true
+    },
+  {
+    "field_type": "checkbox",
+    "id": "content",
+    "name": "role",
+    "label": "Select",
+    "required": true,
+    "validationMsg":"Please choose atleast one role",
+    "info":"abc",
+    "options": [
+      {
+        "label": "Instructor",
+        "name": "instructor",
+        "value": false
+      },
+      {
+        "label": "Student",
+        "name": "student",
+        "value": false
+      }
+    ]
+  },
+
+  {
+    "field_type": "button",
+    "type": "submit",
+    "label": "Submit"
+  }
+]

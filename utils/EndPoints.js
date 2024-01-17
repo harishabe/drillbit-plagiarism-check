@@ -131,7 +131,12 @@ const END_POINTS = {
     MFA_ACTIVATION_INSTRUCTOR: '/extreme/instructor/mfa/',
     MFA_ACTIVATION_STUDENT: '/extreme/student/mfa/',
     MFA_ACTIVATION_ADMIN: '/extreme/admin/mfa/',
-    MFA_LOGIN: '/authentication/verifyOtp'
+    MFA_LOGIN: '/authentication/verifyOtp',
+    CREATE_EXTREME_ANNOUNCEMENTS_ADMIN: '/extreme/admin/announcement',
+    CREATE_INSTRUCTOR_ANNOUNCEMENTS: '/extreme/instructor/announcement',
+    GET_ADMIN_ANNOUNCEMENTS:'/extreme/admin/announcements',
+    GET_INSTRUCTOR_ANNOUNCEMENTS:'/extreme/instructor/announcements',
+    GET_STUDENT_ANNOUNCEMENTS:'/extreme/admin/students',
 };
 
 export default END_POINTS;

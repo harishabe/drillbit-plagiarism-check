@@ -1,8 +1,6 @@
 import {
     DashboardIcon,
     ClassIcon,
-    StudentIcon,
-    StudentWhiteIcon,
     IntegrationIcon,
     ReportIcon,
     DashboardWhiteIcon,
@@ -11,8 +9,6 @@ import {
     IntegrationWhiteIcon,
     RepositoryIcon,
     RepositoryWhiteIcon,
-    SettingsIcon,
-    SettingsWhiteIcon
 } from '../../assets/icon';
 
 const SidebarProAdmin = [
@@ -53,11 +49,19 @@ const SidebarProAdmin = [
         "layout": "/pro/admin",
     },
     {
-        "icon": <SettingsIcon />,
-        "activeIcon": <SettingsWhiteIcon />,
+        "icon": <IntegrationIcon />,
+        "activeIcon": <IntegrationWhiteIcon />,
         "name": "Settings",
         "path": "/settings",
         "pathList": ["/settings"],
+        "layout": "/pro/admin",
+    },
+    {
+        "icon": <IntegrationIcon />,
+        "activeIcon": <IntegrationWhiteIcon />,
+        "name": "Announcement",
+        "path": "/announcements",
+        "pathList": ["/announcements"],
         "layout": "/pro/admin",
     },
 ];

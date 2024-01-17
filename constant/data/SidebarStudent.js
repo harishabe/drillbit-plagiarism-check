@@ -3,8 +3,8 @@ import {
     ClassIcon,
     DashboardWhiteIcon,
     ClassWhiteIcon,
-    SettingsIcon,
-    SettingsWhiteIcon
+    IntegrationIcon,
+    IntegrationWhiteIcon
 } from '../../assets/icon';
 
 const SidebarStudent = [
@@ -23,11 +23,19 @@ const SidebarStudent = [
         "layout": "/extream/student",
     },
     {
-        "icon": <SettingsIcon />,
-        "activeIcon": <SettingsWhiteIcon />,
+        "icon": <IntegrationIcon />,
+        "activeIcon": <IntegrationWhiteIcon />,
         "name": "Settings",
         "path": "/settings",
         "pathList": ["/settings"],
+        "layout": "/extream/student",
+    },
+    {
+        "icon": <IntegrationIcon />,
+        "activeIcon": <IntegrationWhiteIcon />,
+        "name": "Announcements",
+        "path": "/announcements",
+        "pathList": ["/announcements"],
         "layout": "/extream/student",
     },
 ];
