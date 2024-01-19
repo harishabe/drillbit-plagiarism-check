@@ -3,6 +3,10 @@ import {
     ClassIcon,
     DashboardWhiteIcon,
     ClassWhiteIcon,
+    SettingsIcon,
+    SettingsWhiteIcon,
+    RepositoryIcon,
+    RepositoryWhiteIcon,
     IntegrationIcon,
     IntegrationWhiteIcon
 } from '../../assets/icon';
@@ -20,6 +24,14 @@ const SidebarStudent = [
         "activeIcon": <ClassWhiteIcon />,
         "name": "My Classes",
         "path": "/myclasses",
+        "layout": "/extream/student",
+    },
+    {
+        "icon": <RepositoryIcon />,
+        "activeIcon": <RepositoryWhiteIcon />,
+        "name": "Ticket",
+        "path": "/createticket",
+        "pathList": ["/createticket"],
         "layout": "/extream/student",
     },
     {

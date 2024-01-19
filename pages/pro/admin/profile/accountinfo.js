@@ -69,6 +69,7 @@ const AccountInfo = ({
             createData('Account Expires on', accountInfo?.expiry_date ? accountInfo?.expiry_date : '-'),
             createData('Account Type', accountInfo?.license_type ? accountInfo?.license_type : '-'),
             // createData('Product Name', accountInfo?.product_name ? accountInfo?.product_name : '-'),
+            createData('Grammar checks', accountInfo?.grammar ? accountInfo?.grammar : '-'),
             createData('Product Name', 'Drillbit Extreme'),
             createData('Admin Account', accountInfo?.email ? accountInfo?.email : '-'),
             createData('Time Zone', accountInfo?.timeZone ? accountInfo?.timeZone : '-'),

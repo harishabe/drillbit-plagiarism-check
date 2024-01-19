@@ -1,0 +1,129 @@
+[
+  {
+    "field_type": "input",
+    "type": "text",
+    "id": "Reporter",
+    "name": "Reporter",
+    "label": "Reporter *",
+    "required": "Enter name of the reporter",
+    "validationMsg": "Enter name of the reporter"
+  },
+  {
+    "field_type": "dropdown",
+    "id": "IssueType",
+    "name": "IssueType",
+    "label": "Issue Type *",
+    "required": "Select Issue Type",
+    "validationMsg": "Select Issue Type",
+    "options": [
+      {
+        "name": "General_inquiry",
+        "label": "General inquiry"
+      },
+      {
+        "name": "Feature_request"
+      },
+      {
+        "name": "Product_feedback"
+      }
+    ]
+  },
+  {
+    "field_type": "dropdown",
+    "id": "IssueCategory",
+    "name": "IssueCategory",
+    "label": "Issue Category *",
+    "required": "Select Issue Category",
+    "validationMsg": "Select Issue Category",
+    "options": [
+      {
+        "name": "Technical_issue"
+      },
+      {
+        "name": "Billing_Inquiry"
+      },
+      {
+        "name": "Account_cases"
+      },
+      {
+        "name": "General_inquiry"
+      },
+      {
+        "name": "Feature_request"
+      },
+      {
+        "name": "Product_feedback"
+      }
+    ]
+  },
+  {
+    "field_type": "dropdown",
+    "id": "Priority",
+    "name": "Priority",
+    "label": "Priority *",
+    "required": true,
+    "validationMsg": "Select Priority",
+    "options": [
+      {
+        "name": "High"
+      },
+      {
+        "name": "Medium"
+      },
+      {
+        "name": "Low"
+      }
+    ]
+  },
+  {
+    "field_type": "dropdown",
+    "id": "status",
+    "name": "status",
+    "label": "Status *",
+    "required": "Select Status",
+    "validationMsg": "Select Status",
+    "options": [
+      {
+        "name": "Open"
+      },
+      {
+        "name": "In_Progress"
+      },
+      {
+        "name": "Closed"
+      }
+    ]
+  },
+  {
+    "field_type": "input",
+    "type": "text",
+    "rows": 1,
+    "id": "Description",
+    "name": "Description",
+    "label": "Description *",
+    "required": "Enter description",
+    "validationMsg": "Enter Description",
+    "minLength": 1
+  },
+
+  {
+    "field_type": "inputNumber",
+    "type": "number",
+    "id": "ContactNumber",
+    "name": "ContactNumber",
+    "label": "Contact Number",
+    "validationMsg": "Enter contact number"
+  },
+  {
+    "field_type": "file",
+    "id": "file",
+    "name": "file",
+    "label": "Attachments"
+  },
+
+  {
+    "field_type": "button",
+    "type": "submit",
+    "label": "Create Ticket"
+  }
+]

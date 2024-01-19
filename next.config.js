@@ -1,16 +1,13 @@
 const runtimeCaching = require("next-pwa/cache");
-const withPWA = require("next-pwa");
-
-const nextConfig = withPWA({
-  pwa: {
+const withPWA = require("next-pwa")({
     dest: "public",
     register: true,
     skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development',
-    runtimeCaching
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+    runtimeCaching,
+    buildExcludes: [/middleware-manifest.json$/],
+});
+
+const nextConfig = withPWA({
+	
 });
 module.exports = nextConfig;

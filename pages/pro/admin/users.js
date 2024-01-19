@@ -320,7 +320,7 @@ const Users = ({
       };
       setStatusRowData(activateDeactive);
       setStatusWarning(true);
-      setStatusMessage("inactive");
+      setStatusMessage("deactivate");
     } else if (icon === "unlock" && rowData?.expired !== 1) {
       let activateDeactive = {
         id: rowData?.user_id,
@@ -328,7 +328,7 @@ const Users = ({
       };
       setStatusRowData(activateDeactive);
       setStatusWarning(true);
-      setStatusMessage("active");
+      setStatusMessage("activate");
     } else if (icon === "stats") {
       setUserId(rowData?.user_id);
       setShowDialogModal(true);
