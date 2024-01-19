@@ -134,7 +134,7 @@ const END_POINTS = {
     MFA_LOGIN: '/authentication/verifyOtp',
     CREATE_EXTREME_ANNOUNCEMENTS_ADMIN: '/extreme/admin/announcement',
     CREATE_INSTRUCTOR_ANNOUNCEMENTS: '/extreme/instructor/announcement',
-    GET_ADMIN_ANNOUNCEMENTS:'/extreme/admin/announcements',
+    GET_ADMIN_ANNOUNCEMENTS:'/extreme/admin/myAnnouncements',
     GET_INSTRUCTOR_ANNOUNCEMENTS:'/extreme/instructor/announcements',
     GET_STUDENT_ANNOUNCEMENTS:'/extreme/admin/students',
 };

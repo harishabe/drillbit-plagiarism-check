@@ -70,26 +70,6 @@ const UserBreadCrumb = [
   },
 ];
 
-const cardViewsData = [
-  {
-    title: "Card 1",
-    content:
-      "Plagiarism is the act of using someone else's work without giving them credit. In academic writing, it involves using information, words, or ideas from a source without citing it correctly.",
-    timestamp: "2024-01-08",
-  },
-  {
-    title: "Card 2",
-    content:
-      "DrillBit - Plagiarism Detection Software has been evaluated by the esteemed AICTE technical expert committee and has been selected for empanelment with AICTE NEAT 3.0. We are pleased to announce the successful signing of an MoU with AICTE – NEAT (National Education Alliance for Technology) scheme, making us a technology partner with AICTE NEAT, and contributing towards enhanced learning outcomes in India.",
-    timestamp: "2024-01-09",
-  },
-  {
-    title: "Card 3",
-    content: "Content for Card 3",
-    timestamp: "2024-01-10",
-  },
-];
-
 const limitContent = (content, limit) => {
   if (content.length > limit) {
     return content.slice(0, limit) + " ...";
@@ -103,7 +83,7 @@ const Announcements = ({GetAnnouncementsData, announcementsData, pageDetails }) 
   const classes = useStyles();
   const [name, setName] = useState("");
   const [showMoreIndex, setShowMoreIndex] = useState(null);
-  const [cardHeights, setCardHeights] = useState(cardViewsData?.map(() => 60));
+  const [cardHeights, setCardHeights] = useState(announcementsData?.map(() => 60));
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
 
@@ -181,7 +161,7 @@ const Announcements = ({GetAnnouncementsData, announcementsData, pageDetails }) 
             />
         </Grid>
       </Grid>
-      { cardViewsData?.map((announcement, index) => (
+      { announcementsData?.map((announcement, index) => (
         <>
           <CardView height={cardHeights?.[index]}>
             <Grid container spacing={2}>
@@ -201,7 +181,7 @@ const Announcements = ({GetAnnouncementsData, announcementsData, pageDetails }) 
               </Grid>
               <Grid item md={2} >
                 <Title title={announcement.title} className={classes.title}/>
-                <div className={classes.time}>{` ${announcement.timestamp}`}</div>
+                <div className={classes.time}>{` ${announcement.time}`}</div>
                 </Grid>
                 <Grid item md={8} className={classes.title}>
                 <SubTitle2
@@ -237,6 +217,8 @@ const Announcements = ({GetAnnouncementsData, announcementsData, pageDetails }) 
       ))}
       <PaginationContainer>
         <Pagination
+        count={ pageDetails?.totalPages }
+        page={ pageDetails?.number + 1 }
           onChange={handlePagination}
           color="primary"
           variant="outlined"
