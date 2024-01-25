@@ -101,7 +101,8 @@ function createData(
   db_internet,
   institution_repository,
   phrases,
-  grammar
+  grammar,
+  email_notifications
 ) {
   return {
     ass_id,
@@ -119,6 +120,7 @@ function createData(
     institution_repository,
     phrases,
     grammar,
+    email_notifications
   };
 }
 
@@ -230,7 +232,7 @@ const MyFolder = ({
   useEffect(() => {
     let row = "";
     let arr = [];
-    myFolders?.map((folder) => {
+        myFolders?.map((folder) => {
       row = createData(
         folder.folder_id,
         <EllipsisText
@@ -294,7 +296,8 @@ const MyFolder = ({
         folder.db_internet,
         folder.institution_repository,
         folder.phrases,
-        folder.grammar
+        folder.grammar,
+        folder.email_notifications 
       );
       row["isSelected"] = false;
       arr.push(row);

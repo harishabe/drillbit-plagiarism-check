@@ -54,7 +54,8 @@ const MyFoldersForms = ({
     const [publication, setPublication] = React.useState(ASSIGNMENT_SETTING_VALUE_YES);
     const [internet, setInternet] = React.useState(ASSIGNMENT_SETTING_VALUE_YES);
     const [repository, setRepository] = React.useState(ASSIGNMENT_SETTING_VALUE_YES);
-
+    const [emailNotification, setEmailNotification] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
+    
     const [phrasesList, setPhrasesList] = React.useState([{
         'p': ''
     }]);
@@ -84,6 +85,7 @@ const MyFoldersForms = ({
                 'db_publications': publication === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
                 'db_internet': internet === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
                 'institution_repository': repository === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
+                'email_notifications': emailNotification === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
             };
 
             if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
@@ -110,6 +112,7 @@ const MyFoldersForms = ({
             'db_publications': publication === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
             'db_internet': internet === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
             'institution_repository': repository === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
+            'email_notifications': emailNotification === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
         };
         if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
             let phrasesObj = {};
@@ -183,6 +186,7 @@ const MyFoldersForms = ({
             setPublication(editData?.db_publications?.toUpperCase());
             setInternet(editData?.db_internet?.toUpperCase());
             setRepository(editData?.institution_repository?.toUpperCase());
+            setEmailNotification(editData?.email_notifications?.toUpperCase());
 
             let editPhrases = [];
             delete editData.phrases.pId;
@@ -232,6 +236,13 @@ const MyFoldersForms = ({
         e.preventDefault();
         if (value !== null) {
             setExcludePhrases(value);
+        }
+    };
+
+    const handleEmailNotification = (e, value) => {
+        e.preventDefault();
+        if (value !== null) {
+            setEmailNotification(value);
         }
     };
 
@@ -461,6 +472,27 @@ const MyFoldersForms = ({
                             </Button>
                         </>
                     }
+                </div>
+
+                <div>
+                    <Grid container>
+                        <Grid item md={8}>
+                            <InputLabel style={{ margin: '22px 0px' }}>
+                                Email Notification
+                            </InputLabel>
+                        </Grid>
+                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                            <ToggleButtonGroup
+                                color="primary"
+                                value={emailNotification}
+                                exclusive
+                                onChange={handleEmailNotification}
+                            >
+                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                            </ToggleButtonGroup>
+                        </Grid>
+                    </Grid>
                 </div>
 
                 <Typography variant="h3">Compare against databases</Typography>
