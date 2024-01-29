@@ -33,7 +33,7 @@ const SidebarStudent = [
     {
         "icon": <IntegrationIcon />,
         "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Announcements",
+        "name": "Announcement",
         "path": "/announcements",
         "pathList": ["/announcements"],
         "layout": "/extream/student",

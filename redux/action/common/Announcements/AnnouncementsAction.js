@@ -17,3 +17,11 @@ export const GetAnnouncementsData = (url, paginationPayload) => {
         type: types.FETCH_ANNOUNCEMENT_DATA_START,url: url, paginationPayload: paginationPayload,
     };
 };
+/**
+ * Get mY announcement data
+ */
+export const GetMyAnnouncementsData = (url, paginationPayload) => {
+    return {
+        type: types.FETCH_MY_ANNOUNCEMENT_DATA_START,url: url, paginationPayload: paginationPayload,
+    };
+};

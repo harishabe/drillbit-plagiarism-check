@@ -42,6 +42,14 @@ const SidebarProUser = [
         "pathList": ["/settings"],
         "layout": "/pro/user",
     },
+    {
+        "icon": <IntegrationIcon />,
+        "activeIcon": <IntegrationWhiteIcon />,
+        "name": "Announcement",
+        "path": "/announcements",
+        "pathList": ["/announcements"],
+        "layout": "/pro/user",
+    },
 ];
 
 export default SidebarProUser;

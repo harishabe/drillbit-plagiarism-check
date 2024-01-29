@@ -34,6 +34,13 @@ const SidebarConsortium = [
         "path": "/pro",
         "layout": "/consortium",
     },
+    {
+        "icon": <StyledCreditCardOutlinedIcon />,
+        "activeIcon": <StyledCreditCardOutlinedIcon />,
+        "name": "Announcement",
+        "path": "/announcements",
+        "layout": "/consortium",
+    },
 ];
 
 export default SidebarConsortium;

@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import {
-  Avatar,
-  IconButton,
   Pagination,
-  Skeleton,
   TextField,
 } from "@mui/material";
 import {
@@ -16,7 +13,7 @@ import {
   WarningDialog,
   ErrorBlock,
 } from "../../../components";
-import { PaginationContainer, StyledButtonRedIcon } from "../../../style";
+import { PaginationContainer } from "../../../style";
 import { PaginationValue } from "../../../utils/PaginationUrl";
 import { getItemSessionStorage } from "../../../utils/RegExp";
 import { DeleteWarningIcon } from "../../../assets/icon";
@@ -24,9 +21,9 @@ import { WARNING_MESSAGES } from "../../../constant/data/Constant";
 import { GetAnnouncementsData } from "../../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
 import END_POINTS from "../../../utils/EndPoints";
-import Student from "../../../layouts/Student";
 import styled from "styled-components";
 import debouce from "lodash.debounce";
+import ProUser from "../../../layouts/ProUser";
 import AnnouncementCard from "../../../components/card/AnnouncementsCard";
 
 const UserBreadCrumb = [
@@ -50,6 +47,7 @@ const SearchField = styled.div`
     top: 85px;
   }
 `;
+
 
 const Announcements = ({
   GetAnnouncementsData,
@@ -188,7 +186,6 @@ const Announcements = ({
           </CardView>
         )}
       </>
-
       <PaginationContainer>
         <Pagination
           count={pageDetails?.totalPages}
@@ -216,6 +213,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-Announcements.layout = Student;
+Announcements.layout = ProUser;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Announcements);
