@@ -41,6 +41,12 @@ import SubTitle1 from "../typography/SubTitle1";
 import DialogModal from "../dialog/DialogModal";
 import MobileMenu from "../../layouts/MobileMenu";
 import packageJSON from "../../package.json";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import Badge from "@mui/material/Badge";
+
+import { Notification } from '../../components'
 
 const drawerWidth = 165;
 
@@ -53,7 +59,7 @@ const useStyles = makeStyles(() => ({
     paddingTop: "0px",
     paddingBottom: "0px",
   },
-  listItemText: {
+    listItemText: {
     padding: "5px 15px",
   },
   profileMenuItem: {
@@ -119,6 +125,21 @@ const NavBar = ({ open, handleDrawerOpen }) => {
   const [email, setEmail] = React.useState("");
   const [path, setPath] = React.useState("");
   const [Sso, setSso] = React.useState(false);
+  const [anchorElNotifications, setAnchorElNotifications] =
+    React.useState(null);
+  const [unseenNotificationsCount, setUnseenNotificationsCount] =
+    React.useState(4);
+
+ 
+
+  const handleNotificationsClick = (event) => {
+    setAnchorElNotifications(event.currentTarget);
+    setUnseenNotificationsCount(4);
+  };
+
+  const handleNotificationsClose = () => {
+    setAnchorElNotifications(null);
+  };
 
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -195,11 +216,11 @@ const NavBar = ({ open, handleDrawerOpen }) => {
   };
 
   React.useEffect(() => {
-    let userName = getItemSessionStorage("name");
+        let userName = getItemSessionStorage("name");
     let userRole = getItemSessionStorage("role");
     let email = getItemSessionStorage("email");
     let switchExtreamRole = getItemSessionStorage("switchRole");
-    let switchProRole = getItemSessionStorage("switchProRole");    
+    let switchProRole = getItemSessionStorage("switchProRole");
     setSso(getItemSessionStorage("SSO"));
     setName(userName);
     setRole(userRole);
@@ -284,7 +305,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
       setProfileRole(PROFILE_ROLE.USER);
     }
   }, [, router, switchRole]);
-  
+
   return (
     <>
       <Hidden mdDown implementation="css">
@@ -315,6 +336,25 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 </Box>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                  <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                    <Tooltip title="Notifications" arrow>
+                      <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleNotificationsClick}
+                        edge="start"
+                      >
+                        <Badge
+                          badgeContent={unseenNotificationsCount}
+                          color="error"
+                          variant="outlined"
+                        >
+                          <NotificationsNoneOutlinedIcon />
+                        </Badge>
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                  
                   <Divider orientation="vertical" flexItem />
                   <div
                     style={{
@@ -394,6 +434,13 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 <MobileMenu />
               </Box>
               <Box sx={{ flexGrow: 1 }} />
+
+              <NotificationsNoneOutlinedIcon
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleNotificationsClick}
+                edge="start"
+              ></NotificationsNoneOutlinedIcon>
               <Box>
                 <div
                   style={{
@@ -722,7 +769,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 </ListItemIcon>
                 <ListItemText className={classes.listItemText} primary="User" />
               </MenuItem>
-            </Grid>            
+            </Grid>
             <Divider className={classes.subMenuItem} />
           </Grid>
           <Grid
@@ -762,6 +809,8 @@ const NavBar = ({ open, handleDrawerOpen }) => {
           </Grid>
         </DialogModal>
       )}
+
+      <Notification isEnableNotification={anchorElNotifications} handleClose={handleNotificationsClose} />
     </>
   );
 };
