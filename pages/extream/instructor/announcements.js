@@ -4,12 +4,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AnnouncementsTab from "./announcements/AnnouncementsTab";
 import { BreadCrumb, CreateDrawer, TabMenu } from "../../../components";
-
 import Instructor from "../../../layouts/Instructor";
-import {
-  GetAnnouncementsData,
-  GetMyAnnouncementsData,
-} from "../../../redux/action/common/Announcements/AnnouncementsAction";
 import MyAnnouncementsTab from "./announcements/MyAnnouncementsTab";
 import { AddButtonBottom } from "../../../style";
 import AnnouncementsForm from "./form/AnnouncementsForm";
@@ -17,7 +12,7 @@ import AnnouncementsForm from "./form/AnnouncementsForm";
 const InstructorBreadCrumb = [
   {
     name: "Dashboard",
-    link: "/extream/admin/dashboard",
+    link: "/extream/instructor/dashboard",
     active: false,
   },
   {
@@ -28,12 +23,8 @@ const InstructorBreadCrumb = [
 ];
 
 const Announcements = ({
-  myAnnouncementsData,
-  announcementsData,
   pageDetailsAnnouncements,
   pageDetailsMyAnnouncements,
-  isLoadingGet,
-  isLoadingMyAnnouncements,
 }) => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -42,21 +33,11 @@ const Announcements = ({
   };
 
   const AnnouncementsComponent = activeTab === 0 && (
-    <AnnouncementsTab
-      pageDetailsAnnouncements={pageDetailsAnnouncements}
-      announcementsData={announcementsData}
-      isLoadingGet={isLoadingGet}
-      activeTab={activeTab}
-    />
+    <AnnouncementsTab />
   );
 
   const MyAnnouncementsComponent = activeTab === 1 && (
-    <MyAnnouncementsTab
-      pageDetailsMyAnnouncements={pageDetailsMyAnnouncements}
-      myAnnouncementsData={myAnnouncementsData}
-      isLoadingMyAnnouncements={isLoadingMyAnnouncements}
-      activeTab={activeTab}
-    />
+    <MyAnnouncementsTab />
   );
 
   const componentList = [AnnouncementsComponent, MyAnnouncementsComponent];
@@ -101,22 +82,12 @@ const Announcements = ({
     </React.Fragment>
   );
 };
+
 const mapStateToProps = (state) => ({
   pageDetailsAnnouncements: state?.announcements?.announcementsData?.page,
   pageDetailsMyAnnouncements: state?.announcements?.myAnnouncementsData?.page,
-  announcementsData: state?.announcements?.announcementsData?._embedded?.announcementDTOList,
-  myAnnouncementsData: state?.announcements?.myAnnouncementsData?._embedded?.announcementDTOList,
-  isLoadingGet: state?.announcements?.isLoadingGet,
-  isLoadingMyAnnouncements: state?.announcements?.isLoadingMyAnnouncements,
 });
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    GetAnnouncementsData: (url, paginationPayload) => dispatch(GetAnnouncementsData(url, paginationPayload)),
-    GetMyAnnouncementsData: (url, paginationPayload) => dispatch(GetMyAnnouncementsData(url, paginationPayload)),
-  };
-};
 
 Announcements.layout = Instructor;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Announcements);
+export default connect(mapStateToProps, null)(Announcements);

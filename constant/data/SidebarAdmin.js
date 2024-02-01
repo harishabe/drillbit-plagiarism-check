@@ -65,14 +65,6 @@ const SidebarAdmin = [
         "pathList": ["/settings"],
         "layout": "/extream/admin",
     },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Announcement",
-        "path": "/announcements",
-        "pathList": ["/announcements"],
-        "layout": "/extream/admin",
-    },
 ];
 
 export default SidebarAdmin;

@@ -31,7 +31,7 @@ import Admin from "../../layouts/Admin";
 const UserBreadCrumb = [
   {
     name: "Dashboard",
-    link: "/extream/admin/dashboard",
+    link: "/consortium/dashboard",
     active: false,
   },
   {
@@ -175,17 +175,14 @@ const Announcements = ({
 
       <>
         {myAnnouncementsData?.length > 0 ? (
-          myAnnouncementsData?.map((announcement, index) => (
-            <AnnouncementCard
-              key={index}
-              announcement={announcement}
-              index={index}
-              expandedAnnouncements={expandedAnnouncements}
-              toggleShowMore={toggleShowMore}
-              deleteAnnouncement={deleteAnnouncement}
-              isLoading={isLoadingMyAnnouncements}
-            />
-          ))
+          <AnnouncementCard
+          announcement={myAnnouncementsData}
+          expandedAnnouncements={expandedAnnouncements}
+          toggleShowMore={toggleShowMore}
+          deleteAnnouncement={deleteAnnouncement}
+          isLoading={isLoadingMyAnnouncements}
+          isShowRole={false}
+        />
         ) : (
           <CardView>
             <ErrorBlock message="No data found" />

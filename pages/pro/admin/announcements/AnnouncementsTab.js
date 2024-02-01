@@ -1,24 +1,16 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
-import {
-  Pagination,
-  TextField,
-} from "@mui/material";
+import { Pagination, TextField } from "@mui/material";
 import {
   CardView,
-  CreateDrawer,
   ErrorBlock,
   WarningDialog,
 } from "../../../../components";
-import {
-  AddButtonBottom,
-  PaginationContainer,
-} from "../../../../style";
+import { PaginationContainer } from "../../../../style";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
-import AnnouncementsForm from "./../form/AnnouncementsForm";
 import { getItemSessionStorage } from "../../../../utils/RegExp";
 import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import { GetAnnouncementsData } from "../../../../redux/action/common/Announcements/AnnouncementsAction";
@@ -49,28 +41,20 @@ const AnnouncementsTab = ({
   GetAnnouncementsData,
   announcementsData,
   pageDetailsAnnouncements,
-  isLoadingGet
+  isLoadingGet,
 }) => {
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue,
     field: "ann_id",
   });
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [search, setSearch] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
-  const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
-  React.useEffect(() => {
-    let userName = getItemSessionStorage("name");
-    setName(userName);
-  }, []);
 
   React.useEffect(() => {
     const url = BASE_URL_PRO + END_POINTS_PRO.GET_ADMIN_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
-  }, [, paginationPayload]);
+  }, [GetAnnouncementsData, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();
@@ -86,7 +70,6 @@ const AnnouncementsTab = ({
   };
 
   const handleYesWarning = () => {
-    setShowDeleteAllIcon(false);
     setTimeout(() => {
       setShowDeleteWarning(false);
     }, [100]);
@@ -98,21 +81,19 @@ const AnnouncementsTab = ({
     setShowDeleteWarning(true);
   };
 
-  const handleSearchAnnouncement = (event) => {
+  const handleSearchAnnouncement = useCallback((event) => {
     if (event.target.value !== "") {
       paginationPayload["search"] = event.target.value;
-      setSearch(true);
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setPaginationPayload({ ...paginationPayload });
     } else {
       delete paginationPayload["search"];
-      setSearch(false);
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setPaginationPayload({ ...paginationPayload });
     }
-  };
+  }, [paginationPayload, setPaginationPayload]);
 
   const searchAnnouncement = useMemo(() => {
     return debouce(handleSearchAnnouncement, 300);
-  }, []);
+  }, [handleSearchAnnouncement]);
 
   useEffect(() => {
     return () => {
@@ -131,7 +112,7 @@ const AnnouncementsTab = ({
           isOpen={true}
         />
       )}
-      
+
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <SearchField>
@@ -152,24 +133,21 @@ const AnnouncementsTab = ({
       </Box>
 
       <>
-      <div className={classes.tab}>
-        {announcementsData?.length > 0 ? (
-          announcementsData?.map((announcement, index) => (
+        <div className={classes.tab}>
+          {announcementsData?.length > 0 ? (
             <AnnouncementCard
-              key={index}
-              announcement={announcement}
-              index={index}
+              announcement={announcementsData}
               expandedAnnouncements={expandedAnnouncements}
               toggleShowMore={toggleShowMore}
               deleteAnnouncement={deleteAnnouncement}
               isLoading={isLoadingGet}
+              isShowRole={true}
             />
-          ))
-        ) : (
-          <CardView>
-            <ErrorBlock message="No data found" />
-          </CardView>
-        )}
+          ) : (
+            <CardView>
+              <ErrorBlock message="No data found" />
+            </CardView>
+          )}
         </div>
       </>
 
@@ -188,6 +166,8 @@ const AnnouncementsTab = ({
 };
 const mapStateToProps = (state) => ({
   isLoadingGet: state?.announcements?.isLoadingGet,
+  announcementsData: state?.announcements?.announcementsData?._embedded?.announcementDTOList,
+  pageDetailsAnnouncements: state?.announcements?.announcementsData?.page,
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,24 +1,13 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
-import {
-  Pagination,
-  TextField,
-} from "@mui/material";
-import {
-  CardView,
-  ErrorBlock,
-  WarningDialog,
-} from "../../../../components";
-import {
-  PaginationContainer,
-} from "../../../../style";
+import { Pagination, TextField } from "@mui/material";
+import { CardView, ErrorBlock, WarningDialog } from "../../../../components";
+import { PaginationContainer } from "../../../../style";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
-import { getItemSessionStorage } from "../../../../utils/RegExp";
 import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
-import { GetMyAnnouncementsData } from "../../../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL_EXTREM } from "../../../../utils/BaseUrl";
 import END_POINTS from "../../../../utils/EndPoints";
 import { DeleteWarningIcon } from "../../../../assets/icon";
@@ -26,6 +15,7 @@ import styled from "styled-components";
 import debouce from "lodash.debounce";
 import Admin from "../../../../layouts/Admin";
 import AnnouncementCard from "../../../../components/card/AnnouncementsCard";
+import { GetMyAnnouncementsData } from "../../../../redux/action/common/Announcements/AnnouncementsAction";
 
 const useStyles = makeStyles(() => ({
   tab: {
@@ -53,21 +43,13 @@ const MyAnnouncementsTab = ({
     field: "ann_id",
   });
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [search, setSearch] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
-  const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
-  React.useEffect(() => {
-    let userName = getItemSessionStorage("name");
-    setName(userName);
-  }, []);
 
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_ADMIN_MY_ANNOUNCEMENTS;
     GetMyAnnouncementsData(url, paginationPayload);
-  }, [, paginationPayload]);
+  }, [GetMyAnnouncementsData, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();
@@ -83,7 +65,6 @@ const MyAnnouncementsTab = ({
   };
 
   const handleYesWarning = () => {
-    setShowDeleteAllIcon(false);
     setTimeout(() => {
       setShowDeleteWarning(false);
     }, [100]);
@@ -95,21 +76,19 @@ const MyAnnouncementsTab = ({
     setShowDeleteWarning(true);
   };
 
-  const handleSearchAnnouncement = (event) => {
+  const handleSearchAnnouncement = useCallback((event) => {
     if (event.target.value !== "") {
       paginationPayload["search"] = event.target.value;
-      setSearch(true);
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setPaginationPayload({ ...paginationPayload });
     } else {
       delete paginationPayload["search"];
-      setSearch(false);
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setPaginationPayload({ ...paginationPayload });
     }
-  };
+  }, [paginationPayload, setPaginationPayload]);
 
   const searchAnnouncement = useMemo(() => {
     return debouce(handleSearchAnnouncement, 300);
-  }, []);
+  }, [handleSearchAnnouncement]);
 
   useEffect(() => {
     return () => {
@@ -128,7 +107,7 @@ const MyAnnouncementsTab = ({
           isOpen={true}
         />
       )}
-      
+
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <SearchField>
@@ -148,24 +127,21 @@ const MyAnnouncementsTab = ({
         </Grid>
       </Box>
       <>
-      <div className={classes.tab}>
-        {myAnnouncementsData?.length > 0 ? (
-          myAnnouncementsData?.map((announcement, index) => (
-              <AnnouncementCard
-                key={index}
-                announcement={announcement}
-                index={index}
-                expandedAnnouncements={expandedAnnouncements}
-                toggleShowMore={toggleShowMore}
-                deleteAnnouncement={deleteAnnouncement}
-                isLoading={isLoadingMyAnnouncements}
-              />
-          ))
-        ) : (
+        <div className={classes.tab}>
+          {myAnnouncementsData?.length > 0 ? (
+            <AnnouncementCard
+              announcement={myAnnouncementsData}
+              expandedAnnouncements={expandedAnnouncements}
+              toggleShowMore={toggleShowMore}
+              deleteAnnouncement={deleteAnnouncement}
+              isLoading={isLoadingMyAnnouncements}
+              isShowRole={false}
+            />
+          ) : (
             <CardView>
               <ErrorBlock message="No data found" />
             </CardView>
-        )}
+          )}
         </div>
       </>
       <PaginationContainer>
@@ -183,6 +159,8 @@ const MyAnnouncementsTab = ({
 };
 const mapStateToProps = (state) => ({
   isLoadingMyAnnouncements: state?.announcements?.isLoadingMyAnnouncements,
+  myAnnouncementsData: state?.announcements?.myAnnouncementsData?._embedded?.announcementDTOList,
+  pageDetailsMyAnnouncements: state?.announcements?.myAnnouncementsData?.page,
 });
 
 const mapDispatchToProps = (dispatch) => {

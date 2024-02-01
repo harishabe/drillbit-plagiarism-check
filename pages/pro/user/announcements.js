@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -15,7 +15,6 @@ import {
 } from "../../../components";
 import { PaginationContainer } from "../../../style";
 import { PaginationValue } from "../../../utils/PaginationUrl";
-import { getItemSessionStorage } from "../../../utils/RegExp";
 import { DeleteWarningIcon } from "../../../assets/icon";
 import { WARNING_MESSAGES } from "../../../constant/data/Constant";
 import { GetAnnouncementsData } from "../../../redux/action/common/Announcements/AnnouncementsAction";
@@ -29,7 +28,7 @@ import AnnouncementCard from "../../../components/card/AnnouncementsCard";
 const UserBreadCrumb = [
   {
     name: "Dashboard",
-    link: "/extream/admin/dashboard",
+    link: "/pro/user/dashboard",
     active: false,
   },
   {
@@ -59,21 +58,13 @@ const Announcements = ({
     ...PaginationValue,
     field: "ann_id",
   });
-  const [name, setName] = useState("");
-  const [search, setSearch] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
-  const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
-  React.useEffect(() => {
-    let userName = getItemSessionStorage("name");
-    setName(userName);
-  }, []);
 
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_STUDENT_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
-  }, [, paginationPayload]);
+  }, [GetAnnouncementsData, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();
@@ -89,7 +80,6 @@ const Announcements = ({
   };
 
   const handleYesWarning = () => {
-    setShowDeleteAllIcon(false);
     setTimeout(() => {
       setShowDeleteWarning(false);
     }, [100]);
@@ -101,21 +91,19 @@ const Announcements = ({
     setShowDeleteWarning(true);
   };
 
-  const handleSearchAnnouncement = (event) => {
+  const handleSearchAnnouncement = useCallback((event) => {
     if (event.target.value !== "") {
       paginationPayload["search"] = event.target.value;
-      setSearch(true);
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setPaginationPayload({ ...paginationPayload });
     } else {
       delete paginationPayload["search"];
-      setSearch(false);
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setPaginationPayload({ ...paginationPayload });
     }
-  };
+  }, [paginationPayload, setPaginationPayload]);
 
   const searchAnnouncement = useMemo(() => {
     return debouce(handleSearchAnnouncement, 300);
-  }, []);
+  }, [handleSearchAnnouncement]);
 
   useEffect(() => {
     return () => {
@@ -169,17 +157,14 @@ const Announcements = ({
 
       <>
         {announcementsData?.length > 0 ? (
-          announcementsData?.map((announcement, index) => (
             <AnnouncementCard
-              key={index}
-              announcement={announcement}
-              index={index}
+              announcement={announcementsData}
               expandedAnnouncements={expandedAnnouncements}
               toggleShowMore={toggleShowMore}
               deleteAnnouncement={deleteAnnouncement}
               isLoading={isLoadingGet}
+              isShowRole={true}
             />
-          ))
         ) : (
           <CardView>
             <ErrorBlock message="No data found" />
@@ -201,8 +186,7 @@ const Announcements = ({
 };
 const mapStateToProps = (state) => ({
   pageDetails: state?.announcements?.announcementsData?.page,
-  announcementsData:
-    state?.announcements?.announcementsData?._embedded?.announcementDTOList,
+  announcementsData: state?.announcements?.announcementsData?._embedded?.announcementDTOList,
   isLoadingGet: state?.announcements?.isLoadingGet,
 });
 

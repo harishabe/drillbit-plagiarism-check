@@ -41,6 +41,7 @@ import SubTitle1 from "../typography/SubTitle1";
 import DialogModal from "../dialog/DialogModal";
 import MobileMenu from "../../layouts/MobileMenu";
 import packageJSON from "../../package.json";
+import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
 
 const drawerWidth = 165;
 
@@ -74,6 +75,9 @@ const useStyles = makeStyles(() => ({
     marginLeft: "10px",
     marginRight: "10px",
   },
+  announcement: {
+    marginRight: "10px",
+  }
 }));
 
 const AppBar = styled(MuiAppBar, {
@@ -314,6 +318,19 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                   </Tooltip>
                 </Box>
                 <Box sx={{ flexGrow: 1 }} />
+                <Box>
+                <Tooltip title="Announcements" arrow>
+                  <IconButton
+                  className={classes.announcement}
+                  onClick={() => [
+                    router.push(`${path}/announcements`),
+                    setAnchorEl(null),
+                  ]}
+                  >
+                  <CampaignOutlinedIcon />
+                  </IconButton>
+                  </Tooltip>
+                </Box>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <Divider orientation="vertical" flexItem />
                   <div
@@ -360,7 +377,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                   >
                     <Avatar
                       onClick={handleProfileClick}
-                      alt="Remy Sharp"
+                      alt="name"
                       sx={{
                         width: 45,
                         height: 45,

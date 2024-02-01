@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -16,7 +16,6 @@ import {
   PaginationContainer,
 } from "../../../../style";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
-import { getItemSessionStorage } from "../../../../utils/RegExp";
 import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import { GetAnnouncementsData } from "../../../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL_EXTREM } from "../../../../utils/BaseUrl";
@@ -53,21 +52,12 @@ const AnnouncementsTab = ({
     field: "ann_id",
   });
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [search, setSearch] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
-  const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
-  React.useEffect(() => {
-    let userName = getItemSessionStorage("name");
-    setName(userName);
-  }, []);
-
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_ADMIN_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
-  }, [, paginationPayload]);
+  }, [GetAnnouncementsData, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();
@@ -83,7 +73,6 @@ const AnnouncementsTab = ({
   };
 
   const handleYesWarning = () => {
-    setShowDeleteAllIcon(false);
     setTimeout(() => {
       setShowDeleteWarning(false);
     }, [100]);
@@ -95,21 +84,18 @@ const AnnouncementsTab = ({
     setShowDeleteWarning(true);
   };
 
-  const handleSearchAnnouncement = (event) => {
+  const handleSearchAnnouncement = useCallback((event) => {
     if (event.target.value !== "") {
       paginationPayload["search"] = event.target.value;
-      setSearch(true);
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setPaginationPayload({ ...paginationPayload });
     } else {
       delete paginationPayload["search"];
-      setSearch(false);
-      setPaginationPayload({ ...paginationPayload, paginationPayload });
+      setPaginationPayload({ ...paginationPayload });
     }
-  };
-
+  }, [paginationPayload, setPaginationPayload]);
   const searchAnnouncement = useMemo(() => {
     return debouce(handleSearchAnnouncement, 300);
-  }, []);
+  }, [handleSearchAnnouncement]);
 
   useEffect(() => {
     return () => {
@@ -150,17 +136,14 @@ const AnnouncementsTab = ({
       <>
       <div className={classes.tab}>
         {announcementsData?.length > 0 ? (
-          announcementsData?.map((announcement, index) => (
             <AnnouncementCard
-              key={index}
-              announcement={announcement}
-              index={index}
+              announcement={announcementsData}
               expandedAnnouncements={expandedAnnouncements}
               toggleShowMore={toggleShowMore}
               deleteAnnouncement={deleteAnnouncement}
               isLoading={isLoadingGet}
+              isShowRole={true} 
             />
-          ))
         ) : (
           <CardView>
             <ErrorBlock message="No data found" />
@@ -183,12 +166,15 @@ const AnnouncementsTab = ({
 };
 const mapStateToProps = (state) => ({
   isLoadingGet: state?.announcements?.isLoadingGet,
+  announcementsData: state?.announcements?.announcementsData?._embedded?.announcementDTOList,
+  pageDetailsAnnouncements: state?.announcements?.announcementsData?.page,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     GetAnnouncementsData: (url, paginationPayload) =>
       dispatch(GetAnnouncementsData(url, paginationPayload)),
+      
   };
 };
 

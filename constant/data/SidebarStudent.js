@@ -30,14 +30,6 @@ const SidebarStudent = [
         "pathList": ["/settings"],
         "layout": "/extream/student",
     },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Announcement",
-        "path": "/announcements",
-        "pathList": ["/announcements"],
-        "layout": "/extream/student",
-    },
 ];
 
 export default SidebarStudent;

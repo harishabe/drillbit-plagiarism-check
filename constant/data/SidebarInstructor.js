@@ -53,14 +53,6 @@ const SidebarInstructor = [
         "pathList": ["/settings"],
         "layout": "/extream/instructor",
     },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Announcement",
-        "path": "/announcements",
-        "pathList": ["/announcements"],
-        "layout": "/extream/instructor",
-    },
     // {
     //     "icon": <CompareDocIcon />,
     //     "activeIcon": <IntegrationWhiteIcon />,

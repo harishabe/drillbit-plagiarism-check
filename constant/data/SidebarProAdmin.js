@@ -56,14 +56,6 @@ const SidebarProAdmin = [
         "pathList": ["/settings"],
         "layout": "/pro/admin",
     },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Announcement",
-        "path": "/announcements",
-        "pathList": ["/announcements"],
-        "layout": "/pro/admin",
-    },
 ];
 
 export default SidebarProAdmin;
