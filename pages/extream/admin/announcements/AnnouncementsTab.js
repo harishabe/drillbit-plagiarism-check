@@ -15,6 +15,7 @@ import {
 import {
   PaginationContainer,
 } from "../../../../style";
+import { setItemSessionStorage } from "../../../../utils/RegExp";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
 import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import { GetAnnouncementsData } from "../../../../redux/action/common/Announcements/AnnouncementsAction";
@@ -46,6 +47,7 @@ const AnnouncementsTab = ({
   announcementsData,
   pageDetailsAnnouncements,
   isLoadingGet,
+  activeTab,
 }) => {
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue,
@@ -57,7 +59,8 @@ const AnnouncementsTab = ({
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_ADMIN_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
-  }, [GetAnnouncementsData, paginationPayload]);
+    setItemSessionStorage("tab", activeTab);
+  }, [GetAnnouncementsData, activeTab, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();

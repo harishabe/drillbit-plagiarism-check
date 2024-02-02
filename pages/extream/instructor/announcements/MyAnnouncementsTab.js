@@ -9,6 +9,7 @@ import {
   ErrorBlock,
   WarningDialog,
 } from "../../../../components";
+import { setItemSessionStorage } from "../../../../utils/RegExp";
 import { PaginationContainer } from "../../../../style";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
 import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
@@ -41,6 +42,7 @@ const MyAnnouncementsTab = ({
   myAnnouncementsData,
   pageDetailsMyAnnouncements,
   isLoadingMyAnnouncements,
+  activeTab,
 }) => {
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue,
@@ -53,7 +55,8 @@ const MyAnnouncementsTab = ({
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_INSTRUCTOR_MY_ANNOUNCEMENTS;
     GetMyAnnouncementsData(url, paginationPayload);
-  }, [GetMyAnnouncementsData , paginationPayload]);
+    setItemSessionStorage("tab", activeTab);
+  }, [GetMyAnnouncementsData, activeTab, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();

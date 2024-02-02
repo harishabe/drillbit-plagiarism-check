@@ -32,13 +32,15 @@ const Announcements = ({
     setActiveTab(value);
   };
 
-  const AnnouncementsComponent = activeTab === 0 && (
-    <AnnouncementsTab />
-  );
+  const AnnouncementsComponent = activeTab === 0 && 
+    <AnnouncementsTab 
+    activeTab={ activeTab }
+    />;
 
-  const MyAnnouncementsComponent = activeTab === 1 && (
-    <MyAnnouncementsTab />
-  );
+  const MyAnnouncementsComponent = activeTab === 1 && 
+    <MyAnnouncementsTab
+    activeTab={ activeTab }
+    />;
 
   const componentList = [AnnouncementsComponent, MyAnnouncementsComponent];
 
