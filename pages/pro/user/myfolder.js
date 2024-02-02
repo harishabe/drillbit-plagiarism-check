@@ -237,11 +237,13 @@ const MyFolder = ({
         folder.folder_id,
         <EllipsisText
           component={[
+            <>
             <FolderIcon
               className="folder-class-icon"
               fontSize="14px"
               htmlColor="#56B2EA"
             />,
+            </>
           ]}
           value={folder.folder_name}
           queryData={{
