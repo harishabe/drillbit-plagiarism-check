@@ -24,14 +24,14 @@ const SidebarStudent = [
         "path": "/myclasses",
         "layout": "/extream/student",
     },
-    {
-        "icon": <RepositoryIcon />,
-        "activeIcon": <RepositoryWhiteIcon />,
-        "name": "Ticket",
-        "path": "/createticket",
-        "pathList": ["/createticket"],
-        "layout": "/extream/student",
-    },
+    // {
+    //     "icon": <RepositoryIcon />,
+    //     "activeIcon": <RepositoryWhiteIcon />,
+    //     "name": "Ticket",
+    //     "path": "/createticket",
+    //     "pathList": ["/createticket"],
+    //     "layout": "/extream/student",
+    // },
     {
         "icon": <SettingsIcon />,
         "activeIcon": <SettingsWhiteIcon />,
