@@ -9,8 +9,8 @@ import {
     RepositoryWhiteIcon,
     SettingsIcon,
     SettingsWhiteIcon,
-    IntegrationInstructionIcon,
-    IntegrationInstructionWhiteIcon
+    IntegrationWhiteIcon,
+    IntegrationIcon
 } from '../../assets/icon';
 
 const SidebarProAdmin = [
@@ -44,8 +44,8 @@ const SidebarProAdmin = [
         "layout": "/pro/admin",
     },
     {
-        "icon": <IntegrationInstructionIcon />,
-        "activeIcon": <IntegrationInstructionWhiteIcon />,
+        "icon": <IntegrationIcon />,
+        "activeIcon": <IntegrationWhiteIcon/>,
         "name": "Integrations",
         "path": "/integration",
         "layout": "/pro/admin",
