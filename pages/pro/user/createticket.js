@@ -97,7 +97,6 @@ const CreateTicket = ({
   },[]);
 
   const handleSearch = (event) => {
-    console.log(search)
     if (event.target.value !== '') {
         setSearch(true)
     } else {

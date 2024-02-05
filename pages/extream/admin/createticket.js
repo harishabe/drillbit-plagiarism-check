@@ -53,7 +53,6 @@ const CreateTicket = ({
   isLoading
 }) => {
   const classes = useStyles();
-  console.log('12345', GetTicketData)
   const [search, setSearch] = useState(false);
   const [rows, setRows] = useState([
     {
@@ -98,7 +97,6 @@ const CreateTicket = ({
   },[]);
 
   const handleSearch = (event) => {
-    console.log(search)
     if (event.target.value !== '') {
         setSearch(true)
     } else {
