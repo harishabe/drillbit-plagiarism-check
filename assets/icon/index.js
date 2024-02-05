@@ -73,5 +73,3 @@ export { default as TimeNonEngIcon } from './TimeNonEngIcon';
 export { default as SettingsIcon } from './SettingsIcon';
 export { default as SettingsWhiteIcon } from './SettingsWhiteIcon';
 export { default as MfaWarningIcon } from './MfaWarningIcon';
-export { default as IntegrationInstructionIcon } from './IntegrationInstructionIcon'
-export { default as IntegrationInstructionWhiteIcon } from './IntegrationInstructionWhiteIcon'
