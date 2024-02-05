@@ -1,18 +1,16 @@
 import {
     DashboardIcon,
     ClassIcon,
-    StudentIcon,
-    StudentWhiteIcon,
-    IntegrationIcon,
     ReportIcon,
     DashboardWhiteIcon,
     ClassWhiteIcon,
     ReportWhiteIcon,
-    IntegrationWhiteIcon,
     RepositoryIcon,
     RepositoryWhiteIcon,
     SettingsIcon,
-    SettingsWhiteIcon
+    SettingsWhiteIcon,
+    IntegrationInstructionIcon,
+    IntegrationInstructionWhiteIcon
 } from '../../assets/icon';
 
 const SidebarProAdmin = [
@@ -46,20 +44,20 @@ const SidebarProAdmin = [
         "layout": "/pro/admin",
     },
     {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
+        "icon": <IntegrationInstructionIcon />,
+        "activeIcon": <IntegrationInstructionWhiteIcon />,
         "name": "Integrations",
         "path": "/integration",
         "layout": "/pro/admin",
     },
-    {
-        "icon": <RepositoryIcon/>,
-        "activeIcon": <RepositoryWhiteIcon />,
-        "name": "Ticket",
-        "path": "/createticket",
-        "pathList": ["/createticket"],
-        "layout": "/pro/admin",
-    },
+    // {
+    //     "icon": <RepositoryIcon/>,
+    //     "activeIcon": <RepositoryWhiteIcon />,
+    //     "name": "Ticket",
+    //     "path": "/createticket",
+    //     "pathList": ["/createticket"],
+    //     "layout": "/pro/admin",
+    // },
     {
         "icon": <SettingsIcon />,
         "activeIcon": <SettingsWhiteIcon />,
