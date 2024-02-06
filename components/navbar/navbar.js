@@ -322,10 +322,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 <Tooltip title="Announcements" arrow>
                   <IconButton
                   className={classes.announcement}
-                  onClick={() => [
-                    router.push(`${path}/announcements`),
-                    setAnchorEl(null),
-                  ]}
+                  onClick={() => router.push(`${path}/announcements`)}
                   >
                   <CampaignOutlinedIcon />
                   </IconButton>
