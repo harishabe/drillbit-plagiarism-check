@@ -10,6 +10,7 @@ import MuiToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import { makeStyles } from "@mui/styles";
 import InputTextField from '../../../../components/form/elements/InputTextField';
 import InputButton from '../../../../components/form/elements/InputButton';
 import { CreateFolder, EditFolder } from '../../../../redux/action/instructor/InstructorAction';
@@ -18,7 +19,30 @@ import { DB_LIST_ERROR_MESSAGE_PLAGIARISM_CHECK } from '../../../../constant/dat
 import { ErrorMessageContainer } from '../../../../style/index';
 import { BASE_URL_PRO } from '../../../../utils/BaseUrl';
 import END_POINTS_PRO from '../../../../utils/EndPointPro';
-import { Tooltip, Typography } from '@mui/material';
+import { Tooltip, Typography, IconButton } from '@mui/material';
+import { InfoIcon } from '../../../../assets/icon';
+
+const useStyles = makeStyles (() => ({
+    inputLabel : {
+        margin: '22px 0px'
+    },
+    toggleButton : {
+        textAlign: 'right',
+        margin: '8px 0px' 
+    },
+    error : {
+        marginBottom: '15px'
+    },
+    email : {
+        display: 'flex', 
+        alignItems: 'center', 
+        marginBottom: '4px'
+    },
+    edit : {
+        textAlign: 'center'
+    }
+    
+}));
 
 export const LabelContainer = styled.div`
     font-size: 14px,
@@ -45,6 +69,7 @@ const MyFoldersForms = ({
     grammarSubscription
 }) => {
 
+    const classes = useStyles();
     const [excludeRefBib, setExcludeRefBib] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [excludeQuote, setExcludeQuote] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
     const [excludeSmallSource, setExcludeSmallSource] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
@@ -54,7 +79,8 @@ const MyFoldersForms = ({
     const [publication, setPublication] = React.useState(ASSIGNMENT_SETTING_VALUE_YES);
     const [internet, setInternet] = React.useState(ASSIGNMENT_SETTING_VALUE_YES);
     const [repository, setRepository] = React.useState(ASSIGNMENT_SETTING_VALUE_YES);
-
+    const [emailNotification, setEmailNotification] = React.useState(ASSIGNMENT_SETTING_VALUE_NO);
+    
     const [phrasesList, setPhrasesList] = React.useState([{
         'p': ''
     }]);
@@ -84,6 +110,7 @@ const MyFoldersForms = ({
                 'db_publications': publication === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
                 'db_internet': internet === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
                 'institution_repository': repository === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
+                'email_notifications': emailNotification === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
             };
 
             if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
@@ -110,6 +137,7 @@ const MyFoldersForms = ({
             'db_publications': publication === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
             'db_internet': internet === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
             'institution_repository': repository === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
+            'email_notifications': emailNotification === ASSIGNMENT_SETTING_VALUE_YES ? ASSIGNMENT_SETTING_VALUE_YES : ASSIGNMENT_SETTING_VALUE_NO,
         };
         if (excludePhrases === ASSIGNMENT_SETTING_VALUE_YES) {
             let phrasesObj = {};
@@ -183,6 +211,7 @@ const MyFoldersForms = ({
             setPublication(editData?.db_publications?.toUpperCase());
             setInternet(editData?.db_internet?.toUpperCase());
             setRepository(editData?.institution_repository?.toUpperCase());
+            setEmailNotification(editData?.email_notifications?.toUpperCase());
 
             let editPhrases = [];
             delete editData.phrases.pId;
@@ -198,7 +227,7 @@ const MyFoldersForms = ({
             setBtnLabel('Edit Folder');
             setEditOperation(true);
         }
-    }, [editData]);
+    }, [setValue, editData]);
 
     const handleExcludeRef = (e, value) => {
         e.preventDefault();
@@ -232,6 +261,13 @@ const MyFoldersForms = ({
         e.preventDefault();
         if (value !== null) {
             setExcludePhrases(value);
+        }
+    };
+
+    const handleEmailNotification = (e, value) => {
+        e.preventDefault();
+        if (value !== null) {
+            setEmailNotification(value);
         }
     };
 
@@ -293,7 +329,7 @@ const MyFoldersForms = ({
 
     return (
         <>
-            <div style={{ textAlign: 'center' }}>
+            <div className={classes.edit}>
                 <CreateEditFolderIcon />
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -315,11 +351,11 @@ const MyFoldersForms = ({
                 <div>
                     <Grid container>
                         <Grid item md={8}>
-                            <InputLabel style={{ margin: '22px 0px' }}>
+                            <InputLabel className={classes.inputLabel}>
                                 Exclude Reference / Bibliography
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                        <Grid item md={4} className={classes.toggleButton}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={excludeRefBib}
@@ -336,11 +372,11 @@ const MyFoldersForms = ({
                 <div>
                     <Grid container>
                         <Grid item md={8}>
-                            <InputLabel style={{ margin: '22px 0px' }}>
+                            <InputLabel className={classes.inputLabel}>
                                 Exclude Quotes
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                        <Grid item md={4} className={classes.toggleButton}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={excludeQuote}
@@ -358,12 +394,12 @@ const MyFoldersForms = ({
                     <Grid container>
                         <Grid item md={8}>
                             <Tooltip title={'YES - 14 similarity words, NO - default settings'} arrow>
-                                <InputLabel style={{ margin: '22px 0px' }}>
+                                <InputLabel className={classes.inputLabel}>
                                     Exclude small sources
                                 </InputLabel>
                             </Tooltip>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                        <Grid item md={4} className={classes.toggleButton}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={excludeSmallSource}
@@ -381,11 +417,11 @@ const MyFoldersForms = ({
                     <div>
                     <Grid container>
                         <Grid item md={8}>
-                            <InputLabel style={{ margin: '22px 0px' }}>
+                            <InputLabel className={classes.inputLabel}>
                                 Grammar Check
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                        <Grid item md={4} className={classes.toggleButton}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={grammarCheck}
@@ -403,11 +439,11 @@ const MyFoldersForms = ({
                 <div>
                     <Grid container>
                         <Grid item md={8}>
-                            <InputLabel style={{ margin: '22px 0px' }}>
+                            <InputLabel className={classes.inputLabel}>
                                 Exclude Phrases
                             </InputLabel>
                         </Grid>
-                        <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                        <Grid item md={4} className={classes.toggleButton}>
                             <ToggleButtonGroup
                                 color="primary"
                                 value={excludePhrases}
@@ -463,15 +499,43 @@ const MyFoldersForms = ({
                     }
                 </div>
 
+                <div>
+                    <Grid container>
+                        <Grid item md={4}>
+                            <InputLabel className={classes.inputLabel}>
+                                Email Notification
+                                </InputLabel>
+                        </Grid>
+                        <Grid item md={4} className={classes.email}>
+                            <Tooltip title="A similarity report will be shared via email for each submission" arrow>
+                            <IconButton>
+                                <InfoIcon /> 
+                            </IconButton>
+                            </Tooltip>
+                        </Grid>
+                        <Grid item md={4} className={classes.toggleButton}>
+                            <ToggleButtonGroup
+                                color="primary"
+                                value={emailNotification}
+                                exclusive
+                                onChange={handleEmailNotification}
+                            >
+                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_YES}>Yes</ToggleButton>
+                                <ToggleButton value={ASSIGNMENT_SETTING_VALUE_NO}>No</ToggleButton>
+                            </ToggleButtonGroup>
+                        </Grid>
+                    </Grid>
+                </div>
+
                 <Typography variant="h3">Compare against databases</Typography>
                 <Divider />
                 <Grid container>
                     <Grid item md={8}>
-                        <InputLabel style={{ margin: '22px 0px' }}>
+                        <InputLabel className={classes.inputLabel}>
                             Student Papers
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                    <Grid item md={4} className={classes.toggleButton}>
                         <ToggleButtonGroup
                             color="primary"
                             value={studentPaper}
@@ -485,11 +549,11 @@ const MyFoldersForms = ({
                 </Grid>
                 <Grid container>
                     <Grid item md={8}>
-                        <InputLabel style={{ margin: '22px 0px' }}>
+                        <InputLabel className={classes.inputLabel}>
                             Journals & publishers
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                    <Grid item md={4} className={classes.toggleButton}>
                         <ToggleButtonGroup
                             color="primary"
                             value={publication}
@@ -503,11 +567,11 @@ const MyFoldersForms = ({
                 </Grid>
                 <Grid container>
                     <Grid item md={8}>
-                        <InputLabel style={{ margin: '22px 0px' }}>
+                        <InputLabel className={classes.inputLabel}>
                             Internet or Web
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                    <Grid item md={4} className={classes.toggleButton}>
                         <ToggleButtonGroup
                             color="primary"
                             value={internet}
@@ -521,11 +585,11 @@ const MyFoldersForms = ({
                 </Grid>
                 <Grid container>
                     <Grid item md={8}>
-                        <InputLabel style={{ margin: '22px 0px' }}>
+                        <InputLabel className={classes.inputLabel}>
                             Institution Repository
                         </InputLabel>
                     </Grid>
-                    <Grid item md={4} style={{ textAlign: 'right', margin: '8px 0px' }}>
+                    <Grid item md={4} className={classes.toggleButton}>
                         <ToggleButtonGroup
                             color="primary"
                             value={repository}
@@ -538,7 +602,7 @@ const MyFoldersForms = ({
                     </Grid>
                 </Grid>
 
-                <div style={{ marginBottom: '15px' }}>
+                <div className={classes.error}>
                     {errorMsgDBCheck !== '' ? <ErrorMessageContainer>{errorMsgDBCheck}</ErrorMessageContainer> : ''}
                 </div>
                 <InputButton field={{

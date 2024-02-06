@@ -61,6 +61,14 @@ const SidebarInstructor = [
     //     "pathList": ["/comparedoc"],
     //     "layout": "/instructor",
     // }
+    // {
+    //     "icon": <RepositoryIcon />,
+    //     "activeIcon": <RepositoryWhiteIcon />,
+    //     "name": "Ticket",
+    //     "path": "/createticket",
+    //     "pathList": ["/createticket"],
+    //     "layout": "/extream/instructor",
+    // }
 ];
 
 export default SidebarInstructor;

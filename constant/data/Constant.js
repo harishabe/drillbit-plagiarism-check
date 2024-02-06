@@ -484,7 +484,6 @@ export const DOCUMENT_TYPE_LANG = {
       "Tonga",
       "Tsonga",
       "Tswana",
-      "Tulu",
       "Turkish",
       "Turkmen",
       "Tuvan/Tuvanian",

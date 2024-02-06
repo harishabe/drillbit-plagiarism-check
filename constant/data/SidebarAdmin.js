@@ -3,14 +3,16 @@ import {
     ClassIcon,
     StudentIcon,
     StudentWhiteIcon,
-    IntegrationIcon,
     ReportIcon,
     DashboardWhiteIcon,
     ClassWhiteIcon,
     ReportWhiteIcon,
-    IntegrationWhiteIcon,
     RepositoryIcon,
     RepositoryWhiteIcon,
+    SettingsIcon,
+    SettingsWhiteIcon,
+    IntegrationWhiteIcon,
+    IntegrationIcon,
 } from '../../assets/icon';
 
 const SidebarAdmin = [
@@ -57,9 +59,17 @@ const SidebarAdmin = [
         "path": "/integration",
         "layout": "/extream/admin",
     },
+    // {
+    //     "icon": <RepositoryIcon />,
+    //     "activeIcon": <RepositoryWhiteIcon />,
+    //     "name": "Ticket",
+    //     "path": "/createticket",
+    //     "pathList": ["/createticket"],
+    //     "layout": "/extream/admin",
+    // },
     {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
+        "icon": <SettingsIcon />,
+        "activeIcon": <SettingsWhiteIcon />,
         "name": "Settings",
         "path": "/settings",
         "pathList": ["/settings"],

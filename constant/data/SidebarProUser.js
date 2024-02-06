@@ -34,6 +34,14 @@ const SidebarProUser = [
         "pathList": ["/repository"],
         "layout": "/pro/user",
     },
+    // {
+    //     "icon": <RepositoryIcon/>,
+    //     "activeIcon": <RepositoryWhiteIcon />,
+    //     "name": "Ticket",
+    //     "path": "/createticket",
+    //     "pathList": ["/createticket"],
+    //     "layout": "/pro/user",
+    // },
     {
         "icon": <IntegrationIcon />,
         "activeIcon": <IntegrationWhiteIcon />,
