@@ -5,11 +5,11 @@ import {
     FolderWhiteIcon,
     DashboardWhiteIcon,
     ClassWhiteIcon,
-    IntegrationIcon,
-    IntegrationWhiteIcon,
     RepositoryIcon,
     RepositoryWhiteIcon,
     CompareDocIcon,
+    SettingsIcon,
+    SettingsWhiteIcon,
 } from '../../assets/icon';
 
 const SidebarInstructor = [
@@ -46,8 +46,8 @@ const SidebarInstructor = [
         "layout": "/extream/instructor",
     },
     {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
+        "icon": <SettingsIcon />,
+        "activeIcon": <SettingsWhiteIcon />,
         "name": "Settings",
         "path": "/settings",
         "pathList": ["/settings"],
