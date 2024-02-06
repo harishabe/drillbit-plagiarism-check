@@ -9,6 +9,8 @@ import InputFileType from './elements/InputFileType';
 import InputMultiAutoComplete from './elements/InputMultiAutoComplete';
 import LinkField from './elements/LinkField';
 import LabelCaption from './elements/LabelCaption';
+import InputCheckbox from './elements/InputCheckbox';
+import InputTextArea from './elements/InputTextArea'
 
 const FormComponent = ({
     field,
@@ -48,6 +50,22 @@ const FormComponent = ({
     case 'dropdown':
         return (
             <InputAutoComplete
+                field={field}
+                control={control}
+                options={options}
+            />
+        );
+        case 'checkbox':
+        return (
+            <InputCheckbox
+                field={field}
+                control={control}
+                options={options}
+            />
+        );
+        case 'textarea':
+        return (
+            <InputTextArea
                 field={field}
                 control={control}
                 options={options}

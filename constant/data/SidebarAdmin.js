@@ -12,7 +12,7 @@ import {
     SettingsIcon,
     SettingsWhiteIcon,
     IntegrationWhiteIcon,
-    IntegrationIcon
+    IntegrationIcon,
 } from '../../assets/icon';
 
 const SidebarAdmin = [

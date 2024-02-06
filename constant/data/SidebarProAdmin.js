@@ -1,6 +1,7 @@
 import {
     DashboardIcon,
     ClassIcon,
+    IntegrationIcon,
     ReportIcon,
     DashboardWhiteIcon,
     ClassWhiteIcon,
@@ -10,7 +11,7 @@ import {
     SettingsIcon,
     SettingsWhiteIcon,
     IntegrationWhiteIcon,
-    IntegrationIcon
+    IntegrationIcon,
 } from '../../assets/icon';
 
 const SidebarProAdmin = [

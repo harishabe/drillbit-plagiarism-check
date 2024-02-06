@@ -3,8 +3,6 @@ import {
     ClassIcon,
     DashboardWhiteIcon,
     ClassWhiteIcon,
-    RepositoryIcon,
-    RepositoryWhiteIcon,
     SettingsIcon,
     SettingsWhiteIcon
 } from '../../assets/icon';
