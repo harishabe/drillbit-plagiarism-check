@@ -1,8 +1,8 @@
 export const PaginationUrl = (paginationPayload) => {
-    if (paginationPayload.hasOwnProperty('search')) {
-        return '?page=' + paginationPayload.page + '&size=' + paginationPayload.size + '&field=' + paginationPayload.field + '&orderBy=' + paginationPayload.orderBy + '&search=' + paginationPayload.search;
+    if (paginationPayload?.hasOwnProperty('search')) {
+        return '?page=' + paginationPayload?.page + '&size=' + paginationPayload?.size + '&field=' + paginationPayload?.field + '&orderBy=' + paginationPayload?.orderBy + '&search=' + paginationPayload?.search;
     } else {
-        return '?page=' + paginationPayload.page + '&size=' + paginationPayload.size + '&field=' + paginationPayload.field + '&orderBy=' + paginationPayload.orderBy;
+        return '?page=' + paginationPayload?.page + '&size=' + paginationPayload?.size + '&field=' + paginationPayload?.field + '&orderBy=' + paginationPayload?.orderBy;
     }
 };
 

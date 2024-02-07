@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback} from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -13,22 +13,22 @@ import {
   WarningDialog,
   ErrorBlock,
 } from "../../../components";
-import { PaginationContainer} from "../../../style";
+import { PaginationContainer } from "../../../style";
 import { PaginationValue } from "../../../utils/PaginationUrl";
 import { DeleteWarningIcon } from "../../../assets/icon";
 import { WARNING_MESSAGES } from "../../../constant/data/Constant";
 import { GetAnnouncementsData } from "../../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
 import END_POINTS from "../../../utils/EndPoints";
-import Student from "../../../layouts/Student";
 import styled from "styled-components";
 import debouce from "lodash.debounce";
+import ProUser from "../../../layouts/ProUser";
 import AnnouncementCard from "../../../components/card/AnnouncementsCard";
 
 const UserBreadCrumb = [
   {
     name: "Dashboard",
-    link: "/extream/student/dashboard",
+    link: "/pro/user/dashboard",
     active: false,
   },
   {
@@ -46,6 +46,7 @@ const SearchField = styled.div`
     top: 85px;
   }
 `;
+
 
 const Announcements = ({
   GetAnnouncementsData,
@@ -170,7 +171,6 @@ const Announcements = ({
           </CardView>
         )}
       </>
-
       <PaginationContainer>
         <Pagination
           count={pageDetails?.totalPages}
@@ -197,6 +197,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-Announcements.layout = Student;
+Announcements.layout = ProUser;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Announcements);

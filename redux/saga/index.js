@@ -126,7 +126,7 @@ import {
 } from './super/DetailsSuperAdminData';
 import { GetTicketSubmissionData, GetMyTicket } from './common/Support/TicketData';
 import { MfaActivateData, MFALogin } from './common/Settings/MfaData';
-import { AnnouncementsCreateData, GetAnnouncementData } from './common/Announcements/AnnouncementsData';
+import { AnnouncementsCreateData, GetAnnouncementData, GetMyAnnouncementData} from './common/Announcements/AnnouncementsData';
 
 const saga = [
     fork(userLogin),
@@ -246,7 +246,8 @@ const saga = [
     fork(MfaActivateData),
     fork(MFALogin),
     fork(AnnouncementsCreateData),
-    fork(GetAnnouncementData)
+    fork(GetAnnouncementData),
+    fork(GetMyAnnouncementData)
 ];
 
 export default function* rootSaga() {

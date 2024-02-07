@@ -119,6 +119,15 @@ export const PROFILE_ROLE = {
     'RESELLER': 'Reseller',
     'CONSORTIUM': 'Consortium',
 }
+export const ANNOUNCEMENT = {
+    'admin': 'Admin',
+    'instructor': 'Instructor',
+    'student': 'Student',
+    'lim-admin': 'Admin',
+    'lim-instructor': 'User',
+    'consortium': 'Consortium',
+}
+
 
 /**
  * Color

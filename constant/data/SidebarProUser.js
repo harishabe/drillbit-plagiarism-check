@@ -5,8 +5,8 @@ import {
     DashboardWhiteIcon,
     RepositoryIcon,
     RepositoryWhiteIcon,
-    IntegrationIcon,
-    IntegrationWhiteIcon
+    SettingsIcon,
+    SettingsWhiteIcon
 } from '../../assets/icon';
 
 const SidebarProUser = [
@@ -34,17 +34,17 @@ const SidebarProUser = [
         "pathList": ["/repository"],
         "layout": "/pro/user",
     },
+    // {
+    //     "icon": <RepositoryIcon/>,
+    //     "activeIcon": <RepositoryWhiteIcon />,
+    //     "name": "Ticket",
+    //     "path": "/createticket",
+    //     "pathList": ["/createticket"],
+    //     "layout": "/pro/user",
+    // },
     {
-        "icon": <RepositoryIcon/>,
-        "activeIcon": <RepositoryWhiteIcon />,
-        "name": "Ticket",
-        "path": "/createticket",
-        "pathList": ["/createticket"],
-        "layout": "/pro/user",
-    },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
+        "icon": <SettingsIcon />,
+        "activeIcon": <SettingsWhiteIcon />,
         "name": "Settings",
         "path": "/settings",
         "pathList": ["/settings"],

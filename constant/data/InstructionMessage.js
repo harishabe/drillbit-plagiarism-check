@@ -20,5 +20,8 @@ export const INSTRUCTIONS_STEPS = {
     },
     'STUDENT_SUBMISSION': {
         'STEP_1': 'Upload a file by clicking "+" icon, select the language, browse and select the file, and view the similarity percentage after refreshing.',
-    }
+    },
+    'ANNOUNCEMENTS': {
+        'STEP_1': 'Click on "+" icon, enter title and announcements.'
+    },
 }

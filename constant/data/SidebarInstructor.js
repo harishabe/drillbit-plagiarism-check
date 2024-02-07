@@ -5,11 +5,11 @@ import {
     FolderWhiteIcon,
     DashboardWhiteIcon,
     ClassWhiteIcon,
-    IntegrationIcon,
-    IntegrationWhiteIcon,
     RepositoryIcon,
     RepositoryWhiteIcon,
     CompareDocIcon,
+    SettingsIcon,
+    SettingsWhiteIcon,
 } from '../../assets/icon';
 
 const SidebarInstructor = [
@@ -46,19 +46,11 @@ const SidebarInstructor = [
         "layout": "/extream/instructor",
     },
     {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
+        "icon": <SettingsIcon />,
+        "activeIcon": <SettingsWhiteIcon />,
         "name": "Settings",
         "path": "/settings",
         "pathList": ["/settings"],
-        "layout": "/extream/instructor",
-    },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Announcement",
-        "path": "/announcements",
-        "pathList": ["/announcements"],
         "layout": "/extream/instructor",
     },
     // {
@@ -69,14 +61,14 @@ const SidebarInstructor = [
     //     "pathList": ["/comparedoc"],
     //     "layout": "/instructor",
     // }
-    {
-        "icon": <RepositoryIcon />,
-        "activeIcon": <RepositoryWhiteIcon />,
-        "name": "Ticket",
-        "path": "/createticket",
-        "pathList": ["/createticket"],
-        "layout": "/extream/instructor",
-    }
+    // {
+    //     "icon": <RepositoryIcon />,
+    //     "activeIcon": <RepositoryWhiteIcon />,
+    //     "name": "Ticket",
+    //     "path": "/createticket",
+    //     "pathList": ["/createticket"],
+    //     "layout": "/extream/instructor",
+    // }
 ];
 
 export default SidebarInstructor;

@@ -36,6 +36,23 @@ const AnnouncementsReducer = (state = {}, action) => {
                 isLoadingGet: false,
                 announcementsDataError: action.payload,
             };
+            case types.FETCH_MY_ANNOUNCEMENT_DATA_START:
+                return {
+                    ...state,
+                    isLoadingMyAnnouncements: true,
+                };
+            case types.FETCH_MY_ANNOUNCEMENT_DATA_SUCCESS:
+                return {
+                    ...state,
+                    isLoadingMyAnnouncements: false,
+                    myAnnouncementsData: action.payload,
+                };
+            case types.FETCH_MY_ANNOUNCEMENT_DATA_FAIL:
+                return {
+                    ...state,
+                    isLoadingMyAnnouncements: false,
+                    myAnnouncementsError: action.payload,
+                };
             
             default:
             return state;

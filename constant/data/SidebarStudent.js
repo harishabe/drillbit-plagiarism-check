@@ -4,11 +4,7 @@ import {
     DashboardWhiteIcon,
     ClassWhiteIcon,
     SettingsIcon,
-    SettingsWhiteIcon,
-    RepositoryIcon,
-    RepositoryWhiteIcon,
-    IntegrationIcon,
-    IntegrationWhiteIcon
+    SettingsWhiteIcon
 } from '../../assets/icon';
 
 const SidebarStudent = [
@@ -26,28 +22,20 @@ const SidebarStudent = [
         "path": "/myclasses",
         "layout": "/extream/student",
     },
+    // {
+    //     "icon": <RepositoryIcon />,
+    //     "activeIcon": <RepositoryWhiteIcon />,
+    //     "name": "Ticket",
+    //     "path": "/createticket",
+    //     "pathList": ["/createticket"],
+    //     "layout": "/extream/student",
+    // },
     {
-        "icon": <RepositoryIcon />,
-        "activeIcon": <RepositoryWhiteIcon />,
-        "name": "Ticket",
-        "path": "/createticket",
-        "pathList": ["/createticket"],
-        "layout": "/extream/student",
-    },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
+        "icon": <SettingsIcon />,
+        "activeIcon": <SettingsWhiteIcon />,
         "name": "Settings",
         "path": "/settings",
         "pathList": ["/settings"],
-        "layout": "/extream/student",
-    },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Announcements",
-        "path": "/announcements",
-        "pathList": ["/announcements"],
         "layout": "/extream/student",
     },
 ];

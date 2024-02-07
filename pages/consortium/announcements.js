@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback} from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -12,23 +12,26 @@ import {
   CardView,
   WarningDialog,
   ErrorBlock,
-} from "../../../components";
-import { PaginationContainer} from "../../../style";
-import { PaginationValue } from "../../../utils/PaginationUrl";
-import { DeleteWarningIcon } from "../../../assets/icon";
-import { WARNING_MESSAGES } from "../../../constant/data/Constant";
-import { GetAnnouncementsData } from "../../../redux/action/common/Announcements/AnnouncementsAction";
-import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
-import END_POINTS from "../../../utils/EndPoints";
-import Student from "../../../layouts/Student";
+  CreateDrawer,
+} from "../../components";
+import { AddButtonBottom, PaginationContainer } from "../../style";
+import { PaginationValue } from "../../utils/PaginationUrl";
+import { getItemSessionStorage } from "../../utils/RegExp";
+import { DeleteWarningIcon } from "../../assets/icon";
+import { WARNING_MESSAGES } from "../../constant/data/Constant";
+import { GetMyAnnouncementsData } from "../../redux/action/common/Announcements/AnnouncementsAction";
+import { BASE_URL } from "../../utils/BaseUrl";
+import END_POINTS from "../../utils/EndPoints";
 import styled from "styled-components";
 import debouce from "lodash.debounce";
-import AnnouncementCard from "../../../components/card/AnnouncementsCard";
+import AnnouncementCard from "../../components/card/AnnouncementsCard";
+import AnnouncementsForm from "./form/AnnouncementsForm";
+import Admin from "../../layouts/Admin";
 
 const UserBreadCrumb = [
   {
     name: "Dashboard",
-    link: "/extream/student/dashboard",
+    link: "/consortium/dashboard",
     active: false,
   },
   {
@@ -48,22 +51,30 @@ const SearchField = styled.div`
 `;
 
 const Announcements = ({
-  GetAnnouncementsData,
-  announcementsData,
+  GetMyAnnouncementsData,
+  myAnnouncementsData,
   pageDetails,
-  isLoadingGet,
+  isLoadingMyAnnouncements,
 }) => {
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue,
     field: "ann_id",
   });
+  const [name, setName] = useState("");
+  const [search, setSearch] = useState(false);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+  const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
 
   React.useEffect(() => {
-    const url = BASE_URL_EXTREM + END_POINTS.GET_STUDENT_ANNOUNCEMENTS;
-    GetAnnouncementsData(url, paginationPayload);
-  }, [GetAnnouncementsData, paginationPayload]);
+    let userName = getItemSessionStorage("name");
+    setName(userName);
+  }, []);
+
+  React.useEffect(() => {
+    const url = BASE_URL + END_POINTS.GET_CONSORTIUM_MY_ANNOUNCEMENTS;
+    GetMyAnnouncementsData(url, paginationPayload);
+  }, [, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();
@@ -79,6 +90,7 @@ const Announcements = ({
   };
 
   const handleYesWarning = () => {
+    setShowDeleteAllIcon(false);
     setTimeout(() => {
       setShowDeleteWarning(false);
     }, [100]);
@@ -90,19 +102,21 @@ const Announcements = ({
     setShowDeleteWarning(true);
   };
 
-  const handleSearchAnnouncement = useCallback((event) => {
+  const handleSearchAnnouncement = (event) => {
     if (event.target.value !== "") {
       paginationPayload["search"] = event.target.value;
-      setPaginationPayload({ ...paginationPayload });
+      setSearch(true);
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
     } else {
       delete paginationPayload["search"];
-      setPaginationPayload({ ...paginationPayload });
+      setSearch(false);
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
     }
-  }, [paginationPayload, setPaginationPayload]);
+  };
 
   const searchAnnouncement = useMemo(() => {
     return debouce(handleSearchAnnouncement, 300);
-  }, [handleSearchAnnouncement]);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -121,6 +135,11 @@ const Announcements = ({
           isOpen={true}
         />
       )}
+       <AddButtonBottom>
+        <CreateDrawer title="Add Announcements" isShowAddIcon={true}>
+          <AnnouncementsForm />
+        </CreateDrawer>
+      </AddButtonBottom>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <Grid item md={10} xs={10}>
@@ -131,7 +150,7 @@ const Announcements = ({
       <Grid container spacing={2}>
         <Grid item md={5} xs={5}>
           <Heading
-            title={`Announcements(${
+            title={`My Announcements(${
               pageDetails?.totalElements !== undefined
                 ? pageDetails?.totalElements
                 : 0
@@ -155,22 +174,21 @@ const Announcements = ({
       </Grid>
 
       <>
-        {announcementsData?.length > 0 ? (
-            <AnnouncementCard
-              announcement={announcementsData}
-              expandedAnnouncements={expandedAnnouncements}
-              toggleShowMore={toggleShowMore}
-              deleteAnnouncement={deleteAnnouncement}
-              isLoading={isLoadingGet}
-              isShowRole={true}
-            />
+        {myAnnouncementsData?.length > 0 ? (
+          <AnnouncementCard
+          announcement={myAnnouncementsData}
+          expandedAnnouncements={expandedAnnouncements}
+          toggleShowMore={toggleShowMore}
+          deleteAnnouncement={deleteAnnouncement}
+          isLoading={isLoadingMyAnnouncements}
+          isShowRole={false}
+        />
         ) : (
           <CardView>
             <ErrorBlock message="No data found" />
           </CardView>
         )}
       </>
-
       <PaginationContainer>
         <Pagination
           count={pageDetails?.totalPages}
@@ -185,18 +203,19 @@ const Announcements = ({
   );
 };
 const mapStateToProps = (state) => ({
-  pageDetails: state?.announcements?.announcementsData?.page,
-  announcementsData: state?.announcements?.announcementsData?._embedded?.announcementDTOList,
-  isLoadingGet: state?.announcements?.isLoadingGet,
+  pageDetails: state?.announcements?.myAnnouncementsData?.page,
+  myAnnouncementsData:
+    state?.announcements?.myAnnouncementsData?._embedded?.announcementDTOList,
+    isLoadingMyAnnouncements: state?.announcements?.isLoadingMyAnnouncements,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetAnnouncementsData: (url, paginationPayload) =>
-      dispatch(GetAnnouncementsData(url, paginationPayload)),
+    GetMyAnnouncementsData: (url, paginationPayload) =>
+      dispatch(GetMyAnnouncementsData(url, paginationPayload)),
   };
 };
 
-Announcements.layout = Student;
+Announcements.layout = Admin;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Announcements);

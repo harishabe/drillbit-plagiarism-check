@@ -60,7 +60,7 @@ const AccountInfo = ({
             createData('Username', accountInfo?.name ? accountInfo?.name : '-'),
             createData('User ID', accountInfo?.account_id ? accountInfo?.account_id : '-'),
             createData('User Email Address', accountInfo?.email ? accountInfo?.email : '-'),
-            createData('Creation Date', accountInfo?.created_date ? accountInfo?.created_date : '-'),
+            createData('Date Of Activation', accountInfo?.created_date ? accountInfo?.start_date : '-'),
             // createData("Last Login", accountInfo?.studentAccount ? accountInfo?.studentAccount : '-'),
             createData('Total Documents Alloted', accountInfo?.total_documents_alloted ? accountInfo?.total_documents_alloted : '-'),
             createData('Total Documents Submitted', accountInfo?.total_documents_submitted ? accountInfo?.total_documents_submitted : '-'),

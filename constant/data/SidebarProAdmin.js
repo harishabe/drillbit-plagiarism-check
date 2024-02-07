@@ -6,9 +6,11 @@ import {
     DashboardWhiteIcon,
     ClassWhiteIcon,
     ReportWhiteIcon,
-    IntegrationWhiteIcon,
     RepositoryIcon,
     RepositoryWhiteIcon,
+    SettingsIcon,
+    SettingsWhiteIcon,
+    IntegrationWhiteIcon,
 } from '../../assets/icon';
 
 const SidebarProAdmin = [
@@ -43,33 +45,25 @@ const SidebarProAdmin = [
     },
     {
         "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
+        "activeIcon": <IntegrationWhiteIcon/>,
         "name": "Integrations",
         "path": "/integration",
         "layout": "/pro/admin",
     },
+    // {
+    //     "icon": <RepositoryIcon/>,
+    //     "activeIcon": <RepositoryWhiteIcon />,
+    //     "name": "Ticket",
+    //     "path": "/createticket",
+    //     "pathList": ["/createticket"],
+    //     "layout": "/pro/admin",
+    // },
     {
-        "icon": <RepositoryIcon/>,
-        "activeIcon": <RepositoryWhiteIcon />,
-        "name": "Ticket",
-        "path": "/createticket",
-        "pathList": ["/createticket"],
-        "layout": "/pro/admin",
-    },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
+        "icon": <SettingsIcon />,
+        "activeIcon": <SettingsWhiteIcon />,
         "name": "Settings",
         "path": "/settings",
         "pathList": ["/settings"],
-        "layout": "/pro/admin",
-    },
-    {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Announcement",
-        "path": "/announcements",
-        "pathList": ["/announcements"],
         "layout": "/pro/admin",
     },
 ];

@@ -56,7 +56,10 @@ const END_POINTS_PRO = {
     PROFILE_CHANGE_PASSWORD: '/account/password',
     MFA_ACTIVATION: '/user/mfa/',
     MFA_ACTIVATION_ADMIN: '/admin/mfa/',
-    CREATE_ANNOUNCEMENTS: '/admin/announcement'
+    CREATE_ANNOUNCEMENTS: '/admin/announcement',
+    GET_USER_ANNOUNCEMENTS: '/user/announcements',
+    GET_ADMIN_MY_ANNOUNCEMENTS: '/admin/myAnnouncements',
+    GET_ADMIN_ANNOUNCEMENTS: '/admin/announcements',
 }
 
 export default END_POINTS_PRO;
