@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="/favicon.ico" />
           {this.props.emotionStyleTags}
-        </Head>
+         </Head>
         <body>
           <div id="page-transition"></div>
           <Main />

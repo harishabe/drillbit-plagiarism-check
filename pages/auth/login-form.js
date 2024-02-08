@@ -35,6 +35,7 @@ const LoginForm = ({ login, loginState, isLoading }) => {
         setItemSessionStorage("name", loginState?.name);
         setItemSessionStorage("mfa", loginState?.mfa);
         setItemSessionStorage("switchRole", "instructor");
+        setItemSessionStorage("id", loginState?.id);
         router.push("/extream/instructor/myclasses");
       } else if (loginState?.role === Role.instructor) {
         setItemSessionStorage("role", Role.instructor);
