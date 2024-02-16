@@ -1,34 +1,5 @@
 [
   {
-    "field_type": "input",
-    "type": "text",
-    "id": "Reporter",
-    "name": "Reporter",
-    "label": "Reporter *",
-    "required": "Enter name of the reporter",
-    "validationMsg": "Enter name of the reporter"
-  },
-  {
-    "field_type": "dropdown",
-    "id": "IssueType",
-    "name": "IssueType",
-    "label": "Issue Type *",
-    "required": "Select Issue Type",
-    "validationMsg": "Select Issue Type",
-    "options": [
-      {
-        "name": "General_inquiry",
-        "label": "General inquiry"
-      },
-      {
-        "name": "Feature_request"
-      },
-      {
-        "name": "Product_feedback"
-      }
-    ]
-  },
-  {
     "field_type": "dropdown",
     "id": "IssueCategory",
     "name": "IssueCategory",
@@ -76,25 +47,6 @@
     ]
   },
   {
-    "field_type": "dropdown",
-    "id": "status",
-    "name": "status",
-    "label": "Status *",
-    "required": "Select Status",
-    "validationMsg": "Select Status",
-    "options": [
-      {
-        "name": "Open"
-      },
-      {
-        "name": "In_Progress"
-      },
-      {
-        "name": "Closed"
-      }
-    ]
-  },
-  {
     "field_type": "input",
     "type": "text",
     "rows": 1,
@@ -103,6 +55,17 @@
     "label": "Description *",
     "required": "Enter description",
     "validationMsg": "Enter Description",
+    "minLength": 1
+  },
+  {
+    "field_type": "input",
+    "type": "text",
+    "rows": 1,
+    "id": "Subject",
+    "name": "Subject",
+    "label": "Subject *",
+    "required": "Enter subject",
+    "validationMsg": "Enter subject",
     "minLength": 1
   },
 

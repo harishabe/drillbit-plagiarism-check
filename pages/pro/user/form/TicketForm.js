@@ -6,6 +6,8 @@ import { FormComponent } from "../../../../components";
 import { AddImageIcon } from "../../../../assets/icon";
 import FormJson from "../../../../constant/form/ticket-create-form.json";
 import { CreateTicket } from "../../../../redux/action/common/Support/TicketAction";
+import { BASE_URL_SUPER } from "../../../../utils/BaseUrl";
+import END_POINTS from "../../../../utils/EndPoints";
 
 const TicketForm = ({ 
   CreateTicket,
@@ -18,17 +20,17 @@ const TicketForm = ({
   });
 
   const onSubmit = (data) => {
+
     let bodyFormData = new FormData();
-    bodyFormData.append("IssueType", data.IssueType.name);
     bodyFormData.append("IssueCategory", data.IssueCategory.name);
     bodyFormData.append("Priority", data.Priority.name);
-    bodyFormData.append("status", data.status.name);
+    bodyFormData.append("Subject", data.Subject);
     bodyFormData.append("Description", data.Description);
     bodyFormData.append("ContactNumber", data.ContactNumber);
-    bodyFormData.append("Reporter", data.Reporter);
     bodyFormData.append("file", data.file ? data.file[0] : null);
    
-    CreateTicket(bodyFormData);
+    const url =BASE_URL_SUPER + END_POINTS.CREATE_TICKETING_SYSTEM;
+    CreateTicket(url, bodyFormData);
   };
   
   return (
@@ -59,7 +61,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => {
   return {
-    CreateTicket: (data) => dispatch(CreateTicket(data)),
+    CreateTicket: (url, data) => dispatch(CreateTicket(url, data)),
   };
 };
 

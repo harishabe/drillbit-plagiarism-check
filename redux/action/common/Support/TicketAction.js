@@ -1,14 +1,32 @@
 import * as types from "../../CommonActionType";
 
-export const CreateTicket = (data) => {
+export const CreateTicket = ( url, data) => {
   return {
     type: types.FETCH_TICKET_CREATE_DATA_START,
+    url: url,
     data: data
   };
 };
 
-export const GetTicketData = ( paginationPayload) => {
+export const CreateTicketResponse = ( url, data) => {
   return {
-      type: types.FETCH_TICKET_DETAILS_START, paginationPayload: paginationPayload
+    type: types.FETCH_CREATE_TICKET_RESPONSE_DATA_START,
+    url: url,
+    data: data
+  };
+};
+
+export const GetTicketData = ( url, paginationPayload) => {
+  return {
+      type: types.FETCH_TICKET_DETAILS_START,url: url, paginationPayload: paginationPayload
+  };
+};
+
+/**
+ * Remove ticket
+ */
+export const DeleteTicket = (url) => {
+  return {
+      type: types.FETCH_DELETE_TICKET_DETAILS_START, url: url
   };
 };

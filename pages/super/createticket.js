@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
-import ProUser from "../../../layouts/ProUser";
+import ProUser from "../../layouts/ProUser";
 import { connect } from "react-redux";
+import { useRouter } from "next/router";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { TICKET_NOT_FOUND } from "../../../constant/data/ErrorMessage";
+import { TICKET_NOT_FOUND } from "../../constant/data/ErrorMessage";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { Pagination, TextField } from "@mui/material";
 import debouce from "lodash.debounce";
 import {
@@ -17,24 +19,23 @@ import {
   CardView,
   Instructions,
   ErrorBlock,
-} from "./../../../components";
-import { GetTicketData } from "../../../redux/action/common/Support/TicketAction";
-import { PaginationValue } from "../../../utils/PaginationUrl";
+} from "./../../components";
+import { GetTicketData, DeleteTicket } from "../../redux/action/common/Support/TicketAction";
+import { PaginationValue } from "../../utils/PaginationUrl";
 import {
   AddButtonBottom,
   PaginationContainer,
   StyledButtonIcon,
   StyledButtonRedIcon,
-} from "../../../style";
-import { formatDate } from "../../../utils/RegExp";
-import { DeleteWarningIcon } from "../../../assets/icon";
-import ProAdmin from "../../../layouts/ProAdmin";
-import { BASE_URL_SUPER } from "../../../utils/BaseUrl";
-import END_POINTS from "../../../utils/EndPoints";
+} from "../../style";
+import { DeleteWarningIcon } from "../../assets/icon";
+import { BASE_URL_SUPER } from "../../utils/BaseUrl";
+import END_POINTS from "../../utils/EndPoints";
+import SuperAdmin from "../../layouts/SuperAdmin";
 const InstructorBreadCrumb = [
   {
     name: "Dashboard",
-    link: "/pro/admin/dashboard",
+    link: "/super/dashboard",
     active: false,
   },
   {
@@ -75,7 +76,9 @@ const CreateTicket = ({
   isLoading,
   pageDetails,
   myTicketsData,
+  DeleteTicket
 }) => {
+  const router = useRouter();
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [deleteRowData, setDeleteRowData] = useState("");
@@ -86,9 +89,9 @@ const CreateTicket = ({
   });
 
   useEffect(() => {
-     const url = BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS ;
-    GetTicketData(url, paginationPayload);
-  }, [GetTicketData, paginationPayload]);
+    const url = BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS ;
+   GetTicketData(url, paginationPayload);
+ }, [GetTicketData, paginationPayload]);
 
   useEffect(() => {
     let row = "";
@@ -111,6 +114,15 @@ const CreateTicket = ({
             ),
             type: "delete",
             title: "Delete",
+          },
+          {
+            component: (
+              <StyledButtonIcon variant="outlined" size="small">
+                <ArrowForwardOutlinedIcon fontSize="small" />
+              </StyledButtonIcon>
+            ),
+            type: "nextPath",
+            title: "Next",
           },
         ]
       );
@@ -152,6 +164,14 @@ const CreateTicket = ({
       setDeleteRowData(rowData?.paper_id);
       setShowDeleteWarning(true);
     }
+    else if (icon === "nextPath") {
+      router.push({
+        pathname: "/super/ticketResponses",
+        query: {
+          ticketId: rowData.ticketId,
+        },
+      });
+    }
   };
 
   const handleCloseWarning = () => {
@@ -159,6 +179,7 @@ const CreateTicket = ({
   };
 
   const handleYesWarning = () => {
+    DeleteTicket(BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS + "/" + router.query.ticketId + deleteRowData) ;
     setTimeout(() => {
       setShowDeleteWarning(false);
     }, [100]);
@@ -219,6 +240,7 @@ const CreateTicket = ({
           isOpen={true}
         />
       )}
+      
       {search ? (
         <CommonTable
           isCheckbox={false}
@@ -272,10 +294,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetTicketData: (url, paginationPayload) =>
-      dispatch(GetTicketData(url, paginationPayload)),
+    GetTicketData: ( url, paginationPayload) =>
+      dispatch(GetTicketData(url,  paginationPayload)),
+      DeleteTicket: (url) => dispatch(DeleteTicket(url))
   };
 };
-CreateTicket.layout = ProAdmin;
+CreateTicket.layout = SuperAdmin;
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTicket);

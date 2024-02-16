@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
 import ProUser from "../../../layouts/ProUser";
 import { connect } from "react-redux";
+import { useRouter } from "next/router";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { TICKET_NOT_FOUND } from "../../../constant/data/ErrorMessage";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { Pagination, TextField } from "@mui/material";
 import debouce from "lodash.debounce";
 import {
@@ -18,7 +20,7 @@ import {
   Instructions,
   ErrorBlock,
 } from "./../../../components";
-import { GetTicketData } from "../../../redux/action/common/Support/TicketAction";
+import { GetTicketData, DeleteTicket } from "../../../redux/action/common/Support/TicketAction";
 import { PaginationValue } from "../../../utils/PaginationUrl";
 import {
   AddButtonBottom,
@@ -27,8 +29,9 @@ import {
   StyledButtonRedIcon,
 } from "../../../style";
 import TicketForm from "./form/TicketForm";
-import { formatDate } from "../../../utils/RegExp";
 import { DeleteWarningIcon } from "../../../assets/icon";
+import { BASE_URL_SUPER } from "../../../utils/BaseUrl";
+import END_POINTS from "../../../utils/EndPoints";
 const InstructorBreadCrumb = [
   {
     name: "Dashboard",
@@ -52,16 +55,18 @@ const columns = [
   { id: "ticketId", label: "Ticket Id" },
   { id: "createdDate", label: "Date" },
   { id: "status", label: "Status" },
-  { id: "attachments", label: "Attachments" },
+  { id: "subject", label: "Subject" },
+  { id: "issueCategory", label: "Issue category" },
   { id: "action", label: "Actions" },
 ];
 
-function createData(ticketId, createdDate, status, attachments, action) {
+function createData(ticketId, createdDate, status, subject, issueCategory, action) {
   return {
     ticketId,
     createdDate,
     status,
-    attachments,
+    subject,
+    issueCategory,
     action,
   };
 }
@@ -71,7 +76,9 @@ const CreateTicket = ({
   isLoading,
   pageDetails,
   myTicketsData,
+  DeleteTicket
 }) => {
+  const router = useRouter();
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [deleteRowData, setDeleteRowData] = useState("");
@@ -80,13 +87,11 @@ const CreateTicket = ({
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue
   });
-  console.log('datatatat', paginationPayload)
 
   useEffect(() => {
-    GetTicketData(
-      paginationPayload
-    );
-  }, [, paginationPayload]);
+    const url = BASE_URL_SUPER + END_POINTS.USER_TICKET_DETAILS ;
+   GetTicketData(url, paginationPayload);
+ }, [GetTicketData, paginationPayload]);
 
   useEffect(() => {
     let row = "";
@@ -96,7 +101,8 @@ const CreateTicket = ({
         ticket.ticketId,
         ticket.createdDate,
         ticket.status,
-        ticket.attachments,
+        ticket.subject,
+        ticket.issueCategory,
         // ticket.action,
         // formatDate(ticket.createdDate),
         [
@@ -108,6 +114,15 @@ const CreateTicket = ({
             ),
             type: "delete",
             title: "Delete",
+          },
+          {
+            component: (
+              <StyledButtonIcon variant="outlined" size="small">
+                <ArrowForwardOutlinedIcon fontSize="small" />
+              </StyledButtonIcon>
+            ),
+            type: "nextPath",
+            title: "Next",
           },
         ]
       );
@@ -149,6 +164,14 @@ const CreateTicket = ({
       setDeleteRowData(rowData?.paper_id);
       setShowDeleteWarning(true);
     }
+    else if (icon === "nextPath") {
+      router.push({
+        pathname: "/pro/user/ticketResponses",
+        query: {
+          ticketId: rowData.ticketId,
+        },
+      });
+    }
   };
 
   const handleCloseWarning = () => {
@@ -156,6 +179,7 @@ const CreateTicket = ({
   };
 
   const handleYesWarning = () => {
+    DeleteTicket(BASE_URL_SUPER + END_POINTS.USER_TICKET_DETAILS + deleteRowData) ;
     setTimeout(() => {
       setShowDeleteWarning(false);
     }, [100]);
@@ -274,8 +298,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetTicketData: ( paginationPayload) =>
-      dispatch(GetTicketData( paginationPayload)),
+    GetTicketData: ( url, paginationPayload) =>
+      dispatch(GetTicketData(url,  paginationPayload)),
+      DeleteTicket: (url) => dispatch(DeleteTicket(url))
   };
 };
 CreateTicket.layout = ProUser;

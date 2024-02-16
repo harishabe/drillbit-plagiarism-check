@@ -15,10 +15,6 @@ export function* onCreateAnnouncements(action) {
     const { response, error } = yield call(CreateAnnouncements, action.url, action.query);
     if (response) {
         yield put({ type: types.FETCH_CREATE_ANNOUNCEMENTS_SUCCESS, payload: response?.data });
-        // yield put({
-        //         type: types.FETCH_MY_ANNOUNCEMENT_DATA_START,
-        //         url: BASE_URL_EXTREM + END_POINTS.GET_INSTRUCTOR_MY_ANNOUNCEMENTS, paginationPayload: { ...PaginationValue, field: 'ann_id' } 
-        //     })
         yield put({
             type: types.FETCH_MY_ANNOUNCEMENT_DATA_START,
             url:
