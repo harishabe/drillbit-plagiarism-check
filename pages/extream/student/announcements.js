@@ -10,13 +10,10 @@ import {
   BreadCrumb,
   Heading,
   CardView,
-  WarningDialog,
   ErrorBlock,
 } from "../../../components";
 import { PaginationContainer} from "../../../style";
 import { PaginationValue } from "../../../utils/PaginationUrl";
-import { DeleteWarningIcon } from "../../../assets/icon";
-import { WARNING_MESSAGES } from "../../../constant/data/Constant";
 import { GetAnnouncementsData } from "../../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
 import END_POINTS from "../../../utils/EndPoints";
@@ -57,7 +54,6 @@ const Announcements = ({
     ...PaginationValue,
     field: "ann_id",
   });
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
 
   React.useEffect(() => {
@@ -76,18 +72,6 @@ const Announcements = ({
       newExpanded[index] = !newExpanded[index];
       return newExpanded;
     });
-  };
-
-  const handleYesWarning = () => {
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
-  };
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-  const deleteAnnouncement = () => {
-    setShowDeleteWarning(true);
   };
 
   const handleSearchAnnouncement = useCallback((event) => {
@@ -112,15 +96,6 @@ const Announcements = ({
 
   return (
     <React.Fragment>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message={WARNING_MESSAGES.DELETE}
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <Grid item md={10} xs={10}>
@@ -160,14 +135,18 @@ const Announcements = ({
               announcement={announcementsData}
               expandedAnnouncements={expandedAnnouncements}
               toggleShowMore={toggleShowMore}
-              deleteAnnouncement={deleteAnnouncement}
               isLoading={isLoadingGet}
               isShowRole={true}
             />
         ) : (
+          <>
+          {
+            !isLoadingGet &&
           <CardView>
             <ErrorBlock message="No data found" />
           </CardView>
+          }
+          </>
         )}
       </>
 

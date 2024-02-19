@@ -3,14 +3,15 @@ import { Avatar, Grid, IconButton, Skeleton, Typography } from "@mui/material";
 import { CardView, SubTitle2, EllipsisText } from "../../components";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import DeleteOutlineOutlined from "@mui/icons-material/DeleteOutlineOutlined";
 import { makeStyles } from "@mui/styles";
-import { StyledButtonRedIcon } from "../../style";
 import { ANNOUNCEMENT } from "../../constant/data/Constant";
 
 const useStyles = makeStyles(() => ({
   content: {
     marginTop: "-6px",
+  },
+  avatar: {
+    marginTop: "10px",
   },
   icon: {
     marginTop: "-8px",
@@ -40,9 +41,8 @@ const AnnouncementCard = ({
   announcement,
   expandedAnnouncements,
   toggleShowMore,
-  deleteAnnouncement,
   isLoading,
-  isShowRole ,
+  isShowRole,
 }) => {
   const classes = useStyles();
 
@@ -96,16 +96,16 @@ const AnnouncementCard = ({
             prevDate = dateHeading;
 
             return (
-              <div key={index}>
+              <React.Fragment key={index}>
                 {showDateHeading && (
                   <Typography className={classes.date}>
                     {dateHeading}
                   </Typography>
                 )}
 
-                <CardView height={expandedAnnouncements[index] ? "auto" : 50}>
+                <CardView height={expandedAnnouncements[index] ? "auto" : 50 } >
                   <Grid container spacing={2}>
-                    <Grid item md={0.5} className={classes.content}>
+                    <Grid item xs={1} md={0.5} className={classes.content}>
                       <Avatar
                         alt="name"
                         sx={{
@@ -120,33 +120,33 @@ const AnnouncementCard = ({
                       </Avatar>{" "}
                     </Grid>
 
-                    <Grid item md={2} className={classes.content}>
+                    <Grid item xs={3} md={2} className={classes.content}>
                       <div className={classes.title}>
                         <EllipsisText
                           variant="h4_1"
+                          maxLength={100}
                           value={announcement.title}
                         />
                       </div>
                       <Typography className={classes.name}>
                         {announcement.name}{" "}
-                        {isShowRole && "( " + ANNOUNCEMENT[announcement.role] + " )" }
+                        {isShowRole &&
+                          "( " + ANNOUNCEMENT[announcement.role] + " )"}
                       </Typography>
                     </Grid>
 
-                    <Grid item md={0.3}></Grid>
-
-                    <Grid item md={8.2} className={classes.content}>
+                    <Grid item xs={7} md={9} className={classes.content}>
                       <SubTitle2
                         title={
                           expandedAnnouncements[index]
                             ? announcement.content
-                            : limitContent(announcement.content, 110)
+                            : limitContent(announcement.content, 120)
                         }
                       />
                     </Grid>
 
-                    <Grid item md={0.5} className={classes.icon}>
-                      {announcement.content.length > 110 && (
+                    <Grid item xs={1} md={0.5} className={classes.icon}>
+                      {announcement.content.length > 120 && (
                         <IconButton onClick={() => toggleShowMore(index)}>
                           {expandedAnnouncements[index] ? (
                             <ExpandLessIcon />
@@ -156,20 +156,10 @@ const AnnouncementCard = ({
                         </IconButton>
                       )}
                     </Grid>
-
-                    <Grid item md={0.5} className={classes.content}>
-                      <StyledButtonRedIcon
-                        variant="outlined"
-                        size="small"
-                        onClick={deleteAnnouncement}
-                      >
-                        <DeleteOutlineOutlined fontSize="small" />
-                      </StyledButtonRedIcon>
-                    </Grid>
                   </Grid>
                 </CardView>
                 <div className={classes.gap}></div>
-              </div>
+              </React.Fragment>
             );
           })}
         </div>

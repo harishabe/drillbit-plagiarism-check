@@ -7,17 +7,14 @@ import { Pagination, TextField } from "@mui/material";
 import {
   CardView,
   ErrorBlock,
-  WarningDialog,
 } from "../../../../components";
 import {
   PaginationContainer,
 } from "../../../../style";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
 import { setItemSessionStorage } from "../../../../utils/RegExp";
-import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import { GetMyAnnouncementsData } from "../../../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL_PRO } from "../../../../utils/BaseUrl";
-import { DeleteWarningIcon } from "../../../../assets/icon";
 import styled from "styled-components";
 import debouce from "lodash.debounce";
 import ProAdmin from "../../../../layouts/ProAdmin";
@@ -51,7 +48,6 @@ const MyAnnouncementsTab = ({
     field: "ann_id",
   });
   const classes = useStyles();
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
 
   React.useEffect(() => {
@@ -71,18 +67,6 @@ const MyAnnouncementsTab = ({
       newExpanded[index] = !newExpanded[index];
       return newExpanded;
     });
-  };
-
-  const handleYesWarning = () => {
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
-  };
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-  const deleteAnnouncement = () => {
-    setShowDeleteWarning(true);
   };
 
   const handleSearchAnnouncement = useCallback((event) => {
@@ -108,16 +92,6 @@ const MyAnnouncementsTab = ({
 
   return (
     <React.Fragment>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message={WARNING_MESSAGES.DELETE}
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
-
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <SearchField>
@@ -144,14 +118,18 @@ const MyAnnouncementsTab = ({
                 announcement={myAnnouncementsData}
                 expandedAnnouncements={expandedAnnouncements}
                 toggleShowMore={toggleShowMore}
-                deleteAnnouncement={deleteAnnouncement}
                 isLoading={isLoadingMyAnnouncements}
                 isShowRole={false}
               />
           ) : (
+            <>
+            {
+            !isLoadingMyAnnouncements &&
             <CardView>
               <ErrorBlock message="No data found" />
             </CardView>
+            }
+            </>
         )}
         </div>
       </>

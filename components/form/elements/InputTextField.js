@@ -82,6 +82,15 @@ const InputTextField = ({ control, field }) => {
             value: regex,
             message: field.validationMsg,
           },
+          validate: {
+            noLeadingTrailingSpaces: (value) => {
+              const trimmedValue = value.trim();
+              if (trimmedValue.length !== value.length) {
+                return "Leading and trailing spaces are not allowed";
+              }
+              return true;
+            },
+          },
         }}
       />
     </>

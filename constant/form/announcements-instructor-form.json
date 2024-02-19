@@ -20,6 +20,19 @@
     "maxLength": 2000
   },
   {
+    "field_type": "dropdown",
+    "id": "class_id",
+    "name": "class_id",
+    "label": "Select the class *",
+    "required": "Class Name",
+    "validationMsg": "Invalid Class Name",
+    "options": [
+      {
+        "name":"All"
+    }
+    ]
+},
+  {
     "field_type": "button",
     "type": "submit",
     "label": "Submit"

@@ -41,7 +41,7 @@ import SubTitle1 from "../typography/SubTitle1";
 import DialogModal from "../dialog/DialogModal";
 import MobileMenu from "../../layouts/MobileMenu";
 import packageJSON from "../../package.json";
-import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
+import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 
 const drawerWidth = 165;
 
@@ -77,7 +77,7 @@ const useStyles = makeStyles(() => ({
   },
   announcement: {
     marginRight: "10px",
-  }
+  },
 }));
 
 const AppBar = styled(MuiAppBar, {
@@ -203,7 +203,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
     let userRole = getItemSessionStorage("role");
     let email = getItemSessionStorage("email");
     let switchExtreamRole = getItemSessionStorage("switchRole");
-    let switchProRole = getItemSessionStorage("switchProRole");    
+    let switchProRole = getItemSessionStorage("switchProRole");
     setSso(getItemSessionStorage("SSO"));
     setName(userName);
     setRole(userRole);
@@ -288,7 +288,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
       setProfileRole(PROFILE_ROLE.USER);
     }
   }, [, router, switchRole]);
-  
+
   return (
     <>
       <Hidden mdDown implementation="css">
@@ -319,13 +319,16 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 </Box>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box>
-                <Tooltip title="Announcements" arrow>
-                  <IconButton
-                  className={classes.announcement}
-                  onClick={() => router.push(`${path}/announcements`)}
-                  >
-                  <CampaignOutlinedIcon />
-                  </IconButton>
+                  <Tooltip title="Announcements" arrow>
+                    {!router.pathname.includes("/super") &&
+                      !router.pathname.includes("/supplier") && (
+                        <IconButton
+                          className={classes.announcement}
+                          onClick={() => router.push(`${path}/announcements`)}
+                        >
+                          <CampaignOutlinedIcon />
+                        </IconButton>
+                      )}
                   </Tooltip>
                 </Box>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -663,7 +666,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
           handleClose={handlesubMenuClose}
         >
           <Typography variant="h2" sx={{ ml: 2 }}>
-            { getItemSessionStorage("flag") === 'true' ? "Extreme" : "Pro"}
+            {getItemSessionStorage("flag") === "true" ? "Extreme" : "Pro"}
           </Typography>
           <Divider className={classes.subMenuItem} />
           <Grid
@@ -736,7 +739,7 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                 </ListItemIcon>
                 <ListItemText className={classes.listItemText} primary="User" />
               </MenuItem>
-            </Grid>            
+            </Grid>
             <Divider className={classes.subMenuItem} />
           </Grid>
           <Grid

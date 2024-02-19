@@ -10,15 +10,11 @@ import {
   BreadCrumb,
   Heading,
   CardView,
-  WarningDialog,
   ErrorBlock,
   CreateDrawer,
 } from "../../components";
 import { AddButtonBottom, PaginationContainer } from "../../style";
 import { PaginationValue } from "../../utils/PaginationUrl";
-import { getItemSessionStorage } from "../../utils/RegExp";
-import { DeleteWarningIcon } from "../../assets/icon";
-import { WARNING_MESSAGES } from "../../constant/data/Constant";
 import { GetMyAnnouncementsData } from "../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL } from "../../utils/BaseUrl";
 import END_POINTS from "../../utils/EndPoints";
@@ -60,16 +56,8 @@ const Announcements = ({
     ...PaginationValue,
     field: "ann_id",
   });
-  const [name, setName] = useState("");
   const [search, setSearch] = useState(false);
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
-  const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
-  React.useEffect(() => {
-    let userName = getItemSessionStorage("name");
-    setName(userName);
-  }, []);
 
   React.useEffect(() => {
     const url = BASE_URL + END_POINTS.GET_CONSORTIUM_MY_ANNOUNCEMENTS;
@@ -87,19 +75,6 @@ const Announcements = ({
       newExpanded[index] = !newExpanded[index];
       return newExpanded;
     });
-  };
-
-  const handleYesWarning = () => {
-    setShowDeleteAllIcon(false);
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
-  };
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-  const deleteAnnouncement = () => {
-    setShowDeleteWarning(true);
   };
 
   const handleSearchAnnouncement = (event) => {
@@ -126,15 +101,6 @@ const Announcements = ({
 
   return (
     <React.Fragment>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message={WARNING_MESSAGES.DELETE}
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
        <AddButtonBottom>
         <CreateDrawer title="Add Announcements" isShowAddIcon={true}>
           <AnnouncementsForm />
@@ -179,7 +145,6 @@ const Announcements = ({
           announcement={myAnnouncementsData}
           expandedAnnouncements={expandedAnnouncements}
           toggleShowMore={toggleShowMore}
-          deleteAnnouncement={deleteAnnouncement}
           isLoading={isLoadingMyAnnouncements}
           isShowRole={false}
         />
