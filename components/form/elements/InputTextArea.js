@@ -84,10 +84,11 @@ const InputTextArea = ({ control, field }) => {
           validate: {
             noLeadingTrailingSpaces: (value) => {
               const trimmedValue = value.trim();
-              if (trimmedValue.length !== value.length) {
-                return "Leading and trailing spaces are not allowed";
+              if (trimmedValue.length === value.length || (trimmedValue.length + 1 === value.length && value[value.length - 1] === ' ')) {
+                return true;
+              } else {
+                return "Leading and trailing spaces are not allowed.";
               }
-              return true;
             },
           },
         }}

@@ -27,8 +27,7 @@ const AnnouncementsForm = ({
   });
 
   const onSubmit = (data) => {
-    data.class_id = data.class_id.class_id;
-    console.log('first', data)
+    data.class_id = String(data.class_id.class_id);
     const url = BASE_URL_EXTREM + END_POINTS.CREATE_INSTRUCTOR_ANNOUNCEMENTS;
     AnnouncementsField(url, data);
   };
@@ -38,7 +37,6 @@ const AnnouncementsForm = ({
   } ,[paginationPayload])
 
   useEffect(() => {
-    console.log('classesData', classesData)
     let classList = [];
     if (classesData !== undefined) {
         let formList = FormJson?.map((formItem) => {
@@ -52,8 +50,6 @@ const AnnouncementsForm = ({
             return formItem;
         });
         setFormData(formList);
-        console.log('classList', classList)
-        console.log('formData', formData)
 
     }
 }, [classesData]);
