@@ -33,6 +33,10 @@ const StyledTextarea = styled(TextareaAutosize)(({ error }) => ({
     border: `2px solid ${error ? "red" : "#007aff"}`,
     outline: "none",
   },
+  ":hover": {
+    transform: "scale(1.01)",
+    transition: "all 0.2s ease-out",
+  },
 }));
 
 
@@ -67,12 +71,12 @@ const InputTextArea = ({ control, field }) => {
               error={!!error}
               classes={{ root: classes.helperTextLeft }}
             >
-              {error && error.message}
+              {error && error?.message}
             </FormHelperText>
           </>
         )}
         rules={{
-          required: field.required && "Enter the text",
+          required: field.required,
           minLength: {
             value: field.minLength,
             message: `Minimum length is ${field.minLength} characters`,

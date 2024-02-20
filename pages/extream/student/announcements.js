@@ -9,8 +9,6 @@ import {
 import {
   BreadCrumb,
   Heading,
-  CardView,
-  ErrorBlock,
 } from "../../../components";
 import { PaginationContainer} from "../../../style";
 import { PaginationValue } from "../../../utils/PaginationUrl";
@@ -130,7 +128,6 @@ const Announcements = ({
       </Grid>
 
       <>
-        {announcementsData?.length > 0 ? (
             <AnnouncementCard
               announcement={announcementsData}
               expandedAnnouncements={expandedAnnouncements}
@@ -138,16 +135,6 @@ const Announcements = ({
               isLoading={isLoadingGet}
               isShowRole={true}
             />
-        ) : (
-          <>
-          {
-            !isLoadingGet &&
-          <CardView>
-            <ErrorBlock message="No data found" />
-          </CardView>
-          }
-          </>
-        )}
       </>
 
       <PaginationContainer>

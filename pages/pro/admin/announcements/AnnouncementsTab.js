@@ -4,10 +4,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import { Pagination, TextField } from "@mui/material";
-import {
-  CardView,
-  ErrorBlock,
-} from "../../../../components";
 import { PaginationContainer } from "../../../../style";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
 import { setItemSessionStorage } from "../../../../utils/RegExp";
@@ -110,7 +106,6 @@ const AnnouncementsTab = ({
 
       <>
         <div className={classes.tab}>
-          {announcementsData?.length > 0 ? (
             <AnnouncementCard
               announcement={announcementsData}
               expandedAnnouncements={expandedAnnouncements}
@@ -118,16 +113,6 @@ const AnnouncementsTab = ({
               isLoading={isLoadingGet}
               isShowRole={true}
             />
-          ) : (
-            <>
-          {
-            !isLoadingGet &&
-            <CardView>
-              <ErrorBlock message="No data found" />
-            </CardView>
-            }
-            </>
-          )}
         </div>
       </>
 

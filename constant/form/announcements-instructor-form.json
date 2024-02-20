@@ -15,7 +15,7 @@
     "id": "content",
     "name": "content",
     "label": "Enter  announcement *",
-    "required": "Enter  announcement",
+    "required": "Enter  content of announcement",
     "minLength": 25,
     "maxLength": 2000
   },
@@ -24,7 +24,7 @@
     "id": "class_id",
     "name": "class_id",
     "label": "Select the class *",
-    "required": "Class Name",
+    "required": "Select the class",
     "validationMsg": "Invalid Class Name",
     "options": [
       {

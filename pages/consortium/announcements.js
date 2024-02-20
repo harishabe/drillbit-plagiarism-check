@@ -9,8 +9,6 @@ import {
 import {
   BreadCrumb,
   Heading,
-  CardView,
-  ErrorBlock,
   CreateDrawer,
 } from "../../components";
 import { AddButtonBottom, PaginationContainer } from "../../style";
@@ -140,7 +138,6 @@ const Announcements = ({
       </Grid>
 
       <>
-        {myAnnouncementsData?.length > 0 ? (
           <AnnouncementCard
           announcement={myAnnouncementsData}
           expandedAnnouncements={expandedAnnouncements}
@@ -148,11 +145,6 @@ const Announcements = ({
           isLoading={isLoadingMyAnnouncements}
           isShowRole={false}
         />
-        ) : (
-          <CardView>
-            <ErrorBlock message="No data found" />
-          </CardView>
-        )}
       </>
       <PaginationContainer>
         <Pagination
