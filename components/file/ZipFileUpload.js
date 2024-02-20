@@ -98,30 +98,39 @@ const ZipFileUpload = ({
     };
 
     const handleProcessZipFile = (data) => {
-        let authorNameArr = [], titleArr = [], documentTypeArr = [];
+        let authorNameArr = [], titleArr = [], documentTypeArr = [], guideEmailArr = [], guideNameArr = [];
         uploadData?.fileNames?.map((item, i) => {
             authorNameArr.push(data['authorName' + i]);
             titleArr.push(data['title' + i]);
             documentTypeArr.push(data['documentType' + i]);
+            guideEmailArr.push(data['guide_email' + i]);
+            guideNameArr.push(data['guide_name' + i]);
+
         });
         uploadData['name'] = authorNameArr;
         uploadData['title'] = titleArr;
         uploadData['doc_type'] = documentTypeArr;
+        uploadData['guide_email'] = guideEmailArr;
+        uploadData['guide_name'] = guideNameArr;
         SubmissionListExtractedFileUpload(confirmZipFileAPI, uploadData);
     };
 
     const handleProcessZipFileNonEnglish = (data) => {
-        let authorNameArr = [], titleArr = [], documentTypeArr = [], languageArr = [];
+        let authorNameArr = [], titleArr = [], documentTypeArr = [], languageArr = [],  guideEmailArr = [], guideNameArr = [];
         uploadData?.fileNames?.map((item, i) => {
             authorNameArr.push(data['authorName' + i]);
             titleArr.push(data['title' + i]);
             documentTypeArr.push(data['documentType' + i]);
             languageArr.push(data['language' + i]);
+            guideEmailArr.push(data['guide_email' + i]);
+            guideNameArr.push(data['guide_name' + i]);
         });
         uploadData['name'] = authorNameArr;
         uploadData['title'] = titleArr;
         uploadData['doc_type'] = documentTypeArr;
         uploadData['languages'] = languageArr;
+        uploadData['guide_email'] = guideEmailArr;
+        uploadData['guide_name'] = guideNameArr;
         SubmissionListExtractedFileUpload(confirmZipFileAPI, uploadData);
     };
 
