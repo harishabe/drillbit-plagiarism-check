@@ -5,7 +5,9 @@
     "id": "title",
     "name": "title",
     "label": "Enter Title*",
-    "required": "Enter title of announcement"
+    "required": "Enter title of announcement",
+    "minLength": 5,
+    "maxLength": 100
   },
   {
     "field_type": "textarea",
@@ -13,7 +15,9 @@
     "id": "content",
     "name": "content",
     "label": "Enter  announcement *",
-    "required": "Enter  announcement"
+    "required": "Enter  content of announcement",
+    "minLength": 25,
+    "maxLength": 2000
   },
   {
     "field_type": "button",

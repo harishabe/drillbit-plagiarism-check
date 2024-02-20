@@ -4,20 +4,13 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { Pagination, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import {
-  CardView,
-  ErrorBlock,
-  WarningDialog,
-} from "../../../../components";
 import { setItemSessionStorage } from "../../../../utils/RegExp";
 import { PaginationContainer } from "../../../../style";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
-import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import Instructor from "../../../../layouts/Instructor";
 import { GetMyAnnouncementsData } from "../../../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL_EXTREM } from "../../../../utils/BaseUrl";
 import END_POINTS from "../../../../utils/EndPoints";
-import { DeleteWarningIcon } from "../../../../assets/icon";
 import styled from "styled-components";
 import debouce from "lodash.debounce";
 import AnnouncementCard from "../../../../components/card/AnnouncementsCard";
@@ -70,19 +63,7 @@ const MyAnnouncementsTab = ({
       return newExpanded;
     });
   };
-
-  const handleYesWarning = () => {
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
-  };
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-  const deleteAnnouncement = () => {
-    setShowDeleteWarning(true);
-  };
-
+ 
   const handleSearchAnnouncement = useCallback((event) => {
     if (event.target.value !== "") {
       paginationPayload["search"] = event.target.value;
@@ -105,16 +86,6 @@ const MyAnnouncementsTab = ({
 
   return (
     <React.Fragment>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message={WARNING_MESSAGES.DELETE}
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
-
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <SearchField>
@@ -135,20 +106,13 @@ const MyAnnouncementsTab = ({
       </Box>
       <>
       <div className={classes.tab}>
-        {myAnnouncementsData?.length > 0 ? (
               <AnnouncementCard
                 announcement={myAnnouncementsData}
                 expandedAnnouncements={expandedAnnouncements}
                 toggleShowMore={toggleShowMore}
-                deleteAnnouncement={deleteAnnouncement}
                 isLoading={isLoadingMyAnnouncements}
                 isShowRole={false}
               />
-        ) : (
-            <CardView>
-              <ErrorBlock message="No data found" />
-            </CardView>
-        )}
         </div>
       </>
       <PaginationContainer>
