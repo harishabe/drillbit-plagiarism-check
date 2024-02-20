@@ -52,7 +52,6 @@ const ZipFileForm = ({
     const classes = useStyles();
     const { control, register, setValue, handleSubmit, formState: { errors }, } = useForm();
     const onSubmit = (data) => {
-        console.log('00000000', data);
         let reqPayload = {};
         Object.entries(data).map((key) => {
             if (typeof (key[1]) === 'object') {
@@ -61,7 +60,6 @@ const ZipFileForm = ({
                 reqPayload[key[0]] = key[1];
             }
         });
-        console.log('reqPayloadreqPayload123', reqPayload)
         handleSubmitFile(reqPayload);
     };
 

@@ -56,7 +56,6 @@ const FileForm = ({
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("datadatadatadata123", data);
     let reqPayload = {};
     Object.entries(data).map((key) => {
       if (typeof key[1] === "object") {
@@ -65,7 +64,6 @@ const FileForm = ({
         reqPayload[key[0]] = key[1];
       }
     });
-    console.log("reqPayload", reqPayload);
     handleSubmitFile(reqPayload);
   };
 
