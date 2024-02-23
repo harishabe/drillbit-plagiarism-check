@@ -318,18 +318,18 @@ const NavBar = ({ open, handleDrawerOpen }) => {
                   </Tooltip>
                 </Box>
                 <Box sx={{ flexGrow: 1 }} />
-                <Box>
-                  <Tooltip title="Announcements" arrow>
+                <Box>                 
                     {!router.pathname.includes("/super") &&
                       !router.pathname.includes("/supplier") && (
-                        <IconButton
-                          className={classes.announcement}
-                          onClick={() => router.push(`${path}/announcements`)}
-                        >
-                          <CampaignOutlinedIcon />
-                        </IconButton>
+                        <Tooltip title="Announcements" arrow>
+                          <IconButton
+                            className={classes.announcement}
+                            onClick={() => router.push(`${path}/announcements`)}
+                          >
+                            <CampaignOutlinedIcon />
+                          </IconButton>                        
+                        </Tooltip>
                       )}
-                  </Tooltip>
                 </Box>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <Divider orientation="vertical" flexItem />
