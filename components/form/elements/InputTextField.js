@@ -36,7 +36,7 @@ const InputTextField = ({ control, field }) => {
       );
     }
     if (field.name === "email" || field.name === "adminEmail") {
-      setRegex(/^[A-Z0-9._%+-]{2,64}@[A-Z0-9.-]{2,255}\.[A-Z0-9-]{2,63}$/i);
+      setRegex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{1,}$/i);
     }
   }, [field]);
 
