@@ -46,6 +46,14 @@ const SidebarInstructor = [
         "layout": "/extream/instructor",
     },
     {
+        "icon": <RepositoryIcon />,
+        "activeIcon": <RepositoryWhiteIcon />,
+        "name": "Ticket",
+        "path": "/createticket",
+        "pathList": ["/createticket"],
+        "layout": "/extream/instructor",
+    },
+    {
         "icon": <SettingsIcon />,
         "activeIcon": <SettingsWhiteIcon />,
         "name": "Settings",
@@ -60,14 +68,6 @@ const SidebarInstructor = [
     //     "path": "/comparedoc",
     //     "pathList": ["/comparedoc"],
     //     "layout": "/instructor",
-    // }
-    // {
-    //     "icon": <RepositoryIcon />,
-    //     "activeIcon": <RepositoryWhiteIcon />,
-    //     "name": "Ticket",
-    //     "path": "/createticket",
-    //     "pathList": ["/createticket"],
-    //     "layout": "/extream/instructor",
     // }
 ];
 

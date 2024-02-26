@@ -22,11 +22,17 @@ export const GetTicketData = ( url, paginationPayload) => {
   };
 };
 
+export const GetTicketIdData = ( url) => {
+  return {
+      type: types.FETCH_TICKET_DETAILS_ID_START,url: url,
+  };
+};
+
 /**
  * Remove ticket
  */
-export const DeleteTicket = (url) => {
+export const DeleteTicket = (ticketID) => {
   return {
-      type: types.FETCH_DELETE_TICKET_DETAILS_START, url: url
+      type: types.FETCH_DELETE_TICKET_DETAILS_START,ticketID: ticketID
   };
 };

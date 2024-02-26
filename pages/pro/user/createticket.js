@@ -6,7 +6,6 @@ import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { TICKET_NOT_FOUND } from "../../../constant/data/ErrorMessage";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { Pagination, TextField } from "@mui/material";
 import debouce from "lodash.debounce";
@@ -15,21 +14,17 @@ import {
   CreateDrawer,
   Heading,
   CommonTable,
-  WarningDialog,
   CardView,
-  Instructions,
   ErrorBlock,
 } from "./../../../components";
-import { GetTicketData, DeleteTicket } from "../../../redux/action/common/Support/TicketAction";
+import { GetTicketData } from "../../../redux/action/common/Support/TicketAction";
 import { PaginationValue } from "../../../utils/PaginationUrl";
 import {
   AddButtonBottom,
   PaginationContainer,
   StyledButtonIcon,
-  StyledButtonRedIcon,
 } from "../../../style";
 import TicketForm from "./form/TicketForm";
-import { DeleteWarningIcon } from "../../../assets/icon";
 import { BASE_URL_SUPER } from "../../../utils/BaseUrl";
 import END_POINTS from "../../../utils/EndPoints";
 const InstructorBreadCrumb = [
@@ -52,21 +47,35 @@ const useStyles = makeStyles(() => ({
 }));
 
 const columns = [
-  { id: "ticketId", label: "Ticket Id" },
-  { id: "createdDate", label: "Date" },
-  { id: "status", label: "Status" },
-  { id: "subject", label: "Subject" },
-  { id: "issueCategory", label: "Issue category" },
-  { id: "action", label: "Actions" },
+  { id: "ticketId", label: "Ticket Id", maxWidth:90 },
+  { id: "subject", label: "Subject", maxWidth:150 },
+  { id: "createdDate", label: "Created date",maxWidth:150 },
+  { id: "description", label: "Description", maxWidth: 150 },
+  { id: "priority", label: "Priority" , maxWidth:90},
+  { id: "issueCategory", label: "Issue category", maxWidth: 150 },
+  { id: "status", label: "Status", maxWidth:90 },
+  { id: "action", label: "Actions", maxWidth:90 },
 ];
 
-function createData(ticketId, createdDate, status, subject, issueCategory, action) {
+function createData(ticketId, subject, createdDate, description,  priority, issueCategory, status, action) {
+  const parsedDate = new Date(createdDate);
+  
+  const day = parsedDate.getDate().toString().padStart(2, '0');
+  const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+  const year = parsedDate.getFullYear();
+  const hours = parsedDate.getHours().toString().padStart(2, '0');
+  const minutes = parsedDate.getMinutes().toString().padStart(2, '0');
+  const seconds = parsedDate.getSeconds().toString().padStart(2, '0');
+
+  const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
   return {
     ticketId,
-    createdDate,
-    status,
     subject,
+    createdDate: formattedDate,
+    description,
+    priority,
     issueCategory,
+    status,
     action,
   };
 }
@@ -76,13 +85,10 @@ const CreateTicket = ({
   isLoading,
   pageDetails,
   myTicketsData,
-  DeleteTicket
 }) => {
   const router = useRouter();
   const classes = useStyles();
   const [rows, setRows] = useState([]);
-  const [deleteRowData, setDeleteRowData] = useState("");
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [search, setSearch] = useState(false);
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue
@@ -99,22 +105,13 @@ const CreateTicket = ({
     myTicketsData?.map((ticket) => {
       row = createData(
         ticket.ticketId,
-        ticket.createdDate,
-        ticket.status,
         ticket.subject,
+        ticket.createdDate,
+        ticket.description,
+        ticket.priority,
         ticket.issueCategory,
-        // ticket.action,
-        // formatDate(ticket.createdDate),
+        ticket.status,
         [
-          {
-            component: (
-              <StyledButtonRedIcon variant="outlined" size="small">
-                <DeleteOutlineOutlinedIcon fontSize="small" />
-              </StyledButtonRedIcon>
-            ),
-            type: "delete",
-            title: "Delete",
-          },
           {
             component: (
               <StyledButtonIcon variant="outlined" size="small">
@@ -159,12 +156,8 @@ const CreateTicket = ({
     };
   });
 
-  const handleAction = (event, icon, rowData) => {
-    if (icon === "delete") {
-      setDeleteRowData(rowData?.paper_id);
-      setShowDeleteWarning(true);
-    }
-    else if (icon === "nextPath") {
+  const handleAction = ( event, icon, rowData) => {
+     if (icon === "nextPath") {
       router.push({
         pathname: "/pro/user/ticketResponses",
         query: {
@@ -172,17 +165,6 @@ const CreateTicket = ({
         },
       });
     }
-  };
-
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-
-  const handleYesWarning = () => {
-    DeleteTicket(BASE_URL_SUPER + END_POINTS.USER_TICKET_DETAILS + deleteRowData) ;
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
   };
 
   const handleTableSort = (e, column, sortToggle) => {
@@ -215,7 +197,6 @@ const CreateTicket = ({
             })`}
           />
         </Grid>
-
         <Grid item md={7} xs={7} className={classes.view}>
           <TextField
             sx={{ width: "42%" }}
@@ -231,17 +212,8 @@ const CreateTicket = ({
           />
         </Grid>
       </Grid>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message="Are you sure you want to delete ?"
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
       <AddButtonBottom>
-        <CreateDrawer title="Rise Ticket" isShowAddIcon={true}>
+        <CreateDrawer title="Raise Ticket" isShowAddIcon={true}>
           <TicketForm />
         </CreateDrawer>
       </AddButtonBottom>
@@ -267,7 +239,7 @@ const CreateTicket = ({
               handleAction={handleAction}
               handleTableSort={handleTableSort}
               isLoading={isLoading}
-              path=""
+              path=""             
             />
           ) : (
             <CardView>
@@ -300,7 +272,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     GetTicketData: ( url, paginationPayload) =>
       dispatch(GetTicketData(url,  paginationPayload)),
-      DeleteTicket: (url) => dispatch(DeleteTicket(url))
   };
 };
 CreateTicket.layout = ProUser;

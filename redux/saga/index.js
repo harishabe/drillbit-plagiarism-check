@@ -124,7 +124,7 @@ import {
     MakeHimAdminDetail,
     ResendCredentialsDetail
 } from './super/DetailsSuperAdminData';
-import { CreateTicketSubmissionData, CreateTicketResponseData, GetMyTicket, DeleteTicketDetails } from './common/Support/TicketData';
+import { CreateTicketSubmissionData, CreateTicketResponseData, GetMyTicket, GetMyIdTicket, DeleteTicketDetails } from './common/Support/TicketData';
 import { MfaActivateData, MFALogin } from './common/Settings/MfaData';
 import { AnnouncementsCreateData, GetAnnouncementData, GetMyAnnouncementData} from './common/Announcements/AnnouncementsData';
 
@@ -245,6 +245,7 @@ const saga = [
     fork(CreateTicketSubmissionData),
     fork(CreateTicketResponseData),
     fork(GetMyTicket),
+    fork(GetMyIdTicket),
     fork(MfaActivateData),
     fork(MFALogin),
     fork(AnnouncementsCreateData),

@@ -12,18 +12,15 @@ import { Pagination, TextField } from "@mui/material";
 import debouce from "lodash.debounce";
 import {
   BreadCrumb,
-  CreateDrawer,
   Heading,
   CommonTable,
   WarningDialog,
   CardView,
-  Instructions,
   ErrorBlock,
 } from "./../../components";
 import { GetTicketData, DeleteTicket } from "../../redux/action/common/Support/TicketAction";
 import { PaginationValue } from "../../utils/PaginationUrl";
 import {
-  AddButtonBottom,
   PaginationContainer,
   StyledButtonIcon,
   StyledButtonRedIcon,
@@ -52,21 +49,35 @@ const useStyles = makeStyles(() => ({
 }));
 
 const columns = [
-  { id: "ticketId", label: "Ticket Id" },
-  { id: "createdDate", label: "Date" },
-  { id: "status", label: "Status" },
-  { id: "subject", label: "Subject" },
-  { id: "issueCategory", label: "Issue category" },
-  { id: "action", label: "Actions" },
+  { id: "ticketId", label: "Ticket Id", maxWidth:90 },
+  { id: "subject", label: "Subject", maxWidth:150 },
+  { id: "createdDate", label: "Created date",maxWidth:150 },
+  { id: "description", label: "Description", maxWidth: 150 },
+  { id: "priority", label: "Priority" , maxWidth:90},
+  { id: "issueCategory", label: "Issue category", maxWidth: 10 },
+  { id: "status", label: "Status", maxWidth:90 },
+  { id: "action", label: "Actions", maxWidth:140 },
 ];
 
-function createData(ticketId, createdDate, status, subject, issueCategory, action) {
+function createData(ticketId, subject, createdDate, description,  priority, issueCategory, status, action) {
+  const parsedDate = new Date(createdDate);
+  
+  const day = parsedDate.getDate().toString().padStart(2, '0');
+  const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+  const year = parsedDate.getFullYear();
+  const hours = parsedDate.getHours().toString().padStart(2, '0');
+  const minutes = parsedDate.getMinutes().toString().padStart(2, '0');
+  const seconds = parsedDate.getSeconds().toString().padStart(2, '0');
+
+  const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
   return {
     ticketId,
-    createdDate,
-    status,
     subject,
+    createdDate: formattedDate,
+    description,
+    priority,
     issueCategory,
+    status,
     action,
   };
 }
@@ -99,12 +110,12 @@ const CreateTicket = ({
     myTicketsData?.map((ticket) => {
       row = createData(
         ticket.ticketId,
-        ticket.createdDate,
-        ticket.status,
         ticket.subject,
+        ticket.createdDate,
+        ticket.description,
+        ticket.priority,
         ticket.issueCategory,
-        // ticket.action,
-        // formatDate(ticket.createdDate),
+        ticket.status,
         [
           {
             component: (
@@ -161,14 +172,14 @@ const CreateTicket = ({
 
   const handleAction = (event, icon, rowData) => {
     if (icon === "delete") {
-      setDeleteRowData(rowData?.paper_id);
+      setDeleteRowData(rowData);
       setShowDeleteWarning(true);
     }
     else if (icon === "nextPath") {
       router.push({
         pathname: "/super/ticketResponses",
         query: {
-          ticketId: rowData.ticketId,
+          ticketId: rowData?.ticketId,
         },
       });
     }
@@ -179,11 +190,12 @@ const CreateTicket = ({
   };
 
   const handleYesWarning = () => {
-    DeleteTicket(BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS + "/" + router.query.ticketId + deleteRowData) ;
+    
+    DeleteTicket()
+    // (deleteRowData?.ticketID, END_POINTS.ADMIN_TICKET_DETAILS);
     setTimeout(() => {
       setShowDeleteWarning(false);
-    }, [100]);
-  };
+    }, [100]);  };
 
   const handleTableSort = (e, column, sortToggle) => {
     if (sortToggle) {
@@ -296,7 +308,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     GetTicketData: ( url, paginationPayload) =>
       dispatch(GetTicketData(url,  paginationPayload)),
-      DeleteTicket: (url) => dispatch(DeleteTicket(url))
+      DeleteTicket: ( ticketId) => dispatch(DeleteTicket( ticketId))
   };
 };
 CreateTicket.layout = SuperAdmin;

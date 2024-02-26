@@ -3,15 +3,15 @@
     "field_type": "dropdown",
     "id": "IssueCategory",
     "name": "IssueCategory",
-    "label": "Issue Category *",
-    "required": "Select Issue Category",
-    "validationMsg": "Select Issue Category",
+    "label": "Issue category *",
+    "required": "Select issue category",
+    "validationMsg": "Select issue category",
     "options": [
       {
         "name": "Technical_issue"
       },
       {
-        "name": "Billing_Inquiry"
+        "name": "Billing_inquiry"
       },
       {
         "name": "Account_cases"
@@ -33,7 +33,7 @@
     "name": "Priority",
     "label": "Priority *",
     "required": true,
-    "validationMsg": "Select Priority",
+    "validationMsg": "Select priority",
     "options": [
       {
         "name": "High"
@@ -54,7 +54,7 @@
     "name": "Description",
     "label": "Description *",
     "required": "Enter description",
-    "validationMsg": "Enter Description",
+    "validationMsg": "Enter description",
     "minLength": 1
   },
   {
@@ -74,7 +74,7 @@
     "type": "number",
     "id": "ContactNumber",
     "name": "ContactNumber",
-    "label": "Contact Number",
+    "label": "Contact number",
     "validationMsg": "Enter contact number"
   },
   {

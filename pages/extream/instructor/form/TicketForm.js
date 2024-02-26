@@ -6,9 +6,12 @@ import { FormComponent } from "../../../../components";
 import { AddImageIcon } from "../../../../assets/icon";
 import FormJson from "../../../../constant/form/ticket-create-form.json";
 import { CreateTicket } from "../../../../redux/action/common/Support/TicketAction";
+import { BASE_URL_SUPER } from "../../../../utils/BaseUrl";
+import END_POINTS from "../../../../utils/EndPoints";
 
 const TicketForm = ({ 
-  CreateTicket 
+  CreateTicket,
+  isLoading 
 }) => {
   const [formJsonField, setFormJsonField] = useState(FormJson);
 
@@ -17,15 +20,17 @@ const TicketForm = ({
   });
 
   const onSubmit = (data) => {
+
     let bodyFormData = new FormData();
-    bodyFormData.append("issueType", data.issueType.name);
-    bodyFormData.append("issueCategory", data.issueCategory.name);
-    bodyFormData.append("priority", data.priority.name);
-    bodyFormData.append("status", data.status.name);
-    bodyFormData.append("description", data.description);
-    bodyFormData.append("contactNumber", data.contactNumber);
-    bodyFormData.append("attachments", data.file ? data.file[0] : null);
-    CreateTicket(bodyFormData);
+    bodyFormData.append("IssueCategory", data.IssueCategory.name);
+    bodyFormData.append("Priority", data.Priority.name);
+    bodyFormData.append("Subject", data.Subject);
+    bodyFormData.append("Description", data.Description);
+    bodyFormData.append("ContactNumber", data.ContactNumber);
+    bodyFormData.append("file", data.file ? data.file[0] : null);
+   
+    const url =BASE_URL_SUPER + END_POINTS.CREATE_TICKETING_SYSTEM;
+    CreateTicket(url, bodyFormData);
   };
   
   return (
@@ -41,6 +46,7 @@ const TicketForm = ({
                key={i}
                field={field}
                control={control} 
+               isLoading={isLoading}
                />
             </Grid>
           ))}
@@ -49,10 +55,14 @@ const TicketForm = ({
     </>
   );
 };
+const mapStateToProps = (state) => ({
+  isLoading: state?.ticket?.isLoadingTicketProcess,
+  
+});
 const mapDispatchToProps = (dispatch) => {
   return {
-    CreateTicket: (data) => dispatch(CreateTicket(data)),
+    CreateTicket: (url, data) => dispatch(CreateTicket(url, data)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(TicketForm);
+export default connect(mapStateToProps, mapDispatchToProps)(TicketForm);

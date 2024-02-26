@@ -1,5 +1,7 @@
 import { PostFormData,GetMethod, DeleteMethod } from "../../ApiMethod";
 import { PaginationUrl } from "../../../../utils/PaginationUrl";
+import { BASE_URL_SUPER } from "../../../../utils/BaseUrl";
+import END_POINTS from "../../../../utils/EndPoints";
 
 /**
  * API CALL CREATE TICKET
@@ -18,17 +20,26 @@ export const CreateTicketResponseProcess = async (url, data) => {
 };
 
 /**
- * API GET CREATE TICKET
+ * API GET  TICKET DATA
 */
 
 export const GetTicketDetail = async ( apiUrl, paginationPayload) => {
   const url = apiUrl+ PaginationUrl(paginationPayload);
   return GetMethod(url);
 };
+
+/**
+ * API GET  TICKET ID DATA
+*/
+
+export const GetTicketIdDetail = async ( url) => {
+  return GetMethod(url);
+};
 /**
  * API DELETE  TICKET
 */
 
-export const DeleteTicketData = async (url) => {
+export const DeleteTicketData = async (ticketID) => {
+  const url = BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS + ticketID;
   return DeleteMethod(url);
 };

@@ -2,6 +2,7 @@ import {
   CreateTicketProcess,
   GetTicketDetail,
   CreateTicketResponseProcess,
+  GetTicketIdDetail,
   DeleteTicketData
 } from "../../../api/common/Support/TicketAPI";
 import toastrValidation from "../../../../utils/ToastrValidation";
@@ -48,7 +49,7 @@ export function* onCreateTicketResponse(action) {
       action.url.includes('admin')?
       BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS + "/" + action.url.split('/')[7] + "/responses" :
       BASE_URL_SUPER + END_POINTS.USER_TICKET_DETAILS + "/" +  action.url.split('/')[7] + "/responses" ,
-      paginationPayload: PaginationValue,
+      paginationPayload: { ...PaginationValue, size: 5000},
     });
     toastrValidation(response);
   } else {
@@ -65,7 +66,7 @@ export function* CreateTicketResponseData() {
 }
 
 /**
- * Get folder data analysis
+ * Get ticket data 
  * @param {*} action
  */
 
@@ -94,8 +95,42 @@ export function* GetMyTicket() {
   yield takeLatest(types.FETCH_TICKET_DETAILS_START, onLoadAllTickets);
 }
 
+/**
+ * Get ticket data id
+ * @param {*} action
+ */
+
+export function* onLoadAllIdTickets(action) {
+  const { response, error } = yield call(
+    GetTicketIdDetail,
+    action.url,
+  );
+  if (response) {
+    yield put({
+      type: types.FETCH_TICKET_DETAILS_ID_SUCCESS,
+      payload: response?.data,
+    });
+    toastrValidation(response);
+  } else {
+    yield put({
+      type: types.FETCH_TICKET_DETAILS_ID_FAIL,
+      payload: error,
+    });
+    toastrValidation(error);
+  }
+}
+
+export function* GetMyIdTicket() {
+  yield takeLatest(types.FETCH_TICKET_DETAILS_ID_START, onLoadAllIdTickets);
+}
+
+/**
+ * Delete ticket data 
+ * @param {*} action
+ */
+
 export function* onLoadDeleteTicket(action) {
-  const { response, error } = yield call(DeleteTicketData, action.url);
+  const { response, error } = yield call(DeleteTicketData, action.ticketID);
   if (response) {
       yield put({ type: types.FETCH_DELETE_TICKET_DETAILS_SUCCESS, payload: response?.data });
       toastrValidation(response);

@@ -126,6 +126,7 @@ export const ANNOUNCEMENT = {
     'lim-admin': 'Admin',
     'lim-instructor': 'User',
     'consortium': 'Consortium',
+    'drillbit': 'Drillbit',
 }
 
 

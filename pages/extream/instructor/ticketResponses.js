@@ -4,17 +4,17 @@ import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { BreadCrumb, Heading, CardView, EllipsisText } from "./../../components";
-import InputTextField from "../../components/form/elements/InputTextField";
-import { BASE_URL_SUPER } from "../../utils/BaseUrl";
-import END_POINTS from "../../utils/EndPoints";
+import { BreadCrumb, Heading, CardView, EllipsisText } from "./../../../components";
+import InputTextField from "../../../components/form/elements/InputTextField";
+import { BASE_URL_SUPER } from "../../../utils/BaseUrl";
+import END_POINTS from "../../../utils/EndPoints";
 import {
   CreateTicketResponse,
   GetTicketData,
   GetTicketIdData
-} from "../../redux/action/common/Support/TicketAction";
+} from "../../../redux/action/common/Support/TicketAction";
 import { makeStyles } from "@mui/styles";
-import { PaginationValue } from "../../utils/PaginationUrl";
+import { PaginationValue } from "../../../utils/PaginationUrl";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
 import {
@@ -23,19 +23,18 @@ import {
 } from "@mui/icons-material";
 import BeatLoader from 'react-spinners/BeatLoader';
 import styled from 'styled-components';
-import TicketChat from "../../components/ticket/TicketChat";
-import SuperAdmin from "../../layouts/SuperAdmin";
-import { InputAdornment, TextField } from "@mui/material";
+import TicketChat from "../../../components/ticket/TicketChat";
+import Instructor from "../../../layouts/Instructor";
 
 const InstructorBreadCrumb = [
   {
     name: "Dashboard",
-    link: "/super/dashboard",
+    link: "/extream/instructor/dashboard",
     active: false,
   },
   {
     name: "Tickets",
-    link: "/super/createticket",
+    link: "/extream/instructor/createticket",
     active: false,
   },
   {
@@ -63,7 +62,7 @@ const LoaderContainer = styled.div`
     top:3px;
 `;
 
-const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, CreateTicketResponse, isLoadingResponse, GetTicketIdData }) => {
+const TicketResponses = ({ myTicketsData, GetTicketData, CreateTicketResponse, isLoadingResponse, GetTicketIdData, myTicketsIdData }) => {
   const router = useRouter();
   const classes = useStyles();
   const [paginationPayload, setPaginationPayload] = useState({
@@ -71,8 +70,8 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
     'size': 5000,
   });
   const [newMessage, setNewMessage] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [fileSelected, setFileSelected] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null); 
+  const [fileSelected, setFileSelected] = useState(false); 
   const fileInputRef = useRef(null);
   const chatBoxRef = useRef(null); 
   const { handleSubmit, control, reset } = useForm({
@@ -81,15 +80,14 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
 
   useEffect(() => {
     if (router.isReady) {
-      const url =
-        BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS + "/" + router.query.ticketId + "/responses";
+      const url = BASE_URL_SUPER + END_POINTS.USER_TICKET_DETAILS + "/" + router.query.ticketId +"/responses";
       GetTicketData(url, paginationPayload);
     }
   }, [router.isReady, paginationPayload]);
 
   useEffect(() => {
     if (router.isReady) {
-      const url = BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS + "/" + router.query.ticketId ;
+      const url = BASE_URL_SUPER + END_POINTS.USER_TICKET_DETAILS + "/" + router.query.ticketId ;
       GetTicketIdData(url);
     }
   }, [router.isReady ]);
@@ -106,38 +104,35 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
     }
   }, [router.asPath]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (router.isReady) {
       const url =
-        BASE_URL_SUPER +
-        END_POINTS.ADMIN_TICKET_DETAILS +
-        "/" +
-        router.query.ticketId +
-        "/responses";
+        BASE_URL_SUPER + END_POINTS.USER_TICKET_DETAILS + "/" + router.query.ticketId + "/responses";
+  
+        let detailedData = {};
 
-      let detailedData = {};
-
-      if (selectedFile && selectedFile.size > 0) {
-        detailedData = {
-          ...data,
-          file: selectedFile,
-        };
-      } else {
-        detailedData = { ...data };
-      }
-
-      CreateTicketResponse(url, detailedData);
-      setNewMessage("");
-      setSelectedFile(null);
-      setFileSelected(false);
-      reset();
+        if (selectedFile && selectedFile.size > 0) {
+          detailedData = {
+            ...data,
+            file: selectedFile, 
+          };
+        } else {
+          detailedData = { ...data };
+        }
+    
+        await CreateTicketResponse(url, detailedData);
+        setNewMessage("");
+        setSelectedFile(null); 
+        setFileSelected(false); 
+        reset();   
     }
   };
+  
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    setFileSelected(true);
+    setFileSelected(true); 
   };
 
   const handleAttachmentClick = () => {
@@ -145,8 +140,8 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
   };
 
   const handleCancelFile = () => {
-    setSelectedFile(null);
-    setFileSelected(false);
+    setSelectedFile(null); 
+    setFileSelected(false); 
   };
 
   let prevMessageDate = null;
@@ -169,26 +164,26 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
     }
   };
 
-    return (
-      <React.Fragment>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={1}>
-            <Grid item md={10} xs={10}>
-              <BreadCrumb item={InstructorBreadCrumb} />
-            </Grid>
-          </Grid>
-        </Box>
-        <Grid container spacing={2} >
+  return (
+    <React.Fragment>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={1}>
+        <Grid item md={9} xs={9}>
+           <BreadCrumb item={InstructorBreadCrumb} />
+        </Grid>
+      </Grid>
+      </Box>
+      <Grid container spacing={2} >
         <Grid item md={5} xs={5}>
         <Heading title={`${myTicketsIdData?.subject}`} />
         </Grid>
       </Grid>
-        <Grid container spacing={2} >
+      <Grid container spacing={2} >
         <Grid item md={10} xs={10}>
-        <CardView>
-          <Box>
-            <Grid container spacing={2} className={classes.customScrollbar} style={{ height: "calc(100vh - 265px)", overflow: "auto" }} ref={chatBoxRef}>
-            {myTicketsData
+      <CardView>
+        <Box>
+          <Grid container spacing={2} className={classes.customScrollbar} style={{ height: "calc(100vh - 265px)", overflow: "auto" }} ref={chatBoxRef}>
+          {myTicketsData
               .slice()
               .reverse()
               .map((message, index) => {
@@ -215,19 +210,19 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
                     />
                   </React.Fragment>
                 );
-              })}             
-            </Grid>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 1000, backgroundColor: '#fff', padding: '4px' }} style={{ marginLeft: "-35px"}}>
-                <Grid container spacing={2} alignItems="center" style={{ marginLeft: "14px"}}>
-                  <Grid item md={9} xs={9}>
-                  <Box sx={{ width: "100%" }}>
-                  {isLoadingResponse && (
-                    <LoaderContainer>
-                       <BeatLoader size={11} color="#007bff" />
-                    </LoaderContainer>
-                   )}
-                     <InputTextField
+              })}
+          </Grid>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 1000, backgroundColor: '#fff', padding: '4px' }} style={{ marginLeft: "-35px"}}>
+              <Grid container spacing={2} alignItems="center" style={{ marginLeft: "14px"}}>
+                <Grid item md={9} xs={9}>
+                <Box sx={{ width: "100%" }}>
+                {isLoadingResponse && (
+                  <LoaderContainer>
+                     <BeatLoader size={11} color="#007bff" />
+                  </LoaderContainer>
+                 )}
+                  <InputTextField
                     control={control}
                     type="text"
                     value={newMessage}
@@ -241,65 +236,65 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
                       validationMsg: "Enter your issue",
                     }}
                   />
-                    </Box>
-                  </Grid>
-                  <Grid item md={1} xs={1}>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      id="file"
-                      style={{ display: "none" }}
-                      onChange={handleFileChange}
-                    />
-                    <IconButton color="primary" style={{ paddingTop: "22px" }} onClick={handleAttachmentClick}>
-                      <AttachFileIcon />
-                    </IconButton>
-                    <IconButton color="primary" style={{ paddingTop: "22px" }} type="submit" disabled={isLoadingResponse}>
-                      <SendIcon />
-                    </IconButton>
-                  </Grid>
-                </Grid>
-                {fileSelected && (
-                  <Box
-                    sx={{
-                      backgroundColor: "rgba(0, 0, 0, 0.1)",
-                      padding: '0px',
-                      borderRadius: 3,
-                      marginTop: 4,
-                      position: "absolute",
-                      left: 830,
-                      top: "-32px",
-                    }}
-                  >
-                    <Grid container spacing={1} alignItems="center" style={{padding: "0px", marginTop: "-9px"}}>
-                      <Grid item style={{ position: "relative", marginBottom: "-7px" }}>
-                        <AttachFileIcon fontSize="small" />
-                      </Grid>
-                      <Grid item xs >
-                        {selectedFile && (
-                          <div style={{ fontSize: "9px", fontWeight: 500 }}>{selectedFile.name}</div>
-                        )}
-                        {selectedFile && (
-                          <div style={{ fontSize: "7px", fontWeight: 500 }}>{(selectedFile.size / 1024).toFixed(2)} KB</div>
-                        )}
-                      </Grid>
-                      <Grid item>
-                        <IconButton
-                          color="primary"
-                          onClick={handleCancelFile}
-                          sx={{ padding: "6px" }}
-                        >
-                          <CancelIcon fontSize="small" />
-                        </IconButton>
-                      </Grid>
-                    </Grid>
                   </Box>
-                )}
-              </Box>
-            </form>
-          </Box>
-        </CardView>
-        </Grid>
+                </Grid>
+                <Grid item md={1} xs={1}>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    id="file"
+                    style={{ display: "none" }}
+                    onChange={handleFileChange}
+                  />
+                  <IconButton color="primary" style={{ paddingTop: "22px" }} onClick={handleAttachmentClick}>
+                    <AttachFileIcon />
+                  </IconButton>
+                  <IconButton color="primary" style={{ paddingTop: "22px" }} type="submit" disabled={isLoadingResponse}>
+                    <SendIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+              {fileSelected && (
+                <Box
+                  sx={{
+                    backgroundColor: "rgba(0, 0, 0, 0.1)",
+                    padding: '0px',
+                    borderRadius: 3,
+                    marginTop: 4,
+                    position: "absolute",
+                    left: 830,
+                    top: "-32px",
+                  }}
+                >
+                  <Grid container spacing={1} alignItems="center" style={{padding: "0px", marginTop: "-9px"}}>
+                    <Grid item style={{ position: "relative", marginBottom: "-7px" }}>
+                      <AttachFileIcon fontSize="small" />
+                    </Grid>
+                    <Grid item xs  >
+                      {selectedFile && (
+                        <div style={{ fontSize: "9px", fontWeight: 500 }}>{selectedFile.name}</div>
+                      )}
+                      {selectedFile && (
+                        <div style={{ fontSize: "7px", fontWeight: 500 }}>{(selectedFile.size / 1024).toFixed(2)} KB</div>
+                      )}
+                    </Grid>
+                    <Grid item>
+                      <IconButton
+                        color="primary"
+                        onClick={handleCancelFile}
+                        sx={{ padding: "6px" }}
+                      >
+                        <CancelIcon fontSize="small" />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                </Box>
+              )}
+            </Box>
+          </form>
+        </Box>
+      </CardView>
+      </Grid>
       <Grid item md={2} xs={2}>
       <CardView>
   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -334,13 +329,13 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
       </div>
     </Box>
   </Box>
-  </CardView>
+    </CardView>
+      </Grid>
         </Grid>
-        </Grid>
-      </React.Fragment>
-    );
-  };
-  
+          </React.Fragment>
+  );
+};
+
 const mapStateToProps = (state) => ({
   pageDetails: state?.ticket?.myTicketsData?.tickets?.page,
   myTicketsData: state?.ticket?.myTicketsData?.response?.content || [],
@@ -356,6 +351,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-TicketResponses.layout = SuperAdmin;
+TicketResponses.layout = Instructor;
 
 export default connect(mapStateToProps, mapDispatchToProps)(TicketResponses);

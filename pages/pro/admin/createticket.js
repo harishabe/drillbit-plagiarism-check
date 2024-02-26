@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
-import ProUser from "../../../layouts/ProUser";
+import Admin from "../../../layouts/Admin";
 import { connect } from "react-redux";
+import { useRouter } from "next/router";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { TICKET_NOT_FOUND } from "../../../constant/data/ErrorMessage";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { Pagination, TextField } from "@mui/material";
 import debouce from "lodash.debounce";
 import {
@@ -13,9 +14,7 @@ import {
   CreateDrawer,
   Heading,
   CommonTable,
-  WarningDialog,
   CardView,
-  Instructions,
   ErrorBlock,
 } from "./../../../components";
 import { GetTicketData } from "../../../redux/action/common/Support/TicketAction";
@@ -24,13 +23,10 @@ import {
   AddButtonBottom,
   PaginationContainer,
   StyledButtonIcon,
-  StyledButtonRedIcon,
 } from "../../../style";
-import { formatDate } from "../../../utils/RegExp";
-import { DeleteWarningIcon } from "../../../assets/icon";
-import ProAdmin from "../../../layouts/ProAdmin";
 import { BASE_URL_SUPER } from "../../../utils/BaseUrl";
 import END_POINTS from "../../../utils/EndPoints";
+import TicketForm from "./form/TicketForm";
 const InstructorBreadCrumb = [
   {
     name: "Dashboard",
@@ -51,21 +47,35 @@ const useStyles = makeStyles(() => ({
 }));
 
 const columns = [
-  { id: "ticketId", label: "Ticket Id" },
-  { id: "createdDate", label: "Date" },
-  { id: "status", label: "Status" },
-  { id: "subject", label: "Subject" },
-  { id: "issueCategory", label: "Issue category" },
-  { id: "action", label: "Actions" },
+  { id: "ticketId", label: "Ticket Id", maxWidth:90 },
+  { id: "subject", label: "Subject", maxWidth:150 },
+  { id: "createdDate", label: "Created date",maxWidth:150 },
+  { id: "description", label: "Description", maxWidth: 150 },
+  { id: "priority", label: "Priority" , maxWidth:90},
+  { id: "issueCategory", label: "Issue category", maxWidth: 150 },
+  { id: "status", label: "Status", maxWidth:90 },
+  { id: "action", label: "Actions", maxWidth:90 },
 ];
 
-function createData(ticketId, createdDate, status, subject, issueCategory, action) {
+function createData(ticketId, subject, createdDate, description,  priority, issueCategory, status, action) {
+  const parsedDate = new Date(createdDate);
+  
+  const day = parsedDate.getDate().toString().padStart(2, '0');
+  const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+  const year = parsedDate.getFullYear();
+  const hours = parsedDate.getHours().toString().padStart(2, '0');
+  const minutes = parsedDate.getMinutes().toString().padStart(2, '0');
+  const seconds = parsedDate.getSeconds().toString().padStart(2, '0');
+
+  const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
   return {
     ticketId,
-    createdDate,
-    status,
     subject,
+    createdDate: formattedDate,
+    description,
+    priority,
     issueCategory,
+    status,
     action,
   };
 }
@@ -76,19 +86,18 @@ const CreateTicket = ({
   pageDetails,
   myTicketsData,
 }) => {
+  const router = useRouter();
   const classes = useStyles();
   const [rows, setRows] = useState([]);
-  const [deleteRowData, setDeleteRowData] = useState("");
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [search, setSearch] = useState(false);
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue
   });
 
   useEffect(() => {
-     const url = BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS ;
-    GetTicketData(url, paginationPayload);
-  }, [GetTicketData, paginationPayload]);
+    const url = BASE_URL_SUPER + END_POINTS.USER_TICKET_DETAILS ;
+   GetTicketData(url, paginationPayload);
+ }, [GetTicketData, paginationPayload]);
 
   useEffect(() => {
     let row = "";
@@ -96,21 +105,21 @@ const CreateTicket = ({
     myTicketsData?.map((ticket) => {
       row = createData(
         ticket.ticketId,
-        ticket.createdDate,
-        ticket.status,
         ticket.subject,
+        ticket.createdDate,
+        ticket.description,
+        ticket.priority,
         ticket.issueCategory,
-        // ticket.action,
-        // formatDate(ticket.createdDate),
+        ticket.status,
         [
           {
             component: (
-              <StyledButtonRedIcon variant="outlined" size="small">
-                <DeleteOutlineOutlinedIcon fontSize="small" />
-              </StyledButtonRedIcon>
+              <StyledButtonIcon variant="outlined" size="small">
+                <ArrowForwardOutlinedIcon fontSize="small" />
+              </StyledButtonIcon>
             ),
-            type: "delete",
-            title: "Delete",
+            type: "nextPath",
+            title: "Next",
           },
         ]
       );
@@ -147,21 +156,15 @@ const CreateTicket = ({
     };
   });
 
-  const handleAction = (event, icon, rowData) => {
-    if (icon === "delete") {
-      setDeleteRowData(rowData?.paper_id);
-      setShowDeleteWarning(true);
+  const handleAction = ( event, icon, rowData) => {
+     if (icon === "nextPath") {
+      router.push({
+        pathname: "/pro/admin/ticketResponses",
+        query: {
+          ticketId: rowData.ticketId,
+        },
+      });
     }
-  };
-
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-
-  const handleYesWarning = () => {
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
   };
 
   const handleTableSort = (e, column, sortToggle) => {
@@ -194,7 +197,6 @@ const CreateTicket = ({
             })`}
           />
         </Grid>
-
         <Grid item md={7} xs={7} className={classes.view}>
           <TextField
             sx={{ width: "42%" }}
@@ -210,15 +212,11 @@ const CreateTicket = ({
           />
         </Grid>
       </Grid>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message="Are you sure you want to delete ?"
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
+      <AddButtonBottom>
+        <CreateDrawer title="Raise Ticket" isShowAddIcon={true}>
+          <TicketForm />
+        </CreateDrawer>
+      </AddButtonBottom>
       {search ? (
         <CommonTable
           isCheckbox={false}
@@ -272,10 +270,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetTicketData: (url, paginationPayload) =>
-      dispatch(GetTicketData(url, paginationPayload)),
+    GetTicketData: ( url, paginationPayload) =>
+      dispatch(GetTicketData(url,  paginationPayload)),
   };
 };
-CreateTicket.layout = ProAdmin;
+CreateTicket.layout = Admin;
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTicket);

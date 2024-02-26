@@ -19,6 +19,7 @@ const TicketReducer = (state = {}, action) => {
         isLoadingTicketProcess: false,
         ticketError: action.payload,
       };
+      
       case types.FETCH_CREATE_TICKET_RESPONSE_DATA_START:
         return {
           ...state,
@@ -36,6 +37,7 @@ const TicketReducer = (state = {}, action) => {
           isLoadingResponse: false,
           ticketResponseError: action.payload,
         };
+
     case types.FETCH_TICKET_DETAILS_START:
       return {
         ...state,
@@ -53,6 +55,25 @@ const TicketReducer = (state = {}, action) => {
         isLoading: false,
         myTicketsError: action.payload,
       };
+
+      case types.FETCH_TICKET_DETAILS_ID_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case types.FETCH_TICKET_DETAILS_ID_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        myTicketsIdData: action.payload,
+      };
+    case types.FETCH_TICKET_DETAILS_ID_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        myTicketsIdError: action.payload,
+      };
+
       case types.FETCH_DELETE_TICKET_DETAILS_START:
             return {
                 ...state,
