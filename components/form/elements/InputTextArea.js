@@ -15,6 +15,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+export const ErrorMessage = styled.span`
+  font-size: 0.75rem;
+  color: red;
+  font-weight: 400;
+`;
+
 const StyledTextarea = styled(TextareaAutosize)(({ error }) => ({
   width: "100%",
   minHeight: "100px",
@@ -76,15 +82,7 @@ const InputTextArea = ({ control, field }) => {
           </>
         )}
         rules={{
-          required: field.required,
-          minLength: {
-            value: field.minLength,
-            message: `Minimum length is ${field.minLength} characters`,
-          },
-          maxLength: {
-            value: field.maxLength,
-            message: `Maximum length is ${field.maxLength} characters`,
-          },
+          required: field.required,          
           validate: {
             noLeadingTrailingSpaces: (value) => {
               const trimmedValue = value.trim();
@@ -97,8 +95,9 @@ const InputTextArea = ({ control, field }) => {
           },
         }}
       />
-    </>
-  );
+        {field.errorMsg !== "" && <ErrorMessage>{field.errorMsg}</ErrorMessage>}
+    </> 
+   );
 };
 
 InputTextArea.propTypes = {

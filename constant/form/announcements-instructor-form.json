@@ -6,7 +6,6 @@
     "name": "title",
     "label": "Enter Title*",
     "required": "Enter title of announcement",
-    "minLength": 5,
     "maxLength": 100
   },
   {
@@ -16,7 +15,6 @@
     "name": "content",
     "label": "Enter  announcement *",
     "required": "Enter  content of announcement",
-    "minLength": 25,
     "maxLength": 2000
   },
   {
