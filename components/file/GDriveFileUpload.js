@@ -202,13 +202,12 @@ const GDriveFileUpload = ({
     };
 
     const handleSubmit = (data) => {
-        console.log('gdrive', data)
         if (!isRepository) {
             let bodyFormData = new FormData();
             documnet?.map((item, i) => {
                 bodyFormData.append("authorName", data["authorName" + item[0]]);
                 bodyFormData.append("title", data["title" + item[0]]);
-                bodyFormData.append('documentType', data.documentType0);
+                bodyFormData.append('documentType', data["documentType" + item[0]]);
                 bodyFormData.append('plagiarismCheck', 'YES');
                 bodyFormData.append('grammarCheck', 'NO');
                 bodyFormData.append('language', 'English');
