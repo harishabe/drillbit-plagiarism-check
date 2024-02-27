@@ -202,6 +202,7 @@ const GDriveFileUpload = ({
     };
 
     const handleSubmit = (data) => {
+        console.log('gdrive', data)
         if (!isRepository) {
             let bodyFormData = new FormData();
             documnet?.map((item, i) => {
@@ -211,6 +212,8 @@ const GDriveFileUpload = ({
                 bodyFormData.append('plagiarismCheck', 'YES');
                 bodyFormData.append('grammarCheck', 'NO');
                 bodyFormData.append('language', 'English');
+                bodyFormData.append('guide_email', data['guide_email' + item[0]]);
+                bodyFormData.append('guide_name', data['guide_name' + item[0]]);
                 bodyFormData.append('fileId', driveFilePayload?.fileId);
                 bodyFormData.append('fileName', driveFilePayload?.fileName);
                 bodyFormData.append('token', driveAuthToken);
