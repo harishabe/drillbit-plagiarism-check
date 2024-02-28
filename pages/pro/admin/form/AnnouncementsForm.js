@@ -10,7 +10,9 @@ import { AnnouncementsField } from "../../../../redux/action/common/Announcement
 import { FORM_VALIDATION } from "../../../../constant/data/Constant";
 
 const AnnouncementsForm = ({ AnnouncementsField, isLoading }) => {
-  const { control, handleSubmit, setValue } = useForm();
+  const { control, handleSubmit, reset } = useForm({
+    mode: "all",
+  });
 
   const [formJsonField, setFormJsonField] = useState(FormJson);
 
@@ -23,13 +25,6 @@ const contentLength = useWatch({
   control,
   name: 'content',
 });
-
-useEffect(() => {
-  return () => {
-    setValue('title', '');
-    setValue('content', '');
-  };
-}, []);
 
 useEffect(() => {
   if (contentLength !== undefined) {
@@ -96,6 +91,27 @@ useEffect(() => {
   });
   setFormJsonField(formField);
 }, [formJsonField]);
+
+useEffect(() => {
+  return () => {
+    reset();
+    resetFormFields();
+  };
+}, [reset]);
+
+const resetFormFields = () => {
+  const resetFields = FormJson.map((item) => {
+    if (item.field_type === 'input' || item.field_type === 'textarea') {
+      item.errorMsg = '';
+    }
+    if (item.field_type === 'button') {
+      item.isDisabledField = false;
+    }
+    return item;
+  });
+  setFormJsonField(resetFields);
+};
+
 
   const onSubmit = (data) => {
     const url = BASE_URL_PRO + END_POINTS_PRO.CREATE_ANNOUNCEMENTS;

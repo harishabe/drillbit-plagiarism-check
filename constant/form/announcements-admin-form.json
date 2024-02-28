@@ -5,8 +5,7 @@
     "id": "title",
     "name": "title",
     "label": "Enter Title*",
-    "required": "Enter title of announcement",
-    "maxLength": 100
+    "required": "Enter title of announcement"
   },
   {
     "field_type": "textarea",
@@ -14,8 +13,7 @@
     "id": "content",
     "name": "content",
     "label": "Enter  announcement *",
-    "required": "Enter  content of announcement",
-    "maxLength": 2000
+    "required": "Enter  content of announcement"
     },
   {
     "field_type": "checkbox",

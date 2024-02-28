@@ -27,11 +27,17 @@ const useStyles = makeStyles(() => ({
   name: {
     fontSize: "10px",
     color: "#818589",
-    marginTop: "-4px",
+    marginTop: "-8px",
+    fontWeight: 600,
+  },
+  time: {
+    fontSize: "8px",
+    color: "#818589",
+    marginTop: "-2px",
     fontWeight: 600,
   },
   title: {
-    marginTop: "-6px",
+    marginTop: "-10px",
     marginBottom: "3px",
   },
   date: {
@@ -57,6 +63,19 @@ const AnnouncementCard = ({
     } else {
       return content;
     }
+  };
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const formattedDate = date.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    return formattedDate;
   };
 
   const today = new Date();
@@ -136,6 +155,9 @@ const AnnouncementCard = ({
                           {announcement.name}{" "}
                           {isShowRole &&
                             "( " + ANNOUNCEMENT[announcement.role] + " )"}
+                        </Typography>
+                        <Typography className={classes.time}>
+                          {formatDate(announcement.time)}
                         </Typography>
                       </Grid>
 
