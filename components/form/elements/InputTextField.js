@@ -42,7 +42,7 @@ const InputTextField = ({ control, field }) => {
       );
     }
     if (field.name === "email" || field.name === "adminEmail") {
-      setRegex(/^[A-Z0-9._%+-]{2,64}@[A-Z0-9.-]{2,255}\.[A-Z0-9-]{2,63}$/i);
+      setRegex(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{1,}$/i);
     }
   }, [field]);
 
@@ -87,16 +87,6 @@ const InputTextField = ({ control, field }) => {
           pattern: {
             value: regex,
             message: field.validationMsg,
-          },
-          validate: {
-            noLeadingTrailingSpaces: (value) => {
-              const trimmedValue = value.trim();
-              if (trimmedValue.length === value.length || (trimmedValue.length + 1 === value.length && value[value.length - 1] === ' ')) {
-                return true;
-              } else {
-                return "Leading and trailing spaces are not allowed.";
-              }
-            },
           },
         }}
       />

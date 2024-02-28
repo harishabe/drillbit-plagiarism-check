@@ -82,16 +82,14 @@ const InputTextArea = ({ control, field }) => {
           </>
         )}
         rules={{
-          required: field.required,          
-          validate: {
-            noLeadingTrailingSpaces: (value) => {
-              const trimmedValue = value.trim();
-              if (trimmedValue.length === value.length || (trimmedValue.length + 1 === value.length && value[value.length - 1] === ' ')) {
-                return true;
-              } else {
-                return "Leading and trailing spaces are not allowed.";
-              }
-            },
+          required: field.required,
+          minLength: {
+            value: field.minLength,
+            message: `Minimum length is ${field.minLength} characters`,
+          },
+          maxLength: {
+            value: field.maxLength,
+            message: `Maximum length is ${field.maxLength} characters`,
           },
         }}
       />
