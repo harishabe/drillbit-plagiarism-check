@@ -12,6 +12,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+export const ErrorMessage = styled.span`
+  font-size: 0.75rem;
+  color: red;
+  font-weight: 400;
+`;
+
 const StyledInputField = styled(TextField)(() => ({
   ":hover": {
     transform: "scale(1.01)",
@@ -84,6 +90,7 @@ const InputTextField = ({ control, field }) => {
           },
         }}
       />
+        {field.errorMsg !== "" && <ErrorMessage>{field.errorMsg}</ErrorMessage>}
     </>
   );
 };

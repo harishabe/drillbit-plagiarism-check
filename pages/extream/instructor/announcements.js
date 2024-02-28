@@ -46,16 +46,15 @@ const Announcements = ({
 
   const tabMenu = [
     {
-      label: ` Announcements(${
-        pageDetailsAnnouncements?.totalElements !== undefined
-          ? pageDetailsAnnouncements?.totalElements
-          : 0
-      })`,
+      label: `Announcements${
+        activeTab === 0 && pageDetailsAnnouncements?.totalElements !== undefined
+          ? "(" + pageDetailsAnnouncements?.totalElements + ")"
+          : ""
+      }`,
     },
     {
       label: `MyAnnouncements${
-        pageDetailsMyAnnouncements?.totalElements !== undefined &&
-        pageDetailsMyAnnouncements?.totalElements > 0
+        activeTab === 1 && pageDetailsMyAnnouncements?.totalElements !== undefined && pageDetailsMyAnnouncements?.totalElements > 0
           ? "(" + pageDetailsMyAnnouncements?.totalElements + ")"
           : ""
       }`,
