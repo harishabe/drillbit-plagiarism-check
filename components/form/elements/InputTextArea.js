@@ -21,10 +21,9 @@ export const ErrorMessage = styled.span`
   font-weight: 400;
 `;
 
-const StyledTextarea = styled.textarea(({ error }) => ({
+const StyledTextarea = styled(TextareaAutosize)(({ error }) => ({
   width: "100%",
-  minHeight: "130px", 
-  maxHeight: "calc(5 * 1.5em)",
+  minHeight: "100px", 
   padding: "12px 14px",
   borderRadius: "4px",
   border: `1px solid ${error ? "red" : "#ced4da"}`,
@@ -44,19 +43,6 @@ const StyledTextarea = styled.textarea(({ error }) => ({
   ":hover": {
     transform: "scale(1.01)",
     transition: "all 0.2s ease-out",
-  },
-  "&::-webkit-scrollbar": {
-    width: "6px", 
-  },
-  "&::-webkit-scrollbar-track" : {
-    background: "#f1f1f1" 
-  },
-  "&::-webkit-scrollbar-thumb": {
-    backgroundColor: "#888", 
-    borderRadius: "3px",
-  },
-  "&::-webkit-scrollbar-thumb:hover": {
-    backgroundColor: "#555", 
   },
 }));
 

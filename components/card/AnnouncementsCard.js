@@ -1,5 +1,13 @@
-import React, {useEffect} from "react";
-import { Avatar, Grid, IconButton, Skeleton, Typography } from "@mui/material";
+import React from "react";
+import {
+  Avatar,
+  Card,
+  CardContent,
+  Grid,
+  IconButton,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 import {
   CardView,
   SubTitle2,
@@ -10,50 +18,35 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { makeStyles } from "@mui/styles";
 import { ANNOUNCEMENT } from "../../constant/data/Constant";
-import { createTheme } from '@mui/material/styles';
 
-const theme = createTheme({
-  typography: {
-    h4_10px: {
-      fontSize: '9px',
-    },
-  },
-});
 const useStyles = makeStyles(() => ({
   content: {
-    marginTop: "-6px",
+    marginTop: "22px",
   },
   avatar: {
-    marginTop: "10px",
+    marginTop: "18px",
+    marginLeft: "10px",
   },
   icon: {
-    marginTop: "-8px",
+    marginTop: "16px",
   },
   gap: {
     marginBottom: "6px",
   },
   name: {
-    fontSize: "9px",
+    fontSize: "10px",
     color: "#818589",
-    marginTop: "-8px",
     fontWeight: 600,
-    maxWidth: 70
+    maxWidth: 160,
   },
   role: {
     fontSize: "9px",
     color: "#818589",
-    marginTop: "-8px",
-    fontWeight: 600,
-  },
-  time: {
-    fontSize: "7px",
-    color: "#818589",
-    marginTop: "0px",
     fontWeight: 600,
   },
   title: {
-    marginTop: "-10px",
     marginBottom: "3px",
+    marginTop: '1px'
   },
   date: {
     fontSize: "12px",
@@ -89,10 +82,10 @@ const AnnouncementCard = ({
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
-      hour12: true
+      hour12: true,
     });
     return formattedDate;
-};
+  };
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -142,74 +135,94 @@ const AnnouncementCard = ({
                     </Typography>
                   )}
 
-                  <CardView height={expandedAnnouncements[index] ? "auto" : 50}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={1} md={0.5} className={classes.content}>
-                        <Avatar
-                          alt="name"
-                          sx={{
-                            width: 30,
-                            height: 30,
-                            background: "#68C886",
-                            color: "#fff",
-                            fontSize: 14,
-                          }}
-                        >
-                          {announcement?.name?.charAt(0)?.toUpperCase()}
-                        </Avatar>{" "}
-                      </Grid>
+                  <Card>
+                    <CardContent
+                      sx={{
+                        padding: "1px",
+                        paddingBottom: "2px !important",
+                      }}
+                    >
+                      <Grid container spacing={2}>
+                        <Grid item xs={1} md={0.5} className={classes.avatar}>
+                          <Avatar
+                            alt="name"
+                            sx={{
+                              width: 30,
+                              height: 30,
+                              background: "#68C886",
+                              color: "#fff",
+                              fontSize: 14,
+                            }}
+                          >
+                            {announcement?.name?.charAt(0)?.toUpperCase()}
+                          </Avatar>{" "}
+                        </Grid>
 
-                      <Grid item xs={3} md={2} className={classes.content}>
-                        <div className={classes.title}>
-                          <EllipsisText
-                            variant="h4_1"
-                            maxLength={100}
-                            value={announcement.title}
-                          />
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <Typography className={classes.name}>
+                        <Grid item xs={3} md={2} className={classes.title}>
+                          <div className={classes.title}>
                             <EllipsisText
-                              variant="h4_10px"
-                              maxLength={10}
-                              value={announcement.name + '\u00A0'}
+                              variant="h4_1"
+                              maxLength={100}
+                              value={announcement.title}
+                            />
+                          </div>
+                          <div>
+                            <Typography className={classes.name}>
+                              <EllipsisText
+                                variant="body4"
+                                maxLength={100}
+                                value={announcement.name}
                               />
-                          </Typography>
-                          {isShowRole && (
-                            <Typography className={classes.role}>
-                              ( {ANNOUNCEMENT[announcement.role]} )
                             </Typography>
-                          )}
-                        </div>
-
-                        <Typography className={classes.time}>
-                          {formatDate(announcement.time)}
-                        </Typography>
-                      </Grid>
-
-                      <Grid item xs={7} md={9} className={classes.content}>
-                        <SubTitle2
-                          title={
-                            expandedAnnouncements[index]
-                              ? announcement.content
-                              : limitContent(announcement.content, 120)
-                          }
-                        />
-                      </Grid>
-
-                      <Grid item xs={1} md={0.5} className={classes.icon}>
-                        {announcement.content.length > 120 && (
-                          <IconButton onClick={() => toggleShowMore(index)}>
-                            {expandedAnnouncements[index] ? (
-                              <ExpandLessIcon />
-                            ) : (
-                              <ExpandMoreIcon />
+                          </div>
+                          <div>
+                            {isShowRole && (
+                              <Typography
+                                className={classes.role}
+                                component={"span"}
+                              >
+                                {ANNOUNCEMENT[announcement.role]}{", "}
+                              </Typography>
                             )}
-                          </IconButton>
-                        )}
+                            
+                            <Typography
+                              className={classes.role}
+                              component={"span"}
+                            >
+                              {formatDate(announcement.time)}{" "}
+                            </Typography>
+                          </div>
+                        </Grid>
+
+                        <Grid
+                          item
+                          xs={6.5}
+                          md={8.5}
+                          className={classes.content}
+                        >
+                          <SubTitle2
+                            title={
+                              expandedAnnouncements[index]
+                                ? announcement.content
+                                : limitContent(announcement.content, 120)
+                            }
+                          />
+                        </Grid>
+
+                        <Grid item xs={1} md={0.5} className={classes.icon}>
+                          {announcement.content.length > 120 && (
+                            <IconButton onClick={() => toggleShowMore(index)}>
+                              {expandedAnnouncements[index] ? (
+                                <ExpandLessIcon />
+                              ) : (
+                                <ExpandMoreIcon />
+                              )}
+                            </IconButton>
+                          )}
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </CardView>
+                    </CardContent>
+                  </Card>
                   <div className={classes.gap}></div>
                 </React.Fragment>
               );
