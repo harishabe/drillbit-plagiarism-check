@@ -35,7 +35,6 @@ const StyledTextarea = styled(TextareaAutosize)(({ error }) => ({
   fontWeight: 'normal',
   letterSpacing: "1px",
   overflowY: "auto",
-  overflowX: "hidden",
   "&:focus": {
     border: `2px solid ${error ? "red" : "#007aff"}`,
     outline: "none",
