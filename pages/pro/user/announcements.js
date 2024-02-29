@@ -58,6 +58,7 @@ const Announcements = ({
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_STUDENT_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
+    setExpandedAnnouncements([]);
   }, [, paginationPayload]);
 
   const handlePagination = (event, value) => {

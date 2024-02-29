@@ -46,6 +46,7 @@ const AnnouncementsTab = ({
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_ADMIN_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
+    setExpandedAnnouncements([]);
     setItemSessionStorage("tab", activeTab);
   }, [GetAnnouncementsData, activeTab, paginationPayload]);
 

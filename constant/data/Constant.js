@@ -285,8 +285,8 @@ export const FORM_VALIDATION = {
     'EXPIRY_DATE_LESSER': 'The entered date should not less than the current date.',
     'PHONE_NUMBER': 'Size must be between 10 and 15',
     'OTP': 'Otp must be of 6 digit',
-    'MAX_TITLE_LENGTH': "Reached maximum length of 100 characters",
-    'MAX_CONTENT_LENGTH': "Reached maximum length of 2000 characters",
+    'MAX_TITLE_LENGTH': "Exceeded maximum length of 100 characters",
+    'MAX_CONTENT_LENGTH': "Exceeded maximum length of 2000 characters",
 }
 
 export const WARNING_MESSAGES = {

@@ -23,7 +23,7 @@ export const ErrorMessage = styled.span`
 
 const StyledTextarea = styled(TextareaAutosize)(({ error }) => ({
   width: "100%",
-  minHeight: "100px",
+  minHeight: "100px", 
   padding: "12px 14px",
   borderRadius: "4px",
   border: `1px solid ${error ? "red" : "#ced4da"}`,
@@ -44,7 +44,6 @@ const StyledTextarea = styled(TextareaAutosize)(({ error }) => ({
     transition: "all 0.2s ease-out",
   },
 }));
-
 
 const InputTextArea = ({ control, field }) => {
   const classes = useStyles();
