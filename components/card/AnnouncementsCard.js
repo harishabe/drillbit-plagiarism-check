@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Avatar, Grid, IconButton, Skeleton, Typography } from "@mui/material";
 import {
   CardView,
@@ -10,7 +10,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { makeStyles } from "@mui/styles";
 import { ANNOUNCEMENT } from "../../constant/data/Constant";
+import { createTheme } from '@mui/material/styles';
 
+const theme = createTheme({
+  typography: {
+    h4_10px: {
+      fontSize: '9px',
+    },
+  },
+});
 const useStyles = makeStyles(() => ({
   content: {
     marginTop: "-6px",
@@ -25,15 +33,22 @@ const useStyles = makeStyles(() => ({
     marginBottom: "6px",
   },
   name: {
-    fontSize: "10px",
+    fontSize: "9px",
+    color: "#818589",
+    marginTop: "-8px",
+    fontWeight: 600,
+    maxWidth: 70
+  },
+  role: {
+    fontSize: "9px",
     color: "#818589",
     marginTop: "-8px",
     fontWeight: 600,
   },
   time: {
-    fontSize: "8px",
+    fontSize: "7px",
     color: "#818589",
-    marginTop: "-2px",
+    marginTop: "0px",
     fontWeight: 600,
   },
   title: {
@@ -67,16 +82,17 @@ const AnnouncementCard = ({
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
-    const formattedDate = date.toLocaleString("en-GB", {
+    const formattedDate = date.toLocaleString("en-US", {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
+      hour12: true
     });
     return formattedDate;
-  };
+};
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -151,11 +167,21 @@ const AnnouncementCard = ({
                             value={announcement.title}
                           />
                         </div>
-                        <Typography className={classes.name}>
-                          {announcement.name}{" "}
-                          {isShowRole &&
-                            "( " + ANNOUNCEMENT[announcement.role] + " )"}
-                        </Typography>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <Typography className={classes.name}>
+                            <EllipsisText
+                              variant="h4_10px"
+                              maxLength={10}
+                              value={announcement.name + '\u00A0'}
+                              />
+                          </Typography>
+                          {isShowRole && (
+                            <Typography className={classes.role}>
+                              ( {ANNOUNCEMENT[announcement.role]} )
+                            </Typography>
+                          )}
+                        </div>
+
                         <Typography className={classes.time}>
                           {formatDate(announcement.time)}
                         </Typography>

@@ -60,6 +60,7 @@ const Announcements = ({
   React.useEffect(() => {
     const url = BASE_URL + END_POINTS.GET_CONSORTIUM_MY_ANNOUNCEMENTS;
     GetMyAnnouncementsData(url, paginationPayload);
+    setExpandedAnnouncements([]);
   }, [, paginationPayload]);
 
   const handlePagination = (event, value) => {

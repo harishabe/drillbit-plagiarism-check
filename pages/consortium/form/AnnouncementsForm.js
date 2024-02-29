@@ -6,7 +6,7 @@ import FormJson from '../../../constant/form/announcements-form.json';
 import { BASE_URL } from "../../../utils/BaseUrl";
 import END_POINTS from "../../../utils/EndPoints";
 import { AnnouncementsField } from "../../../redux/action/common/Announcements/AnnouncementsAction";
-import { CreateClassIcon, EditClassAndStudentIcon } from "../../../assets/icon";
+import { CreateClassIcon } from "../../../assets/icon";
 import { FORM_VALIDATION } from "../../../constant/data/Constant";
 
 

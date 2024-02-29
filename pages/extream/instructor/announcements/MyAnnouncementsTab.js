@@ -42,13 +42,13 @@ const MyAnnouncementsTab = ({
     field: "ann_id",
   });
   const classes = useStyles();
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
+  
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_INSTRUCTOR_MY_ANNOUNCEMENTS;
     GetMyAnnouncementsData(url, paginationPayload);
     setItemSessionStorage("tab", activeTab);
+    setExpandedAnnouncements([]);
   }, [GetMyAnnouncementsData, activeTab, paginationPayload]);
 
   const handlePagination = (event, value) => {
@@ -83,6 +83,7 @@ const MyAnnouncementsTab = ({
       searchAnnouncement.cancel();
     };
   });
+  
 
   return (
     <React.Fragment>

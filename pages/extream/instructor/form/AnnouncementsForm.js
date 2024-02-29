@@ -140,8 +140,8 @@ const resetFormFields = () => {
 
   useEffect(() => {
     let classList = [];
-    const classes = [...dropdownClasses]
     if (dropdownClasses !== undefined) {
+      const classes = [...dropdownClasses]
         let formList = FormJson?.map((formItem) => {
             if (formItem.name === 'class_id') { 
               classes?.unshift({ 'name':'all', 'class_name': 'all', 'class_id': 'all'});
