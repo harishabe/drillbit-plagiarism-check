@@ -13,7 +13,16 @@
     "id": "content",
     "name": "content",
     "label": "Enter  announcement *",
-    "required": "Enter  content of announcement"
+    "rules":{
+      "maxLength":{
+        "value":2000,
+        "message": "Exceeded maximum length of 2000 characters"
+      },
+      "required": {
+        "value": true,
+        "message": "Enter content of announcement"
+      }
+    }
   },
   {
     "field_type": "button",

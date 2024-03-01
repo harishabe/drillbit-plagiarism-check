@@ -80,17 +80,7 @@ const InputTextArea = ({ control, field }) => {
             </FormHelperText>
           </>
         )}
-        rules={{
-          required: field.required,
-          minLength: {
-            value: field.minLength,
-            message: `Minimum length is ${field.minLength} characters`,
-          },
-          maxLength: {
-            value: field.maxLength,
-            message: `Maximum length is ${field.maxLength} characters`,
-          },
-        }}
+        rules={field?.rules}
       />
         {field.errorMsg !== "" && <ErrorMessage>{field.errorMsg}</ErrorMessage>}
     </> 
