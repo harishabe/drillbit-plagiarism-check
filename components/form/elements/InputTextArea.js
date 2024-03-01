@@ -103,7 +103,6 @@ const InputTextArea = ({ control, field }) => {
 };
 
 InputTextArea.propTypes = {
-  name: PropTypes.string.isRequired,
   control: PropTypes.object.isRequired, 
   field: PropTypes.shape({
     label: PropTypes.string.isRequired,
