@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "22px",
   },
   avatar: {
-    marginTop: "18px",
+    marginTop: "20px",
     marginLeft: "10px",
   },
   icon: {
@@ -75,17 +75,17 @@ const AnnouncementCard = ({
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
-    const formattedDate = date.toLocaleString("en-US", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    });
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hour = date.getHours();
+    const minute = String(date.getMinutes()).padStart(2, '0');
+    const second = String(date.getSeconds()).padStart(2, '0');
+    const amPM = hour >= 12 ? 'PM' : 'AM';
+    const formattedHour = hour % 12 || 12; 
+    const formattedDate = `${day}/${month}/${year} ${formattedHour}:${minute}:${second} ${amPM}`;
     return formattedDate;
-  };
+};
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -194,10 +194,7 @@ const AnnouncementCard = ({
                           </div>
                         </Grid>
 
-                        <Grid
-                          item
-                          xs={6.5}
-                          md={8.5}
+                        <Grid item xs={6.5} md={8.5}
                           className={classes.content}
                         >
                           <SubTitle2

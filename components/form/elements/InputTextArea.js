@@ -2,7 +2,7 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import PropTypes from "prop-types";
 import { makeStyles } from "@mui/styles";
-import { TextareaAutosize, FormHelperText } from "@mui/material";
+import { FormHelperText } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import styled from "styled-components";
 
@@ -21,9 +21,10 @@ export const ErrorMessage = styled.span`
   font-weight: 400;
 `;
 
-const StyledTextarea = styled(TextareaAutosize)(({ error }) => ({
+const StyledTextarea = styled.textarea(({ error }) => ({
   width: "100%",
-  minHeight: "100px", 
+  minHeight: "130px", 
+  maxHeight: "calc(5 * 1.5em)",
   padding: "12px 14px",
   borderRadius: "4px",
   border: `1px solid ${error ? "red" : "#ced4da"}`,
@@ -35,6 +36,7 @@ const StyledTextarea = styled(TextareaAutosize)(({ error }) => ({
   fontWeight: 'normal',
   letterSpacing: "1px",
   overflowY: "auto",
+  overflowX: "hidden",
   "&:focus": {
     border: `2px solid ${error ? "red" : "#007aff"}`,
     outline: "none",
@@ -42,6 +44,19 @@ const StyledTextarea = styled(TextareaAutosize)(({ error }) => ({
   ":hover": {
     transform: "scale(1.01)",
     transition: "all 0.2s ease-out",
+  },
+  "&::-webkit-scrollbar": {
+    width: "6px", 
+  },
+  "&::-webkit-scrollbar-track" : {
+    background: "#f1f1f1" 
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#888", 
+    borderRadius: "3px",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    backgroundColor: "#555", 
   },
 }));
 

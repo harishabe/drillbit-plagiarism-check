@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState, useRef } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { connect } from "react-redux";
 import { FormComponent } from "../../../../components";
 import FormJson from "../../../../constant/form/announcements-instructor-form.json";
@@ -11,6 +11,7 @@ import {
 } from "../../../../assets/icon";
 import { GetClassesData } from "../../../../redux/action/instructor/InstructorAction";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
+import { FORM_VALIDATION } from "../../../../constant/data/Constant";
 
 const AnnouncementsForm = ({
   AnnouncementsField,
@@ -23,11 +24,75 @@ const AnnouncementsForm = ({
     'field': 'class_id',
   }
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     mode: "all",
   });
 
   const [formJsonField, setFormJsonField] = useState(FormJson);
+  const formJsonFieldRef = useRef(FormJson);
+
+  const titleLength = useWatch({
+    control,
+    name: 'title',
+});
+
+  useEffect(() => {
+    if (titleLength !== undefined) {
+      if ( titleLength?.length > 100) {
+          let fields = FormJson?.map((item) => {
+              if (item?.field_type === 'input' && item?.name === 'title') {
+                  item['errorMsg'] = FORM_VALIDATION.MAX_TITLE_LENGTH;
+              } 
+              if (item?.field_type === 'button') {
+                item['isDisabledField'] = true;
+            }   
+              return item;          
+          })
+          setFormJsonField(fields);
+      } else {
+          let fields = FormJson?.map((item) => {
+              if (item?.field_type === 'input' && item?.name === 'title') {
+                  item['errorMsg'] = '';
+              }
+              if (item?.field_type === 'button') {
+                item['isDisabledField'] = false;
+            }            
+              return item;
+          })
+          setFormJsonField(fields);
+      }
+  }
+  }, [titleLength])
+
+  useEffect(() => {
+    let formField = formJsonFieldRef.current.map((item) => {
+      if (item?.field_type === 'button') {
+        item['isDisabled'] = item?.isDisabledField;
+      }
+      return item;
+    });
+    setFormJsonField(formField);
+  }, [titleLength]);
+  
+  useEffect(() => {
+    return () => {
+      reset();
+      resetFormFields();
+    };
+  }, [reset]);
+  
+  const resetFormFields = () => {
+    const resetFields = FormJson?.map((item) => {
+      if (item.field_type === 'input') {
+        item.errorMsg = '';
+      }
+      if (item.field_type === 'button') {
+        item.isDisabledField = false;
+      }
+      return item;
+    });
+    setFormJsonField(resetFields);
+  };
 
   const onSubmit = (data) => {
     data.class_id = String(data.class_id.class_id);

@@ -21,39 +21,6 @@ const AnnouncementsForm = ({ AnnouncementsField, isLoading }) => {
     name: 'title',
 });
 
-const contentLength = useWatch({
-  control,
-  name: 'content',
-});
-
-useEffect(() => {
-  if (contentLength !== undefined) {
-    if (  contentLength?.length > 2000) {
-        let fields = FormJson?.map((item) => {
-            if (item?.field_type === 'textarea' && item?.name === 'content') {
-                item['errorMsg'] = FORM_VALIDATION.MAX_CONTENT_LENGTH;
-            }
-            if (item?.field_type === 'button') {
-              item['isDisabledField'] = true;
-          }  
-            return item;          
-        })
-        setFormJsonField(fields);
-    } else {
-        let fields = FormJson?.map((item) => {
-            if (item?.field_type === 'textarea' && item?.name === 'content') {
-                item['errorMsg'] = '';
-            }
-            if (item?.field_type === 'button') {
-              item['isDisabledField'] = false;
-          }            
-            return item;
-        })
-        setFormJsonField(fields);
-    }
-}
-}, [contentLength])
-
 useEffect(() => {
   if (titleLength !== undefined) {
     if ( titleLength?.length > 100) {
@@ -101,7 +68,7 @@ useEffect(() => {
 
 const resetFormFields = () => {
   const resetFields = FormJson.map((item) => {
-    if (item.field_type === 'input' || item.field_type === 'textarea') {
+    if (item.field_type === 'input' ) {
       item.errorMsg = '';
     }
     if (item.field_type === 'button') {
