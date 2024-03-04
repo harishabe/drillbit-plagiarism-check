@@ -48,10 +48,22 @@ const AnnouncementsTab = ({
   });
   const classes = useStyles();
 
+  const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
+
+  const toggleShowMore = (index) => {
+    setExpandedAnnouncements((prevExpanded) => {
+      const newExpanded = [...prevExpanded];
+      newExpanded[index] = !newExpanded[index];
+      return newExpanded;
+    });
+  };
+
+
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_INSTRUCTOR_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
     setItemSessionStorage("tab", activeTab);
+    setExpandedAnnouncements([]);
   }, [GetAnnouncementsData,activeTab, paginationPayload]);
 
   const handlePagination = (event, value) => {
@@ -103,6 +115,8 @@ const AnnouncementsTab = ({
       <div className={classes.tab}>
             <AnnouncementCard
               announcement={announcementsData}
+              expandedAnnouncements={expandedAnnouncements}
+              toggleShowMore={toggleShowMore}
               isLoading={isLoadingGet}
               isShowRole={true}
             />

@@ -53,10 +53,20 @@ const Announcements = ({
     ...PaginationValue,
     field: "ann_id",
   });
+  const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
+
+  const toggleShowMore = (index) => {
+    setExpandedAnnouncements((prevExpanded) => {
+      const newExpanded = [...prevExpanded];
+      newExpanded[index] = !newExpanded[index];
+      return newExpanded;
+    });
+  };
 
   React.useEffect(() => {
     const url = BASE_URL_PRO + END_POINTS_PRO.GET_USER_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
+    setExpandedAnnouncements([]);
   }, [, paginationPayload]);
 
   const handlePagination = (event, value) => {
@@ -121,7 +131,9 @@ const Announcements = ({
 
       <>
             <AnnouncementCard
-              announcement={announcementsData}
+              announcement={announcementsData}             
+              expandedAnnouncements={expandedAnnouncements}
+              toggleShowMore={toggleShowMore}
               isLoading={isLoadingGet}
               isShowRole={true}
             />

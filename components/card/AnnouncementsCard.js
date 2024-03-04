@@ -4,32 +4,34 @@ import {
   Card,
   CardContent,
   Grid,
+  IconButton,
   Skeleton,
   Typography,
 } from "@mui/material";
 import {
   CardView,
+  SubTitle2,
   EllipsisText,
   ErrorBlock,
 } from "../../components";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { makeStyles } from "@mui/styles";
 import { ANNOUNCEMENT } from "../../constant/data/Constant";
-import EllipsisContent from "../ellipsis/EllipsisContent";
 
 const useStyles = makeStyles(() => ({
   content: {
     marginTop: "22px",
-    maxWidth: "830px"
   },
   avatar: {
-    marginTop: "20px",
-    marginLeft: "10px",
+    marginTop: "18px",
+    marginLeft: "12px",
   },
   icon: {
     marginTop: "16px",
   },
   gap: {
-    marginBottom: "10px",
+    marginBottom: "6px",
   },
   name: {
     fontSize: "10px",
@@ -43,7 +45,6 @@ const useStyles = makeStyles(() => ({
     fontWeight: 600,
   },
   title: {
-    maxWidth: 180,
     marginBottom: "3px",
     marginTop: '1px'
   },
@@ -57,10 +58,20 @@ const useStyles = makeStyles(() => ({
 
 const AnnouncementCard = ({
   announcement,
+  expandedAnnouncements,
+  toggleShowMore,
   isLoading,
   isShowRole,
 }) => {
   const classes = useStyles();
+
+  const limitContent = (content, limit) => {
+    if (content.length > limit) {
+      return content.slice(0, limit) + " ...";
+    } else {
+      return content;
+    }
+  };
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
@@ -132,15 +143,15 @@ const AnnouncementCard = ({
                       }}
                     >
                       <Grid container spacing={2}>
-                        <Grid item xs={1} md={0.5} className={classes.avatar}>
+                        <Grid item xs={1} md={0.7} className={classes.avatar}>
                           <Avatar
                             alt="name"
                             sx={{
-                              width: 30,
-                              height: 30,
+                              width: 40,
+                              height: 40,
                               background: "#68C886",
                               color: "#fff",
-                              fontSize: 14,
+                              fontSize: 16,
                             }}
                           >
                             {announcement?.name?.charAt(0)?.toUpperCase()}
@@ -183,13 +194,26 @@ const AnnouncementCard = ({
                           </div>
                         </Grid>
 
-                        <Grid item xs={8} md={9.5}
-                          className={classes.content}
-                        >
-                          <EllipsisContent
-                          text={announcement.content}
-                          variant="h5_1"
+                        <Grid item xs={6.5} md={8.5} className={classes.content} >
+                          <SubTitle2
+                            title={
+                              expandedAnnouncements[index]
+                                ? announcement.content
+                                : limitContent(announcement.content, 120)
+                            }
                           />
+                        </Grid>
+
+                        <Grid item xs={1} md={0.5} className={classes.icon}>
+                          {announcement.content.length > 120 && (
+                            <IconButton onClick={() => toggleShowMore(index)}>
+                              {expandedAnnouncements[index] ? (
+                                <ExpandLessIcon />
+                              ) : (
+                                <ExpandMoreIcon />
+                              )}
+                            </IconButton>
+                          )}
                         </Grid>
                       </Grid>
                     </CardContent>
