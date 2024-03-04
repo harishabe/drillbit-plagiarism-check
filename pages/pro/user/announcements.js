@@ -13,12 +13,12 @@ import {
 import { PaginationContainer } from "../../../style";
 import { PaginationValue } from "../../../utils/PaginationUrl";
 import { GetAnnouncementsData } from "../../../redux/action/common/Announcements/AnnouncementsAction";
-import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
-import END_POINTS from "../../../utils/EndPoints";
+import {  BASE_URL_PRO } from "../../../utils/BaseUrl";
 import styled from "styled-components";
 import debouce from "lodash.debounce";
 import ProUser from "../../../layouts/ProUser";
 import AnnouncementCard from "../../../components/card/AnnouncementsCard";
+import END_POINTS_PRO from "../../../utils/EndPointPro";
 
 const UserBreadCrumb = [
   {
@@ -53,25 +53,15 @@ const Announcements = ({
     ...PaginationValue,
     field: "ann_id",
   });
-  const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
 
   React.useEffect(() => {
-    const url = BASE_URL_EXTREM + END_POINTS.GET_STUDENT_ANNOUNCEMENTS;
+    const url = BASE_URL_PRO + END_POINTS_PRO.GET_USER_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
-    setExpandedAnnouncements([]);
   }, [, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();
     setPaginationPayload({ ...paginationPayload, page: value - 1 });
-  };
-
-  const toggleShowMore = (index) => {
-    setExpandedAnnouncements((prevExpanded) => {
-      const newExpanded = [...prevExpanded];
-      newExpanded[index] = !newExpanded[index];
-      return newExpanded;
-    });
   };
 
   const handleSearchAnnouncement = useCallback((event) => {
@@ -132,8 +122,6 @@ const Announcements = ({
       <>
             <AnnouncementCard
               announcement={announcementsData}
-              expandedAnnouncements={expandedAnnouncements}
-              toggleShowMore={toggleShowMore}
               isLoading={isLoadingGet}
               isShowRole={true}
             />

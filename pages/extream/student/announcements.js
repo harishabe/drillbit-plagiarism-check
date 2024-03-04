@@ -52,25 +52,15 @@ const Announcements = ({
     ...PaginationValue,
     field: "ann_id",
   });
-  const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
 
   React.useEffect(() => {
     const url = BASE_URL_EXTREM + END_POINTS.GET_STUDENT_ANNOUNCEMENTS;
     GetAnnouncementsData(url, paginationPayload);
-    setExpandedAnnouncements([]);
   }, [GetAnnouncementsData, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();
     setPaginationPayload({ ...paginationPayload, page: value - 1 });
-  };
-
-  const toggleShowMore = (index) => {
-    setExpandedAnnouncements((prevExpanded) => {
-      const newExpanded = [...prevExpanded];
-      newExpanded[index] = !newExpanded[index];
-      return newExpanded;
-    });
   };
 
   const handleSearchAnnouncement = useCallback((event) => {
@@ -131,8 +121,6 @@ const Announcements = ({
       <>
             <AnnouncementCard
               announcement={announcementsData}
-              expandedAnnouncements={expandedAnnouncements}
-              toggleShowMore={toggleShowMore}
               isLoading={isLoadingGet}
               isShowRole={true}
             />
