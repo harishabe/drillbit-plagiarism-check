@@ -22,6 +22,7 @@ const AnnouncementsForm = ({
   const paginationPayload = {
     ...PaginationValue,
     'field': 'class_id',
+    'size': 99999,
   }
 
   const { control, handleSubmit, reset } = useForm({

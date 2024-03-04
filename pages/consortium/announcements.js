@@ -55,25 +55,15 @@ const Announcements = ({
     field: "ann_id",
   });
   const [search, setSearch] = useState(false);
-  const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
 
   React.useEffect(() => {
     const url = BASE_URL + END_POINTS.GET_CONSORTIUM_MY_ANNOUNCEMENTS;
     GetMyAnnouncementsData(url, paginationPayload);
-    setExpandedAnnouncements([]);
   }, [, paginationPayload]);
 
   const handlePagination = (event, value) => {
     event.preventDefault();
     setPaginationPayload({ ...paginationPayload, page: value - 1 });
-  };
-
-  const toggleShowMore = (index) => {
-    setExpandedAnnouncements((prevExpanded) => {
-      const newExpanded = [...prevExpanded];
-      newExpanded[index] = !newExpanded[index];
-      return newExpanded;
-    });
   };
 
   const handleSearchAnnouncement = (event) => {
@@ -141,8 +131,6 @@ const Announcements = ({
       <>
           <AnnouncementCard
           announcement={myAnnouncementsData}
-          expandedAnnouncements={expandedAnnouncements}
-          toggleShowMore={toggleShowMore}
           isLoading={isLoadingMyAnnouncements}
           isShowRole={false}
         />
