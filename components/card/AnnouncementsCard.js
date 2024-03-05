@@ -4,9 +4,9 @@ import {
   Card,
   CardContent,
   Grid,
-  IconButton,
   Skeleton,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import {
   CardView,
@@ -14,8 +14,6 @@ import {
   EllipsisText,
   ErrorBlock,
 } from "../../components";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { makeStyles } from "@mui/styles";
 import { ANNOUNCEMENT } from "../../constant/data/Constant";
 
@@ -24,11 +22,11 @@ const useStyles = makeStyles(() => ({
     marginTop: "22px",
   },
   avatar: {
-    marginTop: "18px",
+    marginTop: "16px",
     marginLeft: "12px",
   },
   icon: {
-    marginTop: "16px",
+    marginTop: "20px",
   },
   gap: {
     marginBottom: "6px",
@@ -37,7 +35,7 @@ const useStyles = makeStyles(() => ({
     fontSize: "10px",
     color: "#818589",
     fontWeight: 600,
-    maxWidth: 160,
+    maxWidth: 140,
   },
   role: {
     fontSize: "9px",
@@ -54,6 +52,16 @@ const useStyles = makeStyles(() => ({
     marginTop: "14px",
     marginBottom: "3px",
   },
+  show: {
+        fontSize: "10px",
+        marginTop: "10px",
+        fontWeight: 550,
+        cursor: "pointer",
+        textDecoration: "none",
+        "&:hover": {
+          textDecoration: "underline",
+        },
+      }
 }));
 
 const AnnouncementCard = ({
@@ -64,6 +72,12 @@ const AnnouncementCard = ({
   isShowRole,
 }) => {
   const classes = useStyles();
+
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.between("sm", "md"));
+  const isLargeScreen = useMediaQuery((theme) => theme.breakpoints.between("md", "lg"));
+  const isExtraLargeScreen1440 = useMediaQuery("(min-width: 1440px) and (max-width: 2559px)");
+  const isExtraLargeScreen1024 = useMediaQuery("(min-width: 1024px) and (max-width: 1439px)");
 
   const limitContent = (content, limit) => {
     if (content.length > limit) {
@@ -142,8 +156,8 @@ const AnnouncementCard = ({
                         paddingBottom: "2px !important",
                       }}
                     >
-                      <Grid container spacing={2}>
-                        <Grid item xs={1} md={0.7} className={classes.avatar}>
+                      <Grid container spacing={1.5}>
+                        <Grid item xs={1} md={0.6} className={classes.avatar}>
                           <Avatar
                             alt="name"
                             sx={{
@@ -158,7 +172,7 @@ const AnnouncementCard = ({
                           </Avatar>{" "}
                         </Grid>
 
-                        <Grid item xs={3} md={2} className={classes.title}>
+                        <Grid item xs={3} md={1.9} className={classes.title}>
                           <div className={classes.title}>
                             <EllipsisText
                               variant="h4_1"
@@ -193,26 +207,27 @@ const AnnouncementCard = ({
                             </Typography>
                           </div>
                         </Grid>
-
                         <Grid item xs={6.5} md={8.5} className={classes.content} >
                           <SubTitle2
                             title={
                               expandedAnnouncements[index]
                                 ? announcement.content
-                                : limitContent(announcement.content, 120)
+                                : limitContent(announcement.content, 
+                                  isSmallScreen ? 50 : (isMediumScreen ? 60 : (isLargeScreen ? 105 : (isExtraLargeScreen1440 ? 140 : (isExtraLargeScreen1024 ? 120 : 270))))
+                                  )
                             }
                           />
                         </Grid>
 
-                        <Grid item xs={1} md={0.5} className={classes.icon}>
-                          {announcement.content.length > 120 && (
-                            <IconButton onClick={() => toggleShowMore(index)}>
+                        <Grid item xs={1} md={0.8} className={classes.icon}>
+                        {announcement.content.length > (isSmallScreen ? 50 : (isMediumScreen ? 60 : (isLargeScreen ? 105 : (isExtraLargeScreen1440 ? 140 : (isExtraLargeScreen1024 ? 120 : 270))))) && (
+                            <div onClick={() => toggleShowMore(index)}>
                               {expandedAnnouncements[index] ? (
-                                <ExpandLessIcon />
+                                <Typography className={classes.show}> show less </Typography>
                               ) : (
-                                <ExpandMoreIcon />
+                                <Typography className={classes.show}> show more </Typography>
                               )}
-                            </IconButton>
+                            </div>
                           )}
                         </Grid>
                       </Grid>
