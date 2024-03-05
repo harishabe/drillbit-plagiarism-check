@@ -61,7 +61,10 @@ const useStyles = makeStyles(() => ({
         "&:hover": {
           textDecoration: "underline",
         },
-      }
+    },
+  center:{
+    textAlign:'right'
+  }
 }));
 
 const AnnouncementCard = ({
@@ -157,7 +160,7 @@ const AnnouncementCard = ({
                       }}
                     >
                       <Grid container spacing={1.5}>
-                        <Grid item xs={1} md={0.6} className={classes.avatar}>
+                        <Grid item xs={1.2} md={0.6} className={classes.avatar}>
                           <Avatar
                             alt="name"
                             sx={{
@@ -172,7 +175,7 @@ const AnnouncementCard = ({
                           </Avatar>{" "}
                         </Grid>
 
-                        <Grid item xs={3} md={1.9} className={classes.title}>
+                        <Grid item xs={2.8} md={1.9} className={classes.title}>
                           <div className={classes.title}>
                             <EllipsisText
                               variant="h4_1"
@@ -207,7 +210,7 @@ const AnnouncementCard = ({
                             </Typography>
                           </div>
                         </Grid>
-                        <Grid item xs={6.5} md={8.5} className={classes.content} >
+                        <Grid item xs={7.5} md={9.3} className={classes.content} >
                           <SubTitle2
                             title={
                               expandedAnnouncements[index]
@@ -217,19 +220,19 @@ const AnnouncementCard = ({
                                   )
                             }
                           />
-                        </Grid>
-
-                        <Grid item xs={1} md={0.8} className={classes.icon}>
-                        {announcement.content.length > (isSmallScreen ? 50 : (isMediumScreen ? 60 : (isLargeScreen ? 105 : (isExtraLargeScreen1440 ? 140 : (isExtraLargeScreen1024 ? 120 : 270))))) && (
-                            <div onClick={() => toggleShowMore(index)}>
-                              {expandedAnnouncements[index] ? (
-                                <Typography className={classes.show}> show less </Typography>
-                              ) : (
-                                <Typography className={classes.show}> show more </Typography>
+                          <div className={classes.center}>
+                            {announcement.content.length > (isSmallScreen ? 50 : (isMediumScreen ? 60 : (isLargeScreen ? 105 : (isExtraLargeScreen1440 ? 140 : (isExtraLargeScreen1024 ? 120 : 270))))) && (
+                                <div onClick={() => toggleShowMore(index)}>
+                                  {expandedAnnouncements[index] ? (
+                                    <Typography className={classes.show}> show less </Typography>
+                                  ) : (
+                                    <Typography className={classes.show}> show more </Typography>
+                                  )}
+                                </div>
                               )}
-                            </div>
-                          )}
+                          </div>
                         </Grid>
+                     
                       </Grid>
                     </CardContent>
                   </Card>
