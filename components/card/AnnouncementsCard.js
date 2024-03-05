@@ -175,7 +175,7 @@ const AnnouncementCard = ({
                           </Avatar>{" "}
                         </Grid>
 
-                        <Grid item xs={2.8} md={1.9} className={classes.title}>
+                        <Grid item xs={2.8} md={2} className={classes.title}>
                           <div className={classes.title}>
                             <EllipsisText
                               variant="h4_1"
@@ -210,7 +210,7 @@ const AnnouncementCard = ({
                             </Typography>
                           </div>
                         </Grid>
-                        <Grid item xs={7.5} md={9.3} className={classes.content} >
+                        <Grid item xs={7.5} md={9.2} className={classes.content} >
                           <SubTitle2
                             title={
                               expandedAnnouncements[index]
