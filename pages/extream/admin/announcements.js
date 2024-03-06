@@ -53,7 +53,7 @@ const Announcements = ({
       }`,
     },
     {
-      label: `MyAnnouncements${
+      label: `My Announcements${
         activeTab === 1 && pageDetailsMyAnnouncements?.totalElements !== undefined && pageDetailsMyAnnouncements?.totalElements > 0
           ? "(" + pageDetailsMyAnnouncements?.totalElements + ")"
           : ""
