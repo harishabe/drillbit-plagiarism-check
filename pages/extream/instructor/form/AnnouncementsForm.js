@@ -120,7 +120,14 @@ const AnnouncementsForm = ({
             return formItem;
         });
         setFormJsonField(formList);
-
+    } else {
+      let formList = FormJson?.map((formItem) => {
+        if (formItem.name === 'class_id') { 
+            formItem['options'] = [];
+        }
+        return formItem;
+    });
+      setFormJsonField(formList);
     }
 }, [dropdownClasses]);
 
