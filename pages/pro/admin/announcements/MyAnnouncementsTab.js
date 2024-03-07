@@ -27,8 +27,13 @@ const SearchField = styled.div`
   position: absolute;
   top: 125px;
   right: 16px;
-  @media (max-width: 900px) {
-    top: 85px;
+  @media (max-width: 768px) {
+    top: 125px;
+    left: 525px;
+  }
+  @media (max-width: 600px) {
+    top: 115px;
+    left: 400px;
   }
 `;
 
@@ -92,7 +97,7 @@ const MyAnnouncementsTab = ({
     <React.Fragment>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
-          <SearchField>
+          <SearchField >
             <TextField
               sx={{ width: 222 }}
               placeholder="Search by Announcement title"

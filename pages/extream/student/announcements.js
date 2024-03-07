@@ -16,7 +16,7 @@ import { GetAnnouncementsData } from "../../../redux/action/common/Announcements
 import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
 import END_POINTS from "../../../utils/EndPoints";
 import Student from "../../../layouts/Student";
-import styled from "styled-components";
+import { makeStyles } from "@mui/styles";
 import debouce from "lodash.debounce";
 import AnnouncementCard from "../../../components/card/AnnouncementsCard";
 
@@ -33,14 +33,12 @@ const UserBreadCrumb = [
   },
 ];
 
-const SearchField = styled.div`
-  position: absolute;
-  top: 110px;
-  right: 16px;
-  @media (max-width: 900px) {
-    top: 85px;
+const useStyles = makeStyles(() => ({
+  view: {
+      textAlign: 'right',
+      marginBottom: '7px'
   }
-`;
+}));
 
 const Announcements = ({
   GetAnnouncementsData,
@@ -48,6 +46,9 @@ const Announcements = ({
   pageDetails,
   isLoadingGet,
 }) => {
+
+  const classes = useStyles();
+
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue,
     field: "ann_id",
@@ -112,7 +113,7 @@ const Announcements = ({
             })`}
           />
         </Grid>
-        <SearchField>
+        <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
           <TextField
             sx={{ width: 222 }}
             placeholder="Search by Announcement title"
@@ -125,7 +126,7 @@ const Announcements = ({
               },
             }}
           />
-        </SearchField>
+        </Grid>
       </Grid>
 
       <>
