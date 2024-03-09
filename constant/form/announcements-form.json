@@ -1,7 +1,7 @@
 [
   {
     "field_type": "input",
-    "type": "text",
+    "type": "text",  
     "id": "title",
     "name": "title",
     "label": "Enter Title*",
@@ -13,7 +13,16 @@
     "id": "content",
     "name": "content",
     "label": "Enter  announcement *",
-    "required": "Enter  announcement"
+    "rules":{
+      "maxLength":{
+        "value":2000,
+        "message": "Exceeded maximum length of 2000 characters"
+      },
+      "required": {
+        "value": true,
+        "message": "Enter content of announcement"
+      }
+    }
   },
   {
     "field_type": "button",

@@ -9,21 +9,16 @@ import {
 import {
   BreadCrumb,
   Heading,
-  CardView,
-  WarningDialog,
-  ErrorBlock,
 } from "../../../components";
 import { PaginationContainer } from "../../../style";
 import { PaginationValue } from "../../../utils/PaginationUrl";
-import { DeleteWarningIcon } from "../../../assets/icon";
-import { WARNING_MESSAGES } from "../../../constant/data/Constant";
 import { GetAnnouncementsData } from "../../../redux/action/common/Announcements/AnnouncementsAction";
-import { BASE_URL_EXTREM } from "../../../utils/BaseUrl";
-import END_POINTS from "../../../utils/EndPoints";
-import styled from "styled-components";
+import {  BASE_URL_PRO } from "../../../utils/BaseUrl";
+import { makeStyles } from "@mui/styles";
 import debouce from "lodash.debounce";
 import ProUser from "../../../layouts/ProUser";
 import AnnouncementCard from "../../../components/card/AnnouncementsCard";
+import END_POINTS_PRO from "../../../utils/EndPointPro";
 
 const UserBreadCrumb = [
   {
@@ -38,14 +33,12 @@ const UserBreadCrumb = [
   },
 ];
 
-const SearchField = styled.div`
-  position: absolute;
-  top: 110px;
-  right: 16px;
-  @media (max-width: 900px) {
-    top: 85px;
+const useStyles = makeStyles(() => ({
+  view: {
+      textAlign: 'right',
+      marginBottom: '7px'
   }
-`;
+}));
 
 
 const Announcements = ({
@@ -54,22 +47,14 @@ const Announcements = ({
   pageDetails,
   isLoadingGet,
 }) => {
+
+  const classes = useStyles();
+
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue,
     field: "ann_id",
   });
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
-  React.useEffect(() => {
-    const url = BASE_URL_EXTREM + END_POINTS.GET_STUDENT_ANNOUNCEMENTS;
-    GetAnnouncementsData(url, paginationPayload);
-  }, [GetAnnouncementsData, paginationPayload]);
-
-  const handlePagination = (event, value) => {
-    event.preventDefault();
-    setPaginationPayload({ ...paginationPayload, page: value - 1 });
-  };
 
   const toggleShowMore = (index) => {
     setExpandedAnnouncements((prevExpanded) => {
@@ -79,16 +64,15 @@ const Announcements = ({
     });
   };
 
-  const handleYesWarning = () => {
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
-  };
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-  const deleteAnnouncement = () => {
-    setShowDeleteWarning(true);
+  React.useEffect(() => {
+    const url = BASE_URL_PRO + END_POINTS_PRO.GET_USER_ANNOUNCEMENTS;
+    GetAnnouncementsData(url, paginationPayload);
+    setExpandedAnnouncements([]);
+  }, [, paginationPayload]);
+
+  const handlePagination = (event, value) => {
+    event.preventDefault();
+    setPaginationPayload({ ...paginationPayload, page: value - 1 });
   };
 
   const handleSearchAnnouncement = useCallback((event) => {
@@ -113,15 +97,6 @@ const Announcements = ({
 
   return (
     <React.Fragment>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message={WARNING_MESSAGES.DELETE}
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <Grid item md={10} xs={10}>
@@ -139,7 +114,7 @@ const Announcements = ({
             })`}
           />
         </Grid>
-        <SearchField>
+        <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
           <TextField
             sx={{ width: 222 }}
             placeholder="Search by Announcement title"
@@ -152,24 +127,17 @@ const Announcements = ({
               },
             }}
           />
-        </SearchField>
+        </Grid>
       </Grid>
 
       <>
-        {announcementsData?.length > 0 ? (
             <AnnouncementCard
-              announcement={announcementsData}
+              announcement={announcementsData}             
               expandedAnnouncements={expandedAnnouncements}
               toggleShowMore={toggleShowMore}
-              deleteAnnouncement={deleteAnnouncement}
               isLoading={isLoadingGet}
               isShowRole={true}
             />
-        ) : (
-          <CardView>
-            <ErrorBlock message="No data found" />
-          </CardView>
-        )}
       </>
       <PaginationContainer>
         <Pagination

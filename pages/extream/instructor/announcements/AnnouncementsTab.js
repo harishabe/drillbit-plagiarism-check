@@ -8,21 +8,14 @@ import {
   TextField,
 } from "@mui/material";
 import {
-  CardView,
-  ErrorBlock,
-  WarningDialog,
-} from "../../../../components";
-import {
   PaginationContainer,
 } from "../../../../style";
 import { setItemSessionStorage } from "../../../../utils/RegExp";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
-import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import Instructor from "../../../../layouts/Instructor";
 import { GetAnnouncementsData } from "../../../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL_EXTREM } from "../../../../utils/BaseUrl";
 import END_POINTS from "../../../../utils/EndPoints";
-import { DeleteWarningIcon } from "../../../../assets/icon";
 import styled from "styled-components";
 import debouce from "lodash.debounce";
 import AnnouncementCard from "../../../../components/card/AnnouncementsCard";
@@ -37,8 +30,13 @@ const SearchField = styled.div`
   position: absolute;
   top: 125px;
   right: 16px;
-  @media (max-width: 900px) {
-    top: 85px;
+  @media (max-width: 768px) {
+    top: 125px;
+    left: 525px;
+  }
+  @media (max-width: 600px) {
+    top: 115px;
+    left: 400px;
   }
 `;
 
@@ -54,19 +52,8 @@ const AnnouncementsTab = ({
     field: "ann_id",
   });
   const classes = useStyles();
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
-  React.useEffect(() => {
-    const url = BASE_URL_EXTREM + END_POINTS.GET_INSTRUCTOR_ANNOUNCEMENTS;
-    GetAnnouncementsData(url, paginationPayload);
-    setItemSessionStorage("tab", activeTab);
-  }, [GetAnnouncementsData,activeTab, paginationPayload]);
-
-  const handlePagination = (event, value) => {
-    event.preventDefault();
-    setPaginationPayload({ ...paginationPayload, page: value - 1 });
-  };
 
   const toggleShowMore = (index) => {
     setExpandedAnnouncements((prevExpanded) => {
@@ -76,16 +63,17 @@ const AnnouncementsTab = ({
     });
   };
 
-  const handleYesWarning = () => {
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
-  };
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-  const deleteAnnouncement = () => {
-    setShowDeleteWarning(true);
+
+  React.useEffect(() => {
+    const url = BASE_URL_EXTREM + END_POINTS.GET_INSTRUCTOR_ANNOUNCEMENTS;
+    GetAnnouncementsData(url, paginationPayload);
+    setItemSessionStorage("tab", activeTab);
+    setExpandedAnnouncements([]);
+  }, [GetAnnouncementsData,activeTab, paginationPayload]);
+
+  const handlePagination = (event, value) => {
+    event.preventDefault();
+    setPaginationPayload({ ...paginationPayload, page: value - 1 });
   };
 
   const handleSearchAnnouncement = useCallback((event) => {
@@ -110,16 +98,6 @@ const AnnouncementsTab = ({
 
   return (
     <React.Fragment>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message={WARNING_MESSAGES.DELETE}
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
-      
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <SearchField>
@@ -140,20 +118,13 @@ const AnnouncementsTab = ({
       </Box>
       <>
       <div className={classes.tab}>
-        {announcementsData?.length > 0 ? (
             <AnnouncementCard
               announcement={announcementsData}
               expandedAnnouncements={expandedAnnouncements}
               toggleShowMore={toggleShowMore}
-              deleteAnnouncement={deleteAnnouncement}
               isLoading={isLoadingGet}
               isShowRole={true}
             />
-        ) : (
-          <CardView>
-            <ErrorBlock message="No data found" />
-          </CardView>
-        )}
         </div>
       </>
       <PaginationContainer>

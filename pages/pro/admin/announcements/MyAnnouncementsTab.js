@@ -5,19 +5,12 @@ import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import { Pagination, TextField } from "@mui/material";
 import {
-  CardView,
-  ErrorBlock,
-  WarningDialog,
-} from "../../../../components";
-import {
   PaginationContainer,
 } from "../../../../style";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
 import { setItemSessionStorage } from "../../../../utils/RegExp";
-import { WARNING_MESSAGES } from "../../../../constant/data/Constant";
 import { GetMyAnnouncementsData } from "../../../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL_PRO } from "../../../../utils/BaseUrl";
-import { DeleteWarningIcon } from "../../../../assets/icon";
 import styled from "styled-components";
 import debouce from "lodash.debounce";
 import ProAdmin from "../../../../layouts/ProAdmin";
@@ -34,8 +27,13 @@ const SearchField = styled.div`
   position: absolute;
   top: 125px;
   right: 16px;
-  @media (max-width: 900px) {
-    top: 85px;
+  @media (max-width: 768px) {
+    top: 125px;
+    left: 525px;
+  }
+  @media (max-width: 600px) {
+    top: 115px;
+    left: 400px;
   }
 `;
 
@@ -51,19 +49,8 @@ const MyAnnouncementsTab = ({
     field: "ann_id",
   });
   const classes = useStyles();
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
-  React.useEffect(() => {
-    const url = BASE_URL_PRO + END_POINTS_PRO.GET_ADMIN_MY_ANNOUNCEMENTS;
-    GetMyAnnouncementsData(url, paginationPayload);
-    setItemSessionStorage("tab", activeTab);
-  }, [GetMyAnnouncementsData,activeTab, paginationPayload]);
-
-  const handlePagination = (event, value) => {
-    event.preventDefault();
-    setPaginationPayload({ ...paginationPayload, page: value - 1 });
-  };
 
   const toggleShowMore = (index) => {
     setExpandedAnnouncements((prevExpanded) => {
@@ -73,16 +60,16 @@ const MyAnnouncementsTab = ({
     });
   };
 
-  const handleYesWarning = () => {
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
-  };
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-  const deleteAnnouncement = () => {
-    setShowDeleteWarning(true);
+  React.useEffect(() => {
+    const url = BASE_URL_PRO + END_POINTS_PRO.GET_ADMIN_MY_ANNOUNCEMENTS;
+    GetMyAnnouncementsData(url, paginationPayload);
+    setItemSessionStorage("tab", activeTab);
+    setExpandedAnnouncements([]);
+  }, [GetMyAnnouncementsData,activeTab, paginationPayload]);
+
+  const handlePagination = (event, value) => {
+    event.preventDefault();
+    setPaginationPayload({ ...paginationPayload, page: value - 1 });
   };
 
   const handleSearchAnnouncement = useCallback((event) => {
@@ -108,19 +95,9 @@ const MyAnnouncementsTab = ({
 
   return (
     <React.Fragment>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message={WARNING_MESSAGES.DELETE}
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
-
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
-          <SearchField>
+          <SearchField >
             <TextField
               sx={{ width: 222 }}
               placeholder="Search by Announcement title"
@@ -139,20 +116,13 @@ const MyAnnouncementsTab = ({
 
       <>
       <div className={classes.tab}>
-        {myAnnouncementsData?.length > 0 ? (
               <AnnouncementCard
-                announcement={myAnnouncementsData}
                 expandedAnnouncements={expandedAnnouncements}
                 toggleShowMore={toggleShowMore}
-                deleteAnnouncement={deleteAnnouncement}
+                announcement={myAnnouncementsData}
                 isLoading={isLoadingMyAnnouncements}
                 isShowRole={false}
               />
-          ) : (
-            <CardView>
-              <ErrorBlock message="No data found" />
-            </CardView>
-        )}
         </div>
       </>
 

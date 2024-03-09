@@ -15,7 +15,7 @@ export const platform = typeof window !== "undefined" && window.navigator.platfo
 
 export const findByExpiryDate = (date) => {
     let presentDate = new Date();
-    let expiryDate = new Date(date.replace(" ", "T"));
+    let expiryDate = new Date(date?.replace(" ", "T"));
     let differenceInTime = expiryDate.getTime() - presentDate.getTime();
     return `${Math.round(differenceInTime / (1000 * 3600 * 24))}`;
 };

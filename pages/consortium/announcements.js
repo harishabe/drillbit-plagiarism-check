@@ -9,20 +9,14 @@ import {
 import {
   BreadCrumb,
   Heading,
-  CardView,
-  WarningDialog,
-  ErrorBlock,
   CreateDrawer,
 } from "../../components";
 import { AddButtonBottom, PaginationContainer } from "../../style";
 import { PaginationValue } from "../../utils/PaginationUrl";
-import { getItemSessionStorage } from "../../utils/RegExp";
-import { DeleteWarningIcon } from "../../assets/icon";
-import { WARNING_MESSAGES } from "../../constant/data/Constant";
 import { GetMyAnnouncementsData } from "../../redux/action/common/Announcements/AnnouncementsAction";
 import { BASE_URL } from "../../utils/BaseUrl";
 import END_POINTS from "../../utils/EndPoints";
-import styled from "styled-components";
+import { makeStyles } from "@mui/styles";
 import debouce from "lodash.debounce";
 import AnnouncementCard from "../../components/card/AnnouncementsCard";
 import AnnouncementsForm from "./form/AnnouncementsForm";
@@ -41,14 +35,12 @@ const UserBreadCrumb = [
   },
 ];
 
-const SearchField = styled.div`
-  position: absolute;
-  top: 110px;
-  right: 16px;
-  @media (max-width: 900px) {
-    top: 85px;
+const useStyles = makeStyles(() => ({
+  view: {
+      textAlign: 'right',
+      marginBottom: '7px'
   }
-`;
+}));
 
 const Announcements = ({
   GetMyAnnouncementsData,
@@ -56,30 +48,15 @@ const Announcements = ({
   pageDetails,
   isLoadingMyAnnouncements,
 }) => {
+
+  const classes = useStyles();
+
   const [paginationPayload, setPaginationPayload] = useState({
     ...PaginationValue,
     field: "ann_id",
   });
-  const [name, setName] = useState("");
   const [search, setSearch] = useState(false);
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
-  const [showDeleteAllIcon, setShowDeleteAllIcon] = useState(false);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState([]);
-
-  React.useEffect(() => {
-    let userName = getItemSessionStorage("name");
-    setName(userName);
-  }, []);
-
-  React.useEffect(() => {
-    const url = BASE_URL + END_POINTS.GET_CONSORTIUM_MY_ANNOUNCEMENTS;
-    GetMyAnnouncementsData(url, paginationPayload);
-  }, [, paginationPayload]);
-
-  const handlePagination = (event, value) => {
-    event.preventDefault();
-    setPaginationPayload({ ...paginationPayload, page: value - 1 });
-  };
 
   const toggleShowMore = (index) => {
     setExpandedAnnouncements((prevExpanded) => {
@@ -89,17 +66,15 @@ const Announcements = ({
     });
   };
 
-  const handleYesWarning = () => {
-    setShowDeleteAllIcon(false);
-    setTimeout(() => {
-      setShowDeleteWarning(false);
-    }, [100]);
-  };
-  const handleCloseWarning = () => {
-    setShowDeleteWarning(false);
-  };
-  const deleteAnnouncement = () => {
-    setShowDeleteWarning(true);
+  React.useEffect(() => {
+    const url = BASE_URL + END_POINTS.GET_CONSORTIUM_MY_ANNOUNCEMENTS;
+    GetMyAnnouncementsData(url, paginationPayload);
+    setExpandedAnnouncements([]);
+  }, [, paginationPayload]);
+
+  const handlePagination = (event, value) => {
+    event.preventDefault();
+    setPaginationPayload({ ...paginationPayload, page: value - 1 });
   };
 
   const handleSearchAnnouncement = (event) => {
@@ -126,15 +101,6 @@ const Announcements = ({
 
   return (
     <React.Fragment>
-      {showDeleteWarning && (
-        <WarningDialog
-          warningIcon={<DeleteWarningIcon />}
-          message={WARNING_MESSAGES.DELETE}
-          handleYes={handleYesWarning}
-          handleNo={handleCloseWarning}
-          isOpen={true}
-        />
-      )}
        <AddButtonBottom>
         <CreateDrawer title="Add Announcements" isShowAddIcon={true}>
           <AnnouncementsForm />
@@ -157,7 +123,7 @@ const Announcements = ({
             })`}
           />
         </Grid>
-        <SearchField>
+        <Grid item md={ 7 } xs={ 7 } className={ classes.view }>
           <TextField
             sx={{ width: 222 }}
             placeholder="Search by Announcement title"
@@ -170,24 +136,17 @@ const Announcements = ({
               },
             }}
           />
-        </SearchField>
+        </Grid>
       </Grid>
 
       <>
-        {myAnnouncementsData?.length > 0 ? (
           <AnnouncementCard
           announcement={myAnnouncementsData}
           expandedAnnouncements={expandedAnnouncements}
           toggleShowMore={toggleShowMore}
-          deleteAnnouncement={deleteAnnouncement}
           isLoading={isLoadingMyAnnouncements}
           isShowRole={false}
         />
-        ) : (
-          <CardView>
-            <ErrorBlock message="No data found" />
-          </CardView>
-        )}
       </>
       <PaginationContainer>
         <Pagination

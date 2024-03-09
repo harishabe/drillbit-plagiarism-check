@@ -13,7 +13,7 @@
     "id": "content",
     "name": "content",
     "label": "Enter  announcement *",
-    "required": "Enter  content of announcement",
+    "required": "Enter content of announcement",
     "rules":{
       "maxLength":{
         "value":2000,
@@ -26,26 +26,17 @@
     }
   },
   {
-    "field_type": "checkbox",
-    "id": "content",
-    "name": "role",
-    "label": "Select",
-    "required": true,
-    "validationMsg":"Please choose atleast one role",
+    "field_type": "dropdown",
+    "id": "class_id",
+    "name": "class_id",
+    "label": "Select the class *",
+    "required": "Select the class",
+    "validationMsg": "Invalid Class Name",
     "options": [
       {
-        "label": "Instructor",
-        "name": "instructor",
-        "value": false
-      },
-      {
-        "label": "Student",
-        "name": "student",
-        "value": false
-      }
+    }
     ]
-  },
-
+},
   {
     "field_type": "button",
     "type": "submit",

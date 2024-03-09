@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 import BeatLoader from 'react-spinners/BeatLoader';
 import propTypes from 'prop-types';
-import { Grid, Button, Skeleton } from '@mui/material';
+import { Grid, Button, Skeleton, InputLabel, TextField } from '@mui/material';
 import { EllipsisText } from '../../components';
 import {
     UPLOAD_FILE_AUTHOR_NAME,
@@ -16,7 +16,7 @@ import {
 import {
     LanguageList
 } from '../../redux/action/common/UploadFile/UploadFileAction';
-import InputAutoComplete from '../form/elements/InputAutoComplete'
+import InputAutoComplete from '../form/elements/InputAutoComplete';
 import InputTextField from '../form/elements/InputTextField';
 
 export const LabelContainer = styled.div`
@@ -50,14 +50,14 @@ const ZipFileForm = ({
     isNonEnglish
 }) => {
     const classes = useStyles();
-    const { control, setValue, handleSubmit } = useForm();
+    const { control, register, setValue, handleSubmit, formState: { errors }, } = useForm();
     const onSubmit = (data) => {
         let reqPayload = {};
         Object.entries(data).map((key) => {
             if (typeof (key[1]) === 'object') {
                 reqPayload[key[0]] = key[1].name;
             } else {
-                reqPayload[key[0]] = key[1]
+                reqPayload[key[0]] = key[1];
             }
         });
         handleSubmitFile(reqPayload);
@@ -84,6 +84,7 @@ const ZipFileForm = ({
             <form onSubmit={handleSubmit(onSubmit)}>
                 {files && files?.map((item, index) => {
                     return (
+                        <>
                         <Grid container spacing={1} key={item[1]?.name || item.name}>
                             <Grid item md={ isNonEnglish ? 2.4 : 3 } xs={ 12 }>
                                 <div style={{ marginTop: '25px' }}>
@@ -97,7 +98,7 @@ const ZipFileForm = ({
                                         'field_type': 'input',
                                         'style': { marginTop: '0px' },
                                         'id': 'authorName' + index,
-                                        'label': 'Author name',
+                                        'label': 'Author name *',
                                         'name': 'authorName' + index,
                                         'required': UPLOAD_FILE_AUTHOR_NAME,
                                         'size': 'small'
@@ -111,7 +112,7 @@ const ZipFileForm = ({
                                         'field_type': 'input',
                                         'style': { marginTop: '0px' },
                                         'id': 'title' + index,
-                                        'label': 'Title',
+                                        'label': 'Title *',
                                         'name': 'title' + index,
                                         'required': UPLOAD_FILE_AUTHOR_TITLE,
                                         'size': 'small'
@@ -130,7 +131,7 @@ const ZipFileForm = ({
                                                 'field_type': 'dropdown',
                                                 'style': { marginTop: '10px' },
                                                 'id': 'documentType' + index,
-                                                'label': 'File type',
+                                                'label': 'File type *',
                                                 'name': 'documentType' + index,
                                                 'required': UPLOAD_FILE_TYPE,
                                                 'size': 'small',
@@ -166,6 +167,82 @@ const ZipFileForm = ({
                                         </> }
                                 </Grid> }
                         </Grid>
+                        <Grid container spacing={1}>
+                        <Grid
+                            item
+                            md={3}
+                            xs={12}
+                        ></Grid>
+                        <Grid item md={3} xs={12}>
+                        <LabelContainer>
+                            <InputLabel>Guide Email</InputLabel>
+                        </LabelContainer>
+                            <TextField
+                                sx={{ marginTop: "0px" }}
+                                fullWidth
+                                margin="normal"
+                                name={"guide_email" + index}
+                                type="email"
+                                {...register("guide_email" + index, {
+                                    required: false,
+                                    pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{1,}$/i,
+                                    message: "Invalid email address",
+                                    },
+                                    validate: (value) => {
+                                    if (value && value.length > 250) {
+                                        return "Maximum length exceeded";
+                                    }
+                                    return true;
+                                    },
+                                })}
+                                helperText={
+                                    errors["guide_email" + index]
+                                    ? errors["guide_email" + index].message
+                                    : ""
+                                }
+                                error={Boolean(errors["guide_email" + index])}
+                                variant="outlined"
+                                size="small"
+                                inputProps={{
+                                    maxLength: 250,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item md={3} xs={12}>
+                            <LabelContainer>
+                                <InputLabel>Guide Name</InputLabel>
+                            </LabelContainer>
+                            <TextField
+                                sx={{ marginTop: "0px" }}
+                                fullWidth
+                                margin="normal"
+                                name={"guide_name" + index}
+                                type="text"
+                                {...register("guide_name" + index, {
+                                    required: false,
+                                    validate: (value) => {
+                                    if (value && value.length > 500) {
+                                        return "Maximum length exceeded";
+                                    }
+                                    return true;
+                                    },
+                                })}
+                                helperText={
+                                    errors["guide_name" + index]
+                                    ? errors["guide_name" + index].message
+                                    : ""
+                                }
+                                error={Boolean(errors["guide_name" + index])}
+                                variant="outlined"
+                                size="small"
+                                inputProps={{
+                                    maxLength: 500,
+                                }}
+                            />
+                        </Grid>
+                        </Grid>
+                        </>
                     );
                 })}
                 <div className={classes.btn}>

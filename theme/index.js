@@ -81,6 +81,13 @@ const drillBitTheme = {
           fontWeight: "500",
         },
       },
+    },
+    MuiFormHelperText:{
+      styleOverrides: {
+        root: {
+          marginLeft: "0px",
+        },
+      },
     }
   },
 };

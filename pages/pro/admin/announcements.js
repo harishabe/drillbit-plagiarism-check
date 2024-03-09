@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -46,21 +46,26 @@ const Announcements = ({
 
   const tabMenu = [
     {
-      label: ` Announcements(${
-        pageDetailsAnnouncements?.totalElements !== undefined
-          ? pageDetailsAnnouncements?.totalElements
-          : 0
-      })`,
+      label: `Announcements${
+        activeTab === 0 && pageDetailsAnnouncements?.totalElements !== undefined
+          ? "(" + pageDetailsAnnouncements?.totalElements + ")"
+          : ""
+      }`,
     },
     {
-      label: `MyAnnouncements${
-        pageDetailsMyAnnouncements?.totalElements !== undefined &&
-        pageDetailsMyAnnouncements?.totalElements > 0
+      label: `My Announcements${
+        activeTab === 1 && pageDetailsMyAnnouncements?.totalElements !== undefined && pageDetailsMyAnnouncements?.totalElements > 0
           ? "(" + pageDetailsMyAnnouncements?.totalElements + ")"
           : ""
       }`,
     },
   ];
+
+  useEffect(() => {
+    return () => {
+      setActiveTab(0);
+    };
+  }, []);
 
   return (
     <React.Fragment>
