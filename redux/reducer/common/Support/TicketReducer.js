@@ -91,6 +91,23 @@ const TicketReducer = (state = {}, action) => {
                 isLoadingRemove: false,
                 removeError: action.payload,
             };
+            case types.FETCH_CLOSE_TICKET_DETAILS_START:
+            return {
+                ...state,
+                isLoadingClose: true,
+            };
+        case types.FETCH_CLOSE_TICKET_DETAILS_SUCCESS:
+            return {
+                ...state,
+                isLoadingClose: false,
+                closeTicketData: action.payload,
+            };
+        case types.FETCH_CLOSE_TICKET_DETAILS_FAIL:
+            return {
+                ...state,
+                isLoadingClose: false,
+                closeTicketDataError: action.payload,
+            };
     default:
       return state;
   }

@@ -54,9 +54,9 @@ const columns = [
   { id: "createdDate", label: "Created date",maxWidth:150 },
   { id: "description", label: "Description", maxWidth: 150 },
   { id: "priority", label: "Priority" , maxWidth:90},
-  { id: "issueCategory", label: "Issue category", maxWidth: 10 },
+  { id: "issueCategory", label: "Issue category", maxWidth: 140 },
   { id: "status", label: "Status", maxWidth:90 },
-  { id: "action", label: "Actions", maxWidth:140 },
+  { id: "action", label: "Actions", maxWidth:100 },
 ];
 
 function createData(ticketId, subject, createdDate, description,  priority, issueCategory, status, action) {
@@ -147,6 +147,8 @@ const CreateTicket = ({
     event.preventDefault();
     setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
 };
+
+    /** search implementation using debounce concepts */
 
   const handleSearch = (event) => {
     if (event.target.value !== "") {

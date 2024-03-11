@@ -1,4 +1,4 @@
-import { PostFormData,GetMethod, DeleteMethod } from "../../ApiMethod";
+import { PostFormData,GetMethod, DeleteMethod, PutMethod } from "../../ApiMethod";
 import { PaginationUrl } from "../../../../utils/PaginationUrl";
 import { BASE_URL_SUPER } from "../../../../utils/BaseUrl";
 import END_POINTS from "../../../../utils/EndPoints";
@@ -42,4 +42,11 @@ export const GetTicketIdDetail = async ( url) => {
 export const DeleteTicketData = async (ticketID) => {
   const url = BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS + ticketID;
   return DeleteMethod(url);
+};
+
+/**
+ * API CLOSE  TICKET
+*/
+export const CloseTicketDetail = async (url, data) => {
+  return PutMethod(url, data);
 };

@@ -8,22 +8,22 @@
     "validationMsg": "Select issue category",
     "options": [
       {
-        "name": "Technical_issue"
+        "name": "Technical"
       },
       {
-        "name": "Billing_inquiry"
+        "name": "Billing"
       },
       {
-        "name": "Account_cases"
+        "name": "Account"
       },
       {
-        "name": "General_inquiry"
+        "name": "General"
       },
       {
-        "name": "Feature_request"
+        "name": "Feature"
       },
       {
-        "name": "Product_feedback"
+        "name": "Product"
       }
     ]
   },

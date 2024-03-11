@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { ANNOUNCEMENT } from "../../constant/data/Constant";
+import { GetApp } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
 const TicketChat = ({
    message,
@@ -9,6 +11,17 @@ const TicketChat = ({
  }) => {
   
   const createDate = new Date(message.createdDate);
+  const [attachments, setAttachments] = useState([]);
+
+  useEffect(() => {
+    if (message.attachments) {
+      if (Array.isArray(message.attachments)) {
+        setAttachments(message.attachments);
+      } else {
+        setAttachments([message.attachments]);
+      }
+    }
+  }, [message.attachments]);
 
   const formattedDate = createDate?.toLocaleString("en-US", {
     hour: "numeric",
@@ -87,7 +100,13 @@ const TicketChat = ({
                   },
             }}
           >
-            {message.message}
+           {message.message}
+           {attachments?.map((attachment, index) => (
+            <span key={index}>
+              {" "}
+            <a href={attachment} target="_blank" rel="noopener noreferrer"  style={{textDecoration: 'underline', fontSize: '0.8em'}}>{attachment}</a>
+            </span>
+            ))}
             <Box
         sx={{
           color: 
@@ -107,6 +126,7 @@ const TicketChat = ({
         </Box>
           </Box>
         </Box>
+        
         <Box
           sx={{
             color: 
@@ -125,6 +145,30 @@ const TicketChat = ({
         >
           {isShowRole &&  ANNOUNCEMENT[message.role] }
         </Box>
+        <Box
+        sx={{
+          color: 
+            (isSuperAdminPage && (isLimAdminRole || isLimInstructorRole || isStudentRole || isInstructorRole || isAdminRole )) ||
+            (!isSuperAdminPage && (isDrillbitRole))
+              ? "#818589" 
+              : "#cccccc", 
+          fontSize: "8px", 
+          marginLeft:
+            (isSuperAdminPage && (isLimAdminRole || isLimInstructorRole || isStudentRole || isInstructorRole || isAdminRole )) ||
+            (!isSuperAdminPage && (isDrillbitRole))
+              ? "0"
+              : "auto",
+              
+        }}>
+ {attachments?.map((attachment, index) => (
+  <span key={index} style={{ display: 'inline-block', textAlign: 'center' }}>
+    <div >
+      <IconButton href={attachment} download target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#333', display: 'block', fontSize: '1.2em' }}>
+        <GetApp style={{ fontSize: '2em', marginBottom: '10px' }} />
+      </IconButton>
+    </div>
+  </span>
+))}        </Box>
       </Box>
     </Grid>
   );

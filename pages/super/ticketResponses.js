@@ -11,7 +11,8 @@ import END_POINTS from "../../utils/EndPoints";
 import {
   CreateTicketResponse,
   GetTicketData,
-  GetTicketIdData
+  GetTicketIdData,
+  CloseTicket
 } from "../../redux/action/common/Support/TicketAction";
 import { makeStyles } from "@mui/styles";
 import { PaginationValue } from "../../utils/PaginationUrl";
@@ -25,7 +26,7 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import styled from 'styled-components';
 import TicketChat from "../../components/ticket/TicketChat";
 import SuperAdmin from "../../layouts/SuperAdmin";
-import { InputAdornment, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 
 const InstructorBreadCrumb = [
   {
@@ -63,7 +64,7 @@ const LoaderContainer = styled.div`
     top:3px;
 `;
 
-const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, CreateTicketResponse, isLoadingResponse, GetTicketIdData }) => {
+const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, CreateTicketResponse, isLoadingResponse, GetTicketIdData, CloseTicket }) => {
   const router = useRouter();
   const classes = useStyles();
   const [paginationPayload, setPaginationPayload] = useState({
@@ -149,6 +150,16 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
     setFileSelected(false);
   };
 
+  const closeTicket = () => {
+    if (router.isReady ) {
+      const url = BASE_URL_SUPER + END_POINTS.ADMIN_TICKET_DETAILS + "/" + router.query.ticketId + "/status";
+      const updatedData = {
+        Status: 'Close'
+      };
+      CloseTicket(url, updatedData);
+    }
+  };
+
   let prevMessageDate = null;
 
   const formatDate = (messageDate) => {
@@ -179,15 +190,23 @@ const TicketResponses = ({ myTicketsData, myTicketsIdData, GetTicketData, Create
           </Grid>
         </Box>
         <Grid container spacing={2} >
-        <Grid item md={5} xs={5}>
-        <Heading title={`${myTicketsIdData?.subject}`} />
+        <Grid item md={9} xs={9}>
+        <EllipsisText 
+        variant="h2"
+        value={`${myTicketsIdData?.subject}`}
+         />
+        </Grid>
+        <Grid item md={3} xs={3}>
+        <Button onClick={closeTicket} variant="contained" color="primary" style={{ padding: "5px", fontSize: "0.7rem", marginLeft: "140px", marginBottom:"8px" }}>
+      Close ticket
+    </Button>
         </Grid>
       </Grid>
         <Grid container spacing={2} >
         <Grid item md={10} xs={10}>
         <CardView>
           <Box>
-            <Grid container spacing={2} className={classes.customScrollbar} style={{ height: "calc(100vh - 265px)", overflow: "auto" }} ref={chatBoxRef}>
+            <Grid container spacing={2} className={classes.customScrollbar} style={{ height: "calc(96vh - 245px)", overflow: "auto" }} ref={chatBoxRef}>
             {myTicketsData
               .slice()
               .reverse()
@@ -353,6 +372,7 @@ const mapDispatchToProps = (dispatch) => {
     GetTicketData: (url, paginationPayload) => dispatch(GetTicketData(url, paginationPayload)),
     GetTicketIdData: (url) => dispatch(GetTicketIdData(url)),
     CreateTicketResponse: (url, data) => dispatch(CreateTicketResponse(url, data)),
+    CloseTicket: (url, data) => dispatch(CloseTicket(url, data)),
   };
 };
 

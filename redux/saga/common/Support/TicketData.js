@@ -11,6 +11,7 @@ import * as types from "../../../action/CommonActionType";
 import { PaginationValue } from "../../../../utils/PaginationUrl";
 import END_POINTS from "../../../../utils/EndPoints";
 import { BASE_URL_SUPER } from "../../../../utils/BaseUrl";
+import { CloseTicket } from "../../../action/common/Support/TicketAction";
 
 /**
  * Create Ticket
@@ -146,3 +147,30 @@ export function* onLoadDeleteTicket(action) {
 export function* DeleteTicketDetails() {
   yield takeLatest(types.FETCH_DELETE_TICKET_DETAILS_START, onLoadDeleteTicket);
 }
+
+/**
+ * Close ticket data 
+ * @param {*} action
+ */
+
+export function* onLoadCloseTicket(action) {
+  const { response, error } = yield call(CloseTicket, action.url, action.data);
+  if (response) {
+      yield put({
+          type: types.FETCH_CLOSE_TICKET_DETAILS_SUCCESS,
+          payload: response?.data,
+      });
+      toastrValidation(response)
+  } else {
+      yield put({
+          type: types.FETCH_CLOSE_TICKET_DETAILS_FAIL,
+          payload: error,
+      });
+      toastrValidation(error)
+  }
+}
+
+export function* CloseTicketResponse() {
+  yield takeLatest(types.FETCH_CLOSE_TICKET_DETAILS_START, onLoadCloseTicket);
+}
+

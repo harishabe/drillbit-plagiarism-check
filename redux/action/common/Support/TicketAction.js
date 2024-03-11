@@ -36,3 +36,13 @@ export const DeleteTicket = (ticketID) => {
       type: types.FETCH_DELETE_TICKET_DETAILS_START,ticketID: ticketID
   };
 };
+
+
+/**
+ * close ticket 
+ */
+export const CloseTicket = (url, data) => {
+  return {
+      type: types.FETCH_CLOSE_TICKET_DETAILS_START, url: url, data: data
+  };
+};
