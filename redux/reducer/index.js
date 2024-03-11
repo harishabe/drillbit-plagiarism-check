@@ -40,7 +40,8 @@ const rootReducer = combineReducers({
     uploadFile: UploadFileReducer,
     mfaActivation: MfaReducer,
     announcements: AnnouncementsReducer,
-    Ticket: TicketReducer,
+    ticket: TicketReducer,
+    mfaActivation: MfaReducer,
 });
 
 export default rootReducer;

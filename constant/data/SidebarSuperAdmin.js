@@ -68,6 +68,14 @@ const SidebarSuperAdmin = [
     layout: '/super',
   },
   {
+    "icon": <RepositoryIcon/>,
+    "activeIcon": <RepositoryWhiteIcon />,
+    "name": "Ticket",
+    "path": "/createticket",
+    "pathList": ["/createticket"],
+    "layout": "/super",
+},
+  {
     icon: <IntegrationIcon />,
     activeIcon: <IntegrationWhiteIcon />,
     name: 'Settings',

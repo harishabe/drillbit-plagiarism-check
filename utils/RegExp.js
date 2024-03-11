@@ -79,6 +79,20 @@ export const formatDate = (str) => {
     return dateStr;
 };
 
+export const formattedDate = (str) => {
+    var date = new Date(str.replace(" ", "T"));
+    var hours = date.getHours();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // Handle midnight
+    var dateStr = ("00" + date.getDate()).slice(-2) + "/" +
+        ("00" + (date.getMonth() + 1)).slice(-2) + "/" +
+        date.getFullYear() + " " +
+        ("00" + hours).slice(-2) + ":" +
+        ("00" + date.getMinutes()).slice(-2) + " " + ampm;
+    return dateStr;
+};
+
 // export const formatOnlyDate = (str) => {
 //     const [date, month, day] = dateFormat(str);
 //     return [day, month, date.getFullYear()].join("/");

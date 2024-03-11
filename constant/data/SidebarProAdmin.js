@@ -50,14 +50,14 @@ const SidebarProAdmin = [
         "path": "/integration",
         "layout": "/pro/admin",
     },
-    // {
-    //     "icon": <RepositoryIcon/>,
-    //     "activeIcon": <RepositoryWhiteIcon />,
-    //     "name": "Ticket",
-    //     "path": "/createticket",
-    //     "pathList": ["/createticket"],
-    //     "layout": "/pro/admin",
-    // },
+    {
+        "icon": <RepositoryIcon/>,
+        "activeIcon": <RepositoryWhiteIcon />,
+        "name": "Ticket",
+        "path": "/createticket",
+        "pathList": ["/createticket"],
+        "layout": "/pro/admin",
+    },
     {
         "icon": <SettingsIcon />,
         "activeIcon": <SettingsWhiteIcon />,

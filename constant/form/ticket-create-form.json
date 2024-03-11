@@ -1,49 +1,39 @@
 [
   {
     "field_type": "dropdown",
-    "id": "issueType",
-    "name": "issueType",
-    "label": "Issue Type *",
-    "required": "Select Issue Type",
-    "validationMsg": "Select Issue Type",
+    "id": "IssueCategory",
+    "name": "IssueCategory",
+    "label": "Issue category *",
+    "required": "Select issue category",
+    "validationMsg": "Select issue category",
     "options": [
       {
-        "name": "Issue 1"
+        "name": "Technical"
       },
       {
-        "name": "Issue 2"
+        "name": "Billing"
       },
       {
-        "name": "Issue 3"
+        "name": "Account"
+      },
+      {
+        "name": "General"
+      },
+      {
+        "name": "Feature"
+      },
+      {
+        "name": "Product"
       }
     ]
   },
   {
     "field_type": "dropdown",
-    "id": "issueCategory",
-    "name": "issueCategory",
-    "label": "Issue Category *",
-    "required": "Select Issue Category",
-    "validationMsg": "Select Issue Category",
-    "options": [
-      {
-        "name": "Category1"
-      },
-      {
-        "name": "Category2"
-      },
-      {
-        "name": "Category3"
-      }
-    ]
-  },
-  {
-    "field_type": "dropdown",
-    "id": "priority",
-    "name": "priority",
+    "id": "Priority",
+    "name": "Priority",
     "label": "Priority *",
-    "required": "Select Priority",
-    "validationMsg": "Select Priority",
+    "required": true,
+    "validationMsg": "Select priority",
     "options": [
       {
         "name": "High"
@@ -57,48 +47,40 @@
     ]
   },
   {
-    "field_type": "dropdown",
-    "id": "status",
-    "name": "status",
-    "label": "Status *",
-    "required": "Select Status",
-    "validationMsg": "Select Status",
-    "options": [
-      {
-        "name": "Status1"
-      },
-      {
-        "name": "Status2"
-      },
-      {
-        "name": "Status3"
-      }
-    ]
+    "field_type": "input",
+    "type": "text",
+    "rows": 1,
+    "id": "Description",
+    "name": "Description",
+    "label": "Description *",
+    "required": "Enter description",
+    "validationMsg": "Enter description",
+    "minLength": 1
   },
   {
     "field_type": "input",
     "type": "text",
     "rows": 1,
-    "id": "description",
-    "name": "description",
-    "label": "Description *",
-    "required": "Enter description",
-    "validationMsg": "Enter Description",
+    "id": "Subject",
+    "name": "Subject",
+    "label": "Subject *",
+    "required": "Enter subject",
+    "validationMsg": "Enter subject",
     "minLength": 1
   },
 
   {
     "field_type": "inputNumber",
     "type": "number",
-    "id": "contactNumber",
-    "name": "contactNumber",
-    "label": "Contact Number",
+    "id": "ContactNumber",
+    "name": "ContactNumber",
+    "label": "Contact number",
     "validationMsg": "Enter contact number"
   },
   {
     "field_type": "file",
-    "id": "attachments",
-    "name": "attachments",
+    "id": "file",
+    "name": "file",
     "label": "Attachments"
   },
 

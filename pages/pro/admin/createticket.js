@@ -1,30 +1,37 @@
 import React, { useEffect, useState, useMemo } from "react";
+import Admin from "../../../layouts/Admin";
 import { connect } from "react-redux";
+import { useRouter } from "next/router";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { TextField } from "@mui/material";
-import debouce from 'lodash.debounce';
+import { TICKET_NOT_FOUND } from "../../../constant/data/ErrorMessage";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
+import { Pagination, TextField } from "@mui/material";
+import debouce from "lodash.debounce";
 import {
   BreadCrumb,
   CreateDrawer,
   Heading,
   CommonTable,
+  CardView,
+  ErrorBlock,
 } from "./../../../components";
 import { GetTicketData } from "../../../redux/action/common/Support/TicketAction";
+import { PaginationValue } from "../../../utils/PaginationUrl";
 import {
   AddButtonBottom,
+  PaginationContainer,
   StyledButtonIcon,
-  StyledButtonRedIcon,
 } from "../../../style";
+import { BASE_URL_SUPER } from "../../../utils/BaseUrl";
+import END_POINTS from "../../../utils/EndPoints";
 import TicketForm from "./form/TicketForm";
-import ProAdmin from "../../../layouts/ProAdmin";
+import { formattedDate } from "../../../utils/RegExp";
 const InstructorBreadCrumb = [
   {
     name: "Dashboard",
-    link: "/pro/user/dashboard",
+    link: "/pro/admin/dashboard",
     active: false,
   },
   {
@@ -35,75 +42,101 @@ const InstructorBreadCrumb = [
 ];
 const useStyles = makeStyles(() => ({
   view: {
-      textAlign: 'right',
-      marginBottom: '7px'
-  }
+    textAlign: "right",
+    marginBottom: "7px",
+  },
 }));
 
 const columns = [
-  { id: "ticketId", label: "Ticket Id" },
-  { id: "createdDate", label: "Date" },
-  { id: "status", label: "Status" },
-  { id: "attachments", label: "Attachments" },
-  { id: "action", label: "Actions" },
+  { id: "ticketId", label: "Ticket Id", maxWidth:90 },
+  { id: "subject", label: "Subject", maxWidth:150 },
+  { id: "createdDate", label: "Created date",maxWidth:150 },
+  { id: "description", label: "Description", maxWidth: 150 },
+  { id: "priority", label: "Priority" , maxWidth:90},
+  { id: "issueCategory", label: "Issue category", maxWidth: 150 },
+  { id: "status", label: "Status", maxWidth:90 },
+  { id: "action", label: "Actions", maxWidth:90 },
 ];
+
+function createData(ticketId, subject, createdDate, description,  priority, issueCategory, status, action) {
+ 
+  return {
+    ticketId,
+    subject,
+    createdDate,
+    description,
+    priority,
+    issueCategory,
+    status,
+    action,
+  };
+}
 
 const CreateTicket = ({
   GetTicketData,
-  isLoading
+  isLoading,
+  pageDetails,
+  myTicketsData,
 }) => {
+  const router = useRouter();
   const classes = useStyles();
+  const [rows, setRows] = useState([]);
   const [search, setSearch] = useState(false);
-  const [rows, setRows] = useState([
-    {
-      ticketId: "123",
-      createdDate: "12/12/2023",
-      status: "Active",
-      attachments: "aaaaa",
-      action: [
-        {
-          component: (
-            <StyledButtonIcon variant="outlined" size="small">
-              <EditOutlinedIcon fontSize="small" />
-            </StyledButtonIcon>
-          ),
-          type: "edit",
-          title: "Edit",
-        },
-        {
-          component: (
-            <StyledButtonRedIcon variant="outlined" size="small">
-              <DeleteOutlineOutlinedIcon fontSize="small" />
-            </StyledButtonRedIcon>
-          ),
-          type: "delete",
-          title: "Delete",
-        },
-      ],
-    },
-  ]);
+  const [paginationPayload, setPaginationPayload] = useState({
+    ...PaginationValue
+  });
 
-  const handleAction = (icon, rowData) => {
-    if (icon === "edit") {
-      setEditFolder(true);
-      setEditFolderData(rowData);
-    } else if (icon === "delete") {
-      setShowDeleteWarning(true);
-      setSelectedFolder(rowData);
-    }
-  };
   useEffect(() => {
-    GetTicketData()
-  },[]);
+    const url = BASE_URL_SUPER + END_POINTS.USER_TICKET_DETAILS ;
+   GetTicketData(url, paginationPayload);
+ }, [GetTicketData, paginationPayload]);
 
-  const handleSearch = (event) => {
-    if (event.target.value !== '') {
-        setSearch(true)
-    } else {
-        setSearch(false)
-    }
+  useEffect(() => {
+    let row = "";
+    let arr = [];
+    myTicketsData?.map((ticket) => {
+      row = createData(
+        ticket.ticketId,
+        ticket.subject,
+        formattedDate(ticket.createdDate),
+        ticket.description,
+        ticket.priority,
+        ticket.issueCategory,
+        ticket.status,
+        [
+          {
+            component: (
+              <StyledButtonIcon variant="outlined" size="small">
+                <ArrowForwardOutlinedIcon fontSize="small" />
+              </StyledButtonIcon>
+            ),
+            type: "nextPath",
+            title: "Next",
+          },
+        ]
+      );
+      row["isSelected"] = false;
+      arr.push(row);
+    });
+    setRows([...arr]);
+  }, [myTicketsData]);
+
+  const handlePagination = (event, value) => {
+    event.preventDefault();
+    setPaginationPayload({ ...paginationPayload, 'page': value - 1 });
 };
 
+  const handleSearch = (event) => {
+    if (event.target.value !== "") {
+      paginationPayload["search"] = event.target.value;
+      setSearch(true);
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
+    } else {
+      delete paginationPayload["search"];
+      setSearch(false);
+      setPaginationPayload({ ...paginationPayload, paginationPayload });
+    }
+  };
 
   const debouncedResults = useMemo(() => {
     return debouce(handleSearch, 300);
@@ -115,6 +148,28 @@ const CreateTicket = ({
     };
   });
 
+  const handleAction = ( event, icon, rowData) => {
+     if (icon === "nextPath") {
+      router.push({
+        pathname: "/pro/admin/ticketResponses",
+        query: {
+          ticketId: rowData.ticketId,
+        },
+      });
+    }
+  };
+
+  const handleTableSort = (e, column, sortToggle) => {
+    if (sortToggle) {
+      paginationPayload["field"] = column.id;
+      paginationPayload["orderBy"] = "asc";
+    } else {
+      paginationPayload["field"] = column.id;
+      paginationPayload["orderBy"] = "desc";
+    }
+    setPaginationPayload({ ...paginationPayload, paginationPayload });
+  };
+
   return (
     <React.Fragment>
       <Box sx={{ flexGrow: 1 }}>
@@ -122,15 +177,20 @@ const CreateTicket = ({
           <Grid item md={10} xs={10}>
             <BreadCrumb item={InstructorBreadCrumb} />
           </Grid>
-          </Grid>
+        </Grid>
       </Box>
       <Grid container spacing={2}>
         <Grid item md={5} xs={5}>
-          <Heading title={`Ticket List`} />
+          <Heading
+            title={`Ticket List(${
+              pageDetails?.totalElements !== undefined
+                ? pageDetails?.totalElements
+                : 0
+            })`}
+          />
         </Grid>
-
-      <Grid item md={ 7 } xs={ 7 } style={ { textAlign: 'right' } } className={ classes.view }>
-           <TextField
+        <Grid item md={7} xs={7} className={classes.view}>
+          <TextField
             sx={{ width: "42%" }}
             placeholder="Search by Ticket ID "
             onChange={debouncedResults}
@@ -142,33 +202,70 @@ const CreateTicket = ({
               },
             }}
           />
-          </Grid>
-          </Grid>
+        </Grid>
+      </Grid>
       <AddButtonBottom>
-        <CreateDrawer title="Rise Ticket" isShowAddIcon={true}>
+        <CreateDrawer title="Raise Ticket" isShowAddIcon={true}>
           <TicketForm />
         </CreateDrawer>
       </AddButtonBottom>
+      {search ? (
+        <CommonTable
+          isCheckbox={false}
+          isSorting={true}
+          tableHeader={columns}
+          tableData={rows}
+          handleAction={handleAction}
+          handleTableSort={handleTableSort}
+          isLoading={isLoading}
+          path=""
+        />
+      ) : (
+        <>
+          {rows.length > 0 ? (
+            <CommonTable
+              isCheckbox={false}
+              isSorting={true}
+              tableHeader={columns}
+              tableData={rows}
+              handleAction={handleAction}
+              handleTableSort={handleTableSort}
+              isLoading={isLoading}
+              path=""
+            />
+          ) : (
+            <CardView>
+              <ErrorBlock message={TICKET_NOT_FOUND} />
+            </CardView>
+          )}
+        </>
+      )}
 
-      {/* Display the table with static data */}
-      <CommonTable
-        isCheckbox={false}
-        isSorting={true}
-        tableHeader={columns}
-        tableData={rows}
-        handleAction={handleAction}
-        isLoading={isLoading}
-      />
+      <PaginationContainer>
+        <Pagination
+          count={pageDetails?.totalPages}
+          page={pageDetails?.number + 1}
+          onChange={handlePagination}
+          color="primary"
+          variant="outlined"
+          shape="rounded"
+        />
+      </PaginationContainer>
     </React.Fragment>
   );
 };
-const mapStateToProps = (state) => ({ state });
+const mapStateToProps = (state) => ({
+  pageDetails: state?.ticket?.myTicketsData?.tickets?.page,
+  myTicketsData: state?.ticket?.myTicketsData?.tickets?.content,
+  isLoading: state?.ticket?.isLoading,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetTicketData: () => dispatch(GetTicketData()),
+    GetTicketData: ( url, paginationPayload) =>
+      dispatch(GetTicketData(url,  paginationPayload)),
   };
 };
-CreateTicket.layout = ProAdmin;
+CreateTicket.layout = Admin;
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateTicket)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTicket);
