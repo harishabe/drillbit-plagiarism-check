@@ -28,6 +28,7 @@ import TicketForm from "./form/TicketForm";
 import { BASE_URL_SUPER } from "../../../utils/BaseUrl";
 import END_POINTS from "../../../utils/EndPoints";
 import Admin from "../../../layouts/Admin";
+import { formattedDate } from "../../../utils/RegExp";
 const InstructorBreadCrumb = [
   {
     name: "Dashboard",
@@ -59,20 +60,11 @@ const columns = [
 ];
 
 function createData(ticketId, subject, createdDate, description,  priority, issueCategory, status, action) {
-  const parsedDate = new Date(createdDate);
-  
-  const day = parsedDate.getDate().toString().padStart(2, '0');
-  const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
-  const year = parsedDate.getFullYear();
-  const hours = parsedDate.getHours().toString().padStart(2, '0');
-  const minutes = parsedDate.getMinutes().toString().padStart(2, '0');
-  const seconds = parsedDate.getSeconds().toString().padStart(2, '0');
-
-  const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+ 
   return {
     ticketId,
     subject,
-    createdDate: formattedDate,
+    createdDate,
     description,
     priority,
     issueCategory,
@@ -107,7 +99,7 @@ const CreateTicket = ({
       row = createData(
         ticket.ticketId,
         ticket.subject,
-        ticket.createdDate,
+        formattedDate(ticket.createdDate),
         ticket.description,
         ticket.priority,
         ticket.issueCategory,

@@ -53,18 +53,18 @@ const SidebarAdmin = [
         "layout": "/extream/admin",
     },
     {
-        "icon": <IntegrationIcon />,
-        "activeIcon": <IntegrationWhiteIcon />,
-        "name": "Integrations",
-        "path": "/integration",
-        "layout": "/extream/admin",
-    },
-    {
         "icon": <RepositoryIcon />,
         "activeIcon": <RepositoryWhiteIcon />,
         "name": "Ticket",
         "path": "/createticket",
         "pathList": ["/createticket"],
+        "layout": "/extream/admin",
+    },
+    {
+        "icon": <IntegrationIcon />,
+        "activeIcon": <IntegrationWhiteIcon />,
+        "name": "Integrations",
+        "path": "/integration",
         "layout": "/extream/admin",
     },
     {

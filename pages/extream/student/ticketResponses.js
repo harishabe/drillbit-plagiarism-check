@@ -54,7 +54,23 @@ const useStyles = makeStyles(() => ({
       width: "8px",
       marginRight: "12px",
     },
+    height: "calc(100vh - 265px)",
+    overflow: "auto"
   },
+  message: {
+    marginLeft: "14px"
+  },
+  icon:{
+    paddingTop: "22px"
+  },
+  file:{
+    fontSize: "9px", 
+    fontWeight: 500
+  },
+  fileSize: {
+    fontSize: "7px", 
+    fontWeight: 500
+  }
 }));
 
 const LoaderContainer = styled.div`
@@ -182,7 +198,7 @@ const TicketResponses = ({ myTicketsData, GetTicketData, CreateTicketResponse, i
         <Grid item md={10} xs={10}>
       <CardView>
         <Box>
-          <Grid container spacing={2} className={classes.customScrollbar} style={{ height: "calc(100vh - 265px)", overflow: "auto" }} ref={chatBoxRef}>
+          <Grid container spacing={2} className={classes.customScrollbar} ref={chatBoxRef}>
           {myTicketsData
               .slice()
               .reverse()
@@ -214,7 +230,7 @@ const TicketResponses = ({ myTicketsData, GetTicketData, CreateTicketResponse, i
           </Grid>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 1000, backgroundColor: '#fff', padding: '4px' }} style={{ marginLeft: "-35px"}}>
-              <Grid container spacing={2} alignItems="center" style={{ marginLeft: "14px"}}>
+              <Grid container spacing={2} alignItems="center"  className={classes.message}>
                 <Grid item md={9} xs={9}>
                 <Box sx={{ width: "100%" }}>
                 {isLoadingResponse && (
@@ -246,10 +262,10 @@ const TicketResponses = ({ myTicketsData, GetTicketData, CreateTicketResponse, i
                     style={{ display: "none" }}
                     onChange={handleFileChange}
                   />
-                  <IconButton color="primary" style={{ paddingTop: "22px" }} onClick={handleAttachmentClick}>
+                  <IconButton color="primary"  className={classes.icon} onClick={handleAttachmentClick}>
                     <AttachFileIcon />
                   </IconButton>
-                  <IconButton color="primary" style={{ paddingTop: "22px" }} type="submit" disabled={isLoadingResponse}>
+                  <IconButton color="primary"  className={classes.icon} type="submit" disabled={isLoadingResponse}>
                     <SendIcon />
                   </IconButton>
                 </Grid>
@@ -272,10 +288,10 @@ const TicketResponses = ({ myTicketsData, GetTicketData, CreateTicketResponse, i
                     </Grid>
                     <Grid item xs  >
                       {selectedFile && (
-                        <div style={{ fontSize: "9px", fontWeight: 500 }}>{selectedFile.name}</div>
+                        <div  className={classes.file}>{selectedFile.name}</div>
                       )}
                       {selectedFile && (
-                        <div style={{ fontSize: "7px", fontWeight: 500 }}>{(selectedFile.size / 1024).toFixed(2)} KB</div>
+                        <div  className={classes.fileSize}>{(selectedFile.size / 1024).toFixed(2)} KB</div>
                       )}
                     </Grid>
                     <Grid item>
@@ -298,38 +314,26 @@ const TicketResponses = ({ myTicketsData, GetTicketData, CreateTicketResponse, i
       <Grid item md={2} xs={2}>
       <CardView>
   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-    <Box>
       <div>
       Ticket Id: <EllipsisText variant="h5_1" value={myTicketsIdData?.ticketId} />
       </div>
-    </Box>
-    <Box>
       <div>
       Subject: <EllipsisText variant="h5_1" value={myTicketsIdData?.subject} />
       </div>
-    </Box>
-    <Box>
       <div>
       Created Date: <EllipsisText variant="h5_1" value={myTicketsIdData?.createdDate} />
       </div>
-    </Box>
-    <Box>
       <div>
       Ticket Category: <EllipsisText variant="h5_1" value={myTicketsIdData?.issueCategory} />
       </div>
-    </Box>
-    <Box>
       <div>
       Status: <EllipsisText variant="h5_1" value={myTicketsIdData?.status} />
       </div>
-    </Box>
-    <Box>
       <div>
       Priority: <EllipsisText variant="h5_1" value={myTicketsIdData?.priority} />
       </div>
-    </Box>
   </Box>
-    </CardView>
+</CardView>
       </Grid>
         </Grid>
           </React.Fragment>

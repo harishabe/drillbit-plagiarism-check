@@ -8,12 +8,20 @@ import FormJson from "../../../../constant/form/ticket-create-form.json";
 import { CreateTicket } from "../../../../redux/action/common/Support/TicketAction";
 import { BASE_URL_SUPER } from "../../../../utils/BaseUrl";
 import END_POINTS from "../../../../utils/EndPoints";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({
+  img: {
+    textAlign: "center"
+  }
+}));
 
 const TicketForm = ({ 
   CreateTicket,
   isLoading 
 }) => {
   const [formJsonField, setFormJsonField] = useState(FormJson);
+  const classes = useStyles();
 
   const { handleSubmit, control } = useForm({
     mode: "all",
@@ -35,7 +43,7 @@ const TicketForm = ({
   
   return (
     <>
-      <div style={{ textAlign: "center" }}>
+      <div className={classes.img}>
         <AddImageIcon />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>

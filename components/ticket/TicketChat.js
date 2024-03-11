@@ -4,13 +4,13 @@ import Grid from "@mui/material/Grid";
 import { ANNOUNCEMENT } from "../../constant/data/Constant";
 import { GetApp } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { formattedDate } from "../../utils/RegExp";
 
 const TicketChat = ({
    message,
   isShowRole,
  }) => {
   
-  const createDate = new Date(message.createdDate);
   const [attachments, setAttachments] = useState([]);
 
   useEffect(() => {
@@ -22,15 +22,6 @@ const TicketChat = ({
       }
     }
   }, [message.attachments]);
-
-  const formattedDate = createDate?.toLocaleString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
 
   const isSuperAdminPage = window.location.pathname.includes(
     "super/ticketResponses"
@@ -101,12 +92,6 @@ const TicketChat = ({
             }}
           >
            {message.message}
-           {attachments?.map((attachment, index) => (
-            <span key={index}>
-              {" "}
-            <a href={attachment} target="_blank" rel="noopener noreferrer"  style={{textDecoration: 'underline', fontSize: '0.8em'}}>{attachment}</a>
-            </span>
-            ))}
             <Box
         sx={{
           color: 
@@ -122,7 +107,7 @@ const TicketChat = ({
               : "auto",
               
         }}>
-        {formattedDate}
+        {formattedDate(message.createdDate)}
         </Box>
           </Box>
         </Box>
@@ -160,15 +145,16 @@ const TicketChat = ({
               : "auto",
               
         }}>
- {attachments?.map((attachment, index) => (
-  <span key={index} style={{ display: 'inline-block', textAlign: 'center' }}>
-    <div >
-      <IconButton href={attachment} download target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#333', display: 'block', fontSize: '1.2em' }}>
-        <GetApp style={{ fontSize: '2em', marginBottom: '10px' }} />
-      </IconButton>
-    </div>
-  </span>
-))}        </Box>
+          {attachments?.map((attachment, index) => (
+            <span key={index} style={{ display: 'inline-block', textAlign: 'center' }}>
+               <div >
+              <IconButton href={attachment} download target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#333', display: 'block', fontSize: '1.2em' }}>
+                  <GetApp style={{ fontSize: '2em', marginBottom: '10px' }} />
+              </IconButton>
+                </div>
+            </span>
+           ))}        
+        </Box>
       </Box>
     </Grid>
   );
